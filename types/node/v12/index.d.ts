@@ -61,6 +61,9 @@
 
 // TypeScript 2.1-specific augmentations:
 
+// This needs to be in ~/index.d.ts to avoid TS2403
+declare var global: NodeJS.Global;
+
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
 // Empty interfaces are used here which merge fine with the real declarations in the lib XXX files
 // just to ensure the names are known and node typings can be used without importing these libs.
