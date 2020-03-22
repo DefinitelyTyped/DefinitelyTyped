@@ -1,4 +1,4 @@
-import { fireEvent, queries, screen, isInaccessible } from '@testing-library/dom';
+import { fireEvent, isInaccessible, queries, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/dom';
 
 const { getByText, queryByText, findByText, getAllByText, queryAllByText, findAllByText, queryAllByRole, queryByRole, findByRole } = queries;
 
@@ -72,4 +72,21 @@ function eventTest() {
         throw new Error(`Can't find firstChild`);
     }
     fireEvent.click(element.firstChild);
+}
+
+async function testWaitFors() {
+    const element = document.createElement('div');
+
+    await waitFor(() => getByText(element, 'apple'));
+    await waitFor(() => getAllByText(element, 'apple'));
+    const result: HTMLSpanElement = await waitFor(() => getByText(element, 'apple'));
+    if (!result) { // Use value
+        throw new Error(`Can't find result`);
+    }
+
+    element.innerHTML = '<span>apple</span>';
+
+    await waitForElementToBeRemoved(() => getByText(element, 'apple'));
+    await waitForElementToBeRemoved(getByText(element, 'apple'));
+    await waitForElementToBeRemoved(getAllByText(element, 'apple'));
 }
