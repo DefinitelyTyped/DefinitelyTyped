@@ -6,6 +6,9 @@
             "es6",
             "dom"
         ],
+        "paths": {
+            "node": ["node/v12"]
+        },
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
