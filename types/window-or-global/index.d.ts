@@ -3,5 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var _: any;
+/// <reference types="node" />
+
+declare var _: Window | typeof global;
 export = _;
