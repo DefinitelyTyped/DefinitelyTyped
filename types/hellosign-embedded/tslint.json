@@ -9,6 +9,7 @@
         "no-redundant-jsdoc": false,
         "object-literal-key-quotes": false,
         "prefer-method-signature": false,
-        "strict-export-declare-modifiers": false
+        "strict-export-declare-modifiers": false,
+        "unified-signatures": false
     }
 }
