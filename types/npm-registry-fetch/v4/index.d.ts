@@ -1,4 +1,4 @@
-// Type definitions for npm-registry-fetch 8.0
+// Type definitions for npm-registry-fetch 4.0
 // Project: https://github.com/npm/registry-fetch#readme
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -123,28 +123,28 @@ declare namespace fetch {
          *
          * See also `opts.retry` to provide all retry options as a single object.
          */
-        fetchRetries?: number;
+        'fetch-retries'?: number;
         /**
          * The "factor" config for `retry` to use when fetching packages.
          *
          * See also `opts.retry` to provide all retry options as a single
          * object.
          */
-        fetchRetryFactor?: number;
+        'fetch-retry-factor'?: number;
         /**
          * The "minTimeout" config for `retry` to use when fetching packages.
          *
          * See also `opts.retry` to provide all retry options as a single
          * object.
          */
-        fetchRetryMintimeout?: number;
+        'fetch-retry-mintimeout'?: number;
         /**
          * The "maxTimeout" config for `retry` to use when fetching packages.
          *
          * See also `opts.retry` to provide all retry options as a single
          * object.
          */
-        fetchRetryMaxtimeout?: number;
+        'fetch-retry-maxtimeout'?: number;
     }
 
     /**
@@ -208,7 +208,7 @@ declare namespace fetch {
          * Multiple CAs can be trusted by specifying an array of certificates
          * instead of a single string.
          *
-         * See also `opts.strictSSL`, `opts.ca` and `opts.key`
+         * See also `opts.strict-ssl`, `opts.ca` and `opts.key`
          */
         ca?: string | Buffer | Array<string | Buffer> | null;
         /**
@@ -218,7 +218,7 @@ declare namespace fetch {
          * speed up future requests, as well as make the cached data available
          * offline if necessary/requested.
          *
-         * See also `offline`, `preferOffline`, and `preferOnline`.
+         * See also `offline`, `prefer-offline`, and `prefer-online`.
          */
         cache?: string;
         /**
@@ -244,6 +244,10 @@ declare namespace fetch {
          * auth for a request, and the auth details in `opts.forceAuth` will be
          * used instead.
          */
+        'force-auth'?: Partial<AuthOptions>;
+        /**
+         * Alias for `force-auth`
+         */
         forceAuth?: Partial<AuthOptions>;
         /**
          * If true, `npm-registry-fetch` will set the `Content-Encoding` header
@@ -261,6 +265,10 @@ declare namespace fetch {
          * If true, the response body will be thrown away and `res.body` set to
          * `null`. This will prevent dangling response sockets for requests
          * where you don't usually care what the response body is.
+         */
+        'ignore-body'?: boolean;
+        /**
+         * Alias for `ignore-body`.
          */
         ignoreBody?: boolean;
         /**
@@ -283,6 +291,10 @@ declare namespace fetch {
         /**
          * This is used to populate the `npm-in-ci` request header sent to the
          * registry.
+         */
+        'is-from-ci'?: boolean;
+        /**
+         * Alias for `is-from-ci`
          */
         isFromCI?: boolean;
         /**
@@ -307,7 +319,7 @@ declare namespace fetch {
          *
          * See also `opts.proxy`
          */
-        localAddress?: string;
+        'local-address'?: string;
         /**
          * Logger object to use for logging operation details.
          */
@@ -318,12 +330,24 @@ declare namespace fetch {
          * `JSONStream.parse`, and can be used to transform stream data before
          * output.
          */
+        'map-json'?: (v: any) => any;
+        /**
+         * Alias for `map-json`
+         */
+        mapJson?: (v: any) => any;
+        /**
+         * Alias for `map-json`
+         */
         mapJSON?: (v: any) => any;
         /**
          * Maximum number of sockets to keep open during requests. Has no effect
          * if `opts.agent` is used.
          */
-        maxSockets?: number;
+        maxsockets?: number;
+        /**
+         * Alias for `maxsockets`
+         */
+        'max-sockets'?: number;
         /**
          * HTTP method to use for the outgoing request. Case-insensitive.
          */
@@ -337,11 +361,15 @@ declare namespace fetch {
          * used by the npm registry to identify individual user sessions
          * (usually individual invocations of the CLI).
          */
+        'npm-session'?: string;
+        /**
+         * Alias for `npm-session`
+         */
         npmSession?: string;
         /**
          * Force offline mode: no network requests will be done during install.
          * To allow `npm-registry-fetch` to fill in missing cache data, see
-         * `opts.preferOffline`.
+         * `opts.prefer-offline`.
          *
          * This option is only really useful if you're also using `opts.cache`.
          */
@@ -353,18 +381,22 @@ declare namespace fetch {
          *
          * This option is generally only useful if you're also using `opts.cache`.
          */
-        preferOffline?: boolean;
+        'prefer-offline'?: boolean;
         /**
          * If true, staleness checks for cached data will be forced, making the
          * CLI look for updates immediately even for fresh package data.
          *
          * This option is generally only useful if you're also using `opts.cache`.
          */
-        preferOnline?: boolean;
+        'prefer-online'?: boolean;
         /**
          * If provided, will be sent in the npm-scope header. This header is
          * used by the npm registry to identify the toplevel package scope that
          * a particular project installation is using.
+         */
+        'project-scope'?: string;
+        /**
+         * Alias for `project-scope`.
          */
         projectScope?: string;
         /**
@@ -382,6 +414,15 @@ declare namespace fetch {
          */
         query?: string | object;
         /**
+         * Value to use for the `Referer` header. The npm CLI itself uses this
+         * to serialize the npm command line using the given request.
+         */
+        refer?: string;
+        /**
+         * Alias for `refer`.
+         */
+        referer?: string;
+        /**
          * Registry configuration for a request. If a request URL only includes
          * the URL path, this registry setting will be prepended. This
          * configuration is also used to determine authentication details, so
@@ -395,7 +436,7 @@ declare namespace fetch {
         registry?: string;
         /**
          * Single-object configuration for request retry settings. If passed in,
-         * will override individually-passed `fetchRetry*` settings.
+         * will override individually-passed `fetch-retry-*` settings.
          */
         retry?: Partial<FetchRetryOptions>;
         /**
@@ -419,7 +460,7 @@ declare namespace fetch {
          *
          * See also `opts.ca`.
          */
-        strictSSL?: boolean;
+        'strict-ssl'?: boolean;
         /**
          * Time before a hanging request times out.
          */
@@ -427,7 +468,7 @@ declare namespace fetch {
         /**
          * User agent string to send in the `User-Agent` header.
          */
-        userAgent?: string;
+        'user-agent'?: string;
 
         [key: string]: any;
     }
