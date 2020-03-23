@@ -7,5 +7,6 @@ declare module 'jsdom' {
 		HTMLSlotElement: typeof HTMLSlotElement;
 		AbstractRange: typeof AbstractRange;
 		StaticRange: typeof StaticRange;
+		CustomElementRegistry: typeof CustomElementRegistry;
 	}
 }
