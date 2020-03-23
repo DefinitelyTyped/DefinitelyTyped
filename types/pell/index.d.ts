@@ -42,7 +42,7 @@ export interface pellCustomActionConfig {
     result: () => void;
 }
 
-type pellBuiltinAction =
+export type pellBuiltinAction =
     | 'bold'
     | 'italic'
     | 'underline'

@@ -2,7 +2,7 @@ import { exec, init } from 'pell';
 
 const element = document.getElementById('editor') as HTMLDivElement;
 const editor = init({
-    element: element,
+    element,
     onChange: html => {
         console.log(html);
     },
