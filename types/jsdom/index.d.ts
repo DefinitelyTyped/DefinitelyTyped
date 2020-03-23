@@ -15,7 +15,7 @@ import * as tough from 'tough-cookie';
 
 // Needed to allow adding properties to `DOMWindow` that are only supported
 // in newer TypeScript versions:
-// tslint:disable-next-line: no-declare-current-package
+// tslint:disable-next-line: no-declare-current-package no-single-declare-module
 declare module 'jsdom' {
 	const toughCookie: typeof tough;
 	class CookieJar extends tough.CookieJar {}
@@ -37,20 +37,23 @@ declare module 'jsdom' {
 		serialize(): string;
 
 		/**
-		 * The nodeLocation() method will find where a DOM node is within the source document, returning the parse5 location info for the node.
+		 * The nodeLocation() method will find where a DOM node is within the source document,
+		 * returning the parse5 location info for the node.
+		 *
+		 * @throws {Error} If the JSDOM was not created with `includeNodeLocations`
 		 */
 		nodeLocation(node: Node): ElementLocation | null;
 
 		/**
-		 * The built-in `vm` module of Node.js is what underpins jsdom's script-running magic.
+		 * The built-in `vm` module of Node.js is what underpins JSDOM's script-running magic.
 		 * Some advanced use cases, like pre-compiling a script and then running it multiple
 		 * times, benefit from using the `vm` module directly with a jsdom-created `Window`.
 		 *
-		 * @throws
+		 * @throws {TypeError}
 		 * Note that this method will throw an exception if the `JSDOM` instance was created
 		 * without `runScripts` set, or if you are using JSDOM in a web browser.
 		 */
-		getInternalVMContext(): DOMWindow;
+		getInternalVMContext(): Context;
 
 		/**
 		 * The reconfigure method allows changing the `window.top` and url from the outside.
@@ -93,15 +96,20 @@ declare module 'jsdom' {
 
 		/**
 		 * userAgent affects the value read from navigator.userAgent, as well as the User-Agent header sent while fetching subresources.
-		 * It defaults to `Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}`.
+		 *
+		 * @default
+		 * `Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}`
 		 */
 		userAgent?: string;
 
 		/**
-		 * includeNodeLocations preserves the location info produced by the HTML parser,
+		 * `includeNodeLocations` preserves the location info produced by the HTML parser,
 		 * allowing you to retrieve it with the nodeLocation() method (described below).
+		 *
 		 * It defaults to false to give the best performance,
 		 * and cannot be used with an XML content type since our XML parser does not support location info.
+		 *
+		 * @default false
 		 */
 		includeNodeLocations?: boolean;
 		runScripts?: 'dangerously' | 'outside-only';
@@ -113,8 +121,10 @@ declare module 'jsdom' {
 		 * jsdom does not have the capability to render visual content, and will act like a headless browser by default.
 		 * It provides hints to web pages through APIs such as document.hidden that their content is not visible.
 		 *
-		 * When the pretendToBeVisual option is set to true, jsdom will pretend that it is rendering and displaying
+		 * When the `pretendToBeVisual` option is set to `true`, jsdom will pretend that it is rendering and displaying
 		 * content.
+		 *
+		 * @default false
 		 */
 		pretendToBeVisual?: boolean;
 		beforeParse?(window: DOMWindow): void;
@@ -184,7 +194,9 @@ declare module 'jsdom' {
 		userAgent?: string;
 	}
 
-	interface DOMWindow extends Pick<Window, Exclude<keyof Window, 'top' | 'self' | 'window'>>, Context {
+	interface DOMWindow extends Pick<Window, Exclude<keyof Window, 'top' | 'self' | 'window'>> {
+		[key: string]: any;
+
 		/* node_modules/jsdom/browser/Window.js */
 		Window: typeof Window;
 		readonly top: DOMWindow;
