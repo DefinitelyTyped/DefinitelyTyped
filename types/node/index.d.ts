@@ -46,7 +46,6 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 // NOTE: These definitions support NodeJS and TypeScript 3.5.
 
