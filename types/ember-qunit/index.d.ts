@@ -4,6 +4,8 @@
 //                 Mike North <https://github.com/mike-north>
 //                 Steve Calvert <https://github.com/scalvert>
 //                 Dan Freeman <https://github.com/dfreeman>
+//                 Chris Krycho <https://github.com/chriskrycho>
+//                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
