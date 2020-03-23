@@ -1480,6 +1480,7 @@ declare namespace MangoPay {
        * The status of this KYC/Dispute document
        */
       Status: "VALIDATION_ASKED";
+      Id: string;
       Tag?: string;
     }
 
