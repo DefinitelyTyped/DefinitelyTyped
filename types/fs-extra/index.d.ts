@@ -14,6 +14,7 @@
 /// <reference types="node" />
 
 import * as fs from "fs";
+import * as rimraf from "rimraf";
 import Stats = fs.Stats;
 
 export * from "fs";
@@ -67,7 +68,9 @@ export function readJsonSync(file: string, options?: ReadOptions): any;
 export function readJSONSync(file: string, options?: ReadOptions): any;
 
 export function remove(dir: string): Promise<void>;
+export function remove(dir: string, options: rimraf.Options): Promise<void>;
 export function remove(dir: string, callback: (err: Error) => void): void;
+export function remove(dir: string, options: rimraf.Options, callback: (err: Error) => void): void;
 export function removeSync(dir: string): void;
 
 export function outputJSON(file: string, data: any, options?: WriteOptions): Promise<void>;
