@@ -7,6 +7,19 @@ const options: conversions.Options = ((): conversions.Options => {
 	return {};
 })();
 
+options.context; // $ExpectType string | undefined
+
+const {
+	globals, // $ExpectType Globals | undefined
+} = options;
+
+if (globals) {
+	globals; // $ExpectType Globals
+	globals.Number; // $ExpectType (value?: any) => number
+	globals.String; // $ExpectType (value?: any) => string
+	globals.TypeError; // $ExpectType new (message?: string | undefined) => TypeError
+}
+
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,
  * except instead of returning `void`, it returns `T`.
