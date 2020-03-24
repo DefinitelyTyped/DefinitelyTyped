@@ -1,7 +1,5 @@
 {
   "private": true,
-  "name": "@types/rax",
-  "version": "1.0.0",
   "dependencies": {
     "csstype": "^2.2.0"
   }
