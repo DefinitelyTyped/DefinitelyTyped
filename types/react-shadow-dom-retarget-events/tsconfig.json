@@ -16,7 +16,6 @@
         "noEmit": true,
         "strictFunctionTypes": true,
         "jsx": "react",
-        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [

@@ -15,3 +15,5 @@ export = retargetEvents;
  * A bug is filed at [#10422](https://github.com/facebook/react/issues/10422).
  */
 declare function retargetEvents(shadowRoot: ShadowRoot): void;
+
+declare namespace retargetEvents {}
