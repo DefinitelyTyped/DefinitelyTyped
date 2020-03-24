@@ -8,13 +8,14 @@
 //                 Sang Dang <https://github.com/sangdth>,
 //                 Florian Keller <https://github.com/ffflorian>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Oganexon <https://github.com/oganexon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
 
 import * as fs from "fs";
-import * as rimraf from "rimraf";
+import * as glob from "glob";
 import Stats = fs.Stats;
 
 export * from "fs";
@@ -67,10 +68,33 @@ export function readJSON(file: string, options: ReadOptions, callback: (err: Err
 export function readJsonSync(file: string, options?: ReadOptions): any;
 export function readJSONSync(file: string, options?: ReadOptions): any;
 
-export function remove(dir: string, options?: rimraf.Options): Promise<void>;
+export function remove(dir: string, options?: remove.Options): Promise<void>;
 export function remove(dir: string, callback: (err: Error) => void): void;
-export function remove(dir: string, options: rimraf.Options, callback: (err: Error) => void): void;
+export function remove(dir: string, options: remove.Options, callback: (err: Error) => void): void;
 export function removeSync(dir: string): void;
+export namespace remove {
+    function sync(path: string, options?: Options): void;
+    interface Options {
+        maxBusyTries?: number;
+        emfileWait?: number;
+        /** @default false */
+        disableGlob?: boolean;
+        glob?: glob.IOptions | false;
+
+        unlink?: typeof unlink;
+        chmod?: typeof chmod;
+        stat?: typeof stat;
+        lstat?: typeof lstat;
+        rmdir?: typeof rmdir;
+        readdir?: typeof readdir;
+        unlinkSync?: typeof fs.unlinkSync;
+        chmodSync?: typeof fs.chmodSync;
+        statSync?: typeof fs.statSync;
+        lstatSync?: typeof fs.lstatSync;
+        rmdirSync?: typeof fs.rmdirSync;
+        readdirSync?: typeof fs.readdirSync;
+    }
+}
 
 export function outputJSON(file: string, data: any, options?: WriteOptions): Promise<void>;
 export function outputJSON(file: string, data: any, options: WriteOptions, callback: (err: Error) => void): void;
