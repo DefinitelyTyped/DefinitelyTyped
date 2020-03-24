@@ -1,18 +1,23 @@
 {
-  "compilerOptions": {
-    "module": "esNext",
-    "target": "es2015",
-    "outDir": "build",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "alwaysStrict": true,
-    "baseUrl": ".",
-    "jsx": "preserve"
-  },
-  "files": [
-    "index.d.ts"
-  ],
-  "exclude": [
-    "**/__tests__"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
+    },
+    "files": [
+        "index.d.ts"
+    ]
 }
