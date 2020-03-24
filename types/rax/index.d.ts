@@ -1,8 +1,9 @@
 // Type definitions for Rax 1.0.0
-// Project: https://rax.js.org
-// Definitions by: SoloJiang <https://github.com/solojiang>
+// Type definitions for rax 1.0.0
+// Project: https://github.com/alibaba/rax
+// Definitions by: Solo Jiang <https://github.com/solojiang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as CSS from 'csstype';
 import * as PropTypes from 'prop-types';
