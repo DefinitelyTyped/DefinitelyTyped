@@ -68,33 +68,10 @@ export function readJSON(file: string, options: ReadOptions, callback: (err: Err
 export function readJsonSync(file: string, options?: ReadOptions): any;
 export function readJSONSync(file: string, options?: ReadOptions): any;
 
-export function remove(dir: string, options?: remove.Options): Promise<void>;
+export function remove(dir: string, options?: RemoveOptions): Promise<void>;
 export function remove(dir: string, callback: (err: Error) => void): void;
-export function remove(dir: string, options: remove.Options, callback: (err: Error) => void): void;
+export function remove(dir: string, options: RemoveOptions, callback: (err: Error) => void): void;
 export function removeSync(dir: string): void;
-export namespace remove {
-    function sync(path: string, options?: Options): void;
-    interface Options {
-        maxBusyTries?: number;
-        emfileWait?: number;
-        /** @default false */
-        disableGlob?: boolean;
-        glob?: glob.IOptions | false;
-
-        unlink?: typeof unlink;
-        chmod?: typeof chmod;
-        stat?: typeof stat;
-        lstat?: typeof lstat;
-        rmdir?: typeof rmdir;
-        readdir?: typeof readdir;
-        unlinkSync?: typeof fs.unlinkSync;
-        chmodSync?: typeof fs.chmodSync;
-        statSync?: typeof fs.statSync;
-        lstatSync?: typeof fs.lstatSync;
-        rmdirSync?: typeof fs.rmdirSync;
-        readdirSync?: typeof fs.readdirSync;
-    }
-}
 
 export function outputJSON(file: string, data: any, options?: WriteOptions): Promise<void>;
 export function outputJSON(file: string, data: any, options: WriteOptions, callback: (err: Error) => void): void;
@@ -328,6 +305,27 @@ export interface ReadOptions {
     reviver?: any;
     encoding?: string;
     flag?: string;
+}
+
+export interface RemoveOptions {
+    maxBusyTries?: number;
+    emfileWait?: number;
+    /** @default false */
+    disableGlob?: boolean;
+    glob?: glob.IOptions | false;
+
+    unlink?: typeof unlink;
+    chmod?: typeof chmod;
+    stat?: typeof stat;
+    lstat?: typeof lstat;
+    rmdir?: typeof rmdir;
+    readdir?: typeof readdir;
+    unlinkSync?: typeof fs.unlinkSync;
+    chmodSync?: typeof fs.chmodSync;
+    statSync?: typeof fs.statSync;
+    lstatSync?: typeof fs.lstatSync;
+    rmdirSync?: typeof fs.rmdirSync;
+    readdirSync?: typeof fs.readdirSync;
 }
 
 export interface WriteFileOptions {
