@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 15.1
+// Type definitions for non-npm package frida-gum 15.2
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1421,6 +1421,35 @@ declare class NativePointer {
     not(): NativePointer;
 
     /**
+     * Makes a new NativePointer by taking the bits of `this` and adding
+     * pointer authentication bits, creating a signed pointer. This is a
+     * no-op if the current process does not support pointer
+     * authentication, returning `this` instead of a new value.
+     *
+     * @param key The key to use. Defaults to `ia`.
+     * @param data The data to use. Defaults to `0`.
+     */
+    sign(key?: PointerAuthenticationKey, data?: NativePointerValue | UInt64 | Int64 | number | string): NativePointer;
+
+    /**
+     * Makes a new NativePointer by taking the bits of `this` and
+     * removing its pointer authentication bits, creating a raw pointer.
+     * This is a no-op if the current process does not support pointer
+     * authentication, returning `this` instead of a new value.
+     *
+     * @param key The key that was used to sign `this`. Defaults to `ia`.
+     */
+    strip(key?: PointerAuthenticationKey): NativePointer;
+
+    /**
+     * Makes a new NativePointer by taking `this` and blending it with
+     * a constant, which may in turn be passed to `sign()` as `data`.
+     *
+     * @param smallInteger Value to blend with.
+     */
+    blend(smallInteger: number): NativePointer;
+
+    /**
      * Returns a boolean indicating whether `v` is equal to `this`; i.e. it contains the same memory address.
      */
     equals(v: NativePointerValue | UInt64 | Int64 | number | string): boolean;
@@ -1496,6 +1525,8 @@ declare class NativePointer {
     writeUtf16String(value: string): NativePointer;
     writeAnsiString(value: string): NativePointer;
 }
+
+type PointerAuthenticationKey = "ia" | "ib" | "da" | "db";
 
 interface ObjectWrapper {
     handle: NativePointer;

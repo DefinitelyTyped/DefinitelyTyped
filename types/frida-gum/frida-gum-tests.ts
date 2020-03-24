@@ -1,5 +1,29 @@
 Frida.version; // $ExpectType string
 
+// $ExpectType NativePointer
+const p = ptr(1234);
+
+// $ExpectType NativePointer
+p.sign();
+// $ExpectType NativePointer
+p.sign("ia", 42);
+// $ExpectError
+p.sign("invalid", 42);
+
+// $ExpectType NativePointer
+p.strip();
+// $ExpectType NativePointer
+p.strip("ia");
+// $ExpectError
+p.strip("invalid");
+
+// $ExpectType NativePointer
+p.blend(1337);
+// $ExpectError
+p.blend(ptr(42));
+// $ExpectError
+p.blend();
+
 const otherPuts = new NativeCallback(() => {
     return 0;
 }, "int", ["pointer"]);
