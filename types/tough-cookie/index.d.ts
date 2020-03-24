@@ -192,6 +192,7 @@ export namespace CookieJar {
     interface Options {
         rejectPublicSuffixes?: boolean;
         looseMode?: boolean;
+        prefixSecurity?: 'silent' | 'unsafe-disabled' | 'strict';
     }
 
     interface SetCookieOptions {
