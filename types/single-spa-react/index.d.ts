@@ -1,10 +1,10 @@
-// Type definitions for single-spa-react 2.8
+// Type definitions for single-spa-react 2.12
 // Project: https://github.com/CanopyTax/single-spa-react, https://github.com/joeldenning/single-spa-react
 // Definitions by: Garrett Smith <https://github.com/Garrett-Smith-iq>
 //                 Chris Dopuch <https://github.com/chrisdopuch>
 //                 Bence Czeii <https://github.com/benceczeili>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.12
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
