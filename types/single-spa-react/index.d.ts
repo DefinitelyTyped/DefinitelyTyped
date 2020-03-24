@@ -29,6 +29,6 @@ declare namespace SingleSpaReact {
         bootstrap: (props: any) => Promise<void>;
         mount: (props: any) => Promise<void>;
         unmount: (props: any) => Promise<void>;
-        update: (props: any) => Promise<void>;
+        update?: (props: any) => Promise<void>;
     }
 }
