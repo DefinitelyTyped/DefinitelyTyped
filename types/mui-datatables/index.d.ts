@@ -186,7 +186,7 @@ export interface MUIDataTableOptions {
     downloadOptions?: Partial<{
         filename: string;
         separator: string;
-        filterOptions: Partial<{ useDisplayedColumnsOnly: boolean; useDisplayedRowsOnly?: boolean }>;
+        filterOptions: Partial<{ useDisplayedColumnsOnly: boolean; useDisplayedRowsOnly: boolean }>;
     }>;
     elevation?: number;
     expandableRows?: boolean;
