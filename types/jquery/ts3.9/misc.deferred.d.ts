@@ -718,7 +718,7 @@ chained.done(function( data ) {
             BRP = never, BJP = never, BNP = never,
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
+                doneFilter: (t: awaited TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
                     BRD, BJD, BND,
                     CRD, CJD, CND,
                     RRD, RJD, RND> | Thenable<ARD> | ARD,
@@ -844,7 +844,7 @@ chained.done(function( data ) {
             BRP = never, BJP = never, BNP = never,
             CRP = never, CJP = never, CNP = never,
             RRP = never, RJP = never, RNP = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
+                doneFilter: (t: awaited TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
                     BRD, BJD, BND,
                     CRD, CJD, CND,
                     RRD, RJD, RND> | Thenable<ARD> | ARD,
@@ -970,7 +970,7 @@ chained.done(function( data ) {
             BRF = never, BJF = never, BNF = never,
             CRF = never, CJF = never, CNF = never,
             RRF = never, RJF = never, RNF = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
+                doneFilter: (t: awaited TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
                     BRD, BJD, BND,
                     CRD, CJD, CND,
                     RRD, RJD, RND> | Thenable<ARD> | ARD,
@@ -1082,7 +1082,7 @@ chained.done(function( data ) {
             BRD = never, BJD = never, BND = never,
             CRD = never, CJD = never, CND = never,
             RRD = never, RJD = never, RND = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
+                doneFilter: (t: awaited TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
                     BRD, BJD, BND,
                     CRD, CJD, CND,
                     RRD, RJD, RND> | Thenable<ARD> | ARD,
