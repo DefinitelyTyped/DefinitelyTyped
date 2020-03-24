@@ -430,7 +430,7 @@ declare namespace Rax {
   }
   function render<T>(
     element: Element,
-    parent: Element | Document | DocumentFragment,
+    parent: Element | Document,
     options?: RenderOption,
     callback?: () => void
   ): void;
