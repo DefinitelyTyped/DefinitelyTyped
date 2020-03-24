@@ -8,17 +8,17 @@ const store = createSourceMapStore({
     verbose: false,
     baseDir: 'foo',
     sourceStore: 'memory',
-    tmpdir: 'foo'
+    tmpdir: 'foo',
 });
 
 store.data['foo'].type.trim();
 
 const sourceMap: RawSourceMap = {
-    version: 1 as any as string, // Fixed by https://github.com/mozilla/source-map/pull/293 but the fix is not yet published
+    version: (1 as any) as string, // Fixed by https://github.com/mozilla/source-map/pull/293 but the fix is not yet published
     sources: ['foo', 'bar'],
     names: ['foo', 'bar'],
     mappings: 'foo',
-    file: 'foo'
+    file: 'foo',
 };
 store.registerMap('foo', sourceMap);
 
