@@ -9,11 +9,10 @@
     "baseUrl": ".",
     "jsx": "preserve"
   },
-  "include": [
-    "./src/**/*", "index.d.ts"
+  "files": [
+    "index.d.ts"
   ],
   "exclude": [
-    "demo",
     "**/__tests__"
   ]
 }
