@@ -6,7 +6,10 @@ interface InheritedProps {
     className?: ReactAttr["className"],
 }
 
-export interface AccordionProps extends InheritedProps { }
+export interface AccordionProps extends InheritedProps {
+    /** Specify the alignment of the accordion heading title and chevron. */
+    align?: 'start' | 'end'
+}
 
 declare const Accordion: React.FC<AccordionProps>;
 
