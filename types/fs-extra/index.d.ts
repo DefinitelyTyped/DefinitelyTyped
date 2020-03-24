@@ -15,7 +15,6 @@
 /// <reference types="node" />
 
 import * as fs from "fs";
-import * as glob from "glob";
 import Stats = fs.Stats;
 
 export * from "fs";
@@ -309,11 +308,6 @@ export interface ReadOptions {
 
 export interface RemoveOptions {
     maxBusyTries?: number;
-    emfileWait?: number;
-    /** @default false */
-    disableGlob?: boolean;
-    glob?: glob.IOptions | false;
-
     unlink?: typeof unlink;
     chmod?: typeof chmod;
     stat?: typeof stat;
