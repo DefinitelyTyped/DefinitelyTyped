@@ -474,7 +474,7 @@ export namespace Linter {
 //#region CLIEngine
 
 export class CLIEngine {
-    version: string;
+    static version: string;
 
     constructor(options: CLIEngine.Options);
 
@@ -495,6 +495,8 @@ export class CLIEngine {
     getRules(): Map<string, Rule.RuleModule>;
 
     static getErrorResults(results: CLIEngine.LintResult[]): CLIEngine.LintResult[];
+
+    static getFormatter(format?: string): CLIEngine.Formatter;
 
     static outputFixes(report: CLIEngine.LintReport): void;
 }
