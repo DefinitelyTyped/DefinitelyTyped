@@ -5,6 +5,7 @@
 //                 Awwit <https://github.com/awwit>
 //                 wroughtec <https://github.com/wroughtec>
 //                 O.Jackman <https://github.com/chilledoj>
+//                 Eyas <https://github.com/Eyas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
