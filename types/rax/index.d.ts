@@ -2569,7 +2569,7 @@ declare namespace Rax {
   // ----------------------------------------------------------------------
 
   interface RaxChildren {
-    map<T, C>(children: C | C[], fn: (child: C, index: number) => T): T[];
+    map<T, C>(children: C | C[], fn: (child: C, index: number) => T): Array<T>;
     forEach<C>(children: C | C[], fn: (child: C, index: number) => void): void;
     count(children: any): number;
     only<C>(children: C): C extends any[] ? never : C;
