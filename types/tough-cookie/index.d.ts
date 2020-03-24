@@ -149,8 +149,7 @@ export namespace Cookie {
 export class CookieJar {
     static deserialize(serialized: CookieJar.Serialized | string, store: Store, cb: (err: Error | null, object: CookieJar) => void): void;
     static deserialize(serialized: CookieJar.Serialized | string, cb: (err: Error | null, object: CookieJar) => void): void;
-    static deserialize(serialized: CookieJar.Serialized | string, store: Store): PromiseLike<CookieJar>;
-    static deserialize(serialized: CookieJar.Serialized | string): PromiseLike<CookieJar>;
+    static deserialize(serialized: CookieJar.Serialized | string, store?: Store): PromiseLike<CookieJar>;
 
     static deserializeSync(serialized: CookieJar.Serialized | string, store?: Store): CookieJar;
 
@@ -160,29 +159,25 @@ export class CookieJar {
 
     setCookie(cookieOrString: Cookie | string, currentUrl: string, options: CookieJar.SetCookieOptions, cb: (err: Error | null, cookie: Cookie) => void): void;
     setCookie(cookieOrString: Cookie | string, currentUrl: string, cb: (err: Error, cookie: Cookie) => void): void;
-    setCookie(cookieOrString: Cookie | string, currentUrl: string, options: CookieJar.SetCookieOptions): PromiseLike<Cookie>;
-    setCookie(cookieOrString: Cookie | string, currentUrl: string): PromiseLike<Cookie>;
+    setCookie(cookieOrString: Cookie | string, currentUrl: string, options?: CookieJar.SetCookieOptions): PromiseLike<Cookie>;
 
     setCookieSync(cookieOrString: Cookie | string, currentUrl: string, options?: CookieJar.SetCookieOptions): void;
 
     getCookies(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: Cookie[]) => void): void;
     getCookies(currentUrl: string, cb: (err: Error | null, cookies: Cookie[]) => void): void;
-    getCookies(currentUrl: string, options: CookieJar.GetCookiesOptions): PromiseLike<Cookie[]>;
-    getCookies(currentUrl: string): PromiseLike<Cookie[]>;
+    getCookies(currentUrl: string, options?: CookieJar.GetCookiesOptions): PromiseLike<Cookie[]>;
 
     getCookiesSync(currentUrl: string, options?: CookieJar.GetCookiesOptions): Cookie[];
 
     getCookieString(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: string) => void): void;
     getCookieString(currentUrl: string, cb: (err: Error | null, cookies: string) => void): void;
-    getCookieString(currentUrl: string, options: CookieJar.GetCookiesOptions): PromiseLike<string>;
-    getCookieString(currentUrl: string): PromiseLike<string>;
+    getCookieString(currentUrl: string, options?: CookieJar.GetCookiesOptions): PromiseLike<string>;
 
     getCookieStringSync(currentUrl: string, options?: CookieJar.GetCookiesOptions): string;
 
     getSetCookieStrings(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: string) => void): void;
     getSetCookieStrings(currentUrl: string, cb: (err: Error | null, cookies: string) => void): void;
-    getSetCookieStrings(currentUrl: string, options: CookieJar.GetCookiesOptions): PromiseLike<string>;
-    getSetCookieStrings(currentUrl: string): PromiseLike<string>;
+    getSetCookieStrings(currentUrl: string, options?: CookieJar.GetCookiesOptions): PromiseLike<string>;
 
     getSetCookieStringsSync(currentUrl: string, options?: CookieJar.GetCookiesOptions): string;
 
@@ -195,8 +190,7 @@ export class CookieJar {
 
     clone(store: Store, cb: (err: Error | null, newJar: CookieJar) => void): void;
     clone(cb: (err: Error | null, newJar: CookieJar) => void): void;
-    clone(store: Store): PromiseLike<CookieJar>;
-    clone(): PromiseLike<CookieJar>;
+    clone(store?: Store): PromiseLike<CookieJar>;
 
     cloneSync(store: Store): CookieJar;
 }
@@ -242,8 +236,7 @@ export abstract class Store {
 
     findCookies(domain: string, path: string, allowSpecialUseDomain: boolean, cb: (err: Error | null, cookie: Cookie[]) => void): void;
     findCookies(domain: string, path: string, cb: (err: Error | null, cookie: Cookie[]) => void): void;
-    findCookies(domain: string, path: string, allowSpecialUseDomain: boolean): PromiseLike<Cookie[]>;
-    findCookies(domain: string, path: string): PromiseLike<Cookie[]>;
+    findCookies(domain: string, path: string, allowSpecialUseDomain?: boolean): PromiseLike<Cookie[]>;
 
     putCookie(cookie: Cookie, cb: (err: Error | null) => void): void;
     putCookie(cookie: Cookie): PromiseLike<void>;
