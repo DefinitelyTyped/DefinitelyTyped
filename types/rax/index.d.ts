@@ -1,14 +1,16 @@
 // Type definitions for Rax 1.0.0
 // Type definitions for rax 1.0.0
-// Project: https://github.com/alibaba/rax
+// Project: https://rax.js.org
 // Definitions by: Solo Jiang <https://github.com/solojiang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
+// for reference and documentation on how exactly to do it.
+
+/// <reference path="global.d.ts" />
+
 import * as CSS from 'csstype';
 import * as PropTypes from 'prop-types';
-
-interface Event {}
 interface AnimationEvent extends Event {}
 interface ClipboardEvent extends Event {}
 interface CompositionEvent extends Event {}
