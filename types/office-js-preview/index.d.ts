@@ -11703,8 +11703,7 @@ declare namespace Office {
         /**
          * Adds or replaces the signature of the item body.
          * 
-         * **Important**: In Outlook on the web, this `setSignatureAsync` only works on messages. As such, to set the signature on an appointment,
-         * you can instead use APIs like `Body.setAsync` (introduced in Mailbox 1.3) or `Body.appendOnSendAsync` (currently in preview).
+         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
          *
          * [Api set: Mailbox Preview]
          *
@@ -11734,8 +11733,7 @@ declare namespace Office {
         /**
          * Adds or replaces the signature of the item body.
          * 
-         * **Important**: In Outlook on the web, this `setSignatureAsync` only works on messages. As such, to set the signature on an appointment,
-         * you can instead use APIs like `Body.setAsync` (introduced in Mailbox 1.3) or `Body.appendOnSendAsync` (currently in preview).
+         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
          *
          * [Api set: Mailbox Preview]
          *
