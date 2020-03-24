@@ -1,10 +1,5 @@
 {
-  "name": "@types/rax",
   "version": "1.0.0",
-  "description": "TypeScript definitions for Rax",
-  "keywords": [
-    "rax"
-  ],
   "dependencies": {
     "@types/prop-types": "^15.7.3",
     "csstype": "^2.2.0"
