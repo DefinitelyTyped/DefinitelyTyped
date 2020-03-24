@@ -193,6 +193,7 @@ export namespace CookieJar {
         rejectPublicSuffixes?: boolean;
         looseMode?: boolean;
         prefixSecurity?: 'silent' | 'unsafe-disabled' | 'strict';
+        allowSpecialUseDomain?: boolean;
     }
 
     interface SetCookieOptions {
@@ -225,6 +226,7 @@ export namespace CookieJar {
 export abstract class Store {
     findCookie(domain: string, path: string, key: string, cb: (err: Error | null, cookie: Cookie | null) => void): void;
 
+    findCookies(domain: string, path: string, allowSpecialUseDomain: boolean, cb: (err: Error | null, cookie: Cookie[]) => void): void;
     findCookies(domain: string, path: string, cb: (err: Error | null, cookie: Cookie[]) => void): void;
 
     putCookie(cookie: Cookie, cb: (err: Error | null) => void): void;
