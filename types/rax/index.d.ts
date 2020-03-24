@@ -599,20 +599,20 @@ declare namespace Rax {
      */
     (error: any) => Partial<S> | null;
 
-  interface Mixin<P, S> extends ComponentLifecycle<P, S> {
-    mixins?: Mixin<P, S>[];
-    statics?: {
-      [key: string]: any;
-    };
+    interface Mixin<P, S> extends ComponentLifecycle<P, S> {
+        mixins?: Array<Mixin<P, S>>;
+        statics?: {
+            [key: string]: any;
+        };
 
-    displayName?: string;
-    propTypes?: ValidationMap<any>;
-    contextTypes?: ValidationMap<any>;
-    childContextTypes?: ValidationMap<any>;
+        displayName?: string;
+        propTypes?: ValidationMap<any>;
+        contextTypes?: ValidationMap<any>;
+        childContextTypes?: ValidationMap<any>;
 
-    getDefaultProps?(): P;
-    getInitialState?(): S;
-  }
+        getDefaultProps?(): P;
+        getInitialState?(): S;
+    }
 
   interface ComponentSpec<P, S> extends Mixin<P, S> {
     render(): RaxNode;
@@ -708,7 +708,7 @@ declare namespace Rax {
   type ReducerAction<R extends Reducer<any, any>> = R extends Reducer<any, infer A> ? A : never;
   // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
   // TODO (TypeScript 3.0): ReadonlyArray<unknown>
-  type DependencyList = readonly any[];
+  type DependencyList = ReadonlyArray<any>;
 
   // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
   // The destructor is itself only allowed to return void.
@@ -2569,7 +2569,8 @@ declare namespace Rax {
   // ----------------------------------------------------------------------
 
   interface RaxChildren {
-    map<T, C>(children: C | C[], fn: (child: C, index: number) => T): Array<T>;
+    map<T, C>(children: C | C[], fn: (child: C, index: number) => T):
+        C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
     forEach<C>(children: C | C[], fn: (child: C, index: number) => void): void;
     count(children: any): number;
     only<C>(children: C): C extends any[] ? never : C;
@@ -2912,30 +2913,30 @@ declare global {
       richtext: any;
 
       // MiniApp
-      slot: any,
-      swiper: any,
-      'swiper-item': any,
-      'scroll-view': any,
-      'cover-view': any,
-      'cover-image': any,
-      'movable-view': any,
-      'movable-area': any,
-      icon: any,
-      'rich-text': any,
-      'picker-view': any,
-      picker: any,
-      navigator: any,
-      'web-view': any,
-      'lifestyle': any,
-      'contact-button': any,
-      'aria-component': any,
-      'functional-page-navigator': any,
-      'live-player': any,
-      'ive-pusher': any,
-      ad: any,
-      'open-data': any,
-      'page-meta': any,
-      'navigation-bar': any
+      slot: any;
+      swiper: any;
+      'swiper-item': any;
+      'scroll-view': any;
+      'cover-view': any;
+      'cover-image': any;
+      'movable-view': any;
+      'movable-area': any;
+      icon: any;
+      'rich-text': any;
+      'picker-view': any;
+      picker: any;
+      navigator: any;
+      'web-view': any;
+      'lifestyle': any;
+      'contact-button': any;
+      'aria-component': any;
+      'functional-page-navigator': any;
+      'live-player': any;
+      'ive-pusher': any;
+      ad: any;
+      'open-data': any;
+      'page-meta': any;
+      'navigation-bar': any;
     }
   }
 }
