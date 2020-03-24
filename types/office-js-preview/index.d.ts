@@ -11701,7 +11701,9 @@ declare namespace Office {
          */
         setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds or replaces the signature of the email body.
+         * Adds or replaces the signature of the item body.
+         * 
+         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
          *
          * [Api set: Mailbox Preview]
          *
@@ -11729,7 +11731,9 @@ declare namespace Office {
          */
         setSignatureAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds or replaces the signature of the email body.
+         * Adds or replaces the signature of the item body.
+         * 
+         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
          *
          * [Api set: Mailbox Preview]
          *
@@ -14072,7 +14076,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        disableClientSignatureAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;        
+        disableClientSignatureAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Disables the Outlook client signature.
          *  
@@ -14094,7 +14098,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        disableClientSignatureAsync(callback?: (asyncResult: Office.AsyncResult<void>) => void): void;        
+        disableClientSignatureAsync(callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets an attachment from a message or appointment and returns it as an `AttachmentContent` object.
          * 
@@ -14452,7 +14456,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        isClientSignatureEnabledAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;        
+        isClientSignatureEnabledAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;
         /**
          * Gets if the client signature is enabled.
          * 
@@ -14474,7 +14478,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        isClientSignatureEnabledAsync(callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;        
+        isClientSignatureEnabledAsync(callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;
         /**
          * Asynchronously loads custom properties for this add-in on the selected item.
          *
