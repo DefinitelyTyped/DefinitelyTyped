@@ -1,4 +1,5 @@
 {
+  "name": "@types/rax",
   "version": "1.0.0",
   "dependencies": {
     "@types/prop-types": "^15.7.3",
