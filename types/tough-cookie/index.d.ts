@@ -158,7 +158,7 @@ export class CookieJar {
     constructor(store?: Store, options?: CookieJar.Options);
 
     setCookie(cookieOrString: Cookie | string, currentUrl: string, options: CookieJar.SetCookieOptions, cb: (err: Error | null, cookie: Cookie) => void): void;
-    setCookie(cookieOrString: Cookie | string, currentUrl: string, cb: (err: Error, cookie: Cookie) => void): void;
+    setCookie(cookieOrString: Cookie | string, currentUrl: string, cb: (err: Error | null, cookie: Cookie) => void): void;
     setCookie(cookieOrString: Cookie | string, currentUrl: string, options?: CookieJar.SetCookieOptions): PromiseLike<Cookie>;
 
     setCookieSync(cookieOrString: Cookie | string, currentUrl: string, options?: CookieJar.SetCookieOptions): void;
