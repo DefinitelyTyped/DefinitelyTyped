@@ -1,15 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 
-import {
-    Link,
-    Location,
-    LocationProvider,
-    RouteComponentProps,
-    Router,
-    Redirect,
-    useMatch
-} from '@reach/router';
+import { Link, Location, LocationProvider, RouteComponentProps, Router, Redirect, useMatch } from '@reach/router';
 
 interface DashParams {
     id: string;
@@ -17,17 +9,13 @@ interface DashParams {
 
 const Home = (props: RouteComponentProps) => <div>Home</div>;
 
-const Dash = (props: RouteComponentProps<DashParams>) => (
-    <div>Dash for item ${props.id}</div>
-);
+const Dash = (props: RouteComponentProps<DashParams>) => <div>Dash for item ${props.id}</div>;
 
 const NotFound = (props: RouteComponentProps) => <div>Route not found</div>;
 
 const UseMatchCheck = (props: RouteComponentProps) => {
     const match = useMatch('/params/:one');
-    return (
-        <div>{match ? match.one : 'NO PATH PARAM' }</div>
-    );
+    return <div>{match ? match.one : 'NO PATH PARAM'}</div>;
 };
 
 render(
@@ -50,9 +38,7 @@ render(
             {context => (
                 <>
                     <div>hostname is {context.location.hostname}</div>
-                    <button onClick={(): Promise<void> => context.navigate('/')}>
-                        Go Home
-                    </button>
+                    <button onClick={(): Promise<void> => context.navigate('/')}>Go Home</button>
                 </>
             )}
         </Location>
@@ -60,12 +46,16 @@ render(
             {context => (
                 <>
                     <div>hostname is {context.location.hostname}</div>
-                    <button onClick={(): Promise<void> => context.navigate('/')}>
-                        Go Home
-                    </button>
+                    <button onClick={(): Promise<void> => context.navigate('/')}>Go Home</button>
                 </>
             )}
         </LocationProvider>
     </Router>,
-    document.getElementById('app-root')
+    document.getElementById('app-root'),
 );
+
+const handleRef = (el: HTMLAnchorElement) => {
+    el.focus();
+};
+
+render(<Link innerRef={handleRef} to="./foo"></Link>, document.getElementById('app-root'));
