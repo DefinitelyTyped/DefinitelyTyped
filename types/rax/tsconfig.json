@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "esNext",
+    "target": "es2015",
+    "outDir": "build",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "alwaysStrict": true,
+    "baseUrl": ".",
+    "jsx": "preserve"
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "demo",
+    "**/__tests__"
+  ]
+}
