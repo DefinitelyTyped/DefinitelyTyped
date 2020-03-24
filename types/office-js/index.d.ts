@@ -12759,8 +12759,7 @@ declare namespace Office {
      * In Outlook, a user can tag messages and appointments by using a category to color-code them.
      * The user defines categories in a master list on their mailbox. They can then apply one or more categories to an item.
      *
-     * **Important**: In delegate or shared scenarios and with the appropriate permission, the delegate can get the categories in the owner's master
-     * list but can't add or remove categories.
+     * **Important**: In delegate or shared scenarios, the delegate can get the categories in the master list but can't add or remove categories.
      * 
      * [Api set: Mailbox 1.8]
      *
