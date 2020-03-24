@@ -1,8 +1,8 @@
 {
+  "private": true,
   "name": "@types/rax",
   "version": "1.0.0",
   "dependencies": {
-    "prop-types": "^15.7.3",
     "csstype": "^2.2.0"
   }
 }
