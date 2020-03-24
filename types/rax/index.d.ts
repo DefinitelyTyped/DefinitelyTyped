@@ -1,5 +1,4 @@
 // Type definitions for Rax 1.0.0
-// Type definitions for rax 1.0.0
 // Project: https://rax.js.org
 // Definitions by: Solo Jiang <https://github.com/solojiang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
