@@ -325,7 +325,7 @@ Sortable.create(simpleList, {
     group: {
         name: 'bar',
         put: ['qux'],
-        pull: function (to, from) {
+        pull: function (to, from, dragEl, event) {
             return from.el.children.length > 2 || 'clone';
         }
     },
@@ -335,7 +335,7 @@ Sortable.create(simpleList, {
 Sortable.create(simpleList, {
     group: {
         name: 'qux',
-        put: function (to) {
+        put: function (to, from, dragEl, event) {
             return to.el.children.length < 4;
         }
     },
