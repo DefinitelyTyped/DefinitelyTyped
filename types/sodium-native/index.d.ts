@@ -1368,7 +1368,7 @@ export interface CryptoHashSha512Wrap {
 
 export interface SecureBuffer extends Buffer {
     /**
-     * To check if a buffer is a "secure" buffer, you can call access the getter buffer.secure which will be true
+     * To check if a `buffer` is a "secure" `buffer`, you can access the getter `buffer.secure` which will be `true`.
      */
     secure: boolean;
 }
