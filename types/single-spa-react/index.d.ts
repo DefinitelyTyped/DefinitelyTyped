@@ -4,7 +4,7 @@
 //                 Chris Dopuch <https://github.com/chrisdopuch>
 //                 Bence Czeii <https://github.com/benceczeili>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.12
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
