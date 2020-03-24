@@ -11,7 +11,7 @@ const AST: AST.Program = {
     tokens: [],
     loc: {
         start: { line: 0, column: 0 },
-        end: { line: 0, column: 0 },
+        end: { line: 0, column: 0 }
     },
     range: [0, 0],
 };
@@ -21,9 +21,9 @@ const TOKEN: AST.Token = {
     value: 'foo',
     loc: {
         start: { line: 0, column: 0 },
-        end: { line: 0, column: 3 },
+        end: { line: 0, column: 3 }
     },
-    range: [0, 3],
+    range: [0, 3]
 };
 
 const COMMENT: Comment = {
@@ -31,7 +31,7 @@ const COMMENT: Comment = {
     value: 'foo',
     loc: {
         start: { line: 0, column: 0 },
-        end: { line: 0, column: 0 },
+        end: { line: 0, column: 0 }
     },
     range: [0, 0],
 };
@@ -233,7 +233,7 @@ const scopeManager: Scope.ScopeManager = {
     },
     getDeclaredVariables() {
         return [];
-    },
+    }
 };
 
 const scope = scopeManager.scopes[0];
@@ -269,54 +269,20 @@ reference.isReadWrite();
 
 let rule: Rule.RuleModule;
 
-rule = {
-    create(context) {
-        return {};
-    },
-};
-rule = {
-    create(context) {
-        return {};
-    },
-    meta: {},
-};
-rule = {
-    create(context) {
-        return {};
-    },
-    meta: {
-        docs: {
-            description: 'disallow the use of `console`',
-            category: 'Possible Errors',
-            recommended: true,
-            url: 'https://eslint.org/docs/rules/no-console',
-        },
-    },
-};
-rule = {
-    create(context) {
-        return {};
-    },
-    meta: { fixable: 'whitespace' },
-};
-rule = {
-    create(context) {
-        return {};
-    },
-    meta: { fixable: 'code' },
-};
-rule = {
-    create(context) {
-        return {};
-    },
-    meta: { schema: [{ enum: ['always', 'never'] }] },
-};
-rule = {
-    create(context) {
-        return {};
-    },
-    meta: { deprecated: true },
-};
+rule = { create(context) { return {}; } };
+rule = { create(context) { return {}; }, meta: {} };
+rule = { create(context) { return {}; }, meta: {
+    docs: {
+        description: 'disallow the use of `console`',
+        category: 'Possible Errors',
+        recommended: true,
+        url: 'https://eslint.org/docs/rules/no-console',
+    }
+}};
+rule = { create(context) { return {}; }, meta: { fixable: 'whitespace' }};
+rule = { create(context) { return {}; }, meta: { fixable: 'code' }};
+rule = { create(context) { return {}; }, meta: { schema: [{ enum: ['always', 'never'] }] }};
+rule = { create(context) { return {}; }, meta: { deprecated: true }};
 rule = {
     create(context) {
         return {};
@@ -369,15 +335,18 @@ rule = {
                 ruleFixer.replaceTextRange([0, 0], 'foo');
 
                 return null;
-            },
+            }
         });
 
         context.report({
             message: 'foo',
             node: AST,
             fix: ruleFixer => {
-                return [ruleFixer.insertTextAfter(AST, 'foo'), ruleFixer.insertTextAfter(TOKEN, 'foo')];
-            },
+                return [
+                    ruleFixer.insertTextAfter(AST, 'foo'),
+                    ruleFixer.insertTextAfter(TOKEN, 'foo')
+                ];
+            }
         });
 
         return {
@@ -413,11 +382,7 @@ linter.verify(SOURCE, {}, { postprocess: problemList => problemList[0] });
 
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6 } }, 'test.js');
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } }, 'test.js');
-linter.verify(
-    SOURCE,
-    { parserOptions: { ecmaVersion: 6, ecmaFeatures: { experimentalObjectRestSpread: true } } },
-    'test.js',
-);
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { experimentalObjectRestSpread: true } } }, 'test.js');
 linter.verify(SOURCE, { env: { node: true } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: true } }, 'test.js');
 linter.verify(SOURCE, { parser: 'custom-parser' }, 'test.js');
@@ -511,7 +476,7 @@ linter.defineParser('custom-parser', {
             parserServices: {},
             scopeManager,
         };
-    },
+    }
 });
 
 //#endregion
@@ -522,7 +487,7 @@ let cli: CLIEngine;
 
 cli = new CLIEngine({ allowInlineConfig: false });
 cli = new CLIEngine({ baseConfig: false });
-cli = new CLIEngine({ baseConfig: { extends: ['lynt'] } });
+cli = new CLIEngine({ baseConfig: { extends: ['lynt'] }});
 cli = new CLIEngine({ cache: true });
 cli = new CLIEngine({ cacheFile: 'foo' });
 cli = new CLIEngine({ configFile: 'foo' });
@@ -563,21 +528,21 @@ formatter = cli.getFormatter();
 
 let data: CLIEngine.LintResultData;
 const meta: Rule.RuleMetaData = {
-    type: 'suggestion',
+    type: "suggestion",
     docs: {
-        description: 'disallow unnecessary semicolons',
-        category: 'Possible Errors',
+        description: "disallow unnecessary semicolons",
+        category: "Possible Errors",
         recommended: true,
-        url: 'https://eslint.org/docs/rules/no-extra-semi',
+        url: "https://eslint.org/docs/rules/no-extra-semi"
     },
-    fixable: 'code',
+    fixable: "code",
     schema: [],
     messages: {
-        unexpected: 'Unnecessary semicolon.',
-    },
+        unexpected: "Unnecessary semicolon."
+    }
 };
 
-data = { rulesMeta: { 'no-extra-semi': meta } };
+data = {rulesMeta: {"no-extra-semi": meta}};
 
 formatter(cliReport.results);
 formatter(cliReport.results, data);
@@ -636,11 +601,15 @@ ruleTester.run('my-rule', rule, {
         { code: 'foo', errors: [{ message: 'foo', type: 'foo' }] },
         { code: 'foo', errors: [{ message: 'foo', data: { foo: true } }] },
         { code: 'foo', errors: [{ message: 'foo', line: 0 }] },
-    ],
+    ]
 });
 
 ruleTester.run('simple-valid-test', rule, {
-    valid: ['foo', 'bar', { code: 'foo', options: [{ allowFoo: true }] }],
+    valid: [
+        'foo',
+        'bar',
+        { code: 'foo', options: [{ allowFoo: true }] },
+    ]
 });
 
 //#endregion
