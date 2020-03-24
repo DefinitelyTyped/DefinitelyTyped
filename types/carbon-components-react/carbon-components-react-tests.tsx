@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+    Accordion,
     AccordionItem,
     DataTable,
     DataTableCustomRenderProps,
@@ -20,6 +21,10 @@ import {
     TextInput,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
+
+// Accordion
+const accordionAlignmentStart = <Accordion align={'start'} />;
+const accordionAlignmentEnd = <Accordion align={'end'} />;
 
 // AccordionItem
 const titleNode = (
