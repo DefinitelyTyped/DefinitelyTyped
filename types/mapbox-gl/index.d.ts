@@ -7,6 +7,7 @@
 //                 Liam Clarke <https://github.com/LiamAttClarke>
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Marko Klopets <https://github.com/mklopets>
+//                 André Fonseca <https://github.com/amxfonseca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1571,6 +1572,17 @@ declare namespace mapboxgl {
 
     export type AnyLayout = BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout | HeatmapLayout | HillshadeLayout;
 
+    export type AnyPaint =
+        | BackgroundPaint
+        | FillPaint
+        | FillExtrusionPaint
+        | LinePaint
+        | SymbolPaint
+        | RasterPaint
+        | CirclePaint
+        | HeatmapPaint
+        | HillshadePaint;
+
     export interface Layer {
         id: string;
         type?: 'fill' | 'line' | 'symbol' | 'circle' | 'fill-extrusion' | 'raster' | 'background' | 'heatmap' | 'hillshade';
@@ -1589,7 +1601,7 @@ declare namespace mapboxgl {
 
         filter?: any[];
         layout?: AnyLayout;
-        paint?: BackgroundPaint | FillPaint | FillExtrusionPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint | HeatmapPaint | HillshadePaint;
+        paint?: AnyPaint;
     }
 
     // See https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface

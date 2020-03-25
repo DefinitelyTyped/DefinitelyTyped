@@ -1098,3 +1098,9 @@ expectType<mapboxgl.Visibility>('none');
 expectType<mapboxgl.AnyLayout>({visibility: 'none'});
 expectType<mapboxgl.AnyLayout>({visibility: 'none', 'line-cap': 'round' });
 expectType<mapboxgl.AnyLayout>({visibility: 'visible', 'icon-allow-overlap': true });
+
+/*
+ * AnyPaint
+ */
+expectType<mapboxgl.AnyPaint>({ 'circle-pitch-alignment': 'map' });
+expectType<mapboxgl.AnyPaint>({ 'line-color': 'red', 'line-offset': 10 });
