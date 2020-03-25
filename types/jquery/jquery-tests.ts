@@ -6762,7 +6762,16 @@ function JQuery_jqXHR() {
         }
     }
 
+    // JQuery's promise implementation is *not* compatible with the native `Promise`, as JQuery's promise implementation is not
+    // Promise/A+ compatible. A prime example of this is JQuery's `Animation<TElement>`, which indicates its promised result is
+    // `Animation<TElement>` which is not possible with a native or Promise/A+-compatible `Promise`. Awaiting an `Animation` in
+    // an async function or passing it into `Promise.resolve` would result in a promise that *never* resolves.
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
