@@ -1703,6 +1703,7 @@ declare namespace mapboxgl {
     }
 
     export interface FillLayout extends Layout {
+        'fill-sort-key'?: number;
     }
 
     export interface FillPaint {
@@ -1745,6 +1746,7 @@ declare namespace mapboxgl {
         'line-join'?: 'bevel' | 'round' | 'miter' | Expression;
         'line-miter-limit'?: number | Expression;
         'line-round-limit'?: number | Expression;
+        'line-sort-key'?: number;
     }
 
     export interface LinePaint {
@@ -1808,6 +1810,10 @@ declare namespace mapboxgl {
         'text-allow-overlap'?: boolean;
         'text-ignore-placement'?: boolean;
         'text-optional'?: boolean;
+        'text-radial-offset'?: number | Expression;
+        'text-variable-anchor'?: Anchor[];
+        'text-writing-mode'?: ('horizontal' | 'vertical')[];
+        'symbol-sort-key'?: number;
     }
 
     export interface SymbolPaint {
@@ -1857,6 +1863,7 @@ declare namespace mapboxgl {
         'raster-contrast-transition'?: Transition;
         'raster-fade-duration'?: number | Expression;
         'raster-resampling'?: 'linear' | 'nearest';
+        'circle-sort-key'?: number;
     }
 
     export interface CircleLayout extends Layout {
