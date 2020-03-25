@@ -375,6 +375,12 @@ management.importUsers({
     upsert: true
 }, (err, data) => console.log(data));
 
+management.importUsers({
+    users_json: "some json data",
+    connection_id: 'con_id',
+    send_completion_email: false
+}, (err, data) => console.log(data));
+
 management.exportUsers({
     connection_id: 'con_id',
     fields: [

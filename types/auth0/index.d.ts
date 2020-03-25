@@ -683,13 +683,22 @@ export interface VerificationEmailJob {
     created_at?: string;
 }
 
-export interface ImportUsersOptions {
-    users: string;
+export interface BaseImportUsersOptions {
     connection_id: string;
     upsert?: boolean;
     external_id?: string;
     send_completion_email?: boolean;
 }
+
+export interface ImportUsersFromFileOptions extends BaseImportUsersOptions {
+    users: string;
+}
+
+export interface ImportUsersFromJsonOptions extends BaseImportUsersOptions {
+    users_json: string;
+}
+
+export type ImportUsersOptions = ImportUsersFromFileOptions | ImportUsersFromJsonOptions;
 
 export interface ExportUsersOptions {
     connection_id?: string;
