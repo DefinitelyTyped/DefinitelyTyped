@@ -297,6 +297,7 @@ declare module "http" {
     class IncomingMessage extends stream.Readable {
         constructor(socket: Socket);
 
+        aborted: boolean;
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
