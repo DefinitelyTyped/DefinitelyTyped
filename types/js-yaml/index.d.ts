@@ -48,6 +48,28 @@ export interface LoadOptions {
 	schema?: SchemaDefinition;
 	/** compatibility with JSON.parse behaviour. */
 	json?: boolean;
+	/** listener for parse events */
+	listener?(this: State, eventType: EventType, state: State): void;
+}
+
+export type EventType = 'open' | 'close';
+
+export interface State {
+	input: string;
+	filename: string | null;
+	schema: SchemaDefinition;
+	onWarning: (this: null, e: YAMLException) => void;
+	json: boolean;
+	length: number;
+	position: number;
+	line: number;
+	lineStart: number;
+	lineIndent: number;
+	version: null | number;
+	checkLineBreaks: boolean;
+	kind: string;
+	result: any;
+	implicitTypes: Type[];
 }
 
 export interface DumpOptions {
