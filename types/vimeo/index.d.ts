@@ -19,8 +19,8 @@ declare module 'vimeo' {
     interface RequestOptions {
         method: string;
         path: string;
-        query: string;
-        headers: object;
+        query?: string;
+        headers?: object;
     }
 
     class Vimeo {
