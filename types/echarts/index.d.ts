@@ -9,6 +9,7 @@
 //                 TMTron <https://github.com/tmtron>
 //                 dwhitney <https://github.com/dwhitney>
 //                 Ruixuel <https://github.com/ruixuel>
+//                 Robert <https://github.com/robert-wettstaedt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -42,12 +43,12 @@ declare namespace echarts {
         dom: HTMLDivElement | HTMLCanvasElement,
         theme?: object | string,
         opts?: {
-            devicePixelRatio?: number
-            renderer?: string
-            width?: number | string
-            height?: number | string
-        }
-    ): ECharts
+            devicePixelRatio?: number;
+            renderer?: string;
+            width?: number | string;
+            height?: number | string;
+        },
+    ): ECharts;
 
     /**
      * Connects interaction of multiple chart series. For example:
@@ -63,7 +64,7 @@ declare namespace echarts {
      *
      * @param group Group id in string, or array of chart instance.
      */
-    function connect(group: string | ECharts[]): void
+    function connect(group: string | ECharts[]): void;
 
     /**
      * Disconnects interaction of multiple chart series. To have one single
@@ -71,7 +72,7 @@ declare namespace echarts {
      *
      * @param {string} group Group id in string.
      */
-    function disConnect(group: string): void
+    function disConnect(group: string): void;
 
     /**
      * Destroys chart instance, after which the instance cannot be used any
@@ -79,16 +80,14 @@ declare namespace echarts {
      *
      * @param target Chart instance or container.
      */
-    function dispose(target: ECharts | HTMLDivElement | HTMLCanvasElement)
-        : void
+    function dispose(target: ECharts | HTMLDivElement | HTMLCanvasElement): void;
 
     /**
      * Returns chart instance of dom container.
      *
      * @param target Chart container.
      */
-    function getInstanceByDom(target: HTMLDivElement | HTMLCanvasElement)
-        : ECharts
+    function getInstanceByDom(target: HTMLDivElement | HTMLCanvasElement): ECharts;
 
     /**
      * Registers available maps. This can only be used after including
@@ -106,11 +105,7 @@ declare namespace echarts {
      *     for better visual effect.
      *     See [USA Population Estimates example](https://echarts.apache.org/examples/en/editor.html?c=map-usa).
      */
-    function registerMap(
-        mapName: string,
-        geoJson: object,
-        specialAreas?: object
-    ): void
+    function registerMap(mapName: string, geoJson: object, specialAreas?: object): void;
 
     /**
      * Registers a theme, should be specified when
@@ -119,17 +114,17 @@ declare namespace echarts {
      * @param {string} themeName Theme name.
      * @param {object} theme Theme configurations.
      */
-    function registerTheme(themeName: string, theme: object): void
+    function registerTheme(themeName: string, theme: object): void;
 
     interface MapObj {
         /**
          * geoJson data for map
          */
-        geoJson: object,
+        geoJson: object;
         /**
          * special areas fro map
          */
-        specialAreas: object
+        specialAreas: object;
     }
 
     /**
@@ -138,7 +133,7 @@ declare namespace echarts {
      * @param {string} mapName Map name.
      * @return {MapObj} Map data.
      */
-    function getMap(mapName: string): MapObj
+    function getMap(mapName: string): MapObj;
 
     /**
      * Util methods about graphics.
@@ -174,7 +169,7 @@ declare namespace echarts {
         /**
          * Group name to be used in chart connection
          */
-        group: string
+        group: string;
 
         /**
          * Configuration item, data, universal interface, all parameters and
@@ -189,11 +184,7 @@ declare namespace echarts {
          * @param {boolean} [lazyUpdate=false] Whether not to update chart
          *     immediately
          */
-        setOption(
-            option: EChartOption | EChartsResponsiveOption,
-            notMerge?: boolean,
-            lazyUpdate?: boolean
-        ) : void
+        setOption(option: EChartOption | EChartsResponsiveOption, notMerge?: boolean, lazyUpdate?: boolean): void;
 
         /**
          * Configuration item, data, universal interface, all parameters and
@@ -205,28 +196,28 @@ declare namespace echarts {
          *     for more information.
          * @param {EChartsOptionConfig} [opts] Options about how to setOption
          */
-        setOption(option: EChartOption, opts?: EChartsOptionConfig): void
+        setOption(option: EChartOption, opts?: EChartsOptionConfig): void;
 
         /**
          * Gets width of ECharts instance container.
          *
          * @return {number} Width.
          */
-        getWidth(): number
+        getWidth(): number;
 
         /**
          * Gets height of ECharts instance container.
          *
          * @return {number} Height.
          */
-        getHeight(): number
+        getHeight(): number;
 
         /**
          * Gets DOM element of ECharts instance container.
          *
          * @return {HTMLCanvasElement|HTMLDivElement} DOM container.
          */
-        getDom(): HTMLCanvasElement | HTMLDivElement
+        getDom(): HTMLCanvasElement | HTMLDivElement;
 
         /**
          * Gets `option` object maintained in current instance, which contains
@@ -236,7 +227,7 @@ declare namespace echarts {
          *     and so on. Therefore, a new instance that is exactly the same
          *     can be recovered from this option.
          */
-        getOption(): EChartOption
+        getOption(): EChartOption;
 
         /**
          * Resizes chart, which should be called manually when container size
@@ -244,7 +235,7 @@ declare namespace echarts {
          *
          * @param {EChartsResizeOption} opts Specify parameters explicitly.
          */
-        resize(opts?: EChartsResizeOption): void
+        resize(opts?: EChartsResizeOption): void;
 
         /**
          * Triggers chart action, like chart switch `legendToggleSelect`,
@@ -255,7 +246,7 @@ declare namespace echarts {
          *
          * @param payload Trigger multiple actions through `batch` attribute.
          */
-        dispatchAction(payload: object): void
+        dispatchAction(payload: object): void;
 
         /**
          * Binds event-handling function.
@@ -278,7 +269,7 @@ declare namespace echarts {
          * @param {object} [context] context of callback function, what
          *     `this` refers to.
          */
-        on(eventName: string, handler: Function, context?: object): void
+        on(eventName: string, handler: Function, context?: object): void;
 
         /**
          * Unbind event-handler function.
@@ -289,7 +280,7 @@ declare namespace echarts {
          *     passed. Otherwise, all event functions of this type will be
          *     unbound.
          */
-        off(eventName: string, handler?: Function): void
+        off(eventName: string, handler?: Function): void;
 
         /**
          * Convert a point from logical coordinate (e.g., in geo, cartesian,
@@ -301,8 +292,7 @@ declare namespace echarts {
          *     coordinate system.
          * @param {string | any[]} value The value to be converted.
          */
-        convertToPixel(finder: EChartsConvertFinder, value: string | any[])
-            : string | any[]
+        convertToPixel(finder: EChartsConvertFinder, value: string | any[]): string | any[];
 
         /**
          * Convert a point from pixel coordinate to logical coordinate
@@ -314,8 +304,7 @@ declare namespace echarts {
          *     coordinate system.
          * @param {string | any[]} value The value to be converted.
          */
-        convertFromPixel(finder: EChartsConvertFinder, value: any[] | string)
-            : any[] | string
+        convertFromPixel(finder: EChartsConvertFinder, value: any[] | string): any[] | string;
 
         /**
          * Determine whether the given point is in the given coordinate systems or series.
@@ -327,7 +316,7 @@ declare namespace echarts {
          * @param {string | any[]} value The value to be judged, in pixel
          *     coordinate system.
          */
-        containPixel(finder: EChartsConvertFinder, value: any[]): boolean
+        containPixel(finder: EChartsConvertFinder, value: any[]): boolean;
 
         /**
          * Shows loading animation. You can call this interface manually before
@@ -337,12 +326,12 @@ declare namespace echarts {
          * @param {string} [type='default']
          * @param {EChartsLoadingOption} [opts]
          */
-        showLoading(type?: string, opts?: EChartsLoadingOption): void
+        showLoading(type?: string, opts?: EChartsLoadingOption): void;
 
         /**
          * Hides animation loading effect.
          */
-        hideLoading(): void
+        hideLoading(): void;
 
         /**
          * Exports chart image; returns a base64 URL; can be set to `src` of
@@ -352,15 +341,15 @@ declare namespace echarts {
          */
         getDataURL(opts: {
             // Exporting format, can be either png, or jpeg
-            type?: string,
+            type?: string;
             // Resolution ratio of exporting image, 1 by default.
-            pixelRatio?: number,
+            pixelRatio?: number;
             // Background color of exporting image, use backgroundColor in
             // option by default.
-            backgroundColor?: string,
+            backgroundColor?: string;
             // Excluded components list. e.g. ['toolbox']
-            excludeComponents?: string[]
-        }): string
+            excludeComponents?: string[];
+        }): string;
 
         /**
          * Exports connected chart image; returns a base64 url; can be set to
@@ -371,15 +360,15 @@ declare namespace echarts {
          */
         getConnectedDataURL(opts: {
             // Exporting format, can be either png, or jpeg
-            type: string,
+            type: string;
             // Resolution ratio of exporting image, 1 by default.
-            pixelRatio: number,
+            pixelRatio: number;
             // Background color of exporting image, use backgroundColor in
             // option by default.
-            backgroundColor: string,
+            backgroundColor: string;
             // Excluded components list. e.g. ['toolbox']
-            excludeComponents?: string[]
-        }): string
+            excludeComponents?: string[];
+        }): string;
 
         /**
          * The method is used in rendering millions of data
@@ -393,65 +382,89 @@ declare namespace echarts {
          */
         appendData(opts: {
             // Specify which series the data will be appended to.
-            seriesIndex?: string,
+            seriesIndex?: string;
             // The data to be appended.
-            data?: any[]|TypedArray,
-        }): void
+            data?: any[] | TypedArray;
+        }): void;
 
         /**
          * Clears current instance; removes all components and charts in
          *     current instance.
          */
-        clear(): void
+        clear(): void;
 
         /**
          * Returns whether current instance has been disposed.
          *
          * @return {boolean} Whether has been disposed.
          */
-        isDisposed(): boolean
+        isDisposed(): boolean;
 
         /**
          * Disposes instance. Once disposed, the instance can not be used again.
          */
-        dispose(): void
+        dispose(): void;
     }
 
-    type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array
-        | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array
+    type TypedArray =
+        | Int8Array
+        | Uint8Array
+        | Int16Array
+        | Uint16Array
+        | Int32Array
+        | Uint32Array
+        | Uint8ClampedArray
+        | Float32Array
         | Float64Array;
 
     interface EChartsConvertFinder {
-        seriesIndex?: number,
-        seriesId?: string,
-        seriesName?: string,
-        geoIndex?: number,
-        geoId?: string,
-        geoName?: string,
-        xAxisIndex?: number,
-        xAxisId?: string,
-        xAxisName?: string,
-        yAxisIndex?: number,
-        yAxisId?: string,
-        yAxisName?: string,
-        gridIndex?: number,
-        gridId?: string
-        gridName?: string
+        seriesIndex?: number;
+        seriesId?: string;
+        seriesName?: string;
+        geoIndex?: number;
+        geoId?: string;
+        geoName?: string;
+        xAxisIndex?: number;
+        xAxisId?: string;
+        xAxisName?: string;
+        yAxisIndex?: number;
+        yAxisId?: string;
+        yAxisName?: string;
+        gridIndex?: number;
+        gridId?: string;
+        gridName?: string;
     }
 
     interface ERectangle {
-        x: number,
-        y: number,
-        width: number,
-        height: number
+        x: number;
+        y: number;
+        width: number;
+        height: number;
     }
 
-    type EChartsSeriesType = (
-        'line' | 'bar' | 'pie' | 'scatter' | 'effectScatter' | 'radar'
-        | 'tree' | 'treemap' | 'sunburst' | 'boxplot' | 'candlestick'
-        | 'heatmap' | 'map' | 'parallel' | 'lines' | 'graph' | 'sankey'
-        | 'funnel' | 'gauge' | 'pictorialBar' | 'themeRiver' | 'custom'
-    );
+    type EChartsSeriesType =
+        | 'line'
+        | 'bar'
+        | 'pie'
+        | 'scatter'
+        | 'effectScatter'
+        | 'radar'
+        | 'tree'
+        | 'treemap'
+        | 'sunburst'
+        | 'boxplot'
+        | 'candlestick'
+        | 'heatmap'
+        | 'map'
+        | 'parallel'
+        | 'lines'
+        | 'graph'
+        | 'sankey'
+        | 'funnel'
+        | 'gauge'
+        | 'pictorialBar'
+        | 'themeRiver'
+        | 'custom';
 
     interface EChartOption<TSeries = EChartOption.Series> {
         /**
@@ -464,7 +477,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#title
          */
-        title?: EChartTitleOption | EChartTitleOption[]
+        title?: EChartTitleOption | EChartTitleOption[];
 
         /**
          * Legend component.
@@ -479,7 +492,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#legend
          */
-        legend?: EChartOption.Legend,
+        legend?: EChartOption.Legend;
 
         /**
          * Drawing grid in rectangular coordinate.
@@ -492,7 +505,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#grid
          */
-        grid?: EChartOption.Grid | EChartOption.Grid[],
+        grid?: EChartOption.Grid | EChartOption.Grid[];
 
         /**
          * The x axis in cartesian(rectangular) coordinate.
@@ -503,7 +516,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#xAxis
          */
-        xAxis?: EChartOption.XAxis | EChartOption.XAxis[],
+        xAxis?: EChartOption.XAxis | EChartOption.XAxis[];
 
         /**
          * The y axis in cartesian(rectangular) coordinate.
@@ -513,29 +526,29 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#yAxis
          */
-         yAxis?: EChartOption.YAxis | EChartOption.YAxis[],
+        yAxis?: EChartOption.YAxis | EChartOption.YAxis[];
 
-         /**
-          * Polar coordinate can be used in scatter and line chart.
-          * Every polar coordinate has an `angleAxis` and a `radiusAxis`.
-          *
+        /**
+         * Polar coordinate can be used in scatter and line chart.
+         * Every polar coordinate has an `angleAxis` and a `radiusAxis`.
+         *
          * @see https://echarts.apache.org/en/option.html#polar
          */
-        polar?: object,
+        polar?: object;
 
         /**
          * Radial axis of polar coordinate.
          *
          * @see https://echarts.apache.org/en/option.html#radiusAxis
          */
-        radiusAxis?: object,
+        radiusAxis?: object;
 
         /**
          * The angle axis in Polar Coordinate.
          *
          * @see https://echarts.apache.org/en/option.html#angleAxis
          */
-        angleAxis?: object,
+        angleAxis?: object;
 
         /**
          * Coordinate for `radar charts`.
@@ -553,7 +566,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#radar
          */
-        radar?: object,
+        radar?: object;
 
         /**
          * `dataZoom` component is used for zooming a specific area,
@@ -575,7 +588,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#dataZoom
          */
-        dataZoom?: EChartOption.DataZoom[],
+        dataZoom?: EChartOption.DataZoom[];
 
         /**
          * `visualMap` is a type of component for visual encoding,
@@ -612,7 +625,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#visualMap
          */
-        visualMap?: EChartOption.VisualMap[],
+        visualMap?: EChartOption.VisualMap[];
 
         /**
          * Tooltip component.
@@ -625,7 +638,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#tooltip
          */
-        tooltip?: EChartOption.Tooltip,
+        tooltip?: EChartOption.Tooltip;
 
         /**
          * `axisPointer` is a tool for displaying reference line and axis value
@@ -633,7 +646,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#axisPointer
          */
-        axisPointer?: EChartOption.AxisPointer,
+        axisPointer?: EChartOption.AxisPointer;
 
         /**
          * A group of utility tools, which includes `export`, `data view`,
@@ -641,7 +654,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#toolbox
          */
-        toolbox?: object,
+        toolbox?: object;
 
         /**
          * `brush` is an area-selecting component, with which user can select
@@ -650,7 +663,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#brush
          */
-        brush?: object,
+        brush?: object;
 
         /**
          * Geographic coorinate system component.
@@ -659,7 +672,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#geo
          */
-        geo?: object,
+        geo?: object;
 
         /**
          * `Parallel Coordinates` is a common way of visualizing high-dimensional
@@ -682,14 +695,14 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#parallel
          */
-        parallel?: object,
+        parallel?: object;
 
         /**
          * This component is the coordinate axis for parallel coordinate.
          *
          * @see https://echarts.apache.org/en/option.html#parallelAxis
          */
-        parallelAxis?: object,
+        parallelAxis?: object;
 
         /**
          * An axis with a single dimension. It can be used to display data
@@ -697,7 +710,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#singleAxis
          */
-        singleAxis?: EChartOption.SingleAxis | EChartOption.SingleAxis[],
+        singleAxis?: EChartOption.SingleAxis | EChartOption.SingleAxis[];
 
         /**
          * `timeline` component, which provides functions like switching and playing
@@ -705,7 +718,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#timeline
          */
-        timeline?: object,
+        timeline?: object;
 
         /**
          * `graphic` component enable creating graphic elements in echarts.
@@ -715,7 +728,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#graphic
          */
-        graphic?: object | object[],
+        graphic?: object | object[];
 
         /**
          * Calendar coordinates.
@@ -727,12 +740,12 @@ declare namespace echarts {
 
          * @see https://echarts.apache.org/en/option.html#calendar
          */
-        calendar?: EChartOption.Calendar | EChartOption.Calendar[],
+        calendar?: EChartOption.Calendar | EChartOption.Calendar[];
 
         /**
          * @see https://echarts.apache.org/en/option.html#dataset
          */
-        dataset?: EChartOption.Dataset | EChartOption.Dataset[],
+        dataset?: EChartOption.Dataset | EChartOption.Dataset[];
 
         /**
          * `dataset` component is published since ECharts 4.
@@ -743,12 +756,12 @@ declare namespace echarts {
          * More details about `dataset` can be checked in the tutorial.
          * @see https://echarts.apache.org/en/option.html#aria
          */
-        aria?: object,
+        aria?: object;
 
         /**
          * @see https://echarts.apache.org/en/option.html#series
          */
-        series?: TSeries[],
+        series?: TSeries[];
 
         /**
          * The color list of palette.
@@ -764,28 +777,28 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#color
          */
-        color?: string[],
+        color?: string[];
 
         /**
          * Background color. Defaults to have no background.
          *
          * @see https://echarts.apache.org/en/option.html#backgroundColor
          */
-        backgroundColor?: string,
+        backgroundColor?: string;
 
         /**
          * Global font style.
          *
          * @see https://echarts.apache.org/en/option.html#textStyle
          */
-        textStyle?: EChartOption.BaseTextStyle,
+        textStyle?: EChartOption.BaseTextStyle;
 
         /**
          * Whether to enable animation.
          *
          * @see https://echarts.apache.org/en/option.html#animation
          */
-        animation?: boolean,
+        animation?: boolean;
 
         /**
          * Whether to set graphic number threshold to animation.
@@ -793,7 +806,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#animationThreshold
          */
-        animationThreshold?: number,
+        animationThreshold?: number;
 
         /**
          * Duration of the first animation, which supports callback function
@@ -806,7 +819,7 @@ declare namespace echarts {
          * }
          * @see https://echarts.apache.org/en/option.html#animationDuration
          */
-        animationDuration?: number,
+        animationDuration?: number;
 
         /**
          * Easing method used for the first animation.
@@ -814,7 +827,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#animationEasing
          */
-        animationEasing?: string,
+        animationEasing?: string;
 
         /**
          * Delay before updating the first animation, which supports
@@ -828,7 +841,7 @@ declare namespace echarts {
          * }
          * @see https://echarts.apache.org/en/option.html#animationDelay
          */
-        animationDelay?: number | Function,
+        animationDelay?: number | Function;
 
         /**
          * Time for animation to complete, which supports callback function
@@ -841,14 +854,14 @@ declare namespace echarts {
          * }
          * @see https://echarts.apache.org/en/option.html#animationDurationUpdate
          */
-        animationDurationUpdate?: number | Function,
+        animationDurationUpdate?: number | Function;
 
         /**
          * Easing method used for animation.
          *
          * @see https://echarts.apache.org/en/option.html#animationEasingUpdate
          */
-        animationEasingUpdate?: string,
+        animationEasingUpdate?: string;
 
         /**
          * Delay before updating animation, which supports callback function
@@ -861,21 +874,21 @@ declare namespace echarts {
          * }
          * @see https://echarts.apache.org/en/option.html#animationDelayUpdate
          */
-        animationDelayUpdate?: number | Function,
+        animationDelayUpdate?: number | Function;
 
         /**
          * Configuration for progressive/incremental rendering
          *
          * @default 400
          */
-        progressive?: number,
+        progressive?: number;
 
         /**
          * Configuration for progressive/incremental rendering
          *
          * @default 3000
          */
-        progressiveThreshold?: number,
+        progressiveThreshold?: number;
 
         /**
          * Equal to CanvasRenderingContext2D.globalCompositeOperation
@@ -883,7 +896,7 @@ declare namespace echarts {
          * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
          *
          */
-        blendMode?: string,
+        blendMode?: string;
 
         /**
          * Threshold of if use single hover layer to optimize.
@@ -894,7 +907,7 @@ declare namespace echarts {
          *
          * @default 3000
          */
-        hoverLayerThreshold?: number,
+        hoverLayerThreshold?: number;
 
         /**
          * Whether to use UTC in display.
@@ -917,81 +930,81 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#useUTC
          */
-        useUTC?: boolean,
+        useUTC?: boolean;
     }
 
     type EChartsMediaOption = {
         query: {
-            width?: number,
-            height?: number,
-            aspectRatio?: number,
-            minWidth?: number,
-            minHeight?: number,
-            minAspectRatio?: number,
-            maxWidth?: number,
-            maxHeight?: number,
-            maxAspectRatio?: number
-        },
-        option: EChartOption
-    }
+            width?: number;
+            height?: number;
+            aspectRatio?: number;
+            minWidth?: number;
+            minHeight?: number;
+            minAspectRatio?: number;
+            maxWidth?: number;
+            maxHeight?: number;
+            maxAspectRatio?: number;
+        };
+        option: EChartOption;
+    };
 
     interface EChartsResponsiveOption {
-        baseOption?: EChartOption,
-        media?: EChartsMediaOption[]
+        baseOption?: EChartOption;
+        media?: EChartsMediaOption[];
     }
 
     interface EChartsOptionConfig {
-        notMerge?: boolean,
-        lazyUpdate?: boolean,
-        silent?: boolean
+        notMerge?: boolean;
+        lazyUpdate?: boolean;
+        silent?: boolean;
     }
 
     interface EChartsResizeOption {
         /**
          * Chart width.
          */
-        width?: number | string,
+        width?: number | string;
 
         /**
          * Chart height.
          */
-        height?: number | string,
+        height?: number | string;
 
         /**
          * Specify whether or not to prevent triggering events.
          */
-        silent?: boolean
+        silent?: boolean;
     }
 
     interface EChartTitleOption {
         show?: boolean;
         text?: string;
-        link?: string,
-        target?: string,
-        textStyle?: EChartOption.TextStyleWithRich,
-        subtext?: string,
-        sublink?: string,
-        subtarget?: string,
-        subtextStyle?: EChartOption.TextStyleWithRich,
-        textAlign?: string,
-        textVerticalAlign?: string,
-        triggerEvent?: boolean,
-        padding?: number,
-        itemGap?: number,
-        zlevel?: number,
-        z?: number,
-        left?: string | number,
-        top?: string | number,
-        right?: string | number,
-        bottom?: string | number,
-        backgroundColor?: string,
-        borderColor?: string,
-        borderWidth?: number,
-        borderRadius?: number | number[],
-        shadowBlur?: number,
-        shadowColor?: number,
-        shadowOffsetX?: number,
-        shadowOffsetY?: number,
+        link?: string;
+        target?: string;
+        textStyle?: EChartOption.TextStyleWithRich;
+        subtext?: string;
+        sublink?: string;
+        subtarget?: string;
+        subtextStyle?: EChartOption.TextStyleWithRich;
+        textAlign?: string;
+        textVerticalAlign?: string;
+        triggerEvent?: boolean;
+        padding?: number;
+        itemGap?: number;
+        zlevel?: number;
+        z?: number;
+        left?: string | number;
+        top?: string | number;
+        right?: string | number;
+        bottom?: string | number;
+        backgroundColor?: string;
+        borderColor?: string;
+        borderWidth?: number;
+        borderRadius?: number | number[];
+        shadowBlur?: number;
+        shadowColor?: number;
+        shadowOffsetX?: number;
+        shadowOffsetY?: number;
     }
 
     interface EChartsLoadingOption {
@@ -999,36 +1012,36 @@ declare namespace echarts {
          * Loading text.
          * @default 'loading'
          */
-        text?: string,
+        text?: string;
 
         /**
          * Loading circle color.
          * @default '#c23531'
          */
-        color?: string,
+        color?: string;
 
         /**
          * Loading text color.
          * @default '#000'
          */
-        textColor?: string,
+        textColor?: string;
 
         /**
          * Mask background color.
          * @default 'rgba(255, 255, 255, 0.8)'
          */
-        maskColor?: string,
+        maskColor?: string;
 
         /**
          * Zlevel of loading. If not 0, it creates a new canvas for loading.
          * @default 0
          */
-        zlevel?: 0
+        zlevel?: 0;
     }
 
     namespace EChartOption {
-        type Series = (
-            SeriesLine
+        type Series =
+            | SeriesLine
             | SeriesBar
             | SeriesPie
             | SeriesScatter
@@ -1049,8 +1062,7 @@ declare namespace echarts {
             | SeriesGauge
             | SeriesPictorialBar
             | SeriesThemeRiver
-            | SeriesCustom
-        )
+            | SeriesCustom;
 
         namespace BasicComponents {
             /**
@@ -1172,7 +1184,7 @@ declare namespace echarts {
                  * @default null
                  * @see https://echarts.apache.org/option.html#yAxis.min
                  */
-                min?: number | string | ((value: { min: number, max: number }) => number);
+                min?: number | string | ((value: { min: number; max: number }) => number);
 
                 /**
                  * The maximum value of axis.
@@ -1189,7 +1201,7 @@ declare namespace echarts {
                  * @default null
                  * @see https://echarts.apache.org/option.html#yAxis.max
                  */
-                 max?: number | string | ((value: { min: number, max: number } ) => number);
+                max?: number | string | ((value: { min: number; max: number }) => number);
 
                 /**
                  * It is available only in numerical axis, i.e., type: `'value'`.
@@ -1491,8 +1503,7 @@ declare namespace echarts {
                     margin?: number;
                     color?: string;
                     fontStyle?: 'normal' | 'italic' | 'oblique';
-                    fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter'
-                                    | '100' | '200' | '300' | '400';
+                    fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | '100' | '200' | '300' | '400';
                     fontFamily?: string;
                     fontSize?: number;
                     lineHeight?: number;
