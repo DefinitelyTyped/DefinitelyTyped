@@ -21,6 +21,7 @@
 //                 Felix Haus <https://github.com/ofhouse>
 //                 Daniel Chin <https://github.com/danielthank>
 //                 Daiki Ihara <https://github.com/sasurau4>
+//                 Dion Shi <https://github.com/dionshihk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1832,7 +1833,22 @@ declare namespace webpack {
     }
 
     class ProgressPlugin extends Plugin {
-        constructor(options?: (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void);
+        constructor(options?: ProgressPlugin.Handler | ProgressPlugin.Options);
+    }
+
+    namespace ProgressPlugin {
+        type Handler = (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void;
+        interface Options {
+            activeModules?: boolean;
+            entries?: boolean;
+            handler?: Handler;
+            modules?: boolean;
+            modulesCount?: number;
+            profile?: boolean;
+            dependencies?: boolean;
+            dependenciesCount?: number;
+            percentBy?: "entries" | "dependencies" | "modules" | null;
+        }
     }
 
     class EnvironmentPlugin extends Plugin {
