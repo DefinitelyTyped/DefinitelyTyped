@@ -3,7 +3,7 @@
 // Definitions by: Arindam Dawn <https://github.com/arindamdawn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function getAllHistory(historyTimeLength?: number): any[];
+export function getAllHistory(historyTimeLength?: number): Promise<any[]>;
 export function getFirefoxHistory(historyTimeLength?: number): Promise<any[]>;
 export function getSeaMonkeyHistory(historyTimeLength?: number): Promise<any[]>;
 export function getChromeHistory(historyTimeLength?: number): Promise<any[]>;
