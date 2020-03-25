@@ -1116,7 +1116,7 @@ declare namespace google {
             height?: string;
             page?: string;
             pageSize?: number;
-            pagingButtons?: number | 'both' | 'prev' | 'next';
+            pagingButtons?: number | 'both' | 'prev' | 'next' | 'auto';
             rtlTable?: boolean;
             scrollLeftStartPosition?: number;
             showRowNumber?: boolean;
