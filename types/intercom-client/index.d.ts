@@ -4,8 +4,9 @@
 //                 Josef Hornych <https://github.com/peping>
 //                 Mikhail Monchak <https://github.com/mikhail-monchak>
 //                 Chris Doe <https://github.com/cdoe>
+//                 Daniel Cummings <https://github.com/dan-cummings>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.7.5
 /// <reference types="node" />
 
 import { List as UserList, User, UserIdentifier, CreateUpdateUser } from './User';
@@ -15,6 +16,8 @@ import { CompanyIdentifier, List as CompanyList, Company } from './Company';
 import { TagIdentifier, List as TagList, Tag, TagOper } from './Tag';
 import { List as EventList, Event, ListParam as EventListParam } from './Event';
 import { Scroll } from './Scroll';
+import { List as ConversationList, Conversation, ConversationIdentifier, Reply } from './Conversation';
+import { List as AdminList, Admin, AdminIdentifier } from './Admin';
 import { IntercomError } from './IntercomError';
 
 import { IncomingMessage } from 'http';
@@ -41,6 +44,8 @@ export class Client {
     contacts: Leads;
     leads: Leads;
     visitors: Visitors;
+    conversations: Conversations;
+    admins: Admins;
 }
 
 export class ApiResponse<T> extends IncomingMessage {
@@ -174,4 +179,29 @@ export class Events {
 
     listBy(params: EventListParam): Promise<ApiResponse<CompanyList>>;
     listBy(params: EventListParam, cb: callback<ApiResponse<CompanyList>>): void;
+}
+
+export class Conversations {
+    list(params: {per_page?: number, sort?: string, order?: string}): Promise<ApiResponse<ConversationList>>;
+    list(params: {per_page?: number, sort?: string, order?: string}, cb: callback<ApiResponse<ConversationList>>): void
+
+    find(conversation: ConversationIdentifier): Promise<ApiResponse<Conversation>>;
+    find(conversation: ConversationIdentifier, cb: callback<ApiResponse<Conversation>>): void;
+
+    reply(reply: Reply): Promise<ApiResponse<Conversation>>;
+    reply(reply: Reply, cb: callback<ApiResponse<Conversation>>): void;
+
+    markAsRead(conversation: ConversationIdentifier, cb: callback<ApiResponse<Conversation>>): void;
+    markAsRead(conversation: ConversationIdentifier): Promise<ApiResponse<Conversation>>;
+}
+
+export class Admins {
+    list(): Promise<ApiResponse<AdminList>>;
+    list(cb: callback<ApiResponse<AdminList>>): void;
+
+    find(admin: AdminIdentifier): Promise<ApiResponse<Admin>>;
+    find(admin: AdminIdentifier, cb: callback<ApiResponse<Admin>>): void;
+
+    me(): Promise<ApiResponse<Admin>>;
+    me(cb: callback<ApiResponse<Admin>>): void;
 }
