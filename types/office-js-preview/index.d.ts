@@ -7894,9 +7894,9 @@ declare namespace Office {
          * @remarks
          *
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
+         * 
          * @beta
-         * /
+         */
         enum AppointmentSensitivityType {
             /**
              * Normal.
@@ -9330,7 +9330,7 @@ declare namespace Office {
          */
         requiredAttendees: Recipients;
         /**
-         * Gets or sets the {@link Office.AppointmentSensitivity} of an appointment. 
+         * Gets or sets the {@link Office.AppointmentSensitivity | sensitivity} of an appointment. 
          *
          * [Api set: Mailbox Preview]
          *
@@ -15723,11 +15723,6 @@ declare namespace Office {
         /**
          * Gets the boolean value indicating whether the event is all day or not.
          *
-         * @param options - An object literal that contains one or more of the following properties.
-         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
-         *                 type `Office.AsyncResult`.
-         *
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -15735,6 +15730,11 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @param options - An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
+         *                 type `Office.AsyncResult`.
          * 
          * @beta
          */
@@ -15742,9 +15742,6 @@ declare namespace Office {
         /**
          * Gets the boolean value indicating whether the event is all day or not.
          *
-         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
-         *                 type `Office.AsyncResult`.
-         *
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -15753,6 +15750,8 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
          * 
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
+         *                 type `Office.AsyncResult`.
          * @beta
          */
         getAsync(callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;
@@ -16764,12 +16763,7 @@ declare namespace Office {
     interface Sensitivity {
         /**
          * Gets the value of the appointment sensitivity.
-         *
-         * @param options - An object literal that contains one or more of the following properties.
-         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
-         *                 type `Office.AsyncResult`.
-         *
+         * 
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -16778,6 +16772,11 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
          * 
+         * @param options - An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
+         *                 type `Office.AsyncResult`.
+         *
          * @beta
          */
         getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<MailboxEnums.AppointmentSensitivityType>) => void): void;
