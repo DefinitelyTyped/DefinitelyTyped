@@ -18,9 +18,7 @@ declare module '@keystonejs/app-admin-ui' {
         schemaName?: string;
         enableDefaultRoute?: boolean;
         authStrategy?: BaseAuthStrategy;
-        isAccessAllowed?: (opts: {
-            authentication: { item: UserType; list: ListNames };
-        }) => boolean;
+        isAccessAllowed?: (opts: { authentication: { item: UserType; listKey: ListNames } }) => boolean;
     }
 
     class AdminUIApp<ListNames extends string = string, UserType extends {} = any> extends BaseApp {
