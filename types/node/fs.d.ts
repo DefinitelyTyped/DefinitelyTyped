@@ -785,15 +785,19 @@ declare module "fs" {
 
     interface MakeDirectoryOptions {
         /**
-         * Indicates whether parent folders should be created.
-         * @default false
-         */
-        recursive?: boolean;
-        /**
          * A file mode. If a string is passed, it is parsed as an octal integer. If not specified
          * @default 0o777.
          */
         mode?: number;
+    }
+
+    interface MakeDirectoryOptionsRecursive extends MakeDirectoryOptions {
+        /**
+         * Indicates whether parent folders should be created.
+         * If a folder was created, the path to the first created folder will be returned.
+         * @default false
+         */
+        recursive?: boolean;
     }
 
     /**
@@ -802,13 +806,9 @@ declare module "fs" {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
+    function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException, path: string | undefined) => void): void;
     function mkdir(path: PathLike, options: number | string | MakeDirectoryOptions | undefined | null, callback: NoParamCallback): void;
-
-    /**
-     * Asynchronous mkdir(2) - create a directory with a mode of `0o777`.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     */
-    function mkdir(path: PathLike, callback: NoParamCallback): void;
+    function mkdir(path: PathLike, options: MakeDirectoryOptionsRecursive, callback: (err: NodeJS.ErrnoException, path: string | undefined) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace mkdir {
@@ -819,6 +819,7 @@ declare module "fs" {
          * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
         function __promisify__(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<void>;
+        function __promisify__(path: PathLike, options: MakeDirectoryOptionsRecursive): Promise<undefined | string>;
     }
 
     /**
@@ -828,6 +829,7 @@ declare module "fs" {
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
     function mkdirSync(path: PathLike, options?: number | string | MakeDirectoryOptions | null): void;
+    function mkdirSync(path: PathLike, options: MakeDirectoryOptionsRecursive): undefined | string;
 
     /**
      * Asynchronously creates a unique temporary directory.

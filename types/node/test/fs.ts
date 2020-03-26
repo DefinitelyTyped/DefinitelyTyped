@@ -275,10 +275,10 @@ async function testPromisify() {
     fs.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,
-    }, () => {
+    }, (err: NodeJS.ErrnoException, path: string | undefined) => {
     });
 
-    fs.mkdirSync('some/test/path', {
+    const path: string | undefined = fs.mkdirSync('some/test/path', {
         recursive: true,
         mode: 0o777,
     });

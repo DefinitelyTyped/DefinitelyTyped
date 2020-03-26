@@ -1,4 +1,4 @@
-import { createContext, isContext, Script, runInNewContext, runInThisContext, compileFunction } from 'vm';
+import { createContext, isContext, Script, runInNewContext, runInThisContext, compileFunction, measureMemory, MemoryMeasurement } from 'vm';
 import { inspect } from 'util';
 
 {
@@ -59,4 +59,11 @@ import { inspect } from 'util';
         produceCachedData: false,
         cachedData: Buffer.from('nope'),
     });
+}
+
+{
+    const usage = measureMemory({
+        mode: 'detailed',
+        context: createContext(),
+    }).then((data: MemoryMeasurement) => { });
 }

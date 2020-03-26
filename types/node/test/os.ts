@@ -7,6 +7,7 @@ import * as os from 'os';
     result = os.endianness();
     result = os.hostname();
     result = os.type();
+    result = os.version();
     result = os.arch();
     result = os.release();
     result = os.EOL;

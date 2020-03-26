@@ -297,6 +297,14 @@ declare module "tls" {
          */
         enableTrace(): void;
 
+        /**
+         * @param length number of bytes to retrieve from keying material
+         * @param label an application specific label, typically this will be a value from the
+         * [IANA Exporter Label Registry](https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#exporter-labels).
+         * @param context optionally provide a context.
+         */
+        exportKeyingMaterial(length: number, label: string, context: Buffer): Buffer;
+
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         addListener(event: "secureConnect", listener: () => void): this;

@@ -36,7 +36,8 @@ const wasi = new WASI({
   env: process.env,
   preopens: {
     '/sandbox': '/some/real/path/that/wasm/can/access'
-  }
+  },
+  returnOnExit: false,
 });
 const importObject = { wasi_unstable: wasi.wasiImport };
 (async () => {
