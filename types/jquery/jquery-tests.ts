@@ -6762,7 +6762,14 @@ function JQuery_jqXHR() {
         }
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
@@ -7318,7 +7325,14 @@ function JQuery_Promise3() {
         return s;
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
@@ -7463,7 +7477,14 @@ function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, strin
         return s;
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
@@ -7584,7 +7605,14 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
         return s;
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 }
