@@ -27,6 +27,7 @@ interface DataTransfer { }
 interface StyleMedia { }
 
 interface Element { }
+interface DocumentFragment { }
 
 interface HTMLElement extends Element { }
 interface HTMLAnchorElement extends HTMLElement { }

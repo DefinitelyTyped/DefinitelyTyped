@@ -26,6 +26,12 @@ describe('ReactDOM', () => {
         ReactDOM.unmountComponentAtNode(rootElement);
     });
 
+    it('works with document fragments', () => {
+        const fragment = document.createDocumentFragment();
+        ReactDOM.render(React.createElement('div'), fragment);
+        ReactDOM.unmountComponentAtNode(fragment);
+    });
+
     it('find dom node', () => {
         const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
