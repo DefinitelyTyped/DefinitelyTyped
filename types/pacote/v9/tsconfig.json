@@ -15,11 +15,7 @@
         "paths": {
             "npm-registry-fetch": ["npm-registry-fetch/v4"],
             "pacote": ["pacote/v9"],
-            "pacote/extract": ["pacote/v9/extract"],
-            "pacote/manifest": ["pacote/v9/manifest"],
-            "pacote/packument": ["pacote/v9/packument"],
-            "pacote/prefetch": ["pacote/v9/prefetch"],
-            "pacote/tarball": ["pacote/v9/tarball"]
+            "pacote/*": ["pacote/v9/*"]
         },
         "types": [],
         "noEmit": true,
