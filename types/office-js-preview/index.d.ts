@@ -7887,7 +7887,7 @@ declare namespace Office {
 declare namespace Office {
     namespace MailboxEnums {
         /**
-         * Specifies the sensitivity tyoe of an appointment.
+         * Specifies the sensitivity type of an appointment.
          *
          * [Api set: Mailbox Preview]
          *
