@@ -35,9 +35,9 @@ videojs("example_video_1").ready(function() {
     const behindLiveEdge: boolean = liveTracker.behindLiveEdge();
     const pastSeekEnd: boolean = liveTracker.pastSeekEnd();
     const isLive: boolean = liveTracker.isLive();
-    const seekToLiveEdge: void = liveTracker.seekToLiveEdge();
-    const startTracking: void = liveTracker.startTracking();
-    const stopTracking: void = liveTracker.stopTracking();
+    liveTracker.seekToLiveEdge();
+    liveTracker.startTracking();
+    liveTracker.stopTracking();
     const isTracking: boolean = liveTracker.isTracking();
 
     const whereYouAt: number = this.currentTime();

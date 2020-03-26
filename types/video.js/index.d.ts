@@ -2925,7 +2925,7 @@ declare namespace videojs {
      * LiveTracker provides several useful helper functions and events for dealing with live playback, all of which are used and tested internally.
      * Internally this component keeps track of the live current time through a function that runs on a 30ms interval.
      */
-    export interface LiveTracker extends Component {
+    interface LiveTracker extends Component {
         /**
          * These functions can be called to arbitrarily start/stop tracking live playback.
          * Normally these are handled by automatically when the player triggers a durationchange with a duration of Infinity.
@@ -2990,12 +2990,14 @@ declare namespace videojs {
         pastSeekEnd(): boolean;
 
         /**
-         * isTracking and isLive do the same thing they tell you if the LiveTracker is currently tracking live playback and since we assume that live tracking will only be done during live they should be the same.
+         * isTracking and isLive do the same thing they tell you if the LiveTracker is currently tracking live playback
+         * and since we assume that live tracking will only be done during live they should be the same.
          */
         isLive(): boolean;
 
         /**
-         * isTracking and isLive do the same thing they tell you if the LiveTracker is currently tracking live playback and since we assume that live tracking will only be done during live they should be the same.
+         * isTracking and isLive do the same thing they tell you if the LiveTracker is currently tracking live playback
+         * and since we assume that live tracking will only be done during live they should be the same.
          */
         isTracking(): boolean;
 
