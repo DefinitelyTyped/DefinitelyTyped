@@ -18,6 +18,9 @@ import {
     TooltipDefinition,
     TextArea,
     TextInput,
+    FormItem,
+    FileUploaderDropContainer,
+    FileUploaderItem,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -182,12 +185,12 @@ interface T5RowType extends DataTableRow {
     col2: number;
 }
 const t5RowItems: T5RowType[] = [
-    { id: "row0", col1: 0, col2: 0},
-    { id: "row1", col1: 1, col2: 1},
+    { id: "row0", col1: 0, col2: 0 },
+    { id: "row1", col1: 1, col2: 1 },
 ];
 const t5Headers: DataTableHeader[] = [
-    {key: 'col1', header: 'First column'},
-    {key: 'col2', header: 'Second column'}
+    { key: 'col1', header: 'First column' },
+    { key: 'col2', header: 'Second column' }
 ];
 const t5 = (
     <DataTable
@@ -241,17 +244,17 @@ interface TestCompProps {
 
 class TestComp1 extends React.Component<TestCompProps> {
     render() {
-        return (<div/>);
+        return (<div />);
     }
 }
 
-const TestComp2 = (props: TestCompProps) => (<div/>);
+const TestComp2 = (props: TestCompProps) => (<div />);
 
 const uisLinkT1 = (
     <Link href="#test">Test</Link>
 );
 const uisLinkT2 = (
-    <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src"/>
+    <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src" />
 );
 const uisLinkT3 = (
     <Link<TestCompProps> element={TestComp1} someProp={2}>ASDF</Link>
@@ -265,7 +268,7 @@ interface TestCompPropsOverwrite {
     someProp: string,
 }
 
-const TestComp3 = (props: TestCompPropsOverwrite) => (<div/>);
+const TestComp3 = (props: TestCompPropsOverwrite) => (<div />);
 
 const uisLinkT5 = (
     <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
@@ -287,7 +290,7 @@ const dropdownItemCanBeElement = (
 
 // TileGroup
 // Value nor name can be undefined
-let value: string|number = 5;
+let value: string | number = 5;
 let name = "old name";
 const tileGroupA = (
     <TileGroup
@@ -311,9 +314,9 @@ const tooltipDefHasTriggerClassName = (
 // Tabs
 const tabCanBeDisabled = (
     <Tab
-        handleTabAnchorFocus={() => {}}
-        handleTabClick={() => {}}
-        handleTabKeyDown={() => {}}
+        handleTabAnchorFocus={() => { }}
+        handleTabClick={() => { }}
+        handleTabKeyDown={() => { }}
         href="#"
         tabIndex={0}
         disabled
@@ -332,7 +335,7 @@ const SliderHasOnChange = (
 
 // TextArea
 const textAreaWithDefaultRef = (
-    <TextArea labelText=""/>
+    <TextArea labelText="" />
 );
 
 const HtmlTextAreaRef = React.createRef<HTMLTextAreaElement>();
@@ -401,6 +404,34 @@ const numberInput = (
 // FileUploader
 const fileUploaderHasOnChange = (
     <FileUploader
-        onChange={(e) => {} }
+        onChange={(e) => { }}
     />
 );
+
+const fileUploaderDropContainer = (
+    <FileUploaderDropContainer
+        accept={[
+            'image/jpeg',
+            'image/png'
+        ]}
+        labelText="Drag and drop files here or click to upload"
+        multiple
+        name=""
+        onAddFiles={(event, content) => { }}
+        onChange={(event) => { }}
+        role=""
+        tabIndex={0}
+    />
+)
+
+const fileUploaderItem = (
+    <FileUploaderItem
+        errorBody="500kb max file size. Select a new file and try again."
+        errorSubject="File size exceeds limit"
+        iconDescription="Clear file"
+        name="README.md"
+        onDelete={ (event, content) => {} }
+        status="edit"
+        uuid="id1"
+    />
+)
