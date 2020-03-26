@@ -7893,8 +7893,10 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @beta
+         * /
         enum AppointmentSensitivityType {
             /**
              * Normal.
@@ -9217,9 +9219,11 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Organizer
+         * 
+         * @beta
          */
         isAllDayEvent: IsAllDayEvent;
         /**
@@ -9332,9 +9336,11 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Organizer
+         * 
+         * @beta
          */        
         sensitivity: Sensitivity;
         /**
@@ -10595,9 +10601,11 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**:  ReadItem
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**:  `ReadItem`
          *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**:  Compose or Read
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**:  Compose or Read
+         * 
+         * @beta
          */
         isAllDayEvent: boolean;
         /**
@@ -10817,9 +10825,11 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**:  ReadItem
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permission | Minimum permission level}**:  `ReadItem`
          *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**:  Compose or Read
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**:  Compose or Read
+         * 
+         * @beta
          */
         sensitivity: MailboxEnums.AppointmentSensitivityType;
 
@@ -15697,56 +15707,97 @@ declare namespace Office {
         removeHandlerAsync(eventType: Office.EventType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
-     * Provides methods to get and set the all day event status of a meeting in an Outlook add-in.
+     * Provides methods to get and set the all-day event status of a meeting in an Outlook add-in.
      *
      * [Api set: Mailbox Preview]
      *
      * @remarks
      * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
      * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+     * 
+     * @beta
      */    
     interface IsAllDayEvent {
         /**
          * Gets the boolean value indicating whether the event is all day or not.
          *
          * @param options - An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
+         *                 type `Office.AsyncResult`.
          *
          * [Api set: Mailbox Preview]
          *
          * @remarks
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @beta
          */
         getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;
         /**
-         * Sets the all day event status of an appointment. 
+         * Gets the boolean value indicating whether the event is all day or not.
+         *
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
+         *                 type `Office.AsyncResult`.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @beta
+         */
+        getAsync(callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;
+        /**
+         * Sets the all-day event status of an appointment. 
          *
          * [Api set: Mailbox Preview]
          *
          * @remarks
          * If an appointment is marked as an all-day event:
-         * - Start and end time will be marked as 12:00AM (just like in the Outlook UI). Start time will return 12:00AM end time will be next day 12:00 AM.
-         * - Attempting to set the start or end dates must return a “Start/End Times are not settable on all-day appointments” error.
-         * A time changed event must be triggered when this property is set.
+         * - Start and end time will be marked as 12:00 AM (just like in the Outlook UI). Start time will return 12:00 AM and end time will be 12:00 AM the next day.
          *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * **{@link  https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
          *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
          *
          * @param isAllDayEvent - boolean value to set the all day event status.
          * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter,
-         *                asyncResult, which is an Office.AsyncResult object.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         * 
+         * @beta
          */
         setAsync(isAllDayEvent: boolean, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Sets the all-day event status of an appointment. 
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * If an appointment is marked as an all-day event:
+         * - Start and end time will be marked as 12:00 AM (just like in the Outlook UI). Start time will return 12:00 AM and end time will be 12:00 AM the next day.
+         *
+         * **{@link  https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param isAllDayEvent - boolean value to set the all day event status.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         * 
+         * @beta
+         */
+        setAsync(isAllDayEvent: boolean, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * An array of `NotificationMessageDetails` objects are returned by the `NotificationMessages.getAllAsync` method.
@@ -16704,28 +16755,49 @@ declare namespace Office {
      *
      * @remarks
      * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
      * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+     * 
+     * @beta
      */    
     interface Sensitivity {
         /**
          * Gets the value of the appointment sensitivity.
          *
          * @param options - An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
+         *                 type `Office.AsyncResult`.
          *
          * [Api set: Mailbox Preview]
          *
          * @remarks
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @beta
          */
         getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<MailboxEnums.AppointmentSensitivityType>) => void): void;
+        /**
+         * Gets the value of the appointment sensitivity.
+         *
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
+         *                 type `Office.AsyncResult`.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @beta
+         */
+        getAsync(callback: (asyncResult: Office.AsyncResult<MailboxEnums.AppointmentSensitivityType>) => void): void;
         /**
          * Sets the value of the appointment sensitivity.
          *
@@ -16733,17 +16805,38 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
          *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
          *
          * @param sensitivity - The sensitivity value as enum or string.
          * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter,
-         *                asyncResult, which is an Office.AsyncResult object.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         * 
+         * @beta
          */
         setAsync(sensitivity: MailboxEnums.AppointmentSensitivityType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Sets the value of the appointment sensitivity.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param sensitivity - The sensitivity value as enum or string.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         * 
+         * @beta
+         */
+        setAsync(sensitivity: MailboxEnums.AppointmentSensitivityType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+   
     }
     /**
      * The `SeriesTime` object provides methods to get and set the dates and times of appointments in a recurring series and get the dates and times
