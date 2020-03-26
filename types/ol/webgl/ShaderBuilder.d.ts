@@ -26,6 +26,7 @@ export class ShaderBuilder {
     getTextureCoordinateExpression(): string;
     setColorExpression(expression: string): ShaderBuilder;
     setFragmentDiscardExpression(expression: string): ShaderBuilder;
+    setRotationExpression(expression: string): ShaderBuilder;
     setSizeExpression(expression: string): ShaderBuilder;
     setSymbolOffsetExpression(expression: string): ShaderBuilder;
     setSymbolRotateWithView(rotateWithView: boolean): ShaderBuilder;

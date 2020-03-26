@@ -72,6 +72,19 @@ let equalityFilter = new ldap.EqualityFilter({
 });
 equalityFilter.matches({ cn: 'foo' });
 
+let objectGUID = Buffer.from([
+    0x02, 0xa9, 0xe3, 0x6f,
+    0x58, 0x11,
+    0x18, 0x49,
+    0xb5, 0x60,
+    0x60, 0xad, 0x50, 0x86, 0x18, 0xc9
+]);
+let equalityFilterBuffer = new ldap.EqualityFilter({
+	attribute: 'objectGUID',
+	value: objectGUID
+});
+equalityFilterBuffer.matches({ objectGUID });
+
 let presenceFilter = new ldap.PresenceFilter({
 	attribute: 'cn'
 });

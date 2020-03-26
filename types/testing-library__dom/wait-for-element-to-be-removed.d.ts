@@ -1,5 +1,5 @@
 export function waitForElementToBeRemoved<T>(
-    callback: () => T,
+    callback: (() => T) | T,
     options?: {
         container?: HTMLElement;
         timeout?: number;

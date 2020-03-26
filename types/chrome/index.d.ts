@@ -3744,6 +3744,13 @@ declare namespace chrome.idle {
      * @param intervalInSeconds Threshold, in seconds, used to determine when the system is in an idle state.
      */
     export function setDetectionInterval(intervalInSeconds: number): void;
+    /**
+     * Gets the time, in seconds, it takes until the screen is locked automatically while idle. Returns a zero duration if the screen is never locked automatically. Currently supported on Chrome OS only.
+     * @param callback The callback parameter should be a function that looks like this:
+     * function(integer delay) {...};
+     * Parameter delay: Time, in seconds, until the screen is locked automatically while idle. This is zero if the screen never locks automatically.
+     */
+    export function getAutoLockDelay(callback: (delay: number) => void): void;
 
     /** Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system. */
     export var onStateChanged: IdleStateChangedEvent;
@@ -4144,6 +4151,34 @@ declare namespace chrome.input.ime {
      * @since Chrome 29.
      */
     export var onReset: InputResetEvent;
+}
+
+////////////////////
+// LoginState
+////////////////////
+/**
+ * Use the chrome.loginState API to read and monitor the login state.
+ * Permissions: "loginState"
+ * @since Chrome 78.
+ * Important: This API works only on Chrome OS.
+ */
+declare namespace chrome.loginState {
+    export interface SessionStateChangedEvent extends chrome.events.Event<(sessionState: SessionState) => void> { }
+
+    /** Possible profile types. */
+    export type ProfileType = 'SIGNIN_PROFILE'|'USER_PROFILE';
+
+    /** Possible session states. */
+    export type SessionState = 'UNKNOWN'|'IN_OOBE_SCREEN'|'IN_LOGIN_SCREEN'|'IN_SESSION'|'IN_LOCK_SCREEN';
+
+    /** Gets the type of the profile the extension is in. */
+    export function getProfileType(callback: (profileType: ProfileType) => void): void;
+
+    /** Gets the current session state. */
+    export function getSessionState(callback: (sessionState: SessionState) => void): void;
+
+    /** Dispatched when the session state changes. sessionState is the new session state.*/
+    export const onSessionStateChanged: SessionStateChangedEvent;
 }
 
 ////////////////////

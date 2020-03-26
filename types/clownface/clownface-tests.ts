@@ -209,3 +209,18 @@ const multipleMixedTerms: clownface.SafeClownface<Dataset> = clownface({ dataset
 const ctxTerm: Literal = fromSingleArrayLiteral._context[0].term;
 const ctxGraph: Quad_Graph | undefined = fromSingleArrayLiteral._context[0].graph;
 const ctxDataset: Dataset = fromSingleArrayLiteral._context[0].dataset;
+
+// operating on SingleContextClownface keeps it that way
+const addOutSingle: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addOut(predicate, 'foo');
+const addOutSingleOneElementObjectArray: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addOut(predicate, ['foo']);
+const addOutSingleOneElementPredicateArray: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addOut([predicate]);
+const addOutSingleNoObject: clownface.SingleContextClownface<Dataset> = singleNamed.addOut(predicate);
+const addOutSingleWithCallback: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addOut(predicate, () => {});
+const addOutSingleWithObjectAndCallback: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addOut(predicate, 'foo', () => {});
+
+const addInSingle: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addIn(predicate, 'foo');
+const addInSingleOneElementObjectArray: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addIn(predicate, ['foo']);
+const addInSingleOneElementPredicateArray: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addIn([predicate]);
+const addInSingleNoObject: clownface.SingleContextClownface<Dataset> = singleNamed.addIn(predicate);
+const addInSingleWithCallback: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addIn(predicate, () => {});
+const addInSingleWithObjectAndCallback: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addIn(predicate, 'foo', () => {});

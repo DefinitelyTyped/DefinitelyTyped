@@ -19,6 +19,7 @@
 //                 Eliot Ball <https://github.com/eliotball>
 //                 Ville Kentta <https://github.com/vkentta>
 //                 Fabien Caylus <https://github.com/fcaylus>
+//                 Samuel Weckstrom <https://github.com/samuelweckstrom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -61,9 +62,9 @@ export type ReferenceLinePosition = 'start' | 'middle' | 'end';
 export type PickedCSSStyleDeclarationKeys =
     'alignmentBaseline' | 'baselineShift' | 'clip' | 'clipPath' | 'clipRule' | 'color' |
     'colorInterpolationFilters' | 'cursor' | 'direction' | 'display' | 'dominantBaseline' |
-    'enableBackground' | 'fill' | 'fillRule' | 'filter' | 'floodColor' |
+    'fill' | 'fillRule' | 'filter' | 'floodColor' |
     'floodOpacity' | 'font' | 'fontFamily' | 'fontStretch' | 'fontStyle' | 'fontVariant' |
-    'glyphOrientationHorizontal' | 'glyphOrientationVertical' | 'letterSpacing' | 'lightingColor' |
+    'glyphOrientationVertical' | 'letterSpacing' | 'lightingColor' |
     'markerEnd' | 'markerMid' | 'markerStart' | 'mask' | 'overflow' | 'pointerEvents' |
     'stopColor' | 'strokeDasharray' | 'strokeLinecap' | 'strokeLinejoin' | 'textAnchor' |
     'textDecoration' | 'unicodeBidi' | 'visibility' | 'writingMode' | 'transform';
@@ -326,6 +327,7 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
 export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
 export interface CellProps extends Partial<PresentationAttributes> {
+    className?: string;
     onClick?: RechartsFunction;
     onMouseEnter?: RechartsFunction;
     onMouseLeave?: RechartsFunction;

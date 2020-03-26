@@ -1711,15 +1711,6 @@ declare class Hls {
      */
     firstLevel: number;
     /**
-     * array of audio tracks exposed in manifest
-     */
-    readonly audioTracks: AudioTrack[];
-    /**
-     * get: returns audio track id
-     * set: sets audio track id (returned by)
-     */
-    audioTrack: number;
-    /**
      * position of live sync point (ie edge of live position minus safety delay defined by hls.config.liveSyncDuration)
      */
     readonly liveSyncPosition: number;

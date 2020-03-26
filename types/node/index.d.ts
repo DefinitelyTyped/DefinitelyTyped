@@ -31,7 +31,6 @@
 //                 Thomas den Hollander <https://github.com/ThomasdenH>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
-//                 Zane Hannan AU <https://github.com/ZaneHannanAU>
 //                 Samuel Ainsworth <https://github.com/samuela>
 //                 Kyle Uehlein <https://github.com/kuehlein>
 //                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
@@ -43,6 +42,7 @@
 //                 Ilia Baryshnikov <https://github.com/qwelias>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Surasak Chaisurin <https://github.com/Ryan-Willpower>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.5.

@@ -223,8 +223,13 @@ export enum TRANSITION_EVENTS {
 
 export class TransitionInterpolator {}
 
+export interface LinearInterpolatorProps {
+    transitionProps?: string[];
+    around?: number[];
+}
+
 export class LinearInterpolator extends TransitionInterpolator {
-    constructor(transitionProps?: string[]);
+    constructor(transitionProps?: LinearInterpolatorProps | string[]);
 }
 
 export interface FlyToInterpolatorProps {

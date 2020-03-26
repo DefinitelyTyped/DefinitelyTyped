@@ -651,7 +651,7 @@ export interface UrlDefinition extends PropertyBaseDefinition {
   auth?: { user: string; password: string };
   hash?: string;
   host?: string[] | string;
-  path: string[] | string;
+  path?: string[] | string;
   port?: string;
   query?: QueryParamDefinition[] | PropertyList<QueryParam> | string;
   variable?: VariableDefinition[];
@@ -662,7 +662,7 @@ export class Url extends PropertyBase<UrlDefinition> implements UrlDefinition {
   auth?: { user: string; password: string };
   hash?: string;
   host?: string[];
-  path: string[];
+  path?: string[];
   port?: string;
   protocol?: string;
   query: PropertyList<QueryParam>;

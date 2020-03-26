@@ -375,6 +375,12 @@ management.importUsers({
     upsert: true
 }, (err, data) => console.log(data));
 
+management.importUsers({
+    users_json: "some json data",
+    connection_id: 'con_id',
+    send_completion_email: false
+}, (err, data) => console.log(data));
+
 management.exportUsers({
     connection_id: 'con_id',
     fields: [
@@ -569,3 +575,13 @@ management.unblockUserByIdentifier({ identifier: 'email' }, (err, response) => {
     }
     console.log(response);
 });
+
+// Rules configurations
+management.setRulesConfig({key: 'test'}, {value: 'test'}).then((config) => console.log(config));
+management.setRulesConfig({key: 'test'}, {value: 'test'}, (err, config) => console.log(config));
+
+management.deleteRulesConfig({key: 'test'}).then(() => {});
+management.deleteRulesConfig({key: 'test'}, (err) => {});
+
+management.getRulesConfigs().then((configs) => console.log(configs));
+management.getRulesConfigs((err, configs) => console.log(configs));

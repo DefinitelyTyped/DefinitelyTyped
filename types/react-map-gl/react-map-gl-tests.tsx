@@ -14,6 +14,7 @@ import {
     ViewportProps,
     Source,
     Layer,
+    LinearInterpolator,
 } from 'react-map-gl';
 import * as MapboxGL from 'mapbox-gl';
 import { FeatureCollection } from 'geojson';
@@ -122,6 +123,25 @@ class MyMap extends React.Component<{}, State> {
                     width={400}
                     ref={this.setRefStatic}
                 />
+                <button
+                    onClick={() => {
+                        const nullPoint = [0, 0];
+                        const li = new LinearInterpolator({
+                            around: nullPoint,
+                        });
+                        this.setState(prevState => ({
+                            viewport: {
+                                ...prevState.viewport,
+                                latitude: nullPoint[1],
+                                longitude: nullPoint[0],
+                                transitionInterpolator: li,
+                                transitionDuration: 100,
+                            },
+                        }));
+                    }}
+                >
+                    Jump to Null Point
+                </button>
             </div>
         );
     }

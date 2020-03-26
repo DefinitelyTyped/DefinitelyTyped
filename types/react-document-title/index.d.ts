@@ -8,6 +8,7 @@ import * as React from 'react';
 
 interface DocumentTitleProps {
     title: string;
+    children?: React.ReactChild | null;
 }
 
 declare class DocumentTitle extends React.Component<DocumentTitleProps, any> {

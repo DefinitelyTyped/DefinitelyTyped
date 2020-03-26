@@ -351,6 +351,13 @@ declare namespace Autodesk {
           useAsDefault(): boolean;
         }
 
+        interface Endpoint {
+            getApiEndpoint(): string;
+            getEndpointAndApi(): string;
+            setEndpointAndApi(endpoint: string, api: string): void;
+        }
+
+        let endpoint: Endpoint;
         let theExtensionManager: ExtensionManager;
 
         interface InitializerOptions {
@@ -487,7 +494,7 @@ declare namespace Autodesk {
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
-            getDocumentNode(): object;
+            getDocumentNode(): any;
             getExternalIdMapping(onSuccessCallback: (idMapping: { [key: string]: number; }) => void, onErrorCallback: () => void): any;
             getFastLoadList(): any;
             getFragmentMap(): any;
@@ -565,6 +572,8 @@ declare namespace Autodesk {
             setVerticalFov(fov: number, adjustPosition: boolean): void;
             setUseLeftHandedInput(value: boolean): any;
             setZoomTowardsPivot(value: boolean): any;
+            getWorldPoint(x: number, y: number): THREE.Vector3;
+            screenToViewport(x: number, y: number): THREE.Vector3;
         }
 
         interface Properties {
@@ -963,6 +972,12 @@ declare namespace Autodesk {
             class Viewer3DImpl {
                 constructor(thecanvas: any, theapi: any);
 
+                camera: THREE.Camera;
+                canvas: HTMLCanvasElement;
+                model: any;
+                scene: THREE.Scene;
+                sceneAfter: THREE.Scene;
+                selector: any;
                 visibilityManager: VisibilityManager;
 
                 addOverlay(overlayName: string, mesh: any): void;
@@ -973,10 +988,6 @@ declare namespace Autodesk {
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
                 invalidate(needsClear: boolean, needsRender?: boolean, overlayDirty?: boolean): void;
                 setLightPreset(index: number, force?: boolean): void;
-                selector: any;
-                model: any;
-                scene: THREE.Scene;
-                sceneAfter: THREE.Scene;
                 viewportToClient(viewportX: number, viewportY: number): THREE.Vector3;
                 modelqueue(): any;
                 matman(): any;
@@ -986,10 +997,10 @@ declare namespace Autodesk {
                 removeOverlay(name: string, mesh: any): any;
                 getFitBounds(p: boolean): THREE.Box3;
                 rayIntersect(ray: THREE.Ray): HitTestResult;
-
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
+                viewportToRay(vpVec: THREE.Vector3, ray: THREE.Ray): THREE.Ray;
             }
 
             class VisibilityManager {

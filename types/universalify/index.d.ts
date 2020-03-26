@@ -1,4 +1,4 @@
-// Type definitions for universalify 0.1
+// Type definitions for universalify 1.0
 // Project: https://github.com/RyanZim/universalify#readme
 // Definitions by: Richie Bendall <https://github.com/Richienb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

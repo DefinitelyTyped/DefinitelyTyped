@@ -27,9 +27,11 @@ import * as url from 'url';
         ws.send('something', (error?: Error) => {});
         ws.send('something', {}, (error?: Error) => {});
     });
-
-    wss.on('upgrade', (res) => {
-        console.log(`response: ${Object.keys(res)}`);
+    wss.once('connection', (ws, req) => {
+        ws.send('something');
+    });
+    wss.off('connection', (ws, req) => {
+        ws.send('something');
     });
 }
 

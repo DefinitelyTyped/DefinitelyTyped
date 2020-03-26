@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.21
+// Type definitions for luxon 1.22
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -9,6 +9,7 @@
 //                 Jason Yu <https://github.com/ycmjason>
 //                 Miklos Danka <https://github.com/mdanka>
 //                 Aitor Pérez Rodal <https://github.com/Aitor1995>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -168,7 +169,13 @@ export class DateTime {
         format: string,
         options?: DateTimeOptions,
     ): ExplainedFormat;
-    static invalid(reason: any): DateTime;
+    /**
+     * Create an invalid DateTime.
+     * @param reason - simple string of why this DateTime is invalid.
+     * Should not contain parameters or anything else data-dependent
+     * @param [explanation=null] - longer explanation, may include parameters and other useful debugging information
+     */
+    static invalid(reason: string, explanation?: string): DateTime;
     static isDateTime(o: any): o is DateTime;
     static local(
         year?: number,
