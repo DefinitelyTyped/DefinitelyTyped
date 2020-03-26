@@ -56,7 +56,7 @@ export interface FileUploaderDropContainerProps extends FileUploaderDropContaine
    * Event handler that is called after files are added to the uploader
    * The event handler signature looks like `onAddFiles(evt, { addedFiles })`
    */
-  onAddFiles: (event: React.MouseEvent<HTMLElement>, content: {addedFiles: string[]}) => void;
+  onAddFiles?: (event: React.MouseEvent<HTMLElement>, content: {addedFiles: string[]}) => void;
 }
 
 export default class FileUploaderDropContainer extends React.Component<FileUploaderDropContainerProps> { }
