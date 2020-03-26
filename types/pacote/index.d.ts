@@ -249,13 +249,6 @@ export interface PacoteOptions {
      * time is part of the extended packument metadata.
      */
     fullMetadata?: boolean;
-
-    // The following options are undocumented but supported by lib/fetcher.js
-    defaultIntegrityAlgorithm?: string;
-    npmBin?: string;
-    npmRunCmd?: string;
-    npmInstallCmd?: string[];
-    npmCliConfig?: string[];
 }
 
 export type Options = PacoteOptions & npmFetch.Options;
