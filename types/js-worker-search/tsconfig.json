@@ -19,5 +19,5 @@
     "files": [
         "index.d.ts",
         "js-worker-search-tests.ts"
-    ],
+    ]
 }
