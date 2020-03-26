@@ -33,7 +33,7 @@ videojs("example_video_1").ready(function() {
     const seekableEnd: number = liveTracker.seekableEnd();
     const atLiveEdge: boolean = liveTracker.atLiveEdge();
     const behindLiveEdge: boolean = liveTracker.behindLiveEdge();
-    const pastSeekEnd: boolean = liveTracker.pastSeekEnd();
+    const pastSeekEnd: number = liveTracker.pastSeekEnd();
     const isLive: boolean = liveTracker.isLive();
     liveTracker.seekToLiveEdge();
     liveTracker.startTracking();

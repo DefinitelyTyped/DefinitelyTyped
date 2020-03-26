@@ -2987,7 +2987,7 @@ declare namespace videojs {
          * This is the main value that we use to track if the player is live or not.
          * Every 30ms we add 0.03 seconds to this value and every seekableendchange it is reset to 0 and 0.03 is added to it right away.
          */
-        pastSeekEnd(): boolean;
+        pastSeekEnd(): number;
 
         /**
          * isTracking and isLive do the same thing they tell you if the LiveTracker is currently tracking live playback
