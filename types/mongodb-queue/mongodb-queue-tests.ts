@@ -3,7 +3,9 @@ import { MongoClient } from 'mongodb';
 
 const mongoClient = new MongoClient('mongodb://localhost:27017');
 mongoClient.connect().then(() => {
+    const deadQueue = queue(mongoClient.db('test'), 'test-deadqueue');
     const opts: queue.QueueOptions = {
+        deadQueue,
         delay: 0,
         maxRetries: 5,
         visibility: 30,
