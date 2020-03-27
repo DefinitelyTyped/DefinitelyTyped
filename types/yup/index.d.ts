@@ -69,7 +69,7 @@ export interface Schema<T> {
     default(value: any): this;
     default(): T;
     typeError(message?: TestOptionsMessage): this;
-    oneOf(arrayOfValues: Array<T | Ref | null>, message?: MixedLocale['oneOf']): this;
+    oneOf<S extends T>(arrayOfValues: Array<S | Ref>, message?: MixedLocale['oneOf']): Schema<S>;
     notOneOf(arrayOfValues: any[], message?: MixedLocale['notOneOf']): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
     test(
@@ -98,6 +98,7 @@ export interface MixedSchema<T = any> extends Schema<T> {
     notRequired(): MixedSchema<T | undefined>;
     concat(schema: this): this;
     concat<U>(schema: MixedSchema<U>): MixedSchema<T | U>;
+    oneOf<S extends T>(arrayOfValues: Array<S | Ref>, message?: MixedLocale['oneOf']): MixedSchema<S>;
 }
 
 export interface StringSchemaConstructor {
@@ -126,6 +127,7 @@ export interface StringSchema<T extends string | null | undefined = string> exte
     nullable(isNullable?: boolean): StringSchema<T>;
     required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>;
     notRequired(): StringSchema<T | undefined>;
+    oneOf<S extends T>(arrayOfValues: Array<S | Ref>, message?: MixedLocale['oneOf']): StringSchema<S>;
 }
 
 export interface NumberSchemaConstructor {
@@ -148,6 +150,7 @@ export interface NumberSchema<T extends number | null | undefined = number> exte
     nullable(isNullable?: boolean): NumberSchema<T>;
     required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined>>;
     notRequired(): NumberSchema<T | undefined>;
+    oneOf<S extends T>(arrayOfValues: Array<S | Ref>, message?: MixedLocale['oneOf']): NumberSchema<S>;
 }
 
 export interface BooleanSchemaConstructor {
@@ -161,6 +164,7 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean> e
     nullable(isNullable?: boolean): BooleanSchema<T>;
     required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, undefined>>;
     notRequired(): BooleanSchema<T | undefined>;
+    oneOf<S extends T>(arrayOfValues: Array<S | Ref>, message?: MixedLocale['oneOf']): BooleanSchema<S>;
 }
 
 export interface DateSchemaConstructor {
@@ -176,6 +180,7 @@ export interface DateSchema<T extends Date | null | undefined = Date> extends Sc
     nullable(isNullable?: boolean): DateSchema<T>;
     required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined>>;
     notRequired(): DateSchema<T | undefined>;
+    oneOf<S extends T>(arrayOfValues: Array<S | Ref>, message?: MixedLocale['oneOf']): DateSchema<S>;
 }
 
 export interface ArraySchemaConstructor {
@@ -190,6 +195,7 @@ interface BasicArraySchema<T extends any[] | null | undefined> extends Schema<T>
     compact(
         rejector?: (value: InferredArrayType<T>, index: number, array: Array<InferredArrayType<T>>) => boolean,
     ): this;
+    oneOf<S extends T>(arrayOfValues: Array<S | Ref>, message?: MixedLocale['oneOf']): BasicArraySchema<S>;
 }
 
 export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T[] | null | undefined> {
@@ -266,6 +272,7 @@ export interface ObjectSchema<T extends object | null | undefined = object> exte
     notRequired(): ObjectSchema<T | undefined>;
     concat(schema: this): this;
     concat<U extends object>(schema: ObjectSchema<U>): ObjectSchema<T & U>;
+    oneOf<S extends T>(arrayOfValues: Array<S | Ref>, message?: MixedLocale['oneOf']): ObjectSchema<S>;
 }
 
 export type TransformFunction<T> = (this: T, value: any, originalValue: any) => any;
