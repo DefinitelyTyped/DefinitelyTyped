@@ -44,6 +44,7 @@ export namespace Plaid {
     interface LinkHandler {
         open: () => void;
         exit: (options?: ExitOptions) => void;
+        destroy: () => void;
         institutions: Institution[];
     }
 
