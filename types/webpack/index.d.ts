@@ -1833,7 +1833,7 @@ declare namespace webpack {
     }
 
     class ProgressPlugin extends Plugin {
-        constructor(options?: ProgressPlugin.Handler | ProgressPlugin.Options);
+        constructor(options?: ProgressPlugin.Options | ProgressPlugin.Handler);
     }
 
     namespace ProgressPlugin {
