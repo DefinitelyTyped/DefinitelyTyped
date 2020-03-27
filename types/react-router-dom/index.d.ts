@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { match } from "react-router";
+import { match } from 'react-router';
 import * as React from 'react';
 import * as H from 'history';
 
@@ -39,7 +39,7 @@ export {
 
 export interface BrowserRouterProps {
     basename?: string;
-    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
+    getUserConfirmation?: (message: string, callback: (ok: boolean) => void) => void;
     forceRefresh?: boolean;
     keyLength?: number;
 }
@@ -47,7 +47,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, any> {}
 
 export interface HashRouterProps {
     basename?: string;
-    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
+    getUserConfirmation?: (message: string, callback: (ok: boolean) => void) => void;
     hashType?: 'slash' | 'noslash' | 'hashbang';
 }
 export class HashRouter extends React.Component<HashRouterProps, any> {}
@@ -58,23 +58,14 @@ export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttribut
     replace?: boolean;
     innerRef?: React.Ref<HTMLAnchorElement>;
 }
-export class Link<S = H.LocationState> extends React.Component<
-  LinkProps<S>,
-  any
-> {}
+export class Link<S = H.LocationState> extends React.Component<LinkProps<S>, any> {}
 
 export interface NavLinkProps<S = H.LocationState> extends LinkProps<S> {
-  activeClassName?: string;
-  activeStyle?: React.CSSProperties;
-  exact?: boolean;
-  strict?: boolean;
-  isActive?<Params extends { [K in keyof Params]?: string }>(
-    match: match<Params>,
-    location: H.Location<S>,
-  ): boolean;
-  location?: H.Location<S>;
+    activeClassName?: string;
+    activeStyle?: React.CSSProperties;
+    exact?: boolean;
+    strict?: boolean;
+    isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params>, location: H.Location<S>): boolean;
+    location?: H.Location<S>;
 }
-export class NavLink<S = H.LocationState> extends React.Component<
-  NavLinkProps<S>,
-  any
-> {}
+export class NavLink<S = H.LocationState> extends React.Component<NavLinkProps<S>, any> {}
