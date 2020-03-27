@@ -58,7 +58,14 @@ export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttribut
     replace?: boolean;
     innerRef?: React.Ref<HTMLAnchorElement>;
 }
-export class Link<S = H.LocationState> extends React.Component<LinkProps<S>, any> {}
+export function Link<S = H.LocationState>(
+    // TODO: Define this as ...params: Parameters<Link<S>> when only TypeScript >= 3.1 support is needed.
+    props: React.PropsWithoutRef<LinkProps<S>> & React.RefAttributes<HTMLAnchorElement>,
+): ReturnType<Link<S>>;
+export interface Link<S = H.LocationState>
+    extends React.ForwardRefExoticComponent<
+        React.PropsWithoutRef<LinkProps<S>> & React.RefAttributes<HTMLAnchorElement>
+    > {}
 
 export interface NavLinkProps<S = H.LocationState> extends LinkProps<S> {
     activeClassName?: string;

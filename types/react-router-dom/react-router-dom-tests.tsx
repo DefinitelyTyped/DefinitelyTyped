@@ -39,7 +39,9 @@ const MyLink: React.FC<LinkProps> = props => <Link style={{ color: 'red' }} {...
 
 const refCallback: React.Ref<HTMLAnchorElement> = node => {};
 <Link to="/url" replace={true} innerRef={refCallback} />;
+<Link to="/url" replace={true} ref={refCallback} />;
 const ref = React.createRef<HTMLAnchorElement>();
 <Link to="/url" replace={true} innerRef={ref} />;
+<Link to="/url" replace={true} ref={ref} />;
 
 <Link to="/url" aria-current="page" />;
