@@ -99,20 +99,22 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     strOrUndefined = requestContext.eventType;
     strOrUndefined = requestContext.extendedRequestId;
     str = requestContext.httpMethod;
-    strOrNull = requestContext.identity.accessKey;
-    strOrNull = requestContext.identity.accountId;
-    strOrNull = requestContext.identity.apiKey;
-    strOrNull = requestContext.identity.apiKeyId;
-    strOrNull = requestContext.identity.caller;
-    strOrNull = requestContext.identity.cognitoAuthenticationProvider;
-    strOrNull = requestContext.identity.cognitoAuthenticationType;
-    strOrNull = requestContext.identity.cognitoIdentityId;
-    strOrNull = requestContext.identity.cognitoIdentityPoolId;
-    strOrNull = requestContext.identity.principalOrgId;
-    str = requestContext.identity.sourceIp;
-    strOrNull = requestContext.identity.user;
-    strOrNull = requestContext.identity.userAgent;
-    strOrNull = requestContext.identity.userArn;
+    if (requestContext.identity !== undefined) {
+      strOrNull = requestContext.identity.accessKey;
+      strOrNull = requestContext.identity.accountId;
+      strOrNull = requestContext.identity.apiKey;
+      strOrNull = requestContext.identity.apiKeyId;
+      strOrNull = requestContext.identity.caller;
+      strOrNull = requestContext.identity.cognitoAuthenticationProvider;
+      strOrNull = requestContext.identity.cognitoAuthenticationType;
+      strOrNull = requestContext.identity.cognitoIdentityId;
+      strOrNull = requestContext.identity.cognitoIdentityPoolId;
+      strOrNull = requestContext.identity.principalOrgId;
+      str = requestContext.identity.sourceIp;
+      strOrNull = requestContext.identity.user;
+      strOrNull = requestContext.identity.userAgent;
+      strOrNull = requestContext.identity.userArn;
+    }
     str = requestContext.path;
     str = requestContext.stage;
     str = requestContext.requestId;
@@ -196,7 +198,7 @@ const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback)
         str = event.resource; // $ExpectError
     } else {
         event.type; // $ExpectType "REQUEST"
-        str = event.methodArn; // $ExpectError
+        str = event.methodArn;
         str = event.resource;
     }
 
@@ -216,7 +218,7 @@ const authorizerWithCustomContext: APIGatewayAuthorizerWithContextHandler<Custom
         str = event.resource; // $ExpectError
     } else {
         event.type; // $ExpectType "REQUEST"
-        str = event.methodArn; // $ExpectError
+        str = event.methodArn;
         str = event.resource;
     }
 
@@ -268,26 +270,19 @@ const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, cont
     event.type; // $ExpectType "REQUEST"
 
     str = event.type;
-    str = event.methodArn; // $ExpectError
     str = event.authorizationToken; // $ExpectError
     str = event.resource;
     str = event.path;
     str = event.httpMethod;
     if (event.headers !== null)
         str = event.headers[str];
-    if (event.multiValueHeaders !== null)
-        str = event.multiValueHeaders[str][num];
     if (event.pathParameters !== null)
         str = event.pathParameters[str];
     if (event.queryStringParameters !== null)
         str = event.queryStringParameters[str];
-    if (event.multiValueQueryStringParameters !== null)
-        str = event.multiValueQueryStringParameters[str][num];
     if (event.stageVariables !== null)
         str = event.stageVariables[str];
     const requestContext: APIGatewayEventRequestContext = event.requestContext;
-    str = event.domainName;
-    str = event.apiId;
 
     const result = createAuthorizerResult();
 
@@ -300,7 +295,7 @@ const requestAuthorizerWithCustomContext: APIGatewayRequestAuthorizerWithContext
     event.type; // $ExpectType "REQUEST"
 
     str = event.type;
-    str = event.methodArn; // $ExpectError
+    str = event.methodArn;
     str = event.authorizationToken; // $ExpectError
 
     const result = createAuthorizerResultWithCustomContext();
