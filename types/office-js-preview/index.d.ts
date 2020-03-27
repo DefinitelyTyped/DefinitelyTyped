@@ -9213,7 +9213,7 @@ declare namespace Office {
          */
         enhancedLocation: EnhancedLocation;
         /**
-         * Gets or sets the {@link Office.AllDayEvent} of an appointment. 
+         * Gets or sets the {@link Office.IsAllDayEvent} property of an appointment.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9330,7 +9330,7 @@ declare namespace Office {
          */
         requiredAttendees: Recipients;
         /**
-         * Gets or sets the {@link Office.AppointmentSensitivity | sensitivity} of an appointment. 
+         * Gets or sets the {@link Office.Sensitivity | sensitivity} of an appointment. 
          *
          * [Api set: Mailbox Preview]
          *
