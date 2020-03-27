@@ -45,3 +45,5 @@ const ref = React.createRef<HTMLAnchorElement>();
 <Link to="/url" replace={true} ref={ref} />;
 
 <Link to="/url" aria-current="page" />;
+
+<Link<{foo: number}> to={{pathname: "abc", state: {foo: 5}}}  />;
