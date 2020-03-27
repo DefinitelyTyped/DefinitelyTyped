@@ -463,7 +463,12 @@ export interface Request<P extends Params = ParamsDictionary, ResBody = any, Req
 
     params: P;
 
-    query: any;
+    query: {
+        [key: string]:
+            // The value type here is a "poor man's `unknown`". When these types support TypeScript
+            // 3.0+, we can replace this with `unknown`.
+            {} | null | undefined
+    };
 
     route: any;
 

@@ -58,3 +58,7 @@ app.post<never, { foo: string }, { bar: number }>('/', (req, res) => {
     res.json({ baz: "fail" }); // $ExpectError
     req.body.baz; // $ExpectError
 });
+
+app.get("/", (req) => {
+    req.query.foo; // $ExpectType {} | null | undefined
+});
