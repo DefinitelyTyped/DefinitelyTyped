@@ -95,8 +95,6 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
         // Even probable mistakes: lambda contexts properties are converted to string
         num = authContext.num;
     }
-    numOrUndefined = requestContext.connectedAt;
-    strOrUndefined = requestContext.connectionId;
     strOrUndefined = requestContext.domainName;
     strOrUndefined = requestContext.eventType;
     strOrUndefined = requestContext.extendedRequestId;
@@ -115,15 +113,12 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     strOrNull = requestContext.identity.user;
     strOrNull = requestContext.identity.userAgent;
     strOrNull = requestContext.identity.userArn;
-    strOrUndefined = requestContext.messageDirection;
-    strOrUndefinedOrNull = requestContext.messageId;
     str = requestContext.path;
     str = requestContext.stage;
     str = requestContext.requestId;
     strOrUndefined = requestContext.requestTime;
     str = requestContext.resourceId;
     str = requestContext.resourcePath;
-    strOrUndefined = requestContext.routeKey;
 
     const result = createProxyResult();
 
