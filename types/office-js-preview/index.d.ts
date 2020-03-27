@@ -7899,7 +7899,7 @@ declare namespace Office {
          */
         enum AppointmentSensitivityType {
             /**
-             * Treat the item as normal.
+             * The item needs no special treatment.
              *
              * [Api set: Mailbox Preview]
              */
