@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
+import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 
 function TestAnimatedAPI() {
     // Value
@@ -45,9 +45,15 @@ function TestAnimatedAPI() {
     spring1.start();
     spring1.stop();
 
-    Animated.parallel([Animated.spring(v1, { toValue: 1, useNativeDriver: false }), Animated.spring(v2, { toValue: 1, useNativeDriver: false })], {
-        stopTogether: true,
-    });
+    Animated.parallel(
+        [
+            Animated.spring(v1, { toValue: 1, useNativeDriver: false }),
+            Animated.spring(v2, { toValue: 1, useNativeDriver: false }),
+        ],
+        {
+            stopTogether: true,
+        },
+    );
 
     Animated.decay(v1, {
         velocity: 2,
@@ -93,7 +99,7 @@ function TestAnimatedAPI() {
                 ]}
             />
 
-            <Animated.Image style={position.getTranslateTransform()} source={{uri: 'https://picsum.photos/200'}} />
+            <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
         </View>
     );
 }
