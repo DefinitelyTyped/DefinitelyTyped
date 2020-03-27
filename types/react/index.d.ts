@@ -575,7 +575,7 @@ declare namespace React {
     }
 
     /**
-     * @deprecated Use ForwardRefRenderingFunction. forwardRef doesn't accept a
+     * @deprecated Use ForwardRefRenderFunction. forwardRef doesn't accept a
      *             "real" component.
      */
     interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderFunction<T, P> {}

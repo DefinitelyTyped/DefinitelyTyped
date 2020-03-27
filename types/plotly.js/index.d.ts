@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.44
+// Type definitions for plotly.js 1.50
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -16,6 +16,7 @@
 //                 Michael Adams <https://github.com/mtadams007>
 //                 Michael Arnett <https://github.com/marnett-git>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Brandon Mitchell <https://github.com/brammitch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from "d3";
@@ -322,6 +323,7 @@ export interface Layout {
 	polar7: Partial<PolarLayout>;
 	polar8: Partial<PolarLayout>;
 	polar9: Partial<PolarLayout>;
+	transition: Transition;
 }
 
 export interface Legend extends Label {
@@ -657,6 +659,7 @@ export interface PlotData {
 	'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
 	hoverlabel: Partial<HoverLabel>;
 	hovertemplate: string | string[];
+	hovertext: string | string[];
 	textinfo: 'label' | 'label+text' | 'label+value' | 'label+percent' | 'label+text+value'
 	| 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
 	| 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
@@ -1386,6 +1389,11 @@ export interface Transition {
 	'linear-out' | 'quad-out' | 'cubic-out' | 'sin-out' | 'exp-out' | 'circle-out' | 'elastic-out' | 'back-out' |
 	'bounce-out' | 'linear-in-out' | 'quad-in-out' | 'cubic-in-out' | 'sin-in-out' | 'exp-in-out' |
 	'circle-in-out' | 'elastic-in-out' | 'back-in-out' | 'bounce-in-out';
+	/**
+	 * Determines whether the figure's layout or traces smoothly transitions during updates that make both traces
+	 * and layout change. Default is "layout first".
+	 */
+	ordering?: 'layout first' | 'traces first';
 }
 
 export interface SliderStep {

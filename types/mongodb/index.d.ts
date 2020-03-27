@@ -230,11 +230,11 @@ export type WithTransactionCallback<T> = (session: ClientSession) => Promise<T>;
  * see {@link http://mongodb.github.io/node-mongodb-native/3.5/api/MongoError.html}
  */
 export class MongoError extends Error {
-    constructor(message: string);
+    constructor(message: string | Error | object);
     /**
      * @deprecated
      */
-    static create(options: string): MongoError;
+    static create(options: string | Error | object): MongoError;
     /**
      * Checks the error to see if it has an error label
      */
