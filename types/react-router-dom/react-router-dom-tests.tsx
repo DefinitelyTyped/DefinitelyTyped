@@ -5,19 +5,17 @@ import * as H from 'history';
 const getIsActive = (extraProp: string) => (match: match, location: H.Location) => !!extraProp;
 
 interface Props extends NavLinkProps {
-  extraProp: string;
+    extraProp: string;
 }
 
 export default function(props: Props) {
-  const {extraProp, ...rest} = props;
-  const isActive = getIsActive(extraProp);
-  return (
-    <NavLink {...rest} isActive={isActive}/>
-  );
+    const { extraProp, ...rest } = props;
+    const isActive = getIsActive(extraProp);
+    return <NavLink {...rest} isActive={isActive} />;
 }
 
 type OtherProps = RouteComponentProps<{
-  id: string;
+    id: string;
 }>;
 
 const Component: React.FC<OtherProps> = props => {
@@ -46,4 +44,4 @@ const ref = React.createRef<HTMLAnchorElement>();
 
 <Link to="/url" aria-current="page" />;
 
-<Link<{foo: number}> to={{pathname: "abc", state: {foo: 5}}}  />;
+<Link<{ foo: number }> to={{ pathname: 'abc', state: { foo: 5 } }} />;
