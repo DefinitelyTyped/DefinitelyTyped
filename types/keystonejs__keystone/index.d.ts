@@ -16,6 +16,13 @@ declare module '@keystonejs/keystone' {
     type KeyValues<Keys extends string = any, Values = any> = { [key in Keys]: Values };
 
     class BaseKeystoneAdapter {}
+    class BaseListAdapter {
+        findById<ListItem = unknown>(id: string): Promise<ListItem>;
+        create<ListItem = unknown>(data: ListItem): Promise<ListItem>;
+        update<ListItem = unknown>(id: string, data: ListItem): Promise<ListItem>;
+        find<ListItem = unknown>(condition: any): Promise<ListItem[]>;
+        findOne<ListItem = unknown>(condition: any): Promise<ListItem>;
+    }
     class BaseAuthStrategy {}
     class BaseApp {
         build(args?: { distDir: string; keystone: Keystone }): void | Promise<void>;
@@ -48,6 +55,7 @@ declare module '@keystonejs/keystone' {
     }
 
     interface AuthenticationContext {
+        existingItem?: { item: any }; // TODO
         authentication: { item: any }; // TODO
     }
 
@@ -195,6 +203,10 @@ declare module '@keystonejs/keystone' {
         | UnsplashOptions
         | UuidOptions;
 
+    interface List<Fields extends string = string> extends ListSchema {
+        adapter: BaseListAdapter;
+    }
+
     /** Hooks */
     interface ListSchema<Fields extends string = string> {
         fields: { [fieldName in Fields]: AllFieldsOptions };
@@ -219,6 +231,8 @@ declare module '@keystonejs/keystone' {
 
     class Keystone<ListNames extends string = string> {
         constructor(options: KeystoneOptions);
+
+        lists: { [key in ListNames]: List };
 
         createAuthStrategy(options: { type: BaseAuthStrategy; list: ListNames; config?: any }): any; // TODO
         createList(name: string, schema: ListSchema): void;
