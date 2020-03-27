@@ -13,6 +13,13 @@ declare module "readline" {
     class Interface extends events.EventEmitter {
         readonly terminal: boolean;
 
+        // Need direct access to line/cursor data, for use in external processes
+        // see: https://github.com/nodejs/node/issues/30347
+        /** The current input data */
+        readonly line: string;
+        /** The current cursor position in the input line */
+        readonly cursor: number;
+
         /**
          * NOTE: According to the documentation:
          *
@@ -39,6 +46,13 @@ declare module "readline" {
         resume(): this;
         close(): void;
         write(data: string | Buffer, key?: Key): void;
+
+        /**
+         * Returns the real position of the cursor in relation to the input
+         * prompt + string.  Long input (wrapping) strings, as well as multiple
+         * line prompts are included in the calculations.
+         */
+        getCursorPos(): CursorPos;
 
         /**
          * events.EventEmitter
@@ -123,13 +137,20 @@ declare module "readline" {
         prompt?: string;
         crlfDelay?: number;
         removeHistoryDuplicates?: boolean;
+        escapeCodeTimeout?: number;
+        tabSize?: number;
     }
 
     function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
     function createInterface(options: ReadLineOptions): Interface;
-    function emitKeypressEvents(stream: NodeJS.ReadableStream, interface?: Interface): void;
+    function emitKeypressEvents(stream: NodeJS.ReadableStream, readlineInterface?: Interface): void;
 
     type Direction = -1 | 0 | 1;
+
+    interface CursorPos {
+        rows: number;
+        cols: number;
+    }
 
     /**
      * Clears the current line of this WriteStream in a direction identified by `dir`.
@@ -142,7 +163,7 @@ declare module "readline" {
     /**
      * Moves this WriteStream's cursor to the specified position.
      */
-    function cursorTo(stream: NodeJS.WritableStream, x: number, y: number, callback?: () => void): boolean;
+    function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number, callback?: () => void): boolean;
     /**
      * Moves this WriteStream's cursor relative to its current position.
      */

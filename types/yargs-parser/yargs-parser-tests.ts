@@ -6,9 +6,7 @@ parse(['--foo', '-bar']);
 
 // prettier-ignore
 // $ExpectError
-parse(['--foo', '-bar'], {
-    string: 123,
-});
+parse(['--foo', '-bar'], { string: 123, });
 
 parse(['--foo', '-bar'], {
     // $ExpectError

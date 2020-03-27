@@ -25,6 +25,7 @@ interface JsBeautifyOptions {
   wrap_attributes?: 'auto' | 'force';
   wrap_attributes_indent_size?: number;
   end_with_newline?: boolean;
+  e4x?: boolean;
 }
 
 // See https://github.com/beautify-web/js-beautify/blob/v1.8.2/js/src/html/beautifier.js#L268-L330

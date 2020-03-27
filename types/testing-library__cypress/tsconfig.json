@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@testing-library/cypress": [
+                "testing-library__cypress"
+            ],
+            "@testing-library/dom": [
+                "testing-library__dom"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "testing-library__cypress-tests.ts"
+    ]
+}

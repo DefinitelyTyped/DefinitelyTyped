@@ -14,9 +14,6 @@
 // limitations under the License.
 //
 
-import { Azure } from 'azure-sb';
-import Dictionary = Azure.ServiceBus.Dictionary;
-
 export namespace Azure.ServiceBus.Results {
     export interface RegistrationResult {
         serialize(type: string, resource: object, properties: string[]): string;

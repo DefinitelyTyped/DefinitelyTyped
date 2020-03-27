@@ -9,7 +9,7 @@ stdout.inspect({isTTY: true});
 stdout.inspectSync();
 // $ExpectError
 stdout.inspectSync({});
-// $ExpectType ReadonlyArray<string>
+// $ExpectType ReadonlyArray<string> || Output
 stdout.inspectSync({isTTY: false}, (output) => output);
 
 // $ExpectType Restore
@@ -35,7 +35,7 @@ stderr.inspect({isTTY: true});
 stderr.inspectSync();
 // $ExpectError
 stderr.inspectSync({});
-// $ExpectType ReadonlyArray<string>
+// $ExpectType ReadonlyArray<string> || Output
 stderr.inspectSync({isTTY: false}, (output) => output);
 
 // $ExpectType Restore

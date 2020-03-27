@@ -1,7 +1,7 @@
 import { BlockInstance } from '@wordpress/blocks';
 import { ComponentType, ReactNode } from '@wordpress/element';
 
-import { EditorSettings } from '../';
+import { EditorSettings, EditorBlockListSettings } from '../';
 
 declare namespace BlockEditorProvider {
     interface Props {
@@ -35,7 +35,7 @@ declare namespace BlockEditorProvider {
          * except for the first.
          */
         onInput?(blocks: BlockInstance[]): void;
-        settings?: Partial<EditorSettings>;
+        settings?: Partial<EditorSettings & EditorBlockListSettings>;
         useSubRegistry?: boolean;
         /**
          * The current array of blocks.

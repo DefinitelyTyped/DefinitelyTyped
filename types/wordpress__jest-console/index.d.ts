@@ -7,7 +7,7 @@
 /// <reference types="jest" />
 
 declare namespace jest {
-    interface Matchers<R> {
+    interface Matchers<R, T> {
         /**
          * Ensure that `console.error` function was called.
          */

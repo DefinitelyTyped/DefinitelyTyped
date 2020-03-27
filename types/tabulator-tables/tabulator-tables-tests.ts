@@ -3,7 +3,7 @@
 
 // constructor
 let table = new Tabulator('#test');
-table.copyToClipboard('selection');
+table.copyToClipboard('selected');
 table.searchRows('name', '<', 3);
 table.setFilter('name', '<=', 3);
 table.setFilter([
@@ -17,7 +17,7 @@ table.setFilter(
         // filterParams - params object passed to the filter
         return data.name === 'bob' && data.height < filterParams.height; // must return a boolean, true if it passes the filter.
     },
-    { height: 3 }
+    { height: 3 },
 );
 table.setFilter('age', 'in', ['steve', 'bob', 'jim']);
 table.setFilter([
@@ -62,7 +62,10 @@ table
     });
 
 table
-    .updateOrAddData([{ id: 1, name: 'bob' }, { id: 3, name: 'steve' }])
+    .updateOrAddData([
+        { id: 1, name: 'bob' },
+        { id: 3, name: 'steve' },
+    ])
     .then(rows => {
         // rows - array of the row components for the rows updated or added
         // run code after data has been updated
@@ -71,7 +74,10 @@ table
         // handle error updating data
     });
 
-table.updateData([{ id: 1, name: 'bob', gender: 'male' }, { id: 2, name: 'Jenny', gender: 'female' }]);
+table.updateData([
+    { id: 1, name: 'bob', gender: 'male' },
+    { id: 2, name: 'Jenny', gender: 'female' },
+]);
 table
     .updateData([{ id: 1, name: 'bob' }])
     .then(() => {
@@ -388,7 +394,10 @@ options.ajaxContentType = {
     },
 };
 
-options.initialSort = [{ column: 'name', dir: 'asc' }, { column: 'name2', dir: 'desc' }];
+options.initialSort = [
+    { column: 'name', dir: 'asc' },
+    { column: 'name2', dir: 'desc' },
+];
 options.initialFilter = [{ field: 'color', type: '=', value: 'red' }];
 options.initialHeaderFilter = [
     { field: 'color', value: 'red' }, // set the initial value of the header filter to "red"
@@ -478,3 +487,138 @@ table.download('pdf', 'data.pdf', {
 table.download('xlsx', 'AllData.xlsx');
 table.download('csv', 'data.csv', { bom: true });
 table.download('csv', 'data.csv', { delimiter: '.' });
+
+// 4.4 updates
+table.moveColumn('name', 'age', true);
+
+let column = {} as Tabulator.ColumnComponent;
+column.move('age', true);
+
+colDef.editorParams = {
+    elementAttributes: {
+        '+style': 'background-color:#f00;',
+        maxlength: '10',
+    },
+};
+
+colDef.editorParams = {
+    values: ['red', 'green', 'blue'],
+    defaultValue: 'green',
+};
+
+colDef.editorParams = {
+    values: 'color',
+    defaultValue: 'green',
+};
+
+colDef.clipboard = false;
+
+let group = {} as Tabulator.GroupComponent;
+let field = group.getField();
+
+options.tabEndNewRow = true;
+options.tabEndNewRow = { name: 'steve', age: 62 };
+options.tabEndNewRow = row => {
+    return { name: 'steve', age: 62 };
+};
+
+options.headerSort = false;
+options.headerSortTristate = true;
+
+colDef.formatter = 'rowSelection';
+
+options.invalidOptionWarnings = false;
+
+colDef.editor = (cell, onRendered, success, cancel, editorParams) => {
+    const editor = document.createElement('input');
+    const successful: boolean = success('test');
+    return editor;
+};
+
+let groupColDef: Tabulator.ColumnDefinition = {
+    title: 'Full name',
+    field: '',
+    columns: [
+        { title: 'First name', field: '' },
+        { title: 'Last name', field: '' },
+    ],
+};
+
+// Persistence
+table = new Tabulator('#example-table', {
+    persistence: true, // enable table persistence
+});
+
+table = new Tabulator('#example-table', {
+    persistence: {
+        sort: true, // persist column sorting
+        filter: true, // persist filter sorting
+        group: true, // persist row grouping
+        page: true, // persist page
+        columns: true, // persist columns
+    },
+});
+
+table = new Tabulator('#example-table', {
+    persistence: {
+        group: {
+            groupBy: true, // persist only the groupBy setting
+            groupStartOpen: false,
+            groupHeader: false,
+        },
+    },
+});
+
+table = new Tabulator('#example-table', {
+    persistence: {
+        page: {
+            size: true, // persist the current page size
+            page: false, // do not persist the current page
+        },
+    },
+});
+
+table = new Tabulator('#example-table', {
+    persistence: {
+        columns: ['width', 'visible', 'frozen'], // persist changes to the width, visible and frozen properties
+    },
+});
+
+table = new Tabulator('#test', {
+    blockRedraw: () => {},
+    restoreRedraw: () => {},
+});
+
+table = Tabulator.prototype.findTable('#example-table');
+
+table.getRows('visible');
+table.deleteRow([15, 7, 9]);
+
+table.addColumn({} as Tabulator.ColumnDefinition).then(() => {});
+
+table.deleteColumn('name').then(() => {});
+
+table
+    .updateColumnDefinition('age', { title: 'Updated Title', frozen: true })
+    .then(() => {
+        // run code after column has been scrolled to
+    })
+    .catch(error => {
+        // handle error scrolling to column
+    });
+
+column.updateDefinition({ title: 'Updated' });
+table.selectRow('visible');
+table.download('csv', 'data.csv', { delimiter: '.' }, 'visible');
+table.download('html', 'data.html');
+table.download('html', 'data.html', { style: true });
+table.download('xlsx', 'data.xlsx', {
+    documentProcessing: workbook => {
+        return workbook;
+    },
+});
+
+table = new Tabulator('#example-table', {
+    scrollVertical: () => {},
+    scrollHorizontal: () => {},
+});

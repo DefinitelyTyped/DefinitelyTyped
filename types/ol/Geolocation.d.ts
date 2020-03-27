@@ -1,6 +1,6 @@
 import { Coordinate } from './coordinate';
 import { EventsKey } from './events';
-import Event from './events/Event';
+import BaseEvent from './events/Event';
 import Polygon from './geom/Polygon';
 import BaseObject, { ObjectEvent } from './Object';
 import { ProjectionLike } from './proj';
@@ -13,25 +13,25 @@ export interface Options {
 }
 export default class Geolocation extends BaseObject {
     constructor(opt_options?: Options);
-    getAccuracy(): number | undefined;
+    getAccuracy(): number;
     getAccuracyGeometry(): Polygon;
-    getAltitude(): number | undefined;
-    getAltitudeAccuracy(): number | undefined;
-    getHeading(): number | undefined;
-    getPosition(): Coordinate | undefined;
-    getProjection(): Projection | undefined;
-    getSpeed(): number | undefined;
+    getAltitude(): number;
+    getAltitudeAccuracy(): number;
+    getHeading(): number;
+    getPosition(): Coordinate;
+    getProjection(): Projection;
+    getSpeed(): number;
     getTracking(): boolean;
-    getTrackingOptions(): PositionOptions | undefined;
+    getTrackingOptions(): PositionOptions;
     setProjection(projection: ProjectionLike): void;
     setTracking(tracking: boolean): void;
     setTrackingOptions(options: PositionOptions): void;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => void): void;
-    on(type: 'change', listener: (evt: Event) => void): EventsKey;
-    once(type: 'change', listener: (evt: Event) => void): EventsKey;
-    un(type: 'change', listener: (evt: Event) => void): void;
+    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'change', listener: (evt: BaseEvent) => void): void;
     on(type: 'change:accuracy', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'change:accuracy', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'change:accuracy', listener: (evt: ObjectEvent) => void): void;
@@ -62,9 +62,9 @@ export default class Geolocation extends BaseObject {
     on(type: 'change:trackingOptions', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'change:trackingOptions', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'change:trackingOptions', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: any) => void): EventsKey;
-    once(type: 'error', listener: (evt: any) => void): EventsKey;
-    un(type: 'error', listener: (evt: any) => void): void;
+    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'error', listener: (evt: BaseEvent) => void): void;
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;

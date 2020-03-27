@@ -1,6 +1,6 @@
 import * as cls from 'continuation-local-storage';
 
-import EventEmitter = NodeJS.EventEmitter;
+import { EventEmitter } from 'events';
 
 class Test {
   test(topic: string, callback: (t: Test) => any): any {}

@@ -234,10 +234,10 @@ declare class PromiseSftp {
      * Retrieves a directory listing.
      * @param path - The path of the directory to get the listing of.
      */
-    list(path?: string): Promise<PromiseSftp.DirectoryListing>;
+    list(path?: string): Promise<PromiseSftp.DirectoryListing[]>;
 
     /** Alias to `#list()` */
-    listSafe(path: string): Promise<PromiseSftp.DirectoryListing>;
+    listSafe(path: string): Promise<PromiseSftp.DirectoryListing[]>;
 
     /**
      * Retrieve a file from the server.

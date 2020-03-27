@@ -151,7 +151,7 @@ interface Enumerable<T> {
      * Converts the enumerable into an array and sorts by the keys
      * specified in the argument.
      */
-    sortBy(property: string): NativeArray<T>;
+    sortBy(...properties: string[]): NativeArray<T>;
     /**
      * Returns a new enumerable that contains only items containing a unique property value.
      * The default implementation returns an array regardless of the receiver type.

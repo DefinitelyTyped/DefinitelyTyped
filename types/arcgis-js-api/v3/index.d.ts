@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.29
+// Type definitions for ArcGIS API for JavaScript 3.31
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -2428,10 +2428,6 @@ declare module "esri" {
     customParameters?: any;
     /** A WMTSLayerInfo object that when ResourceInfo options are not specified the map will display the first layer in the WMTS capabilities that matches the properties specified by WMTSLayerInfo. */
     layerInfo?: WMTSLayerInfo;
-    /** When true, tile resampling is enabled. */
-    resampling?: boolean;
-    /** Number of levels beyond the last level where tiles are available. */
-    resamplingTolerance?: number;
     /** An optional resource info object. */
     resourceInfo?: any;
     /** Specify the service type. */
@@ -2603,7 +2599,7 @@ declare module "esri/IdentityManagerBase" {
     /** If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page. */
     useSignInPage: boolean;
     /**
-     * Returns a Credential object if the user has already signed in to access the given resource and is allowed to do so when using the given application id.
+     * Returns a credential if the user has already signed in to access the given resource and is allowed to do so when using the given application id.
      * @param resUrl The resource URL.
      * @param appId The registered OAuth application id.
      */
@@ -3032,6 +3028,8 @@ declare module "esri/arcgis/OAuthInfo" {
     popupWindowFeatures: string;
     /** The ArcGIS for Portal URL. */
     portalUrl: string;
+    /** Set this property to true when popup is false in order to have the window's location hash value restored after signing in. */
+    preserveUrlHash: boolean;
     /**
      * Creates a new OAuthInfo given the specified parameters.
      * @param params Various options to configure the OAuthInfo object.
@@ -14180,6 +14178,8 @@ declare module "esri/symbols/SimpleMarkerSymbol" {
     static STYLE_PATH: any;
     /** The marker is a square. */
     static STYLE_SQUARE: any;
+    /** The marker is a triangle. */
+    static STYLE_TRIANGLE: any;
     /** The marker is a diagonal cross. */
     static STYLE_X: any;
     /** Outline of the marker. */

@@ -5,9 +5,9 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "cldr.js-supplemental.d.ts",
         "test/index.ts",
         "test/event.ts",
         "test/supplemental.ts"

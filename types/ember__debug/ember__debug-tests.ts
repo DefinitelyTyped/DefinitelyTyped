@@ -1,4 +1,12 @@
-import { runInDebug, warn, debug, assert, registerWarnHandler, registerDeprecationHandler } from "@ember/debug";
+import {
+    runInDebug,
+    warn,
+    debug,
+    assert,
+    registerWarnHandler,
+    registerDeprecationHandler,
+    deprecate,
+} from '@ember/debug';
 
 /**
  * @ember/debug tests
@@ -22,8 +30,18 @@ debug('Too many tomsters!', 'foo'); // $ExpectError
 const str = 'hello';
 assert('Must pass a string', typeof str === 'string'); // $ExpectType void
 
+const anObject = {};
+assert('Must pass an object', anObject); // $ExpectType void
+
+// Test with null and undefined
+assert('Can handle falsiness', null); // $ExpectType void
+assert('Can handle falsiness', undefined); // $ExpectType void
+
 // Fail unconditionally
 assert('This code path should never be run'); // $ExpectType void
+
+// Require first argument
+assert(); // $ExpectError
 
 // next is not called, so no warnings get the default behavior
 registerWarnHandler(); // $ExpectError
@@ -43,3 +61,14 @@ registerDeprecationHandler((message, { id, until }, next) => { // $ExpectType vo
     until; // $ExpectType string
     next; // $ExpectType () => void
 });
+
+deprecate(); // $ExpectError
+deprecate('missing test and options'); // $ExpectError
+deprecate('missing options', true); // $ExpectError
+deprecate('missing options', false); // $ExpectError
+deprecate('missing options body', true, {}); // $ExpectError
+deprecate('missing options id', true, { until: 'v4.0.0' }); // $ExpectError
+deprecate('missing options until', true, { id: 'some.deprecation' }); // $ExpectError
+deprecate('a valid deprecation without url', true, { id: 'some.deprecation', until: 'v4.0.0' }); // $ExpectType void
+deprecate('incorrect options url', true, { id: 'some.deprecation', until: 'v4.0.0', url: 123 }); // $ExpectError
+deprecate('a valid deprecation with url', true, { id: 'some.deprecation', until: 'v4.0.0', url: 'https://example.com/ember-deprecations-yo' }); // $ExpectType void

@@ -14,6 +14,9 @@ const ref = new Git.Reference();
 const tree = new Git.Tree();
 
 tree.walk().start();
+tree.getEntry("/").then(entry => {
+    // Use entry
+});
 
 // AnnotatedCommit Tests
 
@@ -66,3 +69,4 @@ signature.email();
 signature.when();
 
 repo.createBlobFromBuffer(Buffer.from("test")).then((oid: Git.Oid) => oid.cpy());
+repo.commondir();

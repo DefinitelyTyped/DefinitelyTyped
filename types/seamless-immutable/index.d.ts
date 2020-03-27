@@ -108,7 +108,7 @@ declare namespace SeamlessImmutable {
         /** Custom implementation of the array functions, which return Immutable. */
         interface Overrides<T> {
             forEach(callbackfn: (value: Immutable<T>, index: number, array: Immutable<T[]>) => void, thisArg?: any): void;
-            map<TTarget>(mapFuction: (item: Immutable<T>) => TTarget): Immutable<TTarget[]>;
+            map<TTarget>(mapFuction: (item: Immutable<T>, index: number, array: Immutable<T[]>) => TTarget): Immutable<TTarget[]>;
             filter(filterFunction: (item: Immutable<T>) => boolean): Immutable<T[]>;
             slice(start?: number, end?: number): Immutable<T[]>;
             concat(...arr: Array<T|T[]|Immutable<T>|Array<Immutable<T>>|Immutable<T[]>>): Immutable<T[]>;

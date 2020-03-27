@@ -8,6 +8,12 @@ In case you are facing some issues - feel free to contribute or open an issue.
 `npm i @types/square-connect`
 > make sure that `square-connect` package is installed too
 
+# @todo
+
+* Declare `ApiClient` properly 
+* Declare methods definition for missing classes (ex: `export class SomeApi {}`)
+* Change `any`s in methods definitions (ex: `doSomething(...args: Array<any>)`) regarding the [docs][5]
+
 # Contribution
 
 * Clone the [DefinitelyTyped][3] project
@@ -21,3 +27,4 @@ In case you are facing some issues - feel free to contribute or open an issue.
 [2]: https://github.com/swagger-api/swagger-codegen
 [3]: https://github.com/DefinitelyTyped/DefinitelyTyped
 [4]: https://github.com/square/connect-api-specification/blob/master/api.json
+[5]: https://github.com/square/connect-nodejs-sdk#documentation-for-api-endpoints

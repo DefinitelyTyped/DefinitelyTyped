@@ -1,0 +1,36 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"lib": [
+			"es6"
+		],
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"esModuleInterop": true,
+		"baseUrl": "../",
+		"typeRoots": [
+			"../"
+		],
+		"types": [],
+		"noEmit": true,
+		"forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@webpack-blocks/assets": ["webpack-blocks__assets"],
+            "@webpack-blocks/babel": ["webpack-blocks__babel"],
+            "@webpack-blocks/core": ["webpack-blocks__core"],
+            "@webpack-blocks/dev-server": ["webpack-blocks__dev-server"],
+            "@webpack-blocks/extract-text": ["webpack-blocks__extract-text"],
+            "@webpack-blocks/postcss": ["webpack-blocks__postcss"],
+            "@webpack-blocks/sass": ["webpack-blocks__sass"],
+            "@webpack-blocks/typescript": ["webpack-blocks__typescript"],
+            "@webpack-blocks/uglify": ["webpack-blocks__uglify"],
+            "@webpack-blocks/webpack": ["webpack-blocks__webpack"]
+        }
+	},
+	"files": [
+		"index.d.ts",
+		"webpack-blocks__extract-text-tests.ts"
+	]
+}

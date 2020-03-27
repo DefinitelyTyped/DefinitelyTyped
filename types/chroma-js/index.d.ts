@@ -1,4 +1,4 @@
-// Type definitions for Chroma.js 1.4
+// Type definitions for Chroma.js 2.0
 // Project: https://github.com/gka/chroma.js
 // Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,7 @@ declare namespace chroma {
         gl: [number, number, number, number];
     }
 
-    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl";
+    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl" | "lrgb";
 
     interface ChromaStatic {
         /**
@@ -61,6 +61,8 @@ declare namespace chroma {
          * @return the color object.
          */
         hex(color: string): Color;
+
+        valid(color: any, mode?: string): boolean;
 
         hsl(h: number, s: number, l: number): Color;
 
@@ -215,7 +217,8 @@ declare namespace chroma {
         /**
          * Get and set the color opacity.
          */
-        alpha(a?: number): Color;
+        alpha(a: number): Color;
+        alpha(): number;
 
         darken(f?: number): Color;
 

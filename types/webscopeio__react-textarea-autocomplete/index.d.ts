@@ -53,7 +53,7 @@ export interface SettingType<TItem> {
      * which will be placed into textarea after the user makes a selection.
      *
      * You can also specify the behavior of caret if you return object {text: "item", caretPosition: "start"} the caret
-     * will be before the word once the user confirms his selection. Other possible value are "next", "end" and number,
+     * will be before the word once the user confirms their selection. Other possible value are "next", "end" and number,
      * which is absolute number in contex of textarea (0 is equal position before the first char). Defaults to "next"
      * which is space after the injected word.
      *

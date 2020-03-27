@@ -13,7 +13,7 @@ let opts: StrategyOptions = {
     audience: "example.org"
 };
 
-passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+passport.use(JwtStrategy.name, new JwtStrategy(opts, function(jwt_payload, done) {
     findUser({id: jwt_payload.sub}, function(err, user) {
         if (err) {
             return done(err, false);

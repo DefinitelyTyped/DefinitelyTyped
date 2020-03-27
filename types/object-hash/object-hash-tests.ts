@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import hash = require('object-hash');
 import stream = require('stream')
 

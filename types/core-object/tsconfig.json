@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "-private/utils.d.ts",
         "core-object-tests.ts"
     ]
 }

@@ -5,7 +5,11 @@
 //                 Brice BERNARD <https://github.com/brikou>,
 //                 Veli-Pekka Kestilä <https://github.com/vpk>,
 //                 Daniel Parker <https://github.com/rlgod>,
-//                 Kjell Dießel <https://github.com/kettil>
+//                 Kjell Dießel <https://github.com/kettil>,
+//                 Robert Gajda <https://github.com/RunAge>,
+//                 Nico Flaig <https://github.com/nflaig>,
+//                 Linus Unnebäck <https://github.com/LinusU>
+//                 Ivan Sieder <https://github.com/ivansieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -43,7 +47,7 @@ export interface SignOptions {
      * - ES512:    ECDSA using P-521 curve and SHA-512 hash algorithm
      * - none:     No digital signature or MAC value included
      */
-    algorithm?: string;
+    algorithm?: Algorithm;
     keyid?: string;
     /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
     expiresIn?: string | number;
@@ -60,7 +64,7 @@ export interface SignOptions {
 }
 
 export interface VerifyOptions {
-    algorithms?: string[];
+    algorithms?: Algorithm[];
     audience?: string | RegExp | Array<string | RegExp>;
     clockTimestamp?: number;
     clockTolerance?: number;
@@ -82,10 +86,13 @@ export interface DecodeOptions {
     complete?: boolean;
     json?: boolean;
 }
-export type VerifyErrors= JsonWebTokenError | NotBeforeError | TokenExpiredError;
+export type VerifyErrors =
+    | JsonWebTokenError
+    | NotBeforeError
+    | TokenExpiredError;
 export type VerifyCallback = (
     err: VerifyErrors,
-    decoded: object | string,
+    decoded: object,
 ) => void;
 
 export type SignCallback = (
@@ -101,6 +108,13 @@ export interface JwtHeader {
     x5t?: string;
 }
 
+export type Algorithm =
+    "HS256" | "HS384" | "HS512" |
+    "RS256" | "RS384" | "RS512" |
+    "ES256" | "ES384" | "ES512" |
+    "PS256" | "PS384" | "PS512" |
+    "none";
+
 export type SigningKeyCallback = (
     err: any,
     signingKey?: Secret,
@@ -111,7 +125,10 @@ export type GetPublicKeyOrSecret = (
     callback: SigningKeyCallback
 ) => void;
 
-export type Secret = string | Buffer | { key: string; passphrase: string };
+export type Secret =
+    | string
+    | Buffer
+    | { key: string | Buffer; passphrase: string };
 
 /**
  * Synchronously sign the given payload into a JSON Web Token string
@@ -152,11 +169,7 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(
-    token: string,
-    secretOrPublicKey: string | Buffer,
-    options?: VerifyOptions,
-): object | string;
+export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): object | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -169,12 +182,12 @@ export function verify(
  */
 export function verify(
     token: string,
-    secretOrPublicKey: string | Buffer | GetPublicKeyOrSecret,
+    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     callback?: VerifyCallback,
 ): void;
 export function verify(
     token: string,
-    secretOrPublicKey: string | Buffer | GetPublicKeyOrSecret,
+    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     options?: VerifyOptions,
     callback?: VerifyCallback,
 ): void;
@@ -185,7 +198,5 @@ export function verify(
  * [options] - Options for decoding
  * returns - The decoded Token
  */
-export function decode(
-    token: string,
-    options?: DecodeOptions,
-): null | { [key: string]: any } | string;
+export function decode(token: string, options: DecodeOptions & { json: true }): null | { [key: string]: any };
+export function decode(token: string, options?: DecodeOptions): null | { [key: string]: any } | string;

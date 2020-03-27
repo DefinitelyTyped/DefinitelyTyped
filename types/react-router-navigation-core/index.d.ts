@@ -9,7 +9,7 @@
 import { PureComponent, ReactNode, ComponentClass, ReactElement } from "react";
 import { BackHandler, StyleProp, ViewStyle } from "react-native";
 import { History, Location } from "history";
-import { RouterProps, RouteProps, match } from "react-router";
+import { RouterProps, match } from "react-router";
 
 export type Route<T = {}> = {
     key: string;

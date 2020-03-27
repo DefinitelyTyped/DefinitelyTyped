@@ -143,6 +143,11 @@ auth
     // Handle the error.
   });
 
+auth
+  .oauth.authorizationCodeGrant({
+    code: '{CODE}',
+    redirect_uri: '{REDIRECT_URI}'
+  });
 
 // Update a user
 management
@@ -370,6 +375,12 @@ management.importUsers({
     upsert: true
 }, (err, data) => console.log(data));
 
+management.importUsers({
+    users_json: "some json data",
+    connection_id: 'con_id',
+    send_completion_email: false
+}, (err, data) => console.log(data));
+
 management.exportUsers({
     connection_id: 'con_id',
     fields: [
@@ -505,3 +516,72 @@ management.createClient({
         subject: 'subject',
     }
 });
+
+management.createEmailTemplate({name: 'template_name'}).then(data => {console.log(data)});
+management.createEmailTemplate({name: 'template_name'}, (err) => {console.log(err)});
+management.getEmailTemplate({name: 'template_name'}).then(data => {console.log(data)});
+management.getEmailTemplate({name: 'template_name'}, (err, data) => {console.log(data)});
+management.updateEmailTemplate({name: 'template_name'}, {type:'type'}).then(data => {console.log(data)});
+management.updateEmailTemplate({name: 'template_name'}, {type:'type'}, (err, data) => {console.log(data)});
+
+management.getUserBlocks({ id: 'user_id' })
+    .then(response => {
+        response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+    })
+    .catch(err => console.log('Error: ' + err));
+
+management.getUserBlocks({ id: 'user_id' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+});
+
+management.getUserBlocksByIdentifier({ identifier: 'email' })
+    .then(response => {
+        response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+    })
+    .catch(err => console.log('Error: ' + err));
+
+management.getUserBlocksByIdentifier({ identifier: 'email' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+});
+
+management.unblockUser({ id: 'user_id' })
+    .then(response => console.log(response))
+    .catch(err => console.log('Error: ' + err));
+
+management.unblockUser({ id: 'user_id' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    console.log(response);
+});
+
+management.unblockUserByIdentifier({ identifier: 'email' })
+    .then(response => console.log(response))
+    .catch(err => console.log('Error: ' + err));
+
+management.unblockUserByIdentifier({ identifier: 'email' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    console.log(response);
+});
+
+// Rules configurations
+management.setRulesConfig({key: 'test'}, {value: 'test'}).then((config) => console.log(config));
+management.setRulesConfig({key: 'test'}, {value: 'test'}, (err, config) => console.log(config));
+
+management.deleteRulesConfig({key: 'test'}).then(() => {});
+management.deleteRulesConfig({key: 'test'}, (err) => {});
+
+management.getRulesConfigs().then((configs) => console.log(configs));
+management.getRulesConfigs((err, configs) => console.log(configs));

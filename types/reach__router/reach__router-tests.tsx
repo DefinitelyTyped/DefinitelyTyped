@@ -1,13 +1,15 @@
+import * as React from 'react';
+import { render } from 'react-dom';
+
 import {
     Link,
     Location,
     LocationProvider,
     RouteComponentProps,
     Router,
-    Redirect
+    Redirect,
+    useMatch
 } from '@reach/router';
-import * as React from 'react';
-import { render } from 'react-dom';
 
 interface DashParams {
     id: string;
@@ -21,6 +23,13 @@ const Dash = (props: RouteComponentProps<DashParams>) => (
 
 const NotFound = (props: RouteComponentProps) => <div>Route not found</div>;
 
+const UseMatchCheck = (props: RouteComponentProps) => {
+    const match = useMatch('/params/:one');
+    return (
+        <div>{match ? match.one : 'NO PATH PARAM' }</div>
+    );
+};
+
 render(
     <Router className="my-class">
         <Router component="div">
@@ -31,6 +40,7 @@ render(
         </Router>
         <Home path="/" />
         <Dash path="/default/:id" />
+        <UseMatchCheck path="/params/*" />
         <NotFound default />
 
         <Link to="/somepath" rel="noopener noreferrer" target="_blank" />
@@ -40,7 +50,7 @@ render(
             {context => (
                 <>
                     <div>hostname is {context.location.hostname}</div>
-                    <button onClick={() => context.navigate('/')}>
+                    <button onClick={(): Promise<void> => context.navigate('/')}>
                         Go Home
                     </button>
                 </>
@@ -50,7 +60,7 @@ render(
             {context => (
                 <>
                     <div>hostname is {context.location.hostname}</div>
-                    <button onClick={() => context.navigate('/')}>
+                    <button onClick={(): Promise<void> => context.navigate('/')}>
                         Go Home
                     </button>
                 </>

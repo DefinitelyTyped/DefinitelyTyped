@@ -6,6 +6,8 @@
 //                 KentarouTakeda <https://github.com/KentarouTakeda>
 //                 Alexey Snigirev <https://github.com/gigi>
 //                 Ezinwa Okpoechi <https://github.com/BrainMaestro>
+//                 Marek Urbanowicz <https://github.com/murbanowicz>
+//                 Kevin Kam <https://github.com/kevinkam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
@@ -378,6 +380,13 @@ declare namespace SocketIO {
 		 * @default "io"
 		 */
 		cookie?: string|boolean;
+
+        /**
+         * Whether to let engine.io handle the OPTIONS requests.
+         * You can also pass a custom function to handle the requests
+         * @default true
+         */
+        handlePreflightRequest?: ((req: any, res: any) => void) | boolean;
 	}
 
 	/**
@@ -662,6 +671,12 @@ declare namespace SocketIO {
 		 * @return This Socket
 		 */
 		compress( compress: boolean ): Socket;
+
+        /**
+         * Emits the error
+         * @param err Error message=
+         */
+        error(err: any): void;
 	}
 
 	interface Handshake {

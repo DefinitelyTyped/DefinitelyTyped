@@ -1,3 +1,4 @@
+import { EJSON } from 'meteor/ejson';
 declare module "meteor/tools" {
     module App {
         function accessRule(pattern: string, options?: {

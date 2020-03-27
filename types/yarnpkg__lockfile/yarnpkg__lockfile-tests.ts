@@ -1,16 +1,15 @@
-import parseYarnLock = require('@yarnpkg/lockfile');
+import { parse, stringify, FirstLevelDependency } from '@yarnpkg/lockfile';
 
-function testFirstLevelDependency(obj: {
-  version: string;
-  resolved?: string;
-  dependencies?: {
-    [packageName: string]: string;
-  }
-}) {}
+function testFirstLevelDependency(obj: FirstLevelDependency) {}
 
-const { object } = parseYarnLock('');
+const file = '';
+const parseResult = parse(file);
+const fileAgain = stringify(parseResult);
+fileAgain.toLowerCase();
 
-Object.keys(object).forEach(k => {
-  const value = object[k];
-  testFirstLevelDependency(value);
-});
+if (parseResult.type === 'merge' || parseResult.type === 'success') {
+  Object.keys(parseResult.object).forEach(k => {
+    const value = parseResult.object[k];
+    testFirstLevelDependency(value);
+  });
+}

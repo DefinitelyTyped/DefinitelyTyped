@@ -650,6 +650,44 @@ request(
 );
 
 request(
+  {
+    method: 'PUT',
+    uri: 'http://mikeal.iriscouch.com/testjs/' + rand,
+    multipart: {
+      data: [
+        {
+          'content-type': 'application/json; charset=utf-8',
+          body: JSON.stringify({
+            _attachments: {
+              'dot.png': {
+                follows: true,
+                length: 269,
+                content_type: 'image/png',
+              },
+            },
+          }),
+        },
+        {
+          'content-type': 'image/png',
+          body: Buffer.from(
+            'iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAA3NCSVQICAjb4U/gAAAAX3pUWHRSYXcgcHJvZmlsZSB0eXBlIEFQUDEAAAiZ40pPzUstykxWKCjKT8vMSeVSAANjEy4TSxNL' +
+              'o0QDAwMLAwgwNDAwNgSSRkC2OVQo0QAFmJibpQGhuVmymSmIzwUAT7oVaBst2IwAAAAWSURBVAiZY/z//z8DAwMTAwMDAwMDACQGAwGaMKL7AAAAAElFTkSuQmCC',
+          ),
+        },
+      ],
+    },
+  },
+  (error, response, body) => {
+    if (response.statusCode === 201) {
+      console.log('image saved as http://mikeal.iriscouch.com/testjs/' + rand);
+    } else {
+      console.log('error: ' + response.statusCode);
+      console.log(body);
+    }
+  },
+);
+
+request(
     { method: 'GET'
     , uri: 'http://www.google.com'
     , gzip: true

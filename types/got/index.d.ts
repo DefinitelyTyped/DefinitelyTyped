@@ -8,6 +8,7 @@
 //                 Ryan Wilson-Perkin <https://github.com/ryanwilsonperkin>
 //                 Paul Hawxby <https://github.com/phawxby>
 //                 Ivy Witter <https://github.com/ivywit>
+//                 Huachao Mao <https://github.com/Huachao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -60,6 +61,7 @@ declare class CancelError extends StdError {
 
 declare class TimeoutError extends StdError {
     name: 'TimeoutError';
+    event: keyof got.TimeoutOptions;
 }
 
 declare class StdError extends Error {
@@ -286,10 +288,33 @@ declare namespace got {
         delete(key: string): any;
     }
 
+    interface GotTimingsPhases {
+        wait: number;
+        dns: number;
+        tcp: number;
+        request: number;
+        firstByte: number;
+        download: number;
+        total: number;
+    }
+
+    interface GotTimings {
+        start: number;
+        socket: number;
+        lookup: number;
+        connect: number;
+        upload: number;
+        response: number;
+        end: number;
+        error: number;
+        phases: GotTimingsPhases;
+    }
+
     interface Response<B extends Buffer | string | object> extends http.IncomingMessage {
         body: B;
         url: string;
         requestUrl: string;
+        timings: GotTimings;
         fromCache: boolean;
         redirectUrls?: string[];
         retryCount: number;

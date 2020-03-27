@@ -1,5 +1,5 @@
 import * as C from '@wordpress/components';
-import { Component } from '@wordpress/element';
+import { Component, MouseEvent as ReactMouseEvent } from '@wordpress/element';
 
 //
 // primitives
@@ -65,7 +65,7 @@ interface MyCompleteOption {
 //
 // base-control
 //
-<C.BaseControl id="foo" label="hello world">
+<C.BaseControl id="foo" label="hello world" hideLabelFromVision>
     <C.BaseControl.VisualLabel>My Label</C.BaseControl.VisualLabel>
 </C.BaseControl>;
 
@@ -86,6 +86,44 @@ interface MyCompleteOption {
     <button>Hello</button>
     <button>World</button>
 </C.ButtonGroup>;
+
+//
+// card
+//
+<C.Card>I'm a card!</C.Card>;
+<C.Card isElevated isBorderless className="card" size="large">
+    I'm a card with props!
+</C.Card>;
+<C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
+
+// These components can be rendered as other components:
+<C.Card as={C.HorizontalRule} />;
+// Card renders a `div` by default:
+<C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
+// `div` doesn't support autoFocus:
+// $ExpectError
+<C.Card autoFocus />;
+// With `as="button"`, a `button` element is rendered and `button` props are accepted:
+<C.Card as="button" autoFocus onClick={(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {}} />;
+
+<C.CardBody isShady size="extraSmall">
+    Hello world!
+</C.CardBody>;
+
+<C.CardHeader isShady size="extraSmall">
+    Hello world!
+</C.CardHeader>;
+
+<C.CardFooter isBorderless isShady size="extraSmall">
+    Hello world!
+</C.CardFooter>;
+
+// Divider has no children or props except className
+// $ExpectError
+<C.CardDivider>Hello world!</C.CardDivider>;
+// $ExpectError
+<C.CardDivider isShady />;
+<C.CardDivider />;
 
 //
 // checkbox-control
@@ -369,7 +407,7 @@ const kbshortcuts = {
 //
 // modal
 //
-<C.Modal title="This is my modal" onRequestClose={() => console.log('closing modal')}>
+<C.Modal title="This is my modal" isDismissible={true} onRequestClose={() => console.log('closing modal')}>
     <button onClick={() => console.log('clicked')}>My custom close button</button>
 </C.Modal>;
 
@@ -454,9 +492,16 @@ const kbshortcuts = {
             return anchorEl.parentElement.getBoundingClientRect();
         }
     }}
+    onClose={() => {}}
+    onClickOutside={() => {}}
+    onFocusOutside={e => {
+        if (e.relatedTarget === document.querySelector('#my-element')) return;
+    }}
 >
     Hello World
 </C.Popover>;
+
+<C.Popover.Slot />;
 
 //
 // query-controls
@@ -635,7 +680,13 @@ const kbshortcuts = {
 // text-control
 //
 <C.TextControl label="My text value" value={'foo'} onChange={value => console.log(value.toUpperCase())} />;
-<C.TextControl type="number" label="My numeric value" value={3} onChange={value => console.log(value.toUpperCase())} />;
+<C.TextControl
+    type="number"
+    label="My numeric value"
+    hideLabelFromVision
+    value={3}
+    onChange={value => console.log(value.toUpperCase())}
+/>;
 
 //
 // textarea-control
@@ -900,7 +951,7 @@ const MySlotFillProvider = () => {
             render() {
                 return <div>{this.props.foo}</div>;
             }
-        }
+        },
     );
     <EnhancedComponentClassExpression foo="hello world" />;
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/discordjs/RPC#readme
 // Definitions by: Jason Bothell <https://github.com/jasonhaxstuff>
 //                 Jack Baron <https://github.com/lolPants>
+//                 Dylan Hackworth <https://github.com/dylhack>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
@@ -192,4 +193,9 @@ export interface Presence {
 	smallImageKey?: string;
 	smallImageText?: string;
 	instance?: boolean;
+	partySize?: number;
+	partyMax?: number;
+	matchSecret?: string;
+	spectateSecret?: string;
+	joinSecret?: string;
 }

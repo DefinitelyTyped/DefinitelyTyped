@@ -1,0 +1,1 @@
+dist/alt/video.core.novtt.d.ts

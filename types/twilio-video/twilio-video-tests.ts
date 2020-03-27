@@ -13,7 +13,21 @@ async function initRoom() {
     video: false,
     audio: false,
     dominantSpeaker: true,
-    networkQuality: true
+    networkQuality: true,
+    region: 'au1',
+    maxAudioBitrate: 500,
+    maxVideoBitrate: 200,
+    bandwidthProfile: {
+      video: {
+        dominantSpeakerPriority: 'high',
+        renderDimensions: {
+          low: {
+            height: 500,
+            width: null
+          }
+        }
+      }
+    }
   });
   await Video.connect('$TOKEN', {
     networkQuality: {
@@ -48,42 +62,42 @@ function unpublishTracks() {
 }
 
 function participantConnected(participant: Video.Participant) {
-    participant.on('trackSubscribed', trackSubscribed);
-    participant.on('trackUnsubscribed', trackUnsubscribed);
+  participant.on('trackSubscribed', trackSubscribed);
+  participant.on('trackUnsubscribed', trackUnsubscribed);
 
-    participant.tracks.forEach(publication => {
-        const remotePublication = publication as Video.RemoteTrackPublication;
-        if (remotePublication.isSubscribed) {
-            trackSubscribed(remotePublication.track as Video.VideoTrack | Video.AudioTrack);
-        }
-    });
+  participant.tracks.forEach(publication => {
+    const remotePublication = publication as Video.RemoteTrackPublication;
+    if (remotePublication.isSubscribed) {
+      trackSubscribed(remotePublication.track as Video.VideoTrack | Video.AudioTrack);
+    }
+  });
 }
 
 function participantDisconnected(participant: Video.Participant) {
-    participant.tracks.forEach((publication) => {
-        const remotePublication = publication as Video.RemoteTrackPublication;
-        if (remotePublication.isSubscribed) {
-            const { track } = remotePublication;
-            if (track) trackUnsubscribed(track as Video.AudioTrack | Video.VideoTrack);
-        }
-    });
+  participant.tracks.forEach((publication) => {
+    const remotePublication = publication as Video.RemoteTrackPublication;
+    if (remotePublication.isSubscribed) {
+      const { track } = remotePublication;
+      if (track) trackUnsubscribed(track as Video.AudioTrack | Video.VideoTrack);
+    }
+  });
 }
 
 function trackSubscribed(track: Video.VideoTrack | Video.AudioTrack) {
-    const media = track.attach();
-    insertDomElement(media);
+  const media = track.attach();
+  insertDomElement(media);
 }
 
 function trackUnsubscribed(track: Video.VideoTrack | Video.AudioTrack) {
-    track.detach().forEach(element => element.remove());
-    // Alternative if Safari crashes when detaching tracks
-    track._attachments!.forEach((detachedElement) => detachedElement.remove());
+  track.detach().forEach(element => element.remove());
+  // Alternative if Safari crashes when detaching tracks
+  track._attachments!.forEach((detachedElement) => detachedElement.remove());
 }
 
 function insertDomElement(element: HTMLMediaElement) {
-    // Do something with the dom element
-    document.createElement('div');
-    element.appendChild(element);
+  // Do something with the dom element
+  document.createElement('div');
+  element.appendChild(element);
 }
 
 initRoom();

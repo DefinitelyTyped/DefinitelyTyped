@@ -110,3 +110,8 @@ var theirHouse = new House({ id: 'house-2' });
 paul.set({ 'livesIn': theirHouse });
 
 alert('theirHouse.occupants=' + theirHouse.get('occupants').pluck('name'));
+
+BackboneRel.store.removeModelScope(window);
+BackboneRel.store.addModelScope(window);
+BackboneRel.store.unregister(Person);
+BackboneRel.store.reset();

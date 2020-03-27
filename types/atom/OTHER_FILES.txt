@@ -1,0 +1,6 @@
+autocomplete-plus/config.d.ts
+autocomplete-plus/index.d.ts
+linter/config.d.ts
+linter/index.d.ts
+status-bar/config.d.ts
+status-bar/index.d.ts

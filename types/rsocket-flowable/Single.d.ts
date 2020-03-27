@@ -46,7 +46,7 @@ export interface IFutureSubject<T> {
  */
 export default class Single<T> {
     static of<U>(value: U): Single<U>;
-    static error(error: Error): Single<{}>;
+    static error(error: Error): Single<never>;
     constructor(source: Source<T>);
     subscribe(partialSubscriber?: Partial<IFutureSubscriber<T>>): void;
     flatMap<R>(fn: (data: T) => Single<R>): Single<R>;

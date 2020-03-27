@@ -5,6 +5,7 @@ import {
     CalendarProps,
     momentLocalizer,
     globalizeLocalizer,
+    dateFnsLocalizer,
     move,
     Views,
     components,
@@ -15,13 +16,15 @@ import {
     ToolbarProps,
     EventProps,
     EventWrapperProps,
-    NavigateAction
+    NavigateAction,
+    Culture
 } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const globalize: any;
 declare const moment: any;
+declare const dateFnsConfig: any;
 
 declare const allViews: View[];
 
@@ -78,6 +81,27 @@ class CalendarResource {
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
 
+// date-fns Example Test
+{
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    const Basic = ({ localizer }: Props) => (
+        <Calendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+        />
+    );
+
+    const localizer = dateFnsLocalizer(dateFnsConfig);
+
+    ReactDOM.render(<Basic localizer={localizer} />, document.body);
+}
+
 // Drag and Drop Example Test
 {
     interface Props {
@@ -92,8 +116,23 @@ class CalendarResource {
             showMultiDayTimes
             defaultDate={new Date(2015, 3, 1)}
             localizer={localizer}
+            selectable={true}
+            resizable={true}
             onEventDrop={console.log}
             onEventResize={console.log}
+            onDragStart={console.log}
+            onDropFromOutside={console.log}
+            draggableAccessor={() => true}
+            resizableAccessor={() => true}
+            elementProps={{ id: 'myCalendar' }}
+            components={{
+                event: Event,
+                agenda: {
+                    event: EventAgenda,
+                },
+                toolbar: Toolbar,
+                eventWrapper: EventWrapper,
+            }}
         />
     );
 
@@ -104,13 +143,24 @@ class CalendarResource {
 
 // overriding 'views' props
 {
-    const DaySFC: React.SFC = () => null;
+    interface DayProps {
+        random: string;
+    }
+    class DayComponent extends React.Component<DayProps> {
+        static title() {
+            return 'title';
+        }
+
+        static navigate() {
+            return new Date();
+        }
+    }
     // supplying object to 'views' prop with only some of the supported views.
-    // A view can be a boolean or an SFC
+    // A view can be a boolean or implement title() and navigate()
     ReactDOM.render(<Calendar
                         localizer={momentLocalizer(moment)}
                         views={{
-                            day: DaySFC,
+                            day: DayComponent,
                             work_week: true
                         }}
     />, document.body);
@@ -148,6 +198,7 @@ class CalendarResource {
                         const end = slotInfo.end;
                         return true;
                     }}
+                    dayLayoutAlgorithm="overlap"
                     views={['day']}
                     toolbar={true}
                     popup={true}
@@ -169,8 +220,8 @@ class CalendarResource {
                     scrollToTime={new Date()}
                     formats={{
                         dateFormat: 'h a',
-                        agendaDateFormat: (date: Date, culture?: string, localizer?: object) => 'some-format',
-                        dayRangeHeaderFormat: (range: DateRange, culture?: string, localizer?: object) => 'some-format',
+                        agendaDateFormat: (date: Date, culture?: Culture, localizer?: DateLocalizer) => 'some-format',
+                        dayRangeHeaderFormat: (range: DateRange, culture?: Culture, localizer?: DateLocalizer) => 'some-format',
                     }}
                     messages={{
                         date: 'Date',
@@ -204,6 +255,7 @@ class CalendarResource {
                     }}
                     dayPropGetter={customDayPropGetter}
                     slotPropGetter={customSlotPropGetter}
+                    slotGroupPropGetter={customGroupSlotPropGetter}
                     defaultDate={new Date()}
                     resources={getResources()}
                     resourceAccessor={event => event.resourceId}
@@ -276,6 +328,12 @@ const customSlotPropGetter = (date: Date) => {
     else return {};
 };
 
+const customGroupSlotPropGetter = () => {
+    return {
+        className: 'slot-group'
+    };
+};
+
 function Event(props: EventProps<CalendarEvent>) {
     return (
         <span>
@@ -289,7 +347,7 @@ function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
     const { continuesEarlier, event, label, accessors = {}, style } = props;
     return (
         <div style={style}>
-            <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>
+            <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}</div>
         </div>
     );
 }
@@ -299,7 +357,7 @@ class Toolbar extends React.Component<ToolbarProps> {
         const { date, label, view } = this.props;
         return (
             <div>
-                <div>{date.toJSON()}-{label}-{view}}</div>
+                <div>{date.toJSON()}-{label}-{view}</div>
             </div>
         );
     }

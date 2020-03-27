@@ -27,6 +27,7 @@ export declare namespace json2csv {
         unwind?: string | Array<string>;
         unwindBlank?: boolean;
         flatten?: boolean;
+        flattenSeparator?: string;
         defaultValue?: string;
         quote?: string;
         doubleQuote?: string;

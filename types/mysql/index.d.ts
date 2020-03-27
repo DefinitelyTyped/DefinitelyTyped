@@ -353,7 +353,7 @@ export interface GeometryType extends Array<{ x: number, y: number } | GeometryT
 }
 
 export type TypeCast = boolean | (
-    (field: FieldInfo
+    (field: UntypedFieldInfo
         & { type: string, length: number, string(): string, buffer(): Buffer, geometry(): null | GeometryType },
         next: () => void) => any);
 
@@ -511,7 +511,7 @@ export interface ConnectionConfig extends ConnectionOptions {
     /**
      * A custom query format function
      */
-    queryFormat?(query: string, values: any): void;
+    queryFormat?(query: string, values: any): string;
 
     /**
      * When dealing with big numbers (BIGINT and DECIMAL columns) in the database, you should enable this option
@@ -557,7 +557,7 @@ export interface ConnectionConfig extends ConnectionOptions {
     /**
      * List of connection flags to use other than the default ones. It is also possible to blacklist default ones
      */
-    flags?: string[];
+    flags?: string | string[];
 
     /**
      * object with ssl parameters or a string containing name of ssl profile
@@ -701,7 +701,7 @@ export const enum Types {
     GEOMETRY = 0xff, // aka GEOMETRY
 }
 
-export interface FieldInfo {
+export interface UntypedFieldInfo {
     catalog: string;
     db: string;
     table: string;
@@ -710,10 +710,13 @@ export interface FieldInfo {
     orgName: string;
     charsetNr: number;
     length: number;
-    type: Types;
     flags: number;
     decimals: number;
     default?: string;
     zeroFill: boolean;
     protocol41: boolean;
+}
+
+export interface FieldInfo extends UntypedFieldInfo {
+    type: Types;
 }

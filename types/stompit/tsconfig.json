@@ -18,18 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/client/Subscription.d.ts",
-        "lib/client/Transaction.d.ts",
-        "lib/connect-failover/getAddressInfo.d.ts",
-        "lib/Channel.d.ts",
-        "lib/ChannelFactory.d.ts",
-        "lib/ChannelPool.d.ts",
-        "lib/Client.d.ts",
-        "lib/connect.d.ts",
-        "lib/ConnectFailover.d.ts",
-        "lib/IncomingFrameStream.d.ts",
-        "lib/OutgoingFrameStream.d.ts",
-        "lib/Socket.d.ts",
         "stompit-tests.ts"
     ]
 }

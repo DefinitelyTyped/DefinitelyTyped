@@ -1,6 +1,7 @@
 /*
-  From https://docs.intercom.io/configure-intercom-for-your-product-or-site/
-         customize-the-intercom-messenger/the-intercom-javascript-api
+  From
+  - https://developers.intercom.com/installing-intercom/docs/intercom-javascript
+  - https://developers.intercom.com/installing-intercom/docs/javascript-api-attributes-objects
 */
 intercomSettings = {
   email: "example@example.com",
@@ -8,9 +9,7 @@ intercomSettings = {
   user_id: "123",
   created_at: 1234567890,
   app_id: "YOUR_APP_ID",
-  widget: {
-    activator: "#Intercom"
-  }
+  custom_launcher_selector: "#Intercom",
 };
 
 Intercom('boot', intercomSettings);
@@ -50,8 +49,7 @@ intercomSettings = {
     name: 'Intercorp',
     created_at: 1234567890,
     plan: 'pro',
-    monthly_spend: 10,
-    upgraded_at: 1424941688
+    monthly_spend: 10
   }
 };
 

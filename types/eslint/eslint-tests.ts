@@ -338,6 +338,17 @@ rule = {
             }
         });
 
+        context.report({
+            message: 'foo',
+            node: AST,
+            fix: ruleFixer => {
+                return [
+                    ruleFixer.insertTextAfter(AST, 'foo'),
+                    ruleFixer.insertTextAfter(TOKEN, 'foo')
+                ];
+            }
+        });
+
         return {
             onCodePathStart(codePath, node) {},
             onCodePathEnd(codePath, node) {},
@@ -389,18 +400,23 @@ linter.verify(SOURCE, { rules: { 'no-unused-vars': [2, { vars: 'all' }] } }, 'te
 linter.verify(SOURCE, { rules: { 'no-console': 1 } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 0 } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'error' } }, 'test.js');
-linter.verify(SOURCE, {
-    rules: { 'no-console': 'error' },
-    overrides: [
-        {
-            excludedFiles: ['*-test.js', '*.spec.js'],
-            files: ['*-test.js', '*.spec.js'],
-            rules: {
-                'no-unused-expressions': 'off'
-            }
-        }
-    ]
-}, 'test.js');
+linter.verify(
+    SOURCE,
+    {
+        rules: { 'no-console': 'error' },
+        overrides: [
+            {
+                extends: ['eslint-config-bad-guy'],
+                excludedFiles: ['*-test.js', '*.spec.js'],
+                files: ['*-test.js', '*.spec.js'],
+                rules: {
+                    'no-unused-expressions': 'off',
+                },
+            },
+        ],
+    },
+    'test.js',
+);
 linter.verify(SOURCE, { rules: { 'no-console': 'warn' } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'off' } }, 'test.js');
 
@@ -487,9 +503,11 @@ cli = new CLIEngine({ ignorePattern: ['foo', 'bar'] });
 cli = new CLIEngine({ useEslintrc: false });
 cli = new CLIEngine({ parserOptions: {} });
 cli = new CLIEngine({ plugins: ['foo'] });
+cli = new CLIEngine({ resolvePluginsRelativeTo: 'test' });
 cli = new CLIEngine({ rules: { 'test/example-rule': 1 } });
 cli = new CLIEngine({ rulePaths: ['foo'] });
 cli = new CLIEngine({ reportUnusedDisableDirectives: true });
+cli = new CLIEngine({ errorOnUnmatchedPattern: false });
 
 let cliReport = cli.executeOnFiles(['myfile.js', 'lib/']);
 
@@ -508,7 +526,26 @@ let formatter: CLIEngine.Formatter;
 formatter = cli.getFormatter('codeframe');
 formatter = cli.getFormatter();
 
+let data: CLIEngine.LintResultData;
+const meta: Rule.RuleMetaData = {
+    type: "suggestion",
+    docs: {
+        description: "disallow unnecessary semicolons",
+        category: "Possible Errors",
+        recommended: true,
+        url: "https://eslint.org/docs/rules/no-extra-semi"
+    },
+    fixable: "code",
+    schema: [],
+    messages: {
+        unexpected: "Unnecessary semicolon."
+    }
+};
+
+data = {rulesMeta: {"no-extra-semi": meta}};
+
 formatter(cliReport.results);
+formatter(cliReport.results, data);
 
 CLIEngine.getErrorResults(cliReport.results);
 

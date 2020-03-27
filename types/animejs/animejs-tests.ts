@@ -75,3 +75,34 @@ anime.timeline().add({
 	duration: 1000,
 	easing: "linear",
 }, 0);
+
+anime({
+	targets: ".mizi",
+	keyframes: [
+    {translateY: -40, delay: 123},
+    {translateX: 250},
+    {translateY: 40},
+    {translateX: 0},
+		{translateY: 0}
+	],
+	delay: anime.stagger(200, {grid: [14, 5], from: 'center'}),
+	endDelay: -1.12742e-12,
+	loop: true,
+	easing: (el, i, total) => {
+		return (t) => {
+			return Math.pow(Math.sin(t * (i + 1)), total);
+		};
+	},
+	loopBegin: () => {
+		console.log("Hello, MMM");
+	},
+	changeComplete: () => {
+		console.log("It surely had been read.");
+	}
+});
+anime.set(
+	".test-div",
+	{
+		height: "1000px"
+	}
+);

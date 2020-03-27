@@ -2,11 +2,20 @@
 // Project: https://github.com/hiddentao/react-native-modal-filter-picker#readme
 // Definitions by: Chang Yanwei <https://github.com/ywchang>
 //                 Cheng Gibson <https://github.com/nossbigg>
+//                 Zheng Arnaud <https://github.com/arnaud-zg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { StyleProp, ViewStyle, TextStyle, KeyboardAvoidingView, ModalProps, ListViewProps } from 'react-native';
+import {
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+  KeyboardAvoidingView,
+  ModalProps,
+  ListViewProps,
+  FlatListProps,
+} from 'react-native';
 
 export interface ModalFilterPickerOption {
     label: string;
@@ -27,7 +36,7 @@ export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
     showFilter?: boolean;
     modal?: ModalProps;
     selectedOption?: string;
-    listViewProps?: Partial<ListViewProps>;
+    listViewProps?: Partial<ListViewProps | FlatListProps<T>>;
     renderOption?: (option: T, isSelected: boolean) => JSX.Element;
     renderList?: () => JSX.Element;
     renderCancelButton?: () => JSX.Element;
@@ -35,7 +44,7 @@ export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
     autoFocus?: boolean;
 
     // styling props
-    overlayStyle?: StyleProp<KeyboardAvoidingView>;
+    overlayStyle?: StyleProp<KeyboardAvoidingView | ViewStyle>;
     listContainerStyle?: StyleProp<ViewStyle>;
     filterTextInputContainerStyle?: StyleProp<ViewStyle>;
     filterTextInputStyle?: StyleProp<TextStyle>;

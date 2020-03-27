@@ -12,3 +12,27 @@ render(
     </AriaModal>,
     appContainer
 );
+
+const DisplacedModal = AriaModal.renderTo('#some-id');
+
+render(
+    <DisplacedModal onExit={onExit} titleId="describedby" underlayClickExits>
+        <p id="describedby">Hello world</p>
+    </DisplacedModal>,
+    appContainer
+);
+
+render(
+     <AriaModal
+        onExit={() => {}}
+        alert={true}
+        focusDialog={true}
+        titleText='A top modal'
+        underlayClickExits={false}
+        verticallyCenter={true}
+        underlayColor={false}
+      >
+          <div>Hello</div>
+      </AriaModal>,
+      appContainer
+);

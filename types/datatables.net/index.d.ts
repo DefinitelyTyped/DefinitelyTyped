@@ -1784,6 +1784,7 @@ declare namespace DataTables {
         infoEmpty?: string;
         infoFiltered?: string;
         infoPostFix?: string;
+        decimal?: string;
         thousands?: string;
         lengthMenu?: string;
         loadingRecords?: string;

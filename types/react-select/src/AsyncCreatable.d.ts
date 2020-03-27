@@ -1,14 +1,14 @@
 import { Component, Ref as ElementRef } from 'react';
 import { Props as AsyncProps, State as AsyncState } from './Async';
 import { Props as CreatableProps, State as CreatableState } from './Creatable';
-import { OptionsType, ValueType, ActionMeta, InputActionMeta } from './types';
+import { OptionsType, ValueType, ActionMeta, InputActionMeta, OptionTypeBase } from './types';
 import { cleanValue } from './utils';
 
-type Props<OptionType> = AsyncProps<OptionType> & CreatableProps<OptionType>;
+export type Props<OptionType extends OptionTypeBase> = AsyncProps<OptionType> & CreatableProps<OptionType>;
 
-type State<OptionType> = AsyncState<OptionType> & CreatableState<OptionType>;
+export type State<OptionType extends OptionTypeBase> = AsyncState<OptionType> & CreatableState<OptionType>;
 
-export class AsyncCreatable<OptionType> extends Component<Props<OptionType>, State<OptionType>> {
+export class AsyncCreatable<OptionType extends OptionTypeBase> extends Component<Props<OptionType>, State<OptionType>> {
     static defaultProps: Props<any>;
     select: ElementRef<any>;
     lastRequest: {};

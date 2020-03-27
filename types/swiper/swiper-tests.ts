@@ -4,7 +4,7 @@
  * @author Eugene Matseruk
  */
 import Swiper from 'swiper';
-import { Swiper as SwiperESM, Navigation, History } from 'swiper/dist/js/swiper.esm';
+import { Swiper as SwiperESM, Navigation, History } from 'swiper/js/swiper.esm';
 
 const containerSelector = '.swiper-container';
 

@@ -77,10 +77,11 @@ declare class Nedb<G = any> extends EventEmitter {
     getCandidates(query: any): void;
 
     /**
-     * Insert a new document
+     * Insert one or more new documents
      * @param cb Optional callback, signature: err, insertedDoc
      */
     insert<T extends G>(newDoc: T, cb?: (err: Error, document: T) => void): void;
+    insert<T extends G>(newDocs: T[], cb?: (err: Error, documents: T[]) => void): void;
 
     /**
      * Count all documents matching the query

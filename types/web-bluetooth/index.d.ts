@@ -1,7 +1,8 @@
 // Type definitions for Web Bluetooth
 // Project: https://webbluetoothcg.github.io/web-bluetooth/
 // Definitions by: Uri Shaked <https://github.com/urish>
-// 								 Xavier Lozinguez <http://github.com/xlozinguez>
+//					Xavier Lozinguez <http://github.com/xlozinguez>
+//					Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type BluetoothServiceUUID = number | string;
@@ -83,7 +84,7 @@ interface BluetoothRemoteGATTService extends EventTarget, CharacteristicEventHan
 	addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
-interface BluetoothRemoteGATTServer extends EventTarget {
+interface BluetoothRemoteGATTServer {
 	readonly device: BluetoothDevice;
 	readonly connected: boolean;
 	connect(): Promise<BluetoothRemoteGATTServer>;
@@ -93,6 +94,7 @@ interface BluetoothRemoteGATTServer extends EventTarget {
 }
 
 interface BluetoothDeviceEventHandlers {
+	onadvertisementreceived: (this: this, ev: Event) => any;
 	ongattserverdisconnected: (this: this, ev: Event) => any;
 }
 

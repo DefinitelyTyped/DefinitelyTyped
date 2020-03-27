@@ -116,7 +116,7 @@ declare namespace rosie {
       * @param {object} attributes
       * @return {Factory}
       */
-    attrs(attributes: { [K in keyof T]: T[K] | ((opts?: any) => T[K]) }): IFactory<T>;
+    attrs<Keys extends keyof T>(attributes: { [K in Keys]: T[K] | ((opts?: any) => T[K]) }): IFactory<T>;
 
     /**
      * Define an option for this factory. Options are values that may inform

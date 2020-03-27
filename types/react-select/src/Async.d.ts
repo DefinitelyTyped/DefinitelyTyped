@@ -2,9 +2,9 @@ import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
 import { handleInputChange } from './utils';
 import manageState from './stateManager';
-import { OptionsType, InputActionMeta } from './types';
+import { OptionsType, InputActionMeta, OptionTypeBase } from './types';
 
-export interface AsyncProps<OptionType> {
+export interface AsyncProps<OptionType extends OptionTypeBase> {
   /* The default set of options to show before the user starts searching. When
      set to `true`, the results for loadOptions('') will be autoloaded.
      Default: false. */
@@ -18,11 +18,11 @@ export interface AsyncProps<OptionType> {
   cacheOptions?: any;
 }
 
-export type Props<OptionType> = SelectProps<OptionType> & AsyncProps<OptionType>;
+export type Props<OptionType extends OptionTypeBase> = SelectProps<OptionType> & AsyncProps<OptionType>;
 
 export const defaultProps: Props<any>;
 
-export interface State<OptionType> {
+export interface State<OptionType extends OptionTypeBase> {
   defaultOptions?: OptionsType<OptionType>;
   inputValue: string;
   isLoading: boolean;
@@ -31,7 +31,7 @@ export interface State<OptionType> {
   passEmptyOptions: boolean;
 }
 
-export class Async<OptionType> extends React.Component<Props<OptionType>, State<OptionType>> {
+export class Async<OptionType extends OptionTypeBase> extends React.Component<Props<OptionType>, State<OptionType>> {
   static defaultProps: Props<any>;
   select: React.Ref<any>;
   lastRequest: {};

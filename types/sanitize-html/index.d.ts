@@ -1,4 +1,4 @@
-// Type definitions for sanitize-html 1.20.1
+// Type definitions for sanitize-html 1.22.0
 // Project: https://github.com/punkave/sanitize-html
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Afshin Darian <https://github.com/afshin>
@@ -9,6 +9,7 @@
 //                 Johan Davidsson <https://github.com/johandavidson>
 //                 Jianrong Yu <https://github.com/YuJianrong>
 //                 GP <https://github.com/paambaati>
+//                 tomotetra <https://github.com/tomotetra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -29,9 +30,12 @@ declare namespace sanitize {
 
   type Transformer = (tagName: string, attribs: Attributes) => Tag;
 
+  type AllowedAttribute = string | { name: string; multiple?: boolean; values: string[] };
+
+  type DisallowedTagsModes = 'discard' | 'escape' | 'recursiveEscape';
 
   interface IDefaults {
-    allowedAttributes: { [index: string]: string[] };
+    allowedAttributes: { [index: string]: AllowedAttribute[] };
     allowedSchemes: string[];
     allowedSchemesByTag: { [index: string]: string[] };
     allowedTags: string[];
@@ -48,7 +52,7 @@ declare namespace sanitize {
 
 
   interface IOptions {
-    allowedAttributes?: { [index: string]: string[] } | boolean;
+    allowedAttributes?: { [index: string]: AllowedAttribute[] } | boolean;
     allowedStyles?:  { [index: string]: { [index: string]: RegExp[] } };
     allowedClasses?: { [index: string]: string[] } | boolean;
     allowedIframeHostnames?: string[];
@@ -64,6 +68,7 @@ declare namespace sanitize {
     selfClosing?: string[];
     transformTags?: { [tagName: string]: string | Transformer };
     parser?: Options;
+    disallowedTagsMode?: DisallowedTagsModes;
   }
 
 

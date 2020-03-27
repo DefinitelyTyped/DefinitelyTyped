@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as filepond from 'react-filepond';
 
 interface AppState {
+    files: filepond.File[];
     filenames: string[];
 }
 
@@ -15,7 +16,8 @@ class App extends React.Component<{}, AppState> {
 
         this.state = {
             // Set initial files
-            filenames: ['index.html']
+            filenames: ['index.html'],
+            files: [],
         };
     }
 
@@ -39,10 +41,12 @@ class App extends React.Component<{}, AppState> {
                         fetch: (url, load, error, progress, abort, headers) => {},
                     }}
                     oninit={() => this.handleInit() }
+                    files={this.state.files}
                     onupdatefiles={(fileItems) => {
                         // Set current file objects to this.state
                         this.setState({
-                            filenames: fileItems.map(fileItem => fileItem.file.name)
+                            files: fileItems,
+                            filenames: fileItems.map(fileItem => fileItem.file.name),
                         });
                     }}
                 >

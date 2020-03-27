@@ -25,6 +25,10 @@ const provision = async () => {
         path: __dirname + '/templates',
     });
 
+    const manager = server.getViewsManager();
+
+    manager.registerHelper('test', () => 'test');
+
     const context = {
         title: 'Views Example',
         message: 'Hello, World',

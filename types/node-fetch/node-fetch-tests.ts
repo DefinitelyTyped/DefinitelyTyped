@@ -80,6 +80,44 @@ function test_fetchUrlWithRequestObject() {
     handlePromise(fetch(request));
 }
 
+function test_fetchUrlObject() {
+    handlePromise(fetch(new URL("https://example.org")));
+}
+
+function test_fetchUrlObjectWithRequestObject() {
+    const requestOptions: RequestInit = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        signal: {
+            aborted: false,
+
+            addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+                capture?: boolean,
+                once?: boolean,
+                passive?: boolean
+            }) => undefined,
+
+            removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+                capture?: boolean
+            }) => undefined,
+
+            dispatchEvent: (event: any) => false
+        }
+    };
+    const request: Request = new Request(
+        new URL("https://example.org"),
+        requestOptions
+    );
+    const timeout: number = request.timeout;
+    const size: number = request.size;
+    const agent: Agent | ((parsedUrl: URL) => Agent) | undefined = request.agent;
+    const protocol: string = request.protocol;
+
+    handlePromise(fetch(request));
+}
+
 function test_globalFetchVar() {
     fetch("http://test.com", {}).then(response => {
         // for test only
@@ -120,7 +158,15 @@ function test_isRedirect() {
 }
 
 function test_FetchError() {
-    new FetchError("message", "type", "systemError");
+    new FetchError("message", "type", {
+        name: 'Error',
+        message: 'Error message',
+        code: "systemError",
+    });
+    new FetchError("message", "type", {
+        name: 'Error',
+        message: "Error without code",
+    });
     new FetchError("message", "type");
 }
 

@@ -1,5 +1,6 @@
 import {
     Block,
+    Controller,
     Value,
     Data,
     BlockJSON,
@@ -22,14 +23,21 @@ import {
 import { List } from "immutable";
 
 const data = Data.create({ foo: "bar " });
+
+// $ExpectType any
+data.get('hoge');
+
+// $ExpectError
+data['foo'];
+
 const value = Value.create({ data });
 
-const node: BlockJSON = {
-	object: "block",
-	type: "paragraph",
-	nodes: [
-		{
-			object: "text",
+const nodeJSON: BlockJSON = {
+    object: "block",
+    type: "paragraph",
+    nodes: [
+        {
+            object: "text",
             key: "a",
             text: "example",
             marks: [{
@@ -37,15 +45,25 @@ const node: BlockJSON = {
                 type: "mark",
                 object: "mark"
             }]
-		}
-	]
+        }
+    ]
 };
 
 const doc = Document.fromJSON({
-	object: "document",
-	data: {},
-	nodes: [node]
+    object: "document",
+    data: {},
+    nodes: [nodeJSON]
 });
+
+const node = new Block(nodeJSON);
+
+doc.findDescendant();
+doc.findDescendant(node => node.object === 'block' && node.type === 'paragraph');
+doc.findDescendant((node, path) => true);
+
+node.findDescendant();
+node.findDescendant(node => node.object === 'block');
+node.findDescendant((node, path) => false);
 
 const schema: SchemaProperties = {
     document: {
@@ -91,6 +109,47 @@ const schema2: SchemaProperties = {
     }
 };
 
+const pluginDefault: Plugin = {
+    normalizeNode: (node: Node, editor, next: () => void) => {
+        // $ExpectType Controller
+        editor;
+    },
+    onChange: (editor, next: () => void) => {
+        // $ExpectType Controller
+        editor;
+    },
+    onCommand: (command: Command, editor, next: () => void) => {
+        // $ExpectType Controller
+        editor;
+    },
+    onConstruct: (editor, next: () => void) => {
+        // $ExpectType Controller
+        editor;
+    },
+    onQuery: (query: Query, editor, next: () => void) => {
+        // $ExpectType Controller
+        editor;
+    },
+    validateNode: (node: Node, editor, next: () => void) => {
+        // $ExpectType Controller
+        editor;
+    },
+
+    commands: {
+        someCommand: (editor, ...args: any[]) => {
+            // $ExpectType Controller
+            editor;
+            return editor;
+        }
+    },
+    queries: {
+        someQuery: (editor, ...args: any[]) => {
+            // $ExpectType Controller
+            editor;
+        }
+    },
+};
+
 const pluginCommandName = 'plugin_command';
 const pluginCommandFunc = (editor: Editor, ...args: any[]) => editor;
 
@@ -98,7 +157,7 @@ const pluginQueryName = 'plugin_query';
 const pluginQueryResult = 1000;
 const pluginQueryFunc = (editor: Editor, ...args: any[]) => pluginQueryResult;
 
-const plugin: Plugin = {
+const plugin: Plugin<Editor> = {
     normalizeNode: (node: Node, editor: Editor, next: () => void) => next(),
     onChange: (editor: Editor, next: () => void) => next(),
     onCommand: (command: Command, editor: Editor, next: () => void) => next(),
@@ -126,6 +185,8 @@ editor.command(pluginCommandFunc, 1);
 editor.query(pluginQueryName, 1);
 editor.query(pluginQueryFunc, 1);
 
+editor.hasCommand('testCommand');
+editor.hasQuery('testQuery');
 editor.registerQuery("testQuery");
 editor.registerCommand("testCommand");
 editor.setReadOnly(true).setValue(value);
@@ -161,13 +222,13 @@ editor
 .flush()
 .focus()
 .insertBlock({
-	type: "image",
-	key: "b",
-	data: {
-		src: "http://placekitten.com/200/300",
-		alt: "Kittens",
-		className: "img-responsive"
-	}
+    type: "image",
+    key: "b",
+    data: {
+        src: "http://placekitten.com/200/300",
+        alt: "Kittens",
+        className: "img-responsive"
+    }
 })
 .insertBlockAtRange(range, "text")
 .insertFragment(doc)

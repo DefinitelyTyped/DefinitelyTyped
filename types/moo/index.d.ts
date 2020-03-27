@@ -2,6 +2,7 @@
 // Project: https://github.com/tjvr/moo#readme
 // Definitions by: Nikita Litvin <https://github.com/deltaidea>
 //                 Jörg Vehlow <https://github.com/MofX>
+//                 Martien Oranje <https://github.com/moranje>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace moo;
@@ -9,12 +10,20 @@ export as namespace moo;
 /**
  * Reserved token for indicating a parse fail.
  */
-export const error: { error: true };
+export interface ErrorRule {
+  error: true;
+}
+
+export const error: ErrorRule;
 
 /**
  * Reserved token for indicating a fallback rule.
  */
-export const fallback: { fallback: true };
+export interface FallbackRule {
+  fallback: true;
+}
+
+export const fallback: FallbackRule;
 
 export type TypeMapper = (x: string) => string;
 
@@ -61,7 +70,7 @@ export interface Rule {
     type?: TypeMapper;
 }
 export interface Rules {
-    [x: string]: RegExp | string | string[] | Rule | Rule[];
+    [x: string]: RegExp | string | string[] | Rule | Rule[] | ErrorRule | FallbackRule;
 }
 
 export interface Lexer {
@@ -81,7 +90,7 @@ export interface Lexer {
     /**
      * Empty the internal buffer of the lexer, and set the line, column, and offset counts back to their initial value.
      */
-    reset(chunk?: string, state?: LexerState): void;
+    reset(chunk?: string, state?: LexerState): this;
     /**
      * Returns current state, which you can later pass it as the second argument
      * to reset() to explicitly control the internal state of the lexer.

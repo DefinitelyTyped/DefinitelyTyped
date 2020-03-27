@@ -7,6 +7,8 @@
 
 import * as SerialPort from 'serialport';
 
+import { EventEmitter } from 'events';
+
 export = Board;
 
 /**
@@ -15,7 +17,7 @@ export = Board;
  * This is a starting point that appeared to work fine for months within a project of my company, but I give no
  * guarantee that it cannot be improved.
  */
-declare class Board extends NodeJS.EventEmitter {
+declare class Board extends EventEmitter {
 	constructor(serialPort: any, optionsOrCallback?: Board.Options|((error: any) => void), callback?: (error: any) => void)
 	MODES: Board.PinModes;
 	STEPPER: Board.StepperConstants;

@@ -6625,7 +6625,7 @@ declare namespace WinJS.Utilities {
         /**
          * Removes the specified class from all the elements in the collection.
          * @param name The name of the class to be removed.
-         * @returns his QueryCollection object.
+         * @returns This QueryCollection object.
         **/
         removeClass(name: string): QueryCollection<T>;
 

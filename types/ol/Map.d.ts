@@ -1,19 +1,21 @@
 import { EventsKey } from './events';
-import Event from './events/Event';
+import BaseEvent from './events/Event';
 import MapBrowserEvent from './MapBrowserEvent';
 import MapEvent from './MapEvent';
 import { ObjectEvent } from './Object';
 import PluggableMap, { MapOptions } from './PluggableMap';
 import RenderEvent from './render/Event';
+import MapRenderer from './renderer/Map';
 
 export default class Map extends PluggableMap {
     constructor(options: MapOptions);
+    createRenderer(): MapRenderer;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => void): void;
-    on(type: 'change', listener: (evt: Event) => void): EventsKey;
-    once(type: 'change', listener: (evt: Event) => void): EventsKey;
-    un(type: 'change', listener: (evt: Event) => void): void;
+    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'change', listener: (evt: BaseEvent) => void): void;
     on(type: 'change:layerGroup', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'change:layerGroup', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'change:layerGroup', listener: (evt: ObjectEvent) => void): void;
@@ -32,6 +34,9 @@ export default class Map extends PluggableMap {
     on(type: 'dblclick', listener: (evt: MapBrowserEvent) => void): EventsKey;
     once(type: 'dblclick', listener: (evt: MapBrowserEvent) => void): EventsKey;
     un(type: 'dblclick', listener: (evt: MapBrowserEvent) => void): void;
+    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'error', listener: (evt: BaseEvent) => void): void;
     on(type: 'moveend', listener: (evt: MapEvent) => void): EventsKey;
     once(type: 'moveend', listener: (evt: MapEvent) => void): EventsKey;
     un(type: 'moveend', listener: (evt: MapEvent) => void): void;

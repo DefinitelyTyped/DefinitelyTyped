@@ -3,7 +3,7 @@ import * as webidl2 from "webidl2";
 const parsed = webidl2.parse("");
 
 for (const rootType of parsed) {
-    if (rootType.type !== "implements" && rootType.type !== "includes") {
+    if (rootType.type !== "includes") {
         console.log(rootType.name);
     }
     switch (rootType.type) {
@@ -42,10 +42,6 @@ for (const rootType of parsed) {
         case "typedef":
             logIdlType(rootType.idlType);
             break;
-        case "implements":
-            console.log(rootType.target);
-            console.log(rootType.implements);
-            break;
         case "includes":
             console.log(rootType.target);
             console.log(rootType.includes);
@@ -58,6 +54,9 @@ for (const rootType of parsed) {
 function logMembers(members: webidl2.IDLInterfaceMemberType[]) {
     for (const member of members) {
         switch (member.type) {
+            case "constructor":
+                logArguments(member.arguments);
+                break;
             case "operation":
             case "attribute":
                 logNamespaceMembers([member]);
@@ -69,10 +68,6 @@ function logMembers(members: webidl2.IDLInterfaceMemberType[]) {
                 console.log(member.nullable);
                 break;
             case "iterable":
-                console.log(member.readonly);
-                member.idlType.forEach(logIdlType);
-                break;
-            case "legacyiterable":
                 console.log(member.readonly);
                 member.idlType.forEach(logIdlType);
                 break;
@@ -92,17 +87,17 @@ function logMembers(members: webidl2.IDLInterfaceMemberType[]) {
 function logNamespaceMembers(members: webidl2.IDLNamespaceMemberType[]) {
     for (const member of members) {
         if (member.type === "operation") {
+            logArguments(member.arguments);
             console.log(member.name);
-            console.log(member.getter, member.setter, member.deleter);
-            console.log(member.static, member.stringifier);
+            console.log(member.special);
         } else if (member.type === "attribute") {
             console.log(member.name);
-            console.log(member.static, member.stringifier, member.readonly, member.inherit);
+            console.log(member.special, member.readonly, member.inherit);
         }
     }
 }
 
-function logExtAttrs(extAttrs: webidl2.ExtendedAttributes[]) {
+function logExtAttrs(extAttrs: webidl2.ExtendedAttribute[]) {
     console.log(extAttrs[0].name);
     logArguments(extAttrs[0].arguments);
     const { rhs } = extAttrs[0];
@@ -110,10 +105,10 @@ function logExtAttrs(extAttrs: webidl2.ExtendedAttributes[]) {
         return;
     }
     if (rhs.type === "identifier") {
-        console.log(rhs);
+        console.log(rhs.value);
     } else {
         for (const v of rhs.value) {
-            console.log(v);
+            console.log(v.value);
         }
     }
 }
@@ -133,7 +128,7 @@ function logIdlType(idlType: webidl2.IDLTypeDescription) {
     logSubIdlType(idlType.idlType);
 }
 
-function logSubIdlType(idlType: string | webidl2.IDLTypeDescription | webidl2.IDLTypeDescription[] | null) {
+function logSubIdlType(idlType: string | webidl2.IDLTypeDescription[] | null) {
     if (!idlType) {
         return;
     }
@@ -141,11 +136,7 @@ function logSubIdlType(idlType: string | webidl2.IDLTypeDescription | webidl2.ID
         console.log(idlType);
         return;
     }
-    if (Array.isArray(idlType)) {
-        for (const t of idlType) {
-            logIdlType(t);
-        }
-        return;
+    for (const t of idlType) {
+        logIdlType(t);
     }
-    logIdlType(idlType);
 }

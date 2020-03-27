@@ -1,8 +1,9 @@
-// Type definitions for prettier 1.18
+// Type definitions for prettier 1.19
 // Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
-//                 Florian Keller <https://github.com/ffflorian>
+//                 Florian Keller <https://github.com/ffflorian>,
+//                 Sosuke Suzuki <https://github.com/sosukesuzuki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -50,34 +51,42 @@ export interface Options extends Partial<RequiredOptions> {}
 export interface RequiredOptions extends doc.printer.Options {
     /**
      * Print semicolons at the ends of statements.
+     * @default true
      */
     semi: boolean;
     /**
      * Use single quotes instead of double quotes.
+     * @default false
      */
     singleQuote: boolean;
     /**
      * Use single quotes in JSX.
+     * @default false
      */
     jsxSingleQuote: boolean;
     /**
      * Print trailing commas wherever possible.
+     * @default 'none'
      */
     trailingComma: 'none' | 'es5' | 'all';
     /**
      * Print spaces between brackets in object literals.
+     * @default true
      */
     bracketSpacing: boolean;
     /**
      * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+     * @default false
      */
     jsxBracketSameLine: boolean;
     /**
      * Format only a segment of a file.
+     * @default 0
      */
     rangeStart: number;
     /**
      * Format only a segment of a file.
+     * @default Infinity
      */
     rangeEnd: number;
     /**
@@ -91,6 +100,7 @@ export interface RequiredOptions extends doc.printer.Options {
     /**
      * Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file.
      * This is very useful when gradually transitioning large, unformatted codebases to prettier.
+     * @default false
      */
     requirePragma: boolean;
     /**
@@ -98,11 +108,13 @@ export interface RequiredOptions extends doc.printer.Options {
      * the file has been formatted with prettier. This works well when used in tandem with
      * the --require-pragma option. If there is already a docblock at the top of
      * the file then this option will add a newline to it with the @format marker.
+     * @default false
      */
     insertPragma: boolean;
     /**
      * By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer.
      * In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out.
+     * @default 'preserve'
      */
     proseWrap:
         | boolean // deprecated
@@ -111,6 +123,7 @@ export interface RequiredOptions extends doc.printer.Options {
         | 'preserve';
     /**
      * Include parentheses around a sole arrow function parameter.
+     * @default 'avoid'
      */
     arrowParens: 'avoid' | 'always';
     /**
@@ -119,16 +132,24 @@ export interface RequiredOptions extends doc.printer.Options {
     plugins: Array<string | Plugin>;
     /**
      * How to handle whitespaces in HTML.
+     * @default 'css'
      */
     htmlWhitespaceSensitivity: 'css' | 'strict' | 'ignore';
     /**
      * Which end of line characters to apply.
+     * @default 'auto'
      */
     endOfLine: 'auto' | 'lf' | 'crlf' | 'cr';
     /**
      * Change when properties in objects are quoted.
+     * @default 'as-needed'
      */
     quoteProps: 'as-needed' | 'consistent' | 'preserve';
+    /**
+     * Whether or not to indent the code inside <script> and <style> tags in Vue files.
+     * @default false
+     */
+    vueIndentScriptAndStyle: boolean;
 }
 
 export interface ParserOptions extends RequiredOptions {
@@ -257,6 +278,22 @@ export namespace resolveConfig {
 }
 
 /**
+ * `resolveConfigFile` can be used to find the path of the Prettier configuration file,
+ * that will be used when resolving the config (i.e. when calling `resolveConfig`).
+ *
+ * A promise is returned which will resolve to:
+ *
+ * - The path of the configuration file.
+ * - `null`, if no file was found.
+ *
+ * The promise will be rejected if there was an error parsing the configuration file.
+ */
+export function resolveConfigFile(filePath?: string): Promise<null | string>;
+export namespace resolveConfigFile {
+    function sync(filePath?: string): null | string;
+}
+
+/**
  * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.
  * Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
  */
@@ -327,6 +364,7 @@ export interface FileInfoOptions {
     ignorePath?: string;
     withNodeModules?: boolean;
     plugins?: string[];
+    resolveConfig?: boolean;
 }
 
 export interface FileInfoResult {
@@ -465,14 +503,17 @@ export namespace doc {
         interface Options {
             /**
              * Specify the line length that the printer will wrap on.
+             * @default 80
              */
             printWidth: number;
             /**
              * Specify the number of spaces per indentation-level.
+             * @default 2
              */
             tabWidth: number;
             /**
              * Indent lines with tabs instead of spaces
+             * @default false
              */
             useTabs: boolean;
         }

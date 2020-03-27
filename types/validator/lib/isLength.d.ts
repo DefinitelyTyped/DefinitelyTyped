@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isLength: typeof validator.isLength;
-export = isLength;
+import validator from '../';
+export default validator.isLength;

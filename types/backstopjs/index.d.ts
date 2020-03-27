@@ -1,4 +1,4 @@
-// Type definitions for backstopjs 4.0
+// Type definitions for backstopjs 4.1
 // Project: https://github.com/garris/backstopjs#readme
 // Definitions by: Darío Blanco <https://github.com/darioblanco>, MindDoc <https://github.com/minddocdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,6 +14,7 @@ export interface Config {
   };
   debugWindow?: boolean;
   debug?: boolean;
+  dockerCommandTemplate?: string;
   engine?: 'chromy' | 'puppeteer';
   engineOptions?: {
     args: string[];
@@ -55,6 +56,7 @@ export interface KeypressSelector {
 
 /** The Backstop test definition. See https://github.com/garris/BackstopJS#advanced-scenarios */
 export interface Scenario {
+  [key: string]: any; // Allow for custom properties.
   clickSelector?: string; // Click the specified DOM element prior to screenshot
   clickSelectors?: string[]; // Simulates multiple sequential click interactions
   cookiePath?: string; // Import cookies in JSON format
@@ -66,7 +68,7 @@ export interface Scenario {
   keyPressSelector?: KeypressSelector; // Press key in the DOM element prior to screenshot
   keyPressSelectors?: KeypressSelector[]; // Simulates multiple sequential keypress interactions
   label: string; // Tag saved with your reference images
-  misMatchThreshold?: string; // Percentage of different pixels allowed to pass test
+  misMatchThreshold?: number; // Percentage of different pixels allowed to pass test
   onBeforeScript?: string; // Used to set up browser state e.g. cookies
   onReadyScript?: string; // Used to modify UI state prior to screenshots e.g. hovers, clicks etc
   postInteractionWait?: number; // Wait for selector (ms) after interacting with hover or click
@@ -82,7 +84,17 @@ export interface Scenario {
   viewports?: Viewport[]; // Override global viewports
 }
 
-export interface Viewport {
+export type Viewport = ViewportNext | ViewportLegacy;
+
+export interface ViewportNext {
+  label: string;
+  width: number;
+  height: number;
+}
+
+// Create a Viewport version that uses `name` for legacy support.
+// https://github.com/garris/BackstopJS/blob/aa7de8ee059074f947768cfd04db1776348e1a7a/core/util/createBitmaps.js#L25
+export interface ViewportLegacy {
   name: 'phone' | 'tablet' | 'desktop';
   width: number;
   height: number;

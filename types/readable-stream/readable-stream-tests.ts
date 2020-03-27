@@ -23,28 +23,119 @@ function test() {
 
     const streamR = new RS_Readable({
         objectMode: true,
-        read(size) { },
-        destroy(error, cb) { }
+        read(size) {
+            assertType<number>(size);
+        },
+        destroy(error, cb) {
+            assertType<Error | null>(error);
+            assertType<(err: Error | null) => void>(cb);
+        }
     });
 
     streamR.once("end", () => {
-        process.nextTick(() => {
-            streamR.emit("close");
-        });
+        process.nextTick(() => streamR.emit("close"));
     });
 
     const row = null;
     const i = 0;
     if (streamR.push(row)) streamR.emit("result", row, i);
-    else streamR.emit('error', new Error("a possible exception"));  // Pass on any errors
+    else streamR.emit("error", new Error("a possible exception"));  // Pass on any errors
     streamR.push(null);  // pushing null, indicating EOF
 
     const streamW = new RS_Writable({
-        write(chunk, enc, cb) { },
-        writev(chunks, cb) { },
-        destroy(error, cb) { },
-        final(cb) { }
+        write(chunk, enc, cb) {
+            assertType<any>(chunk);
+            assertType<string>(enc);
+            assertType<(err?: Error | null) => void>(cb);
+        },
+        writev(chunks, cb) {
+            assertType<ArrayLike<{ chunk: any; encoding: string }>>(chunks);
+            assertType<(err?: Error | null) => void>(cb);
+        },
+        destroy(error, cb) {
+            assertType<Error | null>(error);
+            assertType<(err: Error | null) => void>(cb);
+        },
+        final(cb) {
+            assertType<(err?: Error | null) => void>(cb);
+        }
     });
     streamW.write(new Buffer("test"));
     streamW.emit("finish");
+
+    const streamT = new RS_Transform({
+        transform(chunk, enc, cb) {
+            assertType<any>(chunk);
+            assertType<string>(enc);
+            assertType<(err?: Error, data?: any) => void>(cb);
+        }
+    });
+    assertType<boolean>(streamT.allowHalfOpen);
+    assertType<boolean>(streamT.readable);
+    assertType<boolean>(streamT.writable);
+    streamT.unpipe(streamW);
+    streamT._transformState.afterTransform = (err, data) => { };
+
+    const streamD = new RS_Duplex({
+        read(size: number) {
+            assertType<number>(size);
+        },
+        write(chunk: any, enc: string, cb: (err?: Error | null) => void) {
+            assertType<any>(chunk);
+            assertType<string>(enc);
+            assertType<(err?: Error | null) => void>(cb);
+        }
+    });
+    assertType<boolean>(streamD.allowHalfOpen);
+    assertType<boolean>(streamD.readable);
+    assertType<boolean>(streamD.writable);
+    assertType<boolean>(streamD.readableObjectMode);
+    assertType<boolean>(streamD.writableObjectMode);
+    streamD.pipe(streamW);
+
+    rs.addListener("read", (...args: any[]) => console.log(args));
+    rs.emit("read", 1, 2, 3);
+    rs.pipe(streamW);
+
+    const rState = (null as any) as RStream.ReadableState;
+    rState.buffer.push(new Buffer("buffer-write"));
+    assertType<boolean>(rState.destroyed);
+    assertType<number>(rState.awaitDrain);
+    if (rState.decoder != null) {
+        rState.decoder.write(new Buffer("decoder-write"));
+    }
+
+    const wState = (null as any) as RStream.WritableState;
+    assertType<boolean>(wState.bufferProcessing);
+    assertType<number>(wState.corked);
+    const wBufNext = wState.buffer[0].next;
+    if (wBufNext != null) {
+        wBufNext.callback(new Error("test"));
+    }
+    if (wState.bufferedRequest != null) {
+        wState.bufferedRequest.callback(null);
+    }
+
+    const rOpts: RStream.ReadableOptions = {
+        defaultEncoding: "utf8",
+        encoding: "utf8",
+        highWaterMark: 100,
+        readableHighWaterMark: 100,
+        readableObjectMode: false,
+        read(size: number) { }
+    };
+
+    const wOpts: RStream.WritableOptions = {
+        decodeStrings: true,
+        defaultEncoding: "utf8",
+        highWaterMark: 100,
+        writableHighWaterMark: 100,
+        writableObjectMode: false,
+        write(chunk: any, enc: string, cb: (err?: Error | null) => void) { }
+    };
+}
+
+function assertType<T>(value: T, msg?: string): T {
+    if (!(typeof value)) throw new Error(msg);
+    return value;
 }

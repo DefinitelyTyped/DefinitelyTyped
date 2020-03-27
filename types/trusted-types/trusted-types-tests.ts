@@ -1,4 +1,18 @@
-const policy = {
+import TT from 'trusted-types';
+
+// $ExpectType TrustedTypePolicyFactory
+TT;
+
+// $ExpectError
+trustedTypes;
+
+// $ExpectType TrustedTypePolicyFactory | undefined
+window.trustedTypes;
+
+// $ExpectType TrustedTypePolicyFactory | undefined
+window.TrustedTypes;
+
+const rules = {
     createHTML: (s: string) => s,
     createScript: (s: string) => s,
     createScriptURL: (s: string) => s,
@@ -6,42 +20,50 @@ const policy = {
 };
 
 // $ExpectType string[]
-TrustedTypes.getPolicyNames();
-TrustedTypes.createPolicy('default', policy, true);
-// $ExpectType TrustedTypePolicy | null
-TrustedTypes.getExposedPolicy('default');
+TT.getPolicyNames();
+TT.createPolicy('default', rules, true);
 
-const trustedTypes = TrustedTypes.createPolicy('test', policy);
+const policy = TT.createPolicy('test', rules);
 
 // $ExpectType string
-const policyName = trustedTypes.name;
+policy.name;
 // $ExpectType TrustedHTML
-trustedTypes.createHTML('');
+policy.createHTML('');
 // $ExpectType TrustedScript
-trustedTypes.createScript('');
+policy.createScript('');
 // $ExpectType TrustedScriptURL
-trustedTypes.createScriptURL('');
+policy.createScriptURL('');
 // $ExpectType TrustedURL
-trustedTypes.createURL('');
+policy.createURL('');
 
-const htmlOnlyPolicy = TrustedTypes.createPolicy('htmlOnly', {
+const htmlOnlyPolicy = TT.createPolicy('htmlOnly', {
     createHTML: (html: string) => {
         return html;
     },
 });
 
 // $ExpectType string
-const htmlOnlyName = htmlOnlyPolicy.name;
+htmlOnlyPolicy.name;
 // $ExpectType TrustedHTML
 const html = htmlOnlyPolicy.createHTML('');
 // $ExpectError
-const script = htmlOnlyPolicy.createScript('');
+htmlOnlyPolicy.createScript('');
 
 // $ExpectType boolean
-TrustedTypes.isHTML(html);
+TT.isHTML(html);
 // $ExpectType boolean
-TrustedTypes.isScript(html);
+TT.isScript(html);
 // $ExpectType boolean
-TrustedTypes.isScriptURL(html);
+TT.isScriptURL(html);
 // $ExpectType boolean
-TrustedTypes.isURL(html);
+TT.isURL(html);
+
+// Ensure the types are globaly available
+let trustedHTML: TrustedHTML = null as any;
+const trustedScript: TrustedScript = null as any;
+
+// $ExpectError
+trustedHTML = trustedScript;
+
+// $ExpectError
+new TrustedHTML();

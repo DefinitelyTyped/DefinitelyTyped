@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import { Client, ClientOptions, types, ResultCallback } from "cassandra-driver";
+import { Client, ClientOptions, types, ValueCallback } from "cassandra-driver";
 import * as Long from "long";
 import { Readable } from "stream";
 
@@ -76,7 +76,7 @@ declare namespace CassanKnex {
 	interface QueryBuilder {
 		cql(): string;
 		bindings(): any[];
-		exec(cb: ResultCallback): undefined;
+		exec(cb: ValueCallback<types.ResultSet>): undefined;
 		eachRow(onEachRow: (n: number, row: types.Row) => any, onError: (err: Error) => any): undefined;
 		stream(params: StreamParams): undefined;
 	}

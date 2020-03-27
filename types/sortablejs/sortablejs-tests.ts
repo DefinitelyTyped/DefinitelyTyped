@@ -324,7 +324,7 @@ Sortable.create(simpleList, {
 Sortable.create(simpleList, {
     group: {
         name: 'bar',
-        put: 'qux',
+        put: ['qux'],
         pull: function (to, from) {
             return from.el.children.length > 2 || 'clone';
         }
@@ -362,7 +362,16 @@ Sortable.create(simpleList, {
     handle: '.glyphicon-move',
     animation: 150,
     filter: ".disabled",
-    onMove: function (evt) {
-        return evt.related.className.indexOf('disabled') === -1;
+    onMove: function (evt, originalEvent) {
+        if (evt.related.className.indexOf('disabled') !== -1) {
+            return false;
+        }
+
+        return 1; // insert after target
     }
 });
+
+// plugins
+const { AutoScroll, MultiDrag, OnSpill, Swap } = Sortable;
+Sortable.mount(new AutoScroll(), new MultiDrag(), new OnSpill(), new Swap());
+Sortable.mount(new MultiDrag());

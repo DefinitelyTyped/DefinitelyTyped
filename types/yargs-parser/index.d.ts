@@ -1,4 +1,4 @@
-// Type definitions for yargs-parser 13.0
+// Type definitions for yargs-parser 15.0
 // Project: https://github.com/yargs/yargs-parser#readme
 // Definitions by: Miles Johnson <https://github.com/milesj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -52,6 +52,12 @@ declare namespace yargsParser {
         'set-placeholder-key': boolean;
         /** Should a group of short-options be treated as boolean flags? Default is `true` */
         'short-option-groups': boolean;
+        /** Should aliases be removed before returning results? Default is `false` */
+        'strip-aliased': boolean;
+        /** Should dashed keys be removed before returning results? This option has no effect if camel-case-expansion is disabled. Default is `false` */
+        'strip-dashed': boolean;
+        /** Should unknown options be treated like regular arguments? An unknown option is one that is not configured in opts. Default is `false` */
+        'unknown-options-as-args': boolean;
     }
 
     interface Options {

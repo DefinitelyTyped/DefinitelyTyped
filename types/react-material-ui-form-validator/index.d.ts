@@ -5,12 +5,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import * as React from "react";
-import { TextFieldProps } from "material-ui";
+import * as React from 'react';
+import { SelectFieldProps, TextFieldProps } from 'material-ui';
 
 export interface ValidatorFormProps {
     className?: string;
-    onSubmit: (event: React.FormEventHandler) => void;
+    onSubmit: (event: React.FormEvent) => void;
     instantValidate?: boolean;
     onError?: (errors: any[]) => void;
     debounceTime?: number;
@@ -18,7 +18,8 @@ export interface ValidatorFormProps {
 }
 export class ValidatorForm extends React.Component<ValidatorFormProps> {
     static addValidationRule(name: string, callback: (value: any) => boolean): void;
-    isFormValid(dryRun: boolean): boolean;
+    static removeValidationRule(name: string): void;
+    isFormValid(dryRun: boolean): Promise<boolean>;
     resetValidations(): void;
 }
 
@@ -31,5 +32,6 @@ export interface ValidatorComponentProps {
     withRequiredValidator?: boolean;
     [key: string]: any;
 }
-export class ValidatorComponent extends React.Component<ValidatorComponentProps & TextFieldProps> {}
-export class TextValidator extends ValidatorComponent {}
+export class ValidatorComponent extends React.Component<ValidatorComponentProps> {}
+export class TextValidator extends React.Component<ValidatorComponentProps & TextFieldProps> {}
+export class SelectValidator extends React.Component<ValidatorComponentProps & SelectFieldProps> {}

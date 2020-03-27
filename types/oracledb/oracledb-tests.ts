@@ -1,8 +1,13 @@
 import * as oracledb from 'oracledb';
-import * as dotenv from 'dotenv';
-import * as assert from 'assert';
 
-dotenv.config();
+
+import defaultOracledb from 'oracledb';
+// import dotenv from 'dotenv';
+import assert from 'assert';
+
+
+
+// dotenv.config();
 
 /*
 
@@ -77,7 +82,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
     );
 
     assert(
-        info.bindNames.includes('MYDATE'),
+        info.bindNames.findIndex(s => s === 'MYDATE') >= 0,
         'connection.getStatementInfo() has invalid bindNames field in its response',
     );
     assert(info.statementType === 1, 'connection.getStatementInfo() has invalid statementType field in its response');
@@ -96,6 +101,10 @@ const testQueryStream = async (connection: oracledb.Connection): Promise<void> =
                 type: oracledb.NUMBER,
                 val: 20,
             },
+            anotherValue: {
+                dir: oracledb.BIND_INOUT,
+                type: oracledb.DB_TYPE_NCLOB,
+            }
         });
 
         let data = '';
@@ -143,7 +152,9 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
             SELECT 2 FROM DUAL
             UNION
             SELECT 3 FROM DUAL`,
-        {},
+        {
+            test: undefined,
+        },
         {
             resultSet: true,
         },
@@ -151,8 +162,9 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
 
     assert.deepStrictEqual(result.metaData[0], { name: '1' });
 
-    const { resultSet } = result;
+    const { resultSet, lastRowid } = result;
 
+    console.log(lastRowid);
     console.log('Testing resultSet.getRow()...');
 
     const row = await resultSet.getRow();
@@ -298,6 +310,10 @@ const runPromiseTests = async (): Promise<void> => {
     }
 };
 
+interface One {
+    one: string;
+}
+
 const version4Tests = async () => {
     console.log(oracledb.OUT_FORMAT_ARRAY, oracledb.OUT_FORMAT_OBJECT);
 
@@ -305,15 +321,21 @@ const version4Tests = async () => {
 
     const connection = await pool.getConnection();
 
-    const implicitResults = (await connection.execute('SELECT 1 FROM DUAL')).implicitResults as oracledb.ResultSet[];
+    const implicitResults = (await connection.execute<One>(
+      'SELECT 1 FROM DUAL',
+    )).implicitResults as oracledb.ResultSet<One>[];
+
+    (await implicitResults[0].getRow()).one;
 
     await implicitResults[0].close()
 
-    const implicitResults2 = (await connection.execute('SELECT 1 FROM DUAL')).implicitResults as oracledb.Row[][];
+    const implicitResults2 = (await connection.execute<One>(
+      'SELECT 1 FROM DUAL',
+    )).implicitResults as One[][];
 
-    const results = implicitResults2[0][0] as any[];
+    const results = implicitResults2[0][0];
 
-    console.log(results[0]);
+    console.log(results.one);
 
     const GeomType = await connection.getDbObjectClass("MDSYS.SDO_GEOMETRY");
     
@@ -407,14 +429,14 @@ const version4Tests = async () => {
     result = await connection.execute(plsql, [], { resultSet: true });
 
     for (let i = 0; i < result.implicitResults.length; i++) {
-        console.log(" Implicit Result Set", i + 1);
-        const rs = result.implicitResults[i] as oracledb.ResultSet;  // get the next ResultSet
-        let row;
-    while ((row = await rs.getRow())) {
-        console.log("  ", row);
-    }
-    
-    await rs.close();
+      console.log(' Implicit Result Set', i + 1);
+      const rs = result.implicitResults[i] as oracledb.ResultSet<One>; // get the next ResultSet
+      let row;
+      while ((row = await rs.getRow())) {
+        console.log('  ', row);
+      }
+
+      await rs.close();
     }
 
     const queueName = "DEMO_RAW_QUEUE";
@@ -442,4 +464,51 @@ const version4Tests = async () => {
         await connection.commit();
 }
 
-runPromiseTests();
+interface MyTableRow {
+    firstColumn: string;
+    secondColumn: number;
+}
+
+const testGenerics = async () => {
+    const connection = await oracledb.getConnection({
+        user: 'test'
+    });
+
+    const result = await connection.execute<MyTableRow>('SELECT 1 FROM DUAL');
+
+    console.log(result.rows[0].firstColumn);
+    console.log(result.rows[0].secondColumn);
+
+    const result2 = await connection.execute<{test: string}>(' BEGIN DO_SOMETHING END;', {
+        test: {
+            dir: oracledb.BIND_OUT,
+            val: 'something'
+        }
+    })
+
+    console.log(result2.outBinds.test);
+
+    const sql = `SELECT FIRST_COLUMN, SECOND_COLUMN FROM SOMEWHERE`;
+
+    const result3 = await connection.executeMany<MyTableRow>(sql, 5);
+
+    console.log(result3.outBinds[0].firstColumn);
+}
+
+
+
+const test4point1 = async (): Promise<void> => {
+  defaultOracledb.poolMaxPerShard = 45;
+
+  await oracledb.createPool({
+    poolMaxPerShard: 5,
+  });
+
+  const connection = await oracledb.getConnection({
+    shardingKey: ['TEST', 1234, new Date(), new Buffer('1234')],
+    superShardingKey: ['TEST', 1234, new Date(), new Buffer('1234')],
+  });
+
+  connection.clientInfo = '12345';
+  connection.dbOp = '12345';
+};

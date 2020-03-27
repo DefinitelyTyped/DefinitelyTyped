@@ -17,7 +17,7 @@ export interface ScrollspyProps {
     scrolledPastClassName?: string;
 
     // HTML tag for Scrollspy component if you want to use other than ul
-    componentTag?: string;
+    componentTag?: string | React.ComponentType;
 
     // Style attribute to be passed to the generated <ul /> element
     style?: React.CSSProperties;
@@ -30,6 +30,9 @@ export interface ScrollspyProps {
 
     // Function to be executed when the active item has been updated
     onUpdate?: (item: string) => void;
+
+    // ClassName attribute to be passed to the generated <ul /> element
+    className?: string;
 }
 
 export default class Scrollspy extends React.Component<ScrollspyProps> {
