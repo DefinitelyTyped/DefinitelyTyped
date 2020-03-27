@@ -7899,28 +7899,28 @@ declare namespace Office {
          */
         enum AppointmentSensitivityType {
             /**
-             * Normal.
+             * The item needs no special treatment.
              *
              * [Api set: Mailbox Preview]
              */
             Normal = "normal",
 
             /**
-             * Personal.
+             * Treat the item as personal.
              *
              * [Api set: Mailbox Preview]
              */
             Personal = "personal",
 
             /**
-             * Private.
+             * Treat the item as private.
              *
              * [Api set: Mailbox Preview]
              */
             Private = "private",
 
             /**
-             * Confidential.
+             * Treat the item as confidential.
              *
              * [Api set: Mailbox Preview]
              */
