@@ -880,7 +880,7 @@ export interface RaphaelAttributes {
     ry: number;
 
     /**
-     * Image URL, only works for {@link RaphaelElement.image} elements.
+     * Image URL, only works for {@link RaphaelPaper.image} elements.
      */
     src: string;
 
