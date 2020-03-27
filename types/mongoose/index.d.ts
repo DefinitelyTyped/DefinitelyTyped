@@ -2391,6 +2391,10 @@ declare module "mongoose" {
     before sending the update to the server.**/
     omitUndefined?: boolean;
     session?: ClientSession;
+    /**
+     * Only update elements that match the arrayFilters conditions in the document or documents that match the query conditions.
+    */
+    arrayFilters?: { [key: string]: any }[];
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {
