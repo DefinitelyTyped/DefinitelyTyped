@@ -10,6 +10,6 @@ export namespace URI {
     class Template {
         constructor(template: string);
         expand: (data: { [key: string]: unknown }) => string;
-        match: (template: string) => { [key: string]: unknown };
+        match: (template: string) => { [key: string]: string };
     }
 }
