@@ -38,10 +38,15 @@ const MyLink: React.FC<LinkProps> = props => <Link style={{ color: 'red' }} {...
 const refCallback: React.Ref<HTMLAnchorElement> = node => {};
 <Link to="/url" replace={true} innerRef={refCallback} />;
 <Link to="/url" replace={true} ref={refCallback} />;
+<NavLink to="/url" replace={true} innerRef={refCallback} />;
+<NavLink to="/url" replace={true} ref={refCallback} />;
 const ref = React.createRef<HTMLAnchorElement>();
 <Link to="/url" replace={true} innerRef={ref} />;
 <Link to="/url" replace={true} ref={ref} />;
+<NavLink to="/url" replace={true} innerRef={ref} />;
+<NavLink to="/url" replace={true} ref={ref} />;
 
 <Link to="/url" aria-current="page" />;
 
 <Link<{ foo: number }> to={{ pathname: 'abc', state: { foo: 5 } }} />;
+<NavLink<{ foo: number }> to={{ pathname: 'abc', state: { foo: 5 } }} />;

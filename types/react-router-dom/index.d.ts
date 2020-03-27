@@ -75,4 +75,11 @@ export interface NavLinkProps<S = H.LocationState> extends LinkProps<S> {
     isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params>, location: H.Location<S>): boolean;
     location?: H.Location<S>;
 }
-export class NavLink<S = H.LocationState> extends React.Component<NavLinkProps<S>, any> {}
+export function NavLink<S = H.LocationState>(
+    // TODO: Define this as ...params: Parameters<NavLink<S>> when only TypeScript >= 3.1 support is needed.
+    props: React.PropsWithoutRef<NavLinkProps<S>> & React.RefAttributes<HTMLAnchorElement>,
+): ReturnType<NavLink<S>>;
+export interface NavLink<S = H.LocationState>
+    extends React.ForwardRefExoticComponent<
+        React.PropsWithoutRef<NavLinkProps<S>> & React.RefAttributes<HTMLAnchorElement>
+    > {}
