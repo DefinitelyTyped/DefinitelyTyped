@@ -3,7 +3,7 @@ import { PasswordAuthStrategy } from '@keystonejs/auth-password';
 import { GraphQLApp } from '@keystonejs/app-graphql';
 import { AdminUIApp } from '@keystonejs/app-admin-ui';
 import { KnexAdapter as Adapter } from '@keystonejs/adapter-knex';
-import { Text, Checkbox, Password, AutoIncrement, CalendarDay, Integer } from '@keystonejs/fields';
+import { Text, Checkbox, Password, AutoIncrement, CalendarDay, Integer, Decimal } from '@keystonejs/fields';
 import { NextApp } from '@keystonejs/app-next';
 import { StaticApp } from '@keystonejs/app-static';
 
@@ -75,6 +75,17 @@ keystone.createList('Todo', {
     },
 });
 
+keystone.createList('Todo', {
+    fields: {
+        salary: {
+            type: Decimal,
+        },
+    },
+    access: {
+        update: ({ authentication: { item }, existingItem }) => item.salary > existingItem?.item.salary,
+    },
+});
+
 keystone.extendGraphQLSchema({});
 
 keystone.extendGraphQLSchema({
@@ -133,3 +144,22 @@ apps.map(app =>
 keystone.prepare({ apps, dev: process.env.NODE_ENV !== 'production' }).then(async ({ middlewares }) => {
     await keystone.connect();
 });
+
+interface AListItem {
+    employeeId?: string;
+    salary?: number;
+}
+
+keystone.lists[0].adapter.findById<AListItem>('1').then((item: AListItem) => item.employeeId);
+
+keystone.lists[0].adapter
+    .create<AListItem>({ employeeId: '1', salary: 1000 })
+    .then((item: AListItem) => item.salary);
+
+keystone.lists[0].adapter
+    .update<AListItem>('1', { salary: 2000 })
+    .then((item: AListItem) => item.salary);
+
+keystone.lists[0].adapter.find<AListItem>('salary < 2000').then((results: AListItem[]) => results.length > 0);
+
+keystone.lists[0].adapter.findOne<AListItem>('salary < 2000').then((item: AListItem) => item.employeeId);

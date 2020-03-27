@@ -11,5 +11,5 @@ new AdminUIApp({
 new AdminUIApp<'User', { role: 'admin' }>({
     enableDefaultRoute: true,
     authStrategy: 1,
-    isAccessAllowed: ({ authentication: { item } }) => item.role === 'admin',
+    isAccessAllowed: ({ authentication: { item, listKey } }) => item.role === 'admin' && listKey === 'User',
 });

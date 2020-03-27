@@ -63,19 +63,17 @@ declare module '@keystonejs/keystone' {
         [field: string]: any; // TODO: Can we make this generic?
     }
 
-    type BooleanAccessCallback = (context: AuthenticationContext) => boolean;
     type AccessCallback = (context: AuthenticationContext) => boolean | GraphQLWhereClause;
 
     type Access =
         | boolean // Shorthand documented here: https://www.keystonejs.com/api/access-control#booleans
         | AccessCallback
-        | BooleanAccessCallback
         | {
-              read?: boolean | GraphQLWhereClause | AccessCallback | BooleanAccessCallback;
-              update?: boolean | AccessCallback | BooleanAccessCallback;
+              read?: boolean | GraphQLWhereClause | AccessCallback;
+              update?: boolean | AccessCallback;
               create?: boolean | AccessCallback;
-              delete?: boolean | AccessCallback | BooleanAccessCallback;
-              auth?: boolean | BooleanAccessCallback;
+              delete?: boolean | AccessCallback;
+              auth?: boolean;
           };
 
     type Plugin = any; // TODO: investigate what a plugin is
@@ -222,7 +220,7 @@ declare module '@keystonejs/keystone' {
     interface GraphQLExtension<Source = any, Context = any> {
         schema: string;
         resolver: GraphQLFieldResolver<Source, Context>;
-        auth?: any;
+        access?: Access;
     }
 
     interface GraphQLExtensionSchema {
