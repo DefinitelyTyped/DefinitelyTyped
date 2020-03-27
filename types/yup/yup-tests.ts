@@ -160,7 +160,7 @@ mixed.required(() => 'Foo');
 mixed.notRequired(); // $ExpectType MixedSchema<any>
 mixed.typeError('type error');
 mixed.typeError(() => 'type error');
-mixed.oneOf(['hello', 'world'], 'message');
+mixed.oneOf(['hello', 'world'], 'message'); // $ExpectType MixedSchema<"hello" | "world">
 mixed.oneOf(['hello', 'world'], () => 'message');
 mixed.oneOf(['hello', 'world'], ({ values }) => `one of ${values}`);
 // $ExpectError
