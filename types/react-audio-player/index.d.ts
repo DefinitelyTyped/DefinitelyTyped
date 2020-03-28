@@ -1,4 +1,9 @@
-// Type definitions for react-audio-player
+// Type definitions for react-audio-player 0.11
+// Project: https://github.com/justinmc/react-audio-player
+// Definitions by: Daniel Gil <https://github.com/dpgil>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
+
 import React from 'react';
 
 export type Preload = '' | 'none' | 'metadata' | 'auto';
