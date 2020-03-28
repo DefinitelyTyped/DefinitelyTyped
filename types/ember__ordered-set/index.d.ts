@@ -1,6 +1,9 @@
 // Type definitions for @ember/ordered-set 2.0
 // Project: https://github.com/emberjs/ember-ordered-set
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
+//                 Mike North <https://github.com/mike-north>
+//                 Dan Freeman <https://github.com/dfreeman>
+//                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
