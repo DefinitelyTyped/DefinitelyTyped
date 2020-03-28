@@ -45,7 +45,8 @@ export interface RequestHandler<P extends Params = ParamsDictionary, ResBody = a
     (req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction): any;
 }
 
-export type ErrorRequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = any> = (err: any, req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction) => any;
+export type ErrorRequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = any> =
+    (err: any, req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction) => any;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
