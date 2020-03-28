@@ -1840,16 +1840,16 @@ declare namespace webpack {
         /**
          * A handler function which will be called when webpack hooks report progress
          */
-        type Handler = (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void;
+        type Handler = (percentage: number, msg: string, ...args: string[]) => void;
         interface Options {
             /**
              * Show active modules count and one active module in progress message
-             * Default: false
+             * Default: true
              */
             activeModules?: boolean;
             /**
              * Show entries count in progress message
-             * Default: true
+             * Default: false
              */
             entries?: boolean;
             /**
