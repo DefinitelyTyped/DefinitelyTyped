@@ -1,32 +1,126 @@
-// Type definitions for react-query 0.3
+// Type definitions for react-query 1.1.0
 // Project: https://github.com/tannerlinsley/react-query
 // Definitions by: Lukasz Fiszer <https://github.com/lukaszfiszer>
 //                 Jace Hensley <https://github.com/jacehensley>
 //                 Matteo Frana <https://github.com/matteofrana>
+//                 Igor Oleinikov <https://github.com/igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ComponentType } from 'react';
+import * as React from 'react';
 
-// overloaded useQuery function with pagination
-export function useQuery<TResult, TVariables extends object>(
-    queryKey: QueryKey<TVariables>,
-    queryFn: QueryFunction<TResult, TVariables>,
-    options: QueryOptionsPaginated<TResult>
-): QueryResultPaginated<TResult, TVariables>;
+// overloaded useQuery function
+export function useQuery<TResult, TKey extends AnyQueryKey>(
+    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
+    queryFn: QueryFunction<TResult, TKey>,
+    config?: QueryOptions<TResult>,
+): QueryResult<TResult>;
 
-export function useQuery<TResult, TVariables extends object>(
-    queryKey: QueryKey<TVariables>,
-    queryFn: QueryFunction<TResult, TVariables>,
-    options?: QueryOptions<TResult>
-): QueryResult<TResult, TVariables>;
+export function useQuery<TResult, TKey extends string>(
+    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
+    queryFn: QueryFunction<TResult, [TKey]>,
+    config?: QueryOptions<TResult>,
+): QueryResult<TResult>;
 
-export type QueryKey<TVariables> = string | [string, TVariables] | false | null | QueryKeyFunction<TVariables>;
-export type QueryKeyFunction<TVariables> = () => string | [string, TVariables] | false | null;
+export function useQuery<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables>(
+    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
+    variables: TVariables,
+    queryFn: QueryFunction<TResult, TKey>,
+    config?: QueryOptions<TResult>,
+): QueryResult<TResult>;
 
-export type QueryFunction<TResult, TVariables extends object> = (variables: TVariables) => Promise<TResult>;
+export function useQuery<TResult, TKey extends string, TVariables extends AnyVariables>(
+    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
+    variables: TVariables,
+    queryFn: QueryFunction<TResult, [TKey]>,
+    config?: QueryOptions<TResult>,
+): QueryResult<TResult>;
+
+export function useQuery<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables = []>({
+    queryKey,
+    variables,
+    queryFn,
+    config,
+}: {
+    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined);
+    variables?: TVariables;
+    queryFn: QueryFunction<TResult, TKey>;
+    config?: QueryOptions<TResult>;
+}): QueryResult<TResult>;
+
+// usePaginatedQuery
+export function usePaginatedQuery<TResult, TKey extends AnyQueryKey>(
+    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
+    queryFn: QueryFunction<TResult, TKey>,
+    config?: QueryOptions<TResult>,
+): QueryResultPaginated<TResult>;
+
+export function usePaginatedQuery<TResult, TKey extends string>(
+    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
+    queryFn: QueryFunction<TResult, [TKey]>,
+    config?: QueryOptions<TResult>,
+): QueryResultPaginated<TResult>;
+
+export function usePaginatedQuery<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables>(
+    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
+    variables: TVariables,
+    queryFn: QueryFunction<TResult, TKey>,
+    config?: QueryOptions<TResult>,
+): QueryResultPaginated<TResult>;
+
+export function usePaginatedQuery<TResult, TKey extends string, TVariables extends AnyVariables>(
+    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
+    variables: TVariables,
+    queryFn: QueryFunction<TResult, [TKey]>,
+    config?: QueryOptions<TResult>,
+): QueryResultPaginated<TResult>;
+
+export function usePaginatedQuery<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables = []>({
+    queryKey,
+    variables,
+    queryFn,
+    config,
+}: {
+    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined);
+    variables?: TVariables;
+    queryFn: QueryFunction<TResult, TKey>;
+    config?: QueryOptions<TResult>;
+}): QueryResultPaginated<TResult>;
+
+export type QueryKeyPart = string | object | boolean | number | null | readonly QueryKeyPart[] | null | undefined;
+export type AnyQueryKey =
+    | readonly [QueryKeyPart]
+    | readonly [QueryKeyPart, QueryKeyPart]
+    | readonly [QueryKeyPart, QueryKeyPart, QueryKeyPart]
+    | readonly [QueryKeyPart, QueryKeyPart, QueryKeyPart, QueryKeyPart];
+export type AnyVariables =
+    | readonly []
+    | readonly [any]
+    | readonly [any, any]
+    | readonly [any, any, any]
+    | readonly [any, any, any, any]
+    | readonly [any, any, any, any, any];
+// export type QueryKey<TVariables> =
+//     | string
+//     | [string, TVariables]
+//     | false
+//     | null
+//     | undefined
+//     | QueryKeyFunction<TVariables>;
+// export type QueryKeyFunction<TVariables> = () => string | [string, TVariables] | false | null | undefined;
+
+export type QueryFunction<TResult, TKey extends AnyQueryKey> = (...key: TKey) => Promise<TResult>;
 
 export interface QueryOptions<TResult> {
+    /**
+     * Set this to `true` to disable automatic refetching when the query mounts or changes query keys.
+     * To refetch the query, use the `refetch` method returned from the `useQuery` instance.
+     */
     manual?: boolean;
+    /**
+     * If `false`, failed queries will not retry by default.
+     * If `true`, failed queries will retry infinitely.
+     * If set to an integer number, e.g. 3, failed queries will retry until the failed query count meets that number.
+     */
     retry?: boolean | number;
     retryDelay?: (retryAttempt: number) => number;
     staleTime?: number;
@@ -34,8 +128,10 @@ export interface QueryOptions<TResult> {
     refetchInterval?: false | number;
     refetchIntervalInBackground?: boolean;
     refetchOnWindowFocus?: boolean;
+    refetchOnMount?: boolean;
     onError?: (err: any) => void;
     onSuccess?: (data: TResult) => void;
+    onSettled?: (data: TResult | undefined, error: any | null) => void;
     suspense?: boolean;
     initialData?: TResult;
 }
@@ -45,88 +141,91 @@ export interface QueryOptionsPaginated<TResult> extends QueryOptions<TResult> {
     getCanFetchMore: (lastPage: TResult, allPages: TResult[]) => boolean;
 }
 
-export interface QueryResult<TResult, TVariables> {
-    data: null | TResult;
+export interface QueryResultBase {
+    status: 'loading' | 'error' | 'success';
     error: null | Error;
-    isLoading: boolean;
     isFetching: boolean;
-    isCached: boolean;
     failureCount: number;
-    refetch: (arg?: {variables?: TVariables, merge?: (...args: any[]) => any, disableThrow?: boolean}) => Promise<void>;
+    refetch: ({ force, throwOnError }?: { force?: boolean; throwOnError?: boolean }) => void;
 }
 
-export interface QueryResultPaginated<TResult, TVariables> extends QueryResult<TResult[], TVariables> {
-    isFetchingMore: boolean;
-    canFetchMore: boolean;
-    fetchMore: (variables?: TVariables) => Promise<TResult>;
+export interface QueryResult<TResult> extends QueryResultBase {
+    data: undefined | TResult;
 }
 
-export function prefetchQuery<TResult, TVariables extends object>(
-    queryKey: QueryKey<TVariables>,
-    queryFn: QueryFunction<TResult, TVariables>,
-    options?: PrefetchQueryOptions<TResult>
-): Promise<TResult>;
+export interface QueryResultPaginated<TResult> extends QueryResultBase {
+    resolvedData: undefined | TResult;
+    latestDate: undefined | TResult;
+}
+
+// export function prefetchQuery<TResult, TVariables extends object>(
+//     queryKey: QueryKey<TVariables>,
+//     queryFn: QueryFunction<TResult, TVariables>,
+//     options?: PrefetchQueryOptions<TResult>,
+// ): Promise<TResult>;
 
 export interface PrefetchQueryOptions<TResult> extends QueryOptions<TResult> {
     force?: boolean;
 }
 
-export function useMutation<TResults, TVariables extends object>(
+export function useMutation<TResults, TVariables>(
     mutationFn: MutationFunction<TResults, TVariables>,
-    mutationOptions?: MutationOptions
+    mutationOptions?: MutationOptions<TResults, TVariables>,
 ): [MutateFunction<TResults, TVariables>, MutationResult<TResults>];
 
-export type MutationFunction<TResults, TVariables extends object> = (
-    variables: TVariables,
-) => Promise<TResults>;
+export type MutationFunction<TResults, TVariables> = (variables: TVariables) => Promise<TResults>;
 
-export interface MutationOptions {
-    refetchQueries?: Array<string | [string, object]>;
-    refetchQueriesOnFailure?: boolean;
+export interface MutateOptions<TResult, TVariables> {
+    onSuccess?: (data: TResult, variables: TVariables) => Promise<void> | void;
+    onError?: (error: any, variables: TVariables, snapshotValue: unknown) => Promise<void> | void;
+    onSettled?: (
+        data: undefined | TResult,
+        error: unknown | null,
+        variables: TVariables,
+        snapshotValue?: unknown,
+    ) => Promise<void> | void;
+    throwOnError?: boolean;
 }
 
-export type MutateFunction<TResults, TVariables extends object> = (
+export interface MutationOptions<TResult, TVariables> extends MutateOptions<TResult, TVariables> {
+    onMutate?: (variables: TVariables) => Promise<unknown> | unknown;
+    useErrorBoundary?: boolean;
+}
+
+export type MutateFunction<TResult, TVariables> = (
     variables?: TVariables,
-    options?: {
-        updateQuery?: string | [string, object],
-        waitForRefetchQueries?: boolean;
-    }
-) => Promise<TResults>;
+    options?: MutateOptions<TResult, TVariables>,
+) => Promise<TResult>;
 
 export interface MutationResult<TResults> {
-    data: TResults | null;
-    isLoading: boolean;
-    error: null | Error;
+    status: 'idle' | 'loading' | 'error' | 'success';
+    data: undefined | TResults;
+    error: null | unknown;
     promise: Promise<TResults>;
     reset: () => void;
 }
 
-export function setQueryData(
-    queryKey: string | [string, object],
-    data: any,
-    options?: {
-        shouldRefetch?: boolean
-    }
-): void | Promise<void>;
+// export function setQueryData(
+//     queryKey: string | [string, object],
+//     data: any,
+//     options?: {
+//         shouldRefetch?: boolean;
+//     },
+// ): void | Promise<void>;
 
-export function refetchQuery(
-    queryKey: string | [string, object] | [string, false],
-    force?: {
-        force?: boolean
-    }
-): Promise<void>;
+// export function refetchQuery(
+//     queryKey: string | [string, object] | [string, false],
+//     force?: {
+//         force?: boolean;
+//     },
+// ): Promise<void>;
 
-export function refetchAllQueries(
-    options?: {
-        force?: boolean,
-        includeInactive: boolean
-    }
-): Promise<void>;
+// export function refetchAllQueries(options?: { force?: boolean; includeInactive: boolean }): Promise<void>;
 
 export function useIsFetching(): boolean;
 
 export const ReactQueryConfigProvider: React.ComponentType<{
-    config?: ReactQueryProviderConfig
+    config?: ReactQueryProviderConfig;
 }>;
 
 export interface ReactQueryProviderConfig {
@@ -139,4 +238,4 @@ export interface ReactQueryProviderConfig {
     suspense?: boolean;
 }
 
-export function clearQueryCache(): void;
+// export function clearQueryCache(): void;
