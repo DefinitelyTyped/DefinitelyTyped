@@ -1,4 +1,4 @@
-// Type definitions for express-mysql-session 2.1.x
+// Type definitions for express-mysql-session 2.1
 // Project: https://github.com/chill117/express-mysql-session#readme
 // Definitions by: Akim95 <https://github.com/Akim95>
 //                 Sebastian Krüger <https://github.com/mathe42>
