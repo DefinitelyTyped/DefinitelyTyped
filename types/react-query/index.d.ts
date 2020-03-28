@@ -5,6 +5,7 @@
 //                 Matteo Frana <https://github.com/matteofrana>
 //                 Igor Oleinikov <https://github.com/igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
 import * as React from 'react';
 
@@ -129,9 +130,9 @@ export interface QueryOptions<TResult> {
     refetchIntervalInBackground?: boolean;
     refetchOnWindowFocus?: boolean;
     refetchOnMount?: boolean;
-    onError?: (err: any) => void;
+    onError?: (err: unknown) => void;
     onSuccess?: (data: TResult) => void;
-    onSettled?: (data: TResult | undefined, error: any | null) => void;
+    onSettled?: (data: TResult | undefined, error: unknown | null) => void;
     suspense?: boolean;
     initialData?: TResult;
 }
@@ -141,19 +142,19 @@ export interface QueryOptionsPaginated<TResult> extends QueryOptions<TResult> {
     getCanFetchMore: (lastPage: TResult, allPages: TResult[]) => boolean;
 }
 
-export interface QueryResultBase {
+export interface QueryResultBase<TResult> {
     status: 'loading' | 'error' | 'success';
-    error: null | Error;
+    error: null | unknown;
     isFetching: boolean;
     failureCount: number;
-    refetch: ({ force, throwOnError }?: { force?: boolean; throwOnError?: boolean }) => void;
+    refetch: ({ force, throwOnError }?: { force?: boolean; throwOnError?: boolean }) => Promise<TResult>;
 }
 
-export interface QueryResult<TResult> extends QueryResultBase {
+export interface QueryResult<TResult> extends QueryResultBase<TResult> {
     data: undefined | TResult;
 }
 
-export interface QueryResultPaginated<TResult> extends QueryResultBase {
+export interface QueryResultPaginated<TResult> extends QueryResultBase<TResult> {
     resolvedData: undefined | TResult;
     latestDate: undefined | TResult;
 }

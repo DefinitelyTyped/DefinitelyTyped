@@ -2,10 +2,10 @@ import { useMutation, useQuery, usePaginatedQuery } from 'react-query';
 
 // Query - simple case
 const querySimple = useQuery('todos', () => Promise.resolve('test'));
-querySimple.data; // $ExpectType string | null
-querySimple.error; // $ExpectType Error | null
+querySimple.data; // $ExpectType string | undefined
+querySimple.error; // $ExpectType unknown
 querySimple.isFetching; // $ExpectType boolean
-querySimple.refetch(); // $ExpectType Promise<void>
+querySimple.refetch(); // $ExpectType Promise<string>
 querySimple.fetchMore; // $ExpectError
 querySimple.canFetchMore; // $ExpectError
 querySimple.isFetchingMore; // $ExpectError
@@ -17,8 +17,8 @@ const queryVariables = useQuery(['todos', { param }, 10], (key, variables, id) =
 );
 
 queryVariables.data; // $ExpectType boolean | undefined
-queryVariables.refetch(); // $ExpectType Promise<void>
-queryVariables.refetch({ force: true }); // $ExpectError
+queryVariables.refetch(); // $ExpectType Promise<boolean>
+queryVariables.refetch({ force: true }); // $ExpectType Promise<boolean>
 
 const queryFn1 = (name: string, params: { bar: string }) => Promise.resolve(10);
 const queryFn2 = () => Promise.resolve('test');
@@ -52,11 +52,9 @@ queryNested.data; // $ExpectType number | undefined
 // Paginated mode
 const queryPaginated = usePaginatedQuery('key', () => Promise.resolve({ data: [1, 2, 3], next: true }), {
     refetchInterval: 1000,
-    //paginated: true,
-    //getCanFetchMore: (lastPage, allPages) => lastPage.next,
 });
-queryPaginated.resolvedData; // $ExpectType { data: number[]; next: boolean; }[] | undefined
-queryPaginated.latestDate; // $ExpectType { data: number[]; next: boolean; }[] | undefined
+queryPaginated.resolvedData; // $ExpectType { data: number[]; next: boolean; } | undefined
+queryPaginated.latestDate; // $ExpectType { data: number[]; next: boolean; } | undefined
 queryPaginated.data; // $ExpectError
 
 // Simple mutation
