@@ -52,7 +52,7 @@ const queryNested = useQuery(
 queryNested.data; // $ExpectType number | undefined
 
 useQuery(['key', { a: 1 }], [{ b: true }, { c: 'c' }], (key1, key2, var1, var2) =>
-    Promise.resolve(key1 === 'key' && key2.a === 1 && var1.b === true && var2.c === 'c'),
+    Promise.resolve(key1 === 'key' && key2.a === 1 && var1.b && var2.c === 'c'),
 );
 
 // Paginated mode

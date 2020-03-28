@@ -101,7 +101,9 @@ export type AnyVariables =
     | readonly [any, any, any, any]
     | readonly [any, any, any, any, any];
 
-type QueryFunctionParams<TKey extends AnyQueryKey, TVariables extends AnyVariables> = TKey extends readonly [infer T1]
+export type QueryFunctionParams<TKey extends AnyQueryKey, TVariables extends AnyVariables> = TKey extends readonly [
+    infer T1,
+]
     ? Parameters<(key: T1, ...variables: TVariables) => void>
     : TKey extends readonly [infer T1, infer T2]
     ? Parameters<(key1: T1, key2: T2, ...variables: TVariables) => void>
