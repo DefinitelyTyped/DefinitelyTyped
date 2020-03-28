@@ -58,7 +58,7 @@ declare class MySQLStoreClass {
 
     length(callback?: (error: any, count: any) => void): void;
 
-    all(callback?: (error: any, count: any) => void): void;
+    all(callback?: (error: any, sessions: any) => void): void;
 
     clear(callback?: (error: any) => void): void;
 
