@@ -15,6 +15,19 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 
     var str = qs.stringify(obj);
     assert.equal(str, 'a=c');
+};
+
+{
+    var obj = qs.parse('a=c', {
+        decoder: (str, defaultDecoder, charset, type) => {
+            switch (type) {
+                case 'key': return str;
+                case 'value': return parseFloat(str);
+            }
+        },
+    });
+    obj; // $ExpectType { [key: string]: unknown; }
+    obj.a; // $ExpectType unknown
 }
 
 () => {
