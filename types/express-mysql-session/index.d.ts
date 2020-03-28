@@ -48,19 +48,19 @@ declare class MySQLStoreClass {
 
     createDatabaseTable(callback?: (error: any) => void): void;
 
-    get: (sessionId: string, callback?: (error: any, session: any) => void) => void;
+    get(sessionId: string, callback?: (error: any, session: any) => void): void;
 
-    set: (sessionId: string, data: any, callback?: (error: any) => void) => void;
+    set(sessionId: string, data: any, callback?: (error: any) => void): void;
 
-    touch: (sessionId: string, data: any, callback?: (error: any) => void) => void;
+    touch(sessionId: string, data: any, callback?: (error: any) => void): void;
 
-    destroy: (sessionId: string, callback?: (error: any) => void) => void;
+    destroy(sessionId: string, callback?: (error: any) => void): void;
 
-    length: (callback?: (error: any, count: any) => void) => void;
+    length(callback?: (error: any, count: any) => void): void;
 
-    all: (callback?: (error: any, count: any) => void) => void;
+    all(callback?: (error: any, count: any) => void): void;
 
-    clear: (callback?: (error: any) => void) => void;
+    clear(callback?: (error: any) => void): void;
 
     clearExpiredSessions(callback?: (error: any) => void): void;
 
