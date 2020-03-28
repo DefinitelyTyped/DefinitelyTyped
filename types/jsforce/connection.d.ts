@@ -65,6 +65,12 @@ export interface UserInfo {
     url: string;
 }
 
+// IdentityInfo is a large object of identity information that is not typed in jsforce documentation.
+// https://jsforce.github.io/jsforce/doc/Connection.html#identity
+export interface IdentityInfo {
+    [key:string]: any
+}
+
 export abstract class RestApi {
     get(path: string, options: object, callback: () => object): Promise<object>;
     post(path: string, body: object, options: object, callback: () => object): Promise<object>;
@@ -167,6 +173,7 @@ export class Connection extends BaseConnection {
     instanceUrl: string;
     version: string;
     accessToken: string;
+    refreshToken?: string;
     initialize(options?: ConnectionOptions): void;
     queryAll<T>(soql: string, options?: object, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
     authorize(code: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
@@ -180,6 +187,7 @@ export class Connection extends BaseConnection {
     logoutBySoap(revoke: boolean, callback?: (err: Error, res: undefined) => void): Promise<void>;
     logoutBySoap(callback?: (err: Error, res: undefined) => void): Promise<void>;
     limits(callback?: (err: Error, res: undefined) => void): Promise<LimitsInfo>;
+    identity(callback?: (err: Error, res: IdentityInfo) => void): Promise<IdentityInfo>;
 }
 
 export class Tooling extends BaseConnection {
