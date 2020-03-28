@@ -1832,8 +1832,7 @@ declare namespace webpack {
     }
 
     class ProgressPlugin extends Plugin {
-        constructor(options?: Partial<ProgressPlugin.Options>);
-        constructor(callback?: ProgressPlugin.Callback);
+        constructor(options?: Partial<ProgressPlugin.Options> | ProgressPlugin.Callback);
     }
 
     namespace ProgressPlugin {
