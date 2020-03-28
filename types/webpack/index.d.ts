@@ -1837,17 +1837,40 @@ declare namespace webpack {
     }
 
     namespace ProgressPlugin {
+        /**
+         * A handler function which will be called when webpack hooks report progress
+         */
         type Handler = (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void;
         interface Options {
+            /**
+             * Show active modules count and one active module in progress message
+             * Default: false
+             */
             activeModules?: boolean;
+            /**
+             * Show entries count in progress message
+             * Default: true
+             */
             entries?: boolean;
+            /**
+             * Function that executes for every progress step
+             */
             handler?: Handler;
+            /**
+             * Show modules count in progress message
+             * Default: true
+             */
             modules?: boolean;
+            /**
+             * Minimum modules count to start with, only for mode = modules
+             * Default: 500
+             */
             modulesCount?: number;
-            profile?: boolean;
-            dependencies?: boolean;
-            dependenciesCount?: number;
-            percentBy?: "entries" | "dependencies" | "modules" | null;
+            /**
+             * Collect profile data for progress steps
+             * Default: false
+             */
+            profile?: boolean | null;
         }
     }
 
