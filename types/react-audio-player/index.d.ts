@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import React from 'react';
+import * as React from 'react';
 
 export type Preload = '' | 'none' | 'metadata' | 'auto';
 
