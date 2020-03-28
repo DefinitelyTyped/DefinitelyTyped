@@ -1832,7 +1832,33 @@ declare namespace webpack {
     }
 
     class ProgressPlugin extends Plugin {
-        constructor(options?: (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void);
+        constructor(options?: Partial<ProgressPlugin.Options>);
+        constructor(callback?: ProgressPlugin.Callback);
+    }
+
+    namespace ProgressPlugin {
+        type Callback = (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void;
+
+        interface Options {
+            /** Shows active modules count and one active module in progress message. */
+            activeModules: boolean;
+            /** Shows entries count in progress message. */
+            entries: boolean;
+            /** Provide a handler function which will be called when hooks report progress. */
+            handler: Callback;
+            /** Shows modules count in progress message. */
+            modules: boolean;
+            /** A minimum modules count to start with. Takes effect when modules property is enabled. */
+            modulesCount: number;
+            /** Tells ProgressPlugin to collect profile data for progress steps. */
+            profile: boolean;
+            /** Shows the count of dependencies in progress message. */
+            dependencies: boolean;
+            /** A minimum dependencies count to start with. Takes effect when dependencies property is enabled. */
+            dependenciesCount: number;
+            /** Tells ProgressPlugin how to calculate progress percentage. */
+            percentBy: 'entries' | 'dependencies' | 'modules' | null;
+        }
     }
 
     class EnvironmentPlugin extends Plugin {
