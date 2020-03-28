@@ -102,9 +102,13 @@ export interface ParseOptions {
      */
     schema?: "core" | "failsafe" | "json" | "yaml-1.1";
     /**
-     * Array of additional (custom) tags to include in the schema.
+     * @deprecated Use `customTags` instead.
      */
     tags?: Tag[] | ((tags: Tag[]) => Tag[]);
+    /**
+     * Array of additional (custom) tags to include in the schema.
+     */
+    customTags?: Tag[] | ((tags: Tag[]) => Tag[]);
     /**
      * The YAML version used by documents without a `%YAML` directive. By default `"1.2"`.
      */
