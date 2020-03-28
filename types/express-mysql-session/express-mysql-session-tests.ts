@@ -9,8 +9,15 @@ const options = {
     user: 'root',
     password: '',
     database: 'session_test',
+    schema: {
+        columnNames: {
+            data: 'content',
+        },
+    },
 };
 
 const sessionStore = new MySQLStore(options);
 
 sessionStore.close();
+sessionStore.get('my-session-id', (error, session) => {});
+sessionStore.all();
