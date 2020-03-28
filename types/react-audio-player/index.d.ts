@@ -19,6 +19,17 @@ export interface ReactAudioPlayerProps {
     listenInterval?: number;
     loop?: boolean;
     muted?: boolean;
+    onAbort?: (event: React.SyntheticEvent<HTMLAudioElement, Event>) => void;
+    onCanPlay?: (event: React.SyntheticEvent<HTMLAudioElement, Event>) => void;
+    onCanPlayThrough?: (event: React.SyntheticEvent<HTMLAudioElement, Event>) => void;
+    onEnded?: (event: React.SyntheticEvent<HTMLAudioElement, Event>) => void;
+    onError?: (event: React.SyntheticEvent<HTMLAudioElement, Event>) => void;
+    onListen?: (event: React.SyntheticEvent<HTMLAudioElement, Event>) => void;
+    onPause?: (event: React.SyntheticEvent<HTMLAudioElement, Event>) => void;
+    onPlay?: (event: React.SyntheticEvent<HTMLAudioElement, Event>) => void;
+    onSeeked?: (event: React.SyntheticEvent<HTMLAudioElement, Event>) => void;
+    onVolumeChanged?: (event: React.SyntheticEvent<HTMLAudioElement, Event>) => void;
+    onLoadedMetadata?: (event: React.SyntheticEvent<HTMLAudioElement, Event>) => void;
     preload?: Preload;
     src?: string;
     style?: React.CSSProperties;
