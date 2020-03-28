@@ -23,11 +23,13 @@ queryVariables.refetch({ force: true }); // $ExpectType Promise<boolean>
 const queryFn1 = (name: string, params: { bar: string }) => Promise.resolve(10);
 const queryFn2 = () => Promise.resolve('test');
 
+declare const condition: boolean;
+
 // Query with falsey query key
-useQuery(false && ['foo', { bar: 'baz' }], queryFn1);
-useQuery(false && ['foo', { bar: 'baz' }], queryFn2);
+useQuery(condition && ['foo', { bar: 'baz' }], queryFn1);
+useQuery(condition && ['foo', { bar: 'baz' }], queryFn2);
 useQuery({
-    queryKey: false && ['foo', { bar: 'baz' }],
+    queryKey: condition && ['foo', { bar: 'baz' }],
     queryFn: queryFn1,
 });
 
@@ -48,6 +50,10 @@ const queryNested = useQuery(
     (key, variables) => Promise.resolve(variables.nested.props[0]),
 );
 queryNested.data; // $ExpectType number | undefined
+
+useQuery(['key', { a: 1 }], [{ b: true }, { c: 'c' }], (key1, key2, var1, var2) =>
+    Promise.resolve(key1 === 'key' && key2.a === 1 && var1.b === true && var2.c === 'c'),
+);
 
 // Paginated mode
 const queryPaginated = usePaginatedQuery('key', () => Promise.resolve({ data: [1, 2, 3], next: true }), {

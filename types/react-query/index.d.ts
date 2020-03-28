@@ -1,4 +1,4 @@
-// Type definitions for react-query 1.1.0
+// Type definitions for react-query 1.1
 // Project: https://github.com/tannerlinsley/react-query
 // Definitions by: Lukasz Fiszer <https://github.com/lukaszfiszer>
 //                 Jace Hensley <https://github.com/jacehensley>
@@ -25,14 +25,14 @@ export function useQuery<TResult, TKey extends string>(
 export function useQuery<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables>(
     queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
     variables: TVariables,
-    queryFn: QueryFunction<TResult, TKey>,
+    queryFn: QueryFunctionWithVariables<TResult, TKey, TVariables>,
     config?: QueryOptions<TResult>,
 ): QueryResult<TResult>;
 
 export function useQuery<TResult, TKey extends string, TVariables extends AnyVariables>(
     queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
     variables: TVariables,
-    queryFn: QueryFunction<TResult, [TKey]>,
+    queryFn: QueryFunctionWithVariables<TResult, [TKey], TVariables>,
     config?: QueryOptions<TResult>,
 ): QueryResult<TResult>;
 
@@ -44,7 +44,7 @@ export function useQuery<TResult, TKey extends AnyQueryKey, TVariables extends A
 }: {
     queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined);
     variables?: TVariables;
-    queryFn: QueryFunction<TResult, TKey>;
+    queryFn: QueryFunctionWithVariables<TResult, TKey, TVariables>;
     config?: QueryOptions<TResult>;
 }): QueryResult<TResult>;
 
@@ -64,14 +64,14 @@ export function usePaginatedQuery<TResult, TKey extends string>(
 export function usePaginatedQuery<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables>(
     queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
     variables: TVariables,
-    queryFn: QueryFunction<TResult, TKey>,
+    queryFn: QueryFunctionWithVariables<TResult, TKey, TVariables>,
     config?: QueryOptions<TResult>,
 ): QueryResultPaginated<TResult>;
 
 export function usePaginatedQuery<TResult, TKey extends string, TVariables extends AnyVariables>(
     queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
     variables: TVariables,
-    queryFn: QueryFunction<TResult, [TKey]>,
+    queryFn: QueryFunctionWithVariables<TResult, [TKey], TVariables>,
     config?: QueryOptions<TResult>,
 ): QueryResultPaginated<TResult>;
 
@@ -83,7 +83,7 @@ export function usePaginatedQuery<TResult, TKey extends AnyQueryKey, TVariables 
 }: {
     queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined);
     variables?: TVariables;
-    queryFn: QueryFunction<TResult, TKey>;
+    queryFn: QueryFunctionWithVariables<TResult, TKey, TVariables>;
     config?: QueryOptions<TResult>;
 }): QueryResultPaginated<TResult>;
 
@@ -100,16 +100,21 @@ export type AnyVariables =
     | readonly [any, any, any]
     | readonly [any, any, any, any]
     | readonly [any, any, any, any, any];
-// export type QueryKey<TVariables> =
-//     | string
-//     | [string, TVariables]
-//     | false
-//     | null
-//     | undefined
-//     | QueryKeyFunction<TVariables>;
-// export type QueryKeyFunction<TVariables> = () => string | [string, TVariables] | false | null | undefined;
+
+type QueryFunctionParams<TKey extends AnyQueryKey, TVariables extends AnyVariables> = TKey extends readonly [infer T1]
+    ? Parameters<(key: T1, ...variables: TVariables) => void>
+    : TKey extends readonly [infer T1, infer T2]
+    ? Parameters<(key1: T1, key2: T2, ...variables: TVariables) => void>
+    : TKey extends readonly [infer T1, infer T2, infer T3]
+    ? Parameters<(key1: T1, key2: T2, key3: T3, ...variables: TVariables) => void>
+    : TKey extends readonly [infer T1, infer T2, infer T3, infer T4]
+    ? Parameters<(key1: T1, key2: T2, key3: T3, key4: T4, ...variables: TVariables) => void>
+    : never;
 
 export type QueryFunction<TResult, TKey extends AnyQueryKey> = (...key: TKey) => Promise<TResult>;
+export type QueryFunctionWithVariables<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables> = (
+    ...key: QueryFunctionParams<TKey, TVariables>
+) => Promise<TResult>;
 
 export interface QueryOptions<TResult> {
     /**
