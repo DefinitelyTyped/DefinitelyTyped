@@ -1,11 +1,11 @@
 import * as Ajv from 'ajv';
-import JSONEditor, {JSONEditorMode, Node, JSONEditorOptions } from 'jsoneditor';
+import JSONEditor, { JSONEditorMode, Node, JSONEditorOptions } from 'jsoneditor';
 
 let options: JSONEditorOptions;
 options = {};
 options = {
-    ace: ace,
-    ajv: new Ajv({allErrors: true, verbose: true}),
+    ace,
+    ajv: new Ajv({ allErrors: true, verbose: true }),
     onChange() {},
     onEditable(node: Node) {
         return true;
@@ -19,27 +19,27 @@ options = {
     modes: ['tree', 'view', 'form', 'code', 'text'],
     name: 'foo',
     schema: {},
-    schemaRefs: { "otherSchema": {}},
+    schemaRefs: { otherSchema: {} },
     search: false,
     indentation: 2,
-    theme: 'default'
+    theme: 'default',
 };
 options = {
     onEditable(node: Node) {
-        return {field: true, value: false};
-    }
+        return { field: true, value: false };
+    },
 };
 
 let jsonEditor: JSONEditor;
 jsonEditor = new JSONEditor(document.body);
 jsonEditor = new JSONEditor(document.body, {});
-jsonEditor = new JSONEditor(document.body, options, {foo: 'bar'});
+jsonEditor = new JSONEditor(document.body, options, { foo: 'bar' });
 
 jsonEditor.collapseAll();
 jsonEditor.destroy();
 jsonEditor.expandAll();
 jsonEditor.focus();
-jsonEditor.set({foo: 'bar'});
+jsonEditor.set({ foo: 'bar' });
 jsonEditor.setMode('text');
 jsonEditor.setName('foo');
 jsonEditor.setName();
