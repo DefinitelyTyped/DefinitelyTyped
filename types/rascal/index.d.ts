@@ -178,7 +178,25 @@ export interface BrokerConfig {
     recovery?: {
         [key: string]: Recovery | Recovery[];
     };
-    defaults?: BrokerConfig;
+    defaults?: {
+        vhosts?: {
+            check?: boolean;
+            assert?: boolean;
+            namespace?: string | boolean;
+            publicationChannelPools?: {
+                regularPool?: ChannelPoolConfig;
+                confirmPool?: ChannelPoolConfig;
+            };
+            connection?: ConnectionConfig;
+            connectionStrategy?: 'random' | 'fixed';
+            exchanges?: ExchangeConfig;
+            queues?: QueueConfig;
+            bindings?: BindingConfig;
+        };
+        publications?: PublicationConfig;
+        subscriptions?: SubscriptionConfig;
+        redeliveries?: Redelivery;
+    };
     encryption?: {
         [key: string]: Encryption;
     };
@@ -407,9 +425,9 @@ declare class SubscriptionSession extends EventEmitter {
     name: string;
     isCancelled(): boolean;
     cancel(): Promise<void>;
-    on(event: 'message', listener: (message: Message, content: any, ackOrNackFn: any) => void): this;
+    on(event: 'message', listener: (message: Message, content: any, ackOrNackFn: AckOrNackFn) => void): this;
     on(event: 'error' | 'cancelled', listener: (err: Error) => void): this;
-    on(event: 'invalid_content' | 'redeliveries_exceeded' | 'redeliveries_error' | 'redeliveries_error', listener: (err: Error, message: Message, ackOrNackFn: any) => void): this;
+    on(event: 'invalid_content' | 'redeliveries_exceeded' | 'redeliveries_error' | 'redeliveries_error', listener: (err: Error, message: Message, ackOrNackFn: AckOrNackFn) => void): this;
 }
 
 declare class PublishEventemitter extends EventEmitter {
@@ -418,7 +436,7 @@ declare class PublishEventemitter extends EventEmitter {
     on(event: 'return', listener: (message: Message) => void): this;
 }
 
-declare class BrokerAsPromisedClass extends EventEmitter {
+export class BrokerAsPromised extends EventEmitter {
     readonly config: BrokerConfig;
     constructor(config: BrokerConfig, compoents: any)
     connect(name: string): Promise<any>;
@@ -430,11 +448,12 @@ declare class BrokerAsPromisedClass extends EventEmitter {
     publish(name: string, message: any, overrides?: PublicationConfig | string): Promise<PublishEventemitter>;
     forward(name: string, message: any, overrides?: PublicationConfig | string): Promise<PublishEventemitter>;
     subscribe(name: string, overrides?: SubscriptionConfig): Promise<SubscriptionSession>;
+    static create(config: BrokerConfig, components?: any): Promise<BrokerAsPromised>;
 }
 
 export function createBroker(config: BrokerConfig, components: any, next: any, ...args: any[]): any;
 
-export function createBrokerAsPromised(config: BrokerConfig, components: any): Promise<BrokerAsPromisedClass>;
+export function createBrokerAsPromised(config: BrokerConfig, components: any): Promise<BrokerAsPromised>;
 
 export function withDefaultConfig(config: BrokerConfig): BrokerConfig;
 
@@ -445,9 +464,6 @@ export namespace Broker {
     function create(config: any, components: any, next: any, ...args: any[]): any;
 }
 
-export namespace BrokerAsPromised {
-    function create(config: BrokerConfig, components?: any): Promise<BrokerAsPromisedClass>;
-}
 export namespace counters {
     function inMemory(options: any): any;
     function stub(options: any): any;
