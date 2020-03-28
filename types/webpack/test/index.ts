@@ -508,6 +508,17 @@ plugin = new webpack.EnvironmentPlugin(['a', 'b']);
 plugin = new webpack.EnvironmentPlugin({ a: true, b: 'c' });
 plugin = new webpack.ProgressPlugin((percent: number, message: string) => { });
 plugin = new webpack.ProgressPlugin((percent: number, message: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => { });
+plugin = new webpack.ProgressPlugin({
+    activeModules: true,
+    dependencies: true,
+    dependenciesCount: 5000,
+    entries: true,
+    handler: (a, b, c, d, e) => {},
+    modules: true,
+    modulesCount: 5000,
+    percentBy: null,
+    profile: false
+});
 plugin = new webpack.HashedModuleIdsPlugin();
 plugin = new webpack.HashedModuleIdsPlugin({
     hashFunction: 'sha256',
