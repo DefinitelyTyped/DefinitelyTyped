@@ -1645,6 +1645,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "got",
+            "typingsPackageName": "got",
+            "sourceRepoURL": "https://github.com/sindresorhus/got",
+            "asOfVersion": "10.0.0"
+        },
+        {
             "libraryName": "graphene-pk11",
             "typingsPackageName": "graphene-pk11",
             "sourceRepoURL": "https://github.com/PeculiarVentures/graphene",
