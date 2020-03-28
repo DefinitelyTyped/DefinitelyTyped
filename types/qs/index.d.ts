@@ -55,6 +55,8 @@ declare namespace QueryString {
         interpretNumericEntities?: boolean;
     }
 
+    interface ParsedQs { [key: string]: string | ParsedQs }
+
     function stringify(obj: any, options?: IStringifyOptions): string;
-    function parse(str: string, options?: IParseOptions): any;
+    function parse(str: string, options?: IParseOptions): ParsedQs;
 }

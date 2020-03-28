@@ -9,6 +9,8 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 
 () => {
     var obj = qs.parse('a=c');
+    obj; // $ExpectType ParsedQs
+    obj.foo; // $ExpectType string | ParsedQs
     assert.deepEqual(obj, { a: 'c' });
 
     var str = qs.stringify(obj);
