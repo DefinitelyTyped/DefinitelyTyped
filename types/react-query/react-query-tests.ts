@@ -184,7 +184,7 @@ function pr42830() {
 
     // corrected
     // querySimple.error; // $ExpectType Error | null
-    querySimple.error; // $ExpectType unknown | null
+    querySimple.error; // $ExpectType unknown
 
     querySimple.isFetching; // $ExpectType boolean
     querySimple.failureCount; // $ExpectType number
