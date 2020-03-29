@@ -10,7 +10,7 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 () => {
     var obj = qs.parse('a=c');
     obj; // $ExpectType ParsedQs
-    obj.a; // $ExpectType string | ParsedQs | string[]
+    obj.a; // $ExpectType string | ParsedQs | string[] | ParsedQs[]
     assert.deepEqual(obj, { a: 'c' });
 
     var str = qs.stringify(obj);
