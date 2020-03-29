@@ -2,7 +2,7 @@
 // Project: https://github.com/rdf-ext/clownface
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.4
 
 import { Term, DatasetCore, Quad_Graph, NamedNode, BlankNode, Literal } from 'rdf-js';
 import { Context } from './lib/Context';
@@ -12,8 +12,8 @@ declare namespace clownface {
     type TermOrLiteral<X extends Term = Term> = TermOrClownface<X> | string | number | boolean;
 
     type AddCallback<D extends DatasetCore, X extends Term> = (added: SingleContextClownface<D, X>) => void;
-    type SingleOrArray<T> = T | T[];
-    type SingleOrOneElementArray<T> = T | [T];
+    type SingleOrArray<T> = T | readonly T[];
+    type SingleOrOneElementArray<T> = T | readonly [T];
 
     type SingleOrArrayOfTerms<X extends Term> = SingleOrArray<TermOrClownface<X>>;
     type SingleOrArrayOfTermsOrLiterals<X extends Term> = SingleOrArray<TermOrLiteral<X>>;
