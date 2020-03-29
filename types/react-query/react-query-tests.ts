@@ -1,4 +1,4 @@
-import { useMutation, useQuery, usePaginatedQuery } from 'react-query';
+import { useMutation, useQuery, usePaginatedQuery, useInfiniteQuery } from 'react-query';
 
 // Query - simple case
 const querySimple = useQuery('todos', () => Promise.resolve('test'));
@@ -62,6 +62,28 @@ const queryPaginated = usePaginatedQuery('key', () => Promise.resolve({ data: [1
 queryPaginated.resolvedData; // $ExpectType { data: number[]; next: boolean; } | undefined
 queryPaginated.latestDate; // $ExpectType { data: number[]; next: boolean; } | undefined
 queryPaginated.data; // $ExpectError
+
+async function fetchWithCursor(key: string, cursor?: string) {
+    return [1, 2, 3];
+}
+
+useInfiniteQuery<number[], [string], string>(['key'], fetchWithCursor, {
+    getFetchMore: (last, all) => 'next',
+});
+useInfiniteQuery(['key'], fetchWithCursor, {
+    getFetchMore: (last: number[], all: number[][]) => 'next',
+});
+const infiniteQuery = useInfiniteQuery(['key'], fetchWithCursor, {
+    getFetchMore: (last: number[], all: number[][]) => 'next',
+});
+// The next example does not work; the type for cursor does not get inferred.
+// useInfiniteQuery(['key'], fetchWithCursor, {
+//     getFetchMore: (last, all) => 'string',
+// });
+
+infiniteQuery.data; // $ExpectType number[][]
+infiniteQuery.fetchMore(); // $ExpectType Promise<number[][]> | undefined
+infiniteQuery.fetchMore('next'); // $ExpectType Promise<number[][]> | undefined
 
 // Simple mutation
 const mutation = () => Promise.resolve(['foo', 1]);
