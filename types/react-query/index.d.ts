@@ -165,7 +165,7 @@ export type InfiniteQueryFunctionWithVariables<
         | _.List.Concat<TKey, TVariables>
 ) => Promise<TResult>;
 
-export interface QueryOptions<TResult> {
+export interface BaseQueryOptions {
     /**
      * Set this to `true` to disable automatic refetching when the query mounts or changes query keys.
      * To refetch the query, use the `refetch` method returned from the `useQuery` instance.
@@ -185,9 +185,12 @@ export interface QueryOptions<TResult> {
     refetchOnWindowFocus?: boolean;
     refetchOnMount?: boolean;
     onError?: (err: unknown) => void;
+    suspense?: boolean;
+}
+
+export interface QueryOptions<TResult> extends BaseQueryOptions {
     onSuccess?: (data: TResult) => void;
     onSettled?: (data: TResult | undefined, error: unknown | null) => void;
-    suspense?: boolean;
     initialData?: TResult;
 }
 
@@ -265,23 +268,6 @@ export interface MutationResult<TResults> {
     reset: () => void;
 }
 
-// export function setQueryData(
-//     queryKey: string | [string, object],
-//     data: any,
-//     options?: {
-//         shouldRefetch?: boolean;
-//     },
-// ): void | Promise<void>;
-
-// export function refetchQuery(
-//     queryKey: string | [string, object] | [string, false],
-//     force?: {
-//         force?: boolean;
-//     },
-// ): Promise<void>;
-
-// export function refetchAllQueries(options?: { force?: boolean; includeInactive: boolean }): Promise<void>;
-
 /**
  * A hook that returns the number of the quiries that your application is loading or fetching in the background
  * (useful for app-wide loading indicators).
@@ -293,14 +279,26 @@ export const ReactQueryConfigProvider: React.ComponentType<{
     config?: ReactQueryProviderConfig;
 }>;
 
-export interface ReactQueryProviderConfig {
-    retry?: number;
-    retryDelay?: (attempt: number) => number;
-    staleTime?: number;
-    cacheTime?: number;
+export interface ReactQueryProviderConfig extends BaseQueryOptions {
+    /** Defaults to the value of `suspense` if not defined otherwise */
+    useErrorBoundary?: boolean;
+    throwOnError?: boolean;
     refetchAllOnWindowFocus?: boolean;
-    refetchInterval?: false | number;
-    suspense?: boolean;
+    queryKeySerializerFn?: (
+        queryKey: QueryKeyPart[] | string | false | undefined | (() => QueryKeyPart[] | string | false | undefined),
+    ) => [string, QueryKeyPart[]] | [];
+
+    onMutate?: (variables: unknown) => Promise<unknown> | unknown;
+    onSuccess?: (data: unknown, variables?: unknown) => void;
+    onError?: (err: unknown, snapshotValue?: unknown) => void;
+    onSettled?: (data: unknown | undefined, error: unknown | null, snapshotValue?: unknown) => void;
 }
 
-// export function clearQueryCache(): void;
+export type ConsoleFunction = (...args: any[]) => void;
+export interface ConsoleObject {
+    log: ConsoleFunction;
+    warn: ConsoleFunction;
+    error: ConsoleFunction;
+}
+
+export function setConsole(consoleObject: ConsoleObject): void;

@@ -1,4 +1,12 @@
-import { useMutation, useQuery, usePaginatedQuery, useInfiniteQuery } from 'react-query';
+import {
+    useMutation,
+    useQuery,
+    usePaginatedQuery,
+    useInfiniteQuery,
+    useIsFetching,
+    setConsole,
+    ReactQueryProviderConfig,
+} from 'react-query';
 
 // Query - simple case
 const querySimple = useQuery('todos', () => Promise.resolve('test'));
@@ -141,3 +149,17 @@ mutateWithVars(
 );
 
 mutateWithVars({ param: 'test' }); // $ExpectError
+
+useIsFetching(); // $ExpectType number
+
+setConsole({ log, error: log, warn: log });
+
+const globalConfig: ReactQueryProviderConfig = {
+    onError(err, snapshot) {
+        log('Error', err, snapshot);
+    },
+    onMutate(variables) {
+        log(variables);
+    },
+    suspense: true,
+};
