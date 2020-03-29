@@ -608,8 +608,17 @@ declare namespace videojs {
         new(player: Player, options?: AudioTrackMenuItemOptions): AudioTrackMenuItem;
     };
 
+    interface VideojsAudioTrack {
+        enabled: boolean;
+        readonly id: string;
+        kind: string;
+        readonly label: string;
+        language: string;
+        readonly sourceBuffer: SourceBuffer | null;
+    }
+
     interface AudioTrackMenuItemOptions extends MenuItemOptions {
-        track?: AudioTrack;
+        track?: VideojsAudioTrack;
     }
 
     /**

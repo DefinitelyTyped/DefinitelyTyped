@@ -276,6 +276,9 @@ const linearScaleChart: Chart = new Chart(ctx, {
                 scaleLabel: {
                     display: true,
                     labelString: 'Closing price ($)'
+                },
+                afterBuildTicks: (scale, ticks) => {
+                    return [Math.max(...ticks), 10, Math.min(...ticks)];
                 }
             }]
         },

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChunkExtractor, AttrFn } from '@loadable/server';
+import { ChunkExtractor, AttrFn, Chunk } from '@loadable/server';
 
 // Should be satisfied by `stats` or `statsFile`
 new ChunkExtractor({ stats: {} });
@@ -16,7 +16,8 @@ const {
     requireEntrypoint,
     getInlineStyleTags,
     getInlineStyleElements,
-    getCssString
+    getCssString,
+    getMainAssets
 } = new ChunkExtractor({ stats: {} });
 
 // collectChunks
@@ -46,6 +47,13 @@ const attrFn: AttrFn = (chunk) => {
         url: chunk.url
     };
 };
+
+// getMainAssets
+{
+    // should return an array of Chunk
+    const assets: Chunk[] = getMainAssets();
+    const typedAssets: Chunk[] = getMainAssets('script');
+}
 
 // getLinkElements
 {

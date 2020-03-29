@@ -20,6 +20,32 @@ const child = children[0] as libxmljs.Element;
 
 console.log(child.attr('foo')!.value()); // prints "bar"
 
+// find by namespace
+
+const nsXml = `<?xml version="1.0" encoding="UTF-8"?>
+               <office:document-content xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0">
+                 <text:p text:style-name="Heading">Some title</text:p>
+               </office:document-content>`;
+
+const nsXmlDoc = libxmljs.parseXml(nsXml);
+
+const notFound = nsXmlDoc.find('p');
+
+console.log(notFound.length);  // prints 0
+
+const p = nsXmlDoc.find(
+  'xmlns:p',
+  'urn:oasis:names:tc:opendocument:xmlns:text:1.0'
+);
+
+console.log(p[0].text());  // prints "Some title"
+
+const p2 = nsXmlDoc.find('//text:p', {
+  text: 'urn:oasis:names:tc:opendocument:xmlns:text:1.0'
+});
+
+console.log(p2[0].text());  // prints "Some title"
+
 const parser = new libxmljs.SaxParser();
 
 parser.on('startDocument', () => 0);

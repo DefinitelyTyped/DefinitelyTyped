@@ -154,6 +154,29 @@ namespace Parse {
         [key: string]: any;
     }
 
+    /**
+     * Interface declaration for Authentication Providers
+     * https://parseplatform.org/Parse-SDK-JS/api/master/AuthProvider.html
+     */
+    interface AuthProvider {
+        /**
+         * Called when _linkWith isn't passed authData. Handle your own authentication here.
+         */
+        authenticate: () => void;
+        /**
+         * (Optional) Called when service is unlinked. Handle any cleanup here.
+         */
+        deauthenticate?: () => void;
+        /**
+         * Unique identifier for this Auth Provider.
+         */
+        getAuthType: () => string;
+        /**
+         * Called when auth data is syncronized. Can be used to determine if authData is still valid
+         */
+        restoreAuthentication: () => boolean;
+    }
+
     interface BaseAttributes {
         createdAt: Date;
         objectId: string;
@@ -824,8 +847,9 @@ namespace Parse {
         setPassword(password: string, options?: SuccessFailureOptions): boolean;
         getSessionToken(): string;
 
-        linkWith(user: User, authData: AuthData, options: FullOptions): Promise<User>;
-        _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
+        linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
+        _isLinked: (provider: string | AuthProvider) => boolean;
+        _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
     }
     interface UserConstructor extends ObjectStatic {
         new <T extends Attributes>(attributes: T): User<T>;
@@ -842,6 +866,8 @@ namespace Parse {
         extend(protoProps?: any, classProps?: any): any;
         hydrate<T extends User>(userJSON: any): Promise<T>;
         enableUnsafeCurrentUser(): void;
+        logInWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<User>;
+        _registerAuthenticationProvider: (provider: AuthProvider) => void;
     }
     const User: UserConstructor;
 

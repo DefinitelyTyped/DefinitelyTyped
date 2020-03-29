@@ -155,6 +155,9 @@ cast.framework.CastReceiverContext.getInstance()
     .setMessageInterceptor(cast.framework.messages.MessageType.LOAD, () => new LoadRequestData());
 cast.framework.CastReceiverContext.getInstance()
     .getPlayerManager()
+    .setMessageInterceptor(cast.framework.messages.MessageType.LOAD, () => null);
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
     .setMessageInterceptor(cast.framework.messages.MessageType.LOAD, null);
 cast.framework.CastReceiverContext.getInstance()
     .getPlayerManager()

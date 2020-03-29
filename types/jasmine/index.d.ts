@@ -14,6 +14,7 @@
 //                 Stephen Farrar <https://github.com/stephenfarrar>
 //                 Alex Povar <https://github.com/zvirja>
 //                 Dominik Ehrenberg <https://github.com/djungowski>
+//                 Chives <https://github.com/chivesrs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -140,7 +141,7 @@ declare function expect(): jasmine.NothingMatcher;
  * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual - Actual computed value to test expectations against.
  */
-declare function expectAsync<T, U>(actual: PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
+declare function expectAsync<T, U>(actual: T|PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
 
 /**
  * Explicitly mark a spec as failed.
@@ -278,7 +279,7 @@ declare namespace jasmine {
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
 
     function addMatchers(matchers: CustomMatcherFactories): void;
-    function addAsyncMatchers(matchers: CustomMatcherFactories): void;
+    function addAsyncMatchers(matchers: CustomAsyncMatcherFactories): void;
 
     function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
 
@@ -346,10 +347,23 @@ declare namespace jasmine {
         negativeCompare?(actual: any, ...expected: any[]): CustomMatcherResult;
     }
 
+    interface CustomAsyncMatcher {
+        compare<T>(actual: T, expected: T, ...args: any[]): Promise<CustomMatcherResult>;
+        compare(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
+        negativeCompare?<T>(actual: T, expected: T, ...args: any[]): Promise<CustomMatcherResult>;
+        negativeCompare?(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
+    }
+
     type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomMatcher;
 
+    type CustomAsyncMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomAsyncMatcher;
+
     interface CustomMatcherFactories {
-        [index: string]: CustomMatcherFactory;
+        [name: string]: CustomMatcherFactory;
+    }
+
+    interface CustomAsyncMatcherFactories {
+        [name: string]: CustomAsyncMatcherFactory;
     }
 
     interface CustomMatcherResult {
@@ -874,9 +888,9 @@ declare namespace jasmine {
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
         callFake(fn: Function): Spy;
         /** Tell the spy to return a promise resolving to the specified value when invoked. */
-        resolveTo(val: any): Spy;
+        resolveTo(val?: any): Spy;
         /** Tell the spy to return a promise rejecting with the specified value when invoked. */
-        rejectWith(val: any): Spy;
+        rejectWith(val?: any): Spy;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
         throwError(msg: string|Error): Spy;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */

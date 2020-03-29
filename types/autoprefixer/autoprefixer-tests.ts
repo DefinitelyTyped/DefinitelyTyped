@@ -18,6 +18,12 @@ const ap2: Transformer = autoprefixer({
     ignoreUnknownVersions: false,
 });
 
+const deprecationTest = autoprefixer({
+    browser: 'defaults',
+    browsers: 'defaults',
+    browserslist: 'defaults',
+});
+
 autoprefixer.info(); // $ExpectedType () => void
 autoprefixer.data; // $ExpectType { browsers: any; prefixes: any; }
 autoprefixer.defaults; // $ExpectedType string

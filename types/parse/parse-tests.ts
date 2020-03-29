@@ -1669,6 +1669,29 @@ function testUser() {
         // $ExpectError
         new Parse.User<{ example: number }>({ example: 'hello' });
     }
+    async function testAuthenticationProvider() {
+        const authProvider: Parse.AuthProvider = {
+            authenticate: () => { },
+            getAuthType: () => 'customAuthorizationProvider',
+            restoreAuthentication: () => false,
+            deauthenticate: () => { },
+        };
+        const authData: Parse.AuthData = {
+            id: 'some-user-authentication-id',
+            access_token: 'some-access-token',
+            expiration_date: new Date().toISOString(),
+        };
+        Parse.User._registerAuthenticationProvider(authProvider);
+
+        const user = await Parse.User.logInWith(
+            authProvider,
+            { authData },
+            { sessionToken: 'some-session-token', useMasterKey: true },
+        );
+        const isLinked = user._isLinked(authProvider);
+        const unlinkedUser = await user._unlinkFrom(authProvider);
+        const linkedUser = await user.linkWith(authProvider, {authData});
+    }
 }
 
 function testEncryptingUser() {

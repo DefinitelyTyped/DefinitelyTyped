@@ -279,6 +279,18 @@ cluster.decr('key', (err, data) => {
 });
 
 listData.forEach(value => {
+    cluster.rpush('bufferlist', Buffer.from(value));
+});
+
+listData.forEach(value => {
+    cluster.lpop('bufferlist', (err, data) => {
+        if (data !== value) {
+            console.log(data);
+        }
+    });
+});
+
+listData.forEach(value => {
     cluster.rpushBuffer('bufferlist', Buffer.from(value));
 });
 

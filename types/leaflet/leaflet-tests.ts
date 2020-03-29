@@ -502,6 +502,16 @@ class MyMarker extends L.Marker {
 	constructor() {
 		super([12, 13]);
 	}
+
+	// adapted from Leaflet.AnimatedMarker
+	animate() {
+		const speed = 1000;
+
+		if (L.DomUtil.TRANSITION) {
+			if (this.getElement()) { this.getElement().style.setProperty(L.DomUtil.TRANSITION, `all ${speed}ms linear`); }
+			if (this._shadow) { this._shadow.style.setProperty(L.DomUtil.TRANSITION, `all ${speed}ms linear`); }
+		}
+	}
 }
 
 class MyLayer extends L.Layer {
@@ -651,6 +661,8 @@ L.Util.create({});
 L.Util.create(null, { foo: { writable: true, value: 'bar' } });
 
 L.Util.bind(() => {}, {});
+const fnWithArguments = (done: L.DoneCallback, tile: HTMLElement): void => {};
+L.Util.bind(fnWithArguments, {}, {} as L.DoneCallback, {} as HTMLElement);
 L.Util.stamp({});
 L.Util.throttle(() => {}, 123, {});
 L.Util.wrapNum(123, []);
@@ -728,6 +740,21 @@ export class ExtendedTileLayer extends L.TileLayer {
 		newCoords.z = coords.z;
 		return super.createTile(newCoords, done);
 	}
+
+	overrideCreateTile(coords: L.Coords, done: L.DoneCallback) {
+		// adapted from TileLayer's implementation
+		const tile = document.createElement('img');
+
+		L.DomEvent.on(tile, 'load', L.Util.bind(this._tileOnLoad, this, done, tile));
+		L.DomEvent.on(tile, 'error', L.Util.bind(this._tileOnError, this, done, tile));
+
+		return tile;
+	}
+
+	getTileUrl(coords: L.Coords) {
+		return super.getTileUrl(coords);
+	}
+
 	_abortLoading() {
 		// adapted from TileLayer's implementation
 		for (const i in this._tiles) {

@@ -28,6 +28,7 @@
         "test/addon/edit/matchbrackets.ts",
         "test/addon/edit/matchtags.ts",
         "test/addon/hint/show-hint.ts",
+        "test/addon/merge/merge.ts",
         "test/addon/runmode/runmode.ts",
         "test/addon/scroll/scrollpastend.ts",
         "test/addon/search/match-highlighter.ts",

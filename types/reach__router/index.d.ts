@@ -4,6 +4,7 @@
 //                 A.Mokhtar <https://github.com/xMokAx>,
 //                 Awwit <https://github.com/awwit>
 //                 wroughtec <https://github.com/wroughtec>
+//                 O.Jackman <https://github.com/chilledoj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -161,4 +162,4 @@ export function useNavigate(): NavigateFn;
 
 export function useParams(): any;
 
-export function useMatch(pathname: string): null | { uri: string; path: string };
+export function useMatch(pathname: string): null | { uri: string; path: string, [param: string]: string };

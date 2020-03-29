@@ -403,7 +403,8 @@ export type SystemStyleObject =
     | CSSPseudoSelectorProps
     | CSSSelectorObject
     | VariantProperty
-    | UseThemeFunction;
+    | UseThemeFunction
+    | null;
 
 /**
  * Helper to define theme values.

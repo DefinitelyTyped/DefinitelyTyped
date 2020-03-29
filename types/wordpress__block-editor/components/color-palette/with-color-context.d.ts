@@ -14,8 +14,8 @@ declare namespace withColorContext {
 // prettier-ignore
 declare function withColorContext<
     ProvidedProps extends Partial<withColorContext.Props>,
-    OwnProps extends any,
-    T extends ComponentType<ProvidedProps & OwnProps>
+    OwnProps extends any = any,
+    T extends ComponentType<ProvidedProps & OwnProps> = ComponentType<ProvidedProps & OwnProps>
 >(component: T):
     T extends ComponentType<infer U> ? ComponentType<
         Omit<U, 'colors' | 'disableCustomColors' | 'hasColorsToChoose'> &

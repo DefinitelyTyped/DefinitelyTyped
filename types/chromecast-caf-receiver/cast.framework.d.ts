@@ -663,6 +663,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.CloudMediaStatus) => messages.CloudMediaStatus)
             | ((messageData: messages.CloudMediaStatus) => Promise<messages.CloudMediaStatus>)
+            | ((messageData: messages.CloudMediaStatus) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -670,6 +671,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.CustomCommandRequestData) => messages.CustomCommandRequestData)
             | ((messageData: messages.CustomCommandRequestData) => Promise<messages.CustomCommandRequestData>)
+            | ((messageData: messages.CustomCommandRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -677,6 +679,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.DisplayStatusRequestData) => messages.DisplayStatusRequestData)
             | ((messageData: messages.DisplayStatusRequestData) => Promise<messages.DisplayStatusRequestData>)
+            | ((messageData: messages.DisplayStatusRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -684,6 +687,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.EditAudioTracksRequestData) => messages.EditAudioTracksRequestData)
             | ((messageData: messages.EditAudioTracksRequestData) => Promise<messages.EditAudioTracksRequestData>)
+            | ((messageData: messages.EditAudioTracksRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -691,6 +695,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.EditTracksInfoRequestData) => messages.EditTracksInfoRequestData)
             | ((messageData: messages.EditTracksInfoRequestData) => Promise<messages.EditTracksInfoRequestData>)
+            | ((messageData: messages.EditTracksInfoRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -698,6 +703,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.FocusStateRequestData) => messages.FocusStateRequestData)
             | ((messageData: messages.FocusStateRequestData) => Promise<messages.FocusStateRequestData>)
+            | ((messageData: messages.FocusStateRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -705,6 +711,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.GetStatusRequestData) => messages.GetStatusRequestData)
             | ((messageData: messages.GetStatusRequestData) => Promise<messages.GetStatusRequestData>)
+            | ((messageData: messages.GetStatusRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -712,6 +719,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.LoadRequestData) => messages.LoadRequestData)
             | ((messageData: messages.LoadRequestData) => Promise<messages.LoadRequestData>)
+            | ((messageData: messages.LoadRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -719,6 +727,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.LoadByEntityRequestData) => messages.LoadByEntityRequestData)
             | ((messageData: messages.LoadByEntityRequestData) => Promise<messages.LoadByEntityRequestData>)
+            | ((messageData: messages.LoadByEntityRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -726,6 +735,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.MediaStatus) => messages.MediaStatus)
             | ((messageData: messages.MediaStatus) => Promise<messages.MediaStatus>)
+            | ((messageData: messages.MediaStatus) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -733,6 +743,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.PrecacheRequestData) => messages.PrecacheRequestData)
             | ((messageData: messages.PrecacheRequestData) => Promise<messages.PrecacheRequestData>)
+            | ((messageData: messages.PrecacheRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -740,6 +751,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.PreloadRequestData) => messages.PreloadRequestData)
             | ((messageData: messages.PreloadRequestData) => Promise<messages.PreloadRequestData>)
+            | ((messageData: messages.PreloadRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -747,6 +759,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.QueueChange) => messages.QueueChange)
             | ((messageData: messages.QueueChange) => Promise<messages.QueueChange>)
+            | ((messageData: messages.QueueChange) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -754,6 +767,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.GetItemsInfoRequestData) => messages.GetItemsInfoRequestData)
             | ((messageData: messages.GetItemsInfoRequestData) => Promise<messages.GetItemsInfoRequestData>)
+            | ((messageData: messages.GetItemsInfoRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -761,6 +775,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.FetchItemsRequestData) => messages.FetchItemsRequestData)
             | ((messageData: messages.FetchItemsRequestData) => Promise<messages.FetchItemsRequestData>)
+            | ((messageData: messages.FetchItemsRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -768,6 +783,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.QueueInsertRequestData) => messages.QueueInsertRequestData)
             | ((messageData: messages.QueueInsertRequestData) => Promise<messages.QueueInsertRequestData>)
+            | ((messageData: messages.QueueInsertRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -775,6 +791,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.ItemsInfo) => messages.ItemsInfo)
             | ((messageData: messages.ItemsInfo) => Promise<messages.ItemsInfo>)
+            | ((messageData: messages.ItemsInfo) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -782,6 +799,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.QueueIds) => messages.QueueIds)
             | ((messageData: messages.QueueIds) => Promise<messages.QueueIds>)
+            | ((messageData: messages.QueueIds) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -789,6 +807,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.QueueLoadRequestData) => messages.QueueLoadRequestData)
             | ((messageData: messages.QueueLoadRequestData) => Promise<messages.QueueLoadRequestData>)
+            | ((messageData: messages.QueueLoadRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -796,6 +815,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.QueueRemoveRequestData) => messages.QueueRemoveRequestData)
             | ((messageData: messages.QueueRemoveRequestData) => Promise<messages.QueueRemoveRequestData>)
+            | ((messageData: messages.QueueRemoveRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -803,6 +823,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.QueueReorderRequestData) => messages.QueueReorderRequestData)
             | ((messageData: messages.QueueReorderRequestData) => Promise<messages.QueueReorderRequestData>)
+            | ((messageData: messages.QueueReorderRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -810,6 +831,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.QueueUpdateRequestData) => messages.QueueUpdateRequestData)
             | ((messageData: messages.QueueUpdateRequestData) => Promise<messages.QueueUpdateRequestData>)
+            | ((messageData: messages.QueueUpdateRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -817,6 +839,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.ResumeSessionRequestData) => messages.ResumeSessionRequestData)
             | ((messageData: messages.ResumeSessionRequestData) => Promise<messages.ResumeSessionRequestData>)
+            | ((messageData: messages.ResumeSessionRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -824,6 +847,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.SeekRequestData) => messages.SeekRequestData)
             | ((messageData: messages.SeekRequestData) => Promise<messages.SeekRequestData>)
+            | ((messageData: messages.SeekRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -831,6 +855,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.StoreSessionResponseData) => messages.StoreSessionResponseData)
             | ((messageData: messages.StoreSessionResponseData) => Promise<messages.StoreSessionResponseData>)
+            | ((messageData: messages.StoreSessionResponseData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -838,6 +863,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.SetCredentialsRequestData) => messages.SetCredentialsRequestData)
             | ((messageData: messages.SetCredentialsRequestData) => Promise<messages.SetCredentialsRequestData>)
+            | ((messageData: messages.SetCredentialsRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -845,6 +871,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.SetPlaybackRateRequestData) => messages.SetPlaybackRateRequestData)
             | ((messageData: messages.SetPlaybackRateRequestData) => Promise<messages.SetPlaybackRateRequestData>)
+            | ((messageData: messages.SetPlaybackRateRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -852,6 +879,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.VolumeRequestData) => messages.VolumeRequestData)
             | ((messageData: messages.VolumeRequestData) => Promise<messages.VolumeRequestData>)
+            | ((messageData: messages.VolumeRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -859,6 +887,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.StoreSessionRequestData) => messages.StoreSessionRequestData)
             | ((messageData: messages.StoreSessionRequestData) => Promise<messages.StoreSessionRequestData>)
+            | ((messageData: messages.StoreSessionRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -866,6 +895,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.UserActionRequestData) => messages.UserActionRequestData)
             | ((messageData: messages.UserActionRequestData) => Promise<messages.UserActionRequestData>)
+            | ((messageData: messages.UserActionRequestData) => null)
             | null,
     ): void;
     setMessageInterceptor(
@@ -873,6 +903,7 @@ export class PlayerManager {
         interceptor:
             | ((messageData: messages.RequestData) => messages.RequestData)
             | ((messageData: messages.RequestData) => Promise<messages.RequestData>)
+            | ((messageData: messages.RequestData) => null)
             | null,
     ): void;
 

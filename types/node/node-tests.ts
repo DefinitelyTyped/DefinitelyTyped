@@ -259,18 +259,12 @@ import * as trace_events from "trace_events";
         console.warn('message', 'foo', 'bar');
 
         // --- Inspector mode only ---
-        console.markTimeline();
-        console.markTimeline('label');
         console.profile();
         console.profile('label');
         console.profileEnd();
         console.profileEnd('label');
         console.timeStamp();
         console.timeStamp('label');
-        console.timeline();
-        console.timeline('label');
-        console.timelineEnd();
-        console.timelineEnd('label');
     }
 }
 

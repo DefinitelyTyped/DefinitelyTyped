@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "bazinga-translator-tests.ts"
+        "test/bazinga-translator-tests.commonjs.ts",
+        "test/bazinga-translator-tests.umd.ts"
     ]
 }

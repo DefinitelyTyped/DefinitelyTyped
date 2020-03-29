@@ -366,7 +366,7 @@ declare class Filter {
 export function parseFilter(filterString: string): Filter;
 
 export class EqualityFilter extends Filter {
-	constructor(options: { attribute: string, value: string })
+	constructor(options: { attribute: string, value: string | Buffer })
 }
 
 export class PresenceFilter extends Filter {

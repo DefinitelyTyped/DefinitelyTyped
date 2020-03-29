@@ -6,6 +6,17 @@ import path = require('path');
 const glob = path.join(__dirname, '..', '*.md');
 
 const options: xo.Options = {};
+options.webpack = {
+    config: {
+        resolve: {
+            alias: {
+                file2alias: path.resolve(__dirname, process.cwd(), './file2.js'),
+            },
+        },
+    },
+};
+options.webpack = true;
+options.webpack = false;
 
 if (options.semicolon === false && !options.prettier) {
     if (options.rules) {

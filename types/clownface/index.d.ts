@@ -83,9 +83,13 @@ declare namespace clownface {
 
         has<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects?: SingleOrArrayOfTermsOrLiterals): SafeClownface<D, X>;
 
+        addIn<X extends Term = Term>(predicate: SingleOrOneElementArray<Term>, objectOrCallback?: SingleOrOneElementArray<TermOrLiteral> | AddCallback<D, X>): SingleContextClownface<D, X>;
+        addIn<X extends Term = Term>(predicate: SingleOrOneElementArray<Term>, object: SingleOrOneElementArray<TermOrLiteral>, callback: AddCallback<D, X>): SingleContextClownface<D, X>;
         addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objectsOrCallback?: SingleOrArrayOfTermsOrLiterals | AddCallback<D, X>): SafeClownface<D, X>;
         addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects: SingleOrArrayOfTermsOrLiterals, callback: AddCallback<D, X>): SafeClownface<D, X>;
 
+        addOut<X extends Term = Term>(predicate: SingleOrOneElementArray<Term>, objectOrCallback?: SingleOrOneElementArray<TermOrLiteral> | AddCallback<D, X>): SingleContextClownface<D, X>;
+        addOut<X extends Term = Term>(predicate: SingleOrOneElementArray<Term>, object: SingleOrOneElementArray<TermOrLiteral>, callback: AddCallback<D, X>): SingleContextClownface<D, X>;
         addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objectsOrCallback?: SingleOrArrayOfTermsOrLiterals | AddCallback<D, X>): SafeClownface<D, X>;
         addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects: SingleOrArrayOfTermsOrLiterals, callback: AddCallback<D, X>): SafeClownface<D, X>;
 

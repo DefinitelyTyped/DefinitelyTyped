@@ -440,6 +440,18 @@ function RefCarryingComponent() {
     );
 }
 
+const MemoizedForwardingRefComponent = React.memo(ForwardingRefComponent);
+const LazyComponent = React.lazy(() => Promise.resolve({ default: RefComponent }));
+
+type ClassComponentAsRef = React.ElementRef<typeof RefComponent>; // $ExpectType RefComponent
+type FunctionComponentWithoutPropsAsRef = React.ElementRef<typeof RefCarryingComponent>; // $ExpectType undefined
+type FunctionComponentWithPropsAsRef = React.ElementRef<typeof FunctionComponent>; // $ExpectType undefined
+type HTMLIntrinsicAsRef = React.ElementRef<'div'>; // $ExpectType HTMLDivElement
+type SVGIntrinsicAsRef = React.ElementRef<'svg'>; // $ExpectType SVGSVGElement
+type ForwardingRefComponentAsRef = React.ElementRef<typeof ForwardingRefComponent>; // $ExpectType RefComponent
+type MemoizedForwardingRefComponentAsRef = React.ElementRef<typeof MemoizedForwardingRefComponent>; // $ExpectType RefComponent
+type LazyComponentAsRef = React.ElementRef<typeof LazyComponent>; // $ExpectType RefComponent
+
 //
 // Attributes
 // --------------------------------------------------------------------------
@@ -542,8 +554,11 @@ const mappedChildrenArray2 = React.Children.map(numberChildren, num => num);
 const mappedChildrenArray3 = React.Children.map(elementChildren, element => element);
 // $ExpectType (string | Element)[]
 const mappedChildrenArray4 = React.Children.map(mixedChildren, elementOrString => elementOrString);
-// $ExpectType Key[]
+// This test uses a conditional type because otherwise it gets flaky and can resolve to either Key or ReactText, both
+// of which are aliases for `string | number`.
 const mappedChildrenArray5 = React.Children.map(singlePluralChildren, element => element.key);
+// $ExpectType true
+type mappedChildrenArray5Type = typeof mappedChildrenArray5 extends React.Key[] ? true : false;
 // $ExpectType string[]
 const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => element.name);
 // The return type may not be an array

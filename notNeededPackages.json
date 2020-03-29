@@ -565,6 +565,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "cloudevents-sdk",
+            "typingsPackageName": "cloudevents-sdk",
+            "sourceRepoURL": "https://github.com/cloudevents/sdk-javascript",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "colors.js (colors)",
             "typingsPackageName": "colors",
             "sourceRepoURL": "https://github.com/Marak/colors.js",
@@ -5017,16 +5023,16 @@
             "asOfVersion": "1.3.0"
         },
         {
-            "libraryName": "theming",
-            "typingsPackageName": "theming",
-            "sourceRepoURL": "https://github.com/cssinjs/theming",
-            "asOfVersion": "2.0.0"
-        },
-        {
             "libraryName": "theme-ui",
             "typingsPackageName": "theme-ui__color",
             "sourceRepoURL": "https://github.com/system-ui/theme-ui",
             "asOfVersion": "0.3.1"
+        },
+        {
+            "libraryName": "theming",
+            "typingsPackageName": "theming",
+            "sourceRepoURL": "https://github.com/cssinjs/theming",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "three",

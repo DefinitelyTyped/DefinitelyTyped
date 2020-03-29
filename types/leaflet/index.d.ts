@@ -806,7 +806,10 @@ export interface TileLayerOptions extends GridLayerOptions {
 export class TileLayer extends GridLayer {
     constructor(urlTemplate: string, options?: TileLayerOptions);
     setUrl(url: string, noRedraw?: boolean): this;
+    getTileUrl(coords: L.Coords): string;
 
+    protected _tileOnLoad(done: L.DoneCallback, tile: HTMLElement): void;
+    protected _tileOnError(done: L.DoneCallback, tile: HTMLElement, e: Error): void;
     protected _abortLoading(): void;
     protected _getZoomForUrl(): number;
 
@@ -1905,6 +1908,8 @@ export class Marker<P = any> extends Layer {
     options: MarkerOptions;
     dragging?: Handler;
     feature?: geojson.Feature<geojson.Point, P>;
+
+    protected _shadow: HTMLElement | undefined;
 }
 
 export function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
@@ -1949,7 +1954,7 @@ export namespace Util {
     function extend(dest: any, ...src: any[]): any;
 
     function create(proto: object | null, properties?: PropertyDescriptorMap): any;
-    function bind(fn: () => void, ...obj: any[]): () => void;
+    function bind(fn: (...args: any[]) => void, ...obj: any[]): () => void;
     function stamp(obj: any): number;
     function throttle(fn: () => void, time: number, context: any): () => void;
     function wrapNum(num: number, range: number[], includeMax?: boolean): number;

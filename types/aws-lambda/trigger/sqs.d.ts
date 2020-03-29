@@ -21,6 +21,7 @@ export interface SQSEvent {
 }
 
 export interface SQSRecordAttributes {
+    AWSTraceHeader?: string;
     ApproximateReceiveCount: string;
     SentTimestamp: string;
     SenderId: string;

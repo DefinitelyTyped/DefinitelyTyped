@@ -1,17 +1,17 @@
-function test_start() {
+function test_constructorWithoutOpts() {
     new SimpleBar(document.getElementById('myElement'));
 }
 
-function test_options_wrapContent() {
-    new SimpleBar(document.getElementById('myElement'), { wrapContent: false });
-}
-
-function test_options_autoHide() {
-    new SimpleBar(document.getElementById('myElement'), { autoHide: false });
-}
-
-function test_options_scrollbarMinSize() {
-    new SimpleBar(document.getElementById('myElement'), { scrollbarMinSize: 10 });
+function test_constructor() {
+    new SimpleBar(document.getElementById('myElement'), {
+        autoHide: true,
+        clickOnTrack: true,
+        direction: 'ltr',
+        forceVisible: 'x',
+        scrollbarMaxSize: 20,
+        scrollbarMinSize: 10,
+        timeout: 300,
+    });
 }
 
 function test_options_classNames() {
@@ -21,31 +21,19 @@ function test_options_classNames() {
             content: 'simplebar-content',
             scrollContent: 'simplebar-scroll-content',
             scrollbar: 'simplebar-scrollbar',
-            track: 'simplebar-track'
-        }
+            track: 'simplebar-track',
+        },
     });
 }
 
-function test_recalculate() {
+function test_instanceFunctions() {
     const el = new SimpleBar(document.getElementById('myElement'));
     el.recalculate();
+    const contentEl: Element = el.getContentElement();
+    const scrollEl: Element = el.getScrollElement();
 }
 
-function test_getScrollElement() {
-    const el = new SimpleBar(document.getElementById('myElement'));
-    el.getScrollElement();
-}
-
-function test_scrollEvent() {
-    const el = new SimpleBar(document.getElementById('myElement'));
-    el.getScrollElement().addEventListener('scroll', () => { });
-}
-
-function test_getContentElement() {
-    const el = new SimpleBar(document.getElementById('myElement'));
-    el.getContentElement();
-}
-
-function test_removeObserver() {
+function test_staticFunctions() {
     SimpleBar.removeObserver();
+    SimpleBar.instances.get(new HTMLDivElement());
 }

@@ -15,6 +15,7 @@ import * as async_hooks from 'async_hooks';
 
     const tId: number = async_hooks.triggerAsyncId();
     const eId: number = async_hooks.executionAsyncId();
+    const curRes: object = async_hooks.executionAsyncResource();
 
     class TestResource extends async_hooks.AsyncResource {
         constructor() {

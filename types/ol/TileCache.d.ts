@@ -4,7 +4,7 @@ import LRUCache from './structs/LRUCache';
 import TileRange from './TileRange';
 
 export default class TileCache extends LRUCache<any> {
-    constructor(opt_highWaterMark?: number);
+    constructor();
     expireCache(usedTiles: { [key: string]: TileRange }): void;
     pruneExceptNewestZ(): void;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];

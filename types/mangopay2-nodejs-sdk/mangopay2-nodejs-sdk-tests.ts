@@ -197,7 +197,7 @@ api.Users.getKycDocument("user-id", "kycDocument-id").then(data => {
   const d = data; // $ExpectType KycDocumentData
 });
 
-api.Users.updateKycDocument("user-id", { Status: "VALIDATION_ASKED" }).then(
+api.Users.updateKycDocument("user-id", { Status: "VALIDATION_ASKED", Id: "kycDocument-id" }).then(
   data => {
     const d = data; // $ExpectType KycDocumentData
   }

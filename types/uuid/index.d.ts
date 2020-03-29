@@ -11,12 +11,7 @@
 
 import { v1, v3, v4, v5 } from './interfaces';
 
-interface UuidStatic {
-    v1: v1;
-    v3: v3;
-    v4: v4;
-    v5: v5;
-}
-
-declare const uuid: UuidStatic;
-export = uuid;
+export const v1: v1;
+export const v3: v3;
+export const v4: v4;
+export const v5: v5;

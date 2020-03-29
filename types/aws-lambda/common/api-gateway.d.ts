@@ -1,8 +1,33 @@
-// Used by both APIGatewayProxyEvent and APIGatewayAuthorizerEvent
-export interface APIGatewayEventRequestContext {
+// Types shared between trigger/api-gateway-authorizer.d.ts and api-gateway-proxy.d.ts
+
+// Poorly documented, but API Gateway will just fail internally if
+// the context type does not match this.
+// Note that although non-string types will be accepted, they will be
+// coerced to strings on the other side.
+export interface APIGatewayAuthorizerResultContext {
+    [name: string]: string | number | boolean | null | undefined;
+}
+
+// Default authorizer type, prefer using a specific type with the "...WithAuthorizer..." variant types.
+// Note that this doesn't have to be a context from a custom lambda outhorizer, AWS also has a cognito
+// authorizer type and could add more, so the property won't always be a string.
+export type APIGatewayEventDefaultAuthorizerContext = undefined | null | {
+    [name: string]: any;
+};
+
+export type APIGatewayEventRequestContext =
+    APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventDefaultAuthorizerContext>;
+
+// The requestContext property of both request authorizer and proxy integration events.
+export interface APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext> {
     accountId: string;
     apiId: string;
-    authorizer?: AuthResponseContext | null;
+    // This one is a bit confusing: it is not actually present in authorizer calls
+    // and proxy calls without an authorizer. We model this by allowing undefined in the type,
+    // since it ends up the same and avoids breaking users that are testing the property.
+    // This lets us allow parameterizing the authorizer for proxy events that know what authorizer
+    // context values they have.
+    authorizer: TAuthorizerContext;
     connectedAt?: number;
     connectionId?: string;
     domainName?: string;
@@ -39,11 +64,4 @@ export interface APIGatewayEventIdentity {
     user: string | null;
     userAgent: string | null;
     userArn: string | null;
-}
-
-/**
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
- */
-export interface AuthResponseContext {
-    [name: string]: any;
 }

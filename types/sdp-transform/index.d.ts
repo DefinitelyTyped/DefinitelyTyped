@@ -258,8 +258,8 @@ export interface SharedDescriptionFields {
         ip: string;
     };
     // b=AS:4000
-    bandwidth?: {
+    bandwidth?: Array<{
         type: 'TIAS' | 'AS' | 'CT' | 'RR' | 'RS';
         limit: number | string;
-    };
+    }>;
 }

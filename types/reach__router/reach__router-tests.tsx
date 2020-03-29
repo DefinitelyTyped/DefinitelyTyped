@@ -7,7 +7,8 @@ import {
     LocationProvider,
     RouteComponentProps,
     Router,
-    Redirect
+    Redirect,
+    useMatch
 } from '@reach/router';
 
 interface DashParams {
@@ -22,6 +23,13 @@ const Dash = (props: RouteComponentProps<DashParams>) => (
 
 const NotFound = (props: RouteComponentProps) => <div>Route not found</div>;
 
+const UseMatchCheck = (props: RouteComponentProps) => {
+    const match = useMatch('/params/:one');
+    return (
+        <div>{match ? match.one : 'NO PATH PARAM' }</div>
+    );
+};
+
 render(
     <Router className="my-class">
         <Router component="div">
@@ -32,6 +40,7 @@ render(
         </Router>
         <Home path="/" />
         <Dash path="/default/:id" />
+        <UseMatchCheck path="/params/*" />
         <NotFound default />
 
         <Link to="/somepath" rel="noopener noreferrer" target="_blank" />
