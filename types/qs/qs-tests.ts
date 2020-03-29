@@ -8,7 +8,7 @@ qs.parse('a=b');
 qs.parse('a=b&c=d', { delimiter: '&' });
 
 () => {
-    var obj = qs.parse('a=c');
+    var obj = qs.parse('a=z&b[c]=z&d=z&d=z&e[][f]=z');
     obj; // $ExpectType ParsedQs
     obj.a; // $ExpectType string | ParsedQs | string[] | ParsedQs[]
     assert.deepEqual(obj, { a: 'c' });
