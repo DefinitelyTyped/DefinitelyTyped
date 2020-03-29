@@ -1,11 +1,12 @@
-// Type definitions for joigoose 2.0
+// Type definitions for joigoose 5.0
 // Project: https://github.com/yoitsro/joigoose
 // Definitions by: Karoline <https://github.com/boothwhack>
+//                 Luke <https://github.com/lukecarr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
 import * as Mongoose from "mongoose";
-import * as Joi from "joi";
+import * as Joi from "hapi__joi";
 
 declare namespace Joigoose {
     interface Joigoose {

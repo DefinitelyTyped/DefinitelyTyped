@@ -1,6 +1,6 @@
 import Joigoose = require("joigoose");
 import * as Mongoose from "mongoose";
-import * as Joi from "joi";
+import * as Joi from "hapi__joi";
 
 let joigoose = Joigoose(Mongoose);
 const options: Joi.ValidationOptions = {abortEarly: true};
