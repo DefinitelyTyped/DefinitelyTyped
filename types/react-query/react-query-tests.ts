@@ -59,9 +59,41 @@ const queryNested = useQuery(
 );
 queryNested.data; // $ExpectType number | undefined
 
-useQuery(['key', { a: 1 }], [{ b: true }, { c: 'c' }], (key1, key2, var1, var2) =>
-    Promise.resolve(key1 === 'key' && key2.a === 1 && var1.b && var2.c === 'c'),
-);
+useQuery(['key', { a: 1 }], [{ b: { x: 1 } }, { c: { x: 1 } }], (
+    key1, // $ExpectType string
+    key2, // ExpectType { a: number }
+    var1, // $ExpectType { b: { x: number } }
+    var2, // $ExpectType { c: { x: number } }
+) => Promise.resolve(key1 === 'key' && key2.a === 1 && var1.b.x === 1 && var2.c.x === 1));
+
+// custom key
+const longKey: [string, ...number[]] = ['key', 1, 2, 3, 4, 5];
+useQuery(
+    longKey,
+    async (
+        key, // $ExpectType string
+        ...ids // $ExpectType number[]
+    ) => 100,
+).data; // $ExpectType number | undefined
+
+const longVariables: [boolean, ...object[]] = [true, {}];
+useQuery(
+    ['key'],
+    longVariables,
+    async (
+        key, // $ExpectType string
+        var1, // $ExpectType boolean
+        ...vars // $ExpectType object[]
+    ) => 100,
+).data; // $ExpectType number | undefined
+
+// the following example cannot work properly, as it would require concatenating tuples with infinite ends
+// ts-toolbelt library's `List.Concat` cannot do the job. It would be possible to do with `typescript-tuple` and additional trick.
+// useQuery<number, typeof longKey, typeof longVariables>(longKey, longVariables, async (
+//     key,        // $ExpectType string // <-- currently boolean?!
+//     keyOrVar,   // $ExpectType number | boolean // <-- currently object
+//     ...rest     // $ExpectType number | object  // <-- currently object[]
+// ) => 100).data; // $ExpectType number | undefined
 
 // Paginated mode
 const queryPaginated = usePaginatedQuery('key', () => Promise.resolve({ data: [1, 2, 3], next: true }), {

@@ -133,18 +133,8 @@ export function useInfiniteQuery<
 }): InfiniteQueryResult<TResult, TMoreVariable>;
 
 export type QueryKeyPart = string | object | boolean | number | null | readonly QueryKeyPart[] | null | undefined;
-export type AnyQueryKey =
-    | readonly [QueryKeyPart]
-    | readonly [QueryKeyPart, QueryKeyPart]
-    | readonly [QueryKeyPart, QueryKeyPart, QueryKeyPart]
-    | readonly [QueryKeyPart, QueryKeyPart, QueryKeyPart, QueryKeyPart];
-export type AnyVariables =
-    | readonly []
-    | readonly [any]
-    | readonly [any, any]
-    | readonly [any, any, any]
-    | readonly [any, any, any, any]
-    | readonly [any, any, any, any, any];
+export type AnyQueryKey = readonly [QueryKeyPart, ...QueryKeyPart[]]; // this forces the key to be inferred as a tuple
+export type AnyVariables = readonly [] | readonly [any, ...any[]]; // this forces the variables to be inferred as a tuple
 
 export type QueryFunction<TResult, TKey extends AnyQueryKey> = (...key: TKey) => Promise<TResult>;
 export type QueryFunctionWithVariables<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables> = (
@@ -220,12 +210,6 @@ export interface InfiniteQueryResult<TResult, TMoreVariable> extends QueryResult
     isFetchingMore: boolean;
     fetchMore: (moreVariable?: TMoreVariable | false) => Promise<TResult[]> | undefined;
 }
-
-// export function prefetchQuery<TResult, TVariables extends object>(
-//     queryKey: QueryKey<TVariables>,
-//     queryFn: QueryFunction<TResult, TVariables>,
-//     options?: PrefetchQueryOptions<TResult>,
-// ): Promise<TResult>;
 
 export interface PrefetchQueryOptions<TResult> extends QueryOptions<TResult> {
     force?: boolean;
