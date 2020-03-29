@@ -268,6 +268,66 @@ export interface MutationResult<TResults> {
     reset: () => void;
 }
 
+export type CachedQuery = QueryResultBase<unknown>;
+
+export interface QueryCache {
+    prefetchQuery<TResult, TKey extends AnyQueryKey>(
+        queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
+        queryFn: QueryFunction<TResult, TKey>,
+        config?: QueryOptions<TResult>,
+    ): Promise<TResult>;
+
+    prefetchQuery<TResult, TKey extends string>(
+        queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
+        queryFn: QueryFunction<TResult, [TKey]>,
+        config?: QueryOptions<TResult>,
+    ): Promise<TResult>;
+
+    prefetchQuery<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables>(
+        queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
+        variables: TVariables,
+        queryFn: QueryFunctionWithVariables<TResult, TKey, TVariables>,
+        config?: QueryOptions<TResult>,
+    ): Promise<TResult>;
+
+    prefetchQuery<TResult, TKey extends string, TVariables extends AnyVariables>(
+        queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
+        variables: TVariables,
+        queryFn: QueryFunctionWithVariables<TResult, [TKey], TVariables>,
+        config?: QueryOptions<TResult>,
+    ): Promise<TResult>;
+
+    prefetchQuery<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables = []>({
+        queryKey,
+        variables,
+        queryFn,
+        config,
+    }: {
+        queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined);
+        variables?: TVariables;
+        queryFn: QueryFunctionWithVariables<TResult, TKey, TVariables>;
+        config?: QueryOptions<TResult>;
+    }): Promise<TResult>;
+
+    getQueryData(key: AnyQueryKey | string): unknown | undefined;
+    setQueryData(key: AnyQueryKey | string, dataOrUpdater: unknown | ((oldData: unknown | undefined) => unknown)): void;
+    refetchQueries(
+        queryKeyOrPredicateFn: AnyQueryKey | string | ((query: CachedQuery) => boolean),
+        { exact, throwOnError, force }?: { exact?: boolean; throwOnError?: boolean; force?: boolean },
+    ): Promise<void>;
+    removeQueries(
+        queryKeyOrPredicateFn: AnyQueryKey | string | ((query: CachedQuery) => boolean),
+        { exact }?: { exact?: boolean },
+    ): Promise<void>;
+    // getQueries
+    // getQuery
+    // subscribe
+    // isFetching
+    clear(): CachedQuery[];
+}
+
+export const queryCache: QueryCache;
+
 /**
  * A hook that returns the number of the quiries that your application is loading or fetching in the background
  * (useful for app-wide loading indicators).
