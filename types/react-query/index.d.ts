@@ -268,7 +268,14 @@ export interface MutationResult<TResults> {
     reset: () => void;
 }
 
-export type CachedQuery = QueryResultBase<unknown>;
+export interface CachedQuery {
+    queryKey: AnyQueryKey;
+    queryVariables: AnyVariables;
+    queryFn: (...args: any[]) => unknown;
+    config: QueryOptions<unknown>;
+    state: unknown;
+    setData(dataOrUpdater: unknown | ((oldData: unknown | undefined) => unknown)): void;
+}
 
 export interface QueryCache {
     prefetchQuery<TResult, TKey extends AnyQueryKey>(
@@ -319,10 +326,10 @@ export interface QueryCache {
         queryKeyOrPredicateFn: AnyQueryKey | string | ((query: CachedQuery) => boolean),
         { exact }?: { exact?: boolean },
     ): Promise<void>;
-    // getQueries
-    // getQuery
-    // subscribe
-    // isFetching
+    getQuery(queryKey: AnyQueryKey): CachedQuery | undefined;
+    getQueries(queryKey: AnyQueryKey): CachedQuery[];
+    isFetching: number;
+    subscribe(callback: (queryCache: QueryCache) => void): () => void;
     clear(): CachedQuery[];
 }
 
