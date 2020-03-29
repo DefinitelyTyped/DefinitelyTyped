@@ -7,7 +7,7 @@ options = {
     ace,
     ajv: new Ajv({ allErrors: true, verbose: true }),
     onChange() {},
-    onEditable(node: Node) {
+    onEditable(node: Node | {}) {
         return true;
     },
     onError(error: Error) {},
@@ -25,7 +25,7 @@ options = {
     theme: 'default',
 };
 options = {
-    onEditable(node: Node) {
+    onEditable(node: Node | {}) {
         return { field: true, value: false };
     },
 };
@@ -45,9 +45,6 @@ jsonEditor.setName('foo');
 jsonEditor.setName();
 jsonEditor.setSchema({});
 jsonEditor.setText('{foo: 1}');
-jsonEditor.format();
-jsonEditor.compact();
-jsonEditor.repair();
 
 const json: any = jsonEditor.get();
 const name: string = jsonEditor.getName();
