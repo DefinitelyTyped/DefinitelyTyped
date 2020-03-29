@@ -66,16 +66,17 @@ queryPaginated.data; // $ExpectError
 async function fetchWithCursor(key: string, cursor?: string) {
     return [1, 2, 3];
 }
+function getFetchMore(last: number[], all: number[][]) {
+    return last.length ? String(all.length + 1) : false;
+}
 
 useInfiniteQuery<number[], [string], string>(['key'], fetchWithCursor, {
     getFetchMore: (last, all) => 'next',
 });
-useInfiniteQuery(['key'], fetchWithCursor, {
-    getFetchMore: (last: number[], all: number[][]) => 'next',
-});
-const infiniteQuery = useInfiniteQuery(['key'], fetchWithCursor, {
-    getFetchMore: (last: number[], all: number[][]) => 'next',
-});
+useInfiniteQuery(['key'], fetchWithCursor, { getFetchMore });
+useInfiniteQuery('key', fetchWithCursor, { getFetchMore });
+useInfiniteQuery(() => condition && 'key', fetchWithCursor, { getFetchMore });
+const infiniteQuery = useInfiniteQuery(['key'], fetchWithCursor, { getFetchMore });
 // The next example does not work; the type for cursor does not get inferred.
 // useInfiniteQuery(['key'], fetchWithCursor, {
 //     getFetchMore: (last, all) => 'string',
@@ -84,6 +85,24 @@ const infiniteQuery = useInfiniteQuery(['key'], fetchWithCursor, {
 infiniteQuery.data; // $ExpectType number[][]
 infiniteQuery.fetchMore(); // $ExpectType Promise<number[][]> | undefined
 infiniteQuery.fetchMore('next'); // $ExpectType Promise<number[][]> | undefined
+
+async function fetchWithCursor2(key: string, debuglog?: (...args: any[]) => void, cursor?: string) {
+    if (debuglog) debuglog(key, cursor);
+    return [1, 2, 3];
+}
+function log(...args: any[]) {}
+
+useInfiniteQuery<number[], [string], [undefined | ((...args: any[]) => void)], string>(
+    ['key'],
+    [undefined],
+    fetchWithCursor2,
+    {
+        getFetchMore: (last, all) => 'next',
+    },
+);
+useInfiniteQuery(['key'], [log], fetchWithCursor2, { getFetchMore });
+useInfiniteQuery('key', [log], fetchWithCursor2, { getFetchMore });
+useInfiniteQuery(() => condition && 'key', [log], fetchWithCursor2, { getFetchMore });
 
 // Simple mutation
 const mutation = () => Promise.resolve(['foo', 1]);
