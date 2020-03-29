@@ -212,7 +212,7 @@ export interface QueryResult<TResult> extends QueryResultBase<TResult> {
 
 export interface PaginatedQueryResult<TResult> extends QueryResultBase<TResult> {
     resolvedData: undefined | TResult;
-    latestDate: undefined | TResult;
+    latestData: undefined | TResult;
 }
 
 export interface InfiniteQueryResult<TResult, TMoreVariable> extends QueryResultBase<TResult> {
@@ -231,7 +231,7 @@ export interface PrefetchQueryOptions<TResult> extends QueryOptions<TResult> {
     force?: boolean;
 }
 
-export function useMutation<TResults, TVariables>(
+export function useMutation<TResults, TVariables = undefined>(
     mutationFn: MutationFunction<TResults, TVariables>,
     mutationOptions?: MutationOptions<TResults, TVariables>,
 ): [MutateFunction<TResults, TVariables>, MutationResult<TResults>];
@@ -255,10 +255,9 @@ export interface MutationOptions<TResult, TVariables> extends MutateOptions<TRes
     useErrorBoundary?: boolean;
 }
 
-export type MutateFunction<TResult, TVariables> = (
-    variables?: TVariables,
-    options?: MutateOptions<TResult, TVariables>,
-) => Promise<TResult>;
+export type MutateFunction<TResult, TVariables> = undefined extends TVariables
+    ? (variables?: TVariables, options?: MutateOptions<TResult, TVariables>) => Promise<TResult>
+    : (variables: TVariables, options?: MutateOptions<TResult, TVariables>) => Promise<TResult>;
 
 export interface MutationResult<TResults> {
     status: 'idle' | 'loading' | 'error' | 'success';
