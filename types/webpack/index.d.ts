@@ -21,6 +21,7 @@
 //                 Felix Haus <https://github.com/ofhouse>
 //                 Daniel Chin <https://github.com/danielthank>
 //                 Daiki Ihara <https://github.com/sasurau4>
+//                 Dion Shi <https://github.com/dionshihk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1832,7 +1833,45 @@ declare namespace webpack {
     }
 
     class ProgressPlugin extends Plugin {
-        constructor(options?: (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void);
+        constructor(options?: ProgressPlugin.Options | ProgressPlugin.Handler);
+    }
+
+    namespace ProgressPlugin {
+        /**
+         * A handler function which will be called when webpack hooks report progress
+         */
+        type Handler = (percentage: number, msg: string, ...args: string[]) => void;
+        interface Options {
+            /**
+             * Show active modules count and one active module in progress message
+             * Default: true
+             */
+            activeModules?: boolean;
+            /**
+             * Show entries count in progress message
+             * Default: false
+             */
+            entries?: boolean;
+            /**
+             * Function that executes for every progress step
+             */
+            handler?: Handler;
+            /**
+             * Show modules count in progress message
+             * Default: true
+             */
+            modules?: boolean;
+            /**
+             * Minimum modules count to start with, only for mode = modules
+             * Default: 500
+             */
+            modulesCount?: number;
+            /**
+             * Collect profile data for progress steps
+             * Default: false
+             */
+            profile?: boolean | null;
+        }
     }
 
     class EnvironmentPlugin extends Plugin {
