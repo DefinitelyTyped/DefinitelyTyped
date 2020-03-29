@@ -52,28 +52,22 @@ declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Te
     namedNode(value: SingleOrOneElementArray<string | NamedNode>): SingleContextClownface<D, NamedNode>;
     namedNode(values: Array<string | NamedNode>): SafeClownface<D, NamedNode>;
 
-    // tslint:disable:no-unnecessary-generics
-    in<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
-    out<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
+    in(predicates?: SingleOrArrayOfTerms<Term>): SafeClownface<D>;
+    out(predicates?: SingleOrArrayOfTerms<Term>): SafeClownface<D>;
 
-    has<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects?: SingleOrArrayOfTermsOrLiterals): SafeClownface<D, X>;
+    has<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<X>): SafeClownface<D, X>;
 
-    addIn<X extends Term = Term>(predicate: SingleOrOneElementArray<Term>, objectOrCallback?: SingleOrOneElementArray<TermOrLiteral> | AddCallback<D, X>): SingleContextClownface<D, X>;
-    addIn<X extends Term = Term>(predicate: SingleOrOneElementArray<Term>, object: SingleOrOneElementArray<TermOrLiteral>, callback: AddCallback<D, X>): SingleContextClownface<D, X>;
-    addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objectsOrCallback?: SingleOrArrayOfTermsOrLiterals | AddCallback<D, X>): SafeClownface<D, X>;
-    addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects: SingleOrArrayOfTermsOrLiterals, callback: AddCallback<D, X>): SafeClownface<D, X>;
+    addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objectsOrCallback?: SingleOrArrayOfTermsOrLiterals<X> | AddCallback<D, X>): SafeClownface<D, T>;
+    addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects: SingleOrArrayOfTermsOrLiterals<X>, callback: AddCallback<D, X>): SafeClownface<D, T>;
 
-    addOut<X extends Term = Term>(predicate: SingleOrOneElementArray<Term>, objectOrCallback?: SingleOrOneElementArray<TermOrLiteral> | AddCallback<D, X>): SingleContextClownface<D, X>;
-    addOut<X extends Term = Term>(predicate: SingleOrOneElementArray<Term>, object: SingleOrOneElementArray<TermOrLiteral>, callback: AddCallback<D, X>): SingleContextClownface<D, X>;
-    addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objectsOrCallback?: SingleOrArrayOfTermsOrLiterals | AddCallback<D, X>): SafeClownface<D, X>;
-    addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects: SingleOrArrayOfTermsOrLiterals, callback: AddCallback<D, X>): SafeClownface<D, X>;
+    addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objectsOrCallback?: SingleOrArrayOfTermsOrLiterals<X> | AddCallback<D, X>): SafeClownface<D, T>;
+    addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects: SingleOrArrayOfTermsOrLiterals<X>, callback: AddCallback<D, X>): SafeClownface<D, T>;
 
-    addList<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects?: SingleOrArrayOfTerms, callback?: AddCallback<D, X>): SafeClownface<D, X>;
+    addList<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTerms<X>, callback?: AddCallback<D, X>): SafeClownface<D, T>;
 
-    deleteIn<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
-    deleteOut<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
-    deleteList<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
-    // tslint:enable:no-unnecessary-generics
+    deleteIn(predicates?: SingleOrArrayOfTerms<Term>): SafeClownface<D, T>;
+    deleteOut(predicates?: SingleOrArrayOfTerms<Term>): SafeClownface<D, T>;
+    deleteList(predicates: SingleOrArrayOfTerms<Term>): SafeClownface<D, T>;
 }
 
 export = Clownface;

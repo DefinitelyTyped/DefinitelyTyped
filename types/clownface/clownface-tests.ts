@@ -12,24 +12,24 @@ let term: Term = <any> {};
 const dataset: Dataset = <any> {};
 const graph: NamedNode = <any> {};
 
-let cf: Clownface<Dataset> = new Clownface({ dataset });
-cf = new Clownface({ dataset, graph });
+let noContext: clownface.Clownface<Dataset> = new Clownface({ dataset });
+let cf: clownface.SingleContextClownface<Dataset, BlankNode> = noContext.blankNode();
 const typedByTerm: Clownface<DatasetCore, NamedNode> = new Clownface({ dataset, term: node });
 const typedByTerms: Clownface<DatasetCore, NamedNode | BlankNode> = new Clownface({ dataset, term: [node, blankNode] });
-cf = new Clownface({ dataset, value: 'foo' });
-cf = new Clownface({ dataset, value: ['foo', 'bar'] });
-cf = new Clownface({ dataset, term: [term, term], value: ['foo', 'bar'] });
+noContext = new Clownface({ dataset, value: 'foo' });
+noContext = new Clownface({ dataset, value: ['foo', 'bar'] });
+noContext = new Clownface({ dataset, term: [term, term], value: ['foo', 'bar'] });
 
 // .addIn
 cf = cf.addIn(node);
 cf = cf.addIn(node, node);
 cf = cf.addIn([ node, node ], node);
 cf = cf.addIn(node, [ node, node ]);
-cf = cf.addIn([ node, node ], [ node, node ], child => {
-    const values: string[] = child.values;
+cf = cf.addIn([ node, node ], [ node, blankNode ], child => {
+    const values: Array<NamedNode | BlankNode> = child.terms;
 });
 cf = cf.addIn(node, child => {
-    cf = child;
+    const childNode: clownface.SingleContextClownface<Dataset, BlankNode> = child;
 });
 cf = cf.addIn(cf.node(node), cf.node(node));
 
@@ -51,10 +51,10 @@ cf = cf.addOut(predicate, child => {
 cf = cf.addOut(cf.node(predicate), cf.node(node));
 
 // .blankNode
-let blankContext: Clownface;
+let blankContext: clownface.SingleContextClownface<Dataset, BlankNode>;
 blankContext = cf.blankNode();
 blankContext = cf.blankNode('label');
-blankContext = cf.blankNode([ 'b1', 'b2' ]);
+const multiBlankContext: clownface.SafeClownface<Dataset, BlankNode> = cf.blankNode([ 'b1', 'b2' ]);
 
 // .deleteIn
 cf = cf.deleteIn();
@@ -70,7 +70,6 @@ cf = cf.deleteOut(node);
 cf = cf.deleteOut([node, node]);
 
 // factory
-cf = clownface({ dataset });
 const namedGraph: clownface.Clownface<Dataset, NamedNode> = clownface({ dataset, graph });
 const singleFromValue: clownface.SingleContextClownface = clownface({ dataset, value: 'foo' });
 
@@ -105,56 +104,56 @@ const deriveContextFromOtherGraph: clownface.SingleContextClownface<Dataset, Lit
 
 // .filter
 cf = cf.filter(() => true);
-cf = cf.filter((thus: Clownface) => true);
+cf = cf.filter((thus: typeof cf) => true);
 
 // .forEach
 cf.forEach(() => {});
-cf.forEach((thus: Clownface) => {});
+cf.forEach((thus: typeof cf) => {});
 
 // .has
-cf = cf.has(predicate, 'Stuart');
-cf = cf.has([predicate, predicate], 'Stuart');
-cf = cf.has(predicate, [literal, literal]);
+let has: clownface.SafeClownface<Dataset> = cf.has(predicate, 'Stuart');
+has = cf.has([predicate, predicate], 'Stuart');
+has = cf.has(predicate, [literal, literal]);
 
 // .in
-cf = cf.in();
-cf = cf.in(node);
-cf = cf.in([node, node]);
-cf = cf.in(cf.node(node));
+let cfIn: clownface.SafeClownface<Dataset> = cf.in();
+cfIn = cf.in(node);
+cfIn = cf.in([node, node]);
+cfIn = cf.in(cf.node(node));
 
 // .list
 const listNodes: Iterable<clownface.SingleContextClownface<Dataset>> = cf.list();
 
 // .literal
-cf = cf.literal('foo');
-cf = cf.literal(['foo', 'bar']);
-cf = cf.literal('foo', node);
-cf = cf.literal('foo', 'en');
+let cfLit: clownface.SafeClownface<Dataset> = cf.literal('foo');
+cfLit = cf.literal(['foo', 'bar']);
+cfLit = cf.literal('foo', node);
+cfLit = cf.literal('foo', 'en');
 
 // .map
-const arr: Clownface[] = cf.map((item: Clownface) => item);
-const nums: number[] = cf.map((item: Clownface, index: number) => index);
+const arr: BlankNode[] = cf.map((item: clownface.SingleContextClownface<Dataset, BlankNode>) => item.term);
+const nums: number[] = cf.map((item: clownface.SingleContextClownface<Dataset, BlankNode>, index: number) => index);
 
 // .namedNode
-cf = cf.namedNode(node);
-cf = cf.namedNode('http://example.com/');
-cf = cf.namedNode(['http://example.com/', 'http://example.org/']);
+let cfSingleNamed: clownface.SingleContextClownface<Dataset, NamedNode> = cf.namedNode(node);
+cfSingleNamed = cf.namedNode('http://example.com/');
+const cfNamedMany: clownface.SafeClownface<Dataset, NamedNode> = cf.namedNode(['http://example.com/', 'http://example.org/']);
 
 // .node
-cf = cf.node(node);
-cf = cf.node('foo');
-cf = cf.node(123);
-cf = cf.node(['foo', 'bar']);
-cf = cf.node('http://example.org/', { type: 'NamedNode' });
-cf = cf.node(null, { type: 'BlankNode' });
-cf = cf.node('example', { datatype: node.value });
-cf = cf.node('example', { datatype: node });
+let singleTerm: clownface.SingleContextClownface<Dataset> = cf.node(node);
+cfLit = cf.node('foo');
+cfLit = cf.node(123);
+const cfLitMany: clownface.SafeClownface<Dataset, Literal> = cf.node(['foo', 'bar']);
+singleTerm = cf.node('http://example.org/', { type: 'NamedNode' });
+const cfBlank: clownface.SingleContextClownface<Dataset, BlankNode> = cf.node(null, { type: 'BlankNode' });
+cfLit = cf.node('example', { datatype: node.value });
+cfLit = cf.node('example', { datatype: node });
 
 // .out
-cf = cf.out();
-cf = cf.out(node);
-cf = cf.out([node, node]);
-cf = cf.out(cf.node([node, node]));
+let cfTerm: clownface.SafeClownface<Dataset> = cf.out();
+cfTerm = cf.out(node);
+cfTerm = cf.out([node, node]);
+cfTerm = cf.out(cf.node([node, node]));
 
 // .term
 if (cf.term) {
@@ -165,7 +164,7 @@ if (cf.term) {
 const terms: Term[] = cf.terms;
 
 // .toArray
-const toArray: Clownface[] = cf.toArray();
+const toArray: clownface.Clownface[] = cf.toArray();
 
 // .value
 if (cf.value) {
@@ -210,17 +209,17 @@ const ctxTerm: Literal = fromSingleArrayLiteral._context[0].term;
 const ctxGraph: Quad_Graph | undefined = fromSingleArrayLiteral._context[0].graph;
 const ctxDataset: Dataset = fromSingleArrayLiteral._context[0].dataset;
 
-// operating on SingleContextClownface keeps it that way
-const addOutSingle: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addOut(predicate, 'foo');
-const addOutSingleOneElementObjectArray: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addOut(predicate, ['foo']);
-const addOutSingleOneElementPredicateArray: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addOut([predicate]);
-const addOutSingleNoObject: clownface.SingleContextClownface<Dataset> = singleNamed.addOut(predicate);
-const addOutSingleWithCallback: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addOut(predicate, () => {});
-const addOutSingleWithObjectAndCallback: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addOut(predicate, 'foo', () => {});
+// addIn/addOut on SingleContextClownface keeps its type
+const addOutSingle: clownface.SingleContextClownface<Dataset, NamedNode> = singleNamed.addOut(predicate, 'foo');
+const addOutSingleObjectArray: clownface.SingleContextClownface<Dataset, NamedNode> = singleNamed.addOut(predicate, ['foo', 'bar']);
+const addOutSinglePredicateArray: clownface.SingleContextClownface<Dataset, NamedNode> = singleNamed.addOut([predicate, predicate]);
+const addOutSingleNoObject: clownface.SingleContextClownface<Dataset, NamedNode> = singleNamed.addOut(predicate);
+const addOutSingleWithCallback: clownface.SingleContextClownface<Dataset, NamedNode> = singleNamed.addOut(predicate, () => {});
+const addOutSingleWithObjectAndCallback: clownface.SingleContextClownface<Dataset, NamedNode> = singleNamed.addOut(predicate, 'foo', () => {});
 
-const addInSingle: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addIn(predicate, 'foo');
-const addInSingleOneElementObjectArray: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addIn(predicate, ['foo']);
-const addInSingleOneElementPredicateArray: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addIn([predicate]);
-const addInSingleNoObject: clownface.SingleContextClownface<Dataset> = singleNamed.addIn(predicate);
-const addInSingleWithCallback: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addIn(predicate, () => {});
-const addInSingleWithObjectAndCallback: clownface.SingleContextClownface<Dataset, Literal> = singleNamed.addIn(predicate, 'foo', () => {});
+const addInSingle: clownface.SingleContextClownface<Dataset, NamedNode> = singleNamed.addIn(predicate, 'foo');
+const addInSingleObjectArray: clownface.SingleContextClownface<Dataset, NamedNode> = singleNamed.addIn(predicate, ['foo', 'bar']);
+const addInSinglePredicateArray: clownface.SingleContextClownface<Dataset, NamedNode> = singleNamed.addIn([predicate, predicate]);
+const addInSingleNoObject: clownface.SingleContextClownface<Dataset, NamedNode> = singleNamed.addIn(predicate);
+const addInSingleWithCallback: clownface.SingleContextClownface<Dataset, NamedNode> = singleNamed.addIn(predicate, () => {});
+const addInSingleWithObjectAndCallback: clownface.SingleContextClownface<Dataset, NamedNode> = singleNamed.addIn(predicate, 'foo', () => {});
