@@ -1,103 +1,104 @@
-// Type definitions for hls.js 0.12
+// Type definitions for hls.js 0.13
 // Project: https://github.com/video-dev/hls.js
 // Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
 //                 Johan Brook <https://github.com/brookback>
 //                 Adrián Caballero <https://github.com/adripanico>
 //                 Alexey I. Berezin <https://github.com/beraliv>
 //                 Arkadiusz Babiarz <https://github.com/drax98>
+//                 Krystian Kuczek <https://github.com/kuczek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 // Event Keys
-type K_MEDIA_ATTACHING = "hlsMediaAttaching";
-type K_MEDIA_ATTACHED = "hlsMediaAttached";
-type K_MEDIA_DETACHING = "hlsMediaDetaching";
-type K_MEDIA_DETACHED = "hlsMediaDetached";
-type K_BUFFER_RESET = "hlsBufferReset";
-type K_BUFFER_CODECS = "hlsBufferCodecs";
-type K_BUFFER_CREATED = "hlsBufferCreated";
-type K_BUFFER_APPENDING = "hlsBufferAppending";
-type K_BUFFER_APPENDED = "hlsBufferAppended";
-type K_BUFFER_EOS = "hlsBufferEOS";
-type K_BUFFER_FLUSHING = "hlsBufferFlushing";
-type K_BUFFER_FLUSHED = "hlsBufferFlushed";
-type K_MANIFEST_LOADING = "hlsManifestLoading";
-type K_MANIFEST_LOADED = "hlsManifestLoaded";
-type K_MANIFEST_PARSED = "hlsManifestParsed";
-type K_LEVEL_LOADING = "hlsLevelLoading";
-type K_LEVEL_LOADED = "hlsLevelLoaded";
-type K_LEVEL_UPDATED = "hlsLevelUpdated";
-type K_LEVEL_PTS_UPDATED = "hlsLevelPtsUpdated";
-type K_LEVEL_SWITCHING = "hlsLevelSwitching";
-type K_LEVEL_SWITCHED = "hlsLevelSwitched";
-type K_AUDIO_TRACKS_UPDATED = "hlsAudioTracksUpdated";
-type K_AUDIO_TRACK_SWITCH = "hlsAudioTrackSwitch";
-type K_AUDIO_TRACK_SWITCHING = "hlsAudioTrackSwitching";
-type K_AUDIO_TRACK_SWITCHED = "hlsAudioTrackSwitched";
-type K_AUDIO_TRACK_LOADING = "hlsAudioTrackLoading";
-type K_AUDIO_TRACK_LOADED = "hlsAudioTrackLoaded";
-type K_SUBTITLE_TRACKS_UPDATED = "hlsSubtitleTracksUpdated";
-type K_SUBTITLE_TRACK_SWITCH = "hlsSubtitleTrackSwitch";
-type K_SUBTITLE_TRACK_LOADING = "hlsSubtitleTrackLoading";
-type K_SUBTITLE_TRACK_LOADED = "hlsSubtitleTrackLoaded";
-type K_SUBTITLE_FRAG_PROCESSED = "hlsSubtitleFragProcessed";
-type K_KEY_LOADING = "hlsKeyLoading";
-type K_KEY_LOADED = "hlsKeyLoaded";
-type K_INIT_PTS_FOUND = "hlsInitPtsFound";
-type K_FRAG_LOADING = "hlsFragLoading";
-type K_FRAG_LOAD_PROGRESS = "hlsFragLoadProgress";
-type K_FRAG_LOAD_EMERGENCY_ABORTED = "hlsFragLoadEmergencyAborted";
-type K_FRAG_LOADED = "hlsFragLoaded";
-type K_FRAG_DECRYPTED = "hlsFragDecrypted";
-type K_FRAG_PARSING_INIT_SEGMENT = "hlsFragParsingInitSegment";
-type K_FRAG_PARSING_USERDATA = "hlsFragParsingUserData";
-type K_FRAG_PARSING_METADATA = "hlsFragParsingMetadata";
-type K_FRAG_PARSING_DATA = "hlsFragParsingData";
-type K_FRAG_PARSED = "hlsFragParsed";
-type K_FRAG_BUFFERED = "hlsFragBuffered";
-type K_FRAG_CHANGED = "hlsFragChanged";
-type K_FPS_DROP = "hlsFpsDrop";
-type K_FPS_DROP_LEVEL_CAPPING = "hlsFpsDropLevelCapping";
-type K_ERROR = "hlsError";
-type K_DESTROYING = "hlsDestroying";
-type K_STREAM_STATE_TRANSITION = "hlsStreamStateTransition";
+type K_MEDIA_ATTACHING = 'hlsMediaAttaching';
+type K_MEDIA_ATTACHED = 'hlsMediaAttached';
+type K_MEDIA_DETACHING = 'hlsMediaDetaching';
+type K_MEDIA_DETACHED = 'hlsMediaDetached';
+type K_BUFFER_RESET = 'hlsBufferReset';
+type K_BUFFER_CODECS = 'hlsBufferCodecs';
+type K_BUFFER_CREATED = 'hlsBufferCreated';
+type K_BUFFER_APPENDING = 'hlsBufferAppending';
+type K_BUFFER_APPENDED = 'hlsBufferAppended';
+type K_BUFFER_EOS = 'hlsBufferEOS';
+type K_BUFFER_FLUSHING = 'hlsBufferFlushing';
+type K_BUFFER_FLUSHED = 'hlsBufferFlushed';
+type K_MANIFEST_LOADING = 'hlsManifestLoading';
+type K_MANIFEST_LOADED = 'hlsManifestLoaded';
+type K_MANIFEST_PARSED = 'hlsManifestParsed';
+type K_LEVEL_LOADING = 'hlsLevelLoading';
+type K_LEVEL_LOADED = 'hlsLevelLoaded';
+type K_LEVEL_UPDATED = 'hlsLevelUpdated';
+type K_LEVEL_PTS_UPDATED = 'hlsLevelPtsUpdated';
+type K_LEVEL_SWITCHING = 'hlsLevelSwitching';
+type K_LEVEL_SWITCHED = 'hlsLevelSwitched';
+type K_AUDIO_TRACKS_UPDATED = 'hlsAudioTracksUpdated';
+type K_AUDIO_TRACK_SWITCH = 'hlsAudioTrackSwitch';
+type K_AUDIO_TRACK_SWITCHING = 'hlsAudioTrackSwitching';
+type K_AUDIO_TRACK_SWITCHED = 'hlsAudioTrackSwitched';
+type K_AUDIO_TRACK_LOADING = 'hlsAudioTrackLoading';
+type K_AUDIO_TRACK_LOADED = 'hlsAudioTrackLoaded';
+type K_SUBTITLE_TRACKS_UPDATED = 'hlsSubtitleTracksUpdated';
+type K_SUBTITLE_TRACK_SWITCH = 'hlsSubtitleTrackSwitch';
+type K_SUBTITLE_TRACK_LOADING = 'hlsSubtitleTrackLoading';
+type K_SUBTITLE_TRACK_LOADED = 'hlsSubtitleTrackLoaded';
+type K_SUBTITLE_FRAG_PROCESSED = 'hlsSubtitleFragProcessed';
+type K_KEY_LOADING = 'hlsKeyLoading';
+type K_KEY_LOADED = 'hlsKeyLoaded';
+type K_INIT_PTS_FOUND = 'hlsInitPtsFound';
+type K_FRAG_LOADING = 'hlsFragLoading';
+type K_FRAG_LOAD_PROGRESS = 'hlsFragLoadProgress';
+type K_FRAG_LOAD_EMERGENCY_ABORTED = 'hlsFragLoadEmergencyAborted';
+type K_FRAG_LOADED = 'hlsFragLoaded';
+type K_FRAG_DECRYPTED = 'hlsFragDecrypted';
+type K_FRAG_PARSING_INIT_SEGMENT = 'hlsFragParsingInitSegment';
+type K_FRAG_PARSING_USERDATA = 'hlsFragParsingUserData';
+type K_FRAG_PARSING_METADATA = 'hlsFragParsingMetadata';
+type K_FRAG_PARSING_DATA = 'hlsFragParsingData';
+type K_FRAG_PARSED = 'hlsFragParsed';
+type K_FRAG_BUFFERED = 'hlsFragBuffered';
+type K_FRAG_CHANGED = 'hlsFragChanged';
+type K_FPS_DROP = 'hlsFpsDrop';
+type K_FPS_DROP_LEVEL_CAPPING = 'hlsFpsDropLevelCapping';
+type K_ERROR = 'hlsError';
+type K_DESTROYING = 'hlsDestroying';
+type K_STREAM_STATE_TRANSITION = 'hlsStreamStateTransition';
 
 // Error Type Keys
-type K_NETWORK_ERROR = "networkError";
-type K_MEDIA_ERROR = "mediaError";
-type K_KEY_SYSTEM_ERROR = "keySystemError";
-type K_MUX_ERROR = "muxError";
-type K_OTHER_ERROR = "otherError";
+type K_NETWORK_ERROR = 'networkError';
+type K_MEDIA_ERROR = 'mediaError';
+type K_KEY_SYSTEM_ERROR = 'keySystemError';
+type K_MUX_ERROR = 'muxError';
+type K_OTHER_ERROR = 'otherError';
 
 // Error Keys
-type K_MANIFEST_LOAD_ERROR = "manifestLoadError";
-type K_MANIFEST_LOAD_TIMEOUT = "manifestLoadTimeout";
-type K_MANIFEST_PARSING_ERROR = "manifestParsingError";
-type K_LEVEL_LOAD_ERROR = "levelLoadError";
-type K_LEVEL_LOAD_TIMEOUT = "levelLoadTimeout";
-type K_AUDIO_TRACK_LOAD_ERROR = "audioTrackLoadError";
-type K_AUDIO_TRACK_LOAD_TIMEOUT = "audioTrackLoadTimeout";
-type K_FRAG_LOAD_ERROR = "fragLoadError";
-type K_FRAG_LOAD_TIMEOUT = "fragLoadTimeout";
-type K_KEY_LOAD_ERROR = "keyLoadError";
-type K_KEY_LOAD_TIMEOUT = "keyLoadTimeout";
+type K_MANIFEST_LOAD_ERROR = 'manifestLoadError';
+type K_MANIFEST_LOAD_TIMEOUT = 'manifestLoadTimeout';
+type K_MANIFEST_PARSING_ERROR = 'manifestParsingError';
+type K_LEVEL_LOAD_ERROR = 'levelLoadError';
+type K_LEVEL_LOAD_TIMEOUT = 'levelLoadTimeout';
+type K_AUDIO_TRACK_LOAD_ERROR = 'audioTrackLoadError';
+type K_AUDIO_TRACK_LOAD_TIMEOUT = 'audioTrackLoadTimeout';
+type K_FRAG_LOAD_ERROR = 'fragLoadError';
+type K_FRAG_LOAD_TIMEOUT = 'fragLoadTimeout';
+type K_KEY_LOAD_ERROR = 'keyLoadError';
+type K_KEY_LOAD_TIMEOUT = 'keyLoadTimeout';
 // MEDIA_ERRORS //
-type K_MANIFEST_INCOMPATIBLE_CODECS_ERROR = "manifestIncompatibleCodecsError";
-type K_FRAG_LOOP_LOADING_ERROR = "fragLoopLoadingError";
-type K_FRAG_DECRYPT_ERROR = "fragDecryptError";
-type K_FRAG_PARSING_ERROR = "fragParsingError";
-type K_BUFFER_ADD_CODEC_ERROR = "bufferAddCodecError";
-type K_BUFFER_APPEND_ERROR = "bufferAppendError";
-type K_BUFFER_APPENDING_ERROR = "bufferAppendingError";
-type K_BUFFER_STALLED_ERROR = "bufferStalledError";
-type K_BUFFER_FULL_ERROR = "bufferFullError";
-type K_BUFFER_SEEK_OVER_HOLE = "bufferSeekOverHole";
-type K_BUFFER_NUDGE_ON_STALL = "bufferNudgeOnStall";
+type K_MANIFEST_INCOMPATIBLE_CODECS_ERROR = 'manifestIncompatibleCodecsError';
+type K_FRAG_LOOP_LOADING_ERROR = 'fragLoopLoadingError';
+type K_FRAG_DECRYPT_ERROR = 'fragDecryptError';
+type K_FRAG_PARSING_ERROR = 'fragParsingError';
+type K_BUFFER_ADD_CODEC_ERROR = 'bufferAddCodecError';
+type K_BUFFER_APPEND_ERROR = 'bufferAppendError';
+type K_BUFFER_APPENDING_ERROR = 'bufferAppendingError';
+type K_BUFFER_STALLED_ERROR = 'bufferStalledError';
+type K_BUFFER_FULL_ERROR = 'bufferFullError';
+type K_BUFFER_SEEK_OVER_HOLE = 'bufferSeekOverHole';
+type K_BUFFER_NUDGE_ON_STALL = 'bufferNudgeOnStall';
 // MUX_ERROR //
-type K_REMUX_ALLOC_ERROR = "remuxAllocError";
+type K_REMUX_ALLOC_ERROR = 'remuxAllocError';
 // OTHER_ERROR //
-type K_LEVEL_SWITCH_ERROR = "levelSwitchError";
-type K_INTERNAL_EXCEPTION = "interalException";
+type K_LEVEL_SWITCH_ERROR = 'levelSwitchError';
+type K_INTERNAL_EXCEPTION = 'interalException';
 
 declare namespace Hls {
     class Loader {
@@ -105,11 +106,7 @@ declare namespace Hls {
         /**
          * Start retrieving content located at given URL (HTTP GET).
          */
-        load(
-            context: LoaderContext,
-            config: LoaderConfig,
-            callbacks: LoaderCallbacks
-        ): void;
+        load(context: LoaderContext, config: LoaderConfig, callbacks: LoaderCallbacks): void;
         /**
          * Abort any loading in progress.
          */
@@ -1176,16 +1173,8 @@ declare namespace Hls {
     }
 
     interface LoaderCallbacks {
-        onSuccess(
-            response: LoaderResponse,
-            stats: LoaderStats,
-            context: LoaderContext
-        ): void;
-        onProgress(
-            stats: LoaderStats,
-            context: LoaderContext,
-            data: string | ArrayBuffer
-        ): void;
+        onSuccess(response: LoaderResponse, stats: LoaderStats, context: LoaderContext): void;
+        onProgress(stats: LoaderStats, context: LoaderContext, data: string | ArrayBuffer): void;
         onError(error: LoaderError, context: LoaderContext): void;
         onTimeout(stats: LoaderStats, context: LoaderContext): void;
     }
@@ -1715,6 +1704,16 @@ declare class Hls {
      */
     readonly liveSyncPosition: number;
     /**
+     * get : array of audio tracks exposed in manifest
+     */
+    readonly audioTracks: any[];
+    /**
+     * get/set : audio track id (returned by).
+     * Returns -1 if no track is visible.
+     * Set to -1 to hide all audio tracks.
+     */
+    audioTrack: number;
+    /**
      * get : array of subtitle tracks exposed in manifest
      */
     readonly subtitleTracks: any[];
@@ -1805,36 +1804,87 @@ declare class Hls {
     on(event: K_LEVEL_LOADED, callback: (event: K_LEVEL_LOADED, data: Hls.levelLoadedData) => void): void;
     on(event: K_LEVEL_UPDATED, callback: (event: K_LEVEL_UPDATED, data: Hls.levelUpdatedData) => void): void;
     on(event: K_LEVEL_PTS_UPDATED, callback: (event: K_LEVEL_PTS_UPDATED, data: Hls.levelPtsUpdatedData) => void): void;
-    on(event: K_AUDIO_TRACKS_UPDATED, callback: (event: K_AUDIO_TRACKS_UPDATED, data: Hls.audioTracksUpdatedData) => void): void;
-    on(event: K_AUDIO_TRACK_SWITCHING, callback: (event: K_AUDIO_TRACK_SWITCHING, data: Hls.audioTrackSwitchingData) => void): void;
-    on(event: K_AUDIO_TRACK_SWITCHED, callback: (event: K_AUDIO_TRACK_SWITCHED, data: Hls.audioTrackSwitchedData) => void): void;
-    on(event: K_AUDIO_TRACK_LOADING, callback: (event: K_AUDIO_TRACK_LOADING, data: Hls.audioTrackLoadingData) => void): void;
-    on(event: K_AUDIO_TRACK_LOADED, callback: (event: K_AUDIO_TRACK_LOADED, data: Hls.audioTrackLoadedData) => void): void;
-    on(event: K_SUBTITLE_TRACKS_UPDATED, callback: (event: K_SUBTITLE_TRACKS_UPDATED, data: Hls.subtitleTracksUpdatedData) => void): void;
-    on(event: K_SUBTITLE_TRACK_SWITCH, callback: (event: K_SUBTITLE_TRACK_SWITCH, data: Hls.subtitleTrackSwitchData) => void): void;
-    on(event: K_SUBTITLE_TRACK_LOADING, callback: (event: K_SUBTITLE_TRACK_LOADING, data: Hls.subtitleTrackLoadingData) => void): void;
-    on(event: K_SUBTITLE_TRACK_LOADED, callback: (event: K_SUBTITLE_TRACK_LOADED, data: Hls.subtitleTrackLoadedData) => void): void;
-    on(event: K_SUBTITLE_FRAG_PROCESSED, callback: (event: K_SUBTITLE_FRAG_PROCESSED, data: Hls.subtitleFragProcessedData) => void): void;
+    on(
+        event: K_AUDIO_TRACKS_UPDATED,
+        callback: (event: K_AUDIO_TRACKS_UPDATED, data: Hls.audioTracksUpdatedData) => void,
+    ): void;
+    on(
+        event: K_AUDIO_TRACK_SWITCHING,
+        callback: (event: K_AUDIO_TRACK_SWITCHING, data: Hls.audioTrackSwitchingData) => void,
+    ): void;
+    on(
+        event: K_AUDIO_TRACK_SWITCHED,
+        callback: (event: K_AUDIO_TRACK_SWITCHED, data: Hls.audioTrackSwitchedData) => void,
+    ): void;
+    on(
+        event: K_AUDIO_TRACK_LOADING,
+        callback: (event: K_AUDIO_TRACK_LOADING, data: Hls.audioTrackLoadingData) => void,
+    ): void;
+    on(
+        event: K_AUDIO_TRACK_LOADED,
+        callback: (event: K_AUDIO_TRACK_LOADED, data: Hls.audioTrackLoadedData) => void,
+    ): void;
+    on(
+        event: K_SUBTITLE_TRACKS_UPDATED,
+        callback: (event: K_SUBTITLE_TRACKS_UPDATED, data: Hls.subtitleTracksUpdatedData) => void,
+    ): void;
+    on(
+        event: K_SUBTITLE_TRACK_SWITCH,
+        callback: (event: K_SUBTITLE_TRACK_SWITCH, data: Hls.subtitleTrackSwitchData) => void,
+    ): void;
+    on(
+        event: K_SUBTITLE_TRACK_LOADING,
+        callback: (event: K_SUBTITLE_TRACK_LOADING, data: Hls.subtitleTrackLoadingData) => void,
+    ): void;
+    on(
+        event: K_SUBTITLE_TRACK_LOADED,
+        callback: (event: K_SUBTITLE_TRACK_LOADED, data: Hls.subtitleTrackLoadedData) => void,
+    ): void;
+    on(
+        event: K_SUBTITLE_FRAG_PROCESSED,
+        callback: (event: K_SUBTITLE_FRAG_PROCESSED, data: Hls.subtitleFragProcessedData) => void,
+    ): void;
     on(event: K_INIT_PTS_FOUND, callback: (event: K_INIT_PTS_FOUND, data: Hls.initPtsFoundData) => void): void;
     on(event: K_FRAG_LOADING, callback: (event: K_FRAG_LOADING, data: Hls.fragLoadingData) => void): void;
-    on(event: K_FRAG_LOAD_PROGRESS, callback: (event: K_FRAG_LOAD_PROGRESS, data: Hls.fragLoadProgressData) => void): void;
-    on(event: K_FRAG_LOAD_EMERGENCY_ABORTED, callback: (event: K_FRAG_LOAD_EMERGENCY_ABORTED, data: Hls.fragLoadEmergencyAbortedData) => void): void;
+    on(
+        event: K_FRAG_LOAD_PROGRESS,
+        callback: (event: K_FRAG_LOAD_PROGRESS, data: Hls.fragLoadProgressData) => void,
+    ): void;
+    on(
+        event: K_FRAG_LOAD_EMERGENCY_ABORTED,
+        callback: (event: K_FRAG_LOAD_EMERGENCY_ABORTED, data: Hls.fragLoadEmergencyAbortedData) => void,
+    ): void;
     on(event: K_FRAG_LOADED, callback: (event: K_FRAG_LOADED, data: Hls.fragLoadedData) => void): void;
     on(event: K_FRAG_DECRYPTED, callback: (event: K_FRAG_DECRYPTED, data: Hls.fragDecryptedData) => void): void;
-    on(event: K_FRAG_PARSING_INIT_SEGMENT, callback: (event: K_FRAG_PARSING_INIT_SEGMENT, data: Hls.fragParsingInitSegmentData) => void): void;
-    on(event: K_FRAG_PARSING_USERDATA, callback: (event: K_FRAG_PARSING_USERDATA, data: Hls.fragParsingUserData) => void): void;
-    on(event: K_FRAG_PARSING_METADATA, callback: (event: K_FRAG_PARSING_METADATA, data: Hls.fragParsingMetadata) => void): void;
+    on(
+        event: K_FRAG_PARSING_INIT_SEGMENT,
+        callback: (event: K_FRAG_PARSING_INIT_SEGMENT, data: Hls.fragParsingInitSegmentData) => void,
+    ): void;
+    on(
+        event: K_FRAG_PARSING_USERDATA,
+        callback: (event: K_FRAG_PARSING_USERDATA, data: Hls.fragParsingUserData) => void,
+    ): void;
+    on(
+        event: K_FRAG_PARSING_METADATA,
+        callback: (event: K_FRAG_PARSING_METADATA, data: Hls.fragParsingMetadata) => void,
+    ): void;
     on(event: K_FRAG_PARSING_DATA, callback: (event: K_FRAG_PARSING_DATA, data: Hls.fragParsingData) => void): void;
     on(event: K_FRAG_PARSED, callback: (event: K_FRAG_PARSED, data: Hls.fragParsedData) => void): void;
     on(event: K_FRAG_BUFFERED, callback: (event: K_FRAG_BUFFERED, data: Hls.fragBufferedData) => void): void;
     on(event: K_FRAG_CHANGED, callback: (event: K_FRAG_CHANGED, data: Hls.fragChangedData) => void): void;
     on(event: K_FPS_DROP, callback: (event: K_FPS_DROP, data: Hls.fpsDropData) => void): void;
-    on(event: K_FPS_DROP_LEVEL_CAPPING, callback: (event: K_FPS_DROP_LEVEL_CAPPING, data: Hls.fpsDropLevelCappingData) => void): void;
+    on(
+        event: K_FPS_DROP_LEVEL_CAPPING,
+        callback: (event: K_FPS_DROP_LEVEL_CAPPING, data: Hls.fpsDropLevelCappingData) => void,
+    ): void;
     on(event: K_ERROR, callback: (event: K_ERROR, data: Hls.errorData) => void): void;
     on(event: K_DESTROYING, callback: (event: K_DESTROYING, data: {}) => void): void;
     on(event: K_KEY_LOADING, callback: (event: K_KEY_LOADING, data: Hls.keyLoadingData) => void): void;
     on(event: K_KEY_LOADED, callback: (event: K_KEY_LOADED, data: Hls.keyLoadedData) => void): void;
-    on(event: K_STREAM_STATE_TRANSITION, callback: (event: K_STREAM_STATE_TRANSITION, data: Hls.streamStateTransitionData) => void): void;
+    on(
+        event: K_STREAM_STATE_TRANSITION,
+        callback: (event: K_STREAM_STATE_TRANSITION, data: Hls.streamStateTransitionData) => void,
+    ): void;
     /**
      * hls.js single event listener
      */
@@ -1858,37 +1908,91 @@ declare class Hls {
     once(event: K_LEVEL_LOADING, callback: (event: K_LEVEL_LOADING, data: Hls.levelLoadingData) => void): void;
     once(event: K_LEVEL_LOADED, callback: (event: K_LEVEL_LOADED, data: Hls.levelLoadedData) => void): void;
     once(event: K_LEVEL_UPDATED, callback: (event: K_LEVEL_UPDATED, data: Hls.levelUpdatedData) => void): void;
-    once(event: K_LEVEL_PTS_UPDATED, callback: (event: K_LEVEL_PTS_UPDATED, data: Hls.levelPtsUpdatedData) => void): void;
-    once(event: K_AUDIO_TRACKS_UPDATED, callback: (event: K_AUDIO_TRACKS_UPDATED, data: Hls.audioTracksUpdatedData) => void): void;
-    once(event: K_AUDIO_TRACK_SWITCHING, callback: (event: K_AUDIO_TRACK_SWITCHING, data: Hls.audioTrackSwitchingData) => void): void;
-    once(event: K_AUDIO_TRACK_SWITCHED, callback: (event: K_AUDIO_TRACK_SWITCHED, data: Hls.audioTrackSwitchedData) => void): void;
-    once(event: K_AUDIO_TRACK_LOADING, callback: (event: K_AUDIO_TRACK_LOADING, data: Hls.audioTrackLoadingData) => void): void;
-    once(event: K_AUDIO_TRACK_LOADED, callback: (event: K_AUDIO_TRACK_LOADED, data: Hls.audioTrackLoadedData) => void): void;
-    once(event: K_SUBTITLE_TRACKS_UPDATED, callback: (event: K_SUBTITLE_TRACKS_UPDATED, data: Hls.subtitleTracksUpdatedData) => void): void;
-    once(event: K_SUBTITLE_TRACK_SWITCH, callback: (event: K_SUBTITLE_TRACK_SWITCH, data: Hls.subtitleTrackSwitchData) => void): void;
-    once(event: K_SUBTITLE_TRACK_LOADING, callback: (event: K_SUBTITLE_TRACK_LOADING, data: Hls.subtitleTrackLoadingData) => void): void;
-    once(event: K_SUBTITLE_TRACK_LOADED, callback: (event: K_SUBTITLE_TRACK_LOADED, data: Hls.subtitleTrackLoadedData) => void): void;
-    once(event: K_SUBTITLE_FRAG_PROCESSED, callback: (event: K_SUBTITLE_FRAG_PROCESSED, data: Hls.subtitleFragProcessedData) => void): void;
+    once(
+        event: K_LEVEL_PTS_UPDATED,
+        callback: (event: K_LEVEL_PTS_UPDATED, data: Hls.levelPtsUpdatedData) => void,
+    ): void;
+    once(
+        event: K_AUDIO_TRACKS_UPDATED,
+        callback: (event: K_AUDIO_TRACKS_UPDATED, data: Hls.audioTracksUpdatedData) => void,
+    ): void;
+    once(
+        event: K_AUDIO_TRACK_SWITCHING,
+        callback: (event: K_AUDIO_TRACK_SWITCHING, data: Hls.audioTrackSwitchingData) => void,
+    ): void;
+    once(
+        event: K_AUDIO_TRACK_SWITCHED,
+        callback: (event: K_AUDIO_TRACK_SWITCHED, data: Hls.audioTrackSwitchedData) => void,
+    ): void;
+    once(
+        event: K_AUDIO_TRACK_LOADING,
+        callback: (event: K_AUDIO_TRACK_LOADING, data: Hls.audioTrackLoadingData) => void,
+    ): void;
+    once(
+        event: K_AUDIO_TRACK_LOADED,
+        callback: (event: K_AUDIO_TRACK_LOADED, data: Hls.audioTrackLoadedData) => void,
+    ): void;
+    once(
+        event: K_SUBTITLE_TRACKS_UPDATED,
+        callback: (event: K_SUBTITLE_TRACKS_UPDATED, data: Hls.subtitleTracksUpdatedData) => void,
+    ): void;
+    once(
+        event: K_SUBTITLE_TRACK_SWITCH,
+        callback: (event: K_SUBTITLE_TRACK_SWITCH, data: Hls.subtitleTrackSwitchData) => void,
+    ): void;
+    once(
+        event: K_SUBTITLE_TRACK_LOADING,
+        callback: (event: K_SUBTITLE_TRACK_LOADING, data: Hls.subtitleTrackLoadingData) => void,
+    ): void;
+    once(
+        event: K_SUBTITLE_TRACK_LOADED,
+        callback: (event: K_SUBTITLE_TRACK_LOADED, data: Hls.subtitleTrackLoadedData) => void,
+    ): void;
+    once(
+        event: K_SUBTITLE_FRAG_PROCESSED,
+        callback: (event: K_SUBTITLE_FRAG_PROCESSED, data: Hls.subtitleFragProcessedData) => void,
+    ): void;
     once(event: K_INIT_PTS_FOUND, callback: (event: K_INIT_PTS_FOUND, data: Hls.initPtsFoundData) => void): void;
     once(event: K_FRAG_LOADING, callback: (event: K_FRAG_LOADING, data: Hls.fragLoadingData) => void): void;
-    once(event: K_FRAG_LOAD_PROGRESS, callback: (event: K_FRAG_LOAD_PROGRESS, data: Hls.fragLoadProgressData) => void): void;
-    once(event: K_FRAG_LOAD_EMERGENCY_ABORTED, callback: (event: K_FRAG_LOAD_EMERGENCY_ABORTED, data: Hls.fragLoadEmergencyAbortedData) => void): void;
+    once(
+        event: K_FRAG_LOAD_PROGRESS,
+        callback: (event: K_FRAG_LOAD_PROGRESS, data: Hls.fragLoadProgressData) => void,
+    ): void;
+    once(
+        event: K_FRAG_LOAD_EMERGENCY_ABORTED,
+        callback: (event: K_FRAG_LOAD_EMERGENCY_ABORTED, data: Hls.fragLoadEmergencyAbortedData) => void,
+    ): void;
     once(event: K_FRAG_LOADED, callback: (event: K_FRAG_LOADED, data: Hls.fragLoadedData) => void): void;
     once(event: K_FRAG_DECRYPTED, callback: (event: K_FRAG_DECRYPTED, data: Hls.fragDecryptedData) => void): void;
-    once(event: K_FRAG_PARSING_INIT_SEGMENT, callback: (event: K_FRAG_PARSING_INIT_SEGMENT, data: Hls.fragParsingInitSegmentData) => void): void;
-    once(event: K_FRAG_PARSING_USERDATA, callback: (event: K_FRAG_PARSING_USERDATA, data: Hls.fragParsingUserData) => void): void;
-    once(event: K_FRAG_PARSING_METADATA, callback: (event: K_FRAG_PARSING_METADATA, data: Hls.fragParsingMetadata) => void): void;
+    once(
+        event: K_FRAG_PARSING_INIT_SEGMENT,
+        callback: (event: K_FRAG_PARSING_INIT_SEGMENT, data: Hls.fragParsingInitSegmentData) => void,
+    ): void;
+    once(
+        event: K_FRAG_PARSING_USERDATA,
+        callback: (event: K_FRAG_PARSING_USERDATA, data: Hls.fragParsingUserData) => void,
+    ): void;
+    once(
+        event: K_FRAG_PARSING_METADATA,
+        callback: (event: K_FRAG_PARSING_METADATA, data: Hls.fragParsingMetadata) => void,
+    ): void;
     once(event: K_FRAG_PARSING_DATA, callback: (event: K_FRAG_PARSING_DATA, data: Hls.fragParsingData) => void): void;
     once(event: K_FRAG_PARSED, callback: (event: K_FRAG_PARSED, data: Hls.fragParsedData) => void): void;
     once(event: K_FRAG_BUFFERED, callback: (event: K_FRAG_BUFFERED, data: Hls.fragBufferedData) => void): void;
     once(event: K_FRAG_CHANGED, callback: (event: K_FRAG_CHANGED, data: Hls.fragChangedData) => void): void;
     once(event: K_FPS_DROP, callback: (event: K_FPS_DROP, data: Hls.fpsDropData) => void): void;
-    once(event: K_FPS_DROP_LEVEL_CAPPING, callback: (event: K_FPS_DROP_LEVEL_CAPPING, data: Hls.fpsDropLevelCappingData) => void): void;
+    once(
+        event: K_FPS_DROP_LEVEL_CAPPING,
+        callback: (event: K_FPS_DROP_LEVEL_CAPPING, data: Hls.fpsDropLevelCappingData) => void,
+    ): void;
     once(event: K_ERROR, callback: (event: K_ERROR, data: Hls.errorData) => void): void;
     once(event: K_DESTROYING, callback: (event: K_DESTROYING, data: {}) => void): void;
     once(event: K_KEY_LOADING, callback: (event: K_KEY_LOADING, data: Hls.keyLoadingData) => void): void;
     once(event: K_KEY_LOADED, callback: (event: K_KEY_LOADED, data: Hls.keyLoadedData) => void): void;
-    once(event: K_STREAM_STATE_TRANSITION, callback: (event: K_STREAM_STATE_TRANSITION, data: Hls.streamStateTransitionData) => void): void;
+    once(
+        event: K_STREAM_STATE_TRANSITION,
+        callback: (event: K_STREAM_STATE_TRANSITION, data: Hls.streamStateTransitionData) => void,
+    ): void;
 
     /**
      * remove hls.js event listener

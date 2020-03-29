@@ -11,7 +11,11 @@ class pLoader extends Hls.DefaultConfig.loader {
         this.load = (context: Hls.LoaderContext, cfg: Hls.LoaderConfig, callbacks: Hls.LoaderCallbacks) => {
             if (context.type === 'manifest') {
                 const onSuccess = callbacks.onSuccess;
-                callbacks.onSuccess = (response: Hls.LoaderResponse, stats: Hls.LoaderStats, context: Hls.LoaderContext) => {
+                callbacks.onSuccess = (
+                    response: Hls.LoaderResponse,
+                    stats: Hls.LoaderStats,
+                    context: Hls.LoaderContext,
+                ) => {
                     response.data = process(response.data as string);
                     onSuccess(response, stats, context);
                 };
@@ -38,6 +42,9 @@ if (Hls.isSupported()) {
     } else {
         console.log('src: ', hls.media.src);
     }
+
+    const audioTracks = hls.audioTracks;
+    hls.audioTrack = audioTracks[0];
 
     hls.once(Hls.Events.MANIFEST_PARSED, (event: "hlsManifestParsed", data: Hls.manifestParsedData) => {
         video.play();
