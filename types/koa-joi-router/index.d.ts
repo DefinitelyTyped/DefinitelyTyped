@@ -5,7 +5,7 @@
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.0
 
 import * as Koa from 'koa';
 import * as Joi from 'joi';
