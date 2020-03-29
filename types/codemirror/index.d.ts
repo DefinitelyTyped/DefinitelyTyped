@@ -142,6 +142,9 @@ declare namespace CodeMirror {
     To fire your own events, use CodeMirror.signal(target, name, args...), where target is a non-DOM-node object. */
     function signal(target: any, name: string, ...args: any[]): void;
 
+    /** Modify a keymap to normalize modifier order and properly recognize multi-stroke bindings. */
+    function normalizeKeyMap(km: KeyMap): KeyMap;
+
     type DOMEvent = 'mousedown' | 'dblclick' | 'touchstart' | 'contextmenu' | 'keydown' | 'keypress' | 'keyup' | 'cut' | 'copy' | 'paste' | 'dragstart' | 'dragenter' | 'dragover' | 'dragleave' | 'drop';
 
     type CoordsMode = 'window' | 'page' | 'local' | 'div';
