@@ -1,4 +1,4 @@
-// Type definitions for passport-oauth2 1.4
+// Type definitions for passport-oauth2 1.5
 // Project: https://github.com/jaredhanson/passport-oauth2#readme
 // Definitions by: Pasi Eronen <https://github.com/pasieronen>
 //                 Wang Zishi <https://github.com/WangZishi>
@@ -61,10 +61,17 @@ declare namespace OAuth2Strategy {
         ((req: Request, accessToken: string, refreshToken: string, results: any, profile: any, verified: VerifyCallback) => void);
 
     interface _StrategyOptionsBase {
+        /** URL used to obtain an authorization grant */
         authorizationURL: string;
+        /** URL used to obtain an access token */
         tokenURL: string;
+        /** identifies client to service provider */
         clientID: string;
-        clientSecret: string;
+        /** secret used to establish ownership of the client identifer */
+        clientSecret?: string;
+        /** whether to use PKCE for authentication */
+		pkce?: boolean | string;
+        /** URL to which the service provider will redirect the user after obtaining authorization */
         callbackURL?: string;
         customHeaders?: OutgoingHttpHeaders;
         scope?: string | string[];
@@ -72,11 +79,20 @@ declare namespace OAuth2Strategy {
         sessionKey?: string;
         store?: StateStore;
         state?: any;
+        skipUserProfile?:
+            | boolean
+            | (() => boolean)
+            | ((
+                    accessToken: string,
+                    callback: (err: any, skip: boolean) => void,
+              ) => void);
     }
     interface StrategyOptions extends _StrategyOptionsBase {
+        /** when `true`, `req` is the first argument to the verify callback */
         passReqToCallback?: false;
     }
     interface StrategyOptionsWithRequest extends _StrategyOptionsBase {
+        /** when `true`, `req` is the first argument to the verify callback */
         passReqToCallback: true;
     }
 
