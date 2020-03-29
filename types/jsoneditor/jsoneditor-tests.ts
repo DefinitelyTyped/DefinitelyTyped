@@ -1,5 +1,14 @@
 import * as Ajv from 'ajv';
-import JSONEditor, { JSONEditorMode, Node, JSONEditorOptions } from 'jsoneditor';
+import JSONEditor, { JSONEditorMode, EditableNode, JSONEditorOptions, AutoCompleteOptions } from 'jsoneditor';
+
+const autocomplete: AutoCompleteOptions = {
+    caseSensitive: true,
+    confirmKeys: [0],
+    filter: 'start',
+    getOptions: (text, path, type, editor) => [],
+    trigger: 'keydown',
+};
+autocomplete.filter = input => true;
 
 let options: JSONEditorOptions;
 options = {};
@@ -7,11 +16,17 @@ options = {
     ace,
     ajv: new Ajv({ allErrors: true, verbose: true }),
     onChange() {},
-    onEditable(node: Node | {}) {
+    autocomplete,
+    colorPicker: false,
+    onEditable(node: EditableNode | {}) {
         return true;
     },
     onError(error: Error) {},
     onModeChange(newMode: JSONEditorMode, oldMode: JSONEditorMode) {},
+    onValidate: json => [],
+    onValidationError: errors => {
+        return;
+    },
     escapeUnicode: false,
     sortObjectKeys: true,
     history: true,
@@ -25,7 +40,7 @@ options = {
     theme: 'default',
 };
 options = {
-    onEditable(node: Node | {}) {
+    onEditable(node: EditableNode | {}) {
         return { field: true, value: false };
     },
 };
@@ -45,7 +60,12 @@ jsonEditor.setName('foo');
 jsonEditor.setName();
 jsonEditor.setSchema({});
 jsonEditor.setText('{foo: 1}');
-
-const json: any = jsonEditor.get();
-const name: string = jsonEditor.getName();
-const jsonString: string = jsonEditor.getText();
+jsonEditor.get();
+jsonEditor.getMode();
+jsonEditor.getNodesByRange({ path: ['a', 'b'] }, { path: [1] });
+jsonEditor.getSelection();
+jsonEditor.getText();
+jsonEditor.getTextSelection();
+jsonEditor.refresh();
+jsonEditor.update(null);
+jsonEditor.updateText('');

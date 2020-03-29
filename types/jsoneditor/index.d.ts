@@ -13,17 +13,19 @@ import { Ajv, ErrorObject } from 'ajv';
 
 export type JSONPath = Array<string | number>;
 
-export interface Node {
+export interface EditableNode {
     field: string;
     value?: string;
     path: JSONPath;
 }
 
+export type NodeType = 'object' | 'array' | 'string' | 'auto';
+
 export type JSONEditorMode = 'tree' | 'view' | 'form' | 'code' | 'text' | 'preview';
 
 export interface NodeName {
     path: ReadonlyArray<string>;
-    type: 'object' | 'array';
+    type: NodeType;
     size: number;
 }
 
@@ -32,10 +34,46 @@ export interface ValidationError {
     message: string;
 }
 
+export interface FieldEditable {
+    field: boolean;
+    value: boolean;
+}
+
+export interface BaseNode {
+    editor: JSONEditor;
+    dom: { [key: string]: HTMLElement };
+    editable?: FieldEditable;
+    parent: Node | null;
+}
+
+export type NodeValue = string | boolean | number | null;
+
+export interface Node extends BaseNode {
+    expanded?: boolean;
+    field: string;
+    previousField: string;
+    fieldEditable: boolean;
+    type: NodeType;
+    value: NodeValue;
+    previousValue: NodeValue;
+    visibleChilds: number;
+    schema?: object;
+    enum?: null | ReadonlyArray<string>;
+    id?: string;
+    valueFieldHTML?: string;
+    error?: ErrorObject;
+    errorChild?: Node;
+    childs?: Node[];
+    fieldInnerText?: string;
+    valueInnerText?: string;
+    append?: BaseNode;
+    showMore?: BaseNode;
+}
+
 export type SchemaValidationErrorType = 'validation' | 'customValidation';
 
 export interface SchemaValidationError {
-    node: any; // TODO: write type from https://github.com/josdejong/jsoneditor/blob/develop/src/js/Node.js
+    node: Node;
     error: ErrorObject;
     type: SchemaValidationErrorType;
 }
@@ -150,6 +188,21 @@ export interface TimestampNode {
     path: ReadonlyArray<string>;
 }
 
+export interface QueryOptions {
+    filter?: {
+        field: string | '@';
+        relation: '==' | '!=' | '<' | '<=' | '>' | '>=';
+        value: string;
+    };
+    sort?: {
+        field: string | '@';
+        direction: 'asc' | 'desc';
+    };
+    projection?: {
+        fields: string[];
+    };
+}
+
 export interface JSONEditorOptions {
     /**
      * Provide a custom version of the Ace editor and use this instead of the version that comes embedded with JSONEditor. Only applicable when mode is 'code'.
@@ -205,7 +258,7 @@ export interface JSONEditorOptions {
      * In modes 'text' and 'code', the callback is invoked as `editable(node)` where node is an empty object (no field, value, or path).
      * In that case the function can return false to make the text or code editor completely readonly.
      */
-    onEditable?: (node: Node | object) => boolean | { field: boolean; value: boolean };
+    onEditable?: (node: EditableNode | object) => boolean | FieldEditable;
     /**
      * Set a callback function triggered when an error occurs.
      * Invoked with the error as first argument. The callback is only invoked
@@ -230,41 +283,12 @@ export interface JSONEditorOptions {
      * The function should return an array with errors or null if there are no errors.
      * The function can also return a Promise resolving with the errors retrieved via an asynchronous validation (like sending a request to a server for validation).
      * Also see the option `schema` for JSON schema validation.
-     * @example {
-                    onValidate: function (json) {
-                        var errors = [];
-                        if (json && json.customer && !json.customer.address) {
-                            errors.push({
-                                path: ['customer'],
-                                message: 'Required property "address" missing.'
-                            });
-                        }
-                        return errors;
-                    }
-                }
      */
     onValidate?: (json: any) => ValidationError[] | Promise<ValidationError[]>;
     /**
      * Set a callback function for validation and parse errors. Available in all modes.
      * On validation of the json, if errors of any kind were found this callback is invoked with the errors data.
      * On change, the callback will be invoked only if errors were changed.
-     * @example {
-                    onValidationError: function (errors) {
-                        errors.forEach((error) => {
-                            switch (error.type) {
-                                case 'validation': // schema validation error
-                                    ...
-                                    break;
-                                case 'customValidation': // custom validation error
-                                    ...
-                                    break;
-                                case 'error':  // json parse error
-                                    ...
-                                    break;
-                            }
-                        });
-                    }
-                }
      */
     onValidationError?: (errors: ReadonlyArray<SchemaValidationError | ParseError>) => void;
     /**
@@ -335,30 +359,6 @@ export interface JSONEditorOptions {
     theme?: string;
     /**
      * Array of templates that will appear in the context menu, Each template is a json object precreated that can be added as a object value to any node in your document.
-     * @example [
-                    {
-                        text: 'Person',
-                        title: 'Insert a Person Node',
-                        className: 'jsoneditor-type-object',
-                        field: 'PersonTemplate',
-                        value: {
-                            firstName: 'John',
-                            lastName: 'Do',
-                            age: 28
-                        }
-                    },
-                    {
-                        text: 'Address',
-                        title: 'Insert an Address Node',
-                        field: 'AddressTemplate',
-                        value: {
-                            street: '',
-                            city: '',
-                            state: '',
-                            zipcode: ''
-                        }
-                    }
-                ]
      */
     templates?: Template[];
     /**
@@ -393,7 +393,7 @@ export interface JSONEditorOptions {
     /**
      * Set a callback function that will be triggered when an event will occur in a JSON field or value. Only applicable when mode is 'form', 'tree' or 'view'.
      */
-    onEvent?: (node: Node, event: string) => void;
+    onEvent?: (node: EditableNode, event: string) => void;
     /**
      * When true, values containing a color name or color code will have a color picker rendered on their left side.
      * @default true
@@ -401,23 +401,19 @@ export interface JSONEditorOptions {
     colorPicker?: boolean;
     /**
      * Callback function triggered when the user clicks a color. Can be used to implement a custom color picker.
-     * @param parent An HTML element where the color picker can be attached. JSONEditor comes with a built-in color picker, powered by {@link https://github.com/Sphinxxxx/vanilla-picker|vanilla-picker}.
+     * @param parent An HTML element where the color picker can be attached. JSONEditor comes with a built-in color picker,
+     * powered by {@link https://github.com/Sphinxxxx/vanilla-picker|vanilla-picker}.
      * @param color The current color.
      * @param onChange A callback which has to be invoked with the new color selected in the color picker.
-     * @example (parent, color, onChange) => {
-                    new VanillaPicker({
-                        parent,
-                        color,
-                        onDone: color => onChange(color.hex)
-                    }).show();
-                }
      */
     onColorPicker?: (parent: HTMLElement, color: string, onChange: (color: Color) => void) => void;
     /**
-     * By default (true), a tag with the date/time of a timestamp is displayed right from values containing a timestamp. By default, a value is considered a timestamp when it is an integer number with a value larger than Jan 1th 2000, 946684800000.
+     * By default (true), a tag with the date/time of a timestamp is displayed right from values containing a timestamp.
+     * By default, a value is considered a timestamp when it is an integer number with a value larger than Jan 1th 2000, 946684800000.
      * When timestampTag a is a function, a timestamp tag will be displayed when this function returns true, and no timestamp is displayed when the function returns false.
      * When the function returns a non-boolean value like null or undefined, JSONEditor will fallback on the built-in rules to determine whether or not to show a timestamp.
-     * Whether a value is a timestamp can be determined implicitly based on the value, or explicitly based on field or path. You can for example test whether a field name contains a string like: 'date' or 'time'.
+     * Whether a value is a timestamp can be determined implicitly based on the value, or explicitly based on field or path.
+     * You can for example test whether a field name contains a string like: 'date' or 'time'.
      * Only applicable for modes 'tree', 'form', and 'view'.
      * @default true
      * @example ({ field, value, path }) => field === 'dateCreated'
@@ -445,12 +441,14 @@ export interface JSONEditorOptions {
         };
     };
     /**
-     * The container element where modals (like for sorting and filtering) are attached: an overlay will be created on top of this container, and the modal will be created in the center of this container.
+     * The container element where modals (like for sorting and filtering) are attached:
+     * an overlay will be created on top of this container, and the modal will be created in the center of this container.
      */
     modalAnchor?: HTMLElement;
     /**
      * The container element where popups (for example drop down menus, for JSON Schema error tooltips, and color pickers) will be absolutely positioned.
-     * By default, this is the root `div` element of the editor itself. When the JSONEditor is inside a `div` element which hides overflowing contents (CSS overflow: auto or overflow: hidden), tooltips will be visible only partly.
+     * By default, this is the root `div` element of the editor itself. When the JSONEditor is inside a `div` element which hides overflowing contents (CSS overflow: auto or overflow: hidden),
+     * tooltips will be visible only partly.
      * In this case, a popupAnchor outside of the element without hidden overflow will allow the tooltips to be visible when overflowing the `div` element of the JSONEditor.
      */
     popupAnchor?: HTMLElement;
@@ -469,10 +467,25 @@ export interface JSONEditorOptions {
      * @default 100
      */
     maxVisibleChilds?: number;
-    // TODO: createQuery, executeQuery, queryDescription
+    /**
+     * Create a query string based on query options filled in the Transform Wizard in the Transform modal. Normally used in combination with `executeQuery`.
+     * The input for the function are the entered query options and the current JSON, and the output must be a string containing the query.
+     * This query will be executed using `executeQuery`. Note that there is a special case '@' for filter.field and sort.field.
+     * It means that the field itself is selected, for example when having an array containing numbers.
+     */
+    createQuery?: (json: any, queryOptions: QueryOptions) => string;
+    /**
+     * Replace the build-in query language used in the Transform modal with a custom language. Normally used in combination with `createQuery`.
+     * The input for the function is the current JSON and a query string, and output must be the transformed JSON.
+     */
+    executeQuery?: (json: any, query: string) => any;
+    /**
+     * A text description displayed on top of the Transform modal. Can be used to explain a custom query language implemented via `createQuery` and `executeQuery`.
+     * The text can contain HTML code like a link to a web page.
+     */
+    queryDescription?: string;
 }
 
-// TODO: docs on methods
 export default class JSONEditor {
     /**
      * Constructs a new JSONEditor.
@@ -482,30 +495,115 @@ export default class JSONEditor {
      * @returns New instance of a JSONEditor.
      */
     constructor(container: HTMLElement, options?: JSONEditorOptions, json?: any);
+    /**
+     * Collapse all fields. Only applicable for mode 'tree', 'view', and 'form'.
+     */
     collapseAll(): void;
+    /**
+     * Destroy the editor. Clean up DOM, event listeners, and web workers.
+     */
     destroy(): void;
+    /**
+     * Expand all fields. Only applicable for mode 'tree', 'view', and 'form'.
+     */
     expandAll(): void;
+    /**
+     * Set focus to the JSONEditor.
+     */
     focus(): void;
+    /**
+     * Get JSON data. This method throws an exception when the editor does not contain valid JSON, which can be the case when the editor is in mode 'code', 'text', or 'preview'.
+     */
     get(): any;
+    /**
+     * Retrieve the current mode of the editor.
+     */
     getMode(): JSONEditorMode;
+    /**
+     * Retrieve the current field name of the root node.
+     */
     getName(): string | undefined;
+    /**
+     * A utility function for getting a list of SerializableNode under certain range.
+     * This function can be used as complementary to `getSelection` and `onSelectionChange` if a list of all the selected nodes is required.
+     * @param start Path for the first node in range
+     * @param end Path for the last node in range
+     */
     getNodesByRange(start: { path: JSONPath }, end: { path: JSONPath }): SerializableNode[];
+    /**
+     * Get the current selected nodes. Only applicable for mode 'tree'.
+     */
     getSelection(): { start: SerializableNode; end: SerializableNode };
+    /**
+     * Get JSON data as string. Returns the contents of the editor as string. When the editor is in mode 'text', 'code' or 'preview', the returned text is returned as-is.
+     * For the other modes, the returned text is a compacted string. In order to get the JSON formatted with a certain number of spaces, use `JSON.stringify(JSONEditor.get(), null, 2)`.
+     */
     getText(): string;
+    /**
+     * Get the current selected text with the selection range. Only applicable for mode 'text' and 'code'.
+     */
     getTextSelection(): { start: SelectionPosition; end: SelectionPosition; text: string };
+    /**
+     * Force the editor to refresh the user interface and update all rendered HTML. This can be useful for example when using `onClassName` and the returned class name depends on external factors.
+     */
     refresh(): void;
+    /**
+     * Set JSON data. Resets the state of the editor (expanded nodes, search, selection).
+     * @see update()
+     * @param json JSON data to be displayed in the JSONEditor
+     */
     set(json: any): void;
+    /**
+     * Switch mode. Mode 'code' requires the Ace editor.
+     */
     setMode(mode: JSONEditorMode): void;
+    /**
+     * Set a field name for the root node.
+     */
     setName(name?: string): void;
+    /**
+     * Set a JSON schema for validation of the JSON object. See also option `schema`. See http://json-schema.org/ for more information on the JSON schema definition.
+     */
     setSchema(schema: object, schemaRefs?: object): void;
+    /**
+     * Set selection for a range of nodes, Only applicable for mode 'tree'.
+     * If no parameters sent - the current selection will be removed, if exists.
+     * For single node selection send only the start parameter.
+     * If the nodes are not from the same level the first common parent will be selected.
+     */
     setSelection(start: { path: JSONPath }, end: { path: JSONPath }): void;
+    /**
+     * Set text data in the editor. This method throws an exception when the provided jsonString does not contain valid JSON and the editor is in mode 'tree', 'view', or 'form'.
+     */
     setText(jsonString: string): void;
+    /**
+     * Set text selection for a range, Only applicable for mode 'text' and 'code'.
+     */
     setTextSelection(start: SelectionPosition, end: SelectionPosition): void;
+    /**
+     * Replace JSON data when the new data contains changes. In modes 'tree', 'form', and 'view', the state of the editor will be maintained (expanded nodes, search, selection). See also `set`.
+     */
     update(json: any): void;
+    /**
+     * Replace text data when the new data contains changes. In modes 'tree', 'form', and 'view', the state of the editor will be maintained (expanded nodes, search, selection).
+     * Also see `setText()`. This method throws an exception when the provided jsonString does not contain valid JSON and the editor is in mode 'tree', 'view', or 'form'.
+     */
     updateText(jsonString: string): void;
 
+    /**
+     * An array with the names of all known options.
+     */
     static VALID_OPTIONS: string[];
+    /**
+     * Access to the bundled Ace editor, via the brace library. Ace is used in code mode. Same as `var ace = require('brace');`.
+     */
     static ace: AceAjax.Ace;
+    /**
+     * Access to the bundled ajv library, used for JSON schema validation. Same as `var Ajv = require('ajv');`.
+     */
     static Ajv: Ajv;
+    /**
+     * Access to the bundled vanilla-picker library, used as color picker. Same as `var VanillaPicker = require('vanilla-picker');`.
+     */
     static VanillaPicker: any;
 }
