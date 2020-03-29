@@ -196,23 +196,59 @@ export interface QueryResultBase<TResult> {
     refetch: ({ force, throwOnError }?: { force?: boolean; throwOnError?: boolean }) => Promise<TResult>;
 }
 
-export interface QueryResult<TResult> extends QueryResultBase<TResult> {
-    data: undefined | TResult;
+export interface QuerySuccessResult<TResult> extends QueryResultBase<TResult> {
+    status: 'success';
+    data: TResult;
+    error: null;
 }
 
-export interface PaginatedQueryResult<TResult> extends QueryResultBase<TResult> {
-    resolvedData: undefined | TResult;
-    latestData: undefined | TResult;
+export interface QueryErrorResult<TResult> extends QueryResultBase<TResult> {
+    status: 'error';
+    data: TResult | undefined; // even when error, data can have stale data
+    error: unknown;
 }
 
-export interface InfiniteQueryResult<TResult, TMoreVariable> extends QueryResultBase<TResult> {
+export interface QueryLoadingResult<TResult> extends QueryResultBase<TResult> {
+    status: 'loading';
+    data: TResult | undefined; // even when error, data can have stale data
+    error: unknown | null; // it still can be error
+}
+
+export type QueryResult<TResult> =
+    | QuerySuccessResult<TResult>
+    | QueryErrorResult<TResult>
+    | QueryLoadingResult<TResult>;
+
+export interface PaginatedQuerySuccessResult<TResult> extends QueryResultBase<TResult> {
+    status: 'success';
+    resolvedData: TResult;
+    latestData: TResult;
+    error: null;
+}
+
+export interface PaginatedQueryErrorResult<TResult> extends QueryResultBase<TResult> {
+    status: 'error';
+    resolvedData: undefined | TResult; // even when error, data can have stale data
+    latestData: undefined | TResult; // even when error, data can have stale data
+    error: unknown;
+}
+
+export interface PaginatedQueryLoadingResult<TResult> extends QueryResultBase<TResult> {
+    status: 'loading';
+    resolvedData: undefined | TResult; // even when error, data can have stale data
+    latestData: undefined | TResult; // even when error, data can have stale data
+    error: unknown | null; // it still can be error
+}
+
+export type PaginatedQueryResult<TResult> =
+    | PaginatedQuerySuccessResult<TResult>
+    | PaginatedQueryErrorResult<TResult>
+    | PaginatedQueryLoadingResult<TResult>;
+
+export interface InfiniteQueryResult<TResult, TMoreVariable> extends QueryResultBase<TResult[]> {
     data: TResult[];
     isFetchingMore: boolean;
     fetchMore: (moreVariable?: TMoreVariable | false) => Promise<TResult[]> | undefined;
-}
-
-export interface PrefetchQueryOptions<TResult> extends QueryOptions<TResult> {
-    force?: boolean;
 }
 
 export function useMutation<TResults, TVariables = undefined>(

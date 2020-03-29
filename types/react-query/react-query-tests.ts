@@ -62,8 +62,8 @@ queryNested.data; // $ExpectType number | undefined
 useQuery(['key', { a: 1 }], [{ b: { x: 1 } }, { c: { x: 1 } }], (
     key1, // $ExpectType string
     key2, // ExpectType { a: number }
-    var1, // $ExpectType { b: { x: number } }
-    var2, // $ExpectType { c: { x: number } }
+    var1, // $ExpectType { b: { x: number; }; }
+    var2, // $ExpectType { c: { x: number; }; }
 ) => Promise.resolve(key1 === 'key' && key2.a === 1 && var1.b.x === 1 && var2.c.x === 1));
 
 // custom key
@@ -87,7 +87,7 @@ useQuery(
     ) => 100,
 ).data; // $ExpectType number | undefined
 
-// the following example cannot work properly, as it would require concatenating tuples with infinite ends
+// the following example cannot work properly, as it would require concatenating tuples with infinite tails.
 // ts-toolbelt library's `List.Concat` cannot do the job. It would be possible to do with `typescript-tuple` and additional trick.
 // useQuery<number, typeof longKey, typeof longVariables>(longKey, longVariables, async (
 //     key,        // $ExpectType string // <-- currently boolean?!
@@ -102,6 +102,25 @@ const queryPaginated = usePaginatedQuery('key', () => Promise.resolve({ data: [1
 queryPaginated.resolvedData; // $ExpectType { data: number[]; next: boolean; } | undefined
 queryPaginated.latestData; // $ExpectType { data: number[]; next: boolean; } | undefined
 queryPaginated.data; // $ExpectError
+
+// Discriminated union over status
+if (queryPaginated.status === 'loading') {
+    queryPaginated.resolvedData; // $ExpectType { data: number[]; next: boolean; } | undefined
+    queryPaginated.latestData; // $ExpectType { data: number[]; next: boolean; } | undefined
+    queryPaginated.error; // $ExpectType unknown
+}
+
+if (queryPaginated.status === 'error') {
+    queryPaginated.resolvedData; // $ExpectType { data: number[]; next: boolean; } | undefined
+    queryPaginated.latestData; // $ExpectType { data: number[]; next: boolean; } | undefined
+    queryPaginated.error; // $ExpectType unknown
+}
+
+if (queryPaginated.status === 'success') {
+    queryPaginated.resolvedData; // $ExpectType { data: number[]; next: boolean; }
+    queryPaginated.latestData; // $ExpectType { data: number[]; next: boolean; }
+    queryPaginated.error; // $ExpectType null
+}
 
 async function fetchWithCursor(key: string, cursor?: string) {
     return [1, 2, 3];
@@ -233,21 +252,20 @@ function pr42830() {
 
     // Discriminated union over status
     if (queryResult.status === 'loading') {
-        // disabled
-        // queryResult.data; // $ExpectType undefined
-        // queryResult.error; // $ExpectType null
+        queryResult.data; // $ExpectType string[] | undefined
+        queryResult.error; // $ExpectType unknown
     }
 
     if (queryResult.status === 'error') {
         // disabled
-        // queryResult.data; // $ExpectType undefined
-        // queryResult.error; // $ExpectType Error
+        queryResult.data; // $ExpectType string[] | undefined
+        queryResult.error; // $ExpectType unknown
     }
 
     if (queryResult.status === 'success') {
         // disabled
-        // queryResult.data; // $ExpectType string[]
-        // queryResult.error; // $ExpectType null
+        queryResult.data; // $ExpectType string[]
+        queryResult.error; // $ExpectType null
     }
 
     // Query with falsey query key
