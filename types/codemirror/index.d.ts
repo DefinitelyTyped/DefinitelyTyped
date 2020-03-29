@@ -7,6 +7,7 @@
 //                 toddself <https://github.com/toddself>
 //                 ysulyma <https://github.com/ysulyma>
 //                 azoson <https://github.com/azoson>
+//                 kylesferrazza <https://github.com/kylesferrazza>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
