@@ -48,5 +48,9 @@ const ref = React.createRef<HTMLAnchorElement>();
 
 <Link to="/url" aria-current="page" />;
 
-<Link<{ foo: number }> to={{ pathname: 'abc', state: { foo: 5 } }} />;
-<NavLink<{ foo: number }> to={{ pathname: 'abc', state: { foo: 5 } }} />;
+React.createElement<LinkProps<{ foo: number }> & React.RefAttributes<HTMLAnchorElement>>(Link, {
+    to: { pathname: 'abc', state: { foo: 5 } },
+});
+React.createElement<NavLinkProps<{ foo: number }> & React.RefAttributes<HTMLAnchorElement>>(NavLink, {
+    to: { pathname: 'abc', state: { foo: 5 } },
+});
