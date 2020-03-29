@@ -1,6 +1,6 @@
 import { TicTacToe } from "tictactoejs";
 
-var game = new TicTacToe(3);
+const game = new TicTacToe(3);
 
 game.reset(3);
 game.getSize();
