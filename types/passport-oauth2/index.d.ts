@@ -70,7 +70,7 @@ declare namespace OAuth2Strategy {
         /** secret used to establish ownership of the client identifer */
         clientSecret?: string;
         /** whether to use PKCE for authentication */
-		pkce?: boolean | string;
+        pkce?: boolean | string;
         /** URL to which the service provider will redirect the user after obtaining authorization */
         callbackURL?: string;
         customHeaders?: OutgoingHttpHeaders;
