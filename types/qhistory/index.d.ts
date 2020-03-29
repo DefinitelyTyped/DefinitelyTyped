@@ -2,7 +2,7 @@
 // Project: https://github.com/pshrmn/qhistory#readme
 // Definitions by: Jessica Franco <https://github.com/Jessidhia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 export as namespace qhistory;
 
