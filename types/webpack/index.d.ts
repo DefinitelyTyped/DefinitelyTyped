@@ -225,6 +225,7 @@ declare namespace webpack {
          * - "window" - Assign to window
          * - "assign" - Assign to a global variable
          * - "jsonp" - Generate Webpack JSONP module
+         * - "system" - Generate a SystemJS module
          */
         libraryTarget?: LibraryTarget;
         /** Configure which module or modules will be exposed via the `libraryTarget` */
@@ -259,7 +260,7 @@ declare namespace webpack {
         futureEmitAssets?: boolean;
     }
 
-    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp';
+    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp' | 'system';
 
     type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
 
