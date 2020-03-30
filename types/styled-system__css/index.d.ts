@@ -429,7 +429,7 @@ export type Theme =
     | ThemeBreakPoints
     | { [variantPart: string]: Theme };
 
-interface ThemeBreakPoints {
+export interface ThemeBreakPoints {
     breakpoints: string[] | number[];
 }
 
