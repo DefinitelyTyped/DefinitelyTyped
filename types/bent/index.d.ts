@@ -5,6 +5,7 @@
 // TypeScript Version: 2.7
 
 /// <reference types="node" />
+/// <reference lib="dom" />
 
 import { PassThrough, Stream } from 'stream';
 
