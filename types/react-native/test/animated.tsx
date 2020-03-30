@@ -29,26 +29,26 @@ function TestAnimatedAPI() {
     const v2 = new Animated.Value(0);
 
     // Ref
-    const AnimatedViewRef = React.useRef<typeof Animated.View>(null);
+    const AnimatedViewRef = React.useRef<View>(null);
 
     AnimatedViewRef.current &&
-        AnimatedViewRef.current.getNode().measure(() => {
+        AnimatedViewRef.current.measure(() => {
             return;
         });
 
     const AnimatedComp = Animated.createAnimatedComponent(Comp);
 
-    const AnimatedCompRef = React.useRef<typeof AnimatedComp>(null);
+    const AnimatedCompRef = React.useRef<React.ElementRef<typeof AnimatedComp>>(null);
 
-    AnimatedCompRef.current && AnimatedCompRef.current.getNode().f1();
+    AnimatedCompRef.current && AnimatedCompRef.current.f1();
 
     const AnimatedForwardComp = Animated.createAnimatedComponent(ForwardComp);
 
-    const AnimatedForwardCompRef = React.useRef<Animated.AnimatedComponent<View>>(null);
+    const AnimatedForwardCompRef = React.useRef<React.ElementRef<typeof AnimatedForwardComp>>(null);
     const ForwardCompRef = React.useRef<View>(null);
 
     AnimatedForwardCompRef.current &&
-        AnimatedForwardCompRef.current.getNode().measure(() => {
+        AnimatedForwardCompRef.current.measure(() => {
             return;
         });
 
