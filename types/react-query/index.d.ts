@@ -133,7 +133,7 @@ export function useInfiniteQuery<
 }): InfiniteQueryResult<TResult, TMoreVariable>;
 
 export type QueryKeyPart = string | object | boolean | number | null | readonly QueryKeyPart[] | null | undefined;
-export type AnyQueryKey = readonly [QueryKeyPart, ...QueryKeyPart[]]; // this forces the key to be inferred as a tuple
+export type AnyQueryKey = readonly [string, ...QueryKeyPart[]]; // this forces the key to be inferred as a tuple
 export type AnyVariables = readonly [] | readonly [any, ...any[]]; // this forces the variables to be inferred as a tuple
 
 export type QueryFunction<TResult, TKey extends AnyQueryKey> = (...key: TKey) => Promise<TResult>;

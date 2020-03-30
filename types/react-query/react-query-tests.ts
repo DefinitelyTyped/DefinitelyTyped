@@ -23,6 +23,8 @@ const param = 'test';
 const queryVariables = useQuery(['todos', { param }, 10], (key, variables, id) =>
     Promise.resolve(variables.param === 'test'),
 );
+// first element in the key must be a string
+useQuery([10, 'a'], async (id, key) => id); // $ExpectError
 
 queryVariables.data; // $ExpectType boolean | undefined
 queryVariables.refetch(); // $ExpectType Promise<boolean>
