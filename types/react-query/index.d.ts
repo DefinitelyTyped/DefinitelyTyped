@@ -196,10 +196,10 @@ export interface QueryResultBase<TResult> {
     refetch: ({ force, throwOnError }?: { force?: boolean; throwOnError?: boolean }) => Promise<TResult>;
 }
 
-export interface QuerySuccessResult<TResult> extends QueryResultBase<TResult> {
-    status: 'success';
-    data: TResult;
-    error: null;
+export interface QueryLoadingResult<TResult> extends QueryResultBase<TResult> {
+    status: 'loading';
+    data: TResult | undefined; // even when error, data can have stale data
+    error: unknown | null; // it still can be error
 }
 
 export interface QueryErrorResult<TResult> extends QueryResultBase<TResult> {
@@ -208,22 +208,22 @@ export interface QueryErrorResult<TResult> extends QueryResultBase<TResult> {
     error: unknown;
 }
 
-export interface QueryLoadingResult<TResult> extends QueryResultBase<TResult> {
-    status: 'loading';
-    data: TResult | undefined; // even when error, data can have stale data
-    error: unknown | null; // it still can be error
+export interface QuerySuccessResult<TResult> extends QueryResultBase<TResult> {
+    status: 'success';
+    data: TResult;
+    error: null;
 }
 
 export type QueryResult<TResult> =
-    | QuerySuccessResult<TResult>
+    | QueryLoadingResult<TResult>
     | QueryErrorResult<TResult>
-    | QueryLoadingResult<TResult>;
+    | QuerySuccessResult<TResult>;
 
-export interface PaginatedQuerySuccessResult<TResult> extends QueryResultBase<TResult> {
-    status: 'success';
-    resolvedData: TResult;
-    latestData: TResult;
-    error: null;
+export interface PaginatedQueryLoadingResult<TResult> extends QueryResultBase<TResult> {
+    status: 'loading';
+    resolvedData: undefined | TResult; // even when error, data can have stale data
+    latestData: undefined | TResult; // even when error, data can have stale data
+    error: unknown | null; // it still can be error
 }
 
 export interface PaginatedQueryErrorResult<TResult> extends QueryResultBase<TResult> {
@@ -233,17 +233,17 @@ export interface PaginatedQueryErrorResult<TResult> extends QueryResultBase<TRes
     error: unknown;
 }
 
-export interface PaginatedQueryLoadingResult<TResult> extends QueryResultBase<TResult> {
-    status: 'loading';
-    resolvedData: undefined | TResult; // even when error, data can have stale data
-    latestData: undefined | TResult; // even when error, data can have stale data
-    error: unknown | null; // it still can be error
+export interface PaginatedQuerySuccessResult<TResult> extends QueryResultBase<TResult> {
+    status: 'success';
+    resolvedData: TResult;
+    latestData: TResult;
+    error: null;
 }
 
 export type PaginatedQueryResult<TResult> =
-    | PaginatedQuerySuccessResult<TResult>
+    | PaginatedQueryLoadingResult<TResult>
     | PaginatedQueryErrorResult<TResult>
-    | PaginatedQueryLoadingResult<TResult>;
+    | PaginatedQuerySuccessResult<TResult>;
 
 export interface InfiniteQueryResult<TResult, TMoreVariable> extends QueryResultBase<TResult[]> {
     data: TResult[];
@@ -279,13 +279,43 @@ export type MutateFunction<TResult, TVariables> = undefined extends TVariables
     ? (variables?: TVariables, options?: MutateOptions<TResult, TVariables>) => Promise<TResult>
     : (variables: TVariables, options?: MutateOptions<TResult, TVariables>) => Promise<TResult>;
 
-export interface MutationResult<TResults> {
+export interface MutationResultBase<TResult> {
     status: 'idle' | 'loading' | 'error' | 'success';
-    data: undefined | TResults;
+    data: undefined | TResult;
     error: null | unknown;
-    promise: Promise<TResults>;
+    promise: Promise<TResult>;
     reset: () => void;
 }
+
+export interface IdleMutationResult<TResult> extends MutationResultBase<TResult> {
+    status: 'idle';
+    data: undefined;
+    error: null;
+}
+
+export interface LoadingMutationResult<TResult> extends MutationResultBase<TResult> {
+    status: 'loading';
+    data: undefined;
+    error: undefined;
+}
+
+export interface ErrorMutationResult<TResult> extends MutationResultBase<TResult> {
+    status: 'error';
+    data: undefined;
+    error: unknown;
+}
+
+export interface SuccessMutationResult<TResult> extends MutationResultBase<TResult> {
+    status: 'success';
+    data: TResult;
+    error: undefined;
+}
+
+export type MutationResult<TResult> =
+    | IdleMutationResult<TResult>
+    | LoadingMutationResult<TResult>
+    | ErrorMutationResult<TResult>
+    | SuccessMutationResult<TResult>;
 
 export interface CachedQuery {
     queryKey: AnyQueryKey;

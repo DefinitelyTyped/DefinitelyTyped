@@ -346,27 +346,25 @@ function pr42830() {
 
     // Discriminated union over status
     if (mutationState.status === 'idle') {
-        // disabled
-        // mutationState.data; // $ExpectType undefined
-        // mutationState.error; // $ExpectType null
+        mutationState.data; // $ExpectType undefined
+        mutationState.error; // $ExpectType null
     }
 
     if (mutationState.status === 'loading') {
-        // disabled
-        // mutationState.data; // $ExpectType undefined
+        mutationState.data; // $ExpectType undefined
+        // corrected
         // mutationState.error; // $ExpectType null
+        mutationState.error; // $ExpectType undefined
     }
 
     if (mutationState.status === 'error') {
-        // disabled
-        // mutationState.data; // $ExpectType undefined
-        // mutationState.error; // $ExpectType any
+        mutationState.data; // $ExpectType undefined
+        mutationState.error; // $ExpectType unknown
     }
 
     if (mutationState.status === 'success') {
-        // disabled
-        // mutationState.data; // $ExpectType string[]
-        // mutationState.error; // $ExpectType null
+        mutationState.data; // $ExpectType string[]
+        mutationState.error; // $ExpectType undefined
     }
 
     // Mutation variables
