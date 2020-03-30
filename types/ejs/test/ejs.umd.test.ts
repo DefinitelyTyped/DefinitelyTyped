@@ -39,6 +39,6 @@ expectType<{
 
 // https://github.com/mde/ejs#options
 const renderOptions: ejs.Options = {
-    beautify: true,
-    filename: './index.ejs',
+	beautify: true,
+	filename: './index.ejs',
 };
