@@ -562,7 +562,10 @@ declare namespace Chart {
         backdropPaddingX?: number;
         backdropPaddingY?: number;
         beginAtZero?: boolean;
-        callback?(value: any, index: any, values: any): string | number;
+        /**
+         * If the callback returns null or undefined the associated grid line will be hidden.
+         */
+        callback?(value: number | string, index: number, values: number[] | string[]): string | number | null | undefined;
         display?: boolean;
         fontColor?: ChartColor;
         fontFamily?: string;

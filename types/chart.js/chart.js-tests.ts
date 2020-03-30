@@ -68,7 +68,21 @@ const chart: Chart = new Chart(ctx, {
             xAxes: [
                 {
                     ticks: {
-                        callback: Math.floor,
+                        callback: (value) => {
+                            if (value === 10) {
+                                return Math.floor(value);
+                            }
+
+                            if (value === 20) {
+                                return `${value}`;
+                            }
+
+                            if (value === 30) {
+                                return undefined;
+                            }
+
+                            return null;
+                        },
                         sampleSize: 10,
                     },
                     gridLines: {
