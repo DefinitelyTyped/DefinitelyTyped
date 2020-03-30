@@ -2,7 +2,7 @@
 // Project: https://github.com/mikeal/bent#readme
 // Definitions by: Ovyerus <https://github.com/Ovyerus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
 /// <reference lib="dom" />
