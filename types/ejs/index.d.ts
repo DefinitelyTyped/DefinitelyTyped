@@ -408,14 +408,14 @@ export interface Options {
 	 *
 	 * @default false
 	 */
-    async?: boolean;
+	async?: boolean;
 
-    /**
-     * Make sure to set this to 'false' in order to skip UglifyJS parsing,
-     * when using ES6 features (`const`, etc) as UglifyJS doesn't understand them.
-     * @default true
-     */
-    beautify?: boolean;
+	/**
+	 * Make sure to set this to 'false' in order to skip UglifyJS parsing,
+	 * when using ES6 features (`const`, etc) as UglifyJS doesn't understand them.
+	 * @default true
+	 */
+	beautify?: boolean;
 
 	/**
 	 * Name to use for the object storing local variables when not using `with` or destructuring.
