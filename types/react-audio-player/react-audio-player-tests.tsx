@@ -25,8 +25,8 @@ render(
 );
 
 if (rap !== null) {
-    (rap as ReactAudioPlayer).clearListenTrack();
-    (rap as ReactAudioPlayer).setListenTrack();
-    (rap as ReactAudioPlayer).updateVolume(5);
-    (rap as ReactAudioPlayer).audioEl.pause();
+    rap!.clearListenTrack();
+    rap!.setListenTrack();
+    rap!.updateVolume(5);
+    rap!.audioEl.pause();
 }
