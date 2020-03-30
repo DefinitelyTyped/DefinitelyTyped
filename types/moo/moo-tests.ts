@@ -55,6 +55,11 @@ lexer = moo.states({
     },
 });
 
+lexer.pushState('lit');
+lexer.popState();
+lexer.setState('lit');
+lexer.popState();
+
 moo.compile({
     myError: moo.error
 });
