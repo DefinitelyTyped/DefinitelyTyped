@@ -2,31 +2,33 @@ import {
     APIGatewayAuthorizerResultContext,
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
-} from "../common/api-gateway";
-import { Callback, Handler } from "../handler";
+} from '../common/api-gateway';
+import { Callback, Handler } from '../handler';
 
 export type APIGatewayAuthorizerHandler = Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerResult>;
-export type APIGatewayAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
-    Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
+export type APIGatewayAuthorizerWithContextHandler<
+    TAuthorizerContext extends APIGatewayAuthorizerResultContext
+> = Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
 
 export type APIGatewayAuthorizerCallback = Callback<APIGatewayAuthorizerResult>;
-export type APIGatewayAuthorizerWithContextCallback<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
-    Callback<APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
+export type APIGatewayAuthorizerWithContextCallback<
+    TAuthorizerContext extends APIGatewayAuthorizerResultContext
+> = Callback<APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
 
-export type APIGatewayTokenAuthorizerHandler =
-    Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerResult>;
-export type APIGatewayTokenAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
-    Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
+export type APIGatewayTokenAuthorizerHandler = Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerResult>;
+export type APIGatewayTokenAuthorizerWithContextHandler<
+    TAuthorizerContext extends APIGatewayAuthorizerResultContext
+> = Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
 
-export type APIGatewayRequestAuthorizerHandler =
-    Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerResult>;
-export type APIGatewayRequestAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
-    Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
+export type APIGatewayRequestAuthorizerHandler = Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerResult>;
+export type APIGatewayRequestAuthorizerWithContextHandler<
+    TAuthorizerContext extends APIGatewayAuthorizerResultContext
+> = Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
 
 export type APIGatewayAuthorizerEvent = APIGatewayTokenAuthorizerEvent | APIGatewayRequestAuthorizerEvent;
 
 export interface APIGatewayTokenAuthorizerEvent {
-    type: "TOKEN";
+    type: 'TOKEN';
     methodArn: string;
     authorizationToken: string;
 }
@@ -35,7 +37,8 @@ export interface APIGatewayTokenAuthorizerEvent {
 // but they will be empty objects in the real object.
 // Worse, it will include "body" and "isBase64Encoded" properties, unlike the real call!
 export interface APIGatewayRequestAuthorizerEvent {
-    type: "REQUEST";
+    type: 'REQUEST';
+    methodArn: string;
     resource: string;
     path: string;
     httpMethod: string;

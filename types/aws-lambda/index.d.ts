@@ -15,6 +15,7 @@
 //                 Palmi Valgeirsson <https://github.com/palmithor>
 //                 Danilo Raisi <https://github.com/daniloraisi>
 //                 Simon Buchan <https://github.com/simonbuchan>
+//                 Jason Truter <https://github.com/jasontruter>
 //                 David Hayden <https://github.com/Haydabase>
 //                 Chris Redekop <https://github.com/repl-chris>
 //                 Aneil Mallavarapu <https://github.com/aneilbaboo>
@@ -36,40 +37,40 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-export * from "./handler";
-export * from "./common/api-gateway";
-export * from "./common/cloudfront";
-export * from "./trigger/alb";
+export * from './handler';
+export * from './common/api-gateway';
+export * from './common/cloudfront';
+export * from './trigger/alb';
 // TODO: export * from "./trigger/alexa";
-export * from "./trigger/api-gateway-authorizer";
-export * from "./trigger/api-gateway-proxy";
+export * from './trigger/api-gateway-authorizer';
+export * from './trigger/api-gateway-proxy';
 // CloudTrail section just describes using S3 to trigger on cloudtrail changes.
-export * from "./trigger/cloudformation-custom-resource";
-export * from "./trigger/cloudfront-request";
-export * from "./trigger/cloudfront-response";
-export * from "./trigger/cloudwatch-events";
-export * from "./trigger/cloudwatch-logs";
+export * from './trigger/cloudformation-custom-resource';
+export * from './trigger/cloudfront-request';
+export * from './trigger/cloudfront-response';
+export * from './trigger/cloudwatch-events';
+export * from './trigger/cloudwatch-logs';
 // TODO: export * from "./trigger/codecommit";
-export * from "./trigger/codepipeline";
-export * from "./trigger/codepipeline-cloudwatch";
-export * from "./trigger/codepipeline-cloudwatch-action";
-export * from "./trigger/codepipeline-cloudwatch-pipeline";
-export * from "./trigger/codepipeline-cloudwatch-stage";
+export * from './trigger/codepipeline';
+export * from './trigger/codepipeline-cloudwatch';
+export * from './trigger/codepipeline-cloudwatch-action';
+export * from './trigger/codepipeline-cloudwatch-pipeline';
+export * from './trigger/codepipeline-cloudwatch-stage';
 // TODO: export * from "./trigger/cognito-sync";
-export * from "./trigger/cognito-user-pool-trigger";
+export * from './trigger/cognito-user-pool-trigger';
 // TODO: export * from "./trigger/config";
-export * from "./trigger/dynamodb-stream";
+export * from './trigger/dynamodb-stream';
 // ElastiCache section just describes using lambdas in an ElastiCache context (VPC issues, etc.)
 // EC2 events are delivered using cloudwatch events...
 // TODO: export * from "./trigger/iot"; for "IoT Events"
-export * from "./trigger/kinesis-firehose-transformation";
-export * from "./trigger/kinesis-stream";
-export * from "./trigger/lex";
+export * from './trigger/kinesis-firehose-transformation';
+export * from './trigger/kinesis-stream';
+export * from './trigger/lex';
 // RDS events are delivered using SNS events...
-export * from "./trigger/s3";
-export * from "./trigger/s3-batch";
+export * from './trigger/s3';
+export * from './trigger/s3-batch';
 // SES events are delivered using SNS events...
-export * from "./trigger/sns";
-export * from "./trigger/sqs";
+export * from './trigger/sns';
+export * from './trigger/sqs';
 
 export as namespace AWSLambda;
