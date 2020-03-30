@@ -260,7 +260,7 @@ export type MutationFunction<TResults, TVariables> = (variables: TVariables) => 
 
 export interface MutateOptions<TResult, TVariables> {
     onSuccess?: (data: TResult, variables: TVariables) => Promise<void> | void;
-    onError?: (error: any, variables: TVariables, snapshotValue: unknown) => Promise<void> | void;
+    onError?: (error: unknown, variables: TVariables, snapshotValue: unknown) => Promise<void> | void;
     onSettled?: (
         data: undefined | TResult,
         error: unknown | null,
