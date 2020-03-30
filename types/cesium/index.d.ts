@@ -4741,8 +4741,8 @@ declare namespace Cesium {
             maximumRenderTimeChange?: number
         });
         cartesianToCanvasCoordinates(position: Cartesian3, result?: Cartesian2): Cartesian2;
-        clampToHeight(cartesian: Cartesian3, objectsToExclude?: Array<any>, width?: number, result?: Cartesian3): Cartesian3;
-        clampToHeightMostDetailed(cartesian: Array<Cartesian3>, objectsToExclude?: Array<any>, width?: number): Promise<Array<Cartesian3>>;
+        clampToHeight(cartesian: Cartesian3, objectsToExclude?: any[], width?: number, result?: Cartesian3): Cartesian3;
+        clampToHeightMostDetailed(cartesian: Cartesian3[], objectsToExclude?: any[], width?: number): Promise<Cartesian3[]>;
         completeMorph(): void;
         destroy(): void;
         drillPick(windowPosition: Cartesian2, limit?: number): any[];
@@ -4754,8 +4754,8 @@ declare namespace Cesium {
         pick(windowPosition: Cartesian2, width?: number, height?: number): any;
         pickPosition(windowPosition: Cartesian2, result?: Cartesian3): Cartesian3;
         requestRender(): void;
-        sampleHeight(cartographic: Cartographic, objectsToExclude?: Array<any>, width?: number): number;
-        sampleHeightMostDetailed(cartographic: Cartographic, objectsToExclude?: Array<any>, width?: number): Promise<Array<number>>;
+        sampleHeight(cartographic: Cartographic, objectsToExclude?: any[], width?: number): number;
+        sampleHeightMostDetailed(cartographic: Cartographic, objectsToExclude?: any[], width?: number): Promise<number[]>;
     }
 
     class ScreenSpaceCameraController {
