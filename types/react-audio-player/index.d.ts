@@ -37,4 +37,9 @@ export interface ReactAudioPlayerProps {
     volume?: number;
 }
 
-export class ReactAudioPlayer extends React.Component<ReactAudioPlayerProps, any> {}
+export class ReactAudioPlayer extends React.Component<ReactAudioPlayerProps, any> {
+    audioEl: HTMLAudioElement;
+    clearListenTrack(): void;
+    setListenTrack(): void;
+    updateVolume(volume: number): void;
+}
