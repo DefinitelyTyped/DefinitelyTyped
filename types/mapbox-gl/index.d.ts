@@ -7,6 +7,7 @@
 //                 Liam Clarke <https://github.com/LiamAttClarke>
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Marko Klopets <https://github.com/mklopets>
+//                 André Fonseca <https://github.com/amxfonseca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1571,6 +1572,17 @@ declare namespace mapboxgl {
 
     export type AnyLayout = BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout | HeatmapLayout | HillshadeLayout;
 
+    export type AnyPaint =
+        | BackgroundPaint
+        | FillPaint
+        | FillExtrusionPaint
+        | LinePaint
+        | SymbolPaint
+        | RasterPaint
+        | CirclePaint
+        | HeatmapPaint
+        | HillshadePaint;
+
     export interface Layer {
         id: string;
         type?: 'fill' | 'line' | 'symbol' | 'circle' | 'fill-extrusion' | 'raster' | 'background' | 'heatmap' | 'hillshade';
@@ -1589,7 +1601,7 @@ declare namespace mapboxgl {
 
         filter?: any[];
         layout?: AnyLayout;
-        paint?: BackgroundPaint | FillPaint | FillExtrusionPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint | HeatmapPaint | HillshadePaint;
+        paint?: AnyPaint;
     }
 
     // See https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface
@@ -1691,6 +1703,7 @@ declare namespace mapboxgl {
     }
 
     export interface FillLayout extends Layout {
+        'fill-sort-key'?: number;
     }
 
     export interface FillPaint {
@@ -1733,6 +1746,7 @@ declare namespace mapboxgl {
         'line-join'?: 'bevel' | 'round' | 'miter' | Expression;
         'line-miter-limit'?: number | Expression;
         'line-round-limit'?: number | Expression;
+        'line-sort-key'?: number;
     }
 
     export interface LinePaint {
@@ -1796,6 +1810,10 @@ declare namespace mapboxgl {
         'text-allow-overlap'?: boolean;
         'text-ignore-placement'?: boolean;
         'text-optional'?: boolean;
+        'text-radial-offset'?: number | Expression;
+        'text-variable-anchor'?: Anchor[];
+        'text-writing-mode'?: ('horizontal' | 'vertical')[];
+        'symbol-sort-key'?: number;
     }
 
     export interface SymbolPaint {
@@ -1845,6 +1863,7 @@ declare namespace mapboxgl {
         'raster-contrast-transition'?: Transition;
         'raster-fade-duration'?: number | Expression;
         'raster-resampling'?: 'linear' | 'nearest';
+        'circle-sort-key'?: number;
     }
 
     export interface CircleLayout extends Layout {
