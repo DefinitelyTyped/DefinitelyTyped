@@ -61,6 +61,8 @@ import * as React from 'react';
 
 type Constructor<T> = new (...args: any[]) => T;
 
+export type ComponentProps<T> = T extends React.ComponentType<infer P> | React.Component<infer P> ? P : never;
+
 export type MeasureOnSuccessCallback = (
     x: number,
     y: number,
@@ -8625,8 +8627,6 @@ export namespace Animated {
      */
     export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
-    export type ComponentProps<T> = T extends React.ComponentType<infer P> | React.Component<infer P> ? P : never;
-
     export interface WithAnimatedValue<T>
         extends ThisType<
             T extends object
@@ -8636,12 +8636,37 @@ export namespace Animated {
                 : T | Value | AnimatedInterpolation
         > {}
 
-    export type AnimatedProps<T> = { [key in keyof T]: WithAnimatedValue<T[key]> };
+    export type AnimatedProps<T> = { [K in keyof Pick<T, Exclude<keyof T, 'ref'>>]: WithAnimatedValue<T[K]> };
 
     export interface AnimatedComponent<
         T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>
-    > extends React.FC<AnimatedProps<ComponentProps<T>>> {
+    >
+        extends React.FC<
+            AnimatedProps<ComponentProps<T>> & {
+                ref?: React.Ref<AnimatedComponent<T>>;
+            }
+        > {
+        /**
+         * @deprecated Use the `ref` prop instead.
+         */
         getNode: () => T;
+    }
+
+    export interface AnimatedForwardRefComponent<
+        T extends React.ForwardRefExoticComponent<ComponentProps<T> & React.RefAttributes<P>>,
+        P extends React.ComponentType<ComponentProps<P>> | React.Component<ComponentProps<P>>
+    >
+        extends React.FC<
+            AnimatedProps<ComponentProps<T>> & {
+                ref?: React.Ref<
+                    AnimatedComponent<P extends React.ComponentClass<ComponentProps<P>> ? InstanceType<P> : P>
+                >;
+            }
+        > {
+        /**
+         * @deprecated Use the `ref` prop instead.
+         */
+        getNode: () => P;
     }
 
     /**
@@ -8649,7 +8674,13 @@ export namespace Animated {
      */
     export function createAnimatedComponent<
         T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>
-    >(component: T): AnimatedComponent<T extends React.ComponentClass<ComponentProps<T>> ? InstanceType<T> : T>;
+    >(
+        component: T,
+    ): T extends React.ForwardRefExoticComponent<ComponentProps<T> & React.RefAttributes<infer P>>
+        ? P extends React.ComponentType<ComponentProps<P>> | React.Component<ComponentProps<P>>
+            ? AnimatedForwardRefComponent<T, P>
+            : never
+        : AnimatedComponent<T extends React.ComponentClass<ComponentProps<T>> ? InstanceType<T> : T>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
