@@ -2134,6 +2134,7 @@ declare namespace Cesium {
         height: Property;
         scaleByDistance: Property;
         translucencyByDistance: Property;
+        disableDepthTestDistance: Property;
         pixelOffsetScaleByDistance: Property;
         constructor(options?: { image?: Property;
             show?: Property;
@@ -2150,6 +2151,7 @@ declare namespace Cesium {
             scaleByDistance?: Property;
             translucencyByDistance?: Property;
             pixelOffsetScaleByDistance?: Property;
+            disableDepthTestDistance?: Property;
             imageSubRegion?: Property
             heightReference?: Property;
         });
@@ -2504,7 +2506,7 @@ declare namespace Cesium {
         label: LabelGraphics;
         model: ModelGraphics;
         name: string;
-        orientation: Property;
+        orientation: Property | Quaternion;
         parent: Entity;
         path: PathGraphics;
         plane: any;
@@ -2526,7 +2528,7 @@ declare namespace Cesium {
           show?: boolean;
           description?: Property;
           position?: PositionProperty;
-          orientation?: Property;
+          orientation?: Property | Quaternion;
           viewFrom?: Property;
           parent?: Entity;
           billboard?: BillboardGraphics;
