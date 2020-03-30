@@ -1,4 +1,5 @@
 import * as R from 'ramda';
+import { Dictionary } from 'ramda/tools';
 
 () => {
   function isEven(n: number) {
@@ -6,17 +7,17 @@ import * as R from 'ramda';
   }
 
   const filterEven = R.filter(isEven);
-  const objA: R.Dictionary<number> = filterEven({ a: 0, b: 1 }); // => { a: 0 }
+  const objA: Dictionary<number> = filterEven({ a: 0, b: 1 }); // => { a: 0 }
   const listA: number[] = filterEven([0, 1]); // => [0]
 };
 
 () => {
   const compact = R.filter(Boolean);
-  const objA: R.Dictionary<number> = compact({ a: 0, b: 1 }); // => { b: 1 }
+  const objA: Dictionary<number> = compact({ a: 0, b: 1 }); // => { b: 1 }
   const listA: number[] = compact([0, 1]); // => [1]
 
   const omitEmptyString = R.filter((val: string) => val !== '');
-  const objB: R.Dictionary<string> = omitEmptyString({ a: '', b: 'foo' }); // => { b: 'foo' }
+  const objB: Dictionary<string> = omitEmptyString({ a: '', b: 'foo' }); // => { b: 'foo' }
   const listB: string[] = omitEmptyString(['', 'foo']); // => ['foo']
 
   const objC = omitEmptyString({ some: 42 }); // $ExpectError

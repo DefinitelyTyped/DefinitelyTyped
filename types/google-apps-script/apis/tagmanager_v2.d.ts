@@ -1,7 +1,6 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
@@ -10,7 +9,7 @@ declare namespace GoogleAppsScript {
       namespace Accounts {
         namespace Containers {
           namespace Workspaces {
-            export interface Built_in_variablesCollection {
+            interface Built_in_variablesCollection {
               // Creates one or more GTM Built-In Variables.
               create(parent: string): TagManager.Schema.CreateBuiltInVariableResponse;
               // Creates one or more GTM Built-In Variables.
@@ -28,7 +27,7 @@ declare namespace GoogleAppsScript {
               // Reverts changes to a GTM Built-In Variables in a GTM Workspace.
               revert(path: string, optionalArgs: object): TagManager.Schema.RevertBuiltInVariableResponse;
             }
-            export interface FoldersCollection {
+            interface FoldersCollection {
               // Creates a GTM Folder.
               create(resource: Schema.Folder, parent: string): TagManager.Schema.Folder;
               // List all entities in a GTM Folder.
@@ -56,7 +55,7 @@ declare namespace GoogleAppsScript {
               // Updates a GTM Folder.
               update(resource: Schema.Folder, path: string, optionalArgs: object): TagManager.Schema.Folder;
             }
-            export interface TagsCollection {
+            interface TagsCollection {
               // Creates a GTM Tag.
               create(resource: Schema.Tag, parent: string): TagManager.Schema.Tag;
               // Gets a GTM Tag.
@@ -76,7 +75,7 @@ declare namespace GoogleAppsScript {
               // Updates a GTM Tag.
               update(resource: Schema.Tag, path: string, optionalArgs: object): TagManager.Schema.Tag;
             }
-            export interface TriggersCollection {
+            interface TriggersCollection {
               // Creates a GTM Trigger.
               create(resource: Schema.Trigger, parent: string): TagManager.Schema.Trigger;
               // Gets a GTM Trigger.
@@ -96,7 +95,7 @@ declare namespace GoogleAppsScript {
               // Updates a GTM Trigger.
               update(resource: Schema.Trigger, path: string, optionalArgs: object): TagManager.Schema.Trigger;
             }
-            export interface VariablesCollection {
+            interface VariablesCollection {
               // Creates a GTM Variable.
               create(resource: Schema.Variable, parent: string): TagManager.Schema.Variable;
               // Gets a GTM Variable.
@@ -116,7 +115,7 @@ declare namespace GoogleAppsScript {
               // Updates a GTM Variable.
               update(resource: Schema.Variable, path: string, optionalArgs: object): TagManager.Schema.Variable;
             }
-            export interface ZonesCollection {
+            interface ZonesCollection {
               // Creates a GTM Zone.
               create(resource: Schema.Zone, parent: string): TagManager.Schema.Zone;
               // Gets a GTM Zone.
@@ -137,7 +136,7 @@ declare namespace GoogleAppsScript {
               update(resource: Schema.Zone, path: string, optionalArgs: object): TagManager.Schema.Zone;
             }
           }
-          export interface EnvironmentsCollection {
+          interface EnvironmentsCollection {
             // Creates a GTM Environment.
             create(resource: Schema.Environment, parent: string): TagManager.Schema.Environment;
             // Gets a GTM Environment.
@@ -155,7 +154,7 @@ declare namespace GoogleAppsScript {
             // Updates a GTM Environment.
             update(resource: Schema.Environment, path: string, optionalArgs: object): TagManager.Schema.Environment;
           }
-          export interface Version_headersCollection {
+          interface Version_headersCollection {
             // Gets the latest container version header
             latest(parent: string): TagManager.Schema.ContainerVersionHeader;
             // Lists all Container Versions of a GTM Container.
@@ -163,7 +162,7 @@ declare namespace GoogleAppsScript {
             // Lists all Container Versions of a GTM Container.
             list(parent: string, optionalArgs: object): TagManager.Schema.ListContainerVersionsResponse;
           }
-          export interface VersionsCollection {
+          interface VersionsCollection {
             // Gets a Container Version.
             get(path: string): TagManager.Schema.ContainerVersion;
             // Gets a Container Version.
@@ -185,7 +184,7 @@ declare namespace GoogleAppsScript {
             // Updates a Container Version.
             update(resource: Schema.ContainerVersion, path: string, optionalArgs: object): TagManager.Schema.ContainerVersion;
           }
-          export interface WorkspacesCollection {
+          interface WorkspacesCollection {
             Built_in_variables?: TagManager.Collection.Accounts.Containers.Workspaces.Built_in_variablesCollection;
             Folders?: TagManager.Collection.Accounts.Containers.Workspaces.FoldersCollection;
             Tags?: TagManager.Collection.Accounts.Containers.Workspaces.TagsCollection;
@@ -220,7 +219,7 @@ declare namespace GoogleAppsScript {
             update(resource: Schema.Workspace, path: string, optionalArgs: object): TagManager.Schema.Workspace;
           }
         }
-        export interface ContainersCollection {
+        interface ContainersCollection {
           Environments?: TagManager.Collection.Accounts.Containers.EnvironmentsCollection;
           Version_headers?: TagManager.Collection.Accounts.Containers.Version_headersCollection;
           Versions?: TagManager.Collection.Accounts.Containers.VersionsCollection;
@@ -240,7 +239,7 @@ declare namespace GoogleAppsScript {
           // Updates a Container.
           update(resource: Schema.Container, path: string, optionalArgs: object): TagManager.Schema.Container;
         }
-        export interface User_permissionsCollection {
+        interface User_permissionsCollection {
           // Creates a user's Account & Container access.
           create(resource: Schema.UserPermission, parent: string): TagManager.Schema.UserPermission;
           // Gets a user's Account & Container access.
@@ -255,7 +254,7 @@ declare namespace GoogleAppsScript {
           update(resource: Schema.UserPermission, path: string): TagManager.Schema.UserPermission;
         }
       }
-      export interface AccountsCollection {
+      interface AccountsCollection {
         Containers?: TagManager.Collection.Accounts.ContainersCollection;
         User_permissions?: TagManager.Collection.Accounts.User_permissionsCollection;
         // Gets a GTM Account.
@@ -271,7 +270,7 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Account {
+      interface Account {
         accountId?: string;
         fingerprint?: string;
         name?: string;
@@ -279,10 +278,10 @@ declare namespace GoogleAppsScript {
         shareData?: boolean;
         tagManagerUrl?: string;
       }
-      export interface AccountAccess {
+      interface AccountAccess {
         permission?: string;
       }
-      export interface BuiltInVariable {
+      interface BuiltInVariable {
         accountId?: string;
         containerId?: string;
         name?: string;
@@ -290,11 +289,11 @@ declare namespace GoogleAppsScript {
         type?: string;
         workspaceId?: string;
       }
-      export interface Condition {
+      interface Condition {
         parameter?: TagManager.Schema.Parameter[];
         type?: string;
       }
-      export interface Container {
+      interface Container {
         accountId?: string;
         containerId?: string;
         domainName?: string[];
@@ -306,11 +305,11 @@ declare namespace GoogleAppsScript {
         tagManagerUrl?: string;
         usageContext?: string[];
       }
-      export interface ContainerAccess {
+      interface ContainerAccess {
         containerId?: string;
         permission?: string;
       }
-      export interface ContainerVersion {
+      interface ContainerVersion {
         accountId?: string;
         builtInVariable?: TagManager.Schema.BuiltInVariable[];
         container?: TagManager.Schema.Container;
@@ -329,7 +328,7 @@ declare namespace GoogleAppsScript {
         variable?: TagManager.Schema.Variable[];
         zone?: TagManager.Schema.Zone[];
       }
-      export interface ContainerVersionHeader {
+      interface ContainerVersionHeader {
         accountId?: string;
         containerId?: string;
         containerVersionId?: string;
@@ -344,20 +343,20 @@ declare namespace GoogleAppsScript {
         numZones?: string;
         path?: string;
       }
-      export interface CreateBuiltInVariableResponse {
+      interface CreateBuiltInVariableResponse {
         builtInVariable?: TagManager.Schema.BuiltInVariable[];
       }
-      export interface CreateContainerVersionRequestVersionOptions {
+      interface CreateContainerVersionRequestVersionOptions {
         name?: string;
         notes?: string;
       }
-      export interface CreateContainerVersionResponse {
+      interface CreateContainerVersionResponse {
         compilerError?: boolean;
         containerVersion?: TagManager.Schema.ContainerVersion;
         newWorkspacePath?: string;
         syncStatus?: TagManager.Schema.SyncStatus;
       }
-      export interface CustomTemplate {
+      interface CustomTemplate {
         accountId?: string;
         containerId?: string;
         fingerprint?: string;
@@ -368,14 +367,14 @@ declare namespace GoogleAppsScript {
         templateId?: string;
         workspaceId?: string;
       }
-      export interface Entity {
+      interface Entity {
         changeStatus?: string;
         folder?: TagManager.Schema.Folder;
         tag?: TagManager.Schema.Tag;
         trigger?: TagManager.Schema.Trigger;
         variable?: TagManager.Schema.Variable;
       }
-      export interface Environment {
+      interface Environment {
         accountId?: string;
         authorizationCode?: string;
         authorizationTimestamp?: TagManager.Schema.Timestamp;
@@ -392,7 +391,7 @@ declare namespace GoogleAppsScript {
         url?: string;
         workspaceId?: string;
       }
-      export interface Folder {
+      interface Folder {
         accountId?: string;
         containerId?: string;
         fingerprint?: string;
@@ -403,115 +402,115 @@ declare namespace GoogleAppsScript {
         tagManagerUrl?: string;
         workspaceId?: string;
       }
-      export interface FolderEntities {
+      interface FolderEntities {
         nextPageToken?: string;
         tag?: TagManager.Schema.Tag[];
         trigger?: TagManager.Schema.Trigger[];
         variable?: TagManager.Schema.Variable[];
       }
-      export interface GetWorkspaceStatusResponse {
+      interface GetWorkspaceStatusResponse {
         mergeConflict?: TagManager.Schema.MergeConflict[];
         workspaceChange?: TagManager.Schema.Entity[];
       }
-      export interface ListAccountsResponse {
+      interface ListAccountsResponse {
         account?: TagManager.Schema.Account[];
         nextPageToken?: string;
       }
-      export interface ListContainerVersionsResponse {
+      interface ListContainerVersionsResponse {
         containerVersionHeader?: TagManager.Schema.ContainerVersionHeader[];
         nextPageToken?: string;
       }
-      export interface ListContainersResponse {
+      interface ListContainersResponse {
         container?: TagManager.Schema.Container[];
         nextPageToken?: string;
       }
-      export interface ListEnabledBuiltInVariablesResponse {
+      interface ListEnabledBuiltInVariablesResponse {
         builtInVariable?: TagManager.Schema.BuiltInVariable[];
         nextPageToken?: string;
       }
-      export interface ListEnvironmentsResponse {
+      interface ListEnvironmentsResponse {
         environment?: TagManager.Schema.Environment[];
         nextPageToken?: string;
       }
-      export interface ListFoldersResponse {
+      interface ListFoldersResponse {
         folder?: TagManager.Schema.Folder[];
         nextPageToken?: string;
       }
-      export interface ListTagsResponse {
+      interface ListTagsResponse {
         nextPageToken?: string;
         tag?: TagManager.Schema.Tag[];
       }
-      export interface ListTriggersResponse {
+      interface ListTriggersResponse {
         nextPageToken?: string;
         trigger?: TagManager.Schema.Trigger[];
       }
-      export interface ListUserPermissionsResponse {
+      interface ListUserPermissionsResponse {
         nextPageToken?: string;
         userPermission?: TagManager.Schema.UserPermission[];
       }
-      export interface ListVariablesResponse {
+      interface ListVariablesResponse {
         nextPageToken?: string;
         variable?: TagManager.Schema.Variable[];
       }
-      export interface ListWorkspacesResponse {
+      interface ListWorkspacesResponse {
         nextPageToken?: string;
         workspace?: TagManager.Schema.Workspace[];
       }
-      export interface ListZonesResponse {
+      interface ListZonesResponse {
         nextPageToken?: string;
         zone?: TagManager.Schema.Zone[];
       }
-      export interface MergeConflict {
+      interface MergeConflict {
         entityInBaseVersion?: TagManager.Schema.Entity;
         entityInWorkspace?: TagManager.Schema.Entity;
       }
-      export interface Parameter {
+      interface Parameter {
         key?: string;
         list?: TagManager.Schema.Parameter[];
         map?: TagManager.Schema.Parameter[];
         type?: string;
         value?: string;
       }
-      export interface PublishContainerVersionResponse {
+      interface PublishContainerVersionResponse {
         compilerError?: boolean;
         containerVersion?: TagManager.Schema.ContainerVersion;
       }
-      export interface QuickPreviewResponse {
+      interface QuickPreviewResponse {
         compilerError?: boolean;
         containerVersion?: TagManager.Schema.ContainerVersion;
         syncStatus?: TagManager.Schema.SyncStatus;
       }
-      export interface RevertBuiltInVariableResponse {
+      interface RevertBuiltInVariableResponse {
         enabled?: boolean;
       }
-      export interface RevertFolderResponse {
+      interface RevertFolderResponse {
         folder?: TagManager.Schema.Folder;
       }
-      export interface RevertTagResponse {
+      interface RevertTagResponse {
         tag?: TagManager.Schema.Tag;
       }
-      export interface RevertTriggerResponse {
+      interface RevertTriggerResponse {
         trigger?: TagManager.Schema.Trigger;
       }
-      export interface RevertVariableResponse {
+      interface RevertVariableResponse {
         variable?: TagManager.Schema.Variable;
       }
-      export interface RevertZoneResponse {
+      interface RevertZoneResponse {
         zone?: TagManager.Schema.Zone;
       }
-      export interface SetupTag {
+      interface SetupTag {
         stopOnSetupFailure?: boolean;
         tagName?: string;
       }
-      export interface SyncStatus {
+      interface SyncStatus {
         mergeConflict?: boolean;
         syncError?: boolean;
       }
-      export interface SyncWorkspaceResponse {
+      interface SyncWorkspaceResponse {
         mergeConflict?: TagManager.Schema.MergeConflict[];
         syncStatus?: TagManager.Schema.SyncStatus;
       }
-      export interface Tag {
+      interface Tag {
         accountId?: string;
         blockingRuleId?: string[];
         blockingTriggerId?: string[];
@@ -537,15 +536,15 @@ declare namespace GoogleAppsScript {
         type?: string;
         workspaceId?: string;
       }
-      export interface TeardownTag {
+      interface TeardownTag {
         stopTeardownOnFailure?: boolean;
         tagName?: string;
       }
-      export interface Timestamp {
+      interface Timestamp {
         nanos?: number;
         seconds?: string;
       }
-      export interface Trigger {
+      interface Trigger {
         accountId?: string;
         autoEventFilter?: TagManager.Schema.Condition[];
         checkValidation?: TagManager.Schema.Parameter;
@@ -579,14 +578,14 @@ declare namespace GoogleAppsScript {
         waitForTagsTimeout?: TagManager.Schema.Parameter;
         workspaceId?: string;
       }
-      export interface UserPermission {
+      interface UserPermission {
         accountAccess?: TagManager.Schema.AccountAccess;
         accountId?: string;
         containerAccess?: TagManager.Schema.ContainerAccess[];
         emailAddress?: string;
         path?: string;
       }
-      export interface Variable {
+      interface Variable {
         accountId?: string;
         containerId?: string;
         disablingTriggerId?: string[];
@@ -605,14 +604,14 @@ declare namespace GoogleAppsScript {
         variableId?: string;
         workspaceId?: string;
       }
-      export interface VariableFormatValue {
+      interface VariableFormatValue {
         caseConversionType?: string;
         convertFalseToValue?: TagManager.Schema.Parameter;
         convertNullToValue?: TagManager.Schema.Parameter;
         convertTrueToValue?: TagManager.Schema.Parameter;
         convertUndefinedToValue?: TagManager.Schema.Parameter;
       }
-      export interface Workspace {
+      interface Workspace {
         accountId?: string;
         containerId?: string;
         description?: string;
@@ -622,7 +621,7 @@ declare namespace GoogleAppsScript {
         tagManagerUrl?: string;
         workspaceId?: string;
       }
-      export interface Zone {
+      interface Zone {
         accountId?: string;
         boundary?: TagManager.Schema.ZoneBoundary;
         childContainer?: TagManager.Schema.ZoneChildContainer[];
@@ -636,21 +635,21 @@ declare namespace GoogleAppsScript {
         workspaceId?: string;
         zoneId?: string;
       }
-      export interface ZoneBoundary {
+      interface ZoneBoundary {
         condition?: TagManager.Schema.Condition[];
         customEvaluationTriggerId?: string[];
       }
-      export interface ZoneChildContainer {
+      interface ZoneChildContainer {
         nickname?: string;
         publicId?: string;
       }
-      export interface ZoneTypeRestriction {
+      interface ZoneTypeRestriction {
         enable?: boolean;
         whitelistedTypeId?: string[];
       }
     }
   }
-  export interface TagManager {
+  interface TagManager {
     Accounts?: TagManager.Collection.AccountsCollection;
     // Create a new instance of Account
     newAccount(): TagManager.Schema.Account;

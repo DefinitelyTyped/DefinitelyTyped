@@ -1,4 +1,4 @@
-import {wx, App, Page, getApp, setTimeout, clearTimeout, setInterval, clearInterval} from './index'
+import {wx, App, Page, getApp, setTimeout, clearTimeout, setInterval, clearInterval} from 'weapp-api'
 App({
     onLaunch: function () {
         //调用API从本地缓存中获取数据

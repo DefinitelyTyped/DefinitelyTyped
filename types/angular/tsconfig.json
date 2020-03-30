@@ -1,7 +1,6 @@
 {
     "files": [
         "index.d.ts",
-        "jqlite.d.ts",
         "angular-tests.ts",
         "test/jqlite-tests.ts",
         "test/jquery3-merging-tests.ts"

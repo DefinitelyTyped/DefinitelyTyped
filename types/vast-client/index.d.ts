@@ -6,7 +6,9 @@
 
 /// <reference types="node" />
 
-export class VASTTracker extends NodeJS.EventEmitter {
+import { EventEmitter } from 'events';
+
+export class VASTTracker extends EventEmitter {
     /**
      * The VAST tracker constructor will process the tracking URLs of the selected ad/creative and returns an instance of VASTTracker.
      */
@@ -126,6 +128,20 @@ export class VASTTracker extends NodeJS.EventEmitter {
      * Emit a clickthrough event with the resolved clickThrough URL when done.
      */
     click(): void;
+    /**
+     * Calls the tracking URLs for the given eventName and emits the event.
+     */
+    track(
+        /**
+         * The name of the event. Call the specified event tracking URLs. Emit the specified event when done.
+         */
+        eventName: string,
+        /**
+         * Indicate if the event has to be tracked only once.
+         * Default: false
+         */
+        once?: boolean
+    ): void;
 }
 
 export class VASTClient {
@@ -170,7 +186,7 @@ export class VASTClient {
     getParser(): VASTParser;
 }
 
-export class VASTParser extends NodeJS.EventEmitter {
+export class VASTParser extends EventEmitter {
     /**
      * util method for handling urls, it is used to make the requests.
      */

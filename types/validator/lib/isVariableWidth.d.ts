@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isVariableWidth: typeof validator.isVariableWidth;
-export = isVariableWidth;
+import validator from '../';
+export default validator.isVariableWidth;

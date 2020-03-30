@@ -7,8 +7,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "jsx": "react",
         "baseUrl": "../../",
         "typeRoots": [
@@ -34,24 +34,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/applyRouterMiddleware.d.ts",
-        "lib/browserHistory.d.ts",
-        "lib/createMemoryHistory.d.ts",
-        "lib/hashHistory.d.ts",
-        "lib/IndexLink.d.ts",
-        "lib/IndexRedirect.d.ts",
-        "lib/IndexRoute.d.ts",
-        "lib/Link.d.ts",
-        "lib/match.d.ts",
-        "lib/PatternUtils.d.ts",
-        "lib/PropTypes.d.ts",
-        "lib/Redirect.d.ts",
-        "lib/Route.d.ts",
-        "lib/Router.d.ts",
-        "lib/RouterContext.d.ts",
-        "lib/RouteUtils.d.ts",
-        "lib/useRouterHistory.d.ts",
-        "lib/withRouter.d.ts",
         "react-router-tests.tsx"
     ]
 }

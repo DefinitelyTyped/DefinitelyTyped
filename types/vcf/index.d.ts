@@ -12,20 +12,32 @@ export = vCard;
 declare class vCard {
     constructor();
 
+    version: CardVersion;
+
+    data: {[key: string]: vCard.Property | vCard.Property[] };
+
     /** Add a vCard property  */
-    add(key: PropertyType, value: string, params?: jCardParameters): vCard;
+    add(
+        key: string,
+        value: string,
+        params?: { [key: string]: string | string[] }
+    ): vCard;
 
     /** Add a vCard property  */
     addProperty(prop: vCard.Property): vCard;
 
     /** Get a vCard property */
-    get(key: PropertyType): vCard.Property | vCard.Property[];
+    get(key: string): vCard.Property | vCard.Property[];
 
     /** Parse a vcf formatted vCard */
     parse(value: string|Buffer): vCard;
 
     /** Set a vCard property */
-    set(key: PropertyType, value: string, params?: jCardParameters): vCard;
+    set(
+        key: string,
+        value: string,
+        params?: { [key: string]: string | string[] }
+    ): vCard;
 
     /** Set a vCard property */
     setProperty(prop: vCard.Property): vCard;
@@ -40,12 +52,16 @@ declare class vCard {
     toString(version?: CardVersion, charset?: string): string;
 
     /** Is equal to `\r\n` */
-    static EOL: string;
+    static EOL: '\r\n';
 
     /** is equal to `.vcf` */
-    static extension: string;
+    static extension: '.vcf';
 
-    private static foldLine(input: string, maxLength?: number, hardWrap?: boolean): string;
+    private static foldLine(
+        input: string,
+        maxLength?: number,
+        hardWrap?: boolean
+    ): string;
 
     static format(card: vCard, version?: CardVersion): string;
 
@@ -64,12 +80,16 @@ declare class vCard {
 
     private static parseLines(lines: ReadonlyArray<string>): any;
 
-    static versions: CardVersion[];
+    static versions: ['2.1', '3.0', '4.0'];
 }
 
 declare namespace vCard {
     class Property {
-        constructor(field: PropertyType, value: string, params?: jCardParameters);
+        constructor(
+            field: string,
+            value: string,
+            params?: { [key: string]: string | string[]; }
+        );
 
         /** Returns a deep-copied clone of the property */
         clone(): Property;
@@ -94,85 +114,14 @@ declare namespace vCard {
     }
 }
 
-/** vCard properties as specified here: https://tools.ietf.org/html/rfc6350#section-6 */
-type PropertyType =
-	"begin" |
-	"end" |
-	"source" |
-	"kind" |
-	"xml" |
-	"fn" |
-	"n" |
-	"nickname" |
-	"photo" |
-	"bday" |
-	"anniversary" |
-	"gender" |
-	"adr" |
-	"tel" |
-	"email" |
-	"impp" |
-	"lang" |
-	"tz" |
-	"geo" |
-	"title" |
-	"role" |
-	"logo" |
-	"org" |
-	"member" |
-	"related" |
-	"categories" |
-	"note" |
-	"prodid" |
-	"rev" |
-	"sound" |
-	"uid" |
-	"clientpidmap" |
-	"url" |
-	"version" |
-	"key" |
-	"fburl" |
-	"caladruri" |
-	"caluri";
-
-/** vCard property parameters as specified here: https://tools.ietf.org/html/rfc6350#section-5 */
-type ParameterType =
-	"language" |
-	"value" |
-	"pref" |
-	"altid" |
-	"pid" |
-	"type" |
-	"mediatype" |
-	"calscale" |
-	"sort-as" |
-	"geo" |
-	"tz" |
-	"group";
-
-/** vCard property value data types as specified here: https://tools.ietf.org/html/rfc6350#section-4 */
-type ValueDataType =
-	"text" |
-	"uri" |
-	"date" |
-	"time" |
-	"date-time" |
-	"date-and-or-time" |
-	"timestamp" |
-	"boolean" |
-	"integer" |
-	"float" |
-	"utc-offset" |
-	"language-tag";
-
 type CardVersion =
 	"2.1" | "3.0" | "4.0";
 
-type CardHeader = "vcard";
-
-interface jCardParameters { [member: string]: string | string[]; }
-
-type jCardProperty = [ PropertyType, jCardParameters, ValueDataType, string | string[] ];
+type jCardProperty = [
+    string,
+    { [key: string]: string | string[] },
+    string, string | string[]
+];
 
 /** jCard standard format */
-type jCard = [ CardHeader, jCardProperty[] ];
+type jCard = [ 'vcard', jCardProperty[] ];

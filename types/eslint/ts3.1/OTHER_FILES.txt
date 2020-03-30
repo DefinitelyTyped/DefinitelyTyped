@@ -1,0 +1,9 @@
+rules/best-practices.d.ts
+rules/deprecated.d.ts
+rules/ecmascript-6.d.ts
+rules/index.d.ts
+rules/node-commonjs.d.ts
+rules/possible-errors.d.ts
+rules/strict-mode.d.ts
+rules/stylistic-issues.d.ts
+rules/variables.d.ts

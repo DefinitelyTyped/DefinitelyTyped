@@ -119,6 +119,10 @@ async function testPromisify() {
     const listDir: fs.Dirent[] = await rd('path', { withFileTypes: true });
     const listDir2: Buffer[] = await rd('path', { withFileTypes: false, encoding: 'buffer' });
     const listDir3: fs.Dirent[] = await rd('path', { encoding: 'utf8', withFileTypes: true });
+
+    const ln = util.promisify(fs.link);
+    // $ExpectType Promise<void>
+    ln("abc", "def");
 }
 
 {
@@ -301,7 +305,7 @@ async function testPromisify() {
 (async () => {
     try {
         await fs.promises.rmdir('some/test/path');
-        await fs.promises.rmdir('some/test/path', { recursive: true });
+        await fs.promises.rmdir('some/test/path', { recursive: true, maxRetries: 123, retryDelay: 123 });
     } catch (e) {}
 })();
 
@@ -310,11 +314,26 @@ async function testPromisify() {
         const dirEnt: fs.Dirent | null = await dir.read();
     });
 
-    const dirEnt: fs.Dirent = fs.opendirSync('test', {
+    const dir: fs.Dir = fs.opendirSync('test', {
         encoding: 'utf8',
     });
 
-    const dirEntProm: Promise<fs.Dirent> = fs.promises.opendir('test', {
+    // Pending lib upgrade
+    // (async () => {
+    //     for await (const thing of dir) {
+    //     }
+    // });
+
+    const dirEntProm: Promise<fs.Dir> = fs.promises.opendir('test', {
         encoding: 'utf8',
+        bufferSize: 42,
     });
+}
+
+{
+    const writeStream = fs.createWriteStream('./index.d.ts');
+    const _wom = writeStream.writableObjectMode; // $ExpectType boolean
+
+    const readStream = fs.createReadStream('./index.d.ts');
+    const _rom = readStream.readableObjectMode; // $ExpectType boolean
 }

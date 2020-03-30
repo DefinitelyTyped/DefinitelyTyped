@@ -403,6 +403,26 @@ async function testSObject(connection: sf.Connection) {
             ret; // $ExpectType RecordResult[]
         });
     }
+
+    { // Test salesforceConnection.recent
+        // $ExpectType RecordResult[]
+        await salesforceConnection.recent();
+
+        // $ExpectType RecordResult[]
+        await salesforceConnection.recent('Account');
+
+        // $ExpectType RecordResult[]
+        await salesforceConnection.recent(5);
+
+        // $ExpectType RecordResult[]
+        await salesforceConnection.recent('Account', 5);
+
+        // with callback
+        salesforceConnection.recent((err, ret) => {
+            err; // $ExpectType Error
+            ret; // $ExpectType RecordResult[]
+        });
+    }
 }
 
 const requestInfo: sf.RequestInfo = {

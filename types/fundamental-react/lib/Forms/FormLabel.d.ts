@@ -2,7 +2,9 @@ import * as React from "react";
 
 export type FormLabelProps = {
     className?: string;
-    /* Set to **true** for required input fields. */
+    disabled?: boolean;
+    disableStyles?: boolean;
+    isInlineHelp?: boolean;
     required?: boolean;
 } & { [x: string]: any };
 

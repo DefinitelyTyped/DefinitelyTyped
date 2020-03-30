@@ -8,10 +8,10 @@
 //                 Vincent Pizzo <https://github.com/vincentjames501>
 //                 Robert Bullen <https://github.com/robertbullen>
 //                 Yusuke Sato <https://github.com/sat0yu>
-//                 Dan Rumney <https://github.com/dancrumb>
 //                 Desmond Koh <https://github.com/deskoh>
 //                 Maurice de Beijer <https://github.com/mauricedb>
 //                 Kalley Powell <https://github.com/kalley>
+//                 Elías García <https://github.com/elias-garcia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -61,7 +61,7 @@ export interface Schema<T> {
     validateSyncAt(path: string, value: T, options?: ValidateOptions): T;
     isValid(value: any, options?: any): Promise<boolean>;
     isValidSync(value: any, options?: any): value is T;
-    cast(value: any, options?: any): T;
+    cast(value?: any, options?: any): T;
     isType(value: any): value is T;
     strict(isStrict: boolean): this;
     strip(strip: boolean): this;
@@ -247,6 +247,9 @@ export interface ObjectSchemaConstructor {
 }
 
 export interface ObjectSchema<T extends object | null | undefined = object> extends Schema<T> {
+    fields: {
+      [k in keyof T]: Schema<T[k]>
+    };
     shape<U extends object>(
         fields: ObjectSchemaDefinition<U>,
         noSortEdges?: Array<[string, string]>,
@@ -292,7 +295,7 @@ export interface TestContext {
     parent: any;
     schema: Schema<any>;
     resolve: (value: any) => any;
-    createError: (params?: { path?: string; message?: string }) => ValidationError;
+    createError: (params?: { path?: string; message?: string, params?: object }) => ValidationError;
 }
 
 export interface ValidateOptions {
@@ -301,7 +304,7 @@ export interface ValidateOptions {
      */
     strict?: boolean;
     /**
-     * Teturn from validation methods on the first error rather than after all validations run. Default - true
+     * Return from validation methods on the first error rather than after all validations run. Default - true
      */
     abortEarly?: boolean;
     /**
@@ -352,12 +355,28 @@ export interface TestOptions<P extends Record<string, any> = {}, R = any> {
     exclusive?: boolean;
 }
 
+export interface SchemaFieldRefDescription {
+    type: 'ref';
+    key: string;
+}
+
+export interface SchemaFieldInnerTypeDescription extends Pick<
+    SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>
+> {
+    innerType?: SchemaFieldDescription;
+}
+
+export type SchemaFieldDescription =
+    | SchemaDescription
+    | SchemaFieldRefDescription
+    | SchemaFieldInnerTypeDescription;
+
 export interface SchemaDescription {
     type: string;
     label: string;
     meta: object;
-    tests: Array<{ name: string; params: object }>;
-    fields: object;
+    tests: Array<{ name: string; params: { [k: string]: any } }>;
+    fields: Record<string, SchemaFieldDescription>;
 }
 
 // ValidationError works a lot more like a class vs. a constructor
@@ -496,5 +515,5 @@ type KeyOfUndefined<T> = {
 type Id<T> = { [K in keyof T]: T[K] };
 type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
 type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
-type InnerInferType<T> = Id<NotRequiredProps<T> & RequiredProps<T>>;
+type InnerInferType<T> = T extends Array<infer T> ? T[] : Id<NotRequiredProps<T> & RequiredProps<T>> ;
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;

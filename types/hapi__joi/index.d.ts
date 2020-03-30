@@ -20,6 +20,9 @@
 //                 Anand Chowdhary <https://github.com/AnandChowdhary>
 //                 Miro Yovchev <https://github.com/myovchev>
 //                 David Recuenco <https://github.com/RecuencoJones>
+//                 Frederic Reisenhauer <https://github.com/freisenhauer>
+//                 Stefan-Gabriel Muscalu <https://github.com/legraphista>
+//                 Simcha Wood <https://github.com/SimchaWood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -27,18 +30,18 @@
 
 declare namespace Joi {
     type Types =
-    | 'any'
-    | 'alternatives'
-    | 'array'
-    | 'boolean'
-    | 'binary'
-    | 'date'
-    | 'function'
-    | 'link'
-    | 'number'
-    | 'object'
-    | 'string'
-    | 'symbol';
+        | 'any'
+        | 'alternatives'
+        | 'array'
+        | 'boolean'
+        | 'binary'
+        | 'date'
+        | 'function'
+        | 'link'
+        | 'number'
+        | 'object'
+        | 'string'
+        | 'symbol';
 
     type LanguageMessages = Record<string, string>;
 
@@ -85,7 +88,7 @@ declare namespace Joi {
         wrapArrays?: boolean;
     }
 
-    interface ValidationOptions {
+    interface BaseValidationOptions {
         /**
          * when true, stops validation on the first error, otherwise returns all the errors found.
          *
@@ -137,14 +140,6 @@ declare namespace Joi {
          */
         externals?: boolean;
         /**
-         * overrides individual error messages. Defaults to no override (`{}`).
-         * Messages use the same rules as templates.
-         * Variables in double braces `{{var}}` are HTML escaped if the option `errors.escapeHtml` is set to true.
-         *
-         * @default {}
-         */
-        messages?: LanguageMessages;
-        /**
          * when true, do not apply default values.
          *
          * @default false
@@ -179,6 +174,17 @@ declare namespace Joi {
         stripUnknown?: boolean | { arrays?: boolean; objects?: boolean };
     }
 
+    interface ValidationOptions extends BaseValidationOptions {
+        /**
+         * overrides individual error messages. Defaults to no override (`{}`).
+         * Messages use the same rules as templates.
+         * Variables in double braces `{{var}}` are HTML escaped if the option `errors.escapeHtml` is set to true.
+         *
+         * @default {}
+         */
+        messages?: LanguageMessages;
+    }
+
     interface AsyncValidationOptions extends ValidationOptions {
         /**
          * when true, warnings are returned alongside the value (i.e. `{ value, warning }`).
@@ -186,6 +192,15 @@ declare namespace Joi {
          * @default false
          */
         warnings?: boolean;
+    }
+
+    interface LanguageMessageTemplate {
+        source: string;
+        rendered: string;
+    }
+
+    interface ErrorValidationOptions extends BaseValidationOptions {
+        messages?: Record<string, LanguageMessageTemplate>;
     }
 
     interface RenameOptions {
@@ -398,6 +413,12 @@ declare namespace Joi {
         is?: SchemaLike;
 
         /**
+         * the negative version of `is` (`then` and `otherwise` have reverse
+         * roles).
+         */
+        not?: SchemaLike;
+
+        /**
          * the alternative schema type if the condition is true. Required if otherwise or switch are missing.
          */
         then?: SchemaLike;
@@ -576,22 +597,20 @@ declare namespace Joi {
         warn?: boolean;
     }
 
-    interface JoiObject {
-        isJoi: boolean;
-    }
-
     interface ErrorReport extends Error {
         code: string;
         flags: Record<string, ExtensionFlag>;
-        path: string;
-        prefs: ValidationOptions;
+        path: string[];
+        prefs: ErrorValidationOptions;
         messages: LanguageMessages;
         state: State;
         value: any;
     }
 
-    interface ValidationError extends Error, JoiObject {
+    interface ValidationError extends Error {
         name: 'ValidationError';
+
+        isJoi: boolean;
 
         /**
          * array of errors.
@@ -614,12 +633,12 @@ declare namespace Joi {
         context?: Context;
     }
 
-    type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | Error;
+    type ValidationErrorFunction = (errors: ErrorReport[]) => string | ValidationErrorItem | Error;
 
     interface ValidationResult {
-        error: ValidationError;
-        errors: ValidationError;
-        warning: ValidationError;
+        error?: ValidationError;
+        errors?: ValidationError;
+        warning?: ValidationError;
         value: any;
     }
 
@@ -660,11 +679,12 @@ declare namespace Joi {
 
     type SchemaLike = string | number | boolean | object | null | Schema | SchemaMap;
 
-    interface SchemaMap {
-        [key: string]: SchemaLike | SchemaLike[];
-    }
+    type SchemaMap<TSchema = any> = {
+        [key in keyof TSchema]?: SchemaLike | SchemaLike[];
+    };
 
-    type Schema = AnySchema
+    type Schema =
+        | AnySchema
         | ArraySchema
         | AlternativesSchema
         | BinarySchema
@@ -678,6 +698,13 @@ declare namespace Joi {
         | SymbolSchema;
 
     type SchemaFunction = (schema: Schema) => Schema;
+
+    interface AddRuleOptions {
+        name: string;
+        args?: {
+            [key: string]: any;
+        };
+    }
 
     interface SchemaInternals {
         /**
@@ -693,7 +720,7 @@ declare namespace Joi {
         /**
          * Adds a rule to current validation schema.
          */
-        $_addRule(rule: string | ExtensionRule): Schema;
+        $_addRule(rule: string | AddRuleOptions): Schema;
 
         /**
          * Internally compiles schema.
@@ -703,7 +730,14 @@ declare namespace Joi {
         /**
          * Creates a joi error object.
          */
-        $_createError(code: string, value: any, context: Context, state: State, prefs: ValidationOptions, options?: CreateErrorOptions): Err;
+        $_createError(
+            code: string,
+            value: any,
+            context: Context,
+            state: State,
+            prefs: ValidationOptions,
+            options?: CreateErrorOptions,
+        ): Err;
 
         /**
          * Get value from given flag.
@@ -757,7 +791,7 @@ declare namespace Joi {
         $_validate(value: any, state: State, prefs: ValidationOptions): ValidationResult;
     }
 
-    interface AnySchema extends JoiObject {
+    interface AnySchema extends SchemaInternals {
         /**
          * Flags of current schema.
          */
@@ -1502,7 +1536,7 @@ declare namespace Joi {
         matches: SchemaLike | Reference;
     }
 
-    interface ObjectSchema extends AnySchema {
+    interface ObjectSchema<TSchema = any> extends AnySchema {
         /**
          * Defines an all-or-nothing relationship between keys where if one of the peers is present, all of them are required as well.
          *
@@ -1513,7 +1547,7 @@ declare namespace Joi {
         /**
          * Appends the allowed object keys. If schema is null, undefined, or {}, no changes will be applied.
          */
-        append(schema?: SchemaMap): this;
+        append(schema?: SchemaMap<TSchema>): this;
 
         /**
          * Verifies an assertion where.
@@ -1532,7 +1566,7 @@ declare namespace Joi {
         /**
          * Sets or extends the allowed object keys.
          */
-        keys(schema?: SchemaMap): this;
+        keys(schema?: SchemaMap<TSchema>): this;
 
         /**
          * Specifies the exact number of keys in the object.
@@ -1756,7 +1790,7 @@ declare namespace Joi {
     interface RuleArgs {
         name: string;
         ref?: boolean;
-        assert?: (value: any) => boolean;
+        assert?: ((value: any) => boolean) | AnySchema;
         message?: string;
 
         /**
@@ -1857,7 +1891,7 @@ declare namespace Joi {
 
     type ExtensionFactory = (joi: Root) => Extension;
 
-    interface Err extends JoiObject {
+    interface Err {
         toString(): string;
     }
 
@@ -1919,7 +1953,8 @@ declare namespace Joi {
         /**
          * Generates a schema object that matches an object data type (as well as JSON strings that have been parsed into objects).
          */
-        object(schema?: SchemaMap): ObjectSchema;
+        // tslint:disable-next-line:no-unnecessary-generics
+        object<TSchema = any, T = TSchema>(schema?: SchemaMap<T>): ObjectSchema<TSchema>;
 
         /**
          * Generates a schema object that matches a string data type. Note that empty strings are not allowed by default and must be enabled with allow('').
@@ -2012,7 +2047,7 @@ declare namespace Joi {
         /**
          * Creates a new Joi instance customized with the extension(s) you provide included.
          */
-        extend(...extensions: Array<Extension|ExtensionFactory>): any;
+        extend(...extensions: Array<Extension | ExtensionFactory>): any;
 
         /**
          * Creates a reference that when resolved, is used as an array of values to match against the rule.

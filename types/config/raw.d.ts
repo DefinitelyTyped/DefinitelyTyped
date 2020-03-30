@@ -2,4 +2,9 @@
  * See: https://github.com/lorenwest/node-config/wiki/Special-features-for-JavaScript-configuration-files#using-promises-processstdout-and-other-objects-in-javascript-config-files
  */
 
-export function raw<T>(obj: T): T;
+export class RawConfig<T> {
+    constructor(rawObj: T);
+    resolve(): T;
+}
+
+export function raw<T>(obj: T): RawConfig<T>;

@@ -1,4 +1,4 @@
-export default class Filter {
+export default abstract class Filter {
     constructor(tagName: string);
     getTagName(): string;
 }

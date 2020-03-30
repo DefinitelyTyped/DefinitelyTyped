@@ -21,6 +21,8 @@
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Kyle Scully <https://github.com/zieka>
+//                 Cong Zhang <https://github.com/dancerphil>
+//                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -45,6 +47,7 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+type Booleanish = boolean | 'true' | 'false';
 
 /**
  * defined in scheduler/tracing
@@ -79,16 +82,52 @@ declare namespace React {
         | ((props: P) => ReactElement | null)
         | (new (props: P) => Component<P, any>);
 
-    type Key = string | number;
-
     interface RefObject<T> {
         readonly current: T | null;
     }
-
-    type Ref<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"] | RefObject<T> | null;
+    type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
+    type Ref<T> = RefCallback<T> | RefObject<T> | null;
     type LegacyRef<T> = string | Ref<T>;
+    /**
+     * Gets the instance type for a React element. The instance will be different for various component types:
+     *
+     * - React class components will be the class instance. So if you had `class Foo extends React.Component<{}> {}`
+     *   and used `React.ElementRef<typeof Foo>` then the type would be the instance of `Foo`.
+     * - React stateless functional components do not have a backing instance and so `React.ElementRef<typeof Bar>`
+     *   (when `Bar` is `function Bar() {}`) will give you the `undefined` type.
+     * - JSX intrinsics like `div` will give you their DOM instance. For `React.ElementRef<'div'>` that would be
+     *   `HTMLDivElement`. For `React.ElementRef<'input'>` that would be `HTMLInputElement`.
+     * - React stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
+     *   to component.
+     *
+     * `C` must be the type _of_ a React component so you need to use typeof as in React.ElementRef<typeof MyComponent>.
+     *
+     * @todo In Flow, this works a little different with forwarded refs and the `AbstractComponent` that
+     *       `React.forwardRef()` returns.
+     */
+    type ElementRef<
+        C extends
+            | ForwardRefExoticComponent<any>
+            | { new (props: any): Component<any> }
+            | ((props: any, context?: any) => ReactElement | null)
+            | keyof JSX.IntrinsicElements
+    > = C extends ForwardRefExoticComponent<infer FP>
+        ? FP extends RefAttributes<infer FC>
+            ? FC
+            : never
+        : C extends { new (props: any): Component<any> }
+        ? InstanceType<C>
+        : C extends ((props: any, context?: any) => ReactElement | null)
+        ? undefined
+        : C extends keyof JSX.IntrinsicElements
+        ? JSX.IntrinsicElements[C] extends DOMAttributes<infer E>
+            ? E
+            : never
+        : never;
 
     type ComponentState = any;
+
+    type Key = string | number;
 
     /**
      * @internal You shouldn't need to use this type since you never see these attributes
@@ -113,7 +152,7 @@ declare namespace React {
     interface ReactComponentElement<
         T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
         P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, 'key' | 'ref'>>
-    > extends ReactElement<P, T> { }
+    > extends ReactElement<P, Exclude<T, number>> { }
 
     /**
      * @deprecated Please use `FunctionComponentElement`
@@ -520,13 +559,26 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface RefForwardingComponent<T, P = {}> {
+    interface ForwardRefRenderFunction<T, P = {}> {
         (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
-        propTypes?: WeakValidationMap<P>;
-        contextTypes?: ValidationMap<any>;
-        defaultProps?: Partial<P>;
         displayName?: string;
+        // explicit rejected with `never` required due to
+        // https://github.com/microsoft/TypeScript/issues/36826
+        /**
+         * defaultProps are not supported on render functions
+         */
+        defaultProps?: never;
+        /**
+         * propTypes are not supported on render functions
+         */
+        propTypes?: never;
     }
+
+    /**
+     * @deprecated Use ForwardRefRenderFunction. forwardRef doesn't accept a
+     *             "real" component.
+     */
+    interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderFunction<T, P> {}
 
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
@@ -748,7 +800,7 @@ declare namespace React {
         propTypes?: WeakValidationMap<P>;
     }
 
-    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+    function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
@@ -821,13 +873,19 @@ declare namespace React {
     // this technically does accept a second argument, but it's already under a deprecation warning
     // and it's not even released so probably better to not define it.
     type Dispatch<A> = (value: A) => void;
+    // Since action _can_ be undefined, dispatch may be called without any parameters.
+    type DispatchWithoutAction = () => void;
     // Unlike redux, the actions _can_ be anything
     type Reducer<S, A> = (prevState: S, action: A) => S;
+    // If useReducer accepts a reducer without action, dispatch may be called without any parameters.
+    type ReducerWithoutAction<S> = (prevState: S) => S;
     // types used to try and prevent the compiler from reducing S
     // to a supertype common with the second argument to useReducer()
     type ReducerState<R extends Reducer<any, any>> = R extends Reducer<infer S, any> ? S : never;
     type ReducerAction<R extends Reducer<any, any>> = R extends Reducer<any, infer A> ? A : never;
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
+    type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> =
+        R extends ReducerWithoutAction<infer S> ? S : never;
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
     type DependencyList = ReadonlyArray<any>;
 
@@ -863,6 +921,38 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#usestate
      */
     function useState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
+    /**
+     * An alternative to `useState`.
+     *
+     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
+     * multiple sub-values. It also lets you optimize performance for components that trigger deep
+     * updates because you can pass `dispatch` down instead of callbacks.
+     *
+     * @version 16.8.0
+     * @see https://reactjs.org/docs/hooks-reference.html#usereducer
+     */
+    // overload where dispatch could accept 0 arguments.
+    function useReducer<R extends ReducerWithoutAction<any>, I>(
+        reducer: R,
+        initializerArg: I,
+        initializer: (arg: I) => ReducerStateWithoutAction<R>
+    ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
+    /**
+     * An alternative to `useState`.
+     *
+     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
+     * multiple sub-values. It also lets you optimize performance for components that trigger deep
+     * updates because you can pass `dispatch` down instead of callbacks.
+     *
+     * @version 16.8.0
+     * @see https://reactjs.org/docs/hooks-reference.html#usereducer
+     */
+    // overload where dispatch could accept 0 arguments.
+    function useReducer<R extends ReducerWithoutAction<any>>(
+        reducer: R,
+        initializerArg: ReducerStateWithoutAction<R>,
+        initializer?: undefined
+    ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
     /**
      * An alternative to `useState`.
      *
@@ -1656,19 +1746,20 @@ declare namespace React {
         // Standard HTML Attributes
         accessKey?: string;
         className?: string;
-        contentEditable?: boolean;
+        contentEditable?: Booleanish | "inherit";
         contextMenu?: string;
         dir?: string;
-        draggable?: boolean;
+        draggable?: Booleanish;
         hidden?: boolean;
         id?: string;
         lang?: string;
         placeholder?: string;
         slot?: string;
-        spellCheck?: boolean;
+        spellCheck?: Booleanish;
         style?: CSSProperties;
         tabIndex?: number;
         title?: string;
+        translate?: 'yes' | 'no';
 
         // Unknown
         radioGroup?: string; // <command>, <menuitem>
@@ -1955,6 +2046,8 @@ declare namespace React {
         crossOrigin?: "anonymous" | "use-credentials" | "";
         decoding?: "async" | "auto" | "sync";
         height?: number | string;
+        loading?: "eager" | "lazy";
+        referrerPolicy?: "no-referrer" | "origin" | "unsafe-url";
         sizes?: string;
         src?: string;
         srcSet?: string;
@@ -2123,6 +2216,10 @@ declare namespace React {
         value?: string | string[] | number;
     }
 
+    interface SlotHTMLAttributes<T> extends HTMLAttributes<T> {
+        name?: string;
+    }
+
     interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
         async?: boolean;
         charSet?: string;
@@ -2195,6 +2292,7 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        abbr?: string;
         valign?: "top" | "middle" | "bottom" | "baseline";
     }
 
@@ -2204,6 +2302,7 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        abbr?: string;
     }
 
     interface TimeHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2255,6 +2354,7 @@ declare namespace React {
         // Other HTML properties supported by SVG elements in browsers
         role?: string;
         tabIndex?: number;
+        crossOrigin?: "anonymous" | "use-credentials" | "";
 
         // SVG Specific attributes
         accentHeight?: number | string;
@@ -2269,7 +2369,7 @@ declare namespace React {
         ascent?: number | string;
         attributeName?: string;
         attributeType?: string;
-        autoReverse?: number | string;
+        autoReverse?: Booleanish;
         azimuth?: number | string;
         baseFrequency?: number | string;
         baselineShift?: number | string;
@@ -2309,7 +2409,7 @@ declare namespace React {
         enableBackground?: number | string;
         end?: number | string;
         exponent?: number | string;
-        externalResourcesRequired?: number | string;
+        externalResourcesRequired?: Booleanish;
         fill?: string;
         fillOpacity?: number | string;
         fillRule?: "nonzero" | "evenodd" | "inherit";
@@ -2318,7 +2418,7 @@ declare namespace React {
         filterUnits?: number | string;
         floodColor?: number | string;
         floodOpacity?: number | string;
-        focusable?: number | string;
+        focusable?: Booleanish | "auto";
         fontFamily?: string;
         fontSize?: number | string;
         fontSizeAdjust?: number | string;
@@ -2387,6 +2487,7 @@ declare namespace React {
         overlineThickness?: number | string;
         paintOrder?: number | string;
         panose1?: number | string;
+        path?: string;
         pathLength?: number | string;
         patternContentUnits?: string;
         patternTransform?: number | string;
@@ -2396,7 +2497,7 @@ declare namespace React {
         pointsAtX?: number | string;
         pointsAtY?: number | string;
         pointsAtZ?: number | string;
-        preserveAlpha?: number | string;
+        preserveAlpha?: Booleanish;
         preserveAspectRatio?: string;
         primitiveUnits?: number | string;
         r?: number | string;
@@ -2611,6 +2712,7 @@ declare namespace React {
         ruby: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         s: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         samp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        slot: DetailedHTMLFactory<SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
         script: DetailedHTMLFactory<ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
         section: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         select: DetailedHTMLFactory<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
@@ -2744,11 +2846,12 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
-        map<T, C>(children: C | C[], fn: (child: C, index: number) => T): T[];
+        map<T, C>(children: C | C[], fn: (child: C, index: number) => T):
+            C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
         forEach<C>(children: C | C[], fn: (child: C, index: number) => void): void;
         count(children: any): number;
         only<C>(children: C): C extends any[] ? never : C;
-        toArray<C>(children: C | C[]): C[];
+        toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
     }
 
     //
@@ -2944,6 +3047,7 @@ declare global {
             ruby: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             s: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             samp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            slot: React.DetailedHTMLProps<React.SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
             script: React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
             section: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             select: React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;

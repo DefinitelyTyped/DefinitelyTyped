@@ -14,7 +14,9 @@ queue.addModule('/fetcher-worklet.js');                               // $Expect
 const task = queue.postTask<Fetcher>('fetch', 'https://example.com'); // $ExpectType Task<Promise<Response>>
 
 async () => {
-  const result = await task.result;                                   // $ExpectType Response
+  await task.result.then(result => {
+    result;                                                           // $ExpectType Response
+  });
   const id = task.id;                                                 // $ExpectType number
   const state = task.state;                                           // $ExpectType State
 };

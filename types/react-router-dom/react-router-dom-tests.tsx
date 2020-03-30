@@ -41,3 +41,5 @@ const refCallback: React.Ref<HTMLAnchorElement> = node => {};
 <Link to="/url" replace={true} innerRef={refCallback} />;
 const ref = React.createRef<HTMLAnchorElement>();
 <Link to="/url" replace={true} innerRef={ref} />;
+
+<Link to="/url" aria-current="page" />;

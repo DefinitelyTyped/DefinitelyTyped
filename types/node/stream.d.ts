@@ -6,7 +6,9 @@ declare module "stream" {
     }
 
     namespace internal {
-        class Stream extends internal { }
+        class Stream extends internal {
+            constructor(opts?: ReadableOptions);
+        }
 
         interface ReadableOptions {
             highWaterMark?: number;
@@ -118,10 +120,12 @@ declare module "stream" {
 
         class Writable extends Stream implements NodeJS.WritableStream {
             readonly writable: boolean;
+            readonly writableEnded: boolean;
             readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
+            readonly writableCorked: number;
             destroyed: boolean;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
@@ -209,6 +213,9 @@ declare module "stream" {
             allowHalfOpen?: boolean;
             readableObjectMode?: boolean;
             writableObjectMode?: boolean;
+            readableHighWaterMark?: number;
+            writableHighWaterMark?: number;
+            writableCorked?: number;
             read?(this: Duplex, size: number): void;
             write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -219,10 +226,12 @@ declare module "stream" {
         // Note: Duplex extends both Readable and Writable.
         class Duplex extends Readable implements Writable {
             readonly writable: boolean;
+            readonly writableEnded: boolean;
             readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
+            readonly writableCorked: number;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -258,9 +267,15 @@ declare module "stream" {
 
         class PassThrough extends Transform { }
 
+        interface FinishedOptions {
+            error?: boolean;
+            readable?: boolean;
+            writable?: boolean;
+        }
+        function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options: FinishedOptions, callback: (err?: NodeJS.ErrnoException | null) => void): () => void;
         function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, callback: (err?: NodeJS.ErrnoException | null) => void): () => void;
         namespace finished {
-            function __promisify__(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream): Promise<void>;
+            function __promisify__(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options?: FinishedOptions): Promise<void>;
         }
 
         function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: T, callback?: (err: NodeJS.ErrnoException | null) => void): T;
@@ -305,7 +320,12 @@ declare module "stream" {
             ): Promise<void>;
         }
 
-        interface Pipe { }
+        interface Pipe {
+            close(): void;
+            hasRef(): boolean;
+            ref(): void;
+            unref(): void;
+        }
     }
 
     export = internal;

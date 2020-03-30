@@ -1,4 +1,4 @@
-// Type definitions for tus-js-client 1.7
+// Type definitions for tus-js-client 1.8
 // Project: https://github.com/tus/tus-js-client/
 // Definitions by: Kevin Somers-Higgins <https://github.com/kevhiggins>
 //                 Marius Kleidl <https://github.com/Acconut>
@@ -32,8 +32,9 @@ export class Upload {
     options: UploadOptions;
     url: string | null;
 
+    static terminate(url: string, options?: UploadOptions, callback?: (error?: Error) => void): void;
     start(): void;
-    abort(): void;
+    abort(shouldTerminate?: boolean, callback?: (error?: Error) => void): void;
 }
 
 export const isSupported: boolean;

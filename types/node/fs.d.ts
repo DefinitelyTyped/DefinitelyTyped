@@ -19,20 +19,20 @@ declare module "fs" {
         isFIFO(): boolean;
         isSocket(): boolean;
 
-        dev: number;
-        ino: number;
-        mode: number;
-        nlink: number;
-        uid: number;
-        gid: number;
-        rdev: number;
-        size: number;
-        blksize: number;
-        blocks: number;
-        atimeMs: number;
-        mtimeMs: number;
-        ctimeMs: number;
-        birthtimeMs: number;
+        dev: T;
+        ino: T;
+        mode: T;
+        nlink: T;
+        uid: T;
+        gid: T;
+        rdev: T;
+        size: T;
+        blksize: T;
+        blocks: T;
+        atimeMs: T;
+        mtimeMs: T;
+        ctimeMs: T;
+        birthtimeMs: T;
         atime: Date;
         mtime: Date;
         ctime: Date;
@@ -107,22 +107,27 @@ declare module "fs" {
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         addListener(event: "error", listener: (error: Error) => void): this;
+        addListener(event: "close", listener: () => void): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         on(event: "error", listener: (error: Error) => void): this;
+        on(event: "close", listener: () => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         once(event: "error", listener: (error: Error) => void): this;
+        once(event: "close", listener: () => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         prependListener(event: "error", listener: (error: Error) => void): this;
+        prependListener(event: "close", listener: () => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         prependOnceListener(event: "error", listener: (error: Error) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
     }
 
     class ReadStream extends stream.Readable {
@@ -490,7 +495,7 @@ declare module "fs" {
          * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
+        function __promisify__(existingPath: PathLike, newPath: PathLike): Promise<void>;
     }
 
     /**
@@ -740,21 +745,20 @@ declare module "fs" {
 
     interface RmDirAsyncOptions extends RmDirOptions {
         /**
-         * If an `EMFILE` error is encountered, Node.js will
-         * retry the operation with a linear backoff of 1ms longer on each try until the
-         * timeout duration passes this limit. This option is ignored if the `recursive`
-         * option is not `true`.
-         * @default 1000
+         * The amount of time in milliseconds to wait between retries.
+         * This option is ignored if the `recursive` option is not `true`.
+         * @default 100
          */
-        emfileWait?: number;
+        retryDelay?: number;
         /**
-         * If an `EBUSY`, `ENOTEMPTY`, or `EPERM` error is
-         * encountered, Node.js will retry the operation with a linear backoff wait of
-         * 100ms longer on each try. This option represents the number of retries. This
-         * option is ignored if the `recursive` option is not `true`.
-         * @default 3
+         * If an `EBUSY`, `EMFILE`, `ENFILE`, `ENOTEMPTY`, or
+         * `EPERM` error is encountered, Node.js will retry the operation with a linear
+         * backoff wait of `retryDelay` ms longer on each try. This option represents the
+         * number of retries. This option is ignored if the `recursive` option is not
+         * `true`.
+         * @default 0
          */
-        maxBusyTries?: number;
+        maxRetries?: number;
     }
 
     /**
@@ -1819,6 +1823,7 @@ declare module "fs" {
         fd?: number;
         mode?: number;
         autoClose?: boolean;
+        emitClose?: boolean;
         start?: number;
         highWaterMark?: number;
     }): WriteStream;
@@ -1930,9 +1935,16 @@ declare module "fs" {
 
     interface OpenDirOptions {
         encoding?: BufferEncoding;
+        /**
+         * Number of directory entries that are buffered
+         * internally when reading from the directory. Higher values lead to better
+         * performance but higher memory usage.
+         * @default 32
+         */
+        bufferSize?: number;
     }
 
-    function opendirSync(path: string, options?: OpenDirOptions): Dirent;
+    function opendirSync(path: string, options?: OpenDirOptions): Dir;
 
     function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
     function opendir(path: string, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
@@ -2441,6 +2453,6 @@ declare module "fs" {
          */
         function readFile(path: PathLike | FileHandle, options?: { encoding?: string | null, flag?: string | number } | string | null): Promise<string | Buffer>;
 
-        function opendir(path: string, options?: OpenDirOptions): Promise<Dirent>;
+        function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
     }
 }

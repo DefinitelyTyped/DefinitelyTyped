@@ -43,7 +43,9 @@ declare namespace BMap {
 		getOffset(): Size;
 		show(): void;
 		hide(): void;
-		isVisible(): boolean;
+        isVisible(): boolean;
+        /** 自定义Control在add之后立马能读取到Container, 内置Control不能 */
+        getContainer(): HTMLElement | undefined;
 	}
 	interface NavigationControlOptions {
 		anchor?: ControlAnchor;

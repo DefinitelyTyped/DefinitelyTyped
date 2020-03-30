@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.44
+// Type definitions for plotly.js 1.50
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -14,8 +14,10 @@
 //                 Pramod Mathai  <https://github.com/skippercool>
 //                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 //                 Michael Adams <https://github.com/mtadams007>
+//                 Michael Arnett <https://github.com/marnett-git>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Brandon Mitchell <https://github.com/brammitch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import * as _d3 from "d3";
 export as namespace Plotly;
@@ -186,6 +188,17 @@ export interface DownloadImgopts {
 	filename: string;
 }
 
+export interface PolarLayout {
+	domain: Partial<Domain>;
+	sector: number[];
+	hole: number;
+	bgcolor: Color;
+	radialaxis: Partial<LayoutAxis>;
+	angularaxis: Partial<LayoutAxis>;
+	gridshape: 'circular' | 'linear';
+	uirevision: string | number;
+}
+
 export type Root = string | HTMLElement;
 
 export function newPlot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
@@ -261,13 +274,14 @@ export interface Layout {
 	'xaxis.type': AxisType;
 	'xaxis.autorange': boolean;
 	'yaxis.autorange': boolean;
+	'xaxis.title': string;
+	'yaxis.title': string;
 	ternary: {}; // TODO
 	geo: {}; // TODO
 	mapbox: {}; // TODO
 	radialaxis: Partial<Axis>;
 	angularaxis: {}; // TODO
-	direction: 'clockwise' | 'counterclockwise';
-	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable';
+	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable' | false;
 	orientation: number;
 	annotations: Array<Partial<Annotations>>;
 	shapes: Array<Partial<Shape>>;
@@ -277,11 +291,39 @@ export interface Layout {
 	legend: Partial<Legend>;
 	font: Partial<Font>;
 	scene: Partial<Scene>;
-	barmode: "stack" | "group" | "overlay" | "relative";
-	bargap: number;
-	bargroupgap: number;
+	barmode: 'stack' | 'group' | 'overlay' | 'relative';
+	barnorm: '' | 'fraction' | 'percent';
+	bargap: 0 | 1;
+	bargroupgap: 0 | 1;
 	selectdirection: 'h' | 'v' | 'd' | 'any';
 	hiddenlabels: string[];
+	grid: Partial<{
+		rows: number;
+		roworder: "top to bottom" | "bottom to top";
+		columns: number;
+		subplots: string[];
+		xaxes: string[];
+		yaxes: string[];
+		pattern: "independent" | "coupled";
+		xgap: number;
+		ygap: number;
+		domain: Partial<{
+			x: number[];
+			y: number[];
+		}>;
+		xside: "bottom" | "bottom plot" | "top plot" | "top";
+		yside: "left" | "left plot" | "right plot" | "right";
+	}>;
+	polar: Partial<PolarLayout>;
+	polar2: Partial<PolarLayout>;
+	polar3: Partial<PolarLayout>;
+	polar4: Partial<PolarLayout>;
+	polar5: Partial<PolarLayout>;
+	polar6: Partial<PolarLayout>;
+	polar7: Partial<PolarLayout>;
+	polar8: Partial<PolarLayout>;
+	polar9: Partial<PolarLayout>;
+	transition: Transition;
 }
 
 export interface Legend extends Label {
@@ -300,7 +342,7 @@ export type AxisType = '-' | 'linear' | 'log' | 'date' | 'category';
 export interface Axis {
 	visible: boolean;
 	color: Color;
-	title: string;
+	title: string | Partial<DataTitle>;
 	titlefont: Partial<Font>;
 	type: AxisType;
 	autorange: true | false | 'reversed';
@@ -321,7 +363,9 @@ export interface Axis {
 	showspikes: boolean;
 	spikecolor: Color;
 	spikethickness: number;
-	categoryorder: 'trace' | 'category ascending' | 'category descending' | 'array';
+	categoryorder: 'trace' | 'category ascending' | 'category descending' | 'array' | 'total ascending' | 'total descending' |
+	'min ascending' | 'min descending' | 'max ascending' | 'max descending' | 'sum ascending' | 'sum descending' | 'mean ascending' |
+	'mean descending' | 'median ascending' | 'median descending';
 	categoryarray: any[];
 	tickfont: Partial<Font>;
 	tickangle: number;
@@ -362,7 +406,7 @@ export interface LayoutAxis extends Axis {
 	spikedash: string;
 	spikemode: string;
 	anchor: 'free' | AxisName;
-	side: 'top' | 'bottom' | 'left' | 'right';
+	side: 'top' | 'bottom' | 'left' | 'right' | 'clockwise' | 'counterclockwise';
 	overlaying: 'free' | AxisName;
 	layer: 'above traces' | 'below traces';
 	domain: number[];
@@ -370,6 +414,8 @@ export interface LayoutAxis extends Axis {
 	rangeslider: Partial<RangeSlider>;
 	rangeselector: Partial<RangeSelector>;
 	automargin: boolean;
+	autotick: boolean;
+	angle: any;
 }
 
 export interface SceneAxis extends Axis {
@@ -392,13 +438,19 @@ export interface Shape {
 	path: string;
 	// x-reference is assigned to the x-values
 	xref: 'x' | 'paper';
+	xsizemode: "scaled" | "pixel";
+	xanchor: number | string;
 	// y-reference is assigned to the plot paper [0,1]
 	yref: 'paper' | 'y';
+	ysizemode: "scaled" | "pixel";
+	yanchor: number | string;
 	x0: Datum;
 	y0: Datum;
 	x1: Datum;
 	y1: Datum;
 	fillcolor: string;
+	name: string;
+	templateitemname: string;
 	opacity: number;
 	line: Partial<ShapeLine>;
 }
@@ -423,8 +475,8 @@ export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 export interface Icon {
 	width: number;
 	path: string;
-	ascent: number;
-	descent: number;
+	ascent?: number;
+	descent?: number;
 }
 
 export interface ModeBarButton {
@@ -466,6 +518,60 @@ export interface ModeBarButton {
 	toggle?: boolean;
 }
 
+export interface GaugeLine {
+	color: Color;
+	width: number;
+}
+export interface Threshold {
+	line: Partial<GaugeLine>;
+	value: number;
+	thickness: number;
+}
+
+export interface GaugeBar {
+	color: Color;
+	line: Partial<GaugeLine>;
+	thickness: number;
+}
+export interface Gauge {
+	shape: 'angular' | 'bullet';
+	bar: Partial<GaugeBar>;
+	bgcolor: Color;
+	bordercolor: Color;
+	borderwidth: number;
+	axis: Partial<Axis>;
+	steps: Array<{range: number[], color: Color}>;
+	threshold: Partial<Threshold>;
+}
+
+export interface Delta {
+	reference: number;
+	position: 'top' | 'bottom' | 'left' | 'right';
+	relative: boolean;
+	valueformat: string;
+	increasing: {
+		symbol: string;
+		color: Color;
+	};
+	decreasing: {
+		symbol: string;
+		color: Color;
+	};
+}
+
+export interface DataTitle {
+		text: string;
+		font: Partial<Font>;
+		position: "top left" | "top center" | "top right" | "middle center" | "bottom left" | "bottom center" | "bottom right";
+}
+
+export interface PlotNumber {
+	valueformat: string;
+	font: Partial<Font>;
+	prefix: string;
+	suffix: string;
+}
+
 // Data
 
 export type Datum = string | number | Date | null;
@@ -501,7 +607,7 @@ export type ScatterData = PlotData;
 export interface PlotData {
 	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
 	'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-	'scatterpolar' | 'scatterternary' | 'surface';
+	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -519,10 +625,11 @@ export interface PlotData {
 	'line.smoothing': number;
 	'line.simplify': boolean;
 	marker: Partial<PlotMarker>;
-	'marker.symbol': string | string[]; // Drawing.symbolList
+	'marker.symbol': MarkerSymbol | MarkerSymbol[];
 	'marker.color': Color;
+	'marker.colorscale': ColorScale | ColorScale[];
 	'marker.opacity': number | number[];
-	'marker.size': number | number[];
+	'marker.size': number | number[] | number[][];
 	'marker.maxdisplayed': number;
 	'marker.sizeref': number;
 	'marker.sizemax': number;
@@ -530,7 +637,13 @@ export interface PlotData {
 	'marker.sizemode': 'diameter' | 'area';
 	'marker.showscale': boolean;
 	'marker.line': Partial<ScatterMarkerLine>;
+	'marker.line.color': Color;
+	'marker.line.colorscale': ColorScale | ColorScale[];
 	'marker.colorbar': {}; // TODO
+	'marker.pad.t': number;
+	'marker.pad.b': number;
+	'marker.pad.l': number;
+	'marker.pad.r': number;
 	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none'
 	| 'gauge' | 'number' | 'delta' | 'number+delta' | 'gauge+number' | 'gauge+number+delta' | 'gauge+delta';
 	hoveron: 'points' | 'fills';
@@ -546,6 +659,7 @@ export interface PlotData {
 	'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
 	hoverlabel: Partial<HoverLabel>;
 	hovertemplate: string | string[];
+	hovertext: string | string[];
 	textinfo: 'label' | 'label+text' | 'label+value' | 'label+percent' | 'label+text+value'
 	| 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
 	| 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
@@ -553,64 +667,21 @@ export interface PlotData {
 	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside";
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
+	showlegend: boolean;
 	legendgroup: string;
+	parents: string[];
 	name: string;
 	stackgroup: string;
 	connectgaps: boolean;
 	visible: boolean | 'legendonly';
-	delta: {
-		reference: number;
-		position: 'top' | 'bottom' | 'left' | 'right';
-		relative: boolean
-		valueformat: string
-		increasing: {
-			symbol: string;
-			color: Color;
-		}
-		decreasing: {
-			symbol: string;
-			color: Color;
-		}
-	};
-	gauge: {
-		shape: 'angular' | 'bullet'
-		bar: {
-			color: Color
-			line: {
-				color: Color
-				width: number
-			}
-			thickness: number
-		}
-		bgcolor: Color
-		bordercolor: Color
-		borderwidth: number
-		axis: {
-			range: number[]
-			visible: boolean
-		}
-		threshold: {
-			line: {
-				color: Color
-				width: number
-			}
-			value: number
-		}
-	};
-	number: {
-		valueformat: string
-		font: {
-			family: string
-			size: number
-			color: Color
-		}
-		prefix: string
-		suffix: string
-	};
+	delta: Partial<Delta>;
+	gauge: Partial<Gauge>;
+	number: Partial<PlotNumber>;
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
 	width: number | number[];
 	boxmean: boolean | 'sd';
+	opacity: number;
 	colorscale: ColorScale;
 	zsmooth: 'fast' | 'best' | false;
 	ygap: number;
@@ -625,11 +696,19 @@ export interface PlotData {
 	value: number;
 	values: Datum[];
 	labels: Datum[];
+	direction: 'clockwise' | 'counterclockwise';
 	hole: number;
 	rotation: number;
 	theta: Datum[];
 	r: Datum[];
 	customdata: Datum[];
+	domain: Partial<{
+		rows: number;
+		columns: number;
+		x: number[];
+		y: number[];
+	}>;
+	title: Partial<DataTitle>;
 }
 
 /**
@@ -710,13 +789,16 @@ export interface ColorBar {
 	tickvalssrc: any;
 	ticktextsrc: any;
 }
+
+export type MarkerSymbol = string | number | Array<(string | number)>;
+
 /**
  * Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
  * examples: "x", "y", "x+y", "x+y+z", "all"
  * default: "all"
  */
 export interface PlotMarker {
-	symbol: string | string[]; // Drawing.symbolList
+	symbol: MarkerSymbol;
 	color: Color | Color[];
 	colors: Color[];
 	colorscale: ColorScale;
@@ -734,6 +816,7 @@ export interface PlotMarker {
 	sizemode: 'diameter' | 'area';
 	showscale: boolean;
 	line: Partial<ScatterMarkerLine>;
+	pad: Partial<Padding>;
 	width: number;
 	colorbar: Partial<ColorBar>;
 	gradient: {
@@ -1256,6 +1339,8 @@ export interface Scene {
 export interface Domain {
 	x: number[];
 	y: number[];
+	row: number;
+	column: number;
 }
 
 export interface Frame {
@@ -1304,6 +1389,11 @@ export interface Transition {
 	'linear-out' | 'quad-out' | 'cubic-out' | 'sin-out' | 'exp-out' | 'circle-out' | 'elastic-out' | 'back-out' |
 	'bounce-out' | 'linear-in-out' | 'quad-in-out' | 'cubic-in-out' | 'sin-in-out' | 'exp-in-out' |
 	'circle-in-out' | 'elastic-in-out' | 'back-in-out' | 'bounce-in-out';
+	/**
+	 * Determines whether the figure's layout or traces smoothly transitions during updates that make both traces
+	 * and layout change. Default is "layout first".
+	 */
+	ordering?: 'layout first' | 'traces first';
 }
 
 export interface SliderStep {

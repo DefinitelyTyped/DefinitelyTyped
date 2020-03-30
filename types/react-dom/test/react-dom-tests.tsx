@@ -182,20 +182,33 @@ describe('React dom test utils', () => {
     });
 
     describe('act', () => {
-        it('accepts a sync callback that is void', () => {
-            ReactTestUtils.act(() => {});
+        describe('with sync callback', () => {
+            it('accepts a callback that is void', () => {
+                ReactTestUtils.act(() => {});
+            });
+            it('rejects a callback that returns null', () => {
+                // $ExpectError
+                ReactTestUtils.act(() => null);
+            });
+            it('returns a type that is not Promise-like', () => {
+                // tslint:disable-next-line no-void-expression
+                const result = ReactTestUtils.act(() => {});
+                // $ExpectError
+                result.then((x) => {});
+            });
         });
-        it('accepts an async callback that is void', async () => {
-            await ReactTestUtils.act(async () => {});
-        });
-        it('rejects a callback that returns null', () => {
-            // $ExpectError
-            ReactTestUtils.act(() => null);
-        });
-        it('returns a Promise-like that errors out on use', () => {
-            const result = ReactTestUtils.act(() => {});
-            // $ExpectError
-            Promise.resolve(result);
+        describe('with async callback', () => {
+            it('accepts a callback that is void', async () => {
+                await ReactTestUtils.act(async () => {});
+            });
+            it('rejects a callback that returns a value', async () => {
+                // $ExpectError
+                await ReactTestUtils.act(async () => null);
+            });
+            it('returns a Promise-like', () => {
+                const result = ReactTestUtils.act(async () => {});
+                result.then((x) => {});
+            });
         });
     });
 });

@@ -1357,7 +1357,9 @@ function testUseSelector() {
         return l === r;
     });
 
-    useSelector(selector, shallowEqual);
+    const correctlyInferred: State = useSelector(selector, shallowEqual);
+    const inferredTypeIsNotString: string = useSelector(selector, shallowEqual); // $ExpectError
+
     const compare = (_l: number, _r: number) => true;
     useSelector(() => 1, compare);
     const compare2 = (_l: number, _r: string) => true;
@@ -1400,7 +1402,7 @@ function testUseStore() {
 function testCreateHookFunctions() {
     // $ExpectType { <TDispatch = Dispatch<any>>(): TDispatch; <A extends Action<any> = AnyAction>(): Dispatch<A>; }
     createDispatchHook();
-    // $ExpectType <TState, TSelected>(selector: (state: TState) => TSelected, equalityFn?: ((left: TSelected, right: TSelected) => boolean) | undefined) => TSelected
+    // $ExpectType <TState = DefaultRootState, TSelected = unknown>(selector: (state: TState) => TSelected, equalityFn?: ((left: TSelected, right: TSelected) => boolean) | undefined) => TSelected
     createSelectorHook();
     interface RootState {
         property: string;

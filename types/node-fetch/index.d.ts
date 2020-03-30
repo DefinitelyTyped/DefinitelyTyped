@@ -9,10 +9,13 @@
 //                 Brandon Wilson <https://github.com/wilsonianb>
 //                 Steve Faulkner <https://github.com/southpolesteve>
 //                 ExE Boss <https://github.com/ExE-Boss>
+//                 Alex Savin <https://github.com/alexandrusavin>
+//                 Alexis Tyler <https://github.com/OmgImAlexis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
+import FormData = require('form-data');
 import { Agent } from "http";
 import { URLSearchParams, URL } from "url";
 import { AbortSignal } from "./externals";
@@ -109,7 +112,6 @@ export class Headers implements Iterable<[string, string]> {
     append(name: string, value: string): void;
     delete(name: string): void;
     get(name: string): string | null;
-    getAll(name: string): string[];
     has(name: string): boolean;
     raw(): { [k: string]: string[] };
     set(name: string, value: string): void;
@@ -149,9 +151,13 @@ export class Body {
     timeout: number;
 }
 
+interface SystemError extends Error {
+    code?: string;
+}
+
 export class FetchError extends Error {
     name: "FetchError";
-    constructor(message: string, type: string, systemError?: string);
+    constructor(message: string, type: string, systemError?: SystemError);
     type: string;
     code?: string;
     errno?: string;
@@ -200,7 +206,8 @@ export type BodyInit =
     | ArrayBufferView
     | NodeJS.ReadableStream
     | string
-    | URLSearchParams;
+    | URLSearchParams
+    | FormData;
 export type RequestInfo = string | URLLike | Request;
 
 declare function fetch(

@@ -1,13 +1,12 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
   namespace AdminReseller {
     namespace Collection {
-      export interface CustomersCollection {
+      interface CustomersCollection {
         // Get a customer account.
         get(customerId: string): AdminReseller.Schema.Customer;
         // Order a new customer's account.
@@ -19,7 +18,7 @@ declare namespace GoogleAppsScript {
         // Update a customer account's settings.
         update(resource: Schema.Customer, customerId: string): AdminReseller.Schema.Customer;
       }
-      export interface ResellernotifyCollection {
+      interface ResellernotifyCollection {
         // Returns all the details of the watch corresponding to the reseller.
         getwatchdetails(): AdminReseller.Schema.ResellernotifyGetwatchdetailsResponse;
         // Registers a Reseller for receiving notifications.
@@ -31,7 +30,7 @@ declare namespace GoogleAppsScript {
         // Unregisters a Reseller for receiving notifications.
         unregister(optionalArgs: object): AdminReseller.Schema.ResellernotifyResource;
       }
-      export interface SubscriptionsCollection {
+      interface SubscriptionsCollection {
         // Activates a subscription previously suspended by the reseller
         activate(customerId: string, subscriptionId: string): AdminReseller.Schema.Subscription;
         // Update a subscription plan. Use this method to update a plan for a 30-day trial or a flexible plan subscription to an annual commitment plan with monthly or yearly payments.
@@ -59,7 +58,7 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Address {
+      interface Address {
         addressLine1?: string;
         addressLine2?: string;
         addressLine3?: string;
@@ -71,14 +70,14 @@ declare namespace GoogleAppsScript {
         postalCode?: string;
         region?: string;
       }
-      export interface ChangePlanRequest {
+      interface ChangePlanRequest {
         dealCode?: string;
         kind?: string;
         planName?: string;
         purchaseOrderId?: string;
         seats?: AdminReseller.Schema.Seats;
       }
-      export interface Customer {
+      interface Customer {
         alternateEmail?: string;
         customerDomain?: string;
         customerDomainVerified?: boolean;
@@ -88,24 +87,24 @@ declare namespace GoogleAppsScript {
         postalAddress?: AdminReseller.Schema.Address;
         resourceUiUrl?: string;
       }
-      export interface RenewalSettings {
+      interface RenewalSettings {
         kind?: string;
         renewalType?: string;
       }
-      export interface ResellernotifyGetwatchdetailsResponse {
+      interface ResellernotifyGetwatchdetailsResponse {
         serviceAccountEmailAddresses?: string[];
         topicName?: string;
       }
-      export interface ResellernotifyResource {
+      interface ResellernotifyResource {
         topicName?: string;
       }
-      export interface Seats {
+      interface Seats {
         kind?: string;
         licensedNumberOfSeats?: number;
         maximumNumberOfSeats?: number;
         numberOfSeats?: number;
       }
-      export interface Subscription {
+      interface Subscription {
         billingMethod?: string;
         creationTime?: string;
         customerDomain?: string;
@@ -125,31 +124,31 @@ declare namespace GoogleAppsScript {
         transferInfo?: AdminReseller.Schema.SubscriptionTransferInfo;
         trialSettings?: AdminReseller.Schema.SubscriptionTrialSettings;
       }
-      export interface SubscriptionPlan {
+      interface SubscriptionPlan {
         commitmentInterval?: AdminReseller.Schema.SubscriptionPlanCommitmentInterval;
         isCommitmentPlan?: boolean;
         planName?: string;
       }
-      export interface SubscriptionPlanCommitmentInterval {
+      interface SubscriptionPlanCommitmentInterval {
         endTime?: string;
         startTime?: string;
       }
-      export interface SubscriptionTransferInfo {
+      interface SubscriptionTransferInfo {
         minimumTransferableSeats?: number;
         transferabilityExpirationTime?: string;
       }
-      export interface SubscriptionTrialSettings {
+      interface SubscriptionTrialSettings {
         isInTrial?: boolean;
         trialEndTime?: string;
       }
-      export interface Subscriptions {
+      interface Subscriptions {
         kind?: string;
         nextPageToken?: string;
         subscriptions?: AdminReseller.Schema.Subscription[];
       }
     }
   }
-  export interface AdminReseller {
+  interface AdminReseller {
     Customers?: AdminReseller.Collection.CustomersCollection;
     Resellernotify?: AdminReseller.Collection.ResellernotifyCollection;
     Subscriptions?: AdminReseller.Collection.SubscriptionsCollection;

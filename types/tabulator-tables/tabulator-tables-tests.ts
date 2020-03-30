@@ -62,7 +62,10 @@ table
     });
 
 table
-    .updateOrAddData([{ id: 1, name: 'bob' }, { id: 3, name: 'steve' }])
+    .updateOrAddData([
+        { id: 1, name: 'bob' },
+        { id: 3, name: 'steve' },
+    ])
     .then(rows => {
         // rows - array of the row components for the rows updated or added
         // run code after data has been updated
@@ -71,7 +74,10 @@ table
         // handle error updating data
     });
 
-table.updateData([{ id: 1, name: 'bob', gender: 'male' }, { id: 2, name: 'Jenny', gender: 'female' }]);
+table.updateData([
+    { id: 1, name: 'bob', gender: 'male' },
+    { id: 2, name: 'Jenny', gender: 'female' },
+]);
 table
     .updateData([{ id: 1, name: 'bob' }])
     .then(() => {
@@ -388,7 +394,10 @@ options.ajaxContentType = {
     },
 };
 
-options.initialSort = [{ column: 'name', dir: 'asc' }, { column: 'name2', dir: 'desc' }];
+options.initialSort = [
+    { column: 'name', dir: 'asc' },
+    { column: 'name2', dir: 'desc' },
+];
 options.initialFilter = [{ field: 'color', type: '=', value: 'red' }];
 options.initialHeaderFilter = [
     { field: 'color', value: 'red' }, // set the initial value of the header filter to "red"
@@ -525,3 +534,91 @@ colDef.editor = (cell, onRendered, success, cancel, editorParams) => {
     const successful: boolean = success('test');
     return editor;
 };
+
+let groupColDef: Tabulator.ColumnDefinition = {
+    title: 'Full name',
+    field: '',
+    columns: [
+        { title: 'First name', field: '' },
+        { title: 'Last name', field: '' },
+    ],
+};
+
+// Persistence
+table = new Tabulator('#example-table', {
+    persistence: true, // enable table persistence
+});
+
+table = new Tabulator('#example-table', {
+    persistence: {
+        sort: true, // persist column sorting
+        filter: true, // persist filter sorting
+        group: true, // persist row grouping
+        page: true, // persist page
+        columns: true, // persist columns
+    },
+});
+
+table = new Tabulator('#example-table', {
+    persistence: {
+        group: {
+            groupBy: true, // persist only the groupBy setting
+            groupStartOpen: false,
+            groupHeader: false,
+        },
+    },
+});
+
+table = new Tabulator('#example-table', {
+    persistence: {
+        page: {
+            size: true, // persist the current page size
+            page: false, // do not persist the current page
+        },
+    },
+});
+
+table = new Tabulator('#example-table', {
+    persistence: {
+        columns: ['width', 'visible', 'frozen'], // persist changes to the width, visible and frozen properties
+    },
+});
+
+table = new Tabulator('#test', {
+    blockRedraw: () => {},
+    restoreRedraw: () => {},
+});
+
+table = Tabulator.prototype.findTable('#example-table');
+
+table.getRows('visible');
+table.deleteRow([15, 7, 9]);
+
+table.addColumn({} as Tabulator.ColumnDefinition).then(() => {});
+
+table.deleteColumn('name').then(() => {});
+
+table
+    .updateColumnDefinition('age', { title: 'Updated Title', frozen: true })
+    .then(() => {
+        // run code after column has been scrolled to
+    })
+    .catch(error => {
+        // handle error scrolling to column
+    });
+
+column.updateDefinition({ title: 'Updated' });
+table.selectRow('visible');
+table.download('csv', 'data.csv', { delimiter: '.' }, 'visible');
+table.download('html', 'data.html');
+table.download('html', 'data.html', { style: true });
+table.download('xlsx', 'data.xlsx', {
+    documentProcessing: workbook => {
+        return workbook;
+    },
+});
+
+table = new Tabulator('#example-table', {
+    scrollVertical: () => {},
+    scrollHorizontal: () => {},
+});

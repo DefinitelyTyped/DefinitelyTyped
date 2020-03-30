@@ -1,5 +1,5 @@
-import * as Sticky from "react-stickynode";
-import * as React from "react";
+import * as Sticky from 'react-stickynode';
+import * as React from 'react';
 
 const StickyAllOptions: JSX.Element = (
     <Sticky
@@ -18,11 +18,7 @@ const StickyAllOptions: JSX.Element = (
 );
 
 const StickyOptionalStringOptions: JSX.Element = (
-    <Sticky
-        top="#elem"
-        bottomBoundary="#bottom"
-        innerZ="1234"
-    >
+    <Sticky top="#elem" bottomBoundary="#bottom" innerZ="1234">
         <div />
     </Sticky>
 );
@@ -30,5 +26,21 @@ const StickyOptionalStringOptions: JSX.Element = (
 const StickyNoOptions: JSX.Element = (
     <Sticky>
         <div />
+    </Sticky>
+);
+
+const StickyChildrenFunction: JSX.Element = (
+    <Sticky>
+        {status => {
+            if (status.status === Sticky.STATUS_FIXED) {
+                return 'the component is sticky';
+            }
+
+            if (status.status === Sticky.STATUS_ORIGINAL) {
+                return 'the component in the original position';
+            }
+
+            return 'the component is released';
+        }}
     </Sticky>
 );

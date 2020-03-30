@@ -20,15 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "relay-compiler-tests.ts",
-        "lib/transforms/ConnectionFieldTransform.d.ts",
-        "lib/transforms/FlattenTransform.d.ts",
-        "lib/transforms/InlineFragmentsTransform.d.ts",
-        "lib/transforms/ApplyFragmentArgumentTransform.d.ts",
-        "lib/transforms/SkipRedundantNodesTransform.d.ts",
-        "lib/transforms/MaskTransform.d.ts",
-        "lib/transforms/MatchTransform.d.ts",
-        "lib/transforms/RefetchableFragmentTransform.d.ts",
-        "lib/transforms/RelayDirectiveTransform.d.ts"
+        "relay-compiler-tests.ts"
     ]
 }

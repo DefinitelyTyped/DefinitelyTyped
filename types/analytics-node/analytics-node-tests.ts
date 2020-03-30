@@ -6,7 +6,18 @@ function testConfig(): void {
     flushAt: 20,
     flushInterval: 10000,
     host: "http://example.com",
-    enable: true
+    enable: true,
+    timeout: 1000,
+  });
+}
+
+function testConfigWithStringTimeout(): void {
+  analytics = new Analytics('YOUR_WRITE_KEY', {
+    flushAt: 20,
+    flushInterval: 10000,
+    host: "http://example.com",
+    enable: true,
+    timeout: '1000',
   });
 }
 

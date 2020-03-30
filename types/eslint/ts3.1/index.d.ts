@@ -320,7 +320,7 @@ export namespace Rule {
     interface ReportDescriptorOptions {
         data?: { [key: string]: string };
 
-        fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix>;
+        fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix> | Fix[];
     }
 
     interface RuleFixer {
@@ -505,6 +505,7 @@ export namespace CLIEngine {
         configFile?: string;
         cwd?: string;
         envs?: string[];
+        errorOnUnmatchedPattern?: boolean;
         extensions?: string[];
         fix?: boolean;
         globals?: string[];
@@ -534,15 +535,27 @@ export namespace CLIEngine {
         source?: string;
     }
 
+    interface LintResultData {
+        rulesMeta: {
+            [ruleId: string]: Rule.RuleMetaData;
+        };
+    }
+
     interface LintReport {
         results: LintResult[];
         errorCount: number;
         warningCount: number;
         fixableErrorCount: number;
         fixableWarningCount: number;
+        usedDeprecatedRules: DeprecatedRuleUse[];
     }
 
-    type Formatter = (results: LintResult[]) => string;
+    interface DeprecatedRuleUse {
+        ruleId: string;
+        replacedBy: string[];
+    }
+
+    type Formatter = (results: LintResult[], data?: LintResultData) => string;
 }
 
 //#endregion

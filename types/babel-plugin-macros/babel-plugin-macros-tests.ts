@@ -1,8 +1,8 @@
-import { createMacro, MacroError } from 'babel-plugin-macros';
+import { createMacro, MacroError, References, Options, MacroParams, MacroHandler } from 'babel-plugin-macros';
 
 const macro = createMacro(
     ({ references, state, babel }) => {
-        references.forEach(() => {});
+        Object.keys(references).forEach(() => {});
         references.default.forEach(() => {});
         state.abc = 123;
         babel.parse("console.log('Hello world!')");

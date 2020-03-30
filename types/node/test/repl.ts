@@ -2,7 +2,9 @@ import { start, Recoverable } from "repl";
 import { Context } from "vm";
 
 {
-    let server = start();
+    let server = start({
+        preview: true,
+    });
     let _boolean: boolean;
     const _ctx: Context = {};
 

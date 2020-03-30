@@ -15,6 +15,10 @@ notifier.notify({
 }, function (err: any, response: any) {
     // response is response from notification
 });
+notifier.notify({
+    message: 'Hello from node, Mr. User!',
+    timeout: false
+});
 
 notifier.on('click', function (notifierObject: any, options: any) {
     // Happens if `wait: true` and user clicks notification

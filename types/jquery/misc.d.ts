@@ -4,7 +4,7 @@
 
 declare namespace JQuery {
     type TypeOrArray<T> = T | T[];
-    type Node = Element | Text | Comment | DocumentFragment;
+    type Node = Element | Text | Comment | Document | DocumentFragment;
 
     /**
      * A string is designated htmlString in jQuery documentation when it is used to represent one or more DOM elements, typically to be created and inserted in the document. When passed as an argument of the jQuery() function, the string is identified as HTML if it starts with <tag ... >) and is parsed as such until the final > character. Prior to jQuery 1.9, a string was considered to be HTML if it contained <tag ... > anywhere within the string.
@@ -141,6 +141,16 @@ declare namespace JQuery {
              * multiple, space-separated values: As of jQuery 1.5, jQuery can convert a dataType from what it received in the Content-Type header to what you require. For example, if you want a text response to be treated as XML, use "text xml" for the dataType. You can also make a JSONP request, have it received as text, and interpreted by jQuery as XML: "jsonp text xml". Similarly, a shorthand string such as "jsonp xml" will first attempt to convert from jsonp to xml, and, failing that, convert from jsonp to text, and then from text to xml.
              */
             dataType?: 'xml' | 'html' | 'script' | 'json' | 'jsonp' | 'text' | string;
+            /**
+             * The MIME type of content that is used to submit the form to the server. Possible values are:
+             *
+             * "application/x-www-form-urlencoded": The initial default type.
+             *
+             * "multipart/form-data": The type that allows file <input> element(s) to upload file data.
+             *
+             * "text/plain": A type introduced in HTML5.
+             */
+            enctype?: 'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain';
             /**
              * A function to be called if the request fails. The function receives three arguments: The jqXHR (in jQuery 1.4.x, XMLHttpRequest) object, a string describing the type of error that occurred and an optional exception object, if one occurred. Possible values for the second argument (besides null) are "timeout", "error", "abort", and "parsererror". When an HTTP error occurs, errorThrown receives the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error." As of jQuery 1.5, the error setting can accept an array of functions. Each function will be called in turn. Note: This handler is not called for cross-domain script and cross-domain JSONP requests. This is an Ajax Event.
              */

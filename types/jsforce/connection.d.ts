@@ -24,12 +24,14 @@ export interface RestApiOptions {
 }
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
-// the oauth options can either be in the `oauth2` proeprty OR spread across the main connection
+// the oauth options can either be in the `oauth2` property OR spread across the main connection
 export interface PartialOAuth2Options {
     clientId?: string;
     clientSecret?: string;
     loginUrl?: string;
     redirectUri?: string;
+    tokenServiceUrl?: string;
+    authzServiceUrl?: string;
 }
 
 export interface RequestInfo {
@@ -143,6 +145,9 @@ export abstract class BaseConnection extends EventEmitter {
     describeGlobal<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): Promise<DescribeGlobalResult>;
     // we want any object to be accepted if the user doesn't decide to give an explicit type
     sobject<T = object>(resource: string): SObject<T>;
+    recent(callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
+    recent(param: number | string, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
+    recent(type: string, limit: number, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
 }
 
 export class Connection extends BaseConnection {

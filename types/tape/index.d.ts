@@ -5,6 +5,7 @@
 //                 Dennis Schwartz <https://github.com/DennisSchwartz>
 //                 Michael Henretty <https://github.com/mikehenrty>
 //                 Rafał Ostrowski <https://github.com/rostrowski>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

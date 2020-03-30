@@ -1,4 +1,4 @@
-// Type definitions for Jest 24.0
+// Type definitions for Jest 25.1
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -25,10 +25,10 @@
 //                 Mario Beltrán Alarcón <https://github.com/Belco90>
 //                 Tony Hallett <https://github.com/tonyhallett>
 //                 Jason Yu <https://github.com/ycmjason>
+//                 Devansh Jethmalani <https://github.com/devanshj>
+//                 Pawel Fajfer <https://github.com/pawfa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
-
-/// <reference types="jest-diff" />
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -284,6 +284,12 @@ declare namespace jest {
     ): Required<T>[M] extends (...args: any[]) => any
         ? SpyInstance<ReturnType<Required<T>[M]>, ArgsType<Required<T>[M]>>
         : never;
+    function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
+        object: T,
+        method: M
+    ): Required<T>[M] extends new (...args: any[]) => any
+        ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
+        : never;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -304,12 +310,15 @@ declare namespace jest {
 
     type EmptyFunction = () => void;
     type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
+    type ConstructorArgsType<T> = T extends new (...args: infer A) => any ? A : never;
     type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
     type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
     // see https://github.com/Microsoft/TypeScript/issues/25215
     type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? never : K }[keyof T] &
         string;
     type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never }[keyof T] &
+        string;
+    type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends new (...args: any[]) => any ? K : never }[keyof T] &
         string;
 
     interface DoneCallback {
@@ -327,7 +336,7 @@ declare namespace jest {
 
     interface Each {
         // Exclusively arrays.
-        <T extends any[]>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T) => any, timeout?: number) => void;
+        <T extends any[] | [any]>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T) => any, timeout?: number) => void;
         <T extends ReadonlyArray<any>>(cases: ReadonlyArray<T>): (name: string, fn: (...args: ExtractEachCallbackArgs<T>) => any, timeout?: number) => void;
         // Not arrays.
         <T>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => any, timeout?: number) => void;
@@ -424,38 +433,90 @@ declare namespace jest {
         each: Each;
     }
 
+    type PrintLabel = (string: string) => string;
+
+    type MatcherHintColor = (arg: string) => string;
+
+    interface MatcherHintOptions {
+        comment?: string;
+        expectedColor?: MatcherHintColor;
+        isDirectExpectCall?: boolean;
+        isNot?: boolean;
+        promise?: string;
+        receivedColor?: MatcherHintColor;
+        secondArgument?: string;
+        secondArgumentColor?: MatcherHintColor;
+    }
+
+    interface ChalkFunction {
+        (text: TemplateStringsArray, ...placeholders: any[]): string;
+        (...text: any[]): string;
+    }
+
+    interface ChalkColorSupport {
+        level: 0 | 1 | 2 | 3;
+        hasBasic: boolean;
+        has256: boolean;
+        has16m: boolean;
+    }
+
+    type MatcherColorFn = ChalkFunction & { supportsColor: ChalkColorSupport };
+
+    type EqualityTester = (a: any, b: any) => boolean | undefined;
+
     interface MatcherUtils {
         readonly isNot: boolean;
         readonly dontThrow: () => void;
         readonly promise: string;
+        readonly assertionCalls: number;
+        readonly expectedAssertionsNumber: number | null;
+        readonly isExpectingAssertions: boolean;
+        readonly suppressedErrors: any[];
+        readonly expand: boolean;
+        readonly testPath: string;
+        readonly currentTestName: string;
         utils: {
-            readonly EXPECTED_COLOR: (text: string) => string;
-            readonly RECEIVED_COLOR: (text: string) => string;
-            diff: typeof import('jest-diff');
-            ensureActualIsNumber(actual: any, matcherName?: string): void;
-            ensureExpectedIsNumber(actual: any, matcherName?: string): void;
-            ensureNoExpected(actual: any, matcherName?: string): void;
-            ensureNumbers(actual: any, expected: any, matcherName?: string): void;
-            /**
-             * get the type of a value with handling of edge cases like `typeof []` and `typeof null`
-             */
-            getType(value: any): string;
+            readonly EXPECTED_COLOR: MatcherColorFn;
+            readonly RECEIVED_COLOR: MatcherColorFn;
+            readonly INVERTED_COLOR: MatcherColorFn;
+            readonly BOLD_WEIGHT: MatcherColorFn;
+            readonly DIM_COLOR: MatcherColorFn;
+            readonly SUGGEST_TO_CONTAIN_EQUAL: string;
+            diff(a: any, b: any, options?: import("jest-diff").DiffOptions): string | null;
+            ensureActualIsNumber(actual: any, matcherName: string, options?: MatcherHintOptions): void;
+            ensureExpectedIsNumber(actual: any, matcherName: string, options?: MatcherHintOptions): void;
+            ensureNoExpected(actual: any, matcherName: string, options?: MatcherHintOptions): void;
+            ensureNumbers(actual: any, expected: any, matcherName: string, options?: MatcherHintOptions): void;
+            ensureExpectedIsNonNegativeInteger(expected: any, matcherName: string, options?: MatcherHintOptions): void;
             matcherHint(
                 matcherName: string,
                 received?: string,
                 expected?: string,
-                options?: { secondArgument?: string; isDirectExpectCall?: boolean }
+                options?: MatcherHintOptions
+            ): string;
+            matcherErrorMessage(
+              hint: string,
+              generic: string,
+              specific: string
             ): string;
             pluralize(word: string, count: number): string;
+            printReceived(object: any): string;
             printExpected(value: any): string;
-            printReceived(value: any): string;
-            printWithType(name: string, received: any, print: (value: any) => string): string;
+            printWithType(name: string, value: any, print: (value: any) => string): string;
             stringify(object: {}, maxDepth?: number): string;
+            highlightTrailingWhitespace(text: string): string;
+
+            printDiffOrStringify(expected: any, received: any, expectedLabel: string, receivedLabel: string, expand: boolean): string;
+
+            getLabelPrinter(...strings: string[]): PrintLabel;
+
+            iterableEquality: EqualityTester;
+            subsetEquality: EqualityTester;
         };
         /**
          *  This is a deep-equality function that will return true if two objects have the same values (recursively).
          */
-        equals(a: any, b: any): boolean;
+        equals(a: any, b: any, customTesters?: EqualityTester[], strictCheck?: boolean): boolean;
         [other: string]: any;
     }
 
@@ -475,49 +536,7 @@ declare namespace jest {
         message: () => string;
     }
 
-    interface SnapshotSerializerOptions {
-        callToJSON?: boolean;
-        edgeSpacing?: string;
-        spacing?: string;
-        escapeRegex?: boolean;
-        highlight?: boolean;
-        indent?: number;
-        maxDepth?: number;
-        min?: boolean;
-        plugins?: SnapshotSerializerPlugin[];
-        printFunctionName?: boolean;
-        theme?: SnapshotSerializerOptionsTheme;
-
-        // see https://github.com/facebook/jest/blob/e56103cf142d2e87542ddfb6bd892bcee262c0e6/types/PrettyFormat.js
-    }
-    interface SnapshotSerializerOptionsTheme {
-        comment?: string;
-        content?: string;
-        prop?: string;
-        tag?: string;
-        value?: string;
-    }
-    interface SnapshotSerializerColor {
-        close: string;
-        open: string;
-    }
-    interface SnapshotSerializerColors {
-        comment: SnapshotSerializerColor;
-        content: SnapshotSerializerColor;
-        prop: SnapshotSerializerColor;
-        tag: SnapshotSerializerColor;
-        value: SnapshotSerializerColor;
-    }
-    interface SnapshotSerializerPlugin {
-        print(
-            val: any,
-            serialize: (val: any) => string,
-            indent: (str: string) => string,
-            opts: SnapshotSerializerOptions,
-            colors: SnapshotSerializerColors
-        ): string;
-        test(val: any): boolean;
-    }
+    type SnapshotSerializerPlugin = import('pretty-format').Plugin;
 
     interface InverseAsymmetricMatchers {
         /**
@@ -525,16 +544,21 @@ declare namespace jest {
          * does not contain all of the elements in the expected array. That is,
          * the expected array is not a subset of the received array. It is the
          * inverse of `expect.arrayContaining`.
+         *
+         * Optionally, you can provide a type for the elements via a generic.
          */
-        arrayContaining(arr: any[]): any;
+        arrayContaining<E = any>(arr: E[]): any;
         /**
          * `expect.not.objectContaining(object)` matches any received object
          * that does not recursively match the expected properties. That is, the
          * expected object is not a subset of the received object. Therefore,
          * it matches a received object which contains properties that are not
          * in the expected object. It is the inverse of `expect.objectContaining`.
+         *
+         * Optionally, you can provide a type for the object via a generic.
+         * This ensures that the object contains the desired structure.
          */
-        objectContaining(obj: {}): any;
+        objectContaining<E = {}>(obj: E): any;
         /**
          * `expect.not.stringMatching(string | regexp)` matches the received
          * string that does not match the expected regexp. It is the inverse of
@@ -604,8 +628,10 @@ declare namespace jest {
         /**
          * Matches any array made up entirely of elements in the provided array.
          * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
+         *
+         * Optionally, you can provide a type for the elements via a generic.
          */
-        arrayContaining(arr: any[]): any;
+        arrayContaining<E = any>(arr: E[]): any;
         /**
          * Verifies that a certain number of assertions are called during a test.
          * This is often useful when testing asynchronous code, in order to
@@ -629,8 +655,11 @@ declare namespace jest {
         /**
          * Matches any object that recursively matches the provided keys.
          * This is often handy in conjunction with other asymmetric matchers.
+         *
+         * Optionally, you can provide a type for the object via a generic.
+         * This ensures that the object contains the desired structure.
          */
-        objectContaining(obj: {}): any;
+        objectContaining<E = {}>(obj: E): any;
         /**
          * Matches any string that contains the exact provided string
          */
@@ -664,28 +693,43 @@ declare namespace jest {
         not: T
     };
     // should be R extends void|Promise<void> but getting dtslint error
-    interface Matchers<R, T> {
+    interface Matchers<R, T = {}> {
         /**
          * Ensures the last call to a mock function was provided specific args.
+         *
+         * Optionally, you can provide a type for the expected arguments via a generic.
+         * Note that the type must be either an array or a tuple.
          */
-        lastCalledWith(...args: any[]): R;
+        lastCalledWith<E extends any[]>(...args: E): R;
         /**
          * Ensure that the last call to a mock function has returned a specified value.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        lastReturnedWith(value: any): R;
+        lastReturnedWith<E = any>(value: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
+         *
+         * Optionally, you can provide a type for the expected arguments via a generic.
+         * Note that the type must be either an array or a tuple.
          */
-        nthCalledWith(nthCall: number, ...params: any[]): R;
+        nthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
         /**
          * Ensure that the nth call to a mock function has returned a specified value.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        nthReturnedWith(n: number, value: any): R;
+        nthReturnedWith<E = any>(n: number, value: E): R;
         /**
-         * Checks that a value is what you expect. It uses `===` to check strict equality.
+         * Checks that a value is what you expect. It uses `Object.is` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toBe(expected: any): R;
+        toBe<E = any>(expected: E): R;
         /**
          * Ensures that a mock function is called.
          */
@@ -696,8 +740,11 @@ declare namespace jest {
         toBeCalledTimes(expected: number): R;
         /**
          * Ensure that a mock function is called with specific arguments.
+         *
+         * Optionally, you can provide a type for the expected arguments via a generic.
+         * Note that the type must be either an array or a tuple.
          */
-        toBeCalledWith(...args: any[]): R;
+        toBeCalledWith<E extends any[]>(...args: E): R;
         /**
          * Using exact equality with floating point numbers is a bad idea.
          * Rounding means that intuitive things fail.
@@ -724,8 +771,11 @@ declare namespace jest {
         /**
          * Ensure that an object is an instance of a class.
          * This matcher uses `instanceof` underneath.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toBeInstanceOf(expected: any): R;
+        toBeInstanceOf<E = any>(expected: E): R;
         /**
          * For comparing floating point numbers.
          */
@@ -756,19 +806,29 @@ declare namespace jest {
         /**
          * Used when you want to check that an item is in a list.
          * For testing the items in the list, this uses `===`, a strict equality check.
+         * It can also check whether a string is a substring of another string.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toContain(expected: any): R;
+        toContain<E = any>(expected: E): R;
         /**
          * Used when you want to check that an item is in a list.
-         * For testing the items in the list, this  matcher recursively checks the
+         * For testing the items in the list, this matcher recursively checks the
          * equality of all fields, rather than checking for object identity.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toContainEqual(expected: any): R;
+        toContainEqual<E = any>(expected: E): R;
         /**
          * Used when you want to check that two objects have the same value.
          * This matcher recursively checks the equality of all fields, rather than checking for object identity.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toEqual(expected: any): R;
+        toEqual<E = any>(expected: E): R;
         /**
          * Ensures that a mock function is called.
          */
@@ -779,23 +839,35 @@ declare namespace jest {
         toHaveBeenCalledTimes(expected: number): R;
         /**
          * Ensure that a mock function is called with specific arguments.
+         *
+         * Optionally, you can provide a type for the expected arguments via a generic.
+         * Note that the type must be either an array or a tuple.
          */
-        toHaveBeenCalledWith(...params: any[]): R;
+        toHaveBeenCalledWith<E extends any[]>(...params: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
+         *
+         * Optionally, you can provide a type for the expected arguments via a generic.
+         * Note that the type must be either an array or a tuple.
          */
-        toHaveBeenNthCalledWith(nthCall: number, ...params: any[]): R;
+        toHaveBeenNthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
         /**
          * If you have a mock function, you can use `.toHaveBeenLastCalledWith`
          * to test what arguments it was last called with.
+         *
+         * Optionally, you can provide a type for the expected arguments via a generic.
+         * Note that the type must be either an array or a tuple.
          */
-        toHaveBeenLastCalledWith(...params: any[]): R;
+        toHaveBeenLastCalledWith<E extends any[]>(...params: E): R;
         /**
          * Use to test the specific value that a mock function last returned.
          * If the last call to the mock function threw an error, then this matcher will fail
          * no matter what value you provided as the expected return value.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toHaveLastReturnedWith(expected: any): R;
+        toHaveLastReturnedWith<E = any>(expected: E): R;
         /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
@@ -805,8 +877,11 @@ declare namespace jest {
          * Use to test the specific value that a mock function returned for the nth call.
          * If the nth call to the mock function threw an error, then this matcher will fail
          * no matter what value you provided as the expected return value.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toHaveNthReturnedWith(nthCall: number, expected: any): R;
+        toHaveNthReturnedWith<E = any>(nthCall: number, expected: E): R;
         /**
          * Use to check if property at provided reference keyPath exists for an object.
          * For checking deeply nested properties in an object you may use dot notation or an array containing
@@ -820,7 +895,7 @@ declare namespace jest {
          *
          * expect(houseForSale).toHaveProperty('kitchen.area', 20);
          */
-        toHaveProperty(propertyPath: string | any[], value?: any): R;
+        toHaveProperty<E = any>(propertyPath: string | any[], value?: E): R;
         /**
          * Use to test that the mock function successfully returned (i.e., did not throw an error) at least one time
          */
@@ -832,8 +907,11 @@ declare namespace jest {
         toHaveReturnedTimes(expected: number): R;
         /**
          * Use to ensure that a mock function returned a specific value.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toHaveReturnedWith(expected: any): R;
+        toHaveReturnedWith<E = any>(expected: E): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -891,12 +969,18 @@ declare namespace jest {
         toReturnTimes(count: number): R;
         /**
          * Ensure that a mock function has returned a specified value at least once.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toReturnWith(value: any): R;
+        toReturnWith<E = any>(value: E): R;
         /**
          * Use to test that objects have the same types as well as structure.
+         *
+         * Optionally, you can provide a type for the expected value via a generic.
+         * This is particuarly useful for ensuring expected objects have the right structure.
          */
-        toStrictEqual(expected: {}): R;
+        toStrictEqual<E = any>(expected: E): R;
         /**
          * Used to test that a function throws when it is called.
          */
@@ -967,6 +1051,11 @@ declare namespace jest {
     }
 
     interface SpyInstance<T = any, Y extends any[] = any> extends MockInstance<T, Y> {}
+
+    /**
+     * Represents a function that has been spied on.
+     */
+    type SpiedFunction<T extends (...args: any[]) => any> = SpyInstance<ReturnType<T>, ArgsType<T>>;
 
     /**
      * Wrap a function with mock definitions
@@ -1401,536 +1490,5 @@ declare namespace jasmine {
     interface ArrayLike<T> {
         length: number;
         [n: number]: T;
-    }
-}
-
-declare namespace jest {
-    // types for implementing custom interfaces, from https://github.com/facebook/jest/tree/dd6c5c4/types
-
-    // https://facebook.github.io/jest/docs/en/configuration.html#transform-object-string-string
-    // const transformer: Transformer;
-
-    // https://facebook.github.io/jest/docs/en/configuration.html#reporters-array-modulename-modulename-options
-    // const reporter: Reporter;
-
-    // https://facebook.github.io/jest/docs/en/configuration.html#testrunner-string
-    // const testRunner: TestFramework;
-
-    // https://facebook.github.io/jest/docs/en/configuration.html#testresultsprocessor-string
-    // const testResultsProcessor: TestResultsProcessor;
-
-    // leave above declarations for referencing type-dependencies
-    // .vscode/settings.json: "typescript.referencesCodeLens.enabled": true
-
-    // custom
-
-    // flow's Maybe type https://flow.org/en/docs/types/primitives/#toc-maybe-types
-    type Maybe<T> = void | null | undefined | T; // tslint:disable-line:void-return
-
-    type TestResultsProcessor = (testResult: AggregatedResult) => AggregatedResult;
-
-    type HasteResolver = any; // import HasteResolver from 'jest-resolve';
-    type ModuleMocker = any; // import { ModuleMocker } from 'jest-mock';
-    type ModuleMap = any; // import {ModuleMap} from 'jest-haste-map';
-    type HasteFS = any; // import {FS as HasteFS} from 'jest-haste-map';
-    type Runtime = any; // import Runtime from 'jest-runtime';
-    type Script = any; // import {Script} from 'vm';
-
-    // Config
-
-    type Path = string;
-    type Glob = string;
-
-    interface HasteConfig {
-        defaultPlatform?: Maybe<string>;
-        hasteImplModulePath?: string;
-        platforms?: string[];
-        providesModuleNodeModules: string[];
-    }
-
-    type ReporterConfig = [string, object];
-
-    type ConfigGlobals = object;
-
-    type SnapshotUpdateState = 'all' | 'new' | 'none';
-
-    interface DefaultOptions {
-        automock: boolean;
-        bail: boolean;
-        browser: boolean;
-        cache: boolean;
-        cacheDirectory: Path;
-        changedFilesWithAncestor: boolean;
-        clearMocks: boolean;
-        collectCoverage: boolean;
-        collectCoverageFrom: Maybe<string[]>;
-        coverageDirectory: Maybe<string>;
-        coveragePathIgnorePatterns: string[];
-        coverageReporters: string[];
-        coverageThreshold: Maybe<{ global: { [key: string]: number } }>;
-        errorOnDeprecated: boolean;
-        expand: boolean;
-        filter: Maybe<Path>;
-        forceCoverageMatch: Glob[];
-        globals: ConfigGlobals;
-        globalSetup: Maybe<string>;
-        globalTeardown: Maybe<string>;
-        haste: HasteConfig;
-        detectLeaks: boolean;
-        detectOpenHandles: boolean;
-        moduleDirectories: string[];
-        moduleFileExtensions: string[];
-        moduleNameMapper: { [key: string]: string };
-        modulePathIgnorePatterns: string[];
-        noStackTrace: boolean;
-        notify: boolean;
-        notifyMode: string;
-        preset: Maybe<string>;
-        projects: Maybe<Array<string | ProjectConfig>>;
-        resetMocks: boolean;
-        resetModules: boolean;
-        resolver: Maybe<Path>;
-        restoreMocks: boolean;
-        rootDir: Maybe<Path>;
-        roots: Maybe<Path[]>;
-        runner: string;
-        runTestsByPath: boolean;
-        setupFiles: Path[];
-        setupTestFrameworkScriptFile: Maybe<Path>;
-        skipFilter: boolean;
-        snapshotSerializers: Path[];
-        testEnvironment: string;
-        testEnvironmentOptions: object;
-        testFailureExitCode: string | number;
-        testLocationInResults: boolean;
-        testMatch: Glob[];
-        testPathIgnorePatterns: string[];
-        testRegex: string;
-        testResultsProcessor: Maybe<string>;
-        testRunner: Maybe<string>;
-        testURL: string;
-        timers: 'real' | 'fake';
-        transform: Maybe<{ [key: string]: string }>;
-        transformIgnorePatterns: Glob[];
-        watchPathIgnorePatterns: string[];
-        useStderr: boolean;
-        verbose: Maybe<boolean>;
-        watch: boolean;
-        watchman: boolean;
-    }
-
-    interface InitialOptions {
-        automock?: boolean;
-        bail?: boolean;
-        browser?: boolean;
-        cache?: boolean;
-        cacheDirectory?: Path;
-        clearMocks?: boolean;
-        changedFilesWithAncestor?: boolean;
-        changedSince?: string;
-        collectCoverage?: boolean;
-        collectCoverageFrom?: Glob[];
-        collectCoverageOnlyFrom?: { [key: string]: boolean };
-        coverageDirectory?: string;
-        coveragePathIgnorePatterns?: string[];
-        coverageReporters?: string[];
-        coverageThreshold?: { global: { [key: string]: number } };
-        detectLeaks?: boolean;
-        detectOpenHandles?: boolean;
-        displayName?: string;
-        expand?: boolean;
-        filter?: Path;
-        findRelatedTests?: boolean;
-        forceCoverageMatch?: Glob[];
-        forceExit?: boolean;
-        json?: boolean;
-        globals?: ConfigGlobals;
-        globalSetup?: Maybe<string>;
-        globalTeardown?: Maybe<string>;
-        haste?: HasteConfig;
-        reporters?: Array<ReporterConfig | string>;
-        logHeapUsage?: boolean;
-        lastCommit?: boolean;
-        listTests?: boolean;
-        mapCoverage?: boolean;
-        moduleDirectories?: string[];
-        moduleFileExtensions?: string[];
-        moduleLoader?: Path;
-        moduleNameMapper?: { [key: string]: string };
-        modulePathIgnorePatterns?: string[];
-        modulePaths?: string[];
-        name?: string;
-        noStackTrace?: boolean;
-        notify?: boolean;
-        notifyMode?: string;
-        onlyChanged?: boolean;
-        outputFile?: Path;
-        passWithNoTests?: boolean;
-        preprocessorIgnorePatterns?: Glob[];
-        preset?: Maybe<string>;
-        projects?: Glob[];
-        replname?: Maybe<string>;
-        resetMocks?: boolean;
-        resetModules?: boolean;
-        resolver?: Maybe<Path>;
-        restoreMocks?: boolean;
-        rootDir?: Path;
-        roots?: Path[];
-        runner?: string;
-        runTestsByPath?: boolean;
-        scriptPreprocessor?: string;
-        setupFiles?: Path[];
-        setupFilesAfterEnv?: Path[];
-        setupTestFrameworkScriptFile?: Path;
-        silent?: boolean;
-        skipFilter?: boolean;
-        skipNodeResolution?: boolean;
-        snapshotSerializers?: Path[];
-        errorOnDeprecated?: boolean;
-        testEnvironment?: string;
-        testEnvironmentOptions?: object;
-        testFailureExitCode?: string | number;
-        testLocationInResults?: boolean;
-        testMatch?: Glob[];
-        testNamePattern?: string;
-        testPathDirs?: Path[];
-        testPathIgnorePatterns?: string[];
-        testRegex?: string;
-        testResultsProcessor?: Maybe<string>;
-        testRunner?: string;
-        testURL?: string;
-        timers?: 'real' | 'fake';
-        transform?: { [key: string]: string };
-        transformIgnorePatterns?: Glob[];
-        watchPathIgnorePatterns?: string[];
-        unmockedModulePathPatterns?: string[];
-        updateSnapshot?: boolean;
-        useStderr?: boolean;
-        verbose?: Maybe<boolean>;
-        watch?: boolean;
-        watchAll?: boolean;
-        watchman?: boolean;
-        watchPlugins?: string[];
-    }
-
-    interface GlobalConfig {
-        bail: boolean;
-        collectCoverage: boolean;
-        collectCoverageFrom: Glob[];
-        collectCoverageOnlyFrom: Maybe<{ [key: string]: boolean }>;
-        coverageDirectory: string;
-        coverageReporters: string[];
-        coverageThreshold: { global: { [key: string]: number } };
-        expand: boolean;
-        forceExit: boolean;
-        logHeapUsage: boolean;
-        mapCoverage: boolean;
-        noStackTrace: boolean;
-        notify: boolean;
-        projects: Glob[];
-        replname: Maybe<string>;
-        reporters: ReporterConfig[];
-        rootDir: Path;
-        silent: boolean;
-        testNamePattern: string;
-        testPathPattern: string;
-        testResultsProcessor: Maybe<string>;
-        updateSnapshot: SnapshotUpdateState;
-        useStderr: boolean;
-        verbose: Maybe<boolean>;
-        watch: boolean;
-        watchman: boolean;
-    }
-
-    interface ProjectConfig {
-        automock: boolean;
-        browser: boolean;
-        cache: boolean;
-        cacheDirectory: Path;
-        clearMocks: boolean;
-        coveragePathIgnorePatterns: string[];
-        cwd: Path;
-        detectLeaks: boolean;
-        displayName: Maybe<string>;
-        forceCoverageMatch: Glob[];
-        globals: ConfigGlobals;
-        haste: HasteConfig;
-        moduleDirectories: string[];
-        moduleFileExtensions: string[];
-        moduleLoader: Path;
-        moduleNameMapper: Array<[string, string]>;
-        modulePathIgnorePatterns: string[];
-        modulePaths: string[];
-        name: string;
-        resetMocks: boolean;
-        resetModules: boolean;
-        resolver: Maybe<Path>;
-        rootDir: Path;
-        roots: Path[];
-        runner: string;
-        setupFiles: Path[];
-        setupTestFrameworkScriptFile: Path;
-        skipNodeResolution: boolean;
-        snapshotSerializers: Path[];
-        testEnvironment: string;
-        testEnvironmentOptions: object;
-        testLocationInResults: boolean;
-        testMatch: Glob[];
-        testPathIgnorePatterns: string[];
-        testRegex: string;
-        testRunner: string;
-        testURL: string;
-        timers: 'real' | 'fake';
-        transform: Array<[string, Path]>;
-        transformIgnorePatterns: Glob[];
-        unmockedModulePathPatterns: Maybe<string[]>;
-        watchPathIgnorePatterns: string[];
-    }
-
-    // Console
-
-    type LogMessage = string;
-    interface LogEntry {
-        message: LogMessage;
-        origin: string;
-        type: LogType;
-    }
-    type LogType = 'log' | 'info' | 'warn' | 'error';
-    type ConsoleBuffer = LogEntry[];
-
-    // Context
-
-    interface Context {
-        config: ProjectConfig;
-        hasteFS: HasteFS;
-        moduleMap: ModuleMap;
-        resolver: HasteResolver;
-    }
-
-    // Environment
-
-    interface FakeTimers {
-        clearAllTimers(): void;
-        getTimerCount(): number;
-        runAllImmediates(): void;
-        runAllTicks(): void;
-        runAllTimers(): void;
-        runTimersToTime(msToRun: number): void;
-        advanceTimersByTime(msToRun: number): void;
-        advanceTimersToNextTimer(steps?: number): void;
-        runOnlyPendingTimers(): void;
-        runWithRealTimers(callback: any): void;
-        useFakeTimers(): void;
-        useRealTimers(): void;
-    }
-
-    interface $JestEnvironment {
-        global: Global;
-        fakeTimers: FakeTimers;
-        testFilePath: string;
-        moduleMocker: ModuleMocker;
-
-        dispose(): void;
-        runScript(script: Script): any;
-    }
-
-    type Environment = $JestEnvironment;
-
-    // Global
-
-    type Global = object;
-
-    // Reporter
-
-    interface ReporterOnStartOptions {
-        estimatedTime: number;
-        showStatus: boolean;
-    }
-
-    // TestResult
-
-    interface RawFileCoverage {
-        path: string;
-        s: { [statementId: number]: number };
-        b: { [branchId: number]: number };
-        f: { [functionId: number]: number };
-        l: { [lineId: number]: number };
-        fnMap: { [functionId: number]: any };
-        statementMap: { [statementId: number]: any };
-        branchMap: { [branchId: number]: any };
-        inputSourceMap?: object;
-    }
-
-    interface RawCoverage {
-        [filePath: string]: RawFileCoverage;
-    }
-
-    interface FileCoverageTotal {
-        total: number;
-        covered: number;
-        skipped: number;
-        pct?: number;
-    }
-
-    interface CoverageSummary {
-        lines: FileCoverageTotal;
-        statements: FileCoverageTotal;
-        branches: FileCoverageTotal;
-        functions: FileCoverageTotal;
-    }
-
-    interface FileCoverage {
-        getLineCoverage(): object;
-        getUncoveredLines(): number[];
-        getBranchCoverageByLine(): object;
-        toJSON(): object;
-        merge(other: object): void;
-        computeSimpleTotals(property: string): FileCoverageTotal;
-        computeBranchTotals(): FileCoverageTotal;
-        resetHits(): void;
-        toSummary(): CoverageSummary;
-    }
-
-    interface CoverageMap {
-        merge(data: object): void;
-        getCoverageSummary(): FileCoverage;
-        data: RawCoverage;
-        addFileCoverage(fileCoverage: RawFileCoverage): void;
-        files(): string[];
-        fileCoverageFor(file: string): FileCoverage;
-    }
-
-    interface SerializableError {
-        code?: any;
-        message: string;
-        stack: Maybe<string>;
-        type?: string;
-    }
-
-    type Status = 'passed' | 'failed' | 'skipped' | 'pending';
-
-    type Bytes = number;
-    type Milliseconds = number;
-
-    interface AssertionResult {
-        ancestorTitles: string[];
-        duration?: Maybe<Milliseconds>;
-        failureMessages: string[];
-        fullName: string;
-        numPassingAsserts: number;
-        status: Status;
-        title: string;
-    }
-
-    interface AggregatedResult {
-        coverageMap?: Maybe<CoverageMap>;
-        numFailedTests: number;
-        numFailedTestSuites: number;
-        numPassedTests: number;
-        numPassedTestSuites: number;
-        numPendingTests: number;
-        numPendingTestSuites: number;
-        numRuntimeErrorTestSuites: number;
-        numTodoTests: number;
-        numTotalTests: number;
-        numTotalTestSuites: number;
-        snapshot: SnapshotSummary;
-        startTime: number;
-        success: boolean;
-        testResults: TestResult[];
-        wasInterrupted: boolean;
-    }
-
-    interface TestResult {
-        console: Maybe<ConsoleBuffer>;
-        coverage?: RawCoverage;
-        memoryUsage?: Bytes;
-        failureMessage: Maybe<string>;
-        numFailingTests: number;
-        numPassingTests: number;
-        numPendingTests: number;
-        perfStats: {
-            end: Milliseconds;
-            start: Milliseconds;
-        };
-        skipped: boolean;
-        snapshot: {
-            added: number;
-            fileDeleted: boolean;
-            matched: number;
-            unchecked: number;
-            unmatched: number;
-            updated: number;
-        };
-        sourceMaps: { [sourcePath: string]: string };
-        testExecError?: SerializableError;
-        testFilePath: string;
-        testResults: AssertionResult[];
-    }
-
-    interface SnapshotSummary {
-        added: number;
-        didUpdate: boolean;
-        failure: boolean;
-        filesAdded: number;
-        filesRemoved: number;
-        filesUnmatched: number;
-        filesUpdated: number;
-        matched: number;
-        total: number;
-        unchecked: number;
-        unmatched: number;
-        updated: number;
-    }
-
-    // TestRunner
-
-    interface Test {
-        context: Context;
-        duration?: number;
-        path: Path;
-    }
-
-    // tslint:disable-next-line:no-empty-interface
-    interface Set<T> {} // To allow non-ES6 users the Set below
-    interface Reporter {
-        onTestResult?(test: Test, testResult: TestResult, aggregatedResult: AggregatedResult): void;
-        onRunStart?(results: AggregatedResult, options: ReporterOnStartOptions): void;
-        onTestStart?(test: Test): void;
-        onRunComplete?(contexts: Set<Context>, results: AggregatedResult): Maybe<Promise<void>>;
-        getLastError?(): Maybe<Error>;
-    }
-
-    type TestFramework = (
-        globalConfig: GlobalConfig,
-        config: ProjectConfig,
-        environment: Environment,
-        runtime: Runtime,
-        testPath: string
-    ) => Promise<TestResult>;
-
-    // Transform
-
-    interface TransformedSource {
-        code: string;
-        map: Maybe<object | string>;
-    }
-
-    interface TransformOptions {
-        instrument: boolean;
-    }
-
-    interface Transformer {
-        canInstrument?: boolean;
-        createTransformer?(options: any): Transformer;
-
-        getCacheKey?(fileData: string, filePath: Path, configStr: string, options: TransformOptions): string;
-
-        process(
-            sourceText: string,
-            sourcePath: Path,
-            config: ProjectConfig,
-            options?: TransformOptions
-        ): string | TransformedSource;
     }
 }

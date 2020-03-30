@@ -1,12 +1,12 @@
+// tslint:disable: no-var-keyword prefer-const object-literal-shorthand
+
 // from https://developers.google.com/apps-script/overview
 function createAndSendDocument() {
   // Create a new Google Doc named 'Hello, world!'
   var doc = DocumentApp.create('Hello, world!');
 
   // Access the body of the document, then add a paragraph.
-  doc.getBody().appendParagraph(
-    'This document was created by Google Apps Script.'
-  );
+  doc.getBody().appendParagraph('This document was created by Google Apps Script.');
 
   // Get the URL of the document.
   var url = doc.getUrl();
@@ -34,7 +34,7 @@ const postTest = (payload: object): string => {
   const url = 'http://httpbin.org/post';
   const params: URLFetchRequestOptions = {
     method: 'post',
-    payload: payload
+    payload: payload,
   };
   return UrlFetchApp.fetch(url, params).getContentText();
 };
@@ -54,17 +54,14 @@ const createEvent = (): void => {
     location: 'The Deli',
     description: 'To discuss our plans for the presentation next week.',
     start: {
-      dateTime: start.toISOString()
+      dateTime: start.toISOString(),
     },
     end: {
-      dateTime: end.toISOString()
+      dateTime: end.toISOString(),
     },
-    attendees: [
-      { email: 'alice@example.com' },
-      { email: 'bob@example.com' }
-    ],
+    attendees: [{ email: 'alice@example.com' }, { email: 'bob@example.com' }],
     // Red background. Use Calendar.Colors.get() for the full list.
-    colorId: '11'
+    colorId: '11',
   };
   event = Calendar.Events.insert(event, calendarId);
   Logger.log('Event ID: ' + event.id);
@@ -79,7 +76,7 @@ const listAllUsers = () => {
       domain: 'example.com',
       orderBy: 'givenName',
       maxResults: 100,
-      pageToken: pageToken
+      pageToken: pageToken,
     });
     const users: GoogleAppsScript.AdminDirectory.Schema.User[] = page.users;
     if (users) {
@@ -105,44 +102,54 @@ function doGet(e: GoogleAppsScript.Events.DoGet) {
 }
 
 // Base Service
-function createFileFromBlob(blob: GoogleAppsScript.Base.Blob){
+function createFileFromBlob(blob: GoogleAppsScript.Base.Blob) {
   const file: GoogleAppsScript.Drive.File = DriveApp.createFile(blob);
 }
 
 // Console
-console.log("log");
-console.info("info");
-console.warn("warn");
-console.error("error");
-console.log("Console can use %s and %d format string.", "hello", 2);
+console.log('log');
+console.info('info');
+console.warn('warn');
+console.error('error');
+console.log('Console can use %s and %d format string.', 'hello', 2);
 
 // Data Studio Request
-const request : GoogleAppsScript.Data_Studio.Request<any> = {
+const request: GoogleAppsScript.Data_Studio.Request<any> = {
   configParams: {
-    my_param: 'my_param_value'
+    my_param: 'my_param_value',
   },
   dateRange: {
     endDate: '2019-09-14',
-    startDate: '2019-07-14'
+    startDate: '2019-07-14',
   },
   scriptParams: {
-    lastRefresh: '1569292983027'
+    lastRefresh: '1569292983027',
   },
   fields: [
     {
-      name: 'my_field_name'
-    }
+      name: 'my_field_name',
+    },
   ],
   dimensionsFilters: [
     [
       {
         fieldName: 'my_field_name',
-        values: [
-          'my_value'
-        ],
+        values: ['my_value'],
         type: 'INCLUDE',
-        operator: 'IN_LIST'
-      }
-    ]
-  ]
-}
+        operator: 'IN_LIST',
+      },
+    ],
+  ],
+};
+
+const tableCell = DocumentApp.create('')
+  .getCursor()
+  .getElement()
+  .asTableCell();
+tableCell.getParentRow().getChildIndex(tableCell);
+
+XmlService.createElement('')
+  .addContent(XmlService.createCdata(''))
+  .addContent(XmlService.createComment(''))
+  .addContent(XmlService.createDocType(''))
+  .addContent(XmlService.createText(''));

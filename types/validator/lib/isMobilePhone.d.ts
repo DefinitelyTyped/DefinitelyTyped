@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isMobilePhone: typeof validator.isMobilePhone;
-export = isMobilePhone;
+import validator from '../';
+export default validator.isMobilePhone;

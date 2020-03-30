@@ -64,9 +64,6 @@ declare module "v8" {
 
     function getHeapCodeStatistics(): HeapCodeStatistics;
 
-    /**
-     * @experimental
-     */
     class Serializer {
         /**
          * Writes out a header, which includes the serialization format version.
@@ -117,14 +114,10 @@ declare module "v8" {
     /**
      * A subclass of `Serializer` that serializes `TypedArray` (in particular `Buffer`) and `DataView` objects as host objects,
      * and only stores the part of their underlying `ArrayBuffers` that they are referring to.
-     * @experimental
      */
     class DefaultSerializer extends Serializer {
     }
 
-    /**
-     * @experimental
-     */
     class Deserializer {
         constructor(data: NodeJS.TypedArray);
         /**
@@ -178,20 +171,17 @@ declare module "v8" {
     /**
      * A subclass of `Serializer` that serializes `TypedArray` (in particular `Buffer`) and `DataView` objects as host objects,
      * and only stores the part of their underlying `ArrayBuffers` that they are referring to.
-     * @experimental
      */
     class DefaultDeserializer extends Deserializer {
     }
 
     /**
      * Uses a `DefaultSerializer` to serialize value into a buffer.
-     * @experimental
      */
     function serialize(value: any): Buffer;
 
     /**
      * Uses a `DefaultDeserializer` with default options to read a JS value from a buffer.
-     * @experimental
      */
     function deserialize(data: NodeJS.TypedArray): any;
 }

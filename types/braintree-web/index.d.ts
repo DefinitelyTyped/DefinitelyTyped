@@ -685,8 +685,8 @@ declare namespace braintree {
      *   }
      * }, callback);
      */
-     create(options: { client: Client, fields: HostedFieldFieldOptions, styles: any }): Promise<HostedFields>;
-     create(options: { client: Client, fields: HostedFieldFieldOptions, styles: any }, callback: callback): void;
+     create(options: { client: Client, fields: HostedFieldFieldOptions, styles?: any }): Promise<HostedFields>;
+     create(options: { client: Client, fields: HostedFieldFieldOptions, styles?: any }, callback: callback): void;
 
 
     /**
@@ -1008,7 +1008,8 @@ declare namespace braintree {
      * });
      * @returns {void}
      */
-    create: (options: { client: Client }, callback: callback) => void;
+    create(options: { client: Client }): Promise<PayPal>;
+    create(options: { client: Client }, callback: callback): void;
 
     /**
      * @description The current version of the SDK, i.e. `3.0.2`.
@@ -1111,6 +1112,7 @@ declare namespace braintree {
      * });
      * @returns {PayPal~tokenizeReturn} A handle to close the PayPal checkout frame.
      */
+    tokenize(options: { flow: string, intent?: string, offerCredit?: boolean, useraction?: string, amount?: (string | number), currency?: string, displayName?: string, locale?: string, enableShippingAddress?: boolean, shippingAddressOverride?: PayPalShippingAddress, shippingAddressEditable?: boolean, billingAgreementDescription?: string }): Promise<PayPalTokenizeReturn>;
     tokenize(options: { flow: string, intent?: string, offerCredit?: boolean, useraction?: string, amount?: (string | number), currency?: string, displayName?: string, locale?: string, enableShippingAddress?: boolean, shippingAddressOverride?: PayPalShippingAddress, shippingAddressEditable?: boolean, billingAgreementDescription?: string }, callback: callback): PayPalTokenizeReturn;
 
     /**

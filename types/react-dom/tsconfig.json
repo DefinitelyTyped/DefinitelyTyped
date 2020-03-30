@@ -1,12 +1,8 @@
 {
     "files": [
         "index.d.ts",
-        "experimental.d.ts",
         "test/react-dom-tests.tsx",
-        "test/experimental-tests.tsx",
-        "server/index.d.ts",
-        "node-stream/index.d.ts",
-        "test-utils/index.d.ts"
+        "test/experimental-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",

@@ -1,8 +1,10 @@
-// Type definitions for @reach/router 1.2
+// Type definitions for @reach/router 1.3
 // Project: https://github.com/reach/router
 // Definitions by: Kingdaro <https://github.com/kingdaro>,
 //                 A.Mokhtar <https://github.com/xMokAx>,
 //                 Awwit <https://github.com/awwit>
+//                 wroughtec <https://github.com/wroughtec>
+//                 O.Jackman <https://github.com/chilledoj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -153,3 +155,11 @@ export function isRedirect(error: any): error is RedirectRequest;
 export function redirectTo(uri: string): void;
 
 export const globalHistory: History;
+
+export function useLocation(): WindowLocation;
+
+export function useNavigate(): NavigateFn;
+
+export function useParams(): any;
+
+export function useMatch(pathname: string): null | { uri: string; path: string, [param: string]: string };

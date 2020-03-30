@@ -4,13 +4,14 @@
 //                 Steve Chun <https://github.com/stevechun>
 //                 Hammad Jutt <https://github.com/hammadj>
 //                 pera <https://github.com/santiagofm>
+//                 Max Komarychev <https://github.com/maxkomarychev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare global {
     const device: Detox.Device;
     const detox: Detox.Detox;
     const element: Detox.Element;
     const waitFor: Detox.WaitFor;
-    const expect: Detox.Expect<Detox.Expect<any>>;
+    const expect: Detox.Expect<Detox.Expect<Promise<void>>>;
     const by: Detox.Matchers;
 
     namespace Detox {
@@ -50,7 +51,7 @@ declare global {
             device: Device;
             element: Element;
             waitFor: WaitFor;
-            expect: Expect<Expect<any>>;
+            expect: Expect<Expect<Promise<void>>>;
             by: Matchers;
         }
 
@@ -170,7 +171,7 @@ declare global {
              *
              * > NOTE: At the moment, taking screenshots on-demand in --take-screenshots failing mode is not yet implemented.
              */
-            takeScreenShot(name: string): Promise<void>;
+            takeScreenshot(name: string): Promise<void>;
             /**
              * Simulate shake (iOS Only)
              */
@@ -287,7 +288,7 @@ declare global {
             and(by: Matchers): Matchers;
         }
         interface Expect<R> {
-            (element: Element): Expect<any>;
+            (element: Element): Expect<Promise<void>>;
             /**
              * Expect the view to be at least 75% visible.
              * @example await expect(element(by.id('UniqueId204'))).toBeVisible();

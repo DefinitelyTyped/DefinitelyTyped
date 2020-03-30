@@ -1,12 +1,17 @@
 import * as workerThreads from "worker_threads";
 import assert = require("assert");
 import { createContext } from "vm";
+import { Readable } from "stream";
 
 {
     if (workerThreads.isMainThread) {
         module.exports = async function parseJSAsync(script: string) {
             return new Promise((resolve, reject) => {
                 const worker = new workerThreads.Worker(__filename, {
+                    resourceLimits: {
+                        codeRangeSizeMb: 123,
+                    },
+                    argv: ['asd'],
                     workerData: script
                 });
                 worker.on('message', resolve);
@@ -49,7 +54,22 @@ import { createContext } from "vm";
 
 {
     const w = new workerThreads.Worker(__filename);
+    w.getHeapSnapshot().then((stream: Readable) => {
+        //
+    });
     w.terminate().then(() => {
         // woot
+    });
+
+    const ww = new workerThreads.Worker(__filename, {
+      env: workerThreads.SHARE_ENV
+    });
+
+    const www = new workerThreads.Worker(__filename, {
+      env: process.env
+    });
+
+    const wwww = new workerThreads.Worker(__filename, {
+      env: { doot: 'woot' }
     });
 }

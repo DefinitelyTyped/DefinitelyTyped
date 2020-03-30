@@ -31,6 +31,9 @@ videoQueue.process((job, done) => {
     // transcode video asynchronously and report progress
     job.progress(42);
 
+    // get current job progress
+    const progress = job.progress();
+
     job.log('loglog');
     job.isCompleted();
     job.isFailed();
@@ -59,6 +62,9 @@ videoQueue.process((job, done) => {
 audioQueue.process((job, done) => {
     // transcode audio asynchronously and report progress
     job.progress(42);
+
+    // get current job progress
+    const progress = job.progress();
 
     // call done when finished
     done();
@@ -159,6 +165,11 @@ videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
     // error
 });
 
+pdfQueue.whenCurrentJobsFinished()
+.then(() => {
+    // Jobs finished
+});
+
 //////////////////////////////////////////////////////////////////////////////////
 //
 // Typed Event Handlers
@@ -239,3 +250,8 @@ new Queue('profile');
 new Queue('profile', 'url');
 new Queue('profile', { prefix: 'test' });
 new Queue('profile', 'url', { prefix: 'test' });
+
+// Use low-level API
+const multi = myQueue.multi();
+multi.del(myQueue.toKey('repeat'));
+multi.exec();

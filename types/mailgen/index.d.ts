@@ -48,7 +48,7 @@ declare namespace Mailgen {
         title?: string;
         intro?: string | string[];
         action?: Action | Action[];
-        table?: Table;
+        table?: Table | Table[];
         dictionary?: any;
         goToAction?: GoToAction;
         outro?: string | string[];

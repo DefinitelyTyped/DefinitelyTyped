@@ -932,3 +932,70 @@ function test_frame() {
         console.log(parent.uuid, parent.name, parent.entityType, parent.parent.uuid, parent.parent.name);
     }, err => console.error(err));
 }
+
+async function testPlatform() {
+    // ** Class Methods ** //
+    // wrap
+    const platform = await fin.desktop.Platform.wrap({uuid: 'uuid',name: 'name'});
+    // getCurrent
+    const currentPlatform = await fin.desktop.Platform.getCurrent();
+    // getCurrentSync
+    const anotherCurrentPlatform = fin.desktop.Platform.getCurrentSync();
+    // start
+    fin.desktop.Platform.start({uuid: 'uuid', name: 'name'});
+    // start from manifest
+    fin.desktop.Platform.startFromManifest('some manifest url');
+
+    // ** Instance Methods ** //
+    // getSnapshot & applySnapshot
+    const snapshop = await platform.getSnapshot();
+    platform.applySnapshot(snapshop);
+    // create, reparent & close Views
+    const newViewIdentity = await platform.createView({url: 'some url', name: 'some name', target: {uuid: 'uuid', name: 'window name'}});
+    platform.reparentView({uuid: 'uuid', name: 'view_name'}, {uuid: 'uuid', name: 'target_name'});
+    platform.closeView(newViewIdentity);
+    // createWindow
+    platform.createWindow({uuid: 'uuid', name: 'name'});
+    // get and set context
+    const context = await platform.getContext();
+    platform.setContext(context);
+    // launchLegacyManifest
+    platform.launchLegacyManifest('some_manifest_url.html');
+    // onWindowContextUpdate
+    platform.onWindowContextUpdate((newContext, oldContext) => ({...oldContext, ...newContext}));
+    // quit
+    platform.quit();
+}
+
+async function testView() {
+    // ** Class Methods ** //
+    // wrap
+    const view = await fin.desktop.View.wrap({uuid: 'uuid',name: 'name'});
+    // getCurrent
+    const currentView = await fin.desktop.View.getCurrent();
+    // getCurrentSync
+    const anotherCurrentView = fin.desktop.View.getCurrentSync();
+    // create
+    fin.desktop.View.create({name: 'name', url: 'some_url.html', target: {uuid: 'uuid', name: 'window name'}});
+    // start from manifest
+    fin.desktop.Platform.startFromManifest('some manifest url');
+
+    // ** Instance Methods ** //
+    // attach
+    view.attach({uuid: 'uuid', name: 'target window name'});
+
+    // show and hide
+    view.show().then(() => view.hide());
+    // setBounds
+    view.setBounds({height: 320, width: 320, top: 20, left: 20});
+    // getInfo
+    const info = await view.getInfo();
+    // get and update options
+    view.getOptions().then(() => view.updateOptions({autoResize: {width: true}}));
+    // getCurrentWindow
+    const currentWin = await view.getCurrentWindow();
+    // setCustomWindowHandler
+    view.setCustomWindowHandler(['url1.html, url2.html'], () => null);
+    // destroy
+    view.destroy();
+}

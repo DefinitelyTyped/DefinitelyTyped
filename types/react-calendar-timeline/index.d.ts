@@ -1,8 +1,9 @@
 // Type definitions for react-calendar-timeline v0.26.6
 // Project: https://github.com/namespace-ee/react-calendar-timeline
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
-//				         Alex Maclean <https://github.com/acemac>
-//				         Andrii Los <https://github.com/rip21>
+//                 Alex Maclean <https://github.com/acemac>
+//                 Andrii Los <https://github.com/rip21>
+//                 Jon Caruana <https://github.com/joncar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -10,15 +11,17 @@ import * as React from 'react';
 import { Moment } from 'moment';
 
 declare module 'react-calendar-timeline' {
+    type Id = number | string;
+
     export interface TimelineGroupBase {
-        id: number;
+        id: Id;
         title: React.ReactNode;
         rightTitle?: React.ReactNode;
     }
 
     export interface TimelineItemBase<DateType> {
-        id: number;
-        group: number;
+        id: Id;
+        group: Id;
         title?: React.ReactNode;
         start_time: DateType;
         end_time: DateType;
@@ -96,7 +99,7 @@ declare module 'react-calendar-timeline' {
     }
 
     export interface ItemRendererGetItemPropsReturnType {
-        key: number;
+        key: Id;
         ref: React.Ref<any>;
         className: string;
         onMouseDown: React.MouseEventHandler;
@@ -112,14 +115,14 @@ declare module 'react-calendar-timeline' {
 
     export interface ItemRendererGetResizePropsReturnType {
         left?: {
-            key: number;
             ref: React.Ref<any>;
             className: string;
+            style: React.CSSProperties;
         };
         right?: {
-            key: number;
             ref: React.Ref<any>;
             className: string;
+            style: React.CSSProperties;
         };
     }
 
@@ -138,7 +141,7 @@ declare module 'react-calendar-timeline' {
         getItemProps: (
             props: GetItemsProps,
         ) => {
-            key: number;
+            key: Id;
             ref: React.Ref<any>;
             className: string;
             onMouseDown: React.MouseEventHandler;
@@ -159,7 +162,7 @@ declare module 'react-calendar-timeline' {
 
     export interface OnItemDragObjectBase {
         eventType: 'move' | 'resize';
-        itemId: number;
+        itemId: Id;
         time: number;
     }
 
@@ -194,8 +197,8 @@ declare module 'react-calendar-timeline' {
         keys?: TimelineKeys;
         defaultTimeStart?: Date | Moment;
         defaultTimeEnd?: Date | Moment;
-        visibleTimeStart?: Date | Moment;
-        visibleTimeEnd?: Date | Moment;
+        visibleTimeStart?: Date | Moment | number;
+        visibleTimeEnd?: Date | Moment | number;
         selected?: number[];
         sidebarWidth?: number;
         sidebarContent?: React.ReactNode;
@@ -218,20 +221,20 @@ declare module 'react-calendar-timeline' {
         timeSteps?: TimelineTimeSteps;
         scrollRef?: React.Ref<any>;
         onItemDrag?(itemDragObject: OnItemDragObjectMove | OnItemDragObjectResize): void;
-        onItemMove?(itemId: number, dragTime: number, newGroupOrder: number): void;
-        onItemResize?(itemId: number, endTimeOrStartTime: number, edge: 'left' | 'right'): void;
-        onItemSelect?(itemId: number, e: any, time: number): void;
+        onItemMove?(itemId: Id, dragTime: number, newGroupOrder: number): void;
+        onItemResize?(itemId: Id, endTimeOrStartTime: number, edge: 'left' | 'right'): void;
+        onItemSelect?(itemId: Id, e: any, time: number): void;
         onItemDeselect?(e: React.SyntheticEvent): void;
-        onItemClick?(itemId: number, e: React.SyntheticEvent, time: number): void;
-        onItemDoubleClick?(itemId: number, e: React.SyntheticEvent, time: number): void;
-        onItemContextMenu?(itemId: number, e: React.SyntheticEvent, time: number): void;
-        onCanvasClick?(groupId: number, time: number, e: React.SyntheticEvent): void;
-        onCanvasDoubleClick?(group: CustomGroup, time: number, e: React.SyntheticEvent): void;
-        onCanvasContextMenu?(group: CustomGroup, time: number, e: React.SyntheticEvent): void;
+        onItemClick?(itemId: Id, e: React.SyntheticEvent, time: number): void;
+        onItemDoubleClick?(itemId: Id, e: React.SyntheticEvent, time: number): void;
+        onItemContextMenu?(itemId: Id, e: React.SyntheticEvent, time: number): void;
+        onCanvasClick?(groupId: Id, time: number, e: React.SyntheticEvent): void;
+        onCanvasDoubleClick?(groupId: Id, time: number, e: React.SyntheticEvent): void;
+        onCanvasContextMenu?(groupId: Id, time: number, e: React.SyntheticEvent): void;
         onZoom?(timelineContext: TimelineContext): void;
         moveResizeValidator?(
             action: 'move' | 'resize',
-            itemId: number,
+            itemId: Id,
             time: number,
             resizeEdge: 'left' | 'right',
         ): number;

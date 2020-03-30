@@ -1,4 +1,4 @@
-// Type definitions for Cytoscape.js 3.8
+// Type definitions for Cytoscape.js 3.14
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
@@ -6,6 +6,9 @@
 //                  Jan-Niclas Struewer <https://github.com/janniclas>
 //                  Cerberuser <https://github.com/cerberuser>
 //                  Andrej Kirejeŭ <https://github.com/gsbelarus>
+//                  Peter Ferrarotto <https://github.com/peterjferrarotto>
+//                  Xavier Ho <https://github.com/spaxe>
+//                  Jongsu Liam Kim <https://github.com/appleparan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -3269,7 +3272,51 @@ declare namespace cytoscape {
          * The optimal result is found with a high probability, but without guarantee.
          * http://js.cytoscape.org/#eles.kargerStein
          */
-        kargerStein(): { cut: EdgeCollection; partitionFirst: NodeCollection; partitionSecond: NodeCollection; };
+        kargerStein(): { cut: EdgeCollection; components: CollectionReturnValue; partitionFirst: NodeCollection; partitionSecond: NodeCollection; };
+        /**
+         * finds the biconnected components in an undirected graph,
+         * as well as their respective cut vertices, using an algorithm due to Hopcroft and Tarjan.
+         * http://js.cytoscape.org/#eles.hopcroftTarjanBiconnected
+         */
+        hopcroftTarjanBiconnected(): { cut: NodeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the biconnected components in an undirected graph,
+         * as well as their respective cut vertices, using an algorithm due to Hopcroft and Tarjan.
+         * http://js.cytoscape.org/#eles.hopcroftTarjanBiconnected
+         */
+        hopcroftTarjanBiconnectedComponents(): { cut: NodeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the biconnected components in an undirected graph,
+         * as well as their respective cut vertices, using an algorithm due to Hopcroft and Tarjan.
+         * http://js.cytoscape.org/#eles.hopcroftTarjanBiconnected
+         */
+        htb(): { cut: NodeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the biconnected components in an undirected graph,
+         * as well as their respective cut vertices, using an algorithm due to Hopcroft and Tarjan.
+         * http://js.cytoscape.org/#eles.hopcroftTarjanBiconnected
+         */
+        htbc(): { cut: NodeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the strongly connected components of a directed graph using Tarjan's algorithm.
+         * http://js.cytoscape.org/#eles.tarjanStronglyConnected
+         */
+        tarjanStronglyConnected(): { cut: EdgeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the strongly connected components of a directed graph using Tarjan's algorithm.
+         * http://js.cytoscape.org/#eles.tarjanStronglyConnected
+         */
+        tarjanStronglyConnectedComponents(): { cut: EdgeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the strongly connected components of a directed graph using Tarjan's algorithm.
+         * http://js.cytoscape.org/#eles.tarjanStronglyConnected
+         */
+        tsc(): { cut: EdgeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the strongly connected components of a directed graph using Tarjan's algorithm.
+         * http://js.cytoscape.org/#eles.tarjanStronglyConnected
+         */
+        tscc(): { cut: EdgeCollection; components: CollectionReturnValue; };
         /**
          * Rank the nodes in the collection using the Page Rank algorithm.
          * http://js.cytoscape.org/#eles.pageRank
@@ -3707,7 +3754,7 @@ declare namespace cytoscape {
             "pie-i-background-opacity": PropertyValueNode<number>;
         }
 
-        interface Edge extends EdgeLine, EdgeArrow, Partial<Overlay>, Partial<BezierEdges>, Partial<UnbundledBezierEdges>,
+        interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>, Partial<UnbundledBezierEdges>,
         Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>, Partial<Labels<EdgeSingular>> { }
 
         /**
@@ -3740,6 +3787,43 @@ declare namespace cytoscape {
              * The style of the edge’s line.
              */
             "line-style"?: PropertyValueEdge<LineStyle>;
+            /**
+             * The cap of the edge's line.
+             */
+            "line-cap"?: PropertyValueEdge<"butt" | "round" | "square">;
+            /**
+             * The filling style of the edge's line.
+             */
+            "line-fill"?: PropertyValueEdge<"solid" | "linear-gradient" | "radial-gradient">;
+            /**
+             * The dashed line pattern which specifies alternating lengths of lines and gaps.
+             */
+            "line-dash-pattern"?: Array<PropertyValueEdge<number>>;
+            /**
+             * The dashed line offset.
+             */
+            "line-dash-offset"?: PropertyValueEdge<number>;
+            /**
+             * The distance the edge ends from its target.
+             */
+            "target-distance-from-node"?: PropertyValueEdge<number>;
+        }
+
+        /**
+         * These properties specify the gradient colouration of an edge's line:
+         *
+         * https://js.cytoscape.org/#style/gradient
+         */
+        interface Gradient {
+            /**
+             * The colours of the gradient stops.
+             */
+            "line-gradient-stop-colours"?: Array<PropertyValueEdge<Colour>>;
+            /**
+             * The positions of the gradient stops.
+             * If not specified (or invalid), the stops will divide equally.
+             */
+            "line-gradient-stop-positions"?: Array<PropertyValueEdge<number>>;
         }
 
         /**
@@ -3875,6 +3959,9 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#style/edge-arrow
          */
         interface EdgeArrow {
+            /** The size of the arrow. */
+            "arrow-scale"?: PropertyValueEdge<number>;
+
             /** The colour of the edge’s source arrow. */
             "source-arrow-color"?: PropertyValueEdge<Colour>;
             /** The colour of the edge’s "mid-source" arrow. */
@@ -4131,6 +4218,10 @@ declare namespace cytoscape {
              * Background:
              */
 
+            /**
+             * The padding provides visual spacing between the text and the edge of the background.
+             */
+            "text-background-padding": PropertyValue<SingularType, string>;
             /**
              * A colour to apply on the text background.
              */
@@ -4634,7 +4725,7 @@ declare namespace cytoscape {
         // force num of columns in the grid
         cols?: number;
         // returns { row, col } for element
-        position(nodeid: string): { row: number; col: number; };
+        position(node: NodeSingular): { row: number; col: number; };
     }
 
     /**
@@ -4928,4 +5019,10 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#extensions
      */
     function use(module: Ext): void;
+    /**
+     * Surpress Cytoscape internal warnings globally with a flag.
+     * @param condition If true, all Cytoscape warnings are surpressed.
+     * https://js.cytoscape.org/#core/initialisation
+     */
+    function warnings(condition: boolean): void;
 }

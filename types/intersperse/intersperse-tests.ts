@@ -1,3 +1,5 @@
 import intersperse = require('intersperse');
 
-const result: any[] = intersperse([1, 2, 3], 'a');
+const a: Array<string | number> = intersperse(['a', 'b', 'c'], 1);
+
+const b: string[] = intersperse(['a', 'b', 'c'], 'd');

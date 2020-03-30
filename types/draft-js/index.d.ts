@@ -98,9 +98,9 @@ declare namespace Draft {
                 // that will be rendered for matching ranges.
                 customStyleMap?: DraftStyleMap;
 
-                // Provide a function that will construct CSS style objects given inline
-                // style names.
-                customStyleFn?: (style: DraftInlineStyle, block: ContentBlock) => DraftStyleMap;
+                // Define a function to transform inline styles to CSS objects
+                // that are applied to spans of text.
+                customStyleFn?: (style: DraftInlineStyle, block: ContentBlock) => React.CSSProperties;
 
                 // A function that accepts a synthetic key event and returns
                 // the matching DraftEditorCommand constant, or null if no command should

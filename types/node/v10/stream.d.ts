@@ -195,6 +195,8 @@ declare module "stream" {
             allowHalfOpen?: boolean;
             readableObjectMode?: boolean;
             writableObjectMode?: boolean;
+            readableHighWaterMark?: number;
+            writableHighWaterMark?: number;
             read?(this: Duplex, size: number): void;
             write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -287,6 +289,13 @@ declare module "stream" {
                 stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
                 ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream>,
             ): Promise<void>;
+        }
+
+        interface Pipe {
+            close(): void;
+            hasRef(): boolean;
+            ref(): void;
+            unref(): void;
         }
     }
 

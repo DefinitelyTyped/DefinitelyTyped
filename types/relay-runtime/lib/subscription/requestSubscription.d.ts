@@ -10,7 +10,7 @@ export interface GraphQLSubscriptionConfig<TSubscriptionPayload> {
     onCompleted?: () => void;
     onError?: (error: Error) => void;
     onNext?: (response: TSubscriptionPayload | null | undefined) => void;
-    updater?: SelectorStoreUpdater;
+    updater?: SelectorStoreUpdater<TSubscriptionPayload>;
 }
 
 export function requestSubscription<TSubscriptionPayload>(

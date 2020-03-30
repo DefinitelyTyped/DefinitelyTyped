@@ -71,6 +71,9 @@ strOutput = numberFormatter(20);
 numberFormatter = Globalize.numberFormatter({ style: "decimal" });
 strOutput = numberFormatter(20.2);
 
+numberFormatter = Globalize.numberFormatter({ compact: "short" });
+strOutput = numberFormatter(27588910);
+
 let numberParser = en.numberParser();
 let numOutput = numberParser("20");
 

@@ -190,6 +190,9 @@ declare module 'jsoneditor' {
         setTextSelection(start: SelectionPosition, end: SelectionPosition): void;
         update(json: any): void;
         updateText(jsonString: string): void;
+        format?: () => void;
+        compact?: () => void;
+        repair?: () => void;
 
         static VALID_OPTIONS: Array<string>;
         static ace: AceAjax.Ace;

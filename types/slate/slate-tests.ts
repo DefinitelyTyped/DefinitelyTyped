@@ -1,5 +1,6 @@
 import {
     Block,
+    Controller,
     Value,
     Data,
     BlockJSON,
@@ -108,6 +109,47 @@ const schema2: SchemaProperties = {
     }
 };
 
+const pluginDefault: Plugin = {
+    normalizeNode: (node: Node, editor, next: () => void) => {
+        // $ExpectType Controller
+        editor;
+    },
+    onChange: (editor, next: () => void) => {
+        // $ExpectType Controller
+        editor;
+    },
+    onCommand: (command: Command, editor, next: () => void) => {
+        // $ExpectType Controller
+        editor;
+    },
+    onConstruct: (editor, next: () => void) => {
+        // $ExpectType Controller
+        editor;
+    },
+    onQuery: (query: Query, editor, next: () => void) => {
+        // $ExpectType Controller
+        editor;
+    },
+    validateNode: (node: Node, editor, next: () => void) => {
+        // $ExpectType Controller
+        editor;
+    },
+
+    commands: {
+        someCommand: (editor, ...args: any[]) => {
+            // $ExpectType Controller
+            editor;
+            return editor;
+        }
+    },
+    queries: {
+        someQuery: (editor, ...args: any[]) => {
+            // $ExpectType Controller
+            editor;
+        }
+    },
+};
+
 const pluginCommandName = 'plugin_command';
 const pluginCommandFunc = (editor: Editor, ...args: any[]) => editor;
 
@@ -115,7 +157,7 @@ const pluginQueryName = 'plugin_query';
 const pluginQueryResult = 1000;
 const pluginQueryFunc = (editor: Editor, ...args: any[]) => pluginQueryResult;
 
-const plugin: Plugin = {
+const plugin: Plugin<Editor> = {
     normalizeNode: (node: Node, editor: Editor, next: () => void) => next(),
     onChange: (editor: Editor, next: () => void) => next(),
     onCommand: (command: Command, editor: Editor, next: () => void) => next(),
@@ -143,6 +185,8 @@ editor.command(pluginCommandFunc, 1);
 editor.query(pluginQueryName, 1);
 editor.query(pluginQueryFunc, 1);
 
+editor.hasCommand('testCommand');
+editor.hasQuery('testQuery');
 editor.registerQuery("testQuery");
 editor.registerCommand("testCommand");
 editor.setReadOnly(true).setValue(value);
