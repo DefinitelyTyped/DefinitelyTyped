@@ -600,24 +600,28 @@ declare namespace validator {
      */
     function isInt(str: string, options?: IsIntOptions): boolean;
 
+    type IPVersion = '4' | '6' | 4 | 6;
+
     /**
      * Check if the string is an IP (version 4 or 6).
      *
      * @param [version] - IP Version
      */
-    function isIP(str: string, version?: '4' | '6'): boolean;
+    function isIP(str: string, version?: IPVersion): boolean;
 
     /**
      * Check if the string is an IP Range (version 4 only).
      */
     function isIPRange(str: string): boolean;
 
+    type ISBNVersion = '10' | '13' | 10 | 13;
+
     /**
      * Check if the string is an ISBN (version 10 or 13).
      *
      * @param [version] - ISBN Version
      */
-    function isISBN(str: string, version?: '10' | '13'): boolean;
+    function isISBN(str: string, version?: ISBNVersion): boolean;
 
     /**
      * Check if the string is an [ISIN](https://en.wikipedia.org/wiki/International_Securities_Identification_Number) (stock/security identifier).
@@ -1031,12 +1035,13 @@ declare namespace validator {
      */
     function isUppercase(str: string): boolean;
 
+    type UUIDVersion = 3 | 4 | 5 | '3' | '4' | '5' | 'all';
     /**
      * Check if the string is a UUID (version 3, 4 or 5).
      *
      * @param [version="all"] - UUID version
      */
-    function isUUID(str: string, version?: 3 | 4 | 5 | '3' | '4' | '5' | 'all'): boolean;
+    function isUUID(str: string, version?: UUIDVersion): boolean;
 
     /**
      * Check if the string contains a mixture of full and half-width chars.
