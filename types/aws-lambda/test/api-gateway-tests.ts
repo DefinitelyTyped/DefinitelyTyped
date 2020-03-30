@@ -26,7 +26,7 @@ import {
     ProxyCallback,
     ProxyHandler,
     Statement,
-} from 'aws-lambda';
+} from "aws-lambda";
 
 interface CustomAuthorizerContext extends APIGatewayAuthorizerResultContext {
     valid: string | number | boolean | null | undefined;
@@ -67,15 +67,15 @@ type ProbablyInvalidCustomProxyHandler = APIGatewayProxyWithLambdaAuthorizerHand
 
 let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     strOrNull = event.body;
-    str = event.headers['example'];
-    str = event.multiValueHeaders['example'][0];
+    str = event.headers["example"];
+    str = event.multiValueHeaders["example"][0];
     str = event.httpMethod;
     bool = event.isBase64Encoded;
     str = event.path;
-    str = event.pathParameters!['example'];
-    str = event.queryStringParameters!['example'];
-    str = event.multiValueQueryStringParameters!['example'][0];
-    str = event.stageVariables!['example'];
+    str = event.pathParameters!["example"];
+    str = event.queryStringParameters!["example"];
+    str = event.multiValueQueryStringParameters!["example"][0];
+    str = event.stageVariables!["example"];
     let requestContext: APIGatewayEventRequestContext;
     requestContext = event.requestContext;
     let requestContextWithCustomAuthorizer: APIGatewayEventRequestContextWithAuthorizer<CustomAuthorizerContext>;
@@ -139,8 +139,8 @@ const proxyHandlerWithCustomAuthorizer: APIGatewayProxyWithLambdaAuthorizerHandl
 ) => {
     // standard fields...
     strOrNull = event.body;
-    str = event.headers['example'];
-    str = event.multiValueHeaders['example'][0];
+    str = event.headers["example"];
+    str = event.multiValueHeaders["example"][0];
 
     // It seems like it would be easy to make this mistake, but it's still a useful type.
     let requestContextWithAuthorizerDirectly: APIGatewayEventRequestContextWithAuthorizer<CustomAuthorizerContext>;
@@ -199,7 +199,7 @@ function createProxyResult(): APIGatewayProxyResult {
 }
 
 const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback) => {
-    if (event.type === 'TOKEN') {
+    if (event.type === "TOKEN") {
         str = event.methodArn;
         str = event.authorizationToken;
         str = event.resource; // $ExpectError
@@ -223,7 +223,7 @@ const authorizerWithCustomContext: APIGatewayAuthorizerWithContextHandler<Custom
     context,
     callback,
 ) => {
-    if (event.type === 'TOKEN') {
+    if (event.type === "TOKEN") {
         str = event.methodArn;
         str = event.authorizationToken;
         str = event.resource; // $ExpectError
@@ -382,14 +382,14 @@ function createPolicyDocument(): PolicyDocument {
         Effect: str,
         Resource: [str, str],
         Condition: {
-            condition1: { key: 'value' },
+            condition1: { key: "value" },
             condition2: [
                 {
-                    key1: 'value',
-                    key2: 'value',
+                    key1: "value",
+                    key2: "value",
                 },
                 {
-                    key3: 'value',
+                    key3: "value",
                 },
             ],
         },

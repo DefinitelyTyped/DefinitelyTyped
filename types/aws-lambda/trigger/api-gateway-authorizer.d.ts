@@ -2,8 +2,8 @@ import {
     APIGatewayAuthorizerResultContext,
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
-} from '../common/api-gateway';
-import { Callback, Handler } from '../handler';
+} from "../common/api-gateway";
+import { Callback, Handler } from "../handler";
 
 export type APIGatewayAuthorizerHandler = Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerResult>;
 export type APIGatewayAuthorizerWithContextHandler<
@@ -28,7 +28,7 @@ export type APIGatewayRequestAuthorizerWithContextHandler<
 export type APIGatewayAuthorizerEvent = APIGatewayTokenAuthorizerEvent | APIGatewayRequestAuthorizerEvent;
 
 export interface APIGatewayTokenAuthorizerEvent {
-    type: 'TOKEN';
+    type: "TOKEN";
     methodArn: string;
     authorizationToken: string;
 }
@@ -37,8 +37,8 @@ export interface APIGatewayTokenAuthorizerEvent {
 // but they will be empty objects in the real object.
 // Worse, it will include "body" and "isBase64Encoded" properties, unlike the real call!
 export interface APIGatewayRequestAuthorizerEvent {
-    type: 'REQUEST';
-    methodArn: string;
+    type: "REQUEST";
+    methodArn: string
     resource: string;
     path: string;
     httpMethod: string;
