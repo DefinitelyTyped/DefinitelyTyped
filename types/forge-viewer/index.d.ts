@@ -523,6 +523,7 @@ declare namespace Autodesk {
             setData(data: object): void;
             setThemingColor(dbId: number, color: THREE.Vector4, recursive?: boolean): void;
             setUUID(urn: string): void;
+            unconsolidate(): void;
         }
 
         interface PropertyResult {
