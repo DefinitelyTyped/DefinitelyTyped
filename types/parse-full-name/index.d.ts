@@ -2,7 +2,7 @@
 // Project: https://github.com/dschnelldavis/parse-full-name
 // Definitions by: n8 <https://github.com/n8Guy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0'
+// Minimum TypeScript Version: 3.0
 
 export type partToReturn =
     | 'title'
