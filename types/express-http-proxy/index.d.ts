@@ -25,7 +25,7 @@ declare namespace proxy {
             res: Response,
             next: NextFunction
         ) => any;
-        proxyReqPathResolver?: (req: Request) => string;
+        proxyReqPathResolver?: (req: Request) => string | Promise<string>;
         proxyReqOptDecorator?: (
             proxyReqOpts: RequestOptions,
             srcReq: Request
