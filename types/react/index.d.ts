@@ -2016,6 +2016,7 @@ declare namespace React {
         method?: string;
         name?: string;
         noValidate?: boolean;
+        rel?: string;
         target?: string;
     }
 
