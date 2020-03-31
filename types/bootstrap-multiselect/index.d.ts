@@ -49,9 +49,9 @@ interface MultiSelectOptions {
      */
     disableIfEmpty?: boolean;
 
-    /** 
-     * The text shown if the multiselect is disabled. 
-     * Note that this option is set to the empty string '' by default, 
+    /**
+     * The text shown if the multiselect is disabled.
+     * Note that this option is set to the empty string '' by default,
      * that is nonSelectedText is shown if the multiselect is disabled and no options are selected.
      */
     disabledText?: string;
@@ -340,28 +340,27 @@ interface JQuery {
 
     /**
      * Selects all options. 
-     * @param justVisible If set to true or not provided, all visible options are selected (when using the filter), 
+     * @param justVisible If set to true or not provided, all visible options are selected (when using the filter),
      * otherwise (justVisible set to false) all options are selected.
      */
     multiselect(method: 'selectAll', justVisible?: boolean): JQuery;
 
     /**
      * Deselects all options. 
-     * @param justVisible If set to true or not provided, all visible options are deselected,  
+     * @param justVisible If set to true or not provided, all visible options are deselected,
      * otherwise (justVisible set to false) all options are deselected.
      */
     multiselect(method: 'deselectAll', justVisible?: boolean): JQuery;
 
     /**
      * When manually selecting/deselecting options and the corresponding checkboxes, this function updates the text and title of the button.
-     * 
      * Note that usually this method is only needed when using .multiselect('selectAll', justVisible) or .multiselect('deselectAll', justVisible). In all other cases, .multiselect('refresh') should be used.
      */
     multiselect(method: 'updateButtonText'): JQuery;
 
     /**
      * Used to change configuration after initializing the multiselect. This may be useful in combination with {@link multiselect('rebuild')}.
-     * @example  
+     * @example
      * $('#example-setOptions').multiselect('setOptions', options);
      * $('#example-setOptions').multiselect('rebuild');
      */
