@@ -133,3 +133,6 @@ export function track_forms(query: Query, event_name: string, properties?: Dict 
 export function track_links(query: Query, event_name: string, properties?: Dict | (() => void)): void;
 export function unregister(property: string): void;
 export const people: People;
+
+declare const mixpanel: Mixpanel;
+export default mixpanel;
