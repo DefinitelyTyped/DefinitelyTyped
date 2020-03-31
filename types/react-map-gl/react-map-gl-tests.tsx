@@ -115,6 +115,22 @@ class MyMap extends React.Component<{}, State> {
                             }}
                         ></Layer>
                     </Source>
+                    <Source
+                        id="raster-tiles-source"
+                        type="raster"
+                        scheme="tms"
+                        tiles={["path/to/tiles/{z}/{x}/{y}.png"]}
+                        tileSize={256}
+                    >
+                        <Layer
+                            id="raster-layer"
+                            type="raster"
+                            source="raster-tiles-source"
+                            paint={{}}
+                            minzoom={0}
+                            maxzoom={22}
+                        ></Layer>
+                    </Source>
                 </InteractiveMap>
                 <StaticMap
                     {...this.state.viewport}
