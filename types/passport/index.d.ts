@@ -17,7 +17,9 @@ declare global {
         // tslint:disable-next-line:no-empty-interface
         interface AuthInfo {}
         interface User {
-            [key: string]: any;
+            profile?: Profile;
+            accessToken?: string;
+            refreshToken?: string; 
         }
 
         interface Request {
