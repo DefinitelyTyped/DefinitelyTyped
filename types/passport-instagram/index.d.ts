@@ -45,9 +45,9 @@ interface IStrategyOptionWithRequest extends IStrategyOptionBase {
 }
 
 declare class Strategy extends passport.Strategy {
-    constructor (options: IStrategyOption,
+    constructor(options: IStrategyOption,
         verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
-    constructor (options: IStrategyOptionWithRequest,
+    constructor(options: IStrategyOptionWithRequest,
         verify: (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
 
     name: string;
