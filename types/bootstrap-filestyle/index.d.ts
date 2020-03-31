@@ -1,4 +1,4 @@
-// Type definitions for bootstrap-filestyle 1.2.1
+// Type definitions for bootstrap-filestyle 1.0
 // Project: https://github.com/markusslima/bootstrap-filestyle
 // Definitions by: Mustafa Salaheldin <https://github.com/mustafasalahuldin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
