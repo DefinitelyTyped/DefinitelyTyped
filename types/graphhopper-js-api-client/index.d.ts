@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+// tslint:disable-next-line no-unnecessary-class
 export class GHInput {
     constructor(lat: number, lon: number);
 }
