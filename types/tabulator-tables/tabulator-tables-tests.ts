@@ -694,7 +694,9 @@ table = new Tabulator('#example-table', {
                 emptyPlaceholder: 'no matching results',
             },
             accessorHtmlOutput: (value, data, type, params, column) => {
-                const filterVal = column?.getHeaderFilterValue();
+                if (column) {
+                    const filterVal = column.getHeaderFilterValue();
+                }
                 return value >= params.legalAge;
             },
             accessorHtmlOutputParams: { legalAge: 18 },
