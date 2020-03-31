@@ -299,17 +299,13 @@ interface MultiSelectOptions {
 interface JQuery {
     multiselect(options?: MultiSelectOptions): JQuery;
 
-    multiselect(method: 'destroy' | 'refresh' | 'rebuild'): JQuery;
+    multiselect(method: 'destroy' | 'refresh' | 'rebuild' | 'updateButtonText'| 'disable' | 'enable'): JQuery;
 
     multiselect(method: 'select' | 'deselect', value: string | string[] | number, triggerOnChange?: boolean): JQuery;
 
     multiselect(method: 'selectAll' | 'deselectAll', justVisible?: boolean): JQuery;
 
-    multiselect(method: 'updateButtonText'): JQuery;
-
     multiselect(method: 'setOptions', options: MultiSelectOptions): JQuery;
-
-    multiselect(method: 'disable' | 'enable'): JQuery;
 
     multiselect(method: 'dataprovider', data: MultiSelectOptionElement[]): JQuery;
 
