@@ -25,6 +25,7 @@
 //                 Carlos Anoceto <https://github.com/canoceto>
 //                 Nobuhiko Futagami <https://github.com/nobu222>
 //                 Marco Ru <https://github.com/Marcoru97>
+//                 Tony Liu <https://github.com/tonybadguy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -442,6 +443,7 @@ declare namespace Chart {
         mode?: InteractionMode;
         animationDuration?: number;
         intersect?: boolean;
+        axis?: 'x' | 'y' | 'xy';
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
     }
 

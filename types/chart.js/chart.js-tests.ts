@@ -37,6 +37,9 @@ const chart: Chart = new Chart(ctx, {
     },
     options: {
         hover: {
+            axis: 'xy',
+            mode: 'nearest',
+            animationDuration: 400,
             intersect: true,
         },
         onHover(ev: MouseEvent, points: any[]) {
