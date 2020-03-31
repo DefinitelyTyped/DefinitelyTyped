@@ -22,7 +22,7 @@ interface MultiSelectOptionElement {
     value?: string | number;
     selected?: boolean;
     disabled?: boolean;
-    children?: Array<MultiSelectOptionElement>;
+    children?: MultiSelectOptionElement[];
     attributes?: {[name: string]: any};
 }
 
@@ -126,8 +126,8 @@ interface MultiSelectOptions {
      * 
      * @example 
      * $('#example-buttonClass').multiselect({
-            buttonClass: 'btn btn-link'
-        });
+     *      buttonClass: 'btn btn-link'
+     *   });
      */
     buttonClass?: string;
 
@@ -340,13 +340,13 @@ interface JQuery {
      * Selects an option by its value. Works also using an array of values.
      * @param triggerOnChange  If set to true, the method will manually trigger the onChange option.
      */
-    multiselect(method: 'select', value: string | Array<string> | number, triggerOnChange?: boolean): JQuery;
+    multiselect(method: 'select', value: string | string[] | number, triggerOnChange?: boolean): JQuery;
 
     /**
      * Deselect an option by its value. Works also using an array of values.
      * @param triggerOnChange  If set to true, the method will manually trigger the onChange option.
      */
-    multiselect(method: 'deselect', value: string | Array<string> | number, triggerOnChange?: boolean): JQuery;
+    multiselect(method: 'deselect', value: string | string[] | number, triggerOnChange?: boolean): JQuery;
 
     /**
      * Selects all options. 
@@ -390,7 +390,7 @@ interface JQuery {
     /**
      * This method is used to provide options programmatically
      */
-    multiselect(method: 'dataprovider', data: Array<MultiSelectOptionElement>): JQuery;
+    multiselect(method: 'dataprovider', data: MultiSelectOptionElement[]): JQuery;
 
     /**
      * This method is used to programmatically provide a new text to display in the button when all options are selected, at runtime.
