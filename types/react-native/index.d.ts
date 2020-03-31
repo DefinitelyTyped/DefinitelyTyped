@@ -8638,49 +8638,52 @@ export namespace Animated {
 
     export type AnimatedProps<T> = { [K in keyof Pick<T, Exclude<keyof T, 'ref'>>]: WithAnimatedValue<T[K]> };
 
-    export interface AnimatedComponent<
-        T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>
-    >
-        extends React.FC<
-            AnimatedProps<ComponentProps<T>> & {
-                ref?: React.Ref<AnimatedComponent<T>>;
-            }
-        > {
+    export interface AnimatedComponent<T extends React.ComponentType<any> | React.Component<any>> extends React.ForwardRefExoticComponent<React.PropsWithoutRef<AnimatedProps<ComponentProps<T>>> & React.RefAttributes<T>> {
         /**
          * @deprecated Use the `ref` prop instead.
          */
         getNode: () => T;
     }
 
-    export interface AnimatedForwardRefComponent<
-        T extends React.ForwardRefExoticComponent<ComponentProps<T> & React.RefAttributes<P>>,
-        P extends React.ComponentType<ComponentProps<P>> | React.Component<ComponentProps<P>>
-    >
-        extends React.FC<
-            AnimatedProps<ComponentProps<T>> & {
-                ref?: React.Ref<
-                    AnimatedComponent<P extends React.ComponentClass<ComponentProps<P>> ? InstanceType<P> : P>
-                >;
-            }
-        > {
-        /**
-         * @deprecated Use the `ref` prop instead.
-         */
-        getNode: () => P;
-    }
+    // export interface AnimatedForwardRefComponent<
+    //     T extends React.ForwardRefExoticComponent<ComponentProps<T> & React.RefAttributes<P>>,
+    //     P extends React.ComponentType<ComponentProps<P>> | React.Component<ComponentProps<P>>
+    // >
+    //     extends React.FC<
+    //         AnimatedProps<ComponentProps<T>> & {
+    //             ref?: React.Ref<
+    //                 P extends React.ComponentClass<ComponentProps<P>> ? InstanceType<P> : P
+    //             >;
+    //         }
+    //     > {
+    //     /**
+    //      * @deprecated Use the `ref` prop instead.
+    //      */
+    //     getNode: () => P;
+    // }
 
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
+    // export function createAnimatedComponent<
+    //     T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>
+    // >(
+    //     component: T,
+    // ): T extends React.ForwardRefExoticComponent<ComponentProps<T> & React.RefAttributes<infer P>>
+    //     ? P extends React.ComponentType<ComponentProps<P>> | React.Component<ComponentProps<P>>
+    //         ? AnimatedForwardRefComponent<T, P>
+    //         : never
+    //     : AnimatedComponent<T extends React.ComponentClass<ComponentProps<T>> ? InstanceType<T> : T>;
+
     export function createAnimatedComponent<
-        T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>
+        T extends React.ComponentType<any> | React.Component<any>
     >(
         component: T,
-    ): T extends React.ForwardRefExoticComponent<ComponentProps<T> & React.RefAttributes<infer P>>
-        ? P extends React.ComponentType<ComponentProps<P>> | React.Component<ComponentProps<P>>
-            ? AnimatedForwardRefComponent<T, P>
-            : never
-        : AnimatedComponent<T extends React.ComponentClass<ComponentProps<T>> ? InstanceType<T> : T>;
+    ): AnimatedComponent<T extends React.ComponentClass<any> ? InstanceType<T> : T>;
+
+    // export type AnimatedComponent<T extends React.Component<any> | React.ComponentType<P>, P = {}> = React.ComponentType<P>;
+
+    // export function createAnimatedComponent<T extends React.Component<any> | React.ComponentType<any>>(component: T): AnimatedComponent<T>
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
