@@ -8638,7 +8638,46 @@ export namespace Animated {
 
     export type AnimatedProps<T> = { [K in keyof Pick<T, Exclude<keyof T, 'ref'>>]: WithAnimatedValue<T[K]> };
 
-    export interface AnimatedComponent<T extends React.ComponentType<any> | React.Component<any>> extends React.ForwardRefExoticComponent<React.PropsWithoutRef<AnimatedProps<ComponentProps<T>>> & React.RefAttributes<T>> {
+    // type AnimatedRef<T> =
+
+    // export type AnimatedComponent<
+    //     T extends React.ComponentType<any> | React.Component<any> | React.ForwardRefExoticComponent<any>
+    // > = React.ForwardRefExoticComponent<
+    //     AnimatedProps<React.PropsWithoutRef<ComponentProps<T>>> &
+    //         React.RefAttributes<
+    //             T extends React.ForwardRefExoticComponent<React.RefAttributes<infer FT>>
+    //                 ? FT
+    //                 : T extends React.ComponentClass<any>
+    //                 ? InstanceType<T>
+    //                 : T
+    //         >
+    // >;
+
+    // export type AnimatedComponent<
+    //     T extends React.ComponentType<any> | React.Component<any> | React.ForwardRefExoticComponent<any>
+    // > = T extends React.ForwardRefExoticComponent<React.RefAttributes<infer FT>>
+    //     ? React.ForwardRefExoticComponent<
+    //           AnimatedProps<React.PropsWithoutRef<ComponentProps<FT>>> &
+    //               React.RefAttributes<FT extends React.ComponentClass<any> ? InstanceType<FT> : FT>
+    //       >
+    //     : React.ForwardRefExoticComponent<
+    //           AnimatedProps<React.PropsWithoutRef<ComponentProps<T>>> &
+    //               React.RefAttributes<T extends React.ComponentClass<any> ? InstanceType<T> : T>
+    //       >;
+
+    export interface AnimatedComponent<
+        T extends React.ComponentType<any> | React.Component<any> | React.ForwardRefExoticComponent<any>
+    >
+        extends React.ForwardRefExoticComponent<
+            AnimatedProps<React.PropsWithoutRef<ComponentProps<T>>> &
+                React.RefAttributes<
+                    T extends React.ForwardRefExoticComponent<React.RefAttributes<infer FT>>
+                        ? FT
+                        : T extends React.ComponentClass<any>
+                        ? InstanceType<T>
+                        : T
+                >
+        > {
         /**
          * @deprecated Use the `ref` prop instead.
          */
@@ -8677,15 +8716,8 @@ export namespace Animated {
 
     export function createAnimatedComponent<
         T extends React.ComponentType<any> | React.Component<any> | React.ForwardRefExoticComponent<any>
-    >(
-        component: T,
-    ): AnimatedComponent<
-        // TODO: This seems equivalent to React.ElementRef<T> no?
-        T extends React.ForwardRefExoticComponent<infer FP>
-            ? FP extends React.RefAttributes<infer FC>
-                ? FC
-                : never
-            : T extends React.ComponentClass<any> ? InstanceType<T> : T>;
+        // >(component: T): AnimatedComponent<T extends React.ComponentClass<any> ? InstanceType<T> : T>;
+    >(component: T): AnimatedComponent<T>;
 
     // export type AnimatedComponent<T extends React.Component<any> | React.ComponentType<P>, P = {}> = React.ComponentType<P>;
 
