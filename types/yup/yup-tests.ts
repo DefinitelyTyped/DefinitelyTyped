@@ -680,7 +680,7 @@ const definitionBC: yup.ObjectSchemaDefinition<BC> = {
     b: yup.string(),
     c: yup.number(),
 };
-const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<Shape<AB, BC>>
+const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<{ a: string; b: string; } & BC>
 
 // $ExpectError
 yup.object<MyInterface>({
@@ -848,5 +848,35 @@ const resultingSchema2 = wrapper<string | number>(true, yup.mixed().oneOf(['1', 
 const arrayOfStringsSchema = yup.array().of(yup.string());
 type ArrayOfStrings = yup.InferType<typeof arrayOfStringsSchema>;
 function returnTheArray(data: ArrayOfStrings): any[] {
-  return data;
+    return data;
 }
+
+const topLevelStringNullable = yup.string().nullable();
+const topLevelStringNullableExample: yup.InferType<typeof topLevelStringNullable> = null;
+
+const topLevelObjectNullable = yup.object().nullable();
+const topLevelObjectNullableExample: yup.InferType<typeof topLevelObjectNullable> = null;
+
+const topLevelArrayNullable = yup.array().nullable();
+const topLevelArrayNullableExample: yup.InferType<typeof topLevelArrayNullable> = null;
+
+const nestedNullableShape = yup.object().shape({
+    foo: yup.object().nullable().shape({})
+});
+const nestedNullableShapeExample: yup.InferType<typeof nestedNullableShape> = {
+    foo: null
+};
+
+const nestedShapeNullable = yup.object().shape({
+    foo: yup.object().shape({}).nullable()
+});
+const nestedShapeNullableExample: yup.InferType<typeof nestedShapeNullable> = {
+    foo: null
+};
+
+const nestedArrayNullable = yup.object().shape({
+    foo: yup.array().nullable()
+});
+const nestedArrayNullableExample: yup.InferType<typeof nestedArrayNullable> = {
+    foo: null
+};
