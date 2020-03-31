@@ -9,7 +9,7 @@ import { ListOnItemsRenderedProps, FixedSizeList, VariableSizeList } from 'react
 
 export type OnItemsRendered = (props: ListOnItemsRenderedProps) => any;
 
-export interface InfiniteLoaderProps {
+interface InfiniteLoaderProps {
     isItemLoaded: (index: number) => boolean;
     loadMoreItems: (startIndex: number, stopIndex: number) => Promise<any> | null;
     itemCount: number;
@@ -19,6 +19,7 @@ export interface InfiniteLoaderProps {
 }
 
 declare class InfiniteLoader extends Component<InfiniteLoaderProps> {
+    export = InfiniteLoaderProps
 }
 
 export = InfiniteLoader;
