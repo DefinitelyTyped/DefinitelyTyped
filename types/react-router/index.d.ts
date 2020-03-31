@@ -20,6 +20,7 @@
 //                 Wesley Tsai <https://github.com/wezleytsai>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
+//                 Pawel Fajfer <https://github.com/pawfa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -161,7 +162,7 @@ export function useHistory<HistoryLocationState = H.LocationState>(): H.History<
 
 export function useLocation<S = H.LocationState>(): H.Location<S>;
 
-export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): { [p in keyof Params]: string };
+export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): { [p in keyof Params]: keyof Params[p] extends undefined ? string | undefined : string  };
 
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(): match<Params>;
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(
