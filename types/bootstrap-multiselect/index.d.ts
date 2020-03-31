@@ -34,9 +34,7 @@ interface MultiSelectOptions {
 
     /**
      * If set to true, optgroup's will be clickable, allowing to easily select multiple options belonging to the same group.
-     * 
      * enableClickableOptGroups is not available in single selection mode, i.e. when the multiple attribute is not present.
-     * 
      * When using selectedClass, the selected classes are also applied on the option groups.
      */
     enableClickableOptGroups?: boolean;
@@ -116,14 +114,12 @@ interface MultiSelectOptions {
 
     /**
      * A callback called after the dropdown has been closed.
-     * 
      * The onDropdownHidden option is not available when using Twitter Bootstrap 2.3.
      */
     onDropdownHidden?: (event: Event) => void;
 
     /**
      * The class of the multiselect button.
-     * 
      * @example 
      * $('#example-buttonClass').multiselect({
      *      buttonClass: 'btn btn-link'
@@ -138,29 +134,25 @@ interface MultiSelectOptions {
 
     /**
      * The container holding both the button as well as the dropdown.
-     * 
      * @example 
      * $('#example-buttonContainer').multiselect({
-            buttonContainer: '<div class="btn-group" />'
-        });
+     *       buttonContainer: '<div class="btn-group" />'
+     *   });
      */
     buttonContainer?: string;
 
     /**
      * The width of the multiselect button may be fixed using this option.
-     * 
      * Actually, buttonWidth describes the width of the .btn-group container and the width of the button is set to 100%.
-     * 
      * @example  
      * $('#example-buttonWidth').multiselect({
-            buttonWidth: '400px'
-        });
+     *       buttonWidth: '400px'
+     *   });
      */
     buttonWidth?: string;
 
     /**
      * A callback specifying the text shown on the button dependent on the currently selected options.
-     *
      * The callback gets the currently selected options and the select as argument and returns the string shown as button text.
      * The default buttonText callback returns nonSelectedText in the case no option is selected,
      * {@link nSelectedText} in the case more than {@link numberDisplayed} options are selected
@@ -174,15 +166,13 @@ interface MultiSelectOptions {
 
     /**
      * A callback specifying the title of the button.
-     *
      * The callback gets the currently selected options and the select as argument and returns the title of the button as string.
      * The default buttonTitle callback returns nonSelectedText in the case no option is selected and the names of the selected options of less than {@link numberDisplayed} options are selected.
      * If more than numberDisplayed options are selected, {@link nSelectedText} is returned.
-     *
      * @param options
      * @param select 
      * @returns {} 
-    */
+     */
     buttonTitle?: (options: HTMLOptionElement[], select: HTMLSelectElement) => string;
 
     /**
@@ -304,9 +294,9 @@ interface MultiSelectOptions {
     /**
      * The placeholder used for the filter input.
      * @example   $('#example-filter-placeholder').multiselect({
-            enableFiltering: true,
-            filterPlaceholder: 'Search for something...'
-        });
+     *        enableFiltering: true,
+     *        filterPlaceholder: 'Search for something...'
+      *   });
      */
     filterPlaceholder?: string;
 
