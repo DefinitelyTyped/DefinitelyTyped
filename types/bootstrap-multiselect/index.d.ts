@@ -154,9 +154,8 @@ interface MultiSelectOptions {
      * The default buttonText callback returns nonSelectedText in the case no option is selected,
      * {@link nSelectedText} in the case more than {@link numberDisplayed} options are selected
      * and the names of the selected options if less than {@link numberDisplayed} options are selected.
-     * @param option.
-     * @param selec.
-     * @returns {.
+     * @param options
+     * @param select
      */
     buttonText?: (options: HTMLOptionsCollection, select: HTMLSelectElement) => string;
 
@@ -166,8 +165,7 @@ interface MultiSelectOptions {
      * The default buttonTitle callback returns nonSelectedText in the case no option is selected and the names of the selected options of less than {@link numberDisplayed} options are selected.
      * If more than numberDisplayed options are selected, {@link nSelectedText} is returned.
      * @param options
-     * @param selec.
-     * @returns {.
+     * @param select
      */
     buttonTitle?: (options: HTMLOptionElement[], select: HTMLSelectElement) => string;
 
@@ -304,19 +302,18 @@ interface JQuery {
     /**
      * This method is used to destroy the plugin on the given element - meaning unbinding the plugin.
      */
-    multiselect(method: 'destroy'): JQuery;
-
+    
     /**
      * This method is used to refresh the checked checkboxes based on the currently selected options within the select.
      * Click 'Select some options' to select some of the options. Then click refresh.
      * The plugin will update the checkboxes accordingly.
      */
-    multiselect(method: 'refresh'): JQuery;
-
+    
     /**
      * Rebuilds the whole dropdown menu. All selected options will remain selected (if still existent!).
      */
-    multiselect(method: 'rebuild'): JQuery;
+
+    multiselect(method: 'destroy' | 'refresh' | 'rebuild'): JQuery;
 
     /**
      * Selects an option by its value. Works also using an array of values.
@@ -335,18 +332,18 @@ interface JQuery {
      * @param justVisible If set to true or not provided, all visible options are selected (when using the filter),
      * otherwise (justVisible set to false) all options are selected.
      */
-    multiselect(method: 'selectAll', justVisible?: boolean): JQuery;
-
+    
     /**
      * Deselects all options.
      * @param justVisible If set to true or not provided, all visible options are deselected,
      * otherwise (justVisible set to false) all options are deselected.
      */
-    multiselect(method: 'deselectAll', justVisible?: boolean): JQuery;
+    multiselect(method: 'selectAll' | 'deselectAll', justVisible?: boolean): JQuery;
 
     /**
      * When manually selecting/deselecting options and the corresponding checkboxes, this function updates the text and title of the button.
-     * Note that usually this method is only needed when using .multiselect('selectAll', justVisible) or .multiselect('deselectAll', justVisible). In all other cases, .multiselect('refresh') should be used.
+     * Note that usually this method is only needed when using .multiselect('selectAll', justVisible) or .multiselect('deselectAll', justVisible).
+     * In all other cases, .multiselect('refresh') should be used.
      */
     multiselect(method: 'updateButtonText'): JQuery;
 
@@ -361,12 +358,11 @@ interface JQuery {
     /**
      * Disable both the underlying select and the dropdown button.
      */
-    multiselect(method: 'disable'): JQuery;
-
+    
     /**
      * Enable both the underlying select and the dropdown button.
      */
-    multiselect(method: 'enable'): JQuery;
+    multiselect(method: 'disable' | 'enable'): JQuery;
 
     /**
      * This method is used to provide options programmatically
