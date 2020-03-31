@@ -1,11 +1,11 @@
-import { Name, parseFullName } from 'parse-full-name';
+import { Name, parseFullName } from "parse-full-name";
 
 const parsedName: Name = parseFullName('john doe sr');
 
-parsedName.first; // $ExpectType string
-parsedName.middle; // $ExpectType string
-parsedName.last; // $ExpectType string
-parsedName.nick; // $ExpectType string
-parsedName.suffix; // $ExpectType string
-parsedName.title; // $ExpectType string
-parsedName.error; // $ExpectType []
+parsedName.first; // $ExpectType string | undefined
+parsedName.middle; // $ExpectType string | undefined
+parsedName.last; // $ExpectType string | undefined
+parsedName.nick; // $ExpectType string | undefined
+parsedName.suffix; // $ExpectType string | undefined
+parsedName.title; // $ExpectType string | undefined
+parsedName.error; // $ExpectType [] | undefined
