@@ -200,6 +200,7 @@ const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback)
         event.type; // $ExpectType "REQUEST"
         str = event.methodArn;
         str = event.resource;
+        str = event.authorizationToken; // $ExpectError
     }
 
     let result: APIGatewayAuthorizerResult = createAuthorizerResult();
@@ -220,6 +221,7 @@ const authorizerWithCustomContext: APIGatewayAuthorizerWithContextHandler<Custom
         event.type; // $ExpectType "REQUEST"
         str = event.methodArn;
         str = event.resource;
+        str = event.authorizationToken; // $ExpectError
     }
 
     let result: APIGatewayAuthorizerWithContextResult<CustomAuthorizerContext>;
