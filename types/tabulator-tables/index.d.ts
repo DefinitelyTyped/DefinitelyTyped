@@ -766,7 +766,7 @@ declare namespace Tabulator {
         rowContextMenu?:
             | MenuObject[]
             | MenuSeparator[]
-            | ((component: RowComponent | CellComponent | ColumnComponent) => MenuObject | false | []);
+            | ((component: RowComponent | CellComponent | ColumnComponent) => MenuObject | false | any[]);
     }
 
     interface MenuObject extends MenuSeparator {
