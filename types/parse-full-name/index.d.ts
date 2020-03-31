@@ -3,18 +3,18 @@
 // Definitions by: n8 <https://github.com/n8Guy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "parse-full-name" {
-    export type partToReturn =
-        | "title"
-        | "first"
-        | "middle"
-        | "last"
-        | "nick"
-        | "suffix"
-        | "error"
-        | "all";
+declare module 'parse-full-name' {
+    type partToReturn =
+        | 'title'
+        | 'first'
+        | 'middle'
+        | 'last'
+        | 'nick'
+        | 'suffix'
+        | 'error'
+        | 'all';
 
-    export interface Name {
+    interface Name {
         title?: string;
         first?: string;
         middle?: string;
@@ -32,7 +32,7 @@ declare module "parse-full-name" {
      * @param stopOnError Makes parsing errors throw JavaScript errors
      * @param useLongLists Use long prefix, suffix, and title lists
      */
-    export function parseFullName(
+    function parseFullName(
         nameToParse: string,
         partToReturn?: partToReturn,
         fixCase?: boolean,
