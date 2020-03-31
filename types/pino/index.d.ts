@@ -221,9 +221,15 @@ declare namespace P {
          */
         level?: LevelWithSilent | string;
         /**
-         * Outputs the level as a string instead of integer. Default: `false`.
+         * (DEPRECATED, use `formatters.level`) Outputs the level as a string instead of integer. Default: `false`.
          */
         useLevelLabels?: boolean;
+        /**
+         * Changes the shape of the log level: Default shape: { level: number }
+         */
+        formatters: {
+            [key: string]: (level: string, value: number) => Record<string, string>;
+        };
         /**
          * Changes the property `level` to any string value you pass in. Default: 'level'
          */
