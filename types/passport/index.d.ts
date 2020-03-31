@@ -16,10 +16,29 @@ declare global {
     namespace Express {
         // tslint:disable-next-line:no-empty-interface
         interface AuthInfo {}
-        interface User {
+
+        interface Profile {
+          provider: string;
+          id: string;
+          displayName: string;
+          username?: string;
+          name?: {
+            familyName: string;
+            givenName: string;
+            middleName?: string;
+          };
+          emails?: Array<{
+            value: string;
+            type?: string;
+          }>;
+          photos?: Array<{
+            value: string;
+          }>;
+        }
+        interface User extends Profile {
             profile?: Profile;
             accessToken?: string;
-            refreshToken?: string; 
+            refreshToken?: string;
         }
 
         interface Request {
@@ -141,25 +160,6 @@ declare namespace passport {
     type StrategyCreated<T, O = T & StrategyCreatedStatic> = {
         [P in keyof O]: O[P];
     };
-
-    interface Profile {
-        provider: string;
-        id: string;
-        displayName: string;
-        username?: string;
-        name?: {
-            familyName: string;
-            givenName: string;
-            middleName?: string;
-        };
-        emails?: Array<{
-            value: string;
-            type?: string;
-        }>;
-        photos?: Array<{
-            value: string;
-        }>;
-    }
 
     interface Framework<InitializeRet = any, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
         initialize(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, options?: any): (...args: any[]) => InitializeRet;
