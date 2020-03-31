@@ -37,9 +37,9 @@ declare namespace clownface {
       : Clownface<T, D>;
 
   interface Clownface<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore> {
-    readonly term: T extends undefined ? undefined : T extends any[] ? undefined : T;
+    readonly term: T extends undefined ? undefined : T extends any[] ? undefined | T[0] : T;
     readonly terms: T extends undefined ? Term[] : T extends any[] ? T : [T];
-    readonly value: T extends undefined ? undefined : T extends any[] ? undefined : string;
+    readonly value: T extends undefined ? undefined : T extends any[] ? undefined | string[0] : string;
     readonly values: T extends undefined ? string[] : T extends any[] ? string[] : [string];
     readonly dataset: D;
     readonly datasets: D[];

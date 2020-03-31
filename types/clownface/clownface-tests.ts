@@ -30,9 +30,17 @@ function withoutContext() {
 
 function multiContext() {
     const cf: clownface.Clownface<Array<NamedNode | BlankNode>, Dataset> = <any> {};
-    const term: NamedNode | BlankNode | undefined = cf.term;
+    if (cf.term) {
+        const definedTerm: NamedNode | BlankNode = cf.term;
+    } else {
+        const undefinedTerm: undefined = cf.term;
+    }
     const terms: Array<NamedNode | BlankNode> = cf.terms;
-    const value: string | undefined = cf.value;
+    if (cf.value) {
+        const definedValue: string = cf.value;
+    } else {
+        const undefinedValue = cf.value;
+    }
     const values: string[] = cf.values;
     const _context: Array<Context<DatasetCore, Term>> = cf._context;
 }
