@@ -65,6 +65,8 @@ declare namespace Vex {
         fillText(text : string, x : number, y : number) : IRenderContext;
         save() : IRenderContext;
         restore() : IRenderContext;
+        openGroup() : Node | void;
+        closeGroup() : void;
 
         /**
          * canvas returns TextMetrics, SVG returns SVGRect, Raphael returns {width : number, height : number}. Only width is used throughout VexFlow.
@@ -323,6 +325,8 @@ declare namespace Vex {
             fillText(text : string, x : number, y : number) : void;
             save() : void;
             restore() : void;
+            openGroup() : void;
+            closeGroup() : void;
         }
 
         class Clef extends StaveModifier {
@@ -778,6 +782,8 @@ declare namespace Vex {
             fillText(text : string, x : number, y : number) : RaphaelContext;
             save() : RaphaelContext;
             restore() : RaphaelContext;
+            openGroup() : void;
+            closeGroup() : void;
         }
 
         class Renderer {
@@ -1209,6 +1215,8 @@ declare namespace Vex {
             fillText(text : string, x : number, y : number) : SVGContext;
             save() : SVGContext;
             restore() : SVGContext;
+            openGroup() : Node;
+            closeGroup() : void;
         }
 
         class TabNote extends StemmableNote {
