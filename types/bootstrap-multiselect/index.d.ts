@@ -93,21 +93,18 @@ interface MultiSelectOptions {
 
     /**
      * A callback called when the dropdown is shown.
-     .
      * The onDropdownShow option is not available when using Twitter Bootstrap 2.3.
      */
     onDropdownShow?: (event: Event) => void;
 
     /**
      * A callback called when the dropdown is closed.
-     .
      * The onDropdownHide option is not available when using Twitter Bootstrap 2.3.
      */
     onDropdownHide?: (event: Event) => void;
 
     /**
      * A callback called after the dropdown has been shown.
-     .
      * The onDropdownShown option is not available when using Twitter Bootstrap 2.3.
      */
     onDropdownShown?: (event: Event) => void;
@@ -157,7 +154,6 @@ interface MultiSelectOptions {
      * The default buttonText callback returns nonSelectedText in the case no option is selected,
      * {@link nSelectedText} in the case more than {@link numberDisplayed} options are selected
      * and the names of the selected options if less than {@link numberDisplayed} options are selected.
-
      * @param option.
      * @param selec.
      * @returns {.
@@ -251,9 +247,7 @@ interface MultiSelectOptions {
     /**
      * This function is triggered when the select all option is used to select all options.
      * Note that this can also be triggered manually using the {@link .multiselect('selectAll')} method.
-     .
      * Note that the onChange option is not triggered when (de)selecting all options using the select all option.
-     .
      * The onSelectAll option is only triggered if the select all option was checked.
      * it is not triggered if all options were checked manually (causing the select all option to be checked as well).
      */
@@ -262,9 +256,7 @@ interface MultiSelectOptions {
     /**
      * This function is triggered when the select all option is used to deselect all options.
      * Note that this can also be triggered manually using the {@link .multiselect('deselectAll')} method.
-     .
      * Note that the onChange option is not triggered when (de)selecting all options using the select all option.
-     .
      * The onDeselectAll option is only triggered if the select all option was unchecked.
      * it is not triggered if all options were unchecked manually (causing the select all option to be unchecked as well).
      */
@@ -296,7 +288,7 @@ interface MultiSelectOptions {
      * @example   $('#example-filter-placeholder').multiselect({
      *        enableFiltering: true,
      *        filterPlaceholder: 'Search for something...'
-      *   });
+     *   });
      */
     filterPlaceholder?: string;
 
