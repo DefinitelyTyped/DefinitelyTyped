@@ -552,7 +552,7 @@ declare namespace React {
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: PropsWithChildren<P>, context?: any): ReactElement | null;
+        (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
