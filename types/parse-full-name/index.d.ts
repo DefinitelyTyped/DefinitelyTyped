@@ -3,40 +3,38 @@
 // Definitions by: n8 <https://github.com/n8Guy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'parse-full-name' {
-    type partToReturn =
-        | 'title'
-        | 'first'
-        | 'middle'
-        | 'last'
-        | 'nick'
-        | 'suffix'
-        | 'error'
-        | 'all';
+export type partToReturn =
+    | 'title'
+    | 'first'
+    | 'middle'
+    | 'last'
+    | 'nick'
+    | 'suffix'
+    | 'error'
+    | 'all';
 
-    interface Name {
-        title?: string;
-        first?: string;
-        middle?: string;
-        last?: string;
-        nick?: string;
-        suffix?: string;
-        error?: [];
-    }
-
-    /**
-     * Parses a string containing a person's full name, in any format
-     * @param nameToParse The name to be parsed
-     * @param partToReturn The name of a single part to return
-     * @param fixCase Fix case of output name
-     * @param stopOnError Makes parsing errors throw JavaScript errors
-     * @param useLongLists Use long prefix, suffix, and title lists
-     */
-    function parseFullName(
-        nameToParse: string,
-        partToReturn?: partToReturn,
-        fixCase?: boolean,
-        stopOnError?: boolean,
-        useLongLists?: boolean
-    ): Name;
+export interface Name {
+    title?: string;
+    first?: string;
+    middle?: string;
+    last?: string;
+    nick?: string;
+    suffix?: string;
+    error?: [];
 }
+
+/**
+ * Parses a string containing a person's full name, in any format
+ * @param nameToParse The name to be parsed
+ * @param partToReturn The name of a single part to return
+ * @param fixCase Fix case of output name
+ * @param stopOnError Makes parsing errors throw JavaScript errors
+ * @param useLongLists Use long prefix, suffix, and title lists
+ */
+export function parseFullName(
+    nameToParse: string,
+    partToReturn?: partToReturn,
+    fixCase?: boolean,
+    stopOnError?: boolean,
+    useLongLists?: boolean
+): Name;
