@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.8
+// Type definitions for Mapbox GL JS 1.9
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -8,6 +8,7 @@
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Marko Klopets <https://github.com/mklopets>
 //                 André Fonseca <https://github.com/amxfonseca>
+//                 Artem Malov <https://github.com/madbonez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -209,6 +210,10 @@ declare namespace mapboxgl {
 
         getLayoutProperty(layer: string, name: string): any;
 
+        getPadding(): PaddingOptions;
+
+        setPadding(padding: PaddingOptions, eventData?: Object): this;
+
         setLight(options: mapboxgl.Light, lightOptions?: any): this;
 
         getLight(): mapboxgl.Light;
@@ -234,6 +239,8 @@ declare namespace mapboxgl {
         showTileBoundaries: boolean;
 
         showCollisionBoxes: boolean;
+
+        showPadding: boolean;
 
         repaint: boolean;
 
