@@ -73,13 +73,13 @@ interface MultiSelectOptions {
     maxHeight?: number;
 
     /**
-     * The name used for the generated checkboxes. 
+     * The name used for the generated checkboxes.
      * See {@link https://davidstutz.github.io/bootstrap-multiselect/#post|Server-Side Processing} for details.
      */
     checkboxName?: string;
 
     /**
-     * A function which is triggered on the change event of the options. 
+     * A function which is triggered on the change event of the options.
      * Note that the event is not triggered when selecting or deselecting options using the select and deselect methods provided by the plugin.
      * @param option The option item that was changed, wrapped in a JQuery object.
      * @param checked Whether the checkbox was checked or not.
@@ -93,21 +93,21 @@ interface MultiSelectOptions {
 
     /**
      * A callback called when the dropdown is shown.
-     * 
+     .
      * The onDropdownShow option is not available when using Twitter Bootstrap 2.3.
      */
     onDropdownShow?: (event: Event) => void;
 
     /**
      * A callback called when the dropdown is closed.
-     * 
+     .
      * The onDropdownHide option is not available when using Twitter Bootstrap 2.3.
      */
     onDropdownHide?: (event: Event) => void;
 
     /**
      * A callback called after the dropdown has been shown.
-     * 
+     .
      * The onDropdownShown option is not available when using Twitter Bootstrap 2.3.
      */
     onDropdownShown?: (event: Event) => void;
@@ -120,7 +120,7 @@ interface MultiSelectOptions {
 
     /**
      * The class of the multiselect button.
-     * @example 
+     * @exampl.
      * $('#example-buttonClass').multiselect({
      *      buttonClass: 'btn btn-link'
      *   });
@@ -134,7 +134,7 @@ interface MultiSelectOptions {
 
     /**
      * The container holding both the button as well as the dropdown.
-     * @example 
+     * @exampl.
      * $('#example-buttonContainer').multiselect({
      *       buttonContainer: '<div class="btn-group" />'
      *   });
@@ -144,7 +144,7 @@ interface MultiSelectOptions {
     /**
      * The width of the multiselect button may be fixed using this option.
      * Actually, buttonWidth describes the width of the .btn-group container and the width of the button is set to 100%.
-     * @example  
+     * @example.
      * $('#example-buttonWidth').multiselect({
      *       buttonWidth: '400px'
      *   });
@@ -158,9 +158,9 @@ interface MultiSelectOptions {
      * {@link nSelectedText} in the case more than {@link numberDisplayed} options are selected
      * and the names of the selected options if less than {@link numberDisplayed} options are selected.
 
-     * @param options 
-     * @param select 
-     * @returns {} 
+     * @param option.
+     * @param selec.
+     * @returns {.
      */
     buttonText?: (options: HTMLOptionsCollection, select: HTMLSelectElement) => string;
 
@@ -170,8 +170,8 @@ interface MultiSelectOptions {
      * The default buttonTitle callback returns nonSelectedText in the case no option is selected and the names of the selected options of less than {@link numberDisplayed} options are selected.
      * If more than numberDisplayed options are selected, {@link nSelectedText} is returned.
      * @param options
-     * @param select 
-     * @returns {} 
+     * @param selec.
+     * @returns {.
      */
     buttonTitle?: (options: HTMLOptionElement[], select: HTMLSelectElement) => string;
 
@@ -221,7 +221,7 @@ interface MultiSelectOptions {
     includeSelectAllOption?: boolean;
 
     /**
-     * Setting both {@link includeSelectAllOption} and {@link enableFiltering} to true, the select all option does always select only the visible option. 
+     * Setting both {@link includeSelectAllOption} and {@link enableFiltering} to true, the select all option does always select only the visible option.
      * With setting selectAllJustVisible to false this behavior is changed such that always all options (irrespective of whether they are visible) are selected.
      */
     selectAllJustVisible?: boolean;
@@ -244,28 +244,28 @@ interface MultiSelectOptions {
     selectAllName?: string;
 
     /**
-     * If set to true (default), the number of selected options will be shown in parantheses when all options are seleted. 
+     * If set to true (default), the number of selected options will be shown in parantheses when all options are seleted.
      */
     selectAllNumber?: boolean;
 
     /**
-     * This function is triggered when the select all option is used to select all options. 
+     * This function is triggered when the select all option is used to select all options.
      * Note that this can also be triggered manually using the {@link .multiselect('selectAll')} method.
-     * 
+     .
      * Note that the onChange option is not triggered when (de)selecting all options using the select all option.
-     * 
-     * The onSelectAll option is only triggered if the select all option was checked; 
+     .
+     * The onSelectAll option is only triggered if the select all option was checked.
      * it is not triggered if all options were checked manually (causing the select all option to be checked as well).
      */
     onSelectAll?: () => void;
 
     /**
-     * This function is triggered when the select all option is used to deselect all options. 
+     * This function is triggered when the select all option is used to deselect all options.
      * Note that this can also be triggered manually using the {@link .multiselect('deselectAll')} method.
-     * 
+     .
      * Note that the onChange option is not triggered when (de)selecting all options using the select all option.
-     * 
-     * The onDeselectAll option is only triggered if the select all option was unchecked; 
+     .
+     * The onDeselectAll option is only triggered if the select all option was unchecked.
      * it is not triggered if all options were unchecked manually (causing the select all option to be unchecked as well).
      */
     onDeselectAll?: () => void;
@@ -276,13 +276,13 @@ interface MultiSelectOptions {
     enableFiltering?: boolean;
 
     /**
-     * The filter as configured above will use case sensitive filtering, 
+     * The filter as configured above will use case sensitive filtering.
      * by setting enableCaseInsensitiveFiltering to true this behavior can be changed to use case insensitive filtering.
      */
     enableCaseInsensitiveFiltering?: boolean;
 
     /**
-     * Set to true to enable full value filtering, that is all options are shown where the query is a prefix of. 
+     * Set to true to enable full value filtering, that is all options are shown where the query is a prefix of.
      */
     enableFullValueFiltering?: boolean;
 
@@ -301,7 +301,7 @@ interface MultiSelectOptions {
     filterPlaceholder?: string;
 
     /**
-     * The generated HTML markup can be controlled using templates. Basically, templates are simple configuration options. 
+     * The generated HTML markup can be controlled using templates. Basically, templates are simple configuration options.
      */
     templates?: Templates;
 }
@@ -315,8 +315,8 @@ interface JQuery {
     multiselect(method: 'destroy'): JQuery;
 
     /**
-     * This method is used to refresh the checked checkboxes based on the currently selected options within the select. 
-     * Click 'Select some options' to select some of the options. Then click refresh. 
+     * This method is used to refresh the checked checkboxes based on the currently selected options within the select.
+     * Click 'Select some options' to select some of the options. Then click refresh.
      * The plugin will update the checkboxes accordingly.
      */
     multiselect(method: 'refresh'): JQuery;
@@ -339,14 +339,14 @@ interface JQuery {
     multiselect(method: 'deselect', value: string | string[] | number, triggerOnChange?: boolean): JQuery;
 
     /**
-     * Selects all options. 
+     * Selects all options.
      * @param justVisible If set to true or not provided, all visible options are selected (when using the filter),
      * otherwise (justVisible set to false) all options are selected.
      */
     multiselect(method: 'selectAll', justVisible?: boolean): JQuery;
 
     /**
-     * Deselects all options. 
+     * Deselects all options.
      * @param justVisible If set to true or not provided, all visible options are deselected,
      * otherwise (justVisible set to false) all options are deselected.
      */
