@@ -127,7 +127,7 @@ export interface StringSchema<T extends string | null | undefined = string> exte
     nullable(isNullable?: boolean): StringSchema<T>;
     required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>;
     notRequired(): StringSchema<T | undefined>;
-    oneOf(arrayOfValues: Array<T | Ref>, message?: MixedLocale['oneOf']): this;
+    oneOf<S extends T>(arrayOfValues: Array<S | Ref>, message?: MixedLocale['oneOf']): Schema<S>;
 }
 
 export interface NumberSchemaConstructor {
