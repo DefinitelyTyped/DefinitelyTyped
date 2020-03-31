@@ -18,8 +18,8 @@ passport.use(new instagram.Strategy({
     consumerSecret: process.env.PASSPORT_TWITTER_CONSUMER_SECRET,
     callbackURL: process.env.PASSPORT_TWITTER_CALLBACK_URL
 },
-    function (accessToken: string, refreshToken: string, profile: instagram.Profile, done: (error: any, user?: any) => void) {
-        User.findOrCreate(profile.id, profile.provider, function (err, user) {
+    function(accessToken: string, refreshToken: string, profile: instagram.Profile, done: (error: any, user?: any) => void) {
+        User.findOrCreate(profile.id, profile.provider, function(err, user) {
             if (err) { return done(err); }
             done(null, user);
         });
@@ -32,8 +32,8 @@ passport.use(new instagram.Strategy({
     callbackURL: process.env.PASSPORT_TWITTER_CALLBACK_URL,
     passReqToCallback: false
 },
-    function (accessToken: string, refreshToken: string, profile: instagram.Profile, done: (error: any, user?: any) => void) {
-        User.findOrCreate(profile.id, profile.provider, function (err, user) {
+    function(accessToken: string, refreshToken: string, profile: instagram.Profile, done: (error: any, user?: any) => void) {
+        User.findOrCreate(profile.id, profile.provider, function(err, user) {
             if (err) { return done(err); }
             done(null, user);
         });
@@ -47,8 +47,8 @@ passport.use(new instagram.Strategy({
     passReqToCallback: true,
     includeEmail: true
 },
-    function (req: express.Request, accessToken: string, refreshToken: string, profile: instagram.Profile, done: (error: any, user?: any) => void) {
-        User.findOrCreate(profile.id, profile.provider, function (err, user) {
+    function(req: express.Request, accessToken: string, refreshToken: string, profile: instagram.Profile, done: (error: any, user?: any) => void) {
+        User.findOrCreate(profile.id, profile.provider, function(err, user) {
             if (err) { return done(err); }
             done(null, user);
         });
