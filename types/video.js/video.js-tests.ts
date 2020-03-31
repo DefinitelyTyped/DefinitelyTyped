@@ -23,9 +23,24 @@ videojs("example_video_1").ready(function() {
 		{ type: "video/ogg", src: "http://www.example.com/path/to/video.ogv" }
 	]);
 
-	const whereYouAt: number = this.currentTime();
+    const liveTracker = this.liveTracker;
+    liveTracker.on('seekableendchange', () => {});
+    liveTracker.on('liveedgechange', () => {});
+    const windowOrDuration = liveTracker.isLive() ? liveTracker.liveWindow() : this.duration();
+    const liveCurrentTime: number = liveTracker.liveCurrentTime();
+    const liveWindow: number = liveTracker.liveWindow();
+    const seekableStart: number = liveTracker.seekableStart();
+    const seekableEnd: number = liveTracker.seekableEnd();
+    const atLiveEdge: boolean = liveTracker.atLiveEdge();
+    const behindLiveEdge: boolean = liveTracker.behindLiveEdge();
+    const pastSeekEnd: number = liveTracker.pastSeekEnd();
+    const isLive: boolean = liveTracker.isLive();
+    liveTracker.seekToLiveEdge();
+    liveTracker.startTracking();
+    liveTracker.stopTracking();
+    const isTracking: boolean = liveTracker.isTracking();
 
-	this.currentTime(120); // 2 minutes into the video
+    const whereYouAt: number = this.currentTime();
 
 	const howLongIsThis: number = this.duration();
 
