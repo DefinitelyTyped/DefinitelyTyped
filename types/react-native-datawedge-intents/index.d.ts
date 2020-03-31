@@ -3,18 +3,18 @@
 // Definitions by: DerZersaeger <https://github.com/DerZersaeger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface ExtrasObject<T = object> {
-    action: string
-    extras?: T
+interface ExtrasObject {
+    action: string;
+    extras?: object;
 }
 
 interface FilterObject {
-    filterActions: ReadonlyArray<string>
-    filterCategories: ReadonlyArray<string>
+    filterActions: ReadonlyArray<string>;
+    filterCategories: ReadonlyArray<string>;
 }
 
 declare const DataWedgeIntents: {
-    sendBroadcastWithExtras: <T>(extrasObject: ExtrasObject<T>) => void;
+    sendBroadcastWithExtras: (extrasObject: ExtrasObject) => void;
     registerBroadcastReceiver: (filter: FilterObject) => void;
 };
 

@@ -1,4 +1,4 @@
-import DataWedgeIntents from 'react-native-datawedge-intents'
+import DataWedgeIntents from 'react-native-datawedge-intents';
 
 //  Register a receiver for the barcode scans with the appropriate action
 DataWedgeIntents.registerBroadcastReceiver({
@@ -11,11 +11,10 @@ DataWedgeIntents.registerBroadcastReceiver({
     ]
 });
 
-
 //  Initiate a scan (you could also press the trigger key)
 sendCommand('com.symbol.datawedge.api.SOFT_SCAN_TRIGGER', 'TOGGLE_SCANNING');
 
-function sendCommand<T>(extraName: string, extraValue: T) {
+function sendCommand(extraName: string, extraValue: any) {
     const broadcastExtras = {
         [extraName]: extraValue,
         SEND_RESULT: "false" // need to be passed as string
