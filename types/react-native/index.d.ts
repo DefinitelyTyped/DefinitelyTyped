@@ -8676,10 +8676,16 @@ export namespace Animated {
     //     : AnimatedComponent<T extends React.ComponentClass<ComponentProps<T>> ? InstanceType<T> : T>;
 
     export function createAnimatedComponent<
-        T extends React.ComponentType<any> | React.Component<any>
+        T extends React.ComponentType<any> | React.Component<any> | React.ForwardRefExoticComponent<any>
     >(
         component: T,
-    ): AnimatedComponent<T extends React.ComponentClass<any> ? InstanceType<T> : T>;
+    ): AnimatedComponent<
+        // TODO: This seems equivalent to React.ElementRef<T> no?
+        T extends React.ForwardRefExoticComponent<infer FP>
+            ? FP extends React.RefAttributes<infer FC>
+                ? FC
+                : never
+            : T extends React.ComponentClass<any> ? InstanceType<T> : T>;
 
     // export type AnimatedComponent<T extends React.Component<any> | React.ComponentType<P>, P = {}> = React.ComponentType<P>;
 
