@@ -68,7 +68,7 @@ openpgp.message
 
 const promises: [
     Promise<{ keys: Array<openpgp.key.Key>; err: Array<Error> | null }>,
-    Promise<openpgp.message.Message>,
+    Promise<openpgp.message.Message>
 ] = [openpgp.key.readArmored(sprivkey), openpgp.message.readArmored(pgpMessageStr)];
 
 Promise.all(promises)
