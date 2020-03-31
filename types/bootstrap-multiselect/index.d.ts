@@ -299,78 +299,19 @@ interface MultiSelectOptions {
 interface JQuery {
     multiselect(options?: MultiSelectOptions): JQuery;
 
-    /**
-     * This method is used to destroy the plugin on the given element - meaning unbinding the plugin.
-     */
-    
-    /**
-     * This method is used to refresh the checked checkboxes based on the currently selected options within the select.
-     * Click 'Select some options' to select some of the options. Then click refresh.
-     * The plugin will update the checkboxes accordingly.
-     */
-    
-    /**
-     * Rebuilds the whole dropdown menu. All selected options will remain selected (if still existent!).
-     */
-
     multiselect(method: 'destroy' | 'refresh' | 'rebuild'): JQuery;
 
-    /**
-     * Selects an option by its value. Works also using an array of values.
-     * @param triggerOnChange  If set to true, the method will manually trigger the onChange option.
-     */
-    multiselect(method: 'select', value: string | string[] | number, triggerOnChange?: boolean): JQuery;
+    multiselect(method: 'select' | 'deselect', value: string | string[] | number, triggerOnChange?: boolean): JQuery;
 
-    /**
-     * Deselect an option by its value. Works also using an array of values.
-     * @param triggerOnChange  If set to true, the method will manually trigger the onChange option.
-     */
-    multiselect(method: 'deselect', value: string | string[] | number, triggerOnChange?: boolean): JQuery;
-
-    /**
-     * Selects all options.
-     * @param justVisible If set to true or not provided, all visible options are selected (when using the filter),
-     * otherwise (justVisible set to false) all options are selected.
-     */
-    
-    /**
-     * Deselects all options.
-     * @param justVisible If set to true or not provided, all visible options are deselected,
-     * otherwise (justVisible set to false) all options are deselected.
-     */
     multiselect(method: 'selectAll' | 'deselectAll', justVisible?: boolean): JQuery;
 
-    /**
-     * When manually selecting/deselecting options and the corresponding checkboxes, this function updates the text and title of the button.
-     * Note that usually this method is only needed when using .multiselect('selectAll', justVisible) or .multiselect('deselectAll', justVisible).
-     * In all other cases, .multiselect('refresh') should be used.
-     */
     multiselect(method: 'updateButtonText'): JQuery;
 
-    /**
-     * Used to change configuration after initializing the multiselect. This may be useful in combination with {@link multiselect('rebuild')}.
-     * @example
-     * $('#example-setOptions').multiselect('setOptions', options);
-     * $('#example-setOptions').multiselect('rebuild');
-     */
     multiselect(method: 'setOptions', options: MultiSelectOptions): JQuery;
 
-    /**
-     * Disable both the underlying select and the dropdown button.
-     */
-    
-    /**
-     * Enable both the underlying select and the dropdown button.
-     */
     multiselect(method: 'disable' | 'enable'): JQuery;
 
-    /**
-     * This method is used to provide options programmatically
-     */
     multiselect(method: 'dataprovider', data: MultiSelectOptionElement[]): JQuery;
 
-    /**
-     * This method is used to programmatically provide a new text to display in the button when all options are selected, at runtime.
-     */
     multiselect(method: 'setAllSelectedText', value: string): JQuery;
 }
