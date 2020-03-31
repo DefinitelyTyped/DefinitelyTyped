@@ -182,11 +182,11 @@ declare namespace Sortable {
         /**
          * ability to move from the list. clone — copy the item, rather than move.
          */
-        pull?: PullResult | ((to: Sortable, from: Sortable) => PullResult);
+        pull?: PullResult | ((to: Sortable, from: Sortable, dragEl: HTMLElement, event: SortableEvent) => PullResult);
         /**
          * whether elements can be added from other lists, or an array of group names from which elements can be taken.
          */
-        put?: PutResult | ((to: Sortable) => PullResult);
+        put?: PutResult | ((to: Sortable, from: Sortable, dragEl: HTMLElement, event: SortableEvent) => PutResult);
         /**
          * a canonical version of pull, created by Sortable
          */

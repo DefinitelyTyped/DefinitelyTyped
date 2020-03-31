@@ -376,7 +376,7 @@ const popupOptions: mapboxgl.PopupOptions = {
     closeOnClick: false,
     closeOnMove: true,
 	closeButton: true,
-	anchor: 'top-right' as mapboxgl.Anchor,
+	anchor: 'top-right',
 	offset: {
 		'top': [0,0] as [number, number],
 		'bottom': [25,-50] as [number, number]
@@ -400,7 +400,7 @@ popup.toggleClassName('class3');
 /**
  * Add an image
  */
-var mapStyle = {
+var mapStyle: mapboxgl.Style = {
 	"version": 8,
 	"name": "Dark",
 	"sources": {
@@ -600,7 +600,7 @@ map = new mapboxgl.Map({
 	zoom: 17,
 	center: [-122.514426, 37.562984],
 	bearing: -96,
-	style: videoStyle,
+	style: mapStyle,
 	hash: false
 });
 
@@ -670,7 +670,31 @@ declare var lnglatboundslike: mapboxgl.LngLatBoundsLike;
 declare var mercatorcoordinate: mapboxgl.MercatorCoordinate;
 declare var pointlike: mapboxgl.PointLike;
 
-function expectType<T>(value: T) { /* let the compiler handle things */ }
+function expectType<T>(value: T) {
+	return value;
+}
+
+interface EitherType {
+	<A>(a: A): A;
+	<A, B>(a: A, b: B): A | B;
+	<A, B, C>(a: A, b: B, c: C): A | B | C;
+	<A, B, C, D>(a: A, b: B, c: C, d: D): A | B | C | D;
+	<A, B, C, D, E>(a: A, b: B, c: C, d: D, e: E): A | B | C | D | E;
+	<A, B, C, D, E, F>(a: A, b: B, c: C, d: D, e: E, f: F): A | B | C | D | E | F;
+	<A, B, C, D, E, F, G>(a: A, b: B, c: C, d: D, e: E, f: F, g: G): A | B | C | D | E | F | G;
+	<A, B, C, D, E, F, G, H>(a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H): A | B | C | D | E | F | G | H;
+	<A, B, C, D, E, F, G, H, I>(a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I): A | B | C | D | E | F | G | H | I;
+	/* Add more as needed */
+}
+
+/**
+* Takes a variable amount of arguments and returns a new
+* type that is a union of all the provided argument types. Useful to test properties
+* that accept multiple types
+*/
+const eitherType: EitherType = () => {
+	/* let the compiler handle things */
+};
 
 /*
  * LngLatLike
@@ -1078,7 +1102,7 @@ expectType<mapboxgl.Expression>([
 	['concat', ['get', 'name'], '\n'], {},
 	['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }]
 ]);
-expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
+const expression = expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
 
 /*
  *	ScrollZoomHandler
@@ -1093,8 +1117,338 @@ expectType<mapboxgl.Visibility>('visible');
 expectType<mapboxgl.Visibility>('none');
 
 /*
+ * Transition
+ */
+
+expectType<mapboxgl.Transition>({ duration: 0 });
+expectType<mapboxgl.Transition>({ delay: 0 });
+const transition = expectType<mapboxgl.Transition>({ duration: 0, delay: 0 });
+
+/*
+ * StyleFunction
+ */
+
+expectType<mapboxgl.StyleFunction>({ base: 1, type: 'categorical' });
+const styleFunction = expectType<mapboxgl.StyleFunction>({
+    base: 1,
+    type: 'exponential',
+    default: 0,
+    stops: [
+        [1, 2],
+        [3, 4],
+    ],
+});
+
+/*
+ * Anchor
+ */
+
+expectType<mapboxgl.Anchor>(
+    eitherType('center', 'left', 'right', 'top', 'bottom', 'top-left', 'top-right', 'bottom-left', 'bottom-right'),
+);
+const anchor: mapboxgl.Anchor = 'center';
+
+/*
+ * Layouts and Paint options
+ */
+
+const backgroundLayout: mapboxgl.BackgroundLayout = {
+    visibility: eitherType('visible', 'none'),
+};
+
+const backgroundPaint: mapboxgl.BackgroundPaint = {
+    'background-color': eitherType('#000', expression),
+    'background-color-transition': transition,
+    'background-pattern': 'pattern',
+    'background-pattern-transition': transition,
+    'background-opacity': eitherType(0, expression),
+    'background-opacity-transition': transition,
+};
+
+const fillLayout: mapboxgl.FillLayout = {
+    'fill-sort-key': 0,
+};
+
+const fillPaint: mapboxgl.FillPaint = {
+    'fill-antialias': eitherType(false, expression),
+    'fill-opacity': eitherType(0, styleFunction, expression),
+    'fill-opacity-transition': transition,
+    'fill-color': eitherType('#000', styleFunction, expression),
+    'fill-color-transition': transition,
+    'fill-outline-color': eitherType('#000', styleFunction, expression),
+    'fill-outline-color-transition': transition,
+    'fill-translate': [1],
+    'fill-translate-transition': transition,
+    'fill-translate-anchor': eitherType('map', 'viewport'),
+    'fill-pattern': eitherType('#000', expression),
+    'fill-pattern-transition': transition,
+};
+
+const fillExtrusionLayout: mapboxgl.FillExtrusionLayout = {
+    visibility: eitherType('visible', 'none'),
+};
+
+const fillExtrusionPaint: mapboxgl.FillExtrusionPaint = {
+    'fill-extrusion-opacity': eitherType(0, expression),
+    'fill-extrusion-opacity-transition': transition,
+    'fill-extrusion-color': eitherType('#000', styleFunction, expression),
+    'fill-extrusion-color-transition': transition,
+    'fill-extrusion-translate': eitherType([0], expression),
+    'fill-extrusion-translate-transition': transition,
+    'fill-extrusion-translate-anchor': eitherType('map', 'viewport'),
+    'fill-extrusion-pattern': eitherType('#000', expression),
+    'fill-extrusion-pattern-transition': transition,
+    'fill-extrusion-height': eitherType(0, styleFunction, expression),
+    'fill-extrusion-height-transition': transition,
+    'fill-extrusion-base': eitherType(0, styleFunction, expression),
+    'fill-extrusion-base-transition': transition,
+    'fill-extrusion-vertical-gradient': false,
+};
+
+const lineLayout: mapboxgl.LineLayout = {
+    'line-cap': eitherType('butt', 'round', 'square'),
+    'line-join': eitherType('bevel', 'round', 'miter', expression),
+    'line-miter-limit': eitherType(0, expression),
+    'line-round-limit': eitherType(0, expression),
+    'line-sort-key': 0,
+};
+
+const linePaint: mapboxgl.LinePaint = {
+    'line-opacity': eitherType(0, styleFunction, expression),
+    'line-opacity-transition': transition,
+    'line-color': eitherType('#000', styleFunction, expression),
+    'line-color-transition': transition,
+    'line-translate': eitherType([0], expression),
+    'line-translate-transition': transition,
+    'line-translate-anchor': eitherType('map', 'viewport'),
+    'line-width': eitherType(0, styleFunction, expression),
+    'line-width-transition': transition,
+    'line-gap-width': eitherType(0, styleFunction, expression),
+    'line-gap-width-transition': transition,
+    'line-offset': eitherType(0, styleFunction, expression),
+    'line-offset-transition': transition,
+    'line-blur': eitherType(0, styleFunction, expression),
+    'line-blur-transition': transition,
+    'line-dasharray': eitherType([0], expression),
+    'line-dasharray-transition': transition,
+    'line-pattern': eitherType('#000', expression),
+    'line-pattern-transition': transition,
+    'line-gradient': expression,
+};
+
+const symbolLayout: mapboxgl.SymbolLayout = {
+    'symbol-placement': eitherType('point', 'line', 'line-center'),
+    'symbol-spacing': eitherType(0, expression),
+    'symbol-avoid-edges': false,
+    'symbol-z-order': eitherType('viewport-y', 'source'),
+    'icon-allow-overlap': eitherType(false, styleFunction, expression),
+    'icon-ignore-placement': false,
+    'icon-optional': false,
+    'icon-rotation-alignment': eitherType('map', 'viewport', 'auto'),
+    'icon-size': eitherType(0, styleFunction, expression),
+    'icon-text-fit': eitherType('none', 'both', 'width', 'height'),
+    'icon-text-fit-padding': eitherType([0], expression),
+    'icon-image': eitherType('#000', styleFunction, expression),
+    'icon-rotate': eitherType(0, styleFunction, expression),
+    'icon-padding': eitherType(0, expression),
+    'icon-keep-upright': false,
+    'icon-offset': eitherType([0], styleFunction, expression),
+    'icon-anchor': eitherType('center', styleFunction, expression),
+    'icon-pitch-alignment': eitherType('map', 'viewport', 'auto'),
+    'text-pitch-alignment': eitherType('map', 'viewport', 'auto'),
+    'text-rotation-alignment': eitherType('map', 'viewport', 'auto'),
+    'text-field': eitherType('#000', styleFunction, expression),
+    'text-font': eitherType('arial', ['arial'], expression),
+    'text-size': eitherType(0, styleFunction, expression),
+    'text-max-width': eitherType(0, expression),
+    'text-line-height': eitherType(0, expression),
+    'text-letter-spacing': eitherType(0, expression),
+    'text-justify': eitherType('left', 'center', 'right', expression),
+    'text-anchor': eitherType('center', styleFunction, expression),
+    'text-max-angle': eitherType(0, expression),
+    'text-rotate': eitherType(0, styleFunction, expression),
+    'text-padding': eitherType(0, expression),
+    'text-keep-upright': false,
+    'text-transform': eitherType('none', 'uppercase', 'lowercase', styleFunction, expression),
+    'text-offset': eitherType([0], expression),
+    'text-allow-overlap': false,
+    'text-ignore-placement': false,
+    'text-optional': false,
+    'text-radial-offset': eitherType(0, expression),
+    'text-variable-anchor': [anchor],
+    'text-writing-mode': eitherType<
+        Array<'horizontal' | 'vertical'>,
+        Array<'horizontal' | 'vertical'>,
+        Array<'horizontal' | 'vertical'>
+    >(['horizontal'], ['vertical'], ['horizontal', 'vertical']),
+    'symbol-sort-key': 0,
+};
+
+const symbolPaint: mapboxgl.SymbolPaint = {
+    'icon-opacity': eitherType(0, styleFunction, expression),
+    'icon-opacity-transition': transition,
+    'icon-color': eitherType('#000', styleFunction, expression),
+    'icon-color-transition': transition,
+    'icon-halo-color': eitherType('#000', styleFunction, expression),
+    'icon-halo-color-transition': transition,
+    'icon-halo-width': eitherType(0, styleFunction, expression),
+    'icon-halo-width-transition': transition,
+    'icon-halo-blur': eitherType(0, styleFunction, expression),
+    'icon-halo-blur-transition': transition,
+    'icon-translate': eitherType([0], expression),
+    'icon-translate-transition': transition,
+    'icon-translate-anchor': eitherType('map', 'viewport'),
+    'text-opacity': eitherType(0, styleFunction, expression),
+    'text-opacity-transition': transition,
+    'text-color': eitherType('#000', styleFunction, expression),
+    'text-color-transition': transition,
+    'text-halo-color': eitherType('#000', styleFunction, expression),
+    'text-halo-color-transition': transition,
+    'text-halo-width': eitherType(0, styleFunction, expression),
+    'text-halo-width-transition': transition,
+    'text-halo-blur': eitherType(0, styleFunction, expression),
+    'text-halo-blur-transition': transition,
+    'text-translate': eitherType([0], expression),
+    'text-translate-transition': transition,
+    'text-translate-anchor': eitherType('map', 'viewport'),
+};
+
+const rasterLayout: mapboxgl.RasterLayout = {
+    visibility: eitherType('visible', 'none'),
+};
+
+const rasterPaint: mapboxgl.RasterPaint = {
+    'raster-opacity': eitherType(0, expression),
+    'raster-opacity-transition': transition,
+    'raster-hue-rotate': eitherType(0, expression),
+    'raster-hue-rotate-transition': transition,
+    'raster-brightness-min': eitherType(0, expression),
+    'raster-brightness-min-transition': transition,
+    'raster-brightness-max': eitherType(0, expression),
+    'raster-brightness-max-transition': transition,
+    'raster-saturation': eitherType(0, expression),
+    'raster-saturation-transition': transition,
+    'raster-contrast': eitherType(0, expression),
+    'raster-contrast-transition': transition,
+    'raster-fade-duration': eitherType(0, expression),
+    'raster-resampling': eitherType('linear', 'nearest'),
+    'circle-sort-key': 0,
+};
+
+const circleLayout: mapboxgl.CircleLayout = {
+    visibility: eitherType('visible', 'none'),
+};
+
+const circlePaint: mapboxgl.CirclePaint = {
+    'circle-radius': eitherType(0, styleFunction, expression),
+    'circle-radius-transition': transition,
+    'circle-color': eitherType('#000', styleFunction, expression),
+    'circle-color-transition': transition,
+    'circle-blur': eitherType(0, styleFunction, expression),
+    'circle-blur-transition': transition,
+    'circle-opacity': eitherType(0, styleFunction, expression),
+    'circle-opacity-transition': transition,
+    'circle-translate': eitherType([0], expression),
+    'circle-translate-transition': transition,
+    'circle-translate-anchor': eitherType('map', 'viewport'),
+    'circle-pitch-scale': eitherType('map', 'viewport'),
+    'circle-pitch-alignment': eitherType('map', 'viewport'),
+    'circle-stroke-width': eitherType(0, styleFunction, expression),
+    'circle-stroke-width-transition': transition,
+    'circle-stroke-color': eitherType('#000', styleFunction, expression),
+    'circle-stroke-color-transition': transition,
+    'circle-stroke-opacity': eitherType(0, styleFunction, expression),
+    'circle-stroke-opacity-transition': transition,
+};
+
+const heatmapLayout: mapboxgl.HeatmapLayout = {
+    visibility: eitherType('visible', 'none'),
+};
+
+const heatmapPaint: mapboxgl.HeatmapPaint = {
+    'heatmap-radius': eitherType(0, styleFunction, expression),
+    'heatmap-radius-transition': transition,
+    'heatmap-weight': eitherType(0, styleFunction, expression),
+    'heatmap-intensity': eitherType(0, styleFunction, expression),
+    'heatmap-intensity-transition': transition,
+    'heatmap-color': eitherType('#000', styleFunction, expression),
+    'heatmap-opacity': eitherType(0, styleFunction, expression),
+    'heatmap-opacity-transition': transition,
+};
+
+const hillshadeLayout: mapboxgl.HillshadeLayout = {
+    visibility: eitherType('visible', 'none'),
+};
+
+const hillshadePaint: mapboxgl.HillshadePaint = {
+    'hillshade-illumination-direction': eitherType(0, expression),
+    'hillshade-illumination-anchor': eitherType('map', 'viewport'),
+    'hillshade-exaggeration': eitherType(0, expression),
+    'hillshade-exaggeration-transition': transition,
+    'hillshade-shadow-color': eitherType('#000', expression),
+    'hillshade-shadow-color-transition': transition,
+    'hillshade-highlight-color': eitherType('#000', expression),
+    'hillshade-highlight-color-transition': transition,
+    'hillshade-accent-color': eitherType('#000', expression),
+    'hillshade-accent-color-transition': transition,
+};
+
+/* Make sure every layout has all properties optional */
+eitherType<
+    mapboxgl.BackgroundLayout,
+    mapboxgl.FillLayout,
+    mapboxgl.FillExtrusionLayout,
+    mapboxgl.LineLayout,
+    mapboxgl.SymbolLayout,
+    mapboxgl.RasterLayout,
+    mapboxgl.CircleLayout,
+    mapboxgl.HeatmapLayout,
+    mapboxgl.HillshadeLayout
+>({}, {}, {}, {}, {}, {}, {}, {}, {});
+
+/* Make sure every paint has all properties optional */
+eitherType<
+    mapboxgl.BackgroundPaint,
+    mapboxgl.FillPaint,
+    mapboxgl.FillExtrusionPaint,
+    mapboxgl.LinePaint,
+    mapboxgl.SymbolPaint,
+    mapboxgl.RasterPaint,
+    mapboxgl.CirclePaint,
+    mapboxgl.HeatmapPaint,
+    mapboxgl.HillshadePaint
+>({}, {}, {}, {}, {}, {}, {}, {}, {});
+
+/*
  * AnyLayout
-*/
-expectType<mapboxgl.AnyLayout>({visibility: 'none'});
-expectType<mapboxgl.AnyLayout>({visibility: 'none', 'line-cap': 'round' });
-expectType<mapboxgl.AnyLayout>({visibility: 'visible', 'icon-allow-overlap': true });
+ */
+expectType<mapboxgl.AnyLayout>(
+    eitherType(
+        backgroundLayout,
+        fillLayout,
+        fillExtrusionLayout,
+        lineLayout,
+        symbolLayout,
+        rasterLayout,
+        circleLayout,
+        heatmapLayout,
+        hillshadeLayout,
+    ),
+);
+
+/*
+ * AnyPaint
+ */
+expectType<mapboxgl.AnyPaint>(
+    eitherType(
+        backgroundPaint,
+        fillPaint,
+        fillExtrusionPaint,
+        linePaint,
+        symbolPaint,
+        rasterPaint,
+        circlePaint,
+        heatmapPaint,
+        hillshadePaint,
+    ),
+);

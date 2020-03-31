@@ -469,7 +469,7 @@ export interface SourceProps {
     tiles?: string[];
     tileSize?: number;
     bounds?: number[];
-    schema?: 'xyz' | 'tms';
+    scheme?: 'xyz' | 'tms';
     minzoom?: number;
     maxzoom?: number;
     attribution?: string;

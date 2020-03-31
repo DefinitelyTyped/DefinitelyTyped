@@ -1,6 +1,6 @@
 // Type definitions for Office.js 1.0
 // Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>, Sudhi Ramamurthy <https://github.com/sumurthy>
+// Definitions by: OfficeDev <https://github.com/OfficeDev>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>, Sudhi Ramamurthy <https://github.com/sumurthy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -7899,28 +7899,28 @@ declare namespace Office {
          */
         enum AppointmentSensitivityType {
             /**
-             * Normal.
+             * The item needs no special treatment.
              *
              * [Api set: Mailbox Preview]
              */
             Normal = "normal",
 
             /**
-             * Personal.
+             * Treat the item as personal.
              *
              * [Api set: Mailbox Preview]
              */
             Personal = "personal",
 
             /**
-             * Private.
+             * Treat the item as private.
              *
              * [Api set: Mailbox Preview]
              */
             Private = "private",
 
             /**
-             * Confidential.
+             * Treat the item as confidential.
              *
              * [Api set: Mailbox Preview]
              */
@@ -9213,7 +9213,7 @@ declare namespace Office {
          */
         enhancedLocation: EnhancedLocation;
         /**
-         * Gets or sets the {@link Office.AllDayEvent} of an appointment. 
+         * Gets or sets the {@link Office.IsAllDayEvent} property of an appointment.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9330,7 +9330,7 @@ declare namespace Office {
          */
         requiredAttendees: Recipients;
         /**
-         * Gets or sets the {@link Office.AppointmentSensitivity | sensitivity} of an appointment. 
+         * Gets or sets the {@link Office.Sensitivity | sensitivity} of an appointment. 
          *
          * [Api set: Mailbox Preview]
          *
@@ -10603,7 +10603,7 @@ declare namespace Office {
          *
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**:  `ReadItem`
          *
-         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**:  Compose or Read
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**:  Appointment Attendee
          * 
          * @beta
          */
@@ -10827,7 +10827,7 @@ declare namespace Office {
          *
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permission | Minimum permission level}**:  `ReadItem`
          *
-         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**:  Compose or Read
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**:  Appointment Attendee
          * 
          * @beta
          */
@@ -11856,11 +11856,11 @@ declare namespace Office {
     /**
      * Represents the categories on an item.
      * 
-     * In Outlook, a user can group messages and appointments by using a category to color-code them.
+     * In Outlook, a user can tag messages and appointments by using a category to color-code them.
      * The user defines {@link Office.MasterCategories | categories in a master list} on their mailbox.
      * They can then apply one or more categories to an item.
      *
-     * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Read mode.
+     * **Important**: In Outlook on the web, you can't use the API to manage categories applied to a message in Compose mode.
      *
      * [Api set: Mailbox 1.8]
      *
@@ -13482,9 +13482,11 @@ declare namespace Office {
     /**
      * Represents the categories master list on the mailbox.
      * 
-     * In Outlook, a user can group messages and appointments by using a category to color-code them.
+     * In Outlook, a user can tag messages and appointments by using a category to color-code them.
      * The user defines categories in a master list on their mailbox. They can then apply one or more categories to an item.
      *
+     * **Important**: In delegate or shared scenarios, the delegate can get the categories in the master list but can't add or remove categories.
+     * 
      * [Api set: Mailbox 1.8]
      *
      * @remarks
@@ -13717,6 +13719,8 @@ declare namespace Office {
         body: Body;
         /**
          * Gets an object that provides methods for managing the item's categories.
+         *
+         * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Compose mode.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -14858,8 +14862,6 @@ declare namespace Office {
         body: Body;
         /**
          * Gets an object that provides methods for managing the item's categories.
-         *
-         * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Read mode.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -21197,7 +21199,9 @@ declare namespace Excel {
          */
         suspendApiCalculationUntilNextSync(): void;
         /**
-         * Suspends sceen updating until the next "context.sync()" is called.
+         * Suspends screen updating until the next `context.sync()` is called.
+         * 
+         * **Note**: Don't call `suspendScreenUpdatingUntilNextSync` repeatedly (such as in a loop). Repeated calls will cause the Excel window to flicker.
          *
          * [Api set: ExcelApi 1.9]
          */
