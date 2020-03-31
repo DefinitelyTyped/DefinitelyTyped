@@ -14,6 +14,7 @@ import { Visitor, VisitorIdentifier } from './Visitor';
 import { CompanyIdentifier, List as CompanyList, Company } from './Company';
 import { TagIdentifier, List as TagList, Tag, TagOper } from './Tag';
 import { List as EventList, Event, ListParam as EventListParam } from './Event';
+import { CreateMessage, Message } from './Message';
 import { Scroll } from './Scroll';
 import { IntercomError } from './IntercomError';
 
@@ -41,6 +42,7 @@ export class Client {
     contacts: Leads;
     leads: Leads;
     visitors: Visitors;
+    messages: Messages;
 }
 
 export class ApiResponse<T> extends IncomingMessage {
@@ -174,4 +176,9 @@ export class Events {
 
     listBy(params: EventListParam): Promise<ApiResponse<CompanyList>>;
     listBy(params: EventListParam, cb: callback<ApiResponse<CompanyList>>): void;
+}
+
+export class Messages {
+    create(message: Partial<CreateMessage>): Promise<ApiResponse<Message>>;
+    create(message: Partial<CreateMessage>, cb: callback<ApiResponse<Message>>): void;
 }
