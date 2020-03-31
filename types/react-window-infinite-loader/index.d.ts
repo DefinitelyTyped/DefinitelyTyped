@@ -7,9 +7,9 @@
 import { FC, Ref, ReactNode, Component } from "react";
 import { ListOnItemsRenderedProps, FixedSizeList, VariableSizeList } from 'react-window';
 
-type OnItemsRendered = (props: ListOnItemsRenderedProps) => any;
+export type OnItemsRendered = (props: ListOnItemsRenderedProps) => any;
 
-interface InfiniteLoaderProps {
+export interface InfiniteLoaderProps {
     isItemLoaded: (index: number) => boolean;
     loadMoreItems: (startIndex: number, stopIndex: number) => Promise<any> | null;
     itemCount: number;
