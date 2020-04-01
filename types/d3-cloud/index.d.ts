@@ -59,9 +59,9 @@ declare module 'd3' {
             text(text: string): Cloud<T>;
             text(text: (datum: T, index: number) => string): Cloud<T>;
 
-            spiral(): (size: number) => (t: number) => [number, number];
+            spiral(): (size: [number, number]) => (t: number) => [number, number];
             spiral(name: string): Cloud<T>;
-            spiral(spiral: (size: number) => (t: number) => [number, number]): Cloud<T>;
+            spiral(spiral: (size: [number, number]) => (t: number) => [number, number]): Cloud<T>;
 
             fontSize(): (datum: T, index: number) => number;
             fontSize(size: number): Cloud<T>;
@@ -71,10 +71,10 @@ declare module 'd3' {
             padding(padding: number): Cloud<T>;
             padding(padding: (datum: T, index: number) => number): Cloud<T>;
 
-             /**
+            /**
              * If specified, sets the internal random number generator,used for selecting the initial position of each word,
              * and the clockwise/counterclockwise direction of the spiral for each word.
-             * 
+             *
              * @param randomFunction should return a number in the range [0, 1).The default is Math.random.
              */
             random(): Cloud<T>;
@@ -84,17 +84,17 @@ declare module 'd3' {
              * If specified, sets the canvas generator function, which is used internally to draw text.
              * When using Node.js, you will almost definitely override the default, e.g. using the canvas module.
              * @param canvasGenerator should return a HTMLCanvasElement.The default is:  ()=>{document.createElement("canvas");}
-             * 
+             *
              */
-            canvas():Cloud<T>;
+            canvas(): Cloud<T>;
             canvas(canvasGenerator: () => HTMLCanvasElement): Cloud<T>;
 
-            on(type: "word", listener: (word: T) => void): Cloud<T>;
-            on(type: "end", listener: (tags: T[], bounds: { x: number; y: number }[]) => void): Cloud<T>;
+            on(type: 'word', listener: (word: T) => void): Cloud<T>;
+            on(type: 'end', listener: (tags: T[], bounds: { x: number; y: number }[]) => void): Cloud<T>;
             on(type: string, listener: (...args: any[]) => void): Cloud<T>;
 
-            on(type: "word"): (word: T) => void;
-            on(type: "end"): (tags: T[], bounds: { x: number; y: number }[]) => void;
+            on(type: 'word'): (word: T) => void;
+            on(type: 'end'): (tags: T[], bounds: { x: number; y: number }[]) => void;
             on(type: string): (...args: any[]) => void;
         }
     }

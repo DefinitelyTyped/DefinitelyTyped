@@ -8,18 +8,27 @@
 
 import { RedisClient } from 'redis';
 import IORedis = require('ioredis');
-import { Store } from 'express-rate-limit';
+import { Store, StoreIncrementCallback } from 'express-rate-limit';
 
-interface RedisStoreOptions {
-    expiry?: number;
-    prefix?: string;
-    resetExpiryOnChange?: boolean;
-    client?: RedisClient | IORedis.Redis;
-    redisURL?: string;
+declare namespace RedisStore {
+    interface Options {
+        expiry?: number;
+        prefix?: string;
+        resetExpiryOnChange?: boolean;
+        client?: RedisClient | IORedis.Redis;
+        redisURL?: string;
+    }
 }
 
-declare var RedisStore: {
-    new (options?: RedisStoreOptions): Store;
-};
+declare class RedisStore implements Store {
+    constructor(options?: RedisStore.Options);
+    incr(key: string, cb: StoreIncrementCallback): void;
+    decrement(key: string): void;
+    resetKey(key: string): void;
+    // rate-limit-redis 1.7.0 doesn't actually implement resetAll() and
+    // express-rate-limit 5.1.1 doesn't actually call it, but it's required by
+    // the Store interface so it's included here.
+    resetAll(): void;
+}
 
 export = RedisStore;

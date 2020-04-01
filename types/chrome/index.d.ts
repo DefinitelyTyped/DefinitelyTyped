@@ -14,6 +14,7 @@
 // TypeScript Version: 2.4
 
 /// <reference types="filesystem" />
+/// <reference path="har-format/index.d.ts" />
 
 ////////////////////
 // Global object
@@ -1865,8 +1866,12 @@ declare namespace chrome.devtools.inspectedWindow {
  * Availability: Since Chrome 18.
  */
 declare namespace chrome.devtools.network {
+    /** Represents a HAR entry for a specific finished request. */
+    export interface HAREntry extends HARFormatEntry { }
+    /** Represents a HAR log that contains all known network requests. */
+    export interface HARLog extends HARFormatLog { }
     /** Represents a network request for a document resource (script, image and so on). See HAR Specification for reference. */
-    export interface Request {
+    export interface Request extends chrome.devtools.network.HAREntry {
         /**
          * Returns content of the response body.
          * @param callback A function that receives the response body when the request completes.
@@ -1889,7 +1894,7 @@ declare namespace chrome.devtools.network {
      * function(object harLog) {...};
      * Parameter harLog: A HAR log. See HAR specification for details.
      */
-    export function getHAR(callback: (harLog: Object) => void): void;
+    export function getHAR(callback: (harLog: HARLog) => void): void;
 
     /** Fired when a network request is finished and all request data are available. */
     export var onRequestFinished: RequestFinishedEvent;
@@ -4151,6 +4156,34 @@ declare namespace chrome.input.ime {
      * @since Chrome 29.
      */
     export var onReset: InputResetEvent;
+}
+
+////////////////////
+// LoginState
+////////////////////
+/**
+ * Use the chrome.loginState API to read and monitor the login state.
+ * Permissions: "loginState"
+ * @since Chrome 78.
+ * Important: This API works only on Chrome OS.
+ */
+declare namespace chrome.loginState {
+    export interface SessionStateChangedEvent extends chrome.events.Event<(sessionState: SessionState) => void> { }
+
+    /** Possible profile types. */
+    export type ProfileType = 'SIGNIN_PROFILE'|'USER_PROFILE';
+
+    /** Possible session states. */
+    export type SessionState = 'UNKNOWN'|'IN_OOBE_SCREEN'|'IN_LOGIN_SCREEN'|'IN_SESSION'|'IN_LOCK_SCREEN';
+
+    /** Gets the type of the profile the extension is in. */
+    export function getProfileType(callback: (profileType: ProfileType) => void): void;
+
+    /** Gets the current session state. */
+    export function getSessionState(callback: (sessionState: SessionState) => void): void;
+
+    /** Dispatched when the session state changes. sessionState is the new session state.*/
+    export const onSessionStateChanged: SessionStateChangedEvent;
 }
 
 ////////////////////

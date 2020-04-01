@@ -230,11 +230,11 @@ export type WithTransactionCallback<T> = (session: ClientSession) => Promise<T>;
  * see {@link http://mongodb.github.io/node-mongodb-native/3.5/api/MongoError.html}
  */
 export class MongoError extends Error {
-    constructor(message: string);
+    constructor(message: string | Error | object);
     /**
      * @deprecated
      */
-    static create(options: string): MongoError;
+    static create(options: string | Error | object): MongoError;
     /**
      * Checks the error to see if it has an error label
      */
@@ -339,6 +339,13 @@ export interface MongoClientOptions extends
      * Enables the new unified topology layer
      */
     useUnifiedTopology?: boolean;
+
+    /**
+     * With `useUnifiedTopology`, the MongoDB driver will try to find a server to send any given operation to
+     * and keep retrying for `serverSelectionTimeoutMS` milliseconds.
+     * Default: 30000
+     */
+    serverSelectionTimeoutMS?: number;
 
     /**
      * number of retries for a tailable cursor

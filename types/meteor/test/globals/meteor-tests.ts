@@ -30,7 +30,7 @@ interface MessageDAO {
     _id: string;
     text: string;
 }
-    
+
 const Rooms = new Mongo.Collection<RoomDAO>('rooms');
 let Messages = new Mongo.Collection<MessageDAO>('messages');
 interface MonkeyDAO {
@@ -212,7 +212,7 @@ interface PostDAO {
     _id: string;
     title: string;
     body: string;
-} 
+}
 
 var Posts : Mongo.Collection<iPost> | Mongo.Collection<PostDAO> = new Mongo.Collection<PostDAO>("posts");
 Posts.insert({ title: "Hello world", body: "First post" });

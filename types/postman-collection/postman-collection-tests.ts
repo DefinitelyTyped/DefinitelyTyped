@@ -339,7 +339,7 @@ pmCollection.HeaderList.isHeaderList(headerList); // $ExpectType boolean
 
 const itemDef: pmCollection.ItemDefinition = {};
 itemDef.request; // $ExpectType RequestDefinition | undefined
-itemDef.responses; // $ExpectType ResponseDefinition[] | undefined
+itemDef.response; // $ExpectType ResponseDefinition[] | undefined
 itemDef.events; // $ExpectType EventDefinition[] | undefined
 
 // Item Tests
@@ -645,7 +645,7 @@ urlDef = {
 urlDef.auth; // $ExpectType { user: string; password: string; } | undefined
 urlDef.hash; // $ExpectType string | undefined
 urlDef.host; // $ExpectType string | string[] | undefined
-urlDef.path; // $ExpectType string | string[]
+urlDef.path; // $ExpectType string | string[] | undefined
 urlDef.port; // $ExpectType string | undefined
 urlDef.query; // $ExpectType string | QueryParamDefinition[] | PropertyList<QueryParam> | undefined
 urlDef.variable; // $ExpectType VariableDefinition[] | undefined
@@ -659,7 +659,7 @@ url = new pmCollection.Url('string');
 url.auth; // $ExpectType { user: string; password: string; } | undefined
 url.hash; // $ExpectType string | undefined
 url.host; // $ExpectType string[] | undefined
-url.path; // $ExpectType string[]
+url.path; // $ExpectType string[] | undefined
 url.port; // $ExpectType string | undefined
 url.protocol; // $ExpectType string | undefined
 url.query; // $ExpectType PropertyList<QueryParam>

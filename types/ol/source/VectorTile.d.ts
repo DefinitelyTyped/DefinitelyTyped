@@ -1,6 +1,7 @@
 import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
+import { FeatureLike } from '../Feature';
 import FeatureFormat from '../format/Feature';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
@@ -40,12 +41,11 @@ export interface Options {
 export default class VectorTile extends UrlTile {
     constructor(options: Options);
     protected tileClass: VectorTile_1;
-    addSourceTiles(tile: VectorRenderTile, sourceTiles: VectorTile_1[]): void;
     clear(): void;
+    getFeaturesInExtent(extent: Extent): FeatureLike[];
     getOverlaps(): boolean;
     getSourceTiles(pixelRatio: number, projection: Projection, tile: VectorRenderTile): VectorTile_1[];
     getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
-    removeSourceTiles(tile: VectorRenderTile): void;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => void): void;

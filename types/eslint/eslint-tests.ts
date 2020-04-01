@@ -547,7 +547,12 @@ data = {rulesMeta: {"no-extra-semi": meta}};
 formatter(cliReport.results);
 formatter(cliReport.results, data);
 
+const version: string = CLIEngine.version;
+
 CLIEngine.getErrorResults(cliReport.results);
+
+formatter = CLIEngine.getFormatter();
+formatter = CLIEngine.getFormatter('codeframe');
 
 CLIEngine.outputFixes(cliReport);
 

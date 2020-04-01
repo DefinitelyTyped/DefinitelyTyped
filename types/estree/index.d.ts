@@ -226,7 +226,7 @@ type Expression =
     LogicalExpression | MemberExpression | ConditionalExpression |
     CallExpression | NewExpression | SequenceExpression | TemplateLiteral |
     TaggedTemplateExpression | ClassExpression | MetaProperty | Identifier |
-    AwaitExpression;
+    AwaitExpression | ImportExpression;
 
 export interface BaseExpression extends BaseNode { }
 
@@ -387,6 +387,7 @@ export type UpdateOperator = "++" | "--";
 
 export interface ForOfStatement extends BaseForXStatement {
   type: "ForOfStatement";
+  await: boolean;
 }
 
 export interface Super extends BaseNode {
@@ -516,6 +517,11 @@ export interface ImportDeclaration extends BaseModuleDeclaration {
 export interface ImportSpecifier extends BaseModuleSpecifier {
   type: "ImportSpecifier";
   imported: Identifier;
+}
+
+export interface ImportExpression extends BaseExpression {
+  type: "ImportExpression";
+  source: Expression;
 }
 
 export interface ImportDefaultSpecifier extends BaseModuleSpecifier {

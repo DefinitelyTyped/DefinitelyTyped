@@ -60,4 +60,16 @@ import { Readable } from "stream";
     w.terminate().then(() => {
         // woot
     });
+
+    const ww = new workerThreads.Worker(__filename, {
+      env: workerThreads.SHARE_ENV
+    });
+
+    const www = new workerThreads.Worker(__filename, {
+      env: process.env
+    });
+
+    const wwww = new workerThreads.Worker(__filename, {
+      env: { doot: 'woot' }
+    });
 }

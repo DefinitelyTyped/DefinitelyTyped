@@ -3139,6 +3139,15 @@ declare namespace Xrm {
          */
         interface FramedControl extends Control {
             /**
+             * Returns the content window that represents an IFRAME or web resource.
+             * @returns A promise that contains a content window instance representing an IFRAME or web resource.
+             * @remarks This method is supported only on Unified Interface.  The implementer is expected to call
+             * a custom function within the returned window that will receive the Xrm and formContext objects as
+             * parameters.
+             */
+            getContentWindow(): Promise<Window>;
+
+            /**
              * Gets the DOM element containing the control.
              * @returns The container object.
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.

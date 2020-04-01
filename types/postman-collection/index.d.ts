@@ -1,6 +1,6 @@
 // Type definitions for postman-collection 3.5
 // Project: https://github.com/postmanlabs/postman-collection
-// Definitions by: Kyle Buzby <https://github.com/kbuzby>
+// Definitions by: Kyle Buzby <https://github.com/kbuzby>, Vincenzo Chianese <https://github.com/XVincentX>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 /// <reference types="node" />
@@ -359,7 +359,7 @@ export class HeaderList extends PropertyList<Header> {
 
 export interface ItemDefinition extends PropertyDefinition {
   request?: RequestDefinition;
-  responses?: ResponseDefinition[];
+  response?: ResponseDefinition[];
   events?: EventDefinition[];
 }
 
@@ -651,7 +651,7 @@ export interface UrlDefinition extends PropertyBaseDefinition {
   auth?: { user: string; password: string };
   hash?: string;
   host?: string[] | string;
-  path: string[] | string;
+  path?: string[] | string;
   port?: string;
   query?: QueryParamDefinition[] | PropertyList<QueryParam> | string;
   variable?: VariableDefinition[];
@@ -662,7 +662,7 @@ export class Url extends PropertyBase<UrlDefinition> implements UrlDefinition {
   auth?: { user: string; password: string };
   hash?: string;
   host?: string[];
-  path: string[];
+  path?: string[];
   port?: string;
   protocol?: string;
   query: PropertyList<QueryParam>;

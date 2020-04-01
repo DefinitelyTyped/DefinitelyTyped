@@ -57,6 +57,7 @@ import { BigIntStats, statSync, Stats } from 'fs';
 // FS Tests
 {
     const bigStats: BigIntStats = statSync('.', { bigint: true });
+    const bigIntStat: bigint = bigStats.atimeNs;
     const anyStats: Stats | BigIntStats = statSync('.', { bigint: Math.random() > 0.5 });
 }
 

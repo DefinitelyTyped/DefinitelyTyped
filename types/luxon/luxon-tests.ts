@@ -288,6 +288,8 @@ DateTime.fromFormat('May 25 1982', 'LLLL dd yyyy'); // $ExpectType DateTime
 DateTime.fromFormat('mai 25 1982', 'LLLL dd yyyy', { locale: 'fr' }); // $ExpectType DateTime
 
 DateTime.fromFormatExplain('Aug 6 1982', 'MMMM d yyyy').regex;
+DateTime.invalid('Timestamp out of range');
+DateTime.invalid('mismatched weekday', "you can't specify both a weekday and a date");
 
 /* Math */
 const d1: DateTime = DateTime.local(2017, 2, 13).plus({ days: 30 });

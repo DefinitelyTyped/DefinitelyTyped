@@ -162,9 +162,9 @@ export interface UseTableHooks<D extends object> extends Record<string, any> {
     >;
     columns: Array<(columns: Array<Column<D>>, meta: Meta<D>) => Array<Column<D>>>;
     columnsDeps: Array<(deps: any[], meta: Meta<D>) => any[]>;
-    allColumns: Array<(allColumns: Array<Column<D>>, meta: Meta<D>) => Array<Column<D>>>;
+    allColumns: Array<(allColumns: Array<ColumnInstance<D>>, meta: Meta<D>) => Array<Column<D>>>;
     allColumnsDeps: Array<(deps: any[], meta: Meta<D>) => any[]>;
-    visibleColumns: Array<(allColumns: Array<Column<D>>, meta: Meta<D>) => Array<Column<D>>>;
+    visibleColumns: Array<(allColumns: Array<ColumnInstance<D>>, meta: Meta<D>) => Array<Column<D>>>;
     visibleColumnsDeps: Array<(deps: any[], meta: Meta<D>) => any[]>;
     headerGroups: Array<(allColumns: Array<HeaderGroup<D>>, meta: Meta<D>) => Array<HeaderGroup<D>>>;
     headerGroupsDeps: Array<(deps: any[], meta: Meta<D>) => any[]>;

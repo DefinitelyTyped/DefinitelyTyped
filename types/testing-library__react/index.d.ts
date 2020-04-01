@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/react 9.1
+// Type definitions for @testing-library/react 10.0
 // Project: https://github.com/testing-library/react-testing-library
 // Definitions by: Alex Krolick <https://github.com/alexkrolick>
 //                 Kent C Dodds <https://github.com/kentcdodds>
@@ -6,6 +6,7 @@
 //                 Weyert de Boer <https://github.com/weyert>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 Daniel Afonso <https://github.com/danieljcafonso>
+//                 Tim Swalling <https://github.com/timswalling>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -47,7 +48,7 @@ export function render<Q extends Queries>(ui: React.ReactElement, options: Rende
 /**
  * Unmounts React trees that were mounted with render.
  */
-export function cleanup(): void;
+export function cleanup(): Promise<void>;
 
 /**
  * Simply calls ReactDOMTestUtils.act(cb)

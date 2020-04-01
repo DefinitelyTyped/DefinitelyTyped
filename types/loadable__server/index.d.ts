@@ -79,6 +79,11 @@ export class ChunkExtractor {
 	 */
 	requireEntrypoint(name?: string): { default: ComponentType };
 
+    /**
+     * Get required assets definition
+     */
+    getMainAssets(scriptType?: string): Chunk[];
+
 	/**
 	 * Get scripts as a string of `<script>` tags
 	 */
