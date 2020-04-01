@@ -14,7 +14,7 @@ interface TwentyTwentyOptions {
     no_overlay?: boolean;
     move_slider_on_hover?: boolean;
     move_with_handle_only?: boolean;
-    click_to_move?: boolean
+    click_to_move?: boolean;
 }
 
 interface JQuery {
