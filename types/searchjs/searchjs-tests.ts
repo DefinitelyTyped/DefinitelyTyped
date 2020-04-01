@@ -2,7 +2,17 @@ import { resetDefaults, setDefaults, matchArray, matchObject } from 'searchjs';
 
 resetDefaults();
 
-setDefaults({});
+setDefaults({
+    negator: false,
+    joinAnd: "AND",
+    text: false,
+    word: false,
+    start: false,
+    end: false,
+    separator: ".",
+    propertySearch: false,
+    propertySearchDepth: -1
+});
 
 matchArray(
     [
