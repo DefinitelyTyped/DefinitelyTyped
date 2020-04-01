@@ -1,15 +1,10 @@
 import * as React from 'react';
-import BootstrapTable, {
-    CellAlignment,
-    ColumnDescription,
-    HeaderFormatter,
-    ColumnFormatter,
-} from 'react-bootstrap-table-next';
+import BootstrapTable, { ColumnDescription, ColumnFormatter, HeaderFormatter } from 'react-bootstrap-table-next';
 import filterFactory, {
-    numberFilter,
     Comparator,
-    selectFilter,
     multiSelectFilter,
+    numberFilter,
+    selectFilter,
     textFilter,
 } from 'react-bootstrap-table2-filter';
 import { render } from 'react-dom';
