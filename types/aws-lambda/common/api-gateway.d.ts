@@ -42,7 +42,7 @@ export interface APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext>
     eventType?: string;
     extendedRequestId?: string;
     httpMethod: string;
-    identity?: APIGatewayEventIdentity;
+    identity: APIGatewayEventIdentity;
     path: string;
     protocol: string;
     requestId: string;
