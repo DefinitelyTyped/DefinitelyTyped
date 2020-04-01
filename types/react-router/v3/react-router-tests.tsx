@@ -143,7 +143,7 @@ class User extends React.Component<UserProps> {
         return <div>
             This is a user { params.id }
             This is a query { location.query.search }
-        </div>
+        </div>;
     }
 }
 
