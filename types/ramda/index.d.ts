@@ -29,6 +29,7 @@
 //                 Jituan Lin <https://github.com/jituanlin>
 //                 Philippe Mills <https://github.com/Philippe-mills>
 //                 Saul Mirone <https://github.com/Saul-Mirone>
+//                 Nicholai Nissen <https://github.com/Nicholaiii>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -578,6 +579,7 @@ export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
  * Returns true if its arguments are equivalent, false otherwise. Dispatches to an equals method if present.
  * Handles cyclical data structures.
  */
+export function equals<T>(__: Placeholder, b: T): (a: T) => boolean;
 export function equals<T>(a: T, b: T): boolean;
 export function equals<T>(a: T): (b: T) => boolean;
 
