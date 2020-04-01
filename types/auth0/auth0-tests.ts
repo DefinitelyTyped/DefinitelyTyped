@@ -509,7 +509,6 @@ management.createClient({
         lifetime_in_seconds: 300,
         scopes: {},
         alg: 'RS256',
-        secret_encoded: true,
     },
     encryption_key: {
         pub: 'pub',
