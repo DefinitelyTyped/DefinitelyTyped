@@ -159,7 +159,7 @@ declare namespace WebTorrent {
         readonly length: number;
 
         readonly downloaded: number;
-        
+
         readonly progress: number;
 
         select(): void;
