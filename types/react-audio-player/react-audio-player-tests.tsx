@@ -1,4 +1,4 @@
-import { ReactAudioPlayer } from 'react-audio-player';
+import ReactAudioPlayer from 'react-audio-player';
 import * as React from 'react';
 import { render } from 'react-dom';
 
