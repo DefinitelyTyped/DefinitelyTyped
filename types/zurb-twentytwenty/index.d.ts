@@ -7,13 +7,13 @@
 /// <reference types="jquery"/>
 
 interface TwentyTwentyOptions {
-    default_offset_pct?: number,
-    orientation?: string,
-    before_label?: string,
-    after_label?: string,
-    no_overlay?: boolean,
-    move_slider_on_hover?: boolean,
-    move_with_handle_only?: boolean,
+    default_offset_pct?: number;
+    orientation?: string;
+    before_label?: string;
+    after_label?: string;
+    no_overlay?: boolean;
+    move_slider_on_hover?: boolean;
+    move_with_handle_only?: boolean;
     click_to_move?: boolean
 }
 
