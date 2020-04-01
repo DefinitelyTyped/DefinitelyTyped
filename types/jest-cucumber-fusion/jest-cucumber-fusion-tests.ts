@@ -1,7 +1,8 @@
 import * as jcf from 'jest-cucumber-fusion';
 
-function cb(...args: string[]): void {}
-async function cbAsync(...args: string[]): Promise<void> {}
+type CbArgs = ReadonlyArray<string | Array<Record<string, string>>>;
+function cb(...args: CbArgs): void {}
+async function cbAsync(...args: CbArgs): Promise<void> {}
 
 jcf.Given('', cb); // $ExpectType void
 jcf.Given('', cbAsync); // $ExpectType void
@@ -25,7 +26,7 @@ jcf.Before(() => {}); // $ExpectType void
 jcf.Before(async () => {}); // $ExpectType void
 
 jcf.Fusion(''); // $ExpectType void
-jcf.Fusion('', {errors: true}); // $ExpectType void
-jcf.Fusion('', {loadRelativePath: true}); // $ExpectType void
-jcf.Fusion('', {scenarioNameTemplate: (vars) => vars.featureTitle}); // $ExpectType void
-jcf.Fusion('', {tagFilter: ""}); // $ExpectType void
+jcf.Fusion('', { errors: true }); // $ExpectType void
+jcf.Fusion('', { loadRelativePath: true }); // $ExpectType void
+jcf.Fusion('', { scenarioNameTemplate: vars => vars.featureTitle }); // $ExpectType void
+jcf.Fusion('', { tagFilter: '' }); // $ExpectType void
