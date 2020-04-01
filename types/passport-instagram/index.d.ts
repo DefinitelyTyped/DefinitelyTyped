@@ -44,7 +44,7 @@ interface IStrategyOptionWithRequest extends IStrategyOptionBase {
     passReqToCallback: true;
 }
 
-declare class Strategy extends passport.Strategy {
+export class Strategy extends passport.Strategy {
     constructor(options: IStrategyOption,
         verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
     constructor(options: IStrategyOptionWithRequest,
