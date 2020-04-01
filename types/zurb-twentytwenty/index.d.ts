@@ -6,7 +6,7 @@
 
 /// <reference types="jquery"/>
 
-interface ITwentyTwentyOptions {
+interface TwentyTwentyOptions {
     default_offset_pct?: number,
     orientation?: string,
     before_label?: string,
@@ -18,5 +18,5 @@ interface ITwentyTwentyOptions {
 }
 
 interface JQuery {
-    twentytwenty(options?: ITwentyTwentyOptions): JQuery;
+    twentytwenty(options?: TwentyTwentyOptions): JQuery;
 }
