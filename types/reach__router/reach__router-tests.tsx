@@ -59,3 +59,6 @@ const handleRef = (el: HTMLAnchorElement) => {
 };
 
 render(<Link innerRef={handleRef} to="./foo"></Link>, document.getElementById('app-root'));
+
+const refObject: React.RefObject<HTMLAnchorElement> = { current: null };
+render(<Link innerRef={refObject} to="./foo"></Link>, document.getElementById('app-root'));
