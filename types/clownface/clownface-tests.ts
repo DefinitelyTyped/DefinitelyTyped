@@ -78,6 +78,10 @@ function testAddIn() {
         const childNode: clownface.Clownface<BlankNode> = child;
     });
     cf = cf.addIn(cf.node(node), cf.node(node));
+
+    const manyPredicates: clownface.Clownface<NamedNode[]> = <any> {};
+    const manyObjects: clownface.Clownface<Literal[]> = <any> {};
+    cf = cf.addIn(manyPredicates, manyObjects);
 }
 
 function testAddList() {
@@ -99,6 +103,10 @@ function testAddOut() {
         const childNode: clownface.Clownface<BlankNode> = child;
     });
     cf = cf.addOut(cf.node(node), cf.node(node));
+
+    const manyPredicates: clownface.Clownface<NamedNode[]> = <any> {};
+    const manyObjects: clownface.Clownface<Literal[]> = <any> {};
+    cf = cf.addOut(manyPredicates, manyObjects);
 }
 
 function testBlankNode() {
