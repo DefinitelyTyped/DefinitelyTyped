@@ -18,4 +18,4 @@ declare const DataWedgeIntents: {
     registerBroadcastReceiver: (filter: FilterObject) => void;
 };
 
-export default DataWedgeIntents;
+export = DataWedgeIntents;
