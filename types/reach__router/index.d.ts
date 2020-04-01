@@ -5,6 +5,7 @@
 //                 Awwit <https://github.com/awwit>
 //                 wroughtec <https://github.com/wroughtec>
 //                 O.Jackman <https://github.com/chilledoj>
+//                 Eyas <https://github.com/Eyas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -57,6 +58,8 @@ export interface LinkProps<TState> extends AnchorProps {
     replace?: boolean;
     getProps?: (props: LinkGetProps) => {};
     state?: TState;
+    /** @deprecated If using React >= 16.4, use ref instead. */
+    innerRef?: React.RefCallback<HTMLAnchorElement>;
 }
 
 export interface LinkGetProps {
@@ -86,7 +89,7 @@ export interface MatchProps<TParams> {
 export type MatchRenderFn<TParams> = (props: MatchRenderProps<TParams>) => React.ReactNode;
 
 export interface MatchRenderProps<TParams> {
-    match: null | { uri: string; path: string } & TParams;
+    match: null | ({ uri: string; path: string } & TParams);
     location: WindowLocation;
     navigate: NavigateFn;
 }
@@ -162,4 +165,4 @@ export function useNavigate(): NavigateFn;
 
 export function useParams(): any;
 
-export function useMatch(pathname: string): null | { uri: string; path: string, [param: string]: string };
+export function useMatch(pathname: string): null | { uri: string; path: string; [param: string]: string };

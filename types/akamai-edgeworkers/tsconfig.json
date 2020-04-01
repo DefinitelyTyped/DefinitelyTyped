@@ -21,6 +21,7 @@
         "index.d.ts",
 	"test/akamai-edgeworkers-global.test.ts",
 	"test/cookies-tests.ts",
+	"test/set_variable.ts", 
 	"test/url-search-params-tests.ts"
     ]
 }

@@ -1,10 +1,11 @@
-// Type definitions for Angular JS 1.6
+// Type definitions for Angular JS 1.7
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <https://github.com/diegovilar>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
 //                 Caleb St-Denis <https://github.com/calebstdenis>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 //                 Steffen Kowalski <https://github.com/scipper>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -89,6 +90,12 @@ declare namespace angular {
          * If jQuery is available, angular.element is an alias for the jQuery function. If jQuery is not available, angular.element delegates to Angular's built-in subset of jQuery, called "jQuery lite" or "jqLite."
          */
         element: JQueryStatic;
+        /**
+         * Configure several aspects of error handling in AngularJS if used as a setter
+         * or return the current configuration if used as a getter
+         */
+        errorHandlingConfig(): IErrorHandlingConfig;
+        errorHandlingConfig(config: IErrorHandlingConfig): void;
         equals(value1: any, value2: any): boolean;
         extend(destination: any, ...sources: any[]): any;
 
@@ -140,7 +147,6 @@ declare namespace angular {
         isObject<T>(value: any): value is T;
         isString(value: any): value is string;
         isUndefined(value: any): boolean;
-        lowercase(str: string): string;
 
         /**
          * Deeply extends the destination object dst by copying own enumerable properties from the src object(s) to dst. You can specify multiple src objects. If you want to preserve original objects, you can do so by passing an empty object as the target: var object = angular.merge({}, object1, object2).
@@ -169,7 +175,6 @@ declare namespace angular {
         noop(...args: any[]): void;
         reloadWithDebugInfo(): void;
         toJson(obj: any, pretty?: boolean | number): string;
-        uppercase(str: string): string;
         version: {
             full: string;
             major: number;
@@ -373,6 +378,7 @@ declare namespace angular {
         $name?: string;
         $pending?: { [validationErrorKey: string]: Array<INgModelController | IFormController> };
         $addControl(control: INgModelController | IFormController): void;
+        $getControls(): ReadonlyArray<INgModelController | IFormController>;
         $removeControl(control: INgModelController | IFormController): void;
         $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController | IFormController): void;
         $setDirty(): void;
@@ -435,6 +441,17 @@ declare namespace angular {
         allowInvalid?: boolean;
         getterSetter?: boolean;
         timezone?: string;
+        /**
+         * Defines if the time and datetime-local types should show seconds and milliseconds.
+         * The option follows the format string of date filter.
+         * By default, the options is undefined which is equal to 'ss.sss' (seconds and milliseconds)
+         */
+        timeSecondsFormat?: string;
+        /**
+         * Defines if the time and datetime-local types should strip the seconds and milliseconds
+         * from the formatted value if they are zero. This option is applied after `timeSecondsFormat`
+         */
+        timeStripZeroSeconds?: boolean;
     }
 
     interface IModelValidators {
@@ -446,6 +463,21 @@ declare namespace angular {
 
     interface IAsyncModelValidators {
         [index: string]: (modelValue: any, viewValue: any) => IPromise<any>;
+    }
+
+    interface IErrorHandlingConfig {
+        /**
+         * The max depth for stringifying objects.
+         * Setting to a non-positive or non-numeric value, removes the max depth limit
+         * @default 5
+         */
+        objectMaxDepth?: number;
+        /**
+         * Specifies whether the generated error url will contain the parameters of the thrown error.
+         * Disabling the parameters can be useful if the generated error url is very long.
+         * @default true;
+         */
+        urlErrorParamsEnabled?: boolean;
     }
 
     interface IModelParser {
@@ -1484,7 +1516,6 @@ declare namespace angular {
     interface IControllerProvider extends IServiceProvider {
         register(name: string, controllerConstructor: Function): void;
         register(name: string, dependencyAnnotatedConstructor: any[]): void;
-        allowGlobals(): void;
     }
 
     /**
