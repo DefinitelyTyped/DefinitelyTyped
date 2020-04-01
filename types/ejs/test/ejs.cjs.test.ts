@@ -75,6 +75,6 @@ delete ejs.delimiter;
 
 // https://github.com/mde/ejs#options
 const renderOptions: ejs.Options = {
-    beautify: true,
-    filename: fileName,
+	beautify: true,
+	filename: fileName,
 };
