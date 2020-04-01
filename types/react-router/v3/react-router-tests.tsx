@@ -135,7 +135,7 @@ class Users extends React.Component<UsersProps> {
 	}
 }
 
-type UserProps = RouteComponentProps<{ id: string }, {}, {}, { search: string }>;
+type UserProps = RouteComponentProps<{ id: string }, {}, { }, { search: string }>;
 
 class User extends React.Component<UserProps> {
     render() {
@@ -151,8 +151,8 @@ ReactDOM.render((
 	<Router history={hashHistory}>
 		<Route path="/" component={Master}>
 			<IndexRoute component={DashboardWithRouter} />
-			<Route path="users" component={User} />
-            <Route path="user/:id" component={Users} />
+			<Route path="users" component={Users} />
+            <Route path="user/:id" component={User} />
 			<Route path="*" component={NotFound} />
 		</Route>
 	</Router>
