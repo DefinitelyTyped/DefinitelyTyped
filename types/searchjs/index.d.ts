@@ -3,11 +3,21 @@
 // Definitions by: Melvin Mupondori <https://github.com/iammerus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function setDefaults(options: any): void;
+export function setDefaults(options: {
+    negator: boolean;
+    joinAnd: string;
+    text: boolean;
+    word: boolean;
+    start: boolean;
+    end: boolean;
+    separator: string;
+    propertySearch: boolean;
+    propertySearchDepth: number;
+}): void;
 
 export function resetDefaults(): void;
 
-export function singleMatch(field: any, s: any, text: any, word: any, regexp: any, start: any, end: any): any;
+export function singleMatch(field: any, s: any, text: boolean, word: boolean, start: boolean, end: boolean): any;
 
 export function matchArray(ary: any[], search: any): any;
 
