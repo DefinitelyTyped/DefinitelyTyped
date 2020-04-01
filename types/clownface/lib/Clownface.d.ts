@@ -11,7 +11,8 @@ import {
     ClownfaceInitWithValues,
     SingleOrOneElementArray,
     Iteratee,
-    AnyContext
+    AnyContext,
+    SafeClownface
 } from '..';
 import { Context } from './Context';
 
@@ -51,8 +52,8 @@ declare class Clownface<T extends AnyContext = AnyContext, D extends DatasetCore
     namedNode(value: SingleOrOneElementArray<string | NamedNode>): Clownface<NamedNode, D>;
     namedNode(values: Array<string | NamedNode>): Clownface<NamedNode[], D>;
 
-    in(predicates?: SingleOrArrayOfTerms<Term>): Clownface<T extends undefined ? never : Array<NamedNode | BlankNode>, D>;
-    out(predicates?: SingleOrArrayOfTerms<Term>): Clownface<T extends undefined ? never : Term[], D>;
+    in(predicates?: SingleOrArrayOfTerms<Term>): SafeClownface<T extends undefined ? never : NamedNode | BlankNode, D>;
+    out(predicates?: SingleOrArrayOfTerms<Term>): SafeClownface<T extends undefined ? never : Term, D>;
 
     has(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<Term>): Clownface<Array<NamedNode | BlankNode>, D>;
 
