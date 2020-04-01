@@ -375,3 +375,9 @@ Sortable.create(simpleList, {
 const { AutoScroll, MultiDrag, OnSpill, Swap } = Sortable;
 Sortable.mount(new AutoScroll(), new MultiDrag(), new OnSpill(), new Swap());
 Sortable.mount(new MultiDrag());
+
+Sortable.get(new HTMLElement())
+
+Sortable.ghost
+Sortable.clone
+Sortable.dragged
