@@ -1,4 +1,4 @@
-import { BlankNode, DatasetCore, Literal, NamedNode, Quad_Graph, Term, Variable, DefaultGraph, Quad } from 'rdf-js';
+import { BlankNode, DatasetCore, Literal, NamedNode, Term } from 'rdf-js';
 import {
     Clownface as ClownfaceContract,
     ClownfaceInit,
@@ -18,9 +18,9 @@ import { Context } from './Context';
 declare class Clownface<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore> implements ClownfaceContract<T, D> {
     constructor(options: ClownfaceInit<D> | ClownfaceInitWithTerms<Term | Term[], D> | ClownfaceInitWithValue<D> | ClownfaceInitWithValues<D>);
 
-    readonly term: T extends undefined ? undefined : T extends any[] ? undefined : T;
+    readonly term: T extends undefined ? undefined : T extends any[] ? undefined | T[0] : T;
     readonly terms: T extends undefined ? Term[] : T extends any[] ? T : [T];
-    readonly value: T extends undefined ? undefined : T extends any[] ? undefined : string;
+    readonly value: T extends undefined ? undefined : T extends any[] ? undefined | string[0] : string;
     readonly values: T extends undefined ? string[] : T extends any[] ? string[] : [string];
     readonly dataset: D;
     readonly datasets: D[];
