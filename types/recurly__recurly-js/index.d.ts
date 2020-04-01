@@ -1,4 +1,4 @@
-// Type definitions for non-npm package recurly__recurly-js-browser 4.12
+// Type definitions for non-npm package recurly__recurly-js 4.12
 // Project: https://github.com/recurly/recurly-js
 // Definitions by: Dave Brudner <https://github.com/dbrudner>
 //                 Chris Rogers <https://github.com/chrissrogers>
