@@ -272,6 +272,7 @@ const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, cont
     event.type; // $ExpectType "REQUEST"
 
     str = event.type;
+    str = event.methodArn;
     str = event.authorizationToken; // $ExpectError
     str = event.resource;
     str = event.path;
