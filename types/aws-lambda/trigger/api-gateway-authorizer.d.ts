@@ -34,6 +34,12 @@ export interface APIGatewayTokenAuthorizerEvent {
 // Note, when invoked by the tester in the AWS web console, the map values can be null,
 // but they will be empty objects in the real object.
 // Worse, it will include "body" and "isBase64Encoded" properties, unlike the real call!
+//
+// Note, the interface below is based on an actual intercepted event which
+// differs slightly at the time of this comment from the documentation on the
+// event shape shown here:
+//
+// https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-lambda-authorizer-input.html
 export interface APIGatewayRequestAuthorizerEvent {
     type: "REQUEST";
     methodArn: string;
@@ -41,8 +47,10 @@ export interface APIGatewayRequestAuthorizerEvent {
     path: string;
     httpMethod: string;
     headers: { [name: string]: string } | null;
+    multiValueHeaders: { [name: string]: string[] } | null;
     pathParameters: { [name: string]: string } | null;
     queryStringParameters: { [name: string]: string } | null;
+    multiValueQueryStringParameters: { [name: string]: string[] } | null;
     requestContext: APIGatewayEventRequestContextWithAuthorizer<undefined>;
     stageVariables: { [name: string]: string } | null;
 }
