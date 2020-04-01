@@ -133,7 +133,11 @@ function testPlugin(player: videojs.Player, options: {}) {
 
             player.on('playing', () => {
                 videojs.log('playback began!');
-            });
+			});
+
+			this.player.on('pause', () => {
+				videojs.log('playback ended');
+			});
         }
     }
 
