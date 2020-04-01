@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.44
+// Type definitions for plotly.js 1.50
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -15,8 +15,9 @@
 //                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 //                 Michael Adams <https://github.com/mtadams007>
 //                 Michael Arnett <https://github.com/marnett-git>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Brandon Mitchell <https://github.com/brammitch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import * as _d3 from "d3";
 export as namespace Plotly;
@@ -187,6 +188,17 @@ export interface DownloadImgopts {
 	filename: string;
 }
 
+export interface PolarLayout {
+	domain: Partial<Domain>;
+	sector: number[];
+	hole: number;
+	bgcolor: Color;
+	radialaxis: Partial<LayoutAxis>;
+	angularaxis: Partial<LayoutAxis>;
+	gridshape: 'circular' | 'linear';
+	uirevision: string | number;
+}
+
 export type Root = string | HTMLElement;
 
 export function newPlot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
@@ -302,6 +314,16 @@ export interface Layout {
 		xside: "bottom" | "bottom plot" | "top plot" | "top";
 		yside: "left" | "left plot" | "right plot" | "right";
 	}>;
+	polar: Partial<PolarLayout>;
+	polar2: Partial<PolarLayout>;
+	polar3: Partial<PolarLayout>;
+	polar4: Partial<PolarLayout>;
+	polar5: Partial<PolarLayout>;
+	polar6: Partial<PolarLayout>;
+	polar7: Partial<PolarLayout>;
+	polar8: Partial<PolarLayout>;
+	polar9: Partial<PolarLayout>;
+	transition: Transition;
 }
 
 export interface Legend extends Label {
@@ -320,7 +342,7 @@ export type AxisType = '-' | 'linear' | 'log' | 'date' | 'category';
 export interface Axis {
 	visible: boolean;
 	color: Color;
-	title: string;
+	title: string | Partial<DataTitle>;
 	titlefont: Partial<Font>;
 	type: AxisType;
 	autorange: true | false | 'reversed';
@@ -341,7 +363,9 @@ export interface Axis {
 	showspikes: boolean;
 	spikecolor: Color;
 	spikethickness: number;
-	categoryorder: 'trace' | 'category ascending' | 'category descending' | 'array';
+	categoryorder: 'trace' | 'category ascending' | 'category descending' | 'array' | 'total ascending' | 'total descending' |
+	'min ascending' | 'min descending' | 'max ascending' | 'max descending' | 'sum ascending' | 'sum descending' | 'mean ascending' |
+	'mean descending' | 'median ascending' | 'median descending';
 	categoryarray: any[];
 	tickfont: Partial<Font>;
 	tickangle: number;
@@ -382,7 +406,7 @@ export interface LayoutAxis extends Axis {
 	spikedash: string;
 	spikemode: string;
 	anchor: 'free' | AxisName;
-	side: 'top' | 'bottom' | 'left' | 'right';
+	side: 'top' | 'bottom' | 'left' | 'right' | 'clockwise' | 'counterclockwise';
 	overlaying: 'free' | AxisName;
 	layer: 'above traces' | 'below traces';
 	domain: number[];
@@ -391,6 +415,7 @@ export interface LayoutAxis extends Axis {
 	rangeselector: Partial<RangeSelector>;
 	automargin: boolean;
 	autotick: boolean;
+	angle: any;
 }
 
 export interface SceneAxis extends Axis {
@@ -493,29 +518,30 @@ export interface ModeBarButton {
 	toggle?: boolean;
 }
 
+export interface GaugeLine {
+	color: Color;
+	width: number;
+}
+export interface Threshold {
+	line: Partial<GaugeLine>;
+	value: number;
+	thickness: number;
+}
+
+export interface GaugeBar {
+	color: Color;
+	line: Partial<GaugeLine>;
+	thickness: number;
+}
 export interface Gauge {
 	shape: 'angular' | 'bullet';
-	bar: {
-		color: Color
-		line: {
-			color: Color
-			width: number
-		};
-		thickness: number
-	};
+	bar: Partial<GaugeBar>;
 	bgcolor: Color;
 	bordercolor: Color;
 	borderwidth: number;
 	axis: Partial<Axis>;
 	steps: Array<{range: number[], color: Color}>;
-	threshold: {
-		line: {
-			color: Color
-			width: number
-		};
-		value: number
-		thickness: number
-		};
+	threshold: Partial<Threshold>;
 }
 
 export interface Delta {
@@ -633,11 +659,13 @@ export interface PlotData {
 	'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
 	hoverlabel: Partial<HoverLabel>;
 	hovertemplate: string | string[];
+	hovertext: string | string[];
 	textinfo: 'label' | 'label+text' | 'label+value' | 'label+percent' | 'label+text+value'
 	| 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
 	| 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
 	textposition: "top left" | "top center" | "top right" | "middle left"
-	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside";
+	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside" | "outside";
+	textfont: Partial<Font>;
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	showlegend: boolean;
@@ -654,6 +682,8 @@ export interface PlotData {
 	orientation: 'v' | 'h';
 	width: number | number[];
 	boxmean: boolean | 'sd';
+	opacity: number;
+	showscale: boolean;
 	colorscale: ColorScale;
 	zsmooth: 'fast' | 'best' | false;
 	ygap: number;
@@ -1311,6 +1341,8 @@ export interface Scene {
 export interface Domain {
 	x: number[];
 	y: number[];
+	row: number;
+	column: number;
 }
 
 export interface Frame {
@@ -1359,6 +1391,11 @@ export interface Transition {
 	'linear-out' | 'quad-out' | 'cubic-out' | 'sin-out' | 'exp-out' | 'circle-out' | 'elastic-out' | 'back-out' |
 	'bounce-out' | 'linear-in-out' | 'quad-in-out' | 'cubic-in-out' | 'sin-in-out' | 'exp-in-out' |
 	'circle-in-out' | 'elastic-in-out' | 'back-in-out' | 'bounce-in-out';
+	/**
+	 * Determines whether the figure's layout or traces smoothly transitions during updates that make both traces
+	 * and layout change. Default is "layout first".
+	 */
+	ordering?: 'layout first' | 'traces first';
 }
 
 export interface SliderStep {

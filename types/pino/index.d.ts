@@ -1,4 +1,4 @@
-// Type definitions for pino 5.15
+// Type definitions for pino 5.17
 // Project: https://github.com/pinojs/pino.git, http://getpino.io
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
@@ -226,6 +226,10 @@ declare namespace P {
         useLevelLabels?: boolean;
         /**
          * Changes the property `level` to any string value you pass in. Default: 'level'
+         */
+        levelKey?: string;
+        /**
+         * (DEPRECATED, use `levelKey`) Changes the property `level` to any string value you pass in. Default: 'level'
          */
         changeLevelName?: string;
         /**

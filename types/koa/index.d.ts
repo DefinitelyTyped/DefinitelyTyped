@@ -29,6 +29,7 @@ import * as Keygrip from "keygrip";
 import * as compose from "koa-compose";
 import { Socket, ListenOptions } from "net";
 import * as url from "url";
+import * as contentDisposition from "content-disposition";
 
 declare interface ContextDelegatedRequest {
     /**
@@ -347,9 +348,10 @@ declare interface ContextDelegatedResponse {
     redirect(url: string, alt?: string): void;
 
     /**
-     * Set Content-Disposition header to "attachment" with optional `filename`.
+     * Set Content-Disposition to "attachment" to signal the client to prompt for download.
+     * Optionally specify the filename of the download and some options.
      */
-    attachment(filename: string): void;
+    attachment(filename?: string, options?: contentDisposition.Options): void;
 
     /**
      * Return the response mime type void of
@@ -513,7 +515,7 @@ declare class Application<
      * Return a request handler callback
      * for node's native http/http2 server.
      */
-    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void;
+    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => Promise<void>;
 
     /**
      * Initialize a new context.

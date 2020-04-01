@@ -7,6 +7,7 @@
 //                  danduh <https://github.com/danduh>,
 //                  ChristianBoehlke <https://github.com/ChristianBoehlke>,
 //                  divyun <https://github.com/divyun>
+//                  mohitpubnub <https://github.com/mohitpubnub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
 // TypeScript Version: 2.2
@@ -19,6 +20,8 @@ declare class Pubnub {
     static OPERATIONS: Pubnub.Operations;
 
     static generateUUID(): string;
+
+    static notificationPayload(title: string, body: string): Pubnub.NotificationsPayload;
 
     channelGroups: Pubnub.ChannelGroups;
 
@@ -273,11 +276,13 @@ declare class Pubnub {
 
     getMessageActions(params: Pubnub.GetMessageActionsParameters): Promise<Pubnub.GetMessageActionsResponse>;
 
-    encrypt(data: string, customCipherKey?: string, options?: Pubnub.CryptoParameters): any;
+    encrypt(data: string, customCipherKey?: string, options?: Pubnub.CryptoParameters): string;
 
     decrypt(data: string | object, customCipherKey?: string, options?: Pubnub.CryptoParameters): any;
 
     time(): Promise<Pubnub.FetchTimeResponse>;
+
+    time(callback: (status: Pubnub.PubnubStatus, response: Pubnub.FetchTimeResponse) => void): void;
 }
 
 declare namespace Pubnub {
@@ -932,6 +937,63 @@ declare namespace Pubnub {
     // fetch time
     interface FetchTimeResponse {
         timetoken: number;
+    }
+
+    // APNS2
+    interface APNS2Configuration {
+        collapseId?: string;
+        expirationDate?: Date;
+        targets: APNS2Target[];
+    }
+
+    interface APNS2Target {
+        topic: string;
+        environment?: 'development' | 'production';
+        excludedDevices?: string[];
+    }
+    // NotificationPayloads
+
+    interface BaseNotificationPayload {
+        subtitle?: string;
+        payload: object;
+        badge?: number;
+        sound?: string;
+        title?: string;
+        body?: string;
+    }
+
+    interface APNSNotificationPayload extends BaseNotificationPayload {
+        configurations: APNS2Configuration[];
+        apnsPushType?: string;
+        isSilent: boolean;
+    }
+
+    interface MPNSNotificationPayload extends BaseNotificationPayload  {
+        backContent?: string;
+        backTitle?: string;
+        count?: number;
+        type?: string;
+    }
+
+    interface FCMNotificationPayload extends BaseNotificationPayload  {
+        isSilent: boolean;
+        icon?: string;
+        tag?: string;
+    }
+
+    interface NotificationsPayload {
+        payload: {apns: object, mpns: object, fcm: object};
+        debugging: boolean;
+        subtitle?: string;
+        badge?: number;
+        sound?: string;
+        title?: string;
+        body?: string;
+        apns: APNSNotificationPayload;
+        mpns: MPNSNotificationPayload;
+        fcm: FCMNotificationPayload;
+
+        buildPayload(platforms: string[]): object;
     }
 
     interface Categories {

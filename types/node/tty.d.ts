@@ -5,7 +5,7 @@ declare module "tty" {
     class ReadStream extends net.Socket {
         constructor(fd: number, options?: net.SocketConstructorOpts);
         isRaw: boolean;
-        setRawMode(mode: boolean): void;
+        setRawMode(mode: boolean): this;
         isTTY: boolean;
     }
     /**

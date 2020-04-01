@@ -1,4 +1,4 @@
-// Type definitions for MongoDB 3.3
+// Type definitions for MongoDB 3.5
 // Project: https://github.com/mongodb/node-mongodb-native
 //          https://github.com/mongodb/node-mongodb-native/tree/3.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
@@ -27,6 +27,8 @@
 //                 Hossein Saniei <https://github.com/HosseinAgha>
 //                 Alberto Silva <https://github.com/albertossilva>
 //                 Rauno Viskus <https://github.com/Rauno56>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -223,10 +225,20 @@ export interface MongoCallback<T> {
 
 export type WithTransactionCallback<T> = (session: ClientSession) => Promise<T>;
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoError.html */
+/**
+ * Creates a new MongoError
+ * see {@link http://mongodb.github.io/node-mongodb-native/3.5/api/MongoError.html}
+ */
 export class MongoError extends Error {
-    constructor(message: string);
-    static create(options: object): MongoError;
+    constructor(message: string | Error | object);
+    /**
+     * @deprecated
+     */
+    static create(options: string | Error | object): MongoError;
+    /**
+     * Checks the error to see if it has an error label
+     */
+    hasErrorLabel(label: string): boolean;
     code?: number;
     /**
      * While not documented, the 'errmsg' prop is AFAIK the only way to find out
@@ -250,14 +262,20 @@ export class MongoError extends Error {
 }
 
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoNetworkError.html */
+/**
+ * An error indicating an issue with the network, including TCP errors and timeouts
+ * see {@link https://mongodb.github.io/node-mongodb-native/3.5/api/MongoNetworkError.html}
+ */
 export class MongoNetworkError extends MongoError {
     constructor(message: string);
     errorLabels: string[];
 }
 
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoParseError.html */
+/**
+ * An error used when attempting to parse a value (like a connection string)
+ * see {@link https://mongodb.github.io/node-mongodb-native/3.5/api/MongoParseError.html}
+ */
 export class MongoParseError extends MongoError {
     constructor(message: string);
 }
@@ -271,6 +289,7 @@ export interface MongoClientOptions extends
     ReplSetOptions,
     SocketOptions,
     SSLOptions,
+    TLSOptions,
     HighAvailabilityOptions,
     WriteConcern {
 
@@ -322,8 +341,15 @@ export interface MongoClientOptions extends
     useUnifiedTopology?: boolean;
 
     /**
+     * With `useUnifiedTopology`, the MongoDB driver will try to find a server to send any given operation to
+     * and keep retrying for `serverSelectionTimeoutMS` milliseconds.
+     * Default: 30000
+     */
+    serverSelectionTimeoutMS?: number;
+
+    /**
      * number of retries for a tailable cursor
-     * Default: 5
+     * @default 5
      */
     numberOfRetries?: number;
 
@@ -386,6 +412,42 @@ export interface SSLOptions {
      * String containing the server name requested via TLS SNI.
      */
     servername?: string;
+}
+
+export interface TLSOptions {
+    /**
+     * Enable TLS connections
+     * @default false
+     */
+    tls?: boolean;
+    /**
+     * Relax TLS constraints, disabling validation
+     * @default false
+     */
+    tlsInsecure?: boolean;
+    /**
+     * path to file with either a single or bundle of certificate authorities
+     * to be considered trusted when making a TLS connection
+     */
+    tlsCAFile?: string;
+    /**
+     * path to the client certificate file or the client private key file;
+     * in the case that they both are needed, the files should be concatenated
+     */
+    tlsCertificateKeyFile?: string;
+    /**
+     * The password to decrypt the client private key to be used for TLS connections
+     */
+    tlsCertificateKeyFilePassword?: string;
+    /**
+     * Specifies whether or not the driver should error when the server’s TLS certificate is invalid
+     */
+    tlsAllowInvalidCertificates?: boolean;
+    /**
+     * Specifies whether or not the driver should error when there is a mismatch between the server’s hostname
+     * and the hostname specified by the TLS certificate
+     */
+    tlsAllowInvalidHostnames?: boolean;
 }
 
 export interface HighAvailabilityOptions {
@@ -534,22 +596,22 @@ export interface ServerOptions extends SSLOptions {
      * the MongoDB driver will try to reconnect every reconnectInterval milliseconds for reconnectTries
      * times, and give up afterward. When the driver gives up, the mongoose connection emits a
      * reconnectFailed event.
-     * Default: 30
+     * @default 30
      */
     reconnectTries?: number;
     /**
      * Will wait # milliseconds between retries
-     * Default: 1000;
+     * @default 1000
      */
     reconnectInterval?: number;
     /**
-     * Default: true;
+     * @default true
      */
     monitoring?: boolean;
 
     /**
      * Enable command monitoring for this client
-     * Default: false
+     * @default false
      */
     monitorCommands?: boolean;
 
@@ -559,17 +621,18 @@ export interface ServerOptions extends SSLOptions {
     socketOptions?: SocketOptions;
 
     /**
-     * Default: 10000; The High availability period for replicaset inquiry
+     * The High availability period for replicaset inquiry
+     * @default 10000
      */
     haInterval?: number;
     /**
-     * Default: false;
+     * @default false
      */
     domainsEnabled?: boolean;
 
     /**
      * Specify a file sync write concern
-     * Default: false
+     * @default false
      */
     fsync?: boolean;
 }
@@ -1240,10 +1303,10 @@ export type PullAllOperator<TSchema> = ({
 export type UpdateQuery<TSchema> = {
     /** https://docs.mongodb.com/manual/reference/operator/update-field/ */
     $currentDate?: OnlyFieldsOfType<TSchema, Date, true | { $type: 'date' | 'timestamp' }>;
-    $inc?: OnlyFieldsOfType<TSchema, number>;
+    $inc?: OnlyFieldsOfType<TSchema, number | undefined>;
     $min?: MatchKeysAndValues<TSchema>;
     $max?: MatchKeysAndValues<TSchema>;
-    $mul?: OnlyFieldsOfType<TSchema, number>;
+    $mul?: OnlyFieldsOfType<TSchema, number | undefined>;
     $rename?: { [key: string]: string };
     $set?: MatchKeysAndValues<TSchema>;
     $setOnInsert?: MatchKeysAndValues<TSchema>;

@@ -19,11 +19,12 @@
         "not-needed": "node scripts/not-needed.js",
         "update-codeowners": "node scripts/update-codeowners.js",
         "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed",
-        "lint": "dtslint types"
+        "lint": "dtslint types",
+        "prettier": "prettier"
     },
     "devDependencies": {
         "dtslint": "latest",
-        "prettier": "^1.17.1",
+        "prettier": "^2.0.2",
         "types-publisher": "github:Microsoft/types-publisher#production"
     },
     "husky": {

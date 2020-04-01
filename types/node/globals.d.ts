@@ -364,38 +364,38 @@ declare class Buffer extends Uint8Array {
     readUIntBE(offset: number, byteLength: number): number;
     readIntLE(offset: number, byteLength: number): number;
     readIntBE(offset: number, byteLength: number): number;
-    readUInt8(offset: number): number;
-    readUInt16LE(offset: number): number;
-    readUInt16BE(offset: number): number;
-    readUInt32LE(offset: number): number;
-    readUInt32BE(offset: number): number;
-    readInt8(offset: number): number;
-    readInt16LE(offset: number): number;
-    readInt16BE(offset: number): number;
-    readInt32LE(offset: number): number;
-    readInt32BE(offset: number): number;
-    readFloatLE(offset: number): number;
-    readFloatBE(offset: number): number;
-    readDoubleLE(offset: number): number;
-    readDoubleBE(offset: number): number;
+    readUInt8(offset?: number): number;
+    readUInt16LE(offset?: number): number;
+    readUInt16BE(offset?: number): number;
+    readUInt32LE(offset?: number): number;
+    readUInt32BE(offset?: number): number;
+    readInt8(offset?: number): number;
+    readInt16LE(offset?: number): number;
+    readInt16BE(offset?: number): number;
+    readInt32LE(offset?: number): number;
+    readInt32BE(offset?: number): number;
+    readFloatLE(offset?: number): number;
+    readFloatBE(offset?: number): number;
+    readDoubleLE(offset?: number): number;
+    readDoubleBE(offset?: number): number;
     reverse(): this;
     swap16(): Buffer;
     swap32(): Buffer;
     swap64(): Buffer;
-    writeUInt8(value: number, offset: number): number;
-    writeUInt16LE(value: number, offset: number): number;
-    writeUInt16BE(value: number, offset: number): number;
-    writeUInt32LE(value: number, offset: number): number;
-    writeUInt32BE(value: number, offset: number): number;
-    writeInt8(value: number, offset: number): number;
-    writeInt16LE(value: number, offset: number): number;
-    writeInt16BE(value: number, offset: number): number;
-    writeInt32LE(value: number, offset: number): number;
-    writeInt32BE(value: number, offset: number): number;
-    writeFloatLE(value: number, offset: number): number;
-    writeFloatBE(value: number, offset: number): number;
-    writeDoubleLE(value: number, offset: number): number;
-    writeDoubleBE(value: number, offset: number): number;
+    writeUInt8(value: number, offset?: number): number;
+    writeUInt16LE(value: number, offset?: number): number;
+    writeUInt16BE(value: number, offset?: number): number;
+    writeUInt32LE(value: number, offset?: number): number;
+    writeUInt32BE(value: number, offset?: number): number;
+    writeInt8(value: number, offset?: number): number;
+    writeInt16LE(value: number, offset?: number): number;
+    writeInt16BE(value: number, offset?: number): number;
+    writeInt32LE(value: number, offset?: number): number;
+    writeInt32BE(value: number, offset?: number): number;
+    writeFloatLE(value: number, offset?: number): number;
+    writeFloatBE(value: number, offset?: number): number;
+    writeDoubleLE(value: number, offset?: number): number;
+    writeDoubleBE(value: number, offset?: number): number;
 
     fill(value: string | Uint8Array | number, offset?: number, end?: number, encoding?: BufferEncoding): this;
 
@@ -606,6 +606,7 @@ declare namespace NodeJS {
         heapTotal: number;
         heapUsed: number;
         external: number;
+        arrayBuffers: number;
     }
 
     interface CpuUsage {
@@ -871,25 +872,13 @@ declare namespace NodeJS {
 
         resourceUsage(): ResourceUsage;
 
-        /**
-         * EventEmitter
-         *   1. beforeExit
-         *   2. disconnect
-         *   3. exit
-         *   4. message
-         *   5. rejectionHandled
-         *   6. uncaughtException
-         *   7. unhandledRejection
-         *   8. warning
-         *   9. message
-         *  10. <All OS Signals>
-         *  11. newListener/removeListener inherited from EventEmitter
-         */
+        /* EventEmitter */
         addListener(event: "beforeExit", listener: BeforeExitListener): this;
         addListener(event: "disconnect", listener: DisconnectListener): this;
         addListener(event: "exit", listener: ExitListener): this;
         addListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
         addListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        addListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
         addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         addListener(event: "warning", listener: WarningListener): this;
         addListener(event: "message", listener: MessageListener): this;
@@ -903,6 +892,7 @@ declare namespace NodeJS {
         emit(event: "exit", code: number): boolean;
         emit(event: "rejectionHandled", promise: Promise<any>): boolean;
         emit(event: "uncaughtException", error: Error): boolean;
+        emit(event: "uncaughtExceptionMonitor", error: Error): boolean;
         emit(event: "unhandledRejection", reason: any, promise: Promise<any>): boolean;
         emit(event: "warning", warning: Error): boolean;
         emit(event: "message", message: any, sendHandle: any): this;
@@ -916,6 +906,7 @@ declare namespace NodeJS {
         on(event: "exit", listener: ExitListener): this;
         on(event: "rejectionHandled", listener: RejectionHandledListener): this;
         on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        on(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
         on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         on(event: "warning", listener: WarningListener): this;
         on(event: "message", listener: MessageListener): this;
@@ -929,6 +920,7 @@ declare namespace NodeJS {
         once(event: "exit", listener: ExitListener): this;
         once(event: "rejectionHandled", listener: RejectionHandledListener): this;
         once(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        once(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
         once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         once(event: "warning", listener: WarningListener): this;
         once(event: "message", listener: MessageListener): this;
@@ -942,6 +934,7 @@ declare namespace NodeJS {
         prependListener(event: "exit", listener: ExitListener): this;
         prependListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
         prependListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        prependListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
         prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         prependListener(event: "warning", listener: WarningListener): this;
         prependListener(event: "message", listener: MessageListener): this;
@@ -955,6 +948,7 @@ declare namespace NodeJS {
         prependOnceListener(event: "exit", listener: ExitListener): this;
         prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
         prependOnceListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        prependOnceListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
         prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         prependOnceListener(event: "warning", listener: WarningListener): this;
         prependOnceListener(event: "message", listener: MessageListener): this;
@@ -968,6 +962,7 @@ declare namespace NodeJS {
         listeners(event: "exit"): ExitListener[];
         listeners(event: "rejectionHandled"): RejectionHandledListener[];
         listeners(event: "uncaughtException"): UncaughtExceptionListener[];
+        listeners(event: "uncaughtExceptionMonitor"): UncaughtExceptionListener[];
         listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
         listeners(event: "warning"): WarningListener[];
         listeners(event: "message"): MessageListener[];

@@ -7,7 +7,6 @@ import { ProjectionLike } from '../proj';
 import { Size } from '../size';
 import { LoadFunction, Options as Options_1 } from '../Tile';
 import { TileCoord } from '../tilecoord';
-import TileGrid from '../tilegrid/TileGrid';
 import TileState from '../TileState';
 import { AttributionLike } from './Source';
 import { TileSourceEvent } from './Tile';
@@ -30,8 +29,7 @@ export interface Options {
 }
 export class CustomTile extends ImageTile {
     constructor(
-        tilePixelRatio: number,
-        tileGrid: TileGrid,
+        tileSize: Size,
         tileCoord: TileCoord,
         state: TileState,
         src: string,

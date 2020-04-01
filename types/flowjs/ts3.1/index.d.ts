@@ -123,14 +123,14 @@ declare namespace flowjs {
     interface FlowEventMap {
         fileSuccess: FileSuccessCallbackArguments;
         fileProgress: FileProgressCallbackArguments;
-        fileAdded: FilesAddedCallbackArguments;
-        filesAdded: FileAddedCallbackArguments;
+        fileAdded: FileAddedCallbackArguments;
+        filesAdded: FilesAddedCallbackArguments;
         filesSubmitted: FilesSubmittedCallbackArguments;
         fileRemoved: FileRemovedCallbackArguments;
         fileRetry: FileRetryCallbackArguments;
         fileError: FileErrorCallbackArguments;
         uploadStart: UploadStartCallbackArguments;
-        complete: UploadStartCallbackArguments;
+        complete: CompleteCallbackArguments;
         progress: ProgressCallbackArguments;
         error: ErrorCallbackArguments;
         catchAll: CatchAllCallbackArguments;
@@ -157,3 +157,7 @@ declare namespace flowjs {
     type ErrorCallbackArguments = [string, FlowFile, FlowChunk];
     type CatchAllCallbackArguments = [Event];
 }
+// use namespace export like in flowjs/index.d.ts. Fix TS2306 "flowjs/index.d.ts not a module"
+// tslint:disable-next-line export-just-namespace
+export = flowjs;
+export as namespace flowjs;

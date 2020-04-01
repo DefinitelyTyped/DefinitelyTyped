@@ -3365,7 +3365,7 @@ export interface ServerState {
  * If the property is set to a function, the function uses the signature function(method) and returns the route default configuration.
  */
 export interface HandlerDecorationMethod {
-    (route: RouteOptions, options: any): Lifecycle.Method;
+    (route: RequestRoute, options: any): Lifecycle.Method;
     defaults?: RouteOptions | ((method: any) => RouteOptions);
 }
 

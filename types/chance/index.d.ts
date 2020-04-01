@@ -51,7 +51,7 @@ declare namespace Chance {
         birthday(): Date;
         birthday(opts?: Options): Date | string;
         cf(opts?: Options): string;
-        cpf(): string;
+        cpf(opts?: { formatted: boolean }): string;
         first(opts?: AtLeastOneKey<FirstNameOptions>): string;
         last(opts?: LastNameOptions): string;
         name(opts?: AtLeastOneKey<NameOptions>): string;

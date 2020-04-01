@@ -61,6 +61,9 @@ letter = chance.letter({opt: 'abc'});
 let cf = chance.cf();
 cf = chance.cf({opt: 'abc'});
 
+let cpf = chance.cpf();
+cpf = chance.cpf({formatted: false});
+
 let animal = chance.animal();
 animal = chance.animal({opt: 'abc'});
 

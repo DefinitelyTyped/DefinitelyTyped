@@ -35,7 +35,8 @@ export type TypeNameIdentifierType =
   'int4' |
   'json' |
   'text' |
-  'timestamptz';
+  'timestamptz' |
+  'uuid';
 
 export type SerializableValueType =
     | string
@@ -320,10 +321,6 @@ export interface SqlTaggedTemplateType {
       members: ReadonlyArray<ValueExpressionType>,
       glue: SqlTokenType,
     ) => ListSqlTokenType;
-    raw: (
-        rawSql: string,
-        values?: ReadonlyArray<PrimitiveValueExpressionType>
-    ) => SqlTokenType;
     unnest: (
         // Value might be ReadonlyArray<ReadonlyArray<PrimitiveValueExpressionType>>,
         // or it can be infinitely nested array, e.g.

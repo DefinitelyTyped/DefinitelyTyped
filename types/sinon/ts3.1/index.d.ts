@@ -1,3 +1,5 @@
+import * as FakeTimers from '@sinonjs/fake-timers';
+
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
 // see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
@@ -758,119 +760,17 @@ declare namespace Sinon {
         (obj: any): SinonMock;
     }
 
-    type SinonTimerId = number | { id: number };
+    type SinonTimerId = FakeTimers.TimerId;
 
-    interface SinonFakeTimers {
-        now: number;
-        loopLimit: number;
-
-        setTimeout<TArgs extends any[] = any[]>(
-            callback: (...args: TArgs) => void,
-            timeout: number,
-            ...args: TArgs
-        ): SinonTimerId;
-        clearTimeout(id: SinonTimerId): void;
-
-        setInterval<TArgs extends any[] = any[]>(
-            callback: (...args: TArgs) => void,
-            timeout: number,
-            ...args: TArgs
-        ): SinonTimerId;
-        clearInterval(id: SinonTimerId): void;
-
-        setImmediate<TArgs extends any[] = any[]>(
-            callback: (...args: TArgs) => void,
-            ...args: TArgs
-        ): SinonTimerId;
-        clearImmediate(id: SinonTimerId): void;
-
-        requestAnimationFrame(callback: (time: number) => void): SinonTimerId;
-        cancelAnimationFrame(id: SinonTimerId): void;
-
-        nextTick<TArgs extends any[] = any[]>(
-            callback: (...args: TArgs) => void,
-            ...args: TArgs): void;
-        queueMicrotask(callback: () => void): void;
-
-        requestIdleCallback<TArgs extends any[] = any[]>(func: (...args: TArgs) => void, timeout?: number, ...args:
-            TArgs): SinonTimerId;
-        cancelIdleCallback(timerId: SinonTimerId): void;
-
-        /**
-         * Tick the clock ahead time milliseconds.
-         * Causes all timers scheduled within the affected time range to be called.
-         * time may be the number of milliseconds to advance the clock by or a human-readable string.
-         * Valid string formats are “08” for eight seconds, “01:00” for one minute and “02:34:10” for two hours, 34 minutes and ten seconds.
-         * time may be negative, which causes the clock to change but won’t fire any callbacks.
-         * @param ms
-         */
-        tick(ms: number | string): number;
-        /**
-         * Advances the clock to the the moment of the first scheduled timer, firing it.
-         */
-        next(): number;
-        /**
-         * This runs all pending timers until there are none remaining. If new timers are added while it is executing they will be run as well.
-         * This makes it easier to run asynchronous tests to completion without worrying about the number of timers they use, or the delays in those timers.
-         */
-        runAll(): number;
-        runToLast(): number;
-        reset(): void;
-        runMicrotasks(): void;
-        runToFrame(): number;
-
-        Date(): Date;
-        Date(year: number): Date;
-        Date(year: number, month: number): Date;
-        Date(year: number, month: number, day: number): Date;
-        Date(year: number, month: number, day: number, hour: number): Date;
-        Date(
-            year: number,
-            month: number,
-            day: number,
-            hour: number,
-            minute: number
-        ): Date;
-        Date(
-            year: number,
-            month: number,
-            day: number,
-            hour: number,
-            minute: number,
-            second: number
-        ): Date;
-        Date(
-            year: number,
-            month: number,
-            day: number,
-            hour: number,
-            minute: number,
-            second: number,
-            ms: number
-        ): Date;
-
-        /**
-         * Restore the faked methods.
-         * Call in e.g. tearDown.
-         */
-        restore(): void;
-        uninstall(): void;
-
-        /**
-         * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
-         * without affecting timers, intervals or immediates.
-         * @param now The new 'now' in unix milliseconds
-         */
-        setSystemTime(now: number): void;
-        /**
-         * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
-         * without affecting timers, intervals or immediates.
-         * @param now The new 'now' as a JavaScript Date
-         */
-        setSystemTime(date: Date): void;
-
-        countTimers(): number;
-    }
+    type SinonFakeTimers = FakeTimers.InstalledMethods &
+        FakeTimers.NodeClock &
+        FakeTimers.BrowserClock & {
+            /**
+             * Restore the faked methods.
+             * Call in e.g. tearDown.
+             */
+            restore(): void;
+        };
 
     interface SinonFakeTimersConfig {
         now: number | Date;
@@ -1244,6 +1144,15 @@ declare namespace Sinon {
          * @param args
          */
         calledWithExactly<TArgs extends any[]>(
+            spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
+            ...args: MatchArguments<TArgs>
+        ): void;
+        /**
+         * Passes if spy was called at exactly once with the provided arguments and no others.
+         * @param spyOrSpyCall
+         * @param args
+         */
+        calledOnceWithExactly<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
             ...args: MatchArguments<TArgs>
         ): void;

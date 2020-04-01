@@ -17,6 +17,7 @@ async function run() {
     interface TestModel {
         stringField: string;
         numberField: number;
+        optionalNumberField?: number;
         dateField: Date;
         otherDateField: Date;
         oneMoreDateField: Date;
@@ -44,6 +45,7 @@ async function run() {
     // buildUpdateQuery({ $currentDate: { stringField: true } }); // stringField is not a date Field
 
     buildUpdateQuery({ $inc: { numberField: 1 } });
+    buildUpdateQuery({ $inc: { optionalNumberField: 1 } });
     buildUpdateQuery({ $inc: { 'dot.notation': 2 } });
     buildUpdateQuery({ $inc: { 'subInterfaceArray.$': -10 } });
     buildUpdateQuery({ $inc: { 'subInterfaceArray.$[bla]': 40 } });
@@ -68,6 +70,7 @@ async function run() {
     // buildUpdateQuery({ $min: { numberField: 'a' } }); // Matches the type of the keys
 
     buildUpdateQuery({ $mul: { numberField: 1 } });
+    buildUpdateQuery({ $mul: { optionalNumberField: 1 } });
     buildUpdateQuery({ $mul: { 'dot.notation': 2 } });
     buildUpdateQuery({ $mul: { 'subInterfaceArray.$': -10 } });
     buildUpdateQuery({ $mul: { 'subInterfaceArray.$[bla]': 40 } });

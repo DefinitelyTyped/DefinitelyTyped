@@ -29,7 +29,6 @@ export interface MapOptions {
   fullscreenControlOptions?: { position: number };
   gestureHandling?: string;
   heading?: number;
-  heatmapLibrary?: boolean;
   keyboardShortcuts?: boolean;
   mapTypeControl?: boolean;
   mapTypeControlOptions?: any;
@@ -122,6 +121,7 @@ export interface Props {
     center?: Coords;
     defaultZoom?: number;
     zoom?: number;
+    heatmapLibrary?: boolean;
     hoverDistance?: number;
     options?: MapOptions | ((maps: Maps) => MapOptions);
     margin?: any[];

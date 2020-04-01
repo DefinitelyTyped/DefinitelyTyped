@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 13.7
+// Type definitions for non-npm package Node.js 13.9
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -31,7 +31,6 @@
 //                 Thomas den Hollander <https://github.com/ThomasdenH>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
-//                 Zane Hannan AU <https://github.com/ZaneHannanAU>
 //                 Samuel Ainsworth <https://github.com/samuela>
 //                 Kyle Uehlein <https://github.com/kuehlein>
 //                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
@@ -41,6 +40,9 @@
 //                 Minh Son Nguyen <https://github.com/nguymin4>
 //                 Junxiao Shi <https://github.com/yoursunny>
 //                 Ilia Baryshnikov <https://github.com/qwelias>
+//                 ExE Boss <https://github.com/ExE-Boss>
+//                 Surasak Chaisurin <https://github.com/Ryan-Willpower>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.5.

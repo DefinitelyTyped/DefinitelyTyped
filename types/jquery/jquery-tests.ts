@@ -6385,6 +6385,7 @@ function JQuery_AjaxSettings() {
             return 'filtered';
         },
         dataType: 'mycustomtype',
+        enctype: 'application/x-www-form-urlencoded',
         error(jqXHR, textStatus, errorThrown) {
             // $ExpectType any
             this;

@@ -87,6 +87,7 @@ import {
   Tooltip,
   Spinner,
   UncontrolledPopover,
+  Util
 } from 'reactstrap';
 
 // --------------- Alert
@@ -4792,4 +4793,10 @@ const UncontrolledTooltipTestInnerRef = () => {
   const target = React.createRef<HTMLButtonElement>();
   const container = React.createRef<HTMLDivElement>();
   return (<UncontrolledTooltip target={target} container={container}>Yo!</UncontrolledTooltip>);
+};
+
+const UtilTest = () => {
+  Util.setGlobalCssModule({
+    btn: 'btn2'
+  });
 };

@@ -155,7 +155,7 @@ export interface Params {
     include?: ArrayOrValue<IncludeParam>;
     fields?: ArrayOrValue<FieldParam>;
     formats?: ArrayOrValue<FormatParam>;
-    filters?: ArrayOrValue<FilterParam>;
+    filter?: ArrayOrValue<FilterParam>;
     limit?: ArrayOrValue<LimitParam>;
     page?: ArrayOrValue<PageParam>;
     order?: ArrayOrValue<OrderParam>;

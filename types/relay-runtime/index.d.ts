@@ -200,16 +200,10 @@ export { deepFreeze } from './lib/util/deepFreeze';
  * relay-compiler-language-typescript support for fragment references
  */
 
-/**
- * @private
- */
 export interface _RefType<Ref extends string> {
     ' $refType': Ref;
 }
 
-/**
- * @private
- */
 export interface _FragmentRefs<Refs extends string> {
     ' $fragmentRefs': FragmentRefs<Refs>;
 }

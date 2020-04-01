@@ -5,6 +5,10 @@ import { Request, RequestRanges, ParamsArray } from 'express-serve-static-core';
 namespace express_tests {
     const app = express();
 
+    // Disable and use the same built-in query parser
+    app.disable('query parser');
+    app.use(express.query({}));
+
     app.engine('jade', require('jade').__express);
     app.engine('html', require('ejs').renderFile);
 
@@ -163,6 +167,18 @@ namespace express_tests {
 
     // Params cannot be a custom type that does not conform to constraint
     router.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
+
+    // Response will default to any type
+    router.get("/", (req: Request, res: express.Response) => {
+        res.json({});
+    });
+
+    // Response will be of Type provided
+    router.get("/", (req: Request, res: express.Response<string>) => {
+        res.json();
+        res.json(1); // $ExpectError
+        res.send(1); // $ExpectError
+    });
 
     app.use((req, res, next) => {
         // hacky trick, router is just a handler

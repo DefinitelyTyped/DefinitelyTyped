@@ -7,6 +7,17 @@ const viewer = new Cesium.Viewer('#cesium', {
     geocoder: false,
 });
 
+// Mapbox tile provider
+const mapboxImagery = new Cesium.MapboxImageryProvider({
+    mapId: 'mapbox.streets',
+    accessToken: 'thisIsMyAccessToken'
+});
+// Mapbox style provider
+const mapboxStyle = new Cesium.MapboxStyleImageryProvider({
+    styleId: 'streets-v11',
+    accessToken: 'thisIsMyAccessToken'
+});
+
 const midnight = Cesium.JulianDate.fromDate(new Date(2018, 5, 14));
 const prop = new Cesium.SampledPositionProperty();
 
@@ -65,3 +76,24 @@ const label = new Cesium.LabelGraphics({
 
 viewer.scene.globe.tileLoadProgressEvent.addEventListener((progress: number) => progress);
 viewer.scene.globe.terrainProviderChanged.addEventListener((provider: Cesium.TerrainProvider) => provider);
+
+// Cesium3DTileset
+const tileset = viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+    url: 'http://localhost:8002/tilesets/Seattle/tileset.json',
+    skipLevelOfDetail: true,
+    baseScreenSpaceError: 1024,
+    skipScreenSpaceErrorFactor: 16,
+    skipLevels: 1,
+    immediatelyLoadDesiredLevelOfDetail: false,
+    loadSiblings: false,
+    cullWithChildrenBounds: true
+}));
+
+// Cesium3DTilesetGraphics
+const options = {
+    uri: '0',
+    show: false,
+    maximumScreenSpaceError: 2
+};
+
+ const tilesetModel = new Cesium.Cesium3DTilesetGraphics(options);

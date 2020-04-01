@@ -2,9 +2,7 @@ import * as React from "react";
 
 export type PanelProps = {
     className?: string;
-    /* The number of columns to span inside a `LayoutGrid`. */
     colSpan?: 1 | 2 | 3 | 4 | 5 | 6;
-    customStyles?: {[x: string]: any};
     disableStyles?: boolean;
 } & { [x: string]: any };
 
@@ -26,10 +24,8 @@ export type PanelFooterProps = {
 
 export type PanelHeadProps = {
     className?: string;
-    /* Localized text for the description of the panel. */
     description?: string;
     headingLevel?: 2 | 3 | 4 | 5 | 6;
-    /* Localized text for the title of the panel. */
     title?: string;
 } & { [x: string]: any };
 

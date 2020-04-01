@@ -476,7 +476,7 @@ sheet.seal();
 
 const sheet2 = new ServerStyleSheet();
 const element = (
-    <StyleSheetManager sheet={sheet2.instance}>
+    <StyleSheetManager sheet={sheet2.instance} disableCSSOMInjection>
         <SSRTitle>Hello world</SSRTitle>
     </StyleSheetManager>
 );

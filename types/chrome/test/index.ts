@@ -326,6 +326,42 @@ function testOptionsPage() {
   });
 }
 
+// https://developer.chrome.com/extensions/tabCapture#type-CaptureOptions
+function testTabCaptureOptions() {
+    // Constraints based on:
+    // https://github.com/muaz-khan/WebRTC-Experiment/blob/master/Chrome-Extensions/tabCapture/tab-capturing.js
+
+    const resolutions = {
+        maxWidth: 1920,
+        maxHeight: 1080,
+    };
+
+    const constraints: chrome.tabCapture.CaptureOptions = {
+        audio: true,
+        video: true,
+        audioConstraints: {
+            mandatory: {
+                chromeMediaSource: 'tab',
+                echoCancellation: true
+            }
+        },
+        videoConstraints: {
+            mandatory: {
+                chromeMediaSource: 'tab',
+                maxWidth: resolutions.maxWidth,
+                maxHeight: resolutions.maxHeight,
+                minFrameRate: 30,
+                minAspectRatio: 1.77
+            }
+        }
+    };
+
+    let constraints2: chrome.tabCapture.CaptureOptions;
+    constraints2 = constraints;
+}
+
+
+
 // https://developer.chrome.com/extensions/debugger
 function testDebugger() {
 	chrome.debugger.attach({tabId: 123}, '1.23', () => {
@@ -403,3 +439,13 @@ function testStorage() {
         var myOldValue: { x: number } = changes["myKey"].oldValue;
     });
 }
+
+chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
+    request; // $ExpectType Request
+    console.log('request: ', request);
+});
+
+chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
+    harLog; // $ExpectType HARLog
+    console.log('harLog: ', harLog)
+});

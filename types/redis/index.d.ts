@@ -12,6 +12,7 @@
 //                 Jake Ferrante <https://github.com/ferrantejake>
 //                 Adebayo Opesanya <https://github.com/OpesanyaAdebayo>
 //                 Ryo Ota <https://github.com/nwtgck>
+//                 Thomas de Barochez <https://github.com/tdebarochez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -40,7 +41,7 @@ export interface ClientOpts {
     return_buffers?: boolean;
     detect_buffers?: boolean;
     socket_keepalive?: boolean;
-    socket_initialdelay?: number;
+    socket_initial_delay?: number;
     no_ready_check?: boolean;
     enable_offline_queue?: boolean;
     retry_max_delay?: number;
@@ -1247,7 +1248,10 @@ export function createClient(options?: ClientOpts): RedisClient;
 
 export function print(err: Error | null, reply: any): void;
 
-export class RedisError extends Error { }
+export class RedisError extends Error {
+    command: string;
+    args?: any[];
+}
 export class ReplyError extends RedisError { }
 export class AbortError extends RedisError { }
 export class ParserError extends RedisError {

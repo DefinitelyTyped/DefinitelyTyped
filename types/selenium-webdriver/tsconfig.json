@@ -23,6 +23,7 @@
         "test/index.ts",
         "test/chrome.ts",
         "test/firefox.ts",
-        "test/remote.ts"
+        "test/remote.ts",
+        "test/logging.ts"
     ]
 }

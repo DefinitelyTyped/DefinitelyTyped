@@ -207,7 +207,7 @@ declare namespace Server {
     /** Specify whether you want to ignore the proxy path of the incoming request. */
     ignorePath?: boolean;
     /** Local interface string to bind for outgoing connections. */
-    localAddress?: boolean;
+    localAddress?: string;
     /** Changes the origin of the host header to the target URL. */
     changeOrigin?: boolean;
     /** specify whether you want to keep letter case of response header key */

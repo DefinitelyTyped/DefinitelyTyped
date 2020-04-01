@@ -8,6 +8,7 @@
 //                 aereal <https://github.com/aereal>
 //                 Jose Luis Leon <https://github.com/JoseLion>
 //                 David Stephens <https://github.com/dwrss>
+//                 Shin Ando <https://github.com/andoshin11>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -54,7 +55,7 @@ export type RequestHandlerParams<P extends Params = ParamsDictionary, ResBody = 
     | Array<RequestHandler<P>
     | ErrorRequestHandler<P>>;
 
-export interface IRouterMatcher<T> {
+export interface IRouterMatcher<T, Method extends 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' = any> {
     // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
     <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any>(path: PathParams, ...handlers: Array<RequestHandler<P, ResBody, ReqBody>>): T;
     // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
@@ -107,14 +108,14 @@ export interface IRouter extends RequestHandler {
      * Special-cased "all" method, applying the given route `path`,
      * middleware, and callback to _every_ HTTP method.
      */
-    all: IRouterMatcher<this>;
-    get: IRouterMatcher<this>;
-    post: IRouterMatcher<this>;
-    put: IRouterMatcher<this>;
-    delete: IRouterMatcher<this>;
-    patch: IRouterMatcher<this>;
-    options: IRouterMatcher<this>;
-    head: IRouterMatcher<this>;
+    all: IRouterMatcher<this, 'all'>;
+    get: IRouterMatcher<this, 'get'>;
+    post: IRouterMatcher<this, 'post'>;
+    put: IRouterMatcher<this, 'put'>;
+    delete: IRouterMatcher<this, 'delete'>;
+    patch: IRouterMatcher<this, 'patch'>;
+    options: IRouterMatcher<this, 'options'>;
+    head: IRouterMatcher<this, 'head'>;
 
     checkout: IRouterMatcher<this>;
     connect: IRouterMatcher<this>;
