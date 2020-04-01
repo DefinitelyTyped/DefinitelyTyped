@@ -232,6 +232,10 @@ export interface Client {
    */
   is_first_party?: boolean;
   /**
+   * Indicates whether or not the token endpoint IP header is trusted.
+   */
+  is_token_endpoint_ip_header_trusted?: boolean;
+  /**
    * Whether this client will conform to strict OIDC specifications.
    */
   oidc_conformant?: boolean;
@@ -245,11 +249,13 @@ export interface Client {
   allowed_clients?: string[];
   allowed_logout_urls?: string[];
   jwt_configuration?: {
-    // The amount of time (in seconds) that the token will be valid after being issued
+    /** The amount of time (in seconds) that the token will be valid after being issued */
     lifetime_in_seconds?: number;
     scopes?: {};
-    // The algorithm used to sign the JsonWebToken
+    /** The algorithm used to sign the JsonWebToken */
     alg?: 'HS256' | 'RS256';
+    /** Indicates whether or not the client secret is base64 encoded. */
+    secret_encoded?: boolean;
   };
   /**
    * A set of grant types that the client is authorized to use
