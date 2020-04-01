@@ -10,22 +10,22 @@
 
 declare namespace signale {
     type DefaultMethods =
-        | "await"
-        | "complete"
-        | "error"
-        | "debug"
-        | "fatal"
-        | "fav"
-        | "info"
-        | "note"
-        | "pause"
-        | "pending"
-        | "star"
-        | "start"
-        | "success"
-        | "warn"
-        | "watch"
-        | "log";
+        | 'await'
+        | 'complete'
+        | 'error'
+        | 'debug'
+        | 'fatal'
+        | 'fav'
+        | 'info'
+        | 'note'
+        | 'pause'
+        | 'pending'
+        | 'star'
+        | 'start'
+        | 'success'
+        | 'warn'
+        | 'watch'
+        | 'log';
 
     interface CommandType {
         /** The icon corresponding to the logger. */
@@ -37,6 +37,8 @@ declare namespace signale {
         color: string;
         /** The label used to identify the type of the logger. */
         label: string;
+        logLevel?: string;
+        stream?: NodeJS.WriteStream | NodeJS.WriteStream[];
     }
 
     interface SignaleConfig {
@@ -59,7 +61,6 @@ declare namespace signale {
         underlinePrefix?: boolean;
         underlineSuffix?: boolean;
         uppercaseLabel?: boolean;
-        logLevel?: string;
     }
 
     interface SignaleOptions<TTypes extends string = DefaultMethods> {
@@ -75,18 +76,18 @@ declare namespace signale {
          */
         types?: Partial<Record<TTypes, CommandType>>;
         interactive?: boolean;
+        logLevel?: string;
         timers?: Map<string, Date>;
         /**
          * Destination to which the data is written, can be any valid
          * [Writable stream](https://nodejs.org/api/stream.html#stream_writable_streams).
          */
-        stream?: NodeJS.WriteStream;
+        stream?: NodeJS.WriteStream | NodeJS.WriteStream[];
+        secrets?: (string | number)[];
     }
 
     interface SignaleConstructor {
-        new <TTypes extends string = DefaultMethods>(
-            options?: SignaleOptions<TTypes>
-        ): Signale<TTypes>;
+        new <TTypes extends string = DefaultMethods>(options?: SignaleOptions<TTypes>): Signale<TTypes>;
     }
 
     interface SignaleBase<TTypes extends string = DefaultMethods> {
@@ -119,10 +120,7 @@ declare namespace signale {
          * @param label Label corresponding to the timer, each timer has its own unique label.
          * @param span Total running time.
          */
-        timeEnd(
-            label?: string,
-            span?: number
-        ): { label: string; span?: number };
+        timeEnd(label?: string, span?: number): { label: string; span?: number };
         /**
          * Disables the logging functionality of all loggers belonging to a specific instance.
          */
