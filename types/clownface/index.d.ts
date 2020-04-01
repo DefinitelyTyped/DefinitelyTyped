@@ -70,10 +70,10 @@ declare namespace clownface {
     namedNode(value: SingleOrOneElementArray<string | NamedNode>): Clownface<NamedNode, D>;
     namedNode(values: Array<string | NamedNode>): Clownface<NamedNode[], D>;
 
-    in(predicates?: SingleOrArrayOfTerms<Term>): Clownface<T extends undefined ? never : Term[], D>;
+    in(predicates?: SingleOrArrayOfTerms<Term>): Clownface<T extends undefined ? never : Array<NamedNode | BlankNode>, D>;
     out(predicates?: SingleOrArrayOfTerms<Term>): Clownface<T extends undefined ? never : Term[], D>;
 
-    has<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<X>): Clownface<X[], D>;
+    has(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<Term>): Clownface<Array<NamedNode | BlankNode>, D>;
 
     addIn(predicates: SingleOrArrayOfTerms<Term>, callback?: AddCallback<D, BlankNode>): Clownface<T, D>;
     addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects: SingleOrArrayOfTermsOrLiterals<X>, callback?: AddCallback<D, X>): Clownface<T, D>;

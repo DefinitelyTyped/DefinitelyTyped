@@ -207,15 +207,15 @@ function testForEach() {
 }
 
 function testHas() {
-    const cf: clownface.Clownface<NamedNode, Dataset> = <any> {};
-    let has: clownface.Clownface<Term[], Dataset> = cf.has(predicate, 'Stuart');
+    const cf: clownface.Clownface<Term, Dataset> = <any> {};
+    let has: clownface.Clownface<Array<NamedNode | BlankNode>, Dataset> = cf.has(predicate, 'Stuart');
     has = cf.has([predicate, predicate], 'Stuart');
     has = cf.has(predicate, [literal, literal]);
 }
 
 function testIn() {
-    const cf: clownface.Clownface<NamedNode, Dataset> = <any> {};
-    let cfIn: clownface.Clownface<Term[], Dataset> = cf.in();
+    const cf: clownface.Clownface<Literal, Dataset> = <any> {};
+    let cfIn: clownface.Clownface<Array<NamedNode | BlankNode>, Dataset> = cf.in();
     cfIn = cf.in(node);
     cfIn = cf.in([node, node]);
     cfIn = cf.in(cf.node(node));
