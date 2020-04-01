@@ -40,6 +40,7 @@ export interface ParamsDictionary { [key: string]: string; }
 export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
 
+// Return type of qs.parse, the default query parser (https://expressjs.com/en/api.html#app-settings-property).
 export interface Query { [key: string]: string | string[] | Query | Query[]; }
 
 export interface RequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query> {
