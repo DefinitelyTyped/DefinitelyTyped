@@ -977,7 +977,9 @@ let tabs = new TabSet([tab1, tab2, tab3]);
 /* Collection.forge(), see http://bookshelfjs.org/#Collection-static-forge */
 
 class Accounts extends bookshelf.Collection<Account> {
-	model: Account
+	get model() {
+		return Account
+	}
 }
 
 var accounts = Accounts.forge<Accounts>([
