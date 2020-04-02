@@ -1,4 +1,3 @@
-
 /**
  * Created by sagar7993 on 03/31/2020.
  */
@@ -7,11 +6,11 @@ import passport = require('passport');
 import instagram = require('passport-instagram');
 
 // just some test model
-var User = {
+const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
         callback(null, { username: 'sagar' });
     }
-}
+};
 
 passport.use(new instagram.Strategy({
     consumerKey: process.env.PASSPORT_TWITTER_CONSUMER_KEY,
