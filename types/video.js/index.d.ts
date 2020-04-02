@@ -3954,7 +3954,7 @@ declare namespace videojs {
          * @param player
          *        A Video.js player instance.
          */
-        new(player: Player): Plugin;
+        new (player: Player, options?: any): Plugin;
 
         /**
          * De-register a Video.js plugin.

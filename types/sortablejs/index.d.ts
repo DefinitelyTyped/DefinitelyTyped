@@ -30,7 +30,7 @@ declare class Sortable {
      */
     constructor(element: HTMLElement, options: Sortable.Options);
 
-    static active: Sortable;
+    static active: Sortable | null;
     static utils: Sortable.Utils;
 
     /**
@@ -49,6 +49,18 @@ declare class Sortable {
      * @param options Sortable options object.
      */
     static create(element: HTMLElement, options?: Sortable.Options): Sortable;
+
+    /** The element being dragged. */
+    static dragged: HTMLElement | null;
+
+    /** The ghost element.*/
+    static ghost: HTMLElement | null;
+
+    /** The clone element. */
+    static clone: HTMLElement | null;
+
+    /** Get the Sortable instance on an element. */
+    static get(element: HTMLElement): Sortable | undefined;
 
     /**
      * Options getter/setter

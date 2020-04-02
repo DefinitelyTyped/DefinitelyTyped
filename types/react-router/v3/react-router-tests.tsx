@@ -141,7 +141,7 @@ class Users extends React.Component<UsersProps> {
 		return <div>
 			This is a user list (class component with injected router props)
 			<UserListWithRouter users="Suzanne, Fred" />
-            
+
             This is an avatar (function component with injected router props)
             <AvatarWithRouter user="Joe" />
 		</div>;

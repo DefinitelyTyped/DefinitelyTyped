@@ -55,7 +55,7 @@ declare const URI: {
      * @description Wrapper for `URITemplate#expand`. Only present after
      *              importing `urijs/src/URITemplate` explicitly.
      */
-    expand?: (template: string, vals: object) => URI;
+    expand?: (template: string, vals: object) => string;
 
     iso8859(): void;
 

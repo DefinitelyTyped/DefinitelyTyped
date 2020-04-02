@@ -59,7 +59,7 @@ export interface LinkProps<TState> extends AnchorProps {
     getProps?: (props: LinkGetProps) => {};
     state?: TState;
     /** @deprecated If using React >= 16.4, use ref instead. */
-    innerRef?: React.RefCallback<HTMLAnchorElement>;
+    innerRef?: React.Ref<HTMLAnchorElement>;
 }
 
 export interface LinkGetProps {
