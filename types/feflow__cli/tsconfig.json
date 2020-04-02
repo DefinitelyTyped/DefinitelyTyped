@@ -14,7 +14,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@feflow/cli": [
+                "feflow__cli"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
