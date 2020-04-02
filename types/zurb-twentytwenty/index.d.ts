@@ -18,7 +18,5 @@ interface TwentyTwentyOptions {
 }
 
 interface JQuery {
-
     twentytwenty(options?: TwentyTwentyOptions): JQuery;
-    
 }
