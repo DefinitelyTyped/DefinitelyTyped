@@ -28,7 +28,6 @@ export type BuiltInParserName =
     | 'babel-flow'
     | 'flow'
     | 'typescript'
-    | 'postcss' // deprecated
     | 'css'
     | 'less'
     | 'scss'

@@ -79,7 +79,7 @@ graphqlParser.parsers.graphql.parse; // $ExpectType (text: string, parsers: { [p
 babelParser.parsers.babel.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
 htmlParser.parsers.html.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
 markdownParser.parsers.markdown.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
-postcssParser.parsers.postcss.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
+postcssParser.parsers.css.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
 yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
 
 prettier.format('hello world', {plugins: [typescriptParser, graphqlParser, babelParser, htmlParser, markdownParser, postcssParser, yamlParser]});
