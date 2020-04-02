@@ -7,11 +7,11 @@
 /**
  *  feflow namespace
  */
-declare namespace fef {
+declare namespace Feflow {
     /**
      * feflow context
      */
-    interface FeflowCtx {
+    interface ctx {
         /**
          * Feflow context params
          */

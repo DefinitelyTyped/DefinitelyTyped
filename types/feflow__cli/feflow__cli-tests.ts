@@ -1,4 +1,4 @@
-module.exports = (ctx: fef.FeflowCtx) => {
+module.exports = (ctx: Feflow.ctx) => {
     const {
       commander,
       hook,
