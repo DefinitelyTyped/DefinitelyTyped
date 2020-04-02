@@ -374,11 +374,9 @@ export namespace getFileInfo {
 }
 
 /**
- * Returns an object representing the parsers, languages and file types Prettier supports.
- * If `version` is provided (e.g. `"1.5.0"`), information for that version will be returned,
- * otherwise information for the current version will be returned.
+ * Returns an object representing the parsers, languages and file types Prettier supports for the current version.
  */
-export function getSupportInfo(version?: string): SupportInfo;
+export function getSupportInfo(): SupportInfo;
 
 /**
  * `version` field in `package.json`
