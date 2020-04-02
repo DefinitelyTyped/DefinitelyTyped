@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "feflow-tests.ts"
+        "feflow__cli-tests.ts"
     ]
 }
