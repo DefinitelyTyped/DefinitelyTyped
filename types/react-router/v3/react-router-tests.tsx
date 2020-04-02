@@ -135,11 +135,24 @@ class Users extends React.Component<UsersProps> {
 	}
 }
 
+type UserProps = RouteComponentProps<{ id: string }, {}, { }, { search: string }>;
+
+class User extends React.Component<UserProps> {
+    render() {
+        const { params, location } = this.props;
+        return <div>
+            This is a user { params.id }
+            This is a query { location.query.search }
+        </div>;
+    }
+}
+
 ReactDOM.render((
 	<Router history={hashHistory}>
 		<Route path="/" component={Master}>
 			<IndexRoute component={DashboardWithRouter} />
 			<Route path="users" component={Users} />
+            <Route path="user/:id" component={User} />
 			<Route path="*" component={NotFound} />
 		</Route>
 	</Router>

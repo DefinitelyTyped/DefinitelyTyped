@@ -54,13 +54,15 @@ declare namespace StreamClient {
 
     type StreamClientOptions<Q extends BaseQuad = Quad> = EndpointOptions & Pick<ClientOptions<StreamQuery, Q, StreamStore<Q>>, 'factory'>;
 
+    type StreamClient<Q extends BaseQuad = Quad> = Client<StreamQuery<Q>, Q, StreamStore<Q>>;
+
     interface Client<TQuery extends Query, Q extends BaseQuad = Quad, TStore extends Store<Q> = never> {
         query: TQuery;
         store: TStore;
     }
 }
 
-declare class StreamClient<Q extends BaseQuad = Quad> extends BaseClient<StreamQuery<Q>, Q, StreamStore<Q>> implements StreamClient.Client<StreamQuery<Q>, Q, StreamStore<Q>> {
+declare class StreamClient<Q extends BaseQuad = Quad> extends BaseClient<StreamQuery<Q>, Q, StreamStore<Q>> implements StreamClient.StreamClient<Q> {
     constructor(options: StreamClient.StreamClientOptions<Q>)
 }
 
