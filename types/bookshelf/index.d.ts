@@ -4,7 +4,7 @@
 //                 Vesa Poikajärvi <https://github.com/vesse>
 //                 Ian Serpa <http://github.com/ianldgs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.4
 
 import Knex = require('knex');
 import knex = require('knex');
