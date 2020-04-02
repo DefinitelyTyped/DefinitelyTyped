@@ -23,6 +23,7 @@
 //                 Kyle Scully <https://github.com/zieka>
 //                 Cong Zhang <https://github.com/dancerphil>
 //                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
+//                 JongChan Choi <https://github.com/disjukr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1179,8 +1180,10 @@ declare namespace React {
     interface PointerEvent<T = Element> extends MouseEvent<T, NativePointerEvent> {
         pointerId: number;
         pressure: number;
+        tangentialPressure: number;
         tiltX: number;
         tiltY: number;
+        twist: number;
         width: number;
         height: number;
         pointerType: 'mouse' | 'pen' | 'touch';
