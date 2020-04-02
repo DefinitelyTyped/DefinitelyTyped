@@ -148,8 +148,12 @@ class Users extends React.Component<UsersProps> {
 	}
 }
 
-type UserParams = { id: string };
-type UserQuery = { search: string };
+interface UserParams {
+    id: string;
+}
+interface UserQuery {
+    search: string;
+}
 
 type UserProps = RouteComponentProps<UserParams, {}, {}, UserQuery>;
 
