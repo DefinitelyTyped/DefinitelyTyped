@@ -3,9 +3,9 @@
 // Definitions by: o-su <https://github.com/o-su>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import cy from 'cytoscape';
+import cy = require('cytoscape');
 
-declare const ext: cy.Ext;
+export const ext: cy.Ext;
 
 declare module 'cytoscape' {
     interface Core {

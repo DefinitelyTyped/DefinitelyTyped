@@ -1,5 +1,5 @@
-import edgehandles from 'cytoscape-edgehandles';
-import cytoscape from 'cytoscape';
+import edgehandles = require('cytoscape-edgehandles');
+import cytoscape = require('cytoscape');
 
 const cy = cytoscape();
 cytoscape.use(edgehandles.ext);
