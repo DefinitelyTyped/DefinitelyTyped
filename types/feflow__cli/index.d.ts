@@ -11,7 +11,7 @@ declare namespace fef {
     /**
      * feflow context
      */
-    export interface FeflowCtx {
+    interface FeflowCtx {
         /**
          * Feflow context params
          */
@@ -75,7 +75,7 @@ interface Command {
 interface Hook {
     /**
      * Hook will execute befor any command
-     * Hook registration command method parameter description  
+     * Hook registration command method parameter description
      * @param type  Hook name eg：report
      * @param fn  Hook callback function eg：report
      */
@@ -83,10 +83,9 @@ interface Hook {
 }
 
 interface Logger {
-
     /**
      * Print trace level log, The Color is gray
-     * @param desc log detail 
+     * @param desc log detail
      */
     trace(desc: string): void;
     /**
