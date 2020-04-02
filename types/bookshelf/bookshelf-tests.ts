@@ -701,17 +701,15 @@ qb.where({id: 1}).select().then(resp => {
 
 /* model.refresh(), see http://bookshelfjs.org/#Model-instance-refresh */
 
-/* model.related(), see http://bookshelfjs.org/#Model-instance-related */
+/* model.related(), see https://bookshelfjs.org/api.html#Model-instance-related */
 class Trip extends bookshelf.Model<Trip> {}
 class Trips extends bookshelf.Collection<Trip> {}
 new Photo({id: 1}).fetch({
 	withRelated: ['account']
 }).then(photo => {
-	if (photo) {
-		var account = <Account> photo.related('account');
-		if (account.id) {
-			return (<Trips> account.related('trips')).fetch();
-		}
+	var account = photo.related('account') as Account;
+	if (account.id) {
+		return (account.related('trips') as Trips).fetch();
 	}
 });
 
