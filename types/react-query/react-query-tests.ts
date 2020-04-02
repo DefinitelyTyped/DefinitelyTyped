@@ -54,6 +54,41 @@ function conditionalQuery(condition: boolean) {
     useQuery(() => ['foo', { bar: 'baz' }], queryFn2);
 }
 
+function queryWithObjectSyntax(condition: boolean) {
+    useQuery({
+        queryKey: ['key'],
+        queryFn: async key => key,
+    }).data; // $ExpectType string | undefined
+
+    useQuery({
+        queryKey: ['key', 10],
+        variables: [true, 20],
+        queryFn: async (
+            key, // $ExpectType string
+            id, // $ExpectType number
+            var1, // $ExpectType boolean
+            var2, // $ExpectType number
+        ) => 'yay!',
+    }).data; // $ExpectType string | undefined
+
+    useQuery({
+        queryKey: 'key',
+        variables: [true, 20],
+        queryFn: async (
+            key, // $ExpectType "key"
+            var1, // $ExpectType boolean
+            var2, // $ExpectType number
+        ) => 'yay!',
+    }).data; // $ExpectType string | undefined
+
+    useQuery({
+        queryKey: condition && 'key',
+        queryFn: async (
+            key, // $ExpectType "key"
+        ) => 10,
+    }).data; // $ExpectType number | undefined
+}
+
 function queryWithNestedKey() {
     // Query with nested variabes
     const queryNested = useQuery(
@@ -137,6 +172,24 @@ function paginatedQuery() {
     }
 }
 
+function paginatedQueryWithObjectSyntax(condition: boolean) {
+    usePaginatedQuery({
+        queryKey: condition && ['key', { a: 10 }],
+        variables: [true],
+        queryFn: async (key, { a }, debug) => (key === 'key' && a === 10 && debug ? 'yes' : 'no'),
+    }).latestData; // $ExpectType "yes" | "no" | undefined
+    usePaginatedQuery({
+        queryKey: 'key',
+        variables: [true],
+        queryFn: async (key, debug) => (key === 'key' && debug ? 'yes' : 'no'),
+    }).latestData; // $ExpectType "yes" | "no" | undefined
+    usePaginatedQuery({
+        queryKey: condition && (() => condition && 'key'),
+        variables: [10],
+        queryFn: async (key, level) => (key === 'key' && level === 10 ? 'yes' : 'no'),
+    }).latestData; // $ExpectType "yes" | "no" | undefined
+}
+
 function simpleInfiniteQuery(condition: boolean) {
     async function fetchWithCursor(key: string, cursor?: string) {
         return [1, 2, 3];
@@ -165,6 +218,43 @@ function simpleInfiniteQuery(condition: boolean) {
     infiniteQuery.data; // $ExpectType number[][]
     infiniteQuery.fetchMore(); // $ExpectType Promise<number[][]> | undefined
     infiniteQuery.fetchMore('next'); // $ExpectType Promise<number[][]> | undefined
+}
+
+function infiniteQueryWithObjectSyntax(condition: boolean) {
+    useInfiniteQuery({
+        queryKey: ['key', 1],
+        queryFn: async (key, id, next = 0) => ({ next: next + 1 }),
+        config: {
+            getFetchMore: (last: { next: number }) => last.next, // annotation on this type is required to infer the type
+        },
+    }).data; // $ExpectType { next: number; }[]
+    useInfiniteQuery({
+        queryKey: condition && (() => condition && ['key', 1]),
+        queryFn: async (key, id, next = 0) => ({ next: next + 1 }),
+        config: {
+            getFetchMore: (last: { next: number }) => last.next, // annotation on this type is required to infer the type
+        },
+    }).data; // $ExpectType { next: number; }[]
+    useInfiniteQuery({
+        queryKey: 'key',
+        queryFn: async (
+            key, // $ExpectType "key"
+            next = 0,
+        ) => ({ next: next + 1 }),
+        config: {
+            getFetchMore: (last: { next: number }) => last.next, // annotation on this type is required to infer the type
+        },
+    }).data; // $ExpectType { next: number; }[]
+    useInfiniteQuery({
+        queryKey: condition && (() => condition && ('key' as const)),
+        queryFn: async (
+            key, // $ExpectType "key"
+            next = 0,
+        ) => ({ next: next + 1 }),
+        config: {
+            getFetchMore: (last: { next: number }) => last.next, // annotation on this type is required to infer the type
+        },
+    }).data; // $ExpectType { next: number; }[]
 }
 
 function log(...args: any[]) {}
