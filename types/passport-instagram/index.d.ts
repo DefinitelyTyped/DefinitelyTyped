@@ -17,7 +17,7 @@ export interface Profile extends passport.Profile {
     _accessLevel: string;
 }
 
-declare interface StrategyOptionBase {
+export interface StrategyOptionBase {
     consumerKey: string;
     consumerSecret: string;
     callbackURL: string;
@@ -33,11 +33,11 @@ declare interface StrategyOptionBase {
     skipExtendedUserProfile?: boolean;
 }
 
-declare interface StrategyOption extends StrategyOptionBase {
+export interface StrategyOption extends StrategyOptionBase {
     passReqToCallback?: false;
 }
 
-declare interface StrategyOptionWithRequest extends StrategyOptionBase {
+export interface StrategyOptionWithRequest extends StrategyOptionBase {
     passReqToCallback: true;
 }
 
