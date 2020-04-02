@@ -3863,6 +3863,56 @@ declare namespace videojs {
         getTagSettings(tag: Element): any;
     };
 
+    namespace Player {
+        /**
+         * An object that describes a single piece of media.
+         * Properties that are not part of this type description will be retained; so, this can be viewed as a generic metadata storage mechanism as well.
+         */
+        interface MediaObject {
+            /**
+             * Unused, except if this object is passed to the MediaSession API.
+             */
+            album?:	string;
+
+            /**
+             * Unused, except if this object is passed to the MediaSession API.
+             */
+            artist?:	string;
+
+            /**
+             * Unused, except if this object is passed to the MediaSession API. If not specified, will be populated via the poster, if available.
+             */
+            artwork?: any[];
+
+            /**
+             * URL to an image that will display before playback.
+             */
+            poster?: string;
+
+            /**
+             * A single source object, an array of source objects, or a string referencing a URL to a media source.
+             * It is highly recommended that an object or array of objects is used here, so that source selection algorithms can take the type into account.
+             */
+            src?: string | Tech.SourceObject | Tech.SourceObject[];
+
+            /**
+             * Unused, except if this object is passed to the MediaSession API.
+             */
+            title?: string;
+
+            /**
+             *  An array of objects to be used to create text tracks, following the native track element format.
+             *  For ease of removal, these will be created as "remote" text tracks and set to automatically clean up on source changes.
+             */
+            textTracks?: any[];
+
+            /**
+             * Properties that are not part of this type description will be retained; so, this can be viewed as a generic metadata storage mechanism as well.
+             */
+            [key: string]: any;
+        }
+    }
+
     type PlayerOptions = VideoJsPlayerOptions;
 
     /**
@@ -6332,6 +6382,12 @@ export interface VideoJsPlayer extends videojs.Component {
     exitFullWindow(): void;
 
     /**
+     * Get a clone of the current Player~MediaObject for this player.
+     * If the loadMedia method has not been used, will attempt to return a Player~MediaObject based on the current state of the player.
+     */
+    getMedia(): videojs.Player.MediaObject;
+
+    /**
      * Reports whether or not a player has a plugin available.
      *
      * This does not report whether or not the plugin has ever been initialized
@@ -6433,6 +6489,11 @@ export interface VideoJsPlayer extends videojs.Component {
      * Begin loading the src data.
      */
     load(): void;
+
+    /**
+     * Populate the player using a MediaObject.
+     */
+    loadMedia(media: videojs.Player.MediaObject, ready: () => any): void;
 
     /**
      * Get or set the loop attribute on the video element.
