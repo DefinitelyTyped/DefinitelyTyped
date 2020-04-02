@@ -10,9 +10,7 @@ import * as React from "react";
 export as namespace ReactTagsInput;
 export = TagsInput;
 
-type Tag = any;
-
-declare class TagsInput extends React.Component<TagsInput.ReactTagsInputProps> {
+declare class TagsInput<Tag> extends React.Component<TagsInput.ReactTagsInputProps<Tag>> {
     accept(): any;
     addTag(tag: Tag): any;
     blur(): void;
@@ -25,7 +23,7 @@ declare namespace TagsInput {
       readonly [prop: string]: any;
     }
 
-    interface RenderInputProps extends InputProps {
+    interface RenderInputProps<Tag> extends InputProps {
         readonly addTag: (tag: Tag) => void;
         readonly onChange: (e: React.ChangeEvent<{ readonly value: string }>) => void;
         readonly ref: (r: any) => void; // parameter is either a DOM element or a mounted React component
@@ -36,7 +34,7 @@ declare namespace TagsInput {
         readonly [prop: string]: any;
     }
 
-    interface RenderTagProps extends TagProps {
+    interface RenderTagProps<Tag> extends TagProps {
         readonly disabled: boolean;
         readonly getTagDisplayValue: (tag: Tag) => string;
         readonly onRemove: (tagIndex: number) => void;
@@ -45,7 +43,7 @@ declare namespace TagsInput {
 
     type RenderLayout = (tagElements: React.ReactElement[], inputElement: React.ReactElement) => React.ReactChild;
 
-    interface ReactTagsInputProps extends React.Props<TagsInput> {
+    interface ReactTagsInputProps<Tag> extends React.Props<TagsInput<Tag>> {
         value: Tag[];
         onChange: (tags: Tag[], changed: Tag[], changedIndexes: number[]) => void;
         onChangeInput?: (value: string) => void;
@@ -66,8 +64,8 @@ declare namespace TagsInput {
         tagProps?: TagProps;
         inputProps?: InputProps;
         tagDisplayProp?: string | null;
-        renderTag?: (props: RenderTagProps) => React.ReactNode;
-        renderInput?: (props: RenderInputProps) => React.ReactNode;
+        renderTag?: (props: RenderTagProps<Tag>) => React.ReactNode;
+        renderInput?: (props: RenderInputProps<Tag>) => React.ReactNode;
         renderLayout?: RenderLayout;
         preventSubmit?: boolean;
     }
