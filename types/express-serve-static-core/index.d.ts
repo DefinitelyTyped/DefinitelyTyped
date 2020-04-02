@@ -309,9 +309,9 @@ export interface Request<P extends Params = ParamsDictionary, ResBody = any, Req
      * For more information, or if you have issues or concerns, see accepts.
      */
     acceptsLanguages(): string[];
-    acceptsLanguages(lang: string): string | false;
-    acceptsLanguages(lang: string[]): string | false;
-    acceptsLanguages(...lang: string[]): string | false;
+    acceptsLanguages<T extends string>(lang: T): T | false;
+    acceptsLanguages<T extends string>(lang: ReadonlyArray<T>): T | false;
+    acceptsLanguages<T extends string>(...lang: T[]): T | false;
 
     /**
      * Parse Range header field, capping to the given `size`.

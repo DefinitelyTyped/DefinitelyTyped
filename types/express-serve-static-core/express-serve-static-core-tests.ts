@@ -58,3 +58,53 @@ app.post<never, { foo: string }, { bar: number }>('/', (req, res) => {
     res.json({ baz: "fail" }); // $ExpectError
     req.body.baz; // $ExpectError
 });
+
+app.get('/', (req, res) => {
+    const supportedLanguages = 'en' as string;
+    const accepted = req.acceptsLanguages(supportedLanguages);
+    if (accepted !== false) {
+        accepted; // $ExpectType string
+    }
+});
+
+app.get('/', (req, res) => {
+    const supportedLanguages = 'en' as const;
+    const accepted = req.acceptsLanguages(supportedLanguages);
+    if (accepted !== false) {
+        accepted; // $ExpectType "en"
+    }
+});
+
+app.get('/', (req, res) => {
+    const supportedLanguages = ['en', 'fi', 'sv'];
+    const accepted = req.acceptsLanguages(supportedLanguages);
+    if (accepted !== false) {
+        accepted; // $ExpectType string
+    }
+});
+
+app.get('/', (req, res) => {
+    const supportedLanguages = ['en', 'fi', 'sv'] as const;
+    const accepted = req.acceptsLanguages(supportedLanguages);
+    if (accepted !== false) {
+        accepted; // $ExpectType "en" | "fi" | "sv"
+    }
+});
+
+app.get('/', (req, res) => {
+    const supportedLanguages1 = 'en' as string;
+    const supportedLanguages2 = 'fi' as string;
+    const accepted = req.acceptsLanguages(supportedLanguages1, supportedLanguages2);
+    if (accepted !== false) {
+        accepted; // $ExpectType string
+    }
+});
+
+app.get('/', (req, res) => {
+    const supportedLanguages1 = 'en' as const;
+    const supportedLanguages2 = 'fi' as const;
+    const accepted = req.acceptsLanguages(supportedLanguages1, supportedLanguages2);
+    if (accepted !== false) {
+        accepted; // $ExpectType "en" | "fi"
+    }
+});
