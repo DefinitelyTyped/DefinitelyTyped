@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 import { Component } from 'react';
-import { StyleProp, ViewStyle as ViewStyleRaw, TextStyle as TextStyleRaw, Image } from 'react-native';
+import { StyleProp, ViewStyle as ViewStyleRaw, TextStyle as TextStyleRaw, Image, GestureResponderEvent } from 'react-native';
 
 export type ViewStyle = StyleProp<ViewStyleRaw>;
 export type TextStyle = StyleProp<TextStyleRaw>;
@@ -490,6 +490,10 @@ export interface RippleFeedbackProps {
     color?: string;
     borderless?: boolean;
     children: JSX.Element;
+    onPress?: (event: GestureResponderEvent) => void;
+    onPressIn?: (event: GestureResponderEvent) => void;
+    onPressOut?: (event: GestureResponderEvent) => void;
+    onLongPress?: (event: GestureResponderEvent) => void;
 }
 
 /**
