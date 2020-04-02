@@ -1,4 +1,4 @@
-// Type definitions for prettier 1.19
+// Type definitions for prettier 2.0
 // Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
