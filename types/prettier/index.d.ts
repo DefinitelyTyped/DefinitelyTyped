@@ -26,6 +26,7 @@ export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
     | 'babel'
     | 'babel-flow'
+    | 'babel-ts'
     | 'flow'
     | 'typescript'
     | 'css'
