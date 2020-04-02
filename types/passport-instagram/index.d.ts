@@ -4,14 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="passport"/>
-
-
-
 import passport = require('passport');
 import express = require('express');
 
-interface Profile extends passport.Profile {
+export interface Profile extends passport.Profile {
     gender: string;
     username: string;
 
@@ -20,7 +16,7 @@ interface Profile extends passport.Profile {
     _accessLevel: string;
 }
 
-interface IStrategyOptionBase {
+interface StrategyOptionBase {
     consumerKey: string;
     consumerSecret: string;
     callbackURL: string;
@@ -36,20 +32,20 @@ interface IStrategyOptionBase {
     skipExtendedUserProfile?: boolean;
 }
 
-interface IStrategyOption extends IStrategyOptionBase {
+interface StrategyOption extends StrategyOptionBase {
     passReqToCallback?: false;
 }
 
-interface IStrategyOptionWithRequest extends IStrategyOptionBase {
+interface StrategyOptionWithRequest extends StrategyOptionBase {
     passReqToCallback: true;
 }
 
 export class Strategy extends passport.Strategy {
-    constructor(options: IStrategyOption,
+    constructor(options: StrategyOption,
         verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
-    constructor(options: IStrategyOptionWithRequest,
+    constructor(options: StrategyOptionWithRequest,
         verify: (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
 
     name: string;
-    authenticate(req: express.Request, options?: Object): void;
+    authenticate(req: express.Request, options?: object): void;
 }
