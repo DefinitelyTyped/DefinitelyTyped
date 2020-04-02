@@ -81,4 +81,6 @@ markdownParser.parsers.markdown.parse; // $ExpectType (text: string, parsers: { 
 postcssParser.parsers.css.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
 yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
 
-prettier.format('hello world', {plugins: [typescriptParser, graphqlParser, babelParser, htmlParser, markdownParser, postcssParser, yamlParser]});
+prettier.format('hello world', {
+    plugins: [typescriptParser, graphqlParser, babelParser, htmlParser, markdownParser, postcssParser, yamlParser],
+});

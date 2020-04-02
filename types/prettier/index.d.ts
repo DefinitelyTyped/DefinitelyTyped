@@ -171,11 +171,7 @@ export interface Parser {
 }
 
 export interface Printer {
-    print(
-        path: FastPath,
-        options: ParserOptions,
-        print: (path: FastPath) => Doc,
-    ): Doc;
+    print(path: FastPath, options: ParserOptions, print: (path: FastPath) => Doc): Doc;
     embed?: (
         path: FastPath,
         print: (path: FastPath) => Doc,
@@ -195,8 +191,20 @@ export interface Printer {
     printComments?: (path: FastPath, print: (path: FastPath) => Doc, options: ParserOptions, needsSemi: boolean) => Doc;
     handleComments?: {
         ownLine?: (commentNode: any, text: string, options: ParserOptions, ast: any, isLastComment: boolean) => boolean;
-        endOfLine?: (commentNode: any, text: string, options: ParserOptions, ast: any, isLastComment: boolean) => boolean;
-        remaining?: (commentNode: any, text: string, options: ParserOptions, ast: any, isLastComment: boolean) => boolean;
+        endOfLine?: (
+            commentNode: any,
+            text: string,
+            options: ParserOptions,
+            ast: any,
+            isLastComment: boolean,
+        ) => boolean;
+        remaining?: (
+            commentNode: any,
+            text: string,
+            options: ParserOptions,
+            ast: any,
+            isLastComment: boolean,
+        ) => boolean;
     };
 }
 
@@ -489,7 +497,10 @@ export namespace doc {
         function printDocToDebug(doc: Doc): string;
     }
     namespace printer {
-        function printDocToString(doc: Doc, options: Options): {
+        function printDocToString(
+            doc: Doc,
+            options: Options,
+        ): {
             formatted: string;
             cursorNodeStart?: number;
             cursorNodeText?: string;
@@ -516,7 +527,12 @@ export namespace doc {
         function isEmpty(doc: Doc): boolean;
         function isLineNext(doc: Doc): boolean;
         function willBreak(doc: Doc): boolean;
-        function traverseDoc(doc: Doc, onEnter?: (doc: Doc) => void | boolean, onExit?: (doc: Doc) => void, shouldTraverseConditionalGroups?: boolean): void;
+        function traverseDoc(
+            doc: Doc,
+            onEnter?: (doc: Doc) => void | boolean,
+            onExit?: (doc: Doc) => void,
+            shouldTraverseConditionalGroups?: boolean,
+        ): void;
         function mapDoc<T>(doc: Doc, callback: (doc: Doc) => T): T;
         function propagateBreaks(doc: Doc): void;
         function removeLines(doc: Doc): Doc;
