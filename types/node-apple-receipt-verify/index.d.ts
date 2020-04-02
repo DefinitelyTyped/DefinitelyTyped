@@ -90,4 +90,4 @@ export function validate(options: ValidateOptions): Promise<PurchasedProducts[]>
 
 export function resetConfig(): void;
 
-export function extract(): Promise<Array<{}>>;
+export function extract(options: {}): Promise<Array<{}>>;
