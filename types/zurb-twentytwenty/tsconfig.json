@@ -18,6 +18,8 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+
       "index.d.ts"
+      
     ]
 }
