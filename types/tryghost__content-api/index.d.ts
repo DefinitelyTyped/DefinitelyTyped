@@ -22,11 +22,6 @@ export interface Identification {
     id: string;
 }
 
-export interface ResourceIdentification {
-    slug?: Nullable<string>;
-    id?: Nullable<string>;
-}
-
 export interface Metadata {
     meta_title?: Nullable<string>;
     meta_description?: Nullable<string>;
@@ -141,8 +136,6 @@ export interface PostOrPage extends Identification, Excerpt, CodeInjection, Meta
     canonical_url?: Nullable<string>;
 }
 
-export type ResourceIdentificationParam = ResourceIdentification;
-
 export type GhostData = PostOrPage | Author | Tag | Setting;
 
 export type IncludeParam = 'authors' | 'tags' | 'count.posts';
@@ -174,7 +167,7 @@ export interface BrowseFunction<T> {
 }
 
 export interface ReadFunction<T> {
-    (data: ResourceIdentificationParam, options?: Params, memberToken?: Nullable<string>): Promise<T>;
+    (data: { id: Nullable<string> } | { slug: Nullable<string> }, options?: Params, memberToken?: Nullable<string>): Promise<T>;
 }
 
 export interface PostObject {
