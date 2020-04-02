@@ -855,12 +855,13 @@ declare module "fs" {
     interface MakeDirectoryOptions {
         /**
          * Indicates whether parent folders should be created.
+         * If a folder was created, the path to the first created folder will be returned.
          * @default false
          */
         recursive?: boolean;
         /**
          * A file mode. If a string is passed, it is parsed as an octal integer. If not specified
-         * @default 0o777.
+         * @default 0o777
          */
         mode?: number | string;
     }
@@ -871,7 +872,23 @@ declare module "fs" {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdir(path: PathLike, options: number | string | MakeDirectoryOptions | undefined | null, callback: NoParamCallback): void;
+    function mkdir(path: PathLike, options: MakeDirectoryOptions & { recursive: true }, callback: (err: NodeJS.ErrnoException | null, path: string) => void): void;
+
+    /**
+     * Asynchronous mkdir(2) - create a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+     * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     */
+    function mkdir(path: PathLike, options: number | string | (MakeDirectoryOptions & { recursive?: false; }) | null | undefined, callback: NoParamCallback): void;
+
+    /**
+     * Asynchronous mkdir(2) - create a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+     * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     */
+    function mkdir(path: PathLike, options: number | string | MakeDirectoryOptions | null | undefined, callback: (err: NodeJS.ErrnoException | null, path: string | undefined) => void): void;
 
     /**
      * Asynchronous mkdir(2) - create a directory with a mode of `0o777`.
@@ -887,7 +904,23 @@ declare module "fs" {
          * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
          * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function __promisify__(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<void>;
+        function __promisify__(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): Promise<string>;
+
+        /**
+         * Asynchronous mkdir(2) - create a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+         * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         */
+        function __promisify__(path: PathLike, options?: number | string | (MakeDirectoryOptions & { recursive?: false; }) | null): Promise<void>;
+
+        /**
+         * Asynchronous mkdir(2) - create a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+         * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         */
+        function __promisify__(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<string | undefined>;
     }
 
     /**
@@ -896,7 +929,23 @@ declare module "fs" {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdirSync(path: PathLike, options?: number | string | MakeDirectoryOptions | null): void;
+    function mkdirSync(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): string;
+
+    /**
+     * Synchronous mkdir(2) - create a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+     * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     */
+    function mkdirSync(path: PathLike, options?: number | string | (MakeDirectoryOptions & { recursive?: false; }) | null): void;
+
+    /**
+     * Synchronous mkdir(2) - create a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+     * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     */
+    function mkdirSync(path: PathLike, options?: number | string | MakeDirectoryOptions | null): string | undefined;
 
     /**
      * Asynchronously creates a unique temporary directory.
@@ -2278,7 +2327,23 @@ declare module "fs" {
          * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
          * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function mkdir(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<void>;
+        function mkdir(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): Promise<string>;
+
+        /**
+         * Asynchronous mkdir(2) - create a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+         * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         */
+        function mkdir(path: PathLike, options?: number | string | (MakeDirectoryOptions & { recursive?: false; }) | null): Promise<void>;
+
+        /**
+         * Asynchronous mkdir(2) - create a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+         * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         */
+        function mkdir(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<string | undefined>;
 
         /**
          * Asynchronous readdir(3) - read a directory.

@@ -27,6 +27,7 @@
 //                 Jason Yu <https://github.com/ycmjason>
 //                 Devansh Jethmalani <https://github.com/devanshj>
 //                 Pawel Fajfer <https://github.com/pawfa>
+//                 Regev Brody <https://github.com/regevbr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1148,6 +1149,10 @@ declare namespace jest {
          * to restore mocks automatically between tests.
          */
         mockRestore(): void;
+        /**
+         * Returns the function that was set as the implementation of the mock (using mockImplementation).
+         */
+        getMockImplementation(): (...args: Y) => T | undefined;
         /**
          * Accepts a function that should be used as the implementation of the mock. The mock itself will still record
          * all calls that go into and instances that come from itself – the only difference is that the implementation

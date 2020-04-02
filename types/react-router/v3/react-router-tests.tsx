@@ -123,19 +123,39 @@ class UserList extends React.Component<UserListProps & WithRouterProps> {
 
 const UserListWithRouter = withRouter(UserList);
 
+interface AvatarProps {
+    user: string;
+}
+
+const Avatar: React.FunctionComponent<AvatarProps & WithRouterProps> = ({ user, children, location, params, router, routes }) => (
+    <div>{ user }</div>
+);
+
+const AvatarWithRouter = withRouter(Avatar);
+
 type UsersProps = RouteComponentProps<{}, {}>;
 
 class Users extends React.Component<UsersProps> {
 	render() {
 		const { location, params, route, routes, router, routeParams } = this.props;
 		return <div>
-			This is a user list
+			This is a user list (class component with injected router props)
 			<UserListWithRouter users="Suzanne, Fred" />
+
+            This is an avatar (function component with injected router props)
+            <AvatarWithRouter user="Joe" />
 		</div>;
 	}
 }
 
-type UserProps = RouteComponentProps<{ id: string }, {}, { }, { search: string }>;
+interface UserParams {
+    id: string;
+}
+interface UserQuery {
+    search: string;
+}
+
+type UserProps = RouteComponentProps<UserParams, {}, {}, UserQuery>;
 
 class User extends React.Component<UserProps> {
     render() {
@@ -214,6 +234,6 @@ const CreateHref: React.SFC<WithRouterProps> = ({ router }) => (
 	</div>
 );
 
-const CreateHrefWithRouter = withRouter<{}>(CreateHref);
+const CreateHrefWithRouter = withRouter(CreateHref);
 
 ReactDOM.render(<CreateHrefWithRouter />, document.body);
