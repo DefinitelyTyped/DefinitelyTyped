@@ -385,8 +385,9 @@ export const version: string;
 
 // https://github.com/prettier/prettier/blob/master/src/common/util-shared.js
 export namespace util {
-    function isNextLineEmpty(text: string, node: any, options: ParserOptions): boolean;
+    function isNextLineEmpty(text: string, node: any, locEnd: (node: any) => number): boolean;
     function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
+    function isPreviousLineEmpty(text: string, node: any, locStart: (node: any) => number): boolean;
     function getNextNonSpaceNonCommentCharacterIndex(text: string, node: any, options: ParserOptions): number;
     function makeString(rawContent: string, enclosingQuote: "'" | '"', unescapeUnnecessaryEscapes: boolean): string;
     function addLeadingComment(node: any, commentNode: any): void;
