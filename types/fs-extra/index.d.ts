@@ -115,75 +115,75 @@ export function pathExistsSync(path: string): boolean;
 // fs async methods
 // copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/v6/index.d.ts
 
-export function access(path: string | Buffer, mode?: number): Promise<void>;
+declare module "fs" {
+    export function access(path: PathLike, mode?: number): Promise<void>;
 
-export function appendFile(file: string | Buffer | number, data: any, options?: { encoding?: string; mode?: number | string; flag?: string; }): Promise<void>;
+    export function appendFile(file: PathLike | number, data: any, options?: WriteFileOptions): Promise<void>;
 
-export function chmod(path: string | Buffer, mode: string | number): Promise<void>;
+    export function chmod(path: PathLike, mode: string | number): Promise<void>;
 
-export function chown(path: string | Buffer, uid: number, gid: number): Promise<void>;
+    export function chown(path: PathLike, uid: number, gid: number): Promise<void>;
 
-export function close(fd: number): Promise<void>;
+    export function close(fd: number): Promise<void>;
 
-export function fchmod(fd: number, mode: string | number): Promise<void>;
+    export function fchmod(fd: number, mode: string | number): Promise<void>;
 
-export function fchown(fd: number, uid: number, gid: number): Promise<void>;
+    export function fchown(fd: number, uid: number, gid: number): Promise<void>;
 
-export function fdatasync(fd: number): Promise<void>;
+    export function fdatasync(fd: number): Promise<void>;
 
-export function fstat(fd: number): Promise<Stats>;
+    export function fstat(fd: number): Promise<Stats>;
 
-export function fsync(fd: number): Promise<void>;
+    export function fsync(fd: number): Promise<void>;
 
-export function ftruncate(fd: number, len?: number): Promise<void>;
+    export function ftruncate(fd: number, len?: number): Promise<void>;
 
-export function futimes(fd: number, atime: number, mtime: number): Promise<void>;
-export function futimes(fd: number, atime: Date, mtime: Date): Promise<void>;
+    export function futimes(fd: number, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
 
-export function lchown(path: string | Buffer, uid: number, gid: number): Promise<void>;
+    export function lchown(path: PathLike, uid: number, gid: number): Promise<void>;
 
-export function link(srcpath: string | Buffer, dstpath: string | Buffer): Promise<void>;
+    export function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
 
-export function lstat(path: string | Buffer): Promise<Stats>;
+    export function lstat(path: PathLike): Promise<Stats>;
 
-export function mkdir(path: string | Buffer, mode?: number | string): Promise<void>;
+    export function mkdir(path: PathLike, options?: number | string | MakeDirectoryOptions): Promise<void>;
 
-export function open(path: string | Buffer, flags: string | number, mode?: number): Promise<number>;
+    export function open(path: PathLike, flags: string | number, mode?: string | number): Promise<number>;
 
-export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): Promise<ReadResult>;
+    export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): Promise<ReadResult>;
 
-export function readFile(file: string | Buffer | number, options: { flag?: string; } | { encoding: string; flag?: string; }): Promise<string>;
-// tslint:disable-next-line:unified-signatures
-export function readFile(file: string | Buffer | number, encoding: string): Promise<string>;
-export function readFile(file: string | Buffer | number): Promise<Buffer>;
+    export function readFile(path: PathLike | number, options: { flag?: string; } | { encoding: string; flag?: string; }): Promise<string>;
+    // tslint:disable-next-line:unified-signatures
+    export function readFile(path: PathLike | number, encoding: string): Promise<string>;
+    export function readFile(path: PathLike | number): Promise<Buffer>;
 
-export function readdir(path: string | Buffer): Promise<string[]>;
+    export function readdir(path: PathLike): Promise<string[]>;
 
-export function readlink(path: string | Buffer): Promise<string>;
+    export function readlink(path: PathLike): Promise<string>;
 
-export function realpath(path: string | Buffer, cache?: { [path: string]: string }): Promise<string>;
+    export function realpath(path: PathLike, cache?: { [path: string]: string }): Promise<string>;
 
-export function rename(oldPath: string, newPath: string): Promise<void>;
+    export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
 
-export function rmdir(path: string | Buffer): Promise<void>;
+    export function rmdir(path: PathLike): Promise<void>;
 
-export function stat(path: string | Buffer): Promise<Stats>;
+    export function stat(path: PathLike): Promise<Stats>;
 
-export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: FsSymlinkType): Promise<void>;
+    export function symlink(target: PathLike, path: PathLike, type: symlink.Type): Promise<void>;
 
-export function truncate(path: string | Buffer, len?: number): Promise<void>;
+    export function truncate(path: PathLike, len?: number): Promise<void>;
 
-export function unlink(path: string | Buffer): Promise<void>;
+    export function unlink(path: PathLike): Promise<void>;
 
-export function utimes(path: string | Buffer, atime: number, mtime: number): Promise<void>;
-export function utimes(path: string | Buffer, atime: Date, mtime: Date): Promise<void>;
+    export function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
 
-export function write(fd: number, buffer: Buffer, offset?: number, length?: number, position?: number | null): Promise<WriteResult>;
-export function write(fd: number, data: any, offset?: number, encoding?: string): Promise<WriteResult>;
+    export function write(fd: number, buffer: Buffer, offset?: number, length?: number, position?: number | null): Promise<WriteResult>;
+    export function write(fd: number, data: any, offset?: number, encoding?: string): Promise<WriteResult>;
 
-export function writeFile(file: string | Buffer | number, data: any, options?: WriteFileOptions | string): Promise<void>;
+    export function writeFile(path: PathLike | number, data: any, options: WriteFileOptions): Promise<void>;
 
-export function mkdtemp(prefix: string): Promise<string>;
+    export function mkdtemp(prefix: string, options?: { encoding?: BufferEncoding } | BufferEncoding | "buffer" | { encoding: "buffer" } | { encoding?: string } | string): Promise<string>;
+}
 
 export interface PathEntry {
     path: string;
@@ -232,12 +232,12 @@ export interface ReadOptions {
 
 export interface RemoveOptions {
     maxBusyTries?: number;
-    unlink?: typeof fs.unlink | typeof unlink;
-    chmod?: typeof fs.chmod | typeof chmod;
-    stat?: typeof fs.stat | typeof stat;
-    lstat?: typeof fs.lstat | typeof lstat;
-    rmdir?: typeof fs.rmdir | typeof rmdir;
-    readdir?: typeof fs.readdir | typeof readdir;
+    unlink?: typeof fs.unlink;
+    chmod?: typeof fs.chmod;
+    stat?: typeof fs.stat;
+    lstat?: typeof fs.lstat;
+    rmdir?: typeof fs.rmdir;
+    readdir?: typeof fs.readdir;
     unlinkSync?: typeof fs.unlinkSync;
     chmodSync?: typeof fs.chmodSync;
     statSync?: typeof fs.statSync;
