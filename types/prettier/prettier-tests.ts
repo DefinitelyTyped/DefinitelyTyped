@@ -67,7 +67,6 @@ const configFilePathInSpecificPath = prettier.resolveConfigFile.sync('/path');
 prettier.clearConfigCache();
 
 const currentSupportInfo = prettier.getSupportInfo();
-const specificSupportInfo = prettier.getSupportInfo('1.8.0');
 
 prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel' });
 
