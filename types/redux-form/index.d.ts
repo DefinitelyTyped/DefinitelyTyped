@@ -13,6 +13,7 @@
 //                 Ethan Setnik <https://github.com/esetnik>
 //                 Kota Marusue <https://github.com/mrsekut>
 //                 Adam Bouqdib <https://github.com/abemedia>
+//                 Bartosz Kopciuch <https://github.com/ideffix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 import {
