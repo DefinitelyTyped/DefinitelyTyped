@@ -65,7 +65,7 @@ export interface RequiredOptions extends doc.printer.Options {
     jsxSingleQuote: boolean;
     /**
      * Print trailing commas wherever possible.
-     * @default 'none'
+     * @default 'es5'
      */
     trailingComma: 'none' | 'es5' | 'all';
     /**
@@ -115,14 +115,10 @@ export interface RequiredOptions extends doc.printer.Options {
      * In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out.
      * @default 'preserve'
      */
-    proseWrap:
-        | boolean // deprecated
-        | 'always'
-        | 'never'
-        | 'preserve';
+    proseWrap: 'always' | 'never' | 'preserve';
     /**
      * Include parentheses around a sole arrow function parameter.
-     * @default 'avoid'
+     * @default 'always'
      */
     arrowParens: 'avoid' | 'always';
     /**
@@ -136,7 +132,7 @@ export interface RequiredOptions extends doc.printer.Options {
     htmlWhitespaceSensitivity: 'css' | 'strict' | 'ignore';
     /**
      * Which end of line characters to apply.
-     * @default 'auto'
+     * @default 'lf'
      */
     endOfLine: 'auto' | 'lf' | 'crlf' | 'cr';
     /**
