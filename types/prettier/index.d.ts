@@ -24,7 +24,6 @@ export interface FastPath<T = any> {
 
 export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
-    | 'babylon' // deprecated
     | 'babel'
     | 'babel-flow'
     | 'flow'
