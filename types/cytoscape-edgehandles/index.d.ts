@@ -3,11 +3,9 @@
 // Definitions by: o-su <https://github.com/o-su>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as cy from 'cytoscape';
+import cy from 'cytoscape';
 
-declare namespace edgehandles {
-    const ext: cy.Ext;
-}
+declare const ext: cy.Ext;
 
 declare module 'cytoscape' {
     interface Core {
@@ -58,5 +56,3 @@ declare module 'cytoscape' {
         destroy: () => void;
     }
 }
-
-export = edgehandles.ext;
