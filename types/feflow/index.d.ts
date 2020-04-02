@@ -4,6 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
+ /**
+  *  feflow namespace
+ **/
 declare namespace fef {
 
     /**
