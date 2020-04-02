@@ -27,7 +27,7 @@ export type IDLInterfaceMemberType =
 
 export type IDLNamespaceMemberType = OperationMemberType | AttributeMemberType;
 
-export type IDLTypeDescription = SimpleTypeDescription | UnionTypeDescription;
+export type IDLTypeDescription = SingleTypeDescription | UnionTypeDescription;
 
 export interface ParseOptions {
     /** Boolean indicating whether the result should include EOF node or not. */
@@ -64,7 +64,7 @@ export class WebIDLParseError extends Error {
     tokens: ValueDescription[];
 }
 
-export interface SimpleTypeDescription {
+export interface SingleTypeDescription {
     /** String indicating where this type is used. Can be null if not applicable. */
     type: string | null;
     /** Boolean indicating if it is a sequence. Same as generic === "sequence" */
@@ -352,7 +352,7 @@ export interface ExtendedAttributeRightHandSideIntegerList {
 }
 
 export interface Token {
-    type: "float" | "integer" | "identifier" | "string" | "whitespace" | "other";
+    type: "decimal" | "integer" | "identifier" | "string" | "whitespace" | "other";
     value: string;
 }
 

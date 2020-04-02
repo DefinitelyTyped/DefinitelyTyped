@@ -197,7 +197,7 @@ function logIdlType(idlType: webidl2.IDLTypeDescription) {
             logIdlType(t);
         }
     } else {
-        idlType; // $ExpectType SimpleTypeDescription
+        idlType; // $ExpectType SingleTypeDescription
         console.log(idlType);
     }
 }
