@@ -664,7 +664,8 @@ export interface PlotData {
 	| 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
 	| 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
 	textposition: "top left" | "top center" | "top right" | "middle left"
-	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside";
+	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside" | "outside";
+	textfont: Partial<Font>;
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	showlegend: boolean;
@@ -682,6 +683,7 @@ export interface PlotData {
 	width: number | number[];
 	boxmean: boolean | 'sd';
 	opacity: number;
+	showscale: boolean;
 	colorscale: ColorScale;
 	zsmooth: 'fast' | 'best' | false;
 	ygap: number;

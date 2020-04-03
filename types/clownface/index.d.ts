@@ -10,14 +10,14 @@ import { Context } from './lib/Context';
 declare namespace clownface {
   type AnyContext = Term | Term[] | undefined;
 
-  type TermOrClownface<X extends Term = Term> = Clownface<X> | X;
+  type TermOrClownface<X extends Term = Term> = SafeClownface<X> | X;
   type TermOrLiteral<X extends Term = Term> = TermOrClownface<X> | string | number | boolean;
 
   type AddCallback<D extends DatasetCore, X extends Term> = (added: Clownface<X, D>) => void;
   type SingleOrArray<T> = T | readonly T[];
   type SingleOrOneElementArray<T> = T | readonly [T];
 
-  type SingleOrArrayOfTerms<X extends Term> = SingleOrArray<X> | Clownface<X | X[]>;
+  type SingleOrArrayOfTerms<X extends Term> = SingleOrArray<X> | SafeClownface<X>;
   type SingleOrArrayOfTermsOrLiterals<X extends Term> = SingleOrArray<TermOrLiteral<X>>;
 
   interface NodeOptions {
@@ -37,9 +37,9 @@ declare namespace clownface {
       : Clownface<T, D>;
 
   interface Clownface<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore> {
-    readonly term: T extends undefined ? undefined : T extends any[] ? undefined : T;
+    readonly term: T extends undefined ? undefined : T extends any[] ? undefined | T[0] : T;
     readonly terms: T extends undefined ? Term[] : T extends any[] ? T : [T];
-    readonly value: T extends undefined ? undefined : T extends any[] ? undefined : string;
+    readonly value: T extends undefined ? undefined : T extends any[] ? undefined | string[0] : string;
     readonly values: T extends undefined ? string[] : T extends any[] ? string[] : [string];
     readonly dataset: D;
     readonly datasets: D[];
@@ -70,10 +70,10 @@ declare namespace clownface {
     namedNode(value: SingleOrOneElementArray<string | NamedNode>): Clownface<NamedNode, D>;
     namedNode(values: Array<string | NamedNode>): Clownface<NamedNode[], D>;
 
-    in(predicates?: SingleOrArrayOfTerms<Term>): Clownface<T extends undefined ? never : Term[], D>;
-    out(predicates?: SingleOrArrayOfTerms<Term>): Clownface<T extends undefined ? never : Term[], D>;
+    in(predicates?: SingleOrArrayOfTerms<Term>): SafeClownface<T extends undefined ? never : NamedNode | BlankNode, D>;
+    out(predicates?: SingleOrArrayOfTerms<Term>): SafeClownface<T extends undefined ? never : Term, D>;
 
-    has<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<X>): Clownface<X[], D>;
+    has(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<Term>): Clownface<Array<NamedNode | BlankNode>, D>;
 
     addIn(predicates: SingleOrArrayOfTerms<Term>, callback?: AddCallback<D, BlankNode>): Clownface<T, D>;
     addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects: SingleOrArrayOfTermsOrLiterals<X>, callback?: AddCallback<D, X>): Clownface<T, D>;

@@ -201,7 +201,6 @@ const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback)
         str = event.resource; // $ExpectError
     } else {
         event.type; // $ExpectType "REQUEST"
-        str = event.methodArn; // $ExpectError
         str = event.resource;
     }
 
@@ -221,7 +220,6 @@ const authorizerWithCustomContext: APIGatewayAuthorizerWithContextHandler<Custom
         str = event.resource; // $ExpectError
     } else {
         event.type; // $ExpectType "REQUEST"
-        str = event.methodArn; // $ExpectError
         str = event.resource;
     }
 
@@ -273,7 +271,7 @@ const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, cont
     event.type; // $ExpectType "REQUEST"
 
     str = event.type;
-    str = event.methodArn; // $ExpectError
+    str = event.methodArn;
     str = event.authorizationToken; // $ExpectError
     str = event.resource;
     str = event.path;
@@ -291,8 +289,10 @@ const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, cont
     if (event.stageVariables !== null)
         str = event.stageVariables[str];
     const requestContext: APIGatewayEventRequestContext = event.requestContext;
-    str = event.domainName;
-    str = event.apiId;
+    if (requestContext.domainName != null) {
+        str = requestContext.domainName;
+    }
+    str = requestContext.apiId;
 
     const result = createAuthorizerResult();
 
@@ -305,7 +305,7 @@ const requestAuthorizerWithCustomContext: APIGatewayRequestAuthorizerWithContext
     event.type; // $ExpectType "REQUEST"
 
     str = event.type;
-    str = event.methodArn; // $ExpectError
+    str = event.methodArn;
     str = event.authorizationToken; // $ExpectError
 
     const result = createAuthorizerResultWithCustomContext();

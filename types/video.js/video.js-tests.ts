@@ -1,4 +1,4 @@
-import videojs from 'video.js';
+import videojs, { VideoJsPlayer } from 'video.js';
 
 videojs("example_video_1").ready(function() {
 	// EXAMPLE: Start playing the video.
@@ -131,6 +131,41 @@ function testPlugin(player: videojs.Player, options: {}) {
 		});
 	});
 	(player as any).uloztoExample(options);
+
+    const Plugin = videojs.getPlugin('plugin');
+
+    interface ExamplePluginOptions {
+        customClass: string;
+    }
+
+    class ExamplePlugin extends Plugin {
+        constructor(player: VideoJsPlayer, options: ExamplePluginOptions) {
+            super(player, options);
+
+            if (options.customClass) {
+                player.addClass(options.customClass);
+            }
+
+            player.on('playing', () => {
+                videojs.log('playback began!');
+			});
+
+			this.player.on('pause', () => {
+				videojs.log('playback ended');
+			});
+
+			const media = this.player.getMedia();
+
+			this.player.loadMedia({
+                src: "http://www.example.com/path/to/video.mp4",
+                poster: "http://www.example.com/path/to/image.jpg",
+            }, () => {
+                videojs.log('loadMedia ready!');
+            });
+        }
+    }
+
+    videojs.registerPlugin('ExamplePlugin', ExamplePlugin);
 }
 
 function testLogger() {
