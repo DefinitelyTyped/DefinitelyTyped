@@ -222,10 +222,10 @@ export interface BaseQueryOptions {
 export interface QueryOptions<TResult> extends BaseQueryOptions {
     onSuccess?: (data: TResult) => void;
     onSettled?: (data: TResult | undefined, error: unknown | null) => void;
-    initialData?: TResult;
+    initialData?: TResult | (() => TResult | undefined);
 }
 
-export interface InfiniteQueryOptions<TResult, TMoreVariable> extends QueryOptions<TResult> {
+export interface InfiniteQueryOptions<TResult, TMoreVariable> extends QueryOptions<TResult[]> {
     getFetchMore: (lastPage: TResult, allPages: TResult[]) => TMoreVariable | false;
 }
 

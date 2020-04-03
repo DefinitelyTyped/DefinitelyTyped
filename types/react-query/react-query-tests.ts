@@ -203,6 +203,21 @@ function simpleInfiniteQuery(condition: boolean) {
             last, // $ExpectType number[]
             all, // $ExpectType number[][]
         ) => 'next',
+        // type of data in success is the array of results
+        onSuccess(
+            data, // $ExpectType number[][]
+        ) {},
+        onSettled(
+            data, // $ExpectType number[][] | undefined
+            error, // $ExpectType unknown
+        ) {},
+        initialData: () =>
+            condition
+                ? [
+                      [1, 2],
+                      [2, 3],
+                  ]
+                : undefined,
     });
     useInfiniteQuery(['key'], fetchWithCursor, { getFetchMore });
     useInfiniteQuery('key', fetchWithCursor, { getFetchMore });
