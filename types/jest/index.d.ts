@@ -1126,7 +1126,7 @@ declare namespace jest {
          * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
          * don't access stale data.
          */
-        mockClear(): void;
+        mockClear(): this;
         /**
          * Resets all information stored in the mock, including any initial implementation and mock name given.
          *
@@ -1136,7 +1136,7 @@ declare namespace jest {
          * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
          * don't access stale data.
          */
-        mockReset(): void;
+        mockReset(): this;
         /**
          * Does everything that `mockFn.mockReset()` does, and also restores the original (non-mocked) implementation.
          *
