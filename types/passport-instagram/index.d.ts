@@ -35,9 +35,9 @@ export interface StrategyOptionWithRequest extends StrategyOptionBase {
 }
 
 export class Strategy extends passport.Strategy {
-    constructor (options: StrategyOption,
+    constructor(options: StrategyOption,
         verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
-    constructor (options: StrategyOptionWithRequest,
+    constructor(options: StrategyOptionWithRequest,
         verify: (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
 
     name: string;
