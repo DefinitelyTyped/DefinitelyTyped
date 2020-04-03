@@ -227,7 +227,7 @@ declare namespace P {
         /**
          * Changes the shape of the log level: Default shape: { level: number }
          */
-        formatters: {
+        formatters?: {
             [key: string]: (level: string, value: number) => Record<string, string>;
         };
         /**
