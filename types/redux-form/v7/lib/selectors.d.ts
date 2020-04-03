@@ -1,6 +1,6 @@
 import { FormErrors, GetFormState } from "../index";
 
-export type Dictionary = { [key: string]: any };
+export interface Dictionary = { [key: string]: any };
 
 export type DataSelector<FormData = Dictionary, State = Dictionary> = (formName: string, getFormState?: GetFormState) => (state: State) => FormData;
 export type ErrorSelector<FormData = {}, State = {}, ErrorType = string> = (formName: string, getFormState?: GetFormState) => (state: State) => FormErrors<FormData, ErrorType>;
