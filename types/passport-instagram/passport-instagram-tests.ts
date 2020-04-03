@@ -8,48 +8,33 @@ import instagram = require('passport-instagram');
 // just some test model
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
-        callback(null, { username: 'sagar' });
+        callback(null, { username: 'sagar7993', displayName: 'Sagar Jain', name: { familyName: 'Jain', givenName: 'Sagar' } });
     }
 };
 
 passport.use(new instagram.Strategy({
-    consumerKey: process.env.PASSPORT_TWITTER_CONSUMER_KEY,
-    consumerSecret: process.env.PASSPORT_TWITTER_CONSUMER_SECRET,
-    callbackURL: process.env.PASSPORT_TWITTER_CALLBACK_URL
+    clientID: process.env.PASSPORT_INSTAGRAM_CLIENT_ID,
+    clientSecret: process.env.PASSPORT_INSTAGRAM_CLIENT_SECRET,
+    callbackURL: process.env.PASSPORT_INSTAGRAM_CALLBACK_URL
 },
-    function(accessToken: string, refreshToken: string, profile: instagram.Profile, done: (error: any, user?: any) => void) {
+    function(accessToken: string, refreshToken: string, profile: instagram.Profile, callback: (error: any, user?: any) => void) {
         User.findOrCreate(profile.id, profile.provider, function(err, user) {
-            if (err) { return done(err); }
-            done(null, user);
+            if (err) { return callback(err); }
+            callback(null, user);
         });
     })
 );
 
 passport.use(new instagram.Strategy({
-    consumerKey: process.env.PASSPORT_TWITTER_CONSUMER_KEY,
-    consumerSecret: process.env.PASSPORT_TWITTER_CONSUMER_SECRET,
-    callbackURL: process.env.PASSPORT_TWITTER_CALLBACK_URL,
+    clientID: process.env.PASSPORT_INSTAGRAM_CLIENT_ID,
+    clientSecret: process.env.PASSPORT_INSTAGRAM_CLIENT_SECRET,
+    callbackURL: process.env.PASSPORT_INSTAGRAM_CALLBACK_URL,
     passReqToCallback: false
 },
-    function(accessToken: string, refreshToken: string, profile: instagram.Profile, done: (error: any, user?: any) => void) {
+    function(accessToken: string, refreshToken: string, profile: instagram.Profile, callback: (error: any, user?: any) => void) {
         User.findOrCreate(profile.id, profile.provider, function(err, user) {
-            if (err) { return done(err); }
-            done(null, user);
-        });
-    })
-);
-
-passport.use(new instagram.Strategy({
-    consumerKey: process.env.PASSPORT_TWITTER_CONSUMER_KEY,
-    consumerSecret: process.env.PASSPORT_TWITTER_CONSUMER_SECRET,
-    callbackURL: process.env.PASSPORT_TWITTER_CALLBACK_URL,
-    passReqToCallback: true,
-    includeEmail: true
-},
-    function(req: express.Request, accessToken: string, refreshToken: string, profile: instagram.Profile, done: (error: any, user?: any) => void) {
-        User.findOrCreate(profile.id, profile.provider, function(err, user) {
-            if (err) { return done(err); }
-            done(null, user);
+            if (err) { return callback(err); }
+            callback(null, user);
         });
     })
 );

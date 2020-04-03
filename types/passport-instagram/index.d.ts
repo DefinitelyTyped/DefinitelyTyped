@@ -9,28 +9,21 @@ import passport = require('passport');
 import express = require('express');
 
 export interface Profile extends passport.Profile {
-    gender: string;
+    id: string;
+    displayName: string;
+    name: { familyName: string, givenName: string };
     username: string;
 
     _raw: string;
     _json: any;
-    _accessLevel: string;
 }
 
 export interface StrategyOptionBase {
-    consumerKey: string;
-    consumerSecret: string;
+    clientID: string;
+    clientSecret: string;
     callbackURL: string;
-
-    includeEmail?: true;
-
-    reguestTokenURL?: string;
-    accessTokenURL?: string;
-    userAuthorizationURL?: string;
-    sessionKey?: string;
-
-    userProfileURL?: string;
-    skipExtendedUserProfile?: boolean;
+    tokenURL?: string;
+    authorizationURL?: string;
 }
 
 export interface StrategyOption extends StrategyOptionBase {
@@ -42,9 +35,9 @@ export interface StrategyOptionWithRequest extends StrategyOptionBase {
 }
 
 export class Strategy extends passport.Strategy {
-    constructor(options: StrategyOption,
+    constructor (options: StrategyOption,
         verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
-    constructor(options: StrategyOptionWithRequest,
+    constructor (options: StrategyOptionWithRequest,
         verify: (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
 
     name: string;
