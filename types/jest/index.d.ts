@@ -1,4 +1,4 @@
-// Type definitions for Jest 25.1
+// Type definitions for Jest 25.2
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -29,7 +29,7 @@
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Regev Brody <https://github.com/regevbr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
