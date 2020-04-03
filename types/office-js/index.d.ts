@@ -15328,7 +15328,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        recurrenceProperties: RecurrenceProperties;
+        recurrenceProperties?: RecurrenceProperties;
         /**
          * Gets or sets the properties of the recurring appointment series.
          * 
@@ -15340,7 +15340,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        recurrenceTimeZone: RecurrenceTimeZone;
+        recurrenceTimeZone?: RecurrenceTimeZone;
         /**
          * Gets or sets the type of the recurring appointment series.
          * 
@@ -15510,7 +15510,7 @@ declare namespace Office {
          * Represents your chosen first day of the week otherwise the default is the value in the current user's settings. 
          * Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
          */
-        firstDayOfWeek: MailboxEnums.Days | string;
+        firstDayOfWeek?: MailboxEnums.Days | string;
     }
     /**
      * Represents the time zone of the recurrence.
@@ -15532,7 +15532,7 @@ declare namespace Office {
         /**
          * Integer value representing the difference in minutes between the local time zone and UTC at the date that the meeting series began.
          */
-        offset: number;
+        offset?: number;
     }
     /**
      * A file or item attachment. Used when displaying a reply form.
