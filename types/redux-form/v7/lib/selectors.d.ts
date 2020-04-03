@@ -1,6 +1,8 @@
 import { FormErrors, GetFormState } from "../index";
 
-export type DataSelector<FormData = {}, State = {}> = (formName: string, getFormState?: GetFormState) => (state: State) => FormData;
+export type Dictionary = { [key: string]: any };
+
+export type DataSelector<FormData = Dictionary, State = Dictionary> = (formName: string, getFormState?: GetFormState) => (state: State) => FormData;
 export type ErrorSelector<FormData = {}, State = {}, ErrorType = string> = (formName: string, getFormState?: GetFormState) => (state: State) => FormErrors<FormData, ErrorType>;
 export type BooleanSelector<State = {}> = (formName: string, getFormState?: GetFormState) => (state: State) => boolean;
 export type NamesSelector<State = {}> = (getFormState?: GetFormState) => (state: State) => string[];
