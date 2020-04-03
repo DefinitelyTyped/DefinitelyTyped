@@ -8,6 +8,7 @@
 // Minimum TypeScript Version: 3.5
 
 import * as React from 'react';
+import { PhoneNumber, CountryCode } from "libphonenumber-js";
 
 /**
  * Formats value as a "local" phone number
@@ -38,6 +39,12 @@ export function isValidPhoneNumber(value?: string): boolean;
  */
 export function getCountryCallingCode(country: string): string;
 
+/**
+ * Validates a phone number value
+ */
+export function parsePhoneNumber(text: string, metadata?: Metadata): PhoneNumber;
+export function parsePhoneNumber(text: string, defaultCountry: CountryCode, metadata?: Metadata): PhoneNumber;
+
 export interface FlagsMap {
     [countryCode: string]: React.Component<object, object>;
 }
@@ -61,15 +68,12 @@ export interface CountrySelectComponentProps {
 }
 
 export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>, 'onChange'> {
-    // Required props
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
     /**
      * The phone number (in E.164 format).
      * Examples: `undefined`, `"+12"`, `"+12133734253"`.
      */
-    value: string;
-    // Optional props
-
+    value?: string;
     /**
      * Set to false to remove the "International" option from country <select/>.
      */
@@ -79,7 +83,6 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * @example ["RU", "UA", "KZ"]
      */
     countries?: string[];
-
     /**
      * If country is specified then the phone number can only be input in "national"
      * (not "international") format, and will be parsed as a phone number belonging
