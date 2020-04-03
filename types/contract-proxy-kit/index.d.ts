@@ -32,7 +32,11 @@ declare namespace CPK {
         signer: ethers.Signer;
     }
 
-    type CPKConfig = Web3SpecificConfig | EthersSpecificConfig;
+    interface CPKSpecificConfig extends CommonConfig {
+        cpkProvider: object;
+    }
+
+    type CPKConfig = Web3SpecificConfig | EthersSpecificConfig | CPKSpecificConfig;
 
     interface Transaction {
         operation: number | string | object;

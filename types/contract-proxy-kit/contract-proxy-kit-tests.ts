@@ -53,6 +53,10 @@ CPK.create({
     signer: ethers.Wallet.createRandom(),
     networks: { 4447: networkConfigEntry },
 });
+// $ExpectType Promise<CPK>
+CPK.create({
+    cpkProvider: { foo: 'bar' }
+});
 
 CPK.create({ web3 }).then(async cpk => {
     // $ExpectType CPK
