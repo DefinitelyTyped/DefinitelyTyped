@@ -5,17 +5,17 @@
 //                 Michaël De Boey <https://github.com/MichaelDeBoey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class Range {
-    constructor(anchor: number, head: number);
-    transform(operation: TextOperation): Range;
-    anchor: number;
-    head: number;
-}
-
 export class Selection {
     createCursor(position: number): Selection;
+}
 
-    static Range: Range;
+export namespace Selection {
+    class Range {
+        constructor(anchor: number, head: number);
+        transform(operation: TextOperation): Range;
+        anchor: number;
+        head: number;
+    }
 }
 
 export type SerializedTextOperation = Array<string | number>;
@@ -39,5 +39,3 @@ export class TextOperation {
     static fromJSON(operation: SerializedTextOperation): TextOperation;
     toJSON(): SerializedTextOperation;
 }
-
-export {};
