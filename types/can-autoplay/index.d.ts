@@ -3,22 +3,16 @@
 // Definitions by: Viacheslav Borodulin <https://github.com/vborodulin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Options {
+export interface Options {
     inline?: boolean;
     muted?: boolean;
     timeout?: number;
 }
 
-interface CheckResponse {
+export interface CheckResponse {
     result: boolean;
     error: Error;
 }
 
-type CheckMethod = (options?: Options) => Promise<CheckResponse>;
-
-declare const canAutoPlay: {
-    audio: CheckMethod;
-    video: CheckMethod;
-};
-
-export = canAutoPlay;
+export function audio(options?: Options): Promise<CheckResponse>;
+export function video(options?: Options): Promise<CheckResponse>;
