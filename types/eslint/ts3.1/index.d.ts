@@ -312,16 +312,24 @@ export namespace Rule {
         report(descriptor: ReportDescriptor): void;
     }
 
+    interface ReportDescriptorOptionsBase {
+        data?: { [key: string]: string };
+
+        fix?: null | ((fixer: RuleFixer) => null | Fix | IterableIterator<Fix> | Fix[]);
+    }
+
+    type SuggestionDescriptorMessage = { desc: string } | { messageId: string };
+    type SuggestionReportDescriptor = SuggestionDescriptorMessage & ReportDescriptorOptionsBase;
+
+    interface ReportDescriptorOptions extends ReportDescriptorOptionsBase {
+        suggest?: SuggestionReportDescriptor[] | null;
+    }
+
     type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
     type ReportDescriptorMessage = { message: string } | { messageId: string };
     type ReportDescriptorLocation =
         | { node: ESTree.Node }
         | { loc: AST.SourceLocation | { line: number; column: number } };
-    interface ReportDescriptorOptions {
-        data?: { [key: string]: string };
-
-        fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix> | Fix[];
-    }
 
     interface RuleFixer {
         insertTextAfter(nodeOrToken: ESTree.Node | AST.Token, text: string): Fix;
@@ -385,22 +393,29 @@ export namespace Linter {
         rules?: Partial<Rules>;
     }
 
-    interface RuleOverride<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
+    interface BaseConfig<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
+        $schema?: string;
+        env?: { [name: string]: boolean };
         extends?: string | string[];
-        excludedFiles?: string[];
-        files?: string[];
-    }
-
-    interface Config<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
+        globals?: { [name: string]: boolean };
+        noInlineConfig?: boolean;
+        overrides?: ConfigOverride[];
         parser?: string;
         parserOptions?: ParserOptions;
-        settings?: { [name: string]: any };
-        env?: { [name: string]: boolean };
-        globals?: { [name: string]: boolean };
-        extends?: string | string[];
-        overrides?: RuleOverride[];
-        processor?: string;
         plugins?: string[];
+        processor?: string;
+        reportUnusedDisableDirectives?: boolean;
+        settings?: { [name: string]: any };
+    }
+
+    interface ConfigOverride<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
+        excludedFiles?: string | string[];
+        files: string | string[];
+    }
+
+    // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
+    interface Config<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
+        ignorePatterns?: string | string[];
         root?: boolean;
     }
 
@@ -425,6 +440,12 @@ export namespace Linter {
         reportUnusedDisableDirectives?: boolean;
     }
 
+    interface LintSuggestion {
+        desc: string;
+        fix: Rule.Fix;
+        messageId?: string;
+    }
+
     interface LintMessage {
         column: number;
         line: number;
@@ -432,11 +453,13 @@ export namespace Linter {
         endLine?: number;
         ruleId: string | null;
         message: string;
+        messageId?: string;
         nodeType: string;
         fatal?: true;
         severity: Severity;
         fix?: Rule.Fix;
         source: string | null;
+        suggestions?: LintSuggestion[];
     }
 
     interface FixOptions extends LintOptions {
@@ -588,6 +611,13 @@ export namespace RuleTester {
         globals?: { [name: string]: boolean };
     }
 
+    interface SuggestionOutput {
+        messageId?: string;
+        desc?: string;
+        data?: Record<string, unknown>;
+        output: string;
+    }
+
     interface InvalidTestCase extends ValidTestCase {
         errors: number | Array<TestCaseError | string>;
         output?: string | null;
@@ -602,6 +632,7 @@ export namespace RuleTester {
         column?: number;
         endLine?: number;
         endColumn?: number;
+        suggestions?: SuggestionOutput[];
     }
 }
 
