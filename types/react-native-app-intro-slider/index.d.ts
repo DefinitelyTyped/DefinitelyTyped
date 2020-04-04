@@ -25,7 +25,7 @@ export interface AppIntroProps {
     renderDoneButton?: () => void;
     renderSkipButton?: () => void;
     renderItem?: (item: any) => React.ReactElement;
-    slides: any[];
+    data: any[];
     showSkipButton?: boolean;
     showPrevButton?: boolean;
     showNextButton?: boolean;
