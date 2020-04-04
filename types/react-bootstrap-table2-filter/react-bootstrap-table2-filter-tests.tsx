@@ -211,27 +211,12 @@ const selectColumns = [
     {
         dataField: 'quality',
         text: 'Product Quailty',
-        formatter: (cell: number) => selectOptionsList.find(val => val.value === cell)?.value ?? '',
+        formatter: (cell: number) => {
+            const found = selectOptionsList.find(val => val.value === cell);
+            return found ? found.value : '';
+        },
         filter: selectFilter({
             options: selectOptionsList,
-            className: 'test-classname',
-            withoutEmptyOption: true,
-            defaultValue: 2,
-            comparator: Comparator.LIKE, // default is Comparator.EQ
-            style: { backgroundColor: 'pink' },
-            getFilter: filter => {
-                // qualityFilter was assigned once the component has been mounted.
-                qualityFilter = filter;
-            },
-            onFilter: filterValue => {},
-        }),
-    },
-    {
-        dataField: 'quality',
-        text: 'Product Quailty',
-        formatter: (cell: number) => selectOptionsList.find(val => val.value === cell)?.value ?? '',
-        filter: selectFilter({
-            options: selectOptionsCreator,
             className: 'test-classname',
             withoutEmptyOption: true,
             defaultValue: 2,
