@@ -4,6 +4,7 @@
 //                 Jed Fox <https://github.com/j-f1>
 //                 Saad Quadri <https://github.com/saadq>
 //                 Jason Kwok <https://github.com/JasonHK>
+//                 Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
