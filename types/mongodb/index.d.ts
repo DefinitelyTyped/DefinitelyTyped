@@ -2455,10 +2455,15 @@ export interface ChangeEventCR<TSchema extends object = {_id: ObjectId}> extends
         _id: TSchema extends {_id: any} ? TSchema['_id'] : any;
     };
 }
+type FieldUpdates<TSchema> = Partial<TSchema> & {[key: string]: any};
 export interface ChangeEventUpdate<TSchema extends object = {_id: ObjectId}> extends ChangeEventBase<TSchema> {
     operationType: 'update';
     updateDescription: {
-        updatedFields: Partial<TSchema>;
+        /**
+         * This is an object with all changed fields; if they are nested,
+         * the keys will be paths, e.g. 'question.answer.0.text': 'new text'
+         */
+        updatedFields: FieldUpdates<TSchema>;
         removedFields: Array<keyof TSchema | string>;
     };
     fullDocument?: TSchema;
