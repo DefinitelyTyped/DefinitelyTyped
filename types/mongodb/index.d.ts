@@ -29,6 +29,7 @@
 //                 Rauno Viskus <https://github.com/Rauno56>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Linus Unnebäck <https://github.com/LinusU>
+//                 Richard Bateman <https://github.com/taxilian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -75,7 +76,7 @@ export class MongoClient extends EventEmitter {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#startSession */
     startSession(options?: SessionOptions): ClientSession;
     /** http://mongodb.github.io/node-mongodb-native/3.3/api/MongoClient.html#watch */
-    watch(pipeline?: object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
+    watch<TSchema extends object = {_id: ObjectId}>(pipeline?: object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream<TSchema>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
     withSession(operation: (session: ClientSession) => Promise<any>): Promise<void>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
@@ -748,7 +749,7 @@ export class Db extends EventEmitter {
     stats(options?: { scale?: number }): Promise<any>;
     stats(options: { scale?: number }, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.3/api/Db.html#watch */
-    watch(pipeline?: object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
+    watch<TSchema extends object = {_id: ObjectId}>(pipeline?: object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream<TSchema>;
 }
 
 export interface CommonOptions extends WriteConcern {
@@ -1217,10 +1218,10 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch */
-    watch(
+    watch<TSchema extends object = {_id: ObjectId}>(
         pipeline?: object[],
         options?: ChangeStreamOptions & { session?: ClientSession },
-    ): ChangeStream;
+    ): ChangeStream<TSchema>;
 }
 
 /** Update Query */
@@ -2351,11 +2352,61 @@ export interface GridFSBucketWriteStreamOptions extends WriteConcern {
     disableMD5?: boolean;
 }
 
+type Arguments<T> = [T] extends [(...args: infer U) => any]
+  ? U
+  : [T] extends [undefined] ? [] : [T];
+
+/**
+ * Type-safe event emitter from https://github.com/andywer/typed-emitter.
+ *
+ * Use it like this:
+ *
+ * interface MyEvents {
+ *   error: (error: Error) => void
+ *   message: (from: string, content: string) => void
+ * }
+ *
+ * const myEmitter = new EventEmitter() as TypedEmitter<MyEvents>
+ *
+ * myEmitter.on("message", (from, content) => {
+ *   // ...
+ * })
+ *
+ * myEmitter.emit("error", "x")  // <- Will catch this type error
+ */
+declare class TypedEventEmitter<Events> {
+    addListener<E extends keyof Events> (event: E, listener: Events[E]): this;
+    on<E extends keyof Events> (event: E, listener: Events[E]): this;
+    once<E extends keyof Events> (event: E, listener: Events[E]): this;
+    prependListener<E extends keyof Events> (event: E, listener: Events[E]): this;
+    prependOnceListener<E extends keyof Events> (event: E, listener: Events[E]): this;
+
+    off<E extends keyof Events>(event: E, listener: Events[E]): this;
+    removeAllListeners<E extends keyof Events> (event?: E): this;
+    removeListener<E extends keyof Events> (event: E, listener: Events[E]): this;
+
+    emit<E extends keyof Events> (event: E, ...args: Arguments<Events[E]>): boolean;
+    eventNames (): Array<keyof Events>;
+    listeners<E extends keyof Events> (event: E): Function[];
+    listenerCount<E extends keyof Events> (event: E): number;
+
+    getMaxListeners (): number;
+    setMaxListeners (maxListeners: number): this;
+}
+
+interface ChangeStreamEvents<TSchema extends object> {
+    change: (doc: ChangeEvent<TSchema>) => void;
+    close: () => void;
+    end: () => void;
+    error: (err: MongoError) => void;
+    resumeTokenChanged: (newToken: ResumeToken) => void;
+}
+
 /** http://mongodb.github.io/node-mongodb-native/3.3/api/ChangeStream.html */
-export class ChangeStream extends Readable {
+export class ChangeStream<TSchema extends object = any> extends TypedEventEmitter<ChangeStreamEvents<TSchema>> {
     resumeToken: ResumeToken;
 
-    constructor(changeDomain: Db | Collection, pipeline: object[], options?: ChangeStreamOptions);
+    constructor(parent: MongoClient | Db | Collection, pipeline: object[], options?: ChangeStreamOptions);
 
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html#close */
     close(): Promise<any>;
@@ -2378,12 +2429,77 @@ export class ChangeStream extends Readable {
 
 export class ResumeToken {}
 
+export type ChangeEventTypes = 'insert' | 'delete' | 'replace' | 'update' | 'drop' | 'rename' | 'dropDatabase' | 'invalidate';
+export interface ChangeEventBase<TSchema extends object = {_id: ObjectId}> {
+    _id: ResumeToken;
+    /**
+     * We leave this off the base type so that we can differentiate
+     * by checking its value and get intelligent types on the other fields
+     */
+    // operationType: ChangeEventTypes;
+    ns: {
+        db: string;
+        coll: string;
+    };
+    clusterTime: Timestamp;
+    txnNumber?: number;
+    lsid?: {
+        "id": any;
+        "uid": any;
+    };
+}
+export interface ChangeEventCR<TSchema extends object = {_id: ObjectId}> extends ChangeEventBase<TSchema> {
+    operationType: 'insert' | 'replace';
+    fullDocument?: TSchema;
+    documentKey: {
+        _id: TSchema extends {_id: any} ? TSchema['_id'] : any;
+    };
+}
+export interface ChangeEventUpdate<TSchema extends object = {_id: ObjectId}> extends ChangeEventBase<TSchema> {
+    operationType: 'update';
+    updateDescription: {
+        updatedFields: Partial<TSchema>;
+        removedFields: Array<keyof TSchema | string>;
+    };
+    fullDocument?: TSchema;
+    documentKey: {
+        _id: TSchema extends {_id: any} ? TSchema['_id'] : any;
+    };
+}
+export interface ChangeEventDelete<TSchema extends object = {_id: ObjectId}> extends ChangeEventBase<TSchema> {
+    operationType: 'delete';
+    documentKey: {
+        _id: TSchema extends {_id: any} ? TSchema['_id'] : any;
+    };
+}
+export interface ChangeEventRename<TSchema extends object = {_id: ObjectId}> extends ChangeEventBase<TSchema> {
+    operationType: 'rename';
+    to: {
+        db: string;
+        coll: string;
+    };
+}
+
+export interface ChangeEventOther<TSchema extends object = {_id: ObjectId}> extends ChangeEventBase<TSchema> {
+    operationType: 'drop' | 'dropDatabase';
+}
+
+export interface ChangeEventInvalidate<TSchema extends object = {_id: ObjectId}> {
+    _id: ResumeToken;
+    operationType: 'invalidate';
+    clusterTime: Timestamp;
+}
+
+export type ChangeEvent<TSchema extends object = {_id: ObjectId}> =
+    ChangeEventCR<TSchema> | ChangeEventUpdate<TSchema> | ChangeEventDelete<TSchema>
+    | ChangeEventRename<TSchema> | ChangeEventOther<TSchema> | ChangeEventInvalidate<TSchema>;
+
 /** https://mongodb.github.io/node-mongodb-native/3.3/api/global.html#ChangeStreamOptions */
 export interface ChangeStreamOptions {
-    fullDocument?: string;
+    fullDocument?: 'default' | 'updateLookup';
     maxAwaitTimeMS?: number;
-    resumeAfter?: object;
-    startAfter?: object;
+    resumeAfter?: ResumeToken;
+    startAfter?: ResumeToken;
     startAtOperationTime?: Timestamp;
     batchSize?: number;
     collation?: CollationDocument;
