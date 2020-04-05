@@ -13,6 +13,7 @@ declare namespace dependencyTree {
         directory?: string;
         requireConfig?: string;
         webpackConfig?: string;
+        tsConfig?: string;
         nodeModulesConfig?: any;
         detective?: any;
         visited?: DependencyObj;
