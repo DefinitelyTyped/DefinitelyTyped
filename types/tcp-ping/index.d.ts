@@ -1,4 +1,4 @@
-// Type definitions for tcp-ping 0.2
+// Type definitions for tcp-ping 0.1
 // Project: https://github.com/wesolyromek/tcp-ping
 // Definitions by: JUNG YONG WOO <https://github.com/stegano>
 //                 rymate1234 <https://github.com/rymate1234>
