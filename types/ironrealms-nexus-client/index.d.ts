@@ -36,27 +36,87 @@ type ReflexType =
     | 'function'
     ;
 
-type GMCPMethod =
-    | 'Core'
-    | 'Char'
-    | 'Char.Afflictions'
-    | 'Char.Defences'
-    | 'Char.Items'
-    | 'Char.Skills'
-    | 'Comm.Channel'
-    | 'Room'
-    | 'Redirect'
-    | 'IRE.Composer'
-    | 'IRE.Display'
-    | 'IRE.FileStore'
-    | 'IRE.Misc'
-    | 'IRE.Rift'
-    | 'IRE.Sound'
-    | 'IRE.Target'
-    | 'IRE.Tasks'
-    | 'IRE.Time'
+type GMCPMethodCore =
+    | 'Core.Ping'
+    | 'Core.Goodbye'
+    ;
+
+type GMCPMethodChar =
+    | 'Char.Name'
+    | 'Char.Vitals'
+    | 'Char.StatusVars'
+    | 'Char.Status'
+    | 'Char.Afflictions.List'
+    | 'Char.Afflictions.Add'
+    | 'Char.Afflictions.Remove'
+    | 'Char.Defences.List'
+    | 'Char.Defences.Add'
+    | 'Char.Defences.Remove'
+    | 'Char.Items.List'
+    | 'Char.Items.Add'
+    | 'Char.Items.Remove'
+    | 'Char.Items.Update'
+    | 'Char.Skills.Groups'
+    | 'Char.Skills.List'
+    | 'Char.Skills.Info'
+    ;
+
+type GMCPMethodComm =
+    | 'Comm.Channel.Players'
+    | 'Comm.Channel.List'
+    | 'Comm.Channel.Start'
+    | 'Comm.Channel.Start'
+    | 'Comm.Channel.End'
+    | 'Comm.Channel.Text'
+    ;
+
+type GMCPMethodRoom =
+    | 'Room.Info'
+    | 'Room.WrongDir'
+    | 'Room.Players'
+    | 'Room.AddPlayer'
+    | 'Room.RemovePlayer'
+    ;
+
+type GMCPMethodRedirect =
+    | 'Redirect.Window'
+    ;
+
+type GMCPMethodIRE =
+    | 'IRE.Composer.Edit'
+    | 'IRE.Composer.SetBuffer'
+    | 'IRE.Display.FixedFont'
+    | 'IRE.Display.FixedFont'
+    | 'IRE.Display.Ohmap'
+    | 'IRE.Misc.RemindVote'
+    | 'IRE.Misc.Achievement'
+    | 'IRE.Misc.URL'
+    | 'IRE.Misc.Tip'
+    | 'IRE.Rift.List'
+    | 'IRE.Rift.Change'
+    | 'IRE.Sound.Play'
+    | 'IRE.Sound.Stop'
+    | 'IRE.Sound.Stopall'
+    | 'IRE.Sound.Preload'
+    | 'IRE.Target.Set'
+    | 'IRE.Target.Info'
+    | 'IRE.Target.Request'
+    | 'IRE.Tasks.List'
+    | 'IRE.Tasks.Update'
+    | 'IRE.Tasks.Completed'
+    | 'IRE.Time.List'
+    | 'IRE.Time.Update'
     | 'IRE.CombatMessage'
-    | 'IRE.Wiz'
+    // | 'IRE.Wiz'
+    ;
+
+type GMCPMethod =
+    | GMCPMethodCore
+    | GMCPMethodChar
+    | GMCPMethodComm
+    | GMCPMethodRoom
+    | GMCPMethodRedirect
+    | GMCPMethodIRE
     ;
 
 // Calling functions
