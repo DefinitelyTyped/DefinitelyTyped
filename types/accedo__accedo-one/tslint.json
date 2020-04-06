@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "indent": [true, "spaces"],
+        "no-unnecessary-generics": false,
+        "no-single-declare-module": false
+    }
+}
