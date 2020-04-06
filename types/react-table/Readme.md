@@ -140,7 +140,7 @@ declare module 'react-table' {
       UseRowStateState<D>,
       UseSortByState<D> {}
 
-  export interface Column<D extends object = {}>
+  export interface ColumnInterface<D extends object = {}>
     extends UseFiltersColumnOptions<D>,
       UseGlobalFiltersColumnOptions<D>,
       UseGroupByColumnOptions<D>,

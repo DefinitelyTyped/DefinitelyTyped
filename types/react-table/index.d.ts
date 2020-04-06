@@ -43,7 +43,7 @@ export interface TableOptions<D extends object> extends UseTableOptions<D> {}
 
 export interface TableInstance<D extends object = {}>
     extends Omit<TableOptions<D>, 'columns' | 'pageCount'>,
-        UseTableInstanceProps<D> {}
+    UseTableInstanceProps<D> {}
 
 export interface TableState<D extends object = {}> {
     hiddenColumns?: Array<IdType<D>>;
@@ -53,11 +53,30 @@ export interface Hooks<D extends object = {}> extends UseTableHooks<D> {}
 
 export interface Cell<D extends object = {}> extends UseTableCellProps<D> {}
 
-export interface Column<D extends object = {}> extends UseTableColumnOptions<D> {}
+export interface ColumnInterface<D extends object = {}> extends UseTableColumnOptions<D> {}
+
+export interface ColumnGroupInterface<D extends object> {
+    columns: Array<Column<D>>;
+}
+
+export type ColumnGroup<D extends object = {}> = ColumnInterface<D> &
+    ColumnGroupInterface<D> &
+    (
+        | { Header: string; }
+        | ({ id: IdType<D>; } & {
+            Header: Renderer<HeaderProps<D>>;
+        })
+    );
+
+export type Column<D extends object = {}> = ColumnInterface<D> &
+    (
+        | ({ accessor: IdType<D> } | { Header: string } | { id: IdType<D> })
+        | ColumnGroup<D>
+    );
 
 export interface ColumnInstance<D extends object = {}>
     extends Omit<Column<D>, 'id' | 'columns'>,
-        UseTableColumnProps<D> {}
+    UseTableColumnProps<D> {}
 
 export interface HeaderGroup<D extends object = {}> extends ColumnInstance<D>, UseTableHeaderGroupProps<D> {}
 
@@ -184,16 +203,15 @@ export interface UseTableHooks<D extends object> extends Record<string, any> {
     useFinalInstance: Array<(instance: TableInstance<D>) => void>;
 }
 
-export interface UseTableColumnOptions<D extends object>
-    extends Accessor<D>,
-        Partial<{
-            columns: Array<Column<D>>;
-            Header: Renderer<HeaderProps<D>>;
-            Cell: Renderer<CellProps<D>>;
-            width?: number | string;
-            minWidth?: number;
-            maxWidth?: number;
-        }> {}
+export interface UseTableColumnOptions<D extends object> {
+    id?: IdType<D>;
+    accessor?: Accessor<D>;
+    Header?: Renderer<HeaderProps<D>>;
+    Cell?: Renderer<CellProps<D>>;
+    width?: number | string;
+    minWidth?: number;
+    maxWidth?: number;
+}
 
 type UpdateHiddenColumns<D extends object> = (oldHidden: Array<IdType<D>>) => Array<IdType<D>>;
 
@@ -275,23 +293,18 @@ export type CellProps<D extends object> = TableInstance<D> & {
     column: ColumnInstance<D>;
     row: Row<D>;
     cell: Cell<D>;
+    value: CellValue;
 };
 
-// NOTE: At least one of (id | accessor | Header as string) required
-export interface Accessor<D extends object> {
-    accessor?:
-        | IdType<D>
-        | ((
-              originalRow: D,
-              index: number,
-              sub: {
-                  subRows: D[];
-                  depth: number;
-                  data: D[];
-              },
-          ) => CellValue);
-    id?: IdType<D>;
-}
+export type Accessor<D extends object> = IdType<D> | ((
+    originalRow: D,
+    index: number,
+    sub: {
+        subRows: D[];
+        depth: number;
+        data: D[];
+    },
+) => CellValue);
 
 //#endregion
 
