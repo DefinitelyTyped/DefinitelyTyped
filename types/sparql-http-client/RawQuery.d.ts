@@ -1,17 +1,15 @@
-import { Endpoint } from './Endpoint';
-import { QueryOptions, QueryInit, Query } from '.';
+import { QueryInit, Query } from '.';
 
 declare namespace RawQuery {
     type RawQuery = Query<Response, Response, Response, Response>;
 }
 
+// tslint:disable-next-line no-empty-interface
+interface RawQuery extends RawQuery.RawQuery {}
+
+// tslint:disable-next-line no-unnecessary-class
 declare class RawQuery {
     constructor(options: QueryInit);
-    endpoint: Endpoint;
-    ask(query: string, options?: QueryOptions): Promise<Response>;
-    construct(query: string, options?: QueryOptions): Promise<Response>;
-    select(query: string, options?: QueryOptions): Promise<Response>;
-    update(query: string, options?: QueryOptions): Promise<Response>;
 }
 
 export = RawQuery;
