@@ -26,7 +26,7 @@ export interface User {
 
 export interface GroupedMergeTag {
     readonly name: string;
-    readonly mergeTags: (SimpleMergeTag | GroupedMergeTag)[];
+    readonly mergeTags: Array<SimpleMergeTag | GroupedMergeTag>;
 }
 
 export interface SimpleMergeTag {
@@ -46,7 +46,7 @@ export interface ConditionalMergeTag {
     readonly mergeTags?: SimpleMergeTag[];
 }
 
-export type MergeTag = SimpleMergeTag | ConditionalMergeTag | GroupedMergeTag
+export type MergeTag = SimpleMergeTag | ConditionalMergeTag | GroupedMergeTag;
 
 export interface DesignTagConfig {
     readonly delimeter: [string, string];
