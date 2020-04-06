@@ -56,9 +56,9 @@ export interface DataTableCustomRowData<R extends DataTableRow = DataTableRow> {
 
 export interface DataTableCustomRowProps<R extends DataTableRow = DataTableRow> {
     ariaLabel?: string,
-    disabled: R["disabled"],
-    isExpanded: R["isExpanded"],
-    isSelected: R["isSelected"],
+    disabled?: R["disabled"],
+    isExpanded?: R["isExpanded"],
+    isSelected?: R["isSelected"],
     key: R["id"],
     onExpand(event: React.MouseEvent<HTMLElement>): void,
 }
