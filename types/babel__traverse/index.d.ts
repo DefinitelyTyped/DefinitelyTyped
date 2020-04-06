@@ -32,7 +32,7 @@ export interface TraverseOptions<S = Node> extends Visitor<S> {
     noScope?: boolean;
 }
 
-export type ArrayKeys<T> = { [P in keyof T]: T[P] extends any[] ? P : never}[keyof T];
+export type ArrayKeys<T> = { [P in keyof T]: T[P] extends any[] ? P : never }[keyof T];
 
 export class Scope {
     constructor(path: NodePath, parentScope?: Scope);
