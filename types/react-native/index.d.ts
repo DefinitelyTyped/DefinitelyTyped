@@ -8915,7 +8915,7 @@ export interface KeyboardStatic extends NativeEventEmitter {
 }
 
 /**
- * The DevSettings module exposes methods for customizing settings for developers in development. 
+ * The DevSettings module exposes methods for customizing settings for developers in development.
  */
 export interface DevSettingsStatic extends NativeEventEmitter {
     /**
