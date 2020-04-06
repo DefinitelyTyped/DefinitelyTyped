@@ -1,6 +1,6 @@
 // Type definitions for Office.js 1.0
 // Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>, Sudhi Ramamurthy <https://github.com/sumurthy>
+// Definitions by: OfficeDev <https://github.com/OfficeDev>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>, Sudhi Ramamurthy <https://github.com/sumurthy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -7887,6 +7887,46 @@ declare namespace Office {
 declare namespace Office {
     namespace MailboxEnums {
         /**
+         * Specifies the sensitivity type of an appointment.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @beta
+         */
+        enum AppointmentSensitivityType {
+            /**
+             * The item needs no special treatment.
+             *
+             * [Api set: Mailbox Preview]
+             */
+            Normal = "normal",
+
+            /**
+             * Treat the item as personal.
+             *
+             * [Api set: Mailbox Preview]
+             */
+            Personal = "personal",
+
+            /**
+             * Treat the item as private.
+             *
+             * [Api set: Mailbox Preview]
+             */
+            Private = "private",
+
+            /**
+             * Treat the item as confidential.
+             *
+             * [Api set: Mailbox Preview]
+             */
+            Confidential = "confidential"
+        }
+        /**
          * Specifies the formatting that applies to an attachment's content.
          * 
          * [Api set: Mailbox 1.8]
@@ -9173,6 +9213,20 @@ declare namespace Office {
          */
         enhancedLocation: EnhancedLocation;
         /**
+         * Gets or sets the {@link Office.IsAllDayEvent} property of an appointment.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Organizer
+         * 
+         * @beta
+         */
+        isAllDayEvent: IsAllDayEvent;
+        /**
          * Gets the type of item that an instance represents.
          *
          * The `itemType` property returns one of the `ItemType` enumeration values, indicating whether the `item` object instance is a message or an appointment.
@@ -9275,6 +9329,20 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Organizer
          */
         requiredAttendees: Recipients;
+        /**
+         * Gets or sets the {@link Office.Sensitivity | sensitivity} of an appointment. 
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Organizer
+         * 
+         * @beta
+         */        
+        sensitivity: Sensitivity;
         /**
          * Gets the id of the series that an instance belongs to.
          * 
@@ -10527,6 +10595,20 @@ declare namespace Office {
          */
         enhancedLocation: EnhancedLocation;
         /**
+         * Returns a boolean value indicating whether the event is all day.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**:  `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**:  Appointment Attendee
+         * 
+         * @beta
+         */
+        isAllDayEvent: boolean;
+        /**
          * Gets the Exchange Web Services item class of the selected item.
          *
          * You can create custom message classes that extends a default message class, for example, a custom appointment message class `IPM.Appointment.Contoso`.
@@ -10736,6 +10818,20 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Attendee
          */
         subject: string;
+        /**
+         * Provides the sensitivity value of the appointment.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permission | Minimum permission level}**:  `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**:  Appointment Attendee
+         * 
+         * @beta
+         */
+        sensitivity: MailboxEnums.AppointmentSensitivityType;
 
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
@@ -11701,7 +11797,9 @@ declare namespace Office {
          */
         setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds or replaces the signature of the email body.
+         * Adds or replaces the signature of the item body.
+         * 
+         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
          *
          * [Api set: Mailbox Preview]
          *
@@ -11729,7 +11827,9 @@ declare namespace Office {
          */
         setSignatureAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds or replaces the signature of the email body.
+         * Adds or replaces the signature of the item body.
+         * 
+         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
          *
          * [Api set: Mailbox Preview]
          *
@@ -11756,11 +11856,11 @@ declare namespace Office {
     /**
      * Represents the categories on an item.
      * 
-     * In Outlook, a user can group messages and appointments by using a category to color-code them.
+     * In Outlook, a user can tag messages and appointments by using a category to color-code them.
      * The user defines {@link Office.MasterCategories | categories in a master list} on their mailbox.
      * They can then apply one or more categories to an item.
      *
-     * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Read mode.
+     * **Important**: In Outlook on the web, you can't use the API to manage categories applied to a message in Compose mode.
      *
      * [Api set: Mailbox 1.8]
      *
@@ -12170,7 +12270,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
          *                `asyncResult`, which is an `Office.AsyncResult` object. Check the `status` property of `asyncResult` to determine if the call succeeded.
          */
-        addAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
+        addAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds to the set of locations associated with the appointment.
          * 
@@ -12190,7 +12290,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
          *                `asyncResult`, which is an `Office.AsyncResult` object. Check the `status` property of `asyncResult` to determine if the call succeeded.
          */
-        addAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
+        addAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets the set of locations associated with the appointment.
          * 
@@ -12242,7 +12342,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
          *                `asyncResult`, which is an `Office.AsyncResult` object. Check the `status` property of `asyncResult` to determine if the call succeeded.
          */
-        removeAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
+        removeAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Removes the set of locations associated with the appointment.
          * 
@@ -12260,7 +12360,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
          *                `asyncResult`, which is an `Office.AsyncResult` object. Check the `status` property of `asyncResult` to determine if the call succeeded.
          */
-        removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
+        removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * Provides the current enhanced locations when the `Office.EventType.EnhancedLocationsChanged` event is raised.
@@ -13382,9 +13482,11 @@ declare namespace Office {
     /**
      * Represents the categories master list on the mailbox.
      * 
-     * In Outlook, a user can group messages and appointments by using a category to color-code them.
+     * In Outlook, a user can tag messages and appointments by using a category to color-code them.
      * The user defines categories in a master list on their mailbox. They can then apply one or more categories to an item.
      *
+     * **Important**: In delegate or shared scenarios, the delegate can get the categories in the master list but can't add or remove categories.
+     * 
      * [Api set: Mailbox 1.8]
      *
      * @remarks
@@ -13617,6 +13719,8 @@ declare namespace Office {
         body: Body;
         /**
          * Gets an object that provides methods for managing the item's categories.
+         *
+         * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Compose mode.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -14072,7 +14176,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        disableClientSignatureAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;        
+        disableClientSignatureAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Disables the Outlook client signature.
          *  
@@ -14094,7 +14198,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        disableClientSignatureAsync(callback?: (asyncResult: Office.AsyncResult<void>) => void): void;        
+        disableClientSignatureAsync(callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets an attachment from a message or appointment and returns it as an `AttachmentContent` object.
          * 
@@ -14452,7 +14556,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        isClientSignatureEnabledAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;        
+        isClientSignatureEnabledAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;
         /**
          * Gets if the client signature is enabled.
          * 
@@ -14474,7 +14578,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        isClientSignatureEnabledAsync(callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;        
+        isClientSignatureEnabledAsync(callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;
         /**
          * Asynchronously loads custom properties for this add-in on the selected item.
          *
@@ -14758,8 +14862,6 @@ declare namespace Office {
         body: Body;
         /**
          * Gets an object that provides methods for managing the item's categories.
-         *
-         * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Read mode.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -15607,6 +15709,98 @@ declare namespace Office {
         removeHandlerAsync(eventType: Office.EventType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
+     * Provides methods to get and set the all-day event status of a meeting in an Outlook add-in.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+     * 
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+     * 
+     * @beta
+     */    
+    interface IsAllDayEvent {
+        /**
+         * Gets the boolean value indicating whether the event is all day or not.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @param options - An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
+         *                 type `Office.AsyncResult`.
+         * 
+         * @beta
+         */
+        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;
+        /**
+         * Gets the boolean value indicating whether the event is all day or not.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
+         *                 type `Office.AsyncResult`.
+         * @beta
+         */
+        getAsync(callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;
+        /**
+         * Sets the all-day event status of an appointment. 
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * If an appointment is marked as an all-day event:
+         * - Start and end time will be marked as 12:00 AM (just like in the Outlook UI). Start time will return 12:00 AM and end time will be 12:00 AM the next day.
+         *
+         * **{@link  https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param isAllDayEvent - boolean value to set the all day event status.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         * 
+         * @beta
+         */
+        setAsync(isAllDayEvent: boolean, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Sets the all-day event status of an appointment. 
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * If an appointment is marked as an all-day event:
+         * - Start and end time will be marked as 12:00 AM (just like in the Outlook UI). Start time will return 12:00 AM and end time will be 12:00 AM the next day.
+         *
+         * **{@link  https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param isAllDayEvent - boolean value to set the all day event status.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         * 
+         * @beta
+         */
+        setAsync(isAllDayEvent: boolean, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+    }
+    /**
      * An array of `NotificationMessageDetails` objects are returned by the `NotificationMessages.getAllAsync` method.
      *
      * [Api set: Mailbox 1.3]
@@ -16211,7 +16405,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        recurrenceProperties: RecurrenceProperties;
+        recurrenceProperties?: RecurrenceProperties;
         /**
          * Gets or sets the properties of the recurring appointment series.
          * 
@@ -16223,7 +16417,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        recurrenceTimeZone: RecurrenceTimeZone;
+        recurrenceTimeZone?: RecurrenceTimeZone;
         /**
          * Gets or sets the type of the recurring appointment series.
          * 
@@ -16372,28 +16566,28 @@ declare namespace Office {
         /**
          * Represents the day of the month.
          */
-        dayOfMonth: number;
+        dayOfMonth?: number;
         /**
          * Represents the day of the week or type of day, for example, weekend day vs weekday.
          */
-        dayOfWeek: MailboxEnums.Days | string;
+        dayOfWeek?: MailboxEnums.Days | string;
         /**
          * Represents the set of days for this recurrence. Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
          */
-        days: MailboxEnums.Days[] | string[];
+        days?: MailboxEnums.Days[] | string[];
         /**
          * Represents the number of the week in the selected month e.g. 'first' for first week of the month.
          */
-        weekNumber: MailboxEnums.WeekNumber | string;
+        weekNumber?: MailboxEnums.WeekNumber | string;
         /**
          * Represents the month.
          */
-        month: MailboxEnums.Month | string;
+        month?: MailboxEnums.Month | string;
         /**
          * Represents your chosen first day of the week otherwise the default is the value in the current user's settings. 
          * Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
          */
-        firstDayOfWeek: MailboxEnums.Days | string;
+        firstDayOfWeek?: MailboxEnums.Days | string;
     }
     /**
      * Represents the time zone of the recurrence.
@@ -16415,7 +16609,7 @@ declare namespace Office {
         /**
          * Integer value representing the difference in minutes between the local time zone and UTC at the date that the meeting series began.
          */
-        offset: number;
+        offset?: number;
     }
     /**
      * A file or item attachment. Used when displaying a reply form.
@@ -16554,6 +16748,96 @@ declare namespace Office {
          * @param value - Specifies the value to be stored.
          */
         set(name: string, value: any): void;
+    }
+    /**
+     * Provides methods to get and set the appointment sensitivity of a meeting in an Outlook add-in.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+     * 
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+     * 
+     * @beta
+     */    
+    interface Sensitivity {
+        /**
+         * Gets the value of the appointment sensitivity.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @param options - An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
+         *                 type `Office.AsyncResult`.
+         *
+         * @beta
+         */
+        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<MailboxEnums.AppointmentSensitivityType>) => void): void;
+        /**
+         * Gets the value of the appointment sensitivity.
+         *
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of 
+         *                 type `Office.AsyncResult`.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @beta
+         */
+        getAsync(callback: (asyncResult: Office.AsyncResult<MailboxEnums.AppointmentSensitivityType>) => void): void;
+        /**
+         * Sets the value of the appointment sensitivity.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param sensitivity - The sensitivity value as enum or string.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         * 
+         * @beta
+         */
+        setAsync(sensitivity: MailboxEnums.AppointmentSensitivityType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Sets the value of the appointment sensitivity.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param sensitivity - The sensitivity value as enum or string.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         * 
+         * @beta
+         */
+        setAsync(sensitivity: MailboxEnums.AppointmentSensitivityType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+   
     }
     /**
      * The `SeriesTime` object provides methods to get and set the dates and times of appointments in a recurring series and get the dates and times
@@ -20915,7 +21199,9 @@ declare namespace Excel {
          */
         suspendApiCalculationUntilNextSync(): void;
         /**
-         * Suspends sceen updating until the next "context.sync()" is called.
+         * Suspends screen updating until the next `context.sync()` is called.
+         * 
+         * **Note**: Don't call `suspendScreenUpdatingUntilNextSync` repeatedly (such as in a loop). Repeated calls will cause the Excel window to flicker.
          *
          * [Api set: ExcelApi 1.9]
          */

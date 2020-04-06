@@ -153,11 +153,21 @@ function testClock() {
     clock.cancelAnimationFrame(animTimer);
 
     clock.nextTick(fn);
+
     clock.tick(1);
     clock.tick('00:10');
+    clock.tickAsync(500).then(val => val.toExponential());
+    clock.tickAsync('500').then(val => val.toExponential());
+
     clock.next();
+    clock.nextAsync().then(val => val.toExponential());
+
     clock.runAll();
+    clock.runAllAsync().then(val => val.toExponential());
+
     clock.runToLast();
+    clock.runToLastAsync().then(val => val.toExponential());
+
     clock.reset();
     clock.runMicrotasks();
     clock.runToFrame();

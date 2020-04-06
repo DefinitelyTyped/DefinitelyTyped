@@ -99,6 +99,11 @@ const v1: Visitor = {
 
         path.scope.rename("n", "x");
         path.scope.rename("n");
+
+        // $ExpectError
+        path.pushContainer('returnType', t.stringLiteral('hello'));
+        // $ExpectError
+        path.unshiftContainer('returnType', t.stringLiteral('hello'));
     },
     ExportDefaultDeclaration(path) {
         {
@@ -121,10 +126,25 @@ const v1: Visitor = {
             // $ExpectType NodePath<BooleanLiteral>
             booleanPath;
         }
+        {
+            const [newPath] = path.insertBefore(t.stringLiteral('hello'));
+            // $ExpectType NodePath<StringLiteral>
+            newPath;
+        }
+        {
+            const [newPath] = path.insertAfter(t.stringLiteral('hello'));
+            // $ExpectType NodePath<StringLiteral>
+            newPath;
+        }
     },
     Program(path) {
         {
             const [newPath] = path.unshiftContainer('body', t.stringLiteral('hello'));
+            // $ExpectType NodePath<StringLiteral>
+            newPath;
+        }
+        {
+            const [newPath] = path.pushContainer('body', t.stringLiteral('hello'));
             // $ExpectType NodePath<StringLiteral>
             newPath;
         }
@@ -139,7 +159,27 @@ const v1: Visitor = {
             booleanPath;
         }
         {
+            const [stringPath, booleanPath] = path.pushContainer('body', [
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            booleanPath;
+        }
+        {
             const [stringPath, booleanPath] = path.unshiftContainer<[t.StringLiteral, t.BooleanLiteral]>('body', [
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral>
+            booleanPath;
+        }
+        {
+            const [stringPath, booleanPath] = path.pushContainer<[t.StringLiteral, t.BooleanLiteral]>('body', [
                 t.stringLiteral('hello'),
                 t.booleanLiteral(false)
             ]);

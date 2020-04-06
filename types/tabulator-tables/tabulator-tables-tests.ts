@@ -449,7 +449,7 @@ table = new Tabulator('#test', {
     },
 });
 colDef.editorParams = { search: true };
-table.getHtml(true, true, { columnCalcs: true });
+table.getHtml('all', true, { columnCalcs: true });
 
 table.download('pdf', 'data.pdf', {
     documentProcessing: doc => {},
@@ -622,3 +622,86 @@ table = new Tabulator('#example-table', {
     scrollVertical: () => {},
     scrollHorizontal: () => {},
 });
+
+// 4.6 updates
+const menuOptions: Tabulator.MenuObject[] | Tabulator.MenuSeparator[] = [
+    {
+        label: 'Hide Column',
+        action: (e, column) => {
+            (column as Tabulator.ColumnComponent).hide();
+        },
+    } as Tabulator.MenuObject,
+    { separator: true },
+    {
+        disabled: true,
+        label: component => {
+            return 'Move Column';
+        },
+        action: (e, column) => {
+            (column as Tabulator.ColumnComponent).move('col', true);
+        },
+    } as Tabulator.MenuObject,
+];
+
+table = new Tabulator('#example-table', {
+    maxHeight: '100%',
+    minHeight: 300,
+    rowContextMenu: menuOptions,
+    cellVertAlign: 'middle',
+    cellHozAlign: 'center',
+    clipboardCopyConfig: {
+        columnHeaders: false,
+        columnGroups: false,
+        rowGroups: false,
+        columnCalcs: false,
+        dataTree: false,
+        formatCells: false,
+    },
+    clipboardCopyRowRange: 'selected',
+    clipboardCopyFormatter: (type, output) => {
+        return output;
+    },
+    printRowRange: () => {
+        return [];
+    },
+    rowFormatterPrint: row => {},
+    rowFormatterHtmlOutput: row => {},
+    headerFilterLiveFilterDelay: 600,
+    columns: [
+        {
+            title: 'Name',
+            field: 'name',
+            width: 200,
+            headerMenu: menuOptions,
+            headerContextMenu: menuOptions,
+            contextMenu: menuOptions,
+            vertAlign: 'bottom',
+            hozAlign: 'right',
+            editorParams: {
+                mask: 'A!!-9BBB$',
+                maskLetterChar: 'B',
+                maskNumberChar: '!',
+                maskWildcardChar: '$',
+                maskAutoFill: true,
+                searchFunc: (term, values) => {
+                    return new Promise((resolve, reject) => {
+                        fetch('http://test.com?search=' + term).then(response => {
+                            resolve(response.json());
+                        });
+                    });
+                },
+                searchingPlaceholder: 'Filtering...',
+                emptyPlaceholder: 'no matching results',
+            },
+            accessorHtmlOutput: (value, data, type, params, column) => {
+                if (column) {
+                    const filterVal = column.getHeaderFilterValue();
+                }
+                return value >= params.legalAge;
+            },
+            accessorHtmlOutputParams: { legalAge: 18 },
+        },
+    ],
+});
+const filterVal = table.getHeaderFilterValue('name');
+table.recalc();

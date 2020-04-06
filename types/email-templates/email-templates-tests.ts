@@ -17,8 +17,9 @@ const emailNoTransporter = new EmailTemplates({
 });
 
 email.juiceResources('<p>bob</p><style>div{color:red;}</style><div/>');
+email.render('mars/html.pug');
 email.render('mars/html.pug', {name: 'elon'});
-email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals: {name: 'Elon'}});
+const sendPromise: Promise<any> = email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals: {name: 'Elon'}});
 emailNoTransporter.render('mars/html.pug', {name: 'elon'});
 
 interface Locals {
@@ -48,4 +49,12 @@ withTransportInstance.send({
             content: 'an attachment'
         }]
     }
+});
+
+email.renderAll('mars');
+const promise = email.renderAll('mars', {name: 'elon'});
+promise.then(value => {
+    const subject: string | undefined = value.subject;
+    const html: string | undefined = value.html;
+    const text: string | undefined = value.text;
 });

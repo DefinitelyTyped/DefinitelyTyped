@@ -1012,7 +1012,7 @@ angular.module('docsTimeDirective', [])
         return {
             link(scope: ng.IScope, element: JQLite, attrs: ng.IAttributes) {
                 let format: any;
-                let timeoutId: any;
+                let timeoutId: angular.IPromise<any>;
 
                 function updateTime() {
                     element.text(dateFilter(new Date(), format));
@@ -1538,3 +1538,10 @@ angular.module('WithGenerics', [])
             scope['name'] = 'Jeff';
         };
     });
+
+angular.errorHandlingConfig(); // $ExpectType IErrorHandlingConfig
+// $ExpectType void
+angular.errorHandlingConfig({
+    objectMaxDepth: 5,
+    urlErrorParamsEnabled: true,
+});

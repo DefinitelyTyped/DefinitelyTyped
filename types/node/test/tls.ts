@@ -57,6 +57,8 @@ import * as fs from "fs";
     const curve: string = DEFAULT_ECDH_CURVE;
     const maxVersion: string = DEFAULT_MAX_VERSION;
     const minVersion: string = DEFAULT_MIN_VERSION;
+
+    const buf: Buffer = tlsSocket.exportKeyingMaterial(123, 'test', Buffer.from('nope'));
 }
 
 {

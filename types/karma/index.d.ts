@@ -14,7 +14,10 @@ import Promise = require('bluebird');
 import https = require('https');
 import { Appender } from 'log4js';
 import { EventEmitter } from 'events';
+import * as constants from './lib/constants';
+import { VERSION } from './lib/constants';
 
+export { constants, VERSION };
 /**
  * `start` method is deprecated since 0.13. It will be removed in 0.14.
  * Please use
@@ -27,36 +30,8 @@ import { EventEmitter } from 'events';
  * @deprecated
  */
 export const server: DeprecatedServer;
-
 export const runner: Runner;
 export const stopper: Stopper;
-
-export const VERSION: string;
-export const constants: Constants;
-
-export interface Constants {
-    VERSION: string;
-    DEFAULT_PORT: number;
-    DEFAULT_HOSTNAME: string;
-    DEFAULT_LISTEN_ADDR: string;
-    LOG_DISABLE: string;
-    LOG_ERROR: string;
-    LOG_WARN: string;
-    LOG_INFO: string;
-    LOG_DEBUG: string;
-    LOG_LOG: string;
-    LOG_PRIORITIES: string[];
-    COLOR_PATTERN: string;
-    NO_COLOR_PATTERN: string;
-    CONSOLE_APPENDER: {
-        type: string;
-        layout: {
-            type: string;
-            pattern: string;
-        };
-    };
-    EXIT_CODE: string;
-}
 
 export namespace launcher {
     class Launcher {

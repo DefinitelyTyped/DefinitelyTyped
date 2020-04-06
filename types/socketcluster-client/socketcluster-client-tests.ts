@@ -10,7 +10,7 @@ const socket = create({
 socket.transmit('foo', 123);
 
 (async () => {
-    // $ExpectType number
+    // $ExpectType any
     await socket.invoke('myProc', 123);
 })();
 
@@ -51,7 +51,7 @@ socket.transmitPublish('myChannel', 'This is a message');
         // $ExpectType string
         response.channel;
 
-        // $ExpectType string
+        // $ExpectType any
         response.data;
     } catch (error) {}
 })();

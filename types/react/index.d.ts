@@ -552,7 +552,7 @@ declare namespace React {
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: PropsWithChildren<P>, context?: any): ReactElement | null;
+        (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -560,7 +560,7 @@ declare namespace React {
     }
 
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
+        (props: PropsWithChildren<P>, ref: ((instance: T | null) => void) | MutableRefObject<T | null> | null): ReactElement | null;
         displayName?: string;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -575,7 +575,7 @@ declare namespace React {
     }
 
     /**
-     * @deprecated Use ForwardRefRenderingFunction. forwardRef doesn't accept a
+     * @deprecated Use ForwardRefRenderFunction. forwardRef doesn't accept a
      *             "real" component.
      */
     interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderFunction<T, P> {}
@@ -1225,7 +1225,7 @@ declare namespace React {
         which: number;
     }
 
-    interface MouseEvent<T = Element, E = NativeMouseEvent> extends SyntheticEvent<T, E> {
+    interface MouseEvent<T = Element, E = NativeMouseEvent> extends UIEvent<T, E> {
         altKey: boolean;
         button: number;
         buttons: number;
@@ -1261,7 +1261,7 @@ declare namespace React {
         touches: TouchList;
     }
 
-    interface UIEvent<T = Element> extends SyntheticEvent<T, NativeUIEvent> {
+    interface UIEvent<T = Element, E = NativeUIEvent> extends SyntheticEvent<T, E> {
         detail: number;
         view: AbstractView;
     }
@@ -2144,7 +2144,7 @@ declare namespace React {
         loop?: boolean;
         mediaGroup?: string;
         muted?: boolean;
-        playsinline?: boolean;
+        playsInline?: boolean;
         preload?: string;
         src?: string;
     }
@@ -2214,6 +2214,10 @@ declare namespace React {
     interface ProgressHTMLAttributes<T> extends HTMLAttributes<T> {
         max?: number | string;
         value?: string | string[] | number;
+    }
+
+    interface SlotHTMLAttributes<T> extends HTMLAttributes<T> {
+        name?: string;
     }
 
     interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2708,6 +2712,7 @@ declare namespace React {
         ruby: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         s: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         samp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        slot: DetailedHTMLFactory<SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
         script: DetailedHTMLFactory<ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
         section: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         select: DetailedHTMLFactory<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
@@ -3042,6 +3047,7 @@ declare global {
             ruby: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             s: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             samp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            slot: React.DetailedHTMLProps<React.SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
             script: React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
             section: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             select: React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
