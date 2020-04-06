@@ -2,6 +2,7 @@
 // Project: https://www.accedo.tv/one
 // Definitions by: Alexander P. Cerutti <https://github.com/alexandercerutti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.1
 
 declare module '@accedo/accedo-one' {
     /**
@@ -27,7 +28,7 @@ declare module '@accedo/accedo-one' {
          * @param params
          */
 
-        getEntries<E extends object>(params?: AccedoEntryParams): Promise<E[]>;
+        getEntries(params?: AccedoEntryParams): Promise<any>;
 
         /**
          * Get one content entry by id, based on the given parameters.
@@ -36,10 +37,10 @@ declare module '@accedo/accedo-one' {
          * @param params
          */
 
-        getEntryById<E extends object>(
+        getEntryById(
             id: string,
             params?: Pick<AccedoEntryParams, 'preview' | 'at' | 'locale'>,
-        ): Promise<E>;
+        ): Promise<any>;
 
         /**
          * Get one content entry, based on the given parameters.
@@ -149,7 +150,7 @@ declare module '@accedo/accedo-one' {
          * @returns A promise of the requested data
          */
 
-        getAllMetadata<M extends object>(): Promise<M>;
+        getAllMetadata(): Promise<any>;
 
         /**
          * Get the metadata by a specific key
@@ -158,7 +159,7 @@ declare module '@accedo/accedo-one' {
          * @returns a promise of the requested data
          */
 
-        getMetadataByKey<M extends object>(key: string): Promise<M>;
+        getMetadataByKey(key: string): Promise<any>;
 
         /**
          * Get the metadata by specific keys
@@ -167,7 +168,7 @@ declare module '@accedo/accedo-one' {
          * @returns a promise of the requested data
          */
 
-        getMetadataByKeys<M extends object>(keys: string[]): Promise<M>;
+        getMetadataByKeys(keys: string[]): Promise<any>;
 
         /**
          * Get all the application-scope data for a given user
