@@ -937,8 +937,10 @@ type EnhancedOmit<T, K> =
     Omit<T, K>;
 
 type ExtractIdType<TSchema> =
-    TSchema extends { _id: any } // user has defined a type for _id
-    ? TSchema['_id'] : ObjectId;
+    TSchema extends { _id: infer U } // user has defined a type for _id
+    ? {} extends U ? Exclude<U, {}> :
+    unknown extends U ? ObjectId : U
+     : ObjectId; // user has not defined _id on schema
 
 // this makes _id optional
 type OptionalId<TSchema extends { _id?: any }> =
