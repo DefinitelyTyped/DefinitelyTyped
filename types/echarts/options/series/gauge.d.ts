@@ -88,19 +88,18 @@ declare namespace echarts {
              */
             clockwise?: boolean;
 
-
-            /** 
+            /**
              * Data array of series, which can be a single data value.
-             * 
+             *
              * [see doc](https://echarts.apache.org/en/option.html#series-gauge.data)
-             * 
-             * Or, if need extra dimensions for components like [visualMap](https://echarts.apache.org/en/option.html#visualMap) 
+             *
+             * Or, if need extra dimensions for components like [visualMap](https://echarts.apache.org/en/option.html#visualMap)
              * to map to graphic attributes like color, it can also be in the form of array.
-             * 
+             *
              * In this case, we can assigin the second value in each arrary item to [visualMap](https://echarts.apache.org/en/option.html#visualMap) component.
              * More likely, we need to assign name to each data item, in which case each item should be an object:
-             * 
-             * 
+             *
+             *
              * @see https://echarts.apache.org/en/option.html#series-gauge.data
              */
             data?: (
