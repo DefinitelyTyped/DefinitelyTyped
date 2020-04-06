@@ -12,7 +12,7 @@ declare class StartServerWebpackPlugin extends Plugin {
     /**
      * @param name - Name of the server to start (built asset from webpack).
      */
-    constructor(name: string);
+    constructor(name?: string);
 
     /**
      * @param options - Plugin options (StartServerWebpackPlugin.Options)
