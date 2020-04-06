@@ -2471,13 +2471,13 @@ export interface ChangeEventUpdate<TSchema extends { [key: string]: any } = Defa
     };
     fullDocument?: TSchema;
     documentKey: {
-        _id: TSchema extends {_id: any} ? TSchema['_id'] : any;
+        _id: ExtractIdType<TSchema>;
     };
 }
 export interface ChangeEventDelete<TSchema extends { [key: string]: any } = DefaultSchema> extends ChangeEventBase<TSchema> {
     operationType: 'delete';
     documentKey: {
-        _id: TSchema extends {_id: any} ? TSchema['_id'] : any;
+        _id: ExtractIdType<TSchema>;
     };
 }
 export interface ChangeEventRename<TSchema extends { [key: string]: any } = DefaultSchema> extends ChangeEventBase<TSchema> {
