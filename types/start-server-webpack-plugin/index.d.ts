@@ -43,7 +43,7 @@ declare namespace StartServerWebpackPlugin {
          * Signal to send for HMR.
          * Default: 'false'.
          */
-        signal?: boolean;
+        signal?: false | true | 'SIGUSR2';
         /**
          * Allow typing 'rs' to restart the server.
          * Default: 'true' if in 'development' mode, 'false' otherwise.
