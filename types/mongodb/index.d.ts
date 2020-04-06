@@ -1216,10 +1216,10 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch */
-    watch<TSchema extends object = {_id: ObjectId}>(
+    watch<T = TSchema>(
         pipeline?: object[],
         options?: ChangeStreamOptions & { session?: ClientSession },
-    ): ChangeStream<TSchema>;
+    ): ChangeStream<T>;
 }
 
 /** Update Query */
@@ -2392,7 +2392,7 @@ declare class TypedEventEmitter<Events> {
     setMaxListeners (maxListeners: number): this;
 }
 
-interface ChangeStreamEvents<TSchema extends object> {
+interface ChangeStreamEvents<TSchema extends { [key: string]: any } = DefaultSchema> {
     change: (doc: ChangeEvent<TSchema>) => void;
     close: () => void;
     end: () => void;
@@ -2401,7 +2401,7 @@ interface ChangeStreamEvents<TSchema extends object> {
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.3/api/ChangeStream.html */
-export class ChangeStream<TSchema extends object = any> extends TypedEventEmitter<ChangeStreamEvents<TSchema>> {
+export class ChangeStream<TSchema extends { [key: string]: any } = DefaultSchema> extends TypedEventEmitter<ChangeStreamEvents<TSchema>> {
     resumeToken: ResumeToken;
 
     constructor(parent: MongoClient | Db | Collection, pipeline: object[], options?: ChangeStreamOptions);
@@ -2428,7 +2428,7 @@ export class ChangeStream<TSchema extends object = any> extends TypedEventEmitte
 export class ResumeToken {}
 
 export type ChangeEventTypes = 'insert' | 'delete' | 'replace' | 'update' | 'drop' | 'rename' | 'dropDatabase' | 'invalidate';
-export interface ChangeEventBase<TSchema extends object = {_id: ObjectId}> {
+export interface ChangeEventBase<TSchema extends { [key: string]: any } = DefaultSchema> {
     _id: ResumeToken;
     /**
      * We leave this off the base type so that we can differentiate
@@ -2446,7 +2446,7 @@ export interface ChangeEventBase<TSchema extends object = {_id: ObjectId}> {
         "uid": any;
     };
 }
-export interface ChangeEventCR<TSchema extends object = {_id: ObjectId}> extends ChangeEventBase<TSchema> {
+export interface ChangeEventCR<TSchema extends { [key: string]: any } = DefaultSchema> extends ChangeEventBase<TSchema> {
     operationType: 'insert' | 'replace';
     fullDocument?: TSchema;
     documentKey: {
@@ -2454,7 +2454,7 @@ export interface ChangeEventCR<TSchema extends object = {_id: ObjectId}> extends
     };
 }
 type FieldUpdates<TSchema> = Partial<TSchema> & {[key: string]: any};
-export interface ChangeEventUpdate<TSchema extends object = {_id: ObjectId}> extends ChangeEventBase<TSchema> {
+export interface ChangeEventUpdate<TSchema extends { [key: string]: any } = DefaultSchema> extends ChangeEventBase<TSchema> {
     operationType: 'update';
     updateDescription: {
         /**
@@ -2469,13 +2469,13 @@ export interface ChangeEventUpdate<TSchema extends object = {_id: ObjectId}> ext
         _id: TSchema extends {_id: any} ? TSchema['_id'] : any;
     };
 }
-export interface ChangeEventDelete<TSchema extends object = {_id: ObjectId}> extends ChangeEventBase<TSchema> {
+export interface ChangeEventDelete<TSchema extends { [key: string]: any } = DefaultSchema> extends ChangeEventBase<TSchema> {
     operationType: 'delete';
     documentKey: {
         _id: TSchema extends {_id: any} ? TSchema['_id'] : any;
     };
 }
-export interface ChangeEventRename<TSchema extends object = {_id: ObjectId}> extends ChangeEventBase<TSchema> {
+export interface ChangeEventRename<TSchema extends { [key: string]: any } = DefaultSchema> extends ChangeEventBase<TSchema> {
     operationType: 'rename';
     to: {
         db: string;
@@ -2483,11 +2483,11 @@ export interface ChangeEventRename<TSchema extends object = {_id: ObjectId}> ext
     };
 }
 
-export interface ChangeEventOther<TSchema extends object = {_id: ObjectId}> extends ChangeEventBase<TSchema> {
+export interface ChangeEventOther<TSchema extends { [key: string]: any } = DefaultSchema> extends ChangeEventBase<TSchema> {
     operationType: 'drop' | 'dropDatabase';
 }
 
-export interface ChangeEventInvalidate<TSchema extends object = {_id: ObjectId}> {
+export interface ChangeEventInvalidate<TSchema extends { [key: string]: any } = DefaultSchema> {
     _id: ResumeToken;
     operationType: 'invalidate';
     clusterTime: Timestamp;
