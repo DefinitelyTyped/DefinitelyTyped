@@ -54,7 +54,7 @@ export class PDFTK {
      * Run the command.
      */
     output(writeFile: string, outputDest: string, needsOutput?: boolean): Promise<string>;
-    output(writeFile: string): Promise<Buffer>;
+    output(writeFile?: string): Promise<Buffer>;
     /**
      * Assembles ("concatenate") pages from input PDFs to create a new PDF.
      * @see {@link https://www.pdflabs.com/docs/pdftk-man-page/#dest-op-cat}
