@@ -1,11 +1,11 @@
-import { Configuration } from 'webpack'
-import StartServerWebpackPlugin = require('start-server-webpack-plugin')
+import { Configuration } from 'webpack';
+import StartServerWebpackPlugin = require('start-server-webpack-plugin');
 
 const c1: Configuration = {
     plugins: [
         new StartServerWebpackPlugin('main.js')
     ]
-}
+};
 
 const c2: Configuration = {
     plugins: [
@@ -17,4 +17,4 @@ const c2: Configuration = {
             keyboard: false
         })
     ]
-}
+};

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript Version: 3.8
 
-import { Plugin, Compiler } from 'webpack'
+import { Plugin, Compiler } from 'webpack';
 
 export = StartServerWebpackPlugin;
 
