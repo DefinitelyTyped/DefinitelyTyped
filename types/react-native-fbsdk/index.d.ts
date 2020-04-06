@@ -615,7 +615,7 @@ export interface Params {
  * See https://developers.facebook.com/docs/app-events/advanced-matching for
  * more info about the expected format of each field.
  */
-export type UserData = {
+export interface UserData {
     email?: string;
     firstName?: string;
     lastName?: string;
@@ -626,7 +626,7 @@ export type UserData = {
     state?: string;
     zip?: string;
     country?: string;
-};
+}
 export namespace AppEventsLogger {
     /**
      * Sets the current event flushing behavior specifying when events
