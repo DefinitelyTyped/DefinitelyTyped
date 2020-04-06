@@ -2457,7 +2457,7 @@ export interface ChangeEventCR<TSchema extends { [key: string]: any } = DefaultS
     operationType: 'insert' | 'replace';
     fullDocument?: TSchema;
     documentKey: {
-        _id: TSchema extends {_id: any} ? TSchema['_id'] : any;
+        _id: ExtractIdType<TSchema>;
     };
 }
 type FieldUpdates<TSchema> = Partial<TSchema> & {[key: string]: any};
