@@ -19,6 +19,12 @@
             "asOfVersion": "3.3.0"
         },
         {
+            "libraryName": "acorn",
+            "typingsPackageName": "acorn",
+            "sourceRepoURL": "https://github.com/acornjs/acorn",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "actions-on-google",
             "typingsPackageName": "actions-on-google",
             "sourceRepoURL": "https://github.com/actions-on-google/actions-on-google-nodejs",
