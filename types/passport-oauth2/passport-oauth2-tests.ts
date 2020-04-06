@@ -84,7 +84,9 @@ const strategyOptions3: StrategyOptions = {
     scopeSeparator: ' ',
     sessionKey: 'oauth',
     state: {id: 1},
-    store: myStore
+    store: myStore,
+    skipUserProfile: true,
+    pkce: true
 };
 
 const strategy5: Strategy = new Strategy(strategyOptions3, verifyFunction2);
