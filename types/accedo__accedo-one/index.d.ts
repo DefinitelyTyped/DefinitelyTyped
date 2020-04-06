@@ -84,7 +84,7 @@ declare module '@accedo/accedo-one' {
          * @param metadata extra metadata (will go through JSON.stringify). Can be passed as any number of trailing arguments.
          */
 
-        sendLog(level: AccedoLog.Level, details: AccedoLog.Details, metadata?: any): Promise<boolean>;
+        sendLog(level: AccedoLog.Level, details: Readonly<AccedoLog.Details>, metadata?: any): Promise<boolean>;
 
         /**
          * Returns the currently stored sessionKey for this client instance
@@ -265,7 +265,7 @@ declare module '@accedo/accedo-one' {
          * @returns A promise of the success of the operation
          */
 
-        sendLogs(logs: AccedoLog.Logobject[]): Promise<boolean>;
+        sendLogs(logs: ReadonlyArray<AccedoLog.Logobject>): Promise<boolean>;
     }
 
     namespace AccedoLog {
