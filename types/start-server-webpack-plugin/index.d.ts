@@ -18,8 +18,6 @@ declare class StartServerWebpackPlugin extends Plugin {
      * @param options - Plugin options (StartServerWebpackPlugin.Options)
      */
     constructor(options?: StartServerWebpackPlugin.Options);
-
-    apply(compiler: Compiler): void;
 }
 
 declare namespace StartServerWebpackPlugin {
