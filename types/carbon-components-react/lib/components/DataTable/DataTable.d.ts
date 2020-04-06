@@ -102,6 +102,12 @@ export interface DataTableCustomHeaderProps<H extends { key: string } = DataTabl
     sortDirection: DataTableSortState;
 }
 
+export interface DataTableExpandHeaderData {
+    ariaLabel?: string;
+    isExpanded?: boolean;
+    onExpand?(event: React.MouseEvent<HTMLElement>): void;
+  }
+
 // endregion Header Types
 
 // region Cell Types
@@ -146,6 +152,9 @@ export interface DataTableCustomRenderProps<
     getHeaderProps<E extends object = ReactAttr>(
         data: ShapeOf<DataTableCustomHeaderData<H>, E>
     ): ShapeOf<DataTableCustomHeaderProps<H>, E>;
+    getExpandHeaderProps<E extends object = ReactAttr<HTMLTableHeaderCellElement>>(
+        data?: ShapeOf<DataTableExpandHeaderData, E>,
+      ): ShapeOf<DataTableExpandHeaderData, E>;
     getRowProps<E extends object = ReactAttr<HTMLTableRowElement>>(
         data: ShapeOf<DataTableCustomRowData<R>, E>
     ): ShapeOf<DataTableCustomRowProps<R>, E>;
