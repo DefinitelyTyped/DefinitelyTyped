@@ -1,13 +1,24 @@
+interface CommonEndpointOptions {
+    fetch?: typeof fetch;
+    headers?: HeadersInit;
+    password?: string;
+    user?: string;
+}
+
+interface QueryEndpoint {
+    endpointUrl: string;
+}
+
+interface UpdateEndpoint {
+    updateUrl: string;
+}
+
+interface StoreEndpoint {
+    storeUrl: string;
+}
+
 declare namespace Endpoint {
-    interface EndpointOptions {
-        endpointUrl: string;
-        fetch?: typeof fetch;
-        headers?: HeadersInit;
-        password?: string;
-        storeUrl?: string;
-        updateUrl?: string;
-        user?: string;
-    }
+    type EndpointOptions = CommonEndpointOptions & (QueryEndpoint | UpdateEndpoint | StoreEndpoint);
 
     interface RequestOptions {
         headers?: HeadersInit;
