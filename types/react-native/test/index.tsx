@@ -96,6 +96,7 @@ import {
     HostComponent,
     Appearance,
     useColorScheme,
+    DevSettings,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -1085,3 +1086,10 @@ const DarkMode = () => {
 
     return <Text>Is dark mode enabled? {isDarkMode}</Text>;
 };
+
+// DevSettings
+DevSettings.addMenuItem('alert', () => {
+    Alert.alert('alert');
+});
+DevSettings.reload();
+DevSettings.reload('reload with reason');
