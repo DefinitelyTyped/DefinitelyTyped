@@ -2350,7 +2350,12 @@ export interface GridFSBucketWriteStreamOptions extends WriteConcern {
     disableMD5?: boolean;
 }
 
-type Arguments<T> = [T] extends [(...args: infer U) => any]
+/**
+ * This is similar to Parameters but will work with a type which is
+ * a function or with a tuple specifying arguments, which are both
+ * common ways to define eventemitter events
+ */
+type EventArguments<T> = [T] extends [(...args: infer U) => any]
   ? U
   : [T] extends [undefined] ? [] : [T];
 
@@ -2383,7 +2388,7 @@ declare class TypedEventEmitter<Events> {
     removeAllListeners<E extends keyof Events> (event?: E): this;
     removeListener<E extends keyof Events> (event: E, listener: Events[E]): this;
 
-    emit<E extends keyof Events> (event: E, ...args: Arguments<Events[E]>): boolean;
+    emit<E extends keyof Events> (event: E, ...args: EventArguments<Events[E]>): boolean;
     eventNames (): Array<keyof Events>;
     listeners<E extends keyof Events> (event: E): Function[];
     listenerCount<E extends keyof Events> (event: E): number;
