@@ -1,4 +1,4 @@
-// Type definitions for react-email-editor 0.9
+// Type definitions for react-email-editor 1.0
 // Project: https://github.com/unlayer/react-email-editor
 // Definitions by: Nikita Granko <https://github.com/ngranko>
 //                 Vladimir Penyazkov <https://github.com/mindtraveller>
