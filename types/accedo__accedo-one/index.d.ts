@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
 
+// tslint:disable-next-line no-single-declare-module
 declare module '@accedo/accedo-one' {
     /**
      * @example
