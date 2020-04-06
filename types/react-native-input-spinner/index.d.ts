@@ -1,4 +1,4 @@
-// Type definitions for react-native-input-spinner 1.2.0
+// Type definitions for react-native-input-spinner 1.2
 // Project: https://github.com/marcocesarato/react-native-input-spinner#readme
 // Definitions by: Manu Krishnan <https://github.com/mkrishnan-codes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
