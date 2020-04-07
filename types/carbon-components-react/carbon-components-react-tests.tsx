@@ -180,6 +180,7 @@ const t4 = (
         }}
     />
 );
+
 // RenderProps are compatible with sub-elements
 interface T5RowType extends DataTableRow {
     col1: number;
@@ -202,6 +203,7 @@ const t5 = (
                 <DataTable.Table {...renderProps.getTableProps()}>
                     <DataTable.TableHead>
                         <DataTable.TableRow>
+                            <DataTable.TableExpandHeader {...renderProps.getExpandHeaderProps()} />
                             <DataTable.TableSelectAll
                                 {...renderProps.getSelectionProps()}
                             />
