@@ -344,7 +344,6 @@ const originRequestEvent: CloudFrontRequestEvent = {
     ]
 };
 
-
 const originResponseEvent: CloudFrontResponseEvent = {
     Records: [
         {
