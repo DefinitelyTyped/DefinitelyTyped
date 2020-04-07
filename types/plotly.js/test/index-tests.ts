@@ -340,6 +340,9 @@ function rand() {
 
 	// extend multiple traces
 	Plotly.extendTraces(graphDiv, { y: [[rand()], [rand()]] }, [0, 1]);
+
+	// extend multiple traces up to a maximum of 10 points per trace
+	Plotly.extendTraces(graphDiv, {y: [[rand()], [rand()]]}, [0, 1], 10);
 })();
 //////////////////////////////////////////////////////////////////////
 
