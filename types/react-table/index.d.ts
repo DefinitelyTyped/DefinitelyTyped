@@ -6,7 +6,7 @@
 //                 Jason Clark <https://github.com/riceboyler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
-// reflects react-table@7.0.0
+// reflects react-table@7.0.4
 
 // tslint:disable:no-empty-interface
 // no-empty-interface is disabled to allow easy extension with declaration merging
@@ -43,7 +43,7 @@ export interface TableOptions<D extends object> extends UseTableOptions<D> {}
 
 export interface TableInstance<D extends object = {}>
     extends Omit<TableOptions<D>, 'columns' | 'pageCount'>,
-    UseTableInstanceProps<D> {}
+        UseTableInstanceProps<D> {}
 
 export interface TableState<D extends object = {}> {
     hiddenColumns?: Array<IdType<D>>;
@@ -51,9 +51,13 @@ export interface TableState<D extends object = {}> {
 
 export interface Hooks<D extends object = {}> extends UseTableHooks<D> {}
 
-export interface Cell<D extends object = {}> extends UseTableCellProps<D> {}
+export interface Cell<D extends object = {}, V = any> extends UseTableCellProps<D, V> {}
 
 export interface ColumnInterface<D extends object = {}> extends UseTableColumnOptions<D> {}
+
+export interface ColumnInterfaceBasedOnValue<D extends object = {}, V = any> {
+    Cell?: Renderer<CellProps<D, V>>;
+}
 
 export interface ColumnGroupInterface<D extends object> {
     columns: Array<Column<D>>;
@@ -66,17 +70,35 @@ export type ColumnGroup<D extends object = {}> = ColumnInterface<D> &
         | ({ id: IdType<D>; } & {
             Header: Renderer<HeaderProps<D>>;
         })
-    );
+    ) &
+    // Not used, but needed for backwards compatibility
+    { accessor?: Accessor<D>; };
+
+type ValueOf<T> = T[keyof T];
+
+// The accessors like `foo.bar` are not supported, use functions instead
+export type ColumnWithStrictAccessor<D extends object = {}> = ValueOf<{
+    [K in keyof D]: {
+        accessor: K;
+    } & ColumnInterfaceBasedOnValue<D, D[K]>;
+}>;
+
+export type ColumnWithLooseAccessor<D extends object = {}> =
+    ColumnInterfaceBasedOnValue<D> &
+    ({ Header: string } | { id: IdType<D> }) &
+    { accessor?: Accessor<D>; };
 
 export type Column<D extends object = {}> = ColumnInterface<D> &
     (
-        | ({ accessor: IdType<D> } | { Header: string } | { id: IdType<D> })
+        | ColumnWithStrictAccessor<D>
+        | ColumnWithLooseAccessor<D>
         | ColumnGroup<D>
     );
 
 export interface ColumnInstance<D extends object = {}>
-    extends Omit<Column<D>, 'id' | 'columns'>,
-    UseTableColumnProps<D> {}
+    extends Omit<ColumnInterface<D>, 'id'>,
+        ColumnInterfaceBasedOnValue<D>,
+        UseTableColumnProps<D> {}
 
 export interface HeaderGroup<D extends object = {}> extends ColumnInstance<D>, UseTableHeaderGroupProps<D> {}
 
@@ -205,9 +227,7 @@ export interface UseTableHooks<D extends object> extends Record<string, any> {
 
 export interface UseTableColumnOptions<D extends object> {
     id?: IdType<D>;
-    accessor?: Accessor<D>;
     Header?: Renderer<HeaderProps<D>>;
-    Cell?: Renderer<CellProps<D>>;
     width?: number | string;
     minWidth?: number;
     maxWidth?: number;
@@ -277,10 +297,10 @@ export interface UseTableRowProps<D extends object> {
     subRows: Array<Row<D>>;
 }
 
-export interface UseTableCellProps<D extends object> {
+export interface UseTableCellProps<D extends object, V = any> {
     column: ColumnInstance<D>;
     row: Row<D>;
-    value: CellValue;
+    value: CellValue<V>;
     getCellProps: (propGetter?: CellPropGetter<D>) => TableCellProps;
     render: (type: 'Cell' | string, userProps?: object) => ReactNode;
 }
@@ -289,14 +309,14 @@ export type HeaderProps<D extends object> = TableInstance<D> & {
     column: ColumnInstance<D>;
 };
 
-export type CellProps<D extends object> = TableInstance<D> & {
+export type CellProps<D extends object, V = any> = TableInstance<D> & {
     column: ColumnInstance<D>;
     row: Row<D>;
-    cell: Cell<D>;
-    value: CellValue;
+    cell: Cell<D, V>;
+    value: CellValue<V>;
 };
 
-export type Accessor<D extends object> = IdType<D> | ((
+export type Accessor<D extends object> = (
     originalRow: D,
     index: number,
     sub: {
@@ -304,7 +324,7 @@ export type Accessor<D extends object> = IdType<D> | ((
         depth: number;
         data: D[];
     },
-) => CellValue);
+) => CellValue;
 
 //#endregion
 
@@ -815,7 +835,7 @@ export const defaultColumn: Partial<Column> & Record<string, any>;
 // Helpers
 export type StringKey<D> = Extract<keyof D, string>;
 export type IdType<D> = StringKey<D> | string;
-export type CellValue = any;
+export type CellValue<V = any> = V;
 
 export type Renderer<Props> = ComponentType<Props> | ReactElement | ReactText | ReactFragment;
 
