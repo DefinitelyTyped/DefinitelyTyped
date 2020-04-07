@@ -35,7 +35,7 @@ export default () => (
             <Heading fontSize={5} fontWeight="bold">
                 Hi, I'm a heading.
             </Heading>
-            <Text as="p" fontSize={3} lineHeight="1em" letterSpacing="1rem">
+            <Text as="p" fontSize={3} lineHeight="1em" letterSpacing="1rem" fontStyle="italic">
                 Hi, I'm text.
             </Text>
             <Card

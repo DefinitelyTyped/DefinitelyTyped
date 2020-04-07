@@ -552,7 +552,7 @@ declare namespace React {
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: PropsWithChildren<P>, context?: any): ReactElement | null;
+        (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -560,7 +560,7 @@ declare namespace React {
     }
 
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
+        (props: PropsWithChildren<P>, ref: ((instance: T | null) => void) | MutableRefObject<T | null> | null): ReactElement | null;
         displayName?: string;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -1225,7 +1225,7 @@ declare namespace React {
         which: number;
     }
 
-    interface MouseEvent<T = Element, E = NativeMouseEvent> extends SyntheticEvent<T, E> {
+    interface MouseEvent<T = Element, E = NativeMouseEvent> extends UIEvent<T, E> {
         altKey: boolean;
         button: number;
         buttons: number;
@@ -1261,7 +1261,7 @@ declare namespace React {
         touches: TouchList;
     }
 
-    interface UIEvent<T = Element> extends SyntheticEvent<T, NativeUIEvent> {
+    interface UIEvent<T = Element, E = NativeUIEvent> extends SyntheticEvent<T, E> {
         detail: number;
         view: AbstractView;
     }
@@ -2144,7 +2144,7 @@ declare namespace React {
         loop?: boolean;
         mediaGroup?: string;
         muted?: boolean;
-        playsinline?: boolean;
+        playsInline?: boolean;
         preload?: string;
         src?: string;
     }

@@ -2,6 +2,7 @@
 // Project: https://github.com/TryGhost/Ghost-SDK/tree/master/packages/content-api
 // Definitions by: Kevin Nguyen <https://github.com/knguyen0125>
 //                 Anton Van Eechaute <https://github.com/antonve>
+//                 Yashar Moradi <https://github.com/maveric1977>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type ArrayOrValue<T> = T | T[];
@@ -166,7 +167,7 @@ export interface BrowseFunction<T> {
 }
 
 export interface ReadFunction<T> {
-    (data: GhostData, options?: Params, memberToken?: Nullable<string>): Promise<T>;
+    (data: { id: Nullable<string> } | { slug: Nullable<string> }, options?: Params, memberToken?: Nullable<string>): Promise<T>;
 }
 
 export interface PostObject {

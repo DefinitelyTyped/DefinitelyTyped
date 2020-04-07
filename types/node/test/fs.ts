@@ -275,10 +275,25 @@ async function testPromisify() {
     fs.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,
-    }, () => {
+    }, (err, path) => {
+        err; // $ExpectType ErrnoException | null
+        path; // $ExpectType string
     });
 
+    // $ExpectType string
     fs.mkdirSync('some/test/path', {
+        recursive: true,
+        mode: 0o777,
+    });
+
+    // $ExpectType Promise<string>
+    util.promisify(fs.mkdir)('some/test/path', {
+        recursive: true,
+        mode: 0o777,
+    });
+
+    // $ExpectType Promise<string>
+    fs.promises.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,
     });

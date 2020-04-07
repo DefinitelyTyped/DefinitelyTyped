@@ -1,4 +1,4 @@
-// Type definitions for Screeps 3.0
+// Type definitions for Screeps 3.1
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -1700,24 +1700,27 @@ interface HeapStatistics {
 }
 
 /**
- * An array describing the creep’s body. Each element contains the following properties:
+ * Describes one part of a creep’s body.
  */
-interface BodyPartDefinition {
-    /**
-     * One of the `RESOURCE_*` constants.
-     *
-     * If the body part is boosted, this property specifies the mineral type which is used for boosting.
-     */
-    boost?: MineralBoostConstant;
-    /**
-     * One of the body part types constants.
-     */
-    type: BodyPartConstant;
-    /**
-     * The remaining amount of hit points of this body part.
-     */
-    hits: number;
-}
+type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any
+    ? {
+          /**
+           * One of the `RESOURCE_*` constants.
+           *
+           * If the body part is boosted, this property specifies the mineral type which is used for boosting.
+           */
+          boost?: keyof typeof BOOSTS[T];
+          /**
+           * One of the body part types constants.
+           */
+          type: T;
+          /**
+           * The remaining amount of hit points of this body part.
+           */
+          hits: number;
+      }
+    : never;
+
 interface Owner {
     /**
      * The name of the owner user.
@@ -2689,7 +2692,8 @@ type PowerConstant =
     | PWR_DISRUPT_TERMINAL
     | PWR_OPERATE_POWER
     | PWR_FORTIFY
-    | PWR_OPERATE_CONTROLLER;
+    | PWR_OPERATE_CONTROLLER
+    | PWR_OPERATE_FACTORY;
 
 type PWR_GENERATE_OPS = 1;
 type PWR_OPERATE_SPAWN = 2;
@@ -2721,6 +2725,18 @@ type EFFECT_COLLAPSE_TIMER = 1002;
 interface RouteOptions {
     routeCallback: (roomName: string, fromRoomName: string) => any;
 }
+
+interface RoomStatusPermanent {
+    status: "normal" | "closed";
+    timestamp: null;
+}
+
+interface RoomStatusTemporary {
+    status: "novice" | "respawn";
+    timestamp: number;
+}
+
+type RoomStatus = RoomStatusPermanent | RoomStatusTemporary;
 
 /**
  * A global object representing world map. Use it to navigate between rooms. The object is accessible via Game.map property.
@@ -2774,11 +2790,13 @@ interface GameMap {
      * @param x X position in the room.
      * @param y Y position in the room.
      * @param roomName The room name.
+     * @deprecated use `Game.map.getRoomTerrain` instead
      */
     getTerrainAt(x: number, y: number, roomName: string): Terrain;
     /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
      * @param pos The position object.
+     * @deprecated use `Game.map.getRoomTerrain` instead
      */
     getTerrainAt(pos: RoomPosition): Terrain;
     /**
@@ -2795,8 +2813,16 @@ interface GameMap {
      * Check if the room is available to move into.
      * @param roomName The room name.
      * @returns A boolean value.
+     * @deprecated Use `Game.map.getRoomStatus` instead
      */
     isRoomAvailable(roomName: string): boolean;
+
+    /**
+     * Get the room status to determine if it's available, or in a reserved area.
+     * @param roomName The room name.
+     * @returns An object with the following properties {status: "normal" | "closed" | "novice" | "respawn", timestamp: number}
+     */
+    getRoomStatus(roomName: string): RoomStatus;
 }
 
 // No static is available
@@ -4041,7 +4067,7 @@ interface Room {
     /**
      * The name of the room.
      */
-    name: string;
+    readonly name: string;
     /**
      * The Storage structure of this room, if present, otherwise undefined.
      */
@@ -4490,9 +4516,9 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      *
      * The spawn should not be busy with the spawning process.
      *
-     * Each execution increases the creep's timer by amount of ticks according to this formula: floor(500/body_size).
+     * Each execution increases the creep's timer by amount of ticks according to this formula: floor(600/body_size).
      *
-     * Energy required for each execution is determined using this formula: ceil(creep_cost/3/body_size).
+     * Energy required for each execution is determined using this formula: ceil(creep_cost/2.5/body_size).
      * @param target The target creep object.
      */
     renewCreep(target: Creep): ScreepsReturnCode;
@@ -4578,7 +4604,11 @@ interface SpawnOptions {
 
 interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
 interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> {
-    /** Returns capacity of this store for the specified resource, or total capacity if resource is undefined. */
+    /**
+     * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
+     * @param resource The type of the resource.
+     * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
+     */
     getCapacity<R extends ResourceConstant | undefined>(
         resource?: R,
     ): UNLIMITED_STORE extends true
@@ -4586,12 +4616,22 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
         : (undefined extends R
               ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
               : (R extends POSSIBLE_RESOURCES ? number : null));
-    /** Returns the capacity used by the specified resource, or total used capacity for general purpose stores if resource is undefined. */
+    /**
+     * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
+     * @param resource The type of the resource.
+     * @returns Returns used capacity number, or `null` in case of a not valid `resource` for this store type.
+     */
     getUsedCapacity<R extends ResourceConstant | undefined>(
         resource?: R,
-    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : 0);
-    /** A shorthand for getCapacity(resource) - getUsedCapacity(resource). */
-    getFreeCapacity(resource?: ResourceConstant): number;
+    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    /**
+     * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
+     * @param resource The type of the resource.
+     * @returns Returns available capacity number, or `null` in case of an invalid `resource` for this store type.
+     */
+    getFreeCapacity<R extends ResourceConstant | undefined>(
+        resource?: R,
+    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
 }
 
 type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<POSSIBLE_RESOURCES, UNLIMITED_STORE> &
@@ -4599,12 +4639,24 @@ type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends 
     { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
 
 interface GenericStoreBase {
-    /** Returns capacity of this store for the specified resource, or total capacity if resource is undefined. */
+    /**
+     * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
+     * @param resource The type of the resource.
+     * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
+     */
     getCapacity(resource?: ResourceConstant): number | null;
-    /** Returns the capacity used by the specified resource, or total used capacity for general purpose stores if resource is undefined. */
+    /**
+     * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
+     * @param resource The type of the resource.
+     * @returns Returns used capacity number, or `null` in case of a not valid `resource` for this store type.
+     */
     getUsedCapacity(resource?: ResourceConstant): number | null;
-    /** A shorthand for getCapacity(resource) - getUsedCapacity(resource). */
-    getFreeCapacity(resource?: ResourceConstant): number;
+    /**
+     * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
+     * @param resource The type of the resource.
+     * @returns Returns available capacity number, or `null` in case of an invalid `resource` for this store type.
+     */
+    getFreeCapacity(resource?: ResourceConstant): number | null;
 }
 
 type GenericStore = GenericStoreBase & { [P in ResourceConstant]: number };
@@ -4664,11 +4716,11 @@ interface OwnedStructure<T extends StructureConstant = StructureConstant> extend
     /**
      * Whether this is your own structure. Walls and roads don't have this property as they are considered neutral structures.
      */
-    my: boolean;
+    my: T extends STRUCTURE_CONTROLLER ? boolean | undefined : boolean;
     /**
      * An object with the structure’s owner info (if present) containing the following properties: username
      */
-    owner: Owner;
+    owner: T extends STRUCTURE_CONTROLLER ? Owner | undefined : Owner;
     /**
      * The link to the Room object. Is always present because owned structures give visibility.
      */
@@ -5111,6 +5163,12 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      */
     unboostCreep(creep: Creep): ScreepsReturnCode;
     /**
+     * Breaks mineral compounds back into reagents. The same output labs can be used by many source labs.
+     * @param lab1 The first result lab.
+     * @param lab2 The second result lab.
+     */
+    reverseReaction(lab1: StructureLab, lab2: StructureLab): ScreepsReturnCode;
+    /**
      * Produce mineral compounds using reagents from two another labs. Each lab has to be within 2 squares range. The same input labs can be used by many output labs
      * @param lab1 The first source lab.
      * @param lab2 The second source lab.
@@ -5338,6 +5396,54 @@ type AnyStoreStructure =
  * A discriminated union on Structure.type of all structure types
  */
 type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall;
+
+/**
+ * Conditional type for all concrete implementations of Structure.
+ * Unlike Structure<T>, ConcreteStructure<T> gives you the actual concrete class that extends Structure<T>.
+ */
+type ConcreteStructure<T extends StructureConstant> = T extends STRUCTURE_EXTENSION
+    ? StructureExtension
+    : T extends STRUCTURE_RAMPART
+    ? StructureRampart
+    : T extends STRUCTURE_ROAD
+    ? StructureRoad
+    : T extends STRUCTURE_SPAWN
+    ? StructureSpawn
+    : T extends STRUCTURE_LINK
+    ? StructureLink
+    : T extends STRUCTURE_WALL
+    ? StructureWall
+    : T extends STRUCTURE_STORAGE
+    ? StructureStorage
+    : T extends STRUCTURE_TOWER
+    ? StructureTower
+    : T extends STRUCTURE_OBSERVER
+    ? StructureObserver
+    : T extends STRUCTURE_POWER_SPAWN
+    ? StructurePowerSpawn
+    : T extends STRUCTURE_EXTRACTOR
+    ? StructureExtractor
+    : T extends STRUCTURE_LAB
+    ? StructureLab
+    : T extends STRUCTURE_TERMINAL
+    ? StructureTerminal
+    : T extends STRUCTURE_CONTAINER
+    ? StructureContainer
+    : T extends STRUCTURE_NUKER
+    ? StructureNuker
+    : T extends STRUCTURE_FACTORY
+    ? StructureFactory
+    : T extends STRUCTURE_KEEPER_LAIR
+    ? StructureKeeperLair
+    : T extends STRUCTURE_CONTROLLER
+    ? StructureController
+    : T extends STRUCTURE_POWER_BANK
+    ? StructurePowerBank
+    : T extends STRUCTURE_PORTAL
+    ? StructurePortal
+    : T extends STRUCTURE_INVADER_CORE
+    ? StructureInvaderCore
+    : never;
 /**
  * A remnant of dead creeps. This is a walkable structure.
  * <ul>

@@ -144,7 +144,7 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
     isSubscribed(channelName: string, includePending?: boolean): boolean;
 
     transmitPublish(channelName: string, data: any): Promise<void>;
-    invokePublish<T>(channelName: string, data: T): Promise<{ channel: string; data: T }>;
+    invokePublish(channelName: string, data: any): Promise<{ channel: string; data: any }>;
 
     /* AGChannel.Client end */
 
@@ -175,7 +175,7 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
     send(data: any): void;
 
     transmit(event: string, data: any, options?: { ackTimeout?: number }): Promise<void>;
-    invoke<T>(event: string, data: T, options?: { ackTimeout?: number }): Promise<T>;
+    invoke(event: string, data: any, options?: { ackTimeout?: number }): Promise<any>;
 
     startBatch(): void;
     flushBatch(): void;

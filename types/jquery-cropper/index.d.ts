@@ -51,4 +51,5 @@ interface CropperOptions {
 interface JQuery {
     cropper(options?: CropperOptions): JQuery;
     cropper(method: string, ...arguments: any[]): JQuery;
+    selector: JQuery;
 }
