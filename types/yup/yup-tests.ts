@@ -66,13 +66,13 @@ const node: ObjectSchema<any> = yup.object().shape({
 
 // ObjectSchema.fields
 const fieldsTestSchema = yup.object().shape({
-  s: yup.string(),
-  n: yup.number(),
-  m: yup.mixed(),
-  b: yup.boolean(),
-  d: yup.date(),
-  a: yup.array(),
-  o: yup.object()
+    s: yup.string(),
+    n: yup.number(),
+    m: yup.mixed(),
+    b: yup.boolean(),
+    d: yup.date(),
+    a: yup.array(),
+    o: yup.object(),
 });
 const stringField: Schema<string> = fieldsTestSchema.fields.s;
 const numberField: Schema<number> = fieldsTestSchema.fields.n;
@@ -458,6 +458,7 @@ objSchema.noUnknown(true, 'message');
 objSchema.noUnknown(true, () => 'message');
 objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
+objSchema.snakeCase();
 objSchema.constantCase();
 
 const description: SchemaDescription = {
@@ -465,7 +466,7 @@ const description: SchemaDescription = {
     label: 'label',
     meta: { key: 'value' },
     tests: [
-        { name: 'test1', params: {param1: 'param1'} },
+        { name: 'test1', params: { param1: 'param1' } },
         { name: 'test2', params: {} },
     ],
     fields: {
@@ -484,16 +485,16 @@ const description: SchemaDescription = {
             label: 'label',
             meta: { key: 'value' },
             tests: [],
-            fields: { key: { type: 'ref', key: 'value' } }
+            fields: { key: { type: 'ref', key: 'value' } },
         },
         withInnerType: {
             type: 'type',
             label: 'label',
             meta: { key: 'value' },
             tests: [],
-            innerType: { type: 'ref', key: 'value' }
+            innerType: { type: 'ref', key: 'value' },
         },
-     },
+    },
 };
 
 const param1: any = description.tests[0].params.param1;
@@ -694,7 +695,8 @@ yup.object<MyInterface>({
 });
 
 // $ExpectError
-yup.object<MyInterface>({ stringField: yup.number().required(),
+yup.object<MyInterface>({
+    stringField: yup.number().required(),
     numberField: yup.number().required(),
     subFields: yup
         .object({
@@ -712,7 +714,8 @@ yup.object<MyInterface>({
 });
 
 // $ExpectError
-yup.object<MyInterface>({ subFields: yup
+yup.object<MyInterface>({
+    subFields: yup
         .object({
             testField: yup.number().required(),
         })
@@ -861,22 +864,28 @@ const topLevelArrayNullable = yup.array().nullable();
 const topLevelArrayNullableExample: yup.InferType<typeof topLevelArrayNullable> = null;
 
 const nestedNullableShape = yup.object().shape({
-    foo: yup.object().nullable().shape({})
+    foo: yup
+        .object()
+        .nullable()
+        .shape({}),
 });
 const nestedNullableShapeExample: yup.InferType<typeof nestedNullableShape> = {
-    foo: null
+    foo: null,
 };
 
 const nestedShapeNullable = yup.object().shape({
-    foo: yup.object().shape({}).nullable()
+    foo: yup
+        .object()
+        .shape({})
+        .nullable(),
 });
 const nestedShapeNullableExample: yup.InferType<typeof nestedShapeNullable> = {
-    foo: null
+    foo: null,
 };
 
 const nestedArrayNullable = yup.object().shape({
-    foo: yup.array().nullable()
+    foo: yup.array().nullable(),
 });
 const nestedArrayNullableExample: yup.InferType<typeof nestedArrayNullable> = {
-    foo: null
+    foo: null,
 };
