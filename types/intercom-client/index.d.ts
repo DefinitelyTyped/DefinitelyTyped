@@ -6,7 +6,7 @@
 //                 Chris Doe <https://github.com/cdoe>
 //                 Daniel Cummings <https://github.com/dan-cummings>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7.5
+// TypeScript Version: 3.7
 /// <reference types="node" />
 
 import { List as UserList, User, UserIdentifier, CreateUpdateUser } from './User';
@@ -182,8 +182,11 @@ export class Events {
 }
 
 export class Conversations {
-    list(params: {per_page?: number, sort?: string, order?: string}): Promise<ApiResponse<ConversationList>>;
-    list(params: {per_page?: number, sort?: string, order?: string}, cb: callback<ApiResponse<ConversationList>>): void
+    list(params: { per_page?: number; sort?: string; order?: string }): Promise<ApiResponse<ConversationList>>;
+    list(
+        params: { per_page?: number; sort?: string; order?: string },
+        cb: callback<ApiResponse<ConversationList>>,
+    ): void;
 
     find(conversation: ConversationIdentifier): Promise<ApiResponse<Conversation>>;
     find(conversation: ConversationIdentifier, cb: callback<ApiResponse<Conversation>>): void;
