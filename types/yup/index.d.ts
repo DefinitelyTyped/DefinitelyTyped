@@ -237,8 +237,8 @@ export type ObjectSchemaDefinition<T extends object | null | undefined> = {
  * [yup's `object.shape()` method](https://www.npmjs.com/package/yup#objectshapefields-object-nosortedges-arraystring-string-schema).
  */
 export type Shape<T extends object | null | undefined, U extends object> =
-    | ({ [P in keyof T]: P extends keyof U ? U[P] : T[P] } & U)
-    | PreserveOptionals<T>;
+  | ({ [P in keyof T]: P extends keyof U ? U[P] : T[P]; } & U)
+  | PreserveOptionals<T>;
 
 export interface ObjectSchemaConstructor {
     <T extends object>(fields?: ObjectSchemaDefinition<T>): ObjectSchema<T>;
@@ -247,7 +247,7 @@ export interface ObjectSchemaConstructor {
 
 export interface ObjectSchema<T extends object | null | undefined = object> extends Schema<T> {
     fields: {
-        [k in keyof T]: Schema<T[k]>;
+      [k in keyof T]: Schema<T[k]>
     };
     shape<U extends object>(
         fields: ObjectSchemaDefinition<U>,
@@ -295,7 +295,7 @@ export interface TestContext {
     parent: any;
     schema: Schema<any>;
     resolve: (value: any) => any;
-    createError: (params?: { path?: string; message?: string; params?: object }) => ValidationError;
+    createError: (params?: { path?: string; message?: string, params?: object }) => ValidationError;
 }
 
 export interface ValidateOptions {
@@ -360,12 +360,16 @@ export interface SchemaFieldRefDescription {
     key: string;
 }
 
-export interface SchemaFieldInnerTypeDescription
-    extends Pick<SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>> {
+export interface SchemaFieldInnerTypeDescription extends Pick<
+    SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>
+> {
     innerType?: SchemaFieldDescription;
 }
 
-export type SchemaFieldDescription = SchemaDescription | SchemaFieldRefDescription | SchemaFieldInnerTypeDescription;
+export type SchemaFieldDescription =
+    | SchemaDescription
+    | SchemaFieldRefDescription
+    | SchemaFieldInnerTypeDescription;
 
 export interface SchemaDescription {
     type: string;
