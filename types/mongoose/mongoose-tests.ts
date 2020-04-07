@@ -545,7 +545,9 @@ mongoose.Schema.reserved.hasOwnProperty('');
 schema.addListener('e', cb);
 /* practical examples */
 interface Animal {
-  findSimilarTypes(cb: any): Promise<Animal>
+  findSimilarTypes?(cb: any): Promise<Animal>;
+  name: string;
+  type: string;
 }
 var animalSchema = new mongoose.Schema<Animal>({
   name: String,
