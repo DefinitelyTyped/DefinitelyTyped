@@ -42,7 +42,7 @@ declare module "stream" {
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
 
             /**
              * Event emitter
@@ -156,7 +156,7 @@ declare module "stream" {
             end(chunk: any, encoding: string, cb?: () => void): void;
             cork(): void;
             uncork(): void;
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
 
             /**
              * Event emitter
