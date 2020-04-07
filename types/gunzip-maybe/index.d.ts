@@ -5,9 +5,8 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream"
+import * as stream from "stream";
 
-declare function gunzip(maxRecursion?: number): stream.Transform
+declare function gunzip(maxRecursion?: number): stream.Transform;
 
-export = gunzip
-
+export = gunzip;
