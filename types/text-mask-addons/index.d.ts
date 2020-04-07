@@ -3,12 +3,10 @@
 // Definitions by: josh <https://github.com/huntjosh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'text-mask-addons' {
-    import { Pipe } from 'text-mask-core';
+import { Pipe } from 'text-mask-core';
 
-    export interface DatePipeYears {
-        minYear: number;
-        maxYear: number;
-    }
-    export function createAutoCorrectedDatePipe(dateFormat?: string, validYears?: DatePipeYears): Pipe;
+export interface DatePipeYears {
+    minYear: number;
+    maxYear: number;
 }
+export function createAutoCorrectedDatePipe(dateFormat?: string, validYears?: DatePipeYears): Pipe;
