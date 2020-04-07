@@ -20,7 +20,7 @@ interface InfiniteLoaderProps {
 }
 
 declare class InfiniteLoader extends Component<InfiniteLoaderProps> {
-    resetloadMoreItemsCache(autoReload?: boolean): void
+    resetloadMoreItemsCache(autoReload?: boolean): void;
 }
 
 export = InfiniteLoader;
