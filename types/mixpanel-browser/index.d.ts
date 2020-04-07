@@ -1,4 +1,4 @@
-// Type definitions for mixpanel-browser 2.33
+// Type definitions for mixpanel-browser 2.35
 // Project: https://github.com/mixpanel/mixpanel-js
 // Definitions by: Carlos López <https://github.com/karlos1337>
 //                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
@@ -45,6 +45,8 @@ export interface Config {
   app_host: string;
   autotrack: boolean;
   cdn: string;
+  cookie_domain: string;
+  cross_site_cookie: boolean;
   cross_subdomain_cookie: boolean;
   persistence: Persistence;
   persistence_name: string;
