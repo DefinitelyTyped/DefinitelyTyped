@@ -22,13 +22,13 @@ function test() {
     };
 
     const createTextMaskConfig: CreateTextMaskConfig = {
-        inputElement: {} as HTMLInputElement,
+        inputElement: {} as any,
         mask,
         guide: 'a',
         keepCharPositions: true,
         showMask: true,
     };
-    
+
     const textMaskInputElement: TextMaskInputElement = {
         update: (a?: string): void => {},
     };
