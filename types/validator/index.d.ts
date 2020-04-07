@@ -1,4 +1,4 @@
-// Type definitions for validator.js 12.0
+// Type definitions for validator.js 13.0
 // Project: https://github.com/validatorjs/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -10,6 +10,7 @@
 //                 Philipp Katz <https://github.com/qqilihq>
 //                 Jace Warren <https://github.com/keatz55>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
+//                 Vlad Poluch <https://github.com/vlapo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -192,6 +193,11 @@ declare namespace validator {
     function isBefore(str: string, date?: string): boolean;
 
     /**
+     * Check if a string is a IBAN (International Bank Account Number).
+     */
+    function isIBAN(str: string): boolean;
+
+    /**
      * Check if a string is a BIC (Bank Identification Code) or SWIFT code.
      */
     function isBIC(str: string): boolean;
@@ -295,6 +301,16 @@ declare namespace validator {
      * @param [options] - Options
      */
     function isCurrency(str: string, options?: IsCurrencyOptions): boolean;
+
+    /**
+     * Check if the string is an [Ethereum](https://ethereum.org/) address using basic regex. Does not validate address checksums.
+     */
+    function isEthereumAddress(str: string): boolean;
+
+    /**
+     * Check if the string is a valid BTC address.
+     */
+    function isBtcAddress(str: string): boolean;
 
     /**
      * Check if the string is a [data uri format](https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs).
@@ -553,6 +569,19 @@ declare namespace validator {
      */
     function isHexColor(str: string): boolean;
 
+    /**
+     * Check if the string is an HSL (hue, saturation, lightness, optional alpha) color based on CSS Colors Level 4 specification.
+     * Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: hsl(200grad+.1%62%/1)).
+     */
+    function isHSL(str: string): boolean;
+
+    /**
+     * Check if the string is a rgb or rgba color.
+     *
+     * @param [includePercentValues=true] - If you don't want to allow to set rgb or rgba values with percents, like rgb(5%,5%,5%), or rgba(90%,90%,90%,.3), then set it to false. (defaults to true)
+     */
+    function isRgbColor(str: string, includePercentValues?: boolean): boolean;
+
     type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW';
 
     /**
@@ -622,6 +651,11 @@ declare namespace validator {
      * @param [version] - ISBN Version
      */
     function isISBN(str: string, version?: ISBNVersion): boolean;
+
+    /**
+     * Check if the string is an EAN (European Article Number).
+     */
+    function isEAN(str: string): boolean;
 
     /**
      * Check if the string is an [ISIN](https://en.wikipedia.org/wiki/International_Securities_Identification_Number) (stock/security identifier).
@@ -721,6 +755,11 @@ declare namespace validator {
      * @param [options] - Options
      */
     function isLength(str: string, options?: IsLengthOptions): boolean;
+
+    /**
+     * Check if the string is a locale.
+     */
+    function isLocale(str: string): boolean;
 
     /**
      * Check if the string is lowercase.
@@ -904,6 +943,13 @@ declare namespace validator {
     function isOctal(str: string): boolean;
 
     /**
+     * Check if the string is a valid passport number relative to a specific country code.
+     *
+     * @param [countryCode] - Country code
+     */
+    function isPassportNumber(str: string, countryCode?: string): boolean;
+
+    /**
      * Check if the string is a valid port number.
      */
     function isPort(str: string): boolean;
@@ -970,6 +1016,11 @@ declare namespace validator {
      * @param locale - PostalCodeLocale
      */
     function isPostalCode(str: string, locale: 'any' | PostalCodeLocale): boolean;
+
+    /**
+     * Check if the string is a Semantic Versioning Specification (SemVer).
+     */
+    function isSemVer(str: string): boolean;
 
     /**
      * Check if the string contains any surrogate pairs chars.
