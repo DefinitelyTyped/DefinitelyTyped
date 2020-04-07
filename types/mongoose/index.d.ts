@@ -751,10 +751,10 @@ declare module "mongoose" {
      * the child schema first before passing it into its parent.
      * @event init Emitted after the schema is compiled into a Model.
      */
-    constructor(definition?: SchemaDefinition, options?: SchemaOptions);
+    constructor(definition?: SchemaDefinition<T>, options?: SchemaOptions);
 
     /** Adds key path / schema type pairs to this schema. */
-    add(obj: SchemaDefinition, prefix?: string): void;
+    add(obj: SchemaDefinition<T>, prefix?: string): void;
 
     /** Return a deep copy of this schema */
     clone(): Schema;
@@ -1102,8 +1102,9 @@ declare module "mongoose" {
   /*
    * Intellisense for Schema definitions
    */
-  interface SchemaDefinition {
-    [path: string]: SchemaTypeOpts<any> | Schema | SchemaType;
+
+  type SchemaDefinition<T> = {
+    [key in keyof T]: SchemaTypeOpts<any> | Schema | SchemaType;
   }
 
   /*
