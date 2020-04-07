@@ -8,7 +8,7 @@ interface InheritedProps extends ReactAttr<HTMLTableRowElement> {
 export interface TableExpandRowProps extends InheritedProps {
     expandHeader?: string,
     expandIconDescription?: string,
-    isExpanded: boolean,
+    isExpanded?: boolean,
     onExpand(event: React.MouseEvent<HTMLButtonElement>): void,
 }
 
