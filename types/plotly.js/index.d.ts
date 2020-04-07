@@ -473,10 +473,14 @@ export type ModeBarDefaultButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' |
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 
 export interface Icon {
-	width: number;
-	path: string;
+	height?: number;
+	width?: number;
 	ascent?: number;
 	descent?: number;
+	name?: string;
+	path?: string;
+	svg?: string;
+	transform?: string;
 }
 
 export interface ModeBarButton {
