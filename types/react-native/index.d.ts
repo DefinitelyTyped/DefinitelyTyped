@@ -35,6 +35,7 @@
 //                 Mohamed Shaban <https://github.com/drmas>
 //                 André Krüger <https://github.com/akrger>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
+//                 Christian Ost <https://github.com/ca057>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -8912,6 +8913,28 @@ export interface KeyboardStatic extends NativeEventEmitter {
     dismiss: () => void;
     addListener(eventType: KeyboardEventName, listener: KeyboardEventListener): EmitterSubscription;
 }
+
+/**
+ * The DevSettings module exposes methods for customizing settings for developers in development.
+ */
+export interface DevSettingsStatic extends NativeEventEmitter {
+    /**
+     * Adds a custom menu item to the developer menu.
+     *
+     * @param title - The title of the menu item. Is internally used as id and should therefore be unique.
+     * @param handler - The callback invoked when pressing the menu item.
+     */
+    addMenuItem(title: string, handler: () => any): void;
+
+    /**
+     * Reload the application.
+     *
+     * @param reason
+     */
+    reload(reason?: string): void;
+}
+
+export const DevSettings: DevSettingsStatic;
 
 //////////////////////////////////////////////////////////////////////////
 //
