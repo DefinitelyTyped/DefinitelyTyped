@@ -46,4 +46,3 @@ export interface TransitionCallbacks {
 
 export * from './lib';
 export as namespace ReactBootstrap;
-                                              
