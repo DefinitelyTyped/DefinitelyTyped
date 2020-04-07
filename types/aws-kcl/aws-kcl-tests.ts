@@ -1,4 +1,4 @@
-import * as kcl from 'aws-kcl';
+import kcl from 'aws-kcl';
 
 // Example used from https://github.com/awslabs/amazon-kinesis-client-nodejs
 const recordProcessor = {
