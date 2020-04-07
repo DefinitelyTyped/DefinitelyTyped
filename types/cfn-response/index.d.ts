@@ -15,5 +15,6 @@ export function send(
     context: Context,
     responseStatus: ResponseStatus,
     responseData?: object,
-    physicalResourceId?: string
-): void;
+    physicalResourceId?: string,
+    noEcho?: boolean
+): Promise<void>;

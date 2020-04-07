@@ -96,6 +96,19 @@ export interface Lexer {
      * to reset() to explicitly control the internal state of the lexer.
      */
     save(): LexerState;
+    /**
+     * Transitions to the provided state and pushes the state onto the state
+     * stack.
+     */
+    pushState(state: string): void;
+    /**
+     * Returns back to the previous state in the stack.
+     */
+    popState(): void;
+    /**
+     * Transitiosn to the provided state. Does not push onto the state stack.
+     */
+    setState(state: string): void;
 
     [Symbol.iterator](): Iterator<Token>;
 }

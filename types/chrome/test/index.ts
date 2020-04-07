@@ -439,3 +439,13 @@ function testStorage() {
         var myOldValue: { x: number } = changes["myKey"].oldValue;
     });
 }
+
+chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
+    request; // $ExpectType Request
+    console.log('request: ', request);
+});
+
+chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
+    harLog; // $ExpectType HARLog
+    console.log('harLog: ', harLog)
+});

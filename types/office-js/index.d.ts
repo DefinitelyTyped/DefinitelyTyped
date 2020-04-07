@@ -1,6 +1,6 @@
 // Type definitions for Office.js 1.0
 // Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>, Sudhi Ramamurthy <https://github.com/sumurthy>
+// Definitions by: OfficeDev <https://github.com/OfficeDev>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>, Sudhi Ramamurthy <https://github.com/sumurthy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -1035,7 +1035,8 @@ declare namespace Office {
      */
     interface AsyncContextOptions {
         /**
-         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the `asyncContext` property of the `AsyncResult` object
+         * that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -10341,10 +10342,8 @@ declare namespace Office {
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
          *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
-         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
-         *                `asyncResult`, which is an `Office.AsyncResult` object.
          */
-        displayReplyAllForm(formData: string | ReplyFormData, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        displayReplyAllForm(formData: string | ReplyFormData): void;
         /**
          * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
          *
@@ -10366,10 +10365,8 @@ declare namespace Office {
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
          *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
-         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
-         *                `asyncResult`, which is an `Office.AsyncResult` object.
          */
-        displayReplyForm(formData: string | ReplyFormData, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        displayReplyForm(formData: string | ReplyFormData): void;
         /**
          * Gets an attachment from a message or appointment and returns it as an `AttachmentContent` object.
          * 
@@ -10803,6 +10800,8 @@ declare namespace Office {
         attachmentType: MailboxEnums.AttachmentType | string;
         /**
          * Gets the MIME content type of the attachment.
+         * 
+         * This property is only available in Read mode.
          */
         contentType: string;
         /**
@@ -11027,7 +11026,7 @@ declare namespace Office {
          * 
          * - `DataExceedsMaximumSize`: The data parameter is longer than 1,000,000 characters.
          * 
-         * - `InvalidFormatError`: The options.coercionType parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
+         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
          * 
          * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
          * @param options - Optional. An object literal that contains one or more of the following properties.
@@ -11131,11 +11130,11 @@ declare namespace Office {
     /**
      * Represents the categories on an item.
      * 
-     * In Outlook, a user can group messages and appointments by using a category to color-code them.
+     * In Outlook, a user can tag messages and appointments by using a category to color-code them.
      * The user defines {@link Office.MasterCategories | categories in a master list} on their mailbox.
      * They can then apply one or more categories to an item.
      *
-     * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Read mode.
+     * **Important**: In Outlook on the web, you can't use the API to manage categories applied to a message in Compose mode.
      *
      * [Api set: Mailbox 1.8]
      *
@@ -11545,7 +11544,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
          *                `asyncResult`, which is an `Office.AsyncResult` object. Check the `status` property of `asyncResult` to determine if the call succeeded.
          */
-        addAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
+        addAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds to the set of locations associated with the appointment.
          * 
@@ -11565,7 +11564,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
          *                `asyncResult`, which is an `Office.AsyncResult` object. Check the `status` property of `asyncResult` to determine if the call succeeded.
          */
-        addAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
+        addAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets the set of locations associated with the appointment.
          * 
@@ -11617,7 +11616,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
          *                `asyncResult`, which is an `Office.AsyncResult` object. Check the `status` property of `asyncResult` to determine if the call succeeded.
          */
-        removeAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
+        removeAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Removes the set of locations associated with the appointment.
          * 
@@ -11635,7 +11634,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
          *                `asyncResult`, which is an `Office.AsyncResult` object. Check the `status` property of `asyncResult` to determine if the call succeeded.
          */
-        removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
+        removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * Provides the current enhanced locations when the `Office.EventType.EnhancedLocationsChanged` event is raised.
@@ -12757,9 +12756,11 @@ declare namespace Office {
     /**
      * Represents the categories master list on the mailbox.
      * 
-     * In Outlook, a user can group messages and appointments by using a category to color-code them.
+     * In Outlook, a user can tag messages and appointments by using a category to color-code them.
      * The user defines categories in a master list on their mailbox. They can then apply one or more categories to an item.
      *
+     * **Important**: In delegate or shared scenarios, the delegate can get the categories in the master list but can't add or remove categories.
+     * 
      * [Api set: Mailbox 1.8]
      *
      * @remarks
@@ -12992,6 +12993,8 @@ declare namespace Office {
         body: Body;
         /**
          * Gets an object that provides methods for managing the item's categories.
+         *
+         * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Compose mode.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -13946,8 +13949,6 @@ declare namespace Office {
         /**
          * Gets an object that provides methods for managing the item's categories.
          *
-         * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Read mode.
-         *
          * [Api set: Mailbox 1.8]
          *
          * @remarks
@@ -14325,10 +14326,8 @@ declare namespace Office {
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
          *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
-         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter, 
-         *                `asyncResult`, which is an `Office.AsyncResult` object.
          */
-        displayReplyAllForm(formData: string | ReplyFormData, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        displayReplyAllForm(formData: string | ReplyFormData): void;
         /**
          * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
          *
@@ -14350,10 +14349,8 @@ declare namespace Office {
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
          *                   OR a {@link Office.ReplyFormData | ReplyFormData} object that contains body or attachment data and a callback function.
-         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
-         *                `asyncResult`, which is an `Office.AsyncResult` object.
          */
-        displayReplyForm(formData: string | ReplyFormData, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        displayReplyForm(formData: string | ReplyFormData): void;
         /**
          * Gets all the internet headers for the message as a string.
          * 
@@ -15331,7 +15328,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        recurrenceProperties: RecurrenceProperties;
+        recurrenceProperties?: RecurrenceProperties;
         /**
          * Gets or sets the properties of the recurring appointment series.
          * 
@@ -15343,7 +15340,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        recurrenceTimeZone: RecurrenceTimeZone;
+        recurrenceTimeZone?: RecurrenceTimeZone;
         /**
          * Gets or sets the type of the recurring appointment series.
          * 
@@ -15492,28 +15489,28 @@ declare namespace Office {
         /**
          * Represents the day of the month.
          */
-        dayOfMonth: number;
+        dayOfMonth?: number;
         /**
          * Represents the day of the week or type of day, for example, weekend day vs weekday.
          */
-        dayOfWeek: MailboxEnums.Days | string;
+        dayOfWeek?: MailboxEnums.Days | string;
         /**
          * Represents the set of days for this recurrence. Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
          */
-        days: MailboxEnums.Days[] | string[];
+        days?: MailboxEnums.Days[] | string[];
         /**
          * Represents the number of the week in the selected month e.g. 'first' for first week of the month.
          */
-        weekNumber: MailboxEnums.WeekNumber | string;
+        weekNumber?: MailboxEnums.WeekNumber | string;
         /**
          * Represents the month.
          */
-        month: MailboxEnums.Month | string;
+        month?: MailboxEnums.Month | string;
         /**
          * Represents your chosen first day of the week otherwise the default is the value in the current user's settings. 
          * Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
          */
-        firstDayOfWeek: MailboxEnums.Days | string;
+        firstDayOfWeek?: MailboxEnums.Days | string;
     }
     /**
      * Represents the time zone of the recurrence.
@@ -15535,7 +15532,7 @@ declare namespace Office {
         /**
          * Integer value representing the difference in minutes between the local time zone and UTC at the date that the meeting series began.
          */
-        offset: number;
+        offset?: number;
     }
     /**
      * A file or item attachment. Used when displaying a reply form.
@@ -15577,9 +15574,14 @@ declare namespace Office {
         attachments?: ReplyFormAttachment[];
         /**
          * When the reply display call completes, the function passed in the callback parameter is called with a single parameter, 
-         * asyncResult, which is an Office.AsyncResult object.
+         * `asyncResult`, which is an `Office.AsyncResult` object.
          */
         callback?: (asyncResult: Office.AsyncResult<any>) => void;
+        /**
+         * An object literal that contains the following property.
+         * `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         */
+        options?: Office.AsyncContextOptions;
     }
     /**
      * The settings created by using the methods of the `RoamingSettings` object are saved per add-in and per user. 
@@ -18273,8 +18275,8 @@ declare namespace Excel {
         /**
          *
          * Returns the Iterative Calculation settings.
-            In Excel on Windows and Mac, the settings will apply to the Excel Application.
-            In Excel on the web and other platforms, the settings will apply to the active workbook.
+                    In Excel on Windows and Mac, the settings will apply to the Excel Application.
+                    In Excel on the web and other platforms, the settings will apply to the active workbook.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -18315,7 +18317,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Application): void;
         /**
-         *
          * Recalculate all currently opened workbooks in Excel.
          *
          * [Api set: ExcelApi 1.1]
@@ -18324,7 +18325,6 @@ declare namespace Excel {
          */
         calculate(calculationType: Excel.CalculationType): void;
         /**
-         *
          * Recalculate all currently opened workbooks in Excel.
          *
          * [Api set: ExcelApi 1.1]
@@ -18333,16 +18333,16 @@ declare namespace Excel {
          */
         calculate(calculationType: "Recalculate" | "Full" | "FullRebuild"): void;
         /**
-         *
          * Suspends calculation until the next "context.sync()" is called. Once set, it is the developer's responsibility to re-calc the workbook, to ensure that any dependencies are propagated.
          *
          * [Api set: ExcelApi 1.6]
          */
         suspendApiCalculationUntilNextSync(): void;
         /**
-         *
-         * Suspends sceen updating until the next "context.sync()" is called.
-         *
+         * Suspends screen updating until the next `context.sync()`is called.
+         * 
+         * **Note**: Don't call `suspendScreenUpdatingUntilNextSync` repeatedly (such as in a loop). Repeated calls will cause the Excel window to flicker.
+         * 
          * [Api set: ExcelApi 1.9]
          */
         suspendScreenUpdatingUntilNextSync(): void;
@@ -18447,7 +18447,7 @@ declare namespace Excel {
     /**
      *
      * Workbook is the top level object which contains related workbook objects such as worksheets, tables, ranges, etc.
-            To learn more about the workbook object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-workbooks | Work with workbooks using the Excel JavaScript API}.
+                To learn more about the workbook object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-workbooks | Work with workbooks using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -18604,7 +18604,7 @@ declare namespace Excel {
         /**
          *
          * True if all charts in the workbook are tracking the actual data points to which they are attached.
-            False if the charts track the index of the data points.
+                    False if the charts track the index of the data points.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -18612,7 +18612,7 @@ declare namespace Excel {
         /**
          *
          * Specifies whether or not changes have been made since the workbook was last saved.
-            You can set this property to true if you want to close a modified workbook without either saving it or being prompted to save it.
+                    You can set this property to true if you want to close a modified workbook without either saving it or being prompted to save it.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -18641,7 +18641,7 @@ declare namespace Excel {
         /**
          *
          * True if calculations in this workbook will be done using only the precision of the numbers as they're displayed.
-            Data will permanently lose accuracy when switching this property from false to true.
+                    Data will permanently lose accuracy when switching this property from false to true.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -18661,57 +18661,49 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Workbook): void;
         /**
-         *
          * Gets the currently active cell from the workbook.
          *
          * [Api set: ExcelApi 1.7]
          */
         getActiveCell(): Excel.Range;
         /**
-         *
          * Gets the currently active chart in the workbook. If there is no active chart, an `ItemNotFound` exception is thrown.
          *
          * [Api set: ExcelApi 1.9]
          */
         getActiveChart(): Excel.Chart;
         /**
-         *
          * Gets the currently active chart in the workbook. If there is no active chart, a null object is returned.
          *
          * [Api set: ExcelApi 1.9]
          */
         getActiveChartOrNullObject(): Excel.Chart;
         /**
-         *
          * Gets the currently active slicer in the workbook. If there is no active slicer, an `ItemNotFound` exception is thrown.
          *
          * [Api set: ExcelApi 1.10]
          */
         getActiveSlicer(): Excel.Slicer;
         /**
-         *
          * Gets the currently active slicer in the workbook. If there is no active slicer, a null object is returned.
          *
          * [Api set: ExcelApi 1.10]
          */
         getActiveSlicerOrNullObject(): Excel.Slicer;
         /**
-         *
          * True if the workbook is being edited by multiple users (co-authoring).
-            Please be aware there might be some delay between when the workbook status changes and when the changes are reflected on the result of the method.
+                    Please be aware there might be some delay between when the workbook status changes and when the changes are reflected on the result of the method.
          *
          * [Api set: ExcelApi 1.9]
          */
         getIsActiveCollabSession(): OfficeExtension.ClientResult<boolean>;
         /**
-         *
          * Gets the currently selected single range from the workbook. If there are multiple ranges selected, this method will throw an error.
          *
          * [Api set: ExcelApi 1.1]
          */
         getSelectedRange(): Excel.Range;
         /**
-         *
          * Gets the currently selected one or more ranges from the workbook. Unlike getSelectedRange(), this method returns a RangeAreas object that represents all the selected ranges.
          *
          * [Api set: ExcelApi 1.9]
@@ -18779,7 +18771,6 @@ declare namespace Excel {
          */
         readonly protected: boolean;
         /**
-         *
          * Protects a workbook. Fails if the workbook has been protected.
          *
          * [Api set: ExcelApi 1.7]
@@ -18788,7 +18779,6 @@ declare namespace Excel {
          */
         protect(password?: string): void;
         /**
-         *
          * Unprotects a workbook.
          *
          * [Api set: ExcelApi 1.7]
@@ -18856,7 +18846,7 @@ declare namespace Excel {
     /**
      *
      * An Excel worksheet is a grid of cells. It can contain data, tables, charts, etc.
-            To learn more about the worksheet object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-worksheets | Work with worksheets using the Excel JavaScript API}.
+                To learn more about the worksheet object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-worksheets | Work with worksheets using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -18957,7 +18947,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the enableCalculation property of the worksheet.
-            True if Excel recalculates the worksheet when necessary. False if Excel doesn't recalculate the sheet.
+                    True if Excel recalculates the worksheet when necessary. False if Excel doesn't recalculate the sheet.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -18986,7 +18976,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the worksheet's gridlines flag.
-            This flag determines whether gridlines are visible to the user.
+                    This flag determines whether gridlines are visible to the user.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -18994,7 +18984,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the worksheet's headings flag.
-            This flag determines whether headings are visible to the user.
+                    This flag determines whether headings are visible to the user.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -19009,7 +18999,7 @@ declare namespace Excel {
         /**
          *
          * Returns or sets the standard (default) width of all the columns in the worksheet.
-            One unit of column width is equal to the width of one character in the Normal style. For proportional fonts, the width of the character 0 (zero) is used.
+                    One unit of column width is equal to the width of one character in the Normal style. For proportional fonts, the width of the character 0 (zero) is used.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -19017,8 +19007,8 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the worksheet tab color.
-            When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form "#123456"
-            When setting the color, use an empty-string to set an "auto" color, or a real color otherwise.
+                    When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form "#123456"
+                    When setting the color, use an empty-string to set an "auto" color, or a real color otherwise.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -19045,14 +19035,12 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Worksheet): void;
         /**
-         *
          * Activate the worksheet in the Excel UI.
          *
          * [Api set: ExcelApi 1.1]
          */
         activate(): void;
         /**
-         *
          * Calculates all cells on a worksheet.
          *
          * [Api set: ExcelApi 1.6]
@@ -19061,7 +19049,6 @@ declare namespace Excel {
          */
         calculate(markAllDirty: boolean): void;
         /**
-         *
          * Copies a worksheet and places it at the specified position.
          *
          * [Api set: ExcelApi 1.7]
@@ -19072,7 +19059,6 @@ declare namespace Excel {
          */
         copy(positionType?: Excel.WorksheetPositionType, relativeTo?: Excel.Worksheet): Excel.Worksheet;
         /**
-         *
          * Copies a worksheet and places it at the specified position.
          *
          * [Api set: ExcelApi 1.7]
@@ -19083,14 +19069,12 @@ declare namespace Excel {
          */
         copy(positionType?: "None" | "Before" | "After" | "Beginning" | "End", relativeTo?: Excel.Worksheet): Excel.Worksheet;
         /**
-         *
          * Deletes the worksheet from the workbook. Note that if the worksheet's visibility is set to "VeryHidden", the delete operation will fail with an `InvalidOperation` exception. You should first change its visibility to hidden or visible before deleting it.
          *
          * [Api set: ExcelApi 1.1]
          */
         delete(): void;
         /**
-         *
          * Finds all occurrences of the given string based on the criteria specified and returns them as a RangeAreas object, comprising one or more rectangular ranges.
          *
          * [Api set: ExcelApi 1.9]
@@ -19101,7 +19085,6 @@ declare namespace Excel {
          */
         findAll(text: string, criteria: Excel.WorksheetSearchCriteria): Excel.RangeAreas;
         /**
-         *
          * Finds all occurrences of the given string based on the criteria specified and returns them as a RangeAreas object, comprising one or more rectangular ranges.
          *
          * [Api set: ExcelApi 1.9]
@@ -19112,7 +19095,6 @@ declare namespace Excel {
          */
         findAllOrNullObject(text: string, criteria: Excel.WorksheetSearchCriteria): Excel.RangeAreas;
         /**
-         *
          * Gets the range object containing the single cell based on row and column numbers. The cell can be outside the bounds of its parent range, so long as it stays within the worksheet grid.
          *
          * [Api set: ExcelApi 1.1]
@@ -19122,7 +19104,6 @@ declare namespace Excel {
          */
         getCell(row: number, column: number): Excel.Range;
         /**
-         *
          * Gets the worksheet that follows this one. If there are no worksheets following this one, this method will throw an error.
          *
          * [Api set: ExcelApi 1.5]
@@ -19131,7 +19112,6 @@ declare namespace Excel {
          */
         getNext(visibleOnly?: boolean): Excel.Worksheet;
         /**
-         *
          * Gets the worksheet that follows this one. If there are no worksheets following this one, this method will return a null object.
          *
          * [Api set: ExcelApi 1.5]
@@ -19140,7 +19120,6 @@ declare namespace Excel {
          */
         getNextOrNullObject(visibleOnly?: boolean): Excel.Worksheet;
         /**
-         *
          * Gets the worksheet that precedes this one. If there are no previous worksheets, this method will throw an error.
          *
          * [Api set: ExcelApi 1.5]
@@ -19149,7 +19128,6 @@ declare namespace Excel {
          */
         getPrevious(visibleOnly?: boolean): Excel.Worksheet;
         /**
-         *
          * Gets the worksheet that precedes this one. If there are no previous worksheets, this method will return a null objet.
          *
          * [Api set: ExcelApi 1.5]
@@ -19158,7 +19136,6 @@ declare namespace Excel {
          */
         getPreviousOrNullObject(visibleOnly?: boolean): Excel.Worksheet;
         /**
-         *
          * Gets the range object, representing a single rectangular block of cells, specified by the address or name.
          *
          * [Api set: ExcelApi 1.1]
@@ -19167,7 +19144,6 @@ declare namespace Excel {
          */
         getRange(address?: string): Excel.Range;
         /**
-         *
          * Gets the range object beginning at a particular row index and column index, and spanning a certain number of rows and columns.
          *
          * [Api set: ExcelApi 1.7]
@@ -19179,7 +19155,6 @@ declare namespace Excel {
          */
         getRangeByIndexes(startRow: number, startColumn: number, rowCount: number, columnCount: number): Excel.Range;
         /**
-         *
          * Gets the RangeAreas object, representing one or more blocks of rectangular ranges, specified by the address or name.
          *
          * [Api set: ExcelApi 1.9]
@@ -19188,7 +19163,6 @@ declare namespace Excel {
          */
         getRanges(address?: string): Excel.RangeAreas;
         /**
-         *
          * The used range is the smallest range that encompasses any cells that have a value or formatting assigned to them. If the entire worksheet is blank, this function will return the top left cell (i.e. it will *not* throw an error).
          *
          * [Api set: ExcelApi 1.1]
@@ -19197,7 +19171,6 @@ declare namespace Excel {
          */
         getUsedRange(valuesOnly?: boolean): Excel.Range;
         /**
-         *
          * The used range is the smallest range that encompasses any cells that have a value or formatting assigned to them. If the entire worksheet is blank, this function will return a null object.
          *
          * [Api set: ExcelApi 1.4]
@@ -19206,7 +19179,6 @@ declare namespace Excel {
          */
         getUsedRangeOrNullObject(valuesOnly?: boolean): Excel.Range;
         /**
-         *
          * Finds and replaces the given string based on the criteria specified within the current worksheet.
          *
          * [Api set: ExcelApi 1.9]
@@ -19218,12 +19190,11 @@ declare namespace Excel {
          */
         replaceAll(text: string, replacement: string, criteria: Excel.ReplaceCriteria): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Shows row or column groups by their outline levels.
-            Outlines group and summarize a list of data in the worksheet.
-            The `rowLevels` and `columnLevels` parameters specify how many levels of the outline will be displayed.
-            The acceptable argument range is between 0 and 8.
-            A value of 0 does not change the current display. A value greater than the current number of levels displays all the levels.
+                    Outlines group and summarize a list of data in the worksheet.
+                    The `rowLevels` and `columnLevels` parameters specify how many levels of the outline will be displayed.
+                    The acceptable argument range is between 0 and 8.
+                    A value of 0 does not change the current display. A value greater than the current number of levels displays all the levels.
          *
          * [Api set: ExcelApi 1.10]
          *
@@ -19355,7 +19326,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.Worksheet[];
         /**
-         *
          * Adds a new worksheet to the workbook. The worksheet will be added at the end of existing worksheets. If you wish to activate the newly added worksheet, call ".activate() on it.
          *
          * [Api set: ExcelApi 1.1]
@@ -19364,14 +19334,12 @@ declare namespace Excel {
          */
         add(name?: string): Excel.Worksheet;
         /**
-         *
          * Gets the currently active worksheet in the workbook.
          *
          * [Api set: ExcelApi 1.1]
          */
         getActiveWorksheet(): Excel.Worksheet;
         /**
-         *
          * Gets the number of worksheets in the collection.
          *
          * [Api set: ExcelApi 1.4]
@@ -19380,7 +19348,6 @@ declare namespace Excel {
          */
         getCount(visibleOnly?: boolean): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets the first worksheet in the collection.
          *
          * [Api set: ExcelApi 1.5]
@@ -19389,7 +19356,6 @@ declare namespace Excel {
          */
         getFirst(visibleOnly?: boolean): Excel.Worksheet;
         /**
-         *
          * Gets a worksheet object using its Name or ID.
          *
          * [Api set: ExcelApi 1.1]
@@ -19398,7 +19364,6 @@ declare namespace Excel {
          */
         getItem(key: string): Excel.Worksheet;
         /**
-         *
          * Gets a worksheet object using its Name or ID. If the worksheet does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.4]
@@ -19407,7 +19372,6 @@ declare namespace Excel {
          */
         getItemOrNullObject(key: string): Excel.Worksheet;
         /**
-         *
          * Gets the last worksheet in the collection.
          *
          * [Api set: ExcelApi 1.5]
@@ -19564,7 +19528,6 @@ declare namespace Excel {
          */
         readonly protected: boolean;
         /**
-         *
          * Protects a worksheet. Fails if the worksheet has already been protected.
          *
          * [Api set: ExcelApi 1.2 for options; 1.7 for password]
@@ -19574,7 +19537,6 @@ declare namespace Excel {
          */
         protect(options?: Excel.WorksheetProtectionOptions, password?: string): void;
         /**
-         *
          * Unprotects a worksheet.
          *
          * [Api set: ExcelApi 1.7 for password]
@@ -19722,9 +19684,8 @@ declare namespace Excel {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
         /**
-         *
          * Sets the frozen cells in the active worksheet view.
-            The range provided corresponds to cells that will be frozen in the top- and left-most pane.
+                    The range provided corresponds to cells that will be frozen in the top- and left-most pane.
          *
          * [Api set: ExcelApi 1.7]
          *
@@ -19732,7 +19693,6 @@ declare namespace Excel {
          */
         freezeAt(frozenRange: Range | string): void;
         /**
-         *
          * Freeze the first column(s) of the worksheet in place.
          *
          * [Api set: ExcelApi 1.7]
@@ -19741,7 +19701,6 @@ declare namespace Excel {
          */
         freezeColumns(count?: number): void;
         /**
-         *
          * Freeze the top row(s) of the worksheet in place.
          *
          * [Api set: ExcelApi 1.7]
@@ -19750,24 +19709,21 @@ declare namespace Excel {
          */
         freezeRows(count?: number): void;
         /**
-         *
          * Gets a range that describes the frozen cells in the active worksheet view.
-            The frozen range is corresponds to cells that are frozen in the top- and left-most pane.
+                    The frozen range is corresponds to cells that are frozen in the top- and left-most pane.
          *
          * [Api set: ExcelApi 1.7]
          */
         getLocation(): Excel.Range;
         /**
-         *
          * Gets a range that describes the frozen cells in the active worksheet view.
-            The frozen range is corresponds to cells that are frozen in the top- and left-most pane.
-            If there is no frozen pane, returns a null object.
+                    The frozen range is corresponds to cells that are frozen in the top- and left-most pane.
+                    If there is no frozen pane, returns a null object.
          *
          * [Api set: ExcelApi 1.7]
          */
         getLocationOrNullObject(): Excel.Range;
         /**
-         *
          * Removes all frozen panes in the worksheet.
          *
          * [Api set: ExcelApi 1.7]
@@ -19784,8 +19740,8 @@ declare namespace Excel {
     /**
      *
      * Range represents a set of one or more contiguous cells such as a cell, a row, a column, block of cells, etc.
-            To learn more about how ranges are used throughout the API, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges | Work with ranges using the Excel JavaScript API}
-            and {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges-advanced | Work with ranges using the Excel JavaScript API (advanced)}.
+                To learn more about how ranges are used throughout the API, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges | Work with ranges using the Excel JavaScript API}
+                and {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges-advanced | Work with ranges using the Excel JavaScript API (advanced)}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -19949,8 +19905,8 @@ declare namespace Excel {
         /**
          *
          * Represents Excel's number format code for the given range, based on the language settings of the user.​
-            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
-            Any returned text uses the locally-formatted strings based on the language specified in the system settings.
+                    Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
+                    Any returned text uses the locally-formatted strings based on the language specified in the system settings.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -19979,8 +19935,8 @@ declare namespace Excel {
         /**
          *
          * Represents the style of the current range.
-            If the styles of the cells are inconsistent, null will be returned.
-            For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
+                    If the styles of the cells are inconsistent, null will be returned.
+                    For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -20035,12 +19991,11 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Range): void;
         /**
-         *
          * Fills range from the current range to the destination range using the specified AutoFill logic.
-             The destination range can be null, or can extend the source either horizontally or vertically.
-             Discontiguous ranges are not supported.
-            
-             For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
+                     The destination range can be null, or can extend the source either horizontally or vertically.
+                     Discontiguous ranges are not supported.
+                    
+                     For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
          * [Api set: ExcelApi 1.9, ExcelApi Preview for null `destinationRange`]
          *
@@ -20049,12 +20004,11 @@ declare namespace Excel {
          */
         autoFill(destinationRange?: Range | string, autoFillType?: Excel.AutoFillType): void;
         /**
-         *
          * Fills range from the current range to the destination range using the specified AutoFill logic.
-             The destination range can be null, or can extend the source either horizontally or vertically.
-             Discontiguous ranges are not supported.
-            
-             For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
+                     The destination range can be null, or can extend the source either horizontally or vertically.
+                     Discontiguous ranges are not supported.
+                    
+                     For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
          * [Api set: ExcelApi 1.9, ExcelApi Preview for null `destinationRange`]
          *
@@ -20063,14 +20017,12 @@ declare namespace Excel {
          */
         autoFill(destinationRange?: Range | string, autoFillType?: "FillDefault" | "FillCopy" | "FillSeries" | "FillFormats" | "FillValues" | "FillDays" | "FillWeekdays" | "FillMonths" | "FillYears" | "LinearTrend" | "GrowthTrend" | "FlashFill"): void;
         /**
-         *
          * Calculates a range of cells on a worksheet.
          *
          * [Api set: ExcelApi 1.6]
          */
         calculate(): void;
         /**
-         *
          * Clear range values, format, fill, border, etc.
          *
          * [Api set: ExcelApi 1.1]
@@ -20079,7 +20031,6 @@ declare namespace Excel {
          */
         clear(applyTo?: Excel.ClearApplyTo): void;
         /**
-         *
          * Clear range values, format, fill, border, etc.
          *
          * [Api set: ExcelApi 1.1]
@@ -20088,14 +20039,12 @@ declare namespace Excel {
          */
         clear(applyTo?: "All" | "Formats" | "Contents" | "Hyperlinks" | "RemoveHyperlinks"): void;
         /**
-         *
          * Converts the range cells with datatypes into text.
          *
          * [Api set: ExcelApi 1.9]
          */
         convertDataTypeToText(): void;
         /**
-         *
          * Converts the range cells into linked datatype in the worksheet.
          *
          * [Api set: ExcelApi 1.9]
@@ -20105,9 +20054,8 @@ declare namespace Excel {
          */
         convertToLinkedDataType(serviceID: number, languageCulture: string): void;
         /**
-         *
          * Copies cell data or formatting from the source range or RangeAreas to the current range.
-            The destination range can be a different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
+                    The destination range can be a different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -20118,9 +20066,8 @@ declare namespace Excel {
          */
         copyFrom(sourceRange: Range | RangeAreas | string, copyType?: Excel.RangeCopyType, skipBlanks?: boolean, transpose?: boolean): void;
         /**
-         *
          * Copies cell data or formatting from the source range or RangeAreas to the current range.
-            The destination range can be a different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
+                    The destination range can be a different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -20131,7 +20078,6 @@ declare namespace Excel {
          */
         copyFrom(sourceRange: Range | RangeAreas | string, copyType?: "All" | "Formulas" | "Values" | "Formats", skipBlanks?: boolean, transpose?: boolean): void;
         /**
-         *
          * Deletes the cells associated with the range.
          *
          * [Api set: ExcelApi 1.1]
@@ -20140,7 +20086,6 @@ declare namespace Excel {
          */
         delete(shift: Excel.DeleteShiftDirection): void;
         /**
-         *
          * Deletes the cells associated with the range.
          *
          * [Api set: ExcelApi 1.1]
@@ -20149,9 +20094,8 @@ declare namespace Excel {
          */
         delete(shift: "Up" | "Left"): void;
         /**
-         *
          * Finds the given string based on the criteria specified.
-            If the current range is larger than a single cell, then the search will be limited to that range, else the search will cover the entire sheet starting after that cell.
+                    If the current range is larger than a single cell, then the search will be limited to that range, else the search will cover the entire sheet starting after that cell.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -20161,10 +20105,9 @@ declare namespace Excel {
          */
         find(text: string, criteria: Excel.SearchCriteria): Excel.Range;
         /**
-         *
          * Finds the given string based on the criteria specified.
-            If the current range is larger than a single cell, then the search will be limited to that range, else the search will cover the entire sheet starting after that cell.
-            If there are no matches, this function will return a null object.
+                    If the current range is larger than a single cell, then the search will be limited to that range, else the search will cover the entire sheet starting after that cell.
+                    If there are no matches, this function will return a null object.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -20174,14 +20117,12 @@ declare namespace Excel {
          */
         findOrNullObject(text: string, criteria: Excel.SearchCriteria): Excel.Range;
         /**
-         *
          * Does FlashFill to current range.Flash Fill will automatically fills data when it senses a pattern, so the range must be single column range and have data around in order to find pattern.
          *
          * [Api set: ExcelApi 1.9]
          */
         flashFill(): void;
         /**
-         *
          * Gets a Range object with the same top-left cell as the current Range object, but with the specified numbers of rows and columns.
          *
          * [Api set: ExcelApi 1.7]
@@ -20191,7 +20132,6 @@ declare namespace Excel {
          */
         getAbsoluteResizedRange(numRows: number, numColumns: number): Excel.Range;
         /**
-         *
          * Gets the smallest range object that encompasses the given ranges. For example, the GetBoundingRect of "B2:C5" and "D10:E15" is "B2:E15".
          *
          * [Api set: ExcelApi 1.1]
@@ -20200,7 +20140,6 @@ declare namespace Excel {
          */
         getBoundingRect(anotherRange: Range | string): Excel.Range;
         /**
-         *
          * Gets the range object containing the single cell based on row and column numbers. The cell can be outside the bounds of its parent range, so long as it stays within the worksheet grid. The returned cell is located relative to the top left cell of the range.
          *
          * [Api set: ExcelApi 1.1]
@@ -20210,7 +20149,6 @@ declare namespace Excel {
          */
         getCell(row: number, column: number): Excel.Range;
         /**
-         *
          * Returns a 2D array, encapsulating the data for each cell's font, fill, borders, alignment, and other properties.
          *
          * [Api set: ExcelApi 1.9]
@@ -20220,7 +20158,6 @@ declare namespace Excel {
          */
         getCellProperties(cellPropertiesLoadOptions: CellPropertiesLoadOptions): OfficeExtension.ClientResult<CellProperties[][]>;
         /**
-         *
          * Gets a column contained in the range.
          *
          * [Api set: ExcelApi 1.1]
@@ -20229,7 +20166,6 @@ declare namespace Excel {
          */
         getColumn(column: number): Excel.Range;
         /**
-         *
          * Returns a single-dimensional array, encapsulating the data for each column's font, fill, borders, alignment, and other properties.  For properties that are not consistent across each cell within a given column, null will be returned.
          *
          * [Api set: ExcelApi 1.9]
@@ -20239,7 +20175,6 @@ declare namespace Excel {
          */
         getColumnProperties(columnPropertiesLoadOptions: ColumnPropertiesLoadOptions): OfficeExtension.ClientResult<ColumnProperties[]>;
         /**
-         *
          * Gets a certain number of columns to the right of the current Range object.
          *
          * [Api set: ExcelApi 1.2]
@@ -20248,7 +20183,6 @@ declare namespace Excel {
          */
         getColumnsAfter(count?: number): Excel.Range;
         /**
-         *
          * Gets a certain number of columns to the left of the current Range object.
          *
          * [Api set: ExcelApi 1.2]
@@ -20257,31 +20191,26 @@ declare namespace Excel {
          */
         getColumnsBefore(count?: number): Excel.Range;
         /**
-         *
          * Gets an object that represents the entire column of the range (for example, if the current range represents cells "B4:E11", its `getEntireColumn` is a range that represents columns "B:E").
          *
          * [Api set: ExcelApi 1.1]
          */
         getEntireColumn(): Excel.Range;
         /**
-         *
          * Gets an object that represents the entire row of the range (for example, if the current range represents cells "B4:E11", its `GetEntireRow` is a range that represents rows "4:11").
          *
          * [Api set: ExcelApi 1.1]
          */
         getEntireRow(): Excel.Range;
         /**
-         *
          * Renders the range as a base64-encoded png image.
          * 
          * **Important**: This API is currently unsupported in Excel for Mac. Visit [OfficeDev/office-js Issue #235](https://github.com/OfficeDev/office-js/issues/235) for the current status.
          *
          * [Api set: ExcelApi 1.7]
-         * 
          */
         getImage(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Gets the range object that represents the rectangular intersection of the given ranges.
          *
          * [Api set: ExcelApi 1.1]
@@ -20290,7 +20219,6 @@ declare namespace Excel {
          */
         getIntersection(anotherRange: Range | string): Excel.Range;
         /**
-         *
          * Gets the range object that represents the rectangular intersection of the given ranges. If no intersection is found, will return a null object.
          *
          * [Api set: ExcelApi 1.4]
@@ -20299,28 +20227,24 @@ declare namespace Excel {
          */
         getIntersectionOrNullObject(anotherRange: Range | string): Excel.Range;
         /**
-         *
          * Gets the last cell within the range. For example, the last cell of "B2:D5" is "D5".
          *
          * [Api set: ExcelApi 1.1]
          */
         getLastCell(): Excel.Range;
         /**
-         *
          * Gets the last column within the range. For example, the last column of "B2:D5" is "D2:D5".
          *
          * [Api set: ExcelApi 1.1]
          */
         getLastColumn(): Excel.Range;
         /**
-         *
          * Gets the last row within the range. For example, the last row of "B2:D5" is "B5:D5".
          *
          * [Api set: ExcelApi 1.1]
          */
         getLastRow(): Excel.Range;
         /**
-         *
          * Gets an object which represents a range that's offset from the specified range. The dimension of the returned range will match this range. If the resulting range is forced outside the bounds of the worksheet grid, an error will be thrown.
          *
          * [Api set: ExcelApi 1.1]
@@ -20330,7 +20254,6 @@ declare namespace Excel {
          */
         getOffsetRange(rowOffset: number, columnOffset: number): Excel.Range;
         /**
-         *
          * Gets a Range object similar to the current Range object, but with its bottom-right corner expanded (or contracted) by some number of rows and columns.
          *
          * [Api set: ExcelApi 1.2]
@@ -20340,7 +20263,6 @@ declare namespace Excel {
          */
         getResizedRange(deltaRows: number, deltaColumns: number): Excel.Range;
         /**
-         *
          * Gets a row contained in the range.
          *
          * [Api set: ExcelApi 1.1]
@@ -20349,7 +20271,6 @@ declare namespace Excel {
          */
         getRow(row: number): Excel.Range;
         /**
-         *
          * Returns a single-dimensional array, encapsulating the data for each row's font, fill, borders, alignment, and other properties.  For properties that are not consistent across each cell within a given row, null will be returned.
          *
          * [Api set: ExcelApi 1.9]
@@ -20359,7 +20280,6 @@ declare namespace Excel {
          */
         getRowProperties(rowPropertiesLoadOptions: RowPropertiesLoadOptions): OfficeExtension.ClientResult<RowProperties[]>;
         /**
-         *
          * Gets a certain number of rows above the current Range object.
          *
          * [Api set: ExcelApi 1.2]
@@ -20368,7 +20288,6 @@ declare namespace Excel {
          */
         getRowsAbove(count?: number): Excel.Range;
         /**
-         *
          * Gets a certain number of rows below the current Range object.
          *
          * [Api set: ExcelApi 1.2]
@@ -20377,9 +20296,8 @@ declare namespace Excel {
          */
         getRowsBelow(count?: number): Excel.Range;
         /**
-         *
          * Gets the RangeAreas object, comprising one or more rectangular ranges, that represents all the cells that match the specified type and value.
-            If no special cells are found, an ItemNotFound error will be thrown.
+                    If no special cells are found, an ItemNotFound error will be thrown.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -20388,9 +20306,8 @@ declare namespace Excel {
          */
         getSpecialCells(cellType: Excel.SpecialCellType, cellValueType?: Excel.SpecialCellValueType): Excel.RangeAreas;
         /**
-         *
          * Gets the RangeAreas object, comprising one or more rectangular ranges, that represents all the cells that match the specified type and value.
-            If no special cells are found, an ItemNotFound error will be thrown.
+                    If no special cells are found, an ItemNotFound error will be thrown.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -20399,9 +20316,8 @@ declare namespace Excel {
          */
         getSpecialCells(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
         /**
-         *
          * Gets the RangeAreas object, comprising one or more ranges, that represents all the cells that match the specified type and value.
-            If no special cells are found, a null object will be returned.
+                    If no special cells are found, a null object will be returned.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -20410,9 +20326,8 @@ declare namespace Excel {
          */
         getSpecialCellsOrNullObject(cellType: Excel.SpecialCellType, cellValueType?: Excel.SpecialCellValueType): Excel.RangeAreas;
         /**
-         *
          * Gets the RangeAreas object, comprising one or more ranges, that represents all the cells that match the specified type and value.
-            If no special cells are found, a null object will be returned.
+                    If no special cells are found, a null object will be returned.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -20421,14 +20336,12 @@ declare namespace Excel {
          */
         getSpecialCellsOrNullObject(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
         /**
-         *
          * Returns a Range object that represents the surrounding region for the top-left cell in this range. A surrounding region is a range bounded by any combination of blank rows and blank columns relative to this range.
          *
          * [Api set: ExcelApi 1.7]
          */
         getSurroundingRegion(): Excel.Range;
         /**
-         *
          * Gets a scoped collection of tables that overlap with the range.
          *
          * [Api set: ExcelApi 1.9]
@@ -20437,7 +20350,6 @@ declare namespace Excel {
          */
         getTables(fullyContained?: boolean): Excel.TableScopedCollection;
         /**
-         *
          * Returns the used range of the given range object. If there are no used cells within the range, this function will throw an ItemNotFound error.
          *
          * [Api set: ExcelApi 1.1]
@@ -20446,7 +20358,6 @@ declare namespace Excel {
          */
         getUsedRange(valuesOnly?: boolean): Excel.Range;
         /**
-         *
          * Returns the used range of the given range object. If there are no used cells within the range, this function will return a null object.
          *
          * [Api set: ExcelApi 1.4]
@@ -20455,38 +20366,34 @@ declare namespace Excel {
          */
         getUsedRangeOrNullObject(valuesOnly?: boolean): Excel.Range;
         /**
-         *
          * Represents the visible rows of the current range.
          *
          * [Api set: ExcelApi 1.3]
          */
         getVisibleView(): Excel.RangeView;
         /**
-         *
          * Groups columns and rows for an outline.
          *
          * [Api set: ExcelApi 1.10]
          *
          * @param groupOption Specifies how the range can be grouped by rows or columns.
-            An `InvalidArgument` error is thrown when the group option differs from the range's
-            `isEntireRow` or `isEntireColumn` property (i.e., `range.isEntireRow` is true and `groupOption` is "ByColumns"
-            or `range.isEntireColumn` is true and `groupOption` is "ByRows").
+                    An `InvalidArgument` error is thrown when the group option differs from the range's
+                    `isEntireRow` or `isEntireColumn` property (i.e., `range.isEntireRow` is true and `groupOption` is "ByColumns"
+                    or `range.isEntireColumn` is true and `groupOption` is "ByRows").
          */
         group(groupOption: Excel.GroupOption): void;
         /**
-         *
          * Groups columns and rows for an outline.
          *
          * [Api set: ExcelApi 1.10]
          *
          * @param groupOption Specifies how the range can be grouped by rows or columns.
-            An `InvalidArgument` error is thrown when the group option differs from the range's
-            `isEntireRow` or `isEntireColumn` property (i.e., `range.isEntireRow` is true and `groupOption` is "ByColumns"
-            or `range.isEntireColumn` is true and `groupOption` is "ByRows").
+                    An `InvalidArgument` error is thrown when the group option differs from the range's
+                    `isEntireRow` or `isEntireColumn` property (i.e., `range.isEntireRow` is true and `groupOption` is "ByColumns"
+                    or `range.isEntireColumn` is true and `groupOption` is "ByRows").
          */
         group(groupOption: "ByRows" | "ByColumns"): void;
         /**
-         *
          * Hide details of the row or column group.
          *
          * [Api set: ExcelApi 1.10]
@@ -20495,7 +20402,6 @@ declare namespace Excel {
          */
         hideGroupDetails(groupOption: Excel.GroupOption): void;
         /**
-         *
          * Hide details of the row or column group.
          *
          * [Api set: ExcelApi 1.10]
@@ -20504,7 +20410,6 @@ declare namespace Excel {
          */
         hideGroupDetails(groupOption: "ByRows" | "ByColumns"): void;
         /**
-         *
          * Inserts a cell or a range of cells into the worksheet in place of this range, and shifts the other cells to make space. Returns a new Range object at the now blank space.
          *
          * [Api set: ExcelApi 1.1]
@@ -20513,7 +20418,6 @@ declare namespace Excel {
          */
         insert(shift: Excel.InsertShiftDirection): Excel.Range;
         /**
-         *
          * Inserts a cell or a range of cells into the worksheet in place of this range, and shifts the other cells to make space. Returns a new Range object at the now blank space.
          *
          * [Api set: ExcelApi 1.1]
@@ -20522,7 +20426,6 @@ declare namespace Excel {
          */
         insert(shift: "Down" | "Right"): Excel.Range;
         /**
-         *
          * Merge the range cells into one region in the worksheet.
          *
          * [Api set: ExcelApi 1.2]
@@ -20531,9 +20434,8 @@ declare namespace Excel {
          */
         merge(across?: boolean): void;
         /**
-         *
          * Moves cell values, formatting, and formulas from current range to the destination range, replacing the old information in those cells.
-            The destination range will be expanded automatically if it is smaller than the current range. Any cells in the destination range that are outside of the original range's area are not changed.
+                    The destination range will be expanded automatically if it is smaller than the current range. Any cells in the destination range that are outside of the original range's area are not changed.
          *
          * [Api set: ExcelApiOnline 1.1]
          *
@@ -20541,7 +20443,6 @@ declare namespace Excel {
          */
         moveTo(destinationRange: Range | string): void;
         /**
-         *
          * Removes duplicate values from the range specified by the columns.
          *
          * [Api set: ExcelApi 1.9]
@@ -20552,7 +20453,6 @@ declare namespace Excel {
          */
         removeDuplicates(columns: number[], includesHeader: boolean): Excel.RemoveDuplicatesResult;
         /**
-         *
          * Finds and replaces the given string based on the criteria specified within the current range.
          *
          * [Api set: ExcelApi 1.9]
@@ -20564,14 +20464,12 @@ declare namespace Excel {
          */
         replaceAll(text: string, replacement: string, criteria: Excel.ReplaceCriteria): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Selects the specified range in the Excel UI.
          *
          * [Api set: ExcelApi 1.1]
          */
         select(): void;
         /**
-         *
          * Updates the range based on a 2D array of cell properties , encapsulating things like font, fill, borders, alignment, and so forth.
          *
          * [Api set: ExcelApi 1.9]
@@ -20580,7 +20478,6 @@ declare namespace Excel {
          */
         setCellProperties(cellPropertiesData: SettableCellProperties[][]): void;
         /**
-         *
          * Updates the range based on a single-dimensional array of column properties, encapsulating things like font, fill, borders, alignment, and so forth.
          *
          * [Api set: ExcelApi 1.9]
@@ -20589,14 +20486,12 @@ declare namespace Excel {
          */
         setColumnProperties(columnPropertiesData: SettableColumnProperties[]): void;
         /**
-         *
          * Set a range to be recalculated when the next recalculation occurs.
          *
          * [Api set: ExcelApi 1.9]
          */
         setDirty(): void;
         /**
-         *
          * Updates the range based on a single-dimensional array of row properties, encapsulating things like font, fill, borders, alignment, and so forth.
          *
          * [Api set: ExcelApi 1.9]
@@ -20605,14 +20500,12 @@ declare namespace Excel {
          */
         setRowProperties(rowPropertiesData: SettableRowProperties[]): void;
         /**
-         *
          * Displays the card for an active cell if it has rich value content.
          *
          * [Api set: ExcelApi 1.7]
          */
         showCard(): void;
         /**
-         *
          * Show details of the row or column group.
          *
          * [Api set: ExcelApi 1.10]
@@ -20621,7 +20514,6 @@ declare namespace Excel {
          */
         showGroupDetails(groupOption: Excel.GroupOption): void;
         /**
-         *
          * Show details of the row or column group.
          *
          * [Api set: ExcelApi 1.10]
@@ -20630,7 +20522,6 @@ declare namespace Excel {
          */
         showGroupDetails(groupOption: "ByRows" | "ByColumns"): void;
         /**
-         *
          * Ungroups columns and rows for an outline.
          *
          * [Api set: ExcelApi 1.10]
@@ -20639,7 +20530,6 @@ declare namespace Excel {
          */
         ungroup(groupOption: Excel.GroupOption): void;
         /**
-         *
          * Ungroups columns and rows for an outline.
          *
          * [Api set: ExcelApi 1.10]
@@ -20648,7 +20538,6 @@ declare namespace Excel {
          */
         ungroup(groupOption: "ByRows" | "ByColumns"): void;
         /**
-         *
          * Unmerge the range cells into separate cells.
          *
          * [Api set: ExcelApi 1.2]
@@ -20743,7 +20632,7 @@ declare namespace Excel {
     /**
      *
      * RangeAreas represents a collection of one or more rectangular ranges in the same worksheet.
-            To learn how to use discontinguous ranges, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-multiple-ranges | Work with multiple ranges simultaneously in Excel add-ins}.
+                To learn how to use discontinguous ranges, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-multiple-ranges | Work with multiple ranges simultaneously in Excel add-ins}.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -20830,8 +20719,8 @@ declare namespace Excel {
         /**
          *
          * Represents the style for all ranges in this RangeAreas object.
-            If the styles of the cells are inconsistent, null will be returned.
-            For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
+                    If the styles of the cells are inconsistent, null will be returned.
+                    For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -20851,14 +20740,12 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.RangeAreas): void;
         /**
-         *
          * Calculates all cells in the RangeAreas.
          *
          * [Api set: ExcelApi 1.9]
          */
         calculate(): void;
         /**
-         *
          * Clears values, format, fill, border, etc on each of the areas that comprise this RangeAreas object.
          *
          * [Api set: ExcelApi 1.9]
@@ -20867,7 +20754,6 @@ declare namespace Excel {
          */
         clear(applyTo?: Excel.ClearApplyTo): void;
         /**
-         *
          * Clears values, format, fill, border, etc on each of the areas that comprise this RangeAreas object.
          *
          * [Api set: ExcelApi 1.9]
@@ -20876,14 +20762,12 @@ declare namespace Excel {
          */
         clear(applyTo?: "All" | "Formats" | "Contents" | "Hyperlinks" | "RemoveHyperlinks"): void;
         /**
-         *
          * Converts all cells in the RangeAreas with datatypes into text.
          *
          * [Api set: ExcelApi 1.9]
          */
         convertDataTypeToText(): void;
         /**
-         *
          * Converts all cells in the RangeAreas into linked datatype.
          *
          * [Api set: ExcelApi 1.9]
@@ -20893,9 +20777,8 @@ declare namespace Excel {
          */
         convertToLinkedDataType(serviceID: number, languageCulture: string): void;
         /**
-         *
          * Copies cell data or formatting from the source range or RangeAreas to the current RangeAreas.
-            The destination rangeAreas can be a different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
+                    The destination rangeAreas can be a different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -20906,9 +20789,8 @@ declare namespace Excel {
          */
         copyFrom(sourceRange: Range | RangeAreas | string, copyType?: Excel.RangeCopyType, skipBlanks?: boolean, transpose?: boolean): void;
         /**
-         *
          * Copies cell data or formatting from the source range or RangeAreas to the current RangeAreas.
-            The destination rangeAreas can be a different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
+                    The destination rangeAreas can be a different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -20919,21 +20801,18 @@ declare namespace Excel {
          */
         copyFrom(sourceRange: Range | RangeAreas | string, copyType?: "All" | "Formulas" | "Values" | "Formats", skipBlanks?: boolean, transpose?: boolean): void;
         /**
-         *
          * Returns a RangeAreas object that represents the entire columns of the RangeAreas (for example, if the current RangeAreas represents cells "B4:E11, H2", it returns a RangeAreas that represents columns "B:E, H:H").
          *
          * [Api set: ExcelApi 1.9]
          */
         getEntireColumn(): Excel.RangeAreas;
         /**
-         *
          * Returns a RangeAreas object that represents the entire rows of the RangeAreas (for example, if the current RangeAreas represents cells "B4:E11", it returns a RangeAreas that represents rows "4:11").
          *
          * [Api set: ExcelApi 1.9]
          */
         getEntireRow(): Excel.RangeAreas;
         /**
-         *
          * Returns the RangeAreas object that represents the intersection of the given ranges or RangeAreas. If no intersection is found, an ItemNotFound error will be thrown.
          *
          * [Api set: ExcelApi 1.9]
@@ -20942,7 +20821,6 @@ declare namespace Excel {
          */
         getIntersection(anotherRange: Range | RangeAreas | string): Excel.RangeAreas;
         /**
-         *
          * Returns the RangeAreas object that represents the intersection of the given ranges or RangeAreas. If no intersection is found, a null object is returned.
          *
          * [Api set: ExcelApi 1.9]
@@ -20951,7 +20829,6 @@ declare namespace Excel {
          */
         getIntersectionOrNullObject(anotherRange: Range | RangeAreas | string): Excel.RangeAreas;
         /**
-         *
          * Returns an RangeAreas object that is shifted by the specific row and column offset. The dimension of the returned RangeAreas will match the original object. If the resulting RangeAreas is forced outside the bounds of the worksheet grid, an error will be thrown.
          *
          * [Api set: ExcelApi 1.9]
@@ -20961,7 +20838,6 @@ declare namespace Excel {
          */
         getOffsetRangeAreas(rowOffset: number, columnOffset: number): Excel.RangeAreas;
         /**
-         *
          * Returns a RangeAreas object that represents all the cells that match the specified type and value. Throws an error if no special cells are found that match the criteria.
          *
          * [Api set: ExcelApi 1.9]
@@ -20971,7 +20847,6 @@ declare namespace Excel {
          */
         getSpecialCells(cellType: Excel.SpecialCellType, cellValueType?: Excel.SpecialCellValueType): Excel.RangeAreas;
         /**
-         *
          * Returns a RangeAreas object that represents all the cells that match the specified type and value. Throws an error if no special cells are found that match the criteria.
          *
          * [Api set: ExcelApi 1.9]
@@ -20981,7 +20856,6 @@ declare namespace Excel {
          */
         getSpecialCells(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
         /**
-         *
          * Returns a RangeAreas object that represents all the cells that match the specified type and value. Returns a null object if no special cells are found that match the criteria.
          *
          * [Api set: ExcelApi 1.9]
@@ -20991,7 +20865,6 @@ declare namespace Excel {
          */
         getSpecialCellsOrNullObject(cellType: Excel.SpecialCellType, cellValueType?: Excel.SpecialCellValueType): Excel.RangeAreas;
         /**
-         *
          * Returns a RangeAreas object that represents all the cells that match the specified type and value. Returns a null object if no special cells are found that match the criteria.
          *
          * [Api set: ExcelApi 1.9]
@@ -21001,7 +20874,6 @@ declare namespace Excel {
          */
         getSpecialCellsOrNullObject(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
         /**
-         *
          * Returns a scoped collection of tables that overlap with any range in this RangeAreas object.
          *
          * [Api set: ExcelApi 1.9]
@@ -21010,9 +20882,8 @@ declare namespace Excel {
          */
         getTables(fullyContained?: boolean): Excel.TableScopedCollection;
         /**
-         *
          * Returns the used RangeAreas that comprises all the used areas of individual rectangular ranges in the RangeAreas object.
-            If there are no used cells within the RangeAreas, the ItemNotFound error will be thrown.
+                    If there are no used cells within the RangeAreas, the ItemNotFound error will be thrown.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -21020,9 +20891,8 @@ declare namespace Excel {
          */
         getUsedRangeAreas(valuesOnly?: boolean): Excel.RangeAreas;
         /**
-         *
          * Returns the used RangeAreas that comprises all the used areas of individual rectangular ranges in the RangeAreas object.
-            If there are no used cells within the RangeAreas, a null object will be returned.
+                    If there are no used cells within the RangeAreas, a null object will be returned.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -21030,7 +20900,6 @@ declare namespace Excel {
          */
         getUsedRangeAreasOrNullObject(valuesOnly?: boolean): Excel.RangeAreas;
         /**
-         *
          * Sets the RangeAreas to be recalculated when the next recalculation occurs.
          *
          * [Api set: ExcelApi 1.9]
@@ -21081,8 +20950,8 @@ declare namespace Excel {
         /**
          *
          * Specifies whether the match needs to be complete or partial.
-            A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
-            Default is false (partial).
+                    A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
+                    Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -21112,8 +20981,8 @@ declare namespace Excel {
         /**
          *
          * Specifies whether the match needs to be complete or partial.
-            A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
-            Default is false (partial).
+                    A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
+                    Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -21136,8 +21005,8 @@ declare namespace Excel {
         /**
          *
          * Specifies whether the match needs to be complete or partial.
-            A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
-            Default is false (partial).
+                    A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`).
+                    Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -21658,7 +21527,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.RangeView): void;
         /**
-         *
          * Gets the parent range associated with the current RangeView.
          *
          * [Api set: ExcelApi 1.3]
@@ -21703,14 +21571,12 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.RangeView[];
         /**
-         *
          * Gets the number of RangeView objects in the collection.
          *
          * [Api set: ExcelApi 1.4]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a RangeView Row via its index. Zero-Indexed.
          *
          * [Api set: ExcelApi 1.3]
@@ -21754,7 +21620,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.Setting[];
         /**
-         *
          * Sets or adds the specified setting to the workbook.
          *
          * [Api set: ExcelApi 1.4]
@@ -21764,14 +21629,12 @@ declare namespace Excel {
          */
         add(key: string, value: string | number | boolean | Date | Array<any> | any): Excel.Setting;
         /**
-         *
          * Gets the number of Settings in the collection.
          *
          * [Api set: ExcelApi 1.4]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a Setting entry via the key.
          *
          * [Api set: ExcelApi 1.4]
@@ -21780,7 +21643,6 @@ declare namespace Excel {
          */
         getItem(key: string): Excel.Setting;
         /**
-         *
          * Gets a Setting entry via the key. If the Setting does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.4]
@@ -21830,9 +21692,6 @@ declare namespace Excel {
     class Setting extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
-        private static DateJSONPrefix;
-        private static DateJSONSuffix;
-        private static replaceStringDateWithDate;
         /**
          *
          * Returns the key that represents the id of the Setting. Read-only.
@@ -21862,7 +21721,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Setting): void;
         /**
-         *
          * Deletes the setting.
          *
          * [Api set: ExcelApi 1.4]
@@ -21907,7 +21765,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.NamedItem[];
         /**
-         *
          * Adds a new name to the collection of the given scope.
          *
          * [Api set: ExcelApi 1.4]
@@ -21919,7 +21776,6 @@ declare namespace Excel {
          */
         add(name: string, reference: Range | string, comment?: string): Excel.NamedItem;
         /**
-         *
          * Adds a new name to the collection of the given scope using the user's locale for the formula.
          *
          * [Api set: ExcelApi 1.4]
@@ -21931,14 +21787,12 @@ declare namespace Excel {
          */
         addFormulaLocal(name: string, formula: string, comment?: string): Excel.NamedItem;
         /**
-         *
          * Gets the number of named items in the collection.
          *
          * [Api set: ExcelApi 1.4]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a NamedItem object using its name.
          *
          * [Api set: ExcelApi 1.1]
@@ -21947,7 +21801,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.NamedItem;
         /**
-         *
          * Gets a NamedItem object using its name. If the nameditem object does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.4]
@@ -22073,21 +21926,18 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.NamedItem): void;
         /**
-         *
          * Deletes the given name.
          *
          * [Api set: ExcelApi 1.4]
          */
         delete(): void;
         /**
-         *
          * Returns the range object that is associated with the name. Throws an error if the named item's type is not a range.
          *
          * [Api set: ExcelApi 1.1]
          */
         getRange(): Excel.Range;
         /**
-         *
          * Returns the range object that is associated with the name. Returns a null object if the named item's type is not a range.
          *
          * [Api set: ExcelApi 1.4]
@@ -22194,28 +22044,24 @@ declare namespace Excel {
          */
         readonly type: Excel.BindingType | "Range" | "Table" | "Text";
         /**
-         *
          * Deletes the binding.
          *
          * [Api set: ExcelApi 1.3]
          */
         delete(): void;
         /**
-         *
          * Returns the range represented by the binding. Will throw an error if binding is not of the correct type.
          *
          * [Api set: ExcelApi 1.1]
          */
         getRange(): Excel.Range;
         /**
-         *
          * Returns the table represented by the binding. Will throw an error if binding is not of the correct type.
          *
          * [Api set: ExcelApi 1.1]
          */
         getTable(): Excel.Table;
         /**
-         *
          * Returns the text represented by the binding. Will throw an error if binding is not of the correct type.
          *
          * [Api set: ExcelApi 1.1]
@@ -22285,7 +22131,6 @@ declare namespace Excel {
          */
         readonly count: number;
         /**
-         *
          * Add a new binding to a particular Range.
          *
          * [Api set: ExcelApi 1.3]
@@ -22296,7 +22141,6 @@ declare namespace Excel {
          */
         add(range: Range | string, bindingType: Excel.BindingType, id: string): Excel.Binding;
         /**
-         *
          * Add a new binding to a particular Range.
          *
          * [Api set: ExcelApi 1.3]
@@ -22307,9 +22151,8 @@ declare namespace Excel {
          */
         add(range: Range | string, bindingType: "Range" | "Table" | "Text", id: string): Excel.Binding;
         /**
-         *
          * Add a new binding based on a named item in the workbook.
-            If the named item references to multiple areas, the "InvalidReference" error will be returned.
+                    If the named item references to multiple areas, the "InvalidReference" error will be returned.
          *
          * [Api set: ExcelApi 1.3]
          *
@@ -22319,9 +22162,8 @@ declare namespace Excel {
          */
         addFromNamedItem(name: string, bindingType: Excel.BindingType, id: string): Excel.Binding;
         /**
-         *
          * Add a new binding based on a named item in the workbook.
-            If the named item references to multiple areas, the "InvalidReference" error will be returned.
+                    If the named item references to multiple areas, the "InvalidReference" error will be returned.
          *
          * [Api set: ExcelApi 1.3]
          *
@@ -22331,9 +22173,8 @@ declare namespace Excel {
          */
         addFromNamedItem(name: string, bindingType: "Range" | "Table" | "Text", id: string): Excel.Binding;
         /**
-         *
          * Add a new binding based on the current selection.
-            If the selection has multiple areas, the "InvalidReference" error will be returned.
+                    If the selection has multiple areas, the "InvalidReference" error will be returned.
          *
          * [Api set: ExcelApi 1.3]
          *
@@ -22342,9 +22183,8 @@ declare namespace Excel {
          */
         addFromSelection(bindingType: Excel.BindingType, id: string): Excel.Binding;
         /**
-         *
          * Add a new binding based on the current selection.
-            If the selection has multiple areas, the "InvalidReference" error will be returned.
+                    If the selection has multiple areas, the "InvalidReference" error will be returned.
          *
          * [Api set: ExcelApi 1.3]
          *
@@ -22353,14 +22193,12 @@ declare namespace Excel {
          */
         addFromSelection(bindingType: "Range" | "Table" | "Text", id: string): Excel.Binding;
         /**
-         *
          * Gets the number of bindings in the collection.
          *
          * [Api set: ExcelApi 1.4]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a binding object by ID.
          *
          * [Api set: ExcelApi 1.1]
@@ -22369,7 +22207,6 @@ declare namespace Excel {
          */
         getItem(id: string): Excel.Binding;
         /**
-         *
          * Gets a binding object based on its position in the items array.
          *
          * [Api set: ExcelApi 1.1]
@@ -22378,7 +22215,6 @@ declare namespace Excel {
          */
         getItemAt(index: number): Excel.Binding;
         /**
-         *
          * Gets a binding object by ID. If the binding object does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.4]
@@ -22429,7 +22265,6 @@ declare namespace Excel {
          */
         readonly count: number;
         /**
-         *
          * Create a new table. The range object or source address determines the worksheet under which the table will be added. If the table cannot be added (e.g., because the address is invalid, or the table would overlap with another table), an error will be thrown.
          *
          * [Api set: ExcelApi 1.1]
@@ -22439,14 +22274,12 @@ declare namespace Excel {
          */
         add(address: Range | string, hasHeaders: boolean): Excel.Table;
         /**
-         *
          * Gets the number of tables in the collection.
          *
          * [Api set: ExcelApi 1.4]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a table by Name or ID.
          *
          * [Api set: ExcelApi 1.1]
@@ -22455,7 +22288,6 @@ declare namespace Excel {
          */
         getItem(key: string): Excel.Table;
         /**
-         *
          * Gets a table based on its position in the collection.
          *
          * [Api set: ExcelApi 1.1]
@@ -22464,7 +22296,6 @@ declare namespace Excel {
          */
         getItemAt(index: number): Excel.Table;
         /**
-         *
          * Gets a table by Name or ID. If the table does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.4]
@@ -22535,21 +22366,18 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.Table[];
         /**
-         *
          * Gets the number of tables in the collection.
          *
          * [Api set: ExcelApi 1.9]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets the first table in the collection. The tables in the collection are sorted top to bottom and left to right, such that top left table is the first table in the collection.
          *
          * [Api set: ExcelApi 1.9]
          */
         getFirst(): Excel.Table;
         /**
-         *
          * Gets a table by Name or ID.
          *
          * [Api set: ExcelApi 1.9]
@@ -22584,7 +22412,7 @@ declare namespace Excel {
     /**
      *
      * Represents an Excel table.
-            To learn more about the table object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables | Work with tables using the Excel JavaScript API}.
+                To learn more about the table object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables | Work with tables using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -22657,8 +22485,8 @@ declare namespace Excel {
         /**
          *
          * Name of the table.
-            
-             The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
+                    
+                     The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -22720,56 +22548,48 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Table): void;
         /**
-         *
          * Clears all the filters currently applied on the table.
          *
          * [Api set: ExcelApi 1.2]
          */
         clearFilters(): void;
         /**
-         *
          * Converts the table into a normal range of cells. All data is preserved.
          *
          * [Api set: ExcelApi 1.2]
          */
         convertToRange(): Excel.Range;
         /**
-         *
          * Deletes the table.
          *
          * [Api set: ExcelApi 1.1]
          */
         delete(): void;
         /**
-         *
          * Gets the range object associated with the data body of the table.
          *
          * [Api set: ExcelApi 1.1]
          */
         getDataBodyRange(): Excel.Range;
         /**
-         *
          * Gets the range object associated with header row of the table.
          *
          * [Api set: ExcelApi 1.1]
          */
         getHeaderRowRange(): Excel.Range;
         /**
-         *
          * Gets the range object associated with the entire table.
          *
          * [Api set: ExcelApi 1.1]
          */
         getRange(): Excel.Range;
         /**
-         *
          * Gets the range object associated with totals row of the table.
          *
          * [Api set: ExcelApi 1.1]
          */
         getTotalRowRange(): Excel.Range;
         /**
-         *
          * Reapplies all the filters currently on the table.
          *
          * [Api set: ExcelApi 1.2]
@@ -22839,7 +22659,6 @@ declare namespace Excel {
          */
         readonly count: number;
         /**
-         *
          * Adds a new column to the table.
          *
          * [Api set: ExcelApi 1.1 requires an index smaller than the total column count; 1.4 allows index to be optional (null or -1) and will append a column at the end; 1.4 allows name parameter at creation time.]
@@ -22850,14 +22669,12 @@ declare namespace Excel {
          */
         add(index?: number, values?: Array<Array<boolean | string | number>> | boolean | string | number, name?: string): Excel.TableColumn;
         /**
-         *
          * Gets the number of columns in the table.
          *
          * [Api set: ExcelApi 1.4]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a column object by Name or ID.
          *
          * [Api set: ExcelApi 1.1]
@@ -22866,7 +22683,6 @@ declare namespace Excel {
          */
         getItem(key: number | string): Excel.TableColumn;
         /**
-         *
          * Gets a column based on its position in the collection.
          *
          * [Api set: ExcelApi 1.1]
@@ -22875,7 +22691,6 @@ declare namespace Excel {
          */
         getItemAt(index: number): Excel.TableColumn;
         /**
-         *
          * Gets a column object by Name or ID. If the column does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.4]
@@ -22966,35 +22781,30 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.TableColumn): void;
         /**
-         *
          * Deletes the column from the table.
          *
          * [Api set: ExcelApi 1.1]
          */
         delete(): void;
         /**
-         *
          * Gets the range object associated with the data body of the column.
          *
          * [Api set: ExcelApi 1.1]
          */
         getDataBodyRange(): Excel.Range;
         /**
-         *
          * Gets the range object associated with the header row of the column.
          *
          * [Api set: ExcelApi 1.1]
          */
         getHeaderRowRange(): Excel.Range;
         /**
-         *
          * Gets the range object associated with the entire column.
          *
          * [Api set: ExcelApi 1.1]
          */
         getRange(): Excel.Range;
         /**
-         *
          * Gets the range object associated with the totals row of the column.
          *
          * [Api set: ExcelApi 1.1]
@@ -23030,11 +22840,11 @@ declare namespace Excel {
     /**
      *
      * Represents a collection of all the rows that are part of the table.
-            
-             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
-             a TableRow object represent the physical location of the table row, but not the data.
-             That is, if the data is sorted or if new rows are added, a table row will continue
-             to point at the index for which it was created.
+                
+                 Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
+                 a TableRow object represent the physical location of the table row, but not the data.
+                 That is, if the data is sorted or if new rows are added, a table row will continue
+                 to point at the index for which it was created.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -23051,13 +22861,12 @@ declare namespace Excel {
          */
         readonly count: number;
         /**
-         *
          * Adds one or more rows to the table. The return object will be the top of the newly added row(s).
-            
-             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
-             a TableRow object represent the physical location of the table row, but not the data.
-             That is, if the data is sorted or if new rows are added, a table row will continue
-             to point at the index for which it was created.
+                    
+                     Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
+                     a TableRow object represent the physical location of the table row, but not the data.
+                     That is, if the data is sorted or if new rows are added, a table row will continue
+                     to point at the index for which it was created.
          *
          * [Api set: ExcelApi 1.1 for adding a single row; 1.4 allows adding of multiple rows.]
          *
@@ -23066,20 +22875,18 @@ declare namespace Excel {
          */
         add(index?: number, values?: Array<Array<boolean | string | number>> | boolean | string | number): Excel.TableRow;
         /**
-         *
          * Gets the number of rows in the table.
          *
          * [Api set: ExcelApi 1.4]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a row based on its position in the collection.
-            
-             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
-             a TableRow object represent the physical location of the table row, but not the data.
-             That is, if the data is sorted or if new rows are added, a table row will continue
-             to point at the index for which it was created.
+                    
+                     Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
+                     a TableRow object represent the physical location of the table row, but not the data.
+                     That is, if the data is sorted or if new rows are added, a table row will continue
+                     to point at the index for which it was created.
          *
          * [Api set: ExcelApi 1.1]
          *
@@ -23113,11 +22920,11 @@ declare namespace Excel {
     /**
      *
      * Represents a row in a table.
-            
-             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
-             a TableRow object represent the physical location of the table row, but not the data.
-             That is, if the data is sorted or if new rows are added, a table row will continue
-             to point at the index for which it was created.
+                
+                 Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
+                 a TableRow object represent the physical location of the table row, but not the data.
+                 That is, if the data is sorted or if new rows are added, a table row will continue
+                 to point at the index for which it was created.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -23153,14 +22960,12 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.TableRow): void;
         /**
-         *
          * Deletes the row from the table.
          *
          * [Api set: ExcelApi 1.1]
          */
         delete(): void;
         /**
-         *
          * Returns the range object associated with the entire row.
          *
          * [Api set: ExcelApi 1.1]
@@ -23196,7 +23001,7 @@ declare namespace Excel {
     /**
      *
      * Represents the data validation applied to the current range.
-            To learn more about the data validation object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-data-validation | Add data validation to Excel ranges}.
+                To learn more about the data validation object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-data-validation | Add data validation to Excel ranges}.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -23241,8 +23046,8 @@ declare namespace Excel {
         /**
          *
          * Represents if all cell values are valid according to the data validation rules.
-            Returns true if all cell values are valid, or false if all cell values are invalid.
-            Returns null if there are both valid and invalid cell values within the range.
+                    Returns true if all cell values are valid, or false if all cell values are invalid.
+                    Returns null if there are both valid and invalid cell values within the range.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23262,21 +23067,18 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.DataValidation): void;
         /**
-         *
          * Clears the data validation from the current range.
          *
          * [Api set: ExcelApi 1.8]
          */
         clear(): void;
         /**
-         *
          * Returns a RangeAreas, comprising one or more rectangular ranges, with invalid cell values. If all cell values are valid, this function will throw an ItemNotFound error.
          *
          * [Api set: ExcelApi 1.9]
          */
         getInvalidCells(): Excel.RangeAreas;
         /**
-         *
          * Returns a RangeAreas, comprising one or more rectangular ranges, with invalid cell values. If all cell values are valid, this function will return null.
          *
          * [Api set: ExcelApi 1.9]
@@ -23426,9 +23228,9 @@ declare namespace Excel {
         /**
          *
          * Specifies the right-hand operand when the operator property is set to a binary operator such as GreaterThan (the left-hand operand is the value the user tries to enter in the cell). With the ternary operators Between and NotBetween, specifies the lower bound operand.
-            For example, setting formula1 to 10 and operator to GreaterThan means that valid data for the range must be greater than 10.
-            When setting the value, it can be passed in as a number, a range object, or a string formula (where the string is either a stringified number, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
-            When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
+                    For example, setting formula1 to 10 and operator to GreaterThan means that valid data for the range must be greater than 10.
+                    When setting the value, it can be passed in as a number, a range object, or a string formula (where the string is either a stringified number, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
+                    When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23436,8 +23238,8 @@ declare namespace Excel {
         /**
          *
          * With the ternary operators Between and NotBetween, specifies the upper bound operand. Is not used with the binary operators, such as GreaterThan.
-            When setting the value, it can be passed in as a number, a range object, or a string formula (where the string is either a stringified number, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
-            When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
+                    When setting the value, it can be passed in as a number, a range object, or a string formula (where the string is either a stringified number, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
+                    When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23460,8 +23262,8 @@ declare namespace Excel {
         /**
          *
          * Specifies the right-hand operand when the operator property is set to a binary operator such as GreaterThan (the left-hand operand is the value the user tries to enter in the cell). With the ternary operators Between and NotBetween, specifies the lower bound operand.
-            When setting the value, it can be passed in as a Date, a Range object, or a string formula (where the string is either a stringified date/time in ISO8601 format, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
-            When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
+                    When setting the value, it can be passed in as a Date, a Range object, or a string formula (where the string is either a stringified date/time in ISO8601 format, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
+                    When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23469,8 +23271,8 @@ declare namespace Excel {
         /**
          *
          * With the ternary operators Between and NotBetween, specifies the upper bound operand. Is not used with the binary operators, such as GreaterThan.
-            When setting the value, it can be passed in as a Date, a Range object, or a string (where the string is either a stringified date/time in ISO8601 format, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
-            When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
+                    When setting the value, it can be passed in as a Date, a Range object, or a string (where the string is either a stringified date/time in ISO8601 format, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
+                    When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23500,7 +23302,7 @@ declare namespace Excel {
         /**
          *
          * Source of the list for data validation
-            When setting the value, it can be passed in as a Excel Range object, or a string that contains comma separated number, boolean or date.
+                    When setting the value, it can be passed in as a Excel Range object, or a string that contains comma separated number, boolean or date.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23675,8 +23477,8 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the text orientation of all the cells within the range.
-            The text orientation should be an integer either from -90 to 90, or 180 for vertically-oriented text.
-            If the orientation within a range are not uniform, then null will be returned.
+                    The text orientation should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+                    If the orientation within a range are not uniform, then null will be returned.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -23684,9 +23486,9 @@ declare namespace Excel {
         /**
          *
          * Determines if the row height of the Range object equals the standard height of the sheet.
-            Returns True if the row height of the Range object equals the standard height of the sheet.
-            Returns Null if the range contains more than one row and the rows aren't all the same height.
-            Returns False otherwise.
+                    Returns True if the row height of the Range object equals the standard height of the sheet.
+                    Returns Null if the range contains more than one row and the rows aren't all the same height.
+                    Returns False otherwise.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -23694,9 +23496,9 @@ declare namespace Excel {
         /**
          *
          * Indicates whether the column width of the Range object equals the standard width of the sheet.
-            Returns True if the column width of the Range object equals the standard width of the sheet.
-            Returns Null if the range contains more than one column and the columns aren't all the same height.
-            Returns False otherwise.
+                    Returns True if the column width of the Range object equals the standard width of the sheet.
+                    Returns Null if the range contains more than one column and the columns aren't all the same height.
+                    Returns False otherwise.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -23730,25 +23532,22 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.RangeFormat): void;
         /**
-         *
          * Adjusts the indentation of the range formatting. The indent value ranges from 0 to 250 and is measured in characters.
          *
          * [Api set: ExcelApiOnline 1.1]
          *
          * @param amount The number of character spaces by which the current indent is adjusted. This value should be between -250 and 250.
-            **Note**: If the amount would raise the indent level above 250, the indent level stays with 250.
-            Similarly, if the amount would lower the indent level below 0, the indent level stays 0.
+                    **Note**: If the amount would raise the indent level above 250, the indent level stays with 250.
+                    Similarly, if the amount would lower the indent level below 0, the indent level stays 0.
          */
         adjustIndent(amount: number): void;
         /**
-         *
          * Changes the width of the columns of the current range to achieve the best fit, based on the current data in the columns.
          *
          * [Api set: ExcelApi 1.2]
          */
         autofitColumns(): void;
         /**
-         *
          * Changes the height of the rows of the current range to achieve the best fit, based on the current data in the columns.
          *
          * [Api set: ExcelApi 1.2]
@@ -23864,7 +23663,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the pattern of a Range. See Excel.FillPattern for details. LinearGradient and RectangularGradient are not supported.
-            A null value indicates that the entire range doesn't have uniform pattern setting.
+                    A null value indicates that the entire range doesn't have uniform pattern setting.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -23872,7 +23671,7 @@ declare namespace Excel {
         /**
          *
          * Sets HTML color code representing the color of the Range pattern, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            Gets HTML color code representing the color of the Range pattern, of the form #RRGGBB (e.g. "FFA500").
+                    Gets HTML color code representing the color of the Range pattern, of the form #RRGGBB (e.g. "FFA500").
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -23880,7 +23679,7 @@ declare namespace Excel {
         /**
          *
          * Returns or sets a double that lightens or darkens a pattern color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            If the pattern tintAndShades are not uniform, null will be returned.
+                    If the pattern tintAndShades are not uniform, null will be returned.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -23888,7 +23687,7 @@ declare namespace Excel {
         /**
          *
          * Returns or sets a double that lightens or darkens a color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            If the tintAndShades are not uniform, null will be returned.
+                    If the tintAndShades are not uniform, null will be returned.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -23908,7 +23707,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.RangeFill): void;
         /**
-         *
          * Resets the range background.
          *
          * [Api set: ExcelApi 1.1]
@@ -23974,7 +23772,7 @@ declare namespace Excel {
         /**
          *
          * Returns or sets a double that lightens or darkens a color for Range Border, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            A null value indicates that the border doesn't have uniform tintAndShade setting.
+                    A null value indicates that the border doesn't have uniform tintAndShade setting.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -24048,13 +23846,12 @@ declare namespace Excel {
         /**
          *
          * Returns or sets a double that lightens or darkens a color for Range Borders, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            A null value indicates that the entire border collections don't have uniform tintAndShade setting.
+                    A null value indicates that the entire border collections don't have uniform tintAndShade setting.
          *
          * [Api set: ExcelApi 1.9]
          */
         tintAndShade: number;
         /**
-         *
          * Gets a border object using its name.
          *
          * [Api set: ExcelApi 1.1]
@@ -24063,7 +23860,6 @@ declare namespace Excel {
          */
         getItem(index: Excel.BorderIndex): Excel.RangeBorder;
         /**
-         *
          * Gets a border object using its name.
          *
          * [Api set: ExcelApi 1.1]
@@ -24072,7 +23868,6 @@ declare namespace Excel {
          */
         getItem(index: "EdgeTop" | "EdgeBottom" | "EdgeLeft" | "EdgeRight" | "InsideVertical" | "InsideHorizontal" | "DiagonalDown" | "DiagonalUp"): Excel.RangeBorder;
         /**
-         *
          * Gets a border object using its index.
          *
          * [Api set: ExcelApi 1.1]
@@ -24158,9 +23953,9 @@ declare namespace Excel {
         /**
          *
          * Represents the Subscript status of font.
-            Returns True if all the fonts of the range are Subscript.
-            Returns False if all the fonts of the range are Superscript or normal (neither Superscript, nor Subscript).
-            Returns Null otherwise.
+                    Returns True if all the fonts of the range are Subscript.
+                    Returns False if all the fonts of the range are Superscript or normal (neither Superscript, nor Subscript).
+                    Returns Null otherwise.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -24168,9 +23963,9 @@ declare namespace Excel {
         /**
          *
          * Represents the Superscript status of font.
-            Returns True if all the fonts of the range are Superscript.
-            Returns False if all the fonts of the range are Subscript or normal (neither Superscript, nor Subscript).
-            Returns Null otherwise.
+                    Returns True if all the fonts of the range are Superscript.
+                    Returns False if all the fonts of the range are Subscript or normal (neither Superscript, nor Subscript).
+                    Returns Null otherwise.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -24178,7 +23973,7 @@ declare namespace Excel {
         /**
          *
          * Returns or sets a double that lightens or darkens a color for Range Font, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            A null value indicates that the entire range doesn't have uniform font tintAndShade setting.
+                    A null value indicates that the entire range doesn't have uniform font tintAndShade setting.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -24250,7 +24045,6 @@ declare namespace Excel {
          */
         readonly count: number;
         /**
-         *
          * Creates a new chart.
          *
          * [Api set: ExcelApi 1.1]
@@ -24261,7 +24055,6 @@ declare namespace Excel {
          */
         add(type: Excel.ChartType, sourceData: Range, seriesBy?: Excel.ChartSeriesBy): Excel.Chart;
         /**
-         *
          * Creates a new chart.
          *
          * [Api set: ExcelApi 1.1]
@@ -24272,14 +24065,12 @@ declare namespace Excel {
          */
         add(type: "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Boxwhisker" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel", sourceData: Range, seriesBy?: "Auto" | "Columns" | "Rows"): Excel.Chart;
         /**
-         *
          * Returns the number of charts in the worksheet.
          *
          * [Api set: ExcelApi 1.4]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a chart using its name. If there are multiple charts with the same name, the first one will be returned.
          *
          * [Api set: ExcelApi 1.1]
@@ -24288,7 +24079,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.Chart;
         /**
-         *
          * Gets a chart based on its position in the collection.
          *
          * [Api set: ExcelApi 1.1]
@@ -24297,9 +24087,8 @@ declare namespace Excel {
          */
         getItemAt(index: number): Excel.Chart;
         /**
-         *
          * Gets a chart using its name. If there are multiple charts with the same name, the first one will be returned.
-            If the chart does not exist, will return a null object.
+                    If the chart does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.4]
          *
@@ -24369,7 +24158,7 @@ declare namespace Excel {
     /**
      *
      * Represents a chart object in a workbook.
-            To learn more about the Chart object model, see {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-charts | Work with charts using the Excel JavaScript API}.
+                To learn more about the Chart object model, see {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-charts | Work with charts using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -24442,7 +24231,7 @@ declare namespace Excel {
         /**
          *
          * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
-            the level of where the category labels are being sourced from. Read/Write.
+                    the level of where the category labels are being sourced from. Read/Write.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -24506,7 +24295,7 @@ declare namespace Excel {
         /**
          *
          * Returns or sets a ChartSeriesNameLevel enumeration constant referring to
-            the level of where the series names are being sourced from. Read/Write.
+                    the level of where the series names are being sourced from. Read/Write.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -24521,8 +24310,8 @@ declare namespace Excel {
         /**
          *
          * Represents whether to show the data labels when the value is greater than the maximum value on the value axis.
-            If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
-            This property applies to 2-D charts only.
+                    If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
+                    This property applies to 2-D charts only.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -24563,23 +24352,20 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Chart): void;
         /**
-         *
          * Activates the chart in the Excel UI.
          *
          * [Api set: ExcelApi 1.9]
          */
         activate(): void;
         /**
-         *
          * Deletes the chart object.
          *
          * [Api set: ExcelApi 1.1]
          */
         delete(): void;
         /**
-         *
          * Renders the chart as a base64-encoded image by scaling the chart to fit the specified dimensions.
-            The aspect ratio is preserved as part of the resizing.
+                    The aspect ratio is preserved as part of the resizing.
          *
          * [Api set: ExcelApi 1.2]
          *
@@ -24589,9 +24375,8 @@ declare namespace Excel {
          */
         getImage(width?: number, height?: number, fittingMode?: Excel.ImageFittingMode): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Renders the chart as a base64-encoded image by scaling the chart to fit the specified dimensions.
-            The aspect ratio is preserved as part of the resizing.
+                    The aspect ratio is preserved as part of the resizing.
          *
          * [Api set: ExcelApi 1.2]
          *
@@ -24601,7 +24386,6 @@ declare namespace Excel {
          */
         getImage(width?: number, height?: number, fittingMode?: "Fit" | "FitAndCenter" | "Fill"): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Resets the source data for the chart.
          *
          * [Api set: ExcelApi 1.1]
@@ -24611,7 +24395,6 @@ declare namespace Excel {
          */
         setData(sourceData: Range, seriesBy?: Excel.ChartSeriesBy): void;
         /**
-         *
          * Resets the source data for the chart.
          *
          * [Api set: ExcelApi 1.1]
@@ -24621,7 +24404,6 @@ declare namespace Excel {
          */
         setData(sourceData: Range, seriesBy?: "Auto" | "Columns" | "Rows"): void;
         /**
-         *
          * Positions the chart relative to cells on the worksheet.
          *
          * [Api set: ExcelApi 1.1]
@@ -24857,7 +24639,6 @@ declare namespace Excel {
          */
         readonly count: number;
         /**
-         *
          * Add a new series to the collection. The new added series is not visible until set values/x axis values/bubble sizes for it (depending on chart type).
          *
          * [Api set: ExcelApi 1.7]
@@ -24867,14 +24648,12 @@ declare namespace Excel {
          */
         add(name?: string, index?: number): Excel.ChartSeries;
         /**
-         *
          * Returns the number of series in the collection.
          *
          * [Api set: ExcelApi 1.4]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Retrieves a series based on its position in the collection.
          *
          * [Api set: ExcelApi 1.1]
@@ -25002,7 +24781,7 @@ declare namespace Excel {
         /**
          *
          * Represents the doughnut hole size of a chart series.  Only valid on doughnut and doughnutExploded charts.
-            Throws an invalid argument exception on invalid charts.
+                    Throws an invalid argument exception on invalid charts.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -25031,7 +24810,7 @@ declare namespace Excel {
         /**
          *
          * Represents the gap width of a chart series.  Only valid on bar and column charts, as well as
-            specific classes of line and pie charts.  Throws an invalid argument exception on invalid charts.
+                    specific classes of line and pie charts.  Throws an invalid argument exception on invalid charts.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -25254,14 +25033,12 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ChartSeries): void;
         /**
-         *
          * Deletes the chart series.
          *
          * [Api set: ExcelApi 1.7]
          */
         delete(): void;
         /**
-         *
          * Set bubble sizes for a chart series. Only works for bubble charts.
          *
          * [Api set: ExcelApi 1.7]
@@ -25270,7 +25047,6 @@ declare namespace Excel {
          */
         setBubbleSizes(sourceData: Range): void;
         /**
-         *
          * Set values for a chart series. For scatter chart, it means Y axis values.
          *
          * [Api set: ExcelApi 1.7]
@@ -25279,7 +25055,6 @@ declare namespace Excel {
          */
         setValues(sourceData: Range): void;
         /**
-         *
          * Set values of X axis for a chart series. Only works for scatter charts.
          *
          * [Api set: ExcelApi 1.7]
@@ -25397,14 +25172,12 @@ declare namespace Excel {
          */
         readonly count: number;
         /**
-         *
          * Returns the number of chart points in the series.
          *
          * [Api set: ExcelApi 1.4]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Retrieve a point based on its position within the series.
          *
          * [Api set: ExcelApi 1.1]
@@ -25651,7 +25424,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ChartAxes): void;
         /**
-         *
          * Returns the specific axis identified by type and group.
          *
          * [Api set: ExcelApi 1.7]
@@ -25661,7 +25433,6 @@ declare namespace Excel {
          */
         getItem(type: Excel.ChartAxisType, group?: Excel.ChartAxisGroup): Excel.ChartAxis;
         /**
-         *
          * Returns the specific axis identified by type and group.
          *
          * [Api set: ExcelApi 1.7]
@@ -25994,7 +25765,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ChartAxis): void;
         /**
-         *
          * Sets all the category names for the specified axis.
          *
          * [Api set: ExcelApi 1.7]
@@ -26003,7 +25773,6 @@ declare namespace Excel {
          */
         setCategoryNames(sourceData: Range): void;
         /**
-         *
          * Sets the axis display unit to a custom value.
          *
          * [Api set: ExcelApi 1.7]
@@ -26012,7 +25781,6 @@ declare namespace Excel {
          */
         setCustomDisplayUnit(value: number): void;
         /**
-         *
          * Set the specified axis position where the other axis crosses at.
          *
          * [Api set: ExcelApi 1.8]
@@ -26163,7 +25931,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ChartAxisTitle): void;
         /**
-         *
          * A string value that represents the formula of chart axis title using A1-style notation.
          *
          * [Api set: ExcelApi 1.8]
@@ -26295,7 +26062,7 @@ declare namespace Excel {
         /**
          *
          * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is 0.
+                    This property is valid only when TextOrientation of data label is 0.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -26380,7 +26147,7 @@ declare namespace Excel {
         /**
          *
          * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is -90, 90, or 180.
+                    This property is valid only when TextOrientation of data label is -90, 90, or 180.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -26466,7 +26233,7 @@ declare namespace Excel {
         /**
          *
          * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is -90, 90, or 180.
+                    This property is valid only when TextOrientation of data label is -90, 90, or 180.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -26572,7 +26339,7 @@ declare namespace Excel {
         /**
          *
          * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is 0.
+                    This property is valid only when TextOrientation of data label is 0.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -27183,14 +26950,12 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.ChartLegendEntry[];
         /**
-         *
          * Returns the number of legendEntry in the collection.
          *
          * [Api set: ExcelApi 1.7]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Returns a legendEntry at the given index.
          *
          * [Api set: ExcelApi 1.7]
@@ -27479,7 +27244,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ChartTitle): void;
         /**
-         *
          * Get the substring of a chart title. Line break '\n' also counts one character.
          *
          * [Api set: ExcelApi 1.7]
@@ -27489,7 +27253,6 @@ declare namespace Excel {
          */
         getSubstring(start: number, length: number): Excel.ChartFormatString;
         /**
-         *
          * Sets a string value that represents the formula of chart title using A1-style notation.
          *
          * [Api set: ExcelApi 1.7]
@@ -27662,18 +27425,12 @@ declare namespace Excel {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         */
-        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.ChartFill;
-        /**
-         *
          * Clear the fill color of a chart element.
          *
          * [Api set: ExcelApi 1.1]
          */
         clear(): void;
         /**
-         *
          * Sets the fill formatting of a chart element to a uniform color.
          *
          * [Api set: ExcelApi 1.1]
@@ -27734,7 +27491,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ChartBorder): void;
         /**
-         *
          * Clear the border format of a chart element.
          *
          * [Api set: ExcelApi 1.8]
@@ -27996,7 +27752,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ChartLineFormat): void;
         /**
-         *
          * Clear the line format of a chart element.
          *
          * [Api set: ExcelApi 1.1]
@@ -28222,7 +27977,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ChartTrendline): void;
         /**
-         *
          * Delete the trendline object.
          *
          * [Api set: ExcelApi 1.7]
@@ -28267,7 +28021,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.ChartTrendline[];
         /**
-         *
          * Adds a new trendline to trendline collection.
          *
          * [Api set: ExcelApi 1.7]
@@ -28276,7 +28029,6 @@ declare namespace Excel {
          */
         add(type?: Excel.ChartTrendlineType): Excel.ChartTrendline;
         /**
-         *
          * Adds a new trendline to trendline collection.
          *
          * [Api set: ExcelApi 1.7]
@@ -28285,14 +28037,12 @@ declare namespace Excel {
          */
         add(type?: "Linear" | "Exponential" | "Logarithmic" | "MovingAverage" | "Polynomial" | "Power"): Excel.ChartTrendline;
         /**
-         *
          * Returns the number of trendlines in the collection.
          *
          * [Api set: ExcelApi 1.7]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Get trendline object by index, which is the insertion order in items array.
          *
          * [Api set: ExcelApi 1.7]
@@ -28421,7 +28171,7 @@ declare namespace Excel {
         /**
          *
          * Represents the horizontal alignment for chart trendline label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of trendline label is -90, 90, or 180.
+                    This property is valid only when TextOrientation of trendline label is -90, 90, or 180.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -28471,7 +28221,7 @@ declare namespace Excel {
         /**
          *
          * Represents the vertical alignment of chart trendline label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of trendline label is 0.
+                    This property is valid only when TextOrientation of trendline label is 0.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -28789,7 +28539,6 @@ declare namespace Excel {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
         /**
-         *
          * Perform a sort operation.
          *
          * [Api set: ExcelApi 1.2]
@@ -28802,7 +28551,6 @@ declare namespace Excel {
          */
         apply(fields: Excel.SortField[], matchCase?: boolean, hasHeaders?: boolean, orientation?: Excel.SortOrientation, method?: Excel.SortMethod): void;
         /**
-         *
          * Perform a sort operation.
          *
          * [Api set: ExcelApi 1.2]
@@ -28853,7 +28601,6 @@ declare namespace Excel {
          */
         readonly method: Excel.SortMethod | "PinYin" | "StrokeCount";
         /**
-         *
          * Perform a sort operation.
          *
          * [Api set: ExcelApi 1.2]
@@ -28864,7 +28611,6 @@ declare namespace Excel {
          */
         apply(fields: Excel.SortField[], matchCase?: boolean, method?: Excel.SortMethod): void;
         /**
-         *
          * Perform a sort operation.
          *
          * [Api set: ExcelApi 1.2]
@@ -28875,14 +28621,12 @@ declare namespace Excel {
          */
         apply(fields: Excel.SortField[], matchCase?: boolean, method?: "PinYin" | "StrokeCount"): void;
         /**
-         *
          * Clears the sorting that is currently on the table. While this doesn't modify the table's ordering, it clears the state of the header buttons.
          *
          * [Api set: ExcelApi 1.2]
          */
         clear(): void;
         /**
-         *
          * Reapplies the current sorting parameters to the table.
          *
          * [Api set: ExcelApi 1.2]
@@ -28989,7 +28733,6 @@ declare namespace Excel {
          */
         readonly criteria: Excel.FilterCriteria;
         /**
-         *
          * Apply the given filter criteria on the given column.
          *
          * [Api set: ExcelApi 1.2]
@@ -28998,7 +28741,6 @@ declare namespace Excel {
          */
         apply(criteria: Excel.FilterCriteria): void;
         /**
-         *
          * Apply a "Bottom Item" filter to the column for the given number of elements.
          *
          * [Api set: ExcelApi 1.2]
@@ -29007,7 +28749,6 @@ declare namespace Excel {
          */
         applyBottomItemsFilter(count: number): void;
         /**
-         *
          * Apply a "Bottom Percent" filter to the column for the given percentage of elements.
          *
          * [Api set: ExcelApi 1.2]
@@ -29016,7 +28757,6 @@ declare namespace Excel {
          */
         applyBottomPercentFilter(percent: number): void;
         /**
-         *
          * Apply a "Cell Color" filter to the column for the given color.
          *
          * [Api set: ExcelApi 1.2]
@@ -29025,7 +28765,6 @@ declare namespace Excel {
          */
         applyCellColorFilter(color: string): void;
         /**
-         *
          * Apply an "Icon" filter to the column for the given criteria strings.
          *
          * [Api set: ExcelApi 1.2]
@@ -29036,7 +28775,6 @@ declare namespace Excel {
          */
         applyCustomFilter(criteria1: string, criteria2?: string, oper?: Excel.FilterOperator): void;
         /**
-         *
          * Apply an "Icon" filter to the column for the given criteria strings.
          *
          * [Api set: ExcelApi 1.2]
@@ -29047,7 +28785,6 @@ declare namespace Excel {
          */
         applyCustomFilter(criteria1: string, criteria2?: string, oper?: "And" | "Or"): void;
         /**
-         *
          * Apply a "Dynamic" filter to the column.
          *
          * [Api set: ExcelApi 1.2]
@@ -29056,7 +28793,6 @@ declare namespace Excel {
          */
         applyDynamicFilter(criteria: Excel.DynamicFilterCriteria): void;
         /**
-         *
          * Apply a "Dynamic" filter to the column.
          *
          * [Api set: ExcelApi 1.2]
@@ -29065,7 +28801,6 @@ declare namespace Excel {
          */
         applyDynamicFilter(criteria: "Unknown" | "AboveAverage" | "AllDatesInPeriodApril" | "AllDatesInPeriodAugust" | "AllDatesInPeriodDecember" | "AllDatesInPeriodFebruray" | "AllDatesInPeriodJanuary" | "AllDatesInPeriodJuly" | "AllDatesInPeriodJune" | "AllDatesInPeriodMarch" | "AllDatesInPeriodMay" | "AllDatesInPeriodNovember" | "AllDatesInPeriodOctober" | "AllDatesInPeriodQuarter1" | "AllDatesInPeriodQuarter2" | "AllDatesInPeriodQuarter3" | "AllDatesInPeriodQuarter4" | "AllDatesInPeriodSeptember" | "BelowAverage" | "LastMonth" | "LastQuarter" | "LastWeek" | "LastYear" | "NextMonth" | "NextQuarter" | "NextWeek" | "NextYear" | "ThisMonth" | "ThisQuarter" | "ThisWeek" | "ThisYear" | "Today" | "Tomorrow" | "YearToDate" | "Yesterday"): void;
         /**
-         *
          * Apply a "Font Color" filter to the column for the given color.
          *
          * [Api set: ExcelApi 1.2]
@@ -29074,7 +28809,6 @@ declare namespace Excel {
          */
         applyFontColorFilter(color: string): void;
         /**
-         *
          * Apply an "Icon" filter to the column for the given icon.
          *
          * [Api set: ExcelApi 1.2]
@@ -29083,7 +28817,6 @@ declare namespace Excel {
          */
         applyIconFilter(icon: Excel.Icon): void;
         /**
-         *
          * Apply a "Top Item" filter to the column for the given number of elements.
          *
          * [Api set: ExcelApi 1.2]
@@ -29092,7 +28825,6 @@ declare namespace Excel {
          */
         applyTopItemsFilter(count: number): void;
         /**
-         *
          * Apply a "Top Percent" filter to the column for the given percentage of elements.
          *
          * [Api set: ExcelApi 1.2]
@@ -29101,7 +28833,6 @@ declare namespace Excel {
          */
         applyTopPercentFilter(percent: number): void;
         /**
-         *
          * Apply a "Values" filter to the column for the given values.
          *
          * [Api set: ExcelApi 1.2]
@@ -29110,7 +28841,6 @@ declare namespace Excel {
          */
         applyValuesFilter(values: Array<string | FilterDatetime>): void;
         /**
-         *
          * Clear the filter on the given column.
          *
          * [Api set: ExcelApi 1.2]
@@ -29160,9 +28890,9 @@ declare namespace Excel {
         /**
          *
          * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
-             For example ">50" for number greater than 50 or "=*s" for values ending in "s".
-            
-             Used as a number in the case of top/bottom items/percents. E.g. "5" for the top 5 items if filterOn is set to "topItems"
+                     For example ">50" for number greater than 50 or "=*s" for values ending in "s".
+                    
+                     Used as a number in the case of top/bottom items/percents. E.g. "5" for the top 5 items if filterOn is set to "topItems"
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -29242,7 +28972,7 @@ declare namespace Excel {
     /**
      *
      * Represents the AutoFilter object.
-            AutoFilter turns the values in Excel column into specific filters based on the cell contents.
+                AutoFilter turns the values in Excel column into specific filters based on the cell contents.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -29271,7 +29001,6 @@ declare namespace Excel {
          */
         readonly isDataFiltered: boolean;
         /**
-         *
          * Applies the AutoFilter to a range. This filters the column if column index and filter criteria are specified.
          *
          * [Api set: ExcelApi 1.9]
@@ -29282,36 +29011,31 @@ declare namespace Excel {
          */
         apply(range: Range | string, columnIndex?: number, criteria?: Excel.FilterCriteria): void;
         /**
-         *
          * Clears the filter criteria of the AutoFilter.
          *
          * [Api set: ExcelApi 1.9]
          */
         clearCriteria(): void;
         /**
-         *
          * Returns the Range object that represents the range to which the AutoFilter applies.
          *
          * [Api set: ExcelApi 1.9]
          */
         getRange(): Excel.Range;
         /**
-         *
          * Returns the Range object that represents the range to which the AutoFilter applies.
-            If there is no Range object associated with the AutoFilter, this method returns a null object.
+                    If there is no Range object associated with the AutoFilter, this method returns a null object.
          *
          * [Api set: ExcelApi 1.9]
          */
         getRangeOrNullObject(): Excel.Range;
         /**
-         *
          * Applies the specified Autofilter object currently on the range.
          *
          * [Api set: ExcelApi 1.9]
          */
         reapply(): void;
         /**
-         *
          * Removes the AutoFilter for the range.
          *
          * [Api set: ExcelApi 1.9]
@@ -29369,8 +29093,8 @@ declare namespace Excel {
     /**
      *
      * A scoped collection of custom XML parts.
-            A scoped collection is the result of some operation, e.g. filtering by namespace.
-            A scoped collection cannot be scoped any further.
+                A scoped collection is the result of some operation, e.g. filtering by namespace.
+                A scoped collection cannot be scoped any further.
      *
      * [Api set: ExcelApi 1.5]
      */
@@ -29380,14 +29104,12 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.CustomXmlPart[];
         /**
-         *
          * Gets the number of CustomXML parts in this collection.
          *
          * [Api set: ExcelApi 1.5]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a custom XML part based on its ID.
          *
          * [Api set: ExcelApi 1.5]
@@ -29396,9 +29118,8 @@ declare namespace Excel {
          */
         getItem(id: string): Excel.CustomXmlPart;
         /**
-         *
          * Gets a custom XML part based on its ID.
-            If the CustomXmlPart does not exist, the return object's isNull property will be true.
+                    If the CustomXmlPart does not exist, the return object's isNull property will be true.
          *
          * [Api set: ExcelApi 1.5]
          *
@@ -29406,17 +29127,15 @@ declare namespace Excel {
          */
         getItemOrNullObject(id: string): Excel.CustomXmlPart;
         /**
-         *
          * If the collection contains exactly one item, this method returns it.
-            Otherwise, this method produces an error.
+                    Otherwise, this method produces an error.
          *
          * [Api set: ExcelApi 1.5]
          */
         getOnlyItem(): Excel.CustomXmlPart;
         /**
-         *
          * If the collection contains exactly one item, this method returns it.
-            Otherwise, this method returns Null.
+                    Otherwise, this method returns Null.
          *
          * [Api set: ExcelApi 1.5]
          */
@@ -29457,7 +29176,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.CustomXmlPart[];
         /**
-         *
          * Adds a new custom XML part to the workbook.
          *
          * [Api set: ExcelApi 1.5]
@@ -29466,7 +29184,6 @@ declare namespace Excel {
          */
         add(xml: string): Excel.CustomXmlPart;
         /**
-         *
          * Gets a new scoped collection of custom XML parts whose namespaces match the given namespace.
          *
          * [Api set: ExcelApi 1.5]
@@ -29475,14 +29192,12 @@ declare namespace Excel {
          */
         getByNamespace(namespaceUri: string): Excel.CustomXmlPartScopedCollection;
         /**
-         *
          * Gets the number of CustomXml parts in the collection.
          *
          * [Api set: ExcelApi 1.5]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a custom XML part based on its ID.
          *
          * [Api set: ExcelApi 1.5]
@@ -29491,9 +29206,8 @@ declare namespace Excel {
          */
         getItem(id: string): Excel.CustomXmlPart;
         /**
-         *
          * Gets a custom XML part based on its ID.
-            If the CustomXmlPart does not exist, the return object's isNull property will be true.
+                    If the CustomXmlPart does not exist, the return object's isNull property will be true.
          *
          * [Api set: ExcelApi 1.5]
          *
@@ -29548,21 +29262,18 @@ declare namespace Excel {
          */
         readonly namespaceUri: string;
         /**
-         *
          * Deletes the custom XML part.
          *
          * [Api set: ExcelApi 1.5]
          */
         delete(): void;
         /**
-         *
          * Gets the custom XML part's full XML content.
          *
          * [Api set: ExcelApi 1.5]
          */
         getXml(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Sets the custom XML part's full XML content.
          *
          * [Api set: ExcelApi 1.5]
@@ -29609,7 +29320,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.PivotTable[];
         /**
-         *
          * Add a PivotTable based on the specified source data and insert it at the top-left cell of the destination range.
          *
          * [Api set: ExcelApi 1.8]
@@ -29621,14 +29331,12 @@ declare namespace Excel {
          */
         add(name: string, source: Range | string | Table, destination: Range | string): Excel.PivotTable;
         /**
-         *
          * Gets the number of pivot tables in the collection.
          *
          * [Api set: ExcelApi 1.4]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a PivotTable by name.
          *
          * [Api set: ExcelApi 1.3]
@@ -29637,7 +29345,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.PivotTable;
         /**
-         *
          * Gets a PivotTable by name. If the PivotTable does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.4]
@@ -29646,7 +29353,6 @@ declare namespace Excel {
          */
         getItemOrNullObject(name: string): Excel.PivotTable;
         /**
-         *
          * Refreshes all the pivot tables in the collection.
          *
          * [Api set: ExcelApi 1.3]
@@ -29679,7 +29385,7 @@ declare namespace Excel {
     /**
      *
      * Represents an Excel PivotTable.
-            To learn more about the PivotTable object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-pivottables | Work with PivotTables using the Excel JavaScript API}.
+                To learn more about the PivotTable object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-pivottables | Work with PivotTables using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.3]
      */
@@ -29778,14 +29484,12 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.PivotTable): void;
         /**
-         *
          * Deletes the PivotTable.
          *
          * [Api set: ExcelApi 1.8]
          */
         delete(): void;
         /**
-         *
          * Refreshes the PivotTable.
          *
          * [Api set: ExcelApi 1.3]
@@ -29891,21 +29595,18 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.PivotLayout): void;
         /**
-         *
          * Returns the range where the PivotTable's column labels reside.
          *
          * [Api set: ExcelApi 1.8]
          */
         getColumnLabelRange(): Excel.Range;
         /**
-         *
          * Returns the range where the PivotTable's data values reside.
          *
          * [Api set: ExcelApi 1.8]
          */
         getDataBodyRange(): Excel.Range;
         /**
-         *
          * Gets the DataHierarchy that is used to calculate the value in a specified range within the PivotTable.
          *
          * [Api set: ExcelApi 1.9]
@@ -29915,14 +29616,12 @@ declare namespace Excel {
          */
         getDataHierarchy(cell: Range | string): Excel.DataPivotHierarchy;
         /**
-         *
          * Returns the range of the PivotTable's filter area.
          *
          * [Api set: ExcelApi 1.8]
          */
         getFilterAxisRange(): Excel.Range;
         /**
-         *
          * Gets the PivotItems from an axis that make up the value in a specified range within the PivotTable.
          *
          * [Api set: ExcelApi 1.9]
@@ -29933,7 +29632,6 @@ declare namespace Excel {
          */
         getPivotItems(axis: Excel.PivotAxis, cell: Range | string): OfficeExtension.ClientResult<Excel.PivotItem[]>;
         /**
-         *
          * Gets the PivotItems from an axis that make up the value in a specified range within the PivotTable.
          *
          * [Api set: ExcelApi 1.9]
@@ -29944,21 +29642,18 @@ declare namespace Excel {
          */
         getPivotItems(axis: "Unknown" | "Row" | "Column" | "Data" | "Filter", cell: Range | string): OfficeExtension.ClientResult<Excel.PivotItem[]>;
         /**
-         *
          * Returns the range the PivotTable exists on, excluding the filter area.
          *
          * [Api set: ExcelApi 1.8]
          */
         getRange(): Excel.Range;
         /**
-         *
          * Returns the range where the PivotTable's row labels reside.
          *
          * [Api set: ExcelApi 1.8]
          */
         getRowLabelRange(): Excel.Range;
         /**
-         *
          * Sets the PivotTable to automatically sort using the specified cell to automatically select all necessary criteria and context. This behaves identically to applying an autosort from the UI.
          *
          * [Api set: ExcelApi 1.9]
@@ -29968,7 +29663,6 @@ declare namespace Excel {
          */
         setAutoSortOnCell(cell: Range | string, sortBy: Excel.SortBy): void;
         /**
-         *
          * Sets the PivotTable to automatically sort using the specified cell to automatically select all necessary criteria and context. This behaves identically to applying an autosort from the UI.
          *
          * [Api set: ExcelApi 1.9]
@@ -30016,14 +29710,12 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.PivotHierarchy[];
         /**
-         *
          * Gets the number of pivot hierarchies in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a PivotHierarchy by its name or id.
          *
          * [Api set: ExcelApi 1.8]
@@ -30032,7 +29724,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.PivotHierarchy;
         /**
-         *
          * Gets a PivotHierarchy by name. If the PivotHierarchy does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
@@ -30147,22 +29838,19 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.RowColumnPivotHierarchy[];
         /**
-         *
          * Adds the PivotHierarchy to the current axis. If the hierarchy is present elsewhere on the row, column,
-            or filter axis, it will be removed from that location.
+                    or filter axis, it will be removed from that location.
          *
          * [Api set: ExcelApi 1.8]
          */
         add(pivotHierarchy: Excel.PivotHierarchy): Excel.RowColumnPivotHierarchy;
         /**
-         *
          * Gets the number of pivot hierarchies in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a RowColumnPivotHierarchy by its name or id.
          *
          * [Api set: ExcelApi 1.8]
@@ -30171,7 +29859,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.RowColumnPivotHierarchy;
         /**
-         *
          * Gets a RowColumnPivotHierarchy by name. If the RowColumnPivotHierarchy does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
@@ -30180,7 +29867,6 @@ declare namespace Excel {
          */
         getItemOrNullObject(name: string): Excel.RowColumnPivotHierarchy;
         /**
-         *
          * Removes the PivotHierarchy from the current axis.
          *
          * [Api set: ExcelApi 1.8]
@@ -30262,7 +29948,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.RowColumnPivotHierarchy): void;
         /**
-         *
          * Reset the RowColumnPivotHierarchy back to its default values.
          *
          * [Api set: ExcelApi 1.8]
@@ -30307,22 +29992,19 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.FilterPivotHierarchy[];
         /**
-         *
          * Adds the PivotHierarchy to the current axis. If the hierarchy is present elsewhere on the row, column,
-            or filter axis, it will be removed from that location.
+                    or filter axis, it will be removed from that location.
          *
          * [Api set: ExcelApi 1.8]
          */
         add(pivotHierarchy: Excel.PivotHierarchy): Excel.FilterPivotHierarchy;
         /**
-         *
          * Gets the number of pivot hierarchies in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a FilterPivotHierarchy by its name or id.
          *
          * [Api set: ExcelApi 1.8]
@@ -30331,7 +30013,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.FilterPivotHierarchy;
         /**
-         *
          * Gets a FilterPivotHierarchy by name. If the FilterPivotHierarchy does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
@@ -30340,7 +30021,6 @@ declare namespace Excel {
          */
         getItemOrNullObject(name: string): Excel.FilterPivotHierarchy;
         /**
-         *
          * Removes the PivotHierarchy from the current axis.
          *
          * [Api set: ExcelApi 1.8]
@@ -30429,7 +30109,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.FilterPivotHierarchy): void;
         /**
-         *
          * Reset the FilterPivotHierarchy back to its default values.
          *
          * [Api set: ExcelApi 1.8]
@@ -30474,21 +30153,18 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.DataPivotHierarchy[];
         /**
-         *
          * Adds the PivotHierarchy to the current axis.
          *
          * [Api set: ExcelApi 1.8]
          */
         add(pivotHierarchy: Excel.PivotHierarchy): Excel.DataPivotHierarchy;
         /**
-         *
          * Gets the number of pivot hierarchies in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a DataPivotHierarchy by its name or id.
          *
          * [Api set: ExcelApi 1.8]
@@ -30497,7 +30173,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.DataPivotHierarchy;
         /**
-         *
          * Gets a DataPivotHierarchy by name. If the DataPivotHierarchy does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
@@ -30506,7 +30181,6 @@ declare namespace Excel {
          */
         getItemOrNullObject(name: string): Excel.DataPivotHierarchy;
         /**
-         *
          * Removes the PivotHierarchy from the current axis.
          *
          * [Api set: ExcelApi 1.8]
@@ -30609,7 +30283,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.DataPivotHierarchy): void;
         /**
-         *
          * Reset the DataPivotHierarchy back to its default values.
          *
          * [Api set: ExcelApi 1.8]
@@ -30680,14 +30353,12 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.PivotField[];
         /**
-         *
          * Gets the number of pivot fields in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a PivotField by its name or id.
          *
          * [Api set: ExcelApi 1.8]
@@ -30696,7 +30367,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.PivotField;
         /**
-         *
          * Gets a PivotField by name. If the PivotField does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
@@ -30787,7 +30457,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.PivotField): void;
         /**
-         *
          * Sorts the PivotField. If a DataPivotHierarchy is specified, then sort will be applied based on it, if not sort will be based on the PivotField itself.
          *
          * [Api set: ExcelApi 1.8]
@@ -30796,33 +30465,31 @@ declare namespace Excel {
          */
         sortByLabels(sortBy: SortBy): void;
         /**
-         *
          * Sorts the PivotField by specified values in a given scope. The scope defines which specific values will be used to sort when
-            there are multiple values from the same DataPivotHierarchy.
+                    there are multiple values from the same DataPivotHierarchy.
          *
          * [Api set: ExcelApi 1.9]
          *
          * @param sortBy Represents whether the sorting is done in an ascending or descending order.
          * @param valuesHierarchy Specifies the values hierarchy on the data axis to be used for sorting.
          * @param pivotItemScope The items that should be used for the scope of the sorting. These will be the
-            items that make up the row or column that you want to sort on. If a string is used instead of a PivotItem,
-            the string represents the ID of the PivotItem. If there are no items other than data hierarchy on the axis
-            you want to sort on, this can be empty.
+                    items that make up the row or column that you want to sort on. If a string is used instead of a PivotItem,
+                    the string represents the ID of the PivotItem. If there are no items other than data hierarchy on the axis
+                    you want to sort on, this can be empty.
          */
         sortByValues(sortBy: Excel.SortBy, valuesHierarchy: Excel.DataPivotHierarchy, pivotItemScope?: Array<PivotItem | string>): void;
         /**
-         *
          * Sorts the PivotField by specified values in a given scope. The scope defines which specific values will be used to sort when
-            there are multiple values from the same DataPivotHierarchy.
+                    there are multiple values from the same DataPivotHierarchy.
          *
          * [Api set: ExcelApi 1.9]
          *
          * @param sortBy Represents whether the sorting is done in an ascending or descending order.
          * @param valuesHierarchy Specifies the values hierarchy on the data axis to be used for sorting.
          * @param pivotItemScope The items that should be used for the scope of the sorting. These will be the
-            items that make up the row or column that you want to sort on. If a string is used instead of a PivotItem,
-            the string represents the ID of the PivotItem. If there are no items other than data hierarchy on the axis
-            you want to sort on, this can be empty.
+                    items that make up the row or column that you want to sort on. If a string is used instead of a PivotItem,
+                    the string represents the ID of the PivotItem. If there are no items other than data hierarchy on the axis
+                    you want to sort on, this can be empty.
          */
         sortByValues(sortBy: "Ascending" | "Descending", valuesHierarchy: Excel.DataPivotHierarchy, pivotItemScope?: Array<PivotItem | string>): void;
         /**
@@ -30864,14 +30531,12 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.PivotItem[];
         /**
-         *
          * Gets the number of PivotItems in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a PivotItem by its name or id.
          *
          * [Api set: ExcelApi 1.8]
@@ -30880,7 +30545,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.PivotItem;
         /**
-         *
          * Gets a PivotItem by name. If the PivotItem does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
@@ -31039,13 +30703,11 @@ declare namespace Excel {
      */
     enum SortBy {
         /**
-         *
          * Ascending sort. Smallest to largest or A to Z.
          *
          */
         ascending = "Ascending",
         /**
-         *
          * Descending sort. Largest to smallest or Z to A.
          *
          */
@@ -31059,79 +30721,66 @@ declare namespace Excel {
      */
     enum AggregationFunction {
         /**
-         *
          * Aggregation function is unknown or unsupported.
          *
          */
         unknown = "Unknown",
         /**
-         *
          * Excel will automatically select the aggregation based on the data items.
          *
          */
         automatic = "Automatic",
         /**
-         *
          * Aggregate using the sum of the data, equivalent to the SUM function.
          *
          */
         sum = "Sum",
         /**
-         *
          * Aggregate using the count of items in the data, equivalent to the COUNTA function.
          *
          */
         count = "Count",
         /**
-         *
          * Aggregate using the average of the data, equivalent to the AVERAGE function.
          *
          */
         average = "Average",
         /**
-         *
          * Aggregate using the maximum value of the data, equivalent to the MAX function.
          *
          */
         max = "Max",
         /**
-         *
          * Aggregate using the minimum value of the data, equivalent to the MIN function.
          *
          */
         min = "Min",
         /**
-         *
          * Aggregate using the product of the data, equivalent to the PRODUCT function.
          *
          */
         product = "Product",
         /**
-         *
          * Aggregate using the count of numbers in the data, equivalent to the COUNT function.
          *
          */
         countNumbers = "CountNumbers",
         /**
-         *
          * Aggregate using the standard deviation of the data, equivalent to the STDEV function.
          *
          */
         standardDeviation = "StandardDeviation",
         /**
-         *
          * Aggregate using the standard deviation of the data, equivalent to the STDEVP function.
          *
          */
         standardDeviationP = "StandardDeviationP",
         /**
-         *
          * Aggregate using the variance of the data, equivalent to the VAR function.
          *
          */
         variance = "Variance",
         /**
-         *
          * Aggregate using the variance of the data, equivalent to the VARP function.
          *
          */
@@ -31145,99 +30794,83 @@ declare namespace Excel {
      */
     enum ShowAsCalculation {
         /**
-         *
          * Calculation is unknown or unsupported.
          *
          */
         unknown = "Unknown",
         /**
-         *
          * No calculation is applied.
          *
          */
         none = "None",
         /**
-         *
          * Percent of the grand total.
          *
          */
         percentOfGrandTotal = "PercentOfGrandTotal",
         /**
-         *
          * Percent of the row total.
          *
          */
         percentOfRowTotal = "PercentOfRowTotal",
         /**
-         *
          * Percent of the column total.
          *
          */
         percentOfColumnTotal = "PercentOfColumnTotal",
         /**
-         *
          * Percent of the row total for the specified Base Field.
          *
          */
         percentOfParentRowTotal = "PercentOfParentRowTotal",
         /**
-         *
          * Percent of the column total for the specified Base Field.
          *
          */
         percentOfParentColumnTotal = "PercentOfParentColumnTotal",
         /**
-         *
          * Percent of the grand total for the specified Base Field.
          *
          */
         percentOfParentTotal = "PercentOfParentTotal",
         /**
-         *
          * Percent of the specified Base Field and Base Item.
          *
          */
         percentOf = "PercentOf",
         /**
-         *
          * Running Total of the specified Base Field.
          *
          */
         runningTotal = "RunningTotal",
         /**
-         *
          * Percent Running Total of the specified Base Field.
          *
          */
         percentRunningTotal = "PercentRunningTotal",
         /**
-         *
          * Difference from the specified Base Field and Base Item.
          *
          */
         differenceFrom = "DifferenceFrom",
         /**
-         *
          * Difference from the specified Base Field and Base Item.
          *
          */
         percentDifferenceFrom = "PercentDifferenceFrom",
         /**
-         *
          * Ascending Rank of the specified Base Field.
          *
          */
         rankAscending = "RankAscending",
         /**
-         *
          * Descending Rank of the specified Base Field.
          *
          */
         rankDecending = "RankDecending",
         /**
-         *
          * Calculates the values as follows:
-            ((value in cell) x (Grand Total of Grand Totals)) / ((Grand Row Total) x (Grand Column Total))
+                    ((value in cell) x (Grand Total of Grand Totals)) / ((Grand Row Total) x (Grand Column Total))
          *
          */
         index = "Index"
@@ -31250,31 +30883,26 @@ declare namespace Excel {
      */
     enum PivotAxis {
         /**
-         *
          * The axis or region is unknown or unsupported.
          *
          */
         unknown = "Unknown",
         /**
-         *
          * The row axis.
          *
          */
         row = "Row",
         /**
-         *
          * The column axis.
          *
          */
         column = "Column",
         /**
-         *
          * The data axis.
          *
          */
         data = "Data",
         /**
-         *
          * The filter axis.
          *
          */
@@ -31459,7 +31087,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.CustomProperty): void;
         /**
-         *
          * Deletes the custom property.
          *
          * [Api set: ExcelApi 1.7]
@@ -31504,7 +31131,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.CustomProperty[];
         /**
-         *
          * Creates a new or sets an existing custom property.
          *
          * [Api set: ExcelApi 1.7]
@@ -31514,21 +31140,18 @@ declare namespace Excel {
          */
         add(key: string, value: any): Excel.CustomProperty;
         /**
-         *
          * Deletes all custom properties in this collection.
          *
          * [Api set: ExcelApi 1.7]
          */
         deleteAll(): void;
         /**
-         *
          * Gets the count of custom properties.
          *
          * [Api set: ExcelApi 1.7]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a custom property object by its key, which is case-insensitive. Throws if the custom property does not exist.
          *
          * [Api set: ExcelApi 1.7]
@@ -31537,7 +31160,6 @@ declare namespace Excel {
          */
         getItem(key: string): Excel.CustomProperty;
         /**
-         *
          * Gets a custom property object by its key, which is case-insensitive. Returns a null object if the custom property does not exist.
          *
          * [Api set: ExcelApi 1.7]
@@ -31581,7 +31203,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.ConditionalFormat[];
         /**
-         *
          * Adds a new conditional format to the collection at the first/top priority.
          *
          * [Api set: ExcelApi 1.6]
@@ -31590,7 +31211,6 @@ declare namespace Excel {
          */
         add(type: Excel.ConditionalFormatType): Excel.ConditionalFormat;
         /**
-         *
          * Adds a new conditional format to the collection at the first/top priority.
          *
          * [Api set: ExcelApi 1.6]
@@ -31599,21 +31219,18 @@ declare namespace Excel {
          */
         add(type: "Custom" | "DataBar" | "ColorScale" | "IconSet" | "TopBottom" | "PresetCriteria" | "ContainsText" | "CellValue"): Excel.ConditionalFormat;
         /**
-         *
          * Clears all conditional formats active on the current specified range.
          *
          * [Api set: ExcelApi 1.6]
          */
         clearAll(): void;
         /**
-         *
          * Returns the number of conditional formats in the workbook. Read-only.
          *
          * [Api set: ExcelApi 1.6]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Returns a conditional format for the given ID.
          *
          * [Api set: ExcelApi 1.6]
@@ -31623,7 +31240,6 @@ declare namespace Excel {
          */
         getItem(id: string): Excel.ConditionalFormat;
         /**
-         *
          * Returns a conditional format at the given index.
          *
          * [Api set: ExcelApi 1.6]
@@ -31658,7 +31274,7 @@ declare namespace Excel {
     /**
      *
      * An object encapsulating a conditional format's range, format, rule, and other properties.
-            To learn more about the conditional formatting object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-conditional-formatting | Apply conditional formatting to Excel ranges}.
+                To learn more about the conditional formatting object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-conditional-formatting | Apply conditional formatting to Excel ranges}.
      *
      * [Api set: ExcelApi 1.6]
      */
@@ -31668,7 +31284,7 @@ declare namespace Excel {
         /**
          *
          * Returns the cell value conditional format properties if the current conditional format is a CellValue type.
-            For example to format all cells between 5 and 10. Read-only.
+                    For example to format all cells between 5 and 10. Read-only.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -31676,7 +31292,7 @@ declare namespace Excel {
         /**
          *
          * Returns the cell value conditional format properties if the current conditional format is a CellValue type.
-            For example to format all cells between 5 and 10. Read-only.
+                    For example to format all cells between 5 and 10. Read-only.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -31754,7 +31370,7 @@ declare namespace Excel {
         /**
          *
          * Returns the specific text conditional format properties if the current conditional format is a text type.
-            For example to format cells matching the word "Text". Read-only.
+                    For example to format cells matching the word "Text". Read-only.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -31762,7 +31378,7 @@ declare namespace Excel {
         /**
          *
          * Returns the specific text conditional format properties if the current conditional format is a text type.
-            For example to format cells matching the word "Text". Read-only.
+                    For example to format cells matching the word "Text". Read-only.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -31770,7 +31386,7 @@ declare namespace Excel {
         /**
          *
          * Returns the Top/Bottom conditional format properties if the current conditional format is an TopBottom type.
-            For example to format the top 10% or bottom 10 items. Read-only.
+                    For example to format the top 10% or bottom 10 items. Read-only.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -31778,7 +31394,7 @@ declare namespace Excel {
         /**
          *
          * Returns the Top/Bottom conditional format properties if the current conditional format is an TopBottom type.
-            For example to format the top 10% or bottom 10 items. Read-only.
+                    For example to format the top 10% or bottom 10 items. Read-only.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -31793,10 +31409,10 @@ declare namespace Excel {
         /**
          *
          * The priority (or index) within the conditional format collection that this conditional format currently exists in. Changing this also
-            changes other conditional formats' priorities, to allow for a contiguous priority order.
-            Use a negative priority to begin from the back.
-            Priorities greater than than bounds will get and set to the maximum (or minimum if negative) priority.
-            Also note that if you change the priority, you have to re-fetch a new copy of the object at that new priority location if you want to make further changes to it. Read-only.
+                    changes other conditional formats' priorities, to allow for a contiguous priority order.
+                    Use a negative priority to begin from the back.
+                    Priorities greater than than bounds will get and set to the maximum (or minimum if negative) priority.
+                    Also note that if you change the priority, you have to re-fetch a new copy of the object at that new priority location if you want to make further changes to it. Read-only.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -31804,7 +31420,7 @@ declare namespace Excel {
         /**
          *
          * If the conditions of this conditional format are met, no lower-priority formats shall take effect on that cell.
-            Null on databars, icon sets, and colorscales as there's no concept of StopIfTrue for these
+                    Null on databars, icon sets, and colorscales as there's no concept of StopIfTrue for these
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -31831,28 +31447,24 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ConditionalFormat): void;
         /**
-         *
          * Deletes this conditional format.
          *
          * [Api set: ExcelApi 1.6]
          */
         delete(): void;
         /**
-         *
          * Returns the range the conditonal format is applied to. Throws an error if the conditional format is applied to multiple ranges. Read-only.
          *
          * [Api set: ExcelApi 1.6]
          */
         getRange(): Excel.Range;
         /**
-         *
          * Returns the range the conditonal format is applied to, or a null object if the conditional format is applied to multiple ranges. Read-only.
          *
          * [Api set: ExcelApi 1.6]
          */
         getRangeOrNullObject(): Excel.Range;
         /**
-         *
          * Returns the RangeAreas, comprising one or more rectangular ranges, the conditonal format is applied to. Read-only.
          *
          * [Api set: ExcelApi 1.9]
@@ -31911,7 +31523,7 @@ declare namespace Excel {
         /**
          *
          * HTML color code representing the color of the Axis line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            "" (empty string) if no axis is present or set.
+                    "" (empty string) if no axis is present or set.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -31933,7 +31545,7 @@ declare namespace Excel {
         /**
          *
          * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar.
-            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
+                    The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -31948,7 +31560,7 @@ declare namespace Excel {
         /**
          *
          * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar.
-            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
+                    The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -32006,7 +31618,7 @@ declare namespace Excel {
         /**
          *
          * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            "" (empty string) if no border is present or set.
+                    "" (empty string) if no border is present or set.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -32078,7 +31690,7 @@ declare namespace Excel {
         /**
          *
          * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            "Empty String" if no border is present or set.
+                    "Empty String" if no border is present or set.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -33019,7 +32631,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ConditionalRangeFont): void;
         /**
-         *
          * Resets the font formats.
          *
          * [Api set: ExcelApi 1.6]
@@ -33083,7 +32694,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ConditionalRangeFill): void;
         /**
-         *
          * Resets the fill.
          *
          * [Api set: ExcelApi 1.6]
@@ -33234,7 +32844,6 @@ declare namespace Excel {
          */
         readonly count: number;
         /**
-         *
          * Gets a border object using its name.
          *
          * [Api set: ExcelApi 1.6]
@@ -33243,7 +32852,6 @@ declare namespace Excel {
          */
         getItem(index: Excel.ConditionalRangeBorderIndex): Excel.ConditionalRangeBorder;
         /**
-         *
          * Gets a border object using its name.
          *
          * [Api set: ExcelApi 1.6]
@@ -33252,7 +32860,6 @@ declare namespace Excel {
          */
         getItem(index: "EdgeTop" | "EdgeBottom" | "EdgeLeft" | "EdgeRight"): Excel.ConditionalRangeBorder;
         /**
-         *
          * Gets a border object using its index.
          *
          * [Api set: ExcelApi 1.6]
@@ -33469,7 +33076,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Style): void;
         /**
-         *
          * Deletes this style.
          *
          * [Api set: ExcelApi 1.7]
@@ -33514,7 +33120,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.Style[];
         /**
-         *
          * Adds a new style to the collection.
          *
          * [Api set: ExcelApi 1.7]
@@ -33523,14 +33128,12 @@ declare namespace Excel {
          */
         add(name: string): void;
         /**
-         *
          * Gets the number of styles in the collection.
          *
          * [Api set: ExcelApi 1.9]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a style by name.
          *
          * [Api set: ExcelApi 1.7]
@@ -33539,7 +33142,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.Style;
         /**
-         *
          * Gets a style based on its position in the collection.
          *
          * [Api set: ExcelApi 1.9]
@@ -33583,7 +33185,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.TableStyle[];
         /**
-         *
          * Creates a blank TableStyle with the specified name.
          *
          * [Api set: ExcelApi 1.10]
@@ -33594,14 +33195,12 @@ declare namespace Excel {
          */
         add(name: string, makeUniqueName?: boolean): Excel.TableStyle;
         /**
-         *
          * Gets the number of table styles in the collection.
          *
          * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets the default TableStyle for the parent object's scope.
          *
          * [Api set: ExcelApi 1.10]
@@ -33609,7 +33208,6 @@ declare namespace Excel {
          */
         getDefault(): Excel.TableStyle;
         /**
-         *
          * Gets a TableStyle by name.
          *
          * [Api set: ExcelApi 1.10]
@@ -33619,7 +33217,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.TableStyle;
         /**
-         *
          * Gets a TableStyle by name. If the TableStyle does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.10]
@@ -33629,7 +33226,6 @@ declare namespace Excel {
          */
         getItemOrNullObject(name: string): Excel.TableStyle;
         /**
-         *
          * Sets the default TableStyle for use in the parent object's scope.
          *
          * [Api set: ExcelApi 1.10]
@@ -33699,14 +33295,12 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.TableStyle): void;
         /**
-         *
          * Deletes the TableStyle.
          *
          * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
-         *
          * Creates a duplicate of this TableStyle with copies of all the style elements.
          *
          * [Api set: ExcelApi 1.10]
@@ -33752,7 +33346,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.PivotTableStyle[];
         /**
-         *
          * Creates a blank PivotTableStyle with the specified name.
          *
          * [Api set: ExcelApi 1.10]
@@ -33763,14 +33356,12 @@ declare namespace Excel {
          */
         add(name: string, makeUniqueName?: boolean): Excel.PivotTableStyle;
         /**
-         *
          * Gets the number of PivotTable styles in the collection.
          *
          * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets the default PivotTableStyle for the parent object's scope.
          *
          * [Api set: ExcelApi 1.10]
@@ -33778,7 +33369,6 @@ declare namespace Excel {
          */
         getDefault(): Excel.PivotTableStyle;
         /**
-         *
          * Gets a PivotTableStyle by name.
          *
          * [Api set: ExcelApi 1.10]
@@ -33788,7 +33378,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.PivotTableStyle;
         /**
-         *
          * Gets a PivotTableStyle by name. If the PivotTableStyle does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.10]
@@ -33798,7 +33387,6 @@ declare namespace Excel {
          */
         getItemOrNullObject(name: string): Excel.PivotTableStyle;
         /**
-         *
          * Sets the default PivotTableStyle for use in the parent object's scope.
          *
          * [Api set: ExcelApi 1.10]
@@ -33868,14 +33456,12 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.PivotTableStyle): void;
         /**
-         *
          * Deletes the PivotTableStyle.
          *
          * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
-         *
          * Creates a duplicate of this PivotTableStyle with copies of all the style elements.
          *
          * [Api set: ExcelApi 1.10]
@@ -33921,7 +33507,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.SlicerStyle[];
         /**
-         *
          * Creates a blank SlicerStyle with the specified name.
          *
          * [Api set: ExcelApi 1.10]
@@ -33932,14 +33517,12 @@ declare namespace Excel {
          */
         add(name: string, makeUniqueName?: boolean): Excel.SlicerStyle;
         /**
-         *
          * Gets the number of slicer styles in the collection.
          *
          * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets the default SlicerStyle for the parent object's scope.
          *
          * [Api set: ExcelApi 1.10]
@@ -33947,7 +33530,6 @@ declare namespace Excel {
          */
         getDefault(): Excel.SlicerStyle;
         /**
-         *
          * Gets a SlicerStyle by name.
          *
          * [Api set: ExcelApi 1.10]
@@ -33957,7 +33539,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.SlicerStyle;
         /**
-         *
          * Gets a SlicerStyle by name. If the SlicerStyle does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.10]
@@ -33967,7 +33548,6 @@ declare namespace Excel {
          */
         getItemOrNullObject(name: string): Excel.SlicerStyle;
         /**
-         *
          * Sets the default SlicerStyle for use in the parent object's scope.
          *
          * [Api set: ExcelApi 1.10]
@@ -34037,14 +33617,12 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.SlicerStyle): void;
         /**
-         *
          * Deletes the SlicerStyle.
          *
          * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
-         *
          * Creates a duplicate of this SlicerStyle with copies of all the style elements.
          *
          * [Api set: ExcelApi 1.10]
@@ -34090,7 +33668,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.TimelineStyle[];
         /**
-         *
          * Creates a blank TimelineStyle with the specified name.
          *
          * [Api set: ExcelApi 1.10]
@@ -34101,14 +33678,12 @@ declare namespace Excel {
          */
         add(name: string, makeUniqueName?: boolean): Excel.TimelineStyle;
         /**
-         *
          * Gets the number of timeline styles in the collection.
          *
          * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets the default TimelineStyle for the parent object's scope.
          *
          * [Api set: ExcelApi 1.10]
@@ -34116,7 +33691,6 @@ declare namespace Excel {
          */
         getDefault(): Excel.TimelineStyle;
         /**
-         *
          * Gets a TimelineStyle by name.
          *
          * [Api set: ExcelApi 1.10]
@@ -34126,7 +33700,6 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.TimelineStyle;
         /**
-         *
          * Gets a TimelineStyle by name. If the TimelineStyle does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.10]
@@ -34136,7 +33709,6 @@ declare namespace Excel {
          */
         getItemOrNullObject(name: string): Excel.TimelineStyle;
         /**
-         *
          * Sets the default TimelineStyle for use in the parent object's scope.
          *
          * [Api set: ExcelApi 1.10]
@@ -34206,14 +33778,12 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.TimelineStyle): void;
         /**
-         *
          * Deletes the TableStyle.
          *
          * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
-         *
          * Creates a duplicate of this TimelineStyle with copies of all the style elements.
          *
          * [Api set: ExcelApi 1.10]
@@ -34392,7 +33962,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the worksheet's print zoom options.
-            The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
+                    The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -34412,49 +33982,42 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.PageLayout): void;
         /**
-         *
          * Gets the RangeAreas object, comprising one or more rectangular ranges, that represents the print area for the worksheet. If there is no print area, an ItemNotFound error will be thrown.
          *
          * [Api set: ExcelApi 1.9]
          */
         getPrintArea(): Excel.RangeAreas;
         /**
-         *
          * Gets the RangeAreas object, comprising one or more rectangular ranges, that represents the print area for the worksheet. If there is no print area, a null object will be returned.
          *
          * [Api set: ExcelApi 1.9]
          */
         getPrintAreaOrNullObject(): Excel.RangeAreas;
         /**
-         *
          * Gets the range object representing the title columns.
          *
          * [Api set: ExcelApi 1.9]
          */
         getPrintTitleColumns(): Excel.Range;
         /**
-         *
          * Gets the range object representing the title columns. If not set, this will return a null object.
          *
          * [Api set: ExcelApi 1.9]
          */
         getPrintTitleColumnsOrNullObject(): Excel.Range;
         /**
-         *
          * Gets the range object representing the title rows.
          *
          * [Api set: ExcelApi 1.9]
          */
         getPrintTitleRows(): Excel.Range;
         /**
-         *
          * Gets the range object representing the title rows. If not set, this will return a null object.
          *
          * [Api set: ExcelApi 1.9]
          */
         getPrintTitleRowsOrNullObject(): Excel.Range;
         /**
-         *
          * Sets the worksheet's print area.
          *
          * [Api set: ExcelApi 1.9]
@@ -34463,7 +34026,6 @@ declare namespace Excel {
          */
         setPrintArea(printArea: Range | RangeAreas | string): void;
         /**
-         *
          * Sets the worksheet's page margins with units.
          *
          * [Api set: ExcelApi 1.9]
@@ -34473,7 +34035,6 @@ declare namespace Excel {
          */
         setPrintMargins(unit: Excel.PrintMarginUnit, marginOptions: Excel.PageLayoutMarginOptions): void;
         /**
-         *
          * Sets the worksheet's page margins with units.
          *
          * [Api set: ExcelApi 1.9]
@@ -34483,7 +34044,6 @@ declare namespace Excel {
          */
         setPrintMargins(unit: "Points" | "Inches" | "Centimeters", marginOptions: Excel.PageLayoutMarginOptions): void;
         /**
-         *
          * Sets the columns that contain the cells to be repeated at the left of each page of the worksheet for printing.
          *
          * [Api set: ExcelApi 1.9]
@@ -34492,7 +34052,6 @@ declare namespace Excel {
          */
         setPrintTitleColumns(printTitleColumns: Range | string): void;
         /**
-         *
          * Sets the rows that contain the cells to be repeated at the top of each page of the worksheet for printing.
          *
          * [Api set: ExcelApi 1.9]
@@ -34615,7 +34174,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the center footer of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                    To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -34623,7 +34182,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the center header of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                    To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -34631,7 +34190,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the left footer of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                    To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -34639,7 +34198,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the left header of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                    To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -34647,7 +34206,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the right footer of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                    To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -34655,7 +34214,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the right header of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                    To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -34818,14 +34377,12 @@ declare namespace Excel {
          */
         readonly rowIndex: number;
         /**
-         *
          * Deletes a page break object.
          *
          * [Api set: ExcelApi 1.9]
          */
         delete(): void;
         /**
-         *
          * Gets the first cell after the page break.
          *
          * [Api set: ExcelApi 1.9]
@@ -34867,7 +34424,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.PageBreak[];
         /**
-         *
          * Adds a page break before the top-left cell of the range specified.
          *
          * [Api set: ExcelApi 1.9]
@@ -34876,14 +34432,12 @@ declare namespace Excel {
          */
         add(pageBreakRange: Range | string): Excel.PageBreak;
         /**
-         *
          * Gets the number of page breaks in the collection.
          *
          * [Api set: ExcelApi 1.9]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a page break object via the index.
          *
          * [Api set: ExcelApi 1.9]
@@ -34892,7 +34446,6 @@ declare namespace Excel {
          */
         getItem(index: number): Excel.PageBreak;
         /**
-         *
          * Resets all manual page breaks in the collection.
          *
          * [Api set: ExcelApi 1.9]
@@ -34932,7 +34485,6 @@ declare namespace Excel {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
         /**
-         *
          * Refreshes all the Data Connections in the collection.
          *
          * [Api set: ExcelApi 1.7]
@@ -34955,14 +34507,12 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.Range[];
         /**
-         *
          * Returns the number of ranges in the RangeCollection.
          *
          * [Api set: ExcelApi 1.9]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Returns the range object based on its position in the RangeCollection.
          *
          * [Api set: ExcelApi 1.9]
@@ -35051,7 +34601,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.Comment[];
         /**
-         *
          * Creates a new comment with the given content on the given cell. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
          *
          * [Api set: ExcelApi 1.10]
@@ -35062,7 +34611,6 @@ declare namespace Excel {
          */
         add(cellAddress: Range | string, content: CommentRichContent | string, contentType?: Excel.ContentType): Excel.Comment;
         /**
-         *
          * Creates a new comment with the given content on the given cell. An `InvalidArgument` error is thrown if the provided range is larger than one cell.
          *
          * [Api set: ExcelApi 1.10]
@@ -35073,14 +34621,12 @@ declare namespace Excel {
          */
         add(cellAddress: Range | string, content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.Comment;
         /**
-         *
          * Gets the number of comments in the collection.
          *
          * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a comment from the collection based on its ID. Read-only.
          *
          * [Api set: ExcelApi 1.10]
@@ -35089,7 +34635,6 @@ declare namespace Excel {
          */
         getItem(commentId: string): Excel.Comment;
         /**
-         *
          * Gets a comment from the collection based on its position.
          *
          * [Api set: ExcelApi 1.10]
@@ -35098,7 +34643,6 @@ declare namespace Excel {
          */
         getItemAt(index: number): Excel.Comment;
         /**
-         *
          * Gets the comment from the specified cell.
          *
          * [Api set: ExcelApi 1.10]
@@ -35107,7 +34651,6 @@ declare namespace Excel {
          */
         getItemByCell(cellAddress: Range | string): Excel.Comment;
         /**
-         *
          * Gets the comment to which the given reply is connected.
          *
          * [Api set: ExcelApi 1.10]
@@ -35219,21 +34762,18 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Comment): void;
         /**
-         *
          * Deletes the comment and all the connected replies.
          *
          * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
-         *
          * Gets the cell where this comment is located.
          *
          * [Api set: ExcelApi 1.10]
          */
         getLocation(): Excel.Range;
         /**
-         *
          * Updates the comment content with a specially formatted string and a list of mentions.
          *
          * [Api set: ExcelApiOnline 1.1]
@@ -35280,7 +34820,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.CommentReply[];
         /**
-         *
          * Creates a comment reply for comment.
          *
          * [Api set: ExcelApi 1.10]
@@ -35290,7 +34829,6 @@ declare namespace Excel {
          */
         add(content: CommentRichContent | string, contentType?: Excel.ContentType): Excel.CommentReply;
         /**
-         *
          * Creates a comment reply for comment.
          *
          * [Api set: ExcelApi 1.10]
@@ -35300,14 +34838,12 @@ declare namespace Excel {
          */
         add(content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.CommentReply;
         /**
-         *
          * Gets the number of comment replies in the collection.
          *
          * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Returns a comment reply identified by its ID. Read-only.
          *
          * [Api set: ExcelApi 1.10]
@@ -35316,7 +34852,6 @@ declare namespace Excel {
          */
         getItem(commentReplyId: string): Excel.CommentReply;
         /**
-         *
          * Gets a comment reply based on its position in the collection.
          *
          * [Api set: ExcelApi 1.10]
@@ -35421,28 +34956,24 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.CommentReply): void;
         /**
-         *
          * Deletes the comment reply.
          *
          * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
-         *
          * Gets the cell where this comment reply is located.
          *
          * [Api set: ExcelApi 1.10]
          */
         getLocation(): Excel.Range;
         /**
-         *
          * Gets the parent comment of this reply.
          *
          * [Api set: ExcelApi 1.10]
          */
         getParentComment(): Excel.Comment;
         /**
-         *
          * Updates the comment content with a specially formatted string and a list of mentions.
          *
          * [Api set: ExcelApiOnline 1.1]
@@ -35489,7 +35020,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.Shape[];
         /**
-         *
          * Adds a geometric shape to the worksheet. Returns a Shape object that represents the new shape.
          *
          * [Api set: ExcelApi 1.9]
@@ -35498,7 +35028,6 @@ declare namespace Excel {
          */
         addGeometricShape(geometricShapeType: Excel.GeometricShapeType): Excel.Shape;
         /**
-         *
          * Adds a geometric shape to the worksheet. Returns a Shape object that represents the new shape.
          *
          * [Api set: ExcelApi 1.9]
@@ -35507,7 +35036,6 @@ declare namespace Excel {
          */
         addGeometricShape(geometricShapeType: "LineInverse" | "Triangle" | "RightTriangle" | "Rectangle" | "Diamond" | "Parallelogram" | "Trapezoid" | "NonIsoscelesTrapezoid" | "Pentagon" | "Hexagon" | "Heptagon" | "Octagon" | "Decagon" | "Dodecagon" | "Star4" | "Star5" | "Star6" | "Star7" | "Star8" | "Star10" | "Star12" | "Star16" | "Star24" | "Star32" | "RoundRectangle" | "Round1Rectangle" | "Round2SameRectangle" | "Round2DiagonalRectangle" | "SnipRoundRectangle" | "Snip1Rectangle" | "Snip2SameRectangle" | "Snip2DiagonalRectangle" | "Plaque" | "Ellipse" | "Teardrop" | "HomePlate" | "Chevron" | "PieWedge" | "Pie" | "BlockArc" | "Donut" | "NoSmoking" | "RightArrow" | "LeftArrow" | "UpArrow" | "DownArrow" | "StripedRightArrow" | "NotchedRightArrow" | "BentUpArrow" | "LeftRightArrow" | "UpDownArrow" | "LeftUpArrow" | "LeftRightUpArrow" | "QuadArrow" | "LeftArrowCallout" | "RightArrowCallout" | "UpArrowCallout" | "DownArrowCallout" | "LeftRightArrowCallout" | "UpDownArrowCallout" | "QuadArrowCallout" | "BentArrow" | "UturnArrow" | "CircularArrow" | "LeftCircularArrow" | "LeftRightCircularArrow" | "CurvedRightArrow" | "CurvedLeftArrow" | "CurvedUpArrow" | "CurvedDownArrow" | "SwooshArrow" | "Cube" | "Can" | "LightningBolt" | "Heart" | "Sun" | "Moon" | "SmileyFace" | "IrregularSeal1" | "IrregularSeal2" | "FoldedCorner" | "Bevel" | "Frame" | "HalfFrame" | "Corner" | "DiagonalStripe" | "Chord" | "Arc" | "LeftBracket" | "RightBracket" | "LeftBrace" | "RightBrace" | "BracketPair" | "BracePair" | "Callout1" | "Callout2" | "Callout3" | "AccentCallout1" | "AccentCallout2" | "AccentCallout3" | "BorderCallout1" | "BorderCallout2" | "BorderCallout3" | "AccentBorderCallout1" | "AccentBorderCallout2" | "AccentBorderCallout3" | "WedgeRectCallout" | "WedgeRRectCallout" | "WedgeEllipseCallout" | "CloudCallout" | "Cloud" | "Ribbon" | "Ribbon2" | "EllipseRibbon" | "EllipseRibbon2" | "LeftRightRibbon" | "VerticalScroll" | "HorizontalScroll" | "Wave" | "DoubleWave" | "Plus" | "FlowChartProcess" | "FlowChartDecision" | "FlowChartInputOutput" | "FlowChartPredefinedProcess" | "FlowChartInternalStorage" | "FlowChartDocument" | "FlowChartMultidocument" | "FlowChartTerminator" | "FlowChartPreparation" | "FlowChartManualInput" | "FlowChartManualOperation" | "FlowChartConnector" | "FlowChartPunchedCard" | "FlowChartPunchedTape" | "FlowChartSummingJunction" | "FlowChartOr" | "FlowChartCollate" | "FlowChartSort" | "FlowChartExtract" | "FlowChartMerge" | "FlowChartOfflineStorage" | "FlowChartOnlineStorage" | "FlowChartMagneticTape" | "FlowChartMagneticDisk" | "FlowChartMagneticDrum" | "FlowChartDisplay" | "FlowChartDelay" | "FlowChartAlternateProcess" | "FlowChartOffpageConnector" | "ActionButtonBlank" | "ActionButtonHome" | "ActionButtonHelp" | "ActionButtonInformation" | "ActionButtonForwardNext" | "ActionButtonBackPrevious" | "ActionButtonEnd" | "ActionButtonBeginning" | "ActionButtonReturn" | "ActionButtonDocument" | "ActionButtonSound" | "ActionButtonMovie" | "Gear6" | "Gear9" | "Funnel" | "MathPlus" | "MathMinus" | "MathMultiply" | "MathDivide" | "MathEqual" | "MathNotEqual" | "CornerTabs" | "SquareTabs" | "PlaqueTabs" | "ChartX" | "ChartStar" | "ChartPlus"): Excel.Shape;
         /**
-         *
          * Groups a subset of shapes in this collection's worksheet. Returns a Shape object that represents the new group of shapes.
          *
          * [Api set: ExcelApi 1.9]
@@ -35516,7 +35044,6 @@ declare namespace Excel {
          */
         addGroup(values: Array<string | Shape>): Excel.Shape;
         /**
-         *
          * Creates an image from a base64-encoded string and adds it to the worksheet. Returns the Shape object that represents the new image.
          *
          * [Api set: ExcelApi 1.9]
@@ -35525,7 +35052,6 @@ declare namespace Excel {
          */
         addImage(base64ImageString: string): Excel.Shape;
         /**
-         *
          * Adds a line to worksheet. Returns a Shape object that represents the new line.
          *
          * [Api set: ExcelApi 1.9]
@@ -35538,7 +35064,6 @@ declare namespace Excel {
          */
         addLine(startLeft: number, startTop: number, endLeft: number, endTop: number, connectorType?: Excel.ConnectorType): Excel.Shape;
         /**
-         *
          * Adds a line to worksheet. Returns a Shape object that represents the new line.
          *
          * [Api set: ExcelApi 1.9]
@@ -35551,7 +35076,6 @@ declare namespace Excel {
          */
         addLine(startLeft: number, startTop: number, endLeft: number, endTop: number, connectorType?: "Straight" | "Elbow" | "Curve"): Excel.Shape;
         /**
-         *
          * Adds a text box to the worksheet with the provided text as the content. Returns a Shape object that represents the new text box.
          *
          * [Api set: ExcelApi 1.9]
@@ -35560,14 +35084,12 @@ declare namespace Excel {
          */
         addTextBox(text?: string): Excel.Shape;
         /**
-         *
          * Returns the number of shapes in the worksheet. Read-only.
          *
          * [Api set: ExcelApi 1.9]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a shape using its Name or ID.
          *
          * [Api set: ExcelApi 1.9]
@@ -35576,7 +35098,6 @@ declare namespace Excel {
          */
         getItem(key: string): Excel.Shape;
         /**
-         *
          * Gets a shape using its position in the collection.
          *
          * [Api set: ExcelApi 1.9]
@@ -35611,7 +35132,7 @@ declare namespace Excel {
     /**
      *
      * Represents a generic shape object in the worksheet. A shape could be a geometric shape, a line, a group of shapes, etc.
-            To learn more about the shape object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-shapes | Work with shapes using the Excel JavaScript API}.
+                To learn more about the shape object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-shapes | Work with shapes using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -35705,7 +35226,7 @@ declare namespace Excel {
         /**
          *
          * Represents the height, in points, of the shape.
-            Throws an invalid argument exception when set with a negative value or zero as input.
+                    Throws an invalid argument exception when set with a negative value or zero as input.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -35720,7 +35241,7 @@ declare namespace Excel {
         /**
          *
          * The distance, in points, from the left side of the shape to the left side of the worksheet.
-            Throws an invalid argument exception when set with a negative value as input.
+                    Throws an invalid argument exception when set with a negative value as input.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -35763,7 +35284,7 @@ declare namespace Excel {
         /**
          *
          * The distance, in points, from the top edge of the shape to the top edge of the worksheet.
-            Throws an invalid argument exception when set with a negative value as input.
+                    Throws an invalid argument exception when set with a negative value as input.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -35785,7 +35306,7 @@ declare namespace Excel {
         /**
          *
          * Represents the width, in points, of the shape.
-            Throws an invalid argument exception when set with a negative value or zero as input.
+                    Throws an invalid argument exception when set with a negative value or zero as input.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -35812,9 +35333,8 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Shape): void;
         /**
-         *
          * Copies and pastes a Shape object.
-            The pasted shape is copied to the same pixel location as this shape.
+                    The pasted shape is copied to the same pixel location as this shape.
          *
          * [Api set: ExcelApi 1.10]
          *
@@ -35822,14 +35342,12 @@ declare namespace Excel {
          */
         copyTo(destinationSheet?: Worksheet | string): Excel.Shape;
         /**
-         *
          * Removes the shape from the worksheet.
          *
          * [Api set: ExcelApi 1.9]
          */
         delete(): void;
         /**
-         *
          * Converts the shape to an image and returns the image as a base64-encoded string. The DPI is 96. The only supported formats are `Excel.PictureFormat.BMP`, `Excel.PictureFormat.PNG`, `Excel.PictureFormat.JPEG`, and `Excel.PictureFormat.GIF`.
          *
          * [Api set: ExcelApi 1.9]
@@ -35838,7 +35356,6 @@ declare namespace Excel {
          */
         getAsImage(format: Excel.PictureFormat): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Converts the shape to an image and returns the image as a base64-encoded string. The DPI is 96. The only supported formats are `Excel.PictureFormat.BMP`, `Excel.PictureFormat.PNG`, `Excel.PictureFormat.JPEG`, and `Excel.PictureFormat.GIF`.
          *
          * [Api set: ExcelApi 1.9]
@@ -35847,7 +35364,6 @@ declare namespace Excel {
          */
         getAsImage(format: "UNKNOWN" | "BMP" | "JPEG" | "GIF" | "PNG" | "SVG"): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Moves the shape horizontally by the specified number of points.
          *
          * [Api set: ExcelApi 1.9]
@@ -35856,9 +35372,8 @@ declare namespace Excel {
          */
         incrementLeft(increment: number): void;
         /**
-         *
          * Rotates the shape clockwise around the z-axis by the specified number of degrees.
-            Use the `rotation` property to set the absolute rotation of the shape.
+                    Use the `rotation` property to set the absolute rotation of the shape.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -35866,7 +35381,6 @@ declare namespace Excel {
          */
         incrementRotation(increment: number): void;
         /**
-         *
          * Moves the shape vertically by the specified number of points.
          *
          * [Api set: ExcelApi 1.9]
@@ -35875,7 +35389,6 @@ declare namespace Excel {
          */
         incrementTop(increment: number): void;
         /**
-         *
          * Scales the height of the shape by a specified factor. For images, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current height.
          *
          * [Api set: ExcelApi 1.9]
@@ -35886,7 +35399,6 @@ declare namespace Excel {
          */
         scaleHeight(scaleFactor: number, scaleType: Excel.ShapeScaleType, scaleFrom?: Excel.ShapeScaleFrom): void;
         /**
-         *
          * Scales the height of the shape by a specified factor. For images, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current height.
          *
          * [Api set: ExcelApi 1.9]
@@ -35897,7 +35409,6 @@ declare namespace Excel {
          */
         scaleHeight(scaleFactor: number, scaleType: "CurrentSize" | "OriginalSize", scaleFrom?: "ScaleFromTopLeft" | "ScaleFromMiddle" | "ScaleFromBottomRight"): void;
         /**
-         *
          * Scales the width of the shape by a specified factor. For images, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current width.
          *
          * [Api set: ExcelApi 1.9]
@@ -35908,7 +35419,6 @@ declare namespace Excel {
          */
         scaleWidth(scaleFactor: number, scaleType: Excel.ShapeScaleType, scaleFrom?: Excel.ShapeScaleFrom): void;
         /**
-         *
          * Scales the width of the shape by a specified factor. For images, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current width.
          *
          * [Api set: ExcelApi 1.9]
@@ -35919,7 +35429,6 @@ declare namespace Excel {
          */
         scaleWidth(scaleFactor: number, scaleType: "CurrentSize" | "OriginalSize", scaleFrom?: "ScaleFromTopLeft" | "ScaleFromMiddle" | "ScaleFromBottomRight"): void;
         /**
-         *
          * Moves the specified shape up or down the collection's z-order, which shifts it in front of or behind other shapes.
          *
          * [Api set: ExcelApi 1.9]
@@ -35928,7 +35437,6 @@ declare namespace Excel {
          */
         setZOrder(position: Excel.ShapeZOrder): void;
         /**
-         *
          * Moves the specified shape up or down the collection's z-order, which shifts it in front of or behind other shapes.
          *
          * [Api set: ExcelApi 1.9]
@@ -36119,7 +35627,6 @@ declare namespace Excel {
          */
         readonly id: string;
         /**
-         *
          * Ungroups any grouped shapes in the specified shape group.
          *
          * [Api set: ExcelApi 1.9]
@@ -36164,14 +35671,12 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.Shape[];
         /**
-         *
          * Returns the number of shapes in the shape group. Read-only.
          *
          * [Api set: ExcelApi 1.9]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a shape using its Name or ID.
          *
          * [Api set: ExcelApi 1.9]
@@ -36180,7 +35685,6 @@ declare namespace Excel {
          */
         getItem(key: string): Excel.Shape;
         /**
-         *
          * Gets a shape based on its position in the collection.
          *
          * [Api set: ExcelApi 1.9]
@@ -36341,7 +35845,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Line): void;
         /**
-         *
          * Attaches the beginning of the specified connector to a specified shape.
          *
          * [Api set: ExcelApi 1.9]
@@ -36351,7 +35854,6 @@ declare namespace Excel {
          */
         connectBeginShape(shape: Excel.Shape, connectionSite: number): void;
         /**
-         *
          * Attaches the end of the specified connector to a specified shape.
          *
          * [Api set: ExcelApi 1.9]
@@ -36361,14 +35863,12 @@ declare namespace Excel {
          */
         connectEndShape(shape: Excel.Shape, connectionSite: number): void;
         /**
-         *
          * Detaches the beginning of the specified connector from a shape.
          *
          * [Api set: ExcelApi 1.9]
          */
         disconnectBeginShape(): void;
         /**
-         *
          * Detaches the end of the specified connector from a shape.
          *
          * [Api set: ExcelApi 1.9]
@@ -36446,14 +35946,12 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ShapeFill): void;
         /**
-         *
          * Clears the fill formatting of this shape.
          *
          * [Api set: ExcelApi 1.9]
          */
         clear(): void;
         /**
-         *
          * Sets the fill formatting of the shape to a uniform color. This changes the fill type to "Solid".
          *
          * [Api set: ExcelApi 1.9]
@@ -36695,7 +36193,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.TextFrame): void;
         /**
-         *
          * Deletes all the text in the text frame.
          *
          * [Api set: ExcelApi 1.9]
@@ -36766,7 +36263,6 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.TextRange): void;
         /**
-         *
          * Returns a TextRange object for the substring in the given range.
          *
          * [Api set: ExcelApi 1.9]
@@ -36927,7 +36423,7 @@ declare namespace Excel {
         /**
          *
          * Represents the height, in points, of the slicer.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
+                    Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
          *
          * [Api set: ExcelApi 1.10]
          */
@@ -36949,7 +36445,7 @@ declare namespace Excel {
         /**
          *
          * Represents the distance, in points, from the left side of the slicer to the left of the worksheet.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
+                    Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
          *
          * [Api set: ExcelApi 1.10]
          */
@@ -36978,7 +36474,7 @@ declare namespace Excel {
         /**
          *
          * Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
+                    Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
          *
          * [Api set: ExcelApi 1.10]
          */
@@ -36986,7 +36482,7 @@ declare namespace Excel {
         /**
          *
          * Represents the width, in points, of the slicer.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
+                    Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
          *
          * [Api set: ExcelApi 1.10]
          */
@@ -37006,30 +36502,26 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Slicer): void;
         /**
-         *
          * Clears all the filters currently applied on the slicer.
          *
          * [Api set: ExcelApi 1.10]
          */
         clearFilters(): void;
         /**
-         *
          * Deletes the slicer.
          *
          * [Api set: ExcelApi 1.10]
          */
         delete(): void;
         /**
-         *
          * Returns an array of selected items' keys. Read-only.
          *
          * [Api set: ExcelApi 1.10]
          */
         getSelectedItems(): OfficeExtension.ClientResult<string[]>;
         /**
-         *
          * Selects slicer items based on their keys. The previous selections are cleared.
-            All items will be selected by default if the array is empty.
+                    All items will be selected by default if the array is empty.
          *
          * [Api set: ExcelApi 1.10]
          *
@@ -37075,7 +36567,6 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.Slicer[];
         /**
-         *
          * Adds a new slicer to the workbook.
          *
          * [Api set: ExcelApi 1.10]
@@ -37087,14 +36578,12 @@ declare namespace Excel {
          */
         add(slicerSource: string | PivotTable | Table, sourceField: string | PivotField | number | TableColumn, slicerDestination?: string | Worksheet): Excel.Slicer;
         /**
-         *
          * Returns the number of slicers in the collection.
          *
          * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a slicer object using its name or id.
          *
          * [Api set: ExcelApi 1.10]
@@ -37103,7 +36592,6 @@ declare namespace Excel {
          */
         getItem(key: string): Excel.Slicer;
         /**
-         *
          * Gets a slicer based on its position in the collection.
          *
          * [Api set: ExcelApi 1.10]
@@ -37112,7 +36600,6 @@ declare namespace Excel {
          */
         getItemAt(index: number): Excel.Slicer;
         /**
-         *
          * Gets a slicer using its name or id. If the slicer does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.10]
@@ -37163,8 +36650,8 @@ declare namespace Excel {
         /**
          *
          * True if the slicer item is selected.
-            Setting this value will not clear other SlicerItems' selected state.
-            By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
+                    Setting this value will not clear other SlicerItems' selected state.
+                    By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
          *
          * [Api set: ExcelApi 1.10]
          */
@@ -37236,14 +36723,12 @@ declare namespace Excel {
         /** Gets the loaded child items in this collection. */
         readonly items: Excel.SlicerItem[];
         /**
-         *
          * Returns the number of slicer items in the slicer.
          *
          * [Api set: ExcelApi 1.10]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
-         *
          * Gets a slicer item object using its key or name.
          *
          * [Api set: ExcelApi 1.10]
@@ -37252,7 +36737,6 @@ declare namespace Excel {
          */
         getItem(key: string): Excel.SlicerItem;
         /**
-         *
          * Gets a slicer item based on its position in the collection.
          *
          * [Api set: ExcelApi 1.10]
@@ -37261,7 +36745,6 @@ declare namespace Excel {
          */
         getItemAt(index: number): Excel.SlicerItem;
         /**
-         *
          * Gets a slicer item using its key or name. If the slicer item does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.10]
@@ -37299,19 +36782,16 @@ declare namespace Excel {
     enum ChartAxisType {
         invalid = "Invalid",
         /**
-         *
          * Axis displays categories.
          *
          */
         category = "Category",
         /**
-         *
          * Axis displays values.
          *
          */
         value = "Value",
         /**
-         *
          * Axis displays data series.
          *
          */
@@ -37357,19 +36837,16 @@ declare namespace Excel {
      */
     enum CalculationState {
         /**
-         *
          * Calculations complete.
          *
          */
         done = "Done",
         /**
-         *
          * Calculations in progress.
          *
          */
         calculating = "Calculating",
         /**
-         *
          * Changes that trigger calculation have been made, but a recalculation has not yet been performed.
          *
          */
@@ -37389,67 +36866,56 @@ declare namespace Excel {
      */
     enum ChartAxisDisplayUnit {
         /**
-         *
          * Default option. This will reset display unit to the axis, and set unit label invisible.
          *
          */
         none = "None",
         /**
-         *
          * This will set the axis in units of hundreds.
          *
          */
         hundreds = "Hundreds",
         /**
-         *
          * This will set the axis in units of thousands.
          *
          */
         thousands = "Thousands",
         /**
-         *
          * This will set the axis in units of tens of thousands.
          *
          */
         tenThousands = "TenThousands",
         /**
-         *
          * This will set the axis in units of hundreds of thousands.
          *
          */
         hundredThousands = "HundredThousands",
         /**
-         *
          * This will set the axis in units of millions.
          *
          */
         millions = "Millions",
         /**
-         *
          * This will set the axis in units of tens of millions.
          *
          */
         tenMillions = "TenMillions",
         /**
-         *
          * This will set the axis in units of hundreds of millions.
          *
          */
         hundredMillions = "HundredMillions",
         /**
-         *
          * This will set the axis in units of billions.
          *
          */
         billions = "Billions",
         /**
-         *
          * This will set the axis in units of trillions.
          *
          */
         trillions = "Trillions",
         /**
-         *
          * This will set the axis in units of custom value.
          *
          */
@@ -37484,19 +36950,16 @@ declare namespace Excel {
      */
     enum ChartAxisCategoryType {
         /**
-         *
          * Excel controls the axis type.
          *
          */
         automatic = "Automatic",
         /**
-         *
          * Axis groups data by an arbitrary set of categories.
          *
          */
         textAxis = "TextAxis",
         /**
-         *
          * Axis groups data on a time scale.
          *
          */
@@ -37701,7 +37164,6 @@ declare namespace Excel {
      */
     enum ChartSeriesBy {
         /**
-         *
          * On Desktop, the "auto" option will inspect the source data shape to automatically guess whether the data is by rows or columns; in Excel on the web, "auto" will simply default to "columns".
          *
          */
@@ -37948,37 +37410,31 @@ declare namespace Excel {
      */
     enum ShapeFillType {
         /**
-         *
          * No fill.
          *
          */
         noFill = "NoFill",
         /**
-         *
          * Solid fill.
          *
          */
         solid = "Solid",
         /**
-         *
          * Gradient fill.
          *
          */
         gradient = "Gradient",
         /**
-         *
          * Pattern fill.
          *
          */
         pattern = "Pattern",
         /**
-         *
          * Picture and texture fill.
          *
          */
         pictureAndTexture = "PictureAndTexture",
         /**
-         *
          * Mixed fill.
          *
          */
@@ -38018,31 +37474,26 @@ declare namespace Excel {
     enum PictureFormat {
         unknown = "UNKNOWN",
         /**
-         *
          * Bitmap image.
          *
          */
         bmp = "BMP",
         /**
-         *
          * Joint Photographic Experts Group.
          *
          */
         jpeg = "JPEG",
         /**
-         *
          * Graphics Interchange Format.
          *
          */
         gif = "GIF",
         /**
-         *
          * Portable Network Graphics.
          *
          */
         png = "PNG",
         /**
-         *
          * Scalable Vector Graphic.
          *
          */
@@ -38056,31 +37507,26 @@ declare namespace Excel {
      */
     enum ShapeLineStyle {
         /**
-         *
          * Single line.
          *
          */
         single = "Single",
         /**
-         *
          * Thick line with a thin line on each side.
          *
          */
         thickBetweenThin = "ThickBetweenThin",
         /**
-         *
          * Thick line next to thin line. For horizontal lines, the thick line is above the thin line. For vertical lines, the thick line is to the left of the thin line.
          *
          */
         thickThin = "ThickThin",
         /**
-         *
          * Thick line next to thin line. For horizontal lines, the thick line is below the thin line. For vertical lines, the thick line is to the right of the thin line.
          *
          */
         thinThick = "ThinThick",
         /**
-         *
          * Two thin lines.
          *
          */
@@ -38181,19 +37627,16 @@ declare namespace Excel {
      */
     enum CalculationMode {
         /**
-         *
          * The default recalculation behavior where Excel calculates new formula results every time the relevant data is changed.
          *
          */
         automatic = "Automatic",
         /**
-         *
          * Calculates new formula results every time the relevant data is changed, unless the formula is in a data table.
          *
          */
         automaticExceptTables = "AutomaticExceptTables",
         /**
-         *
          * Calculations only occur when the user or add-in requests them.
          *
          */
@@ -38204,19 +37647,16 @@ declare namespace Excel {
      */
     enum CalculationType {
         /**
-         *
          * Recalculates all cells that Excel has marked as dirty, that is, dependents of volatile or changed data, and cells programmatically marked as dirty.
          *
          */
         recalculate = "Recalculate",
         /**
-         *
          * This will mark all cells as dirty and then recalculate them.
          *
          */
         full = "Full",
         /**
-         *
          * This will rebuild the full dependency chain, mark all cells as dirty and then recalculate them.
          *
          */
@@ -38228,25 +37668,21 @@ declare namespace Excel {
     enum ClearApplyTo {
         all = "All",
         /**
-         *
          * Clears all formatting for the range.
          *
          */
         formats = "Formats",
         /**
-         *
          * Clears the contents of the range.
          *
          */
         contents = "Contents",
         /**
-         *
          * Clears all hyperlinks, but leaves all content and formatting intact.
          *
          */
         hyperlinks = "Hyperlinks",
         /**
-         *
          * Removes hyperlinks and formatting for the cell but leaves content, conditional formats, and data validation intact.
          *
          */
@@ -38466,61 +37902,51 @@ declare namespace Excel {
      */
     enum DataValidationType {
         /**
-         *
          * None means allow any value and so there is no data validation in the range.
          *
          */
         none = "None",
         /**
-         *
          * Whole number data validation type
          *
          */
         wholeNumber = "WholeNumber",
         /**
-         *
          * Decimal data validation type
          *
          */
         decimal = "Decimal",
         /**
-         *
          * List data validation type
          *
          */
         list = "List",
         /**
-         *
          * Date data validation type
          *
          */
         date = "Date",
         /**
-         *
          * Time data validation type
          *
          */
         time = "Time",
         /**
-         *
          * Text length data validation type
          *
          */
         textLength = "TextLength",
         /**
-         *
          * Custom data validation type
          *
          */
         custom = "Custom",
         /**
-         *
          * Inconsistent means that the range has inconsistent data validation (there are different rules on different cells)
          *
          */
         inconsistent = "Inconsistent",
         /**
-         *
          * MixedCriteria means that the range has data validation present on some but not all cells
          *
          */
@@ -38745,13 +38171,11 @@ declare namespace Excel {
      */
     enum SearchDirection {
         /**
-         *
          * Search in forward order.
          *
          */
         forward = "Forward",
         /**
-         *
          * Search in reverse order.
          *
          */
@@ -38812,13 +38236,11 @@ declare namespace Excel {
      */
     enum EventSource {
         /**
-         *
          * Local means event comes from local user session.
          *
          */
         local = "Local",
         /**
-         *
          * Remote means event comes from remote user session.
          *
          */
@@ -38829,49 +38251,41 @@ declare namespace Excel {
      */
     enum DataChangeType {
         /**
-         *
          * Unknown represents the type of data change is not the listed types.
          *
          */
         unknown = "Unknown",
         /**
-         *
          * RangeEdited represents the data change event is triggered by range being edited.
          *
          */
         rangeEdited = "RangeEdited",
         /**
-         *
          * RowInserted represents the data change event is triggered by inserting new rows.
          *
          */
         rowInserted = "RowInserted",
         /**
-         *
          * RowDeleted represents the data change event is triggered by deleting rows.
          *
          */
         rowDeleted = "RowDeleted",
         /**
-         *
          * ColumnInserted represents the data change event is triggered by inserting new columns.
          *
          */
         columnInserted = "ColumnInserted",
         /**
-         *
          * ColumnDeleted represents the data change event is triggered by deleting columns.
          *
          */
         columnDeleted = "ColumnDeleted",
         /**
-         *
          * CellInserted represents the data change event is triggered by inserting new cells.
          *
          */
         cellInserted = "CellInserted",
         /**
-         *
          * CellDeleted represents the data change event is triggered by deleting cells.
          *
          */
@@ -38882,176 +38296,147 @@ declare namespace Excel {
      */
     enum EventType {
         /**
-         *
          * WorksheetChanged represents the type of event registered on Worksheet or WorksheetCollection, and occurs when data changes.
          *
          */
         worksheetChanged = "WorksheetChanged",
         /**
-         *
          * WorksheetSelectionChanged represents the type of event registered on Worksheet, and occurs when selection changes.
          *
          */
         worksheetSelectionChanged = "WorksheetSelectionChanged",
         /**
-         *
          * WorksheetAdded represents the type of event registered on WorksheetCollection, and occurs when a new worksheet is added to the workbook.
          *
          */
         worksheetAdded = "WorksheetAdded",
         /**
-         *
          * WorksheetActivated represents the type of event registered on Worksheet or WorksheetCollection, and occurs when worksheet activates.
          *
          */
         worksheetActivated = "WorksheetActivated",
         /**
-         *
          * WorksheetDeactivated represents the type of event registered on Worksheet or WorksheetCollection, and occurs when worksheet deactivates.
          *
          */
         worksheetDeactivated = "WorksheetDeactivated",
         /**
-         *
          * TableChanged represents the type of event registered on Table, and occurs when data changes.
          *
          */
         tableChanged = "TableChanged",
         /**
-         *
          * TableSelectionChanged represents the type of event registered on Table, and occurs when selection changes.
          *
          */
         tableSelectionChanged = "TableSelectionChanged",
         /**
-         *
          * WorksheetDeleted represents the type of event registered on WorksheetCollection, and occurs when a worksheet is deleted from the workbook.
          *
          */
         worksheetDeleted = "WorksheetDeleted",
         /**
-         *
          * ChartAdded represents the type of event registered on ChartCollection, and occurs when a new chart is added to the worksheet.
          *
          */
         chartAdded = "ChartAdded",
         /**
-         *
          * ChartActivated represents the type of event registered on Chart or ChartCollection, and occurs when chart activates.
          *
          */
         chartActivated = "ChartActivated",
         /**
-         *
          * ChartDeactivated represents the type of event registered on Chart or ChartCollection, and occurs when chart deactivates.
          *
          */
         chartDeactivated = "ChartDeactivated",
         /**
-         *
          * ChartDeleted represents the type of event registered on ChartCollection, and occurs when a chart is deleted from the worksheet.
          *
          */
         chartDeleted = "ChartDeleted",
         /**
-         *
          * WorksheetCalculated represents the type of event registered on Worksheet or WorksheetCollection, and occurs when a worksheet is calculated.
          *
          */
         worksheetCalculated = "WorksheetCalculated",
         /**
-         *
          * VisualSelectionChanged represents the type of event registered on VisualCollection, and occurs when visual selection changes.
          *
          */
         visualSelectionChanged = "VisualSelectionChanged",
         /**
-         *
          * AgaveVisualUpdate represents the type of an event that is associated with an agave visual, and carries a new data view following a data change
          *
          */
         agaveVisualUpdate = "AgaveVisualUpdate",
         /**
-         *
          * TableAdded represents the type of event registered on TableCollection, and occurs when a table is added.
          *
          */
         tableAdded = "TableAdded",
         /**
-         *
          * TableDeleted represents the type of event that is registered on TableCollection, and occurs when a table is deleted.
          *
          */
         tableDeleted = "TableDeleted",
         /**
-         *
          * TableFiltered represents the type of event registered on table or TableCollection, and occurs when data of table is filtered.
          *
          */
         tableFiltered = "TableFiltered",
         /**
-         *
          * WorksheetFiltered represents the type of event registered on worksheet or WorksheetCollection, and occurs when data of autofilter in the worksheet is filtered.
          *
          */
         worksheetFiltered = "WorksheetFiltered",
         /**
-         *
          * ShapeActivated represents the type of event that is registered on Shape, and occurs when shape activates.
          *
          */
         shapeActivated = "ShapeActivated",
         /**
-         *
          * ShapeDeactivated represents the type of event that is registered on Shape, and occurs when shape deactivates.
          *
          */
         shapeDeactivated = "ShapeDeactivated",
         /**
-         *
          * VisualChange represents the type of event registered on Visual, and occurs when there is a visual change.
          *
          */
         visualChange = "VisualChange",
         /**
-         *
          * WorkbookAutoSaveSettingChanged represents the type of event registered on workbook, and occurs when there is an auto save setting change.
          *
          */
         workbookAutoSaveSettingChanged = "WorkbookAutoSaveSettingChanged",
         /**
-         *
          * WorksheetFormatChanged represents the type of event registered on worksheet, and occurs when there is a format changed.
          *
          */
         worksheetFormatChanged = "WorksheetFormatChanged",
         wacoperationEvent = "WACOperationEvent",
         /**
-         *
          * RibbonCommandExecuted represents the type of event registered on ribbon, and occurs when user click on ribbon
          *
          */
         ribbonCommandExecuted = "RibbonCommandExecuted",
         /**
-         *
          * WorksheetRowSorted represents the type of event registered on worksheet, and occurs when there is a sorting on rows happened.
          *
          */
         worksheetRowSorted = "WorksheetRowSorted",
         /**
-         *
          * WorksheetColumnSorted represents the type of event registered on worksheet, and occurs when there is a sorting on columns happened.
          *
          */
         worksheetColumnSorted = "WorksheetColumnSorted",
         /**
-         *
          * WorksheetSingleClicked represents the type of event registered on worksheet, and occurs when cell is left-clicked/tapped.
          *
          */
         worksheetSingleClicked = "WorksheetSingleClicked",
         /**
-         *
          * WorksheetRowHiddenChanged represents the type of event registered on worksheet, and occurs when a row's hidden state is changed.
          *
          */
@@ -39083,19 +38468,16 @@ declare namespace Excel {
      */
     enum SubtotalLocationType {
         /**
-         *
          * Subtotals are at the top.
          *
          */
         atTop = "AtTop",
         /**
-         *
          * Subtotals are at the bottom.
          *
          */
         atBottom = "AtBottom",
         /**
-         *
          * Subtotals are off.
          *
          */
@@ -39106,19 +38488,16 @@ declare namespace Excel {
      */
     enum PivotLayoutType {
         /**
-         *
          * A horizontally compressed form with labels from the next field in the same column.
          *
          */
         compact = "Compact",
         /**
-         *
          * Inner fields' items are always on a new line relative to the outer fields' items.
          *
          */
         tabular = "Tabular",
         /**
-         *
          * Inner fields' items are on same row as outer fields' items and subtotals are always on the bottom.
          *
          */
@@ -39129,19 +38508,16 @@ declare namespace Excel {
      */
     enum ProtectionSelectionMode {
         /**
-         *
          * Selection is allowed for all cells.
          *
          */
         normal = "Normal",
         /**
-         *
          * Selection is allowed only for cells that are not locked.
          *
          */
         unlocked = "Unlocked",
         /**
-         *
          * Selection is not allowed for all cells.
          *
          */
@@ -39205,21 +38581,18 @@ declare namespace Excel {
      */
     enum ReadingOrder {
         /**
-         *
          * Reading order is determined by the language of the first character entered.
-            If a right-to-left language character is entered first, reading order is right to left.
-            If a left-to-right language character is entered first, reading order is left to right.
+                    If a right-to-left language character is entered first, reading order is right to left.
+                    If a left-to-right language character is entered first, reading order is left to right.
          *
          */
         context = "Context",
         /**
-         *
          * Left to right reading order
          *
          */
         leftToRight = "LeftToRight",
         /**
-         *
          * Right to left reading order
          *
          */
@@ -39306,19 +38679,16 @@ declare namespace Excel {
      */
     enum PrintComments {
         /**
-         *
          * Comments will not be printed.
          *
          */
         noComments = "NoComments",
         /**
-         *
          * Comments will be printed as end notes at the end of the worksheet.
          *
          */
         endSheet = "EndSheet",
         /**
-         *
          * Comments will be printed where they were inserted in the worksheet.
          *
          */
@@ -39329,13 +38699,11 @@ declare namespace Excel {
      */
     enum PrintOrder {
         /**
-         *
          * Process down the rows before processing across pages or page fields to the right.
          *
          */
         downThenOver = "DownThenOver",
         /**
-         *
          * Process across pages or page fields to the right before moving down the rows.
          *
          */
@@ -39346,19 +38714,16 @@ declare namespace Excel {
      */
     enum PrintMarginUnit {
         /**
-         *
          * Assign the page margins in points. A point is 1/72 of an inch.
          *
          */
         points = "Points",
         /**
-         *
          * Assign the page margins in inches.
          *
          */
         inches = "Inches",
         /**
-         *
          * Assign the page margins in centimeters.
          *
          */
@@ -39369,25 +38734,21 @@ declare namespace Excel {
      */
     enum HeaderFooterState {
         /**
-         *
          * Only one general header/footer is used for all pages printed.
          *
          */
         default = "Default",
         /**
-         *
          * There is a separate first page header/footer, and a general header/footer used for all other pages.
          *
          */
         firstAndDefault = "FirstAndDefault",
         /**
-         *
          * There is a different header/footer for odd and even pages.
          *
          */
         oddAndEven = "OddAndEven",
         /**
-         *
          * There is a separate first page header/footer, then there is a separate header/footer for odd and even pages.
          *
          */
@@ -39415,13 +38776,11 @@ declare namespace Excel {
      */
     enum GroupOption {
         /**
-         *
          * Group by rows.
          *
          */
         byRows = "ByRows",
         /**
-         *
          * Group by columns.
          *
          */
@@ -39644,13 +39003,11 @@ declare namespace Excel {
      */
     enum ContentType {
         /**
-         *
          * Indicates plain format type of the comment content.
          *
          */
         plain = "Plain",
         /**
-         *
          * Comment content containing mentions.
          *
          */
@@ -39661,49 +39018,41 @@ declare namespace Excel {
      */
     enum SpecialCellType {
         /**
-         *
          * All cells with conditional formats
          *
          */
         conditionalFormats = "ConditionalFormats",
         /**
-         *
          * Cells having validation criteria.
          *
          */
         dataValidations = "DataValidations",
         /**
-         *
          * Cells with no content.
          *
          */
         blanks = "Blanks",
         /**
-         *
          * Cells containing constants.
          *
          */
         constants = "Constants",
         /**
-         *
          * Cells containing formulas.
          *
          */
         formulas = "Formulas",
         /**
-         *
          * Cells having the same conditional format as the first cell in the range.
          *
          */
         sameConditionalFormat = "SameConditionalFormat",
         /**
-         *
          * Cells having the same data validation criteria as the first cell in the range.
          *
          */
         sameDataValidation = "SameDataValidation",
         /**
-         *
          * Cells that are visible.
          *
          */
@@ -39714,91 +39063,76 @@ declare namespace Excel {
      */
     enum SpecialCellValueType {
         /**
-         *
          * Cells that have errors, true/false, numeric, or a string value.
          *
          */
         all = "All",
         /**
-         *
          * Cells that have errors.
          *
          */
         errors = "Errors",
         /**
-         *
          * Cells that have errors, or a true/false value.
          *
          */
         errorsLogical = "ErrorsLogical",
         /**
-         *
          * Cells that have errors, or a numeric value.
          *
          */
         errorsNumbers = "ErrorsNumbers",
         /**
-         *
          * Cells that have errors, or a string value.
          *
          */
         errorsText = "ErrorsText",
         /**
-         *
          * Cells that have errors, true/false, or a numeric value.
          *
          */
         errorsLogicalNumber = "ErrorsLogicalNumber",
         /**
-         *
          * Cells that have errors, true/false, or a string value.
          *
          */
         errorsLogicalText = "ErrorsLogicalText",
         /**
-         *
          * Cells that have errors, numeric, or a string value.
          *
          */
         errorsNumberText = "ErrorsNumberText",
         /**
-         *
          * Cells that have a true/false value.
          *
          */
         logical = "Logical",
         /**
-         *
          * Cells that have a true/false, or a numeric value.
          *
          */
         logicalNumbers = "LogicalNumbers",
         /**
-         *
          * Cells that have a true/false, or a string value.
          *
          */
         logicalText = "LogicalText",
         /**
-         *
          * Cells that have a true/false, numeric, or a string value.
          *
          */
         logicalNumbersText = "LogicalNumbersText",
         /**
-         *
          * Cells that have a numeric value.
          *
          */
         numbers = "Numbers",
         /**
-         *
          * Cells that have a numeric, or a string value.
          *
          */
         numbersText = "NumbersText",
         /**
-         *
          * Cells that have a string value.
          *
          */
@@ -39812,19 +39146,16 @@ declare namespace Excel {
      */
     enum Placement {
         /**
-         *
          * The object is moved with the cells.
          *
          */
         twoCell = "TwoCell",
         /**
-         *
          * The object is moved and sized with the cells.
          *
          */
         oneCell = "OneCell",
         /**
-         *
          * The object is free floating.
          *
          */
@@ -39892,19 +39223,16 @@ declare namespace Excel {
      */
     enum ShapeTextVerticalOverflow {
         /**
-         *
          * Allow text to overflow the text frame vertically (can be from the top, bottom, or both depending on the text alignment).
          *
          */
         overflow = "Overflow",
         /**
-         *
          * Hide text that does not fit vertically within the text frame, and add an ellipsis (...) at the end of the visible text.
          *
          */
         ellipsis = "Ellipsis",
         /**
-         *
          * Hide text that does not fit vertically within the text frame.
          *
          */
@@ -39953,25 +39281,21 @@ declare namespace Excel {
      */
     enum ShapeAutoSize {
         /**
-         *
          * No autosizing.
          *
          */
         autoSizeNone = "AutoSizeNone",
         /**
-         *
          * The text is adjusted to fit the shape.
          *
          */
         autoSizeTextToFitShape = "AutoSizeTextToFitShape",
         /**
-         *
          * The shape is adjusted to fit the text.
          *
          */
         autoSizeShapeToFitText = "AutoSizeShapeToFitText",
         /**
-         *
          * A combination of automatic sizing schemes are used.
          *
          */
@@ -39985,13 +39309,11 @@ declare namespace Excel {
      */
     enum CloseBehavior {
         /**
-         *
          * Save the possible changes before closing the workbook.
          *
          */
         save = "Save",
         /**
-         *
          * Discard the possible changes when closing the workbook.
          *
          */
@@ -40005,16 +39327,14 @@ declare namespace Excel {
      */
     enum SaveBehavior {
         /**
-         *
          * Save the workbook without prompting the user. If file is not saved,
-            it will save it with default name under default location.
+                    it will save it with default name under default location.
          *
          */
         save = "Save",
         /**
-         *
          * Prompts the saveas experience to the user if the workbook has not been saved,
-            Ignored if the workbook was previously saved.
+                    Ignored if the workbook was previously saved.
          *
          */
         prompt = "Prompt"
@@ -40027,19 +39347,16 @@ declare namespace Excel {
      */
     enum SlicerSortType {
         /**
-         *
          * Sort slicer items in the order provided by the data source.
          *
          */
         dataSourceOrder = "DataSourceOrder",
         /**
-         *
          * Sort slicer items in ascending order by item captions.
          *
          */
         ascending = "Ascending",
         /**
-         *
          * Sort slicer items in descending order by item captions.
          *
          */
@@ -40122,7 +39439,6 @@ declare namespace Excel {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
         /**
-         *
          * Returns the absolute value of a number, a number without its sign.
          *
          * [Api set: ExcelApi 1.2]
@@ -40131,7 +39447,6 @@ declare namespace Excel {
          */
         abs(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the accrued interest for a security that pays periodic interest.
          *
          * [Api set: ExcelApi 1.2]
@@ -40147,7 +39462,6 @@ declare namespace Excel {
          */
         accrInt(issue: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, firstInterest: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, par: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, calcMethod?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the accrued interest for a security that pays interest at maturity.
          *
          * [Api set: ExcelApi 1.2]
@@ -40160,7 +39474,6 @@ declare namespace Excel {
          */
         accrIntM(issue: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, par: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the arccosine of a number, in radians in the range 0 to Pi. The arccosine is the angle whose cosine is Number.
          *
          * [Api set: ExcelApi 1.2]
@@ -40169,7 +39482,6 @@ declare namespace Excel {
          */
         acos(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse hyperbolic cosine of a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -40178,7 +39490,6 @@ declare namespace Excel {
          */
         acosh(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the arccotangent of a number, in radians in the range 0 to Pi.
          *
          * [Api set: ExcelApi 1.2]
@@ -40187,7 +39498,6 @@ declare namespace Excel {
          */
         acot(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse hyperbolic cotangent of a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -40196,7 +39506,6 @@ declare namespace Excel {
          */
         acoth(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the prorated linear depreciation of an asset for each accounting period.
          *
          * [Api set: ExcelApi 1.2]
@@ -40211,7 +39520,6 @@ declare namespace Excel {
          */
         amorDegrc(cost: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, datePurchased: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, firstPeriod: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, salvage: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, period: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the prorated linear depreciation of an asset for each accounting period.
          *
          * [Api set: ExcelApi 1.2]
@@ -40226,7 +39534,6 @@ declare namespace Excel {
          */
         amorLinc(cost: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, datePurchased: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, firstPeriod: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, salvage: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, period: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Checks whether all arguments are TRUE, and returns TRUE if all arguments are TRUE.
          *
          * [Api set: ExcelApi 1.2]
@@ -40235,7 +39542,6 @@ declare namespace Excel {
          */
         and(...values: Array<boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<boolean>;
         /**
-         *
          * Converts a Roman numeral to Arabic.
          *
          * [Api set: ExcelApi 1.2]
@@ -40244,7 +39550,6 @@ declare namespace Excel {
          */
         arabic(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of areas in a reference. An area is a range of contiguous cells or a single cell.
          *
          * [Api set: ExcelApi 1.2]
@@ -40253,7 +39558,6 @@ declare namespace Excel {
          */
         areas(reference: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Changes full-width (double-byte) characters to half-width (single-byte) characters. Use with double-byte character sets (DBCS).
          *
          * [Api set: ExcelApi 1.2]
@@ -40262,7 +39566,6 @@ declare namespace Excel {
          */
         asc(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the arcsine of a number in radians, in the range -Pi/2 to Pi/2.
          *
          * [Api set: ExcelApi 1.2]
@@ -40271,7 +39574,6 @@ declare namespace Excel {
          */
         asin(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse hyperbolic sine of a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -40280,7 +39582,6 @@ declare namespace Excel {
          */
         asinh(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the arctangent of a number in radians, in the range -Pi/2 to Pi/2.
          *
          * [Api set: ExcelApi 1.2]
@@ -40289,7 +39590,6 @@ declare namespace Excel {
          */
         atan(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the arctangent of the specified x- and y- coordinates, in radians between -Pi and Pi, excluding -Pi.
          *
          * [Api set: ExcelApi 1.2]
@@ -40299,7 +39599,6 @@ declare namespace Excel {
          */
         atan2(xNum: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, yNum: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse hyperbolic tangent of a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -40308,7 +39607,6 @@ declare namespace Excel {
          */
         atanh(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the average of the absolute deviations of data points from their mean. Arguments can be numbers or names, arrays, or references that contain numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -40317,7 +39615,6 @@ declare namespace Excel {
          */
         aveDev(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the average (arithmetic mean) of its arguments, which can be numbers or names, arrays, or references that contain numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -40326,7 +39623,6 @@ declare namespace Excel {
          */
         average(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the average (arithmetic mean) of its arguments, evaluating text and FALSE in arguments as 0; TRUE evaluates as 1. Arguments can be numbers, names, arrays, or references.
          *
          * [Api set: ExcelApi 1.2]
@@ -40335,7 +39631,6 @@ declare namespace Excel {
          */
         averageA(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Finds average(arithmetic mean) for the cells specified by a given condition or criteria.
          *
          * [Api set: ExcelApi 1.2]
@@ -40346,7 +39641,6 @@ declare namespace Excel {
          */
         averageIf(range: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, averageRange?: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Finds average(arithmetic mean) for the cells specified by a given set of conditions or criteria.
          *
          * [Api set: ExcelApi 1.2]
@@ -40356,7 +39650,6 @@ declare namespace Excel {
          */
         averageIfs(averageRange: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, ...values: Array<Excel.Range | Excel.RangeReference | Excel.FunctionResult<any> | number | string | boolean>): FunctionResult<number>;
         /**
-         *
          * Converts a number to text (baht).
          *
          * [Api set: ExcelApi 1.2]
@@ -40365,7 +39658,6 @@ declare namespace Excel {
          */
         bahtText(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Converts a number into a text representation with the given radix (base).
          *
          * [Api set: ExcelApi 1.2]
@@ -40376,7 +39668,6 @@ declare namespace Excel {
          */
         base(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, radix: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, minLength?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the modified Bessel function In(x).
          *
          * [Api set: ExcelApi 1.2]
@@ -40386,7 +39677,6 @@ declare namespace Excel {
          */
         besselI(x: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, n: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the Bessel function Jn(x).
          *
          * [Api set: ExcelApi 1.2]
@@ -40396,7 +39686,6 @@ declare namespace Excel {
          */
         besselJ(x: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, n: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the modified Bessel function Kn(x).
          *
          * [Api set: ExcelApi 1.2]
@@ -40406,7 +39695,6 @@ declare namespace Excel {
          */
         besselK(x: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, n: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the Bessel function Yn(x).
          *
          * [Api set: ExcelApi 1.2]
@@ -40416,7 +39704,6 @@ declare namespace Excel {
          */
         besselY(x: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, n: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the beta probability distribution function.
          *
          * [Api set: ExcelApi 1.2]
@@ -40430,7 +39717,6 @@ declare namespace Excel {
          */
         beta_Dist(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, alpha: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, beta: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, A?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, B?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse of the cumulative beta probability density function (BETA.DIST).
          *
          * [Api set: ExcelApi 1.2]
@@ -40443,7 +39729,6 @@ declare namespace Excel {
          */
         beta_Inv(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, alpha: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, beta: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, A?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, B?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a binary number to decimal.
          *
          * [Api set: ExcelApi 1.2]
@@ -40452,7 +39737,6 @@ declare namespace Excel {
          */
         bin2Dec(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a binary number to hexadecimal.
          *
          * [Api set: ExcelApi 1.2]
@@ -40462,7 +39746,6 @@ declare namespace Excel {
          */
         bin2Hex(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, places?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a binary number to octal.
          *
          * [Api set: ExcelApi 1.2]
@@ -40472,7 +39755,6 @@ declare namespace Excel {
          */
         bin2Oct(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, places?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the individual term binomial distribution probability.
          *
          * [Api set: ExcelApi 1.2]
@@ -40484,7 +39766,6 @@ declare namespace Excel {
          */
         binom_Dist(numberS: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, trials: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, probabilityS: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the probability of a trial result using a binomial distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -40496,7 +39777,6 @@ declare namespace Excel {
          */
         binom_Dist_Range(trials: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, probabilityS: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numberS: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numberS2?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the smallest value for which the cumulative binomial distribution is greater than or equal to a criterion value.
          *
          * [Api set: ExcelApi 1.2]
@@ -40507,7 +39787,6 @@ declare namespace Excel {
          */
         binom_Inv(trials: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, probabilityS: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, alpha: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns a bitwise 'And' of two numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -40517,7 +39796,6 @@ declare namespace Excel {
          */
         bitand(number1: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, number2: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns a number shifted left by shift_amount bits.
          *
          * [Api set: ExcelApi 1.2]
@@ -40527,7 +39805,6 @@ declare namespace Excel {
          */
         bitlshift(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, shiftAmount: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns a bitwise 'Or' of two numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -40537,7 +39814,6 @@ declare namespace Excel {
          */
         bitor(number1: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, number2: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns a number shifted right by shift_amount bits.
          *
          * [Api set: ExcelApi 1.2]
@@ -40547,7 +39823,6 @@ declare namespace Excel {
          */
         bitrshift(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, shiftAmount: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns a bitwise 'Exclusive Or' of two numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -40557,7 +39832,6 @@ declare namespace Excel {
          */
         bitxor(number1: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, number2: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Rounds a number up, to the nearest integer or to the nearest multiple of significance.
          *
          * [Api set: ExcelApi 1.2]
@@ -40568,7 +39842,6 @@ declare namespace Excel {
          */
         ceiling_Math(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, significance?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, mode?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Rounds a number up, to the nearest integer or to the nearest multiple of significance.
          *
          * [Api set: ExcelApi 1.2]
@@ -40578,7 +39851,6 @@ declare namespace Excel {
          */
         ceiling_Precise(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, significance?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the character specified by the code number from the character set for your computer.
          *
          * [Api set: ExcelApi 1.2]
@@ -40587,7 +39859,6 @@ declare namespace Excel {
          */
         char(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the left-tailed probability of the chi-squared distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -40598,7 +39869,6 @@ declare namespace Excel {
          */
         chiSq_Dist(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the right-tailed probability of the chi-squared distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -40608,7 +39878,6 @@ declare namespace Excel {
          */
         chiSq_Dist_RT(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse of the left-tailed probability of the chi-squared distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -40618,7 +39887,6 @@ declare namespace Excel {
          */
         chiSq_Inv(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse of the right-tailed probability of the chi-squared distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -40628,7 +39896,6 @@ declare namespace Excel {
          */
         chiSq_Inv_RT(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Chooses a value or action to perform from a list of values, based on an index number.
          *
          * [Api set: ExcelApi 1.2]
@@ -40638,7 +39905,6 @@ declare namespace Excel {
          */
         choose(indexNum: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, ...values: Array<Excel.Range | number | string | boolean | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number | string | boolean>;
         /**
-         *
          * Removes all nonprintable characters from text.
          *
          * [Api set: ExcelApi 1.2]
@@ -40647,7 +39913,6 @@ declare namespace Excel {
          */
         clean(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns a numeric code for the first character in a text string, in the character set used by your computer.
          *
          * [Api set: ExcelApi 1.2]
@@ -40656,7 +39921,6 @@ declare namespace Excel {
          */
         code(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of columns in an array or reference.
          *
          * [Api set: ExcelApi 1.2]
@@ -40665,7 +39929,6 @@ declare namespace Excel {
          */
         columns(array: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of combinations for a given number of items.
          *
          * [Api set: ExcelApi 1.2]
@@ -40675,7 +39938,6 @@ declare namespace Excel {
          */
         combin(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numberChosen: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of combinations with repetitions for a given number of items.
          *
          * [Api set: ExcelApi 1.2]
@@ -40685,7 +39947,6 @@ declare namespace Excel {
          */
         combina(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numberChosen: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts real and imaginary coefficients into a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -40696,7 +39957,6 @@ declare namespace Excel {
          */
         complex(realNum: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, iNum: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, suffix?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Joins several text strings into one text string.
          *
          * [Api set: ExcelApi 1.2]
@@ -40705,7 +39965,6 @@ declare namespace Excel {
          */
         concatenate(...values: Array<string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<string>;
         /**
-         *
          * Returns the confidence interval for a population mean, using a normal distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -40716,7 +39975,6 @@ declare namespace Excel {
          */
         confidence_Norm(alpha: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, standardDev: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, size: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the confidence interval for a population mean, using a Student's T distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -40727,7 +39985,6 @@ declare namespace Excel {
          */
         confidence_T(alpha: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, standardDev: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, size: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a number from one measurement system to another.
          *
          * [Api set: ExcelApi 1.2]
@@ -40738,7 +39995,6 @@ declare namespace Excel {
          */
         convert(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, fromUnit: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, toUnit: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the cosine of an angle.
          *
          * [Api set: ExcelApi 1.2]
@@ -40747,7 +40003,6 @@ declare namespace Excel {
          */
         cos(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the hyperbolic cosine of a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -40756,7 +40011,6 @@ declare namespace Excel {
          */
         cosh(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the cotangent of an angle.
          *
          * [Api set: ExcelApi 1.2]
@@ -40765,7 +40019,6 @@ declare namespace Excel {
          */
         cot(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the hyperbolic cotangent of a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -40774,7 +40027,6 @@ declare namespace Excel {
          */
         coth(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Counts the number of cells in a range that contain numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -40783,7 +40035,6 @@ declare namespace Excel {
          */
         count(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Counts the number of cells in a range that are not empty.
          *
          * [Api set: ExcelApi 1.2]
@@ -40792,7 +40043,6 @@ declare namespace Excel {
          */
         countA(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Counts the number of empty cells in a specified range of cells.
          *
          * [Api set: ExcelApi 1.2]
@@ -40801,7 +40051,6 @@ declare namespace Excel {
          */
         countBlank(range: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Counts the number of cells within a range that meet the given condition.
          *
          * [Api set: ExcelApi 1.2]
@@ -40811,7 +40060,6 @@ declare namespace Excel {
          */
         countIf(range: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Counts the number of cells specified by a given set of conditions or criteria.
          *
          * [Api set: ExcelApi 1.2]
@@ -40820,7 +40068,6 @@ declare namespace Excel {
          */
         countIfs(...values: Array<Excel.Range | Excel.RangeReference | Excel.FunctionResult<any> | number | string | boolean>): FunctionResult<number>;
         /**
-         *
          * Returns the number of days from the beginning of the coupon period to the settlement date.
          *
          * [Api set: ExcelApi 1.2]
@@ -40832,7 +40079,6 @@ declare namespace Excel {
          */
         coupDayBs(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of days in the coupon period that contains the settlement date.
          *
          * [Api set: ExcelApi 1.2]
@@ -40844,7 +40090,6 @@ declare namespace Excel {
          */
         coupDays(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of days from the settlement date to the next coupon date.
          *
          * [Api set: ExcelApi 1.2]
@@ -40856,7 +40101,6 @@ declare namespace Excel {
          */
         coupDaysNc(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the next coupon date after the settlement date.
          *
          * [Api set: ExcelApi 1.2]
@@ -40868,7 +40112,6 @@ declare namespace Excel {
          */
         coupNcd(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of coupons payable between the settlement date and maturity date.
          *
          * [Api set: ExcelApi 1.2]
@@ -40880,7 +40123,6 @@ declare namespace Excel {
          */
         coupNum(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the previous coupon date before the settlement date.
          *
          * [Api set: ExcelApi 1.2]
@@ -40892,7 +40134,6 @@ declare namespace Excel {
          */
         coupPcd(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the cosecant of an angle.
          *
          * [Api set: ExcelApi 1.2]
@@ -40901,7 +40142,6 @@ declare namespace Excel {
          */
         csc(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the hyperbolic cosecant of an angle.
          *
          * [Api set: ExcelApi 1.2]
@@ -40910,7 +40150,6 @@ declare namespace Excel {
          */
         csch(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the cumulative interest paid between two periods.
          *
          * [Api set: ExcelApi 1.2]
@@ -40924,7 +40163,6 @@ declare namespace Excel {
          */
         cumIPmt(rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, nper: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pv: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, startPeriod: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, endPeriod: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, type: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the cumulative principal paid on a loan between two periods.
          *
          * [Api set: ExcelApi 1.2]
@@ -40938,7 +40176,6 @@ declare namespace Excel {
          */
         cumPrinc(rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, nper: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pv: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, startPeriod: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, endPeriod: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, type: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Averages the values in a column in a list or database that match conditions you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -40949,7 +40186,6 @@ declare namespace Excel {
          */
         daverage(database: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, field: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Counts the cells containing numbers in the field (column) of records in the database that match the conditions you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -40960,7 +40196,6 @@ declare namespace Excel {
          */
         dcount(database: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, field: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Counts nonblank cells in the field (column) of records in the database that match the conditions you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -40971,7 +40206,6 @@ declare namespace Excel {
          */
         dcountA(database: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, field: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Extracts from a database a single record that matches the conditions you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -40982,7 +40216,6 @@ declare namespace Excel {
          */
         dget(database: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, field: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number | boolean | string>;
         /**
-         *
          * Returns the largest number in the field (column) of records in the database that match the conditions you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -40993,7 +40226,6 @@ declare namespace Excel {
          */
         dmax(database: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, field: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the smallest number in the field (column) of records in the database that match the conditions you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -41004,7 +40236,6 @@ declare namespace Excel {
          */
         dmin(database: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, field: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Multiplies the values in the field (column) of records in the database that match the conditions you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -41015,7 +40246,6 @@ declare namespace Excel {
          */
         dproduct(database: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, field: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Estimates the standard deviation based on a sample from selected database entries.
          *
          * [Api set: ExcelApi 1.2]
@@ -41026,7 +40256,6 @@ declare namespace Excel {
          */
         dstDev(database: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, field: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Calculates the standard deviation based on the entire population of selected database entries.
          *
          * [Api set: ExcelApi 1.2]
@@ -41037,7 +40266,6 @@ declare namespace Excel {
          */
         dstDevP(database: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, field: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Adds the numbers in the field (column) of records in the database that match the conditions you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -41048,7 +40276,6 @@ declare namespace Excel {
          */
         dsum(database: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, field: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Estimates variance based on a sample from selected database entries.
          *
          * [Api set: ExcelApi 1.2]
@@ -41059,7 +40286,6 @@ declare namespace Excel {
          */
         dvar(database: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, field: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Calculates variance based on the entire population of selected database entries.
          *
          * [Api set: ExcelApi 1.2]
@@ -41070,7 +40296,6 @@ declare namespace Excel {
          */
         dvarP(database: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, field: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number that represents the date in Microsoft Excel date-time code.
          *
          * [Api set: ExcelApi 1.2]
@@ -41081,7 +40306,6 @@ declare namespace Excel {
          */
         date(year: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, month: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, day: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a date in the form of text to a number that represents the date in Microsoft Excel date-time code.
          *
          * [Api set: ExcelApi 1.2]
@@ -41090,7 +40314,6 @@ declare namespace Excel {
          */
         datevalue(dateText: string | number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the day of the month, a number from 1 to 31.
          *
          * [Api set: ExcelApi 1.2]
@@ -41099,7 +40322,6 @@ declare namespace Excel {
          */
         day(serialNumber: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of days between the two dates.
          *
          * [Api set: ExcelApi 1.2]
@@ -41109,7 +40331,6 @@ declare namespace Excel {
          */
         days(endDate: string | number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, startDate: string | number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of days between two dates based on a 360-day year (twelve 30-day months).
          *
          * [Api set: ExcelApi 1.2]
@@ -41120,7 +40341,6 @@ declare namespace Excel {
          */
         days360(startDate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, endDate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, method?: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the depreciation of an asset for a specified period using the fixed-declining balance method.
          *
          * [Api set: ExcelApi 1.2]
@@ -41133,7 +40353,6 @@ declare namespace Excel {
          */
         db(cost: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, salvage: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, life: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, period: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, month?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Changes half-width (single-byte) characters within a character string to full-width (double-byte) characters. Use with double-byte character sets (DBCS).
          *
          * [Api set: ExcelApi 1.2]
@@ -41142,7 +40361,6 @@ declare namespace Excel {
          */
         dbcs(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the depreciation of an asset for a specified period using the double-declining balance method or some other method you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -41155,7 +40373,6 @@ declare namespace Excel {
          */
         ddb(cost: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, salvage: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, life: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, period: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, factor?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a decimal number to binary.
          *
          * [Api set: ExcelApi 1.2]
@@ -41165,7 +40382,6 @@ declare namespace Excel {
          */
         dec2Bin(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, places?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a decimal number to hexadecimal.
          *
          * [Api set: ExcelApi 1.2]
@@ -41175,7 +40391,6 @@ declare namespace Excel {
          */
         dec2Hex(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, places?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a decimal number to octal.
          *
          * [Api set: ExcelApi 1.2]
@@ -41185,7 +40400,6 @@ declare namespace Excel {
          */
         dec2Oct(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, places?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a text representation of a number in a given base into a decimal number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41195,7 +40409,6 @@ declare namespace Excel {
          */
         decimal(number: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, radix: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts radians to degrees.
          *
          * [Api set: ExcelApi 1.2]
@@ -41204,7 +40417,6 @@ declare namespace Excel {
          */
         degrees(angle: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Tests whether two numbers are equal.
          *
          * [Api set: ExcelApi 1.2]
@@ -41214,7 +40426,6 @@ declare namespace Excel {
          */
         delta(number1: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, number2?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the sum of squares of deviations of data points from their sample mean.
          *
          * [Api set: ExcelApi 1.2]
@@ -41223,7 +40434,6 @@ declare namespace Excel {
          */
         devSq(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the discount rate for a security.
          *
          * [Api set: ExcelApi 1.2]
@@ -41236,7 +40446,6 @@ declare namespace Excel {
          */
         disc(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pr: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, redemption: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a number to text, using currency format.
          *
          * [Api set: ExcelApi 1.2]
@@ -41246,7 +40455,6 @@ declare namespace Excel {
          */
         dollar(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, decimals?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Converts a dollar price, expressed as a fraction, into a dollar price, expressed as a decimal number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41256,7 +40464,6 @@ declare namespace Excel {
          */
         dollarDe(fractionalDollar: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, fraction: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a dollar price, expressed as a decimal number, into a dollar price, expressed as a fraction.
          *
          * [Api set: ExcelApi 1.2]
@@ -41266,7 +40473,6 @@ declare namespace Excel {
          */
         dollarFr(decimalDollar: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, fraction: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the annual duration of a security with periodic interest payments.
          *
          * [Api set: ExcelApi 1.2]
@@ -41280,7 +40486,6 @@ declare namespace Excel {
          */
         duration(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, coupon: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, yld: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Rounds a number up, to the nearest integer or to the nearest multiple of significance.
          *
          * [Api set: ExcelApi 1.2]
@@ -41290,7 +40495,6 @@ declare namespace Excel {
          */
         ecma_Ceiling(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, significance: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the serial number of the date that is the indicated number of months before or after the start date.
          *
          * [Api set: ExcelApi 1.2]
@@ -41300,7 +40504,6 @@ declare namespace Excel {
          */
         edate(startDate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, months: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the effective annual interest rate.
          *
          * [Api set: ExcelApi 1.2]
@@ -41310,7 +40513,6 @@ declare namespace Excel {
          */
         effect(nominalRate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, npery: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the serial number of the last day of the month before or after a specified number of months.
          *
          * [Api set: ExcelApi 1.2]
@@ -41320,7 +40522,6 @@ declare namespace Excel {
          */
         eoMonth(startDate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, months: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the error function.
          *
          * [Api set: ExcelApi 1.2]
@@ -41330,7 +40531,6 @@ declare namespace Excel {
          */
         erf(lowerLimit: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, upperLimit?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the complementary error function.
          *
          * [Api set: ExcelApi 1.2]
@@ -41339,7 +40539,6 @@ declare namespace Excel {
          */
         erfC(x: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the complementary error function.
          *
          * [Api set: ExcelApi 1.2]
@@ -41348,7 +40547,6 @@ declare namespace Excel {
          */
         erfC_Precise(X: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the error function.
          *
          * [Api set: ExcelApi 1.2]
@@ -41357,7 +40555,6 @@ declare namespace Excel {
          */
         erf_Precise(X: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns a number matching an error value.
          *
          * [Api set: ExcelApi 1.2]
@@ -41366,7 +40563,6 @@ declare namespace Excel {
          */
         error_Type(errorVal: string | number | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Rounds a positive number up and negative number down to the nearest even integer.
          *
          * [Api set: ExcelApi 1.2]
@@ -41375,7 +40571,6 @@ declare namespace Excel {
          */
         even(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Checks whether two text strings are exactly the same, and returns TRUE or FALSE. EXACT is case-sensitive.
          *
          * [Api set: ExcelApi 1.2]
@@ -41385,7 +40580,6 @@ declare namespace Excel {
          */
         exact(text1: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, text2: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<boolean>;
         /**
-         *
          * Returns e raised to the power of a given number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41394,7 +40588,6 @@ declare namespace Excel {
          */
         exp(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the exponential distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -41405,7 +40598,6 @@ declare namespace Excel {
          */
         expon_Dist(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, lambda: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the future value of an initial principal after applying a series of compound interest rates.
          *
          * [Api set: ExcelApi 1.2]
@@ -41415,7 +40607,6 @@ declare namespace Excel {
          */
         fvschedule(principal: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, schedule: number | string | Excel.Range | boolean | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the (left-tailed) F probability distribution (degree of diversity) for two data sets.
          *
          * [Api set: ExcelApi 1.2]
@@ -41427,7 +40618,6 @@ declare namespace Excel {
          */
         f_Dist(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom1: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom2: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the (right-tailed) F probability distribution (degree of diversity) for two data sets.
          *
          * [Api set: ExcelApi 1.2]
@@ -41438,7 +40628,6 @@ declare namespace Excel {
          */
         f_Dist_RT(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom1: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom2: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse of the (left-tailed) F probability distribution: if p = F.DIST(x,...), then F.INV(p,...) = x.
          *
          * [Api set: ExcelApi 1.2]
@@ -41449,7 +40638,6 @@ declare namespace Excel {
          */
         f_Inv(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom1: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom2: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse of the (right-tailed) F probability distribution: if p = F.DIST.RT(x,...), then F.INV.RT(p,...) = x.
          *
          * [Api set: ExcelApi 1.2]
@@ -41460,7 +40648,6 @@ declare namespace Excel {
          */
         f_Inv_RT(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom1: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom2: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the factorial of a number, equal to 1*2*3*...* Number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41469,7 +40656,6 @@ declare namespace Excel {
          */
         fact(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the double factorial of a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41478,14 +40664,12 @@ declare namespace Excel {
          */
         factDouble(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the logical value FALSE.
          *
          * [Api set: ExcelApi 1.2]
          */
         false(): FunctionResult<boolean>;
         /**
-         *
          * Returns the starting position of one text string within another text string. FIND is case-sensitive.
          *
          * [Api set: ExcelApi 1.2]
@@ -41496,7 +40680,6 @@ declare namespace Excel {
          */
         find(findText: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, withinText: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, startNum?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Finds the starting position of one text string within another text string. FINDB is case-sensitive. Use with double-byte character sets (DBCS).
          *
          * [Api set: ExcelApi 1.2]
@@ -41507,7 +40690,6 @@ declare namespace Excel {
          */
         findB(findText: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, withinText: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, startNum?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the Fisher transformation.
          *
          * [Api set: ExcelApi 1.2]
@@ -41516,7 +40698,6 @@ declare namespace Excel {
          */
         fisher(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse of the Fisher transformation: if y = FISHER(x), then FISHERINV(y) = x.
          *
          * [Api set: ExcelApi 1.2]
@@ -41525,7 +40706,6 @@ declare namespace Excel {
          */
         fisherInv(y: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Rounds a number to the specified number of decimals and returns the result as text with or without commas.
          *
          * [Api set: ExcelApi 1.2]
@@ -41536,7 +40716,6 @@ declare namespace Excel {
          */
         fixed(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, decimals?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, noCommas?: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Rounds a number down, to the nearest integer or to the nearest multiple of significance.
          *
          * [Api set: ExcelApi 1.2]
@@ -41547,7 +40726,6 @@ declare namespace Excel {
          */
         floor_Math(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, significance?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, mode?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Rounds a number down, to the nearest integer or to the nearest multiple of significance.
          *
          * [Api set: ExcelApi 1.2]
@@ -41557,7 +40735,6 @@ declare namespace Excel {
          */
         floor_Precise(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, significance?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the future value of an investment based on periodic, constant payments and a constant interest rate.
          *
          * [Api set: ExcelApi 1.2]
@@ -41570,7 +40747,6 @@ declare namespace Excel {
          */
         fv(rate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, nper: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pmt: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pv?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, type?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the Gamma function value.
          *
          * [Api set: ExcelApi 1.2]
@@ -41579,7 +40755,6 @@ declare namespace Excel {
          */
         gamma(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the natural logarithm of the gamma function.
          *
          * [Api set: ExcelApi 1.2]
@@ -41588,7 +40763,6 @@ declare namespace Excel {
          */
         gammaLn(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the natural logarithm of the gamma function.
          *
          * [Api set: ExcelApi 1.2]
@@ -41597,7 +40771,6 @@ declare namespace Excel {
          */
         gammaLn_Precise(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the gamma distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -41609,7 +40782,6 @@ declare namespace Excel {
          */
         gamma_Dist(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, alpha: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, beta: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse of the gamma cumulative distribution: if p = GAMMA.DIST(x,...), then GAMMA.INV(p,...) = x.
          *
          * [Api set: ExcelApi 1.2]
@@ -41620,7 +40792,6 @@ declare namespace Excel {
          */
         gamma_Inv(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, alpha: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, beta: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns 0.5 less than the standard normal cumulative distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -41629,7 +40800,6 @@ declare namespace Excel {
          */
         gauss(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the greatest common divisor.
          *
          * [Api set: ExcelApi 1.2]
@@ -41638,7 +40808,6 @@ declare namespace Excel {
          */
         gcd(...values: Array<number | string | Excel.Range | boolean | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Tests whether a number is greater than a threshold value.
          *
          * [Api set: ExcelApi 1.2]
@@ -41648,7 +40817,6 @@ declare namespace Excel {
          */
         geStep(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, step?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the geometric mean of an array or range of positive numeric data.
          *
          * [Api set: ExcelApi 1.2]
@@ -41657,7 +40825,6 @@ declare namespace Excel {
          */
         geoMean(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Looks for a value in the top row of a table or array of values and returns the value in the same column from a row you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -41669,7 +40836,6 @@ declare namespace Excel {
          */
         hlookup(lookupValue: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, tableArray: Excel.Range | number | Excel.RangeReference | Excel.FunctionResult<any>, rowIndexNum: Excel.Range | number | Excel.RangeReference | Excel.FunctionResult<any>, rangeLookup?: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number | string | boolean>;
         /**
-         *
          * Returns the harmonic mean of a data set of positive numbers: the reciprocal of the arithmetic mean of reciprocals.
          *
          * [Api set: ExcelApi 1.2]
@@ -41678,7 +40844,6 @@ declare namespace Excel {
          */
         harMean(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Converts a Hexadecimal number to binary.
          *
          * [Api set: ExcelApi 1.2]
@@ -41688,7 +40853,6 @@ declare namespace Excel {
          */
         hex2Bin(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, places?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a hexadecimal number to decimal.
          *
          * [Api set: ExcelApi 1.2]
@@ -41697,7 +40861,6 @@ declare namespace Excel {
          */
         hex2Dec(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a hexadecimal number to octal.
          *
          * [Api set: ExcelApi 1.2]
@@ -41707,7 +40870,6 @@ declare namespace Excel {
          */
         hex2Oct(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, places?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the hour as a number from 0 (12:00 A.M.) to 23 (11:00 P.M.).
          *
          * [Api set: ExcelApi 1.2]
@@ -41716,7 +40878,6 @@ declare namespace Excel {
          */
         hour(serialNumber: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the hypergeometric distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -41729,7 +40890,6 @@ declare namespace Excel {
          */
         hypGeom_Dist(sampleS: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numberSample: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, populationS: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numberPop: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Creates a shortcut or jump that opens a document stored on your hard drive, a network server, or on the Internet.
          *
          * [Api set: ExcelApi 1.2]
@@ -41739,7 +40899,6 @@ declare namespace Excel {
          */
         hyperlink(linkLocation: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, friendlyName?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number | string | boolean>;
         /**
-         *
          * Rounds a number up, to the nearest integer or to the nearest multiple of significance.
          *
          * [Api set: ExcelApi 1.2]
@@ -41749,7 +40908,6 @@ declare namespace Excel {
          */
         iso_Ceiling(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, significance?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Checks whether a condition is met, and returns one value if TRUE, and another value if FALSE.
          *
          * [Api set: ExcelApi 1.2]
@@ -41760,7 +40918,6 @@ declare namespace Excel {
          */
         if(logicalTest: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, valueIfTrue?: Excel.Range | number | string | boolean | Excel.RangeReference | Excel.FunctionResult<any>, valueIfFalse?: Excel.Range | number | string | boolean | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number | string | boolean>;
         /**
-         *
          * Returns the absolute value (modulus) of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41769,7 +40926,6 @@ declare namespace Excel {
          */
         imAbs(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the argument q, an angle expressed in radians.
          *
          * [Api set: ExcelApi 1.2]
@@ -41778,7 +40934,6 @@ declare namespace Excel {
          */
         imArgument(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the complex conjugate of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41787,7 +40942,6 @@ declare namespace Excel {
          */
         imConjugate(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the cosine of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41796,7 +40950,6 @@ declare namespace Excel {
          */
         imCos(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the hyperbolic cosine of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41805,7 +40958,6 @@ declare namespace Excel {
          */
         imCosh(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the cotangent of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41814,7 +40966,6 @@ declare namespace Excel {
          */
         imCot(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the cosecant of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41823,7 +40974,6 @@ declare namespace Excel {
          */
         imCsc(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the hyperbolic cosecant of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41832,7 +40982,6 @@ declare namespace Excel {
          */
         imCsch(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the quotient of two complex numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -41842,7 +40991,6 @@ declare namespace Excel {
          */
         imDiv(inumber1: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, inumber2: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the exponential of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41851,7 +40999,6 @@ declare namespace Excel {
          */
         imExp(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the natural logarithm of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41860,7 +41007,6 @@ declare namespace Excel {
          */
         imLn(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the base-10 logarithm of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41869,7 +41015,6 @@ declare namespace Excel {
          */
         imLog10(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the base-2 logarithm of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41878,7 +41023,6 @@ declare namespace Excel {
          */
         imLog2(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns a complex number raised to an integer power.
          *
          * [Api set: ExcelApi 1.2]
@@ -41888,7 +41032,6 @@ declare namespace Excel {
          */
         imPower(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the product of 1 to 255 complex numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -41897,7 +41040,6 @@ declare namespace Excel {
          */
         imProduct(...values: Array<Excel.Range | number | string | boolean | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the real coefficient of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41906,7 +41048,6 @@ declare namespace Excel {
          */
         imReal(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the secant of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41915,7 +41056,6 @@ declare namespace Excel {
          */
         imSec(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the hyperbolic secant of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41924,7 +41064,6 @@ declare namespace Excel {
          */
         imSech(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the sine of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41933,7 +41072,6 @@ declare namespace Excel {
          */
         imSin(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the hyperbolic sine of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41942,7 +41080,6 @@ declare namespace Excel {
          */
         imSinh(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the square root of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41951,7 +41088,6 @@ declare namespace Excel {
          */
         imSqrt(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the difference of two complex numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -41961,7 +41097,6 @@ declare namespace Excel {
          */
         imSub(inumber1: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, inumber2: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the sum of complex numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -41970,7 +41105,6 @@ declare namespace Excel {
          */
         imSum(...values: Array<Excel.Range | number | string | boolean | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the tangent of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41979,7 +41113,6 @@ declare namespace Excel {
          */
         imTan(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the imaginary coefficient of a complex number.
          *
          * [Api set: ExcelApi 1.2]
@@ -41988,7 +41121,6 @@ declare namespace Excel {
          */
         imaginary(inumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Rounds a number down to the nearest integer.
          *
          * [Api set: ExcelApi 1.2]
@@ -41997,7 +41129,6 @@ declare namespace Excel {
          */
         int(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the interest rate for a fully invested security.
          *
          * [Api set: ExcelApi 1.2]
@@ -42010,7 +41141,6 @@ declare namespace Excel {
          */
         intRate(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, investment: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, redemption: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the interest payment for a given period for an investment, based on periodic, constant payments and a constant interest rate.
          *
          * [Api set: ExcelApi 1.2]
@@ -42024,7 +41154,6 @@ declare namespace Excel {
          */
         ipmt(rate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, per: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, nper: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pv: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, fv?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, type?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the internal rate of return for a series of cash flows.
          *
          * [Api set: ExcelApi 1.2]
@@ -42034,7 +41163,6 @@ declare namespace Excel {
          */
         irr(values: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, guess?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Checks whether a value is an error (#VALUE!, #REF!, #DIV/0!, #NUM!, #NAME?, or #NULL!) excluding #N/A, and returns TRUE or FALSE.
          *
          * [Api set: ExcelApi 1.2]
@@ -42043,7 +41171,6 @@ declare namespace Excel {
          */
         isErr(value: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<boolean>;
         /**
-         *
          * Checks whether a value is an error (#N/A, #VALUE!, #REF!, #DIV/0!, #NUM!, #NAME?, or #NULL!), and returns TRUE or FALSE.
          *
          * [Api set: ExcelApi 1.2]
@@ -42052,7 +41179,6 @@ declare namespace Excel {
          */
         isError(value: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<boolean>;
         /**
-         *
          * Returns TRUE if the number is even.
          *
          * [Api set: ExcelApi 1.2]
@@ -42061,7 +41187,6 @@ declare namespace Excel {
          */
         isEven(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Checks whether a reference is to a cell containing a formula, and returns TRUE or FALSE.
          *
          * [Api set: ExcelApi 1.2]
@@ -42070,7 +41195,6 @@ declare namespace Excel {
          */
         isFormula(reference: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<boolean>;
         /**
-         *
          * Checks whether a value is a logical value (TRUE or FALSE), and returns TRUE or FALSE.
          *
          * [Api set: ExcelApi 1.2]
@@ -42079,7 +41203,6 @@ declare namespace Excel {
          */
         isLogical(value: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<boolean>;
         /**
-         *
          * Checks whether a value is #N/A, and returns TRUE or FALSE.
          *
          * [Api set: ExcelApi 1.2]
@@ -42088,7 +41211,6 @@ declare namespace Excel {
          */
         isNA(value: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<boolean>;
         /**
-         *
          * Checks whether a value is not text (blank cells are not text), and returns TRUE or FALSE.
          *
          * [Api set: ExcelApi 1.2]
@@ -42097,7 +41219,6 @@ declare namespace Excel {
          */
         isNonText(value: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<boolean>;
         /**
-         *
          * Checks whether a value is a number, and returns TRUE or FALSE.
          *
          * [Api set: ExcelApi 1.2]
@@ -42106,7 +41227,6 @@ declare namespace Excel {
          */
         isNumber(value: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<boolean>;
         /**
-         *
          * Returns TRUE if the number is odd.
          *
          * [Api set: ExcelApi 1.2]
@@ -42115,7 +41235,6 @@ declare namespace Excel {
          */
         isOdd(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Checks whether a value is text, and returns TRUE or FALSE.
          *
          * [Api set: ExcelApi 1.2]
@@ -42124,7 +41243,6 @@ declare namespace Excel {
          */
         isText(value: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<boolean>;
         /**
-         *
          * Returns the ISO week number in the year for a given date.
          *
          * [Api set: ExcelApi 1.2]
@@ -42133,7 +41251,6 @@ declare namespace Excel {
          */
         isoWeekNum(date: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the interest paid during a specific period of an investment.
          *
          * [Api set: ExcelApi 1.2]
@@ -42145,7 +41262,6 @@ declare namespace Excel {
          */
         ispmt(rate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, per: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, nper: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pv: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Checks whether a value is a reference, and returns TRUE or FALSE.
          *
          * [Api set: ExcelApi 1.2]
@@ -42154,7 +41270,6 @@ declare namespace Excel {
          */
         isref(value: Excel.Range | number | string | boolean | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<boolean>;
         /**
-         *
          * Returns the kurtosis of a data set.
          *
          * [Api set: ExcelApi 1.2]
@@ -42163,7 +41278,6 @@ declare namespace Excel {
          */
         kurt(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the k-th largest value in a data set. For example, the fifth largest number.
          *
          * [Api set: ExcelApi 1.2]
@@ -42173,7 +41287,6 @@ declare namespace Excel {
          */
         large(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, k: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the least common multiple.
          *
          * [Api set: ExcelApi 1.2]
@@ -42182,7 +41295,6 @@ declare namespace Excel {
          */
         lcm(...values: Array<number | string | Excel.Range | boolean | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the specified number of characters from the start of a text string.
          *
          * [Api set: ExcelApi 1.2]
@@ -42192,7 +41304,6 @@ declare namespace Excel {
          */
         left(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numChars?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the specified number of characters from the start of a text string. Use with double-byte character sets (DBCS).
          *
          * [Api set: ExcelApi 1.2]
@@ -42202,7 +41313,6 @@ declare namespace Excel {
          */
         leftb(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numBytes?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the number of characters in a text string.
          *
          * [Api set: ExcelApi 1.2]
@@ -42211,7 +41321,6 @@ declare namespace Excel {
          */
         len(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of characters in a text string. Use with double-byte character sets (DBCS).
          *
          * [Api set: ExcelApi 1.2]
@@ -42220,7 +41329,6 @@ declare namespace Excel {
          */
         lenb(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the natural logarithm of a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -42229,7 +41337,6 @@ declare namespace Excel {
          */
         ln(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the logarithm of a number to the base you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -42239,7 +41346,6 @@ declare namespace Excel {
          */
         log(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, base?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the base-10 logarithm of a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -42248,7 +41354,6 @@ declare namespace Excel {
          */
         log10(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the lognormal distribution of x, where ln(x) is normally distributed with parameters Mean and Standard_dev.
          *
          * [Api set: ExcelApi 1.2]
@@ -42260,7 +41365,6 @@ declare namespace Excel {
          */
         logNorm_Dist(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, mean: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, standardDev: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse of the lognormal cumulative distribution function of x, where ln(x) is normally distributed with parameters Mean and Standard_dev.
          *
          * [Api set: ExcelApi 1.2]
@@ -42271,7 +41375,6 @@ declare namespace Excel {
          */
         logNorm_Inv(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, mean: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, standardDev: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Looks up a value either from a one-row or one-column range or from an array. Provided for backward compatibility.
          *
          * [Api set: ExcelApi 1.2]
@@ -42282,7 +41385,6 @@ declare namespace Excel {
          */
         lookup(lookupValue: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, lookupVector: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, resultVector?: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number | string | boolean>;
         /**
-         *
          * Converts all letters in a text string to lowercase.
          *
          * [Api set: ExcelApi 1.2]
@@ -42291,7 +41393,6 @@ declare namespace Excel {
          */
         lower(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the Macauley modified duration for a security with an assumed par value of $100.
          *
          * [Api set: ExcelApi 1.2]
@@ -42305,7 +41406,6 @@ declare namespace Excel {
          */
         mduration(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, coupon: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, yld: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the internal rate of return for a series of periodic cash flows, considering both cost of investment and interest on reinvestment of cash.
          *
          * [Api set: ExcelApi 1.2]
@@ -42316,7 +41416,6 @@ declare namespace Excel {
          */
         mirr(values: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, financeRate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, reinvestRate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns a number rounded to the desired multiple.
          *
          * [Api set: ExcelApi 1.2]
@@ -42326,7 +41425,6 @@ declare namespace Excel {
          */
         mround(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, multiple: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the relative position of an item in an array that matches a specified value in a specified order.
          *
          * [Api set: ExcelApi 1.2]
@@ -42337,7 +41435,6 @@ declare namespace Excel {
          */
         match(lookupValue: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, lookupArray: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, matchType?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the largest value in a set of values. Ignores logical values and text.
          *
          * [Api set: ExcelApi 1.2]
@@ -42346,7 +41443,6 @@ declare namespace Excel {
          */
         max(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the largest value in a set of values. Does not ignore logical values and text.
          *
          * [Api set: ExcelApi 1.2]
@@ -42355,7 +41451,6 @@ declare namespace Excel {
          */
         maxA(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the median, or the number in the middle of the set of given numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -42364,7 +41459,6 @@ declare namespace Excel {
          */
         median(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the characters from the middle of a text string, given a starting position and length.
          *
          * [Api set: ExcelApi 1.2]
@@ -42375,7 +41469,6 @@ declare namespace Excel {
          */
         mid(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, startNum: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numChars: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns characters from the middle of a text string, given a starting position and length. Use with double-byte character sets (DBCS).
          *
          * [Api set: ExcelApi 1.2]
@@ -42386,7 +41479,6 @@ declare namespace Excel {
          */
         midb(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, startNum: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numBytes: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the smallest number in a set of values. Ignores logical values and text.
          *
          * [Api set: ExcelApi 1.2]
@@ -42395,7 +41487,6 @@ declare namespace Excel {
          */
         min(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the smallest value in a set of values. Does not ignore logical values and text.
          *
          * [Api set: ExcelApi 1.2]
@@ -42404,7 +41495,6 @@ declare namespace Excel {
          */
         minA(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the minute, a number from 0 to 59.
          *
          * [Api set: ExcelApi 1.2]
@@ -42413,7 +41503,6 @@ declare namespace Excel {
          */
         minute(serialNumber: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the remainder after a number is divided by a divisor.
          *
          * [Api set: ExcelApi 1.2]
@@ -42423,7 +41512,6 @@ declare namespace Excel {
          */
         mod(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, divisor: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the month, a number from 1 (January) to 12 (December).
          *
          * [Api set: ExcelApi 1.2]
@@ -42432,7 +41520,6 @@ declare namespace Excel {
          */
         month(serialNumber: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the multinomial of a set of numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -42441,7 +41528,6 @@ declare namespace Excel {
          */
         multiNomial(...values: Array<number | string | Excel.Range | boolean | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Converts non-number value to a number, dates to serial numbers, TRUE to 1, anything else to 0 (zero).
          *
          * [Api set: ExcelApi 1.2]
@@ -42450,7 +41536,6 @@ declare namespace Excel {
          */
         n(value: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of periods for an investment based on periodic, constant payments and a constant interest rate.
          *
          * [Api set: ExcelApi 1.2]
@@ -42463,14 +41548,12 @@ declare namespace Excel {
          */
         nper(rate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pmt: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pv: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, fv?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, type?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the error value #N/A (value not available).
          *
          * [Api set: ExcelApi 1.2]
          */
         na(): FunctionResult<number | string>;
         /**
-         *
          * Returns the negative binomial distribution, the probability that there will be Number_f failures before the Number_s-th success, with Probability_s probability of a success.
          *
          * [Api set: ExcelApi 1.2]
@@ -42482,7 +41565,6 @@ declare namespace Excel {
          */
         negBinom_Dist(numberF: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numberS: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, probabilityS: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of whole workdays between two dates.
          *
          * [Api set: ExcelApi 1.2]
@@ -42493,7 +41575,6 @@ declare namespace Excel {
          */
         networkDays(startDate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, endDate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, holidays?: number | string | Excel.Range | boolean | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of whole workdays between two dates with custom weekend parameters.
          *
          * [Api set: ExcelApi 1.2]
@@ -42505,7 +41586,6 @@ declare namespace Excel {
          */
         networkDays_Intl(startDate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, endDate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, weekend?: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, holidays?: number | string | Excel.Range | boolean | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the annual nominal interest rate.
          *
          * [Api set: ExcelApi 1.2]
@@ -42515,7 +41595,6 @@ declare namespace Excel {
          */
         nominal(effectRate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, npery: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the normal distribution for the specified mean and standard deviation.
          *
          * [Api set: ExcelApi 1.2]
@@ -42527,7 +41606,6 @@ declare namespace Excel {
          */
         norm_Dist(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, mean: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, standardDev: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse of the normal cumulative distribution for the specified mean and standard deviation.
          *
          * [Api set: ExcelApi 1.2]
@@ -42538,7 +41616,6 @@ declare namespace Excel {
          */
         norm_Inv(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, mean: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, standardDev: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the standard normal distribution (has a mean of zero and a standard deviation of one).
          *
          * [Api set: ExcelApi 1.2]
@@ -42548,7 +41625,6 @@ declare namespace Excel {
          */
         norm_S_Dist(z: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the inverse of the standard normal cumulative distribution (has a mean of zero and a standard deviation of one).
          *
          * [Api set: ExcelApi 1.2]
@@ -42557,7 +41633,6 @@ declare namespace Excel {
          */
         norm_S_Inv(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Changes FALSE to TRUE, or TRUE to FALSE.
          *
          * [Api set: ExcelApi 1.2]
@@ -42566,14 +41641,12 @@ declare namespace Excel {
          */
         not(logical: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<boolean>;
         /**
-         *
          * Returns the current date and time formatted as a date and time.
          *
          * [Api set: ExcelApi 1.2]
          */
         now(): FunctionResult<number>;
         /**
-         *
          * Returns the net present value of an investment based on a discount rate and a series of future payments (negative values) and income (positive values).
          *
          * [Api set: ExcelApi 1.2]
@@ -42583,7 +41656,6 @@ declare namespace Excel {
          */
         npv(rate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, ...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Converts text to number in a locale-independent manner.
          *
          * [Api set: ExcelApi 1.2]
@@ -42594,7 +41666,6 @@ declare namespace Excel {
          */
         numberValue(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, decimalSeparator?: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, groupSeparator?: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts an octal number to binary.
          *
          * [Api set: ExcelApi 1.2]
@@ -42604,7 +41675,6 @@ declare namespace Excel {
          */
         oct2Bin(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, places?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts an octal number to decimal.
          *
          * [Api set: ExcelApi 1.2]
@@ -42613,7 +41683,6 @@ declare namespace Excel {
          */
         oct2Dec(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts an octal number to hexadecimal.
          *
          * [Api set: ExcelApi 1.2]
@@ -42623,7 +41692,6 @@ declare namespace Excel {
          */
         oct2Hex(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, places?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Rounds a positive number up and negative number down to the nearest odd integer.
          *
          * [Api set: ExcelApi 1.2]
@@ -42632,7 +41700,6 @@ declare namespace Excel {
          */
         odd(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the price per $100 face value of a security with an odd first period.
          *
          * [Api set: ExcelApi 1.2]
@@ -42649,7 +41716,6 @@ declare namespace Excel {
          */
         oddFPrice(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, issue: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, firstCoupon: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, yld: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, redemption: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the yield of a security with an odd first period.
          *
          * [Api set: ExcelApi 1.2]
@@ -42666,7 +41732,6 @@ declare namespace Excel {
          */
         oddFYield(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, issue: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, firstCoupon: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pr: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, redemption: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the price per $100 face value of a security with an odd last period.
          *
          * [Api set: ExcelApi 1.2]
@@ -42682,7 +41747,6 @@ declare namespace Excel {
          */
         oddLPrice(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, lastInterest: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, yld: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, redemption: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the yield of a security with an odd last period.
          *
          * [Api set: ExcelApi 1.2]
@@ -42698,7 +41762,6 @@ declare namespace Excel {
          */
         oddLYield(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, lastInterest: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pr: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, redemption: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Checks whether any of the arguments are TRUE, and returns TRUE or FALSE. Returns FALSE only if all arguments are FALSE.
          *
          * [Api set: ExcelApi 1.2]
@@ -42707,7 +41770,6 @@ declare namespace Excel {
          */
         or(...values: Array<boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<boolean>;
         /**
-         *
          * Returns the number of periods required by an investment to reach a specified value.
          *
          * [Api set: ExcelApi 1.2]
@@ -42718,7 +41780,6 @@ declare namespace Excel {
          */
         pduration(rate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pv: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, fv: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the rank of a value in a data set as a percentage of the data set as a percentage (0..1, exclusive) of the data set.
          *
          * [Api set: ExcelApi 1.2]
@@ -42729,7 +41790,6 @@ declare namespace Excel {
          */
         percentRank_Exc(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, significance?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the rank of a value in a data set as a percentage of the data set as a percentage (0..1, inclusive) of the data set.
          *
          * [Api set: ExcelApi 1.2]
@@ -42740,7 +41800,6 @@ declare namespace Excel {
          */
         percentRank_Inc(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, significance?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the k-th percentile of values in a range, where k is in the range 0..1, exclusive.
          *
          * [Api set: ExcelApi 1.2]
@@ -42750,7 +41809,6 @@ declare namespace Excel {
          */
         percentile_Exc(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, k: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the k-th percentile of values in a range, where k is in the range 0..1, inclusive.
          *
          * [Api set: ExcelApi 1.2]
@@ -42760,7 +41818,6 @@ declare namespace Excel {
          */
         percentile_Inc(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, k: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of permutations for a given number of objects that can be selected from the total objects.
          *
          * [Api set: ExcelApi 1.2]
@@ -42770,7 +41827,6 @@ declare namespace Excel {
          */
         permut(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numberChosen: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of permutations for a given number of objects (with repetitions) that can be selected from the total objects.
          *
          * [Api set: ExcelApi 1.2]
@@ -42780,7 +41836,6 @@ declare namespace Excel {
          */
         permutationa(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numberChosen: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the value of the density function for a standard normal distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -42789,14 +41844,12 @@ declare namespace Excel {
          */
         phi(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the value of Pi, 3.14159265358979, accurate to 15 digits.
          *
          * [Api set: ExcelApi 1.2]
          */
         pi(): FunctionResult<number>;
         /**
-         *
          * Calculates the payment for a loan based on constant payments and a constant interest rate.
          *
          * [Api set: ExcelApi 1.2]
@@ -42809,7 +41862,6 @@ declare namespace Excel {
          */
         pmt(rate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, nper: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pv: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, fv?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, type?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the Poisson distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -42820,7 +41872,6 @@ declare namespace Excel {
          */
         poisson_Dist(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, mean: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the result of a number raised to a power.
          *
          * [Api set: ExcelApi 1.2]
@@ -42830,7 +41881,6 @@ declare namespace Excel {
          */
         power(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, power: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the payment on the principal for a given investment based on periodic, constant payments and a constant interest rate.
          *
          * [Api set: ExcelApi 1.2]
@@ -42844,7 +41894,6 @@ declare namespace Excel {
          */
         ppmt(rate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, per: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, nper: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pv: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, fv?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, type?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the price per $100 face value of a security that pays periodic interest.
          *
          * [Api set: ExcelApi 1.2]
@@ -42859,7 +41908,6 @@ declare namespace Excel {
          */
         price(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, yld: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, redemption: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the price per $100 face value of a discounted security.
          *
          * [Api set: ExcelApi 1.2]
@@ -42872,7 +41920,6 @@ declare namespace Excel {
          */
         priceDisc(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, discount: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, redemption: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the price per $100 face value of a security that pays interest at maturity.
          *
          * [Api set: ExcelApi 1.2]
@@ -42886,7 +41933,6 @@ declare namespace Excel {
          */
         priceMat(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, issue: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, yld: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Multiplies all the numbers given as arguments.
          *
          * [Api set: ExcelApi 1.2]
@@ -42895,7 +41941,6 @@ declare namespace Excel {
          */
         product(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Converts a text string to proper case; the first letter in each word to uppercase, and all other letters to lowercase.
          *
          * [Api set: ExcelApi 1.2]
@@ -42904,7 +41949,6 @@ declare namespace Excel {
          */
         proper(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the present value of an investment: the total amount that a series of future payments is worth now.
          *
          * [Api set: ExcelApi 1.2]
@@ -42917,7 +41961,6 @@ declare namespace Excel {
          */
         pv(rate: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, nper: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pmt: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, fv?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, type?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the quartile of a data set, based on percentile values from 0..1, exclusive.
          *
          * [Api set: ExcelApi 1.2]
@@ -42927,7 +41970,6 @@ declare namespace Excel {
          */
         quartile_Exc(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, quart: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the quartile of a data set, based on percentile values from 0..1, inclusive.
          *
          * [Api set: ExcelApi 1.2]
@@ -42937,7 +41979,6 @@ declare namespace Excel {
          */
         quartile_Inc(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, quart: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the integer portion of a division.
          *
          * [Api set: ExcelApi 1.2]
@@ -42947,7 +41988,6 @@ declare namespace Excel {
          */
         quotient(numerator: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, denominator: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts degrees to radians.
          *
          * [Api set: ExcelApi 1.2]
@@ -42956,14 +41996,12 @@ declare namespace Excel {
          */
         radians(angle: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns a random number greater than or equal to 0 and less than 1, evenly distributed (changes on recalculation).
          *
          * [Api set: ExcelApi 1.2]
          */
         rand(): FunctionResult<number>;
         /**
-         *
          * Returns a random number between the numbers you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -42973,7 +42011,6 @@ declare namespace Excel {
          */
         randBetween(bottom: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, top: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the rank of a number in a list of numbers: its size relative to other values in the list; if more than one value has the same rank, the average rank is returned.
          *
          * [Api set: ExcelApi 1.2]
@@ -42984,7 +42021,6 @@ declare namespace Excel {
          */
         rank_Avg(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, ref: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, order?: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the rank of a number in a list of numbers: its size relative to other values in the list; if more than one value has the same rank, the top rank of that set of values is returned.
          *
          * [Api set: ExcelApi 1.2]
@@ -42995,7 +42031,6 @@ declare namespace Excel {
          */
         rank_Eq(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, ref: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, order?: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the interest rate per period of a loan or an investment. For example, use 6%/4 for quarterly payments at 6% APR.
          *
          * [Api set: ExcelApi 1.2]
@@ -43009,7 +42044,6 @@ declare namespace Excel {
          */
         rate(nper: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pmt: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pv: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, fv?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, type?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, guess?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the amount received at maturity for a fully invested security.
          *
          * [Api set: ExcelApi 1.2]
@@ -43022,7 +42056,6 @@ declare namespace Excel {
          */
         received(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, investment: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, discount: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Replaces part of a text string with a different text string.
          *
          * [Api set: ExcelApi 1.2]
@@ -43034,7 +42067,6 @@ declare namespace Excel {
          */
         replace(oldText: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, startNum: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numChars: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, newText: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Replaces part of a text string with a different text string. Use with double-byte character sets (DBCS).
          *
          * [Api set: ExcelApi 1.2]
@@ -43046,7 +42078,6 @@ declare namespace Excel {
          */
         replaceB(oldText: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, startNum: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numBytes: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, newText: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Repeats text a given number of times. Use REPT to fill a cell with a number of instances of a text string.
          *
          * [Api set: ExcelApi 1.2]
@@ -43056,7 +42087,6 @@ declare namespace Excel {
          */
         rept(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numberTimes: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the specified number of characters from the end of a text string.
          *
          * [Api set: ExcelApi 1.2]
@@ -43066,7 +42096,6 @@ declare namespace Excel {
          */
         right(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numChars?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the specified number of characters from the end of a text string. Use with double-byte character sets (DBCS).
          *
          * [Api set: ExcelApi 1.2]
@@ -43076,7 +42105,6 @@ declare namespace Excel {
          */
         rightb(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numBytes?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Converts an Arabic numeral to Roman, as text.
          *
          * [Api set: ExcelApi 1.2]
@@ -43086,7 +42114,6 @@ declare namespace Excel {
          */
         roman(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, form?: boolean | number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Rounds a number to a specified number of digits.
          *
          * [Api set: ExcelApi 1.2]
@@ -43096,7 +42123,6 @@ declare namespace Excel {
          */
         round(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numDigits: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Rounds a number down, toward zero.
          *
          * [Api set: ExcelApi 1.2]
@@ -43106,7 +42132,6 @@ declare namespace Excel {
          */
         roundDown(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numDigits: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Rounds a number up, away from zero.
          *
          * [Api set: ExcelApi 1.2]
@@ -43116,7 +42141,6 @@ declare namespace Excel {
          */
         roundUp(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numDigits: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of rows in a reference or array.
          *
          * [Api set: ExcelApi 1.2]
@@ -43125,7 +42149,6 @@ declare namespace Excel {
          */
         rows(array: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns an equivalent interest rate for the growth of an investment.
          *
          * [Api set: ExcelApi 1.2]
@@ -43136,7 +42159,6 @@ declare namespace Excel {
          */
         rri(nper: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pv: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, fv: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the secant of an angle.
          *
          * [Api set: ExcelApi 1.2]
@@ -43145,7 +42167,6 @@ declare namespace Excel {
          */
         sec(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the hyperbolic secant of an angle.
          *
          * [Api set: ExcelApi 1.2]
@@ -43154,7 +42175,6 @@ declare namespace Excel {
          */
         sech(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the second, a number from 0 to 59.
          *
          * [Api set: ExcelApi 1.2]
@@ -43163,7 +42183,6 @@ declare namespace Excel {
          */
         second(serialNumber: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the sum of a power series based on the formula.
          *
          * [Api set: ExcelApi 1.2]
@@ -43175,7 +42194,6 @@ declare namespace Excel {
          */
         seriesSum(x: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, n: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, m: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, coefficients: Excel.Range | string | number | boolean | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the sheet number of the referenced sheet.
          *
          * [Api set: ExcelApi 1.2]
@@ -43184,7 +42202,6 @@ declare namespace Excel {
          */
         sheet(value?: Excel.Range | string | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the number of sheets in a reference.
          *
          * [Api set: ExcelApi 1.2]
@@ -43193,7 +42210,6 @@ declare namespace Excel {
          */
         sheets(reference?: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the sign of a number: 1 if the number is positive, zero if the number is zero, or -1 if the number is negative.
          *
          * [Api set: ExcelApi 1.2]
@@ -43202,7 +42218,6 @@ declare namespace Excel {
          */
         sign(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the sine of an angle.
          *
          * [Api set: ExcelApi 1.2]
@@ -43211,7 +42226,6 @@ declare namespace Excel {
          */
         sin(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the hyperbolic sine of a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -43220,7 +42234,6 @@ declare namespace Excel {
          */
         sinh(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the skewness of a distribution: a characterization of the degree of asymmetry of a distribution around its mean.
          *
          * [Api set: ExcelApi 1.2]
@@ -43229,7 +42242,6 @@ declare namespace Excel {
          */
         skew(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the skewness of a distribution based on a population: a characterization of the degree of asymmetry of a distribution around its mean.
          *
          * [Api set: ExcelApi 1.2]
@@ -43238,7 +42250,6 @@ declare namespace Excel {
          */
         skew_p(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the straight-line depreciation of an asset for one period.
          *
          * [Api set: ExcelApi 1.2]
@@ -43249,7 +42260,6 @@ declare namespace Excel {
          */
         sln(cost: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, salvage: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, life: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the k-th smallest value in a data set. For example, the fifth smallest number.
          *
          * [Api set: ExcelApi 1.2]
@@ -43259,7 +42269,6 @@ declare namespace Excel {
          */
         small(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, k: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the square root of a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -43268,7 +42277,6 @@ declare namespace Excel {
          */
         sqrt(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the square root of (number * Pi).
          *
          * [Api set: ExcelApi 1.2]
@@ -43277,7 +42285,6 @@ declare namespace Excel {
          */
         sqrtPi(number: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Estimates standard deviation based on a sample, including logical values and text. Text and the logical value FALSE have the value 0; the logical value TRUE has the value 1.
          *
          * [Api set: ExcelApi 1.2]
@@ -43286,7 +42293,6 @@ declare namespace Excel {
          */
         stDevA(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Calculates standard deviation based on an entire population, including logical values and text. Text and the logical value FALSE have the value 0; the logical value TRUE has the value 1.
          *
          * [Api set: ExcelApi 1.2]
@@ -43295,7 +42301,6 @@ declare namespace Excel {
          */
         stDevPA(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Calculates standard deviation based on the entire population given as arguments (ignores logical values and text).
          *
          * [Api set: ExcelApi 1.2]
@@ -43304,7 +42309,6 @@ declare namespace Excel {
          */
         stDev_P(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Estimates standard deviation based on a sample (ignores logical values and text in the sample).
          *
          * [Api set: ExcelApi 1.2]
@@ -43313,7 +42317,6 @@ declare namespace Excel {
          */
         stDev_S(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns a normalized value from a distribution characterized by a mean and standard deviation.
          *
          * [Api set: ExcelApi 1.2]
@@ -43324,7 +42327,6 @@ declare namespace Excel {
          */
         standardize(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, mean: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, standardDev: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Replaces existing text with new text in a text string.
          *
          * [Api set: ExcelApi 1.2]
@@ -43336,7 +42338,6 @@ declare namespace Excel {
          */
         substitute(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, oldText: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, newText: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, instanceNum?: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns a subtotal in a list or database.
          *
          * [Api set: ExcelApi 1.2]
@@ -43346,7 +42347,6 @@ declare namespace Excel {
          */
         subtotal(functionNum: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, ...values: Array<Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Adds all the numbers in a range of cells.
          *
          * [Api set: ExcelApi 1.2]
@@ -43355,7 +42355,6 @@ declare namespace Excel {
          */
         sum(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Adds the cells specified by a given condition or criteria.
          *
          * [Api set: ExcelApi 1.2]
@@ -43366,7 +42365,6 @@ declare namespace Excel {
          */
         sumIf(range: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, criteria: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, sumRange?: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Adds the cells specified by a given set of conditions or criteria.
          *
          * [Api set: ExcelApi 1.2]
@@ -43376,7 +42374,6 @@ declare namespace Excel {
          */
         sumIfs(sumRange: Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, ...values: Array<Excel.Range | Excel.RangeReference | Excel.FunctionResult<any> | number | string | boolean>): FunctionResult<number>;
         /**
-         *
          * Returns the sum of the squares of the arguments. The arguments can be numbers, arrays, names, or references to cells that contain numbers.
          *
          * [Api set: ExcelApi 1.2]
@@ -43385,7 +42382,6 @@ declare namespace Excel {
          */
         sumSq(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the sum-of-years' digits depreciation of an asset for a specified period.
          *
          * [Api set: ExcelApi 1.2]
@@ -43397,7 +42393,6 @@ declare namespace Excel {
          */
         syd(cost: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, salvage: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, life: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, per: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Checks whether a value is text, and returns the text if it is, or returns double quotes (empty text) if it is not.
          *
          * [Api set: ExcelApi 1.2]
@@ -43406,7 +42401,6 @@ declare namespace Excel {
          */
         t(value: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the bond-equivalent yield for a treasury bill.
          *
          * [Api set: ExcelApi 1.2]
@@ -43417,7 +42411,6 @@ declare namespace Excel {
          */
         tbillEq(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, discount: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the price per $100 face value for a treasury bill.
          *
          * [Api set: ExcelApi 1.2]
@@ -43428,7 +42421,6 @@ declare namespace Excel {
          */
         tbillPrice(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, discount: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the yield for a treasury bill.
          *
          * [Api set: ExcelApi 1.2]
@@ -43439,7 +42431,6 @@ declare namespace Excel {
          */
         tbillYield(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pr: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the left-tailed Student's t-distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -43450,7 +42441,6 @@ declare namespace Excel {
          */
         t_Dist(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the two-tailed Student's t-distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -43460,7 +42450,6 @@ declare namespace Excel {
          */
         t_Dist_2T(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the right-tailed Student's t-distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -43470,7 +42459,6 @@ declare namespace Excel {
          */
         t_Dist_RT(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the left-tailed inverse of the Student's t-distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -43480,7 +42468,6 @@ declare namespace Excel {
          */
         t_Inv(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the two-tailed inverse of the Student's t-distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -43490,7 +42477,6 @@ declare namespace Excel {
          */
         t_Inv_2T(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the tangent of an angle.
          *
          * [Api set: ExcelApi 1.2]
@@ -43499,7 +42485,6 @@ declare namespace Excel {
          */
         tan(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the hyperbolic tangent of a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -43508,7 +42493,6 @@ declare namespace Excel {
          */
         tanh(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a value to text in a specific number format.
          *
          * [Api set: ExcelApi 1.2]
@@ -43518,7 +42502,6 @@ declare namespace Excel {
          */
         text(value: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, formatText: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Converts hours, minutes, and seconds given as numbers to an Excel serial number, formatted with a time format.
          *
          * [Api set: ExcelApi 1.2]
@@ -43529,7 +42512,6 @@ declare namespace Excel {
          */
         time(hour: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, minute: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, second: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a text time to an Excel serial number for a time, a number from 0 (12:00:00 AM) to 0.999988426 (11:59:59 PM). Format the number with a time format after entering the formula.
          *
          * [Api set: ExcelApi 1.2]
@@ -43538,14 +42520,12 @@ declare namespace Excel {
          */
         timevalue(timeText: string | number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the current date formatted as a date.
          *
          * [Api set: ExcelApi 1.2]
          */
         today(): FunctionResult<number>;
         /**
-         *
          * Removes all spaces from a text string except for single spaces between words.
          *
          * [Api set: ExcelApi 1.2]
@@ -43554,7 +42534,6 @@ declare namespace Excel {
          */
         trim(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the mean of the interior portion of a set of data values.
          *
          * [Api set: ExcelApi 1.2]
@@ -43564,14 +42543,12 @@ declare namespace Excel {
          */
         trimMean(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, percent: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the logical value TRUE.
          *
          * [Api set: ExcelApi 1.2]
          */
         true(): FunctionResult<boolean>;
         /**
-         *
          * Truncates a number to an integer by removing the decimal, or fractional, part of the number.
          *
          * [Api set: ExcelApi 1.2]
@@ -43581,7 +42558,6 @@ declare namespace Excel {
          */
         trunc(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, numDigits?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns an integer representing the data type of a value: number = 1; text = 2; logical value = 4; error value = 16; array = 64.
          *
          * [Api set: ExcelApi 1.2]
@@ -43590,7 +42566,6 @@ declare namespace Excel {
          */
         type(value: boolean | string | number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a number to text, using currency format.
          *
          * [Api set: ExcelApi 1.2]
@@ -43600,7 +42575,6 @@ declare namespace Excel {
          */
         usdollar(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, decimals?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the Unicode character referenced by the given numeric value.
          *
          * [Api set: ExcelApi 1.2]
@@ -43609,7 +42583,6 @@ declare namespace Excel {
          */
         unichar(number: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Returns the number (code point) corresponding to the first character of the text.
          *
          * [Api set: ExcelApi 1.2]
@@ -43618,7 +42591,6 @@ declare namespace Excel {
          */
         unicode(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Converts a text string to all uppercase letters.
          *
          * [Api set: ExcelApi 1.2]
@@ -43627,7 +42599,6 @@ declare namespace Excel {
          */
         upper(text: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<string>;
         /**
-         *
          * Looks for a value in the leftmost column of a table, and then returns a value in the same row from a column you specify. By default, the table must be sorted in an ascending order.
          *
          * [Api set: ExcelApi 1.2]
@@ -43639,7 +42610,6 @@ declare namespace Excel {
          */
         vlookup(lookupValue: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, tableArray: Excel.Range | number | Excel.RangeReference | Excel.FunctionResult<any>, colIndexNum: Excel.Range | number | Excel.RangeReference | Excel.FunctionResult<any>, rangeLookup?: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number | string | boolean>;
         /**
-         *
          * Converts a text string that represents a number to a number.
          *
          * [Api set: ExcelApi 1.2]
@@ -43648,7 +42618,6 @@ declare namespace Excel {
          */
         value(text: string | boolean | number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Estimates variance based on a sample, including logical values and text. Text and the logical value FALSE have the value 0; the logical value TRUE has the value 1.
          *
          * [Api set: ExcelApi 1.2]
@@ -43657,7 +42626,6 @@ declare namespace Excel {
          */
         varA(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Calculates variance based on the entire population, including logical values and text. Text and the logical value FALSE have the value 0; the logical value TRUE has the value 1.
          *
          * [Api set: ExcelApi 1.2]
@@ -43666,7 +42634,6 @@ declare namespace Excel {
          */
         varPA(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Calculates variance based on the entire population (ignores logical values and text in the population).
          *
          * [Api set: ExcelApi 1.2]
@@ -43675,7 +42642,6 @@ declare namespace Excel {
          */
         var_P(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Estimates variance based on a sample (ignores logical values and text in the sample).
          *
          * [Api set: ExcelApi 1.2]
@@ -43684,7 +42650,6 @@ declare namespace Excel {
          */
         var_S(...values: Array<number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<number>;
         /**
-         *
          * Returns the depreciation of an asset for any period you specify, including partial periods, using the double-declining balance method or some other method you specify.
          *
          * [Api set: ExcelApi 1.2]
@@ -43699,7 +42664,6 @@ declare namespace Excel {
          */
         vdb(cost: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, salvage: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, life: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, startPeriod: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, endPeriod: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, factor?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, noSwitch?: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the week number in the year.
          *
          * [Api set: ExcelApi 1.2]
@@ -43709,7 +42673,6 @@ declare namespace Excel {
          */
         weekNum(serialNumber: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, returnType?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns a number from 1 to 7 identifying the day of the week of a date.
          *
          * [Api set: ExcelApi 1.2]
@@ -43719,7 +42682,6 @@ declare namespace Excel {
          */
         weekday(serialNumber: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, returnType?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the Weibull distribution.
          *
          * [Api set: ExcelApi 1.2]
@@ -43731,7 +42693,6 @@ declare namespace Excel {
          */
         weibull_Dist(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, alpha: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, beta: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the serial number of the date before or after a specified number of workdays.
          *
          * [Api set: ExcelApi 1.2]
@@ -43742,7 +42703,6 @@ declare namespace Excel {
          */
         workDay(startDate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, days: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, holidays?: number | string | Excel.Range | boolean | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the serial number of the date before or after a specified number of workdays with custom weekend parameters.
          *
          * [Api set: ExcelApi 1.2]
@@ -43754,7 +42714,6 @@ declare namespace Excel {
          */
         workDay_Intl(startDate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, days: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, weekend?: number | string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, holidays?: number | string | Excel.Range | boolean | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the internal rate of return for a schedule of cash flows.
          *
          * [Api set: ExcelApi 1.2]
@@ -43765,7 +42724,6 @@ declare namespace Excel {
          */
         xirr(values: number | string | Excel.Range | boolean | Excel.RangeReference | Excel.FunctionResult<any>, dates: number | string | Excel.Range | boolean | Excel.RangeReference | Excel.FunctionResult<any>, guess?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the net present value for a schedule of cash flows.
          *
          * [Api set: ExcelApi 1.2]
@@ -43776,7 +42734,6 @@ declare namespace Excel {
          */
         xnpv(rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, values: number | string | Excel.Range | boolean | Excel.RangeReference | Excel.FunctionResult<any>, dates: number | string | Excel.Range | boolean | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns a logical 'Exclusive Or' of all arguments.
          *
          * [Api set: ExcelApi 1.2]
@@ -43785,7 +42742,6 @@ declare namespace Excel {
          */
         xor(...values: Array<boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>>): FunctionResult<boolean>;
         /**
-         *
          * Returns the year of a date, an integer in the range 1900 - 9999.
          *
          * [Api set: ExcelApi 1.2]
@@ -43794,7 +42750,6 @@ declare namespace Excel {
          */
         year(serialNumber: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the year fraction representing the number of whole days between start_date and end_date.
          *
          * [Api set: ExcelApi 1.2]
@@ -43805,7 +42760,6 @@ declare namespace Excel {
          */
         yearFrac(startDate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, endDate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the yield on a security that pays periodic interest.
          *
          * [Api set: ExcelApi 1.2]
@@ -43820,7 +42774,6 @@ declare namespace Excel {
          */
         yield(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pr: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, redemption: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, frequency: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the annual yield for a discounted security. For example, a treasury bill.
          *
          * [Api set: ExcelApi 1.2]
@@ -43833,7 +42786,6 @@ declare namespace Excel {
          */
         yieldDisc(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pr: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, redemption: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the annual yield of a security that pays interest at maturity.
          *
          * [Api set: ExcelApi 1.2]
@@ -43847,7 +42799,6 @@ declare namespace Excel {
          */
         yieldMat(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, issue: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, rate: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pr: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, basis?: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
-         *
          * Returns the one-tailed P-value of a z-test.
          *
          * [Api set: ExcelApi 1.2]
@@ -43964,7 +42915,7 @@ declare namespace Excel {
             /**
              *
              * True if all charts in the workbook are tracking the actual data points to which they are attached.
-            False if the charts track the index of the data points.
+                        False if the charts track the index of the data points.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -43972,7 +42923,7 @@ declare namespace Excel {
             /**
              *
              * Specifies whether or not changes have been made since the workbook was last saved.
-            You can set this property to true if you want to close a modified workbook without either saving it or being prompted to save it.
+                        You can set this property to true if you want to close a modified workbook without either saving it or being prompted to save it.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -43980,7 +42931,7 @@ declare namespace Excel {
             /**
              *
              * True if calculations in this workbook will be done using only the precision of the numbers as they're displayed.
-            Data will permanently lose accuracy when switching this property from false to true.
+                        Data will permanently lose accuracy when switching this property from false to true.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -43998,7 +42949,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the enableCalculation property of the worksheet.
-            True if Excel recalculates the worksheet when necessary. False if Excel doesn't recalculate the sheet.
+                        True if Excel recalculates the worksheet when necessary. False if Excel doesn't recalculate the sheet.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -44020,7 +42971,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet's gridlines flag.
-            This flag determines whether gridlines are visible to the user.
+                        This flag determines whether gridlines are visible to the user.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -44028,7 +42979,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet's headings flag.
-            This flag determines whether headings are visible to the user.
+                        This flag determines whether headings are visible to the user.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -44036,7 +42987,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets the standard (default) width of all the columns in the worksheet.
-            One unit of column width is equal to the width of one character in the Normal style. For proportional fonts, the width of the character 0 (zero) is used.
+                        One unit of column width is equal to the width of one character in the Normal style. For proportional fonts, the width of the character 0 (zero) is used.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -44044,8 +42995,8 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet tab color.
-            When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form "#123456"
-            When setting the color, use an empty-string to set an "auto" color, or a real color otherwise.
+                        When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form "#123456"
+                        When setting the color, use an empty-string to set an "auto" color, or a real color otherwise.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -44123,8 +43074,8 @@ declare namespace Excel {
             /**
              *
              * Represents Excel's number format code for the given range, based on the language settings of the user.​
-            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
-            Any returned text uses the locally-formatted strings based on the language specified in the system settings.
+                        Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
+                        Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -44139,8 +43090,8 @@ declare namespace Excel {
             /**
              *
              * Represents the style of the current range.
-            If the styles of the cells are inconsistent, null will be returned.
-            For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
+                        If the styles of the cells are inconsistent, null will be returned.
+                        For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -44172,8 +43123,8 @@ declare namespace Excel {
             /**
              *
              * Represents the style for all ranges in this RangeAreas object.
-            If the styles of the cells are inconsistent, null will be returned.
-            For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
+                        If the styles of the cells are inconsistent, null will be returned.
+                        For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -44294,8 +43245,8 @@ declare namespace Excel {
             /**
              *
              * Name of the table.
-            
-             The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
+                        
+                         The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -44491,8 +43442,8 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the text orientation of all the cells within the range.
-            The text orientation should be an integer either from -90 to 90, or 180 for vertically-oriented text.
-            If the orientation within a range are not uniform, then null will be returned.
+                        The text orientation should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+                        If the orientation within a range are not uniform, then null will be returned.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -44500,9 +43451,9 @@ declare namespace Excel {
             /**
              *
              * Determines if the row height of the Range object equals the standard height of the sheet.
-            Returns True if the row height of the Range object equals the standard height of the sheet.
-            Returns Null if the range contains more than one row and the rows aren't all the same height.
-            Returns False otherwise.
+                        Returns True if the row height of the Range object equals the standard height of the sheet.
+                        Returns Null if the range contains more than one row and the rows aren't all the same height.
+                        Returns False otherwise.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -44510,9 +43461,9 @@ declare namespace Excel {
             /**
              *
              * Indicates whether the column width of the Range object equals the standard width of the sheet.
-            Returns True if the column width of the Range object equals the standard width of the sheet.
-            Returns Null if the range contains more than one column and the columns aren't all the same height.
-            Returns False otherwise.
+                        Returns True if the column width of the Range object equals the standard width of the sheet.
+                        Returns Null if the range contains more than one column and the columns aren't all the same height.
+                        Returns False otherwise.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -44561,7 +43512,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the pattern of a Range. See Excel.FillPattern for details. LinearGradient and RectangularGradient are not supported.
-            A null value indicates that the entire range doesn't have uniform pattern setting.
+                        A null value indicates that the entire range doesn't have uniform pattern setting.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -44569,7 +43520,7 @@ declare namespace Excel {
             /**
              *
              * Sets HTML color code representing the color of the Range pattern, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            Gets HTML color code representing the color of the Range pattern, of the form #RRGGBB (e.g. "FFA500").
+                        Gets HTML color code representing the color of the Range pattern, of the form #RRGGBB (e.g. "FFA500").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -44577,7 +43528,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a pattern color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            If the pattern tintAndShades are not uniform, null will be returned.
+                        If the pattern tintAndShades are not uniform, null will be returned.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -44585,7 +43536,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            If the tintAndShades are not uniform, null will be returned.
+                        If the tintAndShades are not uniform, null will be returned.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -44610,7 +43561,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a color for Range Border, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            A null value indicates that the border doesn't have uniform tintAndShade setting.
+                        A null value indicates that the border doesn't have uniform tintAndShade setting.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -44628,7 +43579,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a color for Range Borders, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            A null value indicates that the entire border collections don't have uniform tintAndShade setting.
+                        A null value indicates that the entire border collections don't have uniform tintAndShade setting.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -44682,9 +43633,9 @@ declare namespace Excel {
             /**
              *
              * Represents the Subscript status of font.
-            Returns True if all the fonts of the range are Subscript.
-            Returns False if all the fonts of the range are Superscript or normal (neither Superscript, nor Subscript).
-            Returns Null otherwise.
+                        Returns True if all the fonts of the range are Subscript.
+                        Returns False if all the fonts of the range are Superscript or normal (neither Superscript, nor Subscript).
+                        Returns Null otherwise.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -44692,9 +43643,9 @@ declare namespace Excel {
             /**
              *
              * Represents the Superscript status of font.
-            Returns True if all the fonts of the range are Superscript.
-            Returns False if all the fonts of the range are Subscript or normal (neither Superscript, nor Subscript).
-            Returns Null otherwise.
+                        Returns True if all the fonts of the range are Superscript.
+                        Returns False if all the fonts of the range are Subscript or normal (neither Superscript, nor Subscript).
+                        Returns Null otherwise.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -44702,7 +43653,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a color for Range Font, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            A null value indicates that the entire range doesn't have uniform font tintAndShade setting.
+                        A null value indicates that the entire range doesn't have uniform font tintAndShade setting.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -44773,7 +43724,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
-            the level of where the category labels are being sourced from. Read/Write.
+                        the level of where the category labels are being sourced from. Read/Write.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -44830,7 +43781,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a ChartSeriesNameLevel enumeration constant referring to
-            the level of where the series names are being sourced from. Read/Write.
+                        the level of where the series names are being sourced from. Read/Write.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -44845,8 +43796,8 @@ declare namespace Excel {
             /**
              *
              * Represents whether to show the data labels when the value is greater than the maximum value on the value axis.
-            If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
-            This property applies to 2-D charts only.
+                        If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
+                        This property applies to 2-D charts only.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -45014,7 +43965,7 @@ declare namespace Excel {
             /**
              *
              * Represents the doughnut hole size of a chart series.  Only valid on doughnut and doughnutExploded charts.
-            Throws an invalid argument exception on invalid charts.
+                        Throws an invalid argument exception on invalid charts.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -45043,7 +43994,7 @@ declare namespace Excel {
             /**
              *
              * Represents the gap width of a chart series.  Only valid on bar and column charts, as well as
-            specific classes of line and pie charts.  Throws an invalid argument exception on invalid charts.
+                        specific classes of line and pie charts.  Throws an invalid argument exception on invalid charts.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -45649,7 +44600,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is 0.
+                        This property is valid only when TextOrientation of data label is 0.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -45734,7 +44685,7 @@ declare namespace Excel {
             /**
              *
              * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is -90, 90, or 180.
+                        This property is valid only when TextOrientation of data label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -45766,7 +44717,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is -90, 90, or 180.
+                        This property is valid only when TextOrientation of data label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -45872,7 +44823,7 @@ declare namespace Excel {
             /**
              *
              * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is 0.
+                        This property is valid only when TextOrientation of data label is 0.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -46501,7 +45452,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart trendline label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of trendline label is -90, 90, or 180.
+                        This property is valid only when TextOrientation of trendline label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -46551,7 +45502,7 @@ declare namespace Excel {
             /**
              *
              * Represents the vertical alignment of chart trendline label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of trendline label is 0.
+                        This property is valid only when TextOrientation of trendline label is 0.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -47120,10 +46071,10 @@ declare namespace Excel {
             /**
              *
              * The priority (or index) within the conditional format collection that this conditional format currently exists in. Changing this also
-            changes other conditional formats' priorities, to allow for a contiguous priority order.
-            Use a negative priority to begin from the back.
-            Priorities greater than than bounds will get and set to the maximum (or minimum if negative) priority.
-            Also note that if you change the priority, you have to re-fetch a new copy of the object at that new priority location if you want to make further changes to it. Read-only.
+                        changes other conditional formats' priorities, to allow for a contiguous priority order.
+                        Use a negative priority to begin from the back.
+                        Priorities greater than than bounds will get and set to the maximum (or minimum if negative) priority.
+                        Also note that if you change the priority, you have to re-fetch a new copy of the object at that new priority location if you want to make further changes to it. Read-only.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -47131,7 +46082,7 @@ declare namespace Excel {
             /**
              *
              * If the conditions of this conditional format are met, no lower-priority formats shall take effect on that cell.
-            Null on databars, icon sets, and colorscales as there's no concept of StopIfTrue for these
+                        Null on databars, icon sets, and colorscales as there's no concept of StopIfTrue for these
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -47156,7 +46107,7 @@ declare namespace Excel {
             /**
              *
              * HTML color code representing the color of the Axis line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            "" (empty string) if no axis is present or set.
+                        "" (empty string) if no axis is present or set.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -47178,7 +46129,7 @@ declare namespace Excel {
             /**
              *
              * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar.
-            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
+                        The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -47193,7 +46144,7 @@ declare namespace Excel {
             /**
              *
              * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar.
-            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
+                        The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -47204,7 +46155,7 @@ declare namespace Excel {
             /**
              *
              * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            "" (empty string) if no border is present or set.
+                        "" (empty string) if no border is present or set.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -47229,7 +46180,7 @@ declare namespace Excel {
             /**
              *
              * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            "Empty String" if no border is present or set.
+                        "Empty String" if no border is present or set.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -47882,7 +46833,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet's print zoom options.
-            The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
+                        The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -47893,7 +46844,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the center footer of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -47901,7 +46852,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the center header of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -47909,7 +46860,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the left footer of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -47917,7 +46868,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the left header of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -47925,7 +46876,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the right footer of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -47933,7 +46884,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the right header of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -48071,7 +47022,7 @@ declare namespace Excel {
             /**
              *
              * Represents the height, in points, of the shape.
-            Throws an invalid argument exception when set with a negative value or zero as input.
+                        Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -48079,7 +47030,7 @@ declare namespace Excel {
             /**
              *
              * The distance, in points, from the left side of the shape to the left side of the worksheet.
-            Throws an invalid argument exception when set with a negative value as input.
+                        Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -48115,7 +47066,7 @@ declare namespace Excel {
             /**
              *
              * The distance, in points, from the top edge of the shape to the top edge of the worksheet.
-            Throws an invalid argument exception when set with a negative value as input.
+                        Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -48130,7 +47081,7 @@ declare namespace Excel {
             /**
              *
              * Represents the width, in points, of the shape.
-            Throws an invalid argument exception when set with a negative value or zero as input.
+                        Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -48415,7 +47366,7 @@ declare namespace Excel {
             /**
              *
              * Represents the height, in points, of the slicer.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -48423,7 +47374,7 @@ declare namespace Excel {
             /**
              *
              * Represents the distance, in points, from the left side of the slicer to the left of the worksheet.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -48452,7 +47403,7 @@ declare namespace Excel {
             /**
              *
              * Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -48460,7 +47411,7 @@ declare namespace Excel {
             /**
              *
              * Represents the width, in points, of the slicer.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -48475,8 +47426,8 @@ declare namespace Excel {
             /**
              *
              * True if the slicer item is selected.
-            Setting this value will not clear other SlicerItems' selected state.
-            By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
+                        Setting this value will not clear other SlicerItems' selected state.
+                        By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -48684,7 +47635,7 @@ declare namespace Excel {
             /**
              *
              * True if all charts in the workbook are tracking the actual data points to which they are attached.
-            False if the charts track the index of the data points.
+                        False if the charts track the index of the data points.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -48692,7 +47643,7 @@ declare namespace Excel {
             /**
              *
              * Specifies whether or not changes have been made since the workbook was last saved.
-            You can set this property to true if you want to close a modified workbook without either saving it or being prompted to save it.
+                        You can set this property to true if you want to close a modified workbook without either saving it or being prompted to save it.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -48721,7 +47672,7 @@ declare namespace Excel {
             /**
              *
              * True if calculations in this workbook will be done using only the precision of the numbers as they're displayed.
-            Data will permanently lose accuracy when switching this property from false to true.
+                        Data will permanently lose accuracy when switching this property from false to true.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -48829,7 +47780,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the enableCalculation property of the worksheet.
-            True if Excel recalculates the worksheet when necessary. False if Excel doesn't recalculate the sheet.
+                        True if Excel recalculates the worksheet when necessary. False if Excel doesn't recalculate the sheet.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -48858,7 +47809,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet's gridlines flag.
-            This flag determines whether gridlines are visible to the user.
+                        This flag determines whether gridlines are visible to the user.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -48866,7 +47817,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet's headings flag.
-            This flag determines whether headings are visible to the user.
+                        This flag determines whether headings are visible to the user.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -48881,7 +47832,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets the standard (default) width of all the columns in the worksheet.
-            One unit of column width is equal to the width of one character in the Normal style. For proportional fonts, the width of the character 0 (zero) is used.
+                        One unit of column width is equal to the width of one character in the Normal style. For proportional fonts, the width of the character 0 (zero) is used.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -48889,8 +47840,8 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet tab color.
-            When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form "#123456"
-            When setting the color, use an empty-string to set an "auto" color, or a real color otherwise.
+                        When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form "#123456"
+                        When setting the color, use an empty-string to set an "auto" color, or a real color otherwise.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -49069,8 +48020,8 @@ declare namespace Excel {
             /**
              *
              * Represents Excel's number format code for the given range, based on the language settings of the user.​
-            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
-            Any returned text uses the locally-formatted strings based on the language specified in the system settings.
+                        Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
+                        Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -49099,8 +48050,8 @@ declare namespace Excel {
             /**
              *
              * Represents the style of the current range.
-            If the styles of the cells are inconsistent, null will be returned.
-            For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
+                        If the styles of the cells are inconsistent, null will be returned.
+                        For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -49216,8 +48167,8 @@ declare namespace Excel {
             /**
              *
              * Represents the style for all ranges in this RangeAreas object.
-            If the styles of the cells are inconsistent, null will be returned.
-            For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
+                        If the styles of the cells are inconsistent, null will be returned.
+                        For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -49505,8 +48456,8 @@ declare namespace Excel {
             /**
              *
              * Name of the table.
-            
-             The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
+                        
+                         The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -49657,8 +48608,8 @@ declare namespace Excel {
             /**
              *
              * Represents if all cell values are valid according to the data validation rules.
-            Returns true if all cell values are valid, or false if all cell values are invalid.
-            Returns null if there are both valid and invalid cell values within the range.
+                        Returns true if all cell values are valid, or false if all cell values are invalid.
+                        Returns null if there are both valid and invalid cell values within the range.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -49763,8 +48714,8 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the text orientation of all the cells within the range.
-            The text orientation should be an integer either from -90 to 90, or 180 for vertically-oriented text.
-            If the orientation within a range are not uniform, then null will be returned.
+                        The text orientation should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+                        If the orientation within a range are not uniform, then null will be returned.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -49772,9 +48723,9 @@ declare namespace Excel {
             /**
              *
              * Determines if the row height of the Range object equals the standard height of the sheet.
-            Returns True if the row height of the Range object equals the standard height of the sheet.
-            Returns Null if the range contains more than one row and the rows aren't all the same height.
-            Returns False otherwise.
+                        Returns True if the row height of the Range object equals the standard height of the sheet.
+                        Returns Null if the range contains more than one row and the rows aren't all the same height.
+                        Returns False otherwise.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -49782,9 +48733,9 @@ declare namespace Excel {
             /**
              *
              * Indicates whether the column width of the Range object equals the standard width of the sheet.
-            Returns True if the column width of the Range object equals the standard width of the sheet.
-            Returns Null if the range contains more than one column and the columns aren't all the same height.
-            Returns False otherwise.
+                        Returns True if the column width of the Range object equals the standard width of the sheet.
+                        Returns Null if the range contains more than one column and the columns aren't all the same height.
+                        Returns False otherwise.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -49833,7 +48784,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the pattern of a Range. See Excel.FillPattern for details. LinearGradient and RectangularGradient are not supported.
-            A null value indicates that the entire range doesn't have uniform pattern setting.
+                        A null value indicates that the entire range doesn't have uniform pattern setting.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -49841,7 +48792,7 @@ declare namespace Excel {
             /**
              *
              * Sets HTML color code representing the color of the Range pattern, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            Gets HTML color code representing the color of the Range pattern, of the form #RRGGBB (e.g. "FFA500").
+                        Gets HTML color code representing the color of the Range pattern, of the form #RRGGBB (e.g. "FFA500").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -49849,7 +48800,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a pattern color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            If the pattern tintAndShades are not uniform, null will be returned.
+                        If the pattern tintAndShades are not uniform, null will be returned.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -49857,7 +48808,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            If the tintAndShades are not uniform, null will be returned.
+                        If the tintAndShades are not uniform, null will be returned.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -49889,7 +48840,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a color for Range Border, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            A null value indicates that the border doesn't have uniform tintAndShade setting.
+                        A null value indicates that the border doesn't have uniform tintAndShade setting.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -49953,9 +48904,9 @@ declare namespace Excel {
             /**
              *
              * Represents the Subscript status of font.
-            Returns True if all the fonts of the range are Subscript.
-            Returns False if all the fonts of the range are Superscript or normal (neither Superscript, nor Subscript).
-            Returns Null otherwise.
+                        Returns True if all the fonts of the range are Subscript.
+                        Returns False if all the fonts of the range are Superscript or normal (neither Superscript, nor Subscript).
+                        Returns Null otherwise.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -49963,9 +48914,9 @@ declare namespace Excel {
             /**
              *
              * Represents the Superscript status of font.
-            Returns True if all the fonts of the range are Superscript.
-            Returns False if all the fonts of the range are Subscript or normal (neither Superscript, nor Subscript).
-            Returns Null otherwise.
+                        Returns True if all the fonts of the range are Superscript.
+                        Returns False if all the fonts of the range are Subscript or normal (neither Superscript, nor Subscript).
+                        Returns Null otherwise.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -49973,7 +48924,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a color for Range Font, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            A null value indicates that the entire range doesn't have uniform font tintAndShade setting.
+                        A null value indicates that the entire range doesn't have uniform font tintAndShade setting.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -50051,7 +49002,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
-            the level of where the category labels are being sourced from. Read/Write.
+                        the level of where the category labels are being sourced from. Read/Write.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -50115,7 +49066,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a ChartSeriesNameLevel enumeration constant referring to
-            the level of where the series names are being sourced from. Read/Write.
+                        the level of where the series names are being sourced from. Read/Write.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -50130,8 +49081,8 @@ declare namespace Excel {
             /**
              *
              * Represents whether to show the data labels when the value is greater than the maximum value on the value axis.
-            If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
-            This property applies to 2-D charts only.
+                        If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
+                        This property applies to 2-D charts only.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -50313,7 +49264,7 @@ declare namespace Excel {
             /**
              *
              * Represents the doughnut hole size of a chart series.  Only valid on doughnut and doughnutExploded charts.
-            Throws an invalid argument exception on invalid charts.
+                        Throws an invalid argument exception on invalid charts.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -50342,7 +49293,7 @@ declare namespace Excel {
             /**
              *
              * Represents the gap width of a chart series.  Only valid on bar and column charts, as well as
-            specific classes of line and pie charts.  Throws an invalid argument exception on invalid charts.
+                        specific classes of line and pie charts.  Throws an invalid argument exception on invalid charts.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -51011,7 +49962,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is 0.
+                        This property is valid only when TextOrientation of data label is 0.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -51096,7 +50047,7 @@ declare namespace Excel {
             /**
              *
              * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is -90, 90, or 180.
+                        This property is valid only when TextOrientation of data label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -51135,7 +50086,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is -90, 90, or 180.
+                        This property is valid only when TextOrientation of data label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -51241,7 +50192,7 @@ declare namespace Excel {
             /**
              *
              * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is 0.
+                        This property is valid only when TextOrientation of data label is 0.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -51940,7 +50891,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart trendline label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of trendline label is -90, 90, or 180.
+                        This property is valid only when TextOrientation of trendline label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -51990,7 +50941,7 @@ declare namespace Excel {
             /**
              *
              * Represents the vertical alignment of chart trendline label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of trendline label is 0.
+                        This property is valid only when TextOrientation of trendline label is 0.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -52795,10 +51746,10 @@ declare namespace Excel {
             /**
              *
              * The priority (or index) within the conditional format collection that this conditional format currently exists in. Changing this also
-            changes other conditional formats' priorities, to allow for a contiguous priority order.
-            Use a negative priority to begin from the back.
-            Priorities greater than than bounds will get and set to the maximum (or minimum if negative) priority.
-            Also note that if you change the priority, you have to re-fetch a new copy of the object at that new priority location if you want to make further changes to it. Read-only.
+                        changes other conditional formats' priorities, to allow for a contiguous priority order.
+                        Use a negative priority to begin from the back.
+                        Priorities greater than than bounds will get and set to the maximum (or minimum if negative) priority.
+                        Also note that if you change the priority, you have to re-fetch a new copy of the object at that new priority location if you want to make further changes to it. Read-only.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -52806,7 +51757,7 @@ declare namespace Excel {
             /**
              *
              * If the conditions of this conditional format are met, no lower-priority formats shall take effect on that cell.
-            Null on databars, icon sets, and colorscales as there's no concept of StopIfTrue for these
+                        Null on databars, icon sets, and colorscales as there's no concept of StopIfTrue for these
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -52838,7 +51789,7 @@ declare namespace Excel {
             /**
              *
              * HTML color code representing the color of the Axis line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            "" (empty string) if no axis is present or set.
+                        "" (empty string) if no axis is present or set.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -52860,7 +51811,7 @@ declare namespace Excel {
             /**
              *
              * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar.
-            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
+                        The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -52875,7 +51826,7 @@ declare namespace Excel {
             /**
              *
              * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar.
-            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
+                        The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -52886,7 +51837,7 @@ declare namespace Excel {
             /**
              *
              * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            "" (empty string) if no border is present or set.
+                        "" (empty string) if no border is present or set.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -52911,7 +51862,7 @@ declare namespace Excel {
             /**
              *
              * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            "Empty String" if no border is present or set.
+                        "Empty String" if no border is present or set.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -53592,7 +52543,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet's print zoom options.
-            The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
+                        The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53603,7 +52554,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the center footer of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53611,7 +52562,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the center header of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53619,7 +52570,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the left footer of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53627,7 +52578,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the left header of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53635,7 +52586,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the right footer of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53643,7 +52594,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the right header of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53896,7 +52847,7 @@ declare namespace Excel {
             /**
              *
              * Represents the height, in points, of the shape.
-            Throws an invalid argument exception when set with a negative value or zero as input.
+                        Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53911,7 +52862,7 @@ declare namespace Excel {
             /**
              *
              * The distance, in points, from the left side of the shape to the left side of the worksheet.
-            Throws an invalid argument exception when set with a negative value as input.
+                        Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53954,7 +52905,7 @@ declare namespace Excel {
             /**
              *
              * The distance, in points, from the top edge of the shape to the top edge of the worksheet.
-            Throws an invalid argument exception when set with a negative value as input.
+                        Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53976,7 +52927,7 @@ declare namespace Excel {
             /**
              *
              * Represents the width, in points, of the shape.
-            Throws an invalid argument exception when set with a negative value or zero as input.
+                        Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -54368,7 +53319,7 @@ declare namespace Excel {
             /**
              *
              * Represents the height, in points, of the slicer.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -54390,7 +53341,7 @@ declare namespace Excel {
             /**
              *
              * Represents the distance, in points, from the left side of the slicer to the left of the worksheet.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -54419,7 +53370,7 @@ declare namespace Excel {
             /**
              *
              * Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -54427,7 +53378,7 @@ declare namespace Excel {
             /**
              *
              * Represents the width, in points, of the slicer.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -54449,8 +53400,8 @@ declare namespace Excel {
             /**
              *
              * True if the slicer item is selected.
-            Setting this value will not clear other SlicerItems' selected state.
-            By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
+                        Setting this value will not clear other SlicerItems' selected state.
+                        By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -54588,7 +53539,7 @@ declare namespace Excel {
         /**
          *
          * Workbook is the top level object which contains related workbook objects such as worksheets, tables, ranges, etc.
-            To learn more about the workbook object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-workbooks | Work with workbooks using the Excel JavaScript API}.
+                    To learn more about the workbook object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-workbooks | Work with workbooks using the Excel JavaScript API}.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -54649,7 +53600,7 @@ declare namespace Excel {
             /**
              *
              * True if all charts in the workbook are tracking the actual data points to which they are attached.
-            False if the charts track the index of the data points.
+                        False if the charts track the index of the data points.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -54657,7 +53608,7 @@ declare namespace Excel {
             /**
              *
              * Specifies whether or not changes have been made since the workbook was last saved.
-            You can set this property to true if you want to close a modified workbook without either saving it or being prompted to save it.
+                        You can set this property to true if you want to close a modified workbook without either saving it or being prompted to save it.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -54686,7 +53637,7 @@ declare namespace Excel {
             /**
              *
              * True if calculations in this workbook will be done using only the precision of the numbers as they're displayed.
-            Data will permanently lose accuracy when switching this property from false to true.
+                        Data will permanently lose accuracy when switching this property from false to true.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -54714,7 +53665,7 @@ declare namespace Excel {
         /**
          *
          * An Excel worksheet is a grid of cells. It can contain data, tables, charts, etc.
-            To learn more about the worksheet object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-worksheets | Work with worksheets using the Excel JavaScript API}.
+                    To learn more about the worksheet object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-worksheets | Work with worksheets using the Excel JavaScript API}.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -54761,7 +53712,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the enableCalculation property of the worksheet.
-            True if Excel recalculates the worksheet when necessary. False if Excel doesn't recalculate the sheet.
+                        True if Excel recalculates the worksheet when necessary. False if Excel doesn't recalculate the sheet.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -54790,7 +53741,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet's gridlines flag.
-            This flag determines whether gridlines are visible to the user.
+                        This flag determines whether gridlines are visible to the user.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -54798,7 +53749,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet's headings flag.
-            This flag determines whether headings are visible to the user.
+                        This flag determines whether headings are visible to the user.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -54813,7 +53764,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets the standard (default) width of all the columns in the worksheet.
-            One unit of column width is equal to the width of one character in the Normal style. For proportional fonts, the width of the character 0 (zero) is used.
+                        One unit of column width is equal to the width of one character in the Normal style. For proportional fonts, the width of the character 0 (zero) is used.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -54821,8 +53772,8 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet tab color.
-            When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form "#123456"
-            When setting the color, use an empty-string to set an "auto" color, or a real color otherwise.
+                        When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form "#123456"
+                        When setting the color, use an empty-string to set an "auto" color, or a real color otherwise.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -54884,7 +53835,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Gets or sets the enableCalculation property of the worksheet.
-            True if Excel recalculates the worksheet when necessary. False if Excel doesn't recalculate the sheet.
+                        True if Excel recalculates the worksheet when necessary. False if Excel doesn't recalculate the sheet.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -54913,7 +53864,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Gets or sets the worksheet's gridlines flag.
-            This flag determines whether gridlines are visible to the user.
+                        This flag determines whether gridlines are visible to the user.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -54921,7 +53872,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Gets or sets the worksheet's headings flag.
-            This flag determines whether headings are visible to the user.
+                        This flag determines whether headings are visible to the user.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -54936,7 +53887,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Returns or sets the standard (default) width of all the columns in the worksheet.
-            One unit of column width is equal to the width of one character in the Normal style. For proportional fonts, the width of the character 0 (zero) is used.
+                        One unit of column width is equal to the width of one character in the Normal style. For proportional fonts, the width of the character 0 (zero) is used.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -54944,8 +53895,8 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Gets or sets the worksheet tab color.
-            When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form "#123456"
-            When setting the color, use an empty-string to set an "auto" color, or a real color otherwise.
+                        When retrieving the tab color, if the worksheet is invisible, the value will be null. If the worksheet is visible but the tab color is set to auto, an empty string will be returned. Otherwise, the property will be set to a color, in the form "#123456"
+                        When setting the color, use an empty-string to set an "auto" color, or a real color otherwise.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -54987,8 +53938,8 @@ declare namespace Excel {
         /**
          *
          * Range represents a set of one or more contiguous cells such as a cell, a row, a column, block of cells, etc.
-            To learn more about how ranges are used throughout the API, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges | Work with ranges using the Excel JavaScript API}
-            and {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges-advanced | Work with ranges using the Excel JavaScript API (advanced)}.
+                    To learn more about how ranges are used throughout the API, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges | Work with ranges using the Excel JavaScript API}
+                    and {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges-advanced | Work with ranges using the Excel JavaScript API (advanced)}.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -55140,8 +54091,8 @@ declare namespace Excel {
             /**
              *
              * Represents Excel's number format code for the given range, based on the language settings of the user.​
-            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
-            Any returned text uses the locally-formatted strings based on the language specified in the system settings.
+                        Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
+                        Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -55170,8 +54121,8 @@ declare namespace Excel {
             /**
              *
              * Represents the style of the current range.
-            If the styles of the cells are inconsistent, null will be returned.
-            For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
+                        If the styles of the cells are inconsistent, null will be returned.
+                        For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -55215,7 +54166,7 @@ declare namespace Excel {
         /**
          *
          * RangeAreas represents a collection of one or more rectangular ranges in the same worksheet.
-            To learn how to use discontinguous ranges, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-multiple-ranges | Work with multiple ranges simultaneously in Excel add-ins}.
+                    To learn how to use discontinguous ranges, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-multiple-ranges | Work with multiple ranges simultaneously in Excel add-ins}.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -55290,8 +54241,8 @@ declare namespace Excel {
             /**
              *
              * Represents the style for all ranges in this RangeAreas object.
-            If the styles of the cells are inconsistent, null will be returned.
-            For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
+                        If the styles of the cells are inconsistent, null will be returned.
+                        For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -55846,8 +54797,8 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Name of the table.
-            
-             The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
+                        
+                         The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -55972,8 +54923,8 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Name of the table.
-            
-             The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
+                        
+                         The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -56024,7 +54975,7 @@ declare namespace Excel {
         /**
          *
          * Represents an Excel table.
-            To learn more about the table object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables | Work with tables using the Excel JavaScript API}.
+                    To learn more about the table object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables | Work with tables using the Excel JavaScript API}.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -56099,8 +55050,8 @@ declare namespace Excel {
             /**
              *
              * Name of the table.
-            
-             The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
+                        
+                         The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -56245,11 +55196,11 @@ declare namespace Excel {
         /**
          *
          * Represents a collection of all the rows that are part of the table.
-            
-             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
-             a TableRow object represent the physical location of the table row, but not the data.
-             That is, if the data is sorted or if new rows are added, a table row will continue
-             to point at the index for which it was created.
+                    
+                     Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
+                     a TableRow object represent the physical location of the table row, but not the data.
+                     That is, if the data is sorted or if new rows are added, a table row will continue
+                     to point at the index for which it was created.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -56276,11 +55227,11 @@ declare namespace Excel {
         /**
          *
          * Represents a row in a table.
-            
-             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
-             a TableRow object represent the physical location of the table row, but not the data.
-             That is, if the data is sorted or if new rows are added, a table row will continue
-             to point at the index for which it was created.
+                    
+                     Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
+                     a TableRow object represent the physical location of the table row, but not the data.
+                     That is, if the data is sorted or if new rows are added, a table row will continue
+                     to point at the index for which it was created.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -56307,7 +55258,7 @@ declare namespace Excel {
         /**
          *
          * Represents the data validation applied to the current range.
-            To learn more about the data validation object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-data-validation | Add data validation to Excel ranges}.
+                    To learn more about the data validation object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-data-validation | Add data validation to Excel ranges}.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -56354,8 +55305,8 @@ declare namespace Excel {
             /**
              *
              * Represents if all cell values are valid according to the data validation rules.
-            Returns true if all cell values are valid, or false if all cell values are invalid.
-            Returns null if there are both valid and invalid cell values within the range.
+                        Returns true if all cell values are valid, or false if all cell values are invalid.
+                        Returns null if there are both valid and invalid cell values within the range.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -56478,8 +55429,8 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the text orientation of all the cells within the range.
-            The text orientation should be an integer either from -90 to 90, or 180 for vertically-oriented text.
-            If the orientation within a range are not uniform, then null will be returned.
+                        The text orientation should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+                        If the orientation within a range are not uniform, then null will be returned.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -56487,9 +55438,9 @@ declare namespace Excel {
             /**
              *
              * Determines if the row height of the Range object equals the standard height of the sheet.
-            Returns True if the row height of the Range object equals the standard height of the sheet.
-            Returns Null if the range contains more than one row and the rows aren't all the same height.
-            Returns False otherwise.
+                        Returns True if the row height of the Range object equals the standard height of the sheet.
+                        Returns Null if the range contains more than one row and the rows aren't all the same height.
+                        Returns False otherwise.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -56497,9 +55448,9 @@ declare namespace Excel {
             /**
              *
              * Indicates whether the column width of the Range object equals the standard width of the sheet.
-            Returns True if the column width of the Range object equals the standard width of the sheet.
-            Returns Null if the range contains more than one column and the columns aren't all the same height.
-            Returns False otherwise.
+                        Returns True if the column width of the Range object equals the standard width of the sheet.
+                        Returns Null if the range contains more than one column and the columns aren't all the same height.
+                        Returns False otherwise.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -56566,7 +55517,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the pattern of a Range. See Excel.FillPattern for details. LinearGradient and RectangularGradient are not supported.
-            A null value indicates that the entire range doesn't have uniform pattern setting.
+                        A null value indicates that the entire range doesn't have uniform pattern setting.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -56574,7 +55525,7 @@ declare namespace Excel {
             /**
              *
              * Sets HTML color code representing the color of the Range pattern, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            Gets HTML color code representing the color of the Range pattern, of the form #RRGGBB (e.g. "FFA500").
+                        Gets HTML color code representing the color of the Range pattern, of the form #RRGGBB (e.g. "FFA500").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -56582,7 +55533,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a pattern color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            If the pattern tintAndShades are not uniform, null will be returned.
+                        If the pattern tintAndShades are not uniform, null will be returned.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -56590,7 +55541,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a color for Range Fill, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            If the tintAndShades are not uniform, null will be returned.
+                        If the tintAndShades are not uniform, null will be returned.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -56631,7 +55582,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a color for Range Border, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            A null value indicates that the border doesn't have uniform tintAndShade setting.
+                        A null value indicates that the border doesn't have uniform tintAndShade setting.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -56679,7 +55630,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Returns or sets a double that lightens or darkens a color for Range Border, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            A null value indicates that the border doesn't have uniform tintAndShade setting.
+                        A null value indicates that the border doesn't have uniform tintAndShade setting.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -56748,9 +55699,9 @@ declare namespace Excel {
             /**
              *
              * Represents the Subscript status of font.
-            Returns True if all the fonts of the range are Subscript.
-            Returns False if all the fonts of the range are Superscript or normal (neither Superscript, nor Subscript).
-            Returns Null otherwise.
+                        Returns True if all the fonts of the range are Subscript.
+                        Returns False if all the fonts of the range are Superscript or normal (neither Superscript, nor Subscript).
+                        Returns Null otherwise.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -56758,9 +55709,9 @@ declare namespace Excel {
             /**
              *
              * Represents the Superscript status of font.
-            Returns True if all the fonts of the range are Superscript.
-            Returns False if all the fonts of the range are Subscript or normal (neither Superscript, nor Subscript).
-            Returns Null otherwise.
+                        Returns True if all the fonts of the range are Superscript.
+                        Returns False if all the fonts of the range are Subscript or normal (neither Superscript, nor Subscript).
+                        Returns Null otherwise.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -56768,7 +55719,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a double that lightens or darkens a color for Range Font, the value is between -1 (darkest) and 1 (brightest), with 0 for the original color.
-            A null value indicates that the entire range doesn't have uniform font tintAndShade setting.
+                        A null value indicates that the entire range doesn't have uniform font tintAndShade setting.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -56858,7 +55809,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
-            the level of where the category labels are being sourced from. Read/Write.
+                        the level of where the category labels are being sourced from. Read/Write.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -56922,7 +55873,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Returns or sets a ChartSeriesNameLevel enumeration constant referring to
-            the level of where the series names are being sourced from. Read/Write.
+                        the level of where the series names are being sourced from. Read/Write.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -56937,8 +55888,8 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents whether to show the data labels when the value is greater than the maximum value on the value axis.
-            If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
-            This property applies to 2-D charts only.
+                        If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
+                        This property applies to 2-D charts only.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -56968,7 +55919,7 @@ declare namespace Excel {
         /**
          *
          * Represents a chart object in a workbook.
-            To learn more about the Chart object model, see {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-charts | Work with charts using the Excel JavaScript API}.
+                    To learn more about the Chart object model, see {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-charts | Work with charts using the Excel JavaScript API}.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -57043,7 +55994,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
-            the level of where the category labels are being sourced from. Read/Write.
+                        the level of where the category labels are being sourced from. Read/Write.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -57107,7 +56058,7 @@ declare namespace Excel {
             /**
              *
              * Returns or sets a ChartSeriesNameLevel enumeration constant referring to
-            the level of where the series names are being sourced from. Read/Write.
+                        the level of where the series names are being sourced from. Read/Write.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -57122,8 +56073,8 @@ declare namespace Excel {
             /**
              *
              * Represents whether to show the data labels when the value is greater than the maximum value on the value axis.
-            If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
-            This property applies to 2-D charts only.
+                        If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
+                        This property applies to 2-D charts only.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -57321,7 +56272,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the doughnut hole size of a chart series.  Only valid on doughnut and doughnutExploded charts.
-            Throws an invalid argument exception on invalid charts.
+                        Throws an invalid argument exception on invalid charts.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -57350,7 +56301,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the gap width of a chart series.  Only valid on bar and column charts, as well as
-            specific classes of line and pie charts.  Throws an invalid argument exception on invalid charts.
+                        specific classes of line and pie charts.  Throws an invalid argument exception on invalid charts.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -57650,7 +56601,7 @@ declare namespace Excel {
             /**
              *
              * Represents the doughnut hole size of a chart series.  Only valid on doughnut and doughnutExploded charts.
-            Throws an invalid argument exception on invalid charts.
+                        Throws an invalid argument exception on invalid charts.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -57679,7 +56630,7 @@ declare namespace Excel {
             /**
              *
              * Represents the gap width of a chart series.  Only valid on bar and column charts, as well as
-            specific classes of line and pie charts.  Throws an invalid argument exception on invalid charts.
+                        specific classes of line and pie charts.  Throws an invalid argument exception on invalid charts.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -58507,7 +57458,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is 0.
+                        This property is valid only when TextOrientation of data label is 0.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -58592,7 +57543,7 @@ declare namespace Excel {
             /**
              *
              * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is -90, 90, or 180.
+                        This property is valid only when TextOrientation of data label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -58640,7 +57591,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is -90, 90, or 180.
+                        This property is valid only when TextOrientation of data label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -58746,7 +57697,7 @@ declare namespace Excel {
             /**
              *
              * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is 0.
+                        This property is valid only when TextOrientation of data label is 0.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -59753,7 +58704,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart trendline label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of trendline label is -90, 90, or 180.
+                        This property is valid only when TextOrientation of trendline label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -59803,7 +58754,7 @@ declare namespace Excel {
             /**
              *
              * Represents the vertical alignment of chart trendline label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of trendline label is 0.
+                        This property is valid only when TextOrientation of trendline label is 0.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -59998,7 +58949,7 @@ declare namespace Excel {
         /**
          *
          * Represents the AutoFilter object.
-            AutoFilter turns the values in Excel column into specific filters based on the cell contents.
+                    AutoFilter turns the values in Excel column into specific filters based on the cell contents.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -60032,8 +58983,8 @@ declare namespace Excel {
         /**
          *
          * A scoped collection of custom XML parts.
-            A scoped collection is the result of some operation, e.g. filtering by namespace.
-            A scoped collection cannot be scoped any further.
+                    A scoped collection is the result of some operation, e.g. filtering by namespace.
+                    A scoped collection cannot be scoped any further.
          *
          * [Api set: ExcelApi 1.5]
          */
@@ -60166,7 +59117,7 @@ declare namespace Excel {
         /**
          *
          * Represents an Excel PivotTable.
-            To learn more about the PivotTable object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-pivottables | Work with PivotTables using the Excel JavaScript API}.
+                    To learn more about the PivotTable object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-pivottables | Work with PivotTables using the Excel JavaScript API}.
          *
          * [Api set: ExcelApi 1.3]
          */
@@ -61053,10 +60004,10 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: The priority (or index) within the conditional format collection that this conditional format currently exists in. Changing this also
-            changes other conditional formats' priorities, to allow for a contiguous priority order.
-            Use a negative priority to begin from the back.
-            Priorities greater than than bounds will get and set to the maximum (or minimum if negative) priority.
-            Also note that if you change the priority, you have to re-fetch a new copy of the object at that new priority location if you want to make further changes to it. Read-only.
+                        changes other conditional formats' priorities, to allow for a contiguous priority order.
+                        Use a negative priority to begin from the back.
+                        Priorities greater than than bounds will get and set to the maximum (or minimum if negative) priority.
+                        Also note that if you change the priority, you have to re-fetch a new copy of the object at that new priority location if you want to make further changes to it. Read-only.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -61064,7 +60015,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: If the conditions of this conditional format are met, no lower-priority formats shall take effect on that cell.
-            Null on databars, icon sets, and colorscales as there's no concept of StopIfTrue for these
+                        Null on databars, icon sets, and colorscales as there's no concept of StopIfTrue for these
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -61080,7 +60031,7 @@ declare namespace Excel {
         /**
          *
          * An object encapsulating a conditional format's range, format, rule, and other properties.
-            To learn more about the conditional formatting object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-conditional-formatting | Apply conditional formatting to Excel ranges}.
+                    To learn more about the conditional formatting object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-conditional-formatting | Apply conditional formatting to Excel ranges}.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -61217,10 +60168,10 @@ declare namespace Excel {
             /**
              *
              * The priority (or index) within the conditional format collection that this conditional format currently exists in. Changing this also
-            changes other conditional formats' priorities, to allow for a contiguous priority order.
-            Use a negative priority to begin from the back.
-            Priorities greater than than bounds will get and set to the maximum (or minimum if negative) priority.
-            Also note that if you change the priority, you have to re-fetch a new copy of the object at that new priority location if you want to make further changes to it. Read-only.
+                        changes other conditional formats' priorities, to allow for a contiguous priority order.
+                        Use a negative priority to begin from the back.
+                        Priorities greater than than bounds will get and set to the maximum (or minimum if negative) priority.
+                        Also note that if you change the priority, you have to re-fetch a new copy of the object at that new priority location if you want to make further changes to it. Read-only.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -61228,7 +60179,7 @@ declare namespace Excel {
             /**
              *
              * If the conditions of this conditional format are met, no lower-priority formats shall take effect on that cell.
-            Null on databars, icon sets, and colorscales as there's no concept of StopIfTrue for these
+                        Null on databars, icon sets, and colorscales as there's no concept of StopIfTrue for these
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -61269,7 +60220,7 @@ declare namespace Excel {
             /**
              *
              * HTML color code representing the color of the Axis line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            "" (empty string) if no axis is present or set.
+                        "" (empty string) if no axis is present or set.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -61291,7 +60242,7 @@ declare namespace Excel {
             /**
              *
              * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar.
-            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
+                        The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -61306,7 +60257,7 @@ declare namespace Excel {
             /**
              *
              * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar.
-            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
+                        The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -61326,7 +60277,7 @@ declare namespace Excel {
             /**
              *
              * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            "" (empty string) if no border is present or set.
+                        "" (empty string) if no border is present or set.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -61360,7 +60311,7 @@ declare namespace Excel {
             /**
              *
              * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
-            "Empty String" if no border is present or set.
+                        "Empty String" if no border is present or set.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -62489,7 +61440,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet's print zoom options.
-            The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
+                        The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -62506,7 +61457,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the center footer of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -62514,7 +61465,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the center header of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -62522,7 +61473,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the left footer of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -62530,7 +61481,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the left header of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -62538,7 +61489,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the right footer of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -62546,7 +61497,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the right header of the worksheet.
-            To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
+                        To apply font formatting or insert a variable value, use format codes specified here: https://msdn.microsoft.com/en-us/library/bb225426.aspx.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -62807,8 +61758,8 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents Excel's number format code for the given range, based on the language settings of the user.​
-            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
-            Any returned text uses the locally-formatted strings based on the language specified in the system settings.
+                        Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
+                        Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -62837,8 +61788,8 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the style of the current range.
-            If the styles of the cells are inconsistent, null will be returned.
-            For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
+                        If the styles of the cells are inconsistent, null will be returned.
+                        For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -63221,7 +62172,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the height, in points, of the shape.
-            Throws an invalid argument exception when set with a negative value or zero as input.
+                        Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63236,7 +62187,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: The distance, in points, from the left side of the shape to the left side of the worksheet.
-            Throws an invalid argument exception when set with a negative value as input.
+                        Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63279,7 +62230,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: The distance, in points, from the top edge of the shape to the top edge of the worksheet.
-            Throws an invalid argument exception when set with a negative value as input.
+                        Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63301,7 +62252,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the width, in points, of the shape.
-            Throws an invalid argument exception when set with a negative value or zero as input.
+                        Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63317,7 +62268,7 @@ declare namespace Excel {
         /**
          *
          * Represents a generic shape object in the worksheet. A shape could be a geometric shape, a line, a group of shapes, etc.
-            To learn more about the shape object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-shapes | Work with shapes using the Excel JavaScript API}.
+                    To learn more about the shape object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-shapes | Work with shapes using the Excel JavaScript API}.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -63413,7 +62364,7 @@ declare namespace Excel {
             /**
              *
              * Represents the height, in points, of the shape.
-            Throws an invalid argument exception when set with a negative value or zero as input.
+                        Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63428,7 +62379,7 @@ declare namespace Excel {
             /**
              *
              * The distance, in points, from the left side of the shape to the left side of the worksheet.
-            Throws an invalid argument exception when set with a negative value as input.
+                        Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63471,7 +62422,7 @@ declare namespace Excel {
             /**
              *
              * The distance, in points, from the top edge of the shape to the top edge of the worksheet.
-            Throws an invalid argument exception when set with a negative value as input.
+                        Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63493,7 +62444,7 @@ declare namespace Excel {
             /**
              *
              * Represents the width, in points, of the shape.
-            Throws an invalid argument exception when set with a negative value or zero as input.
+                        Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63689,7 +62640,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the height, in points, of the shape.
-            Throws an invalid argument exception when set with a negative value or zero as input.
+                        Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63704,7 +62655,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: The distance, in points, from the left side of the shape to the left side of the worksheet.
-            Throws an invalid argument exception when set with a negative value as input.
+                        Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63747,7 +62698,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: The distance, in points, from the top edge of the shape to the top edge of the worksheet.
-            Throws an invalid argument exception when set with a negative value as input.
+                        Throws an invalid argument exception when set with a negative value as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63769,7 +62720,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the width, in points, of the shape.
-            Throws an invalid argument exception when set with a negative value or zero as input.
+                        Throws an invalid argument exception when set with a negative value or zero as input.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -64197,7 +63148,7 @@ declare namespace Excel {
             /**
              *
              * Represents the height, in points, of the slicer.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -64219,7 +63170,7 @@ declare namespace Excel {
             /**
              *
              * Represents the distance, in points, from the left side of the slicer to the left of the worksheet.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -64248,7 +63199,7 @@ declare namespace Excel {
             /**
              *
              * Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -64256,7 +63207,7 @@ declare namespace Excel {
             /**
              *
              * Represents the width, in points, of the slicer.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -64290,7 +63241,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the height, in points, of the slicer.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -64312,7 +63263,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the distance, in points, from the left side of the slicer to the left of the worksheet.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -64341,7 +63292,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -64349,7 +63300,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the width, in points, of the slicer.
-            Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
+                        Throws an "The argument is invalid or missing or has an incorrect format." exception when set with negative value or zero as input.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -64376,8 +63327,8 @@ declare namespace Excel {
             /**
              *
              * True if the slicer item is selected.
-            Setting this value will not clear other SlicerItems' selected state.
-            By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
+                        Setting this value will not clear other SlicerItems' selected state.
+                        By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
              *
              * [Api set: ExcelApi 1.10]
              */
@@ -64418,8 +63369,8 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: True if the slicer item is selected.
-            Setting this value will not clear other SlicerItems' selected state.
-            By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
+                        Setting this value will not clear other SlicerItems' selected state.
+                        By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
              *
              * [Api set: ExcelApi 1.10]
              */

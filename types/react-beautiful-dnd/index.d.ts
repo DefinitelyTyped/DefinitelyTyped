@@ -322,6 +322,7 @@ export interface DragPositions {
 export interface DraggableRubric {
     draggableId: DraggableId;
     mode: MovementMode;
+    source: DraggableLocation;
 }
 
 export interface DragStart extends BeforeCapture {

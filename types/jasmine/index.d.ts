@@ -888,9 +888,9 @@ declare namespace jasmine {
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
         callFake(fn: Function): Spy;
         /** Tell the spy to return a promise resolving to the specified value when invoked. */
-        resolveTo(val: any): Spy;
+        resolveTo(val?: any): Spy;
         /** Tell the spy to return a promise rejecting with the specified value when invoked. */
-        rejectWith(val: any): Spy;
+        rejectWith(val?: any): Spy;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
         throwError(msg: string|Error): Spy;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */

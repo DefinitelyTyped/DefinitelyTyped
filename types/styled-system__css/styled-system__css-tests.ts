@@ -246,3 +246,6 @@ css({
 css({
     zIndex: 'base',
 })(theme);
+
+// ignores null
+css(null);

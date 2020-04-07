@@ -29,10 +29,10 @@ with the following stubs:
 ```typescript
 /// <reference types="akamai-edgeworkers"/>
 
-export function onClientRequest(request : EW.MutableRequest & EW.HasRespondWith){}
-export function onOriginRequest(request : EW.MutableRequest) {}
-export function onOriginResponse(request : EW.ImmutableRequest & EW.HasRespondWith, response : EW.Response) {}
-export function onClientResponse(request : EW.ImmutableRequest, response : EW.Response) {} 
+export function onClientRequest(request: EW.IngressClientRequest) {}
+export function onOriginRequest(request: EW.IngressOriginRequest) {}
+export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.EgressOriginResponse) {}
+export function onClientResponse(request: EW.EgressClientRequest, response: EW.EgressClientResponse) {}
 ```
 
 The triple-slashed first line references this package and pulls `EW` into your 

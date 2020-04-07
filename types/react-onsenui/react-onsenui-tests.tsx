@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import {
     SplitterSide, Splitter, SplitterContent,
     Page, Input, Button, Radio, Checkbox, Select, Switch, SearchInput,
-    List, ListItem
+    List, ListItem, Tabbar, Tab
 } from "react-onsenui";
 
 class AppState {
@@ -80,7 +80,21 @@ export class App extends React.Component<AppProps, AppState> {
                                 </ListItem>
                             )}
                         />
-					</Page>
+                        <Tabbar
+                            position='bottom'
+                            index={0}
+                            renderTabs={(activeIndex, tabbar) => [
+                                {
+                                    content: <div>Tab 2 {activeIndex === 0 ? "(Active)" : null} </div>,
+                                    tab: <Tab label="Home" icon="md-home" />
+                                },
+                                {
+                                    content: <div>Tab 2 {activeIndex === 1 ? "(Active)" : null} </div>,
+                                    tab: <Tab label="Settings" icon="md-settings" />
+                                }]
+                            }
+                        />
+                    </Page>
                 </SplitterContent>
             </Splitter>
         );

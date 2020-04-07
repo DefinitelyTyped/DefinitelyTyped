@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ej.web.all 17.4
+// Type definitions for non-npm package ej.web.all 18.1
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 17.4.0.46
+*  version : 18.1.0.36-beta
 *  Copyright Syncfusion Inc. 2001 - 2020. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -43585,10 +43585,6 @@ declare namespace ej {
             /** Specifies the value for datepicker of Custom Cell type.
              */
             value?: string;
-
-            /** Specifies the format for datepicker.
-             */
-            format?: string;
         }
 
         export interface XLCellType {

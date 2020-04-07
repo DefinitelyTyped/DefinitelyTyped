@@ -25,6 +25,7 @@
 //                 Carlos Anoceto <https://github.com/canoceto>
 //                 Nobuhiko Futagami <https://github.com/nobu222>
 //                 Marco Ru <https://github.com/Marcoru97>
+//                 Tony Liu <https://github.com/tonybadguy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -442,6 +443,7 @@ declare namespace Chart {
         mode?: InteractionMode;
         animationDuration?: number;
         intersect?: boolean;
+        axis?: 'x' | 'y' | 'xy';
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
     }
 
@@ -562,7 +564,10 @@ declare namespace Chart {
         backdropPaddingX?: number;
         backdropPaddingY?: number;
         beginAtZero?: boolean;
-        callback?(value: any, index: any, values: any): string | number;
+        /**
+         * If the callback returns null or undefined the associated grid line will be hidden.
+         */
+        callback?(value: number | string, index: number, values: number[] | string[]): string | number | null | undefined;
         display?: boolean;
         fontColor?: ChartColor;
         fontFamily?: string;
@@ -718,7 +723,7 @@ declare namespace Chart {
         afterUpdate?(scale?: any): void;
         afterSetDimension?(scale?: any): void;
         afterDataLimits?(scale?: any): void;
-        afterBuildTicks?(scale?: any): void;
+        afterBuildTicks?(scale: any, ticks: number[]): number[];
         afterTickToLabelConversion?(scale?: any): void;
         afterCalculateTickRotation?(scale?: any): void;
         afterFit?(scale?: any): void;

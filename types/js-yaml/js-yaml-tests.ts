@@ -68,6 +68,14 @@ loadOpts = {
 loadOpts = {
 	schema: yaml.DEFAULT_SAFE_SCHEMA,
 };
+loadOpts = {
+	listener(eventType: yaml.EventType, state) {
+		this; // $ExpectType State
+		state; // $ExpectType State
+		state.position;
+		state.result;
+	},
+};
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 

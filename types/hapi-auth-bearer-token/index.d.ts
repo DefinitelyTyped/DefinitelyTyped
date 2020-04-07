@@ -9,11 +9,11 @@ import {
     Plugin,
     ResponseToolkit,
     AuthenticationData,
-  } from 'hapi';
+  } from '@hapi/hapi';
 
   type ValidateReturn = AuthenticationData & { isValid: boolean };
 
-  declare module 'hapi' {
+  declare module '@hapi/hapi' {
     interface ServerAuth {
       strategy(name: string, scheme: 'bearer-access-token', options: BearerToken.SchemaOptions): void;
     }

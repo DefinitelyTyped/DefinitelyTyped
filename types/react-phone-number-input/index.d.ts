@@ -79,6 +79,14 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * @example ["RU", "UA", "KZ"]
      */
     countries?: string[];
+
+    /**
+     * If country is specified then the phone number can only be input in "national"
+     * (not "international") format, and will be parsed as a phone number belonging
+     * to the country. Example: country="US"
+     */
+    country?: string;
+
     /**
      * Can be used to place some countries on top of the list of country <select/> options.
      *  - "|" — inserts a separator.
@@ -137,6 +145,19 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
     inputComponent?: React.ForwardRefExoticComponent<
         React.InputHTMLAttributes<HTMLInputElement> & React.RefAttributes<any>
     >;
+
+    /**
+     * If country is specified and international property is true then the phone number can only be input
+     * in "international" format for that country, but without "country calling code" part.
+     * For example, if country is "US" and international property is not passed then the phone number can
+     * only be input in the "national" format for US ((213) 373-4253). But if country is "US" and
+     * international property is true then the phone number will be input in the "international" format
+     * for US (213 373 4253) without "country calling code" part (+1). This could be used for implementing
+     * phone number input components that show "country calling code" part before the input field and then
+     * the user can fill in the rest of their phone number in the input field.
+     */
+    international?: boolean;
+
     /**
      * If `country` property is passed along with `international={true}` property
      * then the phone number will be input in "international" format for that `country`

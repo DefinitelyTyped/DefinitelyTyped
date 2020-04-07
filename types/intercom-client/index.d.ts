@@ -5,6 +5,7 @@
 //                 Mikhail Monchak <https://github.com/mikhail-monchak>
 //                 Chris Doe <https://github.com/cdoe>
 //                 Daniel Cummings <https://github.com/dan-cummings>
+//                 Malith Wijenayake <https://github.com/malithrw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 /// <reference types="node" />
@@ -15,6 +16,7 @@ import { Visitor, VisitorIdentifier } from './Visitor';
 import { CompanyIdentifier, List as CompanyList, Company } from './Company';
 import { TagIdentifier, List as TagList, Tag, TagOper } from './Tag';
 import { List as EventList, Event, ListParam as EventListParam } from './Event';
+import { CreateMessage, Message } from './Message';
 import { Scroll } from './Scroll';
 import { List as ConversationList, Conversation, ConversationIdentifier, Reply } from './Conversation';
 import { List as AdminList, Admin, AdminIdentifier } from './Admin';
@@ -46,6 +48,8 @@ export class Client {
     visitors: Visitors;
     conversations: Conversations;
     admins: Admins;
+    messages: Messages;
+
 }
 
 export class ApiResponse<T> extends IncomingMessage {
@@ -208,3 +212,9 @@ export class Admins {
     me(): Promise<ApiResponse<Admin>>;
     me(cb: callback<ApiResponse<Admin>>): void;
 }
+
+export class Messages {
+    create(message: Partial<CreateMessage>): Promise<ApiResponse<Message>>;
+    create(message: Partial<CreateMessage>, cb: callback<ApiResponse<Message>>): void;
+}
+

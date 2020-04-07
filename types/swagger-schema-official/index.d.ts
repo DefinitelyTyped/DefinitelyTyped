@@ -132,7 +132,7 @@ export interface Operation {
   parameters?: Array<Parameter | Reference>;
   schemes?: string[];
   deprecated?: boolean;
-  security?: Security[];
+  security?: Array<{ [securityDefinitionName: string]: string[] }>;
   tags?: string[];
 }
 

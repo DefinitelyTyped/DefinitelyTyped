@@ -3,7 +3,6 @@ import { OrderFunction } from './render';
 import Source from './source/Source';
 import Tile from './Tile';
 import { TileCoord } from './tilecoord';
-import TileGrid from './tilegrid/TileGrid';
 import TileState from './TileState';
 import VectorTile from './VectorTile';
 
@@ -22,9 +21,7 @@ export default class VectorRenderTile extends Tile {
         tileCoord: TileCoord,
         state: TileState,
         urlTileCoord: TileCoord,
-        sourceTileGrid: TileGrid,
         getSourceTiles: (p0: VectorRenderTile) => VectorTile[],
-        removeSourceTiles: (p0: VectorRenderTile) => void,
     );
     getContext(layer: Layer<Source>): CanvasRenderingContext2D;
     getImage(layer: Layer<Source>): HTMLCanvasElement;

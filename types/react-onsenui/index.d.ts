@@ -405,7 +405,7 @@ export interface TabbarRenderTab {
 
 export class Tabbar extends Component<{
     index: number,
-    renderTabs(): TabbarRenderTab[],
+    renderTabs(index: number, tabbar: Tabbar): TabbarRenderTab[],
     position?: "bottom" | "top" | "auto",
     swipeable?: boolean,
     ignoreEdgeWidth?: number,

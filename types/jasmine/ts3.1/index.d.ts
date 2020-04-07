@@ -266,7 +266,7 @@ declare namespace jasmine {
 
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
-    function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
+    function objectContaining<T>(sample: {[K in keyof T]?: ExpectedRecursive<T[K]>}): ObjectContaining<T>;
 
     function setDefaultSpyStrategy<Fn extends Func = Func>(and: SpyAnd<Fn>): void;
     function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
@@ -311,7 +311,7 @@ declare namespace jasmine {
         new?(sample: ArrayLike<T>): ArrayLike<T>;
     }
 
-    interface ObjectContaining<T> extends AsymmetricMatcher<any> {
+    interface ObjectContaining<T> extends AsymmetricMatcher<T> {
         new?(sample: {[K in keyof T]?: any}): {[K in keyof T]?: any};
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
@@ -927,9 +927,9 @@ declare namespace jasmine {
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
         callFake(fn: Fn): Spy<Fn>;
         /** Tell the spy to return a promise resolving to the specified value when invoked. */
-        resolveTo(val: PromisedReturnType<Fn>): Spy<Fn>;
+        resolveTo(val?: PromisedReturnType<Fn>): Spy<Fn>;
         /** Tell the spy to return a promise rejecting with the specified value when invoked. */
-        rejectWith(val: PromisedRejectType<Fn>): Spy<Fn>;
+        rejectWith(val?: PromisedRejectType<Fn>): Spy<Fn>;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
         throwError(msg: string | Error): Spy;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */

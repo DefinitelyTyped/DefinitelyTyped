@@ -40,8 +40,8 @@ export interface RedirectFunction {
     (state: LocationState, pathname: Pathname | Path, query?: Query): void;
 }
 
-export interface RouterState {
-    location: Location;
+export interface RouterState<Q = any> {
+    location: Location<Q>;
     routes: PlainRoute[];
     params: Params;
     components: RouteComponent[];
@@ -66,8 +66,8 @@ export interface InjectedRouter {
     isActive: ActiveFunction;
 }
 
-export interface RouteComponentProps<P, R, ComponentProps = any> {
-    location: Location;
+export interface RouteComponentProps<P, R, ComponentProps = any, Q = any> {
+    location: Location<Q>;
     params: P & R;
     route: PlainRoute<ComponentProps>;
     router: InjectedRouter;

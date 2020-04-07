@@ -27,7 +27,8 @@ async function initRoom() {
           }
         }
       }
-    }
+    },
+    preferredVideoCodecs: ['VP9', { codec: 'H264' }, { codec: 'VP8', simulcast: true }]
   });
   await Video.connect('$TOKEN', {
     networkQuality: {

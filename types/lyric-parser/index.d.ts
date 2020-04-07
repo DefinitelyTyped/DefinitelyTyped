@@ -8,7 +8,7 @@ export default class Lyric {
 
     lrc: string;
     tags: { album: string; artist: string; by: string; offset: string; title: string };
-    lines: string[];
+    lines: Array<{ time: number; txt: string }>;
     handler: (params: { lineNum: number; txt: string }) => void;
     state: number;
     curLine: number;

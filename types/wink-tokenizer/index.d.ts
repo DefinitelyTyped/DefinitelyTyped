@@ -36,6 +36,16 @@ declare class Tokenizer {
 	 * @return string of token types
 	 */
 	getTokensFP(): string;
+
+	/**
+	 * Adds a regex for parsing a new type of token.
+	 * This regex can either be mapped to an existing tag or it allows creation of a new tag along with its finger print.
+	 * The uniqueness of the finger prints have to ensured by the user.
+	 * @param regex the new regular expression
+	 * @param tag tokens matching the regex will be assigned this tag
+	 * @param fingerprintCode
+	 */
+	addRegex(regex: RegExp, tag: string, fingerprintCode?: string): void;
 }
 
 declare namespace Tokenizer {

@@ -547,6 +547,26 @@ describe("A spy, when configured to fake a promised rejection", () => {
     });
 });
 
+describe("resolveTo / rejectWith", () => {
+    it("resolves to empty parameter", (done) => {
+        const spy = jasmine.createSpy('resolve').and.resolveTo();
+        spy().then(() => {
+            done();
+        }).catch(() => {
+            done.fail();
+        });
+    });
+
+    it("rejects with empty parameter", (done) => {
+        const spy = jasmine.createSpy('reject').and.rejectWith();
+        spy().then(() => {
+            done.fail();
+        }).catch(() => {
+            done();
+        });
+    });
+});
+
 describe("A spy, when configured with an alternate implementation", () => {
     var foo: any, bar: any, fetchedBar: any;
 
@@ -1022,6 +1042,9 @@ describe("jasmine.objectContaining", () => {
         a: number;
         b: number;
         bar: string;
+        nested: {
+            child: string;
+        };
     }
     var foo: fooType;
 
@@ -1029,24 +1052,57 @@ describe("jasmine.objectContaining", () => {
         foo = {
             a: 1,
             b: 2,
-            bar: "baz"
+            bar: "baz",
+            nested: {
+                child: 'child-baz'
+            }
         };
     });
 
-    it("matches objects with the expect key/value pairs", () => {
-        // not explictly providing the type on objectContaining only guards against
-        // missmatching types on know properties
+    it("matches objects with the correct type for known properties", () => {
+        // not explicitly providing the type on objectContaining only guards against
+        // mismatching types on known properties
+
+        // this does not cause an error as the compiler cannot infer the type completely
         expect(foo).not.toEqual(jasmine.objectContaining({
             a: 37,
-            foo: 2, // <-- this does not cause an error as the compiler cannot infer the type completely
-            // b: '123', <-- this would cause an error as `b` defined as number in fooType
+            foo: 2,
         }));
 
-        // explictly providing the type on objectContaining makes the guard more precise
+        // Contrary to the test in v2/jasmine-tests.ts, this does not cause an error
+        // even though `b` is defined as number in fooType.
+        //
+        // This is because the type definition of jasmine.Expected<T> matches the return type of jasmine.objectContaining(),
+        // which is jasmine.ObjectContaining<{ a: number; b: string; }>
+        //
+        // Not sure how to fix this without breaking backwards compatibility in type definitions, so I'll let it be for the moment
+        expect(foo).not.toEqual(jasmine.objectContaining({
+            a: 37,
+            b: '123',
+        }));
+    });
+
+    it("matches objects with the exact property names when providing a generic type", () => {
+        // explicitly providing the type on objectContaining makes the guard more precise
         // as misspelled properties are detected as well
         expect(foo).not.toEqual(jasmine.objectContaining<fooType>({
             bar: '',
-            // foo: 1, <-- this would cause an error as `foo` is not defined in fooType
+            foo: 1, // $ExpectError
+        }));
+    });
+
+    it("matches objects with jasmine matchers as property values when providing a generic type", () => {
+        expect(foo).not.toEqual(jasmine.objectContaining<fooType>({
+            b: jasmine.any(Number),
+            bar: jasmine.stringMatching('ba'),
+        }));
+    });
+
+    it("matches objects with jasmine matchers as nested property values when providing a generic type", () => {
+        expect(foo).not.toEqual(jasmine.objectContaining<fooType>({
+            nested: jasmine.objectContaining({
+                child: jasmine.stringMatching('child')
+            })
         }));
     });
 

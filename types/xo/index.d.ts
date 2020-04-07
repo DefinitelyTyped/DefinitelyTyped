@@ -1,4 +1,4 @@
-// Type definitions for xo 0.26
+// Type definitions for xo 0.28
 // Project: https://github.com/xojs/xo#readme
 // Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -55,6 +55,13 @@ export type Options = {
     semicolon?: boolean;
     /** Set it to true to get 2-space indentation or specify the number of spaces. */
     space?: number | string;
+    /**
+     * Use {@link https://github.com/benmosher/eslint-plugin-import/tree/master/resolvers/webpack}
+     * to resolve import search paths. This is enabled automatically if a `webpack.config.js` file is found.
+     * Set this to a boolean to explicitly enable or disable the resolver.
+     * @default false
+     */
+    webpack?: boolean | object;
 } & CLIEngineOptions &
     ESLintConfig &
     ESLintOptions;

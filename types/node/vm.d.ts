@@ -94,6 +94,23 @@ declare module "vm" {
         };
     }
 
+    type MeasureMemoryMode = 'summary' | 'detailed';
+
+    interface MeasureMemoryOptions {
+        /**
+         * @default 'summary'
+         */
+        mode?: MeasureMemoryMode;
+        context?: Context;
+    }
+
+    interface MemoryMeasurement {
+        total: {
+            jsMemoryEstimate: number;
+            jsMemoryRange: [number, number];
+        };
+    }
+
     class Script {
         constructor(code: string, options?: ScriptOptions);
         runInContext(contextifiedSandbox: Context, options?: RunningScriptOptions): any;
@@ -107,4 +124,21 @@ declare module "vm" {
     function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
     function runInThisContext(code: string, options?: RunningScriptOptions | string): any;
     function compileFunction(code: string, params?: string[], options?: CompileFunctionOptions): Function;
+
+    /**
+     * Measure the memory known to V8 and used by the current execution context or a specified context.
+     *
+     * The format of the object that the returned Promise may resolve with is
+     * specific to the V8 engine and may change from one version of V8 to the next.
+     *
+     * The returned result is different from the statistics returned by
+     * `v8.getHeapSpaceStatistics()` in that `vm.measureMemory()` measures
+     * the memory reachable by V8 from a specific context, while
+     * `v8.getHeapSpaceStatistics()` measures the memory used by an instance
+     * of V8 engine, which can switch among multiple contexts that reference
+     * objects in the heap of one engine.
+     *
+     * @experimental
+     */
+    function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
 }

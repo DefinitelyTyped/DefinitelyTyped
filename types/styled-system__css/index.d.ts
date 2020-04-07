@@ -54,7 +54,7 @@ interface CSSOthersObjectForCSSObject {
 /**
  * Map all nested selectors
  */
-interface CSSSelectorObject {
+export interface CSSSelectorObject {
     [cssSelector: string]: SystemStyleObject;
 }
 
@@ -364,7 +364,7 @@ export type SystemCssProperties = {
         | SystemStyleObject;
 };
 
-interface VariantProperty {
+export interface VariantProperty {
     /**
      * **`Variants`** can be useful for applying complex styles to a component based on a single prop.
      *
@@ -389,7 +389,7 @@ interface VariantProperty {
     variant: string;
 }
 
-interface UseThemeFunction {
+export interface UseThemeFunction {
     (theme: any): SystemStyleObject;
 }
 
@@ -403,7 +403,8 @@ export type SystemStyleObject =
     | CSSPseudoSelectorProps
     | CSSSelectorObject
     | VariantProperty
-    | UseThemeFunction;
+    | UseThemeFunction
+    | null;
 
 /**
  * Helper to define theme values.
@@ -428,7 +429,7 @@ export type Theme =
     | ThemeBreakPoints
     | { [variantPart: string]: Theme };
 
-interface ThemeBreakPoints {
+export interface ThemeBreakPoints {
     breakpoints: string[] | number[];
 }
 

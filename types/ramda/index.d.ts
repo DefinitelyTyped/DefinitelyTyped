@@ -1,9 +1,8 @@
-// Type definitions for ramda 0.26
+// Type definitions for ramda 0.27
 // Project: https://ramdajs.com
 // Definitions by: Scott O'Malley <https://github.com/TheHandsomeCoder>
 //                 Erwin Poeze <https://github.com/donnut>
 //                 Matt DeKrey <https://github.com/mdekrey>
-//                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 //                 Vítor Castro <https://github.com/teves-castro>
@@ -29,6 +28,7 @@
 //                 Jituan Lin <https://github.com/jituanlin>
 //                 Philippe Mills <https://github.com/Philippe-mills>
 //                 Saul Mirone <https://github.com/Saul-Mirone>
+//                 Nicholai Nissen <https://github.com/Nicholaiii>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -69,12 +69,10 @@ export * from './tools';
 export const __: Placeholder; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
 
 /**
- * Adds two numbers (or strings). Equivalent to a + b but curried.
+ * Adds two numbers. Equivalent to a + b but curried.
  */
 export function add(a: number, b: number): number;
-export function add(a: string, b: string): string;
 export function add(a: number): (b: number) => number;
-export function add(a: string): (b: string) => string;
 
 /**
  * Creates a new list iteration function from an existing one by adding two new parameters to its callback
@@ -115,6 +113,12 @@ export function always<T>(val: T): () => T;
  */
 export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
 export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
+
+/**
+ * Returns the result of applying the onSuccess function to the value inside a successfully resolved promise. This is useful for working with promises inside function compositions.
+ */
+export function andThen<A, B>(onSuccess: (a: A) => B | Promise<B>, promise: Promise<A>): Promise<B>;
+export function andThen<A, B>(onSuccess: (a: A) => B | Promise<B>): (promise: Promise<A>) => Promise<B>;
 
 /**
  * Returns true if at least one of elements of the list match the predicate, false otherwise.
@@ -574,6 +578,7 @@ export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
  * Returns true if its arguments are equivalent, false otherwise. Dispatches to an equals method if present.
  * Handles cyclical data structures.
  */
+export function equals<T>(__: Placeholder, b: T): (a: T) => boolean;
 export function equals<T>(a: T, b: T): boolean;
 export function equals<T>(a: T): (b: T) => boolean;
 
@@ -827,6 +832,7 @@ export function intersperse<T>(separator: T): (list: readonly T[]) => T[];
  * using an appropriate iterator function based on the accumulator type.
  */
 export function into<T>(acc: any, xf: (...a: readonly any[]) => any, list: readonly T[]): T[];
+export function into<T, R>(acc: any, xf: (...a: readonly any[]) => R[], list: readonly T[]): R[];
 export function into(acc: any, xf: (...a: readonly any[]) => any): <T>(list: readonly T[]) => T[];
 export function into(acc: any): <T>(xf: (...a: readonly any[]) => any, list: readonly T[]) => T[];
 
@@ -1844,12 +1850,6 @@ export function tap<T>(fn: (a: T) => any): (value: T) => T;
  */
 export function test(regexp: RegExp, str: string): boolean;
 export function test(regexp: RegExp): (str: string) => boolean;
-
-/**
- * Returns the result of applying the onSuccess function to the value inside a successfully resolved promise. This is useful for working with promises inside function compositions.
- */
-export function then<A, B>(onSuccess: (a: A) => B | Promise<B>, promise: Promise<A>): Promise<B>;
-export function then<A, B>(onSuccess: (a: A) => B | Promise<B>): (promise: Promise<A>) => Promise<B>;
 
 /**
  * Creates a thunk out of a function.

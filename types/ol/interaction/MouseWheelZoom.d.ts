@@ -11,10 +11,6 @@ export interface Options {
     timeout?: number;
     useAnchor?: boolean;
 }
-export enum Mode {
-    TRACKPAD = 'trackpad',
-    WHEEL = 'wheel',
-}
 export default class MouseWheelZoom extends Interaction {
     constructor(opt_options?: Options);
     setMouseAnchor(useAnchor: boolean): void;

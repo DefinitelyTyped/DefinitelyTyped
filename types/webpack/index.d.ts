@@ -20,6 +20,8 @@
 //                 Anders Kaseorg <https://github.com/andersk>
 //                 Felix Haus <https://github.com/ofhouse>
 //                 Daniel Chin <https://github.com/danielthank>
+//                 Daiki Ihara <https://github.com/sasurau4>
+//                 Dion Shi <https://github.com/dionshihk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -223,6 +225,7 @@ declare namespace webpack {
          * - "window" - Assign to window
          * - "assign" - Assign to a global variable
          * - "jsonp" - Generate Webpack JSONP module
+         * - "system" - Generate a SystemJS module
          */
         libraryTarget?: LibraryTarget;
         /** Configure which module or modules will be exposed via the `libraryTarget` */
@@ -257,7 +260,7 @@ declare namespace webpack {
         futureEmitAssets?: boolean;
     }
 
-    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp';
+    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp' | 'system';
 
     type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
 
@@ -1414,6 +1417,8 @@ declare namespace webpack {
             cachedAssets?: boolean;
             /** Add children information */
             children?: boolean;
+            /** Add information about the `namedChunkGroups` */
+            chunkGroups?: boolean;
             /** Add built modules information to chunk information */
             chunkModules?: boolean;
             /** Add the origins of chunks and chunk merging info */
@@ -1829,7 +1834,45 @@ declare namespace webpack {
     }
 
     class ProgressPlugin extends Plugin {
-        constructor(options?: (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void);
+        constructor(options?: ProgressPlugin.Options | ProgressPlugin.Handler);
+    }
+
+    namespace ProgressPlugin {
+        /**
+         * A handler function which will be called when webpack hooks report progress
+         */
+        type Handler = (percentage: number, msg: string, ...args: string[]) => void;
+        interface Options {
+            /**
+             * Show active modules count and one active module in progress message
+             * Default: true
+             */
+            activeModules?: boolean;
+            /**
+             * Show entries count in progress message
+             * Default: false
+             */
+            entries?: boolean;
+            /**
+             * Function that executes for every progress step
+             */
+            handler?: Handler;
+            /**
+             * Show modules count in progress message
+             * Default: true
+             */
+            modules?: boolean;
+            /**
+             * Minimum modules count to start with, only for mode = modules
+             * Default: 500
+             */
+            modulesCount?: number;
+            /**
+             * Collect profile data for progress steps
+             * Default: false
+             */
+            profile?: boolean | null;
+        }
     }
 
     class EnvironmentPlugin extends Plugin {
