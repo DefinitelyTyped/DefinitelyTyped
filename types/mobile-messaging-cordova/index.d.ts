@@ -166,6 +166,47 @@ declare namespace MobileMessagingCordova {
 
         off(event: Event, handler: (message: Message) => void): void;
 
+
+        /**
+         * Sends an event to the server eventually, handles possible errors and do retries for you.
+         *
+         * @name submitEvent
+         * @param {Object} eventData. An object containing event data
+         * {
+         *   definitionId: "eventDefinitionId"
+         *   properties: {
+         *     "stringAttribute": "string",
+         *     "numberAttribute": 1,
+         *     "dateAttribute": "2020-02-26T09:41:57Z",
+         *     "booleanAttribute": true
+         *   }
+         * }
+         */
+        submitEvent(eventData: CustomEvent): void
+
+
+        /**
+         * Sends an event to the server immediately.
+         * You have to handle possible connection or server errors, do retries yourself.
+         *
+         * @name submitEventImmediately
+         * @param {Object} eventData. An object containing event data
+         * {
+         *   definitionId: "eventDefinitionId"
+         *   properties: {
+         *     "stringAttribute": "string",
+         *     "numberAttribute": 1,
+         *     "dateAttribute": "2020-02-26T09:41:57Z",
+         *     "booleanAttribute": true
+         *   }
+         * }
+         * @param {Function} callback will be called on result
+         * @param {Function} errorCallback will be called on error, you have to handle error and do retries yourself
+         */
+        submitEventImmediately(eventData: CustomEvent,
+                               callback: () => void,
+                               errorCallback: () => void): void;
+
         /**
          * Saves user data to the server.
          *
