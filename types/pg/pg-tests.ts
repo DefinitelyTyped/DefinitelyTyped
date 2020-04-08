@@ -156,12 +156,15 @@ const pool = new Pool({
 });
 console.log(pool.totalCount);
 pool.connect((err, client, done) => {
-    if (err) {
+    if (err || client == null) {
         console.error('error fetching client from pool', err);
         return;
     }
+
     client.query('SELECT $1::int AS number', ['1'], (err, result) => {
-        done();
+        if (done != null) {
+            done();
+        }
 
         if (err) {
             console.error('error running query', err);
