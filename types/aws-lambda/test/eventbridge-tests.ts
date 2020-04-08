@@ -1,4 +1,4 @@
-import { EventBridgeHandler, EventBridgeEvent } from 'aws-lambda';
+import { EventBridgeHandler, EventBridgeEvent, Handler } from 'aws-lambda';
 
 const voidHandler: EventBridgeHandler<string, { message: string }, void> = async (event, context, callback) => {
     const { message } = event.detail;
@@ -52,3 +52,10 @@ const nestedJsonEvent: EventBridgeEvent<string, { nested: { TestValue: string } 
         },
     },
 };
+
+// Multiple events handler;
+
+type Event01 = EventBridgeEvent<'event01', { detailProp1: string }>;
+type Event02 = EventBridgeEvent<'event02', { detailProp2: string }>;
+
+type MultiEventHandler = Handler<Event01 | Event02, { success: boolean }>;
