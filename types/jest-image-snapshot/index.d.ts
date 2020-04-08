@@ -1,4 +1,4 @@
-// Type definitions for jest-image-snapshot 2.11
+// Type definitions for jest-image-snapshot 2.12.0
 // Project: https://github.com/americanexpress/jest-image-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 //                 erbridge <https://github.com/erbridge>
