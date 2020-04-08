@@ -1,6 +1,6 @@
 /// <reference types="node"/>
 
-import * as pdfParse from 'pdf-parse';
+import pdfParse = require('pdf-parse');
 
 const dataBuffer: Buffer = null as never;
 
