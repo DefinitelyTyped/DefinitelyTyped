@@ -1204,9 +1204,9 @@ export class CastReceiverContext {
     removeEventListener(type: system.EventType, handler: EventHandler): void;
 
     /**
-     * Sends a message to a specific sender.
+     * Sends a message to a specific sender or broadcasts it to all connected senders (to broadcast pass undefined as a senderId).
      */
-    sendCustomMessage(namespace: string, senderId: string, message: any): void;
+    sendCustomMessage(namespace: string, senderId: string | undefined, message: any): void;
 
     /**
      * This function should be called in response to the feedbackstarted event if the application
