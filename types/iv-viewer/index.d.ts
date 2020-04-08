@@ -100,6 +100,8 @@ interface State {
 declare class ImageViewer {
     constructor(element: Element | null, options?: Options);
 
+    static defaults: Options;
+
     protected _elements: Elements;
     protected _events: Events;
     protected _frames: Frames;

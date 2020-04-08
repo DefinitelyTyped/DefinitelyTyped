@@ -10,7 +10,7 @@ iv.resetZoom(); // $ExpectType void
 iv.showSnapView(); // $ExpectType void
 iv.zoom(0); // $ExpectType void
 
-new DestructuredImageViewer(new Element());
+new DestructuredImageViewer(new Element(), ImageViewer.defaults);
 
 const options: Options = {};
 
