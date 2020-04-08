@@ -1,6 +1,6 @@
 // Type definitions for react-calendar 3.0
 // Project: https://github.com/wojtekmaj/react-calendar
-// Definitions by: Stéphane Saquet <https://github.com/Guymestef>
+// Definitions by: Stéphane Saquet <https://github.com/Guymestef>, Katie Soldau <https://github.com/ksoldau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -18,6 +18,10 @@ export interface CalendarProps {
   activeStartDate?: Date;
   calendarType?: CalendarType;
   className?: string | string[];
+  defaultActiveStartDate?: Date;
+  defaultValue?: Date | Date[];
+  defaultView?: Detail;
+  formatLongDate?: FormatterCallback;
   formatMonth?: FormatterCallback;
   formatMonthYear?: FormatterCallback;
   formatShortWeekday?: FormatterCallback;
@@ -27,6 +31,7 @@ export interface CalendarProps {
   maxDetail?: Detail;
   minDate?: Date;
   minDetail?: Detail;
+  navigationAriaLabel?: string;
   navigationLabel?: (props: { date: Date, view: Detail, label: string }) => string | JSX.Element | null;
   next2AriaLabel?: string;
   next2Label?: string | JSX.Element | null;
@@ -34,6 +39,7 @@ export interface CalendarProps {
   nextLabel?: string | JSX.Element;
   onActiveStartDateChange?: ViewCallback;
   onChange?: OnChangeDateCallback;
+  onViewChange?: ViewCallback;
   onClickDay?: DateCallback;
   onClickDecade?: DateCallback;
   onClickMonth?: DateCallback;
@@ -48,6 +54,7 @@ export interface CalendarProps {
   renderChildren?: (props: CalendarTileProperties) => JSX.Element | null; // For backwards compatibility
   returnValue?: "start" | "end" | "range";
   selectRange?: boolean;
+  showDoubleView?: boolean;
   showFixedNumberOfWeeks?: boolean;
   showNavigation?: boolean;
   showNeighboringMonth?: boolean;
