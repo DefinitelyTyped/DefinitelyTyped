@@ -37,6 +37,7 @@
 //                 Dongjun Lee <https://github.com/ChazEpps>
 //                 Valentin Agachi <https://github.com/avaly>
 //		           Jan Nemcik <https://github.com/JanNemcik>
+//                 Cl3dson <https://github.com/cl3dson> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -394,6 +395,15 @@ declare module "mongoose" {
      * to create the underlying collection in MongoDB if autoCreate
      * is set to true.(default: false) */
     autoCreate?: boolean;
+
+
+    /** Configure csfle as especified in MongoDB official guide */
+    autoEncryption?: {
+      keyVaultNamespace: string,
+      kmsProviders: any,
+      schemaMap: any,
+      extraOptions?: any
+    }
 
     /** Specify a journal write concern (default: false). */
     journal?: boolean;
