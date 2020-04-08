@@ -10,7 +10,7 @@ import events = require('events');
 import stream = require('stream');
 import pgTypes = require('pg-types');
 
-import { ConnectionOptions } from "tls";
+import { ConnectionOptions } from 'tls';
 
 export interface ClientConfig {
     user?: string;
@@ -160,7 +160,7 @@ export class Pool extends events.EventEmitter {
     readonly waitingCount: number;
 
     connect(): Promise<PoolClient>;
-    connect(callback: (err: Error, client: PoolClient, done: (release?: any) => void) => void): void;
+    connect(callback: (err?: Error, client?: PoolClient, done?: (release?: any) => void) => void): void;
 
     end(): Promise<void>;
     end(callback: () => void): void;
