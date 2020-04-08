@@ -10,7 +10,6 @@
 //                 Hunter Perrin <https://github.com/hperrin>
 //                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
 
 export = QueryString;
 export as namespace qs;
@@ -58,10 +57,14 @@ declare namespace QueryString {
 
     interface ParsedQs { [key: string]: string | string[] | ParsedQs | ParsedQs[] }
 
+    // The value type here is a "poor man's `unknown`". When these types support TypeScript
+    // 3.0+, we can replace this with `unknown`.
+    type PoorMansUnknown = {} | null | undefined;
+
     // Not supported natively until TS 3.5
     type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
     function stringify(obj: any, options?: IStringifyOptions): string;
     function parse(str: string, options?: Omit<IParseOptions, 'decoder'>): ParsedQs;
-    function parse(str: string, options?: IParseOptions): { [key: string]: unknown };
+    function parse(str: string, options?: IParseOptions): { [key: string]: PoorMansUnknown };
 }

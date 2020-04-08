@@ -26,8 +26,8 @@ qs.parse('a=b&c=d', { delimiter: '&' });
             }
         },
     });
-    obj; // $ExpectType { [key: string]: unknown; }
-    obj.a; // $ExpectType unknown
+    obj; // $ExpectType { [key: string]: PoorMansUnknown; }
+    obj.a; // $ExpectType PoorMansUnknown
 }
 
 () => {

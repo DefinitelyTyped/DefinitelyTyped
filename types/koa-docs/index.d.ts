@@ -2,7 +2,7 @@
 // Project: https://github.com/a-s-o/koa-docs#readme
 // Definitions by: 4doge <https://github.com/4doge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.4
 
 import { Middleware } from 'koa';
 import { Spec } from 'koa-joi-router';
