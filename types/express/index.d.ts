@@ -104,7 +104,7 @@ declare namespace e {
     interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
     interface MediaType extends core.MediaType { }
     interface NextFunction extends core.NextFunction { }
-    interface Request<P extends core.Params = core.ParamsDictionary> extends core.Request<P> { }
+    interface Request<P extends core.Params = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query> extends core.Request<P, ResBody, ReqBody, ReqQuery> { }
     interface RequestHandler<P extends core.Params = core.ParamsDictionary> extends core.RequestHandler<P> { }
     interface RequestParamHandler extends core.RequestParamHandler { }
     export interface Response<ResBody = any> extends core.Response<ResBody> { }

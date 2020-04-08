@@ -59,8 +59,8 @@ export class Users {
     update(user: UserIdentifier & Partial<CreateUpdateUser>): Promise<ApiResponse<User>>;
     update(user: UserIdentifier & Partial<CreateUpdateUser>, cb: callback<ApiResponse<User>>): void;
 
-    find(identifier: UserIdentifier): Promise<ApiResponse<UserList>>;
-    find(identifier: UserIdentifier, cb: callback<ApiResponse<UserList>>): void;
+    find(identifier: UserIdentifier): Promise<ApiResponse<User>>;
+    find(identifier: UserIdentifier, cb: callback<ApiResponse<User>>): void;
 
     list(): Promise<ApiResponse<UserList>>;
     list(cb: callback<ApiResponse<UserList>>): void;
