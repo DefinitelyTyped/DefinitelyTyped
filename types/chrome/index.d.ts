@@ -2458,7 +2458,7 @@ declare namespace chrome.enterprise.platformKeys {
      * function(array of Token tokens) {...};
      * Parameter tokens: The list of available tokens.
      */
-    export function getToken(callback: (tokens: Token[]) => void): void;
+    export function getTokens(callback: (tokens: Token[]) => void): void;
     /**
      * Returns the list of all client certificates available from the given token. Can be used to check for the existence and expiration of client certificates that are usable for a certain authentication.
      * @param tokenId The id of a Token returned by getTokens.
