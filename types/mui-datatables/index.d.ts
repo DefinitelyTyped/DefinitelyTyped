@@ -100,12 +100,12 @@ export interface MUIDataTableColumn {
 }
 
 export interface MUIDataTableTextLabels {
-    body: MUIDataTableTextLabelsBody;
-    filter: MUIDataTableTextLabelsFilter;
-    pagination: MUIDataTableTextLabelsPagination;
-    selectedRows: MUIDataTableTextLabelsSelectedRows;
-    toolbar: MUIDataTableTextLabelsToolbar;
-    viewColumns: MUIDataTableTextLabelsViewColumns;
+    body: Partial<MUIDataTableTextLabelsBody>;
+    filter: Partial<MUIDataTableTextLabelsFilter>;
+    pagination: Partial<MUIDataTableTextLabelsPagination>;
+    selectedRows: Partial<MUIDataTableTextLabelsSelectedRows>;
+    toolbar: Partial<MUIDataTableTextLabelsToolbar>;
+    viewColumns: Partial<MUIDataTableTextLabelsViewColumns>;
 }
 
 export interface MUIDataTableFilterOptions {
