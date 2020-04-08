@@ -183,11 +183,11 @@ export interface MUIDataTableOptions {
     ) => React.ReactNode;
     disableToolbarSelect?: boolean;
     download?: boolean;
-    downloadOptions?: {
+    downloadOptions?: Partial<{
         filename: string;
         separator: string;
-        filterOptions?: { useDisplayedColumnsOnly: boolean; useDisplayedRowsOnly: boolean };
-    };
+        filterOptions: Partial<{ useDisplayedColumnsOnly: boolean; useDisplayedRowsOnly: boolean }>;
+    }>;
     elevation?: number;
     expandableRows?: boolean;
     expandableRowsOnClick?: boolean;
@@ -255,7 +255,7 @@ export interface MUIDataTableOptions {
     setRowProps?: (row: any[], rowIndex: number) => object;
     sort?: boolean;
     sortFilterList?: boolean;
-    textLabels?: MUIDataTableTextLabels;
+    textLabels?: Partial<MUIDataTableTextLabels>;
     viewColumns?: boolean;
 }
 

@@ -91,12 +91,12 @@ export type VerifyErrors =
     | NotBeforeError
     | TokenExpiredError;
 export type VerifyCallback = (
-    err: VerifyErrors,
-    decoded: object,
+    err: VerifyErrors | null,
+    decoded: object | undefined,
 ) => void;
 
 export type SignCallback = (
-    err: Error, encoded: string
+    err: Error | null, encoded: string | undefined
 ) => void;
 
 export interface JwtHeader {

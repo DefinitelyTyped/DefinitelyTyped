@@ -5,6 +5,7 @@ import {
     DataTableCustomRenderProps,
     DataTableHeader,
     DataTableRow,
+    DatePickerInput,
     Dropdown,
     FileUploader,
     NumberInput,
@@ -272,6 +273,15 @@ const TestComp3 = (props: TestCompPropsOverwrite) => (<div />);
 
 const uisLinkT5 = (
     <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
+);
+
+// DatePickerInput
+const datePickerInputWithHideLabel = (
+    <DatePickerInput
+        hideLabel={true}
+        id="my-date-picker-input"
+        labelText="my-label-text"
+    />
 );
 
 // Dropdown

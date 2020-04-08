@@ -1,7 +1,22 @@
 // Type definitions for ot 0.0
 // Project: https://github.com/Operational-Transformation/ot.js
-// Definitions by: Ives van Hoorne <https://github.com/CompuIves>
+// Definitions by: Christian Alfoni <https://github.com/christianalfoni>
+//                 Ives van Hoorne <https://github.com/CompuIves>
+//                 Michaël De Boey <https://github.com/MichaelDeBoey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export class Selection {
+    createCursor(position: number): Selection;
+}
+
+export namespace Selection {
+    class Range {
+        constructor(anchor: number, head: number);
+        transform(operation: TextOperation): Range;
+        anchor: number;
+        head: number;
+    }
+}
 
 export type SerializedTextOperation = Array<string | number>;
 

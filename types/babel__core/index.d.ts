@@ -71,7 +71,7 @@ export interface TransformOptions {
      *
      * Default: `undefined`
      */
-    configFile?: string | false | null;
+    configFile?: string | boolean | null;
 
     /**
      * Specify whether or not to use .babelrc and
@@ -87,7 +87,7 @@ export interface TransformOptions {
      *
      * Default: `(root)`
      */
-    babelrcRoots?: true | string | string[] | null;
+    babelrcRoots?: boolean | MatchPattern | MatchPattern[] | null;
 
     /**
      * Defaults to environment variable `BABEL_ENV` if set, or else `NODE_ENV` if set, or else it defaults to `"development"`
@@ -192,7 +192,7 @@ export interface TransformOptions {
      *
      * Default: `null`
      */
-    ignore?: string[] | null;
+    ignore?: MatchPattern[] | null;
 
     /**
      * This option is a synonym for "test"
@@ -240,7 +240,7 @@ export interface TransformOptions {
      *
      * Default: `null`
      */
-    only?: string | RegExp | Array<string | RegExp> | null;
+    only?: MatchPattern[] | null;
 
     /**
      * Allows users to provide an array of options that will be merged into the current configuration one at a time.

@@ -9,6 +9,8 @@
 //                 Alex LaFroscia <https://github.com/alexlafroscia>
 //                 Mike North <https://github.com/mike-north>
 //                 Bryan Crotaz <https://github.com/BryanCrotaz>
+//                 James C. Davis <https://github.com/jamescdavis>
+//                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
