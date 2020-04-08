@@ -1,33 +1,36 @@
 import combineReducers from 'react-combine-reducers';
 
-type SimpleAction = { type: string; payload: any };
+interface SimpleAction {
+    type: string;
+    payload: any;
+}
 
-type GreeniesState = {
+interface GreeniesState {
     fruit: 'apple' | 'pear' | 'kiwi';
     vegetable: 'carrot' | 'eggplant';
-};
+}
 
-type ProteinsState = {
+interface ProteinsState {
     similiCarne: 'tofu' | 'seitan';
     vegetable: 'bean' | 'artichoke';
-};
+}
 
-type DrinkState = {
+interface DrinkState {
     beverage: 'water' | 'juice';
     numberOfGlasses: number;
-};
+}
 
-type DessertState = {
+interface DessertState {
     cake: 'chocolate' | 'cherry';
     drink: 'tea' | 'coffee';
-};
+}
 
-type FullMealState = {
+interface FullMealState {
     proteins: ProteinsState;
     greenies: GreeniesState;
     dessert: DessertState;
     drink: DrinkState;
-};
+}
 
 type FullMealReducer = (state: FullMealState, action: SimpleAction) => FullMealState;
 
@@ -68,23 +71,23 @@ combineReducers<FullMealReducer>({});
 // $ExpectError
 combineReducers<FullMealReducer>();
 
-// $ExpectError
 combineReducers<FullMealReducer>({
+    // $ExpectError
     books: ['The Book Thief'],
 });
 
-// $ExpectError
 combineReducers<FullMealReducer>({
+    // $ExpectError
     proteins: [100],
 });
 
-// $ExpectError
 combineReducers<FullMealReducer>({
+    // $ExpectError
     proteins: [3, proteinsReducer],
 });
 
-// $ExpectError
 combineReducers<FullMealReducer>({
+    // $ExpectError
     proteins: [proteinsReducer, 3],
 });
 
@@ -99,7 +102,6 @@ combineReducers<FullMealReducer>({
     ],
 });
 
-// $ExpectError
 combineReducers<FullMealReducer>({
     proteins: [
         proteinsReducer,
@@ -109,6 +111,7 @@ combineReducers<FullMealReducer>({
         },
     ],
     greenies: [
+        // $ExpectError
         proteinsReducer,
         {
             fruit: 'kiwi',
@@ -116,6 +119,7 @@ combineReducers<FullMealReducer>({
         },
     ],
     drink: [
+        // $ExpectError
         proteinsReducer,
         {
             beverage: 'juice',
@@ -123,6 +127,7 @@ combineReducers<FullMealReducer>({
         },
     ],
     dessert: [
+        // $ExpectError
         proteinsReducer,
         {
             cake: 'chocolate',
@@ -176,7 +181,6 @@ fullMealReducer(3, {});
 // $ExpectError
 fullMealReducer({}, {});
 
-// $ExpectError
 fullMealReducer(
     {
         proteins: {
@@ -196,6 +200,7 @@ fullMealReducer(
             drink: 'tea',
         },
     },
+    // $ExpectError
     67,
 );
 
