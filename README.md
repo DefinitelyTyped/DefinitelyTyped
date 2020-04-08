@@ -177,11 +177,14 @@ Changes to the `*.d.ts` files should include a corresponding `*.ts` file change 
 
 For example, this change to a function in a `.d.ts` file adding an option
 
+`index.d.ts`:
+
 ```diff
-+ export function twoslash(body: string): string
-- export function twoslash(body: string, config?: { version: string }): string
+- export function twoslash(body: string): string
++ export function twoslash(body: string, config?: { version: string }): string
 ```
 
+`index-tests.ts`:
 ```diff
 import {twoslash} from "./"
 
@@ -194,6 +197,8 @@ const result = twoslash("//")
 + // $ExpectError
 + const resultWithOptions = twoslash("//", {  })
 ```
+
+You can validate your changes with `npm run lint package-name` in the root of the repo.
 
 #### Create a new package
 
