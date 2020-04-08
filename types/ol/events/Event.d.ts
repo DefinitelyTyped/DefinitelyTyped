@@ -2,6 +2,8 @@ export default class BaseEvent {
     constructor(type: string);
     target: any;
     type: string;
+    code?: number;
+    message?: string;
     preventDefault(): void;
     stopPropagation(): void;
 }
