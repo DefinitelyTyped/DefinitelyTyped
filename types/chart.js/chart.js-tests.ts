@@ -454,3 +454,7 @@ const timeLabelsChartData: Chart.ChartData = {
         moment(), moment(), moment(),
     ],
 };
+
+const event = new MouseEvent('click');
+chart.getElementsAtEvent(event);
+chart.getElementsAtXAxis(event);
