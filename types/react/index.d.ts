@@ -23,6 +23,7 @@
 //                 Kyle Scully <https://github.com/zieka>
 //                 Cong Zhang <https://github.com/dancerphil>
 //                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
+//                 Victor Magalhães <https://github.com/vhfmag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
