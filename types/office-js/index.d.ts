@@ -17310,7 +17310,7 @@ declare namespace Excel {
      * 
      * **Note**: If multiple, discontiguous cells are selected, 
      * `Binding.onSelectionChanged only reports row and column information for one selection.
-     * Use `Worksheet.onSelectionChanged` multiple selected range scenarios.
+     * Use `Worksheet.onSelectionChanged` for multiple selected ranges.
      *
      * [Api set: ExcelApi 1.2]
      */
