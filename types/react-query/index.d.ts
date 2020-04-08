@@ -11,15 +11,39 @@ import * as React from 'react';
 import * as _ from 'ts-toolbelt';
 
 // overloaded useQuery function
+export function useQuery<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables = []>({
+    queryKey,
+    variables,
+    queryFn,
+    config,
+}: {
+    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined);
+    variables?: TVariables;
+    queryFn: QueryFunctionWithVariables<TResult, TKey, TVariables>;
+    config?: QueryOptions<TResult>;
+}): QueryResult<TResult>;
+
+export function useQuery<TResult, TSingleKey extends string, TVariables extends AnyVariables = []>({
+    queryKey,
+    variables,
+    queryFn,
+    config,
+}: {
+    queryKey: TSingleKey | false | null | undefined | (() => TSingleKey | false | null | undefined);
+    variables?: TVariables;
+    queryFn: QueryFunctionWithVariables<TResult, [TSingleKey], TVariables>;
+    config?: QueryOptions<TResult>;
+}): QueryResult<TResult>;
+
 export function useQuery<TResult, TKey extends AnyQueryKey>(
     queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
     queryFn: QueryFunction<TResult, TKey>,
     config?: QueryOptions<TResult>,
 ): QueryResult<TResult>;
 
-export function useQuery<TResult, TKey extends string>(
-    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
-    queryFn: QueryFunction<TResult, [TKey]>,
+export function useQuery<TResult, TSingleKey extends string>(
+    queryKey: TSingleKey | false | null | undefined | (() => TSingleKey | false | null | undefined),
+    queryFn: QueryFunction<TResult, [TSingleKey]>,
     config?: QueryOptions<TResult>,
 ): QueryResult<TResult>;
 
@@ -37,7 +61,8 @@ export function useQuery<TResult, TKey extends string, TVariables extends AnyVar
     config?: QueryOptions<TResult>,
 ): QueryResult<TResult>;
 
-export function useQuery<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables = []>({
+// usePaginatedQuery
+export function usePaginatedQuery<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables = []>({
     queryKey,
     variables,
     queryFn,
@@ -47,9 +72,20 @@ export function useQuery<TResult, TKey extends AnyQueryKey, TVariables extends A
     variables?: TVariables;
     queryFn: QueryFunctionWithVariables<TResult, TKey, TVariables>;
     config?: QueryOptions<TResult>;
-}): QueryResult<TResult>;
+}): PaginatedQueryResult<TResult>;
 
-// usePaginatedQuery
+export function usePaginatedQuery<TResult, TSingleKey extends string, TVariables extends AnyVariables = []>({
+    queryKey,
+    variables,
+    queryFn,
+    config,
+}: {
+    queryKey: TSingleKey | false | null | undefined | (() => TSingleKey | false | null | undefined);
+    variables?: TVariables;
+    queryFn: QueryFunctionWithVariables<TResult, [TSingleKey], TVariables>;
+    config?: QueryOptions<TResult>;
+}): PaginatedQueryResult<TResult>;
+
 export function usePaginatedQuery<TResult, TKey extends AnyQueryKey>(
     queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
     queryFn: QueryFunction<TResult, TKey>,
@@ -76,7 +112,13 @@ export function usePaginatedQuery<TResult, TKey extends string, TVariables exten
     config?: QueryOptions<TResult>,
 ): PaginatedQueryResult<TResult>;
 
-export function usePaginatedQuery<TResult, TKey extends AnyQueryKey, TVariables extends AnyVariables = []>({
+// useInfiniteQuery
+export function useInfiniteQuery<
+    TResult,
+    TKey extends AnyQueryKey,
+    TMoreVariable,
+    TVariables extends AnyVariables = []
+>({
     queryKey,
     variables,
     queryFn,
@@ -84,11 +126,27 @@ export function usePaginatedQuery<TResult, TKey extends AnyQueryKey, TVariables 
 }: {
     queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined);
     variables?: TVariables;
-    queryFn: QueryFunctionWithVariables<TResult, TKey, TVariables>;
-    config?: QueryOptions<TResult>;
-}): PaginatedQueryResult<TResult>;
+    queryFn: InfiniteQueryFunctionWithVariables<TResult, TKey, TVariables, TMoreVariable>;
+    config?: InfiniteQueryOptions<TResult, TMoreVariable>;
+}): InfiniteQueryResult<TResult, TMoreVariable>;
 
-// useInfiniteQuery
+export function useInfiniteQuery<
+    TResult,
+    TSingleKey extends string,
+    TMoreVariable,
+    TVariables extends AnyVariables = []
+>({
+    queryKey,
+    variables,
+    queryFn,
+    config,
+}: {
+    queryKey: TSingleKey | false | null | undefined | (() => TSingleKey | false | null | undefined);
+    variables?: TVariables;
+    queryFn: InfiniteQueryFunctionWithVariables<TResult, [TSingleKey], TVariables, TMoreVariable>;
+    config?: InfiniteQueryOptions<TResult, TMoreVariable>;
+}): InfiniteQueryResult<TResult, TMoreVariable>;
+
 export function useInfiniteQuery<TResult, TKey extends AnyQueryKey, TMoreVariable>(
     queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined),
     queryFn: InfiniteQueryFunction<TResult, TKey, TMoreVariable>,
@@ -114,23 +172,6 @@ export function useInfiniteQuery<TResult, TKey extends string, TVariables extend
     queryFn: InfiniteQueryFunctionWithVariables<TResult, [TKey], TVariables, TMoreVariable>,
     config?: InfiniteQueryOptions<TResult, TMoreVariable>,
 ): InfiniteQueryResult<TResult, TMoreVariable>;
-
-export function useInfiniteQuery<
-    TResult,
-    TKey extends AnyQueryKey,
-    TMoreVariable,
-    TVariables extends AnyVariables = []
->({
-    queryKey,
-    variables,
-    queryFn,
-    config,
-}: {
-    queryKey: TKey | false | null | undefined | (() => TKey | false | null | undefined);
-    variables?: TVariables;
-    queryFn: InfiniteQueryFunctionWithVariables<TResult, TKey, TVariables, TMoreVariable>;
-    config?: InfiniteQueryOptions<TResult, TMoreVariable>;
-}): InfiniteQueryResult<TResult, TMoreVariable>;
 
 export type QueryKeyPart = string | object | boolean | number | null | readonly QueryKeyPart[] | null | undefined;
 export type AnyQueryKey = readonly [string, ...QueryKeyPart[]]; // this forces the key to be inferred as a tuple
@@ -181,10 +222,10 @@ export interface BaseQueryOptions {
 export interface QueryOptions<TResult> extends BaseQueryOptions {
     onSuccess?: (data: TResult) => void;
     onSettled?: (data: TResult | undefined, error: unknown | null) => void;
-    initialData?: TResult;
+    initialData?: TResult | (() => TResult | undefined);
 }
 
-export interface InfiniteQueryOptions<TResult, TMoreVariable> extends QueryOptions<TResult> {
+export interface InfiniteQueryOptions<TResult, TMoreVariable> extends QueryOptions<TResult[]> {
     getFetchMore: (lastPage: TResult, allPages: TResult[]) => TMoreVariable | false;
 }
 

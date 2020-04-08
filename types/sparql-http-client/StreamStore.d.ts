@@ -1,5 +1,5 @@
 import { Store } from "./";
-import { BaseQuad, Quad, DataFactory, Stream } from "rdf-js";
+import { BaseQuad, Quad, DataFactory } from "rdf-js";
 import Endpoint = require("./Endpoint");
 
 declare namespace StreamStore {
@@ -9,12 +9,11 @@ declare namespace StreamStore {
     }
 }
 
-declare class StreamStore<Q extends BaseQuad = Quad> implements Store<Q> {
+interface StreamStore<Q extends BaseQuad = Quad> extends Store<Q> {}
+
+// tslint:disable-next-line no-unnecessary-class
+declare class StreamStore<Q extends BaseQuad = Quad> {
     constructor(options: StreamStore.StreamStoreInit<Q>)
-    endpoint: Endpoint;
-    get(graph: Quad['graph']): Promise<Stream<Q>>;
-    post(stream: Stream): Promise<void>;
-    put(stream: Stream): Promise<void>;
 }
 
 export = StreamStore;

@@ -1054,3 +1054,23 @@ type Pair = KeyValuePair<string, number>;
     R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`)("coo foo koo"); // => 'c0oo f4oo k8oo'
     R.replace(/([cfk])oo/g)((match, p1, offset) => `${p1}-${offset}`) ("coo foo koo"); // => 'c0oo f4oo k8oo'
 };
+
+() => {
+    interface A {
+        a: number;
+    }
+
+    interface B {
+        b: number;
+    }
+
+    const As = [{ a: 1 }, { a: 2 }];
+    const AsToBs: (a: A[]) => B[] = R.map((a: A): B => ({
+        b: a.a,
+    }));
+
+    function test(): B[] {
+        return R.into<A, B>([], AsToBs, As);
+    }
+    test(); // => [{ b: 1 }, { b: 2 }]
+};

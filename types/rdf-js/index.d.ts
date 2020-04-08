@@ -246,7 +246,7 @@ export interface Triple extends Quad {}
 /**
  * A factory for instantiating RDF terms, triples and quads.
  */
-export interface DataFactory<Q extends BaseQuad = Quad> {
+export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> {
     /**
      * @param value The IRI for the named node.
      * @return A new instance of NamedNode.
@@ -297,7 +297,7 @@ export interface DataFactory<Q extends BaseQuad = Quad> {
      * @see Triple
      * @see DefaultGraph
      */
-    triple(subject: Q['subject'], predicate: Q['predicate'], object: Q['object']): Q;
+    triple(subject: InQuad['subject'], predicate: InQuad['predicate'], object: InQuad['object']): InQuad;
 
     /**
      * @param subject   The quad subject term.
@@ -307,7 +307,7 @@ export interface DataFactory<Q extends BaseQuad = Quad> {
      * @return A new instance of Quad.
      * @see Quad
      */
-    quad(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'], graph?: Q['graph']): Q;
+    quad(subject: InQuad['subject'], predicate: InQuad['predicate'], object: InQuad['object'], graph?: InQuad['graph']): OutQuad;
 }
 
 /* Stream Interfaces */

@@ -1,4 +1,4 @@
-// Type definitions for Swiper 5.2
+// Type definitions for Swiper 5.3
 // Project: https://github.com/nolimits4web/Swiper, http://www.idangero.us/swiper
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>
 //                 Luca Trazzi <https://github.com/lucax88x>
@@ -7,6 +7,7 @@
 //                 Justin Abene <https://github.com/jmca>
 //                 Asif Rahman <https://github.com/daem0ndev>
 //                 Liad Idan <https://github.com/LiadIdan>
+//                 Sangwon Lee <https://github.com/john015>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -40,7 +41,10 @@ export type CommonEvent =
     | 'fromEdge'
     | 'setTranslate'
     | 'setTransition'
-    | 'resize';
+    | 'resize'
+    | 'observerUpdate'
+    | 'beforeLoopFix'
+    | 'loopFix';
 
 /**
  * Swiper pagination event names.
@@ -103,6 +107,13 @@ export interface SwiperOptions {
      * @default true
      */
     init?: boolean;
+
+    /**
+     * Swiper will recalculate slides position on window resize (orientationchange)
+     *
+     * @default true
+     */
+    updateOnWindowResize?: boolean;
 
     /**
      * Index number of initial slide.
@@ -213,6 +224,16 @@ export interface SwiperOptions {
      */
     on?: { [key in SwiperEvent]?: () => void };
 
+    // CSS Scroll Snap
+
+    /**
+     * When enabled it will use modern CSS Scroll Snap API.
+     * It doesn't support all of Swiper's features, but potentially should bring a much better performance in simple configurations.
+     *
+     * @default false
+     */
+    cssMode?: boolean;
+
     // Slides grid
 
     /**
@@ -244,9 +265,25 @@ export interface SwiperOptions {
     slidesPerGroup?: number;
 
     /**
+     * The parameter works in the following way: If slidesPerGroupSkip equals 0 (default), no slides are excluded from grouping, and the resulting behaviour is the same as without this change.
+     * If slidesPerGroupSkip is equal or greater than 1 the first X slides are treated as single groups, whereas all following slides are grouped by the slidesPerGroup value.
+     *
+     * @default 0
+     */
+    slidesPerGroupSkip?: number;
+
+    /**
      * If true, then active slide will be centered, not always on the left side.
      */
     centeredSlides?: boolean;
+
+    /**
+     * If true, then active slide will be centered without adding gaps at the beginning and end of slider.
+     * Required centeredSlides: true. Not intended to be used with loop or pagination
+     *
+     * @default false
+     */
+    centeredSlidesBounds?: boolean;
 
     /**
      * Add (in px) additional slide offset in the beginning of the container (before all slides)
@@ -422,6 +459,14 @@ export interface SwiperOptions {
     breakpointsInverse?: boolean;
 
     // Observer
+
+    /**
+     * Set to true if you also need to watch Mutations for Swiper slide children elements
+     *
+     * @default false
+     */
+    observeSlideChildren?: boolean;
+
     observer?: boolean;
     observeParents?: boolean;
 
@@ -628,6 +673,21 @@ export interface EventsOptions {
      * Triggered on window resize right before swiper's onresize manipulation
      */
     resize?: () => any;
+
+    /**
+     * Event will be fired if observer is enabled and it detects DOM mutations
+     */
+    observerUpdate?: () => any;
+
+    /**
+     * Event will be fired right before "loop fix"
+     */
+    beforeLoopFix?: () => any;
+
+    /**
+     * Event will be fired after "loop fix"
+     */
+    loopFix?: () => any;
 }
 
 export interface NavigationOptions {
@@ -1464,6 +1524,11 @@ export default class Swiper {
      * Get current value of swiper wrapper css3 transform translate
      */
     getTranslate(): any;
+
+    /**
+     * Animate custom css3 transform's translate value for swiper wrapper
+     */
+    translateTo(translate: number, speed: number, runCallbacks?: boolean, translateBounds?: boolean): any;
 
     /**
      * Add event listener
