@@ -166,12 +166,10 @@ declare namespace MobileMessagingCordova {
 
         off(event: Event, handler: (message: Message) => void): void;
 
-
         /**
          * Sends an event to the server eventually, handles possible errors and do retries for you.
          *
-         * @name submitEvent
-         * @param {Object} eventData. An object containing event data
+         * @param eventData. An object containing event data
          * {
          *   definitionId: "eventDefinitionId"
          *   properties: {
@@ -182,15 +180,13 @@ declare namespace MobileMessagingCordova {
          *   }
          * }
          */
-        submitEvent(eventData: CustomEvent): void
-
+        submitEvent(eventData: CustomEvent): void;
 
         /**
          * Sends an event to the server immediately.
          * You have to handle possible connection or server errors, do retries yourself.
          *
-         * @name submitEventImmediately
-         * @param {Object} eventData. An object containing event data
+         * @param eventData. An object containing event data
          * {
          *   definitionId: "eventDefinitionId"
          *   properties: {
@@ -200,8 +196,8 @@ declare namespace MobileMessagingCordova {
          *     "booleanAttribute": true
          *   }
          * }
-         * @param {Function} callback will be called on result
-         * @param {Function} errorCallback will be called on error, you have to handle error and do retries yourself
+         * @param callback will be called on result
+         * @param errorCallback will be called on error, you have to handle error and do retries yourself
          */
         submitEventImmediately(eventData: CustomEvent,
                                callback: () => void,
