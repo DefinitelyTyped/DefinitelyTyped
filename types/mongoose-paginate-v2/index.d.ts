@@ -65,7 +65,7 @@ declare module 'mongoose' {
         docs: T[];
         totalDocs: number;
         limit: number;
-        page: number;
+        page?: number;
         totalPages:number;
         nextPage?: number | null;
         prevPage?: number | null;
