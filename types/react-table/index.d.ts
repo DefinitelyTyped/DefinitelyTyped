@@ -122,7 +122,6 @@ export type UseTableOptions<D extends object> = {
     reducer: (newState: TableState<D>, action: ActionType, previousState: TableState<D>) => TableState<D>;
     useControlledState: (state: TableState<D>, meta: Meta<D>) => TableState<D>;
     defaultColumn: Partial<Column<D>>;
-    initialRowStateKey: IdType<D>;
     getSubRows: (originalRow: D, relativeIndex: number) => D[];
     getRowId: (originalRow: D, relativeIndex: number, parent?: Row<D>) => string;
 }>;
