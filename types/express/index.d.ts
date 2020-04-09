@@ -95,7 +95,8 @@ declare namespace e {
     interface Application extends core.Application { }
     interface CookieOptions extends core.CookieOptions { }
     interface Errback extends core.Errback { }
-    interface ErrorRequestHandler<P extends core.Params = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query> extends core.ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery> { }
+    interface ErrorRequestHandler<P extends core.Params = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query>
+        extends core.ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery> { }
     interface Express extends core.Express { }
     interface Handler extends core.Handler { }
     interface IRoute extends core.IRoute { }
