@@ -2,234 +2,233 @@
 
 /// <reference types="node"/>
 
-declare function minify(options?: minify.Options): NodeJS.ReadWriteStream
+declare function minify(options?: minify.Options): NodeJS.ReadWriteStream;
 
 declare namespace minify {
-	export interface Options {
+    export interface Options {
+        /**
+         * An object that specifies output src and minified file extensions.
+         */
+        ext?: {
+            /**
+             * The suffix string of the filenames that output source files ends with.
+             */
+            src?: string;
 
-		/**
-		 * An object that specifies output src and minified file extensions.
-		 */
-		ext?: {
-			/**
-			 * The suffix string of the filenames that output source files ends with.
-			 */
-			src?: string;
+            /**
+             * The suffix string of the filenames that output minified files ends with or the regex expressions to be replaced with input filenames.
+             */
+            min?: string | string[];
+        };
 
-			/**
-			 * The suffix string of the filenames that output minified files ends with or the regex expressions to be replaced with input filenames.
-			 */
-			min?: string | string[]
-		}
+        /**
+         * Will not minify files in the dirs.
+         */
+        exclude?: string[];
 
-		/**
-		 * Will not minify files in the dirs.
-		 */
-		exclude?: string[]
+        /**
+         * If true, will not output the source code in the dest dirs.
+         */
+        noSource?: boolean;
 
+        /**
+         * Will not minify files which matches the pattern.
+         */
+        ignoreFiles?: string[];
 
+        /**
+         * If true, will mangle variable names.
+         */
+        mangle?: boolean;
 
-		/**
-		 * If true, will not output the source code in the dest dirs.
-		 */
-		noSource?: boolean
+        /**
+         * Pass an object if you wish to specify additional output options.The defaults are optimized for best compression.
+         */
+        output?: {
+            /**
+             * Start indentation on every line (only when `beautify`)
+             */
+            indent_start?: number;
 
-		/**
-		 * Will not minify files which matches the pattern.
-		 */
-		ignoreFiles?: string[]
+            /**
+             * Indentation level (only when `beautify`)
+             */
+            indent_level?: number;
 
-		/**
-		 * If true, will mangle variable names.
-		 */
-		mangle?: boolean
+            /**
+             * Quote all keys in object literals?
+             */
+            quote_keys?: false;
 
-		/**
-		 * Pass an object if you wish to specify additional output options.The defaults are optimized for best compression.
-		 */
-		output?: {
-			/**
-			 * Start indentation on every line (only when `beautify`)
-			 */
-			indent_start?: number
+            /**
+             * Add a space after colon signs?
+             */
+            space_colon?: boolean;
 
-			/**
-			 * Indentation level (only when `beautify`)
-			 */
-			indent_level?: number
+            /**
+             * Output ASCII-safe? (encodes Unicode characters as ASCII)
+             */
+            ascii_only?: boolean;
 
-			/**
-			 * Quote all keys in object literals?
-			 */
-			quote_keys?: false
+            /**
+             * Escape "</script"?
+             */
+            inline_script?: boolean;
 
-			/**
-			 * Add a space after colon signs?
-			 */
-			space_colon?: boolean
+            /**
+             * Informative maximum line width (for beautified output)
+             */
+            width?: 80;
 
-			/**
-			 * Output ASCII-safe? (encodes Unicode characters as ASCII)
-			 */
-			ascii_only?: boolean
+            /**
+             * Maximum line length (for non-beautified output)
+             */
+            max_line_len?: 32000;
 
-			/**
-			 * Escape "</script"?
-			 */
-			inline_script?: boolean
+            /**
+             * Beautify output?
+             */
+            ie_proof?: boolean;
 
-			/**
-			 * Informative maximum line width (for beautified output)
-			 */
-			width?: 80
+            /**
+             * Beautify output?
+             */
+            beautify?: boolean;
 
-			/**
-			 * Maximum line length (for non-beautified output)
-			 */
-			max_line_len?: 32000
+            /**
+             * Output a source map
+             */
+            source_map?: boolean;
 
-			/**
-			 * Beautify output?
-			 */
-			ie_proof?: boolean
+            /**
+             * Use brackets every time?
+             */
+            bracketize?: boolean;
 
-			/**
-			 * Beautify output?
-			 */
-			beautify?: boolean
+            /**
+             * Output comments?
+             */
+            comments?: boolean;
 
-			/**
-			 * Output a source map
-			 */
-			source_map?: boolean
+            /**
+             * Use semicolons to separate statements? (otherwise, newlines)
+             */
+            semicolons?: boolean;
+        };
 
-			/**
-			 * Use brackets every time?
-			 */
-			bracketize?: boolean
+        /**
+         * Pass an object to specify custom compressor options. Pass false to skip compression completely.
+         */
+        compress?:
+            | {
+                  /**
+                   * join consecutive statemets with the “comma operator”
+                   */
+                  sequences?: boolean;
 
-			/**
-			 * Output comments?
-			 */
-			comments?: boolean
+                  /**
+                   * optimize property access?: a["foo"] → a.foo
+                   */
+                  properties?: boolean;
 
-			/**
-			 * Use semicolons to separate statements? (otherwise, newlines)
-			 */
-			semicolons?: boolean
-		}
+                  /**
+                   * discard unreachable code
+                   */
+                  dead_code?: boolean;
 
-		/**
-		 * Pass an object to specify custom compressor options. Pass false to skip compression completely.
-		 */
-		compress?: {
-			/**
-			 * join consecutive statemets with the “comma operator”
-			 */
-			sequences?: boolean,
+                  /**
+                   * discard “debugger” statements
+                   */
+                  drop_debugger?: boolean;
 
-			/**
-			 * optimize property access?: a["foo"] → a.foo
-			 */
-			properties?: boolean,
+                  /**
+                   * some unsafe optimizations (see below)
+                   */
+                  unsafe?: boolean; //
 
-			/**
-			 * discard unreachable code
-			 */
-			dead_code?: boolean,
+                  /**
+                   * optimize if-s and conditional expressions
+                   */
+                  conditionals?: boolean;
 
-			/**
-			 * discard “debugger” statements
-			 */
-			drop_debugger?: boolean,
+                  /**
+                   * optimize comparisons
+                   */
+                  comparisons?: boolean;
 
-			/**
-			 * some unsafe optimizations (see below)
-			 */
-			unsafe?: boolean, //
+                  /**
+                   * optimize boolean expressions
+                   */
+                  evaluate?: boolean;
 
-			/**
-			 * optimize if-s and conditional expressions
-			 */
-			conditionals?: boolean,
+                  /**
+                   * optimize boolean expressions
+                   */
+                  booleans?: boolean;
 
-			/**
-			 * optimize comparisons
-			 */
-			comparisons?: boolean,
+                  /**
+                   * optimize loops
+                   */
+                  loops?: boolean;
 
-			/**
-			 * optimize boolean expressions
-			 */
-			evaluate?: boolean,
+                  /**
+                   * drop unused variables/functions
+                   */
+                  unused?: boolean;
 
-			/**
-			 * optimize boolean expressions
-			 */
-			booleans?: boolean,
+                  /**
+                   * hoist function declarations
+                   */
+                  hoist_funs?: boolean;
 
-			/**
-			 * optimize loops
-			 */
-			loops?: boolean,
+                  /**
+                   * hoist variable declarations
+                   */
+                  hoist_vars?: boolean; // hoist variable declarations
 
-			/**
-			 * drop unused variables/functions
-			 */
-			unused?: boolean,
+                  /**
+                   * optimize if-s followed by return/continue
+                   */
+                  if_return?: boolean;
 
-			/**
-			 * hoist function declarations
-			 */
-			hoist_funs?: boolean,
+                  /**
+                   * join var declarations
+                   */
+                  join_vars?: boolean;
 
-			/**
-			 * hoist variable declarations
-			 */
-			hoist_vars?: boolean, // hoist variable declarations
+                  /**
+                   * try to cascade `right` into `left` in sequences
+                   */
+                  cascade?: boolean;
 
-			/**
-			 * optimize if-s followed by return/continue
-			 */
-			if_return?: boolean,
+                  /**
+                   * drop side-effect-free statements
+                   */
+                  side_effects?: boolean;
 
-			/**
-			 * join var declarations
-			 */
-			join_vars?: boolean,
+                  /**
+                   * warn about potentially dangerous optimizations/code
+                   */
+                  warnings?: boolean;
 
-			/**
-			 * try to cascade `right` into `left` in sequences
-			 */
-			cascade?: boolean,
+                  /**
+                   * global definitions
+                   */
+                  global_defs?: {};
+              }
+            | boolean;
 
-			/**
-			 * drop side-effect-free statements
-			 */
-			side_effects?: boolean,
-
-			/**
-			 * warn about potentially dangerous optimizations/code
-			 */
-			warnings?: boolean,
-
-			/**
-			 * global definitions
-			 */
-			global_defs?: {}
-		} | boolean;
-
-		/**
-		 * A convenience option for options.output.comments. Defaults to preserving no comments.
-		 *
-		 * * **all**: Preserve all comments in code blocks.
-		 *
-		 * * **some**: preserve comments that start with a bang(!) or include a Closure Compiler directive(@preserve, @license, @cc_on).
-		 *
-		 * * **function**: specify your own comment preservation function. You will be passed the current node and the current comment and are expected to return a boolean.
-		 */
-		preserveComments?: 'all' | 'some' | ((node?: any, comment?: any) => boolean)
-	}
+        /**
+         * A convenience option for options.output.comments. Defaults to preserving no comments.
+         *
+         * * **all**: Preserve all comments in code blocks.
+         *
+         * * **some**: preserve comments that start with a bang(!) or include a Closure Compiler directive(@preserve, @license, @cc_on).
+         *
+         * * **function**: specify your own comment preservation function. You will be passed the current node and the current comment and are expected to return a boolean.
+         */
+        preserveComments?: 'all' | 'some' | ((node?: any, comment?: any) => boolean);
+    }
 }
 
 export = minify;
