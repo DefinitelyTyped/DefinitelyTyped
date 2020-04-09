@@ -62,7 +62,9 @@ function testConstructor() {
 
     let contructedWithValueHasTermContext: Clownface<Term, Dataset> = new Clownface({ dataset, value: 'foo' });
     contructedWithValueHasTermContext = new Clownface({ dataset, value: ['foo', 'bar'] });
-    const anyTerms: clownface.Clownface = new Clownface({ dataset, term: [term, term], value: ['foo', 'bar'] });
+    const anyTerms: clownface.SafeClownface = new Clownface({ dataset, term: [term, term], value: ['foo', 'bar'] });
+
+    const constructedWithSingleTerm: clownface.SingleContextClownface<NamedNode> = new Clownface({ dataset, term: node });
 }
 
 function testAddIn() {

@@ -16,7 +16,7 @@ interface IStrategyOptions {
     passReqToCallback?: boolean;
 }
 interface IVerifyOptions {
-    message: string;
+    message?: string;
     scope: string | Array<string>;
 }
 

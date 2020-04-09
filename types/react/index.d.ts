@@ -24,6 +24,7 @@
 //                 Cong Zhang <https://github.com/dancerphil>
 //                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
 //                 JongChan Choi <https://github.com/disjukr>
+//                 Victor Magalhães <https://github.com/vhfmag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2129,6 +2130,7 @@ declare namespace React {
         rel?: string;
         sizes?: string;
         type?: string;
+        charSet?: string;
     }
 
     interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2147,7 +2149,7 @@ declare namespace React {
         loop?: boolean;
         mediaGroup?: string;
         muted?: boolean;
-        playsinline?: boolean;
+        playsInline?: boolean;
         preload?: string;
         src?: string;
     }

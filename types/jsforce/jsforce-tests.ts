@@ -20,6 +20,16 @@ const salesforceConnection: sf.Connection = new sf.Connection({
     },
 });
 
+async function testIdentity(connection: sf.Connection) {
+    // Callback style.
+    connection.identity((err: Error | null, identityInfo: sf.IdentityInfo) => {
+    });
+    // Promise style.
+    const userInfo = await connection.identity();
+    userInfo.id; // $ExpectType string
+    userInfo.active; // $ExpectType boolean
+}
+
 async function testSObject(connection: sf.Connection) {
     interface DummyRecord {
         thing: boolean;

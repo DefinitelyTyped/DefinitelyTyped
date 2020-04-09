@@ -349,6 +349,31 @@ rule = {
             }
         });
 
+        context.report({
+            message: 'foo',
+            node: AST,
+            suggest: [
+                {
+                    desc: 'foo',
+                    fix: ruleFixer => {
+                        return [
+                            ruleFixer.insertTextAfter(AST, 'foo'),
+                            ruleFixer.insertTextAfter(TOKEN, 'foo')
+                        ];
+                    },
+                },
+                {
+                    messageId: 'foo',
+                    fix: ruleFixer => {
+                        return [
+                            ruleFixer.insertTextAfter(AST, 'foo'),
+                            ruleFixer.insertTextAfter(TOKEN, 'foo')
+                        ];
+                    },
+                },
+            ],
+        });
+
         return {
             onCodePathStart(codePath, node) {},
             onCodePathEnd(codePath, node) {},
@@ -430,6 +455,9 @@ for (const msg of lintingResult) {
 
     msg.fatal = true;
 
+    msg.message = 'foo';
+    msg.messageId = 'foo';
+
     msg.line = 0;
     msg.endLine = 0;
     msg.column = 0;
@@ -440,6 +468,15 @@ for (const msg of lintingResult) {
     if (msg.fix) {
         msg.fix.text = 'foo';
         msg.fix.range = [0, 0];
+    }
+
+    if (msg.suggestions) {
+        for (const suggestion of msg.suggestions) {
+            suggestion.desc = 'foo';
+            suggestion.messageId = 'foo';
+            suggestion.fix.text = 'foo';
+            suggestion.fix.range = [0, 0];
+        }
     }
 }
 
@@ -596,11 +633,25 @@ ruleTester.run('my-rule', rule, {
 
     invalid: [
         { code: 'foo', errors: 1 },
+        { code: 'foo', errors: 1, output: 'foo' },
         { code: 'foo', errors: ['foo'] },
         { code: 'foo', errors: [{ message: 'foo' }] },
         { code: 'foo', errors: [{ message: 'foo', type: 'foo' }] },
         { code: 'foo', errors: [{ message: 'foo', data: { foo: true } }] },
         { code: 'foo', errors: [{ message: 'foo', line: 0 }] },
+        { code: 'foo', errors: [{
+            message: 'foo',
+            suggestions: [
+                {
+                    desc: 'foo',
+                    output: 'foo',
+                },
+                {
+                    messageId: 'foo',
+                    output: 'foo',
+                },
+            ],
+        }] },
     ]
 });
 
