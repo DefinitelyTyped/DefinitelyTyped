@@ -119,7 +119,7 @@ Before you share your improvement with the world, use it yourself.
 #### Test editing an existing package
 
 To test local to your project, you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to extend existing types.
-Alternatively, you can also directly edit the types directly in `node_modules/@types/foo/index.d.ts` to validate your changes, then bring the changes to this repo with the steps below.
+Alternatively, you can also edit the types directly in `node_modules/@types/foo/index.d.ts` to validate your changes, then bring the changes to this repo with the steps below.
 
 #### Adding tests to a new package
 
@@ -188,7 +188,7 @@ For example, this change to a function in a `.d.ts` file adding an option
 ```diff
 import {twoslash} from "./"
 
-// ExpectType string
+// $ExpectType string
 const result = twoslash("//")
 
 + // Handle options param
