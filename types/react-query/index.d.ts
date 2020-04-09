@@ -289,7 +289,7 @@ export type PaginatedQueryResult<TResult> =
 export interface InfiniteQueryResult<TResult, TMoreVariable> extends QueryResultBase<TResult[]> {
     data: TResult[];
     isFetchingMore: boolean;
-    canFetchMore?: boolean;
+    canFetchMore: boolean | undefined;
     fetchMore: (moreVariable?: TMoreVariable | false) => Promise<TResult[]> | undefined;
 }
 
