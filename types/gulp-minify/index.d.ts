@@ -1,3 +1,5 @@
+// Definitions by: tscpp <https://github.com/tscpp>
+
 /// <reference types="node"/>
 
 declare function minify(options?: minify.Options): NodeJS.ReadWriteStream
