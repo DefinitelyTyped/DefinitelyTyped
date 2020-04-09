@@ -20,5 +20,6 @@
         "noUnusedLocals": false
     },
     "files": [
+        "index.d.ts"
     ]
 }
