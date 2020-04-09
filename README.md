@@ -118,7 +118,7 @@ Before you share your improvement with the world, use it yourself.
 
 #### Test editing an existing package
 
-To test local to your project, you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to extend existing types.
+To test local to your app, you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to extend existing types from the DT module you want to work on.
 Alternatively, you can also edit the types directly in `node_modules/@types/foo/index.d.ts` to validate your changes, then bring the changes to this repo with the steps below.
 
 #### Adding tests to a new package
@@ -170,10 +170,11 @@ If it doesn't, you can do so yourself in the comment associated with the PR.
 
 #### Editing tests on an existing package
 
-Any `*.ts` files in the package are considered as "test" files.
+There should be a `[modulename]-tests.ts` file, and then any `*.ts` which it imports are considered your test files.
 These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/yourmodule`.
 
 Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
+If you don't see any test files in the module's folder, create a `[modulename]-tests.ts`
 
 For example, this change to a function in a `.d.ts` file adding an option
 
@@ -198,7 +199,10 @@ const result = twoslash("//")
 + const resultWithOptions = twoslash("//", {  })
 ```
 
-You can validate your changes with `npm run lint package-name` in the root of the repo.
+You can validate your changes with either:
+
+ - `npm test` from the root of this repo, which takes changed files into account
+ - `npx tsc` from the modules folder
 
 #### Create a new package
 
