@@ -41,20 +41,20 @@ export {};
 type NonNullableValue = string | number | boolean | object | symbol;
 
 declare module '.' {
-    type MutableSource<TSource extends NonNullableValue, TVersion extends NonNullableValue> = {
-        _source: TSource,
-        _getVersion: (source: TSource) => TVersion,
+    type MutableSource<Source extends NonNullableValue, Version extends NonNullableValue> = {
+        _source: Source,
+        _getVersion: (source: Source) => Version,
     };
-    type MutableSourceType<T> = T extends MutableSource<infer TSource, any> ? TSource : never;
-    type MutableSourceVersionType<T> = T extends MutableSource<any, infer TVersion> ? TVersion : never;
-    type MutableSourceSubscribeFn<TSource extends NonNullableValue, TVersion extends NonNullableValue> = (
-        source: TSource,
-        callback: (version: TVersion) => void,
+    type MutableSourceType<T> = T extends MutableSource<infer Source, any> ? Source : never;
+    type MutableSourceVersionType<T> = T extends MutableSource<any, infer Version> ? Version : never;
+    type MutableSourceSubscribeFn<Source extends NonNullableValue, Version extends NonNullableValue> = (
+        source: Source,
+        callback: (version: Version) => void,
     ) => (void | (() => void));
-    function createMutableSource<TSource extends NonNullableValue, TVersion extends NonNullableValue>(
-        source: TSource,
-        getVersion: (source: TSource) => TVersion,
-    ): MutableSource<TSource, TVersion>;
+    function createMutableSource<Source extends NonNullableValue, Version extends NonNullableValue>(
+        source: Source,
+        getVersion: (source: Source) => Version,
+    ): MutableSource<Source, Version>;
 
     export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
     export type SuspenseListTailMode = 'collapsed' | 'hidden';
@@ -191,9 +191,9 @@ declare module '.' {
      *
      * @see https://github.com/reactjs/rfcs/pull/147
      */
-    function useMutableSource<TSource extends NonNullableValue, TVersion extends NonNullableValue, TSnapshot>(
-        source: MutableSource<TSource, TVersion>,
-        getSnapshot: (source: TSource) => TSnapshot,
-        subscribe: MutableSourceSubscribeFn<TSource, TVersion>,
-    ): TSnapshot;
+    function useMutableSource<Source extends NonNullableValue, Version extends NonNullableValue, Snapshot>(
+        source: MutableSource<Source, Version>,
+        getSnapshot: (source: Source) => Snapshot,
+        subscribe: MutableSourceSubscribeFn<Source, Version>,
+    ): Snapshot;
 }
