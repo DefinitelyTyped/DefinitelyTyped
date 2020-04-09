@@ -38,7 +38,24 @@ import React = require('.');
 
 export {};
 
+type NonNullableValue = string | number | boolean | object | symbol | bigint;
+
 declare module '.' {
+    type MutableSource<TSource extends NonNullableValue, TVersion extends NonNullableValue> = {
+        _source: TSource,
+        _getVersion: (source: TSource) => TVersion,
+    };
+    type MutableSourceType<T> = T extends MutableSource<infer TSource, any> ? TSource : never;
+    type MutableSourceVersionType<T> = T extends MutableSource<any, infer TVersion> ? TVersion : never;
+    type MutableSourceSubscribeFn<TSource extends NonNullableValue, TVersion extends NonNullableValue> = (
+        source: TSource,
+        callback: (version: TVersion) => void,
+    ) => (void | (() => void));
+    function createMutableSource<TSource extends NonNullableValue, TVersion extends NonNullableValue>(
+        source: TSource,
+        getVersion: (source: TSource) => TVersion,
+    ): MutableSource<TSource, TVersion>;
+
     export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
     export type SuspenseListTailMode = 'collapsed' | 'hidden';
 
@@ -163,4 +180,20 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
      */
     export function useTransition(config?: SuspenseConfig | null): [TransitionStartFunction, boolean];
+
+    /**
+     * `useMutableSource` enables React components to **safely** and **efficiently** read from a mutable external source in Concurrent Mode.
+     * The API will detect mutations that occur during a render to avoid tearing and it will automatically schedule updates when the source is mutated.
+     *
+     * @param source A source created by `createMutableSource`.
+     * @param getSnapshot A function to snapshot a version of external source.
+     * @param subscribe Can subscribe to root level change events, or more snapshot-specific events.
+     *
+     * @see https://github.com/reactjs/rfcs/pull/147
+     */
+    function useMutableSource<TSource extends NonNullableValue, TVersion extends NonNullableValue, TSnapshot>(
+        source: MutableSource<TSource, TVersion>,
+        getSnapshot: (source: TSource) => TSnapshot,
+        subscribe: MutableSourceSubscribeFn<TSource, TVersion>,
+    ): TSnapshot;
 }
