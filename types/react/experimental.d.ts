@@ -38,7 +38,7 @@ import React = require('.');
 
 export {};
 
-type NonNullableValue = string | number | boolean | object | symbol | bigint;
+type NonNullableValue = string | number | boolean | object | symbol;
 
 declare module '.' {
     type MutableSource<TSource extends NonNullableValue, TVersion extends NonNullableValue> = {
