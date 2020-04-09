@@ -2447,3 +2447,21 @@ Animal2.find().distinct('_id').byName('fido').exec(function(err, animal) {
 Animal2.findOne().where({ type: 'dog' }).byName('fido').exec(function(err, animal) {
   console.log(animal);
 });
+
+
+/* Filter query */
+
+interface Foobar extends mongoose.Document {
+  _id: number;
+  name: string;
+  type: string;
+  tags: string[];
+}
+var foobarSchema = new mongoose.Schema({
+  _id: Number,
+  name: String,
+  type: String,
+  tags: { type: [String], index: true } // field level
+});
+var Foobar = mongoose.model<Foobar, mongoose.Model<Foobar>>('AnimFoobarl', foobarSchema);
+Foobar.find({ _id: 123 });
