@@ -1,9 +1,10 @@
-// Type definitions for eslint 6.1
+// Type definitions for eslint 6.8
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
 //                 Saad Quadri <https://github.com/saadq>
 //                 Jason Kwok <https://github.com/JasonHK>
+//                 Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -319,16 +320,24 @@ export namespace Rule {
         report(descriptor: ReportDescriptor): void;
     }
 
+    interface ReportDescriptorOptionsBase {
+        data?: { [key: string]: string };
+
+        fix?: null | ((fixer: RuleFixer) => null | Fix | IterableIterator<Fix> | Fix[]);
+    }
+
+    type SuggestionDescriptorMessage = { desc: string } | { messageId: string };
+    type SuggestionReportDescriptor = SuggestionDescriptorMessage & ReportDescriptorOptionsBase;
+
+    interface ReportDescriptorOptions extends ReportDescriptorOptionsBase {
+        suggest?: SuggestionReportDescriptor[] | null;
+    }
+
     type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
     type ReportDescriptorMessage = { message: string } | { messageId: string };
     type ReportDescriptorLocation =
         | { node: ESTree.Node }
         | { loc: AST.SourceLocation | { line: number; column: number } };
-    interface ReportDescriptorOptions {
-        data?: { [key: string]: string };
-
-        fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix> | Fix[];
-    }
 
     interface RuleFixer {
         insertTextAfter(nodeOrToken: ESTree.Node | AST.Token, text: string): Fix;
@@ -378,33 +387,45 @@ export class Linter {
 
 export namespace Linter {
     type Severity = 0 | 1 | 2;
-    type RuleLevel = Severity | 'off' | 'warn' | 'error';
 
+    type RuleLevel = Severity | 'off' | 'warn' | 'error';
     interface RuleLevelAndOptions extends Array<any> {
         0: RuleLevel;
     }
+
+    type RuleEntry = RuleLevel | RuleLevelAndOptions;
+
+    interface RulesRecord {
+        [rule: string]: RuleEntry;
+    }
+
     interface HasRules {
-        rules?: {
-            [name: string]: RuleLevel | RuleLevelAndOptions;
-        };
+        rules?: Partial<RulesRecord>;
     }
 
-    interface RuleOverride extends HasRules {
+    interface BaseConfig extends HasRules {
+        $schema?: string;
+        env?: { [name: string]: boolean };
         extends?: string | string[];
-        excludedFiles?: string[];
-        files?: string[];
-    }
-
-    interface Config extends HasRules {
+        globals?: { [name: string]: boolean };
+        noInlineConfig?: boolean;
+        overrides?: ConfigOverride[];
         parser?: string;
         parserOptions?: ParserOptions;
-        settings?: { [name: string]: any };
-        env?: { [name: string]: boolean };
-        globals?: { [name: string]: boolean };
-        extends?: string | string[];
-        overrides?: RuleOverride[];
-        processor?: string;
         plugins?: string[];
+        processor?: string;
+        reportUnusedDisableDirectives?: boolean;
+        settings?: { [name: string]: any };
+    }
+
+    interface ConfigOverride extends BaseConfig {
+        excludedFiles?: string | string[];
+        files: string | string[];
+    }
+
+    // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
+    interface Config extends BaseConfig {
+        ignorePatterns?: string | string[];
         root?: boolean;
     }
 
@@ -429,6 +450,12 @@ export namespace Linter {
         reportUnusedDisableDirectives?: boolean;
     }
 
+    interface LintSuggestion {
+        desc: string;
+        fix: Rule.Fix;
+        messageId?: string;
+    }
+
     interface LintMessage {
         column: number;
         line: number;
@@ -436,11 +463,13 @@ export namespace Linter {
         endLine?: number;
         ruleId: string | null;
         message: string;
+        messageId?: string;
         nodeType: string;
         fatal?: true;
         severity: Severity;
         fix?: Rule.Fix;
         source: string | null;
+        suggestions?: LintSuggestion[];
     }
 
     interface FixOptions extends LintOptions {
@@ -592,6 +621,13 @@ export namespace RuleTester {
         globals?: { [name: string]: boolean };
     }
 
+    interface SuggestionOutput {
+        messageId?: string;
+        desc?: string;
+        data?: Record<string, any>;
+        output: string;
+    }
+
     interface InvalidTestCase extends ValidTestCase {
         errors: number | Array<TestCaseError | string>;
         output?: string | null;
@@ -606,6 +642,7 @@ export namespace RuleTester {
         column?: number;
         endLine?: number;
         endColumn?: number;
+        suggestions?: SuggestionOutput[];
     }
 }
 

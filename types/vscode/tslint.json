@@ -17,6 +17,7 @@
         "no-single-declare-module": false,
         "no-unnecessary-class": false,
         "no-unnecessary-generics": false,
+        "member-access": false,
         "npm-naming": false,
         "prefer-method-signature": false,
         "strict-export-declare-modifiers": false,

@@ -153,6 +153,15 @@ function testPlugin(player: videojs.Player, options: {}) {
 			this.player.on('pause', () => {
 				videojs.log('playback ended');
 			});
+
+			const media = this.player.getMedia();
+
+			this.player.loadMedia({
+                src: "http://www.example.com/path/to/video.mp4",
+                poster: "http://www.example.com/path/to/image.jpg",
+            }, () => {
+                videojs.log('loadMedia ready!');
+            });
         }
     }
 

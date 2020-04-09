@@ -91,6 +91,7 @@ interface TextKnownProps
     extends BoxKnownProps,
         StyledSystem.FontFamilyProps,
         StyledSystem.FontWeightProps,
+        StyledSystem.FontStyleProps,
         StyledSystem.TextAlignProps,
         StyledSystem.LineHeightProps,
         StyledSystem.LetterSpacingProps {}

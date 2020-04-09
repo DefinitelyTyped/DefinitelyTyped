@@ -458,6 +458,7 @@ objSchema.noUnknown(true, 'message');
 objSchema.noUnknown(true, () => 'message');
 objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
+objSchema.snakeCase();
 objSchema.constantCase();
 
 const description: SchemaDescription = {

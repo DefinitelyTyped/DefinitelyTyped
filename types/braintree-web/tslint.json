@@ -13,6 +13,7 @@
         "no-mergeable-namespace": false,
         "no-padding": false,
         "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
         "no-var-keyword": false,

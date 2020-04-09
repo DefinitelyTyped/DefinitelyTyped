@@ -37,6 +37,22 @@ const connection3 = mongoose.connect(connectUri, function (error) {
   error.stack;
 });
 
+/**
+ * Test taken from MongoDB CSFLE guide 
+ * https://docs.mongodb.com/drivers/use-cases/client-side-field-level-encryption-guide
+ */
+
+const connection4:Promise<mongoose.Mongoose> = mongoose.connect(connectUri,{
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  autoEncryption: {
+    keyVaultNamespace: 'encryption.__keyVault',
+    kmsProviders: {},
+    schemaMap: {},
+    extraOptions: {}
+  }
+})
+
 var mongooseConnection: mongoose.Connection = mongoose.createConnection();
 mongooseConnection.dropDatabase().then(()=>{});
 mongooseConnection.dropCollection('foo').then(()=>{});
