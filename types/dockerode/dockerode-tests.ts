@@ -52,7 +52,7 @@ const docker10 = new Docker({
     host: '192.168.1.10',
     port: 22,
     username: 'test',
-    sshAgent: '/tmp/ssh-abcde/agent.12345',
+    sshAuthAgent: '/tmp/ssh-abcde/agent.12345',
 });
 
 async function foo() {
