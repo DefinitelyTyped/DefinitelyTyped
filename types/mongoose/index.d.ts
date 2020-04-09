@@ -98,12 +98,15 @@ declare module "mongoose" {
    * which would result in a passing conditional, because `never` is included in all types.
    */
   export type MongooseFilterQuery<T> = {
-    [P in keyof T]?: P extends '_id' ?
-      mongodb.Condition<string | mongodb.ObjectId | { _id: mongodb.ObjectId }> :
-      [Extract<T[P], mongodb.ObjectId>] extends [never] ?
-        mongodb.Condition<T[P]> :
-        mongodb.Condition<T[P] | string>;
-  } & mongodb.RootQuerySelector<T>;
+    [P in keyof T]?: P extends '_id'
+      ? [Extract<T[P], mongodb.ObjectId>] extends [never]
+        ? mongodb.Condition<T[P]>
+        : mongodb.Condition<T[P] | string | { _id: mongodb.ObjectId }>
+      : [Extract<T[P], mongodb.ObjectId>] extends [never]
+      ? mongodb.Condition<T[P]>
+      : mongodb.Condition<T[P] | string>;
+  } &
+    mongodb.RootQuerySelector<T>;  
 
   /* FilterQuery alias type for using as type for filter/conditions parameters */
   export type FilterQuery<T> = MongooseFilterQuery<DocumentDefinition<T>>;
