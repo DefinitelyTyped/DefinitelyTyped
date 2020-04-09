@@ -2,7 +2,7 @@
 // Project: https://github.com/tannerlinsley/react-table
 // Definitions by: Guy Gascoigne-Piggford <https://github.com/ggascoigne>,
 //                 Michael Stramel <https://github.com/stramel>
-//                 gargroh <https://github.com/gargroh>
+//                 Rohit Garg <https://github.com/gargroh>
 //                 Jason Clark <https://github.com/riceboyler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
@@ -66,6 +66,7 @@ export interface Row<D extends object = {}> extends UseTableRowProps<D> {}
 export interface TableCommonProps {
     style?: CSSProperties;
     className?: string;
+    role?: string;
 }
 
 export interface TableProps extends TableCommonProps {}
@@ -122,7 +123,6 @@ export type UseTableOptions<D extends object> = {
     reducer: (newState: TableState<D>, action: ActionType, previousState: TableState<D>) => TableState<D>;
     useControlledState: (state: TableState<D>, meta: Meta<D>) => TableState<D>;
     defaultColumn: Partial<Column<D>>;
-    initialRowStateKey: IdType<D>;
     getSubRows: (originalRow: D, relativeIndex: number) => D[];
     getRowId: (originalRow: D, relativeIndex: number, parent?: Row<D>) => string;
 }>;
