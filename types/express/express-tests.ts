@@ -168,6 +168,17 @@ namespace express_tests {
     // Params cannot be a custom type that does not conform to constraint
     router.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
 
+    // Query can be a custom type
+    router.get('/:foo', (req: express.Request<{}, any, any , {q: string}>) => {
+        req.query.q; // $ExpectType string
+        req.query.a; // $ExpectError
+    });
+
+    // Query will be defaulted to any
+    router.get('/:foo', (req: express.Request<{}>) => {
+        req.query; // $ExpectType Query
+    });
+
     // Response will default to any type
     router.get("/", (req: Request, res: express.Response) => {
         res.json({});
