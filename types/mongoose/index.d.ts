@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.7.12
+// Type definitions for Mongoose 5.7.13
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -37,7 +37,8 @@
 //                 Dongjun Lee <https://github.com/ChazEpps>
 //                 Valentin Agachi <https://github.com/avaly>
 //		           Jan Nemcik <https://github.com/JanNemcik>
-//                 Cl3dson <https://github.com/cl3dson> 
+//                 Cl3dson <https://github.com/cl3dson>
+//                 Lucien Lee <https://github.com/lucienlee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -82,7 +83,7 @@ declare module "mongoose" {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
   /* Helper type to extract a definition type from a Document type */
-  type DocumentDefinition<T> = Omit<T, Exclude<keyof Document, '_id'>>;
+  type DocumentDefinition<T> = Omit<T, Exclude<keyof Document, '_id' | 'id'>>;
 
   /**
    * Patched version of FilterQuery to also allow:
@@ -350,7 +351,7 @@ declare module "mongoose" {
      * Each state change emits its associated event name.
      */
     readyState: number;
-      
+
     /** Connected database name */
     name: string
 
