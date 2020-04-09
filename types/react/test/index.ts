@@ -467,6 +467,16 @@ type ForwardingRefComponentAsRef = React.ElementRef<typeof ForwardingRefComponen
 type MemoizedForwardingRefComponentAsRef = React.ElementRef<typeof MemoizedForwardingRefComponent>; // $ExpectType RefComponent
 type LazyComponentAsRef = React.ElementRef<typeof LazyComponent>; // $ExpectType RefComponent
 
+class CustomView extends React.Component { }
+declare global {
+    namespace JSX {
+        interface IntrinsicElements {
+            CustomView: IntrinsicClassAttributes<CustomView>;
+        }
+    }
+}
+type CustomIntrinsicElementRef = React.ElementRef<'CustomView'>; // $ExpectType CustomView
+
 //
 // Attributes
 // --------------------------------------------------------------------------

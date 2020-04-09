@@ -25,6 +25,7 @@
 //                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
 //                 JongChan Choi <https://github.com/disjukr>
 //                 Victor Magalhães <https://github.com/vhfmag>
+//                 Hyeseong Kim <https://github.com/cometkim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -97,7 +98,7 @@ declare namespace React {
      *   and used `React.ElementRef<typeof Foo>` then the type would be the instance of `Foo`.
      * - React stateless functional components do not have a backing instance and so `React.ElementRef<typeof Bar>`
      *   (when `Bar` is `function Bar() {}`) will give you the `undefined` type.
-     * - JSX intrinsics like `div` will give you their DOM instance. For `React.ElementRef<'div'>` that would be
+     * - JSX intrinsics like `div` will give you their host element instance. For `React.ElementRef<'div'>` that would be
      *   `HTMLDivElement`. For `React.ElementRef<'input'>` that would be `HTMLInputElement`.
      * - React stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
      *   to component.
@@ -122,7 +123,7 @@ declare namespace React {
         : C extends ((props: any, context?: any) => ReactElement | null)
         ? undefined
         : C extends keyof JSX.IntrinsicElements
-        ? JSX.IntrinsicElements[C] extends DOMAttributes<infer E>
+        ? JSX.IntrinsicElements[C] extends JSX.IntrinsicClassAttributes<infer E>
             ? E
             : never
         : never;
