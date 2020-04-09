@@ -41,10 +41,10 @@ export {};
 type NonNullableValue = string | number | boolean | object | symbol;
 
 declare module '.' {
-    type MutableSource<Source extends NonNullableValue, Version extends NonNullableValue> = {
+    type MutableSource<Source extends NonNullableValue, Version extends NonNullableValue> = Pick<{
         _source: Source,
         _getVersion: (source: Source) => Version,
-    };
+    }, never>;
     type MutableSourceType<T> = T extends MutableSource<infer Source, any> ? Source : never;
     type MutableSourceVersionType<T> = T extends MutableSource<any, infer Version> ? Version : never;
     type MutableSourceSubscribeFn<Source extends NonNullableValue, Version extends NonNullableValue> = (
