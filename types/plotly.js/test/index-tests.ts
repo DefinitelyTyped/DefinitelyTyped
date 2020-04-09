@@ -493,6 +493,15 @@ function rand() {
 		}, [0]);
 	});
 
+	myPlot.on('plotly_relayout', eventdata => {
+		eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
+		eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
+		eventdata["xaxis.range[0]"]; // $ExpectType number | undefined
+		eventdata["xaxis.range[1]"]; // $ExpectType number | undefined
+		eventdata["yaxis.range[0]"]; // $ExpectType number | undefined
+		eventdata["yaxis.range[1]"]; // $ExpectType number | undefined
+	});
+
 	myPlot.on('plotly_restyle', (data) => {
 		console.log('restyling');
 	});

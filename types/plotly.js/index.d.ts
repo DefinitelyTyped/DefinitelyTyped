@@ -85,21 +85,19 @@ export type PlotRestyleEvent = [
 	number[]	// array of traces updated
 ];
 
-export interface PlotAxis {
-	range: [number, number];
-	autorange: boolean;
-}
-
 export interface PlotScene {
 	center: Point;
 	eye: Point;
 	up: Point;
 }
 
-export interface PlotRelayoutEvent {
-	xaxis: PlotAxis;
-	yaxis: PlotAxis;
-	scene: PlotScene;
+export interface PlotRelayoutEvent extends Partial<Layout> {
+	"xaxis.range[0]"?: number;
+	"xaxis.range[1]"?: number;
+	"yaxis.range[0]"?: number;
+	"yaxis.range[1]"?: number;
+	"xaxis.autorange"?: boolean;
+	"yaxis.autorange"?: boolean;
 }
 
 export interface ClickAnnotationEvent {
