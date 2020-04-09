@@ -20018,7 +20018,11 @@ declare namespace Excel {
     }
     /**
      *
-     * Provides information about the binding that raised the SelectionChanged event.
+     * Provides information about the selection that raised the "SelectionChanged" event.
+     * 
+     * **Note**: If multiple, discontiguous cells are selected, 
+     * `Binding.onSelectionChanged only reports row and column information for one selection.
+     * Use `Worksheet.onSelectionChanged` for multiple selected ranges.
      *
      * [Api set: ExcelApi 1.2]
      */
@@ -25147,6 +25151,10 @@ declare namespace Excel {
         /**
          *
          * Occurs when the selected content in the binding is changed.
+         * 
+         * **Note**: If multiple, discontiguous cells are selected, 
+         * `Binding.onSelectionChanged only reports row and column information for one selection. 
+         * Use `Worksheet.onSelectionChanged` for multiple selected ranges.
          *
          * [Api set: ExcelApi 1.2]
          *
