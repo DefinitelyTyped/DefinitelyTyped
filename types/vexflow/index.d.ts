@@ -65,7 +65,7 @@ declare namespace Vex {
         fillText(text : string, x : number, y : number) : IRenderContext;
         save() : IRenderContext;
         restore() : IRenderContext;
-        openGroup() : Node | void;
+        openGroup() : Node | undefined;
         closeGroup() : void;
 
         /**
@@ -325,7 +325,7 @@ declare namespace Vex {
             fillText(text : string, x : number, y : number) : void;
             save() : void;
             restore() : void;
-            openGroup() : void;
+            openGroup() : undefined;
             closeGroup() : void;
         }
 
@@ -782,7 +782,7 @@ declare namespace Vex {
             fillText(text : string, x : number, y : number) : RaphaelContext;
             save() : RaphaelContext;
             restore() : RaphaelContext;
-            openGroup() : void;
+            openGroup() : undefined;
             closeGroup() : void;
         }
 
