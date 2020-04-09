@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### 2020-04-09 (react-table 7.0.4)
+### 2020-04-09 (@types/react-table 7.0.14, react-table 7.0.4)
 
 A number of breaking changes related to changing `Column<D>` from `interface` to `type` and making the columns types stricter overall. For more information and migration guide see [the Pull Request for these changes](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/43714).
 
