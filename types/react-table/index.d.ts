@@ -66,6 +66,7 @@ export interface Row<D extends object = {}> extends UseTableRowProps<D> {}
 export interface TableCommonProps {
     style?: CSSProperties;
     className?: string;
+    role?: string;
 }
 
 export interface TableProps extends TableCommonProps {}
