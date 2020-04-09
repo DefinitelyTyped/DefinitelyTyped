@@ -44,6 +44,7 @@ declare namespace braintree {
         discount: DiscountGateway;
         dispute: DisputeGateway;
         merchantAccount: MerchantAccountGateway;
+        oauth: OAuthGateway;
         paymentMethod: PaymentMethodGateway;
         paymentMethodNonce: PaymentMethodNonceGateway;
         plan: PlanGateway;
@@ -148,6 +149,13 @@ declare namespace braintree {
             updates: MerchantAccountUpdateRequest,
         ): Promise<ValidatedResponse<MerchantAccount>>;
         find(merchantAccountId: string): Promise<MerchantAccount>;
+    }
+
+    interface OAuthGateway {
+        createTokenFromCode(request: OAuthCreateTokenFromCodeRequest): Promise<ValidatedResponse<OAuthToken>>;
+        createTokenFromRefreshToken(request: OAuthCreateTokenFromRefreshTokenRequest): Promise<ValidatedResponse<OAuthToken>>;
+        revokeAccessToken(accessToken: string): Promise<ValidatedResponse<void>>;
+        connectUrl(urlRequest: OAuthConnectUrlRequest): string;
     }
 
     interface PaymentMethodGateway {
@@ -718,6 +726,32 @@ declare namespace braintree {
     }
 
     export type MerchantAccountStatus = 'Pending' | 'Active' | 'Suspended';
+
+    /**
+     * OAuth
+     */
+
+    export interface OAuthToken {
+        credentials: {
+            accessToken: string;
+            expiresAt: string;
+            refreshToken: string;
+        };
+    }
+
+    export interface OAuthCreateTokenFromCodeRequest {
+        code: string;
+    }
+
+    export interface OAuthCreateTokenFromRefreshTokenRequest {
+        refreshToken: string;
+    }
+
+    export interface OAuthConnectUrlRequest {
+        redirectUri: string;
+        scope: string;
+        state?: string;
+    }
 
     /**
      * Payment Method
