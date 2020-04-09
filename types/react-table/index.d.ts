@@ -15,6 +15,8 @@
 // no-unnecessary-generics is disabled because many of these definitions are either used in a generic
 // context or the signatures are required to match for declaration merging
 
+// The changelog for the important changes is located in the Readme.md
+
 import {
     ComponentType,
     DependencyList,

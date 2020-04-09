@@ -1,5 +1,15 @@
 # Types for react-table v7
 
+## Changelog
+
+This Changelog corresponds
+
+### 2020-04-09 (react-table 7.0.4)
+
+A number of breaking changes related to changing `Column<D>` from `interface` to `type` and making the columns types stricter overall. For more information and migration guide see [the Pull Request for these changes](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/43714).
+
+## Configuration Using Declaration Merging
+
 These types depend upon declaration merging to work well.
 
 To get started, create a file `react-table-config.d.ts` using the example further down this readme, place it in your source tree (e.g. into a types folder). This expands the default types with all of the plugin extensions currently in the type definitions.
