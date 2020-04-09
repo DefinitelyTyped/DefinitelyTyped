@@ -57,7 +57,7 @@ declare namespace QueryString {
 
     interface ParsedQs { [key: string]: string | string[] | ParsedQs | ParsedQs[] }
 
-    // The value type here is a "poor man's `unknown`". When these types support TypeScript
+    // TODO: The value type here is a "poor man's `unknown`". When these types support TypeScript
     // 3.0+, we can replace this with `unknown`.
     type PoorMansUnknown = {} | null | undefined;
 
