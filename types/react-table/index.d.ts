@@ -63,37 +63,43 @@ export interface ColumnGroupInterface<D extends object> {
     columns: Array<Column<D>>;
 }
 
-export type ColumnGroup<D extends object = {}> = ColumnInterface<D> &
-    ColumnGroupInterface<D> &
-    (
+export type ColumnGroup<D extends object = {}> =
+    & ColumnInterface<D>
+    & ColumnGroupInterface<D>
+    & (
         | { Header: string; }
         | ({ id: IdType<D>; } & {
             Header: Renderer<HeaderProps<D>>;
         })
-    ) &
+    )
     // Not used, but needed for backwards compatibility
-    { accessor?: Accessor<D>; };
+    & { accessor?: Accessor<D>; };
 
 type ValueOf<T> = T[keyof T];
 
 // The accessors like `foo.bar` are not supported, use functions instead
-export type ColumnWithStrictAccessor<D extends object = {}> = ValueOf<{
-    [K in keyof D]: {
-        accessor: K;
-    } & ColumnInterfaceBasedOnValue<D, D[K]>;
-}>;
+export type ColumnWithStrictAccessor<D extends object = {}> =
+    & ColumnInterface<D>
+    & ValueOf<{
+        [K in keyof D]: {
+            accessor: K;
+        } & ColumnInterfaceBasedOnValue<D, D[K]>;
+    }>;
 
 export type ColumnWithLooseAccessor<D extends object = {}> =
-    ColumnInterfaceBasedOnValue<D> &
-    ({ Header: string } | { id: IdType<D> }) &
-    { accessor?: Accessor<D>; };
+    & ColumnInterface<D>
+    & ColumnInterfaceBasedOnValue<D>
+    & (
+        | { Header: string }
+        | { id: IdType<D> }
+        | { accessor: keyof D extends never ? IdType<D> : never }
+    )
+    & { accessor?: keyof D extends never ? IdType<D> | Accessor<D> : Accessor<D>; };
 
-export type Column<D extends object = {}> = ColumnInterface<D> &
-    (
-        | ColumnWithStrictAccessor<D>
-        | ColumnWithLooseAccessor<D>
-        | ColumnGroup<D>
-    );
+export type Column<D extends object = {}> =
+    | ColumnGroup<D>
+    | ColumnWithLooseAccessor<D>
+    | ColumnWithStrictAccessor<D>;
 
 export interface ColumnInstance<D extends object = {}>
     extends Omit<ColumnInterface<D>, 'id'>,
