@@ -16,10 +16,10 @@
         ],
         "paths": {
             "react-bootstrap": [
-                "react-router/v1"
+                "react-bootstrap/v1"
             ],
             "react-bootstrap/*": [
-                "react-router/v1/*"
+                "react-bootstrap/v1/*"
             ]
         },
         "types": [],
