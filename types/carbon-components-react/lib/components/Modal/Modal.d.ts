@@ -14,6 +14,7 @@ export interface ModalProps extends InheritedProps {
     modalHeading?: React.ReactNode,
     modalLabel?: React.ReactNode,
     open?: boolean,
+    size?: "xs" | "sm" | "lg",
     onRequestClose?(event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLDivElement>): void,
     onRequestSubmit?(event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLDivElement>): void,
     onSecondarySubmit?: ModalProps["onRequestClose"],
