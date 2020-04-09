@@ -224,6 +224,12 @@ namespace express_tests {
     app.listen(3000);
 
     const next: express.NextFunction = () => { };
+
+    // Make sure we can use every generic
+    const someOtherHandler: express.RequestHandler<{}, any, any , { foo: string }> = (req, res, next) => next();
+
+    // Make sure we can use every generic
+    const someOtherErrorHandler: express.ErrorRequestHandler<{}, any, any , { foo: string }> = (req, res) => {};
 }
 
 /***************************
