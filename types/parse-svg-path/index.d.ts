@@ -16,4 +16,6 @@ type ArcCommand = ['A' | 'a', number, number, number, number, number, number, nu
 type AnyCommand = MoveCommand | LineCommand | HorizontalCommand | VerticalCommand |
     ClosePathCommand | BezierCurveCommand | FollowingBezierCurveCommand |
     QuadraticCurveCommand | FollowingQuadraticCurveCommand | ArcCommand;
-export default function parse(path: string): AnyCommand[];
+declare function parse(path: string): AnyCommand[];
+export = parse;
+
