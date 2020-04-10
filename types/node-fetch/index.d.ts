@@ -140,7 +140,7 @@ export class Blob {
 export class Body {
     constructor(body?: any, opts?: { size?: number; timeout?: number });
     arrayBuffer(): Promise<ArrayBuffer>;
-    blob(): Promise<Buffer>;
+    blob(): Promise<Blob>;
     body: NodeJS.ReadableStream;
     bodyUsed: boolean;
     buffer(): Promise<Buffer>;
