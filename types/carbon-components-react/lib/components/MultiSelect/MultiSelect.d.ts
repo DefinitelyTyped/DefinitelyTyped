@@ -27,7 +27,7 @@ export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extend
     open?: boolean,
     selectionFeedback?: "fixed" | "top" | "top-after-reopen",
     useTitleInItem?: boolean,
-    placeholder?: string,
+    placeholder: string,
     titleText?: string,
     onChange: ({ selectedItems }: { selectedItems: T[] }) => void,
 }
