@@ -3,6 +3,7 @@ import {
     BufferOptions,
     TDocumentDefinitions,
     TFontDictionary,
+    TableLayout,
 } from 'pdfmake/interfaces';
 
 const fonts: TFontDictionary = {
@@ -20,10 +21,17 @@ const dd: TDocumentDefinitions = {
     content: 'Hello world!',
 };
 
+const customTableLayouts: {[key: string]: TableLayout} = {
+    customLayout: {
+        hLineColor: 'red',
+        vLineColor: () => 'red',
+    }
+};
+
 const options: BufferOptions = {
     fontLayoutCache: true,
     bufferPages: true,
-    tableLayouts: 'noBorders',
+    tableLayouts: customTableLayouts,
     autoPrint: true,
     progressCallback: progress =>
         console.log('Creating pdf: ', progress * 100, '%...'),
