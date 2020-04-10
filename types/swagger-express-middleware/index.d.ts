@@ -6,8 +6,8 @@
 // TypeScript Version: 2.3
 
 /* =================== USAGE ===================
-import * as express from "express";
-import * as SwaggerExpressMiddleware from "swagger-express-middleware";
+import express from "express";
+import SwaggerExpressMiddleware = require("swagger-express-middleware");
 
 let app = express();
 
