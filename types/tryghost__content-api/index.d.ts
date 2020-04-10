@@ -126,7 +126,7 @@ export interface PostOrPage extends Identification, Excerpt, CodeInjection, Meta
     page?: boolean;
 
     // Reading time
-    reading_time?: number,
+    reading_time?: number;
 
     // Tags - Only shown when using Include param
     tags?: Tag[];
