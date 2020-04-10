@@ -51,7 +51,8 @@ export interface Twitter {
     twitter_description?: Nullable<string>;
 }
 
-export interface SocialMedia extends Facebook, Twitter {}
+export interface SocialMedia extends Facebook, Twitter {
+}
 
 export interface Settings extends Metadata, CodeInjection, SocialMedia {
     title?: string;
@@ -178,9 +179,14 @@ interface BrowseResults<T> extends Array<T> {
     meta: { pagination: Pagination };
 }
 
-export interface PostsOrPages extends BrowseResults<PostOrPage>{}
-export interface Authors extends BrowseResults<Author>{}
-export interface Tags extends BrowseResults<Tag>{}
+export interface PostsOrPages extends BrowseResults<PostOrPage> {
+}
+
+export interface Authors extends BrowseResults<Author> {
+}
+
+export interface Tags extends BrowseResults<Tag> {
+}
 
 export interface SettingsResponse extends Settings {
     meta: any;
@@ -232,7 +238,7 @@ export interface GhostAPI {
 
 declare var GhostContentAPI: {
     (options: GhostContentAPIOptions): GhostAPI;
-    new (options: GhostContentAPIOptions): GhostAPI;
+    new(options: GhostContentAPIOptions): GhostAPI;
 };
 
 export default GhostContentAPI;
