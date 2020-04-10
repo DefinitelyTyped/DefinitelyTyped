@@ -11,6 +11,7 @@
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Alex Savin <https://github.com/alexandrusavin>
 //                 Alexis Tyler <https://github.com/OmgImAlexis>
+//                 Jakub Kisielewski <https://github.com/kbkk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
