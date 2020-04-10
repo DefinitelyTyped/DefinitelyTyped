@@ -13,10 +13,9 @@ export type Point = [number, number];
 
 export interface ProjectionConfig {
     scale?: number;
-    xOffset?: number;
-    yOffset?: number;
+    center?: [number, number];
+    parallels?: [number, number];
     rotate?: [number, number, number];
-    precision?: number;
 }
 export type ProjectionFunction = (width: number, height: number, config: ProjectionConfig) => GeoProjection;
 
