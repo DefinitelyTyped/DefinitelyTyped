@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-declare var minify: (options?: minify.Options) => NodeJS.ReadWriteStream;
+declare function minify(options?: minify.Options): NodeJS.ReadWriteStream;
 
 declare namespace minify {
     export interface Options {
