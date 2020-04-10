@@ -1349,6 +1349,12 @@ export interface SFTPWrapper extends events.EventEmitter {
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
     write(handle: Buffer, buffer: Buffer, offset: number, length: number, position: number, callback: (err: Error | undefined) => void): boolean;
+    
+    /**
+     * (Client-only)
+     * Write something to the file.
+     */
+    writeFile(remotePath: string, options?: { encoding?: string, mode?: string | number, flag?: string } | string, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
