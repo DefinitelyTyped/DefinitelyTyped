@@ -1,4 +1,4 @@
-// Type definitions for karma 5.0
+// Type definitions for karma 4.4
 // Project: https://github.com/karma-runner/karma, http://karma-runner.github.io
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 James Garbutt <https://github.com/43081j>
@@ -10,6 +10,7 @@
 /// <reference types="node" />
 
 // See Karma public API https://karma-runner.github.io/latest/dev/public-api.html
+import Promise = require('bluebird');
 import https = require('https');
 import { Appender } from 'log4js';
 import { EventEmitter } from 'events';
