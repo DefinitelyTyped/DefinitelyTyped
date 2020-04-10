@@ -1,6 +1,6 @@
 // Type definitions for rr-notifications 1.1
 // Project: https://thegrinder.github.io/rr-notifications
-// Definitions by: Robbie Moore <https://github.com/DefinitelyTyped>
+// Definitions by: Robbie Moore <https://github.com/RobbieGM>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react" />
