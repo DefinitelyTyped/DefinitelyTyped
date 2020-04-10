@@ -3,7 +3,7 @@ import {
     BufferOptions,
     TDocumentDefinitions,
     TFontDictionary,
-    TableLayout,
+    CustomTableLayout,
 } from 'pdfmake/interfaces';
 
 const fonts: TFontDictionary = {
@@ -21,7 +21,7 @@ const dd: TDocumentDefinitions = {
     content: 'Hello world!',
 };
 
-const customTableLayouts: {[key: string]: TableLayout} = {
+const customTableLayouts: {[key: string]: CustomTableLayout} = {
     customLayout: {
         hLineColor: 'red',
         vLineColor: () => 'red',

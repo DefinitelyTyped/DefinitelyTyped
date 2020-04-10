@@ -453,7 +453,7 @@ export interface ContextPageSize {
 export interface BufferOptions {
     fontLayoutCache?: boolean;
     bufferPages?: boolean;
-    tableLayouts?: {[key: string]: TableLayout};
+    tableLayouts?: {[key: string]: CustomTableLayout};
     autoPrint?: boolean;
     progressCallback?: (progress: number) => void;
 }
