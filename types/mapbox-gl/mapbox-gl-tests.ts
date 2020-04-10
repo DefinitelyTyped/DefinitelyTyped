@@ -101,7 +101,7 @@ expectType<mapboxgl.MapboxOptions>({
 /**
  * Create and style marker clusters
  */
-map.on('load', function() {
+map.on('load', function () {
     // Add a new source from our GeoJSON data and set the
     // 'cluster' option to true.
     map.addSource('data', {
@@ -128,7 +128,7 @@ map.on('load', function() {
         [0, '#51bbd6'],
     ];
 
-    layers.forEach(function(layer, i) {
+    layers.forEach(function (layer, i) {
         map.addLayer({
             id: 'cluster-' + i,
             type: 'circle',
@@ -220,11 +220,11 @@ map.on('load', function() {
         id: 'custom',
         type: 'custom',
         renderingMode: '3d',
-        onRemove: function(map, gl) {
+        onRemove: function (map, gl) {
             map; // $ExpectType Map
             gl; // $ExpectType WebGLRenderingContext
         },
-        render: function(gl, matrix) {
+        render: function (gl, matrix) {
             gl; // $ExpectType WebGLRenderingContext
             matrix; // $ExpectType number[]
         },
@@ -238,7 +238,7 @@ map.flyTo({
     speed: 0.5,
     curve: 1,
     screenSpeed: 1,
-    easing: function(t: number) {
+    easing: function (t: number) {
         return t;
     },
     maxDuration: 1,
@@ -599,6 +599,24 @@ let bounds = new mapboxgl.LngLatBounds();
 bool = bounds.isEmpty();
 expectType<boolean>(bounds.contains([37, 50]));
 
+// $ExpectType LngLatBounds
+bounds.extend(new mapboxgl.LngLat(45, 30));
+// $ExpectType LngLatBounds
+bounds.extend({ lng: 45, lat: 30 });
+// $ExpectType LngLatBounds
+bounds.extend({ lon: 45, lat: 30 });
+// $ExpectType LngLatBounds
+bounds.extend([45, 30]);
+// $ExpectType LngLatBounds
+bounds.extend(new mapboxgl.LngLatBounds());
+// $ExpectType LngLatBounds
+bounds.extend([
+    [45, 30],
+    [60, 60],
+]);
+// $ExpectType LngLatBounds
+bounds.extend([45, 30, 60, 60]);
+
 /*
  * GeolocateControl
  */
@@ -761,6 +779,16 @@ expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOp
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts, { key: 'value' }));
 
 expectType<void>(map.triggerRepaint());
+
+// $ExpectType PaddingOptions
+map.getPadding();
+
+// $ExpectType Map
+map.setPadding({ top: 10, bottom: 20, left: 30, right: 40 }, { myData: 'MY DATA' });
+
+// $ExpectType boolean
+map.showPadding;
+map.showPadding = false;
 
 /*
  * Map Events
