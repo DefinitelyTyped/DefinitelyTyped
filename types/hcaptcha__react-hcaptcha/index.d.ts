@@ -6,14 +6,14 @@
 
 import * as React from 'react';
 
-export interface HCaptchaState {
+interface HCaptchaState {
     isApiReady: boolean;
     isRemoved: boolean;
     elementId: string;
     captchaId: string;
 }
 
-export interface HCaptchaProps {
+interface HCaptchaProps {
     onExpire?: () => any;
     onError?: (event: string) => any;
     onVerify?: (token: string) => any;
@@ -24,8 +24,10 @@ export interface HCaptchaProps {
     tabIndex?: number;
 }
 
-export default class HCaptcha extends React.Component<HCaptchaProps, HCaptchaState> {
+declare class HCaptcha extends React.Component<HCaptchaProps, HCaptchaState> {
     resetCaptcha(): void;
     renderCaptcha(): void;
     removeCaptcha(): void;
 }
+
+export = HCaptcha;
