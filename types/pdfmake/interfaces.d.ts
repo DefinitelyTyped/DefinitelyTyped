@@ -108,7 +108,7 @@ export type TableCell =
 
 export interface Table {
     body: TableCell[][];
-    widths?: string | Size[];
+    widths?: '*' | 'auto' | Size[];
     heights?: number | number[] | DynamicRowSize;
     headerRows?: number;
     dontBreakRows?: boolean;
