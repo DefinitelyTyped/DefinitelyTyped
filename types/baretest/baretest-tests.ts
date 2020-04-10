@@ -33,6 +33,5 @@ test("you shouldn't return from an async test function", async () => {
 
 (async () => {
     const result = await test.run();
-    result; // $ExpectType false | undefined
-    // TODO expect result type to be `boolean` after https://github.com/volument/baretest/pull/11 is merged and released
+    result; // $ExpectType boolean
 })();

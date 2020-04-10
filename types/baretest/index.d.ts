@@ -1,4 +1,4 @@
-// Type definitions for baretest 1.0
+// Type definitions for baretest 2.0
 // Project: https://volument.com/baretest
 // Definitions by: Rory O’Kane <https://github.com/roryokane>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,7 @@ interface TesterSubFunctions {
     skip: (name?: string, fn?: SyncOrAsyncVoidFunction) => void;
     before: (fn: SyncOrAsyncVoidFunction) => void;
     after: (fn: SyncOrAsyncVoidFunction) => void;
-    run: () => Promise<undefined | false>; // TODO make this `Promise<boolean>` after https://github.com/volument/baretest/pull/11 is merged and released
+    run: () => Promise<boolean>;
 }
 
 type SyncOrAsyncVoidFunction = () => void | Promise<void>;
