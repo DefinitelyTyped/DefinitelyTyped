@@ -315,6 +315,18 @@ configuration = {
         mainTemplate.hooks.localVars.tap('SomePlugin', resource => {
           return resource.trimLeft();
         });
+        mainTemplate.hooks.afterStartup.tap('SomePlugin', (resource, chunk) => {
+            if (chunk.name) {
+                return `/* In named chunk: ${chunk.name} */ ${resource};`;
+            } else {
+                return resource;
+            }
+        });
+        mainTemplate.hooks.hashForChunk.tap('SomePlugin', (hash, chunk) => {
+            if (chunk.name) {
+                hash.update(chunk.name);
+            }
+        });
         if (mainTemplate.hooks.jsonpScript == null) {
           return;
         }

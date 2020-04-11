@@ -27,6 +27,7 @@
 
 /// <reference types="node" />
 
+import { Hash as CryptoHash } from 'crypto';
 import {
   Tapable,
   HookMap,
@@ -1143,6 +1144,8 @@ declare namespace webpack {
             requireExtensions: SyncWaterfallHook<string, Chunk, string>;
             requireEnsure: SyncWaterfallHook<string, Chunk, string>;
             localVars: SyncWaterfallHook<string, Chunk, string>;
+            afterStartup: SyncWaterfallHook<string, Chunk, string>;
+            hashForChunk: SyncHook<CryptoHash, Chunk>;
           };
           outputOptions: Output;
           requireFn: string;
