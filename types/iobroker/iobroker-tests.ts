@@ -363,3 +363,14 @@ function repro3() {
         list; // $ExpectType StateObject[]
     });
 }
+
+const folderObj: ioBroker.FolderObject = {
+    _id: "id",
+    type: "folder",
+    common: {
+        name: "something",
+        // any property is allowed
+        foo: "bar",
+    },
+    native: {},
+};
