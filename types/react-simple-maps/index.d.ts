@@ -2,6 +2,7 @@
 // Project: https://github.com/zcreativelabs/react-simple-maps#readme
 // Definitions by: Novikov Mihail <https://github.com/thepocp>
 //                 Andrej Mihajlov <https://github.com/pronebird>
+//                 Kouame Komenan  <https://github.com/komenank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
