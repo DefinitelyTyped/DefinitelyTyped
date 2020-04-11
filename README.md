@@ -170,7 +170,7 @@ If it doesn't, you can do so yourself in the comment associated with the PR.
 
 #### Editing tests on an existing package
 
-There should be a `[modulename]-tests.ts` file, and then any `*.ts` which it imports are considered your test files.
+There should be a `[modulename]-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
 These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/yourmodule`.
 
 Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
@@ -202,7 +202,7 @@ const result = twoslash("//")
 You can validate your changes with either:
 
  - `npm test` from the root of this repo, which takes changed files into account
- - `npx tsc` from the modules folder
+ - `npx tsc` from the module's folder
 
 #### Create a new package
 
