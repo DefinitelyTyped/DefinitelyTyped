@@ -20,6 +20,7 @@ If adding a new definition:
 If changing an existing definition:
 - [ ] Provide a URL to documentation or source code which provides context for the suggested changes: <<url here>>
 - [ ] If this PR brings the type definitions up to date with a new version of the JS library, update the version number in the header.
+- [ ] Include [tests for your changes](https://github.com/DefinitelyTyped/DefinitelyTyped#testing)
 - [ ] If you are making substantial changes, consider adding a `tslint.json` containing `{ "extends": "dtslint/dt.json" }`. If for reason the any rule need to be disabled, disable it for that line using `// tslint:disable-next-line [ruleName]` and not for whole package so that the need for disabling can be reviewed.
 
 If removing a declaration:
