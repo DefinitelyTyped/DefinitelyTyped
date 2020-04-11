@@ -947,11 +947,33 @@ class ChunkGroupTestPlugin extends webpack.Plugin {
             const namedChunkGroupA = compilation.addChunkInGroup('vendors-a');
             const namedChunkGroupB = compilation.addChunkInGroup({ name: 'vendors-b' });
             const unnamedChunkGroup = compilation.addChunkInGroup({});
-
+            if (namedChunkGroupA.getNumberOfChildren() > 0) {
+                for (const chunk of namedChunkGroupA.chunks) {}
+            }
+            Array.from(namedChunkGroupA.childrenIterable).forEach(childGroup => {
+                namedChunkGroupA.removeChild(childGroup);
+                namedChunkGroupA.addChild(childGroup);
+            });
+            Array.from(namedChunkGroupA.parentsIterable).forEach(parentGroup => {});
+            namedChunkGroupA.setParents([namedChunkGroupB]);
+            namedChunkGroupA.setParents(new Set([unnamedChunkGroup]));
             compilation.hooks.optimizeModules.tap("ChunkGroupTestPlugin", modules => {
                 for (const module of modules) {
-                    compilation.addChunkInGroup('module', module, { start: { line: 0 } }, 'module.js');
+                    const group = compilation.addChunkInGroup('module', module, { start: { line: 0 } }, 'module.js');
+                    if (module.index) {
+                        group.setModuleIndex(module, module.index);
+                    }
+                    if (module.index2) {
+                        group.setModuleIndex2(module, module.index2);
+                    }
+                    console.log(group.getModuleIndex(module), group.getModuleIndex2(module));
                     break;
+                }
+            });
+            compilation.hooks.optimizeChunks.tap("ChunkGroupTestPlugin", chunks => {
+                const firstChunk = chunks[0];
+                for (const groupChunk of namedChunkGroupA.chunks) {
+                    namedChunkGroupA.insertChunk(firstChunk, groupChunk);
                 }
             });
         });

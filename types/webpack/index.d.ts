@@ -927,6 +927,18 @@ declare namespace webpack {
         type GroupOptions = string | { name?: string; };
 
         class ChunkGroup {
+            chunks: Chunk[];
+            childrenIterable: SortableSet<ChunkGroup>;
+            parentsIterable: SortableSet<ChunkGroup>;
+            insertChunk(chunk: Chunk, before: Chunk): boolean;
+            getNumberOfChildren(): number;
+            setModuleIndex(module: Module, index: number): void;
+            getModuleIndex(module: Module): number | undefined;
+            setModuleIndex2(module: Module, index: number): void;
+            getModuleIndex2(module: Module): number | undefined;
+            addChild(chunk: ChunkGroup): boolean;
+            removeChild(chunk: ChunkGroup): boolean;
+            setParents(newParents: Iterable<ChunkGroup>): void;
         }
 
         class ChunkHash {
