@@ -929,6 +929,23 @@ class DefinePlugin extends webpack.Plugin {
     }
 }
 
+class ChunkGroupTestPlugin extends webpack.Plugin {
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap("ChunkGroupTestPlugin", compilation  => {
+            const namedChunkGroupA = compilation.addChunkInGroup('vendors-a');
+            const namedChunkGroupB = compilation.addChunkInGroup({ name: 'vendors-b' });
+            const unnamedChunkGroup = compilation.addChunkInGroup({});
+
+            compilation.hooks.optimizeModules.tap("ChunkGroupTestPlugin", modules => {
+                for (const module of modules) {
+                    compilation.addChunkInGroup('module', module, { start: { line: 0 } }, 'module.js');
+                    break;
+                }
+            });
+        });
+    }
+}
+
 configuration = {
     module: {
         rules: [

@@ -923,11 +923,31 @@ declare namespace webpack {
             toString(): string;
         }
 
+        type GroupOptions = string | { name?: string; };
+
         class ChunkGroup {
         }
 
         class ChunkHash {
         }
+
+        interface SourcePosition {
+            line: number;
+            column?: number;
+        }
+
+        interface RealDependencyLocation {
+            start: SourcePosition;
+            end?: SourcePosition;
+            index?: number;
+        }
+
+        interface SynteticDependencyLocation {
+            name: string;
+            index?: number;
+        }
+
+        type DependencyLocation = SynteticDependencyLocation | RealDependencyLocation;
 
         class Dependency {
             constructor();
@@ -1201,6 +1221,8 @@ declare namespace webpack {
             missingDependencies: SortableSet<string>;
             hash?: string;
             getStats(): Stats;
+            addChunkInGroup(groupOptions: GroupOptions): ChunkGroup;
+            addChunkInGroup(groupOptions: GroupOptions, module: Module, loc: DependencyLocation, request: string): ChunkGroup;
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
