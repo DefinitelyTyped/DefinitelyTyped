@@ -14,6 +14,9 @@ svgo = new SVGO({
             cleanupAttrs: true,
         },
         {
+            inlineStyles: true,
+        },
+        {
             removeDoctype: true,
         },
         {

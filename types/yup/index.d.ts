@@ -236,10 +236,9 @@ export type ObjectSchemaDefinition<T extends object | null | undefined> = {
  * This is conducive to the functionality of
  * [yup's `object.shape()` method](https://www.npmjs.com/package/yup#objectshapefields-object-nosortedges-arraystring-string-schema).
  */
-export type Shape<T extends object | null | undefined, U extends object> = {
-    [P in keyof T]: P extends keyof U ? U[P] : T[P];
-} &
-    U;
+export type Shape<T extends object | null | undefined, U extends object> =
+  | ({ [P in keyof T]: P extends keyof U ? U[P] : T[P]; } & U)
+  | PreserveOptionals<T>;
 
 export interface ObjectSchemaConstructor {
     <T extends object>(fields?: ObjectSchemaDefinition<T>): ObjectSchema<T>;
@@ -258,6 +257,7 @@ export interface ObjectSchema<T extends object | null | undefined = object> exte
     noUnknown(onlyKnownKeys?: boolean, message?: ObjectLocale['noUnknown']): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
+    snakeCase(): ObjectSchema<T>;
     constantCase(): ObjectSchema<T>;
     nullable(isNullable?: true): ObjectSchema<T | null>;
     nullable(isNullable: false): ObjectSchema<Exclude<T, null>>;
@@ -512,8 +512,13 @@ type KeyOfUndefined<T> = {
     [P in keyof T]-?: undefined extends T[P] ? P : never;
 }[keyof T];
 
+type PreserveNull<T> = T extends null ? null : never;
+type PreserveUndefined<T> = T extends undefined ? undefined : never;
+type PreserveOptionals<T> = PreserveNull<T> | PreserveUndefined<T>;
 type Id<T> = { [K in keyof T]: T[K] };
 type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
 type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
-type InnerInferType<T> = T extends Array<infer T> ? T[] : Id<NotRequiredProps<T> & RequiredProps<T>> ;
+type InnerInferType<T> =
+    | (T extends Array<infer T> ? T[] : Id<NotRequiredProps<T> & RequiredProps<T>>)
+    | PreserveOptionals<T>;
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;

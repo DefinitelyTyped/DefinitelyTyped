@@ -37,6 +37,22 @@ const connection3 = mongoose.connect(connectUri, function (error) {
   error.stack;
 });
 
+/**
+ * Test taken from MongoDB CSFLE guide 
+ * https://docs.mongodb.com/drivers/use-cases/client-side-field-level-encryption-guide
+ */
+
+const connection4:Promise<mongoose.Mongoose> = mongoose.connect(connectUri,{
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  autoEncryption: {
+    keyVaultNamespace: 'encryption.__keyVault',
+    kmsProviders: {},
+    schemaMap: {},
+    extraOptions: {}
+  }
+})
+
 var mongooseConnection: mongoose.Connection = mongoose.createConnection();
 mongooseConnection.dropDatabase().then(()=>{});
 mongooseConnection.dropCollection('foo').then(()=>{});
@@ -1934,6 +1950,7 @@ MongoModel.findOneAndRemove();
 MongoModel.findOneAndUpdate({}, {}, {}, cb);
 MongoModel.findOneAndUpdate({}, {}, {});
 MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true });
+MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true, arrayFilters: [{ 'elem._id': 123 }] });
 MongoModel.findOneAndUpdate({}, {}, cb);
 MongoModel.findOneAndUpdate({}, {});
 MongoModel.findOneAndUpdate();
@@ -2430,3 +2447,21 @@ Animal2.find().distinct('_id').byName('fido').exec(function(err, animal) {
 Animal2.findOne().where({ type: 'dog' }).byName('fido').exec(function(err, animal) {
   console.log(animal);
 });
+
+
+/* Filter query */
+
+interface Foobar extends mongoose.Document {
+  _id: number;
+  name: string;
+  type: string;
+  tags: string[];
+}
+var foobarSchema = new mongoose.Schema({
+  _id: Number,
+  name: String,
+  type: String,
+  tags: { type: [String], index: true } // field level
+});
+var Foobar = mongoose.model<Foobar, mongoose.Model<Foobar>>('AnimFoobarl', foobarSchema);
+Foobar.find({ _id: 123 });

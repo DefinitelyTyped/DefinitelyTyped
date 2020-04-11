@@ -28,7 +28,7 @@ declare namespace mongodbQueue {
     }
 
     interface QueueOptions {
-        deadQueue?: string;
+        deadQueue?: Queue;
         delay?: number;
         maxRetries?: number;
         visibility?: number;

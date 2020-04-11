@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.44
+// Type definitions for plotly.js 1.50
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -16,6 +16,7 @@
 //                 Michael Adams <https://github.com/mtadams007>
 //                 Michael Arnett <https://github.com/marnett-git>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Brandon Mitchell <https://github.com/brammitch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from "d3";
@@ -84,21 +85,19 @@ export type PlotRestyleEvent = [
 	number[]	// array of traces updated
 ];
 
-export interface PlotAxis {
-	range: [number, number];
-	autorange: boolean;
-}
-
 export interface PlotScene {
 	center: Point;
 	eye: Point;
 	up: Point;
 }
 
-export interface PlotRelayoutEvent {
-	xaxis: PlotAxis;
-	yaxis: PlotAxis;
-	scene: PlotScene;
+export interface PlotRelayoutEvent extends Partial<Layout> {
+	"xaxis.range[0]"?: number;
+	"xaxis.range[1]"?: number;
+	"yaxis.range[0]"?: number;
+	"yaxis.range[1]"?: number;
+	"xaxis.autorange"?: boolean;
+	"yaxis.autorange"?: boolean;
 }
 
 export interface ClickAnnotationEvent {
@@ -211,7 +210,7 @@ export function update(root: Root, traceUpdate: Data, layoutUpdate: Partial<Layo
 export function addTraces(root: Root, traces: Data | Data[], newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
 export function deleteTraces(root: Root, indices: number[] | number): Promise<PlotlyHTMLElement>;
 export function moveTraces(root: Root, currentIndices: number[] | number, newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
-export function extendTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
+export function extendTraces(root: Root, update: Data | Data[], indices: number | number[], maxPoints?: number): Promise<PlotlyHTMLElement>;
 export function prependTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
 export function toImage(root: Root, opts: ToImgopts): Promise<string>;
 export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
@@ -322,6 +321,7 @@ export interface Layout {
 	polar7: Partial<PolarLayout>;
 	polar8: Partial<PolarLayout>;
 	polar9: Partial<PolarLayout>;
+	transition: Transition;
 }
 
 export interface Legend extends Label {
@@ -461,20 +461,47 @@ export interface Margin {
 	pad: number;
 }
 
-export type ModeBarDefaultButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoScale2d' |
-	'zoom2d' | 'pan2d' | 'zoomIn2d' | 'zoomOut2d' | 'autoScale2d' | 'resetScale2d' |
-	'hoverClosestCartesian' | 'hoverCompareCartesian' | 'zoom3d' | 'pan3d' | 'orbitRotation' |
-	'tableRotation' | 'resetCameraDefault3d' | 'resetCameraLastSave3d' | 'hoverClosest3d' |
-	'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' |
-	'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews' | 'toggleSpikelines';
+export type ModeBarDefaultButtons =
+	| 'lasso2d'
+	| 'select2d'
+	| 'sendDataToCloud'
+	| 'zoom2d'
+	| 'pan2d'
+	| 'zoomIn2d'
+	| 'zoomOut2d'
+	| 'autoScale2d'
+	| 'resetScale2d'
+	| 'hoverClosestCartesian'
+	| 'hoverCompareCartesian'
+	| 'zoom3d'
+	| 'pan3d'
+	| 'orbitRotation'
+	| 'tableRotation'
+	| 'resetCameraDefault3d'
+	| 'resetCameraLastSave3d'
+	| 'hoverClosest3d'
+	| 'zoomInGeo'
+	| 'zoomOutGeo'
+	| 'resetGeo'
+	| 'hoverClosestGeo'
+	| 'hoverClosestGl2d'
+	| 'hoverClosestPie'
+	| 'toggleHover'
+	| 'toImage'
+	| 'resetViews'
+	| 'toggleSpikelines';
 
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 
 export interface Icon {
-	width: number;
-	path: string;
+	height?: number;
+	width?: number;
 	ascent?: number;
 	descent?: number;
+	name?: string;
+	path?: string;
+	svg?: string;
+	transform?: string;
 }
 
 export interface ModeBarButton {
@@ -657,11 +684,13 @@ export interface PlotData {
 	'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
 	hoverlabel: Partial<HoverLabel>;
 	hovertemplate: string | string[];
+	hovertext: string | string[];
 	textinfo: 'label' | 'label+text' | 'label+value' | 'label+percent' | 'label+text+value'
 	| 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
 	| 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
 	textposition: "top left" | "top center" | "top right" | "middle left"
-	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside";
+	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside" | "outside";
+	textfont: Partial<Font>;
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	showlegend: boolean;
@@ -679,6 +708,7 @@ export interface PlotData {
 	width: number | number[];
 	boxmean: boolean | 'sd';
 	opacity: number;
+	showscale: boolean;
 	colorscale: ColorScale;
 	zsmooth: 'fast' | 'best' | false;
 	ygap: number;
@@ -1386,6 +1416,11 @@ export interface Transition {
 	'linear-out' | 'quad-out' | 'cubic-out' | 'sin-out' | 'exp-out' | 'circle-out' | 'elastic-out' | 'back-out' |
 	'bounce-out' | 'linear-in-out' | 'quad-in-out' | 'cubic-in-out' | 'sin-in-out' | 'exp-in-out' |
 	'circle-in-out' | 'elastic-in-out' | 'back-in-out' | 'bounce-in-out';
+	/**
+	 * Determines whether the figure's layout or traces smoothly transitions during updates that make both traces
+	 * and layout change. Default is "layout first".
+	 */
+	ordering?: 'layout first' | 'traces first';
 }
 
 export interface SliderStep {

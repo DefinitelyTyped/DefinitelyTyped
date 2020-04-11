@@ -4039,6 +4039,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-native-responsive-dimensions",
+            "typingsPackageName": "react-native-responsive-dimensions",
+            "sourceRepoURL": "https://github.com/DaniAkash/react-native-responsive-dimensions",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "react-native-safe-area",
             "typingsPackageName": "react-native-safe-area",
             "sourceRepoURL": "https://github.com/miyabi/react-native-safe-area#readme",

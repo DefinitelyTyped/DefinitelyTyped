@@ -5,6 +5,7 @@
 //                 Yuki Kokubun <https://github.com/Kuniwak>,
 //                 Matt Bishop <https://github.com/mattbishop>,
 //                 Leonardo Testa <https://github.com/testica>
+//                 Sebastian Pettersson <https://github.com/TastefulElk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
@@ -78,7 +79,6 @@ declare namespace Faker {
 		finance: {
 			account(length?: number): string;
 			accountName(): string;
-			routingNumber(): string;
 			mask(length?: number, parens?: boolean, elipsis?: boolean): string;
 			amount(min?: number, max?: number, dec?: number, symbol?: string): string;
 			transactionType(): string;
@@ -89,14 +89,6 @@ declare namespace Faker {
 			iban(formatted?: boolean): string
 			bic(): string
 		};
-
-		git: {
-			branch(): string;
-			commitEntry(options?: { merge: boolean }): string;
-			commitMessage(): string;
-			commitSha(): string;
-			shortSha(): string;
-		}
 
 		hacker: {
 			abbreviation(): string;
@@ -223,16 +215,6 @@ declare namespace Faker {
 
 		seed(value: number): void;
 		seedValue?: number;
-
-		vehicle: {
-			vehicle(): string;
-			manufacturer(): string;
-			model(): string;
-			type(): string;
-			fuel(): string;
-			vin(): string;
-			color(): string;
-		}
 	}
 
 	interface Card {

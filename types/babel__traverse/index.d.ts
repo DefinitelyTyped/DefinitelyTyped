@@ -32,6 +32,8 @@ export interface TraverseOptions<S = Node> extends Visitor<S> {
     noScope?: boolean;
 }
 
+export type ArrayKeys<T> = { [P in keyof T]: T[P] extends any[] ? P : never }[keyof T];
+
 export class Scope {
     constructor(path: NodePath, parentScope?: Scope);
     path: NodePath;
@@ -419,13 +421,13 @@ export class NodePath<T = Node> {
 
     // ------------------------- modification -------------------------
     /** Insert the provided nodes before the current one. */
-    insertBefore(nodes: Node | Node[]): any;
+    insertBefore<Nodes extends Node | Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     /**
      * Insert the provided nodes after the current one. When inserting nodes after an
      * expression, ensure that the completion record is correct by pushing the current node.
      */
-    insertAfter(nodes: Node | Node[]): any;
+    insertAfter<Nodes extends Node | Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     /** Update all sibling node paths after `fromIndex` by `incrementBy`. */
     updateSiblingKeys(fromIndex: number, incrementBy: number): void;
@@ -435,14 +437,14 @@ export class NodePath<T = Node> {
      * @param listKey - The key at which the child nodes are stored (usually body).
      * @param nodes - the nodes to insert.
      */
-    unshiftContainer<Nodes extends Node | Node[]>(listKey: string, nodes: Nodes): NodePaths<Nodes>;
+    unshiftContainer<Nodes extends Node | Node[]>(listKey: ArrayKeys<T>, nodes: Nodes): NodePaths<Nodes>;
 
     /**
      * Insert child nodes at the end of the current node.
      * @param listKey - The key at which the child nodes are stored (usually body).
      * @param nodes - the nodes to insert.
      */
-    pushContainer(listKey: string, nodes: Node | Node[]): void;
+    pushContainer<Nodes extends Node | Node[]>(listKey: ArrayKeys<T>, nodes: Nodes): NodePaths<Nodes>;
 
     /** Hoist the current node to the highest scope possible and return a UID referencing it. */
     hoist(scope: Scope): void;

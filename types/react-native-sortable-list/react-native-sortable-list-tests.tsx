@@ -151,12 +151,14 @@ class Row extends React.Component<RowProps, RowState> {
             Animated.timing(style.transform[0].scale, {
                 duration: 100,
                 easing: Easing.out(Easing.quad),
-                toValue: 1.1
+                toValue: 1.1,
+                useNativeDriver: false,
             }),
             Animated.timing(style.shadowRadius, {
                 duration: 100,
                 easing: Easing.out(Easing.quad),
-                toValue: 10
+                toValue: 10,
+                useNativeDriver: false,
             }),
         ]).start();
     }
@@ -168,12 +170,14 @@ class Row extends React.Component<RowProps, RowState> {
             Animated.timing(style.transform[0].scale, {
                 duration: 100,
                 easing: Easing.out(Easing.quad),
-                toValue: 1
+                toValue: 1,
+                useNativeDriver: false,
             }),
             Animated.timing(style.shadowRadius, {
                 duration: 100,
                 easing: Easing.out(Easing.quad),
-                toValue: 2
+                toValue: 2,
+                useNativeDriver: false,
             }),
         ]).start();
     }

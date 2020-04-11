@@ -144,6 +144,14 @@ cast.framework.CastReceiverContext.getInstance().addEventListener(
     () => '¡hola!',
 );
 
+// send custom message to specific sender
+cast.framework.CastReceiverContext.getInstance()
+    .sendCustomMessage('custom-namespace', 'sender-id', {});
+
+// broadcast custom message to all connected senders
+cast.framework.CastReceiverContext.getInstance()
+    .sendCustomMessage('custom-namespace', undefined, {});
+
 const loadingError = new cast.framework.events.ErrorEvent(DetailedErrorCode.LOAD_FAILED, 'Loading failed!');
 
 // PlayerManager message interceptors

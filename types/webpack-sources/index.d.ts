@@ -39,21 +39,23 @@ export interface SourceAndMapMixin {
     };
 }
 
-export class CachedSource {
+export class CachedSource extends Source {
     _source: Source;
     _cachedSource: string;
     _cachedSize: number;
     _cachedMaps: {
         [prop: string]: RawSourceMap
     };
-    node: (options: any) => SourceNode;
-    listMap: (options: any) => SourceListMap;
 
     constructor(source: Source);
 
     source(): string;
 
     size(): number;
+
+    node(options: any): SourceNode;
+
+    listMap(options: any): SourceListMap;
 
     sourceAndMap(options: any): {
         source: string;

@@ -14,6 +14,7 @@
 // TypeScript Version: 2.4
 
 /// <reference types="filesystem" />
+/// <reference path="har-format/index.d.ts" />
 
 ////////////////////
 // Global object
@@ -1865,8 +1866,12 @@ declare namespace chrome.devtools.inspectedWindow {
  * Availability: Since Chrome 18.
  */
 declare namespace chrome.devtools.network {
+    /** Represents a HAR entry for a specific finished request. */
+    export interface HAREntry extends HARFormatEntry { }
+    /** Represents a HAR log that contains all known network requests. */
+    export interface HARLog extends HARFormatLog { }
     /** Represents a network request for a document resource (script, image and so on). See HAR Specification for reference. */
-    export interface Request {
+    export interface Request extends chrome.devtools.network.HAREntry {
         /**
          * Returns content of the response body.
          * @param callback A function that receives the response body when the request completes.
@@ -1889,7 +1894,7 @@ declare namespace chrome.devtools.network {
      * function(object harLog) {...};
      * Parameter harLog: A HAR log. See HAR specification for details.
      */
-    export function getHAR(callback: (harLog: Object) => void): void;
+    export function getHAR(callback: (harLog: HARLog) => void): void;
 
     /** Fired when a network request is finished and all request data are available. */
     export var onRequestFinished: RequestFinishedEvent;
@@ -2453,7 +2458,7 @@ declare namespace chrome.enterprise.platformKeys {
      * function(array of Token tokens) {...};
      * Parameter tokens: The list of available tokens.
      */
-    export function getToken(callback: (tokens: Token[]) => void): void;
+    export function getTokens(callback: (tokens: Token[]) => void): void;
     /**
      * Returns the list of all client certificates available from the given token. Can be used to check for the existence and expiration of client certificates that are usable for a certain authentication.
      * @param tokenId The id of a Token returned by getTokens.
@@ -2481,6 +2486,43 @@ declare namespace chrome.enterprise.platformKeys {
      * function() {...};
      */
     export function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback?: () => void): void;
+    /**
+     * Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
+     *
+     * * The current device is a legitimate Chrome OS device.
+     * * The current device is managed by the domain specified during verification.
+     * * The current signed-in user is managed by the domain specified during verification.
+     * * The current device state complies with enterprise device policy. For example, a policy may specify that the device must not be in developer mode.
+     * * Any device identity emitted by the verification is tightly bound to the hardware of the current device.
+     *
+     * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise device policy. The Enterprise Machine Key does not reside in the "system" token and is not accessible by any other API.
+     * @param challenge A challenge as emitted by the Verified Access Web API.
+     * @param registerKey If set, the current Enterprise Machine Key is registered with the "system" token and relinquishes the Enterprise Machine Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise Machine Key. Since Chrome 59.
+     * @param callback Called back with the challenge response.
+     * The callback parameter should be a function that looks like this:
+     * function(ArrayBuffer response) {...};
+     * @since Chrome 50.
+     */
+    export function challengeMachineKey(challenge: ArrayBuffer, registerKey: boolean, callback: (response: ArrayBuffer) => void): void;
+    export function challengeMachineKey(challenge: ArrayBuffer, callback: (response: ArrayBuffer) => void): void;
+    /**
+     * Challenges a hardware-backed Enterprise User Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
+     *
+     * * The current device is a legitimate Chrome OS device.
+     * * The current device is managed by the domain specified during verification.
+     * * The current signed-in user is managed by the domain specified during verification.
+     * * The current device state complies with enterprise user policy. For example, a policy may specify that the device must not be in developer mode.
+     * * The public key emitted by the verification is tightly bound to the hardware of the current device and to the current signed-in user.
+     *
+     * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise user policy. The Enterprise User Key does not reside in the "user" token and is not accessible by any other API.
+     * @param challenge A challenge as emitted by the Verified Access Web API.
+     * @param registerKey If set, the current Enterprise User Key is registered with the "user" token and relinquishes the Enterprise User Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise User Key.
+     * @param callback Called back with the challenge response.
+     * The callback parameter should be a function that looks like this:
+     * function(ArrayBuffer response) {...};
+     * @since Chrome 50.
+     */
+    export function challengeUserKey(challenge: ArrayBuffer, registerKey: boolean, callback: (response: ArrayBuffer) => void): void;
 }
 
 ////////////////////
@@ -4151,6 +4193,34 @@ declare namespace chrome.input.ime {
      * @since Chrome 29.
      */
     export var onReset: InputResetEvent;
+}
+
+////////////////////
+// LoginState
+////////////////////
+/**
+ * Use the chrome.loginState API to read and monitor the login state.
+ * Permissions: "loginState"
+ * @since Chrome 78.
+ * Important: This API works only on Chrome OS.
+ */
+declare namespace chrome.loginState {
+    export interface SessionStateChangedEvent extends chrome.events.Event<(sessionState: SessionState) => void> { }
+
+    /** Possible profile types. */
+    export type ProfileType = 'SIGNIN_PROFILE'|'USER_PROFILE';
+
+    /** Possible session states. */
+    export type SessionState = 'UNKNOWN'|'IN_OOBE_SCREEN'|'IN_LOGIN_SCREEN'|'IN_SESSION'|'IN_LOCK_SCREEN';
+
+    /** Gets the type of the profile the extension is in. */
+    export function getProfileType(callback: (profileType: ProfileType) => void): void;
+
+    /** Gets the current session state. */
+    export function getSessionState(callback: (sessionState: SessionState) => void): void;
+
+    /** Dispatched when the session state changes. sessionState is the new session state.*/
+    export const onSessionStateChanged: SessionStateChangedEvent;
 }
 
 ////////////////////

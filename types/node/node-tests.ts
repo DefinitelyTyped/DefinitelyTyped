@@ -259,8 +259,6 @@ import * as trace_events from "trace_events";
         console.warn('message', 'foo', 'bar');
 
         // --- Inspector mode only ---
-        // `console.markTimeline()`, `console.timeline()` and `console.timelineEnd()` were removed since
-        // TypeScript v3.9.0-dev.20200319.
         console.profile();
         console.profile('label');
         console.profileEnd();

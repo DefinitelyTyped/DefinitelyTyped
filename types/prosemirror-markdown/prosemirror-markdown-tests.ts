@@ -24,7 +24,7 @@ export const fromMarkdown = (markdown: string, schema: Schema) =>
             getAttrs: tok => ({
                 src: tok.attrGet('src'),
                 title: tok.attrGet('title') || null,
-                alt: (tok.children[0] && tok.children[0].content) || null,
+                alt: (tok.children && tok.children[0] && tok.children[0].content) || null,
             }),
         },
         hardbreak: { node: 'hardBreak' },
