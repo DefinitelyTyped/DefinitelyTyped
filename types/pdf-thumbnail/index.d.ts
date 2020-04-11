@@ -4,11 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-export enum Operations {
-    compress = 'compress',
-    crop = 'crop',
-    resize = 'resize',
-}
+export type Operations = 'compress' | 'crop' | 'resize';
 
 export interface CompressParams {
     type?: string;
@@ -35,7 +31,7 @@ export interface OperationsParams {
 }
 
 export type PDFThumbnailOptions = {
-    [op in keyof typeof Operations]?: OperationsParams[op];
+    [op in Operations]?: OperationsParams[op];
 };
 
 export default function pdf(body: NodeJS.ReadableStream | Buffer | string, options?: PDFThumbnailOptions): Promise<NodeJS.ReadableStream>;
