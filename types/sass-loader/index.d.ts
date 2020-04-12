@@ -12,4 +12,4 @@ declare namespace loader {
     type Options = LoaderOptions;
 }
 
-export default loader;
+export = loader;
