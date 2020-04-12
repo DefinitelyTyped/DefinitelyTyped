@@ -11,7 +11,6 @@ import { IncomingMessage, ServerResponse } from "http";
 
 declare global {
   namespace Express {
-
     interface Request {
       oauth2?: OAuth2;
     }
