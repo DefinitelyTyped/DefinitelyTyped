@@ -53,7 +53,7 @@ function useExperimentalHooks() {
     const pathname = React.useMutableSource(
         // $ExpectType MutableSource<Window, string>
         locationSource,
-        // $ExpectType MutableSource<Window, string>
+        // $ExpectType (source: Window) => string
         source => source.location.pathname,
         (window, callback) => {
             // $ExpectType Window
@@ -62,7 +62,7 @@ function useExperimentalHooks() {
             callback;
 
             window.addEventListener("popstate", callback);
-            return () => window.removeEventListener("poastate", callback);
+            return () => window.removeEventListener("popstate", callback);
         }
     );
 
