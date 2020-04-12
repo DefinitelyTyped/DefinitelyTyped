@@ -1195,7 +1195,7 @@ declare namespace SpotifyApi {
         /**
          * Whether or not the track is from a local file.
          */
-        is_local: boolean;
+        is_local?: boolean;
     }
 
     /**
