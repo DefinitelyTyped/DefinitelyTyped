@@ -26,5 +26,5 @@ net.createServer(socket => {
     });
 
     // Extend wire using the test extension
-    wire.extend('extname', {})
+    wire.extended('extname', {});
 }).listen(6881);
