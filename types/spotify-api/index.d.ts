@@ -289,7 +289,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/get-several-audio-features/
      */
     interface MultipleAudioFeaturesResponse {
-        "audio_features": AudioFeaturesObject[];
+        audio_features: AudioFeaturesObject[];
     }
 
     /**
