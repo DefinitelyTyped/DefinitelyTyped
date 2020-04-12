@@ -27,21 +27,46 @@ declare namespace SpotifyApi {
      * Object for search parameters for searching for tracks, playlists, artists or albums.
      * See: [Search for an item](https://developer.spotify.com/web-api/search-item/)
      *
-     * q and type are not optional in the API, however they are marked as optional here, since various libraries
-     * implement them as function call parameters instead. This could be changed.
-     *
-     * @param q Required. The search query's keywords (and optional field filters and operators).
-     * @param type Required. A comma-separated list of item types to search across. Valid types are: album, artist, playlist, and track.
-     * @param market Optional. An ISO 3166-1 alpha-2 country code or the string from_token
-     * @param limit Optional. The maximum number of results to return. Default: 20. Minimum: 1. Maximum: 50.
-     * @param offset Optional. The index of the first result to return. Default: 0 (i.e., the first result). Maximum offset: 100.000. Use with limit to get the next page of search results.
+     * `q` and `type` are required in the API. Previous versions of the type declarations marked them
+     * as optional in order for external libraries to "implement them as function call parameters instead".
+     * Now, the type declaration shall mark them as required. If necessary, one can consider this to be a
+     * "breaking change". In that case, one can use TypeScript's built-in utility type `Omit<T, K>`.
+     * For example, one can remove the `q` and `type` by annotating the type
+     * as `Omit<SpotifyApi.SearchForItemParameterObject, "q" | "type">`.
      */
     interface SearchForItemParameterObject {
-        q?: string;
-        type?: string;
+        /**
+         * The search query's keywords (and optional field filters and operators).
+         */
+        q: string;
+        /**
+         * A comma-separated list of item types to search across. Valid types are: `album`, `artist`, `playlist`, and `track`.
+         * Search results include hits from all the specified item types.
+         * For example: `q=name:abacab&type=album,track` returns both albums and tracks with `“abacab”` included in their name.
+         */
+        type: string;
+        /**
+         * An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or the string `from_token`.
+         * If a country code is specified, only artists, albums, and tracks with content that is playable in that market is returned.
+         */
         market?: string;
+        /**
+         * The maximum number of results to return.
+         * Default: `20`. Minimum: `1`. Maximum: `50`.
+         */
         limit?: number;
+        /**
+         * The index of the first result to return.
+         * Default: `0` (first result). Maximum offset (including limit): `2,000`.
+         * Use with limit to get the next page of search results.
+         */
         offset?: number;
+        /**
+         * Possible values: `audio`.
+         * If `include_external=audio` is specified, the response will include any relevant audio content that is hosted externally.
+         * By default external content is filtered out from responses.
+         */
+        include_external?: string;
     }
 
     /**
