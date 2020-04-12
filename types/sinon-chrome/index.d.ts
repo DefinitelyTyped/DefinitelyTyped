@@ -176,8 +176,7 @@ declare namespace SinonChrome.cookies {
     export var set: SinonChromeStub;
 }
 
-/* TODO: Uncomment once https://github.com/Microsoft/TypeScript/issues/7840 is fixed
-declare module SinonChrome.debugger {
+declare module _debugger {
     export var attach: SinonChromeStub;
     export var detach: SinonChromeStub;
     export var getTargets: SinonChromeStub;
@@ -186,7 +185,10 @@ declare module SinonChrome.debugger {
     export var onDetach: SinonChrome.events.Event;
     export var onEvent: SinonChrome.events.Event;
 }
-*/
+// Workaround until https://github.com/Microsoft/TypeScript/issues/7840 is fixed
+export { _debugger as debugger };
+
+
 
 declare namespace SinonChrome.declarativeContent {
     export var PageStateMatcher: SinonChromeStub;
