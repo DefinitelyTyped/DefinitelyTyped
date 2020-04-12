@@ -909,7 +909,14 @@ declare namespace SpotifyApi {
      * [error object](https://developer.spotify.com/web-api/object-model/)
      */
     interface ErrorObject {
+        /**
+         * The HTTP status code (also returned in the response header;
+         * see [Response Status Codes](https://developer.spotify.com/documentation/web-api/#response-status-codes) for more information).
+         */
         status: number;
+        /**
+         * A short description of the cause of the error.
+         */
         message: string;
     }
 
