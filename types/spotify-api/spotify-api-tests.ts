@@ -5532,7 +5532,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
   "items": [
     {
       "album": {
-        "album_type": "ALBUM",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -5783,7 +5783,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     },
     {
       "album": {
-        "album_type": "ALBUM",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -6016,7 +6016,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     },
     {
       "album": {
-        "album_type": "ALBUM",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -6251,7 +6251,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     },
     {
       "album": {
-        "album_type": "COMPILATION",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
@@ -6340,7 +6340,7 @@ const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
     },
     {
       "album": {
-        "album_type": "ALBUM",
+        "album_type": "album",
         "artists": [
           {
             "external_urls": {
