@@ -5,7 +5,6 @@
 
 /// <reference types="node"/>
 
-
 interface InitOptions {
     loadMaps?: boolean;
     debug?: boolean;
@@ -31,3 +30,5 @@ interface WriteOptions {
 export declare function init(opts?: InitOptions): NodeJS.ReadWriteStream;
 export declare function write(path?: string, opts?: WriteOptions): NodeJS.ReadWriteStream;
 export declare function write(opts?: WriteOptions): NodeJS.ReadWriteStream;
+export declare function mapSources(fn: (sourcePath: string, file: any) => string): NodeJS.ReadWriteStream;
+export declare function identityMap(): NodeJS.ReadWriteStream;

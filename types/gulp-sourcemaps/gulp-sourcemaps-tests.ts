@@ -117,3 +117,25 @@ gulp.task('javascript', function() {
         }))
         .pipe(gulp.dest('public/scripts'));
 });
+
+gulp.task('javascript', function() {
+    var stream = gulp
+        .src('src/**/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(plugin1())
+        .pipe(plugin2())
+        .pipe(sourcemaps.mapSources((sourcePath, file) => `../src${sourcePath}`))
+        .pipe(sourcemaps.write('../maps'))
+        .pipe(gulp.dest('public/scripts'));
+});
+
+gulp.task('javascript', function() {
+    var stream = gulp
+        .src('src/**/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(plugin1())
+        .pipe(plugin2())
+        .pipe(sourcemaps.identityMap())
+        .pipe(sourcemaps.write('../maps'))
+        .pipe(gulp.dest('public/scripts'));
+});
