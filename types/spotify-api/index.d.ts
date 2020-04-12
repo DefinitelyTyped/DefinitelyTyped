@@ -526,9 +526,7 @@ declare namespace SpotifyApi {
      * GET /v1/search?type=album
      * https://developer.spotify.com/web-api/search-item/
      */
-    interface SearchResponse extends Partial<ArtistSearchResponse>, Partial<AlbumSearchResponse>, Partial<TrackSearchResponse>, Partial<PlaylistSearchResponse> {
-      
-    }
+    interface SearchResponse extends Partial<ArtistSearchResponse>, Partial<AlbumSearchResponse>, Partial<TrackSearchResponse>, Partial<PlaylistSearchResponse> {}
 
     /**
      * Get a track
