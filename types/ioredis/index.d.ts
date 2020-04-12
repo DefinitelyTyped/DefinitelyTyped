@@ -87,15 +87,7 @@ declare namespace IORedis {
 
     type Command = _Command;
 
-    interface Redis extends EventEmitter, Commander {
-        Promise: typeof Promise;
-        status: string;
-        connect(callback?: () => void): Promise<void>;
-        disconnect(): void;
-        duplicate(): Redis;
-
-        send_command(command: string, ...args: ValueType[]): Promise<any>;
-
+    interface Commands {
         bitcount(key: KeyType, callback: (err: Error, res: number) => void): void;
         bitcount(key: KeyType, start: number, end: number, callback: (err: Error, res: number) => void): void;
         bitcount(key: KeyType): Promise<number>;
@@ -739,6 +731,17 @@ declare namespace IORedis {
         xrevrange(key: KeyType, end: string, start: string, ...args: ValueType[]): Promise<Array<[string, string[]]>>;
 
         xtrim(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', ...args: ValueType[]): Promise<number>;
+
+    }
+
+    interface Redis extends EventEmitter, Commander, Commands {
+        Promise: typeof Promise;
+        status: string;
+        connect(callback?: () => void): Promise<void>;
+        disconnect(): void;
+        duplicate(): Redis;
+
+        send_command(command: string, ...args: ValueType[]): Promise<any>;
     }
 
     interface Pipeline {
@@ -1250,122 +1253,13 @@ declare namespace IORedis {
 
     type Ok = 'OK';
 
-    interface Cluster extends EventEmitter, Commander {
+    interface Cluster extends EventEmitter, Commander, Commands {
         connect(callback: () => void): Promise<void>;
         disconnect(): void;
         nodes(role?: NodeRole): Redis[];
-        quit(callback?: CallbackFunction<Ok>): Promise<Ok>;
-        get(key: KeyType, callback: (err: Error, res: string | null) => void): void;
-        get(key: KeyType): Promise<string | null>;
-
-        getBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
-        getBuffer(key: KeyType): Promise<Buffer>;
-
-        set(
-            key: KeyType,
-            value: ValueType,
-            expiryMode?: string | any[],
-            time?: number | string,
-            setMode?: number | string,
-        ): Promise<string>;
-        set(key: KeyType, value: ValueType, callback: (err: Error, res: string) => void): void;
-        set(key: KeyType, value: ValueType, setMode: string | any[], callback: (err: Error, res: string) => void): void;
-        set(
-            key: KeyType,
-            value: ValueType,
-            expiryMode: string,
-            time: number | string,
-            callback: (err: Error, res: string) => void,
-        ): void;
-        set(
-            key: KeyType,
-            value: ValueType,
-            expiryMode: string,
-            time: number | string,
-            setMode: number | string,
-            callback: (err: Error, res: string) => void,
-        ): void;
-
-        setBuffer(
-            key: KeyType,
-            value: ValueType,
-            expiryMode?: string | any[],
-            time?: number | string,
-            setMode?: number | string,
-        ): Promise<Buffer>;
-        setBuffer(key: KeyType, value: ValueType, callback: (err: Error, res: Buffer) => void): void;
-        setBuffer(key: KeyType, value: ValueType, setMode: string, callback: (err: Error, res: Buffer) => void): void;
-        setBuffer(
-            key: KeyType,
-            value: ValueType,
-            expiryMode: string,
-            time: number,
-            callback: (err: Error, res: Buffer) => void,
-        ): void;
-        setBuffer(
-            key: KeyType,
-            value: ValueType,
-            expiryMode: string,
-            time: number | string,
-            setMode: number | string,
-            callback: (err: Error, res: Buffer) => void,
-        ): void;
-
-        setnx(key: KeyType, value: ValueType, callback: (err: Error, res: number) => void): void;
-        setnx(key: KeyType, value: ValueType): Promise<BooleanResponse>;
-
-        del(...keys: KeyType[]): Promise<number>;
-
-        incr(key: KeyType, callback: (err: Error, res: number) => void): void;
-        incr(key: KeyType): Promise<number>;
-
-        decr(key: KeyType, callback: (err: Error, res: number) => void): void;
-        decr(key: KeyType): Promise<number>;
-
-        rpush(key: KeyType, ...values: ValueType[]): Promise<number>;
-
-        rpushBuffer(key: string, ...values: Buffer[]): Promise<number>;
-
-        lpop(key: KeyType, callback: (err: Error, res: string) => void): void;
-        lpop(key: KeyType): Promise<string>;
-
-        lpopBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
-        lpopBuffer(key: KeyType): Promise<Buffer>;
-
-        llen(key: KeyType, callback: (err: Error, res: number) => void): void;
-        llen(key: KeyType): Promise<number>;
-
-        lrangeBuffer(key: KeyType, start: number, stop: number, callback: (err: Error, res: Buffer[]) => void): void;
-        lrangeBuffer(key: KeyType, start: number, stop: number): Promise<Buffer[]>;
-
-        zadd(key: KeyType, ...args: string[]): Promise<number>;
-
-        zrem(key: KeyType, ...members: ValueType[]): Promise<number>;
-
-        zrange(key: KeyType, start: number, stop: number, callback: (err: Error, res: string[]) => void): void;
-        zrange(
-            key: KeyType,
-            start: number,
-            stop: number,
-            withScores: 'WITHSCORES',
-            callback: (err: Error, res: string[]) => void,
-        ): void;
-        zrange(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<string[]>;
-
-        hset(key: KeyType, field: string, value: ValueType, callback: (err: Error, res: BooleanResponse) => void): void;
-        hset(key: KeyType, field: string, value: ValueType): Promise<BooleanResponse>;
-
-        hget(key: KeyType, field: string, callback: (err: Error, res: string | null) => void): void;
-        hget(key: KeyType, field: string): Promise<string | null>;
-
-        expire(key: KeyType, seconds: number, callback: (err: Error, res: BooleanResponse) => void): void;
-        expire(key: KeyType, seconds: number): Promise<BooleanResponse>;
-
-        keys(pattern: string, callback: (err: Error, res: string[]) => void): void;
-        keys(pattern: string): Promise<string[]>;
     }
 
-    interface ClusterStatic extends EventEmitter, Commander {
+    interface ClusterStatic extends EventEmitter  {
         new (nodes: ClusterNode[], options?: ClusterOptions): Cluster;
     }
 
