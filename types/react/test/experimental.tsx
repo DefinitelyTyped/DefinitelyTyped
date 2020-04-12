@@ -2,6 +2,29 @@
 
 import React = require('react');
 
+declare global {
+    interface Location {
+        href: string;
+        pathname: string;
+    }
+
+    interface Window {
+        location: Location;
+        addEventListener(event: string, callback: ((...args: any[]) => void)): void;
+        removeEventListener(event: string, callback: ((...args: any[]) => void)): void;
+    }
+
+    let window: Window;
+}
+
+const locationSource = React.createMutableSource(
+    window,
+    // Although not the typical "version", the href attribute is stable,
+    // and will change whenever part of the Location changes,
+    // so it's safe to use as a version.
+    () => window.location.href
+);
+
 function useExperimentalHooks() {
     const [toggle, setToggle] = React.useState(false);
 
@@ -25,6 +48,23 @@ function useExperimentalHooks() {
 
     // $ExpectType () => string
     const deferredConstructible = React.useDeferredValue(Constructible);
+
+    // $ExpectType string
+    const pathname = React.useMutableSource(
+        // $ExpectType MutableSource<Window, string>
+        locationSource,
+        // $ExpectType MutableSource<Window, string>
+        source => source.location.pathname,
+        (window, callback) => {
+            // $ExpectType Window
+            window;
+            // $ExpectType (version: string) => void
+            callback;
+
+            window.addEventListener("popstate", callback);
+            return () => window.removeEventListener("poastate", callback);
+        }
+    );
 
     return () => {
         startTransition(() => {
