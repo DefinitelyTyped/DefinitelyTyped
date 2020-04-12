@@ -1,5 +1,6 @@
 // tool-bar 1.2.x
 // https://atom.io/packages/tool-bar
+// Definitions by: aminya <https://github.com/aminya>
 
 /// <reference path="./config.d.ts" />
 
