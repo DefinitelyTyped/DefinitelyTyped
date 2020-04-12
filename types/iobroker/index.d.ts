@@ -140,10 +140,16 @@ declare global {
             /** The ID of this object */
             _id: string;
             native: Record<string, any>;
+            /** An array of `native` properties which cannot be accessed from outside the defining adapter */
+            protectedNative?: string[];
+            /** Like protectedNative, but the properties are also encrypted and decrypted automatically */
+            encryptedNative?: string[];
             enums?: Record<string, string>;
             type: string; // specified in the derived interfaces
             common: StateCommon | ChannelCommon | DeviceCommon | OtherCommon;
             acl?: ObjectACL;
+            from?: string;
+            ts?: number;
         }
 
         interface StateObject extends BaseObject {
@@ -151,7 +157,7 @@ declare global {
             common: StateCommon;
             acl?: StateACL;
         }
-        interface PartialStateObject extends Partial<Pick<StateObject, '_id' | 'native' | 'enums' | 'type'>> {
+        interface PartialStateObject extends Partial<Omit<StateObject, 'common' | 'acl'>> {
             common?: Partial<StateCommon>;
             acl?: Partial<StateACL>;
         }
@@ -161,7 +167,7 @@ declare global {
             common: ChannelCommon;
         }
         interface PartialChannelObject
-            extends Partial<Pick<ChannelObject, '_id' | 'native' | 'enums' | 'type' | 'acl'>> {
+            extends Partial<Omit<ChannelObject, 'common'>> {
             common?: Partial<ChannelCommon>;
         }
 
@@ -169,7 +175,7 @@ declare global {
             type: 'device';
             common: DeviceCommon;
         }
-        interface PartialDeviceObject extends Partial<Pick<DeviceObject, '_id' | 'native' | 'enums' | 'type' | 'acl'>> {
+        interface PartialDeviceObject extends Partial<Omit<DeviceObject, 'common'>> {
             common?: Partial<DeviceCommon>;
         }
 
@@ -177,7 +183,7 @@ declare global {
             type: 'adapter' | 'config' | 'enum' | 'group' | 'host' | 'info' | 'instance' | 'meta' | 'script' | 'user';
             common: OtherCommon;
         }
-        interface PartialOtherObject extends Partial<Pick<OtherObject, '_id' | 'native' | 'enums' | 'type' | 'acl'>> {
+        interface PartialOtherObject extends Partial<Omit<OtherObject, 'common'>> {
             common?: Partial<ObjectCommon>;
         }
 
@@ -324,16 +330,15 @@ declare global {
         /** Parameters for adapter.getObjectView */
         interface GetObjectViewParams {
             /** First id to include in the return list */
-            startkey: string;
+            startkey?: string;
             /** Last id to include in the return list */
-            endkey: string;
-        }
-
-        /** Parameters for @link{Objects.getObjectList} */
-        interface GetObjectListParams extends GetObjectViewParams {
+            endkey?: string;
             /** Whether docs should be included in the return list */ // TODO: What are docs?
             include_docs?: boolean;
         }
+
+        /** Parameters for adapter.getObjectList */
+        type GetObjectListParams = GetObjectViewParams;
 
         type LogLevel = 'silly' | 'debug' | 'info' | 'warn' | 'error';
         interface Logger {
@@ -1691,16 +1696,16 @@ declare global {
 
         type MessageCallback = (response?: Message) => void;
 
-        type SetObjectCallback = (err: string | null, obj: { id: string }) => void;
-        type GetObjectCallback = (err: string | null, obj: ioBroker.Object | null | undefined) => void;
-        type GetEnumCallback = (err: string | null, enums: Record<string, Enum>, requestedEnum: string) => void;
+        type SetObjectCallback = (err: string | null, obj?: { id: string }) => void;
+        type GetObjectCallback = (err: string | null, obj?: ioBroker.Object | null) => void;
+        type GetEnumCallback = (err: string | null, enums?: Record<string, Enum>, requestedEnum?: string) => void;
         type GetEnumsCallback = (
             err: string | null,
-            result: {
+            result?: {
                 [groupName: string]: Record<string, Enum>;
             },
         ) => void;
-        type GetObjectsCallback = (err: string | null, objects: Record<string, ioBroker.Object>) => void;
+        type GetObjectsCallback = (err: string | null, objects?: Record<string, ioBroker.Object>) => void;
 
         type FindObjectCallback = (
             /** If an error happened, this contains the message */
@@ -1757,11 +1762,11 @@ declare global {
             /** Whether this is a directory or a file */
             isDir: boolean;
             /** Access rights */
-            acl: EvaluatedFileACL;
+            acl?: EvaluatedFileACL;
             /** Date of last modification */
-            modifiedAt: number;
+            modifiedAt?: number;
             /** Date of creation */
-            createdAt: number;
+            createdAt?: number;
         }
         type ReadDirCallback = (err: string | null, entries?: ReadDirResult[]) => void;
         type ReadFileCallback = (err: string | null, file?: Buffer | string, mimeType?: string) => void;
@@ -1803,8 +1808,8 @@ declare global {
         interface GetObjectViewItem {
             /** The ID of this object */
             id: string;
-            /** A copy of the object from the DB or some aggregation result */
-            value: ioBroker.Object | unknown; // TODO: find out how the non-Object return result looks like
+            /** A copy of the object from the DB */
+            value: ioBroker.Object | null;
         }
         type GetObjectViewCallback = (err: string | null, result?: { rows: GetObjectViewItem[] }) => void;
 
