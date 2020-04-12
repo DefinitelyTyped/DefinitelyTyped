@@ -41,6 +41,7 @@ function stateChangeHandler(id: string, state: ioBroker.State | null | undefined
         state.from.toLowerCase();
         state.lc.toFixed();
         state.q && state.q.toFixed();
+        state.user && state.user.toLowerCase();
         state.ts.toFixed();
         state.val;
     }
@@ -363,3 +364,7 @@ function repro3() {
         list; // $ExpectType StateObject[]
     });
 }
+
+// Repro from https://github.com/ioBroker/ioBroker.js-controller/issues/782
+// $ExpectError
+adapter.setState("id", {ack: false});
