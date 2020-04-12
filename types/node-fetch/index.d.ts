@@ -11,6 +11,7 @@
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Alex Savin <https://github.com/alexandrusavin>
 //                 Alexis Tyler <https://github.com/OmgImAlexis>
+//                 Jakub Kisielewski <https://github.com/kbkk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -140,7 +141,7 @@ export class Blob {
 export class Body {
     constructor(body?: any, opts?: { size?: number; timeout?: number });
     arrayBuffer(): Promise<ArrayBuffer>;
-    blob(): Promise<Buffer>;
+    blob(): Promise<Blob>;
     body: NodeJS.ReadableStream;
     bodyUsed: boolean;
     buffer(): Promise<Buffer>;

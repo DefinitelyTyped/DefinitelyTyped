@@ -85,21 +85,19 @@ export type PlotRestyleEvent = [
 	number[]	// array of traces updated
 ];
 
-export interface PlotAxis {
-	range: [number, number];
-	autorange: boolean;
-}
-
 export interface PlotScene {
 	center: Point;
 	eye: Point;
 	up: Point;
 }
 
-export interface PlotRelayoutEvent {
-	xaxis: PlotAxis;
-	yaxis: PlotAxis;
-	scene: PlotScene;
+export interface PlotRelayoutEvent extends Partial<Layout> {
+	"xaxis.range[0]"?: number;
+	"xaxis.range[1]"?: number;
+	"yaxis.range[0]"?: number;
+	"yaxis.range[1]"?: number;
+	"xaxis.autorange"?: boolean;
+	"yaxis.autorange"?: boolean;
 }
 
 export interface ClickAnnotationEvent {
@@ -212,7 +210,7 @@ export function update(root: Root, traceUpdate: Data, layoutUpdate: Partial<Layo
 export function addTraces(root: Root, traces: Data | Data[], newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
 export function deleteTraces(root: Root, indices: number[] | number): Promise<PlotlyHTMLElement>;
 export function moveTraces(root: Root, currentIndices: number[] | number, newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
-export function extendTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
+export function extendTraces(root: Root, update: Data | Data[], indices: number | number[], maxPoints?: number): Promise<PlotlyHTMLElement>;
 export function prependTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
 export function toImage(root: Root, opts: ToImgopts): Promise<string>;
 export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
@@ -463,20 +461,47 @@ export interface Margin {
 	pad: number;
 }
 
-export type ModeBarDefaultButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoScale2d' |
-	'zoom2d' | 'pan2d' | 'zoomIn2d' | 'zoomOut2d' | 'autoScale2d' | 'resetScale2d' |
-	'hoverClosestCartesian' | 'hoverCompareCartesian' | 'zoom3d' | 'pan3d' | 'orbitRotation' |
-	'tableRotation' | 'resetCameraDefault3d' | 'resetCameraLastSave3d' | 'hoverClosest3d' |
-	'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' |
-	'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews' | 'toggleSpikelines';
+export type ModeBarDefaultButtons =
+	| 'lasso2d'
+	| 'select2d'
+	| 'sendDataToCloud'
+	| 'zoom2d'
+	| 'pan2d'
+	| 'zoomIn2d'
+	| 'zoomOut2d'
+	| 'autoScale2d'
+	| 'resetScale2d'
+	| 'hoverClosestCartesian'
+	| 'hoverCompareCartesian'
+	| 'zoom3d'
+	| 'pan3d'
+	| 'orbitRotation'
+	| 'tableRotation'
+	| 'resetCameraDefault3d'
+	| 'resetCameraLastSave3d'
+	| 'hoverClosest3d'
+	| 'zoomInGeo'
+	| 'zoomOutGeo'
+	| 'resetGeo'
+	| 'hoverClosestGeo'
+	| 'hoverClosestGl2d'
+	| 'hoverClosestPie'
+	| 'toggleHover'
+	| 'toImage'
+	| 'resetViews'
+	| 'toggleSpikelines';
 
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 
 export interface Icon {
-	width: number;
-	path: string;
+	height?: number;
+	width?: number;
 	ascent?: number;
 	descent?: number;
+	name?: string;
+	path?: string;
+	svg?: string;
+	transform?: string;
 }
 
 export interface ModeBarButton {

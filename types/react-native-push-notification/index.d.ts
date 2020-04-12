@@ -69,6 +69,7 @@ export class PushNotificationObject {
     soundName?: string;
     number?: string;
     repeatType?: RepeatType;
+    repeatTime?: number;
     actions?: string;
 }
 

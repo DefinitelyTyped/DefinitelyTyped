@@ -16405,7 +16405,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        recurrenceProperties: RecurrenceProperties;
+        recurrenceProperties?: RecurrenceProperties;
         /**
          * Gets or sets the properties of the recurring appointment series.
          * 
@@ -16417,7 +16417,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        recurrenceTimeZone: RecurrenceTimeZone;
+        recurrenceTimeZone?: RecurrenceTimeZone;
         /**
          * Gets or sets the type of the recurring appointment series.
          * 
@@ -16566,28 +16566,28 @@ declare namespace Office {
         /**
          * Represents the day of the month.
          */
-        dayOfMonth: number;
+        dayOfMonth?: number;
         /**
          * Represents the day of the week or type of day, for example, weekend day vs weekday.
          */
-        dayOfWeek: MailboxEnums.Days | string;
+        dayOfWeek?: MailboxEnums.Days | string;
         /**
          * Represents the set of days for this recurrence. Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
          */
-        days: MailboxEnums.Days[] | string[];
+        days?: MailboxEnums.Days[] | string[];
         /**
          * Represents the number of the week in the selected month e.g. 'first' for first week of the month.
          */
-        weekNumber: MailboxEnums.WeekNumber | string;
+        weekNumber?: MailboxEnums.WeekNumber | string;
         /**
          * Represents the month.
          */
-        month: MailboxEnums.Month | string;
+        month?: MailboxEnums.Month | string;
         /**
          * Represents your chosen first day of the week otherwise the default is the value in the current user's settings. 
          * Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
          */
-        firstDayOfWeek: MailboxEnums.Days | string;
+        firstDayOfWeek?: MailboxEnums.Days | string;
     }
     /**
      * Represents the time zone of the recurrence.
@@ -16609,7 +16609,7 @@ declare namespace Office {
         /**
          * Integer value representing the difference in minutes between the local time zone and UTC at the date that the meeting series began.
          */
-        offset: number;
+        offset?: number;
     }
     /**
      * A file or item attachment. Used when displaying a reply form.
@@ -20018,7 +20018,11 @@ declare namespace Excel {
     }
     /**
      *
-     * Provides information about the binding that raised the SelectionChanged event.
+     * Provides information about the selection that raised the "SelectionChanged" event.
+     * 
+     * **Note**: If multiple, discontiguous cells are selected, 
+     * `Binding.onSelectionChanged only reports row and column information for one selection.
+     * Use `Worksheet.onSelectionChanged` for multiple selected ranges.
      *
      * [Api set: ExcelApi 1.2]
      */
@@ -25147,6 +25151,10 @@ declare namespace Excel {
         /**
          *
          * Occurs when the selected content in the binding is changed.
+         * 
+         * **Note**: If multiple, discontiguous cells are selected, 
+         * `Binding.onSelectionChanged only reports row and column information for one selection. 
+         * Use `Worksheet.onSelectionChanged` for multiple selected ranges.
          *
          * [Api set: ExcelApi 1.2]
          *
