@@ -784,7 +784,7 @@ declare namespace SpotifyApi {
          */
         restrictions?: RestrictionsObject;
         /**
-         * The object type: “album”
+         * The object type: “album”.
          */
         type: "album";
         /**
@@ -798,9 +798,24 @@ declare namespace SpotifyApi {
      * [artist object (full)](https://developer.spotify.com/web-api/object-model/)
      */
     interface ArtistObjectFull extends ArtistObjectSimplified {
+        /**
+         * Information about the followers of the artist.
+         */
         followers: FollowersObject;
+        /**
+         * A list of the genres the artist is associated with.
+         * For example: `"Prog Rock"` , `"Post-Grunge"`.
+         * (If not yet classified, the array is empty.)
+         */
         genres: string[];
+        /**
+         * Images of the artist in various sizes, widest first.
+         */
         images: ImageObject[];
+        /**
+         * The popularity of the artist. The value will be between 0 and 100, with 100 being the most popular.
+         * The artist’s popularity is calculated from the popularity of all the artist’s tracks.
+         */
         popularity: number;
     }
 
@@ -809,11 +824,29 @@ declare namespace SpotifyApi {
      * [artist object (simplified)](https://developer.spotify.com/web-api/object-model/)
      */
     interface ArtistObjectSimplified {
+        /**
+         * Known external URLs for this artist.
+         */
         external_urls: ExternalUrlObject;
+        /**
+         * A link to the Web API endpoint providing full details of the artist.
+         */
         href: string;
+        /**
+         * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the artist.
+         */
         id: string;
+        /**
+         * The name of the artist.
+         */
         name: string;
+        /**
+         * The object type: "artist".
+         */
         type: "artist";
+        /**
+         * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the artist.
+         */
         uri: string;
     }
 
