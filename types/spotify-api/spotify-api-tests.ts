@@ -2,6 +2,7 @@
 // Project: https://developer.spotify.com/web-api/
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 //                 Nils Måsén <https://github.com/piksel>
+//                 Basti Ortiz <https://github.com/Some-Dood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
