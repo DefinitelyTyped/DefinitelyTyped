@@ -3,7 +3,7 @@
 
 /// <reference path="./config.d.ts" />
 
-import { TooltipManager } from '../index';
+import {TooltipPlacement, Disposable} from "../index";
 
 export declare interface ButtonOptions {
     /** (optional)
@@ -32,7 +32,15 @@ export declare interface ButtonOptions {
      *     iconset: 'ion'
      * ```
      */
-    iconset?: undefined | 'ion' | 'fa' | 'fab' | 'fi' | 'icomoon' | 'devicon' | 'mdi';
+    iconset?:
+        | undefined
+        | "ion"
+        | "fa"
+        | "fab"
+        | "fi"
+        | "icomoon"
+        | "devicon"
+        | "mdi";
 
     /** (optional)
      * You can use `text` to:
@@ -110,7 +118,21 @@ export declare interface ButtonOptions {
     /** (optional)
      * The tooltip option may be a string or an object that is passed to Atom's TooltipManager
      */
-    tooltip?: string | TooltipManager;
+    tooltip?:
+        | string // minimally sets title
+        // similar to what TooltipManager.add options accepts:
+        | { item?: object }
+        | ({
+        title?: string | (() => string);
+        html?: boolean;
+        keyBindingCommand?: string;
+        keyBindingTarget?: HTMLElement;
+    } & {
+        class?: string;
+        placement?: TooltipPlacement | (() => TooltipPlacement);
+        trigger?: "click" | "hover" | "focus" | "manual";
+        delay?: { show: number; hide: number };
+    });
 
     /** (optional) Color of the button */
     color?: string;
@@ -139,12 +161,43 @@ export declare interface SpacerOptions {
     priority?: number;
 }
 
-export declare class ToolBarManager {
+declare interface ToolBarButtonView {
+    element: HTMLButtonElement;
+    subscriptions: Disposable;
+    priority: number;
+    options: ButtonOptions;
+    group: any;
+    enabled: boolean;
+
+    setEnabled(enabled: boolean): void;
+
+    setSelected(selected: boolean): void;
+
+    getSelected(): boolean;
+
+    _onMouseDown(event: MouseEvent): void;
+
+    _onClick(event: MouseEvent): void;
+
+    executeCallback(event: MouseEvent): void;
+
+    destroy(): void;
+}
+
+declare interface ToolBarSpacerView {
+    element: HTMLHRElement;
+    priority: number;
+    group: any;
+
+    destroy(): void;
+}
+
+export declare interface ToolBarManager {
     /** Adds a button. The input to this function is a `ButtonOptions` object */
-    addButton(options: ButtonOptions): void;
+    addButton(options: ButtonOptions): ToolBarButtonView;
 
     /** Adds a spacer. Optionally, you can pass a `SpacerOptions` object */
-    addSpacer(options?: SpacerOptions): void;
+    addSpacer(options?: SpacerOptions): ToolBarSpacerView;
 
     /** Use the method removeItems to remove the buttons added by your package. This is particular useful in your package deactivate method, but can be used at any time.
      */
@@ -156,13 +209,13 @@ export declare class ToolBarManager {
 }
 
 /**
- *  Passed as an input to `consumeToolBar(getToolBar: getToolbarCallback)` function of your package.
+ *  Passed as an input to `consumeToolBar(getToolBar: getToolBarManager)` function of your package.
  *
  *  In your main package file, add the following methods and replace your-package-name with your package name.
  * ```ts
  *  let toolBar: ToolBarManager
  *
- *  export function consumeToolBar(getToolBar: getToolbarCallback) {
+ *  export function consumeToolBar(getToolBar: getToolBarManager) {
  *   toolBar = getToolBar("packageName");
  *   // Add buttons and spacers here...
  * }
@@ -176,4 +229,4 @@ export declare class ToolBarManager {
  * }
  * ```
  */
-export type getToolbarCallback = (packageName: string) => ToolBarManager;
+export type getToolBarManager = (packageName: string) => ToolBarManager;
