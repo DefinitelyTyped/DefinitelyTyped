@@ -75,6 +75,19 @@ declare class Command {
     static setReplyTransformer(name: string, fn: (result: any) => any): void;
 }
 
+type Callback<T> = (err: Error, res: T) => void;
+
+interface OverloadedListCommand<T, U, R> {
+    (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): R;
+    (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb: Callback<U>): R;
+    (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): R;
+    (arg1: T, arg2: T, arg3: T, cb: Callback<U>): R;
+    (arg1: T, arg2: T, cb: Callback<U>): R;
+    (arg1: T | T[], cb: Callback<U>): R;
+    (...args: T[]): Promise<U>;
+    (arg1: T[]): Promise<U>;
+}
+
 // For backwards compatibility
 type _Command = typeof Command;
 
@@ -166,7 +179,7 @@ declare namespace IORedis {
         strlen(key: KeyType, callback: (err: Error, res: number) => void): void;
         strlen(key: KeyType): Promise<number>;
 
-        del(...keys: KeyType[]): Promise<number>;
+        del: OverloadedListCommand<string, number, R>;
 
         unlink(...keys: KeyType[]): Promise<number>;
 
@@ -734,7 +747,7 @@ declare namespace IORedis {
 
     }
 
-    interface Redis extends EventEmitter, Commander, Commands {
+    interface Redis extends EventEmitter, Commander, Commands<void> {
         Promise: typeof Promise;
         status: string;
         connect(callback?: () => void): Promise<void>;
@@ -1253,7 +1266,7 @@ declare namespace IORedis {
 
     type Ok = 'OK';
 
-    interface Cluster extends EventEmitter, Commander, Commands {
+    interface Cluster extends EventEmitter, Commander, Commands<void> {
         connect(callback: () => void): Promise<void>;
         disconnect(): void;
         nodes(role?: NodeRole): Redis[];
