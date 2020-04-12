@@ -669,11 +669,31 @@ declare namespace SpotifyApi {
      * [album object (full)](https://developer.spotify.com/web-api/object-model/#album-object-simplified)
      */
     interface AlbumObjectFull extends AlbumObjectSimplified {
+        /**
+         * The copyright statements of the album.
+         */
         copyrights: CopyrightObject[],
+        /**
+         * Known external IDs for the album.
+         */
         external_ids: ExternalIdObject,
+        /**
+         * A list of the genres used to classify the album.
+         * For example: `"Prog Rock"` , `"Post-Grunge"`. (If not yet classified, the array is empty.)
+         */
         genres: string[],
+        /**
+         * The label for the album.
+         */
         label: string,
+        /**
+         * The popularity of the album. The value will be between 0 and 100, with 100 being the most popular.
+         * The popularity is calculated from the popularity of the album’s individual tracks.
+         */
         popularity: number,
+        /**
+         * The tracks of the album.
+         */
         tracks: PagingObject<TrackObjectSimplified>
     }
 
@@ -682,19 +702,69 @@ declare namespace SpotifyApi {
      * [album object (simplified)](https://developer.spotify.com/web-api/object-model/#album-object-simplified)
      */
     interface AlbumObjectSimplified {
+        /**
+         * The field is present when getting an artist’s albums.
+         * Possible values are “album”, “single”, “compilation”, “appears_on”.
+         * Compare to album_type this field represents relationship between the artist and the album.
+         */
         album_group?: "album" | "single" | "compilation" | "appears_on",
+        /**
+         * The type of the album: one of “album”, “single”, or “compilation”.
+         */
         album_type: "album" | "single" | "compilation",
+        /**
+         * The artists of the album.
+         * Each artist object includes a link in href to more detailed information about the artist.
+         */
         artists: ArtistObjectSimplified[],
+        /**
+         * The markets in which the album is available: [ISO 3166-1 alpha-2 country codes](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+         * Note that an album is considered available in a market when at least 1 of its tracks is available in that market.
+         */
         available_markets?: string[],
+        /**
+         * Known external URLs for this album.
+         */
         external_urls: ExternalUrlObject,
+        /**
+         * 	A link to the Web API endpoint providing full details of the album.
+         */
         href: string,
+        /**
+         * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the album.
+         */
         id: string,
+        /**
+         * The cover art for the album in various sizes, widest first.
+         */
         images: ImageObject[],
+        /**
+         * The name of the album. In case of an album takedown, the value may be an empty string.
+         */
         name: string,
+        /**
+         * The date the album was first released, for example `1981`.
+         * Depending on the precision, it might be shown as `1981-12` or `1981-12-15`.
+         */
         release_date: string,
-        release_date_precision: string,
+        /**
+         * The precision with which release_date value is known: `year`, `month`, or `day`.
+         */
+        release_date_precision: "year" | "month" | "day",
+        /**
+         * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/) is applied,
+         * the original track is not available in the given market, and Spotify did not have any tracks to relink it with.
+         * The track response will still contain metadata for the original track,
+         * and a restrictions object containing the reason why the track is not available: `"restrictions" : {"reason" : "market"}`
+         */
         restrictions?: RestrictionsObject,
+        /**
+         * The object type: “album”
+         */
         type: "album",
+        /**
+         * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the album.
+         */
         uri: string
     }
 
