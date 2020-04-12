@@ -38,13 +38,35 @@ import React = require('.');
 
 export {};
 
+/**
+ * Fakes Flow's `$NonMaybeType<mixed>`.
+ * Theoretically same with `NonNullable<unknown>` that doesn't work.
+ *
+ * See https://github.com/facebook/react/commit/322cdcd3abfaca985a001a12247f02c5d31d311e#diff-a91e99777b6cc96255a75b3e7fece2aeR194-R196
+ * See https://www.typescriptlang.org/play/#code/C4TwDgpgBAJAcgewHYFkCGIBGEAq4IoCWAHhACZQC8UAosQMYA2ArmRADzNIDWSCA7kgA0UJM0aMoAHyhc2AM0JJyAPgBQa+V3rBCyKAGUEzAE70IACgDOxsxABcsRKgzY8kIqTIBKKAG8oAF8NAHoQqAABYCsAWghiSB04kxMEEzUjU3MLMQlvAG41MMjouISIJIgUtIzbbLkIRWUfQqA
+ */
 type NonNullableValue = string | number | boolean | object | symbol;
 
+/**
+ * An opaque type that can only be created by `React.createMutableSource` API.
+ */
+type MutableSource<Source extends NonNullableValue, Version extends NonNullableValue> = {
+    /**
+     * External source that React should keep track
+     *
+     * @private
+     */
+    _source: Source,
+
+    /**
+     * Snapshot function the "tearing" has happened while rendering is interrupted.
+     *
+     * @private
+     */
+    _getVersion: (source: Source) => Version,
+};
+
 declare module '.' {
-    type MutableSource<Source extends NonNullableValue, Version extends NonNullableValue> = Pick<{
-        _source: Source,
-        _getVersion: (source: Source) => Version,
-    }, never>;
     type MutableSourceType<T> = T extends MutableSource<infer Source, any> ? Source : never;
     type MutableSourceVersionType<T> = T extends MutableSource<any, infer Version> ? Version : never;
     type MutableSourceSubscribeFn<Source extends NonNullableValue, Version extends NonNullableValue> = (
