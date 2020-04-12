@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import { Flex, jsx, css, InitializeColorMode, ColorMode, Styled, SxStyleProp, Theme } from 'theme-ui';
+import { Flex, jsx, css, InitializeColorMode, ColorMode, Styled, SxStyleProp, Theme, useThemeUI } from 'theme-ui';
 
 export const Component = () => {
+    const { theme, colorMode, setColorMode } = useThemeUI();
     return (
         <>
             <InitializeColorMode />
@@ -18,7 +19,11 @@ export const Component = () => {
                 Works
             </Styled>
             <div sx={{ bg: 'red' }}>
+                <h1 sx={{ color: theme ? (theme.colors ? theme.colors.primary : '') : '' }}>
+                    Current color mode: {colorMode}
+                </h1>
                 <Flex sx={{ backgroundColor: 'pink' }} />
+                <button onClick={() => setColorMode('another-theme')}>Change Mode</button>
             </div>
         </>
     );
@@ -50,7 +55,7 @@ const Success = () => (
 );
 
 const workingThemeColorModes: Theme = {
-    initialColorMode: 'light',
+    initialColorModeName: 'light',
     colors: {
         text: '#000',
         background: '#fff',
@@ -91,7 +96,7 @@ const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $Expe
         secondary: '#05a',
         muted: '#f6f6f6f',
     },
-    initialColorMode: 'light',
+    initialColorModeName: 'light',
 };
 
 const themeWithStyles: Theme = {

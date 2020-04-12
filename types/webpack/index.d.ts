@@ -19,6 +19,9 @@
 //                 Rubens Pinheiro Gonçalves Cavalcante <https://github.com/rubenspgcavalcante>
 //                 Anders Kaseorg <https://github.com/andersk>
 //                 Felix Haus <https://github.com/ofhouse>
+//                 Daniel Chin <https://github.com/danielthank>
+//                 Daiki Ihara <https://github.com/sasurau4>
+//                 Dion Shi <https://github.com/dionshihk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -99,11 +102,13 @@ declare namespace webpack {
          * - "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
          * - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser
          *   environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
+         * - "electron-preload" Compile for Electron for renderer process, providing a target using NodeTemplatePlugin with asyncChunkLoading set to true,
+         *   FunctionModulePlugin for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
          * - "electron-main" Compile for Electron for main process.
          * - "atom" Alias for electron-main.
          * - "electron" Alias for electron-main.
          */
-        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
+        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-preload' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
         bail?: boolean;
         /** Capture timing information for each module. */
@@ -220,6 +225,7 @@ declare namespace webpack {
          * - "window" - Assign to window
          * - "assign" - Assign to a global variable
          * - "jsonp" - Generate Webpack JSONP module
+         * - "system" - Generate a SystemJS module
          */
         libraryTarget?: LibraryTarget;
         /** Configure which module or modules will be exposed via the `libraryTarget` */
@@ -254,7 +260,7 @@ declare namespace webpack {
         futureEmitAssets?: boolean;
     }
 
-    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp';
+    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp' | 'system';
 
     type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
 
@@ -943,13 +949,55 @@ declare namespace webpack {
             createModule: SyncBailHook;
             module: SyncWaterfallHook;
             createParser: HookMap;
-            parser: HookMap;
+            parser: HookMap<normalModuleFactory.Parser>;
             createGenerator: HookMap;
             generator: HookMap;
         }
 
         class NormalModuleFactory extends Tapable {
             hooks: NormalModuleFactoryHooks;
+        }
+
+        namespace normalModuleFactory {
+            interface ParserHooks {
+                evaluateTypeof: HookMap;
+                evaluate: HookMap;
+                evaluateIdentifier: HookMap;
+                evaluateDefinedIdentifier: HookMap;
+                evaluateCallExpressionMember: HookMap;
+                statement: SyncBailHook;
+                statementIf: SyncBailHook;
+                label: HookMap;
+                import: SyncBailHook;
+                importSpecifier: SyncBailHook;
+                export: SyncBailHook;
+                exportImport: SyncBailHook;
+                exportDeclaration: SyncBailHook;
+                exportExpression: SyncBailHook;
+                exportSpecifier: SyncBailHook;
+                exportImportSpecifier: SyncBailHook;
+                varDeclaration: SyncBailHook;
+                varDeclarationLet: HookMap;
+                varDeclarationConst: HookMap;
+                varDeclarationVar: HookMap;
+                canRename: HookMap;
+                rename: HookMap;
+                assigned: HookMap;
+                typeof: HookMap;
+                importCall: SyncBailHook;
+                call: HookMap;
+                callAnyMember: HookMap;
+                new: HookMap;
+                expression: HookMap;
+                expressionAnyMember: HookMap;
+                expressionConditionalOperator: SyncBailHook;
+                expressionLogicalOperator: SyncBailHook;
+                program: SyncBailHook;
+            }
+
+            class Parser extends Tapable {
+                hooks: ParserHooks;
+            }
         }
 
         interface ContextModuleFactoryHooks {
@@ -1369,6 +1417,8 @@ declare namespace webpack {
             cachedAssets?: boolean;
             /** Add children information */
             children?: boolean;
+            /** Add information about the `namedChunkGroups` */
+            chunkGroups?: boolean;
             /** Add built modules information to chunk information */
             chunkModules?: boolean;
             /** Add the origins of chunks and chunk merging info */
@@ -1540,7 +1590,7 @@ declare namespace webpack {
                 name: string;
                 size: number;
             }>;
-            assetsByChunkName?: Record<string, Record<string, string[]>>;
+            assetsByChunkName?: Record<string, string | string[]>;
             builtAt?: number;
             children?: Array<ToJsonOutput & { name?: string }>;
             chunks?: Array<{
@@ -1622,7 +1672,23 @@ declare namespace webpack {
     }
 
     class DefinePlugin extends Plugin {
-        constructor(definitions: { [key: string]: any });
+        constructor(definitions: {[key: string]: DefinePlugin.CodeValueObject});
+        static runtimeValue(
+            fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
+            fileDependencies?: string[]
+        ): DefinePlugin.RuntimeValue;
+    }
+
+    namespace DefinePlugin {
+        class RuntimeValue {
+            constructor(
+                fn: ({ module }: { module: compilation.Module }) => CodeValuePrimitive,
+                fileDependencies?: string[]
+            );
+            exec(parser: compilation.normalModuleFactory.Parser): CodeValuePrimitive;
+        }
+        type CodeValuePrimitive = string | number | boolean | RegExp | RuntimeValue | null | undefined;
+        type CodeValueObject = CodeValuePrimitive | {[key: string]: CodeValueObject};
     }
 
     class DllPlugin extends Plugin {
@@ -1768,7 +1834,45 @@ declare namespace webpack {
     }
 
     class ProgressPlugin extends Plugin {
-        constructor(options?: (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void);
+        constructor(options?: ProgressPlugin.Options | ProgressPlugin.Handler);
+    }
+
+    namespace ProgressPlugin {
+        /**
+         * A handler function which will be called when webpack hooks report progress
+         */
+        type Handler = (percentage: number, msg: string, ...args: string[]) => void;
+        interface Options {
+            /**
+             * Show active modules count and one active module in progress message
+             * Default: true
+             */
+            activeModules?: boolean;
+            /**
+             * Show entries count in progress message
+             * Default: false
+             */
+            entries?: boolean;
+            /**
+             * Function that executes for every progress step
+             */
+            handler?: Handler;
+            /**
+             * Show modules count in progress message
+             * Default: true
+             */
+            modules?: boolean;
+            /**
+             * Minimum modules count to start with, only for mode = modules
+             * Default: 500
+             */
+            modulesCount?: number;
+            /**
+             * Collect profile data for progress steps
+             * Default: false
+             */
+            profile?: boolean | null;
+        }
     }
 
     class EnvironmentPlugin extends Plugin {

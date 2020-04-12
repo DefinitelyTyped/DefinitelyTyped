@@ -5,13 +5,11 @@ import {
     Store,
     MissingFieldHandler,
     OperationTracker,
-    LoggerProvider,
-    Logger,
+    LogFunction,
     OptimisticUpdateFunction,
     OperationAvailability,
     OperationDescriptor,
     SelectorStoreUpdater,
-    NormalizationSelector,
     StoreUpdater,
     SingularReaderSelector,
     Snapshot,
@@ -21,20 +19,19 @@ import {
 import { Network, PayloadData, GraphQLResponse, UploadableMap } from '../network/RelayNetworkTypes';
 import { TaskScheduler } from './RelayModernQueryExecutor';
 import { RelayOperationTracker } from './RelayOperationTracker';
-import { LoggerTransactionConfig } from '../network/RelayNetworkLoggerTransaction';
 import { Disposable, CacheConfig } from '../util/RelayRuntimeTypes';
 import { RelayObservable } from '../network/RelayObservable';
 
 export interface EnvironmentConfig {
     readonly configName?: string;
     readonly handlerProvider?: HandlerProvider | null;
+    readonly log?: LogFunction | null;
     readonly operationLoader?: OperationLoader | null;
     readonly network: Network;
     readonly scheduler?: TaskScheduler | null;
     readonly store: Store;
     readonly missingFieldHandlers?: ReadonlyArray<MissingFieldHandler> | null;
     readonly operationTracker?: OperationTracker | null;
-    readonly loggerProvider?: LoggerProvider | null;
 }
 
 export class RelayModernEnvironment implements Environment {
@@ -43,7 +40,6 @@ export class RelayModernEnvironment implements Environment {
     getStore(): Store;
     getNetwork(): Network;
     getOperationTracker(): RelayOperationTracker;
-    getLogger(config: LoggerTransactionConfig): Logger | null | undefined;
     applyUpdate(optimisticUpdate: OptimisticUpdateFunction): Disposable;
     revertUpdate(update: OptimisticUpdateFunction): void;
     replaceUpdate(update: OptimisticUpdateFunction, newUpdate: OptimisticUpdateFunction): void;

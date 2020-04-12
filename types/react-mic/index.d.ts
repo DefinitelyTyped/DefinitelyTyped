@@ -10,6 +10,20 @@ import * as React from 'react';
  */
 export class ReactMic extends React.PureComponent<ReactMicProps> {}
 
+/**
+ * The object sent when the recording stops
+ */
+export interface ReactMicStopEvent {
+    blob: Blob;
+    startTime: number;
+    stopTime: number;
+    option: {
+      audioBitsPerSecond: number;
+      mimeType: string;
+    };
+    blobURL: string;
+  }
+
 export interface ReactMicProps {
     /** Set to true to begin recording */
     record?: boolean;
@@ -22,7 +36,7 @@ export interface ReactMicProps {
     className?: string;
 
     /** Callback that is executed when audio stops recording */
-    onStop?: (recordedData: Blob) => void;
+    onStop?: (recordedData: ReactMicStopEvent) => void;
 
     /** Callback that is executed when chunk of audio is available */
     onData?: (recordedData: Blob) => void;

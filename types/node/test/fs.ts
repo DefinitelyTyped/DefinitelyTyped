@@ -275,10 +275,25 @@ async function testPromisify() {
     fs.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,
-    }, () => {
+    }, (err, path) => {
+        err; // $ExpectType ErrnoException | null
+        path; // $ExpectType string
     });
 
+    // $ExpectType string
     fs.mkdirSync('some/test/path', {
+        recursive: true,
+        mode: 0o777,
+    });
+
+    // $ExpectType Promise<string>
+    util.promisify(fs.mkdir)('some/test/path', {
+        recursive: true,
+        mode: 0o777,
+    });
+
+    // $ExpectType Promise<string>
+    fs.promises.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,
     });
@@ -328,4 +343,12 @@ async function testPromisify() {
         encoding: 'utf8',
         bufferSize: 42,
     });
+}
+
+{
+    const writeStream = fs.createWriteStream('./index.d.ts');
+    const _wom = writeStream.writableObjectMode; // $ExpectType boolean
+
+    const readStream = fs.createReadStream('./index.d.ts');
+    const _rom = readStream.readableObjectMode; // $ExpectType boolean
 }

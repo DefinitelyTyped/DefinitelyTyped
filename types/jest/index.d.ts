@@ -1,4 +1,4 @@
-// Type definitions for Jest 24.9
+// Type definitions for Jest 25.2
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -26,10 +26,10 @@
 //                 Tony Hallett <https://github.com/tonyhallett>
 //                 Jason Yu <https://github.com/ycmjason>
 //                 Devansh Jethmalani <https://github.com/devanshj>
+//                 Pawel Fajfer <https://github.com/pawfa>
+//                 Regev Brody <https://github.com/regevbr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-/// <reference types="jest-diff" />
+// TypeScript Version: 3.1
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -285,6 +285,12 @@ declare namespace jest {
     ): Required<T>[M] extends (...args: any[]) => any
         ? SpyInstance<ReturnType<Required<T>[M]>, ArgsType<Required<T>[M]>>
         : never;
+    function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
+        object: T,
+        method: M
+    ): Required<T>[M] extends new (...args: any[]) => any
+        ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
+        : never;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -305,12 +311,15 @@ declare namespace jest {
 
     type EmptyFunction = () => void;
     type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
+    type ConstructorArgsType<T> = T extends new (...args: infer A) => any ? A : never;
     type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
     type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
     // see https://github.com/Microsoft/TypeScript/issues/25215
     type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? never : K }[keyof T] &
         string;
     type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never }[keyof T] &
+        string;
+    type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends new (...args: any[]) => any ? K : never }[keyof T] &
         string;
 
     interface DoneCallback {
@@ -528,49 +537,7 @@ declare namespace jest {
         message: () => string;
     }
 
-    interface SnapshotSerializerOptions {
-        callToJSON?: boolean;
-        edgeSpacing?: string;
-        spacing?: string;
-        escapeRegex?: boolean;
-        highlight?: boolean;
-        indent?: number;
-        maxDepth?: number;
-        min?: boolean;
-        plugins?: SnapshotSerializerPlugin[];
-        printFunctionName?: boolean;
-        theme?: SnapshotSerializerOptionsTheme;
-
-        // see https://github.com/facebook/jest/blob/e56103cf142d2e87542ddfb6bd892bcee262c0e6/types/PrettyFormat.js
-    }
-    interface SnapshotSerializerOptionsTheme {
-        comment?: string;
-        content?: string;
-        prop?: string;
-        tag?: string;
-        value?: string;
-    }
-    interface SnapshotSerializerColor {
-        close: string;
-        open: string;
-    }
-    interface SnapshotSerializerColors {
-        comment: SnapshotSerializerColor;
-        content: SnapshotSerializerColor;
-        prop: SnapshotSerializerColor;
-        tag: SnapshotSerializerColor;
-        value: SnapshotSerializerColor;
-    }
-    interface SnapshotSerializerPlugin {
-        print(
-            val: any,
-            serialize: (val: any) => string,
-            indent: (str: string) => string,
-            opts: SnapshotSerializerOptions,
-            colors: SnapshotSerializerColors
-        ): string;
-        test(val: any): boolean;
-    }
+    type SnapshotSerializerPlugin = import('pretty-format').Plugin;
 
     interface InverseAsymmetricMatchers {
         /**
@@ -840,6 +807,7 @@ declare namespace jest {
         /**
          * Used when you want to check that an item is in a list.
          * For testing the items in the list, this uses `===`, a strict equality check.
+         * It can also check whether a string is a substring of another string.
          *
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
@@ -1086,6 +1054,11 @@ declare namespace jest {
     interface SpyInstance<T = any, Y extends any[] = any> extends MockInstance<T, Y> {}
 
     /**
+     * Represents a function that has been spied on.
+     */
+    type SpiedFunction<T extends (...args: any[]) => any> = SpyInstance<ReturnType<T>, ArgsType<T>>;
+
+    /**
      * Wrap a function with mock definitions
      *
      * @example
@@ -1153,7 +1126,7 @@ declare namespace jest {
          * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
          * don't access stale data.
          */
-        mockClear(): void;
+        mockClear(): this;
         /**
          * Resets all information stored in the mock, including any initial implementation and mock name given.
          *
@@ -1163,7 +1136,7 @@ declare namespace jest {
          * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
          * don't access stale data.
          */
-        mockReset(): void;
+        mockReset(): this;
         /**
          * Does everything that `mockFn.mockReset()` does, and also restores the original (non-mocked) implementation.
          *
@@ -1176,6 +1149,10 @@ declare namespace jest {
          * to restore mocks automatically between tests.
          */
         mockRestore(): void;
+        /**
+         * Returns the function that was set as the implementation of the mock (using mockImplementation).
+         */
+        getMockImplementation(): (...args: Y) => T | undefined;
         /**
          * Accepts a function that should be used as the implementation of the mock. The mock itself will still record
          * all calls that go into and instances that come from itself – the only difference is that the implementation
@@ -1518,536 +1495,5 @@ declare namespace jasmine {
     interface ArrayLike<T> {
         length: number;
         [n: number]: T;
-    }
-}
-
-declare namespace jest {
-    // types for implementing custom interfaces, from https://github.com/facebook/jest/tree/dd6c5c4/types
-
-    // https://facebook.github.io/jest/docs/en/configuration.html#transform-object-string-string
-    // const transformer: Transformer;
-
-    // https://facebook.github.io/jest/docs/en/configuration.html#reporters-array-modulename-modulename-options
-    // const reporter: Reporter;
-
-    // https://facebook.github.io/jest/docs/en/configuration.html#testrunner-string
-    // const testRunner: TestFramework;
-
-    // https://facebook.github.io/jest/docs/en/configuration.html#testresultsprocessor-string
-    // const testResultsProcessor: TestResultsProcessor;
-
-    // leave above declarations for referencing type-dependencies
-    // .vscode/settings.json: "typescript.referencesCodeLens.enabled": true
-
-    // custom
-
-    // flow's Maybe type https://flow.org/en/docs/types/primitives/#toc-maybe-types
-    type Maybe<T> = void | null | undefined | T; // tslint:disable-line:void-return
-
-    type TestResultsProcessor = (testResult: AggregatedResult) => AggregatedResult;
-
-    type HasteResolver = any; // import HasteResolver from 'jest-resolve';
-    type ModuleMocker = any; // import { ModuleMocker } from 'jest-mock';
-    type ModuleMap = any; // import {ModuleMap} from 'jest-haste-map';
-    type HasteFS = any; // import {FS as HasteFS} from 'jest-haste-map';
-    type Runtime = any; // import Runtime from 'jest-runtime';
-    type Script = any; // import {Script} from 'vm';
-
-    // Config
-
-    type Path = string;
-    type Glob = string;
-
-    interface HasteConfig {
-        defaultPlatform?: Maybe<string>;
-        hasteImplModulePath?: string;
-        platforms?: string[];
-        providesModuleNodeModules: string[];
-    }
-
-    type ReporterConfig = [string, object];
-
-    type ConfigGlobals = object;
-
-    type SnapshotUpdateState = 'all' | 'new' | 'none';
-
-    interface DefaultOptions {
-        automock: boolean;
-        bail: boolean;
-        browser: boolean;
-        cache: boolean;
-        cacheDirectory: Path;
-        changedFilesWithAncestor: boolean;
-        clearMocks: boolean;
-        collectCoverage: boolean;
-        collectCoverageFrom: Maybe<string[]>;
-        coverageDirectory: Maybe<string>;
-        coveragePathIgnorePatterns: string[];
-        coverageReporters: string[];
-        coverageThreshold: Maybe<{ global: { [key: string]: number } }>;
-        errorOnDeprecated: boolean;
-        expand: boolean;
-        filter: Maybe<Path>;
-        forceCoverageMatch: Glob[];
-        globals: ConfigGlobals;
-        globalSetup: Maybe<string>;
-        globalTeardown: Maybe<string>;
-        haste: HasteConfig;
-        detectLeaks: boolean;
-        detectOpenHandles: boolean;
-        moduleDirectories: string[];
-        moduleFileExtensions: string[];
-        moduleNameMapper: { [key: string]: string };
-        modulePathIgnorePatterns: string[];
-        noStackTrace: boolean;
-        notify: boolean;
-        notifyMode: string;
-        preset: Maybe<string>;
-        projects: Maybe<Array<string | ProjectConfig>>;
-        resetMocks: boolean;
-        resetModules: boolean;
-        resolver: Maybe<Path>;
-        restoreMocks: boolean;
-        rootDir: Maybe<Path>;
-        roots: Maybe<Path[]>;
-        runner: string;
-        runTestsByPath: boolean;
-        setupFiles: Path[];
-        setupTestFrameworkScriptFile: Maybe<Path>;
-        skipFilter: boolean;
-        snapshotSerializers: Path[];
-        testEnvironment: string;
-        testEnvironmentOptions: object;
-        testFailureExitCode: string | number;
-        testLocationInResults: boolean;
-        testMatch: Glob[];
-        testPathIgnorePatterns: string[];
-        testRegex: string;
-        testResultsProcessor: Maybe<string>;
-        testRunner: Maybe<string>;
-        testURL: string;
-        timers: 'real' | 'fake';
-        transform: Maybe<{ [key: string]: string }>;
-        transformIgnorePatterns: Glob[];
-        watchPathIgnorePatterns: string[];
-        useStderr: boolean;
-        verbose: Maybe<boolean>;
-        watch: boolean;
-        watchman: boolean;
-    }
-
-    interface InitialOptions {
-        automock?: boolean;
-        bail?: boolean;
-        browser?: boolean;
-        cache?: boolean;
-        cacheDirectory?: Path;
-        clearMocks?: boolean;
-        changedFilesWithAncestor?: boolean;
-        changedSince?: string;
-        collectCoverage?: boolean;
-        collectCoverageFrom?: Glob[];
-        collectCoverageOnlyFrom?: { [key: string]: boolean };
-        coverageDirectory?: string;
-        coveragePathIgnorePatterns?: string[];
-        coverageReporters?: string[];
-        coverageThreshold?: { global: { [key: string]: number } };
-        detectLeaks?: boolean;
-        detectOpenHandles?: boolean;
-        displayName?: string;
-        expand?: boolean;
-        filter?: Path;
-        findRelatedTests?: boolean;
-        forceCoverageMatch?: Glob[];
-        forceExit?: boolean;
-        json?: boolean;
-        globals?: ConfigGlobals;
-        globalSetup?: Maybe<string>;
-        globalTeardown?: Maybe<string>;
-        haste?: HasteConfig;
-        reporters?: Array<ReporterConfig | string>;
-        logHeapUsage?: boolean;
-        lastCommit?: boolean;
-        listTests?: boolean;
-        mapCoverage?: boolean;
-        moduleDirectories?: string[];
-        moduleFileExtensions?: string[];
-        moduleLoader?: Path;
-        moduleNameMapper?: { [key: string]: string };
-        modulePathIgnorePatterns?: string[];
-        modulePaths?: string[];
-        name?: string;
-        noStackTrace?: boolean;
-        notify?: boolean;
-        notifyMode?: string;
-        onlyChanged?: boolean;
-        outputFile?: Path;
-        passWithNoTests?: boolean;
-        preprocessorIgnorePatterns?: Glob[];
-        preset?: Maybe<string>;
-        projects?: Glob[];
-        replname?: Maybe<string>;
-        resetMocks?: boolean;
-        resetModules?: boolean;
-        resolver?: Maybe<Path>;
-        restoreMocks?: boolean;
-        rootDir?: Path;
-        roots?: Path[];
-        runner?: string;
-        runTestsByPath?: boolean;
-        scriptPreprocessor?: string;
-        setupFiles?: Path[];
-        setupFilesAfterEnv?: Path[];
-        setupTestFrameworkScriptFile?: Path;
-        silent?: boolean;
-        skipFilter?: boolean;
-        skipNodeResolution?: boolean;
-        snapshotSerializers?: Path[];
-        errorOnDeprecated?: boolean;
-        testEnvironment?: string;
-        testEnvironmentOptions?: object;
-        testFailureExitCode?: string | number;
-        testLocationInResults?: boolean;
-        testMatch?: Glob[];
-        testNamePattern?: string;
-        testPathDirs?: Path[];
-        testPathIgnorePatterns?: string[];
-        testRegex?: string;
-        testResultsProcessor?: Maybe<string>;
-        testRunner?: string;
-        testURL?: string;
-        timers?: 'real' | 'fake';
-        transform?: { [key: string]: string };
-        transformIgnorePatterns?: Glob[];
-        watchPathIgnorePatterns?: string[];
-        unmockedModulePathPatterns?: string[];
-        updateSnapshot?: boolean;
-        useStderr?: boolean;
-        verbose?: Maybe<boolean>;
-        watch?: boolean;
-        watchAll?: boolean;
-        watchman?: boolean;
-        watchPlugins?: string[];
-    }
-
-    interface GlobalConfig {
-        bail: boolean;
-        collectCoverage: boolean;
-        collectCoverageFrom: Glob[];
-        collectCoverageOnlyFrom: Maybe<{ [key: string]: boolean }>;
-        coverageDirectory: string;
-        coverageReporters: string[];
-        coverageThreshold: { global: { [key: string]: number } };
-        expand: boolean;
-        forceExit: boolean;
-        logHeapUsage: boolean;
-        mapCoverage: boolean;
-        noStackTrace: boolean;
-        notify: boolean;
-        projects: Glob[];
-        replname: Maybe<string>;
-        reporters: ReporterConfig[];
-        rootDir: Path;
-        silent: boolean;
-        testNamePattern: string;
-        testPathPattern: string;
-        testResultsProcessor: Maybe<string>;
-        updateSnapshot: SnapshotUpdateState;
-        useStderr: boolean;
-        verbose: Maybe<boolean>;
-        watch: boolean;
-        watchman: boolean;
-    }
-
-    interface ProjectConfig {
-        automock: boolean;
-        browser: boolean;
-        cache: boolean;
-        cacheDirectory: Path;
-        clearMocks: boolean;
-        coveragePathIgnorePatterns: string[];
-        cwd: Path;
-        detectLeaks: boolean;
-        displayName: Maybe<string>;
-        forceCoverageMatch: Glob[];
-        globals: ConfigGlobals;
-        haste: HasteConfig;
-        moduleDirectories: string[];
-        moduleFileExtensions: string[];
-        moduleLoader: Path;
-        moduleNameMapper: Array<[string, string]>;
-        modulePathIgnorePatterns: string[];
-        modulePaths: string[];
-        name: string;
-        resetMocks: boolean;
-        resetModules: boolean;
-        resolver: Maybe<Path>;
-        rootDir: Path;
-        roots: Path[];
-        runner: string;
-        setupFiles: Path[];
-        setupTestFrameworkScriptFile: Path;
-        skipNodeResolution: boolean;
-        snapshotSerializers: Path[];
-        testEnvironment: string;
-        testEnvironmentOptions: object;
-        testLocationInResults: boolean;
-        testMatch: Glob[];
-        testPathIgnorePatterns: string[];
-        testRegex: string;
-        testRunner: string;
-        testURL: string;
-        timers: 'real' | 'fake';
-        transform: Array<[string, Path]>;
-        transformIgnorePatterns: Glob[];
-        unmockedModulePathPatterns: Maybe<string[]>;
-        watchPathIgnorePatterns: string[];
-    }
-
-    // Console
-
-    type LogMessage = string;
-    interface LogEntry {
-        message: LogMessage;
-        origin: string;
-        type: LogType;
-    }
-    type LogType = 'log' | 'info' | 'warn' | 'error';
-    type ConsoleBuffer = LogEntry[];
-
-    // Context
-
-    interface Context {
-        config: ProjectConfig;
-        hasteFS: HasteFS;
-        moduleMap: ModuleMap;
-        resolver: HasteResolver;
-    }
-
-    // Environment
-
-    interface FakeTimers {
-        clearAllTimers(): void;
-        getTimerCount(): number;
-        runAllImmediates(): void;
-        runAllTicks(): void;
-        runAllTimers(): void;
-        runTimersToTime(msToRun: number): void;
-        advanceTimersByTime(msToRun: number): void;
-        advanceTimersToNextTimer(steps?: number): void;
-        runOnlyPendingTimers(): void;
-        runWithRealTimers(callback: any): void;
-        useFakeTimers(): void;
-        useRealTimers(): void;
-    }
-
-    interface $JestEnvironment {
-        global: Global;
-        fakeTimers: FakeTimers;
-        testFilePath: string;
-        moduleMocker: ModuleMocker;
-
-        dispose(): void;
-        runScript(script: Script): any;
-    }
-
-    type Environment = $JestEnvironment;
-
-    // Global
-
-    type Global = object;
-
-    // Reporter
-
-    interface ReporterOnStartOptions {
-        estimatedTime: number;
-        showStatus: boolean;
-    }
-
-    // TestResult
-
-    interface RawFileCoverage {
-        path: string;
-        s: { [statementId: number]: number };
-        b: { [branchId: number]: number };
-        f: { [functionId: number]: number };
-        l: { [lineId: number]: number };
-        fnMap: { [functionId: number]: any };
-        statementMap: { [statementId: number]: any };
-        branchMap: { [branchId: number]: any };
-        inputSourceMap?: object;
-    }
-
-    interface RawCoverage {
-        [filePath: string]: RawFileCoverage;
-    }
-
-    interface FileCoverageTotal {
-        total: number;
-        covered: number;
-        skipped: number;
-        pct?: number;
-    }
-
-    interface CoverageSummary {
-        lines: FileCoverageTotal;
-        statements: FileCoverageTotal;
-        branches: FileCoverageTotal;
-        functions: FileCoverageTotal;
-    }
-
-    interface FileCoverage {
-        getLineCoverage(): object;
-        getUncoveredLines(): number[];
-        getBranchCoverageByLine(): object;
-        toJSON(): object;
-        merge(other: object): void;
-        computeSimpleTotals(property: string): FileCoverageTotal;
-        computeBranchTotals(): FileCoverageTotal;
-        resetHits(): void;
-        toSummary(): CoverageSummary;
-    }
-
-    interface CoverageMap {
-        merge(data: object): void;
-        getCoverageSummary(): FileCoverage;
-        data: RawCoverage;
-        addFileCoverage(fileCoverage: RawFileCoverage): void;
-        files(): string[];
-        fileCoverageFor(file: string): FileCoverage;
-    }
-
-    interface SerializableError {
-        code?: any;
-        message: string;
-        stack: Maybe<string>;
-        type?: string;
-    }
-
-    type Status = 'passed' | 'failed' | 'skipped' | 'pending';
-
-    type Bytes = number;
-    type Milliseconds = number;
-
-    interface AssertionResult {
-        ancestorTitles: string[];
-        duration?: Maybe<Milliseconds>;
-        failureMessages: string[];
-        fullName: string;
-        numPassingAsserts: number;
-        status: Status;
-        title: string;
-    }
-
-    interface AggregatedResult {
-        coverageMap?: Maybe<CoverageMap>;
-        numFailedTests: number;
-        numFailedTestSuites: number;
-        numPassedTests: number;
-        numPassedTestSuites: number;
-        numPendingTests: number;
-        numPendingTestSuites: number;
-        numRuntimeErrorTestSuites: number;
-        numTodoTests: number;
-        numTotalTests: number;
-        numTotalTestSuites: number;
-        snapshot: SnapshotSummary;
-        startTime: number;
-        success: boolean;
-        testResults: TestResult[];
-        wasInterrupted: boolean;
-    }
-
-    interface TestResult {
-        console: Maybe<ConsoleBuffer>;
-        coverage?: RawCoverage;
-        memoryUsage?: Bytes;
-        failureMessage: Maybe<string>;
-        numFailingTests: number;
-        numPassingTests: number;
-        numPendingTests: number;
-        perfStats: {
-            end: Milliseconds;
-            start: Milliseconds;
-        };
-        skipped: boolean;
-        snapshot: {
-            added: number;
-            fileDeleted: boolean;
-            matched: number;
-            unchecked: number;
-            unmatched: number;
-            updated: number;
-        };
-        sourceMaps: { [sourcePath: string]: string };
-        testExecError?: SerializableError;
-        testFilePath: string;
-        testResults: AssertionResult[];
-    }
-
-    interface SnapshotSummary {
-        added: number;
-        didUpdate: boolean;
-        failure: boolean;
-        filesAdded: number;
-        filesRemoved: number;
-        filesUnmatched: number;
-        filesUpdated: number;
-        matched: number;
-        total: number;
-        unchecked: number;
-        unmatched: number;
-        updated: number;
-    }
-
-    // TestRunner
-
-    interface Test {
-        context: Context;
-        duration?: number;
-        path: Path;
-    }
-
-    // tslint:disable-next-line:no-empty-interface
-    interface Set<T> {} // To allow non-ES6 users the Set below
-    interface Reporter {
-        onTestResult?(test: Test, testResult: TestResult, aggregatedResult: AggregatedResult): void;
-        onRunStart?(results: AggregatedResult, options: ReporterOnStartOptions): void;
-        onTestStart?(test: Test): void;
-        onRunComplete?(contexts: Set<Context>, results: AggregatedResult): Maybe<Promise<void>>;
-        getLastError?(): Maybe<Error>;
-    }
-
-    type TestFramework = (
-        globalConfig: GlobalConfig,
-        config: ProjectConfig,
-        environment: Environment,
-        runtime: Runtime,
-        testPath: string
-    ) => Promise<TestResult>;
-
-    // Transform
-
-    interface TransformedSource {
-        code: string;
-        map: Maybe<object | string>;
-    }
-
-    interface TransformOptions {
-        instrument: boolean;
-    }
-
-    interface Transformer {
-        canInstrument?: boolean;
-        createTransformer?(options: any): Transformer;
-
-        getCacheKey?(fileData: string, filePath: Path, configStr: string, options: TransformOptions): string;
-
-        process(
-            sourceText: string,
-            sourcePath: Path,
-            config: ProjectConfig,
-            options?: TransformOptions
-        ): string | TransformedSource;
     }
 }

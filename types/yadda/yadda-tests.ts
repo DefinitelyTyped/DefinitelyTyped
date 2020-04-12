@@ -1,5 +1,7 @@
 /// <reference types="node" />
 
+import * as assert from "assert";
+
 import * as Yadda from "yadda";
 
 const English = Yadda.localisation.English;
@@ -185,6 +187,7 @@ const bottlesLibrary = English.library()
         console.log("%s bottle falls", number_of_falling_bottles);
     })
     .then("there are $NUM green bottles standing on the wall", (number_of_bottles: string) => {
+        assert.strictEqual(Number(number_of_bottles), wall.bottles);
         wall.printStatus();
     });
 

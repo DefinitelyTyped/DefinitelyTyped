@@ -148,7 +148,8 @@ export namespace JWK {
 
     function asKey(
         key: string | Buffer | object | RawKey,
-        form?: 'json' | 'private' | 'pkcs8' | 'public' | 'spki' | 'pkix' | 'x509' | 'pem'
+        form?: 'json' | 'private' | 'pkcs8' | 'public' | 'spki' | 'pkix' | 'x509' | 'pem',
+        extras?: Record<string, unknown>
     ): Promise<Key>;
     /**
      * To import a JWK-set as a keystore
@@ -221,7 +222,8 @@ export namespace JWK {
          */
         add(
             key: string | Buffer | Key | object,
-            form?: 'json' | 'private' | 'pkcs8' | 'public' | 'spki' | 'pkix' | 'x509' | 'pem'
+            form?: 'json' | 'private' | 'pkcs8' | 'public' | 'spki' | 'pkix' | 'x509' | 'pem',
+            extras?: Record<string, unknown>
         ): Promise<Key>;
 
         generate(kty: string, size?: string | number, props?: any): Promise<Key>;

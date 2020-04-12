@@ -77,6 +77,7 @@ export function createCompiler(opts: CreateCompilerOptionsTypescript): webpack.C
 export function prepareProxy(
     proxySetting: string | undefined,
     appPublicFolder: string,
+    servedPathname: string,
 ): WebpackDevServer.ProxyConfigArray;
 
 /**

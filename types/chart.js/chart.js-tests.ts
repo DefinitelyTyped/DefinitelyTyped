@@ -37,6 +37,9 @@ const chart: Chart = new Chart(ctx, {
     },
     options: {
         hover: {
+            axis: 'xy',
+            mode: 'nearest',
+            animationDuration: 400,
             intersect: true,
         },
         onHover(ev: MouseEvent, points: any[]) {
@@ -68,7 +71,21 @@ const chart: Chart = new Chart(ctx, {
             xAxes: [
                 {
                     ticks: {
-                        callback: Math.floor,
+                        callback: (value) => {
+                            if (value === 10) {
+                                return Math.floor(value);
+                            }
+
+                            if (value === 20) {
+                                return `${value}`;
+                            }
+
+                            if (value === 30) {
+                                return undefined;
+                            }
+
+                            return null;
+                        },
                         sampleSize: 10,
                     },
                     gridLines: {
@@ -276,6 +293,9 @@ const linearScaleChart: Chart = new Chart(ctx, {
                 scaleLabel: {
                     display: true,
                     labelString: 'Closing price ($)'
+                },
+                afterBuildTicks: (scale, ticks) => {
+                    return [Math.max(...ticks), 10, Math.min(...ticks)];
                 }
             }]
         },
@@ -434,3 +454,7 @@ const timeLabelsChartData: Chart.ChartData = {
         moment(), moment(), moment(),
     ],
 };
+
+const event = new MouseEvent('click');
+chart.getElementsAtEvent(event);
+chart.getElementsAtXAxis(event);

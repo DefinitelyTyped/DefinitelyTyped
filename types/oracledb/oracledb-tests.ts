@@ -1,10 +1,13 @@
 import * as oracledb from 'oracledb';
 
-import defaultOracledb from 'oracledb';
 
-// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
-declare function assert(value: boolean, message?: string): void;
-declare function assertEqual<T>(actual: T, expected: T, message?: string): void;
+import defaultOracledb from 'oracledb';
+// import dotenv from 'dotenv';
+import assert from 'assert';
+
+
+
+// dotenv.config();
 
 /*
 
@@ -44,7 +47,7 @@ const testBreak = (connection: oracledb.Connection): Promise<void> =>
                 [2],
                 (error: oracledb.DBError): void => {
                     // ORA-01013: user requested cancel of current operation
-                    assert(typeof error.message === 'string', 'message not defined for DB error');
+                    assert(error.message.includes('ORA-01013'), 'message not defined for DB error');
                     assert(error.errorNum !== undefined, 'errorNum not defined for DB error');
                     assert(error.offset !== undefined, 'offset not defined for DB error');
 
@@ -65,7 +68,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
 
     const info = await connection.getStatementInfo('SELECT 1 FROM CONNOR_TEST_TABLE WHERE SYSDATE > :myDate');
 
-    assertEqual(
+    assert.deepStrictEqual(
         info.metaData[0],
         {
             name: '1',
@@ -79,7 +82,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
     );
 
     assert(
-        info.bindNames.indexOf('MYDATE') !== -1,
+        info.bindNames.findIndex(s => s === 'MYDATE') >= 0,
         'connection.getStatementInfo() has invalid bindNames field in its response',
     );
     assert(info.statementType === 1, 'connection.getStatementInfo() has invalid statementType field in its response');
@@ -111,7 +114,7 @@ const testQueryStream = async (connection: oracledb.Connection): Promise<void> =
         });
 
         stream.on('metadata', metadata => {
-            assertEqual(metadata[0], {
+            assert.deepStrictEqual(metadata[0], {
                 name: '1',
             });
         });
@@ -157,7 +160,7 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
         },
     );
 
-    assertEqual(result.metaData[0], { name: '1' });
+    assert.deepStrictEqual(result.metaData[0], { name: '1' });
 
     const { resultSet, lastRowid } = result;
 
@@ -166,13 +169,13 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
 
     const row = await resultSet.getRow();
 
-    assertEqual(row, [1]);
+    assert.deepStrictEqual(row, [1]);
 
     console.log('Testing resultSet.getRows()...');
 
     const rows = await resultSet.getRows(1);
 
-    assertEqual(rows, [[2]]);
+    assert.deepStrictEqual(rows, [[2]]);
 
     console.log('Testing resultSet.close()...');
 
@@ -335,7 +338,7 @@ const version4Tests = async () => {
     console.log(results.one);
 
     const GeomType = await connection.getDbObjectClass("MDSYS.SDO_GEOMETRY");
-
+    
     const geom = new GeomType(
         {
           SDO_GTYPE: 2003,
@@ -358,7 +361,7 @@ const version4Tests = async () => {
     new geom.attributes.test.typeClass({});
 
     geom.S_GTYPE = 2003;
-
+    
     await connection.execute(
         `INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`,
         {id: 1, g: geom}
@@ -372,7 +375,7 @@ const version4Tests = async () => {
     });
 
     console.log(sub.regId);
-
+    
     const queue = await connection.getQueue('test', {
         payloadType: 'test'
     })
@@ -403,7 +406,7 @@ const version4Tests = async () => {
     const lob = await connection.createLob(2);
 
     await lob.getData();
-
+    
         const plsql = `
     DECLARE
         c1 SYS_REFCURSOR;

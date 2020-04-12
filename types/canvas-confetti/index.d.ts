@@ -1,6 +1,7 @@
-// Type definitions for canvas-confetti 0.1
+// Type definitions for canvas-confetti 1.0
 // Project: https://github.com/catdad/canvas-confetti#readme
 // Definitions by: Martin Tracey <https://github.com/matracey>
+//                 Josh Batley <https://github.com/joshbatley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -23,6 +24,8 @@ declare namespace confetti {
      * You can polyfill promises using any of the popular polyfills. You can also provide a promise implementation to `confetti` through this property.
      */
     let Promise: any;
+
+    type shape = 'square' | 'circle';
 
     interface Options {
         /**
@@ -64,11 +67,17 @@ declare namespace confetti {
          */
         colors?: string[];
         /**
+         * The possible values are square and circle. The default is to use both shapes in an even mix.
+         * @default ['square','circle']
+         */
+        shapes?: shape[];
+        /**
          * The confetti should be on top, after all. But if you have a crazy high page, you can set it even higher.
          * @default 100
          */
         zIndex?: number;
     }
+
     interface Origin {
         /**
          * The x position on the page, with 0 being the left edge and 1 being the right edge.
@@ -81,14 +90,37 @@ declare namespace confetti {
          */
         y?: number;
     }
+
     interface GlobalOptions {
-        resize: boolean;
+        /**
+         * Whether to allow setting the canvas image size, as well as keep it correctly sized if the window changes size
+         * @default false
+         */
+        resize?: boolean;
+        /**
+         * Whether to use an asynchronous web worker to render the confetti animation, whenever possible
+         * @default false
+         */
+        useWorker?: boolean;
     }
 
+    /**
+     * Stops the animation and clears all confetti, as well as immediately resolves any outstanding promises.
+     */
+    type Reset = () => void;
+    function reset(): Reset;
+
+    interface CreateTypes {
+        (options?: Options): () => Promise<null> | null;
+        reset: Reset;
+    }
+    /**
+     * This method creates an instance of the confetti function that uses a custom canvas.
+     */
     function create(
         canvas: HTMLCanvasElement,
         options?: GlobalOptions
-    ): (options?: Options) => Promise<null> | null;
+    ): CreateTypes;
 }
 
 export = confetti;

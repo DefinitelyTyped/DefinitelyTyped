@@ -1,10 +1,8 @@
 /// <reference types="node" />
+import assert = require('assert');
 import { BinTree, RBTree } from 'bintrees';
 
-// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
-declare function assertEqual<T>(actual: T, expected: T): void;
-
-// Declaring shims removes mocha dependency. These tests are never executed, only typechecked, so this is fine.
+// Declaring shims removes mocha dependency.  These tests are never executed, only typechecked, so this is fine.
 declare function describe(description: string, callback: () => void): void;
 declare function it(description: string, callback: () => void): void;
 
@@ -16,7 +14,7 @@ describe('bintrees', () => {
         treeA.insert(3);
         treeA.remove(3);
 
-        assertEqual(treeA.size, 1);
+        assert.equal(treeA.size, 1);
     });
 
     it('builds a tree of strings', () => {
@@ -28,8 +26,8 @@ describe('bintrees', () => {
         treeB.insert('are'); // ignored
         treeB.remove('how');
 
-        assertEqual(treeB.size, 2);
-        assertEqual(treeB.min(), 'hi');
+        assert.equal(treeB.size, 2);
+        assert.equal(treeB.min(), 'hi');
     });
 
     it('maintains a tree of objects', () => {
@@ -49,6 +47,7 @@ describe('bintrees', () => {
             ids.push(val.id);
         });
 
-        assertEqual(ids, [100, 105, 110]);
+        assert.deepEqual(ids, [100, 105, 110]);
     });
 });
+

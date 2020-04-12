@@ -78,6 +78,9 @@ declare namespace Akumina {
             static InterchangeLoginURL: string;
             /** URL to Interchange */
             static InterchangeURL: string;
+            /** URL to ServiceHub */
+            static ServiceHubURL: string;
+            static IsSeparateServiceHubMode: boolean;
             static InterchangeQueryKey: string;
             /** All confguratoin constants */
             static CONSTANTS: IConstants;
@@ -85,6 +88,8 @@ declare namespace Akumina {
             static IsAppManagerLoggedIn: boolean; /* Added */
             /** Is site using AzureAD ID */
             static EnableAzureAD: boolean; /* Added */
+            /** Is delivery mode is on */
+            static IsDeliveryMode: boolean;
             /** All personas */
             static Personas: any[];
             /** All container layouts objects */
@@ -118,6 +123,8 @@ declare namespace Akumina {
             static LanguageNeutralLists: any;
             /** SP Lists with persona enabled */
             static PersonaEnabledLists: any;
+            /** SPA COre page path */
+            static SPACorePageUrl: string;
             static TemplateURLPrefix: string;
             /** Site URL  */
             static ConfigurationSiteUrl: string;
@@ -165,6 +172,8 @@ declare namespace Akumina {
             static UseEncryption: boolean;
             static PersonaSelectionMode: string;
             static PageRouteInfo: any;
+            static ValidRoutes: any;
+            static AssetLibraryName: string;
             /** Contains Array of pageTypes object */
             static PageTypes: any[];
             /**
@@ -224,6 +233,7 @@ declare namespace Akumina {
             * @param languages
             */
             static GetSiteVisibleLanguages(languages: any): any;
+            static IsSPAMode: boolean;
         }
         class UserContext {
             static LanguageCode: string;
@@ -237,6 +247,7 @@ declare namespace Akumina {
             static Department: string;
             static UserLoginName: string;
             static LoginName: string;
+            static userPersonas: string[];
         }
         class SiteContext {
             static IsLoaderComplete: boolean;
@@ -252,6 +263,8 @@ declare namespace Akumina {
              * Check if in design mode.
              */
             static IsInDesignMode(): string;
+            /** Get Site Type developer|delivery */
+            static GetSiteType(): string;
             static FrameworkLoadTime: number;
             static TotalLoadTime: number;
             static TotalConnectTime: number;
@@ -303,10 +316,12 @@ declare namespace Akumina {
             /** Lists of template views in use
             */
             static ViewsInUse: string[];
+            static WebTitle: string;
         }
         class PageContext {
             static EditMode: boolean;
             static PageId: string;
+            static PageTitle: string;
             static MapPageUrl(pageUrl: string): string;
             static PageRouteInfo: {
                 email: string
@@ -374,10 +389,6 @@ declare namespace Akumina {
             static GetGuid(): string;
             static GetLinkForResult(itemUrl: string): string;
             static GetLinkParameter(itemUrl: string, paramToRetrieve: string, defaultValue: string): string;
-            /**
-             * relative path for manager script
-             */
-            static GetManagerUrl(): string;
             /**
              * Returns Page Grid for workspace widget Instancce Id's
              * @param instanceId Widget Instance ID
@@ -450,6 +461,10 @@ declare namespace Akumina {
             static TogglePageManager(): void;
             /** Toggle widget edit mode */
             static ToggleWidgetManager(): void;
+            static IsLoggedinToAppManager(): void;
+            static LoginToAppmanagerHtml(): void;
+            static AzureADEnabledOrAppManagerLoggedIn(): void;
+            static ExitEditModeAndRefreshPage(): void;
         }
         class Language {
             static TryGetText(Token: string): string; /* Added */
@@ -469,6 +484,7 @@ declare namespace Akumina {
             GetWidgetLegacyScript(callback: () => void): JQueryDeferred<any>;
             GetLanguageMappingsScript(callback: () => void): JQueryDeferred<any>;
             GetBabelScript(callback: () => void): JQueryDeferred<any>;
+            GetBxSliderScript(callback: () => void): JQueryDeferred<any>;
             LoadPageBuilderCSS(): JQueryDeferred<any>;
         }
 
@@ -527,6 +543,7 @@ declare namespace Akumina {
                 constructor();
                 static Subscribe(e: string, func: any, caller?: any): void; /* Updated */
                 static Publish(t: string, data?: any): void; /* Updated */
+                static ResetTrackedEvents(): void; /* Added */
             }
             class Data {
                 Templates: Templates;
@@ -562,7 +579,7 @@ declare namespace Akumina {
                 CopyWidgetInstance(widgetInstanceId: string): JQueryDeferred<any>;
                 GetManualDependencyMap(widgetName: string): any[];
                 /** Resolves with next AkId */
-                GetNextAkId(): JQueryDeferred<any>;
+                GetNextAkId(listName: string | null, isRoot: boolean | false): JQueryDeferred<any>;
                 /** Resolves with siteId */
                 GetSiteId(): JQueryDeferred<any>;
                 /**
@@ -631,6 +648,8 @@ declare namespace Akumina {
                  */
                 SetImpl(implementation: string): void;
 
+                SetContextUrl(siteCOntextUrl: string): void;
+
                 /**
                  * Get list from SharePoint
                  * @param request
@@ -672,9 +691,10 @@ declare namespace Akumina {
                 /**
                  * Get permissions set for list item
                  * @param listName Name of list
+                 * @param useRootWeb use site absolute url vs. web absolute url
                  * @param itemId List Item id
-                 */
-                GetPermissionForListItem(listName: string, itemId: string): JQueryDeferred<any>;
+                */
+                GetPermissionForListItem(listName: string, useRootWeb: boolean, itemId: string): JQueryDeferred<any>;
 
                 /**
                  * Set personas for list item
@@ -764,7 +784,7 @@ declare namespace Akumina {
                  * @param currentPage
                  * @param pageLimit
                  */
-                GetGroupsForSite(searchUniqueValue: any, currentPage: number, pageLimit: number): any;
+                GetGroupsForSite(listName: string, useRootWeb: boolean, searchUniqueValue: any, currentPage: number, pageLimit: number): any;
 
                 /**
                  * Check user permission on list item
@@ -801,13 +821,58 @@ declare namespace Akumina {
                *Get Permissin on list for current user
                * @param listName listName  to fetch permission of
                */
-                GetListEffectiveBasePermissions(listName: string): JQueryDeferred<{}>;
+                GetListEffectiveBasePermissions(listName: string, useRootWeb: boolean): JQueryDeferred<{}>;
+                /**
+                *Load library settings
+                * @param listName listName to load settings
+                */
+                LoadLibrarySettings(listName: string, isroot: boolean, getdefaultItemOpenSetting: boolean): JQueryDeferred<{}>;
+
+                /**
+               *Load all list fields
+               * @param listName listName to fetch fields
+               */
+                GetListFields(listName: string, useRootWeb: boolean): JQueryDeferred<{}>;
+
+                /**
+             *Load all list fields
+             * @param contenttype contenttype name based on which lists will be fetched
+             */
+                GetListsByContentType(contenttype: string, isroot: boolean | undefined): JQueryDeferred<{}>;
+
+                /**
+             *Load all list fields
+             * @param contenttype contenttype name based on which lists will be fetched
+             */
+                CreateListWithContentType(listName: string, contentType: string, isDefaultContentType: boolean, createMLEnabledList: boolean, isRoot: boolean | undefined): JQueryDeferred<{}>;
+
+                /**
+                 *Load all list fields
+                * @param termsetId termsetId for which we have fetch terms
+                */
+                GetTermsFromTermSet(termsetId: any): JQueryDeferred<{}>;
+
+                /**
+                 *Clears the cache for given cacheKey
+                * @param cacheKey cacheKey to clear the cache
+                */
+                ClearAppManagerCacheByKey(cacheKey: string): JQueryDeferred<any>;
+
+                /**
+                *Load all list fields
+               * @param configItem Key value pair of item which needs to be updated or added
+               */
+                AddOrEditConfiguration(configItem: any): JQueryDeferred<any>;
+                  /**
+                 * Get User Props
+                 */
+                GetUser(userPrincipal: string): JQueryDeferred<any>;
             }
 
-            class RestSharepoint {}
+            class RestSharepoint { }
             class SharePoint { /* Added */
                 LoadTermSet(termSetName: string, columnName: string | null, columnValue: string | null): JQueryDeferred<any>;
-                LoadTermSetById(termSetId: string, columnName: string, columnValue?: string | null): JQueryDeferred<any>;
+                LoadTermSetById(siteUrl: string, termSetId: string, columnName: string, columnValue?: string | null): JQueryDeferred<any>;
                 /**
                 * Update Page object item
                 * @param pageTypeList List Name
@@ -932,7 +997,7 @@ declare namespace Akumina {
                  * @param listName SharePoint List name ex. GenericPages_AK
                  * @param itemId Item Id for which permissions need to be checked
                  */
-                GetPermissionForListItemForCurrentUser(listName: string, itemId: string): JQueryDeferred<any>;
+                GetPermissionForListItemForCurrentUser(listName: string, useRootWeb: boolean, itemId: string): JQueryDeferred<any>;
 
                 /**
                  * Check if user is logged into appManager
@@ -1074,14 +1139,17 @@ declare namespace Akumina {
                * @param pageId
                */
                 ProvisionPageWidgets(pageWidgetsRequest: ISavePageWidgetRequest): JQueryDeferred<any>;
+
+                UpdateWidgetInstanceCacheAsModel(widgetInstanceId: string, widgetProps: string): JQueryDeferred<any>;
+
+                UpdatePageWidgetInstanceCacheAsModel(pageId: string, widgetInstanceId: string, virtualWidgetInstanceId: string, widgetProps: string): JQueryDeferred<any>;
             }
 
             class PageManager {
                 /**
-                * Get default page layouts
-                * @return Array of page layout object
-                * {displayOrder:, layoutId:, layoutImage:, layoutTemplate:, layoutTitle:, selectedLayout:, spPageLayoutId: }
-                */
+                 **
+                 */
+                constructor(pageUrl?: string);
                 GetPageLayouts(): any[];
 
                 /**
@@ -1135,7 +1203,13 @@ declare namespace Akumina {
                 * @param listName Name of list
                 * @param itemId Page Id
                 */
-                GetPermissionForPage(listName: string, itemId: string): JQueryDeferred<any>;
+                GetPermissionForPage(listName: string, useRootWeb: boolean, itemId: string): JQueryDeferred<any>;
+
+                /**
+                * Get permissions for Page list
+                * @param listName Name of list
+                */
+                GetPermissionForPageList(listName: string, useRootWeb: boolean): JQueryDeferred<any>;
 
                 /**
                 * Set personas for page
@@ -1398,12 +1472,12 @@ declare namespace Akumina {
             static containsInExcludeField(field: string): boolean;
             static getSelectFields(widget: string): string[];
         }
-        class Alignment {}
-        class Location {}
+        class Alignment { }
+        class Location { }
         class Icons {
             static None: string;
         }
-        class GenericListPaging {}
+        class GenericListPaging { }
         class Instructions {
             executeAsync(widget: any, instructionSet: string, propName: string): Promise<any>;
         }
@@ -1422,6 +1496,7 @@ declare class Templates {
      * @param errorObj
      */
     BindErrorTemplateForWidgets(errorObj: any): void;
+    GetFullViewPrefix(): string;
 }
 
 // tslint:disable-next-line interface-name

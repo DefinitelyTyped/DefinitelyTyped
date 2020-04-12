@@ -250,3 +250,8 @@ new Queue('profile');
 new Queue('profile', 'url');
 new Queue('profile', { prefix: 'test' });
 new Queue('profile', 'url', { prefix: 'test' });
+
+// Use low-level API
+const multi = myQueue.multi();
+multi.del(myQueue.toKey('repeat'));
+multi.exec();

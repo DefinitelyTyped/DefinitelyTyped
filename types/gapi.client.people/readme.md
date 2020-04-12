@@ -1,10 +1,10 @@
-# TypeScript typings for Google People API v1
+# TypeScript typings for People API v1
 Provides access to information about profiles and contacts.
 For detailed description please check [documentation](https://developers.google.com/people/).
 
 ## Installing
 
-Install typings for Google People API:
+Install typings for People API:
 ```
 npm install @types/gapi.client.people@v1 --save-dev
 ```
@@ -33,14 +33,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // Manage your contacts
+        // See, edit, download, and permanently delete your contacts
         'https://www.googleapis.com/auth/contacts',
     
-        // View your contacts
+        // See and download your contacts
         'https://www.googleapis.com/auth/contacts.readonly',
-    
-        // Know the list of people in your circles, your age range, and language
-        'https://www.googleapis.com/auth/plus.login',
     
         // View your street addresses
         'https://www.googleapis.com/auth/user.addresses.read',
@@ -51,13 +48,16 @@ var client_id = '',
         // View your email addresses
         'https://www.googleapis.com/auth/user.emails.read',
     
+        // See your education, work history and org info
+        'https://www.googleapis.com/auth/user.organization.read',
+    
         // View your phone numbers
         'https://www.googleapis.com/auth/user.phonenumbers.read',
     
         // View your email address
         'https://www.googleapis.com/auth/userinfo.email',
     
-        // View your basic profile info
+        // See your personal info, including any personal info you've made publicly available
         'https://www.googleapis.com/auth/userinfo.profile',
     ],
     immediate = true;
@@ -65,14 +65,14 @@ var client_id = '',
 
 gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, authResult => {
     if (authResult && !authResult.error) {
-        /* handle succesfull authorization */
+        /* handle successful authorization */
     } else {
         /* handle authorization error */
     }
 });            
 ```
 
-After that you can use Google People API resources:
+After that you can use People API resources:
 
 ```typescript 
     
@@ -122,9 +122,14 @@ Delete a contact person. Any non-contact data will not be deleted.
 await gapi.client.people.deleteContact({ resourceName: "resourceName",  }); 
     
 /* 
+Delete a contact's photo.  
+*/
+await gapi.client.people.deleteContactPhoto({ resourceName: "resourceName",  }); 
+    
+/* 
 Provides information about a person by specifying a resource name. Use
 `people/me` to indicate the authenticated user.
-<br>
+
 The request throws a 400 error if 'personFields' is not specified.  
 */
 await gapi.client.people.get({ resourceName: "resourceName",  }); 
@@ -133,7 +138,7 @@ await gapi.client.people.get({ resourceName: "resourceName",  });
 Provides information about a list of specific people by specifying a list
 of requested resource names. Use `people/me` to indicate the authenticated
 user.
-<br>
+
 The request throws a 400 error if 'personFields' is not specified.  
 */
 await gapi.client.people.getBatchGet({  }); 
@@ -143,14 +148,20 @@ Update contact data for an existing contact person. Any non-contact data
 will not be modified.
 
 The request throws a 400 error if `updatePersonFields` is not specified.
-<br>
+
 The request throws a 400 error if `person.metadata.sources` is not
 specified for the contact to be updated.
-<br>
-The request throws a 412 error if `person.metadata.sources.etag` is
-different than the contact's etag, which indicates the contact has changed
-since its data was read. Clients should get the latest person and re-apply
-their updates to the latest person.  
+
+The request throws a 400 error with an error with reason
+`"failedPrecondition"` if `person.metadata.sources.etag` is different than
+the contact's etag, which indicates the contact has changed since its data
+was read. Clients should get the latest person and re-apply their updates
+to the latest person.  
 */
-await gapi.client.people.updateContact({ resourceName: "resourceName",  });
+await gapi.client.people.updateContact({ resourceName: "resourceName",  }); 
+    
+/* 
+Update a contact's photo.  
+*/
+await gapi.client.people.updateContactPhoto({ resourceName: "resourceName",  });
 ```

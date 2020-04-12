@@ -41,6 +41,7 @@ export interface Message {
     extends: Extend[];
     extensions: Extension[];
     messages: Message[];
+    options: Options;
     fields: Field[];
 }
 

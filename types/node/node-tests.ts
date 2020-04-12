@@ -130,7 +130,10 @@ import * as trace_events from "trace_events";
         const b: boolean = timeout.hasRef();
         timers.clearTimeout(timeout);
     }
-    async function testPromisify() {
+    async function testPromisify(doSomething: {
+        (foo: any, onSuccessCallback: (result: string) => void, onErrorCallback: (reason: any) => void): void;
+        [util.promisify.custom](foo: any): Promise<string>;
+    }) {
         const setTimeout = util.promisify(timers.setTimeout);
         let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
         let s: string = await setTimeout(100, "");
@@ -138,6 +141,12 @@ import * as trace_events from "trace_events";
         const setImmediate = util.promisify(timers.setImmediate);
         v = await setImmediate(); // tslint:disable-line no-void-expression
         s = await setImmediate("");
+
+        // $ExpectType (foo: any) => Promise<string>
+        const doSomethingPromise = util.promisify(doSomething);
+
+        // $ExpectType string
+        s = await doSomethingPromise('foo');
     }
 }
 
@@ -250,18 +259,12 @@ import * as trace_events from "trace_events";
         console.warn('message', 'foo', 'bar');
 
         // --- Inspector mode only ---
-        console.markTimeline();
-        console.markTimeline('label');
         console.profile();
         console.profile('label');
         console.profileEnd();
         console.profileEnd('label');
         console.timeStamp();
         console.timeStamp('label');
-        console.timeline();
-        console.timeline('label');
-        console.timelineEnd();
-        console.timelineEnd('label');
     }
 }
 
@@ -445,25 +448,6 @@ import * as trace_events from "trace_events";
     const enabled: boolean = tracing.enabled;
     tracing.enable();
     tracing.disable();
-}
-
-/////////////////////////////////////////////////////////
-/// stream tests : https://nodejs.org/api/stream.html ///
-/////////////////////////////////////////////////////////
-import stream = require('stream');
-import tty = require('tty');
-
-{
-    const writeStream = fs.createWriteStream('./index.d.ts');
-    const _wom = writeStream.writableObjectMode; // $ExpectType boolean
-
-    const readStream = fs.createReadStream('./index.d.ts');
-    const _rom = readStream.readableObjectMode; // $ExpectType boolean
-
-    const x: stream.Readable = process.stdin;
-    const stdin: tty.ReadStream = process.stdin;
-    const stdout: tty.WriteStream = process.stdout;
-    const stderr: tty.WriteStream = process.stderr;
 }
 
 ////////////////////////////////////////////////////

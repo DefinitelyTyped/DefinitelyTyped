@@ -2,7 +2,7 @@
 // Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.6
 
 // Note: This is not the definition for the package `iobroker`,
 // which is just an installer, not a library.
@@ -501,13 +501,13 @@ declare global {
              *
              * NOTE: This is only defined if the adapter was initialized with the option `objects: true`.
              */
-            oObjects?: Record<string, ioBroker.Object>;
+            oObjects?: Record<string, ioBroker.Object | undefined>;
             /**
              * Contains a live cache of the adapter's states.
              *
              * NOTE: This is only defined if the adapter was initialized with the option `states: true`.
              */
-            oStates?: Record<string, State>;
+            oStates?: Record<string, ioBroker.State | undefined>;
 
             /*	===============================
                 Functions defined in adapter.js

@@ -1,10 +1,8 @@
+
 // From https://hapijs.com/api/16.1.1#serverinfo
 
+import assert = require('assert');
 import * as Hapi from 'hapi';
-
-// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
-declare function assert(value: boolean): void;
-
 const server = new Hapi.Server();
 var options: Hapi.ServerConnectionOptions = { port: 80 };
 server.connection(options);

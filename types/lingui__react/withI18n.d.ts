@@ -11,6 +11,7 @@ export interface withI18nOptions {
 
 export interface withI18nProps {
     i18n: I18n;
+    i18nHash: string | null | undefined;
 }
 
 export default function withI18n(options?: withI18nOptions):

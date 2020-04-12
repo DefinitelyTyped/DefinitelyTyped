@@ -924,7 +924,7 @@ export namespace DS {
          */
         snapshots(): any[];
     }
-    class Snapshot<K extends keyof ModelRegistry = any> {
+    class Snapshot<K extends keyof ModelRegistry = keyof ModelRegistry> {
         /**
          * The underlying record for this snapshot. Can be used to access methods and
          * properties defined on the record.

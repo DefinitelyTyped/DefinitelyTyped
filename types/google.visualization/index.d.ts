@@ -1112,9 +1112,11 @@ declare namespace google {
             alternatingRowStyle?: boolean;
             cssClassNames?: CssClassNames;
             firstRowNumber?: number;
+            frozenColumns?: number;
             height?: string;
             page?: string;
             pageSize?: number;
+            pagingButtons?: number | 'both' | 'prev' | 'next' | 'auto';
             rtlTable?: boolean;
             scrollLeftStartPosition?: number;
             showRowNumber?: boolean;

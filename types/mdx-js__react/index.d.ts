@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ComponentType, ReactNode, StyleHTMLAttributes, FC } from 'react';
+import { Component, ComponentType, ReactNode, StyleHTMLAttributes, FC, createElement } from 'react';
 
 interface MDXProviderComponents {
     /**
@@ -143,6 +143,8 @@ declare function withMDXComponents<GProps extends InjectedMDXProviderProps>(
     Component: ComponentType<GProps>,
 ): FC<Except<GProps, keyof InjectedMDXProviderProps>>;
 
+declare const mdx: typeof createElement;
+
 export {
     withMDXComponents,
     useMDXComponents,
@@ -151,4 +153,5 @@ export {
     InjectedMDXProviderProps,
     MDXProviderComponentsProp,
     MDXProviderComponents,
+    mdx,
 };

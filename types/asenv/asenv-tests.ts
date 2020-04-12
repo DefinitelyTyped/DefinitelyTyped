@@ -1,7 +1,5 @@
 import { unlessProduction, isDevelopment, isTest, isProduction, getEnv, setEnv } from 'asenv';
-
-// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
-declare function equal<T>(actual: T, expected: T, message?: string): void;
+import { equal, throws } from 'assert';
 
 // Test isDevelopment()
 setEnv('development');

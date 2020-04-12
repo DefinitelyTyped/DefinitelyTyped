@@ -1,0 +1,12 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "ban-types": true,
+        "callable-types": true,
+        "dt-header": true,
+        "no-padding": true,
+        "no-redundant-jsdoc": true,
+        "no-unnecessary-class": true,
+        "prefer-method-signature": true
+    }
+}

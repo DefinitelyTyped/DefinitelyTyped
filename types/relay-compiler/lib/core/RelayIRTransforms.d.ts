@@ -1,4 +1,4 @@
-import { IRTransform } from './GraphQLCompilerContext';
+import { IRTransform } from './CompilerContext';
 
 export const commonTransforms: IRTransform[];
 export const codegenTransforms: IRTransform[];

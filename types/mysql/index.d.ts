@@ -353,7 +353,7 @@ export interface GeometryType extends Array<{ x: number, y: number } | GeometryT
 }
 
 export type TypeCast = boolean | (
-    (field: FieldInfo
+    (field: UntypedFieldInfo
         & { type: string, length: number, string(): string, buffer(): Buffer, geometry(): null | GeometryType },
         next: () => void) => any);
 
@@ -701,7 +701,7 @@ export const enum Types {
     GEOMETRY = 0xff, // aka GEOMETRY
 }
 
-export interface FieldInfo {
+export interface UntypedFieldInfo {
     catalog: string;
     db: string;
     table: string;
@@ -710,10 +710,13 @@ export interface FieldInfo {
     orgName: string;
     charsetNr: number;
     length: number;
-    type: Types;
     flags: number;
     decimals: number;
     default?: string;
     zeroFill: boolean;
     protocol41: boolean;
+}
+
+export interface FieldInfo extends UntypedFieldInfo {
+    type: Types;
 }

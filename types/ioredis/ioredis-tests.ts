@@ -1,4 +1,5 @@
 import Redis = require("ioredis");
+import { Command } from "ioredis";
 
 const redis = new Redis();
 
@@ -278,6 +279,18 @@ cluster.decr('key', (err, data) => {
 });
 
 listData.forEach(value => {
+    cluster.rpush('bufferlist', Buffer.from(value));
+});
+
+listData.forEach(value => {
+    cluster.lpop('bufferlist', (err, data) => {
+        if (data !== value) {
+            console.log(data);
+        }
+    });
+});
+
+listData.forEach(value => {
     cluster.rpushBuffer('bufferlist', Buffer.from(value));
 });
 
@@ -334,3 +347,6 @@ cluster.sendCommand();
 redis.zaddBuffer('foo', 1, Buffer.from('bar')).then(() => {
     // sorted set 'foo' now has score 'foo1' containing barBuffer
 });
+
+new Command('mget', ['key1', 'key2']);
+new Command('get', ['key2'], { replyEncoding: 'utf8' });

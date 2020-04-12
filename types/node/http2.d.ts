@@ -440,6 +440,7 @@ declare module "http2" {
     export interface ClientSessionOptions extends SessionOptions {
         maxReservedRemoteStreams?: number;
         createConnection?: (authority: url.URL, option: SessionOptions) => stream.Duplex;
+        protocol?: 'http:' | 'https:';
     }
 
     export interface ServerSessionOptions extends SessionOptions {

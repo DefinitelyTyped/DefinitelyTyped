@@ -517,6 +517,11 @@ declare namespace Xrm {
              * @returns The stage object. For switching between entities, returns the previous stage object
              */
             getStage(): ProcessFlow.Stage;
+
+            /**
+             * Prevents the stage or status change operation from being submitted to the server.
+             */
+            preventDefault(): void;
         }
 
         /**
@@ -3134,6 +3139,15 @@ declare namespace Xrm {
          */
         interface FramedControl extends Control {
             /**
+             * Returns the content window that represents an IFRAME or web resource.
+             * @returns A promise that contains a content window instance representing an IFRAME or web resource.
+             * @remarks This method is supported only on Unified Interface.  The implementer is expected to call
+             * a custom function within the returned window that will receive the Xrm and formContext objects as
+             * parameters.
+             */
+            getContentWindow(): Promise<Window>;
+
+            /**
              * Gets the DOM element containing the control.
              * @returns The container object.
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
@@ -3776,6 +3790,42 @@ declare namespace Xrm {
             getSelectedStage(): Stage;
 
             /**
+             * Use this to add a function as an event handler for the OnPreProcessStatusChange event so that it will be called before the
+             * business process flow status changes.
+             * @param handler The function will be added to the bottom of the event
+             *                handler pipeline. The execution context is automatically
+             *                set to be the first parameter passed to the event handler.
+             *                Use a reference to a named function rather than an
+             *                anonymous function if you may later want to remove the
+             *                event handler.
+             */
+            addOnPreProcessStatusChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+             * Use this to add a function as an event handler for the OnPreStageChange event so that it will be called before the
+             * business process flow stage changes.
+             * @param handler The function will be added to the bottom of the event
+             *                handler pipeline. The execution context is automatically
+             *                set to be the first parameter passed to the event handler.
+             *                Use a reference to a named function rather than an
+             *                anonymous function if you may later want to remove the
+             *                event handler.
+             */
+            addOnPreStageChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+             * Use this to add a function as an event handler for the OnPreProcessStatusChange event so that it will be called when the
+             * business process flow status changes.
+             * @param handler The function will be added to the bottom of the event
+             *                handler pipeline. The execution context is automatically
+             *                set to be the first parameter passed to the event handler.
+             *                Use a reference to a named function rather than an
+             *                anonymous function if you may later want to remove the
+             *                event handler.
+             */
+            addOnProcessStatusChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
              * Use this to add a function as an event handler for the OnStageChange event so that it will be called when the
              * business process flow stage changes.
              * @param handler The function will be added to the bottom of the event
@@ -3788,18 +3838,6 @@ declare namespace Xrm {
             addOnStageChange(handler: Events.ContextSensitiveHandler): void;
 
             /**
-             * Use this to add a function as an event handler for the OnProcessStatusChange event so that it will be called when the
-             * business process flow status changes.
-             * @param handler The function will be added to the bottom of the event
-             *                handler pipeline. The execution context is automatically
-             *                set to be the first parameter passed to the event handler.
-             *                Use a reference to a named function rather than an
-             *                anonymous function if you may later want to remove the
-             *                event handler.
-             */
-            addOnProcessStatusChange(handler: Events.ProcessStatusChangeHandler): void;
-
-            /**
              * Use this to add a function as an event handler for the OnStageSelected event so that it will be called
              * when a business process flow stage is selected.
              * @param handler The function will be added to the bottom of the event
@@ -3810,6 +3848,20 @@ declare namespace Xrm {
              *                event handler.
              */
             addOnStageSelected(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+             * Use this to remove a function as an event handler for the OnPreProcessStatusChange event.
+             * @param handler If an anonymous function is set using the addOnPreProcessStatusChange method it
+             *                cannot be removed using this method.
+             */
+            removeOnPreProcessStatusChange(handler: Events.ProcessStatusChangeHandler): void;
+
+            /**
+             * Use this to remove a function as an event handler for the OnPreStageChange event.
+             * @param handler If an anonymous function is set using the addOnPreStageChange method it
+             *                cannot be removed using this method.
+             */
+            removeOnPreStageChange(handler: Events.ContextSensitiveHandler): void;
 
             /**
              * Use this to remove a function as an event handler for the OnProcessStatusChange event.
@@ -4380,12 +4432,83 @@ declare namespace Xrm {
              */
             roleType?: XrmEnum.RoleType;
         }
+
+        interface PageInputEntityList {
+            pageType: "entitylist";
+            /**
+             * The logical name of the entity to load in the list control.
+             * */
+            entityName: string;
+            /**
+             * The ID of the view to load. If you don't specify it, navigates to the default main view for the entity.
+             * */
+            viewId?: string;
+            /**
+             * Type of view to load. Specify "savedquery" or "userquery".
+             * */
+            viewType?: "savedquery" |"userquery";
+        }
+
+        interface PageInputHtmlWebResource {
+            pageType: "webresource";
+            /**
+             * The name of the web resource to load.
+             * */
+            webresourceName: string;
+            /**
+             * The data to pass to the web resource.
+             * */
+            data?: string;
+        }
+
+        /**
+         * Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
+         * */
+        interface NavigationOptions {
+            /**
+             * Specify 1 to open the page inline; 2 to open the page in a dialog.
+             * Entity lists can only be opened inline; web resources can be opened either inline or in a dialog.
+             * */
+            target: 1 | 2;
+            /**
+             * The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
+             * */
+            width?: number | NavigationOptions.SizeValue;
+            /**
+            * The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
+            * */
+            height?: number | NavigationOptions.SizeValue;
+            /**
+             * Specify 1 to open the dialog in center; 2 to open the dialog on the side. Default is 1 (center).
+             * */
+            position?: 1 | 2;
+        }
+
+        namespace NavigationOptions {
+            interface SizeValue {
+                /**
+                 * The numerical value
+                 * */
+                value: number;
+                /**
+                 * The unit of measurement. Specify "%" or "px". Default value is "px"
+                 * */
+                unit: "%" | "px";
+            }
+        }
     }
 
     /**
      * Interface for the Xrm.Navigation API
      */
     interface Navigation {
+        /**
+         * Navigates to the specified page.
+         * @param pageInput Input about the page to navigate to. The object definition changes depending on the type of page to navigate to: entity list or HTML web resource.
+         * @param navigationOptions Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
+         */
+        navigateTo(pageInput: Navigation.PageInputEntityList | Navigation.PageInputHtmlWebResource, navigationOptions?: Navigation.NavigationOptions): Async.PromiseLike<any>;
+
         /**
          * Displays an alert dialog containing a message and a button.
          * @param alertStrings The strings to be used in the alert dialog.

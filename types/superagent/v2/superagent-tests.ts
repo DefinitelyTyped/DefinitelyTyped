@@ -2,10 +2,8 @@
 
 import request = require('superagent');
 import * as fs from 'fs';
+import assert = require('assert');
 import { Agent } from 'https';
-
-// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
-declare function assert(value: boolean): void;
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
 // and https://github.com/visionmedia/superagent/blob/master/Readme.md

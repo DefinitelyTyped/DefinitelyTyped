@@ -27,9 +27,9 @@ export interface ConfigOptions {
 // *** Email API interfaces *** //
 export namespace Email {
     interface Client {
-        get(action: string): GetResource;
+        get(action: string, options?: ConfigOptions): GetResource;
 
-        put(action: string): PutResource;
+        put(action: string, options?: ConfigOptions): PutResource;
 
         post(action: string, options?: ConfigOptions): PostResource;
     }
@@ -88,6 +88,16 @@ export namespace Email {
         Name?: string;
     }
 
+    interface Attachment {
+        ContentType: string;
+        Filename: string;
+        Base64Content: string;
+    }
+
+    interface InlinedAttachment extends Attachment {
+        ContentID: string;
+    }
+
     interface SendParamsMessage {
         From: {
             Email: string;
@@ -114,21 +124,8 @@ export namespace Email {
         EventPayload?: string;
         CustomID?: string;
         Headers?: object;
-        Attachments?: [
-            {
-                ContentType: string;
-                Filename: string;
-                Base64Content: string;
-            }
-        ];
-        InlinedAttachments?: [
-            {
-                ContentType: string;
-                Filename: string;
-                ContentID: string;
-                Base64Content: string;
-            }
-        ];
+        Attachments?: Attachment[];
+        InlinedAttachments?: InlinedAttachment[];
     }
 
     interface PostResponseDataMessage {

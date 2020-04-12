@@ -18,6 +18,8 @@
 //                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
 //                 Eliot Ball <https://github.com/eliotball>
 //                 Ville Kentta <https://github.com/vkentta>
+//                 Fabien Caylus <https://github.com/fcaylus>
+//                 Samuel Weckstrom <https://github.com/samuelweckstrom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -60,9 +62,9 @@ export type ReferenceLinePosition = 'start' | 'middle' | 'end';
 export type PickedCSSStyleDeclarationKeys =
     'alignmentBaseline' | 'baselineShift' | 'clip' | 'clipPath' | 'clipRule' | 'color' |
     'colorInterpolationFilters' | 'cursor' | 'direction' | 'display' | 'dominantBaseline' |
-    'enableBackground' | 'fill' | 'fillRule' | 'filter' | 'floodColor' |
+    'fill' | 'fillRule' | 'filter' | 'floodColor' |
     'floodOpacity' | 'font' | 'fontFamily' | 'fontStretch' | 'fontStyle' | 'fontVariant' |
-    'glyphOrientationHorizontal' | 'glyphOrientationVertical' | 'letterSpacing' | 'lightingColor' |
+    'glyphOrientationVertical' | 'letterSpacing' | 'lightingColor' |
     'markerEnd' | 'markerMid' | 'markerStart' | 'mask' | 'overflow' | 'pointerEvents' |
     'stopColor' | 'strokeDasharray' | 'strokeLinecap' | 'strokeLinejoin' | 'textAnchor' |
     'textDecoration' | 'unicodeBidi' | 'visibility' | 'writingMode' | 'transform';
@@ -325,6 +327,7 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
 export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
 export interface CellProps extends Partial<PresentationAttributes> {
+    className?: string;
     onClick?: RechartsFunction;
     onMouseEnter?: RechartsFunction;
     onMouseLeave?: RechartsFunction;
@@ -720,6 +723,11 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
 
 export class ReferenceDot extends React.Component<ReferenceDotProps> { }
 
+export interface SegmentItem {
+    x: number | string;
+    y: number | string;
+}
+
 export interface ReferenceLineProps extends Partial<PresentationAttributes<number | string, number | string>> {
     className?: number | string;
     viewBox?: ViewBox;
@@ -730,6 +738,7 @@ export interface ReferenceLineProps extends Partial<PresentationAttributes<numbe
     ifOverflow?: IfOverflowType;
     x?: number | string;
     y?: number | string;
+    segment?: Readonly<[SegmentItem, SegmentItem]>;
     label?: string | number | ContentRenderer<any> | React.ReactElement;
     xAxisId?: string | number;
     yAxisId?: string | number;
@@ -914,20 +923,18 @@ export interface LabelProps extends Partial<PresentationAttributes> {
 
 export class LabelList extends React.Component<LabelListProps> { }
 
-export interface LabelListProps {
+export type LabelListProps = {
     angle?: number;
     children?: React.ReactNode[] | React.ReactNode;
     className?: string;
     clockWise?: boolean;
     content?: React.ReactElement | ContentRenderer<LabelProps>;
     data?: number;
-    dataKey: string | number | RechartsFunction;
     formatter?: LabelFormatter;
     id?: string;
     offset?: number;
     position?: PositionType;
-    valueAccessor?: RechartsFunction;
-}
+} & ({ dataKey: string | number | RechartsFunction, valueAccessor?: never } | { valueAccessor: RechartsFunction, dataKey?: never });
 
 export type AxisDomain = string | number | ContentRenderer<any> | 'auto' | 'dataMin' | 'dataMax';
 

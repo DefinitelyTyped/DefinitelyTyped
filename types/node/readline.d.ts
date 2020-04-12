@@ -137,6 +137,8 @@ declare module "readline" {
         prompt?: string;
         crlfDelay?: number;
         removeHistoryDuplicates?: boolean;
+        escapeCodeTimeout?: number;
+        tabSize?: number;
     }
 
     function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;

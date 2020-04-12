@@ -4,10 +4,12 @@ let keypair = forge.pki.rsa.generateKeyPair({ bits: 512 });
 forge.pki.rsa.setPublicKey(keypair.privateKey.n, keypair.privateKey.e);
 let privateKeyPem = forge.pki.privateKeyToPem(keypair.privateKey);
 let publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
+let publicKeyRSAPem: forge.pki.PEM = forge.pki.publicKeyToRSAPublicKeyPem(keypair.publicKey);
 let key = forge.pki.decryptRsaPrivateKey(privateKeyPem);
 let x: string = forge.ssh.privateKeyToOpenSSH(key);
 let pemKey: forge.pki.PEM = publicKeyPem;
 let publicKeyRsa = forge.pki.publicKeyFromPem(pemKey);
+let publicKeyFromRsaPem = forge.pki.publicKeyFromPem(publicKeyRSAPem);
 let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
 let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let cert = forge.pki.createCertificate();
@@ -402,4 +404,13 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         md: forge.md.sha256.create(),
         encoding: 'binary'
     });
+}
+
+{
+    let p7 = forge.pkcs7.createEnvelopedData();
+    let cert = forge.pki.certificateFromPem('PEM');
+    p7.addRecipient(cert);
+    p7.content = forge.util.createBuffer('content');
+    p7.encrypt();
+    let asn1: forge.asn1.Asn1 = p7.toAsn1();
 }

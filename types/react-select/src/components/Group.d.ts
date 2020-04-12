@@ -8,6 +8,8 @@ interface ComponentProps {
   children: ReactNode;
   /** Component to wrap the label, recieves headingProps. */
   Heading: ComponentType<any>;
+  /** Props to pass to Heading. */
+  headingProps: any;
   /** Label to be displayed in the heading component. */
   label: ReactNode;
 }

@@ -1,10 +1,8 @@
 import oxford = require("project-oxford");
 
+import assert = require('assert');
 import _Promise = require('bluebird');
 import fs = require('fs');
-
-// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
-declare function assert(value: any, message?: string): void;
 
 // Stub mocha functions
 const {describe, it, before, after, beforeEach, afterEach} = null as any as {
@@ -35,13 +33,13 @@ describe('Project Oxford Face API Test', function () {
                 analyzesGender: true,
                 analyzesHeadPose: true
             }).then(function (response) {
-                assert(response[0].faceId);
-                assert(response[0].faceRectangle);
-                assert(response[0].faceLandmarks);
-                assert(response[0].attributes.gender);
-                assert(response[0].attributes.headPose);
+                assert.ok(response[0].faceId);
+                assert.ok(response[0].faceRectangle);
+                assert.ok(response[0].faceLandmarks);
+                assert.ok(response[0].attributes.gender);
+                assert.ok(response[0].attributes.headPose);
 
-                assert(response[0].attributes.gender === 'male');
+                assert.equal(response[0].attributes.gender, 'male');
                 done();
             });
         });
@@ -54,13 +52,13 @@ describe('Project Oxford Face API Test', function () {
                 analyzesGender: true,
                 analyzesHeadPose: true
             }).then(function (response) {
-                assert(response[0].faceId);
-                assert(response[0].faceRectangle);
-                assert(response[0].faceLandmarks);
-                assert(response[0].attributes.gender);
-                assert(response[0].attributes.headPose);
+                assert.ok(response[0].faceId);
+                assert.ok(response[0].faceRectangle);
+                assert.ok(response[0].faceLandmarks);
+                assert.ok(response[0].attributes.gender);
+                assert.ok(response[0].attributes.headPose);
 
-                assert(response[0].attributes.gender === 'male');
+                assert.equal(response[0].attributes.gender, 'male');
                 done();
             });
         });
@@ -73,13 +71,13 @@ describe('Project Oxford Face API Test', function () {
                 analyzesGender: true,
                 analyzesHeadPose: true
             }).then(function (response) {
-                assert(response[0].faceId);
-                assert(response[0].faceRectangle);
-                assert(response[0].faceLandmarks);
-                assert(response[0].attributes.gender);
-                assert(response[0].attributes.headPose);
+                assert.ok(response[0].faceId);
+                assert.ok(response[0].faceRectangle);
+                assert.ok(response[0].faceLandmarks);
+                assert.ok(response[0].attributes.gender);
+                assert.ok(response[0].attributes.headPose);
 
-                assert(response[0].attributes.gender === 'male');
+                assert.equal(response[0].attributes.gender, 'male');
                 done();
             });
         });
@@ -94,14 +92,14 @@ describe('Project Oxford Face API Test', function () {
             detects.push(client.face.detect({
                 path: './test/images/face1.jpg',
             }).then(function(response) {
-                assert(response[0].faceId)
+                assert.ok(response[0].faceId)
                 billFaces.push(response[0].faceId);
             }));
 
             detects.push(client.face.detect({
                 path: './test/images/face2.jpg',
             }).then(function(response) {
-                assert(response[0].faceId)
+                assert.ok(response[0].faceId)
                 billFaces.push(response[0].faceId);
             }));
 
@@ -126,10 +124,10 @@ describe('Project Oxford Face API Test', function () {
                     faceIds.push(face.faceId);
                 });
 
-                assert(faceIds.length === 6);
+                assert.equal(faceIds.length, 6);
             }).then(function() {
                 client.face.grouping(faceIds).then(function (response) {
-                    assert(response.messyGroup);
+                    assert.ok(response.messyGroup);
                     done();
                 });
             });
@@ -140,12 +138,12 @@ describe('Project Oxford Face API Test', function () {
         it('verifies a face against another face', function (done) {
             this.timeout(10000);
 
-            assert(billFaces.length === 2);
+            assert.equal(billFaces.length, 2);
 
             client.face.verify(billFaces).then(function (response) {
-                assert(response);
-                assert((response.isIdentical === true || response.isIdentical === false));
-                assert(response.confidence);
+                assert.ok(response);
+                assert.ok((response.isIdentical === true || response.isIdentical === false));
+                assert.ok(response.confidence);
                 done();
             });
         });
@@ -175,39 +173,39 @@ describe('Project Oxford Face API Test', function () {
 
         it('creates a PersonGroup', function (done) {
             client.face.personGroup.create(personGroupId, 'po-node-test-group', 'test-data').then(function (response) {
-                assert(true, "void response expected");
+                assert.ok(true, "void response expected");
                 done();
             })
             .catch(function (error) {
-                assert(false, JSON.stringify(error));
+                assert.ok(false, JSON.stringify(error));
                 done();
             });
         });
 
         it('lists PersonGroups', function (done) {
             client.face.personGroup.list().then(function (response) {
-                assert(response);
-                assert((response.length > 0));
-                assert(response[0].personGroupId);
+                assert.ok(response);
+                assert.ok((response.length > 0));
+                assert.ok(response[0].personGroupId);
                 done();
             });
         });
 
         it('gets a PersonGroup', function (done) {
             client.face.personGroup.get(personGroupId).then(function (response) {
-                assert(response.personGroupId === personGroupId);
-                assert(response.name === 'po-node-test-group');
-                assert(response.userData === 'test-data');
+                assert.equal(response.personGroupId, personGroupId);
+                assert.equal(response.name, 'po-node-test-group');
+                assert.equal(response.userData, 'test-data');
                 done();
             });
         });
 
         it('updates a PersonGroup', function (done) {
             client.face.personGroup.update(personGroupId, 'po-node-test-group2', 'test-data2').then(function (response) {
-                assert(true, "void response expected");;
+                assert.ok(true, "void response expected");;
                 done();
             }).catch(function (response) {
-                assert(response === 'PersonGroupTrainingNotFinished')
+                assert.equal(response, 'PersonGroupTrainingNotFinished')
             });
         });
 
@@ -215,27 +213,27 @@ describe('Project Oxford Face API Test', function () {
             client.face.personGroup.trainingStatus(personGroupId).then(function (response) {
                 done();
             }).catch(function (response) {
-                assert(response.code === 'PersonGroupNotTrained');
+                assert.equal(response.code, 'PersonGroupNotTrained');
                 done();
             });
         });
 
         it('starts a PersonGroup\'s training', function (done) {
             client.face.personGroup.trainingStart(personGroupId).then(function (response) {
-                assert(response.status === 'running');
+                assert.equal(response.status, 'running');
                 done();
             }).catch(function (response) {
-                assert(response.status === 'running');
+                assert.equal(response.status, 'running');
                 done();
             });
         });
 
         it('deletes a PersonGroup', function (done) {
             client.face.personGroup.delete(personGroupId).then(function (response) {
-                assert(true, "void response");
+                assert.ok(true, "void response");
                 done();
             }).catch(function (response) {
-                assert(response.code === 'PersonGroupTrainingNotFinished');
+                assert.equal(response.code, 'PersonGroupTrainingNotFinished');
                 done();
             });
         });
@@ -246,11 +244,11 @@ describe('Project Oxford Face API Test', function () {
         it('creates a PersonGroup for the Person', function (done) {
             client.face.personGroup.create(personGroupId2, 'po-node-test-group', 'test-data')
             .then(function (response) {
-                assert(true, "void response expected");
+                assert.ok(true, "void response expected");
                 done();
             })
             .catch(function (error) {
-                assert(false, JSON.stringify(error));
+                assert.ok(false, JSON.stringify(error));
                 done();
             });
         });
@@ -258,23 +256,23 @@ describe('Project Oxford Face API Test', function () {
         it('creates a Person', function (done) {
             client.face.person.create(personGroupId2, [billFaces[0]], 'test-bill', 'test-data')
             .then(function (response) {
-                assert(response.personId);
+                assert.ok(response.personId);
                 billPersonId = response.personId;
                 done();
             })
             .catch(function (error) {
-                assert(false, JSON.stringify(error));
+                assert.ok(false, JSON.stringify(error));
                 done();
             });
         });
 
         it('gets a Person', function (done) {
             client.face.person.get(personGroupId2, billPersonId).then(function (response) {
-                assert(response.personId);
+                assert.ok(response.personId);
                 done();
             })
             .catch(function (error) {
-                assert(false, JSON.stringify(error));
+                assert.ok(false, JSON.stringify(error));
                 done();
             });
         });
@@ -282,7 +280,7 @@ describe('Project Oxford Face API Test', function () {
         it('updates a Person', function (done) {
             client.face.person.update(personGroupId2, billPersonId, [billFaces[0]], 'test-bill', 'test-data')
             .then(function (response) {
-                assert(true, "void response expected");
+                assert.ok(true, "void response expected");
                 done();
             })
         });
@@ -290,11 +288,11 @@ describe('Project Oxford Face API Test', function () {
         it('adds a face to a Person', function (done) {
             client.face.person.addFace(personGroupId2, billPersonId, billFaces[1], 'test-data')
             .then(function (response) {
-                assert(true, "void response expected");
+                assert.ok(true, "void response expected");
                 done();
             })
             .catch(function (error) {
-                assert(false, JSON.stringify(error));
+                assert.ok(false, JSON.stringify(error));
                 done();
             });
         });
@@ -302,12 +300,12 @@ describe('Project Oxford Face API Test', function () {
         it('gets a face from a Person', function (done) {
             client.face.person.getFace(personGroupId2, billPersonId, billFaces[1])
             .then(function (response) {
-                assert(response.userData);
-                assert(response.userData === 'test-data');
+                assert.ok(response.userData);
+                assert.equal(response.userData, 'test-data');
                 done();
             })
             .catch(function (error) {
-                assert(false, JSON.stringify(error));
+                assert.ok(false, JSON.stringify(error));
                 done();
             });
         });
@@ -315,11 +313,11 @@ describe('Project Oxford Face API Test', function () {
         it('updates a face on a Person', function (done) {
             client.face.person.updateFace(personGroupId2, billPersonId, billFaces[1], 'test-data')
             .then(function (response) {
-                assert(true, "void response expected");
+                assert.ok(true, "void response expected");
                 done();
             })
             .catch(function (error) {
-                assert(false, JSON.stringify(error));
+                assert.ok(false, JSON.stringify(error));
                 done();
             });
         });
@@ -327,11 +325,11 @@ describe('Project Oxford Face API Test', function () {
         it('deletes a face on a Person', function (done) {
             client.face.person.deleteFace(personGroupId2, billPersonId, billFaces[1])
             .then(function (response) {
-                assert(true, "void response expected");
+                assert.ok(true, "void response expected");
                 done();
             })
             .catch(function (error) {
-                assert(false, JSON.stringify(error));
+                assert.ok(false, JSON.stringify(error));
                 done();
             });
         });
@@ -339,11 +337,11 @@ describe('Project Oxford Face API Test', function () {
         it('lists Persons', function (done) {
             client.face.person.list(personGroupId2)
             .then(function (response) {
-                assert(response[0].personId);
+                assert.ok(response[0].personId);
                 done();
             })
             .catch(function (error) {
-                assert(false, JSON.stringify(error));
+                assert.ok(false, JSON.stringify(error));
                 done();
             });
         });
@@ -351,11 +349,11 @@ describe('Project Oxford Face API Test', function () {
         it('deletes a Person', function (done) {
             client.face.person.delete(personGroupId2, billPersonId)
             .then(function (response) {
-                assert(true, "void response expected");
+                assert.ok(true, "void response expected");
                 done();
             })
             .catch(function (error) {
-                assert(false, JSON.stringify(error));
+                assert.ok(false, JSON.stringify(error));
                 done();
             });
         });
@@ -387,13 +385,13 @@ describe('Project Oxford Vision API Test', function () {
             Categories: true
         })
         .then(function (response) {
-            assert(response);
-            assert(response.categories);
-            assert(response.adult);
-            assert(response.metadata);
-            assert(response.faces);
-            assert(response.color);
-            assert(response.imageType);
+            assert.ok(response);
+            assert.ok(response.categories);
+            assert.ok(response.adult);
+            assert.ok(response.metadata);
+            assert.ok(response.faces);
+            assert.ok(response.color);
+            assert.ok(response.imageType);
             done();
         })
     });
@@ -409,13 +407,13 @@ describe('Project Oxford Vision API Test', function () {
             Categories: true
         })
         .then(function (response) {
-            assert(response);
-            assert(response.categories);
-            assert(response.adult);
-            assert(response.metadata);
-            assert(response.faces);
-            assert(response.color);
-            assert(response.imageType);
+            assert.ok(response);
+            assert.ok(response.categories);
+            assert.ok(response.adult);
+            assert.ok(response.metadata);
+            assert.ok(response.faces);
+            assert.ok(response.color);
+            assert.ok(response.imageType);
             done();
         });
     });
@@ -431,7 +429,7 @@ describe('Project Oxford Vision API Test', function () {
         })
         .then(function (response) {
             var stats = fs.statSync('./test/output/thumb2.jpg');
-            assert((stats.size > 0));
+            assert.ok((stats.size > 0));
             done();
         });
     });
@@ -447,7 +445,7 @@ describe('Project Oxford Vision API Test', function () {
         })
         .then(function (response) {
             var stats = fs.statSync('./test/output/thumb1.jpg');
-            assert((stats.size > 0));
+            assert.ok((stats.size > 0));
             done();
         });
     });
@@ -460,8 +458,8 @@ describe('Project Oxford Vision API Test', function () {
             detectOrientation: true
         })
         .then(function (response) {
-            assert(response.language);
-            assert(response.regions);
+            assert.ok(response.language);
+            assert.ok(response.regions);
             done();
         });
     });
@@ -474,8 +472,8 @@ describe('Project Oxford Vision API Test', function () {
             detectOrientation: true
         })
         .then(function (response) {
-            assert(response.language);
-            assert(response.orientation);
+            assert.ok(response.language);
+            assert.ok(response.orientation);
             done();
         });
     });

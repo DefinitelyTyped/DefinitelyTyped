@@ -738,6 +738,11 @@ declare module 'leaflet' {
 
     namespace GeometryUtil {
         /**
+         * Shortcut function for planar distance between two {L.LatLng} at current zoom.
+         */
+        function distance(map: DrawMap, latlanA: LatLng, latlngB: LatLng): number;
+
+        /**
          * Returns the area of a polygon drawn with leaflet.draw
          */
         function geodesicArea(coordinates: LatLngLiteral[]): number;

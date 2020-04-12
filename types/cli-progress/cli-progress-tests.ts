@@ -94,6 +94,8 @@ function test5() {
 function test6() {
     // SingleBar
     const bar2 = new progress.SingleBar({}, progress.Presets.shades_classic);
+    bar2.increment();
+    bar2.increment(10);
 
     // MultiBar
     const multiBar = new progress.MultiBar({}, progress.Presets.shades_classic);

@@ -20,6 +20,15 @@ declare module 'wasi' {
         preopens?: {
             [key: string]: string;
         };
+
+        /**
+         * By default, WASI applications terminate the Node.js
+         * process via the `__wasi_proc_exit()` function. Setting this option to `true`
+         * causes `wasi.start()` to return the exit code rather than terminate the
+         * process.
+         * @default false
+         */
+        returnOnExit?: boolean;
     }
 
     class WASI {

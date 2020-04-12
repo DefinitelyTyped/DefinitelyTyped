@@ -322,6 +322,22 @@ function Argv$command() {
         .argv;
 }
 
+function Argv$positional() {
+    const module: yargs.CommandModule<{}, { paths: string[] }> = {
+        command: 'test <paths...>',
+        builder(yargs) {
+            return yargs.positional('paths', {
+                type: 'string',
+                array: true,
+                demandOption: true
+            });
+        },
+        handler(argv) {
+            argv.paths.map((path) => path);
+        }
+    };
+}
+
 function Argv$commandModule() {
     class CommandOne implements yargs.CommandModule {
         handler(args: yargs.Arguments): void {
@@ -735,6 +751,7 @@ function Argv$parserConfiguration() {
         'populate--': false,
         'set-placeholder-key': false,
         'short-option-groups': false,
+        'sort-commands': true,
     }).parse();
 
     const argv2 = yargs.parserConfiguration({
@@ -1159,6 +1176,52 @@ function Argv$exit() {
 
 function Argv$parsed() {
     const parsedArgs = yargs.parsed;
+}
+
+function Argv$defaultCommandWithPositional(): string {
+    const argv = yargs.command(
+        "$0 <arg>",
+        "default command",
+        (yargs) =>
+            yargs.positional("arg", {
+                demandOption: true,
+                describe: "argument",
+                type: "string",
+            }),
+        () => { }).argv;
+
+    return argv.arg;
+}
+
+function Argv$commandsWithAsynchronousBuilders() {
+    const argv1 = yargs.command(
+        "command <arg>",
+        "some command",
+        (yargs) =>
+            Promise.resolve(
+                yargs.positional("arg", {
+                    demandOption: true,
+                    describe: "argument",
+                    type: "string",
+                })),
+        () => { }).argv;
+
+    const arg1: string = argv1.arg;
+
+    const argv2 = yargs.command({
+        command: "command <arg>",
+        describe: "some command",
+        builder: (yargs) =>
+            Promise.resolve(
+                yargs.positional("arg", {
+                    demandOption: true,
+                    describe: "argument",
+                    type: "string",
+                })),
+        handler: () => {}
+    }).argv;
+
+    const arg2: string = argv2.arg;
 }
 
 function makeSingleton() {

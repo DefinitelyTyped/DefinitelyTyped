@@ -1,8 +1,8 @@
-// Type definitions for non-npm package frida-gum 15.0
+// Type definitions for non-npm package frida-gum 15.2
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// Minimum TypeScript Version: 3.5
 
 /**
  * Returns a hexdump of the provided ArrayBuffer or NativePointerValue target.
@@ -1421,6 +1421,35 @@ declare class NativePointer {
     not(): NativePointer;
 
     /**
+     * Makes a new NativePointer by taking the bits of `this` and adding
+     * pointer authentication bits, creating a signed pointer. This is a
+     * no-op if the current process does not support pointer
+     * authentication, returning `this` instead of a new value.
+     *
+     * @param key The key to use. Defaults to `ia`.
+     * @param data The data to use. Defaults to `0`.
+     */
+    sign(key?: PointerAuthenticationKey, data?: NativePointerValue | UInt64 | Int64 | number | string): NativePointer;
+
+    /**
+     * Makes a new NativePointer by taking the bits of `this` and
+     * removing its pointer authentication bits, creating a raw pointer.
+     * This is a no-op if the current process does not support pointer
+     * authentication, returning `this` instead of a new value.
+     *
+     * @param key The key that was used to sign `this`. Defaults to `ia`.
+     */
+    strip(key?: PointerAuthenticationKey): NativePointer;
+
+    /**
+     * Makes a new NativePointer by taking `this` and blending it with
+     * a constant, which may in turn be passed to `sign()` as `data`.
+     *
+     * @param smallInteger Value to blend with.
+     */
+    blend(smallInteger: number): NativePointer;
+
+    /**
      * Returns a boolean indicating whether `v` is equal to `this`; i.e. it contains the same memory address.
      */
     equals(v: NativePointerValue | UInt64 | Int64 | number | string): boolean;
@@ -1496,6 +1525,8 @@ declare class NativePointer {
     writeUtf16String(value: string): NativePointer;
     writeAnsiString(value: string): NativePointer;
 }
+
+type PointerAuthenticationKey = "ia" | "ib" | "da" | "db";
 
 interface ObjectWrapper {
     handle: NativePointer;
@@ -4096,7 +4127,7 @@ declare namespace Java {
      *
      * @param className Canonical class name to get a wrapper for.
      */
-    function use(className: string): Wrapper;
+    function use<T extends Members<T> = {}>(className: string): Wrapper<T>;
 
     /**
      * Opens the .dex file at `filePath`.
@@ -4117,9 +4148,9 @@ declare namespace Java {
     /**
      * Duplicates a JavaScript wrapper for later use outside replacement method.
      *
-     * @param handle An existing wrapper retrieved from `this` in replacement method.
+     * @param obj An existing wrapper retrieved from `this` in replacement method.
      */
-    function retain(obj: Wrapper): Wrapper;
+    function retain<T extends Members<T> = {}>(obj: Wrapper<T>): Wrapper<T>;
 
     /**
      * Creates a JavaScript wrapper given the existing instance at `handle` of
@@ -4128,7 +4159,10 @@ declare namespace Java {
      * @param handle An existing wrapper or a JNI handle.
      * @param klass Class wrapper for type to cast to.
      */
-    function cast(handle: Wrapper | NativePointerValue, klass: Wrapper): Wrapper;
+    function cast<From extends Members<From> = {}, To extends Members<To> = {}>(
+        handle: Wrapper<From> | NativePointerValue,
+        klass: Wrapper<To>
+    ): Wrapper<To>;
 
     /**
      * Creates a Java array with elements of the specified `type`, from a
@@ -4214,23 +4248,30 @@ declare namespace Java {
         onComplete: () => void;
     }
 
+    type Members<T> = Record<keyof T, MethodDispatcher | Field>;
+
     /**
      * Dynamically generated wrapper for any Java class, instance, or interface.
      */
-    interface Wrapper {
+    type Wrapper<T extends Members<T> = {}> = {
+        /**
+         * Automatically inject holder's type to all fields and methods
+         */
+        [K in keyof T]: T[K] extends Field<infer Value> ? Field<Value, T> : MethodDispatcher<T>
+    } & {
         /**
          * Allocates and initializes a new instance of the given class.
          *
          * Use this to create a new instance.
          */
-        $new: MethodDispatcher;
+        $new: MethodDispatcher<T>;
 
         /**
          * Allocates a new instance without initializing it.
          *
          * Call `$init()` to initialize it.
          */
-        $alloc: MethodDispatcher;
+        $alloc: MethodDispatcher<T>;
 
         /**
          * Initializes an instance that was allocated but not yet initialized.
@@ -4238,7 +4279,7 @@ declare namespace Java {
          *
          * Replace the `implementation` property to hook a given constructor.
          */
-        $init: MethodDispatcher;
+        $init: MethodDispatcher<T>;
 
         /**
          * Retrieves a `java.lang.Class` wrapper for the current class.
@@ -4259,13 +4300,13 @@ declare namespace Java {
          * Methods and fields.
          */
         [name: string]: any;
-    }
+    };
 
-    interface MethodDispatcher extends Method {
+    interface MethodDispatcher<Holder extends Members<Holder> = {}> extends Method<Holder> {
         /**
          * Available overloads.
          */
-        overloads: Method[];
+        overloads: Array<Method<Holder>>;
 
         /**
          * Obtains a specific overload.
@@ -4273,10 +4314,10 @@ declare namespace Java {
          * @param args Signature of the overload to obtain.
          *             For example: `"java.lang.String", "int"`.
          */
-        overload(...args: string[]): Method;
+        overload(...args: string[]): Method<Holder>;
     }
 
-    interface Method {
+    interface Method<Holder extends Members<Holder> = {}> {
         (...params: any[]): any;
 
         /**
@@ -4287,7 +4328,7 @@ declare namespace Java {
         /**
          * Class that this method belongs to.
          */
-        holder: Wrapper;
+        holder: Wrapper<Holder>;
 
         /**
          * What kind of method this is, i.e. constructor vs static vs instance.
@@ -4304,7 +4345,7 @@ declare namespace Java {
          * replace the original implementation. Assign `null` at a future point
          * to revert back to the original implementation.
          */
-        implementation: MethodImplementation | null;
+        implementation: MethodImplementation<Holder> | null;
 
         /**
          * Method return type.
@@ -4327,21 +4368,21 @@ declare namespace Java {
          * Useful for e.g. setting `traps: "all"` to perform execution tracing
          * in conjunction with Stalker.
          */
-        clone: (options: NativeFunctionOptions) => Method;
+        clone: (options: NativeFunctionOptions) => Method<Holder>;
     }
 
-    type MethodImplementation = (this: Wrapper, ...params: any[]) => any;
+    type MethodImplementation<This extends Members<This> = {}> = (this: Wrapper<This>, ...params: any[]) => any;
 
-    interface Field {
+    interface Field<Value = any, Holder extends Members<Holder> = {}> {
         /**
          * Current value of this field. Assign to update the field's value.
          */
-        value: any;
+        value: Value;
 
         /**
          * Class that this field belongs to.
          */
-        holder: Wrapper;
+        holder: Wrapper<Holder>;
 
         /**
          * What kind of field this is, i.e. static vs instance.
@@ -4545,7 +4586,7 @@ declare namespace Java {
          *
          * @param className Canonical class name to get a wrapper for.
          */
-        use(className: string): Wrapper;
+        use<T extends Members<T> = {}>(className: string): Wrapper<T>;
 
         /**
          * Opens the .dex file at `filePath`.
@@ -4566,9 +4607,9 @@ declare namespace Java {
         /**
          * Duplicates a JavaScript wrapper for later use outside replacement method.
          *
-         * @param handle An existing wrapper retrieved from `this` in replacement method.
+         * @param obj An existing wrapper retrieved from `this` in replacement method.
          */
-        retain(obj: Wrapper): Wrapper;
+        retain<T extends Members<T> = {}>(obj: Wrapper<T>): Wrapper<T>;
 
         /**
          * Creates a JavaScript wrapper given the existing instance at `handle` of
@@ -4577,7 +4618,10 @@ declare namespace Java {
          * @param handle An existing wrapper or a JNI handle.
          * @param klass Class wrapper for type to cast to.
          */
-        cast(handle: Wrapper | NativePointerValue, klass: Wrapper): Wrapper;
+        cast<From extends Members<From> = {}, To extends Members<To> = {}>(
+            handle: Wrapper<From> | NativePointerValue,
+            klass: Wrapper<To>
+        ): Wrapper<To>;
 
         /**
          * Creates a Java array with elements of the specified `type`, from a

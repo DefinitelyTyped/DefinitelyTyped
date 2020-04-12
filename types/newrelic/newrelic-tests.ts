@@ -9,6 +9,7 @@ trans.end(); // $ExpectType void
 trans.end(() => {}); // $ExpectType void
 const payload = trans.createDistributedTracePayload(); // $ExpectType DistributedTracePayload
 trans.acceptDistributedTracePayload(payload); // $ExpectType void
+trans.insertDistributedTraceHeaders({ test: "test" }); // $ExpectType void
 
 newrelic.setDispatcher('foo'); // $ExpectType void
 newrelic.setDispatcher('foo', '42'); // $ExpectType void
@@ -89,6 +90,7 @@ newrelic.recordCustomEvent('my_event', {
 
 newrelic.instrument('foo', () => {}); // $ExpectType void
 newrelic.instrumentDatastore('foo', () => {}, (err: Error) => {});
+newrelic.instrumentLoadedModule('foo', () => {}); // $ExpectType boolean
 newrelic.instrumentWebframework({
     moduleName: 'foo',
     onRequire: () => {},
@@ -108,8 +110,16 @@ newrelic.shutdown({ collectPendingData: true, timeout: 3000 });
 newrelic.shutdown({ collectPendingData: true, timeout: 3000 }, err => {
     const error: Error | undefined = err;
 });
+newrelic.shutdown({ collectPendingData: true, timeout: 3000, waitForIdle: true });
+newrelic.shutdown({ collectPendingData: true, timeout: 3000, waitForIdle: true }, err => {
+    const error: Error | undefined = err;
+});
 newrelic.shutdown(err => {
     const error: Error | undefined = err;
 });
+
+newrelic.getLinkingMetadata();
+newrelic.getLinkingMetadata(true);
+newrelic.getTraceMetadata();
 
 newrelic.setLambdaHandler(() => void 0); // $ExpectType undefined

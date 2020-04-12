@@ -84,6 +84,19 @@ function test_fetchUrlObject() {
     handlePromise(fetch(new URL("https://example.org")));
 }
 
+async function test_responseReturnTypes() {
+    const response = await fetch(new URL("https://example.org"));
+
+    // $ExpectType Blob
+    const blob = await response.clone().blob();
+
+    // $ExpectType string
+    const text = await response.clone().text();
+
+    // $ExpectType Buffer
+    const buffer = await response.clone().buffer();
+}
+
 function test_fetchUrlObjectWithRequestObject() {
     const requestOptions: RequestInit = {
         method: "POST",

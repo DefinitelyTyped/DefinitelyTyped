@@ -1,6 +1,7 @@
 // Type definitions for react-plaid-link 1.3
 // Project: https://github.com/pbernasconi/react-plaid-link
 // Definitions by: KeevanDance <https://github.com/DanceParty>
+//                 Mike Cousins <https://github.com/mikecousins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -34,8 +35,9 @@ export interface PlaidLinkProps {
         | 'income'
         | 'transactions'
         | 'assets'
-        | 'holdings'
         | 'liabilities'
+        | 'investments'
+        | 'payment_initiation'
     >;
 
     // Specify an existing user's public token to launch Link in update mode.

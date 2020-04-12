@@ -421,8 +421,11 @@ plugin = new webpack.optimize.UglifyJsPlugin({
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
-        warnings: false
-    }
+        dead_code: true,
+        collapse_vars: true,
+        drop_debugger: true,
+    },
+    warnings: false,
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     sourceMap: false,
@@ -445,7 +448,32 @@ plugin = new webpack.DefinePlugin({
     VERSION: JSON.stringify("5fa3b9"),
     BROWSER_SUPPORTS_HTML5: true,
     TWO: "1+1",
-    "typeof window": JSON.stringify("object")
+    "typeof window": JSON.stringify("object"),
+    OBJECT: {
+        foo: "bar",
+        bar: {
+            DEEP_RUNTIME: webpack.DefinePlugin.runtimeValue(
+                () => JSON.stringify("DEEP_RUUNTIME")
+            ),
+            foofoo: {
+                barbar: false
+            }
+        }
+    },
+    RUNTIME: webpack.DefinePlugin.runtimeValue(
+        () => JSON.stringify("TEST_VALUE")
+    )
+});
+plugin = new webpack.DefinePlugin({
+    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+        ({ module }) => JSON.stringify(module.context)
+    )
+});
+plugin = new webpack.DefinePlugin({
+    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+        () => JSON.stringify("TEST_VALUE"),
+        ["value.txt"]
+    )
 });
 plugin = new webpack.ProvidePlugin(definitions);
 plugin = new webpack.ProvidePlugin({
@@ -483,6 +511,8 @@ plugin = new webpack.EnvironmentPlugin(['a', 'b']);
 plugin = new webpack.EnvironmentPlugin({ a: true, b: 'c' });
 plugin = new webpack.ProgressPlugin((percent: number, message: string) => { });
 plugin = new webpack.ProgressPlugin((percent: number, message: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => { });
+plugin = new webpack.ProgressPlugin({ profile: true });
+plugin = new webpack.ProgressPlugin({ activeModules: true, entries: false });
 plugin = new webpack.HashedModuleIdsPlugin();
 plugin = new webpack.HashedModuleIdsPlugin({
     hashFunction: 'sha256',
@@ -555,6 +585,7 @@ webpack({
         cached: true,
         children: true,
         chunks: true,
+        chunkGroups: true,
         chunkModules: true,
         chunkOrigins: true,
         chunksSort: "field",
@@ -878,6 +909,23 @@ class BannerPlugin extends webpack.Plugin {
                 }
             });
         });
+    }
+}
+
+class DefinePlugin extends webpack.Plugin {
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap(
+            "DefinePlugin",
+            (compilation, { normalModuleFactory }) => {
+                normalModuleFactory.hooks.parser
+                    .for("javascript/auto")
+                    .tap("DefinePlugin", (parser) => {
+                        parser.hooks.evaluateIdentifier
+                            .for("TEST")
+                            .tap("DefinePlugin", () => {});
+                    });
+            }
+        );
     }
 }
 

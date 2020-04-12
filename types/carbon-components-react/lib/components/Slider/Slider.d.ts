@@ -1,8 +1,12 @@
 import * as React from "react";
 import { ReactDivAttr, ReactInputAttr, ThemeProps } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr, ThemeProps {
+interface InheritedProps extends Omit<ReactDivAttr, "onChange">, ThemeProps {
     name?: ReactInputAttr["name"],
+}
+
+export interface SliderOnChangeArg {
+    value: number;
 }
 
 export interface SliderProps extends InheritedProps {
@@ -19,6 +23,7 @@ export interface SliderProps extends InheritedProps {
     step?: number,
     stepMuliplier?: number, // typo exists in source
     value: number,
+    onChange: (value: SliderOnChangeArg) => void
 }
 
 declare class Slider extends React.PureComponent<SliderProps> { }

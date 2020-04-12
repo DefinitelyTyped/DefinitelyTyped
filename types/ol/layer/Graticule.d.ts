@@ -1,4 +1,4 @@
-import { EventsKey } from '../events';
+import { EventsKey, ListenerFunction } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import LineString from '../geom/LineString';
@@ -22,6 +22,8 @@ export interface Options {
     zIndex?: number;
     minResolution?: number;
     maxResolution?: number;
+    minZoom?: number;
+    maxZoom?: number;
     maxLines?: number;
     strokeStyle?: Stroke;
     targetSize?: number;
@@ -40,9 +42,10 @@ export default class Graticule extends VectorLayer {
     getMeridians(): LineString[];
     getParallels(): LineString[];
     loaderFunction(extent: Extent, resolution: number, projection: Projection): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    strategyFunction(extent: Extent, resolution: number): Extent[];
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

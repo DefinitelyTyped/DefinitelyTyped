@@ -299,6 +299,7 @@ declare namespace yargs {
 
     interface PositionalOptions {
         alias?: string | string[];
+        array?: boolean;
         choices?: Choices;
         coerce?: (arg: any) => any;
         conflicts?: string | string[] | { [key: string]: string | string[] };

@@ -71,3 +71,7 @@ export interface SideNavSharedProps {
 export interface SideNavSizingProps {
     large?: boolean;
 }
+
+export interface RefForwardingProps<T = HTMLElement> {
+    ref?: React.RefObject<T>;
+}

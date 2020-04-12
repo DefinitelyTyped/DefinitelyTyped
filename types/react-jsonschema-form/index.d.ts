@@ -1,4 +1,4 @@
-// Type definitions for react-jsonschema-form 1.6.1
+// Type definitions for react-jsonschema-form 1.7.0
 // Project: https://github.com/mozilla-services/react-jsonschema-form
 // Definitions by: Dan Fox <https://github.com/iamdanfox>
 //                 Ivan Jiang <https://github.com/iplus26>
@@ -12,6 +12,7 @@
 //                 Chancellor Clark <https://github.com/chanceaclark>
 //                 Benoît Sepe <https://github.com/ogdentrod>
 //                 Andre Nguyen <https://github.com/andrenguyener>
+//                 Qingqi Shi <https://github.com/qingqishi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -59,6 +60,9 @@ declare module 'react-jsonschema-form' {
         autocomplete?: string;
         enctype?: string;
         acceptcharset?: string;
+        omitExtraData?: boolean;
+        liveOmit?: boolean;
+        tagName?: keyof JSX.IntrinsicElements | React.ComponentType;
     }
 
     export default class Form<T> extends React.Component<FormProps<T>> {
@@ -78,6 +82,9 @@ declare module 'react-jsonschema-form' {
         'ui:widget'?: Widget | string;
         'ui:options'?: { [key: string]: boolean | number | string | object | any[] | null };
         'ui:order'?: string[];
+        'ui:FieldTemplate'?: React.StatelessComponent<FieldTemplateProps>;
+        'ui:ArrayFieldTemplate'?: React.StatelessComponent<ArrayFieldTemplateProps>;
+        'ui:ObjectFieldTemplate'?: React.StatelessComponent<ObjectFieldTemplateProps>;
         [name: string]: any;
     };
 
@@ -85,9 +92,19 @@ declare module 'react-jsonschema-form' {
         $id: string;
     };
 
-    export type IdSchema = FieldId & {
-        [key: string]: FieldId;
+    export type IdSchema<T = any> = {
+        [key in keyof T]: IdSchema<T[key]>;
+    } &
+        FieldId;
+
+    export type FieldPath = {
+        $name: string;
     };
+
+    export type PathSchema<T = any> = {
+        [key in keyof T]: PathSchema<T[key]>;
+    } &
+        FieldPath;
 
     export interface WidgetProps
         extends Pick<
@@ -107,6 +124,7 @@ declare module 'react-jsonschema-form' {
         onBlur: (id: string, value: boolean | number | string | null) => void;
         onFocus: (id: string, value: boolean | number | string | null) => void;
         label: string;
+        rawErrors: string[];
     }
 
     export type Widget = React.StatelessComponent<WidgetProps> | React.ComponentClass<WidgetProps>;
@@ -178,6 +196,7 @@ declare module 'react-jsonschema-form' {
             onDropIndexClick: (index: number) => (event: any) => void;
             onReorderClick: (index: number, newIndex: number) => (event: any) => void;
             readonly: boolean;
+            key: string;
         }[];
         onAddClick: (event: any) => (event: any) => void;
         readonly: boolean;
@@ -272,15 +291,15 @@ declare module 'react-jsonschema-form/lib/components/fields/SchemaField' {
 
     export type SchemaFieldProps<T = any> = Pick<
         FieldProps<T>,
-        'schema' | 'uiSchema' | 'idSchema' | 'formData' | 'errorSchema' | 'registry'
+        'schema' | 'uiSchema' | 'idSchema' | 'formData' | 'errorSchema' | 'registry' | 'formContext'
     >;
 
     export default class SchemaField extends React.Component<SchemaFieldProps> {}
 }
 
 declare module 'react-jsonschema-form/lib/utils' {
-    import { JSONSchema6, JSONSchema6Definition, JSONSchema6Type } from 'json-schema';
-    import { FieldProps, UiSchema, IdSchema, Widget } from 'react-jsonschema-form';
+    import { JSONSchema6, JSONSchema6Definition, JSONSchema6Type, JSONSchema6TypeName } from 'json-schema';
+    import { FieldProps, UiSchema, IdSchema, PathSchema, Widget } from 'react-jsonschema-form';
 
     export const ADDITIONAL_PROPERTY_FLAG: string;
 
@@ -291,35 +310,37 @@ declare module 'react-jsonschema-form/lib/utils' {
     export function getWidget(
         schema: JSONSchema6,
         widget: Widget,
-        registeredWidgets: { [name: string]: Widget },
+        registeredWidgets?: { [name: string]: Widget },
     ): Widget | Error;
 
     export function hasWidget(
         schema: JSONSchema6,
         widget: Widget,
-        registeredWidgets: { [name: string]: Widget },
+        registeredWidgets?: { [name: string]: Widget },
     ): boolean;
 
     export function computeDefaults<T = any>(
         schema: JSONSchema6,
         parentDefaults: JSONSchema6['default'][],
         definitions: FieldProps['registry']['definitions'],
-        rawFormData: T,
+        rawFormData?: T,
+        includeUndefinedValues?: boolean,
     ): JSONSchema6['default'][];
 
     export function getDefaultFormState<T = any>(
         schema: JSONSchema6,
         formData: T,
-        definitions: FieldProps['registry']['definitions'],
+        definitions?: FieldProps['registry']['definitions'],
+        includeUndefinedValues?: boolean,
     ): T | JSONSchema6['default'][];
 
     export function getUiOptions(uiSchema: UiSchema): UiSchema['ui:options'];
 
     export function isObject(thing: any): boolean;
 
-    export function mergeObjects(obj1: object, obj2: object, concatArrays: boolean): object;
+    export function mergeObjects(obj1: object, obj2: object, concatArrays?: boolean): object;
 
-    export function asNumber(value: any): number | string;
+    export function asNumber(value: string | null): number | string | undefined | null;
 
     export function orderProperties(properties: [], order: []): [];
 
@@ -327,27 +348,79 @@ declare module 'react-jsonschema-form/lib/utils' {
 
     export function toConstant(schema: JSONSchema6): JSONSchema6Type | JSONSchema6['const'] | Error;
 
-    export function isSelect(_schema: JSONSchema6, definitions: FieldProps['registry']['definitions']): boolean;
+    export function isSelect(_schema: JSONSchema6, definitions?: FieldProps['registry']['definitions']): boolean;
 
-    export function isMultiSelect(schema: JSONSchema6, definitions: FieldProps['registry']['definitions']): boolean;
+    export function isMultiSelect(schema: JSONSchema6, definitions?: FieldProps['registry']['definitions']): boolean;
+
+    export function isFilesArray(
+        schema: JSONSchema6,
+        uiSchema: UiSchema,
+        definitions?: FieldProps['registry']['definitions'],
+    ): boolean;
 
     export function isFixedItems(schema: JSONSchema6): boolean;
 
     export function allowAdditionalItems(schema: JSONSchema6): boolean;
 
-    export function dataURItoBlob(dataURI: string): { name: string; blob: Blob };
+    export function optionsList(schema: JSONSchema6): { label: string; value: string }[];
 
-    export function shouldRender(comp: React.Component, nextProps: any, nextState: any): boolean;
-
-    export function setState(instance: React.Component, state: any, callback: Function): void;
-
-    export function guessType(value: any): string;
+    export function guessType(value: any): JSONSchema6TypeName;
 
     export function stubExistingAdditionalProperties<T = any>(
         schema: JSONSchema6,
-        definitions: FieldProps['registry']['definitions'],
-        formData: T,
+        definitions?: FieldProps['registry']['definitions'],
+        formData?: T,
     ): JSONSchema6;
+
+    export function resolveSchema<T = any>(
+        schema: JSONSchema6Definition,
+        definitions?: FieldProps['registry']['definitions'],
+        formData?: T,
+    ): JSONSchema6;
+
+    export function retrieveSchema<T = any>(
+        schema: JSONSchema6Definition,
+        definitions?: FieldProps['registry']['definitions'],
+        formData?: T,
+    ): JSONSchema6;
+
+    export function deepEquals<T>(a: T, b: T): boolean;
+
+    export function shouldRender(comp: React.Component, nextProps: any, nextState: any): boolean;
+
+    export function toIdSchema<T = any>(
+        schema: JSONSchema6Definition,
+        id: string,
+        definitions: FieldProps['registry']['definitions'],
+        formData?: T,
+        idPredix?: string,
+    ): IdSchema | IdSchema[];
+
+    export function toPathSchema<T = any>(
+        schema: JSONSchema6Definition,
+        name: string | undefined,
+        definitions: FieldProps['registry']['definitions'],
+        formData?: T,
+    ): PathSchema | PathSchema[];
+
+    export interface DateObject {
+        year: number;
+        month: number;
+        day: number;
+        hour: number;
+        minute: number;
+        second: number;
+    }
+
+    export function parseDateString(dateString: string, includeTime?: boolean): DateObject;
+
+    export function toDateString(dateObject: DateObject, time?: boolean): string;
+
+    export function pad(num: number, size: number): string;
+
+    export function setState(instance: React.Component, state: any, callback: Function): void;
+
+    export function dataURItoBlob(dataURI: string): { name: string; blob: Blob };
 
     export interface IRangeSpec {
         min?: number;
@@ -357,25 +430,11 @@ declare module 'react-jsonschema-form/lib/utils' {
 
     export function rangeSpec(schema: JSONSchema6): IRangeSpec;
 
-    export function resolveSchema<T = any>(
-        schema: JSONSchema6Definition,
+    export function getMatchingOption(
+        formData: any,
+        options: JSONSchema6[],
         definitions: FieldProps['registry']['definitions'],
-        formData: T,
-    ): JSONSchema6;
-
-    export function retrieveSchema<T = any>(
-        schema: JSONSchema6Definition,
-        definitions?: FieldProps['registry']['definitions'],
-        formData?: T,
-    ): JSONSchema6;
-
-    export function toIdSchema<T = any>(
-        schema: JSONSchema6Definition,
-        id: string,
-        definitions: FieldProps['registry']['definitions'],
-        formData: T,
-        idPredix: string,
-    ): IdSchema;
+    ): number;
 }
 
 declare module 'react-jsonschema-form/lib/validate' {

@@ -768,3 +768,7 @@ declare namespace plupload {
      */
     function addFileFilter(name: string, cb: Function): void;
 }
+
+declare module 'plupload' {
+    export = plupload;
+}

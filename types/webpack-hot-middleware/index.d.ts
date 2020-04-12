@@ -4,6 +4,7 @@
 //               Ron Martinez <https://github.com/icylace>
 //               Chris Abrams <https://github.com/chrisabrams>
 //               Ilya Zelenko <https://github.com/iliyaZelenko>
+//               Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,11 +15,11 @@ export = WebpackHotMiddleware;
 
 declare function WebpackHotMiddleware(
 	compiler: webpack.ICompiler,
-	options?: WebpackHotMiddleware.Options
+	options?: WebpackHotMiddleware.MiddlewareOptions
 ): NextHandleFunction & WebpackHotMiddleware.EventStream;
 
 declare namespace WebpackHotMiddleware {
-	interface Options {
+	interface ClientOptions {
 		reload?: boolean;
 		name?: string;
 		timeout?: number;
@@ -34,6 +35,8 @@ declare namespace WebpackHotMiddleware {
 			[key: string]: any
 		};
 		overlayWarnings?: boolean;
+	}
+	interface MiddlewareOptions {
 		log?: false | Logger;
 		path?: string;
 		heartbeat?: number;
@@ -43,5 +46,6 @@ declare namespace WebpackHotMiddleware {
 
 	interface EventStream {
 		publish(payload: any): void;
+		close(): void;
 	}
 }

@@ -67,7 +67,7 @@ declare namespace TelegramBot {
 
     type MessageEntityType = 'mention' | 'hashtag' | 'bot_command' | 'url' | 'email' | 'bold' | 'italic' | 'code' | 'pre' | 'text_link' | 'text_mention';
 
-    type ParseMode = 'Markdown' | 'HTML';
+    type ParseMode = 'Markdown' | 'MarkdownV2' | 'HTML';
 
     /// METHODS OPTIONS ///
     interface PollingOptions {

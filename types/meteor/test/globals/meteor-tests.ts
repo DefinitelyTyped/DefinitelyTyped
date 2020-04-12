@@ -30,7 +30,7 @@ interface MessageDAO {
     _id: string;
     text: string;
 }
-    
+
 const Rooms = new Mongo.Collection<RoomDAO>('rooms');
 let Messages = new Mongo.Collection<MessageDAO>('messages');
 interface MonkeyDAO {
@@ -212,7 +212,7 @@ interface PostDAO {
     _id: string;
     title: string;
     body: string;
-} 
+}
 
 var Posts : Mongo.Collection<iPost> | Mongo.Collection<PostDAO> = new Mongo.Collection<PostDAO>("posts");
 Posts.insert({ title: "Hello world", body: "First post" });
@@ -493,6 +493,14 @@ Meteor.publish("userData", function () {
     return Meteor.users.find({ _id: this.userId },
         { fields: { 'other': 1, 'things': 1 } });
 });
+
+/**
+ * `null` can be passed as the first argument
+ * `is_auto` can be passed as an option
+ */
+Meteor.publish(null, function () {
+    return 3;
+}, { is_auto : true });
 
 Meteor.users.deny({ update: function () { return true; } });
 

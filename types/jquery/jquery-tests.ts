@@ -115,6 +115,9 @@ function JQueryStatic() {
         $('span', $('p'));
 
         // $ExpectType JQuery<HTMLElement>
+        $('span', 'p');
+
+        // $ExpectType JQuery<HTMLElement>
         $('span');
 
         // $ExpectType JQuery<SVGLineElement>
@@ -6382,6 +6385,7 @@ function JQuery_AjaxSettings() {
             return 'filtered';
         },
         dataType: 'mycustomtype',
+        enctype: 'application/x-www-form-urlencoded',
         error(jqXHR, textStatus, errorThrown) {
             // $ExpectType any
             this;

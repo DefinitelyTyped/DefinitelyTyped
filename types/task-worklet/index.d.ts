@@ -18,7 +18,7 @@ declare namespace TaskQueue {
     interface Task<T = any> {
         id: number;
         state: State;
-        result: Promise<T>;
+        result: Promise<T extends PromiseLike<infer U> ? U : T>;
     }
 
     type State =

@@ -1,16 +1,11 @@
-// Type definitions for react-native-indicators 0.13
+// Type definitions for react-native-indicators 0.16
 // Project: https://github.com/n4kz/react-native-indicators#readme
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
+// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>, Yi-Lin <https://github.com/frankyjuang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import { Component } from 'react';
-import {
-    Animated,
-    EasingFunction,
-    StyleProp,
-    ViewStyle,
-} from 'react-native';
+import { Animated, EasingFunction, StyleProp, ViewStyle } from 'react-native';
 export interface BaseIndicatorProps {
     /**
      * Animation easing function
@@ -41,6 +36,12 @@ export interface BaseIndicatorProps {
      * @default undefined
      */
     style?: StyleProp<ViewStyle>;
+
+    /**
+     * Hide when not animating
+     * @default true
+     */
+    hidesWhenStopped?: boolean;
 }
 
 export interface UIActivityIndicatorProps extends BaseIndicatorProps {
@@ -61,9 +62,7 @@ export interface UIActivityIndicatorProps extends BaseIndicatorProps {
     size?: number;
 }
 
-export class UIActivityIndicator extends Component<
-    UIActivityIndicatorProps
-> {}
+export class UIActivityIndicator extends Component<UIActivityIndicatorProps> {}
 
 export interface BallIndicatorProps extends BaseIndicatorProps {
     /**
@@ -137,6 +136,12 @@ export interface MaterialIndicatorProps extends BaseIndicatorProps {
      * @default 40
      */
     size?: number;
+
+    /**
+     * Indicator track width
+     * @default 'size / 10'
+     */
+    trackWidth?: number;
 }
 
 export class MaterialIndicator extends Component<MaterialIndicatorProps> {}

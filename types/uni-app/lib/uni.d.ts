@@ -5445,7 +5445,9 @@ interface CanvasContext {
     /**
      * 绘制图像到画布
      */
-    drawImage(imageResource?: string, dx?: number, dy?: number, dWidth?: number, dHeigt?: number, sx?: number, sy?: number, sWidth?: number, sHeight?: number): void;
+    drawImage(imageResource: string, dx: number, dy: number): void;
+    drawImage(imageResource: string, dx: number, dy: number, dWidth: number, dHeigt: number): void;
+    drawImage(imageResource: string, sx: number, sy: number, sWidth: number, sHeigt: number, dx: number, dy: number, dWidth: number, dHeight: number): void;
     /**
      * 设置全局画笔透明度
      */

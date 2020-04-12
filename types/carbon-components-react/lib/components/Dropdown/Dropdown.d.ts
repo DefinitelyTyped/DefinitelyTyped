@@ -31,7 +31,7 @@ export interface DropdownProps<ItemType = string> extends InheritedProps<ItemTyp
     inline?: boolean,
     helperText?: React.ReactNode,
     items: ItemType[],
-    itemToElement?(item: ItemType): React.ComponentType<any>,
+    itemToElement?(item: ItemType): NonNullable<React.ReactElement>,
     label: NonNullable<React.ReactNode>,
     onChange?(data: OnChangeData<ItemType>): void,
     selectedItem?: ItemType,

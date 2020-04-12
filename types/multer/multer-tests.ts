@@ -4,8 +4,10 @@ import multer = require('multer');
 const upload = multer({
     dest: 'uploads/',
     fileFilter: (req, file, cb) => {
+        cb(null, false);
         cb(null, true);
-    }
+        cb(new Error(`I don't have a clue!`));
+    },
 });
 
 const app = express();
@@ -18,6 +20,12 @@ app.post('/photos/upload', upload.array('photos', 12), (req: express.Request, re
 
 const cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }]);
 app.post('/cool-profile', cpUpload, (req: express.Request, res: express.Response, next: express.NextFunction) => {
+});
+
+app.post('/text-only', upload.none(), (err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (err instanceof multer.MulterError) {
+        next(new Error(err.code));
+    }
 });
 
 const diskStorage = multer.diskStorage({
