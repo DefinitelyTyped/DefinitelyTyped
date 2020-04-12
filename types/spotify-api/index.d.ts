@@ -726,7 +726,7 @@ declare namespace SpotifyApi {
      * Simplified Album Object
      * [album object (simplified)](https://developer.spotify.com/web-api/object-model/#album-object-simplified)
      */
-    interface AlbumObjectSimplified {
+    interface AlbumObjectSimplified extends ContextObject {
         /**
          * The field is present when getting an artist’s albums.
          * Possible values are “album”, “single”, “compilation”, “appears_on”.
@@ -747,14 +747,6 @@ declare namespace SpotifyApi {
          * Note that an album is considered available in a market when at least 1 of its tracks is available in that market.
          */
         available_markets?: string[];
-        /**
-         * Known external URLs for this album.
-         */
-        external_urls: ExternalUrlObject;
-        /**
-         * 	A link to the Web API endpoint providing full details of the album.
-         */
-        href: string;
         /**
          * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the album.
          */
@@ -783,14 +775,7 @@ declare namespace SpotifyApi {
          * and a restrictions object containing the reason why the track is not available: `"restrictions" : {"reason" : "market"}`
          */
         restrictions?: RestrictionsObject;
-        /**
-         * The object type: “album”.
-         */
         type: "album";
-        /**
-         * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the album.
-         */
-        uri: string;
     }
 
     /**
@@ -823,31 +808,16 @@ declare namespace SpotifyApi {
      * Simplified Artist Object
      * [artist object (simplified)](https://developer.spotify.com/web-api/object-model/)
      */
-    interface ArtistObjectSimplified {
-        /**
-         * Known external URLs for this artist.
-         */
-        external_urls: ExternalUrlObject;
-        /**
-         * A link to the Web API endpoint providing full details of the artist.
-         */
-        href: string;
-        /**
-         * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the artist.
-         */
-        id: string;
+    interface ArtistObjectSimplified extends ContextObject {
         /**
          * The name of the artist.
          */
         name: string;
         /**
-         * The object type: "artist".
+         * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the artist.
          */
+        id: string;
         type: "artist";
-        /**
-         * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the artist.
-         */
-        uri: string;
     }
 
     /**
@@ -1008,10 +978,8 @@ declare namespace SpotifyApi {
      * Base Playlist Object. Does not in itself exist in Spotify Web Api,
      * but needs to be made since the tracks types vary in the Full and Simplified versions.
      */
-    interface PlaylistBaseObject {
+    interface PlaylistBaseObject extends ContextObject {
         collaborative: boolean;
-        external_urls: ExternalUrlObject;
-        href: string;
         id: string;
         images: ImageObject[];
         name: string;
@@ -1019,7 +987,6 @@ declare namespace SpotifyApi {
         public: boolean;
         snapshot_id: string;
         type: "playlist";
-        uri: string;
     }
 
     /**
@@ -1241,9 +1208,21 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/#context-object)
      */
     interface ContextObject {
+        /**
+         * The object type.
+         */
         type: "artist" | "playlist" | "album";
-        href: string | null;
-        external_urls: ExternalUrlObject | null;
+        /**
+         * A link to the Web API endpoint providing full details.
+         */
+        href: string;
+        /**
+         * Known external URLs.
+         */
+        external_urls: ExternalUrlObject;
+        /**
+         * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+         */
         uri: string;
     }
 
