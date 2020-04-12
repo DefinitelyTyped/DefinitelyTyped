@@ -1169,7 +1169,7 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/#context-object)
      */
     interface ContextObject {
-        type: ContextObjectType;
+        type: "artist" | "playlist" | "album";
         href: string | null;
         external_urls: ExternalUrlObject | null;
         uri: string;
@@ -1187,7 +1187,7 @@ declare namespace SpotifyApi {
 
     interface PlaybackObject {
         shuffle_state: boolean;
-        repeat_state: PlaybackRepeatState;
+        repeat_state: "off" | "track" | "context";
     }
 
     interface CurrentlyPlayingObject {
@@ -1207,7 +1207,4 @@ declare namespace SpotifyApi {
         type: string;
         volume_percent: number | null;
     }
-
-    type ContextObjectType = 'artist' | 'playlist' | 'album';
-    type PlaybackRepeatState = 'off' | 'track' | 'context';
 }
