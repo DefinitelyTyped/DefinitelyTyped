@@ -1114,6 +1114,10 @@ declare namespace SpotifyApi {
          * on the total number of plays the track has had and how recent those plays are.
          */
         popularity: number;
+        /**
+         * Whether or not the track is from a local file.
+         */
+        is_local?: boolean;
     }
 
     /**
@@ -1192,10 +1196,6 @@ declare namespace SpotifyApi {
          * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
          */
         uri: string;
-        /**
-         * Whether or not the track is from a local file.
-         */
-        is_local?: boolean;
     }
 
     /**
