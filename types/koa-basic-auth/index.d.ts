@@ -6,9 +6,13 @@
 
 import * as Koa from "koa";
 
-declare function auth(opts: {
-    name: string;
-    pass: string;
-}): Koa.Middleware;
+declare function auth(opts: auth.Options): Koa.Middleware;
+
+declare namespace auth {
+    interface Options {
+        name: string;
+        pass: string;
+    }
+}
 
 export = auth;
