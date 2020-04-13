@@ -99,10 +99,10 @@ function test_query() {
     query.notEqualTo('playerName', 'Michael Yabuti');
     query.fullText('playerName', 'dan', { language: 'en', caseSensitive: false, diacriticSensitive: true });
     query.greaterThan('playerAge', 18);
-    query.eachBatch((objs) => Promise.resolve(objs), {batchSize: 10})
-    query.each((score) => score.increment("score"))
-    query.hint('_id_')
-    query.explain(true)
+    query.eachBatch((objs) => Promise.resolve(objs), {batchSize: 10});
+    query.each((score) => score.increment("score"));
+    query.hint('_id_');
+    query.explain(true);
     query.limit(10);
     query.skip(10);
 
@@ -186,11 +186,11 @@ async function test_query_promise() {
         // noop
     }
 
-    await getQuery.map((score, index) => score.increment("score", index))
-    await getQuery.reduce((accum, score, index) => accum += score.get("score"), 0)
-    await getQuery.reduce((accum, score, index) => accum += score.get("score"), 0, { batchSize: 200 })
-    await getQuery.filter((scores) => scores.get('score') > 0)
-    await getQuery.filter((scores) => scores.get('score') > 0, { batchSize: 10 })
+    await getQuery.map((score, index) => score.increment("score", index));
+    await getQuery.reduce((accum, score, index) => accum += score.get("score"), 0);
+    await getQuery.reduce((accum, score, index) => accum += score.get("score"), 0, { batchSize: 200 });
+    await getQuery.filter((scores) => scores.get('score') > 0);
+    await getQuery.filter((scores) => scores.get('score') > 0, { batchSize: 10 });
 }
 
 async function test_live_query() {
@@ -268,23 +268,23 @@ function test_file() {
     });
     // TODO: Check
 
-    file.cancel()
-    file.destroy()
+    file.cancel();
+    file.destroy();
 }
 
 function test_file_tags_and_metadata() {
     const base64 = 'V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=';
     const file = new Parse.File('myfile.txt', { base64 });
-    file.setTags({'ownerId': 42, "status": "okay"})
-    file.addTag('labes', ['one', 'two', 'three'])
-    file.setMetadata({'contentType': 'plain/text', 'contentLength': 579})
-    file.addMetadata('author', 'John Doe')
+    file.setTags({ownerId: 42, status: "okay"});
+    file.addTag('labes', ['one', 'two', 'three']);
+    file.setMetadata({contentType: 'plain/text', contentLength: 579});
+    file.addMetadata('author', 'John Doe');
 
-    const tags = file.tags()
-    const ownerId = tags['ownerId']
+    const tags = file.tags();
+    const ownerId = tags['ownerId'];
 
-    const metadata = file.metadata()
-    const contentType = metadata['contentType']
+    const metadata = file.metadata();
+    const contentType = metadata['contentType'];
 }
 
 function test_analytics() {
@@ -595,27 +595,24 @@ async function test_cloud_functions() {
 
     Parse.Cloud.afterLogin((request: Parse.Cloud.TriggerRequest) => {
         return Promise.resolve();
-    })
+    });
 
     Parse.Cloud.afterLogout((request: Parse.Cloud.TriggerRequest) => {
         return Promise.resolve();
-    })
+    });
 
     Parse.Cloud.beforeSaveFile((request: Parse.Cloud.FileTriggerRequest) => {
-        return Promise.resolve(new Parse.File("myFile.txt", {base64: ''}))
-    })
+        return Promise.resolve(new Parse.File("myFile.txt", {base64: ''}));
+    });
 
     Parse.Cloud.beforeSaveFile((request: Parse.Cloud.FileTriggerRequest) => {
-
-    })
+    });
 
     Parse.Cloud.beforeDeleteFile((request: Parse.Cloud.FileTriggerRequest) => {
-
-    })
+    });
 
     Parse.Cloud.afterDeleteFile((request: Parse.Cloud.FileTriggerRequest) => {
-
-    })
+    });
 
     Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
         return 'Some result';
@@ -818,7 +815,7 @@ async function test_local_datastore() {
 
 async function test_from_network() {
     const obj = new Parse.Object('TestObject');
-    await obj.save()
+    await obj.save();
 
     const query = new Parse.Query('TestObject');
     query.fromNetwork();
@@ -826,7 +823,7 @@ async function test_from_network() {
 
 async function test_cancel_query() {
     const obj = new Parse.Object('TestObject');
-    await obj.save()
+    await obj.save();
 
     const query = new Parse.Query('TestObject');
     query.fromNetwork().find();
@@ -1163,16 +1160,16 @@ function testObject() {
     }
 
     function testDecrement(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number }>) {
-        // $ExpectType false | Object<Attributes>
+        // $ExpectType boolean | Object<Attributes>
         objUntyped.decrement('whatever');
 
-        // $ExpectType false | Object<Attributes>
+        // $ExpectType boolean | Object<Attributes>
         objUntyped.decrement('whatever', 10);
 
-        // $ExpectType false | Object<{ example: number; }>
+        // $ExpectType boolean | Object<{ example: number; }>
         objTyped.decrement('example');
 
-        // $ExpectType false | Object<{ example: number; }>
+        // $ExpectType boolean | Object<{ example: number; }>
         objTyped.decrement('example', 20);
 
         // $ExpectError

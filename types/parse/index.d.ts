@@ -294,20 +294,19 @@ namespace Parse {
          * @returns Promise that is resolved with base64 data
          */
         getData(): Promise<string>;
-        url(options?: { forceSecure?: boolean }): string | void
+        url(options?: { forceSecure?: boolean }): string;
         metadata(): any;
         tags(): any;
         name(): string;
         save(options?: SuccessFailureOptions): Promise<File>;
         cancel(): void;
-        destroy(): Promise<File>
+        destroy(): Promise<File>;
         toJSON(): { __type: string, name: string, url: string };
-        equals(other: any): boolean
-        setMetadata(metadata: any): void
-        addMetadata(key: string, value: any):void
-        setTags(tags: any): void
-        addTag(key: string, value: any): void
-        url(options?: { forceSecure: boolean }): string;
+        equals(other: any): boolean;
+        setMetadata(metadata: any): void;
+        addMetadata(key: string, value: any): void;
+        setTags(tags: any): void;
+        addTag(key: string, value: any): void;
     }
 
     /**
@@ -669,13 +668,13 @@ namespace Parse {
             X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         doesNotMatchQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
         distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V>;
-        eachBatch(callback: (objs: Array<T>) => Promise<any>, options?: Query.BatchOptions): Promise<void>
-        each(callback: (obj: T) => any, options?: Query.BatchOptions): Promise<void>
-        hint(value: string | object): this
-        explain(explain: boolean): this
-        map(callback: (currentObject: T, index: number, query: Query) => any, options?: Query.BatchOptions): Promise<Array<any>>
-        reduce(callback: (accumulator: any, currentObject: T, index: number) => any, initialValue: any, options?: Query.BatchOptions): Promise<Array<any>>
-        filter(callback: (currentObject: T, index: number, query: Query) => boolean, options?: Query.BatchOptions): Promise<Array<T>>
+        eachBatch(callback: (objs: T[]) => Promise<any>, options?: Query.BatchOptions): Promise<void>;
+        each(callback: (obj: T) => any, options?: Query.BatchOptions): Promise<void>;
+        hint(value: string | object): this;
+        explain(explain: boolean): this;
+        map(callback: (currentObject: T, index: number, query: Query) => any, options?: Query.BatchOptions): Promise<any[]>;
+        reduce(callback: (accumulator: any, currentObject: T, index: number) => any, initialValue: any, options?: Query.BatchOptions): Promise<any[]>;
+        filter(callback: (currentObject: T, index: number, query: Query) => boolean, options?: Query.BatchOptions): Promise<T[]>;
         endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
         equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K] | (T['attributes'][K] extends Object ? Pointer : never)): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
@@ -742,7 +741,7 @@ namespace Parse {
         }
 
         interface BatchOptions extends FullOptions {
-            batchSize?: number
+            batchSize?: number;
         }
     }
 
@@ -1134,9 +1133,9 @@ namespace Parse {
         }
 
         interface FileTriggerRequest extends TriggerRequest {
-            file: Parse.File
-            fileSize: number
-            contentLength: number
+            file: File;
+            fileSize: number;
+            contentLength: number;
         }
 
         // Read preference describes how MongoDB driver route read operations to the members of a replica set.
@@ -1171,9 +1170,9 @@ namespace Parse {
 
         function beforeLogin(func?: (request: TriggerRequest) => Promise<void> | void): void;
         function afterLogin(func?: (request: TriggerRequest) => Promise<void> | void): void;
-        function afterLogout(func?: (request: TriggerRequest) => Promise<void> | void): void
+        function afterLogout(func?: (request: TriggerRequest) => Promise<void> | void): void;
 
-        function beforeSaveFile(func?: (request: FileTriggerRequest) => Promise<Parse.File> | void): void;
+        function beforeSaveFile(func?: (request: FileTriggerRequest) => Promise<File> | void): void;
         function afterSaveFile(func?: (request: FileTriggerRequest) => Promise<void> | void): void;
         function beforeDeleteFile(func?: (request: FileTriggerRequest) => Promise<void> | void): void;
         function afterDeleteFile(func?: (request: FileTriggerRequest) => Promise<void> | void): void;
