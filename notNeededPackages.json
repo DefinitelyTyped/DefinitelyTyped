@@ -994,7 +994,7 @@
             "libraryName": "docx-templates",
             "typingsPackageName": "docx-templates",
             "sourceRepoURL": "https://github.com/guigrpa/docx-templates",
-            "asOfVersion": "4.0"
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "dom-helpers",
