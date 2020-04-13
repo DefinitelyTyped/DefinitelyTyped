@@ -266,9 +266,19 @@ namespace Parse {
          * @returns Promise that is resolved with base64 data
          */
         getData(): Promise<string>;
+        url(options?: { forceSecure?: boolean }): string | void
+        metadata(): Object
+        tags(): Object
         name(): string;
         save(options?: SuccessFailureOptions): Promise<File>;
+        cancel(): void;
+        destroy(): Promise<File>
         toJSON(): { __type: string, name: string, url: string };
+        equals(other: any): boolean
+        setMetadata(metadata: any): void
+        addMetadata(key: string, value: any):void
+        setTags(tags: any): void
+        addTag(key: string, value: any): void
         url(options?: { forceSecure: boolean }): string;
     }
 
@@ -395,6 +405,7 @@ namespace Parse {
         getACL(): ACL | undefined;
         has(attr: Extract<keyof T, string>): boolean;
         increment(attr: Extract<keyof T, string>, amount?: number): this | false;
+        decrement(attr: Extract<keyof T, string>, amount?: number): this | boolean;
         initialize(): void;
         isDataAvailable(): boolean;
         isNew(): boolean;
@@ -630,15 +641,23 @@ namespace Parse {
             X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         doesNotMatchQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
         distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V>;
-        each(callback: (obj: T) => PromiseLike<void> | void, options?: Query.EachOptions): Promise<void>;
+        eachBatch(callback: (objs: Array<T>) => Promise<any>, options?: Query.BatchOptions): Promise<void>
+        each(callback: (obj: T) => any, options?: Query.BatchOptions): Promise<void>
+        hint(value: string | object): this
+        explain(explain: boolean): this
+        map(callback: (currentObject: T, index: number, query: Query) => any, options?: Query.BatchOptions): Promise<Array<any>>
+        reduce(callback: (accumulator: any, currentObject: T, index: number) => any, initialValue: any, options?: Query.BatchOptions): Promise<Array<any>>
+        filter(callback: (currentObject: T, index: number, query: Query) => boolean, options?: Query.BatchOptions): Promise<Array<T>>
         endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
         equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K] | (T['attributes'][K] extends Object ? Pointer : never)): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
-        fromLocalDatastore(): void;
-        fromPin(): void;
-        fromPinWithName(name: string): void;
+        fromNetwork(): this;
+        fromLocalDatastore(): this;
+        fromPin(): this;
+        fromPinWithName(name: string): this;
+        cancel(): this;
         fullText<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: string, options?: Query.FullTextOptions): this;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
         greaterThan<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
@@ -692,6 +711,10 @@ namespace Parse {
             language?: string;
             caseSensitive?: boolean;
             diacriticSensitive?: boolean;
+        }
+
+        interface BatchOptions extends FullOptions {
+            batchSize?: number
         }
     }
 
