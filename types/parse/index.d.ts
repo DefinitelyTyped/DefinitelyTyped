@@ -302,7 +302,7 @@ namespace Parse {
         cancel(): void;
         destroy(): Promise<File>;
         toJSON(): { __type: string, name: string, url: string };
-        equals(other: any): boolean;
+        equals(other: File): boolean;
         setMetadata(metadata: any): void;
         addMetadata(key: string, value: any): void;
         setTags(tags: any): void;
