@@ -27,6 +27,7 @@
 
 /// <reference types="node" />
 
+import { Hash as CryptoHash } from 'crypto';
 import {
   Tapable,
   HookMap,
@@ -923,11 +924,43 @@ declare namespace webpack {
             toString(): string;
         }
 
+        type GroupOptions = string | { name?: string; };
+
         class ChunkGroup {
+            chunks: Chunk[];
+            childrenIterable: SortableSet<ChunkGroup>;
+            parentsIterable: SortableSet<ChunkGroup>;
+            insertChunk(chunk: Chunk, before: Chunk): boolean;
+            getNumberOfChildren(): number;
+            setModuleIndex(module: Module, index: number): void;
+            getModuleIndex(module: Module): number | undefined;
+            setModuleIndex2(module: Module, index: number): void;
+            getModuleIndex2(module: Module): number | undefined;
+            addChild(chunk: ChunkGroup): boolean;
+            removeChild(chunk: ChunkGroup): boolean;
+            setParents(newParents: Iterable<ChunkGroup>): void;
         }
 
         class ChunkHash {
         }
+
+        interface SourcePosition {
+            line: number;
+            column?: number;
+        }
+
+        interface RealDependencyLocation {
+            start: SourcePosition;
+            end?: SourcePosition;
+            index?: number;
+        }
+
+        interface SynteticDependencyLocation {
+            name: string;
+            index?: number;
+        }
+
+        type DependencyLocation = SynteticDependencyLocation | RealDependencyLocation;
 
         class Dependency {
             constructor();
@@ -1123,6 +1156,8 @@ declare namespace webpack {
             requireExtensions: SyncWaterfallHook<string, Chunk, string>;
             requireEnsure: SyncWaterfallHook<string, Chunk, string>;
             localVars: SyncWaterfallHook<string, Chunk, string>;
+            afterStartup: SyncWaterfallHook<string, Chunk, string>;
+            hashForChunk: SyncHook<CryptoHash, Chunk>;
           };
           outputOptions: Output;
           requireFn: string;
@@ -1201,6 +1236,8 @@ declare namespace webpack {
             missingDependencies: SortableSet<string>;
             hash?: string;
             getStats(): Stats;
+            addChunkInGroup(groupOptions: GroupOptions): ChunkGroup;
+            addChunkInGroup(groupOptions: GroupOptions, module: Module, loc: DependencyLocation, request: string): ChunkGroup;
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;

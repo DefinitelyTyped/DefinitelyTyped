@@ -190,6 +190,11 @@ function test_custom_resource_loader() {
 		fetch(url: string, options: FetchOptions) {
 			if (options.element) {
 				console.log(`Element ${options.element.localName} is requesting the url ${url}`);
+
+				if (options.element.localName === "iframe") {
+					console.log("Ignoring resource requested by iframe element");
+					return null;
+				}
 			}
 
 			return super.fetch(url, options);

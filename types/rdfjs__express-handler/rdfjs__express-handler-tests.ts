@@ -16,7 +16,19 @@ app.use(rdfHandler());
 app.use(rdfHandler({
     factory,
     formats,
-    defaultMediaType: 'text/turtle'
+    defaultMediaType: 'text/turtle',
+}));
+
+app.use(rdfHandler({
+    baseIriFromRequest: true,
+}));
+
+app.use(rdfHandler({
+    baseIriFromRequest: (req: express.Request) => req.path,
+}));
+
+app.use(rdfHandler({
+    baseIriFromRequest: (req: express.Request) => Promise.resolve(req.path),
 }));
 
 async function streams(req: express.Request, res: express.Response) {
