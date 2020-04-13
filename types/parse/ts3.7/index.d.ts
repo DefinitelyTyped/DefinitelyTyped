@@ -266,9 +266,9 @@ namespace Parse {
          * @returns Promise that is resolved with base64 data
          */
         getData(): Promise<string>;
-        url(options?: { forceSecure?: boolean }): string | void
-        metadata(): Object
-        tags(): Object
+        url(options?: { forceSecure?: boolean }): string | void;
+        metadata(): any;
+        tags(): any;
         name(): string;
         save(options?: SuccessFailureOptions): Promise<File>;
         cancel(): void;

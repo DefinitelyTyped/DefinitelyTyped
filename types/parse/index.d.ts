@@ -295,8 +295,8 @@ namespace Parse {
          */
         getData(): Promise<string>;
         url(options?: { forceSecure?: boolean }): string | void
-        metadata(): Object
-        tags(): Object
+        metadata(): any;
+        tags(): any;
         name(): string;
         save(options?: SuccessFailureOptions): Promise<File>;
         cancel(): void;
