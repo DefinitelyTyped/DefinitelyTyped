@@ -488,7 +488,9 @@ declare module "../index" {
          */
         flatten(): T extends Many<infer U> ? CollectionChain<U> : CollectionChain<T>;
     }
-    type Flat<T> = (T extends List<any> ? never : T);
+
+    type Flat<T> = T extends string ? T : (T extends List<any> ? never : T);
+
     interface LoDashStatic {
         /**
          * Recursively flattens a nested array.

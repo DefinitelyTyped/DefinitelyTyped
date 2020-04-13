@@ -521,7 +521,7 @@ declare module "../index" {
          * @param predicate The predicate to negate.
          * @return Returns the new function.
          */
-        negate<T extends any[]>(predicate: (...args: T) => any): (...args: T) => boolean;
+        negate<T extends any[]>(predicate: (...args: T) => boolean): (...args: T) => boolean;
     }
     interface Function<T extends (...args: any) => any> {
         /**

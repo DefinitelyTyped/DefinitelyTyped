@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ReactAttr, RenderIconProps } from "../../../typings/shared";
+import { ReactAttr, RenderIconProps, SideNavSharedProps, SideNavSizingProps } from '../../../typings/shared';
 
-interface InheritedProps extends RenderIconProps {
+interface InheritedProps extends RenderIconProps, SideNavSharedProps, SideNavSizingProps {
     children?: ReactAttr["children"],
     className?: ReactAttr["className"],
     title: NonNullable<ReactAttr["title"]>,

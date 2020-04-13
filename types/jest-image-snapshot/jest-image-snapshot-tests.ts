@@ -1,5 +1,5 @@
 // Typescript Version: 2.3
-import { toMatchImageSnapshot, configureToMatchImageSnapshot, MatchImageSnapshotOptions } from 'jest-image-snapshot';
+import { configureToMatchImageSnapshot, MatchImageSnapshotOptions, toMatchImageSnapshot } from 'jest-image-snapshot';
 
 it('should be able to use toMatchImageSnapshot in a test', () => {
     expect.extend({ toMatchImageSnapshot });
@@ -36,6 +36,22 @@ it('Should be able to use configuration directly in toMatchImageSnapshot', () =>
         updatePassedSnapshot: true,
         failureThreshold: 10,
         failureThresholdType: 'percent'
+    };
+
+    expect('Me').toMatchImageSnapshot(options);
+});
+
+it('Should be able to use string as customSnapshotIdentifier', () => {
+    const options: MatchImageSnapshotOptions = {
+        customSnapshotIdentifier: 'string identifier',
+    };
+
+    expect('Me').toMatchImageSnapshot(options);
+});
+
+it('Should be able to use callback as customSnapshotIdentifier', () => {
+    const options: MatchImageSnapshotOptions = {
+        customSnapshotIdentifier: () => 'string identifier',
     };
 
     expect('Me').toMatchImageSnapshot(options);

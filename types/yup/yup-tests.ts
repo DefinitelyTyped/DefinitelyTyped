@@ -63,6 +63,25 @@ const node: ObjectSchema<any> = yup.object().shape({
     id: yup.number(),
     child: yup.lazy(() => node.default(undefined)),
 });
+
+// ObjectSchema.fields
+const fieldsTestSchema = yup.object().shape({
+  s: yup.string(),
+  n: yup.number(),
+  m: yup.mixed(),
+  b: yup.boolean(),
+  d: yup.date(),
+  a: yup.array(),
+  o: yup.object()
+});
+const stringField: Schema<string> = fieldsTestSchema.fields.s;
+const numberField: Schema<number> = fieldsTestSchema.fields.n;
+const mixedField: Schema<any> = fieldsTestSchema.fields.m;
+const booleanField: Schema<boolean> = fieldsTestSchema.fields.b;
+const dateField: Schema<Date> = fieldsTestSchema.fields.d;
+const arrayField: Schema<any[]> = fieldsTestSchema.fields.a;
+const objectField: Schema<object> = fieldsTestSchema.fields.o;
+
 const renderable = yup.lazy(value => {
     switch (typeof value) {
         case 'number':
@@ -167,7 +186,11 @@ mixed
     .when('$other', (value: any, schema: MixedSchema) => (value === 4 ? schema.required() : schema));
 // tslint:disable-next-line:no-invalid-template-strings
 mixed.test('is-jimmy', '${path} is not Jimmy', value => value === 'jimmy');
-mixed.test('is-jimmy', ({ path, value }) => `${path} has an error, it is ${value}`, value => value === 'jimmy');
+mixed.test(
+    'is-jimmy',
+    ({ path, value }) => `${path} has an error, it is ${value}`,
+    value => value === 'jimmy',
+);
 mixed.test({
     name: 'lessThan5',
     exclusive: true,
@@ -213,24 +236,34 @@ yup.object({ name: yup.string() }).concat(yup.object({ when: yup.date() })); // 
 yup.mixed<string>().concat(yup.date()); // $ExpectType MixedSchema<string | Date>
 
 // Async ValidationError
-const asyncValidationErrorTest = function(this: TestContext): Promise<ValidationError> {
-    return new Promise(resolve => resolve(this.createError({ path: 'testPath', message: 'testMessage' })));
-};
+const asyncValidationErrorTest = (includeParams: boolean) =>
+    function(this: TestContext): Promise<ValidationError> {
+        return new Promise(resolve =>
+            resolve(
+                includeParams
+                    ? this.createError({ path: 'testPath', message: 'testMessage', params: { foo: 'bar' } })
+                    : this.createError(),
+            ),
+        );
+    };
 
-mixed.test('async-validation-error', 'Returns async ValidationError', asyncValidationErrorTest);
-mixed.test({
-    test: asyncValidationErrorTest,
-});
+mixed.test('async-validation-error', 'Returns async ValidationError', asyncValidationErrorTest(true));
+mixed.test('async-validation-error', 'Returns async ValidationError', asyncValidationErrorTest(false));
+mixed.test({ test: asyncValidationErrorTest(true) });
+mixed.test({ test: asyncValidationErrorTest(false) });
 
 // Sync ValidationError
-const syncValidationErrorTest = function(this: TestContext): ValidationError {
-    return this.createError({ path: 'testPath', message: 'testMessage' });
-};
+const syncValidationErrorTest = (includeParams: boolean) =>
+    function(this: TestContext): ValidationError {
+        return includeParams
+            ? this.createError({ path: 'testPath', message: 'testMessage', params: { foo: 'bar' } })
+            : this.createError();
+    };
 
-mixed.test('sync-validation-error', 'Returns sync ValidationError', syncValidationErrorTest);
-mixed.test({
-    test: syncValidationErrorTest,
-});
+mixed.test('sync-validation-error', 'Returns sync ValidationError', syncValidationErrorTest(true));
+mixed.test('sync-validation-error', 'Returns sync ValidationError', syncValidationErrorTest(false));
+mixed.test({ test: syncValidationErrorTest(true) });
+mixed.test({ test: syncValidationErrorTest(false) });
 
 yup.string().transform(function(this, value: any, originalvalue: any) {
     return this.isType(value) && value !== null ? value.toUpperCase() : value;
@@ -425,15 +458,46 @@ objSchema.noUnknown(true, 'message');
 objSchema.noUnknown(true, () => 'message');
 objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
+objSchema.snakeCase();
 objSchema.constantCase();
 
 const description: SchemaDescription = {
     type: 'type',
     label: 'label',
     meta: { key: 'value' },
-    tests: [{ name: 'test1', params: {} }, { name: 'test2', params: {} }],
-    fields: { key: 'value' },
+    tests: [
+        { name: 'test1', params: {param1: 'param1'} },
+        { name: 'test2', params: {} },
+    ],
+    fields: {
+        refField: {
+            type: 'ref',
+            key: 'value',
+        },
+        noSubField: {
+            type: 'type',
+            label: 'label',
+            meta: { key: 'value' },
+            tests: [],
+        },
+        subField: {
+            type: 'type',
+            label: 'label',
+            meta: { key: 'value' },
+            tests: [],
+            fields: { key: { type: 'ref', key: 'value' } }
+        },
+        withInnerType: {
+            type: 'type',
+            label: 'label',
+            meta: { key: 'value' },
+            tests: [],
+            innerType: { type: 'ref', key: 'value' }
+        },
+     },
 };
+
+const param1: any = description.tests[0].params.param1;
 
 const testOptions: TestOptions = {
     name: 'name',
@@ -617,7 +681,7 @@ const definitionBC: yup.ObjectSchemaDefinition<BC> = {
     b: yup.string(),
     c: yup.number(),
 };
-const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<Shape<AB, BC>>
+const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<{ a: string; b: string; } & BC>
 
 // $ExpectError
 yup.object<MyInterface>({
@@ -631,8 +695,7 @@ yup.object<MyInterface>({
 });
 
 // $ExpectError
-yup.object<MyInterface>({
-    stringField: yup.number().required(),
+yup.object<MyInterface>({ stringField: yup.number().required(),
     numberField: yup.number().required(),
     subFields: yup
         .object({
@@ -650,14 +713,13 @@ yup.object<MyInterface>({
 });
 
 // $ExpectError
-yup.object<MyInterface>({
-    stringField: yup.string().required(),
-    numberField: yup.number().required(),
-    subFields: yup
+yup.object<MyInterface>({ subFields: yup
         .object({
             testField: yup.number().required(),
         })
         .required(),
+    stringField: yup.string().required(),
+    numberField: yup.number().required(),
     arrayField: yup.array(yup.string()).required(),
 });
 
@@ -783,3 +845,39 @@ function wrapper<T>(b: boolean, msx: MixedSchema<T>): MixedSchema<T> {
 
 const resultingSchema1 = wrapper<string | number>(false, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number>
 const resultingSchema2 = wrapper<string | number>(true, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | null>
+
+const arrayOfStringsSchema = yup.array().of(yup.string());
+type ArrayOfStrings = yup.InferType<typeof arrayOfStringsSchema>;
+function returnTheArray(data: ArrayOfStrings): any[] {
+    return data;
+}
+
+const topLevelStringNullable = yup.string().nullable();
+const topLevelStringNullableExample: yup.InferType<typeof topLevelStringNullable> = null;
+
+const topLevelObjectNullable = yup.object().nullable();
+const topLevelObjectNullableExample: yup.InferType<typeof topLevelObjectNullable> = null;
+
+const topLevelArrayNullable = yup.array().nullable();
+const topLevelArrayNullableExample: yup.InferType<typeof topLevelArrayNullable> = null;
+
+const nestedNullableShape = yup.object().shape({
+    foo: yup.object().nullable().shape({})
+});
+const nestedNullableShapeExample: yup.InferType<typeof nestedNullableShape> = {
+    foo: null
+};
+
+const nestedShapeNullable = yup.object().shape({
+    foo: yup.object().shape({}).nullable()
+});
+const nestedShapeNullableExample: yup.InferType<typeof nestedShapeNullable> = {
+    foo: null
+};
+
+const nestedArrayNullable = yup.object().shape({
+    foo: yup.array().nullable()
+});
+const nestedArrayNullableExample: yup.InferType<typeof nestedArrayNullable> = {
+    foo: null
+};

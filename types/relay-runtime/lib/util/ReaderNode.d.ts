@@ -1,4 +1,4 @@
-import { ConnectionMetadata } from '../handlers/connection/RelayConnectionHandler';
+import { ConnectionMetadata } from '../handlers/connection/ConnectionHandler';
 import { ConcreteRequest } from './RelayConcreteNode';
 
 export type ReaderArgument = ReaderLiteral | ReaderVariable;
@@ -161,4 +161,26 @@ export interface ReaderPaginationFragment extends ReaderFragment {
             connection: ReaderPaginationMetadata;
         };
     };
+}
+
+export interface ReaderConnection {
+    readonly kind: string;
+    readonly label: string;
+    readonly name: string;
+    readonly args: ReadonlyArray<ReaderArgument>;
+    readonly edges: ReaderLinkedField;
+    readonly pageInfo: ReaderLinkedField;
+}
+
+export interface ReaderInlineDataFragmentSpread {
+    readonly kind: string;
+    readonly name: string;
+    readonly selections: ReadonlyArray<ReaderSelection>;
+}
+
+export interface ReaderModuleImport {
+    readonly kind: string;
+    readonly documentName: string;
+    readonly fragmentPropName: string;
+    readonly fragmentName: string;
 }

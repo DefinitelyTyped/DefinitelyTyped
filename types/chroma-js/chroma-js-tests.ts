@@ -11,6 +11,7 @@ function test_chroma() {
     chroma.valid({});
     chroma.valid(null);
     chroma.valid(undefined);
+    chroma.valid('000', 'hex');
 
     chroma(0xff3399);
     chroma(0xff, 0x33, 0x99);
@@ -142,7 +143,7 @@ function test_scale() {
     chroma.scale(['yellow', '008ae5']);
     chroma.scale(['yellow', 'navy']);
     chroma.scale(['yellow', 'navy']).mode('lab');
-    chroma.scale(['yellow', 'navy']).mode('lab');
+    chroma.scale(['yellow', 'navy']).mode('lrgb');
     chroma.scale(['yellow', 'navy']).mode('hsl');
     chroma.scale(['yellow', 'navy']).mode('lch');
     chroma.scale('YlGnBu');

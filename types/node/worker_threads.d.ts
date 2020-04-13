@@ -5,6 +5,7 @@ declare module "worker_threads" {
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
+    const SHARE_ENV: unique symbol;
     const threadId: number;
     const workerData: any;
 
@@ -54,12 +55,27 @@ declare module "worker_threads" {
     }
 
     interface WorkerOptions {
+        /**
+         * List of arguments which would be stringified and appended to
+         * `process.argv` in the worker. This is mostly similar to the `workerData`
+         * but the values will be available on the global `process.argv` as if they
+         * were passed as CLI options to the script.
+         */
+        argv?: any[];
+        env?: NodeJS.ProcessEnv | typeof SHARE_ENV;
         eval?: boolean;
         workerData?: any;
         stdin?: boolean;
         stdout?: boolean;
         stderr?: boolean;
         execArgv?: string[];
+        resourceLimits?: ResourceLimits;
+    }
+
+    interface ResourceLimits {
+        maxYoungGenerationSizeMb?: number;
+        maxOldGenerationSizeMb?: number;
+        codeRangeSizeMb?: number;
     }
 
     class Worker extends EventEmitter {
@@ -67,6 +83,7 @@ declare module "worker_threads" {
         readonly stdout: Readable;
         readonly stderr: Readable;
         readonly threadId: number;
+        readonly resourceLimits?: ResourceLimits;
 
         constructor(filename: string, options?: WorkerOptions);
 
@@ -101,6 +118,16 @@ declare module "worker_threads" {
          * `MessagePort`’s queue.
          */
         receiveMessageOnPort(port: MessagePort): {} | undefined;
+
+        /**
+         * Returns a readable stream for a V8 snapshot of the current state of the Worker.
+         * See [`v8.getHeapSnapshot()`][] for more details.
+         *
+         * If the Worker thread is no longer running, which may occur before the
+         * [`'exit'` event][] is emitted, the returned `Promise` will be rejected
+         * immediately with an [`ERR_WORKER_NOT_RUNNING`][] error
+         */
+        getHeapSnapshot(): Promise<Readable>;
 
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "exit", listener: (exitCode: number) => void): this;

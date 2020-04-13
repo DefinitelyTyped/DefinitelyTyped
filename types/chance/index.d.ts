@@ -4,12 +4,10 @@
 //                 Brice BERNARD <https://github.com/brikou>
 //                 Carlos Sanchez <https://github.com/cafesanu>
 //                 Colby M. White <https://github.com/colbywhite>
+//                 Zachary Dow <https://github.com/NewDark90>
+//                 Jacob Easley <https://github.com/jacobez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-
-// a bit of cleverness from jcalz at https://stackoverflow.com/a/48244432
-// this will ensure that empty objects are not allowed for objects with optional parameters
-type AtLeastOneKey<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];
 
 declare namespace Chance {
     type Seed = number | string;
@@ -31,18 +29,18 @@ declare namespace Chance {
     interface Chance extends Seeded {
         // Basics
         bool(opts?: {likelihood: number}): boolean;
-        character(opts?: AtLeastOneKey<CharacterOptions>): string;
+        character(opts?: Partial<CharacterOptions>): string;
         floating(opts?: Options): number;
-        integer(opts?: AtLeastOneKey<IntegerOptions>): number;
+        integer(opts?: Partial<IntegerOptions>): number;
         letter(opts?: Options): string;
         natural(opts?: Options): number;
-        string(opts?: AtLeastOneKey<StringOptions>): string;
+        string(opts?: Partial<StringOptions>): string;
 
         // Text
         paragraph(opts?: Options): string;
-        sentence(opts?: AtLeastOneKey<SentenceOptions>): string;
+        sentence(opts?: Partial<SentenceOptions>): string;
         syllable(opts?: Options): string;
-        word(opts?: AtLeastOneKey<WordOptions>): string;
+        word(opts?: Partial<WordOptions>): string;
 
         // Person
         age(opts?: Options): number;
@@ -50,13 +48,13 @@ declare namespace Chance {
         birthday(): Date;
         birthday(opts?: Options): Date | string;
         cf(opts?: Options): string;
-        cpf(): string;
-        first(opts?: AtLeastOneKey<FirstNameOptions>): string;
+        cpf(opts?: { formatted: boolean }): string;
+        first(opts?: Partial<FirstNameOptions>): string;
         last(opts?: LastNameOptions): string;
-        name(opts?: AtLeastOneKey<NameOptions>): string;
-        name_prefix(opts?: AtLeastOneKey<PrefixOptions>): string;
+        name(opts?: Partial<NameOptions>): string;
+        name_prefix(opts?: Partial<PrefixOptions>): string;
         name_suffix(opts?: SuffixOptions): string;
-        prefix(opts?: AtLeastOneKey<PrefixOptions>): string;
+        prefix(opts?: Partial<PrefixOptions>): string;
         ssn(opts?: Options): string;
         suffix(opts?: SuffixOptions): string;
 
@@ -75,7 +73,7 @@ declare namespace Chance {
         color(opts?: Options): string;
         company(): string;
         domain(opts?: Options): string;
-        email(opts?: AtLeastOneKey<EmailOptions>): string;
+        email(opts?: Partial<EmailOptions>): string;
         fbid(): string;
         google_analytics(): string;
         hashtag(): string;
@@ -85,7 +83,7 @@ declare namespace Chance {
         profession(opts?: Options): string;
         tld(): string;
         twitter(): string;
-        url(opts?: AtLeastOneKey<UrlOptions>): string;
+        url(opts?: Partial<UrlOptions>): string;
 
         // Location
         address(opts?: Options): string;
@@ -166,13 +164,15 @@ declare namespace Chance {
         d100(): number;
         guid(options?: { version: 4 | 5 }): string;
         hash(opts?: Options): string;
-        n<T>(generator: () => T, count: number, opts?: Options): T[];
+        n<T>(generator: () => T, count: number): T[];
+        n<T, O extends Options>(generator: (options: O) => T, count: number, options: O): T[];
         normal(opts?: Options): number;
         radio(opts?: Options): string;
         rpg(dice: string): number[];
         rpg(dice: string, opts?: Options): number[] | number;
         tv(opts?: Options): string;
-        unique<T>(generator: () => T, count: number, opts?: Options): T[];
+        unique<T>(generator: () => T, count: number): T[];
+        unique<T, O extends UniqueOptions<T>>(generator: (options: O) => T, count: number, options: O): T[];
         weighted<T>(values: T[], weights: number[]): T;
 
         // "Hidden"
@@ -203,7 +203,7 @@ declare namespace Chance {
         pool: string;
         alpha: boolean;
         numeric: boolean;
-        symbols: string;
+        symbols: boolean;
     }
 
     type StringOptions = CharacterOptions & { length: number } ;
@@ -267,6 +267,8 @@ declare namespace Chance {
         min?: Date;
         max?: Date;
     }
+
+    type UniqueOptions<T> = { comparator?: (array: T[], value: T) => boolean } & Options;
 
     interface Month {
         name: string;

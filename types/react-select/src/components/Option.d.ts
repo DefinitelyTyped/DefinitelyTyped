@@ -1,7 +1,7 @@
 import { ComponentType, ReactNode, MouseEventHandler } from 'react';
 
 import { colors, spacing } from '../theme';
-import { CommonProps, PropsWithStyles, InnerRef } from '../types';
+import { CommonProps, PropsWithStyles, InnerRef, OptionTypeBase } from '../types';
 
 interface State {
   /** Whether the option is disabled. */
@@ -19,7 +19,7 @@ interface InnerProps {
   onMouseOver: MouseEventHandler<HTMLDivElement>;
   tabIndex: number;
 }
-export type OptionProps<OptionType> = PropsWithStyles &
+export type OptionProps<OptionType extends OptionTypeBase> = PropsWithStyles &
   CommonProps<OptionType> &
   State & {
     /** The children to be rendered. */

@@ -102,7 +102,7 @@ mapping.fromJS(userArrayInput) // $ExpectType KnockoutObservableArray<KnockoutOb
 mapping.fromJS(userArrayInput, {}) // $ExpectType KnockoutObservableArray<KnockoutObservableType<User>>
 mapping.fromJS(userArrayInput, {}, userArrayInput) // $ExpectError
 
-// Could not solve this issue. Could not get his to return any when T is any. It returns a Union type of the possible values.
+// Could not solve this issue. Could not get this to return any when T is any. It returns a Union type of the possible values.
 mapping.fromJS(untypedArrayObject) // $ExpectType KnockoutObservableArray<any> | KnockoutObservableArray<KnockoutObservableType<any>>
 
 let mappedNumberArrayViewModel = mapping.fromJS(numberArrayInput)  // $ExpectType KnockoutObservableArray<number>

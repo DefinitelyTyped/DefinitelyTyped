@@ -10,6 +10,7 @@ var s3rver = new S3rver({
 }).run((err, hostname, port, directory) => {});
 
 s3rver.close();
+s3rver.close(e => console.log(e));
 
 // using new options
 import fs = require('fs');

@@ -8,78 +8,78 @@ declare namespace echarts {
          *
          * echarts manages the creation, deletion, animation and interaction
          * with other components (like
-         * [dataZoom](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataZoom)
+         * [dataZoom](https://echarts.apache.org/en/option.html#dataZoom)
          * 、
-         * [visualMap](https://ecomfe.github.io/echarts-doc/public/en/option.html#visualMap)
+         * [visualMap](https://echarts.apache.org/en/option.html#visualMap)
          * ), which frees developers from handle those issue themselves.
          *
          * **For example, a "x-range" chart is made by custom sereis:**
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom)
+         * [see doc](https://echarts.apache.org/en/option.html#series-custom)
          *
          * **
-         * [More samples of custom series](https://ecomfe.github.io/echarts-examples/public/index.html#chart-type-custom)
+         * [More samples of custom series](https://echarts.apache.org/examples/en/index.html#chart-type-custom)
          * **
          *
          * **
-         * [A tutotial of custom series](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Custom%20Series)
+         * [A tutotial of custom series](https://echarts.apache.org/en/tutorial.html#Custom%20Series)
          * **
          *
          * **Customize the render logic (in renderItem method)**
          *
          * `custom series` requires developers to write a render logic by themselves.
          * This render logic is called
-         * [renderItem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem)
+         * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
          * .
          *
          * For example:
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom)
+         * [see doc](https://echarts.apache.org/en/option.html#series-custom)
          *
-         * [renderItem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem)
+         * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
          * will be called on each data item.
          *
-         * [renderItem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem)
+         * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
          * provides two parameters:
          *
-         * + [params](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.params)
+         * + [params](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.params)
          * : provides info about the current series and data and coordinate
          * system.
-         * + [api](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api)
+         * + [api](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api)
          * : includes some methods.
          *
-         * [renderItem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem)
+         * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
          * method should returns graphic elements definitions.See
-         * [renderItem.return](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return)
+         * [renderItem.return](https://echarts.apache.org/en/option.html#series-custom.renderItem.return)
          * .
          *
          * Generally, the main process of
-         * [renderItem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem)
+         * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
          * is that retrieve value from data and convert them to graphic elements
          * on the current coordinate system. Two methods in
-         * [renderItem.arguments.api](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api)
+         * [renderItem.arguments.api](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api)
          * are always used in this procedure:
          *
-         * + [api.value(...)](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.value)
+         * + [api.value(...)](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.value)
          * is used to retrieve value from data.
          * For example, `api.value(0)`
          * retrieve the value of the first dimension in the current data item.
-         * + [api.coord(...)](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.coord)
+         * + [api.coord(...)](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.coord)
          * is used to convert data to coordinate.
          * For example, `var point = api.coord([api.value(0),
          * api.value(1)])`
          * converet the data to the point on the current coordinate system.
          *
          * Sometimes
-         * [api.size(...)](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.size)
+         * [api.size(...)](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.size)
          * method is needed, which calculates the size on the coordinate system
          * by a given data range.
          *
          * Moreover,
-         * [api.style(...)](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.style)
+         * [api.style(...)](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.style)
          * method can be used to set style.
          * It provides not only the style settings specified in
-         * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle)
+         * [series.itemStyle](https://echarts.apache.org/en/option.html#series-custom.itemStyle)
          * , but also the result of visual mapping.
          * This method can also be called like `api.style({fill:
          * 'green', stroke: 'yellow'})` to override those style settings.
@@ -87,7 +87,7 @@ declare namespace echarts {
          * **Dimension mapping (by encode and dimension option)**
          *
          * In most cases,
-         * [series.encode](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.encode)
+         * [series.encode](https://echarts.apache.org/en/option.html#series-custom.encode)
          * is needed to be specified when using `custom series` serise, which
          * indicate the mapping of dimensions, and then echarts can render appropriate
          * axis by the extent of those data.
@@ -96,20 +96,20 @@ declare namespace echarts {
          * and `encode.label`
          * can also be specified to define the content of default `tooltip`
          * and `label`.
-         * [series.dimensions](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.dimensions)
+         * [series.dimensions](https://echarts.apache.org/en/option.html#series-custom.dimensions)
          * can also be specified to defined names of each dimensions, which
          * will be displayed in tooltip.
          *
          * For example:
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom)
+         * [see doc](https://echarts.apache.org/en/option.html#series-custom)
          *
          * **Controlled by dataZoom**
          *
          * When use `custom series` with
-         * [dataZoom](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataZoom)
+         * [dataZoom](https://echarts.apache.org/en/option.html#dataZoom)
          * ,
-         * [dataZoom.filterMode](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataZoom.filterMode)
+         * [dataZoom.filterMode](https://echarts.apache.org/en/option.html#dataZoom.filterMode)
          * usually be set as `'weakFilter'`, which prevent `dataItem` from being
          * filtered when only part of its dimensions are out of the current
          * data window.
@@ -119,26 +119,26 @@ declare namespace echarts {
          * + `dataIndex` is the index of a `dataItem` in the original data.
          * + `dataIndexInside` is the index of a `dataItem` in the current data
          * window (see
-         * [dataZoom](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataZoom)
+         * [dataZoom](https://echarts.apache.org/en/option.html#dataZoom)
          * .
          *
-         * [renderItem.arguments.api](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api)
+         * [renderItem.arguments.api](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api)
          * uses `dataIndexInside` as the input parameter but not `dataIndex`,
          * because conversion from `dataIndex` to `dataIndexInside` is time-consuming.
          *
          * **Event listener**
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom)
+         * [see doc](https://echarts.apache.org/en/option.html#series-custom)
          *
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom
+         * @see https://echarts.apache.org/en/option.html#series-custom
          */
         interface SeriesCustom {
 
             /**
              * @default
              * "custom"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.type
+             * @see https://echarts.apache.org/en/option.html#series-custom.type
              */
             type?: string;
 
@@ -148,31 +148,31 @@ declare namespace echarts {
              * or API.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.id
+             * @see https://echarts.apache.org/en/option.html#series-custom.id
              */
             id?: string;
 
             /**
              * Series name used for displaying in
-             * [tooltip](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip)
+             * [tooltip](https://echarts.apache.org/en/option.html#tooltip)
              * and filtering with
-             * [legend](https://ecomfe.github.io/echarts-doc/public/en/option.html#legend)
+             * [legend](https://echarts.apache.org/en/option.html#legend)
              * , or updaing data and configuration with `setOption`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.name
+             * @see https://echarts.apache.org/en/option.html#series-custom.name
              */
             name?: string;
 
             /**
              * Whether to enable highlighting chart when
-             * [legend](https://ecomfe.github.io/echarts-doc/public/en/option.html#legend)
+             * [legend](https://echarts.apache.org/en/option.html#legend)
              * is being hovered.
              *
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.legendHoverLink
+             * @see https://echarts.apache.org/en/option.html#series-custom.legendHoverLink
              */
             legendHoverLink?: boolean;
 
@@ -187,21 +187,21 @@ declare namespace echarts {
              *
              * Use a two-dimensional rectangular coordinate (also known as Cartesian
              * coordinate), with
-             * [xAxisIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.xAxisIndex)
+             * [xAxisIndex](https://echarts.apache.org/en/option.html#series-custom.xAxisIndex)
              * and
-             * [yAxisIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.yAxisIndex)
+             * [yAxisIndex](https://echarts.apache.org/en/option.html#series-custom.yAxisIndex)
              * to assign the corresponding axis component.
              *
              * + `'polar'`
              *
              * Use polar coordinates, with
-             * [polarIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.polarIndex)
+             * [polarIndex](https://echarts.apache.org/en/option.html#series-custom.polarIndex)
              * to assign the corresponding polar coordinate component.
              *
              * + `'geo'`
              *
              * Use geographic coordinate, with
-             * [geoIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.geoIndex)
+             * [geoIndex](https://echarts.apache.org/en/option.html#series-custom.geoIndex)
              * to assign the corresponding geographic coordinate components.
              *
              * + `'none'`
@@ -211,124 +211,124 @@ declare namespace echarts {
              *
              * @default
              * "cartesian2d"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.coordinateSystem
+             * @see https://echarts.apache.org/en/option.html#series-custom.coordinateSystem
              */
             coordinateSystem?: string;
 
             /**
              * Index of
-             * [x axis](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis)
+             * [x axis](https://echarts.apache.org/en/option.html#xAxis)
              * to combine with, which is useful for multiple x axes in one chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.xAxisIndex
+             * @see https://echarts.apache.org/en/option.html#series-custom.xAxisIndex
              */
             xAxisIndex?: number;
 
             /**
              * Index of
-             * [y axis](https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis)
+             * [y axis](https://echarts.apache.org/en/option.html#yAxis)
              * to combine with, which is useful for multiple y axes in one chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.yAxisIndex
+             * @see https://echarts.apache.org/en/option.html#series-custom.yAxisIndex
              */
             yAxisIndex?: number;
 
             /**
              * Index of
-             * [polar coordinate](https://ecomfe.github.io/echarts-doc/public/en/option.html#polar)
+             * [polar coordinate](https://echarts.apache.org/en/option.html#polar)
              * to combine with, which is useful for multiple polar axes in one
              * chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.polarIndex
+             * @see https://echarts.apache.org/en/option.html#series-custom.polarIndex
              */
             polarIndex?: number;
 
             /**
              * Index of
-             * [geographic coordinate](https://ecomfe.github.io/echarts-doc/public/en/option.html#geo)
+             * [geographic coordinate](https://echarts.apache.org/en/option.html#geo)
              * to combine with, which is useful for multiple geographic axes
              * in one chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.geoIndex
+             * @see https://echarts.apache.org/en/option.html#series-custom.geoIndex
              */
             geoIndex?: number;
 
             /**
              * Index of
-             * [calendar coordinates](https://ecomfe.github.io/echarts-doc/public/en/option.html#calendar)
+             * [calendar coordinates](https://echarts.apache.org/en/option.html#calendar)
              * to combine with, which is useful for multiple calendar coordinates
              * in one chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.calendarIndex
+             * @see https://echarts.apache.org/en/option.html#series-custom.calendarIndex
              */
             calendarIndex?: number;
 
             /**
              * `custom series` requires developers to write a render logic by
              * themselves. This render logic is called
-             * [renderItem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem)
+             * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
              * .
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
-             * [renderItem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem)
+             * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
              * will be called on each data item.
              *
-             * [renderItem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem)
+             * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
              * provides two parameters:
              *
-             * + [params](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.params)
+             * + [params](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.params)
              * : provides info about the current series and data and coordinate
              * system.
-             * + [api](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api)
+             * + [api](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api)
              * : includes some methods.
              *
-             * [renderItem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem)
+             * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
              * method should returns graphic elements definitions.See
-             * [renderItem.return](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return)
+             * [renderItem.return](https://echarts.apache.org/en/option.html#series-custom.renderItem.return)
              * .
              *
              * Generally, the main process of
-             * [renderItem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem)
+             * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
              * is that retrieve value from data and convert them to graphic
              * elements on the current coordinate system. Two methods in
-             * [renderItem.arguments.api](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api)
+             * [renderItem.arguments.api](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api)
              * are always used in this procedure:
              *
-             * + [api.value(...)](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.value)
+             * + [api.value(...)](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.value)
              * is used to retrieve value from data.
              * For example, `api.value(0)`
              * retrieve the value of the first dimension in the current data
              * item.
-             * + [api.coord(...)](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.coord)
+             * + [api.coord(...)](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.coord)
              * is used to convert data to coordinate.
              * For example, `var point = api.coord([api.value(0),
              * api.value(1)])`
              * converet the data to the point on the current coordinate system.
              *
              * Sometimes
-             * [api.size(...)](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.size)
+             * [api.size(...)](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.size)
              * method is needed, which calculates the size on the coordinate
              * system by a given data range.
              *
              * Moreover,
-             * [api.style(...)](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.style)
+             * [api.style(...)](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.style)
              * method can be used to set style.
              * It provides not only the style settings specified in
-             * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle)
+             * [series.itemStyle](https://echarts.apache.org/en/option.html#series-custom.itemStyle)
              * , but also the result of visual mapping.
              * This method can also be called like `api.style({fill:
              * 'green', stroke: 'yellow'})` to override those style settings.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem
              */
             renderItem?: {
 
@@ -336,14 +336,14 @@ declare namespace echarts {
                  * Parameters of `renderItem`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments
                  */
                 arguments?: {
 
                     /**
                      * The first parameter of `renderItem`, including:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.arguments)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments)
                      *
                      * Difference between `dataIndex` and `dataIndexInside`:
                      *
@@ -351,16 +351,16 @@ declare namespace echarts {
                      * data.
                      * + `dataIndexInside` is the index of a `dataItem` in the
                      * current data window (see
-                     * [dataZoom](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataZoom)
+                     * [dataZoom](https://echarts.apache.org/en/option.html#dataZoom)
                      * .
                      *
-                     * [renderItem.arguments.api](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api)
+                     * [renderItem.arguments.api](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api)
                      * uses `dataIndexInside` as the input parameter but not
                      * `dataIndex`, because conversion from `dataIndex` to `dataIndexInside`
                      * is time-consuming.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.params
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.params
                      */
                     params?: object;
 
@@ -368,27 +368,27 @@ declare namespace echarts {
                      * The second parameter of `renderItem`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api
                      */
                     api?: {
 
                         /**
                          * Get value on the given dimension.
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.arguments.api)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.value
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.value
                          */
                         value?: Function;
 
                         /**
                          * Convert data to coordinate.
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.arguments.api)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.coord
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.coord
                          */
                         coord?: Function;
 
@@ -409,16 +409,16 @@ declare namespace echarts {
                          * So the second parameter is necessary to calculate
                          * size on the given point.
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.arguments.api)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.size
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.size
                          */
                         size?: Function;
 
                         /**
                          * The method obtains style info defined in
-                         * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle)
+                         * [series.itemStyle](https://echarts.apache.org/en/option.html#series-custom.itemStyle)
                          * , and visual info obtained by visual mapping, and
                          * return them.
                          * Those returned info can be assigned to `style` attribute
@@ -427,16 +427,16 @@ declare namespace echarts {
                          * this method like this: `api.style({fill:
                          * 'green', stroke: 'yellow'})`.
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.arguments.api)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.style
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.style
                          */
                         style?: Function;
 
                         /**
                          * The method obtains style info defined in
-                         * [series.itemStyle.emphasis](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle.emphasis)
+                         * [series.itemStyle.emphasis](https://echarts.apache.org/en/option.html#series-custom.itemStyle.emphasis)
                          * , and visual info obtained by visual mapping, and
                          * return them.
                          * Those returned info can be assigned to `style` attribute
@@ -445,20 +445,20 @@ declare namespace echarts {
                          * this method like this: `api.style({fill:
                          * 'green', stroke: 'yellow'})`.
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.arguments.api)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.styleEmphasis
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.styleEmphasis
                          */
                         styleEmphasis?: Function;
 
                         /**
                          * Get the visual info. It is rarely be used.
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.arguments.api)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.visual
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.visual
                          */
                         visual?: Function;
 
@@ -468,13 +468,13 @@ declare namespace echarts {
                          * can be used to obtain bar layout info.
                          *
                          * See a
-                         * [sample](https://ecomfe.github.io/echarts-examples/public/editor.html?c=custom-bar-trend)
+                         * [sample](https://echarts.apache.org/examples/en/editor.html?c=custom-bar-trend)
                          * .
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.arguments.api)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.barLayout
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.barLayout
                          */
                         barLayout?: Function;
 
@@ -490,7 +490,7 @@ declare namespace echarts {
                          * ```
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.currentSeriesIndices
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.currentSeriesIndices
                          */
                         currentSeriesIndices?: Function;
 
@@ -498,10 +498,10 @@ declare namespace echarts {
                          * Obtain font string, which can be used on style setting
                          * directly.
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.arguments.api)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.font
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.font
                          */
                         font?: Function;
 
@@ -512,7 +512,7 @@ declare namespace echarts {
                          * ```
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.getWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getWidth
                          */
                         getWidth?: Function;
 
@@ -523,7 +523,7 @@ declare namespace echarts {
                          * ```
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.getHeight
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getHeight
                          */
                         getHeight?: Function;
 
@@ -534,7 +534,7 @@ declare namespace echarts {
                          * ```
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.getZr
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getZr
                          */
                         getZr?: Function;
 
@@ -545,7 +545,7 @@ declare namespace echarts {
                          * ```
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api.getDevicePixelRatio
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getDevicePixelRatio
                          */
                         getDevicePixelRatio?: Function;
                     };
@@ -554,7 +554,7 @@ declare namespace echarts {
                 /**
                  * `renderItem` should returns graphic element definitions.
                  * Each graphic element is an object. See
-                 * [graphic](https://ecomfe.github.io/echarts-doc/public/en/option.html#graphic.elements)
+                 * [graphic](https://echarts.apache.org/en/option.html#graphic.elements)
                  * for detailed info.
                  * (But width\\height\\top\\bottom is not supported here)
                  *
@@ -563,11 +563,11 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem)
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return
                  */
                 return?: object;
 
@@ -576,7 +576,7 @@ declare namespace echarts {
                  * a group of elements can be positioned and transformed together.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group
                  */
                 return_group?: {
 
@@ -586,35 +586,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "group"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.type
                      */
                     type?: string;
 
@@ -625,25 +625,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -652,11 +652,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -665,25 +665,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -692,36 +692,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -730,11 +730,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -743,25 +743,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -770,11 +770,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -783,7 +783,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.origin
                      */
                     origin?: number;
 
@@ -793,29 +793,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_group)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_group)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.info
                      */
                     info?: any;
 
@@ -823,7 +823,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.silent
                      */
                     silent?: boolean;
 
@@ -831,7 +831,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.invisible
                      */
                     invisible?: boolean;
 
@@ -840,7 +840,7 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.ignore
                      */
                     ignore?: boolean;
 
@@ -853,7 +853,7 @@ declare namespace echarts {
                      * to its parent using `left: 'center'`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.width
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.width
                      */
                     width?: number;
 
@@ -866,21 +866,21 @@ declare namespace echarts {
                      * to its parent using `top: 'middle'`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.height
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.height
                      */
                     height?: number;
 
                     /**
                      * In
-                     * [custom series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom)
+                     * [custom series](https://echarts.apache.org/en/option.html#series-custom)
                      * , when `diffChildrenByName` is set as `true`, for each
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * returned from
-                     * [renderItem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem)
+                     * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
                      * , "diff" will be performed to its
-                     * [children](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.children)
+                     * [children](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.children)
                      * according to the
-                     * [name](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.name)
+                     * [name](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.name)
                      * attribute of each graphic elements.
                      * Here "diff" means that map the coming graphic elements
                      * to the existing graphic elements when repainting according
@@ -891,7 +891,7 @@ declare namespace echarts {
                      * do not use it for large data amount.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.diffChildrenByName
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.diffChildrenByName
                      */
                     diffChildrenByName?: boolean;
 
@@ -900,18 +900,18 @@ declare namespace echarts {
                      * element.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.children
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.children
                      */
                     children?: any[];
 
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
@@ -924,13 +924,13 @@ declare namespace echarts {
                  * specified size by auto transforming.
                  *
                  * See examples:
-                 * [icons](https://ecomfe.github.io/echarts-examples/public/editor.html?c=custom-calendar-icon)
+                 * [icons](https://echarts.apache.org/examples/en/editor.html?c=custom-calendar-icon)
                  * and
-                 * [shapes](https://ecomfe.github.io/echarts-examples/public/editor.html?c=custom-gantt-flight)
+                 * [shapes](https://echarts.apache.org/examples/en/editor.html?c=custom-gantt-flight)
                  * .
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path
                  */
                 return_path?: {
 
@@ -940,35 +940,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "path"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.type
                      */
                     type?: string;
 
@@ -979,25 +979,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -1006,11 +1006,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -1019,25 +1019,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -1046,36 +1046,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -1084,11 +1084,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -1097,25 +1097,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -1124,11 +1124,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -1137,7 +1137,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.origin
                      */
                     origin?: number;
 
@@ -1147,29 +1147,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_path)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_path)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.info
                      */
                     info?: any;
 
@@ -1177,7 +1177,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.silent
                      */
                     silent?: boolean;
 
@@ -1185,7 +1185,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.invisible
                      */
                     invisible?: boolean;
 
@@ -1194,12 +1194,12 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.ignore
                      */
                     ignore?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape
                      */
                     shape?: {
 
@@ -1211,44 +1211,44 @@ declare namespace echarts {
                          * 50,-1 L70,-1 L70,0 Z'`。
                          *
                          * If
-                         * [width](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.width)
+                         * [width](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.width)
                          * ,
-                         * [height](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.height)
+                         * [height](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.height)
                          * ,
-                         * [x](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.x)
+                         * [x](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.x)
                          * and
-                         * [y](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.y)
+                         * [y](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.y)
                          * specified, `pathData` will be transformed to fit
                          * the defined rect.
                          * If they are not specified, do not do that.
                          *
-                         * [layout](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.layout)
+                         * [layout](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.layout)
                          * can be used to specify the transform strategy.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.pathData
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.pathData
                          */
                         pathData?: string;
 
                         /**
                          * Alias of
-                         * [pathData](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.pathData)
+                         * [pathData](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.pathData)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.d
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.d
                          */
                         d?: string;
 
                         /**
                          * If
-                         * [width](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.width)
+                         * [width](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.width)
                          * ,
-                         * [height](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.height)
+                         * [height](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.height)
                          * ,
-                         * [x](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.x)
+                         * [x](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.x)
                          * and
-                         * [y](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.y)
+                         * [y](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.y)
                          * specified, `pathData` will be transformed to fit
                          * the defined rect.
                          *
@@ -1266,7 +1266,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "center"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.layout
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.layout
                          */
                         layout?: string;
 
@@ -1275,7 +1275,7 @@ declare namespace echarts {
                          * in the coordinate system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.x
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.x
                          */
                         x?: number;
 
@@ -1284,7 +1284,7 @@ declare namespace echarts {
                          * in the coordinate system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.y
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.y
                          */
                         y?: number;
 
@@ -1292,7 +1292,7 @@ declare namespace echarts {
                          * The width of the shape of the element.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.width
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.width
                          */
                         width?: number;
 
@@ -1300,14 +1300,14 @@ declare namespace echarts {
                          * The height of the shape of the element.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape.height
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.height
                          */
                         height?: number;
                     };
 
                     /**
                      * More attributes in `style` (for example,
-                     * [rich text](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Rich%20Text)
+                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
                      * ), see the `style` related attributes in
                      * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
                      * .
@@ -1318,18 +1318,18 @@ declare namespace echarts {
                      * itemStyle`, etc.,
                      * although they have the same meaning. For example:
                      *
-                     * + [itemStyle.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.fill`
-                     * + [itemStyle.borderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.stroke`
-                     * + [label.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.textFill`
-                     * + [label.textBorderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.textBorderColor)
+                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
                      * => `style.textStroke`
                      * + ...
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.style
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style
                      */
                     style?: {
 
@@ -1339,7 +1339,7 @@ declare namespace echarts {
                          *
                          * @default
                          * '#000'
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.style.fill
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.fill
                          */
                         fill?: string;
 
@@ -1347,7 +1347,7 @@ declare namespace echarts {
                          * Color of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.style.stroke
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.stroke
                          */
                         stroke?: string;
 
@@ -1355,7 +1355,7 @@ declare namespace echarts {
                          * Width of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.style.lineWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.lineWidth
                          */
                         lineWidth?: number;
 
@@ -1365,7 +1365,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.style.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -1375,7 +1375,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.style.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -1385,7 +1385,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.style.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -1395,7 +1395,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.style.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowColor
                          */
                         shadowColor?: number;
                     };
@@ -1403,17 +1403,17 @@ declare namespace echarts {
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image
                  */
                 return_image?: {
 
@@ -1423,35 +1423,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "image"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.type
                      */
                     type?: string;
 
@@ -1462,25 +1462,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -1489,11 +1489,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -1502,25 +1502,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -1529,36 +1529,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -1567,11 +1567,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -1580,25 +1580,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -1607,11 +1607,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -1620,7 +1620,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.origin
                      */
                     origin?: number;
 
@@ -1630,29 +1630,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_image)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_image)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.info
                      */
                     info?: any;
 
@@ -1660,7 +1660,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.silent
                      */
                     silent?: boolean;
 
@@ -1668,7 +1668,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.invisible
                      */
                     invisible?: boolean;
 
@@ -1677,12 +1677,12 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.ignore
                      */
                     ignore?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style
                      */
                     style?: {
 
@@ -1692,7 +1692,7 @@ declare namespace echarts {
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style.image
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.image
                          */
                         image?: string;
 
@@ -1701,7 +1701,7 @@ declare namespace echarts {
                          * in the coordinate system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style.x
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.x
                          */
                         x?: number;
 
@@ -1710,7 +1710,7 @@ declare namespace echarts {
                          * in the coordinate system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style.y
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.y
                          */
                         y?: number;
 
@@ -1718,7 +1718,7 @@ declare namespace echarts {
                          * The width of the shape of the element.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style.width
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.width
                          */
                         width?: number;
 
@@ -1726,7 +1726,7 @@ declare namespace echarts {
                          * The height of the shape of the element.
                          *
                          * More attributes in `style` (for example,
-                         * [rich text](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Rich%20Text)
+                         * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
                          * ), see the `style` related attributes in
                          * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
                          * .
@@ -1737,18 +1737,18 @@ declare namespace echarts {
                          * `echarts itemStyle`, etc.,
                          * although they have the same meaning. For example:
                          *
-                         * + [itemStyle.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                         * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                          * => `style.fill`
-                         * + [itemStyle.borderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                         * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                          * => `style.stroke`
-                         * + [label.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                         * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                          * => `style.textFill`
-                         * + [label.textBorderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.textBorderColor)
+                         * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
                          * => `style.textStroke`
                          * + ...
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style.height
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.height
                          */
                         height?: number;
 
@@ -1758,7 +1758,7 @@ declare namespace echarts {
                          *
                          * @default
                          * '#000'
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style.fill
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.fill
                          */
                         fill?: string;
 
@@ -1766,7 +1766,7 @@ declare namespace echarts {
                          * Color of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style.stroke
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.stroke
                          */
                         stroke?: string;
 
@@ -1774,7 +1774,7 @@ declare namespace echarts {
                          * Width of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style.lineWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.lineWidth
                          */
                         lineWidth?: number;
 
@@ -1784,7 +1784,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -1794,7 +1794,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -1804,7 +1804,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -1814,7 +1814,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowColor
                          */
                         shadowColor?: number;
                     };
@@ -1822,11 +1822,11 @@ declare namespace echarts {
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
@@ -1835,7 +1835,7 @@ declare namespace echarts {
                  * Text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text
                  */
                 return_text?: {
 
@@ -1845,35 +1845,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "text"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.type
                      */
                     type?: string;
 
@@ -1884,25 +1884,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -1911,11 +1911,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -1924,25 +1924,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -1951,36 +1951,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -1989,11 +1989,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -2002,25 +2002,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -2029,11 +2029,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -2042,7 +2042,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.origin
                      */
                     origin?: number;
 
@@ -2052,29 +2052,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_text)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_text)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.info
                      */
                     info?: any;
 
@@ -2082,7 +2082,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.silent
                      */
                     silent?: boolean;
 
@@ -2090,7 +2090,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.invisible
                      */
                     invisible?: boolean;
 
@@ -2099,12 +2099,12 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.ignore
                      */
                     ignore?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style
                      */
                     style?: {
 
@@ -2114,7 +2114,7 @@ declare namespace echarts {
                          *
                          * @default
                          * ''
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.text
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.text
                          */
                         text?: string;
 
@@ -2123,7 +2123,7 @@ declare namespace echarts {
                          * in the coordinate system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.x
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.x
                          */
                         x?: number;
 
@@ -2132,7 +2132,7 @@ declare namespace echarts {
                          * in the coordinate system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.y
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.y
                          */
                         y?: number;
 
@@ -2144,10 +2144,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_text.style)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_text.style)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.font
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.font
                          */
                         font?: string;
 
@@ -2157,16 +2157,16 @@ declare namespace echarts {
                          *
                          * `'left'` means the left side of the text block is
                          * specified by the
-                         * [style.x](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.x)
+                         * [style.x](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.x)
                          * , while `'right'` means the right side of the text
                          * block is specified by
-                         * [style.y](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.y)
+                         * [style.y](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.y)
                          * .
                          *
                          *
                          * @default
                          * "left"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.textAlign
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.textAlign
                          */
                         textAlign?: string;
 
@@ -2175,7 +2175,7 @@ declare namespace echarts {
                          * Optional values: `'top'`, `'middle'`, `'bottom'`.
                          *
                          * More attributes in `style` (for example,
-                         * [rich text](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Rich%20Text)
+                         * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
                          * ), see the `style` related attributes in
                          * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
                          * .
@@ -2186,18 +2186,18 @@ declare namespace echarts {
                          * `echarts itemStyle`, etc.,
                          * although they have the same meaning. For example:
                          *
-                         * + [itemStyle.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                         * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                          * => `style.fill`
-                         * + [itemStyle.borderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                         * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                          * => `style.stroke`
-                         * + [label.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                         * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                          * => `style.textFill`
-                         * + [label.textBorderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.textBorderColor)
+                         * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
                          * => `style.textStroke`
                          * + ...
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.textVerticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.textVerticalAlign
                          */
                         textVerticalAlign?: string;
 
@@ -2207,7 +2207,7 @@ declare namespace echarts {
                          *
                          * @default
                          * '#000'
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.fill
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.fill
                          */
                         fill?: string;
 
@@ -2215,7 +2215,7 @@ declare namespace echarts {
                          * Color of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.stroke
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.stroke
                          */
                         stroke?: string;
 
@@ -2223,7 +2223,7 @@ declare namespace echarts {
                          * Width of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.lineWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.lineWidth
                          */
                         lineWidth?: number;
 
@@ -2233,7 +2233,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -2243,7 +2243,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -2253,7 +2253,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -2263,7 +2263,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowColor
                          */
                         shadowColor?: number;
                     };
@@ -2271,11 +2271,11 @@ declare namespace echarts {
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
@@ -2284,7 +2284,7 @@ declare namespace echarts {
                  * Rectangle element.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect
                  */
                 return_rect?: {
 
@@ -2294,35 +2294,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "rect"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.type
                      */
                     type?: string;
 
@@ -2333,25 +2333,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -2360,11 +2360,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -2373,25 +2373,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -2400,36 +2400,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -2438,11 +2438,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -2451,25 +2451,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -2478,11 +2478,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -2491,7 +2491,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.origin
                      */
                     origin?: number;
 
@@ -2501,29 +2501,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_rect)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_rect)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.info
                      */
                     info?: any;
 
@@ -2531,7 +2531,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.silent
                      */
                     silent?: boolean;
 
@@ -2539,7 +2539,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.invisible
                      */
                     invisible?: boolean;
 
@@ -2548,12 +2548,12 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.ignore
                      */
                     ignore?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.shape
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape
                      */
                     shape?: {
 
@@ -2562,7 +2562,7 @@ declare namespace echarts {
                          * in the coordinate system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.shape.x
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.x
                          */
                         x?: number;
 
@@ -2571,7 +2571,7 @@ declare namespace echarts {
                          * in the coordinate system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.shape.y
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.y
                          */
                         y?: number;
 
@@ -2579,7 +2579,7 @@ declare namespace echarts {
                          * The width of the shape of the element.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.shape.width
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.width
                          */
                         width?: number;
 
@@ -2587,7 +2587,7 @@ declare namespace echarts {
                          * The height of the shape of the element.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.shape.height
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.height
                          */
                         height?: number;
 
@@ -2605,14 +2605,14 @@ declare namespace echarts {
                          * + `r`: `[1, 2, 3]` means `[1, 2, 3, 2]`
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.shape.r
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.r
                          */
                         r?: any[];
                     };
 
                     /**
                      * More attributes in `style` (for example,
-                     * [rich text](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Rich%20Text)
+                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
                      * ), see the `style` related attributes in
                      * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
                      * .
@@ -2623,18 +2623,18 @@ declare namespace echarts {
                      * itemStyle`, etc.,
                      * although they have the same meaning. For example:
                      *
-                     * + [itemStyle.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.fill`
-                     * + [itemStyle.borderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.stroke`
-                     * + [label.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.textFill`
-                     * + [label.textBorderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.textBorderColor)
+                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
                      * => `style.textStroke`
                      * + ...
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.style
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style
                      */
                     style?: {
 
@@ -2644,7 +2644,7 @@ declare namespace echarts {
                          *
                          * @default
                          * '#000'
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.style.fill
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.fill
                          */
                         fill?: string;
 
@@ -2652,7 +2652,7 @@ declare namespace echarts {
                          * Color of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.style.stroke
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.stroke
                          */
                         stroke?: string;
 
@@ -2660,7 +2660,7 @@ declare namespace echarts {
                          * Width of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.style.lineWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.lineWidth
                          */
                         lineWidth?: number;
 
@@ -2670,7 +2670,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.style.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -2680,7 +2680,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.style.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -2690,7 +2690,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.style.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -2700,7 +2700,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.style.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowColor
                          */
                         shadowColor?: number;
                     };
@@ -2708,11 +2708,11 @@ declare namespace echarts {
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
@@ -2721,7 +2721,7 @@ declare namespace echarts {
                  * Circle element.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle
                  */
                 return_circle?: {
 
@@ -2731,35 +2731,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "circle"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.type
                      */
                     type?: string;
 
@@ -2770,25 +2770,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -2797,11 +2797,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -2810,25 +2810,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -2837,36 +2837,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -2875,11 +2875,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -2888,25 +2888,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -2915,11 +2915,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -2928,7 +2928,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.origin
                      */
                     origin?: number;
 
@@ -2938,29 +2938,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_circle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_circle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.info
                      */
                     info?: any;
 
@@ -2968,7 +2968,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.silent
                      */
                     silent?: boolean;
 
@@ -2976,7 +2976,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.invisible
                      */
                     invisible?: boolean;
 
@@ -2985,12 +2985,12 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.ignore
                      */
                     ignore?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.shape
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape
                      */
                     shape?: {
 
@@ -2999,7 +2999,7 @@ declare namespace echarts {
                          * system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.shape.cx
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape.cx
                          */
                         cx?: number;
 
@@ -3008,7 +3008,7 @@ declare namespace echarts {
                          * system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.shape.cy
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape.cy
                          */
                         cy?: number;
 
@@ -3016,14 +3016,14 @@ declare namespace echarts {
                          * Outside radius.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.shape.r
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape.r
                          */
                         r?: number;
                     };
 
                     /**
                      * More attributes in `style` (for example,
-                     * [rich text](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Rich%20Text)
+                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
                      * ), see the `style` related attributes in
                      * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
                      * .
@@ -3034,18 +3034,18 @@ declare namespace echarts {
                      * itemStyle`, etc.,
                      * although they have the same meaning. For example:
                      *
-                     * + [itemStyle.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.fill`
-                     * + [itemStyle.borderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.stroke`
-                     * + [label.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.textFill`
-                     * + [label.textBorderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.textBorderColor)
+                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
                      * => `style.textStroke`
                      * + ...
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.style
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style
                      */
                     style?: {
 
@@ -3055,7 +3055,7 @@ declare namespace echarts {
                          *
                          * @default
                          * '#000'
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.style.fill
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.fill
                          */
                         fill?: string;
 
@@ -3063,7 +3063,7 @@ declare namespace echarts {
                          * Color of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.style.stroke
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.stroke
                          */
                         stroke?: string;
 
@@ -3071,7 +3071,7 @@ declare namespace echarts {
                          * Width of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.style.lineWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.lineWidth
                          */
                         lineWidth?: number;
 
@@ -3081,7 +3081,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.style.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -3091,7 +3091,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.style.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -3101,7 +3101,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.style.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -3111,7 +3111,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.style.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowColor
                          */
                         shadowColor?: number;
                     };
@@ -3119,11 +3119,11 @@ declare namespace echarts {
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
@@ -3132,7 +3132,7 @@ declare namespace echarts {
                  * Ring element.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring
                  */
                 return_ring?: {
 
@@ -3142,35 +3142,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "ring"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.type
                      */
                     type?: string;
 
@@ -3181,25 +3181,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -3208,11 +3208,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -3221,25 +3221,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -3248,36 +3248,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -3286,11 +3286,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -3299,25 +3299,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -3326,11 +3326,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -3339,7 +3339,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.origin
                      */
                     origin?: number;
 
@@ -3349,29 +3349,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_ring)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_ring)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.info
                      */
                     info?: any;
 
@@ -3379,7 +3379,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.silent
                      */
                     silent?: boolean;
 
@@ -3387,7 +3387,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.invisible
                      */
                     invisible?: boolean;
 
@@ -3396,12 +3396,12 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.ignore
                      */
                     ignore?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.shape
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape
                      */
                     shape?: {
 
@@ -3410,7 +3410,7 @@ declare namespace echarts {
                          * system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.shape.cx
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.cx
                          */
                         cx?: number;
 
@@ -3419,7 +3419,7 @@ declare namespace echarts {
                          * system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.shape.cy
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.cy
                          */
                         cy?: number;
 
@@ -3427,7 +3427,7 @@ declare namespace echarts {
                          * Outside radius.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.shape.r
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.r
                          */
                         r?: number;
 
@@ -3435,14 +3435,14 @@ declare namespace echarts {
                          * Inside radius.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.shape.r0
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.r0
                          */
                         r0?: number;
                     };
 
                     /**
                      * More attributes in `style` (for example,
-                     * [rich text](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Rich%20Text)
+                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
                      * ), see the `style` related attributes in
                      * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
                      * .
@@ -3453,18 +3453,18 @@ declare namespace echarts {
                      * itemStyle`, etc.,
                      * although they have the same meaning. For example:
                      *
-                     * + [itemStyle.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.fill`
-                     * + [itemStyle.borderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.stroke`
-                     * + [label.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.textFill`
-                     * + [label.textBorderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.textBorderColor)
+                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
                      * => `style.textStroke`
                      * + ...
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.style
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style
                      */
                     style?: {
 
@@ -3474,7 +3474,7 @@ declare namespace echarts {
                          *
                          * @default
                          * '#000'
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.style.fill
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.fill
                          */
                         fill?: string;
 
@@ -3482,7 +3482,7 @@ declare namespace echarts {
                          * Color of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.style.stroke
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.stroke
                          */
                         stroke?: string;
 
@@ -3490,7 +3490,7 @@ declare namespace echarts {
                          * Width of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.style.lineWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.lineWidth
                          */
                         lineWidth?: number;
 
@@ -3500,7 +3500,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.style.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -3510,7 +3510,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.style.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -3520,7 +3520,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.style.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -3530,7 +3530,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.style.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowColor
                          */
                         shadowColor?: number;
                     };
@@ -3538,11 +3538,11 @@ declare namespace echarts {
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
@@ -3551,7 +3551,7 @@ declare namespace echarts {
                  * Sector element.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector
                  */
                 return_sector?: {
 
@@ -3561,35 +3561,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "sector"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.type
                      */
                     type?: string;
 
@@ -3600,25 +3600,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -3627,11 +3627,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -3640,25 +3640,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -3667,36 +3667,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -3705,11 +3705,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -3718,25 +3718,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -3745,11 +3745,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -3758,7 +3758,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.origin
                      */
                     origin?: number;
 
@@ -3768,29 +3768,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_sector)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_sector)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.info
                      */
                     info?: any;
 
@@ -3798,7 +3798,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.silent
                      */
                     silent?: boolean;
 
@@ -3806,7 +3806,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.invisible
                      */
                     invisible?: boolean;
 
@@ -3815,12 +3815,12 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.ignore
                      */
                     ignore?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.shape
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape
                      */
                     shape?: {
 
@@ -3829,7 +3829,7 @@ declare namespace echarts {
                          * system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.shape.cx
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.cx
                          */
                         cx?: number;
 
@@ -3838,7 +3838,7 @@ declare namespace echarts {
                          * system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.shape.cy
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.cy
                          */
                         cy?: number;
 
@@ -3846,7 +3846,7 @@ declare namespace echarts {
                          * Outside radius.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.shape.r
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.r
                          */
                         r?: number;
 
@@ -3854,7 +3854,7 @@ declare namespace echarts {
                          * Inside radius.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.shape.r0
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.r0
                          */
                         r0?: number;
 
@@ -3862,7 +3862,7 @@ declare namespace echarts {
                          * start angle, in radian.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.shape.startAngle
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.startAngle
                          */
                         startAngle?: number;
 
@@ -3872,7 +3872,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "Math.PI * 2"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.shape.endAngle
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.endAngle
                          */
                         endAngle?: number;
 
@@ -3882,14 +3882,14 @@ declare namespace echarts {
                          *
                          * @default
                          * "true"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.shape.clockwise
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.clockwise
                          */
                         clockwise?: boolean;
                     };
 
                     /**
                      * More attributes in `style` (for example,
-                     * [rich text](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Rich%20Text)
+                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
                      * ), see the `style` related attributes in
                      * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
                      * .
@@ -3900,18 +3900,18 @@ declare namespace echarts {
                      * itemStyle`, etc.,
                      * although they have the same meaning. For example:
                      *
-                     * + [itemStyle.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.fill`
-                     * + [itemStyle.borderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.stroke`
-                     * + [label.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.textFill`
-                     * + [label.textBorderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.textBorderColor)
+                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
                      * => `style.textStroke`
                      * + ...
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.style
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style
                      */
                     style?: {
 
@@ -3921,7 +3921,7 @@ declare namespace echarts {
                          *
                          * @default
                          * '#000'
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.style.fill
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.fill
                          */
                         fill?: string;
 
@@ -3929,7 +3929,7 @@ declare namespace echarts {
                          * Color of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.style.stroke
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.stroke
                          */
                         stroke?: string;
 
@@ -3937,7 +3937,7 @@ declare namespace echarts {
                          * Width of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.style.lineWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.lineWidth
                          */
                         lineWidth?: number;
 
@@ -3947,7 +3947,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.style.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -3957,7 +3957,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.style.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -3967,7 +3967,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.style.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -3977,7 +3977,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.style.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowColor
                          */
                         shadowColor?: number;
                     };
@@ -3985,11 +3985,11 @@ declare namespace echarts {
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
@@ -3998,7 +3998,7 @@ declare namespace echarts {
                  * Arc element.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc
                  */
                 return_arc?: {
 
@@ -4008,35 +4008,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "arc"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.type
                      */
                     type?: string;
 
@@ -4047,25 +4047,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -4074,11 +4074,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -4087,25 +4087,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -4114,36 +4114,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -4152,11 +4152,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -4165,25 +4165,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -4192,11 +4192,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -4205,7 +4205,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.origin
                      */
                     origin?: number;
 
@@ -4215,29 +4215,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_arc)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_arc)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.info
                      */
                     info?: any;
 
@@ -4245,7 +4245,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.silent
                      */
                     silent?: boolean;
 
@@ -4253,7 +4253,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.invisible
                      */
                     invisible?: boolean;
 
@@ -4262,12 +4262,12 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.ignore
                      */
                     ignore?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.shape
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape
                      */
                     shape?: {
 
@@ -4276,7 +4276,7 @@ declare namespace echarts {
                          * system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.shape.cx
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.cx
                          */
                         cx?: number;
 
@@ -4285,7 +4285,7 @@ declare namespace echarts {
                          * system of its parent.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.shape.cy
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.cy
                          */
                         cy?: number;
 
@@ -4293,7 +4293,7 @@ declare namespace echarts {
                          * Outside radius.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.shape.r
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.r
                          */
                         r?: number;
 
@@ -4301,7 +4301,7 @@ declare namespace echarts {
                          * Inside radius.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.shape.r0
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.r0
                          */
                         r0?: number;
 
@@ -4309,7 +4309,7 @@ declare namespace echarts {
                          * start angle, in radian.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.shape.startAngle
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.startAngle
                          */
                         startAngle?: number;
 
@@ -4319,7 +4319,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "Math.PI * 2"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.shape.endAngle
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.endAngle
                          */
                         endAngle?: number;
 
@@ -4329,14 +4329,14 @@ declare namespace echarts {
                          *
                          * @default
                          * "true"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.shape.clockwise
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.clockwise
                          */
                         clockwise?: boolean;
                     };
 
                     /**
                      * More attributes in `style` (for example,
-                     * [rich text](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Rich%20Text)
+                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
                      * ), see the `style` related attributes in
                      * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
                      * .
@@ -4347,18 +4347,18 @@ declare namespace echarts {
                      * itemStyle`, etc.,
                      * although they have the same meaning. For example:
                      *
-                     * + [itemStyle.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.fill`
-                     * + [itemStyle.borderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.stroke`
-                     * + [label.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.textFill`
-                     * + [label.textBorderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.textBorderColor)
+                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
                      * => `style.textStroke`
                      * + ...
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.style
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style
                      */
                     style?: {
 
@@ -4366,7 +4366,7 @@ declare namespace echarts {
                          * Color filled in this element.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.style.fill
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.fill
                          */
                         fill?: string;
 
@@ -4376,7 +4376,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.style.stroke
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.stroke
                          */
                         stroke?: string;
 
@@ -4386,7 +4386,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 1
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.style.lineWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.lineWidth
                          */
                         lineWidth?: number;
 
@@ -4396,7 +4396,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.style.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -4406,7 +4406,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.style.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -4416,7 +4416,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.style.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -4426,7 +4426,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.style.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowColor
                          */
                         shadowColor?: number;
                     };
@@ -4434,11 +4434,11 @@ declare namespace echarts {
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
@@ -4447,7 +4447,7 @@ declare namespace echarts {
                  * Polygon element.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon
                  */
                 return_polygon?: {
 
@@ -4457,35 +4457,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "polygon"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.type
                      */
                     type?: string;
 
@@ -4496,25 +4496,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -4523,11 +4523,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -4536,25 +4536,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -4563,36 +4563,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -4601,11 +4601,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -4614,25 +4614,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -4641,11 +4641,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -4654,7 +4654,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin
                      */
                     origin?: number;
 
@@ -4664,29 +4664,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_polygon)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_polygon)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.info
                      */
                     info?: any;
 
@@ -4694,7 +4694,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.silent
                      */
                     silent?: boolean;
 
@@ -4702,7 +4702,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.invisible
                      */
                     invisible?: boolean;
 
@@ -4711,12 +4711,12 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.ignore
                      */
                     ignore?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.shape
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape
                      */
                     shape?: {
 
@@ -4725,7 +4725,7 @@ declare namespace echarts {
                          * 44], [44, 55], [11, 44], ...]`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.shape.points
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape.points
                          */
                         points?: any[];
 
@@ -4741,7 +4741,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.shape.smooth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape.smooth
                          */
                         smooth?: number | string;
 
@@ -4752,14 +4752,14 @@ declare namespace echarts {
                          * Only works when `smooth` is `number` (bezier smooth).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.shape.smoothConstraint
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape.smoothConstraint
                          */
                         smoothConstraint?: boolean;
                     };
 
                     /**
                      * More attributes in `style` (for example,
-                     * [rich text](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Rich%20Text)
+                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
                      * ), see the `style` related attributes in
                      * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
                      * .
@@ -4770,18 +4770,18 @@ declare namespace echarts {
                      * itemStyle`, etc.,
                      * although they have the same meaning. For example:
                      *
-                     * + [itemStyle.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.fill`
-                     * + [itemStyle.borderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.stroke`
-                     * + [label.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.textFill`
-                     * + [label.textBorderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.textBorderColor)
+                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
                      * => `style.textStroke`
                      * + ...
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style
                      */
                     style?: {
 
@@ -4791,7 +4791,7 @@ declare namespace echarts {
                          *
                          * @default
                          * '#000'
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style.fill
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.fill
                          */
                         fill?: string;
 
@@ -4799,7 +4799,7 @@ declare namespace echarts {
                          * Color of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style.stroke
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.stroke
                          */
                         stroke?: string;
 
@@ -4807,7 +4807,7 @@ declare namespace echarts {
                          * Width of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style.lineWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.lineWidth
                          */
                         lineWidth?: number;
 
@@ -4817,7 +4817,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -4827,7 +4827,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -4837,7 +4837,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -4847,7 +4847,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowColor
                          */
                         shadowColor?: number;
                     };
@@ -4855,11 +4855,11 @@ declare namespace echarts {
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
@@ -4868,7 +4868,7 @@ declare namespace echarts {
                  * Polyline element.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline
                  */
                 return_polyline?: {
 
@@ -4878,35 +4878,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "polyline"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.type
                      */
                     type?: string;
 
@@ -4917,25 +4917,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -4944,11 +4944,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -4957,25 +4957,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -4984,36 +4984,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -5022,11 +5022,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -5035,25 +5035,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -5062,11 +5062,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -5075,7 +5075,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.origin
                      */
                     origin?: number;
 
@@ -5085,29 +5085,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_polyline)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_polyline)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.info
                      */
                     info?: any;
 
@@ -5115,7 +5115,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.silent
                      */
                     silent?: boolean;
 
@@ -5123,7 +5123,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.invisible
                      */
                     invisible?: boolean;
 
@@ -5132,12 +5132,12 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.ignore
                      */
                     ignore?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.shape
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape
                      */
                     shape?: {
 
@@ -5146,7 +5146,7 @@ declare namespace echarts {
                          * 44], [44, 55], [11, 44], ...]`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.shape.points
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape.points
                          */
                         points?: any[];
 
@@ -5162,7 +5162,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.shape.smooth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape.smooth
                          */
                         smooth?: number | string;
 
@@ -5173,14 +5173,14 @@ declare namespace echarts {
                          * Only works when `smooth` is `number` (bezier smooth).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.shape.smoothConstraint
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape.smoothConstraint
                          */
                         smoothConstraint?: boolean;
                     };
 
                     /**
                      * More attributes in `style` (for example,
-                     * [rich text](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Rich%20Text)
+                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
                      * ), see the `style` related attributes in
                      * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
                      * .
@@ -5191,18 +5191,18 @@ declare namespace echarts {
                      * itemStyle`, etc.,
                      * although they have the same meaning. For example:
                      *
-                     * + [itemStyle.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.fill`
-                     * + [itemStyle.borderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.stroke`
-                     * + [label.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.textFill`
-                     * + [label.textBorderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.textBorderColor)
+                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
                      * => `style.textStroke`
                      * + ...
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.style
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style
                      */
                     style?: {
 
@@ -5210,7 +5210,7 @@ declare namespace echarts {
                          * Color filled in this element.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.style.fill
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.fill
                          */
                         fill?: string;
 
@@ -5220,7 +5220,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.style.stroke
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.stroke
                          */
                         stroke?: string;
 
@@ -5230,7 +5230,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.style.lineWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.lineWidth
                          */
                         lineWidth?: number;
 
@@ -5240,7 +5240,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.style.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -5250,7 +5250,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.style.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -5260,7 +5260,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.style.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -5270,7 +5270,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.style.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowColor
                          */
                         shadowColor?: number;
                     };
@@ -5278,11 +5278,11 @@ declare namespace echarts {
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
@@ -5291,7 +5291,7 @@ declare namespace echarts {
                  * Line element.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line
                  */
                 return_line?: {
 
@@ -5301,35 +5301,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "line"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.type
                      */
                     type?: string;
 
@@ -5340,25 +5340,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -5367,11 +5367,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -5380,25 +5380,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -5407,36 +5407,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -5445,11 +5445,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -5458,25 +5458,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -5485,11 +5485,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -5498,7 +5498,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.origin
                      */
                     origin?: number;
 
@@ -5508,29 +5508,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_line)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_line)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.info
                      */
                     info?: any;
 
@@ -5538,7 +5538,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.silent
                      */
                     silent?: boolean;
 
@@ -5546,7 +5546,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.invisible
                      */
                     invisible?: boolean;
 
@@ -5555,12 +5555,12 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.ignore
                      */
                     ignore?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.shape
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape
                      */
                     shape?: {
 
@@ -5568,7 +5568,7 @@ declare namespace echarts {
                          * x value of the start point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.shape.x1
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.x1
                          */
                         x1?: number;
 
@@ -5576,7 +5576,7 @@ declare namespace echarts {
                          * y value of the start point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.shape.y1
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.y1
                          */
                         y1?: number;
 
@@ -5584,7 +5584,7 @@ declare namespace echarts {
                          * x value of the end point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.shape.x2
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.x2
                          */
                         x2?: number;
 
@@ -5592,7 +5592,7 @@ declare namespace echarts {
                          * y value of the end point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.shape.y2
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.y2
                          */
                         y2?: number;
 
@@ -5604,14 +5604,14 @@ declare namespace echarts {
                          *
                          * @default
                          * 1
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.shape.percent
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.percent
                          */
                         percent?: number;
                     };
 
                     /**
                      * More attributes in `style` (for example,
-                     * [rich text](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Rich%20Text)
+                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
                      * ), see the `style` related attributes in
                      * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
                      * .
@@ -5622,18 +5622,18 @@ declare namespace echarts {
                      * itemStyle`, etc.,
                      * although they have the same meaning. For example:
                      *
-                     * + [itemStyle.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.fill`
-                     * + [itemStyle.borderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.stroke`
-                     * + [label.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.textFill`
-                     * + [label.textBorderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.textBorderColor)
+                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
                      * => `style.textStroke`
                      * + ...
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.style
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style
                      */
                     style?: {
 
@@ -5641,7 +5641,7 @@ declare namespace echarts {
                          * Color filled in this element.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.style.fill
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.fill
                          */
                         fill?: string;
 
@@ -5651,7 +5651,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.style.stroke
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.stroke
                          */
                         stroke?: string;
 
@@ -5661,7 +5661,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.style.lineWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.lineWidth
                          */
                         lineWidth?: number;
 
@@ -5671,7 +5671,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.style.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -5681,7 +5681,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.style.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -5691,7 +5691,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.style.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -5701,7 +5701,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.style.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowColor
                          */
                         shadowColor?: number;
                     };
@@ -5709,11 +5709,11 @@ declare namespace echarts {
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
@@ -5722,7 +5722,7 @@ declare namespace echarts {
                  * Quadratic bezier curve or cubic bezier curve.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve
                  */
                 return_bezierCurve?: {
 
@@ -5732,35 +5732,35 @@ declare namespace echarts {
                      *
                      * Optional values:
                      *
-                     * [image](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image)
+                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
                      * ,
-                     * [text](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text)
+                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
                      * ,
-                     * [circle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle)
+                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
                      * ,
-                     * [sector](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector)
+                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
                      * ,
-                     * [ring](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring)
+                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
                      * ,
-                     * [polygon](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon)
+                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
                      * ,
-                     * [polyline](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline)
+                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
                      * ,
-                     * [rect](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect)
+                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
                      * ,
-                     * [line](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line)
+                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
                      * ,
-                     * [bezierCurve](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve)
+                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
                      * ,
-                     * [arc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc)
+                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
                      * ,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * ,
                      *
                      *
                      * @default
                      * "bezierCurve"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.type
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.type
                      */
                     type?: string;
 
@@ -5771,25 +5771,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.id
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.id
                      */
                     id?: string;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -5798,11 +5798,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -5811,25 +5811,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.position
                      */
                     position?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -5838,36 +5838,36 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
                      * then, `scale`, finally, `position`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.rotation
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.rotation
                      */
                     rotation?: number;
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -5876,11 +5876,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -5889,25 +5889,25 @@ declare namespace echarts {
                      *
                      * @default
                      * [1, 1]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.scale
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.scale
                      */
                     scale?: any[];
 
                     /**
                      * `2D transform` can be applied to graphic elements, including:
                      *
-                     * + [position](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.position)
+                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
                      * : `[horizontal translate offset, vertical translate offset]`,
                      * `[0, 0]` by default.
                      * Positive value means translate towards right or bottom.
-                     * + [rotation](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
                      * : Rotation in radian, `0` by default.
                      * Positive when anticlockwise.
-                     * + [scale](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.scale)
+                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
                      * : `[horizontal scale factor, vertical scale factor]`,
                      * `[1, 1]` by default.
                      *
-                     * [origin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.origin)
+                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
                      * specifies the origin point of rotation and scaling, `[0,
                      * 0]` by default.
                      *
@@ -5916,11 +5916,11 @@ declare namespace echarts {
                      * + The coordinates specified in the transform attribute
                      * above are relative to the `[0, 0]` of the parent element
                      * (that is,
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * or the root canvas). Thus we are able to
-                     * [group](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * multiple elements, and
-                     * [groups](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group)
+                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                      * can be nested.
                      * + The order that the transform attributes are applied
                      * to a single graphic element is: Firstly, `rotation`,
@@ -5929,7 +5929,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.origin
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.origin
                      */
                     origin?: number;
 
@@ -5939,29 +5939,29 @@ declare namespace echarts {
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.z2
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.z2
                      */
                     z2?: number;
 
                     /**
                      * See
-                     * [diffChildrenByName](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                      * 。
                      *
                      *
                      * @default
                      * "undefined"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.name
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.name
                      */
                     name?: string;
 
                     /**
                      * User defined data, can be visited in event listeners.
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.renderItem.return_bezierCurve)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_bezierCurve)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.info
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.info
                      */
                     info?: any;
 
@@ -5969,7 +5969,7 @@ declare namespace echarts {
                      * Whether response to mouse events / touch events.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.silent
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.silent
                      */
                     silent?: boolean;
 
@@ -5977,7 +5977,7 @@ declare namespace echarts {
                      * Whether the element is visible.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.invisible
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.invisible
                      */
                     invisible?: boolean;
 
@@ -5986,12 +5986,12 @@ declare namespace echarts {
                      * nor listen events).
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.ignore
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.ignore
                      */
                     ignore?: boolean;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.shape
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape
                      */
                     shape?: {
 
@@ -5999,7 +5999,7 @@ declare namespace echarts {
                          * x value of the start point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.shape.x1
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.x1
                          */
                         x1?: number;
 
@@ -6007,7 +6007,7 @@ declare namespace echarts {
                          * y value of the start point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.shape.y1
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.y1
                          */
                         y1?: number;
 
@@ -6015,7 +6015,7 @@ declare namespace echarts {
                          * x value of the end point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.shape.x2
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.x2
                          */
                         x2?: number;
 
@@ -6023,7 +6023,7 @@ declare namespace echarts {
                          * y value of the end point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.shape.y2
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.y2
                          */
                         y2?: number;
 
@@ -6031,7 +6031,7 @@ declare namespace echarts {
                          * x of control point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpx1
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpx1
                          */
                         cpx1?: number;
 
@@ -6039,7 +6039,7 @@ declare namespace echarts {
                          * y of control point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpy1
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpy1
                          */
                         cpy1?: number;
 
@@ -6051,7 +6051,7 @@ declare namespace echarts {
                          * bezier is used.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpx2
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpx2
                          */
                         cpx2?: number;
 
@@ -6063,7 +6063,7 @@ declare namespace echarts {
                          * bezier is used.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpy2
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpy2
                          */
                         cpy2?: number;
 
@@ -6075,14 +6075,14 @@ declare namespace echarts {
                          *
                          * @default
                          * 1
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.shape.percent
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.percent
                          */
                         percent?: number;
                     };
 
                     /**
                      * More attributes in `style` (for example,
-                     * [rich text](https://ecomfe.github.io/echarts-doc/public/en/tutorial.html#Rich%20Text)
+                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
                      * ), see the `style` related attributes in
                      * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
                      * .
@@ -6093,18 +6093,18 @@ declare namespace echarts {
                      * itemStyle`, etc.,
                      * although they have the same meaning. For example:
                      *
-                     * + [itemStyle.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.fill`
-                     * + [itemStyle.borderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.stroke`
-                     * + [label.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.color)
+                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
                      * => `style.textFill`
-                     * + [label.textBorderColor](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-scatter.label.textBorderColor)
+                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
                      * => `style.textStroke`
                      * + ...
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.style
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style
                      */
                     style?: {
 
@@ -6114,7 +6114,7 @@ declare namespace echarts {
                          *
                          * @default
                          * '#000'
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.style.fill
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.fill
                          */
                         fill?: string;
 
@@ -6122,7 +6122,7 @@ declare namespace echarts {
                          * Color of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.style.stroke
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.stroke
                          */
                         stroke?: string;
 
@@ -6130,7 +6130,7 @@ declare namespace echarts {
                          * Width of stroke.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.style.lineWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.lineWidth
                          */
                         lineWidth?: number;
 
@@ -6140,7 +6140,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -6150,7 +6150,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -6160,7 +6160,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -6170,7 +6170,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "undefined"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowColor
                          */
                         shadowColor?: number;
                     };
@@ -6178,11 +6178,11 @@ declare namespace echarts {
                     /**
                      * Empahsis style of the graphic element, whose structure
                      * is the same as
-                     * [style](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style)
+                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.styleEmphasis
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.styleEmphasis
                      */
                     styleEmphasis?: object;
                 };
@@ -6193,13 +6193,13 @@ declare namespace echarts {
              * like being hovered by mouse, or highlighted via legend connect.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle
+             * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle
              */
             itemStyle?: {
 
                 /**
                  * color. Color is taken from
-                 * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                 * [option.color Palette](https://echarts.apache.org/en/option.html#color)
                  * by default.
                  *
                  * > Color can be represented in RGB, for example `'rgb(128,
@@ -6210,10 +6210,10 @@ declare namespace echarts {
                  * Gradient color and texture are also supported besides single
                  * colors.
                  * >
-                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.itemStyle)
+                 * > [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.itemStyle)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle.color
+                 * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.color
                  */
                 color?: string;
 
@@ -6223,7 +6223,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "#000"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.borderColor
                  */
                 borderColor?: string;
 
@@ -6231,7 +6231,7 @@ declare namespace echarts {
                  * border width. No border when it is set to be 0.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.borderWidth
                  */
                 borderWidth?: number;
 
@@ -6242,7 +6242,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "solid"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle.borderType
+                 * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.borderType
                  */
                 borderType?: string;
 
@@ -6253,10 +6253,10 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.itemStyle)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.itemStyle)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.shadowBlur
                  */
                 shadowBlur?: number;
 
@@ -6264,7 +6264,7 @@ declare namespace echarts {
                  * Shadow color. Support same format as `color`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.shadowColor
                  */
                 shadowColor?: string;
 
@@ -6272,7 +6272,7 @@ declare namespace echarts {
                  * Offset distance on the horizontal direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.shadowOffsetX
                  */
                 shadowOffsetX?: number;
 
@@ -6280,7 +6280,7 @@ declare namespace echarts {
                  * Offset distance on the vertical direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.shadowOffsetY
                  */
                 shadowOffsetY?: number;
 
@@ -6290,18 +6290,18 @@ declare namespace echarts {
                  * drawn when set to 0.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle.opacity
+                 * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.opacity
                  */
                 opacity?: number;
             };
 
             /**
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis
+             * @see https://echarts.apache.org/en/option.html#series-custom.emphasis
              */
             emphasis?: {
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle
                  */
                 itemStyle?: {
 
@@ -6316,10 +6316,10 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.emphasis.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.emphasis.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.color
                      */
                     color?: string;
 
@@ -6329,7 +6329,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.borderColor
                      */
                     borderColor?: string;
 
@@ -6337,7 +6337,7 @@ declare namespace echarts {
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.borderWidth
                      */
                     borderWidth?: number;
 
@@ -6348,7 +6348,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.borderType
                      */
                     borderType?: string;
 
@@ -6359,10 +6359,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.emphasis.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.emphasis.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -6370,7 +6370,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -6378,7 +6378,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -6386,7 +6386,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -6396,7 +6396,7 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.opacity
                      */
                     opacity?: number;
                 };
@@ -6407,10 +6407,10 @@ declare namespace echarts {
              * or `dataset.source`.
              *
              * Notice: if
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * is used, we can provide dimension names in the first column/row
              * of
-             * [dataset.source](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset.source)
+             * [dataset.source](https://echarts.apache.org/en/option.html#dataset.source)
              * , and not need to specify `dimensions` here.
              * But if `dimensions` is specified here, echarts will not retrieve
              * dimension names from the first row/column of `dataset.source`
@@ -6418,8 +6418,8 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
              * Each data item of `dimensions` can be:
              *
@@ -6437,7 +6437,7 @@ declare namespace echarts {
              *
              * + `ordinal`, discrete value, which represents string generally.
              * + `time`, time value, see
-             * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.data)
+             * [data](https://echarts.apache.org/en/option.html#series.data)
              * to check the format of time value.
              * + displayName: `string`, generally used in tooltip for dimension
              * display. If not specified, use `name` by default.
@@ -6447,7 +6447,7 @@ declare namespace echarts {
              * Otherwise, `tooltip` will displayed only value horizontally.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.dimensions
+             * @see https://echarts.apache.org/en/option.html#series-custom.dimensions
              */
             dimensions?: any[];
 
@@ -6455,43 +6455,43 @@ declare namespace echarts {
              * Define what is encoded to for each dimension of `data`.
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
              * Attributes of encode are different according to the type of coordinate
              * systtems. For
-             * [cartesian2d](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+             * [cartesian2d](https://echarts.apache.org/en/option.html#grid)
              * , `x` and `y` can be defined. For
-             * [polar](https://ecomfe.github.io/echarts-doc/public/en/option.html#polar)
+             * [polar](https://echarts.apache.org/en/option.html#polar)
              * , `radius` and `angle` can be defined. For
-             * [geo](https://ecomfe.github.io/echarts-doc/public/en/option.html#geo)
+             * [geo](https://echarts.apache.org/en/option.html#geo)
              * , `lng` and `lat` can be defined.
              * Attribute `tooltip` and `itemName` (data item name in tooltip)
              * are always able to be defined.
              *
              * When
-             * [dimensions](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.dimensions)
+             * [dimensions](https://echarts.apache.org/en/option.html#series.dimensions)
              * is used to defined name for a certain dimension, `encode` can
              * refer the name directly. For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
              * Specially, in \[custom series(~series-custom), some property
              * in `encode`, corresponding to axis, can be set as null to make
              * the series not controlled by the axis, that is, the series data
              * will not be count in the extent of the axis, and the
-             * [dataZoom](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataZoom)
+             * [dataZoom](https://echarts.apache.org/en/option.html#dataZoom)
              * on the axis will not filter the series.
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.encode
+             * @see https://echarts.apache.org/en/option.html#series-custom.encode
              */
             encode?: object;
 
             /**
              * When
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * is used, `seriesLayoutBy` specifies whether the column or the
              * row of `dataset` is mapped to the series, namely, the series
              * is "layout" on columns or rows. Optional values:
@@ -6502,26 +6502,26 @@ declare namespace echarts {
              * In this case, each row represents a dimension.
              *
              * Check this
-             * [example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=dataset-series-layout-by)
+             * [example](https://echarts.apache.org/examples/en/editor.html?c=dataset-series-layout-by)
              * .
              *
              *
              * @default
              * "column"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.seriesLayoutBy
+             * @see https://echarts.apache.org/en/option.html#series-custom.seriesLayoutBy
              */
             seriesLayoutBy?: string;
 
             /**
              * If
-             * [series.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.data)
+             * [series.data](https://echarts.apache.org/en/option.html#series.data)
              * is not specified, and
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * exists, the series will use `dataset`.
              * `datasetIndex` specifies which dataset will be used.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.datasetIndex
+             * @see https://echarts.apache.org/en/option.html#series-custom.datasetIndex
              */
             datasetIndex?: number;
 
@@ -6529,58 +6529,58 @@ declare namespace echarts {
              * Data array of series, which can be in the following forms:
              *
              * Notice, if no `data` specified in series, and there is
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * in option, series will use the first
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * as its datasource. If `data` has been specified,
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * will not used.
              *
              * `series.datasetIndex` can be used to specify other
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * .
              *
              * Basically, data is represented by a two-dimension array, like
              * the example below, where each colum is named as a "dimension".
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
              * + In
-             * [cartesian (grid)](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+             * [cartesian (grid)](https://echarts.apache.org/en/option.html#grid)
              * , "dimX" and "dimY" correspond to
-             * [xAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis)
+             * [xAxis](https://echarts.apache.org/en/option.html#xAxis)
              * and
-             * [yAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis)
+             * [yAxis](https://echarts.apache.org/en/option.html#yAxis)
              * repectively.
              * + In
-             * [polar](https://ecomfe.github.io/echarts-doc/public/en/option.html#polar)
+             * [polar](https://echarts.apache.org/en/option.html#polar)
              * "dimX" and "dimY" correspond to
-             * [radiusAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#radiusAxis)
+             * [radiusAxis](https://echarts.apache.org/en/option.html#radiusAxis)
              * 和
-             * [angleAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#anbleAxis)
+             * [angleAxis](https://echarts.apache.org/en/option.html#anbleAxis)
              * repectively.
              * + Other dimensions are optional, which can be used in other place.
              * For example:
-             * + [visualMap](https://ecomfe.github.io/echarts-doc/public/en/option.html#visualMap)
+             * + [visualMap](https://echarts.apache.org/en/option.html#visualMap)
              * can map one or more dimensions to viusal (color, symbol size
              * ...).
-             * + [series.symbolSize](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.symbolSize)
+             * + [series.symbolSize](https://echarts.apache.org/en/option.html#series.symbolSize)
              * can be set as a callback function, where symbol size can be calculated
              * by values of a certain dimension.
              * + Values in other dimensions can be shown by
-             * [tooltip.formatter](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.formatter)
+             * [tooltip.formatter](https://echarts.apache.org/en/option.html#tooltip.formatter)
              * or
-             * [series.label.formatter](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.label.formatter)
+             * [series.label.formatter](https://echarts.apache.org/en/option.html#series.label.formatter)
              * .
              *
              * Especially, when there is one and only one category axis (axis.type
              * is `'category'`), data can be simply be represented by a one-dimension
              * array, like:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
              * **Relationship between "value" and
-             * [axis.type](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.type)
+             * [axis.type](https://echarts.apache.org/en/option.html#xAxis.type)
              * **
              *
              * + When a dimension corresponds to a value axis (axis.type
@@ -6596,10 +6596,10 @@ declare namespace echarts {
              * (based on `0`), the string value of the axis.data.
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
              * There is an example of double category axes:
-             * [Github Punchcard](https://ecomfe.github.io/echarts-examples/public/editor.html?c=scatter-punchCard)
+             * [Github Punchcard](https://echarts.apache.org/examples/en/editor.html?c=scatter-punchCard)
              * .
              *
              * + When a dimension corresponds to a time axis (type is `'time'`),
@@ -6643,7 +6643,7 @@ declare namespace echarts {
              * When needing to customize a data item, it can be set as an object,
              * where property `value` reprensent real value. For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
              * **Empty value:**
              *
@@ -6655,7 +6655,7 @@ declare namespace echarts {
              * and scatter chart do not display graphic elements for empty values.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data
+             * @see https://echarts.apache.org/en/option.html#series-custom.data
              */
             data?: (
                 (void | string | number | SeriesCustom.DataObject)[]
@@ -6677,7 +6677,7 @@ declare namespace echarts {
              * smaller `zlevel`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.zlevel
+             * @see https://echarts.apache.org/en/option.html#series-custom.zlevel
              */
             zlevel?: number;
 
@@ -6693,7 +6693,7 @@ declare namespace echarts {
              *
              * @default
              * 2
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.z
+             * @see https://echarts.apache.org/en/option.html#series-custom.z
              */
             z?: number;
 
@@ -6703,7 +6703,7 @@ declare namespace echarts {
              * events.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.silent
+             * @see https://echarts.apache.org/en/option.html#series-custom.silent
              */
             silent?: boolean;
 
@@ -6713,7 +6713,7 @@ declare namespace echarts {
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.animation
+             * @see https://echarts.apache.org/en/option.html#series-custom.animation
              */
             animation?: boolean;
 
@@ -6725,7 +6725,7 @@ declare namespace echarts {
              *
              * @default
              * 2000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.animationThreshold
+             * @see https://echarts.apache.org/en/option.html#series-custom.animationThreshold
              */
             animationThreshold?: number;
 
@@ -6733,25 +6733,25 @@ declare namespace echarts {
              * Duration of the first animation, which supports callback function
              * for different data to have different animation effect:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
              *
              * @default
              * 1000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.animationDuration
+             * @see https://echarts.apache.org/en/option.html#series-custom.animationDuration
              */
             animationDuration?: Function | number;
 
             /**
              * Easing method used for the first animation.
              * Varied easing effects can be found at
-             * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+             * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
              * .
              *
              *
              * @default
              * "cubicOut"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.animationEasing
+             * @see https://echarts.apache.org/en/option.html#series-custom.animationEasing
              */
             animationEasing?: string;
 
@@ -6761,14 +6761,14 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
              * See
-             * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+             * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.animationDelay
+             * @see https://echarts.apache.org/en/option.html#series-custom.animationDelay
              */
             animationDelay?: Function | number;
 
@@ -6776,12 +6776,12 @@ declare namespace echarts {
              * Time for animation to complete, which supports callback function
              * for different data to have different animation effect:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
              *
              * @default
              * 300
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.animationDurationUpdate
+             * @see https://echarts.apache.org/en/option.html#series-custom.animationDurationUpdate
              */
             animationDurationUpdate?: Function | number;
 
@@ -6791,7 +6791,7 @@ declare namespace echarts {
              *
              * @default
              * "cubicOut"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.animationEasingUpdate
+             * @see https://echarts.apache.org/en/option.html#series-custom.animationEasingUpdate
              */
             animationEasingUpdate?: string;
 
@@ -6801,14 +6801,14 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
              * See
-             * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+             * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.animationDelayUpdate
+             * @see https://echarts.apache.org/en/option.html#series-custom.animationDelayUpdate
              */
             animationDelayUpdate?: Function | number;
 
@@ -6816,14 +6816,14 @@ declare namespace echarts {
              * tooltip settings in this series.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip
+             * @see https://echarts.apache.org/en/option.html#series-custom.tooltip
              */
             tooltip?: {
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The position of the tooltip's floating layer, which would
@@ -6838,13 +6838,13 @@ declare namespace echarts {
                  *
                  * Example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.tooltip)
                  *
                  * + `Function`
                  *
                  * Callback function in the following form:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.tooltip)
                  *
                  * **Parameters:**
                  * point: Mouse position.
@@ -6865,56 +6865,56 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.tooltip)
                  *
                  * Or:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.tooltip)
                  *
                  * + `'inside'`
                  *
                  * Center position of the graphic element where the mouse is
                  * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  * + `'top'`
                  *
                  * Top position of the graphic element where the mouse is in,
                  * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  * + `'left'`
                  *
                  * Left position of the graphic element where the mouse is in,
                  * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  * + `'right'`
                  *
                  * Right position of the graphic element where the mouse is
                  * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  * + `'bottom'`
                  *
                  * Bottom position of the graphic element where the mouse is
                  * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.position
+                 * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.position
                  */
                 position?: any[] | string;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The content formatter of tooltip's floating layer which supports
@@ -6925,7 +6925,7 @@ declare namespace echarts {
                  * The template variables are `{a}`, `{b}`, `{c}`, `{d}` and
                  * `{e}`, which stands for series name, data name and data value
                  * and ect. When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is set to be `'axis'`, there may be data from multiple series.
                  * In this time, series index can be refered as `{a0}`, `{a1}`,
                  * or `{a2}`.
@@ -6958,22 +6958,22 @@ declare namespace echarts {
                  *
                  * The format of callback function:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.tooltip)
                  *
                  * The first parameter `params` is the data that the formatter
                  * needs. Its format is shown as follows:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.tooltip)
                  *
                  * When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'axis'`, or when tooltip is triggered by
-                 * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
+                 * [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)
                  * , `params` is the data array of multiple series.
                  * The content of each item of the array is the same as above.
                  * Besides,
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.tooltip)
                  *
                  * **Note:** Using array to present all the parameters in ECharts
                  * 2.x is not supported anymore.
@@ -6989,17 +6989,17 @@ declare namespace echarts {
                  *
                  * Example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.tooltip)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.formatter
+                 * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.formatter
                  */
                 formatter?: Function | string;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The background color of tooltip's floating layer.
@@ -7007,14 +7007,14 @@ declare namespace echarts {
                  *
                  * @default
                  * "rgba(50,50,50,0.7)"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.backgroundColor
+                 * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.backgroundColor
                  */
                 backgroundColor?: string;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The border color of tooltip's floating layer.
@@ -7022,27 +7022,27 @@ declare namespace echarts {
                  *
                  * @default
                  * '#333'
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.borderColor
                  */
                 borderColor?: string;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The border width of tooltip's floating layer.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.borderWidth
                  */
                 borderWidth?: number;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The floating layer of tooltip space around content.
@@ -7053,25 +7053,25 @@ declare namespace echarts {
                  *
                  * Examples:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.tooltip)
                  *
                  *
                  * @default
                  * 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.padding
+                 * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.padding
                  */
                 padding?: number;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The text syle of tooltip's floating layer.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle
+                 * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle
                  */
                 textStyle?: {
 
@@ -7081,7 +7081,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#fff"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.color
                      */
                     color?: string;
 
@@ -7097,7 +7097,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.fontStyle
                      */
                     fontStyle?: string;
 
@@ -7115,7 +7115,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.fontWeight
                      */
                     fontWeight?: string;
 
@@ -7127,7 +7127,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.fontFamily
                      */
                     fontFamily?: string;
 
@@ -7137,7 +7137,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 14
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.fontSize
                      */
                     fontSize?: number;
 
@@ -7147,10 +7147,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.tooltip.textStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.tooltip.textStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.lineHeight
                      */
                     lineHeight?: number;
 
@@ -7175,7 +7175,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.width
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.width
                      */
                     width?: number | string;
 
@@ -7191,7 +7191,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.height
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.height
                      */
                     height?: number | string;
 
@@ -7201,7 +7201,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -7209,7 +7209,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -7219,7 +7219,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -7227,7 +7227,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -7235,7 +7235,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -7243,7 +7243,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.textStyle.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
                 };
@@ -7251,7 +7251,7 @@ declare namespace echarts {
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * Extra CSS style for floating layer.
@@ -7263,7 +7263,7 @@ declare namespace echarts {
                  * ```
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.extraCssText
+                 * @see https://echarts.apache.org/en/option.html#series-custom.tooltip.extraCssText
                  */
                 extraCssText?: string;
             };
@@ -7276,7 +7276,7 @@ declare namespace echarts {
                  * Name of data item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.name
+                 * @see https://echarts.apache.org/en/option.html#series-custom.data.name
                  */
                 name?: string;
 
@@ -7284,12 +7284,12 @@ declare namespace echarts {
                  * Value of data item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.value
+                 * @see https://echarts.apache.org/en/option.html#series-custom.data.value
                  */
                 value?: number | number[];
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle
                  */
                 itemStyle?: {
 
@@ -7304,10 +7304,10 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.color
                      */
                     color?: string;
 
@@ -7317,7 +7317,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.borderColor
                      */
                     borderColor?: string;
 
@@ -7325,7 +7325,7 @@ declare namespace echarts {
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.borderWidth
                      */
                     borderWidth?: number;
 
@@ -7336,7 +7336,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.borderType
                      */
                     borderType?: string;
 
@@ -7347,10 +7347,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -7358,7 +7358,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -7366,7 +7366,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -7374,7 +7374,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -7384,18 +7384,18 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.opacity
                      */
                     opacity?: number;
                 };
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis
+                 * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis
                  */
                 emphasis?: {
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis.itemStyle
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle
                      */
                     itemStyle?: {
 
@@ -7411,10 +7411,10 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.emphasis.itemStyle)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.emphasis.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis.itemStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.color
                          */
                         color?: string;
 
@@ -7425,7 +7425,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis.itemStyle.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.borderColor
                          */
                         borderColor?: string;
 
@@ -7433,7 +7433,7 @@ declare namespace echarts {
                          * border width. No border when it is set to be 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis.itemStyle.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.borderWidth
                          */
                         borderWidth?: number;
 
@@ -7444,7 +7444,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis.itemStyle.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.borderType
                          */
                         borderType?: string;
 
@@ -7455,10 +7455,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.emphasis.itemStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.emphasis.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis.itemStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -7466,7 +7466,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis.itemStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.shadowColor
                          */
                         shadowColor?: string;
 
@@ -7474,7 +7474,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis.itemStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -7482,7 +7482,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis.itemStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -7492,7 +7492,7 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis.itemStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.opacity
                          */
                         opacity?: number;
                     };
@@ -7502,13 +7502,13 @@ declare namespace echarts {
                  * tooltip settings in this series data.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip
+                 * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip
                  */
                 tooltip?: {
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The position of the tooltip's floating layer, which would
@@ -7524,13 +7524,13 @@ declare namespace echarts {
                      *
                      * Example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.tooltip)
                      *
                      * + `Function`
                      *
                      * Callback function in the following form:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.tooltip)
                      *
                      * **Parameters:**
                      * point: Mouse position.
@@ -7551,55 +7551,55 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.tooltip)
                      *
                      * Or:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.tooltip)
                      *
                      * + `'inside'`
                      *
                      * Center position of the graphic element where the mouse
                      * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is `'item'`.
                      *
                      * + `'top'`
                      *
                      * Top position of the graphic element where the mouse is
                      * in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is `'item'`.
                      *
                      * + `'left'`
                      *
                      * Left position of the graphic element where the mouse
                      * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is `'item'`.
                      *
                      * + `'right'`
                      *
                      * Right position of the graphic element where the mouse
                      * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is `'item'`.
                      *
                      * + `'bottom'`
                      *
                      * Bottom position of the graphic element where the mouse
                      * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is `'item'`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.position
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.position
                      */
                     position?: any[] | string;
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The content formatter of tooltip's floating layer which
@@ -7610,7 +7610,7 @@ declare namespace echarts {
                      * The template variables are `{a}`, `{b}`, `{c}`, `{d}`
                      * and `{e}`, which stands for series name, data name and
                      * data value and ect. When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is set to be `'axis'`, there may be data from multiple
                      * series.
                      * In this time, series index can be refered as `{a0}`,
@@ -7644,22 +7644,22 @@ declare namespace echarts {
                      *
                      * The format of callback function:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.tooltip)
                      *
                      * The first parameter `params` is the data that the formatter
                      * needs. Its format is shown as follows:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.tooltip)
                      *
                      * When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is `'axis'`, or when tooltip is triggered by
-                     * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
+                     * [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)
                      * , `params` is the data array of multiple series.
                      * The content of each item of the array is the same as
                      * above. Besides,
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.tooltip)
                      *
                      * **Note:** Using array to present all the parameters in
                      * ECharts 2.x is not supported anymore.
@@ -7675,16 +7675,16 @@ declare namespace echarts {
                      *
                      * Example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.tooltip)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.formatter
                      */
                     formatter?: Function | string;
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The background color of tooltip's floating layer.
@@ -7692,13 +7692,13 @@ declare namespace echarts {
                      *
                      * @default
                      * "rgba(50,50,50,0.7)"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.backgroundColor
                      */
                     backgroundColor?: string;
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The border color of tooltip's floating layer.
@@ -7706,25 +7706,25 @@ declare namespace echarts {
                      *
                      * @default
                      * '#333'
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.borderColor
                      */
                     borderColor?: string;
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The border width of tooltip's floating layer.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.borderWidth
                      */
                     borderWidth?: number;
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The floating layer of tooltip space around content.
@@ -7735,24 +7735,24 @@ declare namespace echarts {
                      *
                      * Examples:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.tooltip)
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.padding
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.padding
                      */
                     padding?: number;
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The text syle of tooltip's floating layer.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle
                      */
                     textStyle?: {
 
@@ -7762,7 +7762,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#fff"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.color
                          */
                         color?: string;
 
@@ -7778,7 +7778,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.fontStyle
                          */
                         fontStyle?: string;
 
@@ -7796,7 +7796,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.fontWeight
                          */
                         fontWeight?: string;
 
@@ -7808,7 +7808,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.fontFamily
                          */
                         fontFamily?: string;
 
@@ -7818,7 +7818,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 14
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.fontSize
                          */
                         fontSize?: number;
 
@@ -7828,10 +7828,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.custom.data.tooltip.textStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.tooltip.textStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.lineHeight
                          */
                         lineHeight?: number;
 
@@ -7858,7 +7858,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.width
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.width
                          */
                         width?: number | string;
 
@@ -7875,7 +7875,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.height
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.height
                          */
                         height?: number | string;
 
@@ -7885,7 +7885,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -7893,7 +7893,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -7903,7 +7903,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -7911,7 +7911,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -7919,7 +7919,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -7927,14 +7927,14 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.textStyle.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
                     };
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * Extra CSS style for floating layer.
@@ -7946,7 +7946,7 @@ declare namespace echarts {
                      * ```
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.extraCssText
+                     * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip.extraCssText
                      */
                     extraCssText?: string;
                 };

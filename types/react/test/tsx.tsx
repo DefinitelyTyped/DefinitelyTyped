@@ -12,6 +12,7 @@ FunctionComponent.defaultProps = {
     foo: 42
 };
 <FunctionComponent />;
+<slot name="slot1"></slot>;
 
 const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;
@@ -27,6 +28,11 @@ FunctionComponent2.defaultProps = {
     <g>
         <text x="200" y="300" strokeWidth="5" stroke="black" alignmentBaseline="middle">
             Hello, world!
+            <animateMotion
+                path="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z"
+                dur="5s"
+                repeatCount="indefinite"
+            />
         </text>
         <div slot="Some Div"> Hello again! </div>
     </g>
@@ -273,7 +279,7 @@ class LegacyContext extends React.Component {
 
 class LegacyContextAnnotated extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
-    context!: { foo: React.ReactNode };
+    context: { foo: React.ReactNode } = { foo: {} as React.ReactNode };
 
     render() {
         // $ExpectType ReactNode
@@ -284,7 +290,7 @@ class LegacyContextAnnotated extends React.Component {
 
 class NewContext extends React.Component {
     static contextType = ContextWithRenderProps;
-    context!: React.ContextType<typeof ContextWithRenderProps>;
+    context: React.ContextType<typeof ContextWithRenderProps> = "";
 
     render() {
         // $ExpectType string
@@ -363,6 +369,10 @@ const imgProps: ImgProps = {};
 imgProps.decoding = 'async';
 imgProps.decoding = 'auto';
 imgProps.decoding = 'sync';
+imgProps.loading = 'eager';
+imgProps.loading = 'lazy';
+// $ExpectError
+imgProps.loading = 'nonsense';
 // $ExpectError
 imgProps.decoding = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;

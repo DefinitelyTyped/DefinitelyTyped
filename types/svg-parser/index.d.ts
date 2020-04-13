@@ -23,7 +23,7 @@ export type Node = TextNode | ElementNode;
 
 export interface RootNode {
     type: 'root';
-    children: Node;
+    children: [Node];
 }
 
 export function parse(source: string): RootNode;

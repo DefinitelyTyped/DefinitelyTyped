@@ -1,15 +1,11 @@
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// TODOs
-		"dt-header": false,
-        "npm-naming": false,
-		"no-any-union": false,
-		"no-empty-interface": false,
-		"no-object-literal-type-assertion": false,
-		"no-unnecessary-generics": false,
-		"no-void-expression": false,
-		"strict-export-declare-modifiers": false,
-		"void-return": false
-	}
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "no-empty-interface": false,
+        "no-object-literal-type-assertion": false,
+        "no-unnecessary-generics": false,
+        "strict-export-declare-modifiers": false,
+        "void-return": false
+    }
 }

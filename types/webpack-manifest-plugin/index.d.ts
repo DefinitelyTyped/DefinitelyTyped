@@ -1,6 +1,6 @@
-// Type definitions for webpack-manifest-plugin 2.0
+// Type definitions for webpack-manifest-plugin 2.1
 // Project: https://github.com/danethurber/webpack-manifest-plugin
-// Definitions by: Andrew Makarov <https://github.com/r3nya>
+// Definitions by: Andrew Makarov <https://github.com/r3nya>, Jeremy Monson <https://github.com/monsonjeremy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -82,7 +82,7 @@ declare namespace WebpackManifestPlugin {
         /**
          * Create the manifest. It can return anything as long as it's serialisable by JSON.stringify.
          */
-        generate?: (seed: object, files: FileDescriptor[]) => object;
+        generate?: (seed: object, files: FileDescriptor[], entrypoints: { [key: string]: string[] }) => object;
 
         /**
          * Output manifest file in different format then json (i.e. yaml).

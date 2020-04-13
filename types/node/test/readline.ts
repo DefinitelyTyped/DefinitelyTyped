@@ -32,6 +32,10 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
             callback(null, [['test'], 'test']);
         }
     });
+    result = readline.createInterface({
+        input,
+        tabSize: 4
+    });
 }
 
 {
@@ -69,6 +73,17 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
     rl.write(data);
     rl.write('asd', key);
+}
+
+{
+    const data: string | Buffer = "test";
+    rl.line; // $ExpectType string
+    rl.cursor; // $ExpectType number
+
+    rl.write(data);
+
+    rl.line; // $ExpectType string
+    rl.cursor; // $ExpectType number
 }
 
 {
@@ -186,4 +201,11 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
         //
         // }
     });
+}
+
+{
+    const rl = readline.createInterface({
+        input: process.stdin,
+    });
+    const pos: readline.CursorPos = rl.getCursorPos();
 }

@@ -178,6 +178,7 @@ gm(src)
 	.modulate(b, s, h)
 	.monitor()
 	.monochrome()
+	.montage(src)
 	.morph(src, dest)
 	.morph(src, dest, (err, stdout, stderr, cmd) => {
 	})
@@ -369,7 +370,10 @@ gm(src).toBuffer(format, (err, buffer) => {
 const imageMagick = gm.subClass({ imageMagick: true });
 readStream = imageMagick(src)
 	.adjoin()
-	.stream();
+    .stream();
+
+const customGm = gm.subClass({ appPath: '' });
+readStream = customGm(src).stream();
 
 const passStream = imageMagick(readStream).stream();
 

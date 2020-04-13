@@ -26,6 +26,9 @@ import {
     useDispatch,
     useSelector,
     useStore,
+    createDispatchHook,
+    createSelectorHook,
+    createStoreHook,
     TypedUseSelectorHook,
 } from 'react-redux';
 import objectAssign = require('object-assign');
@@ -430,15 +433,6 @@ function mapDispatchToProps(dispatch: Dispatch) {
     };
 }
 
-connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Counter);
-
-@connect(mapStateToProps)
-class CounterContainer extends React.Component<any, any> {
-}
-
 // Ensure connect's first two arguments can be replaced by wrapper functions
 interface CounterStateProps {
     value: number;
@@ -621,10 +615,10 @@ const WrappedTestComponent = connect()(TestComponent);
 
 // return value of the connect()(TestComponent) is assignable to a ComponentClass<TestProp>
 // ie: DispatchProp has been removed through decoration
-const ADecoratedTestComponent: React.ComponentClass<TestProp> = WrappedTestComponent;
+const ADecoratedTestComponent: React.NamedExoticComponent<TestProp> = WrappedTestComponent;
 <WrappedTestComponent property1={42} />;
 
-const ATestComponent: React.ComponentClass<TestProp> = TestComponent;  // $ExpectError
+const ATestComponent: React.NamedExoticComponent<TestProp> = TestComponent;  // $ExpectError
 
 // stateless functions
 interface HelloMessageProps {
@@ -764,7 +758,7 @@ function TestMergedPropsInference() {
         return { dispatch: 'string' };
     }
 
-    const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndState: React.NamedExoticComponent<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
         mapStateToProps,
         undefined,
         (stateProps: StateProps) => ({
@@ -772,7 +766,7 @@ function TestMergedPropsInference() {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndDispatch: React.NamedExoticComponent<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
         undefined,
         mapDispatchToProps,
         (stateProps: undefined, dispatchProps: DispatchProps) => ({
@@ -780,7 +774,7 @@ function TestMergedPropsInference() {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
+    const ConnectedWithOwn: React.NamedExoticComponent<OwnProps> = connect<void, void, OwnProps, MergedProps>(
         undefined,
         undefined,
         () => ({
@@ -1363,7 +1357,9 @@ function testUseSelector() {
         return l === r;
     });
 
-    useSelector(selector, shallowEqual);
+    const correctlyInferred: State = useSelector(selector, shallowEqual);
+    const inferredTypeIsNotString: string = useSelector(selector, shallowEqual); // $ExpectError
+
     const compare = (_l: number, _r: number) => true;
     useSelector(() => 1, compare);
     const compare2 = (_l: number, _r: string) => true;
@@ -1400,6 +1396,21 @@ function testUseStore() {
     const typedState = typedStore.getState();
     typedState.counter;
     typedState.things.stuff; // $ExpectError
+}
+
+// These should match the types of the hooks.
+function testCreateHookFunctions() {
+    // $ExpectType { <TDispatch = Dispatch<any>>(): TDispatch; <A extends Action<any> = AnyAction>(): Dispatch<A>; }
+    createDispatchHook();
+    // $ExpectType <TState = DefaultRootState, TSelected = unknown>(selector: (state: TState) => TSelected, equalityFn?: ((left: TSelected, right: TSelected) => boolean) | undefined) => TSelected
+    createSelectorHook();
+    interface RootState {
+        property: string;
+    }
+    // Should be able to create a version typed for a specific root state.
+    const useTypedSelector: TypedUseSelectorHook<RootState> = createSelectorHook();
+    // $ExpectType <S = any, A extends Action<any> = AnyAction>() => Store<S, A>
+    createStoreHook();
 }
 
 function testConnectedProps() {
@@ -1449,4 +1460,16 @@ function testConnectedPropsWithStateAndActions() {
     type ReduxProps = ConnectedProps<typeof connector>;
 
     const ConnectedComponent = connect(Component);
+}
+
+function testConnectReturnType() {
+    const TestComponent: React.FC = () => null;
+
+    const Test = connect()(TestComponent);
+
+    const myHoc1 = <P, >(C: React.ComponentClass<P>): React.ComponentType<P> => C;
+    myHoc1(Test); // $ExpectError
+
+    const myHoc2 = <P, >(C: React.FC<P>): React.ComponentType<P> => C;
+    myHoc2(Test);
 }

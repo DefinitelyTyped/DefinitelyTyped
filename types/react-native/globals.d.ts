@@ -91,6 +91,7 @@ declare interface RequestInit {
     mode?: RequestMode_;
     referrer?: string;
     window?: any;
+    signal?: AbortSignal;
 }
 
 declare interface Request extends Object, Body {
@@ -271,4 +272,78 @@ declare class URLSearchParams {
     entries(): IterableIterator<[string, string]>;
     keys(): IterableIterator<string>;
     values(): IterableIterator<string>;
+}
+
+interface WebSocketMessageEvent extends Event {
+    data?: any;
+}
+interface WebSocketErrorEvent extends Event {
+    message: string;
+}
+interface WebSocketCloseEvent extends Event {
+    code?: number;
+    reason?: string;
+    message?: string;
+}
+
+interface WebSocket extends EventTarget {
+    readonly readyState: number;
+    send(data: string | ArrayBuffer | ArrayBufferView | Blob): void;
+    close(code?: number, reason?: string): void;
+    onopen: (() => void) | null;
+    onmessage: ((event: WebSocketMessageEvent) => void) | null;
+    onerror: ((event: WebSocketErrorEvent) => void) | null;
+    onclose: ((event: WebSocketCloseEvent) => void) | null;
+}
+
+declare var WebSocket: {
+    prototype: WebSocket;
+    new (
+        uri: string,
+        protocols?: string | string[] | null,
+        options?: {
+            headers: { [headerName: string]: string };
+            [optionName: string]: any;
+        } | null,
+    ): WebSocket;
+    readonly CLOSED: number;
+    readonly CLOSING: number;
+    readonly CONNECTING: number;
+    readonly OPEN: number;
+};
+
+//
+// Abort Controller
+//
+
+interface AbortEvent extends Event {
+    type: 'abort';
+}
+
+declare class AbortSignal {
+    /**
+     * AbortSignal cannot be constructed directly.
+     */
+    constructor();
+    /**
+     * Returns `true` if this `AbortSignal`'s `AbortController` has signaled to abort, and `false` otherwise.
+     */
+    readonly aborted: boolean;
+
+    onabort: (event: AbortEvent) => void;
+}
+
+declare class AbortController {
+    /**
+     * Initialize this controller.
+     */
+    constructor();
+    /**
+     * Returns the `AbortSignal` object associated with this object.
+     */
+    readonly signal: AbortSignal;
+    /**
+     * Abort and signal to any observers that the associated activity is to be aborted.
+     */
+    abort(): void;
 }

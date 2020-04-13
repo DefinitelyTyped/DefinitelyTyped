@@ -13,30 +13,30 @@ const auth: fetch.AuthOptions = {
 };
 
 const retry: fetch.FetchRetryOptions = {
-    'fetch-retries': 42,
-    'fetch-retry-factor': 10,
-    'fetch-retry-maxtimeout': 10000,
-    'fetch-retry-mintimeout': 60000,
+    fetchRetries: 42,
+    fetchRetryFactor: 10,
+    fetchRetryMaxtimeout: 10000,
+    fetchRetryMintimeout: 60000,
 };
 
 const opts: fetch.Options = {
-    'always-auth': false,
-    'fetch-retries': 42,
-    'fetch-retry-factor': 10,
-    'fetch-retry-maxtimeout': 10000,
-    'fetch-retry-mintimeout': 60000,
-    'force-auth': auth,
-    'ignore-body': true,
-    'is-from-ci': false,
-    'local-address': 'address.local',
-    'map-json': obj => obj.toString(),
-    'max-sockets': 42,
-    'npm-session': 'session',
-    'prefer-offline': false,
-    'prefer-online': true,
-    'project-scope': 'scope',
-    'strict-ssl': true,
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3891.0 Safari/537.36 Edg/78.0.268.3',
+    alwaysAuth: false,
+    fetchRetries: 42,
+    fetchRetryFactor: 10,
+    fetchRetryMaxtimeout: 10000,
+    fetchRetryMintimeout: 60000,
+    forceAuth: auth,
+    ignoreBody: true,
+    isFromCI: false,
+    localAddress: 'address.local',
+    mapJSON: obj => obj.toString(),
+    maxSockets: 42,
+    npmSession: 'session',
+    preferOffline: false,
+    preferOnline: true,
+    projectScope: 'scope',
+    strictSSL: true,
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3891.0 Safari/537.36 Edg/78.0.268.3',
     agent: new Agent(),
     body: 'sometext',
     ca: new Buffer(1000),
@@ -57,7 +57,6 @@ const opts: fetch.Options = {
     password: 'password',
     proxy: 'https://my.proxy',
     query: { foo: 'bar' },
-    refer: 'https://registry.npmjs.org',
     registry: 'https://registry.npmjs.org',
     retry,
     scope: 'scope',
@@ -73,8 +72,8 @@ const opts: fetch.Options = {
 
 fetch('/'); // $ExpectType Promise<Response>
 fetch('/', opts); // $ExpectType Promise<Response>
-fetch.json('/'); // $ExpectType Record<string, unknown>
-fetch.json('/', opts); // $ExpectType Record<string, unknown>
+fetch.json('/'); // $ExpectType Promise<Record<string, unknown>>
+fetch.json('/', opts); // $ExpectType Promise<Record<string, unknown>>
 fetch.json.stream('/-/user/zkat/package', '$*'); // $ExpectType ReadWriteStream
 fetch.json.stream('/-/user/zkat/package', '$*', opts); // $ExpectType ReadWriteStream
 fetch.pickRegistry('npm-registry-fetch@latest'); // $ExpectType string

@@ -62,8 +62,14 @@ export interface Position {
 export interface Program extends BaseNode {
   type: "Program";
   sourceType: "script" | "module";
-  body: Array<Statement | ModuleDeclaration>;
+  body: Array<Directive | Statement | ModuleDeclaration>;
   comments?: Array<Comment>;
+}
+
+export interface Directive extends BaseNode {
+  type: "ExpressionStatement";
+  expression: Literal;
+  directive: string;
 }
 
 interface BaseFunction extends BaseNode {
@@ -220,7 +226,7 @@ type Expression =
     LogicalExpression | MemberExpression | ConditionalExpression |
     CallExpression | NewExpression | SequenceExpression | TemplateLiteral |
     TaggedTemplateExpression | ClassExpression | MetaProperty | Identifier |
-    AwaitExpression;
+    AwaitExpression | ImportExpression;
 
 export interface BaseExpression extends BaseNode { }
 
@@ -235,7 +241,7 @@ export interface ArrayExpression extends BaseExpression {
 
 export interface ObjectExpression extends BaseExpression {
   type: "ObjectExpression";
-  properties: Array<Property>;
+  properties: Array<Property | SpreadElement>;
 }
 
 export interface Property extends BaseNode {
@@ -336,7 +342,7 @@ export interface SwitchCase extends BaseNode {
 
 export interface CatchClause extends BaseNode {
   type: "CatchClause";
-  param: Pattern;
+  param: Pattern | null;
   body: BlockStatement;
 }
 
@@ -381,6 +387,7 @@ export type UpdateOperator = "++" | "--";
 
 export interface ForOfStatement extends BaseForXStatement {
   type: "ForOfStatement";
+  await: boolean;
 }
 
 export interface Super extends BaseNode {
@@ -433,7 +440,7 @@ export interface AssignmentProperty extends Property {
 
 export interface ObjectPattern extends BasePattern {
   type: "ObjectPattern";
-  properties: Array<AssignmentProperty>;
+  properties: Array<AssignmentProperty | RestElement>;
 }
 
 export interface ArrayPattern extends BasePattern {
@@ -510,6 +517,11 @@ export interface ImportDeclaration extends BaseModuleDeclaration {
 export interface ImportSpecifier extends BaseModuleSpecifier {
   type: "ImportSpecifier";
   imported: Identifier;
+}
+
+export interface ImportExpression extends BaseExpression {
+  type: "ImportExpression";
+  source: Expression;
 }
 
 export interface ImportDefaultSpecifier extends BaseModuleSpecifier {

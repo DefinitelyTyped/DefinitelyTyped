@@ -69,3 +69,4 @@ signature.email();
 signature.when();
 
 repo.createBlobFromBuffer(Buffer.from("test")).then((oid: Git.Oid) => oid.cpy());
+repo.commondir();

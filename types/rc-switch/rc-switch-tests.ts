@@ -3,17 +3,12 @@ import * as ReactDOM from 'react-dom';
 import Switch, { Props } from 'rc-switch';
 
 /**
- * Only required props.
+ * Only required props (none)
  */
-React.createElement(Switch, {
-    checkedChildren: 'hello',
-    disabled: false,
-    onChange: console.log,
-    unCheckedChildren: 'world'
-});
+React.createElement(Switch);
 
 /**
- * All accepted props.
+ * All accepted props
  */
 React.createElement(Switch, {
     autoFocus: false,

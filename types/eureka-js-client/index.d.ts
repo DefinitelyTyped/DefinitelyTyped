@@ -1,9 +1,10 @@
-// Type definitions for eureka-js-client 4.4
+// Type definitions for eureka-js-client 4.5
 // Project: https://github.com/jquatier/eureka-js-client
 // Definitions by: Ilko Hoffmann <https://github.com/Schnillz>
 //                 Karl O. <https://github.com/karl-run>
 //                 Tom Barton <https://github.com/tombarton>
 //                 Josh Sullivan <https://github.com/jpsullivan>
+//                 WayJam So <https://github.com/imsuwj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class Eureka {
@@ -20,9 +21,16 @@ export namespace EurekaClient {
     type DataCenterName = 'Netflix' | 'Amazon' | 'MyOwn';
 
     interface EurekaConfig {
-        requestMiddleware?: EurekaMiddlewareConfig;
+        requestMiddleware?: (requestOpts: any, done: (opts: any) => void) => void;
         instance: EurekaInstanceConfig;
         eureka: EurekaClientConfig;
+        shouldUseDelta?: boolean;
+        logger?: {
+            warn: (...args: any[]) => void;
+            info: (...args: any[]) => void;
+            debug: (...args: any[]) => void;
+            error: (...args: any[]) => void;
+        };
     }
     interface EurekaInstanceConfig {
         app: string;
@@ -53,8 +61,8 @@ export namespace EurekaClient {
         };
     }
     interface EurekaClientConfig {
-        host: string;
-        port: number;
+        host?: string;
+        port?: number;
         heartbeatInterval?: number;
         registryFetchInterval?: number;
         maxRetries?: number;
@@ -70,12 +78,8 @@ export namespace EurekaClient {
         registerWithEureka?: boolean;
         useLocalMetadata?: boolean;
         preferIpAddress?: boolean;
-        shouldUseDelta?: boolean;
-        logger?: {
-            warn: (...args: any[]) => void;
-            info: (...args: any[]) => void;
-            debug: (...args: any[]) => void;
-            error: (...args: any[]) => void;
+        serviceUrls?: {
+            [index: string]: string[];
         };
     }
     interface EurekaYmlConfig {

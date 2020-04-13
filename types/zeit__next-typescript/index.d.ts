@@ -4,11 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ServerConfig } from 'next';
-
 declare function withTypescript(
     /** @default {} */
-    nextConfig?: ServerConfig
-): ServerConfig;
+    nextConfig?: { [key: string]: any }
+): { [key: string]: any };
 
 export = withTypescript;

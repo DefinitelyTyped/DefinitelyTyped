@@ -1,11 +1,19 @@
 import * as React from "react";
-import { DownshiftTypedProps, InternationalProps, ReactInputAttr, ThemeProps, ValidityProps } from "../../../typings/shared";
+import {
+    DownshiftTypedProps,
+    InternationalProps,
+    ReactInputAttr,
+    RequiresIdProps,
+    ThemeProps,
+    ValidityProps
+} from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 
 interface InheritedProps<ItemType> extends
     DownshiftTypedProps<ItemType>,
     InternationalProps<ListBoxMenuIconTranslationKey>,
+    RequiresIdProps,
     ThemeProps,
     ValidityProps
 {
@@ -23,7 +31,7 @@ export interface DropdownProps<ItemType = string> extends InheritedProps<ItemTyp
     inline?: boolean,
     helperText?: React.ReactNode,
     items: ItemType[],
-    itemToElement?(item: ItemType): React.ComponentType<any>,
+    itemToElement?(item: ItemType): NonNullable<React.ReactElement>,
     label: NonNullable<React.ReactNode>,
     onChange?(data: OnChangeData<ItemType>): void,
     selectedItem?: ItemType,

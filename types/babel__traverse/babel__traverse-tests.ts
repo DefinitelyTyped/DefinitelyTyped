@@ -71,6 +71,9 @@ const v1: Visitor = {
             return a + b;
         }`);
 
+        path.get('body').unshiftContainer('body', t.expressionStatement(t.stringLiteral("Start of function")));
+        path.get('body').pushContainer('body', t.expressionStatement(t.stringLiteral("End of function")));
+
         path.insertBefore(t.expressionStatement(t.stringLiteral("Because I'm easy come, easy go.")));
         path.insertAfter(t.expressionStatement(t.stringLiteral("A little high, little low.")));
         path.remove();
@@ -96,6 +99,95 @@ const v1: Visitor = {
 
         path.scope.rename("n", "x");
         path.scope.rename("n");
+
+        // $ExpectError
+        path.pushContainer('returnType', t.stringLiteral('hello'));
+        // $ExpectError
+        path.unshiftContainer('returnType', t.stringLiteral('hello'));
+    },
+    ExportDefaultDeclaration(path) {
+        {
+            const [stringPath, booleanPath] = path.replaceWithMultiple([
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            booleanPath;
+        }
+        {
+            const [stringPath, booleanPath] = path.replaceWithMultiple<[t.StringLiteral, t.BooleanLiteral]>([
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral>
+            booleanPath;
+        }
+        {
+            const [newPath] = path.insertBefore(t.stringLiteral('hello'));
+            // $ExpectType NodePath<StringLiteral>
+            newPath;
+        }
+        {
+            const [newPath] = path.insertAfter(t.stringLiteral('hello'));
+            // $ExpectType NodePath<StringLiteral>
+            newPath;
+        }
+    },
+    Program(path) {
+        {
+            const [newPath] = path.unshiftContainer('body', t.stringLiteral('hello'));
+            // $ExpectType NodePath<StringLiteral>
+            newPath;
+        }
+        {
+            const [newPath] = path.pushContainer('body', t.stringLiteral('hello'));
+            // $ExpectType NodePath<StringLiteral>
+            newPath;
+        }
+        {
+            const [stringPath, booleanPath] = path.unshiftContainer('body', [
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            booleanPath;
+        }
+        {
+            const [stringPath, booleanPath] = path.pushContainer('body', [
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            booleanPath;
+        }
+        {
+            const [stringPath, booleanPath] = path.unshiftContainer<[t.StringLiteral, t.BooleanLiteral]>('body', [
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral>
+            booleanPath;
+        }
+        {
+            const [stringPath, booleanPath] = path.pushContainer<[t.StringLiteral, t.BooleanLiteral]>('body', [
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral>
+            booleanPath;
+        }
     }
 };
 

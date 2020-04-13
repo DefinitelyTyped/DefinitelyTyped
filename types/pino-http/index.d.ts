@@ -1,7 +1,8 @@
-// Type definitions for pino-http 4.3
+// Type definitions for pino-http 4.4
 // Project: https://github.com/pinojs/pino-http#readme
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 //                 Jeremy Forsythe <https://github.com/jdforsythe>
+//                 Griffin Yourick <https://github.com/tough-griff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -15,6 +16,7 @@ declare function PinoHttp(stream?: DestinationStream): PinoHttp.HttpLogger;
 
 declare namespace PinoHttp {
     type HttpLogger = (req: IncomingMessage, res: ServerResponse) => void;
+    type ReqId = number | string | object;
 
     /**
      * Options for pino-http
@@ -26,17 +28,22 @@ declare namespace PinoHttp {
         genReqId?: GenReqId;
         useLevel?: Level;
         stream?: DestinationStream;
-        autoLogging?: boolean;
+        autoLogging?: boolean | autoLoggingOptions;
         customLogLevel?: (res: ServerResponse, error: Error) => Level;
     }
 
     interface GenReqId {
-        (req: IncomingMessage): number | string | object;
+        (req: IncomingMessage): ReqId;
+    }
+
+    interface autoLoggingOptions {
+        ignorePaths?: string[];
     }
 }
 
 declare module 'http' {
     interface IncomingMessage {
+        id: PinoHttp.ReqId;
         log: Logger;
     }
     interface ServerResponse {

@@ -5,8 +5,6 @@
 
 /// <reference types="node" />
 
-import stream = require("stream");
-
 declare namespace listen {
     interface Key {
         name?: string;
@@ -23,7 +21,7 @@ declare namespace listen {
 }
 
 declare function listen(
-    stream: stream.Readable,
+    stream: NodeJS.ReadStream,
     callback: listen.Callback
 ): listen.OffKeyPress;
 

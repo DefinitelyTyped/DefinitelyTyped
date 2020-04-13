@@ -112,5 +112,6 @@ export interface RemoteReduxDevToolsOptions {
   id?: string;
 }
 
+export default function devToolsEnhancer(options?: RemoteReduxDevToolsOptions): StoreEnhancer;
 export function composeWithDevTools(options?: RemoteReduxDevToolsOptions): (...funcs: StoreEnhancer[]) => StoreEnhancer;
 export function composeWithDevTools(...funcs: StoreEnhancer[]): StoreEnhancer;

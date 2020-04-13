@@ -1,6 +1,10 @@
-// Type definitions for tween.js 17.2
+// Type definitions for tween.js 18.5
 // Project: https://github.com/tweenjs/tween.js/
-// Definitions by: jordan <https://github.com/Amos47>, sunetos <https://github.com/sunetos>, jzarnikov <https://github.com/jzarnikov>, alexburner <https://github.com/alexburner>
+// Definitions by: jordan <https://github.com/Amos47>,
+//                 sunetos <https://github.com/sunetos>,
+//                 jzarnikov <https://github.com/jzarnikov>,
+//                 alexburner <https://github.com/alexburner>,
+//                 olafurkarl <https://github.com/olafurkarl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace TWEEN {
@@ -15,10 +19,14 @@ declare namespace TWEEN {
         constructor(object?: any, group?: Group);
         getId(): number;
         isPlaying(): boolean;
+        isPaused(): boolean;
         to(properties: any, duration: number): Tween;
+        duration(d: number): Tween;
         start(time?: number): Tween;
         stop(): Tween;
         end(): Tween;
+        pause(time?: number): Tween;
+        resume(time?: number): Tween;
         stopChainedTweens(): Tween;
         group(group: Group): Tween;
         delay(amount: number): Tween;
@@ -31,6 +39,7 @@ declare namespace TWEEN {
         onStart(callback: (object?: any) => void): Tween;
         onStop(callback: (object?: any) => void): Tween;
         onUpdate(callback: (object?: any) => void): Tween;
+        onRepeat(callback: (object?: any) => void): Tween;
         onComplete(callback: (object?: any) => void): Tween;
         update(time: number): boolean;
     }

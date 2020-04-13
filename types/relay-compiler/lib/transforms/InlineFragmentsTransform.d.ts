@@ -1,5 +1,5 @@
-import { GraphQLCompilerContext } from '../core/GraphQLCompilerContext';
+import { CompilerContext } from '../core/CompilerContext';
 
 export function transform(
-  context: GraphQLCompilerContext,
-): GraphQLCompilerContext;
+  context: CompilerContext,
+): CompilerContext;

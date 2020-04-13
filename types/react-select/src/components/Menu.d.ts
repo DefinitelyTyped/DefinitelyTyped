@@ -21,6 +21,7 @@ import {
   MenuPlacement,
   MenuPosition,
   CommonProps,
+  OptionTypeBase,
 } from '../types';
 
 // ==============================
@@ -45,7 +46,7 @@ export function getMenuPlacement(args: PlacementArgs): MenuState;
 // Menu Component
 // ------------------------------
 
-export type MenuProps<OptionType> = CommonProps<OptionType> & {
+export type MenuProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> & {
   /** The children to be rendered. */
   children: ReactElement,
   /** Callback to update the portal after possible flip. */
@@ -66,7 +67,7 @@ export type MenuProps<OptionType> = CommonProps<OptionType> & {
 
 export function menuCSS(state: MenuState): React.CSSProperties;
 
-export class Menu<OptionType> extends Component<MenuProps<OptionType>, MenuState> {
+export class Menu<OptionType extends OptionTypeBase> extends Component<MenuProps<OptionType>, MenuState> {
   static contextTypes: {
     getPortalPlacement: (state: MenuState) => void,
   };
@@ -93,7 +94,7 @@ export interface MenuListProps {
   /** Inner ref to DOM Node */
   innerRef: InnerRef;
 }
-export type MenuListComponentProps<OptionType> = CommonProps<OptionType> &
+export type MenuListComponentProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> &
   MenuListProps &
   MenuListState;
 export function menuListCSS(state: MenuState): React.CSSProperties;
@@ -106,7 +107,7 @@ export const MenuList: ComponentType<MenuListComponentProps<any>>;
 export function noOptionsMessageCSS(): React.CSSProperties;
 export function loadingMessageCSS(): React.CSSProperties;
 
-export type NoticeProps<OptionType> = CommonProps<OptionType> & {
+export type NoticeProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> & {
   /** The children to be rendered. */
   children: ReactNode,
   /** Props to be passed on to the wrapper. */
@@ -127,7 +128,7 @@ export const LoadingMessage: ComponentType<NoticeProps<any>>;
 // Menu Portal
 // ==============================
 
-export type MenuPortalProps<OptionType> = CommonProps<OptionType> & {
+export type MenuPortalProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> & {
   appendTo: HTMLElement,
   children: ReactNode, // ideally Menu<MenuProps>
   controlElement: HTMLElement,
@@ -145,7 +146,7 @@ interface PortalStyleArgs {
 
 export function menuPortalCSS(args: PortalStyleArgs): React.CSSProperties;
 
-export class MenuPortal<OptionType> extends Component<MenuPortalProps<OptionType>, MenuPortalState> {
+export class MenuPortal<OptionType extends OptionTypeBase> extends Component<MenuPortalProps<OptionType>, MenuPortalState> {
   static childContextTypes: {
     getPortalPlacement: (state: MenuState) => void,
   };

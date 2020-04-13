@@ -63,6 +63,7 @@ export interface EObject {
     eClass: EClass;
     eContents: () => EObject[];
     eContainer: EObject;
+    eContainingFeature: EObject;
     _id: string;
     getEStructuralFeature: (feature: string | EObject) => any;
 }
@@ -117,7 +118,7 @@ export interface Resource extends EObject {
     clear: () => EList;
     each: (iterator: (value: any, key: any, list: EList) => void, context?: any) => void;
     save: (callback: () => void, options: any) => void;
-    parse: (data: EObject, loader: () => void) => any;
+    parse: (data: EObject, loader?: () => void) => any;
     remove: () => void;
     rev: string;
     load: (res: any) => void;

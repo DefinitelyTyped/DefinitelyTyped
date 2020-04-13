@@ -1,4 +1,4 @@
-// Type definitions for webidl-conversions 4.0
+// Type definitions for webidl-conversions 6.0
 // Project: https://github.com/jsdom/webidl-conversions#readme
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,8 +7,17 @@
 type Parameters<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never;
 
 declare namespace WebIDLConversions {
+	interface Globals {
+		[key: string]: any;
+
+		Number: (value?: any) => number;
+		String: (value?: any) => string;
+		TypeError: new (message?: string) => TypeError;
+	}
+
 	interface Options {
 		context?: string;
+		globals?: Globals;
 	}
 
 	interface IntegerOptions extends Options {
@@ -52,9 +61,7 @@ declare const WebIDLConversions: {
 	ByteString(V: any, opts?: WebIDLConversions.StringOptions): string;
 	USVString(V: any, opts?: WebIDLConversions.StringOptions): string;
 
-	object(V: any, opts?: WebIDLConversions.Options): object;
-	Error(V: any, opts?: WebIDLConversions.Options): Error;
-
+	object<V>(V: V, opts?: WebIDLConversions.Options): V extends object ? V : V & object;
 	ArrayBuffer(V: any, opts?: WebIDLConversions.Options): ArrayBuffer;
 	DataView(V: any, opts?: WebIDLConversions.Options): DataView;
 
@@ -75,11 +82,11 @@ declare const WebIDLConversions: {
 
 	DOMTimeStamp(V: any, opts?: WebIDLConversions.Options): number;
 	// tslint:disable:ban-types
-	Function<V>(V: V, opts?: WebIDLConversions.Options): V extends ((...args: any[]) => any) ? V : Function;
+	Function<V>(V: V, opts?: WebIDLConversions.Options): V extends (...args: any[]) => any ? V : Function;
 	VoidFunction<V>(
 		V: V,
 		opts?: WebIDLConversions.Options,
-	): V extends ((...args: any[]) => any) ? (...args: Parameters<V>) => void : Function;
+	): V extends (...args: any[]) => any ? (...args: Parameters<V>) => void : Function;
 };
 
 // This can't use ES6 style exports, as those can't have spaces in export names.

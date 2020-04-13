@@ -155,7 +155,7 @@ declare namespace echarts {
             silent?: boolean;
         }
         namespace Calendar {
-            interface Label extends BasicComponents.CartesianAxis.TextStyle {
+            interface Label extends TextStyleWithRich {
                 /**
                  * Set this to false to prevent label from showing.
                  *

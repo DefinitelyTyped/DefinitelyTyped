@@ -107,21 +107,24 @@ interface SimpleSchemaValidationError {
   [key: string]: number | string;
 }
 
+export type SimpleSchemaDefinition = {
+    [key: string]: SchemaDefinition
+      | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor
+      | ArrayConstructor
+      | string | RegExp
+      | SimpleSchema
+  } | any[];
+
 interface SimpleSchemaStatic {
   new(
-    schema: {
-      [key: string]: SchemaDefinition
-        | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor
-        | ArrayConstructor
-        | string | RegExp
-        | SimpleSchema
-    } | any[],
+    schema: SimpleSchemaDefinition,
     options?: SimpleSchemaOptions
   ): SimpleSchema;
   namedContext(name?: string): SimpleSchemaValidationContextStatic;
   addValidator(validator: () => boolean): any;
   pick(...fields: string[]): SimpleSchemaStatic;
   omit(...fields: string[]): SimpleSchemaStatic;
+  oneOf(...types: Array<(SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor)>): SimpleSchemaStatic;
   clean(doc: any, options?: CleanOption): any;
   schema(key: string): SchemaDefinition;
   schema(): SchemaDefinition[];
@@ -137,6 +140,7 @@ interface SimpleSchemaStatic {
   objectKeys(keyPrefix: any): any[];
   validate(obj: any, options?: ValidationOption): void;
   validator(options?: ValidationOption): () => boolean;
+  extend(otherSchema: SimpleSchemaStatic): SimpleSchemaStatic;
   extendOptions(options: string[]): void;
   RegEx: {
       Email: RegExp;

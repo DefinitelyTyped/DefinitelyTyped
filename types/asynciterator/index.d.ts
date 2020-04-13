@@ -8,7 +8,7 @@
 
 import { EventEmitter } from "events";
 
-export abstract class AsyncIterator<T> extends NodeJS.EventEmitter {
+export abstract class AsyncIterator<T> implements EventEmitter {
     static STATES: ['INIT', 'OPEN', 'CLOSING', 'CLOSED', 'ENDED'];
     static INIT: 0;
     static OPEN: 1;
@@ -57,6 +57,24 @@ export abstract class AsyncIterator<T> extends NodeJS.EventEmitter {
     clone(): ClonedIterator<T>;
 
     static range(start?: number, end?: number, step?: number): IntegerIterator;
+
+    // From EventEmitter
+    addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
+    once(event: string | symbol, listener: (...args: any[]) => void): this;
+    removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    off(event: string | symbol, listener: (...args: any[]) => void): this;
+    removeAllListeners(event?: string | symbol): this;
+    setMaxListeners(n: number): this;
+    getMaxListeners(): number;
+    listeners(event: string | symbol): Array<() => void>;
+    rawListeners(event: string | symbol): Array<() => void>;
+    emit(event: string | symbol, ...args: any[]): boolean;
+    listenerCount(type: string | symbol): number;
+    // Added in Node 6...
+    prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    eventNames(): Array<string | symbol>;
 }
 
 export class EmptyIterator<T> extends AsyncIterator<T> {

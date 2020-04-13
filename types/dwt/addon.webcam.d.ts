@@ -6,7 +6,7 @@
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
 *
-* Copyright 2019, Dynamsoft Corporation
+* Copyright 2020, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
 */
 
@@ -229,7 +229,7 @@ interface Webcam {
     /**
      *  Capture image from the specified webcam. 
      * @method Dynamsoft.WebTwain#CaptureImage 
-     * @param {function} OnCaptureSuccess he function to call when the capture succeeds. Please refer to the function prototype OnCaptureSuccess.
+     * @param {function} OnCaptureSuccess The function to call when the capture succeeds. Please refer to the function prototype OnCaptureSuccess.
      * @param {function} OnCaptureError The function to call when the capture fails. Please refer to the function prototype OnCaptureError.
      * @return {void}
      */

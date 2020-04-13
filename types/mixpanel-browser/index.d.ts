@@ -1,4 +1,4 @@
-// Type definitions for mixpanel-browser 2.23
+// Type definitions for mixpanel-browser 2.35
 // Project: https://github.com/mixpanel/mixpanel-js
 // Definitions by: Carlos López <https://github.com/karlos1337>
 //                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
@@ -9,7 +9,13 @@ export type Persistence = 'cookie' | 'localStorage';
 
 export type PushItem = Array<string | Dict>;
 
+export type Query = string | Element | Element[];
+
 export interface Dict {[key: string]: any; }
+
+export interface RequestOptions {
+  transport?: "xhr" | "sendBeacon";
+}
 
 export interface XhrHeadersDef {[header: string]: any; }
 
@@ -37,8 +43,10 @@ export interface OutTrackingOptions extends ClearOptOutInOutOptions {
 export interface Config {
   api_host: string;
   app_host: string;
-  autrotrack: boolean;
+  autotrack: boolean;
   cdn: string;
+  cookie_domain: string;
+  cross_site_cookie: boolean;
   cross_subdomain_cookie: boolean;
   persistence: Persistence;
   persistence_name: string;
@@ -122,8 +130,11 @@ export function register_once(props: Dict, default_value?: any, days?: number): 
 export function reset(): void;
 export function set_config(config: Partial<Config>): void;
 export function time_event(event_name: string): void;
-export function track(event_name: string, properties?: Dict, callback?: () => void): void;
-export function track_forms(query: string, event_name: string, properties?: Dict | (() => void)): void;
-export function track_links(query: string, event_name: string, properties?: Dict | (() => void)): void;
+export function track(event_name: string, properties?: Dict, options?: RequestOptions, callback?: () => void): void;
+export function track_forms(query: Query, event_name: string, properties?: Dict | (() => void)): void;
+export function track_links(query: Query, event_name: string, properties?: Dict | (() => void)): void;
 export function unregister(property: string): void;
 export const people: People;
+
+declare const mixpanel: Mixpanel;
+export default mixpanel;

@@ -1,8 +1,9 @@
 import { EmitterBase } from '../base';
-import { BaseEventMap } from '../events/base';
 import { Identity } from '../../identity';
 import Transport from '../../transport/transport';
-export declare class WebContents<T extends BaseEventMap> extends EmitterBase<T> {
+import { WebContentsEventMapping } from '../events/webcontents';
+import { PrintOptions, FindInPageOptions, PrinterInfo } from '../window/window';
+export declare class WebContents<T extends WebContentsEventMapping> extends EmitterBase<T> {
     entityType: string;
     constructor(wire: Transport, identity: Identity, entityType: string);
     executeJavaScript(code: string): Promise<void>;
@@ -12,4 +13,9 @@ export declare class WebContents<T extends BaseEventMap> extends EmitterBase<T> 
     navigateBack(): Promise<void>;
     navigateForward(): Promise<void>;
     stopNavigation(): Promise<void>;
+    reload(ignoreCache?: boolean): Promise<void>;
+    print(options?: PrintOptions): Promise<void>;
+    findInPage(searchTerm: string, options?: FindInPageOptions): Promise<void>;
+    stopFindInPage(action: string): Promise<void>;
+    getPrinters(): Promise<PrinterInfo>;
 }

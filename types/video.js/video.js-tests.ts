@@ -1,4 +1,4 @@
-import videojs from 'video.js';
+import videojs, { VideoJsPlayer } from 'video.js';
 
 videojs("example_video_1").ready(function() {
 	// EXAMPLE: Start playing the video.
@@ -23,9 +23,24 @@ videojs("example_video_1").ready(function() {
 		{ type: "video/ogg", src: "http://www.example.com/path/to/video.ogv" }
 	]);
 
-	const whereYouAt: number = this.currentTime();
+    const liveTracker = this.liveTracker;
+    liveTracker.on('seekableendchange', () => {});
+    liveTracker.on('liveedgechange', () => {});
+    const windowOrDuration = liveTracker.isLive() ? liveTracker.liveWindow() : this.duration();
+    const liveCurrentTime: number = liveTracker.liveCurrentTime();
+    const liveWindow: number = liveTracker.liveWindow();
+    const seekableStart: number = liveTracker.seekableStart();
+    const seekableEnd: number = liveTracker.seekableEnd();
+    const atLiveEdge: boolean = liveTracker.atLiveEdge();
+    const behindLiveEdge: boolean = liveTracker.behindLiveEdge();
+    const pastSeekEnd: number = liveTracker.pastSeekEnd();
+    const isLive: boolean = liveTracker.isLive();
+    liveTracker.seekToLiveEdge();
+    liveTracker.startTracking();
+    liveTracker.stopTracking();
+    const isTracking: boolean = liveTracker.isTracking();
 
-	this.currentTime(120); // 2 minutes into the video
+    const whereYouAt: number = this.currentTime();
 
 	const howLongIsThis: number = this.duration();
 
@@ -69,7 +84,7 @@ videojs("example_video_1").ready(function() {
 
 	testPlugin(this, {});
 
-	testAugmentation(this);
+	testLogger();
 });
 
 function testEvents(player: videojs.Player) {
@@ -116,8 +131,48 @@ function testPlugin(player: videojs.Player, options: {}) {
 		});
 	});
 	(player as any).uloztoExample(options);
+
+    const Plugin = videojs.getPlugin('plugin');
+
+    interface ExamplePluginOptions {
+        customClass: string;
+    }
+
+    class ExamplePlugin extends Plugin {
+        constructor(player: VideoJsPlayer, options: ExamplePluginOptions) {
+            super(player, options);
+
+            if (options.customClass) {
+                player.addClass(options.customClass);
+            }
+
+            player.on('playing', () => {
+                videojs.log('playback began!');
+			});
+
+			this.player.on('pause', () => {
+				videojs.log('playback ended');
+			});
+
+			const media = this.player.getMedia();
+
+			this.player.loadMedia({
+                src: "http://www.example.com/path/to/video.mp4",
+                poster: "http://www.example.com/path/to/image.jpg",
+            }, () => {
+                videojs.log('loadMedia ready!');
+            });
+        }
+    }
+
+    videojs.registerPlugin('ExamplePlugin', ExamplePlugin);
 }
 
-function testAugmentation(player: videojs.Player) {
-    player.somePluginDefinedInAugmentation();
+function testLogger() {
+	const mylogger = videojs.log.createLogger('mylogger');
+	const anotherlogger = mylogger.createLogger('anotherlogger');
+
+	videojs.log('hello');
+	mylogger('how are you');
+	anotherlogger('today');
 }

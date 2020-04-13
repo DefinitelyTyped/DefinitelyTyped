@@ -20,16 +20,20 @@ interface InheritedProps<T extends ListBoxBaseItemType = string> extends
 export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extends InheritedProps<T> {
     downshiftProps?: any, // TODO
     initialSelectedItems?: T[],
+    items: T[],
     inline?: boolean,
     label?: React.ReactNode,
     locale?: string,
     open?: boolean,
     selectionFeedback?: "fixed" | "top" | "top-after-reopen",
     useTitleInItem?: boolean,
+    placeholder: string,
+    titleText?: string,
+    onChange: ({ selectedItems }: { selectedItems: T[] }) => void,
 }
 
 declare class MultiSelect<T extends ListBoxBaseItemType = string> extends React.Component<MultiSelectProps<T>> {
-    static readonly Filterable: FilterableMultiSelect;
+    static readonly Filterable: typeof FilterableMultiSelect;
 }
 
 export default MultiSelect;

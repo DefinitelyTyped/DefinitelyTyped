@@ -21,7 +21,7 @@ export interface NormalizationLinkedField {
     readonly kind: string; // 'LinkedField';
     readonly alias: string | null | undefined;
     readonly name: string;
-    readonly storageKey: string | null | undefined;
+    readonly storageKey?: string | null;
     readonly args: ReadonlyArray<NormalizationArgument>;
     readonly concreteType: string | null | undefined;
     readonly plural: boolean;
@@ -84,7 +84,7 @@ export interface NormalizationLiteral {
     readonly kind: string; // 'Literal';
     readonly name: string;
     readonly type?: string | null;
-    readonly value: unknown;
+    readonly value?: unknown;
 }
 
 export interface NormalizationVariable {
@@ -92,6 +92,29 @@ export interface NormalizationVariable {
     readonly name: string;
     readonly type?: string | null;
     readonly variableName: string;
+}
+
+export interface NormalizationConnection {
+    kind: string;
+    label: string;
+    name: string;
+    args: ReadonlyArray<NormalizationArgument>;
+    edges: NormalizationLinkedField;
+    pageInfo: NormalizationLinkedField;
+}
+
+export interface NormalizationLocalArgumentDefinition {
+    kind: string;
+    name: string;
+    type: string;
+    defaultValue: any;
+}
+
+export interface NormalizationModuleImport {
+    kind: string;
+    documentName: string;
+    fragmentPropName: string;
+    fragmentName: string;
 }
 
 export interface NormalizationLocalArgument {

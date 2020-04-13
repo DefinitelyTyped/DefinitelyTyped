@@ -287,7 +287,7 @@ declare namespace NodeIPC {
          * if set, it represents the maximum number of retries after each disconnect before giving up
          * and completely killing a specific connection
          */
-        maxRetries: boolean;
+        maxRetries: boolean | number;
         /**
          * Default: false
          * Defaults to false meaning clients will continue to retry to connect to servers indefinitely at the retry interval.

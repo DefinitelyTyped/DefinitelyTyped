@@ -7,6 +7,7 @@ import Transport from '../../transport/transport';
 import { Bounds } from '../../shapes';
 import { ApplicationEvents } from '../events/application';
 import { ApplicationOption } from './applicationOption';
+import { View } from '../view/view';
 export interface TrayIconClickReply extends Point, Reply<'application', 'tray-icon-clicked'> {
     button: number;
     monitorInfo: MonitorInfo;
@@ -37,6 +38,14 @@ export interface TrayInfo {
     x: number;
     y: number;
 }
+export interface ManifestInfo {
+    uuid: string;
+    manifestUrl: string;
+}
+export interface RvmLaunchOptions {
+    noUi?: boolean;
+    userAppConfigArgs?: object;
+}
 /**
  * @typedef {object} ApplicationOption
  * @summary Application creation options.
@@ -56,6 +65,9 @@ export interface TrayInfo {
  *
  * @property {boolean} [disableIabSecureLogging=false]
  * When set to `true` it will disable IAB secure logging for the app.
+ *
+ * @property {boolean} [fdc3Api=false]
+ * A flag to enable FDC3 API.  When set to `true` the `fdc3` API object is present for all windows
  *
  * @property {string} [loadErrorMessage="There was an error loading the application."]
  * An error message to display when the application (launched via manifest) fails to load.
@@ -133,6 +145,16 @@ export default class ApplicationModule extends Base {
     */
     start(appOptions: ApplicationOption): Promise<Application>;
     /**
+     * Asynchronously starts a batch of applications given an array of application identifiers and manifestUrls.
+     * Returns once the RVM is finished attempting to launch the applications.
+     * @param { Array.<ManifestInfo> } applications
+     * @return {Promise.<void>}
+     * @static
+     * @tutorial Application.startManyManifests
+     * @experimental
+     */
+    startManyManifests(applications: Array<ManifestInfo>): Promise<void>;
+    /**
      * Asynchronously returns an Application object that represents the current application
      * @return {Promise.<Application>}
      * @tutorial Application.getCurrent
@@ -149,11 +171,12 @@ export default class ApplicationModule extends Base {
     /**
      * Retrieves application's manifest and returns a running instance of the application.
      * @param {string} manifestUrl - The URL of app's manifest.
+     * @param {RvmLaunchOptions} [opts] - Parameters that the RVM will use.
      * @return {Promise.<Application>}
      * @tutorial Application.startFromManifest
      * @static
      */
-    startFromManifest(manifestUrl: string): Promise<Application>;
+    startFromManifest(manifestUrl: string, opts?: RvmLaunchOptions): Promise<Application>;
     createFromManifest(manifestUrl: string): Promise<Application>;
     private _createFromManifest;
 }
@@ -297,6 +320,13 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      */
     getShortcuts(): Promise<ShortCutConfig>;
     /**
+    * Retrieves current application's views.
+    * @experimental
+    * @return {Promise.Array.<View>}
+    * @tutorial Application.getViews
+    */
+    getViews(): Promise<Array<View>>;
+    /**
      * Returns the current zoom level of the application.
      * @return {Promise.<number>}
      * @tutorial Application.getZoomLevel
@@ -346,17 +376,17 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
     /**
      * Sends a message to the RVM to upload the application's logs. On success,
      * an object containing logId is returned.
-     * @return {Promise.<any>}
+     * @return {Promise.<LogInfo>}
      * @tutorial Application.sendApplicationLog
      */
     sendApplicationLog(): Promise<LogInfo>;
     /**
      * Adds a customizable icon in the system tray.  To listen for a click on the icon use the `tray-icon-clicked` event.
-     * @param { string } iconUrl Image URL to be used as the icon
+     * @param { string } icon Image URL or base64 encoded string to be used as the icon
      * @return {Promise.<void>}
      * @tutorial Application.setTrayIcon
      */
-    setTrayIcon(iconUrl: string): Promise<void>;
+    setTrayIcon(icon: string): Promise<void>;
     /**
      * Sets new application's shortcut configuration. Windows only.
      * @param { ShortCutConfig } config New application's shortcut configuration.

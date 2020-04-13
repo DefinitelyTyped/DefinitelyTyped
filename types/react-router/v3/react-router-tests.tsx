@@ -52,7 +52,8 @@ class Master extends Component {
 		router: routerShape
 	};
 
-	context: MasterContext;
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        context = {} as MasterContext;
 
 	navigate() {
 		const router = this.context.router;
@@ -122,16 +123,48 @@ class UserList extends React.Component<UserListProps & WithRouterProps> {
 
 const UserListWithRouter = withRouter(UserList);
 
+interface AvatarProps {
+    user: string;
+}
+
+const Avatar: React.FunctionComponent<AvatarProps & WithRouterProps> = ({ user, children, location, params, router, routes }) => (
+    <div>{ user }</div>
+);
+
+const AvatarWithRouter = withRouter(Avatar);
+
 type UsersProps = RouteComponentProps<{}, {}>;
 
 class Users extends React.Component<UsersProps> {
 	render() {
 		const { location, params, route, routes, router, routeParams } = this.props;
 		return <div>
-			This is a user list
+			This is a user list (class component with injected router props)
 			<UserListWithRouter users="Suzanne, Fred" />
+
+            This is an avatar (function component with injected router props)
+            <AvatarWithRouter user="Joe" />
 		</div>;
 	}
+}
+
+interface UserParams {
+    id: string;
+}
+interface UserQuery {
+    search: string;
+}
+
+type UserProps = RouteComponentProps<UserParams, {}, {}, UserQuery>;
+
+class User extends React.Component<UserProps> {
+    render() {
+        const { params, location } = this.props;
+        return <div>
+            This is a user { params.id }
+            This is a query { location.query.search }
+        </div>;
+    }
 }
 
 ReactDOM.render((
@@ -139,6 +172,7 @@ ReactDOM.render((
 		<Route path="/" component={Master}>
 			<IndexRoute component={DashboardWithRouter} />
 			<Route path="users" component={Users} />
+            <Route path="user/:id" component={User} />
 			<Route path="*" component={NotFound} />
 		</Route>
 	</Router>
@@ -200,6 +234,6 @@ const CreateHref: React.SFC<WithRouterProps> = ({ router }) => (
 	</div>
 );
 
-const CreateHrefWithRouter = withRouter<{}>(CreateHref);
+const CreateHrefWithRouter = withRouter(CreateHref);
 
 ReactDOM.render(<CreateHrefWithRouter />, document.body);

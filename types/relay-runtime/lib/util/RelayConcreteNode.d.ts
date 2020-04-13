@@ -18,7 +18,7 @@ export interface RequestParameters {
     readonly metadata: { [key: string]: unknown };
 }
 
-declare const RelayConcreteNode: {
+export const RelayConcreteNode: {
     CONDITION: 'Condition';
     CLIENT_EXTENSION: 'ClientExtension';
     DEFER: 'Defer';
@@ -42,5 +42,3 @@ declare const RelayConcreteNode: {
     STREAM: 'Stream';
     VARIABLE: 'Variable';
 };
-
-export default RelayConcreteNode;

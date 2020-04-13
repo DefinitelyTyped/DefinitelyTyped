@@ -823,7 +823,7 @@ declare module 'plugins/history' {
      * Get the cross-browser normalized URL fragment, either from the URL, the hash, or the override.
      * @param {string} fragment The fragment.
      * @param {boolean} forcePushState Should we force push state?
-     * @returns {string} he fragment.
+     * @returns {string} The fragment.
      */
     export function getFragment(fragment: string, forcePushState: boolean): string;
 

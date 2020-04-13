@@ -40,7 +40,7 @@ declare namespace echarts {
             borderColor?: string;
             borderWidth?: number;
             color?: string[];
-            textStyle?: EChartOption.TextStyle;
+            textStyle?: EChartOption.BaseTextStyleWithRich;
             formatter?: string | Function;
         }
         interface Piecewise {

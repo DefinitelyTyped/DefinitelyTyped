@@ -8,6 +8,7 @@ import {
   Button,
   ButtonDropdown,
   ButtonGroup,
+  ButtonToggle,
   ButtonToolbar,
   Dropdown,
   DropdownItem,
@@ -61,6 +62,7 @@ import {
   Nav,
   Navbar,
   NavbarBrand,
+  NavbarText,
   NavbarToggler,
   NavItem,
   NavLink,
@@ -85,6 +87,7 @@ import {
   Tooltip,
   Spinner,
   UncontrolledPopover,
+  Util
 } from 'reactstrap';
 
 // --------------- Alert
@@ -335,6 +338,48 @@ class Example14 extends React.Component<any, any> {
           <Button color="primary" onClick={() => this.onCheckboxBtnClick(3)} active={this.state.cSelected.includes(3)}>Three</Button>
         </ButtonGroup>
         <p>Selected: {JSON.stringify(this.state.cSelected)}</p>
+      </div>
+    );
+  }
+}
+
+const ExampleButtonClose = () => (
+  <div>
+    <CardGroup>
+      <Card>
+        <CardBody>
+          <CardTitle>
+            <Button close />
+          </CardTitle>
+          <CardText>Default close icon</CardText>
+        </CardBody>
+      </Card>
+      <Card>
+        <CardBody>
+          <CardTitle>
+            <Button close aria-label="Cancel">
+              <span aria-hidden>&ndash;</span>
+            </Button>
+          </CardTitle>
+          <CardText>
+          Custom content and aria-label
+          </CardText>
+        </CardBody>
+      </Card>
+    </CardGroup>
+  </div>
+);
+
+class ExampleButtonToggle extends React.Component {
+  render() {
+    return (
+      <div>
+        <ButtonToggle color="primary">primary</ButtonToggle>{' '}
+        <ButtonToggle color="secondary">secondary</ButtonToggle>{' '}
+        <ButtonToggle color="success">success</ButtonToggle>{' '}
+        <ButtonToggle color="info">info</ButtonToggle>{' '}
+        <ButtonToggle color="warning">warning</ButtonToggle>{' '}
+        <ButtonToggle color="danger">danger</ButtonToggle>{' '}
       </div>
     );
   }
@@ -1695,6 +1740,56 @@ class Example61 extends React.Component {
   }
 }
 
+const ExampleResponsiveContainer = (props: any) => {
+  return (
+    <>
+      <Container className="themed-container">.container</Container>
+      <Container className="themed-container" fluid="sm">.container-sm</Container>
+      <Container className="themed-container" fluid="md">.container-md</Container>
+      <Container className="themed-container" fluid="lg">.container-lg</Container>
+      <Container className="themed-container" fluid="xl">.container-xl</Container>
+      <Container className="themed-container" fluid={true}>.container-fluid</Container>
+    </>
+  );
+};
+
+const ExampleRowColumns = (props: any) => {
+  return (
+    <Container>
+      <Row xs="2">
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+      </Row>
+      <Row xs="3">
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+      </Row>
+      <Row xs="4">
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+      </Row>
+      <Row xs="4">
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col xs="6">Column</Col>
+        <Col>Column</Col>
+      </Row>
+      <Row xs="1" sm="2" md="4">
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+      </Row>
+    </Container>
+  );
+};
+
 class Example62 extends React.Component {
   render() {
     return (
@@ -1801,6 +1896,42 @@ class Example67 extends React.Component {
     );
   }
 }
+
+const ExampleListGroupFlush = (props: any) => {
+  return (
+    <ListGroup flush>
+      <ListGroupItem disabled tag="a" href="#">Cras justo odio</ListGroupItem>
+      <ListGroupItem tag="a" href="#">Dapibus ac facilisis in</ListGroupItem>
+      <ListGroupItem tag="a" href="#">Morbi leo risus</ListGroupItem>
+      <ListGroupItem tag="a" href="#">Porta ac consectetur ac</ListGroupItem>
+      <ListGroupItem tag="a" href="#">Vestibulum at eros</ListGroupItem>
+    </ListGroup>
+  );
+};
+
+const ExampleListGroupHorizontal = (props: any) => {
+  return (
+    <div>
+      <p>The <code>horizontal</code> prop can be a Boolean or a string specifying one of Bootstrap's breakpoints</p>
+      <ListGroup horizontal>
+        <ListGroupItem tag="a" href="#">Cras justo odio</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Dapibus ac facilisis in</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Morbi leo risus</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Porta ac consectetur ac</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Vestibulum at eros</ListGroupItem>
+      </ListGroup>
+      <p className="mt-3">This list group is horizontal at the <code>lg</code> breakpoint and up.</p>
+      <ListGroup horizontal="lg">
+        <ListGroupItem tag="a" href="#">Cras justo odio</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Dapibus ac facilisis in</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Morbi leo risus</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Porta ac consectetur ac</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Vestibulum at eros</ListGroupItem>
+      </ListGroup>
+      <p className="mt-3">Note that horizontal list groups cannot be combined with flush list groups. If <code>flush</code> is <code>true</code> then <code>horizontal</code> has no effect.</p>
+    </div>
+  );
+};
 
 // ------------- Media
 const Example68 = () => {
@@ -2257,7 +2388,7 @@ class Example75 extends React.Component<any, any> {
               <NavItem>
                 <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
+              <UncontrolledDropdown nav inNavbar onToggle={() => {}} a11y>
                 <DropdownToggle nav caret>
                   Options
                 </DropdownToggle>
@@ -2275,6 +2406,7 @@ class Example75 extends React.Component<any, any> {
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
+            <NavbarText>Simple Text</NavbarText>
           </Collapse>
         </Navbar>
       </div>
@@ -3436,7 +3568,7 @@ function Example() {
   return (
     <div>
       <p>Somewhere in here is a <a href="#" id="UncontrolledTooltipExample">tooltip</a>.</p>
-      <UncontrolledTooltip placement="right" target="UncontrolledTooltipExample">
+      <UncontrolledTooltip placement="right" target="UncontrolledTooltipExample" popperClassName="popperClassName">
         Hello world!
       </UncontrolledTooltip>
     </div>
@@ -3725,7 +3857,6 @@ const Example113 = (props: any) => {
   };
 
 class Example114 extends React.Component<any, any> {
-    state: any;
     private element: HTMLElement;
 
     refFn(r: HTMLElement | null) {
@@ -3899,7 +4030,7 @@ function Example117() {
     <UncontrolledButtonDropdown ref={ref}/>;
     <UncontrolledDropdown ref={ref}/>;
     <UncontrolledTooltip ref={ref} target={null as any}/>;
-    <UncontrolledCollapse ref={ref} target={null as any}/>;
+    <UncontrolledCollapse ref={ref} target={null as any} toggler="#foobar"/>;
 }
 
 function Example118() {
@@ -4073,7 +4204,7 @@ function AnyPropExample() {
       <UncontrolledButtonDropdown_ foo={1} bar={false} foobar="example" />
       <UncontrolledDropdown_ foo={1} bar={false} foobar="example" />
       <UncontrolledTooltip_ foo={1} bar={false} foobar="example" target="" />
-      <UncontrolledCollapse_ foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledCollapse_ foo={1} bar={false} foobar="example" target="" toggler="#foobar" />
     </React.Fragment >
   );
 }
@@ -4244,7 +4375,7 @@ function GenericPropExample() {
       <UncontrolledButtonDropdownGeneric foo={1} bar={false} foobar="example" />
       <UncontrolledDropdownGeneric foo={1} bar={false} foobar="example" />
       <UncontrolledTooltipGeneric foo={1} bar={false} foobar="example" target="" />
-      <UncontrolledCollapseGeneric foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledCollapseGeneric foo={1} bar={false} foobar="example" target="" toggler="#foobar" />
     </React.Fragment >
   );
 }
@@ -4498,7 +4629,7 @@ function Example125() {
 function Example126() {
     return (
         <div>
-            <UncontrolledPopover placement="bottom" target="UncontrolledPopover">
+            <UncontrolledPopover placement="bottom" target="UncontrolledPopover" popperClassName="popperClassName">
                 <PopoverHeader>Popover Title</PopoverHeader>
                 <PopoverBody>Lorem ipsum dolor sit amet</PopoverBody>
             </UncontrolledPopover>
@@ -4595,3 +4726,77 @@ class Example129 extends React.Component<any, any> {
       );
     }
 }
+
+class Example130 extends React.Component {
+  render() {
+    return (
+      <>
+        <Carousel
+          activeIndex={1}
+          next={() => {}}
+          previous={() => {}}
+          enableTouch={false}
+        >
+          <CarouselIndicators items={[]} activeIndex={1} onClickHandler={() => {}} />
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => {}} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={() => {}} />
+        </Carousel>
+        <Carousel
+          activeIndex={1}
+          next={() => {}}
+          previous={() => {}}
+          enableTouch={true}
+        >
+          <CarouselIndicators items={[]} activeIndex={1} onClickHandler={() => {}} />
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => {}} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={() => {}} />
+        </Carousel>
+        <UncontrolledCarousel
+          activeIndex={1}
+          next={() => {}}
+          previous={() => {}}
+          enableTouch={false}
+          items={[]}
+        >
+          <CarouselIndicators items={[]} activeIndex={1} onClickHandler={() => {}} />
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => {}} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={() => {}} />
+        </UncontrolledCarousel>
+        <UncontrolledCarousel
+          activeIndex={1}
+          next={() => {}}
+          previous={() => {}}
+          enableTouch={true}
+          items={[]}
+        >
+          <CarouselIndicators items={[]} activeIndex={1} onClickHandler={() => {}} />
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => {}} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={() => {}} />
+        </UncontrolledCarousel>
+      </>
+    );
+  }
+}
+
+const CustomInputTestInnerRef = () => {
+  const ref = React.createRef<HTMLButtonElement>();
+  return (<CustomInput type="checkbox" innerRef={ref} />);
+};
+
+const PopoverTestInnerRef = () => {
+  const target = React.createRef<HTMLButtonElement>();
+  const container = React.createRef<HTMLDivElement>();
+  return (<Popover target={target} container={container}>Yo!</Popover>);
+};
+
+const UncontrolledTooltipTestInnerRef = () => {
+  const target = React.createRef<HTMLButtonElement>();
+  const container = React.createRef<HTMLDivElement>();
+  return (<UncontrolledTooltip target={target} container={container}>Yo!</UncontrolledTooltip>);
+};
+
+const UtilTest = () => {
+  Util.setGlobalCssModule({
+    btn: 'btn2'
+  });
+};

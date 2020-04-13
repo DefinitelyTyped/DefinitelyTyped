@@ -6,6 +6,8 @@
 
 *你可以去看其他语言的 README，[英语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)，[西班牙语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)，[韩语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)，[俄罗斯语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)*
 
+*[管理员手册](./docs/admin.md)*
+
 ## 目录
 
 * [当前状态](#当前状态)
@@ -16,7 +18,7 @@
         * [创建一个新的包](#创建一个新的包)
         * [常见错误](#常见错误)
         * [删除一个包](#删除一个包)
-        * [Lint](#lint)
+        * [Linter](#linter)
 * [FAQ](#faq)
 
 ## 当前状态
@@ -26,8 +28,8 @@
 
 * 最近的构建都具有完善的 [类型标注](https://github.com/Microsoft/dtslint)：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * 所有的包基于 typescript@next 版本都有完善的类型标注：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
-* 所有的包都会在1小时内 [发布到 npm](https://github.com/Microsoft/types-publisher): [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
-* [typescript-bot](https://github.com/typescript-bot) 在 DefinitelyTyped 一直处于活跃状态 [![Activity Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
+* 所有的包都会在1小时内 [发布到 npm](https://github.com/Microsoft/types-publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* [typescript-bot](https://github.com/typescript-bot) 在 DefinitelyTyped 一直处于活跃状态 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
 如果这里面的任何内容出现问题或者失败的情况，请在 [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped) 提出问题。
 
@@ -57,13 +59,43 @@ npm install --save-dev @types/node
 这通常会在 `package.json` 文件中的 `"types"` 或 `"typings"` 字段中提供，
 或者可以只查找包中的任何 ".d.ts" 文件并手动将它们包含在 `/// <reference path="" />`.
 
-### 其他方法
+#### 旧版本的 TypeScript（2.7 和更早版本）
+
+Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 2.8 及更高版本。如果您使用的是 TypeScript 2.0 到 2.7，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+
+Version | Released | End of Support
+-- | -- | --
+2.8 | March 2018 | March 2020
+2.9 | May 2018 | May 2020
+3.0 | July 2018 | July 2020
+3.1 | September 2018 | September 2020
+3.2 | November 2018 | November 2020
+3.3 | January 2019 | January 2021
+3.4 | March 2019 | March 2021
+3.5 | May 2019 | May 2021
+3.6 | August 2019 | August 2021
+3.7 | November 2019 | November 2021
+3.8 | February 2020 | February 2022
+
+`@types` 软件包具有它们明确支持的 TypeScript 版本的标记，因此通常可以获取早于 2 年窗口的较早版本的软件包。例如，如果运行 `npm dist-tags @types/react`，您将看到 TypeScript 2.5 可以将类型用于 react@16.0，而 TypeScript 2.6 和 2.7 可以将类型用于 react@16.4：
+
+|Tag | Version|
+|----|---------|
+|latest| 16.9.23|
+|ts2.0| 15.0.1|
+| ... | ... |
+|ts2.5| 16.0.36|
+|ts2.6| 16.4.7|
+|ts2.7| 16.4.7|
+| ... | ... |
+
+#### TypeScript 1.*
 
 这些可以被 TypeScript 1.0 使用。
 
-* [Typings](https://github.com/typings/typings)
+* 从该仓库的 `master` 分支手动下载并将其放入您的项目中
+* ~~[Typings](https://github.com/typings/typings)~~ (使用首选替代方案，typings 已经被弃用)
 * ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (使用首选替代方案, nuget DT 类型发布已关闭)
-* 从这个仓库的 `master` 分支手动下载
 
 你可能需要手动添加 [引用](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)。
 
@@ -152,7 +184,11 @@ Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许�
 #### 常见错误
 
 * 首先，请遵循 [手册](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html) 的建议。
-* 格式化：使用4个空格。 对于新代码，这由 Prettier 强制执行。
+* 格式化：使用4个空格。 该仓库已经设置了 prettier，因此你只需要运行 `npm run prettier -- --write path/to/package/**/*.ts`. [使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
+    ```tsx
+    // prettier-ignore
+    const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+    ```
 * `function sum(nums: number[]): number`: 如果函数没有写入的参数，请使用 `ReadonlyArray`.
 * `interface Foo { new(): Foo; }`:
     这定义了一个可实例化的类型，你可能需要的是 `declare class Foo { constructor(); }`.
@@ -195,7 +231,7 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 
 如果这个包从未发布到 Definitely Typed 过，则不需要将其添加到 `notNeededPackages.json`.
 
-#### Lint
+#### Linter
 
 所有新的包都必须通过 lint. 需要添加 `tslint.json` 文件去 lint 这个包。
 ```js
@@ -229,7 +265,9 @@ f("one");
 
 你可以查阅 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 的 readme 去看更多详细信息。
 
-通过运行 `npm run lint package-name` 去测试，其中 `package-name` 是你的包名。
+## 验证
+
+通过运行 `npm run lint package-name` 去测试你的改动，其中 `package-name` 是你的包名。
 这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint).
 
 
@@ -254,10 +292,17 @@ NPM 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 #### 我注意带这里有一些包含 `package.json` 的包。
 
-通常你不需要它，当你发布包的时候会自动创建一个 `package.json` 的文件。
+通常你不需要它。
+Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的包创建一个 `package.json` 文件。
+`package.json` 包含了指定的而不是其他 `@types` 包的依赖。
+当你发布包的时候会自动创建一个 `package.json` 的文件。
+[Pikaday 是一个好的例子](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
 包含 `package.json` 以便解析依赖。这有个 [示例](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
-我们不允许手动定义其他字段，比如 `"description"`.
-另外，如果你需要引用旧版本的类型，你必须通过在 `package.json` 添加 `"dependencies": { "@types/foo": "x.y.z" }` 来实现。
+你还需要将依赖项添加到[允许的包列表](https://github.com/microsoft/types-publisher/blob/master/dependenciesWhitelist.txt)。
+即使你编写自己的 `package.json` 文件，也只能指定依赖项。不允许使用其他字段，例如 `"description"`.
+该列表是人为更新，这让我们确保了 `@types` 包不会依赖恶意包。
+在极少数情况下，`@types` 包会被删除，而不是源码包中提供的类型，并且你需要依赖旧的已经删除的 `@types` 包，你可以添加对 `@types` 包的依赖。
+再添加到允许的包列表中时，请确保作出解释，以便让人工维护者知道发生了什么。
 
 #### 有些包没有 `tslint.json` 文件，有些 `tsconfig.json` 文件缺少 `"noImplicitAny": true`, `"noImplicitThis": true`, 或 `"strictNullChecks": true`.
 

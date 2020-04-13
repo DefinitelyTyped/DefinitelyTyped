@@ -10,7 +10,7 @@
 
 // Import from dependencies
 import { Stream } from 'stream';
-import EventEmitter = NodeJS.EventEmitter;
+import { EventEmitter } from 'events';
 import { AgentOptions } from 'https';
 
 // Exports only from typings
@@ -124,6 +124,7 @@ export class Client {
     putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, callback: ResultCallback<string>): void;
     putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
     putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<string>;
+    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, metaData?: ItemBucketMetadata): Promise<string>;
 
     fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
     fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata): Promise<string>;

@@ -2,6 +2,7 @@
 // Project: https://developer.spotify.com/web-api/
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 //                 Magnar Ovedal Myrtveit <https://github.com/Stadly>
+//                 Nils Måsén <https://github.com/piksel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -136,6 +137,10 @@ declare namespace SpotifyApi {
             uri?: string;
         };
         position_ms?: number;
+    }
+
+    interface RestrictionsObject {
+        reason: string
     }
 
     //
@@ -665,14 +670,12 @@ declare namespace SpotifyApi {
      * [album object (full)](https://developer.spotify.com/web-api/object-model/#album-object-simplified)
      */
     interface AlbumObjectFull extends AlbumObjectSimplified {
-        artists: ArtistObjectSimplified[],
         copyrights: CopyrightObject[],
         external_ids: ExternalIdObject,
         genres: string[],
+        label: string,
         popularity: number,
-        release_date: string,
-        release_date_precision: string,
-        tracks: PagingObject<TrackObjectSimplified>,
+        tracks: PagingObject<TrackObjectSimplified>
     }
 
     /**
@@ -680,13 +683,18 @@ declare namespace SpotifyApi {
      * [album object (simplified)](https://developer.spotify.com/web-api/object-model/#album-object-simplified)
      */
     interface AlbumObjectSimplified {
+        album_group?: string,
         album_type: string,
+        artists: ArtistObjectSimplified[],
         available_markets?: string[],
         external_urls: ExternalUrlObject,
         href: string,
         id: string,
         images: ImageObject[],
         name: string,
+        release_date: string,
+        release_date_precision: string,
+        restrictions?: RestrictionsObject,
         type: "album",
         uri: string
     }

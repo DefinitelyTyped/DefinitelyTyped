@@ -31,16 +31,16 @@ async function run() {
   }
   const cursor: Cursor<Bag> = collection.find<Bag>({ color: 'black' });
   cursor.toArray((err, r) => {
-    r[0].cost;
+    r[0].cost; // $ExpectType number
   });
   cursor.forEach(
     bag => {
-      bag.color;
+      bag.color; // $ExpectType string
     },
     () => {},
   );
   collection.findOne({ color: 'white' }).then(b => {
-    const _b: Bag = b;
+    const _b: Bag = b; // b is larger than bag and may contain extra properties
   });
   collection.findOne<Bag>({ color: 'white' }).then(b => {
     b.cost;

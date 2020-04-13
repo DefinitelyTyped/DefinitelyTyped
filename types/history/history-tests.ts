@@ -9,6 +9,8 @@ let input = { value: "" };
 {
     let history = createBrowserHistory<{ some: 'state' }>();
 
+    history.location.state; // $ExpectType { some: "state"; }
+
     // Listen for changes to the current location. The
     // listener is called once immediately.
     let unlisten = history.listen(function (location) {
@@ -114,7 +116,8 @@ let input = { value: "" };
 }
 
 {
-    let eventTarget: EventTarget;
+    const anything: any = {};
+    const eventTarget: EventTarget = anything;
     DOMUtils.addEventListener(eventTarget, 'onload', function (event) { event.preventDefault(); });
     DOMUtils.removeEventListener(eventTarget, 'onload', function (event) { event.preventDefault(); });
     DOMUtils.getConfirmation('confirm?', (result) => console.log(result));
@@ -124,4 +127,10 @@ let input = { value: "" };
 {
     let supportsDOM = ExecutionEnvironment.canUseDOM;
     let isExtraneousPopstateEvent = DOMUtils.isExtraneousPopstateEvent;
+}
+
+{
+    const anything: any = {};
+    const history: History = anything;
+    history.location.state; // $ExpectType PoorMansUnknown
 }
