@@ -37,7 +37,7 @@ declare class WaveSurfer extends Observer {
     empty(): void;
     exportPCM(length?: number, accuracy?: number, noWindow?: boolean, start?: number, end?: number): Promise<string>;
     exportImage(format?: string, quality?: number, type?: 'dataURL' | 'blob'): string | string[] | Promise<Blob[]>;
-    getActivePlugins(): Object;
+    getActivePlugins(): object;
     getBackgroundColor(): string;
     getCurrentTime(): number;
     getCursorColor(): string;
