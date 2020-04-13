@@ -235,6 +235,8 @@ interface CheerioOptionsInterface {
     recognizeCDATA?: boolean;
     recognizeSelfClosing?: boolean;
     normalizeWhitespace?: boolean;
+    withStartIndices?: boolean;
+    withEndIndices?: boolean;
     ignoreWhitespace?: boolean;
     _useHtmlParser2?: boolean;
 }
