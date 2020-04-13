@@ -5,19 +5,22 @@ import { OutputQuoteStyle, minify } from 'uglify-js';
 let code: any;
 
 code = {
-    "file1.js": "function add(first, second) { return first + second; }",
-    "file2.js": "console.log(add(1 + 2, 3 + 4));"
+    'file1.js': 'function add(first, second) { return first + second; }',
+    'file2.js': 'console.log(add(1 + 2, 3 + 4));',
 };
 
 minify(code);
 
 code = "function add(first, second) { return first + second; }";
-minify(code);
+minify(code, { toplevel: true });
 
 minify(code, {
+    warnings: true,
     output: {
-        quote_style: OutputQuoteStyle.AlwaysDouble
-    }
+        beautify: true,
+        preamble: '/* uglified */',
+        quote_style: OutputQuoteStyle.AlwaysDouble,
+    },
 });
 
 const output = minify(code, {
@@ -25,14 +28,20 @@ const output = minify(code, {
     mangle: {
         properties: {
             regex: /reg/
-        }
+        },
+        toplevel: true,
     },
     sourceMap: {
         filename: 'foo.map'
     },
     compress: {
-        arguments: true
-    }
+        arguments: true,
+        global_defs: {
+            "@console.log": "alert"
+        },
+        passes: 2,
+    },
+    nameCache: {},
 });
 
 const compressOptions = {

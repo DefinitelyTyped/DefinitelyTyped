@@ -1,18 +1,24 @@
-// Type definitions for UglifyJS 3.0
+// Type definitions for UglifyJS 3.9
 // Project: https://github.com/mishoo/UglifyJS2
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 import { RawSourceMap } from 'source-map';
 export interface ParseOptions {
-    /** Support top level `return` statements */
+    /**
+     * Support top level `return` statements
+     * @default false
+     */
     bare_returns?: boolean;
+    /** @default true */
     html5_comments?: boolean;
-    /** Support `#!command` as the first line */
+    /**
+     * Support `#!command` as the first line
+     * @default true
+     */
     shebang?: boolean;
 }
 
@@ -352,16 +358,61 @@ export enum OutputQuoteStyle {
 }
 
 export interface MinifyOptions {
-    /** Pass true to return compressor warnings in result.warnings. Use the value `verbose` for more detailed warnings. */
+    /**
+     * Pass `true` to return compressor warnings in result.warnings.
+     * Use the value `verbose` for more detailed warnings.
+     * @default false
+     */
     warnings?: boolean | 'verbose';
+    /**
+     * Pass an object if you wish to specify some additional parse options.
+     */
     parse?: ParseOptions;
-    compress?: boolean | CompressOptions;
+    /**
+     * Pass `false` to skip compressing entirely.
+     * Pass an object to specify custom compress options.
+     * @default {}
+     */
+    compress?: false | CompressOptions;
+    /**
+     * Pass `false` to skip mangling names,
+     * or pass an object to specify mangle options (see below).
+     * @default true
+     */
     mangle?: boolean | MangleOptions;
+    /**
+     * Pass an object if you wish to specify additional output options.
+     * The defaults are optimized for best compression
+     */
     output?: OutputOptions;
+    /**
+     * Pass an object if you wish to specify source map options.
+     * @default false
+     */
     sourceMap?: boolean | SourceMapOptions;
+    /**
+     * Set to `true` if you wish to enable top level variable and function name mangling
+     * and to drop unused variables and functions.
+     * @default false
+     */
     toplevel?: boolean;
+    /**
+     * Pass an empty object {} or a previously used nameCache object
+     * if you wish to cache mangled variable and property names across multiple invocations of minify().
+     * Note: this is a read/write property. `minify()` will read the name cache state of this object
+     * and update it during minification so that it may be reused or externally persisted by the user
+     */
     nameCache?: object;
+    /**
+     * Set to true to support IE8
+     * @default false
+     */
     ie8?: boolean;
+    /**
+     * Pass true to prevent discarding or mangling of function names.
+     * Useful for code relying on Function.prototype.name.
+     * @default false
+     */
     keep_fnames?: boolean;
 }
 
