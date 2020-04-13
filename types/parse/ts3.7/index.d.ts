@@ -1081,6 +1081,12 @@ namespace Parse {
             context: object;
         }
 
+        interface FileTriggerRequest extends TriggerRequest {
+            file: Parse.File
+            fileSize: number
+            contentLength: number
+        }
+
         // Read preference describes how MongoDB driver route read operations to the members of a replica set.
         enum ReadPreferenceOption {
             Primary = 'PRIMARY',
@@ -1110,7 +1116,16 @@ namespace Parse {
             func?: (request: BeforeFindRequest) => Promise<Query> | Promise<void> | Query | void
         ): void;
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => any): void;
+
         function beforeLogin(func?: (request: TriggerRequest) => any): void;
+        function afterLogin(func?: (request: TriggerRequest) => any): void;
+        function afterLogout(func?: (request: TriggerRequest) => Promise<void> | void): void
+
+        function beforeSaveFile(func?: (request: FileTriggerRequest) => Promise<Parse.File> | void): void;
+        function afterSaveFile(func?: (request: FileTriggerRequest) => Promise<void> | void): void;
+        function beforeDeleteFile(func?: (request: FileTriggerRequest) => Promise<void> | void): void;
+        function afterDeleteFile(func?: (request: FileTriggerRequest) => Promise<void> | void): void;
+
         function define(name: string, func: (request: FunctionRequest) => any): void;
         function define<T extends () => any>(
             name: string,
