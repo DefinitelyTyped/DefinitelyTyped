@@ -8,6 +8,7 @@
 //                 Chennakrishna <https://github.com/chennakrishna8>
 //                 AzSiAz <https://github.com/AzSiAz>
 //                 Ryo Ota <https://github.com/nwtgck>
+//                 Trevor Reed <https://github.com/trevorhreed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
