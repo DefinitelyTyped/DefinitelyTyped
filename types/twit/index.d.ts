@@ -282,6 +282,7 @@ declare module 'twit' {
       include_user_entities?: boolean,
       stringify_ids?: boolean,
       in_reply_to_status_id?: number | string,
+      page?: number,
     }
     export interface PromiseResponse {
       data: Response,
