@@ -99,8 +99,8 @@ function test_query() {
     query.notEqualTo('playerName', 'Michael Yabuti');
     query.fullText('playerName', 'dan', { language: 'en', caseSensitive: false, diacriticSensitive: true });
     query.greaterThan('playerAge', 18);
-    query.eachBatch((objs) => Promise.resolve(objs), {batchSize: 10});
-    query.each((score) => score.increment("score"));
+    query.eachBatch((objs) => Promise.resolve(), {batchSize: 10});
+    query.each((score) => Promise.resolve());
     query.hint('_id_');
     query.explain(true);
     query.limit(10);
@@ -1161,16 +1161,16 @@ function testObject() {
     }
 
     function testDecrement(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: number }>) {
-        // $ExpectType boolean | Object<Attributes>
+        // $ExpectType false | Object<Attributes>
         objUntyped.decrement('whatever');
 
-        // $ExpectType boolean | Object<Attributes>
+        // $ExpectType false | Object<Attributes>
         objUntyped.decrement('whatever', 10);
 
-        // $ExpectType boolean | Object<{ example: number; }>
+        // $ExpectType false | Object<{ example: number; }>
         objTyped.decrement('example');
 
-        // $ExpectType boolean | Object<{ example: number; }>
+        // $ExpectType false | Object<{ example: number; }>
         objTyped.decrement('example', 20);
 
         // $ExpectError
