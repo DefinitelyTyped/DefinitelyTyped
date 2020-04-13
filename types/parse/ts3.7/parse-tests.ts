@@ -591,8 +591,32 @@ async function test_cloud_functions() {
     });
 
     Parse.Cloud.beforeLogin((request: Parse.Cloud.TriggerRequest) => {
-        return 'Some result';
+        return Promise.resolve();
     });
+
+    Parse.Cloud.afterLogin((request: Parse.Cloud.TriggerRequest) => {
+        return Promise.resolve();
+    })
+
+    Parse.Cloud.afterLogout((request: Parse.Cloud.TriggerRequest) => {
+        return Promise.resolve();
+    })
+
+    Parse.Cloud.beforeSaveFile((request: Parse.Cloud.FileTriggerRequest) => {
+        return Promise.resolve(new Parse.File("myFile.txt", {base64: ''}))
+    })
+
+    Parse.Cloud.beforeSaveFile((request: Parse.Cloud.FileTriggerRequest) => {
+
+    })
+
+    Parse.Cloud.beforeDeleteFile((request: Parse.Cloud.FileTriggerRequest) => {
+
+    })
+
+    Parse.Cloud.afterDeleteFile((request: Parse.Cloud.FileTriggerRequest) => {
+
+    })
 
     Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
         return 'Some result';

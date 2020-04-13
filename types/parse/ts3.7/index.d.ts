@@ -1140,8 +1140,8 @@ namespace Parse {
         ): void;
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => any): void;
 
-        function beforeLogin(func?: (request: TriggerRequest) => any): void;
-        function afterLogin(func?: (request: TriggerRequest) => any): void;
+        function beforeLogin(func?: (request: TriggerRequest) => Promise<void> | void): void;
+        function afterLogin(func?: (request: TriggerRequest) => Promise<void> | void): void;
         function afterLogout(func?: (request: TriggerRequest) => Promise<void> | void): void
 
         function beforeSaveFile(func?: (request: FileTriggerRequest) => Promise<Parse.File> | void): void;
