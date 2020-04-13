@@ -30,6 +30,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Richard Bateman <https://github.com/taxilian>
+//                 Igor Strebezhev <https://github.com/xamgore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
