@@ -49,7 +49,7 @@ declare namespace prompt {
          * The type of input field, either `'input'` for a standard text input
          * field or 'select' for a dropdown type input. Defaults to `'input'`.
          */
-        type?: `'input'` | 'select';
+        type?: 'input' | 'select';
         /**
          * Whether the label should be interpreted as HTML or not. Defaults to
          * `false`.
