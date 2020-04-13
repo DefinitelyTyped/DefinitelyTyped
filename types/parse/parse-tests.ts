@@ -187,8 +187,8 @@ async function test_query_promise() {
     }
 
     await getQuery.map((score, index) => score.increment("score", index));
-    await getQuery.reduce((accum, score, index) => accum += score.get("score"), 0);
-    await getQuery.reduce((accum, score, index) => accum += score.get("score"), 0, { batchSize: 200 });
+    await getQuery.reduce((accum, score, index) => accum + score.get("score"), 0);
+    await getQuery.reduce((accum, score, index) => accum + score.get("score"), 0, { batchSize: 200 });
     await getQuery.filter((scores) => scores.get('score') > 0);
     await getQuery.filter((scores) => scores.get('score') > 0, { batchSize: 10 });
 }

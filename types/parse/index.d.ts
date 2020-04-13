@@ -295,17 +295,17 @@ namespace Parse {
          */
         getData(): Promise<string>;
         url(options?: { forceSecure?: boolean }): string;
-        metadata(): any;
-        tags(): any;
+        metadata(): Record<string, any>;
+        tags(): Record<string, any>;
         name(): string;
         save(options?: SuccessFailureOptions): Promise<File>;
         cancel(): void;
         destroy(): Promise<File>;
         toJSON(): { __type: string, name: string, url: string };
         equals(other: File): boolean;
-        setMetadata(metadata: any): void;
+        setMetadata(metadata: Record<string, any>): void;
         addMetadata(key: string, value: any): void;
-        setTags(tags: any): void;
+        setTags(tags: Record<string, any>): void;
         addTag(key: string, value: any): void;
     }
 
@@ -432,7 +432,7 @@ namespace Parse {
         getACL(): ACL | undefined;
         has(attr: Extract<keyof T, string>): boolean;
         increment(attr: Extract<keyof T, string>, amount?: number): this | false;
-        decrement(attr: Extract<keyof T, string>, amount?: number): this | boolean;
+        decrement(attr: Extract<keyof T, string>, amount?: number): this | false;
         initialize(): void;
         isDataAvailable(): boolean;
         isNew(): boolean;
@@ -668,13 +668,14 @@ namespace Parse {
             X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         doesNotMatchQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
         distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V>;
-        eachBatch(callback: (objs: T[]) => Promise<any>, options?: Query.BatchOptions): Promise<void>;
-        each(callback: (obj: T) => any, options?: Query.BatchOptions): Promise<void>;
+        eachBatch(callback: (objs: T[]) => PromiseLike<void> | void, options?: Query.BatchOptions): Promise<void>;
+        each(callback: (obj: T) => PromiseLike<void> | void, options?: Query.BatchOptions): Promise<void>;
         hint(value: string | object): this;
         explain(explain: boolean): this;
-        map(callback: (currentObject: T, index: number, query: Query) => any, options?: Query.BatchOptions): Promise<any[]>;
-        reduce(callback: (accumulator: any, currentObject: T, index: number) => any, initialValue: any, options?: Query.BatchOptions): Promise<any[]>;
-        filter(callback: (currentObject: T, index: number, query: Query) => boolean, options?: Query.BatchOptions): Promise<T[]>;
+        map<U>(callback: (currentObject: T, index: number, query: Query) => PromiseLike<U> | U, options?: Query.BatchOptions): Promise<U[]>;
+        reduce(callback: (accumulator: T, currentObject: T, index: number) => PromiseLike<T> | T, initialValue?: undefined, options?: Query.BatchOptions): Promise<T>;
+        reduce<U>(callback: (accumulator: U, currentObject: T, index: number) => PromiseLike<U> | U, initialValue: U, options?: Query.BatchOptions): Promise<U>;
+        filter(callback: (currentObject: T, index: number, query: Query) => PromiseLike<boolean> | boolean, options?: Query.BatchOptions): Promise<T[]>;
         endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
         equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K] | (T['attributes'][K] extends Object ? Pointer : never)): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
@@ -1168,14 +1169,14 @@ namespace Parse {
         ): void;
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => any): void;
 
-        function beforeLogin(func?: (request: TriggerRequest) => Promise<void> | void): void;
-        function afterLogin(func?: (request: TriggerRequest) => Promise<void> | void): void;
-        function afterLogout(func?: (request: TriggerRequest) => Promise<void> | void): void;
+        function beforeLogin(func?: (request: TriggerRequest) => PromiseLike<void> | void): void;
+        function afterLogin(func?: (request: TriggerRequest) => PromiseLike<void> | void): void;
+        function afterLogout(func?: (request: TriggerRequest) => PromiseLike<void> | void): void;
 
-        function beforeSaveFile(func?: (request: FileTriggerRequest) => Promise<File> | void): void;
-        function afterSaveFile(func?: (request: FileTriggerRequest) => Promise<void> | void): void;
-        function beforeDeleteFile(func?: (request: FileTriggerRequest) => Promise<void> | void): void;
-        function afterDeleteFile(func?: (request: FileTriggerRequest) => Promise<void> | void): void;
+        function beforeSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<File> | void): void;
+        function afterSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
+        function beforeDeleteFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
+        function afterDeleteFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
 
         function define(name: string, func: (request: FunctionRequest) => any): void;
         function define<T extends () => any>(
