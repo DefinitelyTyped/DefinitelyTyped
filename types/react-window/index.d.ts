@@ -421,7 +421,7 @@ export class VariableSizeList extends Component<VariableSizeListProps> {
      * If you would like to delay this re-render until e.g. a state update has completed in the parent component,
      * specify a value of false for the second, optional parameter.
      */
-    resetAfterIndex(index: number, shouldForceUpdate: boolean): void;
+    resetAfterIndex(index: number, shouldForceUpdate?: boolean): void;
 }
 
 export class FixedSizeGrid extends Component<FixedSizeGridProps> {
