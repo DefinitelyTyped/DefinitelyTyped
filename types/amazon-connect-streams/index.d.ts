@@ -307,12 +307,12 @@ declare namespace connect {
 
         /**
          * Subscribe a method to be called when the agent is put into an error state specific to softphone functionality.
-         * @param callback 
+         * @param callback
          */
         onSoftphoneError(callback: AgentCallback): void;
         /**
          * Subscribe a method to be called whenever new agent data is available.
-         * @param callback 
+         * @param callback
          */
         onStateChange(callback: (agentStateChange: AgentStateChange) => void): void;
 
@@ -426,7 +426,7 @@ declare namespace connect {
         /**
          * The Agent object
          */
-        agent: Agent
+        agent: Agent;
         /**
          * The name of the agent's previous state.
          */
