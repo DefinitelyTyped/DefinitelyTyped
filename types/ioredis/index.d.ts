@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.14
+// Type definitions for ioredis 4.16
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -14,6 +14,7 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Tianlin <https://github.com/tianlinle>
 //                 Demian Rodriguez <https://github.com/demian85>
+//                 Andrew Lavers <https://github.com/alavers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -75,28 +76,116 @@ declare class Command {
     static setReplyTransformer(name: string, fn: (result: any) => any): void;
 }
 
-type Callback<T> = (err: Error | null, res: T) => void;
-
-interface OverloadedListCommand<T, U, R> {
-    (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): R;
-    (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb: Callback<U>): R;
-    (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): R;
-    (arg1: T, arg2: T, arg3: T, cb: Callback<U>): R;
-    (arg1: T, arg2: T, cb: Callback<U>): R;
-    (arg1: T | T[], cb: Callback<U>): R;
-    (...args: T[]): Promise<U>;
-    (arg1: T[]): Promise<U>;
-}
-
 // For backwards compatibility
 type _Command = typeof Command;
 
 declare namespace IORedis {
-    type KeyType = string | Buffer;
-
     type BooleanResponse = 1 | 0;
-
+    type Callback<T> = (err: Error | null, res: T) => void;
+    type KeyType = string | Buffer;
     type ValueType = string | Buffer | number | any[];
+
+    interface OverloadedCommand<T, U> {
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, cb: Callback<U>): void;
+        (arg1: T | T[], cb: Callback<U>): void;
+        (cb: Callback<U>): void;
+        (...args: T[]): Promise<U>;
+        (arg1: T[]): Promise<U>;
+    }
+
+    interface OverloadedListCommand<T, U> {
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, cb: Callback<U>): void;
+        (arg1: T | T[], cb: Callback<U>): void;
+        (...args: T[]): Promise<U>;
+        (arg1: T[]): Promise<U>;
+    }
+
+    interface OverloadedBlockingListCommand<T, U> {
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, timeout: number, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, timeout: number, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, timeout: number, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, timeout: number, cb: Callback<U>): void;
+        (arg1: T, arg2: T, timeout: number, cb: Callback<U>): void;
+        (arg1: T, timeout: number, cb: Callback<U>): void;
+        (arg1: Array<T | number>, cb: Callback<U>): void;
+        (...args: Array<T | number>): Promise<U>;
+        (arg1: Array<T | number>): Promise<U>;
+    }
+
+    interface OverloadedSubCommand<T, U> {
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T | T[], cb: Callback<U>): void;
+        (arg1: T | T[], cb: Callback<U>): void;
+        (...args: T[]): Promise<U>;
+        (arg1: T[]): Promise<U>;
+    }
+
+    interface OverloadedKeyCommand<T, U> {
+        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
+        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb: Callback<U>): void;
+        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
+        (key: KeyType, arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
+        (key: KeyType, arg1: T, arg2: T, cb: Callback<U>): void;
+        (key: KeyType, arg1: T | T[], cb: Callback<U>): void;
+        (key: KeyType, ...args: T[]): Promise<U>;
+        (key: KeyType, arg1: T[]): Promise<U>;
+    }
+
+    interface OverloadedHashCommand<T, U> {
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
+        (arg1: T, arg2: T, cb: Callback<U>): void;
+        (data: T[] | { [key: string]: T }, cb: Callback<U>): void;
+        (data: T[] | { [key: string]: T }): Promise<U>;
+        (...args: T[]): Promise<U>;
+    }
+
+    interface OverloadedKeyedHashCommand<T, U> {
+        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
+        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
+        (key: KeyType, arg1: T, arg2: T, cb: Callback<U>): void;
+        (key: KeyType, data: T[] | { [key: string]: T }, cb: Callback<U>): void;
+        (key: KeyType, data: T[] | { [key: string]: T }): Promise<U>;
+        (key: KeyType, ...args: T[]): Promise<U>;
+    }
+
+    interface OverloadedEvalCommand<T, U> {
+        (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
+        (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb: Callback<U>): void;
+        (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
+        (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
+        (script: string, numKeys: number, arg1: T, arg2: T, cb: Callback<U>): void;
+        (script: string, numKeys: number, arg1: T | T[], cb: Callback<U>): void;
+        (script: string, numKeys: number, ...args: T[]): Promise<U>;
+        (script: string, numKeys: number, arg1: T[]): Promise<U>;
+        // This overload exists specifically to retain compatibility to `redlock`
+        // All arguments are by default flattened, declaring all possible permuatations
+        // would be unreasonable (and probably impossible)
+        (args: ValueType[], callback?: Callback<any>): any;
+    }
+
+    interface OverloadedScanCommand<T, U> {
+        (key: string, cursor: number, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
+        (key: string, cursor: number, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb: Callback<U>): void;
+        (key: string, cursor: number, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
+        (key: string, cursor: number, arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
+        (key: string, cursor: number, arg1: T, arg2: T, cb: Callback<U>): void;
+        (key: string, cursor: number, arg1: T | T[], cb: Callback<U>): void;
+        (key: string, cursor: number, cb: Callback<U>): void;
+        (key: string, cursor: number, ...args: T[]): Promise<U>;
+        (key: string, cursor: number, arg1: T[]): Promise<U>;
+    }
 
     type Command = _Command;
 
@@ -179,9 +268,9 @@ declare namespace IORedis {
         strlen(key: KeyType, callback: Callback<number>): void;
         strlen(key: KeyType): Promise<number>;
 
-        del: OverloadedListCommand<string, number, void>;
+        del: OverloadedListCommand<KeyType, number>;
 
-        unlink(...keys: KeyType[]): Promise<number>;
+        unlink: OverloadedListCommand<KeyType, number>;
 
         exists(...keys: KeyType[]): Promise<number>;
         exists(key: KeyType, callback: Callback<number>): void;
@@ -207,19 +296,17 @@ declare namespace IORedis {
         decr(key: KeyType, callback: Callback<number>): void;
         decr(key: KeyType): Promise<number>;
 
-        mget(...keys: KeyType[]): Promise<Array<string | null>>;
+        mget: OverloadedListCommand<KeyType, Array<string | null>>;
 
-        rpush(key: KeyType, ...values: ValueType[]): Promise<number>;
+        rpush: OverloadedKeyCommand<ValueType, number>;
+        rpushBuffer: OverloadedKeyCommand<Buffer, number>;
 
-        rpushBuffer(key: string, ...values: Buffer[]): Promise<number>;
+        lpush: OverloadedKeyCommand<ValueType, number>;
+        lpushBuffer: OverloadedKeyCommand<Buffer, number>;
 
-        lpush(key: KeyType, ...values: ValueType[]): Promise<number>;
+        rpushx: OverloadedKeyCommand<ValueType, number>;
 
-        rpushx(key: KeyType, value: ValueType, callback: Callback<number>): void;
-        rpushx(key: KeyType, value: ValueType): Promise<number>;
-
-        lpushx(key: KeyType, value: ValueType, callback: Callback<number>): void;
-        lpushx(key: KeyType, value: ValueType): Promise<number>;
+        lpushx: OverloadedKeyCommand<ValueType, number>;
 
         linsert(
             key: KeyType,
@@ -239,9 +326,9 @@ declare namespace IORedis {
         lpopBuffer(key: KeyType, callback: Callback<Buffer>): void;
         lpopBuffer(key: KeyType): Promise<Buffer>;
 
-        brpop(...keys: KeyType[]): Promise<[string, string]>;
+        brpop: OverloadedBlockingListCommand<KeyType, [string, string]>;
 
-        blpop(...keys: KeyType[]): Promise<[string, string]>;
+        blpop: OverloadedBlockingListCommand<KeyType, [string, string]>;
 
         brpoplpush(
             source: string,
@@ -278,9 +365,9 @@ declare namespace IORedis {
         rpoplpushBuffer(source: string, destination: string, callback: Callback<Buffer>): void;
         rpoplpushBuffer(source: string, destination: string): Promise<Buffer>;
 
-        sadd(key: KeyType, ...members: ValueType[]): Promise<number>;
+        sadd: OverloadedKeyCommand<ValueType, number>;
 
-        srem(key: KeyType, ...members: ValueType[]): Promise<number>;
+        srem: OverloadedKeyCommand<ValueType, number>;
 
         smove(
             source: string,
@@ -306,29 +393,30 @@ declare namespace IORedis {
         srandmember(key: KeyType, count: number, callback: Callback<string[]>): void;
         srandmember(key: KeyType, count: number): Promise<string[]>;
 
-        sinter(...keys: KeyType[]): Promise<string[]>;
+        sinter: OverloadedListCommand<KeyType, string[]>;
 
-        sinterstore(destination: string, ...keys: KeyType[]): Promise<number>;
+        sinterstore: OverloadedKeyCommand<KeyType, number>;
 
-        sunion(...keys: KeyType[]): Promise<string[]>;
+        sunion: OverloadedListCommand<KeyType, string[]>;
 
-        sunionstore(destination: string, ...keys: KeyType[]): Promise<number>;
+        sunionstore: OverloadedKeyCommand<KeyType, number>;
 
-        sdiff(...keys: KeyType[]): Promise<string[]>;
+        sdiff: OverloadedListCommand<KeyType, string[]>;
 
-        sdiffstore(destination: string, ...keys: KeyType[]): Promise<number>;
+        sdiffstore: OverloadedKeyCommand<KeyType, number>;
 
         smembers(key: KeyType, callback: Callback<string[]>): void;
         smembers(key: KeyType): Promise<string[]>;
 
-        zadd(key: KeyType, ...args: string[]): Promise<number | string>;
+        zadd: OverloadedKeyCommand<KeyType | number, number | string>;
 
+        zaddBuffer(key: KeyType, score1: number, member1: Buffer, callback: Callback<string | number>): void;
         zaddBuffer(key: KeyType, score1: number, member1: Buffer): Promise<string | number>;
 
         zincrby(key: KeyType, increment: number, member: string, callback: Callback<string>): void;
         zincrby(key: KeyType, increment: number, member: string): Promise<string>;
 
-        zrem(key: KeyType, ...members: ValueType[]): Promise<number>;
+        zrem: OverloadedKeyCommand<ValueType, number>;
 
         zremrangebyscore(
             key: KeyType,
@@ -341,9 +429,9 @@ declare namespace IORedis {
         zremrangebyrank(key: KeyType, start: number, stop: number, callback: Callback<number>): void;
         zremrangebyrank(key: KeyType, start: number, stop: number): Promise<number>;
 
-        zunionstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): Promise<number>;
+        zunionstore: OverloadedKeyCommand<KeyType | number, number>;
 
-        zinterstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): Promise<number>;
+        zinterstore: OverloadedKeyCommand<KeyType | number, number>;
 
         zrange(key: KeyType, start: number, stop: number, callback: Callback<string[]>): void;
         zrange(
@@ -388,7 +476,38 @@ declare namespace IORedis {
             offset: number,
             count: number,
         ): Promise<string[]>;
-        // TODO: add callback signature
+        zrangebyscore(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            callback: Callback<string[]>
+        ): void;
+        zrangebyscore(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores: 'WITHSCORES',
+            callback: Callback<string[]>
+        ): void;
+        zrangebyscore(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores: 'WITHSCORES',
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<string[]>
+        ): void;
+        zrangebyscore(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<string[]>
+        ): void;
 
         zrevrangebyscore(
             key: KeyType,
@@ -413,7 +532,38 @@ declare namespace IORedis {
             offset: number,
             count: number,
         ): Promise<string[]>;
-        // TODO: add callback signature
+        zrevrangebyscore(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            callback: Callback<string[]>
+        ): void;
+        zrevrangebyscore(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            withScores: 'WITHSCORES',
+            callback: Callback<string[]>
+        ): void;
+        zrevrangebyscore(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            withScores: 'WITHSCORES',
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<string[]>
+        ): void;
+        zrevrangebyscore(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<string[]>
+        ): void;
 
         zcount(
             key: KeyType,
@@ -458,15 +608,9 @@ declare namespace IORedis {
         hgetBuffer(key: KeyType, field: string, callback: Callback<Buffer>): void;
         hgetBuffer(key: KeyType, field: string): Promise<Buffer>;
 
-        hmset(key: KeyType, ...args: ValueType[]): Promise<BooleanResponse>;
-        hmset(
-            key: KeyType,
-            data: object | Map<string, ValueType>,
-            callback: Callback<Ok>,
-        ): void;
-        hmset(key: KeyType, data: object | Map<string, ValueType>): Promise<Ok>;
+        hmset: OverloadedKeyedHashCommand<ValueType, Ok>;
 
-        hmget(key: KeyType, ...fields: string[]): Promise<Array<string | null>>;
+        hmget: OverloadedKeyCommand<KeyType, Array<string | null>>;
 
         hincrby(key: KeyType, field: string, increment: number, callback: Callback<number>): void;
         hincrby(key: KeyType, field: string, increment: number): Promise<number>;
@@ -474,7 +618,7 @@ declare namespace IORedis {
         hincrbyfloat(key: KeyType, field: string, increment: number, callback: Callback<number>): void;
         hincrbyfloat(key: KeyType, field: string, increment: number): Promise<number>;
 
-        hdel(key: KeyType, ...fields: string[]): Promise<number>;
+        hdel: OverloadedKeyCommand<KeyType, number>;
 
         hlen(key: KeyType, callback: Callback<number>): void;
         hlen(key: KeyType): Promise<number>;
@@ -503,13 +647,8 @@ declare namespace IORedis {
         getset(key: KeyType, value: ValueType, callback: Callback<string | null>): void;
         getset(key: KeyType, value: ValueType): Promise<string | null>;
 
-        mset(...args: ValueType[]): Promise<Ok>;
-        mset(data: object | Map<string, ValueType>, callback: Callback<Ok>): void;
-        mset(data: object | Map<string, ValueType>): Promise<Ok>;
-
-        msetnx(...args: ValueType[]): Promise<number>;
-        msetnx(data: object | Map<string, ValueType>, callback: Callback<BooleanResponse>): void;
-        msetnx(data: object | Map<string, ValueType>): Promise<BooleanResponse>;
+        mset: OverloadedHashCommand<ValueType, Ok>;
+        msetnx: OverloadedHashCommand<ValueType, BooleanResponse>;
 
         randomkey(callback: Callback<string>): void;
         randomkey(): Promise<string>;
@@ -594,7 +733,7 @@ declare namespace IORedis {
         flushall(callback: Callback<Ok>): void;
         flushall(): Promise<Ok>;
 
-        sort(key: KeyType, ...args: string[]): Promise<string[] | number>;
+        sort: OverloadedListCommand<KeyType | number, string[] | number>;
 
         info(callback: Callback<string>): void;
         info(section: string, callback: Callback<string>): void;
@@ -618,60 +757,59 @@ declare namespace IORedis {
         slaveof(host: string, port: number, callback: Callback<string>): void;
         slaveof(host: string, port: number): Promise<string>;
 
-        debug(...args: ValueType[]): Promise<any>;
+        debug: OverloadedSubCommand<ValueType, any>;
 
-        config(op: 'GET', cfg: any[]): Promise<[string, string]>;
-        config(op: 'REWRITE'): Promise<Ok>;
+        config(op: 'GET', cfg: string): Promise<string[]>;
+        config(op: 'GET', cfg: string, callback: Callback<string[]>): void;
+        config(op: 'REWRITE' | 'RESETSTAT'): Promise<Ok>;
+        config(op: 'REWRITE' | 'RESETSTAT', callback: Callback<Ok>): void;
         config(op: 'SET', key: string, value: ValueType): Promise<Ok>;
+        config(op: 'SET', key: string, value: ValueType, callback: Callback<Ok>): void;
 
-        subscribe(...channels: string[]): Promise<number>;
+        subscribe: OverloadedListCommand<string, number>;
 
-        unsubscribe(...channels: string[]): Promise<number>;
+        unsubscribe: OverloadedCommand<string, number>;
 
-        psubscribe(...patterns: string[]): Promise<number>;
+        psubscribe: OverloadedListCommand<string, number>;
 
-        punsubscribe(...patterns: string[]): Promise<number>;
+        punsubscribe: OverloadedCommand<string, number>;
 
         publish(channel: string, message: string, callback: Callback<number>): void;
         publish(channel: string, message: string): Promise<number>;
 
         publishBuffer(channel: string, message: Buffer): Promise<number>;
 
-        watch(...keys: KeyType[]): Promise<Ok>;
+        watch: OverloadedListCommand<KeyType, Ok>;
 
         unwatch(callback: Callback<string>): void;
         unwatch(): Promise<string>;
 
-        cluster(...args: ValueType[]): any;
+        cluster: OverloadedSubCommand<ValueType, any>;
 
-        restore(...args: ValueType[]): Promise<Ok>;
+        restore: OverloadedListCommand<ValueType, Ok>;
 
-        migrate(...args: ValueType[]): Promise<Ok | 'NOKEY'>;
+        migrate: OverloadedListCommand<ValueType, Ok | 'NOKEY'>;
 
         dump(key: KeyType, callback: Callback<string>): void;
         dump(key: KeyType): Promise<string>;
 
-        object(subcommand: string, ...args: ValueType[]): Promise<any>;
+        object: OverloadedListCommand<ValueType, any>;
 
-        client(...args: ValueType[]): any;
+        client: OverloadedSubCommand<ValueType, any>;
 
-        eval(script: string, numKeys: number, ...args: ValueType[]): any;
-        // This overload exists specifically to retain compatibility to `redlock`
-        // All arguments are by default flattened, declaring all possible permuatations
-        // would be unreasonable (and probably impossible)
-        eval(args: ValueType[], callback?: Callback<any>): any;
+        eval: OverloadedEvalCommand<ValueType, any>;
 
-        evalsha(scriptSha: string, numKeys: string, ...args: ValueType[]): any;
+        evalsha: OverloadedEvalCommand<ValueType, any>;
 
-        script(...args: ValueType[]): any;
+        script: OverloadedSubCommand<ValueType, any>;
 
         quit(callback: Callback<Ok>): void;
         quit(): Promise<Ok>;
 
-        scan(cursor: number | string): Promise<[string, string[]]>;
-
         scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
+        scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string, callback: Callback<[string, string[]]>): void;
         scan(cursor: number | string, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
+        scan(cursor: number | string, countOption: 'count' | 'COUNT', count: number, callback: Callback<[string, string[]]>): void;
 
         scan(
             cursor: number | string,
@@ -682,23 +820,39 @@ declare namespace IORedis {
         ): Promise<[string, string[]]>;
         scan(
             cursor: number | string,
+            matchOption: 'match' | 'MATCH',
+            pattern: string,
+            countOption: 'count' | 'COUNT',
+            count: number,
+            callback: Callback<[string, string[]]>
+        ): void;
+        scan(
+            cursor: number | string,
             countOption: 'count' | 'COUNT',
             count: number,
             matchOption: 'match' | 'MATCH',
             pattern: string,
         ): Promise<[string, string[]]>;
+        scan(
+            cursor: number | string,
+            countOption: 'count' | 'COUNT',
+            count: number,
+            matchOption: 'match' | 'MATCH',
+            pattern: string,
+            callback: Callback<[string, string[]]>
+        ): void;
 
-        sscan(key: KeyType, cursor: number, ...args: ValueType[]): Promise<[string, string[]]>;
+        sscan: OverloadedKeyCommand<ValueType, [string, string[]]>;
 
-        hscan(key: KeyType, cursor: number, ...args: ValueType[]): Promise<[string, string[]]>;
+        hscan: OverloadedKeyCommand<ValueType, [string, string[]]>;
 
-        zscan(key: KeyType, cursor: number, ...args: ValueType[]): Promise<[string, string[]]>;
+        zscan: OverloadedKeyCommand<ValueType, [string, string[]]>;
 
-        pfmerge(destkey: KeyType, ...sourcekeys: KeyType[]): Promise<Ok>;
+        pfmerge: OverloadedKeyCommand<KeyType, Ok>;
 
-        pfadd(key: KeyType, ...elements: string[]): Promise<number>;
+        pfadd: OverloadedKeyCommand<string, number>;
 
-        pfcount(...keys: KeyType[]): Promise<number>;
+        pfcount: OverloadedListCommand<KeyType, number>;
 
         pipeline(commands?: string[][]): Pipeline;
 
@@ -707,45 +861,59 @@ declare namespace IORedis {
         hscanStream(key: KeyType, options?: ScanStreamOption): Readable;
         zscanStream(key: KeyType, options?: ScanStreamOption): Readable;
 
-        xack(key: KeyType, group: string, ...ids: string[]): Promise<number>;
+        // xack(key: KeyType, group: string, ...ids: string[]): Promise<number>;
+        xack: OverloadedKeyCommand<ValueType, number>;
 
-        xadd(key: KeyType, id: string, ...args: string[]): Promise<string>;
-        xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', count: number, ...args: string[]): Promise<string>;
-        xadd(
-            key: KeyType,
-            maxLenOption: 'MAXLEN' | 'maxlen',
-            approximate: '~',
-            count: number,
-            ...args: string[]
-        ): Promise<string>;
+        // xadd(key: KeyType, id: string, ...args: string[]): Promise<string>;
+        // xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', count: number, ...args: string[]): Promise<string>;
+        // xadd(
+            // key: KeyType,
+            // maxLenOption: 'MAXLEN' | 'maxlen',
+            // approximate: '~',
+            // count: number,
+            // ...args: string[]
+        // ): Promise<string>;
+        xadd: OverloadedKeyCommand<ValueType, string>;
 
-        xclaim(
-            key: KeyType,
-            group: string,
-            consumer: string,
-            minIdleTime: number,
-            ...args: ValueType[]
-        ): Promise<Array<[string, string[]]>>;
+        // xclaim(
+            // key: KeyType,
+            // group: string,
+            // consumer: string,
+            // minIdleTime: number,
+            // ...args: ValueType[]
+        // ): Promise<Array<[string, string[]]>>;
+        xclaim: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
-        xdel(key: KeyType, ...ids: string[]): Promise<number>;
+        xdel: OverloadedKeyCommand<string, number>;
 
-        xgroup(...args: ValueType[]): Promise<Ok>;
+        xgroup: OverloadedSubCommand<ValueType, Ok>;
 
-        xinfo(...args: ValueType[]): Promise<any>;
+        xinfo: OverloadedSubCommand<ValueType, any>;
 
         xlen(key: KeyType): Promise<number>;
+        xlen(key: KeyType, callback: Callback<number>): void;
 
-        xpending(key: KeyType, group: string, ...args: ValueType[]): Promise<any>;
+        // xpending(key: KeyType, group: string, ...args: ValueType[]): Promise<any>;
+        xpending: OverloadedKeyCommand<ValueType, any>;
 
-        xrange(key: KeyType, start: string, end: string, ...args: ValueType[]): Promise<Array<[string, string[]]>>;
+        // xrange(key: KeyType, start: string, end: string, ...args: ValueType[]): Promise<Array<[string, string[]]>>;
+        xrange: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
-        xread(...args: ValueType[]): Array<[string, string[]]>;
+        xread: OverloadedListCommand<ValueType, Array<[string, string[]]>>;
 
-        xreadgroup(groupOption: 'GROUP' | 'group', group: string, consumer: string, ...args: ValueType[]): any;
+        // xreadgroup(
+            // groupOption: 'GROUP' | 'group',
+            // group: string,
+            // consumer: string,
+            // ...args: ValueType[]
+        // ): Promise<Array<[string, string[]]>>
+        xreadgroup: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
-        xrevrange(key: KeyType, end: string, start: string, ...args: ValueType[]): Promise<Array<[string, string[]]>>;
+        // xrevrange(key: KeyType, end: string, start: string, ...args: ValueType[]): Promise<Array<[string, string[]]>>;
+        xrevrange: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
-        xtrim(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', ...args: ValueType[]): Promise<number>;
+        // xtrim(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', ...args: ValueType[]): Promise<number>;
+        xtrim: OverloadedKeyCommand<ValueType, number>;
     }
 
     interface Redis extends EventEmitter, Commander, Commands {
