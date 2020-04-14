@@ -1187,7 +1187,7 @@ declare module "mongoose" {
     /** Hash containing current validation errors. */
     errors: any;
     /** This documents _id. */
-    _id: any;
+    _id: Types.ObjectId;
     /** Boolean flag specifying if the document is new. */
     isNew: boolean;
     /** The documents schema. */
