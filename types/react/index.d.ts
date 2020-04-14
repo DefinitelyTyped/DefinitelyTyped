@@ -124,10 +124,10 @@ declare namespace React {
         ? undefined
         : C extends keyof JSX.IntrinsicElements
         ? JSX.IntrinsicElements[C] extends { ref?: infer R }
-            ? R extends RefObject<infer E>
+            ? Exclude<R, string> extends Ref<infer E>
                 ? E
-                : never
-            : never
+                : unknown
+            : unknown
         : never;
 
     type ComponentState = any;

@@ -467,15 +467,17 @@ type ForwardingRefComponentAsRef = React.ElementRef<typeof ForwardingRefComponen
 type MemoizedForwardingRefComponentAsRef = React.ElementRef<typeof MemoizedForwardingRefComponent>; // $ExpectType RefComponent
 type LazyComponentAsRef = React.ElementRef<typeof LazyComponent>; // $ExpectType RefComponent
 
-class CustomView extends React.Component { }
+class CustomRendererElement { }
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            CustomView: React.RefAttributes<CustomView>;
+            custom: React.RefAttributes<CustomRendererElement>;
+            unknown: {};
         }
     }
 }
-type CustomIntrinsicElementRef = React.ElementRef<'CustomView'>; // $ExpectType CustomView
+type CustomIntrinsicElementRef = React.ElementRef<'custom'>; // $ExpectType CustomRendererElement
+type UnknownIntrinsicElementRef = React.ElementRef<'unknown'>; // $ExpectType unknown
 
 //
 // Attributes
