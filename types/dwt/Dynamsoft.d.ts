@@ -1702,7 +1702,7 @@ interface WebTwain {
      * Returns the response string from the HTTP server if an error occurs for HTTPUploadThroughPost() method. This is a runtime, read-only property.
      * @type {string}
      */
-    readonly HTTPPostResponseString: string;
+    readonly httpPostResponseString: string;
 
     /**
      * Returns whether a HTTP request has credentials
@@ -2974,7 +2974,7 @@ interface WebTwain {
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the download fails. Please refer to the function prototype OnFailure.
      * @return {boolean}
      */
-    HTTPDownloadThroughPost(HTTPServer: string, HTTPRemoteFile: string, lImageType: EnumDWT_ImageType, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPDownloadThroughPost(HTTPServer: string, HTTPRemoteFile: string, lImageType: EnumDWT_ImageType, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
 
     /**
      * Uploads just a form created by SetHTTPFormField and SetHTTPHeader
@@ -2982,9 +2982,8 @@ interface WebTwain {
      * @param {string} url the url where the images are sent in a POST request.
      * @param {function} asyncSuccessFunc the function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
-     * @return {boolean}
      */
-    HTTPUpload(url: string, asyncSuccessFunc: (httppostresponsestring: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPUpload(url: string, asyncSuccessFunc: (httpPostResponseString: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
 
     /**
      * Uploads the images specified by the indices to the HTTP server.
@@ -2995,9 +2994,21 @@ interface WebTwain {
      * @param {EnumDWT_UploadDataFormat} dataFormat whether to upload the images as binary or a base64-based string.
      * @param {function} asyncSuccessFunc the function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
-     * @return {boolean}
      */
-    HTTPUpload(url: string, indices: number[], enumImageType: EnumDWT_ImageType, dataFormat: EnumDWT_UploadDataFormat, asyncSuccessFunc: (httppostresponsestring: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPUpload(url: string, indices: number[], enumImageType: EnumDWT_ImageType, dataFormat: EnumDWT_UploadDataFormat, asyncSuccessFunc: (httpPostResponseString: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
+
+    /**
+     * Uploads the images specified by the indices to the HTTP server.
+     * @method WebTwain#HTTPUpload
+     * @param {string} url the url where the images are sent in a POST request.
+     * @param {Array} indices indices specifies which images are to be uploaded.
+     * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be uploaded.
+     * @param {EnumDWT_UploadDataFormat} dataFormat whether to upload the images as binary or a base64-based string.
+     * @param {string} fileName the name of the image to be uploaded.
+     * @param {function} asyncSuccessFunc the function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
+     * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
+     */
+    HTTPUpload(url: string, indices: number[], enumImageType: EnumDWT_ImageType, dataFormat: EnumDWT_UploadDataFormat, fileName: string, asyncSuccessFunc: (httpPostResponseString: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
 
     /**
      * Uploads all images in the buffer to the HTTP server through the HTTP Post method as a Multi-Page TIFF.
@@ -3009,7 +3020,7 @@ interface WebTwain {
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the upload fails. Please refer to the function prototype OnHttpUploadFailure.
      * @return {boolean}
      */
-    HTTPUploadAllThroughPostAsMultiPageTIFF(HTTPServer: string, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPUploadAllThroughPostAsMultiPageTIFF(HTTPServer: string, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
 
     /**
      * Uploads all images in the buffer to the HTTP server through HTTP Post method as a Multi-Page PDF.
@@ -3021,7 +3032,7 @@ interface WebTwain {
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the upload fails. Please refer to the function prototype OnHttpUploadFailure.
      * @return {boolean}
      */
-    HTTPUploadAllThroughPostAsPDF(HTTPServer: string, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPUploadAllThroughPostAsPDF(HTTPServer: string, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
 
     /**
      * [Deprecated.] Uploads all images in the buffer to the HTTP server through the HTTP Put method as a Multi-Page TIFF.
@@ -3060,7 +3071,7 @@ interface WebTwain {
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the upload fails. Please refer to the function prototype OnHttpUploadFailure.
      * @return {boolean}
      */
-    HTTPUploadThroughPost(HTTPServer: string, sImageIndex: number, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPUploadThroughPost(HTTPServer: string, sImageIndex: number, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
 
     /**
      * Uploads the selected images in the buffer to the HTTP server through the HTTP Post method as a Multi-Page TIFF.
@@ -3072,7 +3083,7 @@ interface WebTwain {
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the upload fails. Please refer to the function prototype OnHttpUploadFailure.
      * @return {boolean}
      */
-    HTTPUploadThroughPostAsMultiPageTIFF(HTTPServer: string, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPUploadThroughPostAsMultiPageTIFF(HTTPServer: string, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
 
     /**
      * Uploads the selected images in the buffer to the HTTP server through the HTTP Post method as a Multi-Page PDF.
@@ -3084,7 +3095,7 @@ interface WebTwain {
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the upload fails. Please refer to the function prototype OnHttpUploadFailure.
      * @return {boolean}
      */
-    HTTPUploadThroughPostAsMultiPagePDF(HTTPServer: string, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPUploadThroughPostAsMultiPagePDF(HTTPServer: string, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
 
     /**
      * Directly upload a specific local file to the HTTP server through the HTTP POST method without loading it into Dynamic Web TWAIN.
@@ -3097,7 +3108,7 @@ interface WebTwain {
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the upload fails. Please refer to the function prototype OnHttpUploadFailure.
      * @return {boolean}
      */
-    HTTPUploadThroughPostDirectly(HTTPServer: string, localFile: string, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPUploadThroughPostDirectly(HTTPServer: string, localFile: string, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
 
     /**
      * Uploads the image of a specified index in the buffer to the HTTP server as a specified image format through the HTTP POST method.
@@ -3111,7 +3122,7 @@ interface WebTwain {
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnHttpUploadFailure.
      * @return {boolean}
      */
-    HTTPUploadThroughPostEx(HTTPServer: string, sImageIndex: number, ActionPage: string, fileName: string, lImageType: EnumDWT_ImageType, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+    HTTPUploadThroughPostEx(HTTPServer: string, sImageIndex: number, ActionPage: string, fileName: string, lImageType: EnumDWT_ImageType, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
 
     /**
      * [Deprecated.] Uploads the image of a specified index in the buffer to the HTTP server through the HTTP PUT method.
@@ -3790,9 +3801,9 @@ interface WebTwain {
     FilterImagesByTag(tagName: string): boolean;
 
     SelectAllImages(): boolean;
-	
+
     Invert(sImageIndex: number): boolean;
-	
+
     ConvertToBW(sImageIndex: number): boolean;
 
     /*ignored
