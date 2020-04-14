@@ -69,35 +69,35 @@ declare namespace connect {
 
     interface SoftPhoneOptions {
         /*
-        * Whether to disable the ringtone.
-        */
+         * Whether to disable the ringtone.
+         */
         disableRingtone?: boolean;
         /*
-        * Whether to display the softphone in a frame.
-        */
+         * Whether to display the softphone in a frame.
+         */
         allowFramedSoftphone?: boolean;
         /*
-        * A URL for a custom ringtone.
-        */
+         * A URL for a custom ringtone.
+         */
         ringtoneUrl?: string;
-     }
+    }
 
     interface InitCCPOptions {
         /*
-        * The URL for the Connect CCP.
-        */
+         * The URL for the Connect CCP.
+         */
         ccpUrl: string;
         /*
-        * Whether to display the login view.
-        */
+         * Whether to display the login view.
+         */
         loginPopup?: boolean;
         /*
-        * Options specifying softphone configuration.
-        */
+         * Options specifying softphone configuration.
+         */
         softphone?: SoftPhoneOptions;
-     }
+    }
 
-     enum AgentStateType {
+    enum AgentStateType {
         INIT = 'init',
         ROUTABLE = 'routable',
         NOT_ROUTABLE = 'not_routable',
@@ -105,14 +105,14 @@ declare namespace connect {
     }
 
     enum AgentAvailStates {
-        INIT = "Init",
-        BUSY = "Busy",
-        AFTER_CALL_WORK = "AfterCallWork",
-        CALLING_CUSTOMER = "CallingCustomer",
-        DIALING = "Dialing",
-        JOINING = "Joining",
-        PENDING_AVAILABLE = "PendingAvailable",
-        PENDING_BUSY = "PendingBusy"
+        INIT = 'Init',
+        BUSY = 'Busy',
+        AFTER_CALL_WORK = 'AfterCallWork',
+        CALLING_CUSTOMER = 'CallingCustomer',
+        DIALING = 'Dialing',
+        JOINING = 'Joining',
+        PENDING_AVAILABLE = 'PendingAvailable',
+        PENDING_BUSY = 'PendingBusy'
     }
 
     enum AgentErrorStates {
@@ -211,25 +211,25 @@ declare namespace connect {
     }
 
     /*
-    * A callback to receive notifications of success or failure.
-    */
+     * A callback to receive notifications of success or failure.
+     */
     type SuccessFailCallback = () => void;
 
     interface SuccessFailOptions {
         /*
-        * A {SuccessFailCallback} to receive a notification of success.
-        */
+         * A {SuccessFailCallback} to receive a notification of success.
+         */
         success?: SuccessFailCallback;
         /*
-        * A {SuccessFailCallback} to receive a notification of failure.
-        */
-       failure?: SuccessFailCallback;
+         * A {SuccessFailCallback} to receive a notification of failure.
+         */
+        failure?: SuccessFailCallback;
     }
     interface ConnectOptions extends SuccessFailOptions {
         /*
-        * A string containing a Connect Queue ARN.
-        */
-       queueARN?: string;
+         * A string containing a Connect Queue ARN.
+         */
+        queueARN?: string;
     }
 
     interface MuteState {
@@ -611,9 +611,9 @@ declare namespace connect {
 
     interface SendDigitOptions extends SuccessFailOptions {
         /*
-        * A string containing digits to send.
-        */
-       digits: string;
+         * A string containing digits to send.
+         */
+        digits: string;
     }
 
     interface Connection {
@@ -640,7 +640,7 @@ declare namespace connect {
         /**
          * Get the type of connection.
          */
-        getType(): "inbound" | "outbound" | "monitoring";
+        getType(): 'inbound' | 'outbound' | 'monitoring';
         /**
          * Determine if the connection is the contact's initial connection.
          */
