@@ -426,3 +426,15 @@ type propTypesTest1 = typeof testPropTypes extends DeclaredPropTypes<TestPropTyp
 type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps2> ? true : false;
 // $ExpectType true
 type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;
+
+class WithLegacyContextConstructor extends React.Component {
+    static contextTypes = {
+        color: PropTypes.string
+    };
+
+    constructor(props: any, context: any) {
+        super(props, context);
+    }
+}
+
+type WithLegacyContextConstructorProps = React.ComponentProps<typeof WithLegacyContextConstructor>;

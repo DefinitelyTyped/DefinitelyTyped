@@ -82,7 +82,7 @@ declare namespace React {
 
     type JSXElementConstructor<P> =
         | ((props: P) => ReactElement | null)
-        | (new (props: P) => Component<P, any>);
+        | (new (props: P, context?: any) => Component<P, any>);
 
     interface RefObject<T> {
         readonly current: T | null;
