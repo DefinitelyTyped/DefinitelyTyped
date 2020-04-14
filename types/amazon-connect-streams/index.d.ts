@@ -2,6 +2,7 @@
 // Type definitions for Amazon Connect Streams API 1.4
 // Project: https://github.com/aws/amazon-connect-streams
 // Definitions by: Andy Hopper <https://github.com/andyhopp>
+//                 Ivan Bliskavka <https://github.com/ibliskavka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 declare namespace connect {
