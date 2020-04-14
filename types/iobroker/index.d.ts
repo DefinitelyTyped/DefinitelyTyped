@@ -1,4 +1,4 @@
-// Type definitions for ioBroker 2.2
+// Type definitions for ioBroker 3.0
 // Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -398,6 +398,8 @@ declare global {
         type EnumList = string | string[];
 
         type Enum = any; // TODO: implement this
+
+        type Plugin = Record<string, any>; // TODO: Add definition
 
         interface DirectoryEntry {
             file: string;
@@ -1655,6 +1657,26 @@ declare global {
                 path: string,
                 options: { mode: number | string } | Record<string, any>,
             ): Promise<{ entries: ChownFileResult[]; id: string }>;
+
+            /**
+             * Checks if a given feature is supported by the current installation
+             * @param featureName The name of the feature to test for
+             */
+            supportsFeature?: (featureName: string) => boolean;
+
+            /**
+             * Returns an instance of a loaded plugin
+             * @param name The name of the plugin
+             * @returns The plugin instance or null if it is not existent or not active
+             */
+            getPluginInstance(name: string): Plugin | null;
+
+            /**
+             * Returns the configuration for a loaded plugin
+             * @param name The name of the plugin
+             * @returns The plugin configuration or null if it is not existent or not active
+             */
+            getPluginConfig(name: string): Record<string, any> | null;
 
             // ==============================
             // formatting
