@@ -4,6 +4,7 @@
 //                 Stephen Traiforos <https://github.com/straiforos>
 //                 Rosana Ruiz <https://github.com/totemika>
 //                 Juan Manuel Incaurgarat <https://github.com/kilinkis>
+//                 Chris Worman <https://github.com/chrisworman-pela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
