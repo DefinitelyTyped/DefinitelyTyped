@@ -167,7 +167,7 @@ declare interface ToolBarButtonView {
     subscriptions: Disposable;
     priority: number;
     options: ButtonOptions;
-    group: any;
+    group: string;
     enabled: boolean;
 
     setEnabled(enabled: boolean): void;
@@ -188,7 +188,7 @@ declare interface ToolBarButtonView {
 declare interface ToolBarSpacerView {
     element: HTMLHRElement;
     priority: number;
-    group: any;
+    group: string;
 
     destroy(): void;
 }
