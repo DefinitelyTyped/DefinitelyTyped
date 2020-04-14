@@ -471,7 +471,7 @@ class CustomView extends React.Component { }
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            CustomView: IntrinsicClassAttributes<CustomView>;
+            CustomView: React.RefAttributes<CustomView>;
         }
     }
 }
