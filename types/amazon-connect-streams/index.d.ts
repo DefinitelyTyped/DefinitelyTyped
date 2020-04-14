@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // Type definitions for Amazon Connect Streams API 1.4
 // Project: https://github.com/aws/amazon-connect-streams
 // Definitions by: Andy Hopper <https://github.com/andyhopp>
@@ -64,6 +65,8 @@ declare namespace connect {
 
     interface Core {
         initCCP(containerDiv: HTMLElement, options: InitCCPOptions): void;
+        terminate(): void;
+        initialized: boolean;
     }
     let core: Core;
 
@@ -87,10 +90,24 @@ declare namespace connect {
          * The URL for the Connect CCP.
          */
         ccpUrl: string;
+        /**
+         * Amazon connect instance region
+         * Only required for chat channel
+         */
+        region?: string;
         /*
          * Whether to display the login view.
          */
         loginPopup?: boolean;
+        /**
+         * Defaults to false.
+         * Set to true to automatically close the loginPopup window after authentication.
+         */
+        loginPopupAutoClose?: boolean;
+        /**
+         * Allows custom URL to be used to initiate the ccp, as in the case of SAML authentication.
+         */
+        loginUrl?: string;
         /*
          * Options specifying softphone configuration.
          */
@@ -289,6 +306,17 @@ declare namespace connect {
         onMuteToggle(callback: MuteCallback): void;
 
         /**
+         * Subscribe a method to be called when the agent is put into an error state specific to softphone functionality.
+         * @param callback 
+         */
+        onSoftphoneError(callback: AgentCallback): void;
+        /**
+         * Subscribe a method to be called whenever new agent data is available.
+         * @param callback 
+         */
+        onStateChange(callback: (agentStateChange: AgentStateChange) => void): void;
+
+        /**
          * Get the agent's current AgentState object indicating their availability state type.
          */
         getState(): AgentState;
@@ -391,6 +419,24 @@ declare namespace connect {
         muted?: boolean;
     }
 
+    /**
+     * An object containing the Agent old state and new state
+     */
+    interface AgentStateChange {
+        /**
+         * The Agent object
+         */
+        agent: Agent
+        /**
+         * The name of the agent's previous state.
+         */
+        oldState: string;
+        /**
+         * The name of the agent's new state.
+         */
+        newState: string;
+    }
+
     interface AgentConfiguration {
         /**
          * The agent's user friendly display name.
@@ -456,6 +502,12 @@ declare namespace connect {
          * Subscribe a method to be invoked whenever the contact is ended or destroyed.
          */
         onEnded(callback: ContactCallback): void;
+
+        /**
+         * Subscribe a method to be invoked when the contact is connecting.
+         */
+        onConnecting(callback: ContactCallback): void;
+
         /**
          * Subscribe a method to be invoked when the contact is connected.
          */
@@ -520,7 +572,7 @@ declare namespace connect {
         /**
          * Get a map from attribute name to value for each attribute associated with the contact.
          */
-        getAttributes(): { [key: string]: string };
+        getAttributes(): { [key: string]: { label: string; value: string } };
         /*
          * Determine whether this contact is a softphone call.
          */
