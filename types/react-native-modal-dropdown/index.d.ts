@@ -16,11 +16,11 @@ export interface PositionStyle {
     height?: number;
 }
 
-export interface ModalDropdownProps extends ViewProps {
+export interface ModalDropdownProps<T = any> extends ViewProps {
     disabled?: boolean;
     defaultIndex?: number;
     defaultValue?: string;
-    options?: any[];
+    options?: T[];
     animated?: boolean;
     scrollEnabled?: boolean;
     showsVerticalScrollIndicator?: boolean;
@@ -29,17 +29,17 @@ export interface ModalDropdownProps extends ViewProps {
     dropdownTextStyle?: StyleProp<TextStyle>;
     dropdownTextHighlightStyle?: StyleProp<TextStyle>;
     adjustFrame?: (positionStyle: PositionStyle) => PositionStyle;
-    renderRow?: (option: any, index: string, isSelected: boolean) => React.ReactNode;
+    renderRow?: (option: T, index: string, isSelected: boolean) => React.ReactNode;
     renderSeparator?: (sectionID: string, index: string, adjacentRowHighlighted: boolean) => React.ReactNode;
     renderButtonText?: (text: string) => string;
     onDropdownWillShow?: () => void | boolean;
     onDropdownWillHide?: () => void | boolean;
-    onSelect?: (index: string, option: any) => void | boolean;
+    onSelect?: (index: string, option: T) => void | boolean;
     accessible?: boolean;
     keyboardShouldPersistTaps?: 'always' | 'never' | 'handled';
 }
 
-export default class ModalDropdown extends React.Component<ModalDropdownProps> {
+export default class ModalDropdown<T = any> extends React.Component<ModalDropdownProps<T>> {
     show(): void;
     hide(): void;
     select(index: number): void;
