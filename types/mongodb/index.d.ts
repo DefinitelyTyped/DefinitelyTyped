@@ -31,6 +31,7 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Richard Bateman <https://github.com/taxilian>
 //                 Igor Strebezhev <https://github.com/xamgore>
+//                 Valentin Agachi <https://github.com/avaly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1312,7 +1313,7 @@ export type UpdateQuery<TSchema> = {
     $rename?: { [key: string]: string };
     $set?: MatchKeysAndValues<TSchema>;
     $setOnInsert?: MatchKeysAndValues<TSchema>;
-    $unset?: OnlyFieldsOfType<TSchema, any, ''>;
+    $unset?: OnlyFieldsOfType<TSchema, any, '' | 1 | true>;
 
     /** https://docs.mongodb.com/manual/reference/operator/update-array/ */
     $addToSet?: SetFields<TSchema>;

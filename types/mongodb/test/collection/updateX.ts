@@ -97,6 +97,13 @@ async function run() {
     buildUpdateQuery({ $unset: { 'subInterfaceArray.$[bla]': '' } });
     buildUpdateQuery({ $unset: { 'subInterfaceArray.$[]': '' } });
 
+    buildUpdateQuery({ $unset: { numberField: 1 } });
+    buildUpdateQuery({ $unset: { dateField: 1 } });
+    buildUpdateQuery({ $unset: { 'dot.notation': 1 } });
+    buildUpdateQuery({ $unset: { 'subInterfaceArray.$': 1 } });
+    buildUpdateQuery({ $unset: { 'subInterfaceArray.$[bla]': 1 } });
+    buildUpdateQuery({ $unset: { 'subInterfaceArray.$[]': 1 } });
+
     buildUpdateQuery({ $rename: { numberField2: 'stringField' } });
 
     buildUpdateQuery({ $addToSet: { fruitTags: 'stringField' } });
