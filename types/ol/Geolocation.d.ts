@@ -62,10 +62,16 @@ export default class Geolocation extends BaseObject {
     on(type: 'change:trackingOptions', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'change:trackingOptions', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'change:trackingOptions', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    on(type: 'error', listener: (evt: GeolocationError) => void): EventsKey;
+    once(type: 'error', listener: (evt: GeolocationError) => void): EventsKey;
+    un(type: 'error', listener: (evt: GeolocationError) => void): void;
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+}
+
+export class GeolocationError extends BaseEvent {
+    constructor(type: string);
+    code: number;
+    message: string;
 }
