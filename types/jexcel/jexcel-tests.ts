@@ -1,4 +1,4 @@
-import jexcel, { CalendarOptions, ColumnEditor, JExcelElement } from 'jexcel';
+import jexcel = require('jexcel');
 
 /**
  * @see https://bossanova.uk/jexcel/v3/docs/getting-started
@@ -13,7 +13,7 @@ const data = [
     ['Honda CRV', 2010, 6000],
 ];
 
-let instance: JExcelElement = jexcel(document.getElementById('my-spreadsheet') as HTMLDivElement, {
+let instance: jexcel.JExcelElement = jexcel(document.getElementById('my-spreadsheet') as HTMLDivElement, {
     data,
     columns: [
         { title: 'Model', width: 300 },
@@ -115,7 +115,7 @@ instance = jexcel(document.getElementById('myTable') as HTMLDivElement, {
     ],
 });
 
-const options: CalendarOptions = {
+const options: jexcel.CalendarOptions = {
     // Date format
     format: 'DD/MM/YYYY',
     // Allow keyboard date entry
@@ -146,7 +146,7 @@ const data2 = [
     ['Javascript', '16:30'],
 ];
 
-const customColumn: ColumnEditor = {
+const customColumn: jexcel.ColumnEditor = {
     // Methods
     closeEditor: (cell: any, save: any) => {
         const value = cell.children[0].value;
