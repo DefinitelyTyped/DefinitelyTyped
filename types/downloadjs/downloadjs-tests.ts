@@ -4,7 +4,7 @@ download('hello world', 'dlText.txt', 'text/plain');
 download('data:text/plain,hello%20world', 'dlDataUrlText.txt', 'text/plain');
 
 download(new Blob(['hello world']), 'dlTextBlob.txt', 'text/plain');
-download(new UintArray8([1, 2, 3]), 'dlUintArray8.html', 'text/html');
+download(new Uint8Array([1, 2, 3]), 'dlUintArray8.html', 'text/html');
 
 download('/robots.txt');
 
