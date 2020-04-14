@@ -7,6 +7,7 @@
 //                 plhery <https://github.com/plhery>
 //                 justGoscha <https://github.com/justgoscha>
 //                 darkade <https://github.com/darkade>
+//                 brianjychan <https://github.com/brianjychan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
