@@ -30,6 +30,7 @@ import _DatePickerSkeleton from "./lib/components/DatePicker/DatePicker.Skeleton
 import _DatePickerInput from "./lib/components/DatePickerInput";
 import _Dropdown from "./lib/components/Dropdown";
 import _DropdownSkeleton from "./lib/components/Dropdown/Dropdown.Skeleton";
+import _ErrorBoundary from "./lib/components/ErrorBoundary/ErrorBoundary";
 import _FileUploader from "./lib/components/FileUploader";
 import _FileUploaderItem from "./lib/components/FileUploader/FileUploaderItem";
 import _FileUploaderDropContainer from "./lib/components/FileUploader/FileUploaderDropContainer";
@@ -116,6 +117,7 @@ export * from "./lib/components/DataTableSkeleton";
 export * from "./lib/components/DatePicker";
 export * from "./lib/components/DatePickerInput";
 export * from "./lib/components/Dropdown";
+export * from "./lib/components/ErrorBoundary";
 export * from "./lib/components/FileUploader";
 export * from "./lib/components/Form";
 export * from "./lib/components/FormGroup";
@@ -213,6 +215,8 @@ export {
 export { _DatePicker as DatePicker };
 export { _DatePickerInput as DatePickerInput };
 export { _Dropdown as Dropdown };
+export { _ErrorBoundary as ErrorBoundary };
+export { ErrorBoundaryContext } from "./lib/components/ErrorBoundary/ErrorBoundaryContext";
 export { _FileUploader as FileUploader };
 export { _FileUploaderItem as FileUploaderItem };
 export { _FileUploaderDropContainer as FileUploaderDropContainer };
