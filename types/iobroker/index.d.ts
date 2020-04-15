@@ -183,6 +183,15 @@ declare global {
             common?: Partial<DeviceCommon>;
         }
 
+        interface FolderObject extends BaseObject {
+            type: 'folder';
+            // Nothing is set in stone here, so start with allowing every property
+            common: OtherCommon;
+        }
+        interface PartialFolderObject extends Partial<Pick<FolderObject, '_id' | 'native' | 'enums' | 'type' | 'acl'>> {
+            common?: Partial<OtherCommon>;
+        }
+
         interface OtherObject extends BaseObject {
             type: 'adapter' | 'config' | 'enum' | 'group' | 'host' | 'info' | 'instance' | 'meta' | 'script' | 'user';
             common: OtherCommon;
@@ -191,7 +200,7 @@ declare global {
             common?: Partial<ObjectCommon>;
         }
 
-        type Object = StateObject | ChannelObject | DeviceObject | OtherObject;
+        type Object = StateObject | ChannelObject | DeviceObject | FolderObject | OtherObject;
 
         type SettableObjectWorker<T extends ioBroker.Object> = Pick<T, Exclude<keyof T, '_id' | 'acl'>> & {
             _id?: T['_id'];
@@ -200,7 +209,7 @@ declare global {
 
         // In set[Foreign]Object[NotExists] methods, the ID and acl of the object is optional
         type SettableObject = SettableObjectWorker<ioBroker.Object>;
-        type PartialObject = PartialStateObject | PartialChannelObject | PartialDeviceObject | PartialOtherObject;
+        type PartialObject = PartialStateObject | PartialChannelObject | PartialDeviceObject | PartialFolderObject | PartialOtherObject;
 
         /** Defines access rights for a single file */
         interface FileACL {

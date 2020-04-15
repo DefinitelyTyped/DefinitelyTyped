@@ -386,6 +386,17 @@ function repro3() {
     });
 }
 
+const folderObj: ioBroker.FolderObject = {
+    _id: "id",
+    type: "folder",
+    common: {
+        name: "something",
+        // any property is allowed
+        foo: "bar",
+    },
+    native: {},
+};
+
 // Repro from https://github.com/ioBroker/ioBroker.js-controller/issues/782
 // $ExpectError
 adapter.setState("id", {ack: false});
