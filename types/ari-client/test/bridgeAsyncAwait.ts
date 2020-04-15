@@ -20,7 +20,7 @@ export default async () => {
 
             if (!bridge) {
                 bridge = client.Bridge();
-                return await bridge.create({ type: 'holding' });
+                return bridge.create({ type: 'holding' });
             } else {
                 // Add incoming channel to existing holding bridge and play
                 // music on hold

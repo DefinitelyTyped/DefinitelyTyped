@@ -669,8 +669,8 @@ export interface Resource {
 }
 export interface Applications {
     /* Methods */
-    list(callback: (err: Error, applications: Array<Application>) => void): void;
-    list(): Promise<Array<Application>>;
+    list(callback: (err: Error, applications: Application[]) => void): void;
+    list(): Promise<Application[]>;
     get(params: { applicationName: string }, callback: (err: Error, application: Application) => void): void;
     get(params: { applicationName: string }): Promise<Application>;
     subscribe(
@@ -696,11 +696,11 @@ export interface Application extends Resource {
     bridge_ids: string | string[];
     endpoint_ids: string | string[];
     device_names: string | string[];
-    events_allowed: object | Array<object>;
-    events_disallowed: object | Array<object>;
+    events_allowed: object | object[];
+    events_disallowed: object | object[];
     /* Methods */
-    list(callback: (err: Error, applications: Array<Application>) => void): void;
-    list(): Promise<Array<Application>>;
+    list(callback: (err: Error, applications: Application[]) => void): void;
+    list(): Promise<Application[]>;
     get(callback: (err: Error, application: Application) => void): void;
     get(): Promise<Application>;
     subscribe(
@@ -721,9 +721,9 @@ export interface Asterisk {
     /* Methods */
     getObject(
         params: { configClass: string; objectType: string; id: string },
-        callback: (err: Error, configtuples: Array<ConfigTuple>) => void,
+        callback: (err: Error, configtuples: ConfigTuple[]) => void,
     ): void;
-    getObject(params: { configClass: string; objectType: string; id: string }): Promise<Array<ConfigTuple>>;
+    getObject(params: { configClass: string; objectType: string; id: string }): Promise<ConfigTuple[]>;
     updateObject(
         params: {
             configClass: string;
@@ -731,14 +731,9 @@ export interface Asterisk {
             id: string;
             fields?: any;
         },
-        callback: (err: Error, configtuples: Array<ConfigTuple>) => void,
+        callback: (err: Error, configtuples: ConfigTuple[]) => void,
     ): void;
-    updateObject(params: {
-        configClass: string;
-        objectType: string;
-        id: string;
-        fields?: any;
-    }): Promise<Array<ConfigTuple>>;
+    updateObject(params: { configClass: string; objectType: string; id: string; fields?: any }): Promise<ConfigTuple[]>;
     deleteObject(params: { configClass: string; objectType: string; id: string }, callback: (err: Error) => void): void;
     deleteObject(params: { configClass: string; objectType: string; id: string }): Promise<void>;
     getInfo(params: { only?: string | string[] }, callback: (err: Error, asteriskinfo: AsteriskInfo) => void): void;
@@ -746,8 +741,8 @@ export interface Asterisk {
     getInfo(params?: { only?: string | string[] }): Promise<AsteriskInfo>;
     ping(callback: (err: Error, asteriskping: AsteriskPing) => void): void;
     ping(): Promise<AsteriskPing>;
-    listModules(callback: (err: Error, modules: Array<Module>) => void): void;
-    listModules(): Promise<Array<Module>>;
+    listModules(callback: (err: Error, modules: Module[]) => void): void;
+    listModules(): Promise<Module[]>;
     getModule(params: { moduleName: string }, callback: (err: Error, module: Module) => void): void;
     getModule(params: { moduleName: string }): Promise<Module>;
     loadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
@@ -756,8 +751,8 @@ export interface Asterisk {
     unloadModule(params: { moduleName: string }): Promise<void>;
     reloadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
     reloadModule(params: { moduleName: string }): Promise<void>;
-    listLogChannels(callback: (err: Error, logchannels: Array<LogChannel>) => void): void;
-    listLogChannels(): Promise<Array<LogChannel>>;
+    listLogChannels(callback: (err: Error, logchannels: LogChannel[]) => void): void;
+    listLogChannels(): Promise<LogChannel[]>;
     addLog(params: { logChannelName: string; configuration: string }, callback: (err: Error) => void): void;
     addLog(params: { logChannelName: string; configuration: string }): Promise<void>;
     deleteLog(params: { logChannelName: string }, callback: (err: Error) => void): void;
@@ -841,8 +836,8 @@ export interface ConfigTuple {
 }
 export interface Bridges {
     /* Methods */
-    list(callback: (err: Error, bridges: Array<Bridge>) => void): void;
-    list(): Promise<Array<Bridge>>;
+    list(callback: (err: Error, bridges: Bridge[]) => void): void;
+    list(): Promise<Bridge[]>;
     create(
         params: { type?: string; bridgeId?: string; name?: string },
         callback: (err: Error, bridge: Bridge) => void,
@@ -960,8 +955,8 @@ export interface Bridge extends Resource {
     video_source_id?: string;
     creationtime: Date;
     /* Methods */
-    list(callback: (err: Error, bridges: Array<Bridge>) => void): void;
-    list(): Promise<Array<Bridge>>;
+    list(callback: (err: Error, bridges: Bridge[]) => void): void;
+    list(): Promise<Bridge[]>;
     create(params: { type?: string; name?: string }, callback: (err: Error, bridge: Bridge) => void): void;
     create(callback: (err: Error, bridge: Bridge) => void): void;
     create(params?: { type?: string; name?: string }): Promise<Bridge>;
@@ -1060,8 +1055,8 @@ export interface Bridge extends Resource {
 }
 export interface Channels {
     /* Methods */
-    list(callback: (err: Error, channels: Array<Channel>) => void): void;
-    list(): Promise<Array<Channel>>;
+    list(callback: (err: Error, channels: Channel[]) => void): void;
+    list(): Promise<Channel[]>;
     originate(
         params: {
             endpoint: string;
@@ -1394,8 +1389,8 @@ export interface Channel extends Resource {
     language: string;
     channelvars?: object;
     /* Methods */
-    list(callback: (err: Error, channels: Array<Channel>) => void): void;
-    list(): Promise<Array<Channel>>;
+    list(callback: (err: Error, channels: Channel[]) => void): void;
+    list(): Promise<Channel[]>;
     originate(
         params: {
             endpoint: string;
@@ -1662,8 +1657,8 @@ export interface Channel extends Resource {
 }
 export interface DeviceStates {
     /* Methods */
-    list(callback: (err: Error, devicestates: Array<DeviceState>) => void): void;
-    list(): Promise<Array<DeviceState>>;
+    list(callback: (err: Error, devicestates: DeviceState[]) => void): void;
+    list(): Promise<DeviceState[]>;
     get(params: { deviceName: string }, callback: (err: Error, devicestate: DeviceState) => void): void;
     get(params: { deviceName: string }): Promise<DeviceState>;
     update(params: { deviceName: string; deviceState: string }, callback: (err: Error) => void): void;
@@ -1676,8 +1671,8 @@ export interface DeviceState extends Resource {
     name: string;
     state: string;
     /* Methods */
-    list(callback: (err: Error, devicestates: Array<DeviceState>) => void): void;
-    list(): Promise<Array<DeviceState>>;
+    list(callback: (err: Error, devicestates: DeviceState[]) => void): void;
+    list(): Promise<DeviceState[]>;
     get(callback: (err: Error, devicestate: DeviceState) => void): void;
     get(): Promise<DeviceState>;
     update(params: { deviceState: string }, callback: (err: Error) => void): void;
@@ -1687,16 +1682,16 @@ export interface DeviceState extends Resource {
 }
 export interface Endpoints {
     /* Methods */
-    list(callback: (err: Error, endpoints: Array<Endpoint>) => void): void;
-    list(): Promise<Array<Endpoint>>;
+    list(callback: (err: Error, endpoints: Endpoint[]) => void): void;
+    list(): Promise<Endpoint[]>;
     sendMessage(
         params: { to: string; from: string; body?: string; variables?: any },
         callback: (err: Error) => void,
     ): void;
     sendMessage(params: { to: string; from: string; body?: string; variables?: any }): Promise<void>;
-    listByTech(params: { tech: string }, callback: (err: Error, endpoints: Array<Endpoint>) => void): void;
-    listByTech(callback: (err: Error, endpoints: Array<Endpoint>) => void): void;
-    listByTech(params?: { tech: string }): Promise<Array<Endpoint>>;
+    listByTech(params: { tech: string }, callback: (err: Error, endpoints: Endpoint[]) => void): void;
+    listByTech(callback: (err: Error, endpoints: Endpoint[]) => void): void;
+    listByTech(params?: { tech: string }): Promise<Endpoint[]>;
     get(params: { tech: string; resource: string }, callback: (err: Error, endpoint: Endpoint) => void): void;
     get(callback: (err: Error, endpoint: Endpoint) => void): void;
     get(params?: { tech: string; resource: string }): Promise<Endpoint>;
@@ -1725,15 +1720,15 @@ export interface Endpoint extends Resource {
     state?: string;
     channel_ids: string | string[];
     /* Methods */
-    list(callback: (err: Error, endpoints: Array<Endpoint>) => void): void;
-    list(): Promise<Array<Endpoint>>;
+    list(callback: (err: Error, endpoints: Endpoint[]) => void): void;
+    list(): Promise<Endpoint[]>;
     sendMessage(
         params: { to: string; from: string; body?: string; variables?: any },
         callback: (err: Error) => void,
     ): void;
     sendMessage(params: { to: string; from: string; body?: string; variables?: any }): Promise<void>;
-    listByTech(callback: (err: Error, endpoints: Array<Endpoint>) => void): void;
-    listByTech(): Promise<Array<Endpoint>>;
+    listByTech(callback: (err: Error, endpoints: Endpoint[]) => void): void;
+    listByTech(): Promise<Endpoint[]>;
     get(callback: (err: Error, endpoint: Endpoint) => void): void;
     get(): Promise<Endpoint>;
     sendMessageToEndpoint(
@@ -1752,12 +1747,12 @@ export interface TextMessage {
     from: string;
     to: string;
     body: string;
-    variables?: TextMessageVariable | Array<TextMessageVariable>;
+    variables?: TextMessageVariable | TextMessageVariable[];
 }
 export interface Mailboxes {
     /* Methods */
-    list(callback: (err: Error, mailboxs: Array<Mailbox>) => void): void;
-    list(): Promise<Array<Mailbox>>;
+    list(callback: (err: Error, mailboxs: Mailbox[]) => void): void;
+    list(): Promise<Mailbox[]>;
     get(params: { mailboxName: string }, callback: (err: Error, mailbox: Mailbox) => void): void;
     get(params: { mailboxName: string }): Promise<Mailbox>;
     update(
@@ -1774,8 +1769,8 @@ export interface Mailbox extends Resource {
     old_messages: number;
     new_messages: number;
     /* Methods */
-    list(callback: (err: Error, mailboxs: Array<Mailbox>) => void): void;
-    list(): Promise<Array<Mailbox>>;
+    list(callback: (err: Error, mailboxs: Mailbox[]) => void): void;
+    list(): Promise<Mailbox[]>;
     get(callback: (err: Error, mailbox: Mailbox) => void): void;
     get(): Promise<Mailbox>;
     update(params: { oldMessages: number; newMessages: number }, callback: (err: Error) => void): void;
@@ -1810,8 +1805,8 @@ export interface Playback extends Resource {
 }
 export interface Recordings {
     /* Methods */
-    listStored(callback: (err: Error, storedrecordings: Array<StoredRecording>) => void): void;
-    listStored(): Promise<Array<StoredRecording>>;
+    listStored(callback: (err: Error, storedrecordings: StoredRecording[]) => void): void;
+    listStored(): Promise<StoredRecording[]>;
     getStored(
         params: { recordingName: string },
         callback: (err: Error, storedrecording: StoredRecording) => void,
@@ -1846,8 +1841,8 @@ export interface StoredRecording extends Resource {
     name: string;
     format: string;
     /* Methods */
-    listStored(callback: (err: Error, storedrecordings: Array<StoredRecording>) => void): void;
-    listStored(): Promise<Array<StoredRecording>>;
+    listStored(callback: (err: Error, storedrecordings: StoredRecording[]) => void): void;
+    listStored(): Promise<StoredRecording[]>;
     getStored(callback: (err: Error, storedrecording: StoredRecording) => void): void;
     getStored(): Promise<StoredRecording>;
     deleteStored(callback: (err: Error) => void): void;
@@ -1885,8 +1880,8 @@ export interface LiveRecording extends Resource {
     silence_duration?: number;
     cause?: string;
     /* Methods */
-    listStored(callback: (err: Error, storedrecordings: Array<StoredRecording>) => void): void;
-    listStored(): Promise<Array<StoredRecording>>;
+    listStored(callback: (err: Error, storedrecordings: StoredRecording[]) => void): void;
+    listStored(): Promise<StoredRecording[]>;
     getStored(callback: (err: Error, storedrecording: StoredRecording) => void): void;
     getStored(): Promise<StoredRecording>;
     deleteStored(callback: (err: Error) => void): void;
@@ -1915,9 +1910,9 @@ export interface LiveRecording extends Resource {
 }
 export interface Sounds {
     /* Methods */
-    list(params: { lang?: string; format?: string }, callback: (err: Error, sounds: Array<Sound>) => void): void;
-    list(callback: (err: Error, sounds: Array<Sound>) => void): void;
-    list(params?: { lang?: string; format?: string }): Promise<Array<Sound>>;
+    list(params: { lang?: string; format?: string }, callback: (err: Error, sounds: Sound[]) => void): void;
+    list(callback: (err: Error, sounds: Sound[]) => void): void;
+    list(params?: { lang?: string; format?: string }): Promise<Sound[]>;
     get(params: { soundId: string }, callback: (err: Error, sound: Sound) => void): void;
     get(params: { soundId: string }): Promise<Sound>;
 }
@@ -1930,11 +1925,11 @@ export interface Sound extends Resource {
     /* Properties */
     id: string;
     text?: string;
-    formats: FormatLangPair | Array<FormatLangPair>;
+    formats: FormatLangPair | FormatLangPair[];
     /* Methods */
-    list(params: { lang?: string; format?: string }, callback: (err: Error, sounds: Array<Sound>) => void): void;
-    list(callback: (err: Error, sounds: Array<Sound>) => void): void;
-    list(params?: { lang?: string; format?: string }): Promise<Array<Sound>>;
+    list(params: { lang?: string; format?: string }, callback: (err: Error, sounds: Sound[]) => void): void;
+    list(callback: (err: Error, sounds: Sound[]) => void): void;
+    list(params?: { lang?: string; format?: string }): Promise<Sound[]>;
     get(callback: (err: Error, sound: Sound) => void): void;
     get(): Promise<Sound>;
 }
