@@ -1,4 +1,4 @@
-// Type definitions for ari-client v2.2.0
+// Type definitions for ari-client 2.2.0
 // Project: https://github.com/asterisk/node-ari-client
 // Definitions by: Dioris Moreno <https://github.com/dioris-moreno/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,8 +7,6 @@
 
 export default AriClient;
 declare const AriClient: Ari;
-
-// declare module 'ari-client' {}
 
 export interface Ari {
     /* ARI Client connect function (Callback) */
@@ -19,9 +17,9 @@ export interface Ari {
 
 export interface Client extends Resource {
     /* Start and Stop Method Overloads */
-    start(apps: Array<string> | string, subscribeAll: boolean, callback?: (err: Error, ...args: any[]) => void): void;
-    start(apps: Array<string> | string, callback: (err: Error, ...args: any[]) => void): void;
-    start(apps: Array<string> | string): void;
+    start(apps: string | string[], subscribeAll: boolean, callback?: (err: Error, ...args: any[]) => void): void;
+    start(apps: string | string[], callback: (err: Error, ...args: any[]) => void): void;
+    start(apps: string | string[]): void;
     stop(): void;
     /* Properties */
     applications: Applications;
@@ -141,21 +139,20 @@ export type AnyEventType =
     | ChannelConnectedLineEventType;
 /* Event Classes */
 export interface Events {
-    /* Callback Methods */
+    /* Methods */
     eventWebsocket(
-        params: { app: string | Array<string>; subscribeAll?: boolean },
+        params: { app: string | string[]; subscribeAll?: boolean },
         callback: (err: Error, message: Message) => void,
     ): void;
+    eventWebsocket(params: { app: string | string[]; subscribeAll?: boolean }): Promise<Message>;
     userEvent(
-        params: { eventName: string; application: string; source?: string | Array<string>; variables?: any },
+        params: { eventName: string; application: string; source?: string | string[]; variables?: any },
         callback: (err: Error) => void,
     ): void;
-    /* Promise Methods */
-    eventWebsocket(params: { app: string | Array<string>; subscribeAll?: boolean }): Promise<Message>;
     userEvent(params: {
         eventName: string;
         application: string;
-        source?: string | Array<string>;
+        source?: string | string[];
         variables?: any;
     }): Promise<void>;
 }
@@ -166,7 +163,7 @@ export interface Message {
 }
 export interface MissingParams extends Message {
     /* Properties */
-    params: Array<string>;
+    params: string | string[];
 }
 export interface Event extends Message {
     /* Properties */
@@ -220,7 +217,7 @@ export interface ApplicationMoveFailed extends Event {
     /* Properties */
     channel: Channel;
     destination: string;
-    args: Array<string>;
+    args: string | string[];
 }
 export interface ApplicationReplaced extends Event {}
 export interface BridgeCreated extends Event {
@@ -380,7 +377,7 @@ export interface StasisEnd extends Event {
 }
 export interface StasisStart extends Event {
     /* Properties */
-    args: Array<string>;
+    args: string | string[];
     channel: Channel;
     replace_channel?: Channel;
 }
@@ -668,106 +665,100 @@ export interface Resource {
     removeAllListeners(event?: AnyEventType): void;
 }
 export interface Applications {
-    /* Callback Methods */
+    /* Methods */
     list(callback: (err: Error, applications: Array<Application>) => void): void;
+    list(): Promise<Array<Application>>;
     get(params: { applicationName: string }, callback: (err: Error, application: Application) => void): void;
+    get(params: { applicationName: string }): Promise<Application>;
     subscribe(
-        params: { applicationName: string; eventSource: string | Array<string> },
+        params: { applicationName: string; eventSource: string | string[] },
         callback: (err: Error, application: Application) => void,
     ): void;
+    subscribe(params: { applicationName: string; eventSource: string | string[] }): Promise<Application>;
     unsubscribe(
-        params: { applicationName: string; eventSource: string | Array<string> },
+        params: { applicationName: string; eventSource: string | string[] },
         callback: (err: Error, application: Application) => void,
     ): void;
+    unsubscribe(params: { applicationName: string; eventSource: string | string[] }): Promise<Application>;
     filter(
         params: { applicationName: string; filter?: object },
         callback: (err: Error, application: Application) => void,
     ): void;
-    /* Promise Methods */
-    list(): Promise<Array<Application>>;
-    get(params: { applicationName: string }): Promise<Application>;
-    subscribe(params: { applicationName: string; eventSource: string | Array<string> }): Promise<Application>;
-    unsubscribe(params: { applicationName: string; eventSource: string | Array<string> }): Promise<Application>;
     filter(params: { applicationName: string; filter?: object }): Promise<Application>;
 }
 export interface Application extends Resource {
     /* Properties */
     name: string;
-    channel_ids: Array<string>;
-    bridge_ids: Array<string>;
-    endpoint_ids: Array<string>;
-    device_names: Array<string>;
-    events_allowed: Array<object>;
-    events_disallowed: Array<object>;
-    /* Callback Methods */
+    channel_ids: string | string[];
+    bridge_ids: string | string[];
+    endpoint_ids: string | string[];
+    device_names: string | string[];
+    events_allowed: object | Array<object>;
+    events_disallowed: object | Array<object>;
+    /* Methods */
     list(callback: (err: Error, applications: Array<Application>) => void): void;
+    list(): Promise<Array<Application>>;
     get(callback: (err: Error, application: Application) => void): void;
+    get(): Promise<Application>;
     subscribe(
-        params: { eventSource: string | Array<string> },
+        params: { eventSource: string | string[] },
         callback: (err: Error, application: Application) => void,
     ): void;
+    subscribe(params: { eventSource: string | string[] }): Promise<Application>;
     unsubscribe(
-        params: { eventSource: string | Array<string> },
+        params: { eventSource: string | string[] },
         callback: (err: Error, application: Application) => void,
     ): void;
+    unsubscribe(params: { eventSource: string | string[] }): Promise<Application>;
     filter(params: { filter?: object }, callback: (err: Error, application: Application) => void): void;
     filter(callback: (err: Error, application: Application) => void): void;
-    /* Promise Methods */
-    list(): Promise<Array<Application>>;
-    get(): Promise<Application>;
-    subscribe(params: { eventSource: string | Array<string> }): Promise<Application>;
-    unsubscribe(params: { eventSource: string | Array<string> }): Promise<Application>;
     filter(params?: { filter?: object }): Promise<Application>;
 }
 export interface Asterisk {
-    /* Callback Methods */
+    /* Methods */
     getObject(
         params: { configClass: string; objectType: string; id: string },
         callback: (err: Error, configtuples: Array<ConfigTuple>) => void,
     ): void;
+    getObject(params: { configClass: string; objectType: string; id: string }): Promise<Array<ConfigTuple>>;
     updateObject(
         params: { configClass: string; objectType: string; id: string; fields?: any },
         callback: (err: Error, configtuples: Array<ConfigTuple>) => void,
     ): void;
-    deleteObject(params: { configClass: string; objectType: string; id: string }, callback: (err: Error) => void): void;
-    getInfo(
-        params: { only?: string | Array<string> },
-        callback: (err: Error, asteriskinfo: AsteriskInfo) => void,
-    ): void;
-    getInfo(callback: (err: Error, asteriskinfo: AsteriskInfo) => void): void;
-    ping(callback: (err: Error, asteriskping: AsteriskPing) => void): void;
-    listModules(callback: (err: Error, modules: Array<Module>) => void): void;
-    getModule(params: { moduleName: string }, callback: (err: Error, module: Module) => void): void;
-    loadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
-    unloadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
-    reloadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
-    listLogChannels(callback: (err: Error, logchannels: Array<LogChannel>) => void): void;
-    addLog(params: { logChannelName: string; configuration: string }, callback: (err: Error) => void): void;
-    deleteLog(params: { logChannelName: string }, callback: (err: Error) => void): void;
-    rotateLog(params: { logChannelName: string }, callback: (err: Error) => void): void;
-    getGlobalVar(params: { variable: string }, callback: (err: Error, variable: Variable) => void): void;
-    setGlobalVar(params: { variable: string; value?: string }, callback: (err: Error) => void): void;
-    /* Promise Methods */
-    getObject(params: { configClass: string; objectType: string; id: string }): Promise<Array<ConfigTuple>>;
     updateObject(params: {
         configClass: string;
         objectType: string;
         id: string;
         fields?: any;
     }): Promise<Array<ConfigTuple>>;
+    deleteObject(params: { configClass: string; objectType: string; id: string }, callback: (err: Error) => void): void;
     deleteObject(params: { configClass: string; objectType: string; id: string }): Promise<void>;
-    getInfo(params?: { only?: string | Array<string> }): Promise<AsteriskInfo>;
+    getInfo(params: { only?: string | string[] }, callback: (err: Error, asteriskinfo: AsteriskInfo) => void): void;
+    getInfo(callback: (err: Error, asteriskinfo: AsteriskInfo) => void): void;
+    getInfo(params?: { only?: string | string[] }): Promise<AsteriskInfo>;
+    ping(callback: (err: Error, asteriskping: AsteriskPing) => void): void;
     ping(): Promise<AsteriskPing>;
+    listModules(callback: (err: Error, modules: Array<Module>) => void): void;
     listModules(): Promise<Array<Module>>;
+    getModule(params: { moduleName: string }, callback: (err: Error, module: Module) => void): void;
     getModule(params: { moduleName: string }): Promise<Module>;
+    loadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
     loadModule(params: { moduleName: string }): Promise<void>;
+    unloadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
     unloadModule(params: { moduleName: string }): Promise<void>;
+    reloadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
     reloadModule(params: { moduleName: string }): Promise<void>;
+    listLogChannels(callback: (err: Error, logchannels: Array<LogChannel>) => void): void;
     listLogChannels(): Promise<Array<LogChannel>>;
+    addLog(params: { logChannelName: string; configuration: string }, callback: (err: Error) => void): void;
     addLog(params: { logChannelName: string; configuration: string }): Promise<void>;
+    deleteLog(params: { logChannelName: string }, callback: (err: Error) => void): void;
     deleteLog(params: { logChannelName: string }): Promise<void>;
+    rotateLog(params: { logChannelName: string }, callback: (err: Error) => void): void;
     rotateLog(params: { logChannelName: string }): Promise<void>;
+    getGlobalVar(params: { variable: string }, callback: (err: Error, variable: Variable) => void): void;
     getGlobalVar(params: { variable: string }): Promise<Variable>;
+    setGlobalVar(params: { variable: string; value?: string }, callback: (err: Error) => void): void;
     setGlobalVar(params: { variable: string; value?: string }): Promise<void>;
 }
 export interface BuildInfo {
@@ -841,38 +832,49 @@ export interface ConfigTuple {
     value: string;
 }
 export interface Bridges {
-    /* Callback Methods */
+    /* Methods */
     list(callback: (err: Error, bridges: Array<Bridge>) => void): void;
+    list(): Promise<Array<Bridge>>;
     create(
         params: { type?: string; bridgeId?: string; name?: string },
         callback: (err: Error, bridge: Bridge) => void,
     ): void;
     create(callback: (err: Error, bridge: Bridge) => void): void;
+    create(params?: { type?: string; bridgeId?: string; name?: string }): Promise<Bridge>;
     createWithId(
         params: { type?: string; bridgeId: string; name?: string },
         callback: (err: Error, bridge: Bridge) => void,
     ): void;
+    createWithId(params: { type?: string; bridgeId: string; name?: string }): Promise<Bridge>;
     get(params: { bridgeId: string }, callback: (err: Error, bridge: Bridge) => void): void;
+    get(params: { bridgeId: string }): Promise<Bridge>;
     destroy(params: { bridgeId: string }, callback: (err: Error) => void): void;
+    destroy(params: { bridgeId: string }): Promise<void>;
     addChannel(
-        params: {
-            bridgeId: string;
-            channel: string | Array<string>;
-            role?: string;
-            absorbDTMF?: boolean;
-            mute?: boolean;
-        },
+        params: { bridgeId: string; channel: string | string[]; role?: string; absorbDTMF?: boolean; mute?: boolean },
         callback: (err: Error) => void,
     ): void;
-    removeChannel(params: { bridgeId: string; channel: string | Array<string> }, callback: (err: Error) => void): void;
+    addChannel(params: {
+        bridgeId: string;
+        channel: string | string[];
+        role?: string;
+        absorbDTMF?: boolean;
+        mute?: boolean;
+    }): Promise<void>;
+    removeChannel(params: { bridgeId: string; channel: string | string[] }, callback: (err: Error) => void): void;
+    removeChannel(params: { bridgeId: string; channel: string | string[] }): Promise<void>;
     setVideoSource(params: { bridgeId: string; channelId: string }, callback: (err: Error) => void): void;
+    setVideoSource(params: { bridgeId: string; channelId: string }): Promise<void>;
     clearVideoSource(params: { bridgeId: string }, callback: (err: Error) => void): void;
+    clearVideoSource(params: { bridgeId: string }): Promise<void>;
     startMoh(params: { bridgeId: string; mohClass?: string }, callback: (err: Error) => void): void;
+    startMoh(params: { bridgeId: string; mohClass?: string }): Promise<void>;
     stopMoh(params: { bridgeId: string }, callback: (err: Error) => void): void;
+    stopMoh(params: { bridgeId: string }): Promise<void>;
     play(
         params: {
             bridgeId: string;
-            media: string | Array<string>;
+            media: string | string[];
             lang?: string;
             offsetms?: number;
             skipms?: number;
@@ -880,17 +882,33 @@ export interface Bridges {
         },
         callback: (err: Error, playback: Playback) => void,
     ): void;
+    play(params: {
+        bridgeId: string;
+        media: string | string[];
+        lang?: string;
+        offsetms?: number;
+        skipms?: number;
+        playbackId?: string;
+    }): Promise<Playback>;
     playWithId(
         params: {
             bridgeId: string;
             playbackId: string;
-            media: string | Array<string>;
+            media: string | string[];
             lang?: string;
             offsetms?: number;
             skipms?: number;
         },
         callback: (err: Error, playback: Playback) => void,
     ): void;
+    playWithId(params: {
+        bridgeId: string;
+        playbackId: string;
+        media: string | string[];
+        lang?: string;
+        offsetms?: number;
+        skipms?: number;
+    }): Promise<Playback>;
     record(
         params: {
             bridgeId: string;
@@ -904,40 +922,6 @@ export interface Bridges {
         },
         callback: (err: Error, liverecording: LiveRecording) => void,
     ): void;
-    /* Promise Methods */
-    list(): Promise<Array<Bridge>>;
-    create(params?: { type?: string; bridgeId?: string; name?: string }): Promise<Bridge>;
-    createWithId(params: { type?: string; bridgeId: string; name?: string }): Promise<Bridge>;
-    get(params: { bridgeId: string }): Promise<Bridge>;
-    destroy(params: { bridgeId: string }): Promise<void>;
-    addChannel(params: {
-        bridgeId: string;
-        channel: string | Array<string>;
-        role?: string;
-        absorbDTMF?: boolean;
-        mute?: boolean;
-    }): Promise<void>;
-    removeChannel(params: { bridgeId: string; channel: string | Array<string> }): Promise<void>;
-    setVideoSource(params: { bridgeId: string; channelId: string }): Promise<void>;
-    clearVideoSource(params: { bridgeId: string }): Promise<void>;
-    startMoh(params: { bridgeId: string; mohClass?: string }): Promise<void>;
-    stopMoh(params: { bridgeId: string }): Promise<void>;
-    play(params: {
-        bridgeId: string;
-        media: string | Array<string>;
-        lang?: string;
-        offsetms?: number;
-        skipms?: number;
-        playbackId?: string;
-    }): Promise<Playback>;
-    playWithId(params: {
-        bridgeId: string;
-        playbackId: string;
-        media: string | Array<string>;
-        lang?: string;
-        offsetms?: number;
-        skipms?: number;
-    }): Promise<Playback>;
     record(params: {
         bridgeId: string;
         name: string;
@@ -957,48 +941,66 @@ export interface Bridge extends Resource {
     bridge_class: string;
     creator: string;
     name: string;
-    channels: Array<string>;
+    channels: string | string[];
     video_mode?: string;
     video_source_id?: string;
     creationtime: Date;
-    /* Callback Methods */
+    /* Methods */
     list(callback: (err: Error, bridges: Array<Bridge>) => void): void;
+    list(): Promise<Array<Bridge>>;
     create(params: { type?: string; name?: string }, callback: (err: Error, bridge: Bridge) => void): void;
     create(callback: (err: Error, bridge: Bridge) => void): void;
+    create(params?: { type?: string; name?: string }): Promise<Bridge>;
     createWithId(params: { type?: string; name?: string }, callback: (err: Error, bridge: Bridge) => void): void;
     createWithId(callback: (err: Error, bridge: Bridge) => void): void;
+    createWithId(params?: { type?: string; name?: string }): Promise<Bridge>;
     get(callback: (err: Error, bridge: Bridge) => void): void;
+    get(): Promise<Bridge>;
     destroy(callback: (err: Error) => void): void;
+    destroy(): Promise<void>;
     addChannel(
-        params: { channel: string | Array<string>; role?: string; absorbDTMF?: boolean; mute?: boolean },
+        params: { channel: string | string[]; role?: string; absorbDTMF?: boolean; mute?: boolean },
         callback: (err: Error) => void,
     ): void;
-    removeChannel(params: { channel: string | Array<string> }, callback: (err: Error) => void): void;
+    addChannel(params: {
+        channel: string | string[];
+        role?: string;
+        absorbDTMF?: boolean;
+        mute?: boolean;
+    }): Promise<void>;
+    removeChannel(params: { channel: string | string[] }, callback: (err: Error) => void): void;
+    removeChannel(params: { channel: string | string[] }): Promise<void>;
     setVideoSource(params: { channelId: string }, callback: (err: Error) => void): void;
+    setVideoSource(params: { channelId: string }): Promise<void>;
     clearVideoSource(callback: (err: Error) => void): void;
+    clearVideoSource(): Promise<void>;
     startMoh(params: { mohClass?: string }, callback: (err: Error) => void): void;
     startMoh(callback: (err: Error) => void): void;
+    startMoh(params?: { mohClass?: string }): Promise<void>;
     stopMoh(callback: (err: Error) => void): void;
+    stopMoh(): Promise<void>;
     play(
-        params: {
-            media: string | Array<string>;
-            lang?: string;
-            offsetms?: number;
-            skipms?: number;
-            playbackId?: string;
-        },
+        params: { media: string | string[]; lang?: string; offsetms?: number; skipms?: number; playbackId?: string },
         callback: (err: Error, playback: Playback) => void,
     ): void;
+    play(params: {
+        media: string | string[];
+        lang?: string;
+        offsetms?: number;
+        skipms?: number;
+        playbackId?: string;
+    }): Promise<Playback>;
     playWithId(
-        params: {
-            playbackId: string;
-            media: string | Array<string>;
-            lang?: string;
-            offsetms?: number;
-            skipms?: number;
-        },
+        params: { playbackId: string; media: string | string[]; lang?: string; offsetms?: number; skipms?: number },
         callback: (err: Error, playback: Playback) => void,
     ): void;
+    playWithId(params: {
+        playbackId: string;
+        media: string | string[];
+        lang?: string;
+        offsetms?: number;
+        skipms?: number;
+    }): Promise<Playback>;
     record(
         params: {
             name: string;
@@ -1012,37 +1014,6 @@ export interface Bridge extends Resource {
         recording: LiveRecording,
         callback: (err: Error, liverecording: LiveRecording) => void,
     ): void;
-    /* Promise Methods */
-    list(): Promise<Array<Bridge>>;
-    create(params?: { type?: string; name?: string }): Promise<Bridge>;
-    createWithId(params?: { type?: string; name?: string }): Promise<Bridge>;
-    get(): Promise<Bridge>;
-    destroy(): Promise<void>;
-    addChannel(params: {
-        channel: string | Array<string>;
-        role?: string;
-        absorbDTMF?: boolean;
-        mute?: boolean;
-    }): Promise<void>;
-    removeChannel(params: { channel: string | Array<string> }): Promise<void>;
-    setVideoSource(params: { channelId: string }): Promise<void>;
-    clearVideoSource(): Promise<void>;
-    startMoh(params?: { mohClass?: string }): Promise<void>;
-    stopMoh(): Promise<void>;
-    play(params: {
-        media: string | Array<string>;
-        lang?: string;
-        offsetms?: number;
-        skipms?: number;
-        playbackId?: string;
-    }): Promise<Playback>;
-    playWithId(params: {
-        playbackId: string;
-        media: string | Array<string>;
-        lang?: string;
-        offsetms?: number;
-        skipms?: number;
-    }): Promise<Playback>;
     record(
         params: {
             name: string;
@@ -1057,8 +1028,9 @@ export interface Bridge extends Resource {
     ): Promise<LiveRecording>;
 }
 export interface Channels {
-    /* Callback Methods */
+    /* Methods */
     list(callback: (err: Error, channels: Array<Channel>) => void): void;
+    list(): Promise<Array<Channel>>;
     originate(
         params: {
             endpoint: string;
@@ -1078,6 +1050,22 @@ export interface Channels {
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
+    originate(params: {
+        endpoint: string;
+        extension?: string;
+        context?: string;
+        priority?: number;
+        label?: string;
+        app?: string;
+        appArgs?: string;
+        callerId?: string;
+        timeout?: number;
+        variables?: any;
+        channelId?: string;
+        otherChannelId?: string;
+        originator?: string;
+        formats?: string;
+    }): Promise<Channel>;
     create(
         params: {
             endpoint: string;
@@ -1090,7 +1078,17 @@ export interface Channels {
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
+    create(params: {
+        endpoint: string;
+        app: string;
+        appArgs?: string;
+        channelId?: string;
+        otherChannelId?: string;
+        originator?: string;
+        formats?: string;
+    }): Promise<Channel>;
     get(params: { channelId: string }, callback: (err: Error, channel: Channel) => void): void;
+    get(params: { channelId: string }): Promise<Channel>;
     originateWithId(
         params: {
             channelId: string;
@@ -1110,116 +1108,6 @@ export interface Channels {
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
-    hangup(params: { channelId: string; reason?: string }, callback: (err: Error) => void): void;
-    continueInDialplan(
-        params: { channelId: string; context?: string; extension?: string; priority?: number; label?: string },
-        callback: (err: Error) => void,
-    ): void;
-    move(params: { channelId: string; app: string; appArgs?: string }, callback: (err: Error) => void): void;
-    redirect(params: { channelId: string; endpoint: string }, callback: (err: Error) => void): void;
-    answer(params: { channelId: string }, callback: (err: Error) => void): void;
-    ring(params: { channelId: string }, callback: (err: Error) => void): void;
-    ringStop(params: { channelId: string }, callback: (err: Error) => void): void;
-    sendDTMF(
-        params: {
-            channelId: string;
-            dtmf?: string;
-            before?: number;
-            between?: number;
-            duration?: number;
-            after?: number;
-        },
-        callback: (err: Error) => void,
-    ): void;
-    mute(params: { channelId: string; direction?: string }, callback: (err: Error) => void): void;
-    unmute(params: { channelId: string; direction?: string }, callback: (err: Error) => void): void;
-    hold(params: { channelId: string }, callback: (err: Error) => void): void;
-    unhold(params: { channelId: string }, callback: (err: Error) => void): void;
-    startMoh(params: { channelId: string; mohClass?: string }, callback: (err: Error) => void): void;
-    stopMoh(params: { channelId: string }, callback: (err: Error) => void): void;
-    startSilence(params: { channelId: string }, callback: (err: Error) => void): void;
-    stopSilence(params: { channelId: string }, callback: (err: Error) => void): void;
-    play(
-        params: {
-            channelId: string;
-            media: string | Array<string>;
-            lang?: string;
-            offsetms?: number;
-            skipms?: number;
-            playbackId?: string;
-        },
-        callback: (err: Error, playback: Playback) => void,
-    ): void;
-    playWithId(
-        params: {
-            channelId: string;
-            playbackId: string;
-            media: string | Array<string>;
-            lang?: string;
-            offsetms?: number;
-            skipms?: number;
-        },
-        callback: (err: Error, playback: Playback) => void,
-    ): void;
-    record(
-        params: {
-            channelId: string;
-            name: string;
-            format: string;
-            maxDurationSeconds?: number;
-            maxSilenceSeconds?: number;
-            ifExists?: string;
-            beep?: boolean;
-            terminateOn?: string;
-        },
-        callback: (err: Error, liverecording: LiveRecording) => void,
-    ): void;
-    getChannelVar(
-        params: { channelId: string; variable: string },
-        callback: (err: Error, variable: Variable) => void,
-    ): void;
-    setChannelVar(
-        params: { channelId: string; variable: string; value?: string },
-        callback: (err: Error) => void,
-    ): void;
-    snoopChannel(
-        params: { channelId: string; spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
-        callback: (err: Error, channel: Channel) => void,
-    ): void;
-    snoopChannelWithId(
-        params: { channelId: string; snoopId: string; spy?: string; whisper?: string; app: string; appArgs?: string },
-        callback: (err: Error, channel: Channel) => void,
-    ): void;
-    dial(params: { channelId: string; caller?: string; timeout?: number }, callback: (err: Error) => void): void;
-    rtpstatistics(params: { channelId: string }, callback: (err: Error, rtpstat: RTPstat) => void): void;
-    /* Promise Methods */
-    list(): Promise<Array<Channel>>;
-    originate(params: {
-        endpoint: string;
-        extension?: string;
-        context?: string;
-        priority?: number;
-        label?: string;
-        app?: string;
-        appArgs?: string;
-        callerId?: string;
-        timeout?: number;
-        variables?: any;
-        channelId?: string;
-        otherChannelId?: string;
-        originator?: string;
-        formats?: string;
-    }): Promise<Channel>;
-    create(params: {
-        endpoint: string;
-        app: string;
-        appArgs?: string;
-        channelId?: string;
-        otherChannelId?: string;
-        originator?: string;
-        formats?: string;
-    }): Promise<Channel>;
-    get(params: { channelId: string }): Promise<Channel>;
     originateWithId(params: {
         channelId: string;
         endpoint: string;
@@ -1236,7 +1124,12 @@ export interface Channels {
         originator?: string;
         formats?: string;
     }): Promise<Channel>;
+    hangup(params: { channelId: string; reason?: string }, callback: (err: Error) => void): void;
     hangup(params: { channelId: string; reason?: string }): Promise<void>;
+    continueInDialplan(
+        params: { channelId: string; context?: string; extension?: string; priority?: number; label?: string },
+        callback: (err: Error) => void,
+    ): void;
     continueInDialplan(params: {
         channelId: string;
         context?: string;
@@ -1244,11 +1137,27 @@ export interface Channels {
         priority?: number;
         label?: string;
     }): Promise<void>;
+    move(params: { channelId: string; app: string; appArgs?: string }, callback: (err: Error) => void): void;
     move(params: { channelId: string; app: string; appArgs?: string }): Promise<void>;
+    redirect(params: { channelId: string; endpoint: string }, callback: (err: Error) => void): void;
     redirect(params: { channelId: string; endpoint: string }): Promise<void>;
+    answer(params: { channelId: string }, callback: (err: Error) => void): void;
     answer(params: { channelId: string }): Promise<void>;
+    ring(params: { channelId: string }, callback: (err: Error) => void): void;
     ring(params: { channelId: string }): Promise<void>;
+    ringStop(params: { channelId: string }, callback: (err: Error) => void): void;
     ringStop(params: { channelId: string }): Promise<void>;
+    sendDTMF(
+        params: {
+            channelId: string;
+            dtmf?: string;
+            before?: number;
+            between?: number;
+            duration?: number;
+            after?: number;
+        },
+        callback: (err: Error) => void,
+    ): void;
     sendDTMF(params: {
         channelId: string;
         dtmf?: string;
@@ -1257,30 +1166,73 @@ export interface Channels {
         duration?: number;
         after?: number;
     }): Promise<void>;
+    mute(params: { channelId: string; direction?: string }, callback: (err: Error) => void): void;
     mute(params: { channelId: string; direction?: string }): Promise<void>;
+    unmute(params: { channelId: string; direction?: string }, callback: (err: Error) => void): void;
     unmute(params: { channelId: string; direction?: string }): Promise<void>;
+    hold(params: { channelId: string }, callback: (err: Error) => void): void;
     hold(params: { channelId: string }): Promise<void>;
+    unhold(params: { channelId: string }, callback: (err: Error) => void): void;
     unhold(params: { channelId: string }): Promise<void>;
+    startMoh(params: { channelId: string; mohClass?: string }, callback: (err: Error) => void): void;
     startMoh(params: { channelId: string; mohClass?: string }): Promise<void>;
+    stopMoh(params: { channelId: string }, callback: (err: Error) => void): void;
     stopMoh(params: { channelId: string }): Promise<void>;
+    startSilence(params: { channelId: string }, callback: (err: Error) => void): void;
     startSilence(params: { channelId: string }): Promise<void>;
+    stopSilence(params: { channelId: string }, callback: (err: Error) => void): void;
     stopSilence(params: { channelId: string }): Promise<void>;
+    play(
+        params: {
+            channelId: string;
+            media: string | string[];
+            lang?: string;
+            offsetms?: number;
+            skipms?: number;
+            playbackId?: string;
+        },
+        callback: (err: Error, playback: Playback) => void,
+    ): void;
     play(params: {
         channelId: string;
-        media: string | Array<string>;
+        media: string | string[];
         lang?: string;
         offsetms?: number;
         skipms?: number;
         playbackId?: string;
     }): Promise<Playback>;
+    playWithId(
+        params: {
+            channelId: string;
+            playbackId: string;
+            media: string | string[];
+            lang?: string;
+            offsetms?: number;
+            skipms?: number;
+        },
+        callback: (err: Error, playback: Playback) => void,
+    ): void;
     playWithId(params: {
         channelId: string;
         playbackId: string;
-        media: string | Array<string>;
+        media: string | string[];
         lang?: string;
         offsetms?: number;
         skipms?: number;
     }): Promise<Playback>;
+    record(
+        params: {
+            channelId: string;
+            name: string;
+            format: string;
+            maxDurationSeconds?: number;
+            maxSilenceSeconds?: number;
+            ifExists?: string;
+            beep?: boolean;
+            terminateOn?: string;
+        },
+        callback: (err: Error, liverecording: LiveRecording) => void,
+    ): void;
     record(params: {
         channelId: string;
         name: string;
@@ -1291,8 +1243,20 @@ export interface Channels {
         beep?: boolean;
         terminateOn?: string;
     }): Promise<LiveRecording>;
+    getChannelVar(
+        params: { channelId: string; variable: string },
+        callback: (err: Error, variable: Variable) => void,
+    ): void;
     getChannelVar(params: { channelId: string; variable: string }): Promise<Variable>;
+    setChannelVar(
+        params: { channelId: string; variable: string; value?: string },
+        callback: (err: Error) => void,
+    ): void;
     setChannelVar(params: { channelId: string; variable: string; value?: string }): Promise<void>;
+    snoopChannel(
+        params: { channelId: string; spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
+        callback: (err: Error, channel: Channel) => void,
+    ): void;
     snoopChannel(params: {
         channelId: string;
         spy?: string;
@@ -1301,6 +1265,10 @@ export interface Channels {
         appArgs?: string;
         snoopId?: string;
     }): Promise<Channel>;
+    snoopChannelWithId(
+        params: { channelId: string; snoopId: string; spy?: string; whisper?: string; app: string; appArgs?: string },
+        callback: (err: Error, channel: Channel) => void,
+    ): void;
     snoopChannelWithId(params: {
         channelId: string;
         snoopId: string;
@@ -1309,7 +1277,9 @@ export interface Channels {
         app: string;
         appArgs?: string;
     }): Promise<Channel>;
+    dial(params: { channelId: string; caller?: string; timeout?: number }, callback: (err: Error) => void): void;
     dial(params: { channelId: string; caller?: string; timeout?: number }): Promise<void>;
+    rtpstatistics(params: { channelId: string }, callback: (err: Error, rtpstat: RTPstat) => void): void;
     rtpstatistics(params: { channelId: string }): Promise<RTPstat>;
 }
 export interface Dialed {}
@@ -1373,8 +1343,9 @@ export interface Channel extends Resource {
     creationtime: Date;
     language: string;
     channelvars?: object;
-    /* Callback Methods */
+    /* Methods */
     list(callback: (err: Error, channels: Array<Channel>) => void): void;
+    list(): Promise<Array<Channel>>;
     originate(
         params: {
             endpoint: string;
@@ -1393,6 +1364,21 @@ export interface Channel extends Resource {
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
+    originate(params: {
+        endpoint: string;
+        extension?: string;
+        context?: string;
+        priority?: number;
+        label?: string;
+        app?: string;
+        appArgs?: string;
+        callerId?: string;
+        timeout?: number;
+        variables?: any;
+        otherChannelId?: string;
+        originator?: string;
+        formats?: string;
+    }): Promise<Channel>;
     create(
         params: {
             endpoint: string;
@@ -1404,7 +1390,16 @@ export interface Channel extends Resource {
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
+    create(params: {
+        endpoint: string;
+        app: string;
+        appArgs?: string;
+        otherChannelId?: string;
+        originator?: string;
+        formats?: string;
+    }): Promise<Channel>;
     get(callback: (err: Error, channel: Channel) => void): void;
+    get(): Promise<Channel>;
     originateWithId(
         params: {
             endpoint: string;
@@ -1423,108 +1418,6 @@ export interface Channel extends Resource {
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
-    hangup(params: { reason?: string }, callback: (err: Error) => void): void;
-    hangup(callback: (err: Error) => void): void;
-    continueInDialplan(
-        params: { context?: string; extension?: string; priority?: number; label?: string },
-        callback: (err: Error) => void,
-    ): void;
-    continueInDialplan(callback: (err: Error) => void): void;
-    move(params: { app: string; appArgs?: string }, callback: (err: Error) => void): void;
-    redirect(params: { endpoint: string }, callback: (err: Error) => void): void;
-    answer(callback: (err: Error) => void): void;
-    ring(callback: (err: Error) => void): void;
-    ringStop(callback: (err: Error) => void): void;
-    sendDTMF(
-        params: { dtmf?: string; before?: number; between?: number; duration?: number; after?: number },
-        callback: (err: Error) => void,
-    ): void;
-    sendDTMF(callback: (err: Error) => void): void;
-    mute(params: { direction?: string }, callback: (err: Error) => void): void;
-    mute(callback: (err: Error) => void): void;
-    unmute(params: { direction?: string }, callback: (err: Error) => void): void;
-    unmute(callback: (err: Error) => void): void;
-    hold(callback: (err: Error) => void): void;
-    unhold(callback: (err: Error) => void): void;
-    startMoh(params: { mohClass?: string }, callback: (err: Error) => void): void;
-    startMoh(callback: (err: Error) => void): void;
-    stopMoh(callback: (err: Error) => void): void;
-    startSilence(callback: (err: Error) => void): void;
-    stopSilence(callback: (err: Error) => void): void;
-    play(
-        params: {
-            media: string | Array<string>;
-            lang?: string;
-            offsetms?: number;
-            skipms?: number;
-            playbackId?: string;
-        },
-        playback: Playback,
-        callback: (err: Error, playback: Playback) => void,
-    ): void;
-    playWithId(
-        params: {
-            playbackId: string;
-            media: string | Array<string>;
-            lang?: string;
-            offsetms?: number;
-            skipms?: number;
-        },
-        callback: (err: Error, playback: Playback) => void,
-    ): void;
-    record(
-        params: {
-            name: string;
-            format: string;
-            maxDurationSeconds?: number;
-            maxSilenceSeconds?: number;
-            ifExists?: string;
-            beep?: boolean;
-            terminateOn?: string;
-        },
-        recording: LiveRecording,
-        callback: (err: Error, liverecording: LiveRecording) => void,
-    ): void;
-    getChannelVar(params: { variable: string }, callback: (err: Error, variable: Variable) => void): void;
-    setChannelVar(params: { variable: string; value?: string }, callback: (err: Error) => void): void;
-    snoopChannel(
-        params: { spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
-        snoopChannel: Channel,
-        callback: (err: Error, channel: Channel) => void,
-    ): void;
-    snoopChannelWithId(
-        params: { snoopId: string; spy?: string; whisper?: string; app: string; appArgs?: string },
-        callback: (err: Error, channel: Channel) => void,
-    ): void;
-    dial(params: { caller?: string; timeout?: number }, callback: (err: Error) => void): void;
-    dial(callback: (err: Error) => void): void;
-    rtpstatistics(callback: (err: Error, rtpstat: RTPstat) => void): void;
-    /* Promise Methods */
-    list(): Promise<Array<Channel>>;
-    originate(params: {
-        endpoint: string;
-        extension?: string;
-        context?: string;
-        priority?: number;
-        label?: string;
-        app?: string;
-        appArgs?: string;
-        callerId?: string;
-        timeout?: number;
-        variables?: any;
-        otherChannelId?: string;
-        originator?: string;
-        formats?: string;
-    }): Promise<Channel>;
-    create(params: {
-        endpoint: string;
-        app: string;
-        appArgs?: string;
-        otherChannelId?: string;
-        originator?: string;
-        formats?: string;
-    }): Promise<Channel>;
-    get(): Promise<Channel>;
     originateWithId(params: {
         endpoint: string;
         extension?: string;
@@ -1540,18 +1433,35 @@ export interface Channel extends Resource {
         originator?: string;
         formats?: string;
     }): Promise<Channel>;
+    hangup(params: { reason?: string }, callback: (err: Error) => void): void;
+    hangup(callback: (err: Error) => void): void;
     hangup(params?: { reason?: string }): Promise<void>;
+    continueInDialplan(
+        params: { context?: string; extension?: string; priority?: number; label?: string },
+        callback: (err: Error) => void,
+    ): void;
+    continueInDialplan(callback: (err: Error) => void): void;
     continueInDialplan(params?: {
         context?: string;
         extension?: string;
         priority?: number;
         label?: string;
     }): Promise<void>;
+    move(params: { app: string; appArgs?: string }, callback: (err: Error) => void): void;
     move(params: { app: string; appArgs?: string }): Promise<void>;
+    redirect(params: { endpoint: string }, callback: (err: Error) => void): void;
     redirect(params: { endpoint: string }): Promise<void>;
+    answer(callback: (err: Error) => void): void;
     answer(): Promise<void>;
+    ring(callback: (err: Error) => void): void;
     ring(): Promise<void>;
+    ringStop(callback: (err: Error) => void): void;
     ringStop(): Promise<void>;
+    sendDTMF(
+        params: { dtmf?: string; before?: number; between?: number; duration?: number; after?: number },
+        callback: (err: Error) => void,
+    ): void;
+    sendDTMF(callback: (err: Error) => void): void;
     sendDTMF(params?: {
         dtmf?: string;
         before?: number;
@@ -1559,27 +1469,41 @@ export interface Channel extends Resource {
         duration?: number;
         after?: number;
     }): Promise<void>;
+    mute(params: { direction?: string }, callback: (err: Error) => void): void;
+    mute(callback: (err: Error) => void): void;
     mute(params?: { direction?: string }): Promise<void>;
+    unmute(params: { direction?: string }, callback: (err: Error) => void): void;
+    unmute(callback: (err: Error) => void): void;
     unmute(params?: { direction?: string }): Promise<void>;
+    hold(callback: (err: Error) => void): void;
     hold(): Promise<void>;
+    unhold(callback: (err: Error) => void): void;
     unhold(): Promise<void>;
+    startMoh(params: { mohClass?: string }, callback: (err: Error) => void): void;
+    startMoh(callback: (err: Error) => void): void;
     startMoh(params?: { mohClass?: string }): Promise<void>;
+    stopMoh(callback: (err: Error) => void): void;
     stopMoh(): Promise<void>;
+    startSilence(callback: (err: Error) => void): void;
     startSilence(): Promise<void>;
+    stopSilence(callback: (err: Error) => void): void;
     stopSilence(): Promise<void>;
     play(
-        params: {
-            media: string | Array<string>;
-            lang?: string;
-            offsetms?: number;
-            skipms?: number;
-            playbackId?: string;
-        },
+        params: { media: string | string[]; lang?: string; offsetms?: number; skipms?: number; playbackId?: string },
+        playback: Playback,
+        callback: (err: Error, playback: Playback) => void,
+    ): void;
+    play(
+        params: { media: string | string[]; lang?: string; offsetms?: number; skipms?: number; playbackId?: string },
         playback: Playback,
     ): Promise<Playback>;
+    playWithId(
+        params: { playbackId: string; media: string | string[]; lang?: string; offsetms?: number; skipms?: number },
+        callback: (err: Error, playback: Playback) => void,
+    ): void;
     playWithId(params: {
         playbackId: string;
-        media: string | Array<string>;
+        media: string | string[];
         lang?: string;
         offsetms?: number;
         skipms?: number;
@@ -1595,13 +1519,37 @@ export interface Channel extends Resource {
             terminateOn?: string;
         },
         recording: LiveRecording,
+        callback: (err: Error, liverecording: LiveRecording) => void,
+    ): void;
+    record(
+        params: {
+            name: string;
+            format: string;
+            maxDurationSeconds?: number;
+            maxSilenceSeconds?: number;
+            ifExists?: string;
+            beep?: boolean;
+            terminateOn?: string;
+        },
+        recording: LiveRecording,
     ): Promise<LiveRecording>;
+    getChannelVar(params: { variable: string }, callback: (err: Error, variable: Variable) => void): void;
     getChannelVar(params: { variable: string }): Promise<Variable>;
+    setChannelVar(params: { variable: string; value?: string }, callback: (err: Error) => void): void;
     setChannelVar(params: { variable: string; value?: string }): Promise<void>;
     snoopChannel(
         params: { spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
         snoopChannel: Channel,
+        callback: (err: Error, channel: Channel) => void,
+    ): void;
+    snoopChannel(
+        params: { spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
+        snoopChannel: Channel,
     ): Promise<Channel>;
+    snoopChannelWithId(
+        params: { snoopId: string; spy?: string; whisper?: string; app: string; appArgs?: string },
+        callback: (err: Error, channel: Channel) => void,
+    ): void;
     snoopChannelWithId(params: {
         snoopId: string;
         spy?: string;
@@ -1609,56 +1557,56 @@ export interface Channel extends Resource {
         app: string;
         appArgs?: string;
     }): Promise<Channel>;
+    dial(params: { caller?: string; timeout?: number }, callback: (err: Error) => void): void;
+    dial(callback: (err: Error) => void): void;
     dial(params?: { caller?: string; timeout?: number }): Promise<void>;
+    rtpstatistics(callback: (err: Error, rtpstat: RTPstat) => void): void;
     rtpstatistics(): Promise<RTPstat>;
 }
 export interface DeviceStates {
-    /* Callback Methods */
+    /* Methods */
     list(callback: (err: Error, devicestates: Array<DeviceState>) => void): void;
-    get(params: { deviceName: string }, callback: (err: Error, devicestate: DeviceState) => void): void;
-    update(params: { deviceName: string; deviceState: string }, callback: (err: Error) => void): void;
-    delete(params: { deviceName: string }, callback: (err: Error) => void): void;
-    /* Promise Methods */
     list(): Promise<Array<DeviceState>>;
+    get(params: { deviceName: string }, callback: (err: Error, devicestate: DeviceState) => void): void;
     get(params: { deviceName: string }): Promise<DeviceState>;
+    update(params: { deviceName: string; deviceState: string }, callback: (err: Error) => void): void;
     update(params: { deviceName: string; deviceState: string }): Promise<void>;
+    delete(params: { deviceName: string }, callback: (err: Error) => void): void;
     delete(params: { deviceName: string }): Promise<void>;
 }
 export interface DeviceState extends Resource {
     /* Properties */
     name: string;
     state: string;
-    /* Callback Methods */
+    /* Methods */
     list(callback: (err: Error, devicestates: Array<DeviceState>) => void): void;
-    get(callback: (err: Error, devicestate: DeviceState) => void): void;
-    update(params: { deviceState: string }, callback: (err: Error) => void): void;
-    delete(callback: (err: Error) => void): void;
-    /* Promise Methods */
     list(): Promise<Array<DeviceState>>;
+    get(callback: (err: Error, devicestate: DeviceState) => void): void;
     get(): Promise<DeviceState>;
+    update(params: { deviceState: string }, callback: (err: Error) => void): void;
     update(params: { deviceState: string }): Promise<void>;
+    delete(callback: (err: Error) => void): void;
     delete(): Promise<void>;
 }
 export interface Endpoints {
-    /* Callback Methods */
+    /* Methods */
     list(callback: (err: Error, endpoints: Array<Endpoint>) => void): void;
+    list(): Promise<Array<Endpoint>>;
     sendMessage(
         params: { to: string; from: string; body?: string; variables?: any },
         callback: (err: Error) => void,
     ): void;
+    sendMessage(params: { to: string; from: string; body?: string; variables?: any }): Promise<void>;
     listByTech(params: { tech: string }, callback: (err: Error, endpoints: Array<Endpoint>) => void): void;
     listByTech(callback: (err: Error, endpoints: Array<Endpoint>) => void): void;
+    listByTech(params?: { tech: string }): Promise<Array<Endpoint>>;
     get(params: { tech: string; resource: string }, callback: (err: Error, endpoint: Endpoint) => void): void;
     get(callback: (err: Error, endpoint: Endpoint) => void): void;
+    get(params?: { tech: string; resource: string }): Promise<Endpoint>;
     sendMessageToEndpoint(
         params: { tech: string; resource: string; from: string; body?: string; variables?: any },
         callback: (err: Error) => void,
     ): void;
-    /* Promise Methods */
-    list(): Promise<Array<Endpoint>>;
-    sendMessage(params: { to: string; from: string; body?: string; variables?: any }): Promise<void>;
-    listByTech(params?: { tech: string }): Promise<Array<Endpoint>>;
-    get(params?: { tech: string; resource: string }): Promise<Endpoint>;
     sendMessageToEndpoint(params: {
         tech: string;
         resource: string;
@@ -1672,24 +1620,23 @@ export interface Endpoint extends Resource {
     technology: string;
     resource: string;
     state?: string;
-    channel_ids: Array<string>;
-    /* Callback Methods */
+    channel_ids: string | string[];
+    /* Methods */
     list(callback: (err: Error, endpoints: Array<Endpoint>) => void): void;
+    list(): Promise<Array<Endpoint>>;
     sendMessage(
         params: { to: string; from: string; body?: string; variables?: any },
         callback: (err: Error) => void,
     ): void;
+    sendMessage(params: { to: string; from: string; body?: string; variables?: any }): Promise<void>;
     listByTech(callback: (err: Error, endpoints: Array<Endpoint>) => void): void;
+    listByTech(): Promise<Array<Endpoint>>;
     get(callback: (err: Error, endpoint: Endpoint) => void): void;
+    get(): Promise<Endpoint>;
     sendMessageToEndpoint(
         params: { from: string; body?: string; variables?: any },
         callback: (err: Error) => void,
     ): void;
-    /* Promise Methods */
-    list(): Promise<Array<Endpoint>>;
-    sendMessage(params: { to: string; from: string; body?: string; variables?: any }): Promise<void>;
-    listByTech(): Promise<Array<Endpoint>>;
-    get(): Promise<Endpoint>;
     sendMessageToEndpoint(params: { from: string; body?: string; variables?: any }): Promise<void>;
 }
 export interface TextMessageVariable {
@@ -1702,21 +1649,20 @@ export interface TextMessage {
     from: string;
     to: string;
     body: string;
-    variables?: Array<TextMessageVariable>;
+    variables?: TextMessageVariable | Array<TextMessageVariable>;
 }
 export interface Mailboxes {
-    /* Callback Methods */
+    /* Methods */
     list(callback: (err: Error, mailboxs: Array<Mailbox>) => void): void;
+    list(): Promise<Array<Mailbox>>;
     get(params: { mailboxName: string }, callback: (err: Error, mailbox: Mailbox) => void): void;
+    get(params: { mailboxName: string }): Promise<Mailbox>;
     update(
         params: { mailboxName: string; oldMessages: number; newMessages: number },
         callback: (err: Error) => void,
     ): void;
-    delete(params: { mailboxName: string }, callback: (err: Error) => void): void;
-    /* Promise Methods */
-    list(): Promise<Array<Mailbox>>;
-    get(params: { mailboxName: string }): Promise<Mailbox>;
     update(params: { mailboxName: string; oldMessages: number; newMessages: number }): Promise<void>;
+    delete(params: { mailboxName: string }, callback: (err: Error) => void): void;
     delete(params: { mailboxName: string }): Promise<void>;
 }
 export interface Mailbox extends Resource {
@@ -1724,25 +1670,23 @@ export interface Mailbox extends Resource {
     name: string;
     old_messages: number;
     new_messages: number;
-    /* Callback Methods */
+    /* Methods */
     list(callback: (err: Error, mailboxs: Array<Mailbox>) => void): void;
-    get(callback: (err: Error, mailbox: Mailbox) => void): void;
-    update(params: { oldMessages: number; newMessages: number }, callback: (err: Error) => void): void;
-    delete(callback: (err: Error) => void): void;
-    /* Promise Methods */
     list(): Promise<Array<Mailbox>>;
+    get(callback: (err: Error, mailbox: Mailbox) => void): void;
     get(): Promise<Mailbox>;
+    update(params: { oldMessages: number; newMessages: number }, callback: (err: Error) => void): void;
     update(params: { oldMessages: number; newMessages: number }): Promise<void>;
+    delete(callback: (err: Error) => void): void;
     delete(): Promise<void>;
 }
 export interface Playbacks {
-    /* Callback Methods */
+    /* Methods */
     get(params: { playbackId: string }, callback: (err: Error, playback: Playback) => void): void;
-    stop(params: { playbackId: string }, callback: (err: Error) => void): void;
-    control(params: { playbackId: string; operation: string }, callback: (err: Error) => void): void;
-    /* Promise Methods */
     get(params: { playbackId: string }): Promise<Playback>;
+    stop(params: { playbackId: string }, callback: (err: Error) => void): void;
     stop(params: { playbackId: string }): Promise<void>;
+    control(params: { playbackId: string; operation: string }, callback: (err: Error) => void): void;
     control(params: { playbackId: string; operation: string }): Promise<void>;
 }
 export interface Playback extends Resource {
@@ -1753,81 +1697,78 @@ export interface Playback extends Resource {
     target_uri: string;
     language: string;
     state: string;
-    /* Callback Methods */
+    /* Methods */
     get(callback: (err: Error, playback: Playback) => void): void;
-    stop(callback: (err: Error) => void): void;
-    control(params: { operation: string }, callback: (err: Error) => void): void;
-    /* Promise Methods */
     get(): Promise<Playback>;
+    stop(callback: (err: Error) => void): void;
     stop(): Promise<void>;
+    control(params: { operation: string }, callback: (err: Error) => void): void;
     control(params: { operation: string }): Promise<void>;
 }
 export interface Recordings {
-    /* Callback Methods */
+    /* Methods */
     listStored(callback: (err: Error, storedrecordings: Array<StoredRecording>) => void): void;
+    listStored(): Promise<Array<StoredRecording>>;
     getStored(
         params: { recordingName: string },
         callback: (err: Error, storedrecording: StoredRecording) => void,
     ): void;
+    getStored(params: { recordingName: string }): Promise<StoredRecording>;
     deleteStored(params: { recordingName: string }, callback: (err: Error) => void): void;
+    deleteStored(params: { recordingName: string }): Promise<void>;
     getStoredFile(params: { recordingName: string }, callback: (err: Error, binary: Buffer) => void): void;
+    getStoredFile(params: { recordingName: string }): Promise<Buffer>;
     copyStored(
         params: { recordingName: string; destinationRecordingName: string },
         callback: (err: Error, storedrecording: StoredRecording) => void,
     ): void;
-    getLive(params: { recordingName: string }, callback: (err: Error, liverecording: LiveRecording) => void): void;
-    cancel(params: { recordingName: string }, callback: (err: Error) => void): void;
-    stop(params: { recordingName: string }, callback: (err: Error) => void): void;
-    pause(params: { recordingName: string }, callback: (err: Error) => void): void;
-    unpause(params: { recordingName: string }, callback: (err: Error) => void): void;
-    mute(params: { recordingName: string }, callback: (err: Error) => void): void;
-    unmute(params: { recordingName: string }, callback: (err: Error) => void): void;
-    /* Promise Methods */
-    listStored(): Promise<Array<StoredRecording>>;
-    getStored(params: { recordingName: string }): Promise<StoredRecording>;
-    deleteStored(params: { recordingName: string }): Promise<void>;
-    getStoredFile(params: { recordingName: string }): Promise<Buffer>;
     copyStored(params: { recordingName: string; destinationRecordingName: string }): Promise<StoredRecording>;
+    getLive(params: { recordingName: string }, callback: (err: Error, liverecording: LiveRecording) => void): void;
     getLive(params: { recordingName: string }): Promise<LiveRecording>;
+    cancel(params: { recordingName: string }, callback: (err: Error) => void): void;
     cancel(params: { recordingName: string }): Promise<void>;
+    stop(params: { recordingName: string }, callback: (err: Error) => void): void;
     stop(params: { recordingName: string }): Promise<void>;
+    pause(params: { recordingName: string }, callback: (err: Error) => void): void;
     pause(params: { recordingName: string }): Promise<void>;
+    unpause(params: { recordingName: string }, callback: (err: Error) => void): void;
     unpause(params: { recordingName: string }): Promise<void>;
+    mute(params: { recordingName: string }, callback: (err: Error) => void): void;
     mute(params: { recordingName: string }): Promise<void>;
+    unmute(params: { recordingName: string }, callback: (err: Error) => void): void;
     unmute(params: { recordingName: string }): Promise<void>;
 }
 export interface StoredRecording extends Resource {
     /* Properties */
     name: string;
     format: string;
-    /* Callback Methods */
+    /* Methods */
     listStored(callback: (err: Error, storedrecordings: Array<StoredRecording>) => void): void;
+    listStored(): Promise<Array<StoredRecording>>;
     getStored(callback: (err: Error, storedrecording: StoredRecording) => void): void;
+    getStored(): Promise<StoredRecording>;
     deleteStored(callback: (err: Error) => void): void;
+    deleteStored(): Promise<void>;
     getStoredFile(callback: (err: Error, binary: Buffer) => void): void;
+    getStoredFile(): Promise<Buffer>;
     copyStored(
         params: { destinationRecordingName: string },
         callback: (err: Error, storedrecording: StoredRecording) => void,
     ): void;
-    getLive(callback: (err: Error, liverecording: LiveRecording) => void): void;
-    cancel(callback: (err: Error) => void): void;
-    stop(callback: (err: Error) => void): void;
-    pause(callback: (err: Error) => void): void;
-    unpause(callback: (err: Error) => void): void;
-    mute(callback: (err: Error) => void): void;
-    unmute(callback: (err: Error) => void): void;
-    /* Promise Methods */
-    listStored(): Promise<Array<StoredRecording>>;
-    getStored(): Promise<StoredRecording>;
-    deleteStored(): Promise<void>;
-    getStoredFile(): Promise<Buffer>;
     copyStored(params: { destinationRecordingName: string }): Promise<StoredRecording>;
+    getLive(callback: (err: Error, liverecording: LiveRecording) => void): void;
     getLive(): Promise<LiveRecording>;
+    cancel(callback: (err: Error) => void): void;
     cancel(): Promise<void>;
+    stop(callback: (err: Error) => void): void;
     stop(): Promise<void>;
+    pause(callback: (err: Error) => void): void;
     pause(): Promise<void>;
+    unpause(callback: (err: Error) => void): void;
     unpause(): Promise<void>;
+    mute(callback: (err: Error) => void): void;
     mute(): Promise<void>;
+    unmute(callback: (err: Error) => void): void;
     unmute(): Promise<void>;
 }
 export interface LiveRecording extends Resource {
@@ -1840,43 +1781,41 @@ export interface LiveRecording extends Resource {
     talking_duration?: number;
     silence_duration?: number;
     cause?: string;
-    /* Callback Methods */
+    /* Methods */
     listStored(callback: (err: Error, storedrecordings: Array<StoredRecording>) => void): void;
+    listStored(): Promise<Array<StoredRecording>>;
     getStored(callback: (err: Error, storedrecording: StoredRecording) => void): void;
+    getStored(): Promise<StoredRecording>;
     deleteStored(callback: (err: Error) => void): void;
+    deleteStored(): Promise<void>;
     getStoredFile(callback: (err: Error, binary: Buffer) => void): void;
+    getStoredFile(): Promise<Buffer>;
     copyStored(
         params: { destinationRecordingName: string },
         callback: (err: Error, storedrecording: StoredRecording) => void,
     ): void;
-    getLive(callback: (err: Error, liverecording: LiveRecording) => void): void;
-    cancel(callback: (err: Error) => void): void;
-    stop(callback: (err: Error) => void): void;
-    pause(callback: (err: Error) => void): void;
-    unpause(callback: (err: Error) => void): void;
-    mute(callback: (err: Error) => void): void;
-    unmute(callback: (err: Error) => void): void;
-    /* Promise Methods */
-    listStored(): Promise<Array<StoredRecording>>;
-    getStored(): Promise<StoredRecording>;
-    deleteStored(): Promise<void>;
-    getStoredFile(): Promise<Buffer>;
     copyStored(params: { destinationRecordingName: string }): Promise<StoredRecording>;
+    getLive(callback: (err: Error, liverecording: LiveRecording) => void): void;
     getLive(): Promise<LiveRecording>;
+    cancel(callback: (err: Error) => void): void;
     cancel(): Promise<void>;
+    stop(callback: (err: Error) => void): void;
     stop(): Promise<void>;
+    pause(callback: (err: Error) => void): void;
     pause(): Promise<void>;
+    unpause(callback: (err: Error) => void): void;
     unpause(): Promise<void>;
+    mute(callback: (err: Error) => void): void;
     mute(): Promise<void>;
+    unmute(callback: (err: Error) => void): void;
     unmute(): Promise<void>;
 }
 export interface Sounds {
-    /* Callback Methods */
+    /* Methods */
     list(params: { lang?: string; format?: string }, callback: (err: Error, sounds: Array<Sound>) => void): void;
     list(callback: (err: Error, sounds: Array<Sound>) => void): void;
-    get(params: { soundId: string }, callback: (err: Error, sound: Sound) => void): void;
-    /* Promise Methods */
     list(params?: { lang?: string; format?: string }): Promise<Array<Sound>>;
+    get(params: { soundId: string }, callback: (err: Error, sound: Sound) => void): void;
     get(params: { soundId: string }): Promise<Sound>;
 }
 export interface FormatLangPair {
@@ -1888,12 +1827,11 @@ export interface Sound extends Resource {
     /* Properties */
     id: string;
     text?: string;
-    formats: Array<FormatLangPair>;
-    /* Callback Methods */
+    formats: FormatLangPair | Array<FormatLangPair>;
+    /* Methods */
     list(params: { lang?: string; format?: string }, callback: (err: Error, sounds: Array<Sound>) => void): void;
     list(callback: (err: Error, sounds: Array<Sound>) => void): void;
-    get(callback: (err: Error, sound: Sound) => void): void;
-    /* Promise Methods */
     list(params?: { lang?: string; format?: string }): Promise<Array<Sound>>;
+    get(callback: (err: Error, sound: Sound) => void): void;
     get(): Promise<Sound>;
 }
