@@ -1313,7 +1313,7 @@ export type UpdateQuery<TSchema> = {
     $rename?: { [key: string]: string };
     $set?: MatchKeysAndValues<TSchema>;
     $setOnInsert?: MatchKeysAndValues<TSchema>;
-    $unset?: OnlyFieldsOfType<TSchema, any, ''>;
+    $unset?: OnlyFieldsOfType<TSchema, any, '' | 1 | true>;
 
     /** https://docs.mongodb.com/manual/reference/operator/update-array/ */
     $addToSet?: SetFields<TSchema>;
