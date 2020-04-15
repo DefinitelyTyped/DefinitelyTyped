@@ -25,6 +25,7 @@ import {
     MultiSelect,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
+import Tag from "./lib/components/Tag";
 
 // AccordionItem
 const titleNode = (
@@ -325,12 +326,12 @@ const tooltipDefHasTriggerClassName = (
 // Tabs
 const tabCanBeDisabled = (
     <Tab
-        handleTabAnchorFocus={() => { }}
         handleTabClick={() => { }}
         handleTabKeyDown={() => { }}
         href="#"
         tabIndex={0}
         disabled
+        selected={false}
     />
 );
 
@@ -342,6 +343,19 @@ const SliderHasOnChange = (
         value={5}
         onChange={(newValue) => newValue.value}
     />
+);
+
+// Tag
+const ChipTagFilterUndef = (
+    <Tag />
+);
+
+const ChipTagFalse = (
+    <Tag filter={false}/>
+);
+
+const FilterTag = (
+    <Tag filter onClose={() => {}}/>
 );
 
 // TextArea
@@ -453,7 +467,6 @@ const multiSelect = (
     initialSelectedItems={['one']}
     items={['one', 'two']}
     light
-    placeholder="Filter"
     titleText="Choose an item"
     itemToString={item => item}
     onChange={({ selectedItems }) => {}}
