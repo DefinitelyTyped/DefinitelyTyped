@@ -6,7 +6,9 @@ interface InheritedProps {
     className?: ReactAttr["className"],
 }
 
-export interface AccordionProps extends InheritedProps { }
+export interface AccordionProps extends InheritedProps {
+    align?: "end" | "start";
+}
 
 declare const Accordion: React.FC<AccordionProps>;
 
