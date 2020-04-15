@@ -1,4 +1,4 @@
-// Type definitions for ari-client 2.2.0
+// Type definitions for ari-client 2.2
 // Project: https://github.com/asterisk/node-ari-client
 // Definitions by: Dioris Moreno <https://github.com/dioris-moreno/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,8 +18,7 @@ export interface Ari {
 export interface Client extends Resource {
     /* Start and Stop Method Overloads */
     start(apps: string | string[], subscribeAll: boolean, callback?: (err: Error, ...args: any[]) => void): void;
-    start(apps: string | string[], callback: (err: Error, ...args: any[]) => void): void;
-    start(apps: string | string[]): void;
+    start(apps: string | string[], callback?: (err: Error, ...args: any[]) => void): void;
     stop(): void;
     /* Properties */
     applications: Applications;
@@ -146,7 +145,12 @@ export interface Events {
     ): void;
     eventWebsocket(params: { app: string | string[]; subscribeAll?: boolean }): Promise<Message>;
     userEvent(
-        params: { eventName: string; application: string; source?: string | string[]; variables?: any },
+        params: {
+            eventName: string;
+            application: string;
+            source?: string | string[];
+            variables?: any;
+        },
         callback: (err: Error) => void,
     ): void;
     userEvent(params: {
@@ -219,7 +223,6 @@ export interface ApplicationMoveFailed extends Event {
     destination: string;
     args: string | string[];
 }
-export interface ApplicationReplaced extends Event {}
 export interface BridgeCreated extends Event {
     /* Properties */
     bridge: Bridge;
@@ -392,113 +395,32 @@ export interface ChannelConnectedLine extends Event {
 }
 export interface Resource {
     on(event: MessageEventType, callback: (event: Message, instances: Message) => void): void;
-    once(event: MessageEventType, callback: (event: Message, instances: Message) => void): void;
-    addListener(event: MessageEventType, callback: (event: Message, instances: Message) => void): void;
     on(event: MissingParamsEventType, callback: (event: MissingParams, instances: MissingParams) => void): void;
-    once(event: MissingParamsEventType, callback: (event: MissingParams, instances: MissingParams) => void): void;
-    addListener(
-        event: MissingParamsEventType,
-        callback: (event: MissingParams, instances: MissingParams) => void,
-    ): void;
     on(event: EventEventType, callback: (event: Event, instances: Event) => void): void;
-    once(event: EventEventType, callback: (event: Event, instances: Event) => void): void;
-    addListener(event: EventEventType, callback: (event: Event, instances: Event) => void): void;
     on(event: ContactInfoEventType, callback: (event: ContactInfo, instances: ContactInfo) => void): void;
-    once(event: ContactInfoEventType, callback: (event: ContactInfo, instances: ContactInfo) => void): void;
-    addListener(event: ContactInfoEventType, callback: (event: ContactInfo, instances: ContactInfo) => void): void;
     on(event: PeerEventType, callback: (event: Peer, instances: Peer) => void): void;
-    once(event: PeerEventType, callback: (event: Peer, instances: Peer) => void): void;
-    addListener(event: PeerEventType, callback: (event: Peer, instances: Peer) => void): void;
     on(
-        event: DeviceStateChangedEventType,
-        callback: (event: DeviceStateChanged, devicestate: DeviceState) => void,
-    ): void;
-    once(
-        event: DeviceStateChangedEventType,
-        callback: (event: DeviceStateChanged, devicestate: DeviceState) => void,
-    ): void;
-    addListener(
         event: DeviceStateChangedEventType,
         callback: (event: DeviceStateChanged, devicestate: DeviceState) => void,
     ): void;
     on(event: PlaybackStartedEventType, callback: (event: PlaybackStarted, playback: Playback) => void): void;
-    once(event: PlaybackStartedEventType, callback: (event: PlaybackStarted, playback: Playback) => void): void;
-    addListener(event: PlaybackStartedEventType, callback: (event: PlaybackStarted, playback: Playback) => void): void;
     on(event: PlaybackContinuingEventType, callback: (event: PlaybackContinuing, playback: Playback) => void): void;
-    once(event: PlaybackContinuingEventType, callback: (event: PlaybackContinuing, playback: Playback) => void): void;
-    addListener(
-        event: PlaybackContinuingEventType,
-        callback: (event: PlaybackContinuing, playback: Playback) => void,
-    ): void;
     on(event: PlaybackFinishedEventType, callback: (event: PlaybackFinished, playback: Playback) => void): void;
-    once(event: PlaybackFinishedEventType, callback: (event: PlaybackFinished, playback: Playback) => void): void;
-    addListener(
-        event: PlaybackFinishedEventType,
-        callback: (event: PlaybackFinished, playback: Playback) => void,
-    ): void;
     on(
         event: RecordingStartedEventType,
         callback: (event: RecordingStarted, liverecording: LiveRecording) => void,
     ): void;
-    once(
-        event: RecordingStartedEventType,
-        callback: (event: RecordingStarted, liverecording: LiveRecording) => void,
-    ): void;
-    addListener(
-        event: RecordingStartedEventType,
-        callback: (event: RecordingStarted, liverecording: LiveRecording) => void,
-    ): void;
     on(
-        event: RecordingFinishedEventType,
-        callback: (event: RecordingFinished, liverecording: LiveRecording) => void,
-    ): void;
-    once(
-        event: RecordingFinishedEventType,
-        callback: (event: RecordingFinished, liverecording: LiveRecording) => void,
-    ): void;
-    addListener(
         event: RecordingFinishedEventType,
         callback: (event: RecordingFinished, liverecording: LiveRecording) => void,
     ): void;
     on(event: RecordingFailedEventType, callback: (event: RecordingFailed, liverecording: LiveRecording) => void): void;
-    once(
-        event: RecordingFailedEventType,
-        callback: (event: RecordingFailed, liverecording: LiveRecording) => void,
-    ): void;
-    addListener(
-        event: RecordingFailedEventType,
-        callback: (event: RecordingFailed, liverecording: LiveRecording) => void,
-    ): void;
     on(event: ApplicationMoveFailedEventType, callback: (event: ApplicationMoveFailed, channel: Channel) => void): void;
-    once(
-        event: ApplicationMoveFailedEventType,
-        callback: (event: ApplicationMoveFailed, channel: Channel) => void,
-    ): void;
-    addListener(
-        event: ApplicationMoveFailedEventType,
-        callback: (event: ApplicationMoveFailed, channel: Channel) => void,
-    ): void;
-    on(event: ApplicationReplacedEventType, callback: (event: ApplicationReplaced) => void): void;
-    once(event: ApplicationReplacedEventType, callback: (event: ApplicationReplaced) => void): void;
-    addListener(event: ApplicationReplacedEventType, callback: (event: ApplicationReplaced) => void): void;
+    on(event: ApplicationReplacedEventType, callback: (event: Event) => void): void;
     on(event: BridgeCreatedEventType, callback: (event: BridgeCreated, bridge: Bridge) => void): void;
-    once(event: BridgeCreatedEventType, callback: (event: BridgeCreated, bridge: Bridge) => void): void;
-    addListener(event: BridgeCreatedEventType, callback: (event: BridgeCreated, bridge: Bridge) => void): void;
     on(event: BridgeDestroyedEventType, callback: (event: BridgeDestroyed, bridge: Bridge) => void): void;
-    once(event: BridgeDestroyedEventType, callback: (event: BridgeDestroyed, bridge: Bridge) => void): void;
-    addListener(event: BridgeDestroyedEventType, callback: (event: BridgeDestroyed, bridge: Bridge) => void): void;
     on(event: BridgeMergedEventType, callback: (event: BridgeMerged, bridge: Bridge) => void): void;
-    once(event: BridgeMergedEventType, callback: (event: BridgeMerged, bridge: Bridge) => void): void;
-    addListener(event: BridgeMergedEventType, callback: (event: BridgeMerged, bridge: Bridge) => void): void;
     on(
-        event: BridgeVideoSourceChangedEventType,
-        callback: (event: BridgeVideoSourceChanged, bridge: Bridge) => void,
-    ): void;
-    once(
-        event: BridgeVideoSourceChangedEventType,
-        callback: (event: BridgeVideoSourceChanged, bridge: Bridge) => void,
-    ): void;
-    addListener(
         event: BridgeVideoSourceChangedEventType,
         callback: (event: BridgeVideoSourceChanged, bridge: Bridge) => void,
     ): void;
@@ -506,157 +428,238 @@ export interface Resource {
         event: BridgeBlindTransferEventType,
         callback: (event: BridgeBlindTransfer, instances: BridgeBlindTransfer) => void,
     ): void;
-    once(
-        event: BridgeBlindTransferEventType,
-        callback: (event: BridgeBlindTransfer, instances: BridgeBlindTransfer) => void,
-    ): void;
-    addListener(
-        event: BridgeBlindTransferEventType,
-        callback: (event: BridgeBlindTransfer, instances: BridgeBlindTransfer) => void,
-    ): void;
     on(
-        event: BridgeAttendedTransferEventType,
-        callback: (event: BridgeAttendedTransfer, instances: BridgeAttendedTransfer) => void,
-    ): void;
-    once(
-        event: BridgeAttendedTransferEventType,
-        callback: (event: BridgeAttendedTransfer, instances: BridgeAttendedTransfer) => void,
-    ): void;
-    addListener(
         event: BridgeAttendedTransferEventType,
         callback: (event: BridgeAttendedTransfer, instances: BridgeAttendedTransfer) => void,
     ): void;
     on(event: ChannelCreatedEventType, callback: (event: ChannelCreated, channel: Channel) => void): void;
-    once(event: ChannelCreatedEventType, callback: (event: ChannelCreated, channel: Channel) => void): void;
-    addListener(event: ChannelCreatedEventType, callback: (event: ChannelCreated, channel: Channel) => void): void;
     on(event: ChannelDestroyedEventType, callback: (event: ChannelDestroyed, channel: Channel) => void): void;
-    once(event: ChannelDestroyedEventType, callback: (event: ChannelDestroyed, channel: Channel) => void): void;
-    addListener(event: ChannelDestroyedEventType, callback: (event: ChannelDestroyed, channel: Channel) => void): void;
     on(
         event: ChannelEnteredBridgeEventType,
         callback: (event: ChannelEnteredBridge, instances: ChannelEnteredBridge) => void,
     ): void;
-    once(
-        event: ChannelEnteredBridgeEventType,
-        callback: (event: ChannelEnteredBridge, instances: ChannelEnteredBridge) => void,
-    ): void;
-    addListener(
-        event: ChannelEnteredBridgeEventType,
-        callback: (event: ChannelEnteredBridge, instances: ChannelEnteredBridge) => void,
-    ): void;
     on(
-        event: ChannelLeftBridgeEventType,
-        callback: (event: ChannelLeftBridge, instances: ChannelLeftBridge) => void,
-    ): void;
-    once(
-        event: ChannelLeftBridgeEventType,
-        callback: (event: ChannelLeftBridge, instances: ChannelLeftBridge) => void,
-    ): void;
-    addListener(
         event: ChannelLeftBridgeEventType,
         callback: (event: ChannelLeftBridge, instances: ChannelLeftBridge) => void,
     ): void;
     on(event: ChannelStateChangeEventType, callback: (event: ChannelStateChange, channel: Channel) => void): void;
-    once(event: ChannelStateChangeEventType, callback: (event: ChannelStateChange, channel: Channel) => void): void;
-    addListener(
-        event: ChannelStateChangeEventType,
-        callback: (event: ChannelStateChange, channel: Channel) => void,
-    ): void;
     on(event: ChannelDtmfReceivedEventType, callback: (event: ChannelDtmfReceived, channel: Channel) => void): void;
-    once(event: ChannelDtmfReceivedEventType, callback: (event: ChannelDtmfReceived, channel: Channel) => void): void;
-    addListener(
-        event: ChannelDtmfReceivedEventType,
-        callback: (event: ChannelDtmfReceived, channel: Channel) => void,
-    ): void;
     on(event: ChannelDialplanEventType, callback: (event: ChannelDialplan, channel: Channel) => void): void;
-    once(event: ChannelDialplanEventType, callback: (event: ChannelDialplan, channel: Channel) => void): void;
-    addListener(event: ChannelDialplanEventType, callback: (event: ChannelDialplan, channel: Channel) => void): void;
     on(event: ChannelCallerIdEventType, callback: (event: ChannelCallerId, channel: Channel) => void): void;
-    once(event: ChannelCallerIdEventType, callback: (event: ChannelCallerId, channel: Channel) => void): void;
-    addListener(event: ChannelCallerIdEventType, callback: (event: ChannelCallerId, channel: Channel) => void): void;
     on(
-        event: ChannelUsereventEventType,
-        callback: (event: ChannelUserevent, instances: ChannelUserevent) => void,
-    ): void;
-    once(
-        event: ChannelUsereventEventType,
-        callback: (event: ChannelUserevent, instances: ChannelUserevent) => void,
-    ): void;
-    addListener(
         event: ChannelUsereventEventType,
         callback: (event: ChannelUserevent, instances: ChannelUserevent) => void,
     ): void;
     on(event: ChannelHangupRequestEventType, callback: (event: ChannelHangupRequest, channel: Channel) => void): void;
-    once(event: ChannelHangupRequestEventType, callback: (event: ChannelHangupRequest, channel: Channel) => void): void;
-    addListener(
-        event: ChannelHangupRequestEventType,
-        callback: (event: ChannelHangupRequest, channel: Channel) => void,
-    ): void;
     on(event: ChannelVarsetEventType, callback: (event: ChannelVarset, channel: Channel) => void): void;
-    once(event: ChannelVarsetEventType, callback: (event: ChannelVarset, channel: Channel) => void): void;
-    addListener(event: ChannelVarsetEventType, callback: (event: ChannelVarset, channel: Channel) => void): void;
     on(event: ChannelHoldEventType, callback: (event: ChannelHold, channel: Channel) => void): void;
-    once(event: ChannelHoldEventType, callback: (event: ChannelHold, channel: Channel) => void): void;
-    addListener(event: ChannelHoldEventType, callback: (event: ChannelHold, channel: Channel) => void): void;
     on(event: ChannelUnholdEventType, callback: (event: ChannelUnhold, channel: Channel) => void): void;
-    once(event: ChannelUnholdEventType, callback: (event: ChannelUnhold, channel: Channel) => void): void;
-    addListener(event: ChannelUnholdEventType, callback: (event: ChannelUnhold, channel: Channel) => void): void;
     on(event: ChannelTalkingStartedEventType, callback: (event: ChannelTalkingStarted, channel: Channel) => void): void;
-    once(
-        event: ChannelTalkingStartedEventType,
-        callback: (event: ChannelTalkingStarted, channel: Channel) => void,
-    ): void;
-    addListener(
-        event: ChannelTalkingStartedEventType,
-        callback: (event: ChannelTalkingStarted, channel: Channel) => void,
-    ): void;
     on(
         event: ChannelTalkingFinishedEventType,
         callback: (event: ChannelTalkingFinished, channel: Channel) => void,
     ): void;
+    on(event: ContactStatusChangeEventType, callback: (event: ContactStatusChange, endpoint: Endpoint) => void): void;
+    on(event: PeerStatusChangeEventType, callback: (event: PeerStatusChange, endpoint: Endpoint) => void): void;
+    on(event: EndpointStateChangeEventType, callback: (event: EndpointStateChange, endpoint: Endpoint) => void): void;
+    on(event: DialEventType, callback: (event: Dial, channel: Channel) => void): void;
+    on(event: StasisEndEventType, callback: (event: StasisEnd, channel: Channel) => void): void;
+    on(event: StasisStartEventType, callback: (event: StasisStart, channel: Channel) => void): void;
+    on(event: TextMessageReceivedEventType, callback: (event: TextMessageReceived, endpoint: Endpoint) => void): void;
+    on(event: ChannelConnectedLineEventType, callback: (event: ChannelConnectedLine, channel: Channel) => void): void;
+    once(event: MessageEventType, callback: (event: Message, instances: Message) => void): void;
+    once(event: MissingParamsEventType, callback: (event: MissingParams, instances: MissingParams) => void): void;
+    once(event: EventEventType, callback: (event: Event, instances: Event) => void): void;
+    once(event: ContactInfoEventType, callback: (event: ContactInfo, instances: ContactInfo) => void): void;
+    once(event: PeerEventType, callback: (event: Peer, instances: Peer) => void): void;
+    once(
+        event: DeviceStateChangedEventType,
+        callback: (event: DeviceStateChanged, devicestate: DeviceState) => void,
+    ): void;
+    once(event: PlaybackStartedEventType, callback: (event: PlaybackStarted, playback: Playback) => void): void;
+    once(event: PlaybackContinuingEventType, callback: (event: PlaybackContinuing, playback: Playback) => void): void;
+    once(event: PlaybackFinishedEventType, callback: (event: PlaybackFinished, playback: Playback) => void): void;
+    once(
+        event: RecordingStartedEventType,
+        callback: (event: RecordingStarted, liverecording: LiveRecording) => void,
+    ): void;
+    once(
+        event: RecordingFinishedEventType,
+        callback: (event: RecordingFinished, liverecording: LiveRecording) => void,
+    ): void;
+    once(
+        event: RecordingFailedEventType,
+        callback: (event: RecordingFailed, liverecording: LiveRecording) => void,
+    ): void;
+    once(
+        event: ApplicationMoveFailedEventType,
+        callback: (event: ApplicationMoveFailed, channel: Channel) => void,
+    ): void;
+    once(event: ApplicationReplacedEventType, callback: (event: Event) => void): void;
+    once(event: BridgeCreatedEventType, callback: (event: BridgeCreated, bridge: Bridge) => void): void;
+    once(event: BridgeDestroyedEventType, callback: (event: BridgeDestroyed, bridge: Bridge) => void): void;
+    once(event: BridgeMergedEventType, callback: (event: BridgeMerged, bridge: Bridge) => void): void;
+    once(
+        event: BridgeVideoSourceChangedEventType,
+        callback: (event: BridgeVideoSourceChanged, bridge: Bridge) => void,
+    ): void;
+    once(
+        event: BridgeBlindTransferEventType,
+        callback: (event: BridgeBlindTransfer, instances: BridgeBlindTransfer) => void,
+    ): void;
+    once(
+        event: BridgeAttendedTransferEventType,
+        callback: (event: BridgeAttendedTransfer, instances: BridgeAttendedTransfer) => void,
+    ): void;
+    once(event: ChannelCreatedEventType, callback: (event: ChannelCreated, channel: Channel) => void): void;
+    once(event: ChannelDestroyedEventType, callback: (event: ChannelDestroyed, channel: Channel) => void): void;
+    once(
+        event: ChannelEnteredBridgeEventType,
+        callback: (event: ChannelEnteredBridge, instances: ChannelEnteredBridge) => void,
+    ): void;
+    once(
+        event: ChannelLeftBridgeEventType,
+        callback: (event: ChannelLeftBridge, instances: ChannelLeftBridge) => void,
+    ): void;
+    once(event: ChannelStateChangeEventType, callback: (event: ChannelStateChange, channel: Channel) => void): void;
+    once(event: ChannelDtmfReceivedEventType, callback: (event: ChannelDtmfReceived, channel: Channel) => void): void;
+    once(event: ChannelDialplanEventType, callback: (event: ChannelDialplan, channel: Channel) => void): void;
+    once(event: ChannelCallerIdEventType, callback: (event: ChannelCallerId, channel: Channel) => void): void;
+    once(
+        event: ChannelUsereventEventType,
+        callback: (event: ChannelUserevent, instances: ChannelUserevent) => void,
+    ): void;
+    once(event: ChannelHangupRequestEventType, callback: (event: ChannelHangupRequest, channel: Channel) => void): void;
+    once(event: ChannelVarsetEventType, callback: (event: ChannelVarset, channel: Channel) => void): void;
+    once(event: ChannelHoldEventType, callback: (event: ChannelHold, channel: Channel) => void): void;
+    once(event: ChannelUnholdEventType, callback: (event: ChannelUnhold, channel: Channel) => void): void;
+    once(
+        event: ChannelTalkingStartedEventType,
+        callback: (event: ChannelTalkingStarted, channel: Channel) => void,
+    ): void;
     once(
         event: ChannelTalkingFinishedEventType,
         callback: (event: ChannelTalkingFinished, channel: Channel) => void,
     ): void;
+    once(event: ContactStatusChangeEventType, callback: (event: ContactStatusChange, endpoint: Endpoint) => void): void;
+    once(event: PeerStatusChangeEventType, callback: (event: PeerStatusChange, endpoint: Endpoint) => void): void;
+    once(event: EndpointStateChangeEventType, callback: (event: EndpointStateChange, endpoint: Endpoint) => void): void;
+    once(event: DialEventType, callback: (event: Dial, channel: Channel) => void): void;
+    once(event: StasisEndEventType, callback: (event: StasisEnd, channel: Channel) => void): void;
+    once(event: StasisStartEventType, callback: (event: StasisStart, channel: Channel) => void): void;
+    once(event: TextMessageReceivedEventType, callback: (event: TextMessageReceived, endpoint: Endpoint) => void): void;
+    once(event: ChannelConnectedLineEventType, callback: (event: ChannelConnectedLine, channel: Channel) => void): void;
+    addListener(event: MessageEventType, callback: (event: Message, instances: Message) => void): void;
+    addListener(
+        event: MissingParamsEventType,
+        callback: (event: MissingParams, instances: MissingParams) => void,
+    ): void;
+    addListener(event: EventEventType, callback: (event: Event, instances: Event) => void): void;
+    addListener(event: ContactInfoEventType, callback: (event: ContactInfo, instances: ContactInfo) => void): void;
+    addListener(event: PeerEventType, callback: (event: Peer, instances: Peer) => void): void;
+    addListener(
+        event: DeviceStateChangedEventType,
+        callback: (event: DeviceStateChanged, devicestate: DeviceState) => void,
+    ): void;
+    addListener(event: PlaybackStartedEventType, callback: (event: PlaybackStarted, playback: Playback) => void): void;
+    addListener(
+        event: PlaybackContinuingEventType,
+        callback: (event: PlaybackContinuing, playback: Playback) => void,
+    ): void;
+    addListener(
+        event: PlaybackFinishedEventType,
+        callback: (event: PlaybackFinished, playback: Playback) => void,
+    ): void;
+    addListener(
+        event: RecordingStartedEventType,
+        callback: (event: RecordingStarted, liverecording: LiveRecording) => void,
+    ): void;
+    addListener(
+        event: RecordingFinishedEventType,
+        callback: (event: RecordingFinished, liverecording: LiveRecording) => void,
+    ): void;
+    addListener(
+        event: RecordingFailedEventType,
+        callback: (event: RecordingFailed, liverecording: LiveRecording) => void,
+    ): void;
+    addListener(
+        event: ApplicationMoveFailedEventType,
+        callback: (event: ApplicationMoveFailed, channel: Channel) => void,
+    ): void;
+    addListener(event: ApplicationReplacedEventType, callback: (event: Event) => void): void;
+    addListener(event: BridgeCreatedEventType, callback: (event: BridgeCreated, bridge: Bridge) => void): void;
+    addListener(event: BridgeDestroyedEventType, callback: (event: BridgeDestroyed, bridge: Bridge) => void): void;
+    addListener(event: BridgeMergedEventType, callback: (event: BridgeMerged, bridge: Bridge) => void): void;
+    addListener(
+        event: BridgeVideoSourceChangedEventType,
+        callback: (event: BridgeVideoSourceChanged, bridge: Bridge) => void,
+    ): void;
+    addListener(
+        event: BridgeBlindTransferEventType,
+        callback: (event: BridgeBlindTransfer, instances: BridgeBlindTransfer) => void,
+    ): void;
+    addListener(
+        event: BridgeAttendedTransferEventType,
+        callback: (event: BridgeAttendedTransfer, instances: BridgeAttendedTransfer) => void,
+    ): void;
+    addListener(event: ChannelCreatedEventType, callback: (event: ChannelCreated, channel: Channel) => void): void;
+    addListener(event: ChannelDestroyedEventType, callback: (event: ChannelDestroyed, channel: Channel) => void): void;
+    addListener(
+        event: ChannelEnteredBridgeEventType,
+        callback: (event: ChannelEnteredBridge, instances: ChannelEnteredBridge) => void,
+    ): void;
+    addListener(
+        event: ChannelLeftBridgeEventType,
+        callback: (event: ChannelLeftBridge, instances: ChannelLeftBridge) => void,
+    ): void;
+    addListener(
+        event: ChannelStateChangeEventType,
+        callback: (event: ChannelStateChange, channel: Channel) => void,
+    ): void;
+    addListener(
+        event: ChannelDtmfReceivedEventType,
+        callback: (event: ChannelDtmfReceived, channel: Channel) => void,
+    ): void;
+    addListener(event: ChannelDialplanEventType, callback: (event: ChannelDialplan, channel: Channel) => void): void;
+    addListener(event: ChannelCallerIdEventType, callback: (event: ChannelCallerId, channel: Channel) => void): void;
+    addListener(
+        event: ChannelUsereventEventType,
+        callback: (event: ChannelUserevent, instances: ChannelUserevent) => void,
+    ): void;
+    addListener(
+        event: ChannelHangupRequestEventType,
+        callback: (event: ChannelHangupRequest, channel: Channel) => void,
+    ): void;
+    addListener(event: ChannelVarsetEventType, callback: (event: ChannelVarset, channel: Channel) => void): void;
+    addListener(event: ChannelHoldEventType, callback: (event: ChannelHold, channel: Channel) => void): void;
+    addListener(event: ChannelUnholdEventType, callback: (event: ChannelUnhold, channel: Channel) => void): void;
+    addListener(
+        event: ChannelTalkingStartedEventType,
+        callback: (event: ChannelTalkingStarted, channel: Channel) => void,
+    ): void;
     addListener(
         event: ChannelTalkingFinishedEventType,
         callback: (event: ChannelTalkingFinished, channel: Channel) => void,
     ): void;
-    on(event: ContactStatusChangeEventType, callback: (event: ContactStatusChange, endpoint: Endpoint) => void): void;
-    once(event: ContactStatusChangeEventType, callback: (event: ContactStatusChange, endpoint: Endpoint) => void): void;
     addListener(
         event: ContactStatusChangeEventType,
         callback: (event: ContactStatusChange, endpoint: Endpoint) => void,
     ): void;
-    on(event: PeerStatusChangeEventType, callback: (event: PeerStatusChange, endpoint: Endpoint) => void): void;
-    once(event: PeerStatusChangeEventType, callback: (event: PeerStatusChange, endpoint: Endpoint) => void): void;
     addListener(
         event: PeerStatusChangeEventType,
         callback: (event: PeerStatusChange, endpoint: Endpoint) => void,
     ): void;
-    on(event: EndpointStateChangeEventType, callback: (event: EndpointStateChange, endpoint: Endpoint) => void): void;
-    once(event: EndpointStateChangeEventType, callback: (event: EndpointStateChange, endpoint: Endpoint) => void): void;
     addListener(
         event: EndpointStateChangeEventType,
         callback: (event: EndpointStateChange, endpoint: Endpoint) => void,
     ): void;
-    on(event: DialEventType, callback: (event: Dial, channel: Channel) => void): void;
-    once(event: DialEventType, callback: (event: Dial, channel: Channel) => void): void;
     addListener(event: DialEventType, callback: (event: Dial, channel: Channel) => void): void;
-    on(event: StasisEndEventType, callback: (event: StasisEnd, channel: Channel) => void): void;
-    once(event: StasisEndEventType, callback: (event: StasisEnd, channel: Channel) => void): void;
     addListener(event: StasisEndEventType, callback: (event: StasisEnd, channel: Channel) => void): void;
-    on(event: StasisStartEventType, callback: (event: StasisStart, channel: Channel) => void): void;
-    once(event: StasisStartEventType, callback: (event: StasisStart, channel: Channel) => void): void;
     addListener(event: StasisStartEventType, callback: (event: StasisStart, channel: Channel) => void): void;
-    on(event: TextMessageReceivedEventType, callback: (event: TextMessageReceived, endpoint: Endpoint) => void): void;
-    once(event: TextMessageReceivedEventType, callback: (event: TextMessageReceived, endpoint: Endpoint) => void): void;
     addListener(
         event: TextMessageReceivedEventType,
         callback: (event: TextMessageReceived, endpoint: Endpoint) => void,
     ): void;
-    on(event: ChannelConnectedLineEventType, callback: (event: ChannelConnectedLine, channel: Channel) => void): void;
-    once(event: ChannelConnectedLineEventType, callback: (event: ChannelConnectedLine, channel: Channel) => void): void;
     addListener(
         event: ChannelConnectedLineEventType,
         callback: (event: ChannelConnectedLine, channel: Channel) => void,
@@ -722,7 +725,12 @@ export interface Asterisk {
     ): void;
     getObject(params: { configClass: string; objectType: string; id: string }): Promise<Array<ConfigTuple>>;
     updateObject(
-        params: { configClass: string; objectType: string; id: string; fields?: any },
+        params: {
+            configClass: string;
+            objectType: string;
+            id: string;
+            fields?: any;
+        },
         callback: (err: Error, configtuples: Array<ConfigTuple>) => void,
     ): void;
     updateObject(params: {
@@ -851,7 +859,13 @@ export interface Bridges {
     destroy(params: { bridgeId: string }, callback: (err: Error) => void): void;
     destroy(params: { bridgeId: string }): Promise<void>;
     addChannel(
-        params: { bridgeId: string; channel: string | string[]; role?: string; absorbDTMF?: boolean; mute?: boolean },
+        params: {
+            bridgeId: string;
+            channel: string | string[];
+            role?: string;
+            absorbDTMF?: boolean;
+            mute?: boolean;
+        },
         callback: (err: Error) => void,
     ): void;
     addChannel(params: {
@@ -959,7 +973,12 @@ export interface Bridge extends Resource {
     destroy(callback: (err: Error) => void): void;
     destroy(): Promise<void>;
     addChannel(
-        params: { channel: string | string[]; role?: string; absorbDTMF?: boolean; mute?: boolean },
+        params: {
+            channel: string | string[];
+            role?: string;
+            absorbDTMF?: boolean;
+            mute?: boolean;
+        },
         callback: (err: Error) => void,
     ): void;
     addChannel(params: {
@@ -980,7 +999,13 @@ export interface Bridge extends Resource {
     stopMoh(callback: (err: Error) => void): void;
     stopMoh(): Promise<void>;
     play(
-        params: { media: string | string[]; lang?: string; offsetms?: number; skipms?: number; playbackId?: string },
+        params: {
+            media: string | string[];
+            lang?: string;
+            offsetms?: number;
+            skipms?: number;
+            playbackId?: string;
+        },
         callback: (err: Error, playback: Playback) => void,
     ): void;
     play(params: {
@@ -991,7 +1016,13 @@ export interface Bridge extends Resource {
         playbackId?: string;
     }): Promise<Playback>;
     playWithId(
-        params: { playbackId: string; media: string | string[]; lang?: string; offsetms?: number; skipms?: number },
+        params: {
+            playbackId: string;
+            media: string | string[];
+            lang?: string;
+            offsetms?: number;
+            skipms?: number;
+        },
         callback: (err: Error, playback: Playback) => void,
     ): void;
     playWithId(params: {
@@ -1127,7 +1158,13 @@ export interface Channels {
     hangup(params: { channelId: string; reason?: string }, callback: (err: Error) => void): void;
     hangup(params: { channelId: string; reason?: string }): Promise<void>;
     continueInDialplan(
-        params: { channelId: string; context?: string; extension?: string; priority?: number; label?: string },
+        params: {
+            channelId: string;
+            context?: string;
+            extension?: string;
+            priority?: number;
+            label?: string;
+        },
         callback: (err: Error) => void,
     ): void;
     continueInDialplan(params: {
@@ -1254,7 +1291,14 @@ export interface Channels {
     ): void;
     setChannelVar(params: { channelId: string; variable: string; value?: string }): Promise<void>;
     snoopChannel(
-        params: { channelId: string; spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
+        params: {
+            channelId: string;
+            spy?: string;
+            whisper?: string;
+            app: string;
+            appArgs?: string;
+            snoopId?: string;
+        },
         callback: (err: Error, channel: Channel) => void,
     ): void;
     snoopChannel(params: {
@@ -1266,7 +1310,14 @@ export interface Channels {
         snoopId?: string;
     }): Promise<Channel>;
     snoopChannelWithId(
-        params: { channelId: string; snoopId: string; spy?: string; whisper?: string; app: string; appArgs?: string },
+        params: {
+            channelId: string;
+            snoopId: string;
+            spy?: string;
+            whisper?: string;
+            app: string;
+            appArgs?: string;
+        },
         callback: (err: Error, channel: Channel) => void,
     ): void;
     snoopChannelWithId(params: {
@@ -1282,7 +1333,6 @@ export interface Channels {
     rtpstatistics(params: { channelId: string }, callback: (err: Error, rtpstat: RTPstat) => void): void;
     rtpstatistics(params: { channelId: string }): Promise<RTPstat>;
 }
-export interface Dialed {}
 export interface DialplanCEP {
     /* Properties */
     context: string;
@@ -1437,7 +1487,12 @@ export interface Channel extends Resource {
     hangup(callback: (err: Error) => void): void;
     hangup(params?: { reason?: string }): Promise<void>;
     continueInDialplan(
-        params: { context?: string; extension?: string; priority?: number; label?: string },
+        params: {
+            context?: string;
+            extension?: string;
+            priority?: number;
+            label?: string;
+        },
         callback: (err: Error) => void,
     ): void;
     continueInDialplan(callback: (err: Error) => void): void;
@@ -1458,7 +1513,13 @@ export interface Channel extends Resource {
     ringStop(callback: (err: Error) => void): void;
     ringStop(): Promise<void>;
     sendDTMF(
-        params: { dtmf?: string; before?: number; between?: number; duration?: number; after?: number },
+        params: {
+            dtmf?: string;
+            before?: number;
+            between?: number;
+            duration?: number;
+            after?: number;
+        },
         callback: (err: Error) => void,
     ): void;
     sendDTMF(callback: (err: Error) => void): void;
@@ -1489,16 +1550,34 @@ export interface Channel extends Resource {
     stopSilence(callback: (err: Error) => void): void;
     stopSilence(): Promise<void>;
     play(
-        params: { media: string | string[]; lang?: string; offsetms?: number; skipms?: number; playbackId?: string },
+        params: {
+            media: string | string[];
+            lang?: string;
+            offsetms?: number;
+            skipms?: number;
+            playbackId?: string;
+        },
         playback: Playback,
         callback: (err: Error, playback: Playback) => void,
     ): void;
     play(
-        params: { media: string | string[]; lang?: string; offsetms?: number; skipms?: number; playbackId?: string },
+        params: {
+            media: string | string[];
+            lang?: string;
+            offsetms?: number;
+            skipms?: number;
+            playbackId?: string;
+        },
         playback: Playback,
     ): Promise<Playback>;
     playWithId(
-        params: { playbackId: string; media: string | string[]; lang?: string; offsetms?: number; skipms?: number },
+        params: {
+            playbackId: string;
+            media: string | string[];
+            lang?: string;
+            offsetms?: number;
+            skipms?: number;
+        },
         callback: (err: Error, playback: Playback) => void,
     ): void;
     playWithId(params: {
@@ -1538,16 +1617,34 @@ export interface Channel extends Resource {
     setChannelVar(params: { variable: string; value?: string }, callback: (err: Error) => void): void;
     setChannelVar(params: { variable: string; value?: string }): Promise<void>;
     snoopChannel(
-        params: { spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
+        params: {
+            spy?: string;
+            whisper?: string;
+            app: string;
+            appArgs?: string;
+            snoopId?: string;
+        },
         snoopChannel: Channel,
         callback: (err: Error, channel: Channel) => void,
     ): void;
     snoopChannel(
-        params: { spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
+        params: {
+            spy?: string;
+            whisper?: string;
+            app: string;
+            appArgs?: string;
+            snoopId?: string;
+        },
         snoopChannel: Channel,
     ): Promise<Channel>;
     snoopChannelWithId(
-        params: { snoopId: string; spy?: string; whisper?: string; app: string; appArgs?: string },
+        params: {
+            snoopId: string;
+            spy?: string;
+            whisper?: string;
+            app: string;
+            appArgs?: string;
+        },
         callback: (err: Error, channel: Channel) => void,
     ): void;
     snoopChannelWithId(params: {
@@ -1604,7 +1701,13 @@ export interface Endpoints {
     get(callback: (err: Error, endpoint: Endpoint) => void): void;
     get(params?: { tech: string; resource: string }): Promise<Endpoint>;
     sendMessageToEndpoint(
-        params: { tech: string; resource: string; from: string; body?: string; variables?: any },
+        params: {
+            tech: string;
+            resource: string;
+            from: string;
+            body?: string;
+            variables?: any;
+        },
         callback: (err: Error) => void,
     ): void;
     sendMessageToEndpoint(params: {
