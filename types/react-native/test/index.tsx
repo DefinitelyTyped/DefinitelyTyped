@@ -97,6 +97,8 @@ import {
     Appearance,
     useColorScheme,
     DevSettings,
+    PlatformColor,
+    DynamicColorIOS,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -1093,3 +1095,11 @@ DevSettings.addMenuItem('alert', () => {
 });
 DevSettings.reload();
 DevSettings.reload('reload with reason');
+
+// PlatformColor
+const labelColor = PlatformColor('labelColor')
+const backgroundColor = PlatformColor('bogus', '@color/catalyst_redbox_background')
+
+// DynamicColorIOS
+const dynamicColor = DynamicColorIOS({light:'black',dark:'white'})
+const errorColor = DynamicColorIOS({light: 'red'}) // $ExpectError
