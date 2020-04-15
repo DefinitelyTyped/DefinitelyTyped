@@ -1034,7 +1034,6 @@ export namespace encoding {
         /**
          * Add additional information to the armor version of an OpenPGP binary
          * packet block.
-         * @author Alex
          * @version 2011-12-16
          * @param customComment (optional) additional comment to add to the armored string
          * @returns The header information
