@@ -5849,14 +5849,26 @@ function JQuery() {
         }
 
         function find() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').find('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find('.class-name');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').find(new HTMLElement());
 
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find(new HTMLSpanElement());
+
             // $ExpectType JQuery<HTMLElement>
             $('p').find($('span'));
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find($<HTMLSpanElement>('.class-name'));
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find<HTMLSpanElement>($('.class-name'));
         }
 
         function addBack() {
@@ -5897,11 +5909,17 @@ function JQuery() {
         function first() {
             // $ExpectType JQuery<HTMLElement>
             $('p').first();
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find('span').first();
         }
 
         function last() {
             // $ExpectType JQuery<HTMLElement>
             $('p').last();
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find('span').first();
         }
 
         function offsetParent() {
