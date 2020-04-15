@@ -19,14 +19,14 @@ export default async () => {
                 await outgoing.hangup();
             });
 
-            let outgoing = client.Channel();
+            const outgoing = client.Channel();
 
             outgoing.once('ChannelDestroyed', async (event, channel) => {
                 await incoming.hangup();
             });
 
             outgoing.once('StasisStart', async (event, outgoing) => {
-                let bridge = client.Bridge();
+                const bridge = client.Bridge();
 
                 outgoing.once('StasisEnd', async (event, channel) => {
                     await bridge.destroy();
@@ -37,7 +37,7 @@ export default async () => {
                 await mixingBridge.addChannel({ channel: [incoming.id, outgoing.id] });
             });
 
-            let playback = client.Playback();
+            const playback = client.Playback();
             await incoming.play({ media: 'sound:vm-dialout' }, playback);
 
             // Originate call from incoming channel to endpoint

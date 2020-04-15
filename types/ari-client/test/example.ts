@@ -65,7 +65,7 @@ Ari.connect(
                      *    received the dtmf event
                      */
                     function (event, channel) {
-                        let digit = event.digit;
+                        const digit = event.digit;
                         switch (digit) {
                             case '#':
                                 play(channel, 'sound:vm-goodbye', function (err) {
@@ -100,7 +100,7 @@ Ari.connect(
          *  @param {Function} callback - callback invoked once playback is finished
          */
         function play(channel: Channel, sound: string, callback?: (param: any) => void) {
-            let playback = client.Playback();
+            const playback = client.Playback();
             playback.once('PlaybackFinished', function (event, instance) {
                 if (callback) {
                     callback(null);

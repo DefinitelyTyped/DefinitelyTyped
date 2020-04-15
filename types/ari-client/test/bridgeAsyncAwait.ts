@@ -30,7 +30,7 @@ export default async () => {
 
         const joinHoldingBridgeAndPlayMoh = async (bridge: Bridge, channel: Channel) => {
             bridge.on('ChannelLeftBridge', async (event, instances) => {
-                let holdingBridge = instances.bridge;
+                const holdingBridge = instances.bridge;
                 if (holdingBridge.channels.length === 0 && holdingBridge.id === bridge.id) {
                     try {
                         await bridge.destroy();

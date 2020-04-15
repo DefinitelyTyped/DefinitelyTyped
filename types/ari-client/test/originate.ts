@@ -80,7 +80,7 @@ Ari.connect(
                 },
             );
 
-            let outgoing = client.Channel();
+            const outgoing = client.Channel();
 
             outgoing.once(
                 'ChannelDestroyed',
@@ -111,7 +111,7 @@ Ari.connect(
                  *    the outgoing channel entering Stasis
                  */
                 function (event, outgoing) {
-                    let bridge = client.Bridge();
+                    const bridge = client.Bridge();
 
                     outgoing.once(
                         'StasisEnd',
@@ -160,7 +160,7 @@ Ari.connect(
                 },
             );
 
-            let playback = client.Playback();
+            const playback = client.Playback();
             incoming.play({ media: 'sound:vm-dialout' }, playback, function (err) {});
 
             // Originate call from incoming channel to endpoint

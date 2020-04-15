@@ -35,7 +35,7 @@ Ari.connect(
      *  @param {module:ari-client~Client} client - ARI client
      */
     function (err, client) {
-        let bridge = client.Bridge();
+        const bridge = client.Bridge();
         // Keep track of bridge state at the application level so we don't have to
         // make extra calls to ARI
         let currentBridgeState = 'NOT_INUSE';
@@ -52,7 +52,7 @@ Ari.connect(
              */
             function (err, instance) {
                 // Mark this bridge as available
-                let opts = {
+                const opts = {
                     deviceName: util.format('Stasis:%s', BRIDGE_STATE),
                     deviceState: 'NOT_INUSE',
                 };
@@ -74,7 +74,7 @@ Ari.connect(
             function (event, objects) {
                 if (objects.bridge.channels.length > 0 && currentBridgeState !== 'BUSY') {
                     // Mark this bridge as busy
-                    let opts = {
+                    const opts = {
                         deviceName: util.format('Stasis:%s', BRIDGE_STATE),
                         deviceState: 'BUSY',
                     };
@@ -97,7 +97,7 @@ Ari.connect(
             function (event, objects) {
                 if (objects.bridge.channels.length === 0 && currentBridgeState !== 'NOT_INUSE') {
                     // Mark this bridge as available
-                    let opts = {
+                    const opts = {
                         deviceName: util.format('Stasis:%s', BRIDGE_STATE),
                         deviceState: 'NOT_INUSE',
                     };

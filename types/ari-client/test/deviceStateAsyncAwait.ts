@@ -9,7 +9,7 @@ export default async () => {
     try {
         const client = await Ari.connect('http://ari.js:8088', 'user', 'secret');
 
-        let bridge = client.Bridge();
+        const bridge = client.Bridge();
         // Keep track of bridge state at the application level so we don't have to
         // make extra calls to ARI
         let currentBridgeState = 'NOT_INUSE';
@@ -17,7 +17,7 @@ export default async () => {
         const instance = await bridge.create({ type: 'mixing' });
 
         // Mark this bridge as available
-        let opts = {
+        const opts = {
             deviceName: util.format('Stasis:%s', BRIDGE_STATE),
             deviceState: 'NOT_INUSE',
         };
@@ -26,7 +26,7 @@ export default async () => {
         client.on('ChannelEnteredBridge', async (event, objects) => {
             if (objects.bridge.channels.length > 0 && currentBridgeState !== 'BUSY') {
                 // Mark this bridge as busy
-                let opts = {
+                const opts = {
                     deviceName: util.format('Stasis:%s', BRIDGE_STATE),
                     deviceState: 'BUSY',
                 };
@@ -42,7 +42,7 @@ export default async () => {
         client.on('ChannelLeftBridge', async (event, objects) => {
             if (objects.bridge.channels.length === 0 && currentBridgeState !== 'NOT_INUSE') {
                 // Mark this bridge as available
-                let opts = {
+                const opts = {
                     deviceName: util.format('Stasis:%s', BRIDGE_STATE),
                     deviceState: 'NOT_INUSE',
                 };

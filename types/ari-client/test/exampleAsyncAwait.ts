@@ -11,7 +11,7 @@ export default async () => {
         client.on('StasisStart', async (event, incoming) => {
             // Handle DTMF events
             incoming.on('ChannelDtmfReceived', async (event, channel) => {
-                let digit = event.digit;
+                const digit = event.digit;
                 switch (digit) {
                     case '#':
                         await play(channel, 'sound:vm-goodbye');
@@ -31,7 +31,7 @@ export default async () => {
         });
 
         const play = (channel: Channel, sound: string) => {
-            let playback = client.Playback();
+            const playback = client.Playback();
 
             return new Promise(function (resolve, reject) {
                 playback.once('PlaybackFinished', function (event, playback) {

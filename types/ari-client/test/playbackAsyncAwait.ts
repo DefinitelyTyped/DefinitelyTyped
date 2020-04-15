@@ -10,9 +10,9 @@ export default async () => {
         // Use once to start the application
         client.once('StasisStart', async (event, incoming) => {
             await incoming.answer();
-            let playback = client.Playback();
+            const playback = client.Playback();
             // Play demo greeting and register dtmf event listeners
-            let newPlayback = await incoming.play({ media: 'sound:demo-congrats' }, playback);
+            const newPlayback = await incoming.play({ media: 'sound:demo-congrats' }, playback);
             registerDtmfListeners(newPlayback, incoming);
         });
 

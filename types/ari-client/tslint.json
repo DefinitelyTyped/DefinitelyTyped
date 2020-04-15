@@ -1,8 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "prefer-const": false,
-        "only-arrow-functions": false,
-        "space-before-function-paren": true
-    }
+    "extends": "dtslint/dt.json"
 }

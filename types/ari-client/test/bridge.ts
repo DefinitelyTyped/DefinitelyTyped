@@ -116,7 +116,7 @@ Ari.connect(
          *  @param {Bridge} bridge - the bridge the event is attached to
          */
         function cleanupBridge(event: ChannelLeftBridge, instances: ChannelLeftBridge, bridge: Bridge) {
-            let holdingBridge = instances.bridge;
+            const holdingBridge = instances.bridge;
             if (holdingBridge.channels.length === 0 && holdingBridge.id === bridge.id) {
                 bridge.destroy(function (err) {});
             }

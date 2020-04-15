@@ -33,7 +33,7 @@ Ari.connect(
      */
     function (err, client) {
         // Create new mailbox
-        let mailbox = client.Mailbox('mwi-example');
+        const mailbox = client.Mailbox('mwi-example');
         let messages = 0;
 
         client.on(
@@ -63,11 +63,11 @@ Ari.connect(
                      *    received the dtmf event
                      */
                     function (event, channel) {
-                        let digit = event.digit;
+                        const digit = event.digit;
                         switch (digit) {
                             case '5':
                                 // Record message
-                                let recording = client.LiveRecording();
+                                const recording = client.LiveRecording();
 
                                 recording.once(
                                     'RecordingFinished',
@@ -83,7 +83,7 @@ Ari.connect(
                                      *    the recording object after creation
                                      */
                                     function (event, newRecording) {
-                                        let playback = client.Playback();
+                                        const playback = client.Playback();
                                         playback.once(
                                             'PlaybackFinished',
                                             /**
@@ -99,7 +99,7 @@ Ari.connect(
                                             function (event, newPlayback) {
                                                 // Update MWI
                                                 messages += 1;
-                                                let opts = {
+                                                const opts = {
                                                     oldMessages: 0,
                                                     newMessages: messages,
                                                 };
@@ -113,7 +113,7 @@ Ari.connect(
                                     },
                                 );
 
-                                let opts = {
+                                const opts = {
                                     name: channel.id, // name parameter is required. See channels.json fixture file.
                                     format: 'wav',
                                     maxSilenceSeconds: 2,
@@ -129,7 +129,7 @@ Ari.connect(
                                     /**
                                      *  Iterate through the stored messages. If there are no more
                                      *  messages, play an announcement that there are no more
-                                     *  messages. Otherwise, play the last available message, delete
+                                     *  messages. Otherwise, play the last available message, deconste
                                      *  it, and finally update the new message count for the mailbox.
                                      *
                                      *  @callback listStoredRecordingsCallback
@@ -139,8 +139,8 @@ Ari.connect(
                                      *    the array of stored recordings that currently exist
                                      */
                                     function (err, recordings) {
-                                        let playback = client.Playback();
-                                        let recording = recordings[recordings.length - 1];
+                                        const playback = client.Playback();
+                                        const recording = recordings[recordings.length - 1];
 
                                         if (!recording) {
                                             channel.play({ media: 'sound:vm-nomore' }, playback, function (err) {});
@@ -148,7 +148,7 @@ Ari.connect(
                                             playback.once(
                                                 'PlaybackFinished',
                                                 /**
-                                                 *  Once the lastest message has been played, delete it and
+                                                 *  Once the lastest message has been played, deconste it and
                                                  *  update the new message count for the mailbox.
                                                  *
                                                  *  @callback latestMessageCallback
@@ -171,13 +171,13 @@ Ari.connect(
                                                         function (err) {
                                                             // Remove MWI
                                                             messages -= 1;
-                                                            let opts = {
+                                                            const opts = {
                                                                 oldMessages: 0,
                                                                 newMessages: messages,
                                                             };
                                                             mailbox.update(opts, function (err) {});
 
-                                                            let playback = client.Playback();
+                                                            const playback = client.Playback();
                                                             channel.play(
                                                                 { media: 'sound:vm-next' },
                                                                 playback,
@@ -188,7 +188,7 @@ Ari.connect(
                                                 },
                                             );
 
-                                            let opts = {
+                                            const opts = {
                                                 media: util.format('recording:%s', recording.name),
                                             };
 

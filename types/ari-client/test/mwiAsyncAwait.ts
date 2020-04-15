@@ -8,23 +8,23 @@ export default async () => {
         const client = await Ari.connect('http://ari.js:8088', 'user', 'secret');
 
         // Create new mailbox
-        let mailbox = client.Mailbox('mwi-example');
+        const mailbox = client.Mailbox('mwi-example');
         let messages = 0;
 
         client.on('StasisStart', async (event, channel) => {
             channel.on('ChannelDtmfReceived', async (event, channel) => {
-                let digit = event.digit;
+                const digit = event.digit;
                 switch (digit) {
                     case '5':
                         // Record message
-                        let message = client.LiveRecording();
+                        const message = client.LiveRecording();
 
                         message.once('RecordingFinished', async (event, newRecording) => {
-                            let playback = client.Playback();
+                            const playback = client.Playback();
                             playback.once('PlaybackFinished', async (event, newPlayback) => {
                                 // Update MWI
                                 messages += 1;
-                                let opts = {
+                                const opts = {
                                     oldMessages: 0,
                                     newMessages: messages,
                                 };
@@ -35,7 +35,7 @@ export default async () => {
                             await channel.play({ media: 'sound:vm-msgsaved' }, playback);
                         });
 
-                        let messageOptions = {
+                        const messageOptions = {
                             name: channel.id, // name parameter is required. See channels.json fixture file.
                             format: 'wav',
                             maxSilenceSeconds: 2,
@@ -49,8 +49,8 @@ export default async () => {
                         // Playback last message
                         const recordings = await client.recordings.listStored();
 
-                        let playback = client.Playback();
-                        let lastMessage = recordings[recordings.length - 1];
+                        const playback = client.Playback();
+                        const lastMessage = recordings[recordings.length - 1];
 
                         if (!lastMessage) return await channel.play({ media: 'sound:vm-nomore' }, playback);
 
@@ -59,17 +59,17 @@ export default async () => {
 
                             // Remove MWI
                             messages -= 1;
-                            let opts = {
+                            const opts = {
                                 oldMessages: 0,
                                 newMessages: messages,
                             };
                             await mailbox.update(opts);
 
-                            let playback = client.Playback();
+                            const playback = client.Playback();
                             await channel.play({ media: 'sound:vm-next' }, playback);
                         });
 
-                        let lastMessageOptions = {
+                        const lastMessageOptions = {
                             media: util.format('recording:%s', lastMessage.name),
                         };
 

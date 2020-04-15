@@ -56,7 +56,7 @@ Ari.connect(
                      *  @param {Error} err - error object if any, null otherwise
                      */
                     function (err) {
-                        let playback = client.Playback();
+                        const playback = client.Playback();
 
                         // Play demo greeting and register dtmf event listeners
                         incoming.play({ media: 'sound:demo-congrats' }, playback, function (err, playback) {
@@ -94,7 +94,7 @@ Ari.connect(
                  *    the dtmf event occured
                  */
                 function (event, channel) {
-                    let digit = event.digit;
+                    const digit = event.digit;
 
                     switch (digit) {
                         case '5':
