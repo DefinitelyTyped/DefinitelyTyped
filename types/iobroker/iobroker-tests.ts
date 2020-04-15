@@ -189,8 +189,21 @@ adapter.getForeignObject("obj.id", (err, obj) => { });
 adapter.getObjectAsync("obj.id").then(obj => obj && obj._id.toLowerCase());
 adapter.getForeignObjectAsync("obj.id").then(obj => obj && obj._id.toLowerCase());
 
-adapter.getForeignObjects("*", (err, objs) => objs["foo"]._id.toLowerCase());
-adapter.getForeignObjectsAsync("*").then(objs => objs["foo"]._id.toLowerCase());
+adapter.getForeignObjects("*", (err, objs) => objs!["foo"]._id.toLowerCase());
+adapter.getForeignObjectsAsync("*").then(objs => objs!["foo"]._id.toLowerCase());
+
+adapter.setObject("id", {
+    _id: "id",
+    type: "device",
+    common: {
+        name: "foo"
+    },
+    native: {},
+    protectedNative: ["none"],
+    encryptedNative: ["none"],
+    from: "me",
+    ts: Date.now(),
+});
 
 adapter.getObjectView("system", "admin", {startkey: "foo", endkey: "bar"}, (err, docs) => {
     docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
@@ -302,6 +315,14 @@ adapter.getHistory("state.id", {}, (err, result: ioBroker.GetHistoryResult) => {
 (() => adapter.terminate("Reason"))();
 (() => adapter.terminate("Reason", 4))();
 
+adapter.supportsFeature && !!adapter.supportsFeature("foo");
+(() => {
+    const instance = adapter.getPluginInstance("my-plugin");
+    instance && instance.someMethod();
+    const config = adapter.getPluginConfig("my-plugin");
+    config && config.x;
+});
+
 // $ExpectError
 adapter.states.getStates();
 // $ExpectError
@@ -364,6 +385,17 @@ function repro3() {
         list; // $ExpectType StateObject[]
     });
 }
+
+const folderObj: ioBroker.FolderObject = {
+    _id: "id",
+    type: "folder",
+    common: {
+        name: "something",
+        // any property is allowed
+        foo: "bar",
+    },
+    native: {},
+};
 
 // Repro from https://github.com/ioBroker/ioBroker.js-controller/issues/782
 // $ExpectError
