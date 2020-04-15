@@ -5,7 +5,7 @@ interface InheritedProps extends ReactDivAttr, EmbeddedIconProps { }
 
 export type InlineLoadingStatus = 'active' | 'error' | 'finished' | 'inactive';
 export interface InlineLoadingProps extends InheritedProps {
-    description?: string;
+    description?: React.ReactNode;
     onSuccess?(): void;
     /**
      * @deprecated
