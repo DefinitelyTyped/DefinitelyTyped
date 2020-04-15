@@ -979,9 +979,9 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     aggregate<T = TSchema>(pipeline: object[], callback: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
     aggregate<T = TSchema>(pipeline?: object[], options?: CollectionAggregationOptions, callback?: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite */
-    bulkWrite(operations: object[], callback: MongoCallback<BulkWriteOpResultObject>): void;
-    bulkWrite(operations: object[], options?: CollectionBulkWriteOptions): Promise<BulkWriteOpResultObject>;
-    bulkWrite(operations: object[], options: CollectionBulkWriteOptions, callback: MongoCallback<BulkWriteOpResultObject>): void;
+    bulkWrite(operations: Array<BulkWriteOperation<TSchema>>, callback: MongoCallback<BulkWriteOpResultObject>): void;
+    bulkWrite(operations: Array<BulkWriteOperation<TSchema>>, options?: CollectionBulkWriteOptions): Promise<BulkWriteOpResultObject>;
+    bulkWrite(operations: Array<BulkWriteOperation<TSchema>>, options: CollectionBulkWriteOptions, callback: MongoCallback<BulkWriteOpResultObject>): void;
     /**
      * http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#count
      * @deprecated Use countDocuments or estimatedDocumentCount
@@ -1455,6 +1455,61 @@ export type FilterQuery<T> = {
     [P in keyof T]?: Condition<T[P]>;
 } &
     RootQuerySelector<T>;
+
+/** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#insertone */
+export type BulkWriteInsertOneOperation<T> = {
+    insertOne: {
+        document: T
+    }
+};
+
+/** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#updateone-and-updatemany */
+export type BulkWriteUpdateOperation<T> = {
+    arrayFilters?: object[];
+    collation?: object;
+    hint?: string | object;
+    filter: FilterQuery<T>;
+    update: UpdateQuery<T>;
+    upsert?: boolean;
+};
+export type BulkWriteUpdateOneOperation<T> = {
+    updateOne: BulkWriteUpdateOperation<T>;
+};
+export type BulkWriteUpdateManyOperation<T> = {
+    updateMany: BulkWriteUpdateOperation<T>;
+};
+
+/** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#replaceone */
+export type BulkWriteReplaceOneOperation<T> = {
+    replaceOne: {
+        collation?: object;
+        hint?: string | object;
+        filter: FilterQuery<T>;
+        replacement: T;
+        upsert?: boolean;
+    }
+};
+
+/** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#deleteone-and-deletemany */
+export type BulkWriteDeleteOperation<T> = {
+    collation?: object;
+    filter: FilterQuery<T>;
+};
+export type BulkWriteDeleteOneOperation<T> = {
+    deleteOne: BulkWriteDeleteOperation<T>;
+};
+export type BulkWriteDeleteManyOperation<T> = {
+    deleteMany: BulkWriteDeleteOperation<T>;
+};
+
+/** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite */
+export type BulkWriteOperation<T> =
+    BulkWriteInsertOneOperation<T> |
+    BulkWriteUpdateOneOperation<T> |
+    BulkWriteUpdateManyOperation<T> |
+    BulkWriteReplaceOneOperation<T> |
+    BulkWriteDeleteOneOperation<T> |
+    BulkWriteDeleteManyOperation<T>;
 
 /** http://docs.mongodb.org/manual/reference/command/collStats/ */
 export interface CollStats {
