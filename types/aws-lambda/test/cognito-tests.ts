@@ -57,6 +57,7 @@ const handler: CognitoUserPoolTriggerHandler = async (event, context, callback) 
     str = event.request.challengeAnswer!;
     strOrUndefined = event.request.password;
     str = event.request.clientMetadata!['action'];
+    boolOrUndefined = event.request.userNotFound;
     boolOrUndefined = event.response.answerCorrect;
     strOrUndefined = event.response.smsMessage;
     strOrUndefined = event.response.emailMessage;
