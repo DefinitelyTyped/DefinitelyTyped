@@ -16,6 +16,7 @@ export type Direction = "bottom" | "left" | "right" | "top";
 export type ListBoxBaseItemType = object | string;
 export type TooltipAlignment = "center" | "end" | "start";
 export type TooltipPosition = Direction;
+export type CarbonSize = "lg" | "sm" | "xs";
 
 export interface DownshiftTypedProps<ItemType> {
     itemToString?(item: ItemType): string,

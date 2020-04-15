@@ -1,5 +1,5 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactDivAttr } from "../../../typings/shared";
+import { EmbeddedIconProps, ReactDivAttr, CarbonSize } from "../../../typings/shared";
 import { ButtonProps } from "../Button";
 
 // ComposedModal
@@ -12,7 +12,7 @@ export interface ComposedModalProps extends ComposedModalInheritedProps {
     onClose?(): boolean | void,
     open?: boolean,
     selectedPrimaryFocus?: string,
-    size?: "lg" | "sm" | "xs";
+    size?: CarbonSize,
 }
 
 declare class ComposedModal extends React.Component<ComposedModalProps> { }
