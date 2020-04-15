@@ -99,7 +99,7 @@ export namespace cleartext {
      * @param armoredText text to be parsed
      * @returns new cleartext message object
      */
-    function readArmored(armoredText: string | ReadableStream<String>): CleartextMessage;
+    function readArmored(armoredText: string | ReadableStream<String>): Promise<CleartextMessage>;
 
     /**
      * Creates a new CleartextMessage object from text
