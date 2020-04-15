@@ -1,10 +1,11 @@
-// Type definitions for node-email-templates 6.0
+// Type definitions for node-email-templates 7.0
 // Project: https://github.com/niftylettuce/email-templates
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Matus Gura <https://github.com/gurisko>
 //                 Jacob Copeland <https://github.com/blankstar85>
 //                 Vesa Poikajärvi <https://github.com/vesse>
 //                 Philipp Katz <https://github.com/qqilihq>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -114,6 +115,12 @@ interface EmailConfig<T = any> {
      */
     i18n?: any;
     /**
+     * defaults to false, unless you pass your own render function,
+     * and in that case it will be automatically set to true.
+     * @default false
+     */
+    customRender?: boolean;
+    /**
      * Pass a custom render function if necessary
      */
     render?: (view: string, locals?: T) => Promise<any>;
@@ -140,6 +147,11 @@ interface EmailConfig<T = any> {
      * <https://github.com/Automattic/juice>
      */
     juiceResources?: any;
+    /**
+     * a function that returns the path to a template file
+     * @default (path: string, template: string) => string
+     */
+    getPath?: (path: string, template: string, locals: any) => string;
 }
 
 interface EmailOptions<T = any> {
@@ -189,7 +201,7 @@ declare class EmailTemplate<T = any> {
     /**
      * Send the Email
      */
-    send(options: EmailOptions<T>): any;
+    send(options: EmailOptions<T>): Promise<any>;
 }
 
 declare namespace EmailTemplate {

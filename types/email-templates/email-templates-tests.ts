@@ -1,5 +1,6 @@
 import EmailTemplates = require('email-templates');
 import { createTransport } from 'nodemailer';
+import path = require('path');
 
 const email = new EmailTemplates({
     message: {
@@ -7,6 +8,9 @@ const email = new EmailTemplates({
     },
     transport: {
         jsonTransport: true
+    },
+    getPath: (type, template) => {
+        return path.join(template, type);
     }
 });
 
@@ -20,6 +24,11 @@ email.juiceResources('<p>bob</p><style>div{color:red;}</style><div/>');
 email.render('mars/html.pug');
 email.render('mars/html.pug', {name: 'elon'});
 const sendPromise: Promise<any> = email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals: {name: 'Elon'}});
+email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals: {name: 'Elon'}})
+.then(res => {
+    console.log('res.originalMessage', res.originalMessage);
+})
+.catch(console.error);
 emailNoTransporter.render('mars/html.pug', {name: 'elon'});
 
 interface Locals {
