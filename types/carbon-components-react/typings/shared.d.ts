@@ -17,7 +17,7 @@ export type ListBoxBaseItemType = object | string;
 export type TooltipAlignment = "center" | "end" | "start";
 export type TooltipPosition = Direction;
 export type CarbonSize = "lg" | "sm" | "xs";
-export type CarbonInputSize = "sm" | "xl";
+export type CarbonInputSize = "sm" | "lg" | "xl";
 
 export interface DownshiftTypedProps<ItemType> {
     itemToString?(item: ItemType): string,

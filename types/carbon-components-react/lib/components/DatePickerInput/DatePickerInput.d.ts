@@ -19,7 +19,7 @@ export interface DatePickerInputProps extends InheritedProps {
     labelText: NonNullable<React.ReactNode>,
     openCalendar?: React.MouseEventHandler,
     pattern?: string,
-    size?: CarbonInputSize,
+    size?: Extract<CarbonInputSize, "sm" | "xl">,
 }
 
 declare class DatePickerInput extends React.Component<DatePickerInputProps> { }

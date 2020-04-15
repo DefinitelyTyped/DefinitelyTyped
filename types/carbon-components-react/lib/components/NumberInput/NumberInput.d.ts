@@ -30,7 +30,7 @@ export interface NumberInputProps extends InheritedProps {
     hideLabel?: boolean,
     label?: React.ReactNode,
     isMobile?: boolean,
-    size?: CarbonInputSize,
+    size?: Extract<CarbonInputSize, "sm" | "xl">,
 }
 
 declare class NumberInput extends React.Component<NumberInputProps> { }
