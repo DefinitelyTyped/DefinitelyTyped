@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.7
+// Type definitions for carbon-components-react 7.10
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 //                 Sebastien Gregoire <https://github.com/sgregoire>
@@ -31,9 +31,7 @@ import _DatePickerInput from "./lib/components/DatePickerInput";
 import _Dropdown from "./lib/components/Dropdown";
 import _DropdownSkeleton from "./lib/components/Dropdown/Dropdown.Skeleton";
 import _ErrorBoundary from "./lib/components/ErrorBoundary/ErrorBoundary";
-import _FileUploader from "./lib/components/FileUploader";
-import _FileUploaderItem from "./lib/components/FileUploader/FileUploaderItem";
-import _FileUploaderDropContainer from "./lib/components/FileUploader/FileUploaderDropContainer";
+import _FileUploader, { FileUploaderButton, FileUploaderItem, FileUploaderDropContainer } from "./lib/components/FileUploader";
 import _FileUploaderSkeleton from "./lib/components/FileUploader/FileUploader.Skeleton";
 import _Form from "./lib/components/Form";
 import _FormGroup from "./lib/components/FormGroup";
@@ -218,8 +216,7 @@ export { _Dropdown as Dropdown };
 export { _ErrorBoundary as ErrorBoundary };
 export { ErrorBoundaryContext } from "./lib/components/ErrorBoundary/ErrorBoundaryContext";
 export { _FileUploader as FileUploader };
-export { _FileUploaderItem as FileUploaderItem };
-export { _FileUploaderDropContainer as FileUploaderDropContainer };
+export { FileUploaderItem, FileUploaderDropContainer };
 export { Filename, FileUploaderButton } from "./lib/components/FileUploader";
 export { _Form as Form };
 export { _FormGroup as FormGroup };
