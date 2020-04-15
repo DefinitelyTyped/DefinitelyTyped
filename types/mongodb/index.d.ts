@@ -31,6 +31,7 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Richard Bateman <https://github.com/taxilian>
 //                 Igor Strebezhev <https://github.com/xamgore>
+//                 Valentin Agachi <https://github.com/avaly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1226,9 +1227,9 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
 }
 
 /** Update Query */
-type KeysOfAType<TSchema, Type> = { [key in keyof TSchema]: TSchema[key] extends Type ? key : never }[keyof TSchema];
+type KeysOfAType<TSchema, Type> = { [key in keyof TSchema]: NonNullable<TSchema[key]> extends Type ? key : never }[keyof TSchema];
 type KeysOfOtherType<TSchema, Type> = {
-    [key in keyof TSchema]: TSchema[key] extends Type ? never : key;
+    [key in keyof TSchema]: NonNullable<TSchema[key]> extends Type ? never : key;
 }[keyof TSchema];
 
 type AcceptedFields<TSchema, FieldType, AssignableType> = {

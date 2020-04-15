@@ -112,6 +112,7 @@ async function run() {
 
     buildUpdateQuery({ $pull: { fruitTags: 'a' } });
     buildUpdateQuery({ $pull: { fruitTags: { $in: ['a'] } } });
+    buildUpdateQuery({ $pull: { maybeFruitTags: 'apple' } });
     buildUpdateQuery({ $pull: { 'dot.notation': 1 } });
     buildUpdateQuery({ $pull: { 'subInterfaceArray.$[]': { $in: ['a'] } } });
     buildUpdateQuery({ $pull: { subInterfaceArray: { field1: 'a' } }});
@@ -124,6 +125,7 @@ async function run() {
     buildUpdateQuery({ $push: { fruitTags: { $each: ['a'], $sort: 1 } } });
     buildUpdateQuery({ $push: { fruitTags: { $each: ['a'], $sort: -1 } } });
     buildUpdateQuery({ $push: { fruitTags: { $each: ['a'], $sort: { 'sub.field': -1 } } } });
+    buildUpdateQuery({ $push: { maybeFruitTags: 'apple' } });
     // buildUpdateQuery({ $push: { fruitTags: { $each: ['stringField'] } } });
     // buildUpdateQuery({ $push: { 'dot.notation': 1 } });
     // buildUpdateQuery({ $push: { 'subInterfaceArray.$[]': { $in: ['a'] } } });
