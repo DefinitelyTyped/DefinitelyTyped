@@ -4,6 +4,7 @@
 // 	                Kacper Polak <https://github.com/kacepe>
 // 	                Krittanan Pingclasai <https://github.com/kpping>
 // 	                James Munro <https://github.com/jdmunro>
+// 	                Sanders DeNardi <https://github.com/sedenardi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -319,7 +320,7 @@ export interface Query {
      */
     determinePacket(byte: number, parser: any): any;
 
-    OkPacket: packetCallback;
+    OkPacket: OkPacket;
     ErrorPacket: packetCallback;
     ResultSetHeaderPacket: packetCallback;
     FieldPacket: packetCallback;
@@ -665,6 +666,26 @@ export interface MysqlError extends Error {
      * Error message from MySQL
      */
     sqlMessage?: string;
+}
+
+// Result from an insert, update, or delete statement.
+export interface OkPacket {
+    /**
+     * The number of affected rows from an insert, update, or delete statement.
+     */
+    affectedRows: number;
+    /**
+     * The insert id after inserting a row into a table with an auto increment primary key.
+     */
+    insertId: number;
+    /**
+     * The server result message from an insert, update, or delete statement.
+     */
+    message: string;
+    /**
+     * The number of changed rows from an update statement. "changedRows" differs from "affectedRows" in that it does not count updated rows whose values were not changed.
+     */
+    changedRows: number;
 }
 
 export const enum Types {
