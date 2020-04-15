@@ -115,6 +115,20 @@ export interface ChangeEventValue {
   size: Size;
 }
 
+export interface Position {
+  lat: number;
+  lng: number;
+  weight?: number;
+}
+
+export interface Heatmap {
+  positions: Position[];
+  options: {
+    radius?: number;
+    opacity?: number;
+  };
+}
+
 export interface Props {
     bootstrapURLKeys?: BootstrapURLKeys;
     defaultCenter?: Coords;
@@ -149,6 +163,7 @@ export interface Props {
     yesIWantToUseGoogleMapApiInternals?: boolean;
     style?: React.HTMLProps<HTMLDivElement>;
     shouldUnregisterMapOnUnmount?: boolean;
+    heatmap?: Heatmap;
 }
 
 export default class GoogleMapReact extends React.Component<Props> {}

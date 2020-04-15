@@ -101,8 +101,8 @@ export interface MixedSchema<T = any> extends Schema<T> {
 }
 
 export interface StringSchemaConstructor {
-    (): StringSchema;
-    new (): StringSchema;
+    <T extends string | null | undefined = undefined>(): T extends string ? StringSchema<T> : StringSchema;
+    new <T extends string | null | undefined = undefined>(): T extends string ? StringSchema<T> : StringSchema;
 }
 
 export interface StringSchema<T extends string | null | undefined = string> extends Schema<T> {
@@ -257,6 +257,7 @@ export interface ObjectSchema<T extends object | null | undefined = object> exte
     noUnknown(onlyKnownKeys?: boolean, message?: ObjectLocale['noUnknown']): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
+    snakeCase(): ObjectSchema<T>;
     constantCase(): ObjectSchema<T>;
     nullable(isNullable?: true): ObjectSchema<T | null>;
     nullable(isNullable: false): ObjectSchema<Exclude<T, null>>;

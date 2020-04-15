@@ -85,21 +85,19 @@ export type PlotRestyleEvent = [
 	number[]	// array of traces updated
 ];
 
-export interface PlotAxis {
-	range: [number, number];
-	autorange: boolean;
-}
-
 export interface PlotScene {
 	center: Point;
 	eye: Point;
 	up: Point;
 }
 
-export interface PlotRelayoutEvent {
-	xaxis: PlotAxis;
-	yaxis: PlotAxis;
-	scene: PlotScene;
+export interface PlotRelayoutEvent extends Partial<Layout> {
+	"xaxis.range[0]"?: number;
+	"xaxis.range[1]"?: number;
+	"yaxis.range[0]"?: number;
+	"yaxis.range[1]"?: number;
+	"xaxis.autorange"?: boolean;
+	"yaxis.autorange"?: boolean;
 }
 
 export interface ClickAnnotationEvent {
@@ -624,17 +622,19 @@ export type ErrorBar = Partial<ErrorOptions> & ({
 });
 
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
+export type PlotType = 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
+	'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
+	'scatterpolar' | 'scatterternary' | 'sunburst' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea';
 
 export type Data = Partial<PlotData>;
 export type Color = string | number | Array<string | number | undefined | null> | Array<Array<string | number | undefined | null>>;
 export type ColorScale = string | string[] | Array<[number, string]>;
 export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
+
 // Bar Scatter
 export interface PlotData {
-	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
-	'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea';
+	type: PlotType;
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -921,6 +921,13 @@ export interface Config {
 	/** no interactivity, for export or image generation */
 	staticPlot: boolean;
 
+	/**
+	 * When set it determines base URL for the 'Edit in Chart Studio' `showEditInChartStudio`/`showSendToCloud` mode bar button and the showLink/sendData on-graph link.
+	 * To enable sending your data to Chart Studio Cloud, you need to set both `plotlyServerURL` to 'https://chart-studio.plotly.com' and also set `showSendToCloud` to true.
+	 * @default ''
+	 */
+	plotlyServerURL: string;
+
 	/** we can edit titles, move annotations, etc */
 	editable: boolean;
 	edits: Partial<Edits>;
@@ -966,6 +973,24 @@ export interface Config {
 
 	/** display the mode bar (true, false, or 'hover') */
 	displayModeBar: 'hover' | boolean;
+
+	/**
+	 * Should we include a ModeBar button, labeled "Edit in Chart Studio",
+	 * that sends this chart to chart-studio.plotly.com (formerly plot.ly)
+	 * or another plotly server as specified by `plotlyServerURL` for editing, export, etc?
+	 * Prior to version 1.43.0 this button was included by default, now it is opt-in using this flag.
+	 * Note that this button can (depending on `plotlyServerURL` being set) send your data to an external server.
+	 * However that server does not persist your data until you arrive at the Chart Studio and explicitly click "Save".
+	 * @default false
+	 */
+	showSendToCloud: boolean;
+
+	/**
+	 * Same as `showSendToCloud`, but use a pencil icon instead of a floppy-disk.
+	 * Note that if both `showSendToCloud` and `showEditInChartStudio` are turned, only `showEditInChartStudio` will be honored.
+	 * @default false
+	 */
+	showEditInChartStudio: boolean;
 
 	/** remove mode bar button by name (see ./components/modebar/buttons.js for the list of names) */
 	modeBarButtonsToRemove: ModeBarDefaultButtons[];

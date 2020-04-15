@@ -782,10 +782,6 @@ declare namespace Office {
         *
         * Do not use a dialog box to interact with a document. Use a task pane instead.
         * 
-        * For a design pattern that you can use to create a dialog box, see 
-        * {@link https://github.com/OfficeDev/Office-Add-in-UX-Design-Patterns/blob/master/Patterns/Client_Dialog.md | Client Dialog}  in the Office 
-        * Add-in UX Design Patterns repository on GitHub.
-        * 
         * **displayDialogAsync Errors**:
         * 
         * <table>
@@ -886,10 +882,6 @@ declare namespace Office {
         * - Temporarily increase the surface area that a user has available to complete a task.
         *
         * Do not use a dialog box to interact with a document. Use a task pane instead.
-        * 
-        * For a design pattern that you can use to create a dialog box, see 
-        * {@link https://github.com/OfficeDev/Office-Add-in-UX-Design-Patterns/blob/master/Patterns/Client_Dialog.md | Client Dialog}  in the Office 
-        * Add-in UX Design Patterns repository on GitHub.
         * 
         * **displayDialogAsync Errors**:
         * 
@@ -17306,7 +17298,11 @@ declare namespace Excel {
     function getDataCommonPostprocess(response: any, callArgs: any): any;
     /**
      *
-     * Provides information about the binding that raised the SelectionChanged event.
+     * Provides information about the selection that raised the "SelectionChanged" event.
+     * 
+     * **Note**: If multiple, discontiguous cells are selected, 
+     * `Binding.onSelectionChanged` only reports row and column information for one selection.
+     * Use `Worksheet.onSelectionChanged` for multiple selected ranges.
      *
      * [Api set: ExcelApi 1.2]
      */
@@ -22098,8 +22094,12 @@ declare namespace Excel {
          */
         readonly onDataChanged: OfficeExtension.EventHandlers<Excel.BindingDataChangedEventArgs>;
         /**
-         *
+         * 
          * Occurs when the selected content in the binding is changed.
+         * 
+         * **Note**: If multiple, discontiguous cells are selected, 
+         * `Binding.onSelectionChanged` only reports row and column information for one selection. 
+         * Use `Worksheet.onSelectionChanged` for multiple selected ranges.
          *
          * [Api set: ExcelApi 1.2]
          *

@@ -5,18 +5,18 @@ export default function configure() {
     currency: 'USD',
     fraud: {
       braintree: {
-        deviceData: 'my-device-data',
+        deviceData: 'my-device-data'
       },
       kount: {
-        dataCollector: false,
+        dataCollector: false
       },
       litle: {
-        sessionId: 'my-session-id',
-      },
+        sessionId: 'my-session-id'
+      }
     },
     publicKey: 'my-public-key',
     required: ['cvv'],
-    timeout: 60000,
+    timeout: 60000
   });
 
   // $ExpectError
@@ -25,16 +25,16 @@ export default function configure() {
     currency: 'USD',
     fraud: {
       braintree: {
-        deviceData: 'my-device-data',
+        deviceData: 'my-device-data'
       },
       kount: {
-        dataCollector: false,
+        dataCollector: false
       },
       litle: {
-        sessionId: 'my-session-id',
-      },
+        sessionId: 'my-session-id'
+      }
     },
     required: ['cvv'],
-    timeout: 60000,
+    timeout: 60000
   });
 }

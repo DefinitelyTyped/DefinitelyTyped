@@ -53,7 +53,8 @@ $("#tree").fancytree(<Fancytree.FancytreeOptions>{
 	},
 	strings: {
 		noData: 'custom no data message'
-	}
+	},
+	rtl: true,
 });
 
 //$("#tree").fancytree();

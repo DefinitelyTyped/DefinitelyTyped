@@ -474,7 +474,7 @@ export interface EditorProps<S extends Schema = any> {
    * pasted content parsed by the editor, but you can directly access
    * the event to get at the raw content.
    */
-  handlePaste?: ((view: EditorView<S>, event: Event, slice: Slice<S>) => boolean) | null;
+  handlePaste?: ((view: EditorView<S>, event: ClipboardEvent, slice: Slice<S>) => boolean) | null;
   /**
    * Called when something is dropped on the editor. `moved` will be
    * true if this drop moves from the current selection (which should

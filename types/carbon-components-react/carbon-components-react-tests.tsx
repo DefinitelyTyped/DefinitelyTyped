@@ -22,6 +22,7 @@ import {
     FormItem,
     FileUploaderDropContainer,
     FileUploaderItem,
+    MultiSelect,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -443,5 +444,31 @@ const fileUploaderItem = (
         onDelete={ (event, content) => {} }
         status="edit"
         uuid="id1"
+    />
+)
+
+const multiSelect = (
+    <MultiSelect
+    id="clusters"
+    initialSelectedItems={['one']}
+    items={['one', 'two']}
+    light
+    placeholder="Filter"
+    titleText="Choose an item"
+    itemToString={item => item}
+    onChange={({ selectedItems }) => {}}
+    />
+)
+
+const multiSelectFilterable = (
+    <MultiSelect.Filterable
+    id="clusters"
+    initialSelectedItems={['one']}
+    items={['one', 'two']}
+    light
+    placeholder="Filter"
+    titleText="Choose an item"
+    itemToString={item => item}
+    onChange={({ selectedItems }) => {}}
     />
 )

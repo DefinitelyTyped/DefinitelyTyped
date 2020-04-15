@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.8
+// Type definitions for Mapbox GL JS 1.9
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -323,6 +323,17 @@ declare namespace mapboxgl {
 
         showCollisionBoxes: boolean;
 
+        /**
+         * Gets and sets a Boolean indicating whether the map will visualize
+         * the padding offsets.
+         *
+         * @name showPadding
+         * @type {boolean}
+         * @instance
+         * @memberof Map
+         */
+        showPadding: boolean;
+
         repaint: boolean;
 
         getCenter(): mapboxgl.LngLat;
@@ -346,6 +357,31 @@ declare namespace mapboxgl {
         getBearing(): number;
 
         setBearing(bearing: number, eventData?: mapboxgl.EventData): this;
+
+        /**
+         * Returns the current padding applied around the map viewport.
+         *
+         * @memberof Map#
+         * @returns The current padding around the map viewport.
+         */
+        getPadding(): PaddingOptions;
+
+        /**
+         * Sets the padding in pixels around the viewport.
+         *
+         * Equivalent to `jumpTo({padding: padding})`.
+         *
+         * @memberof Map#
+         * @param padding The desired padding. Format: { left: number, right: number, top: number, bottom: number }
+         * @param eventData Additional properties to be added to event objects of events triggered by this method.
+         * @fires movestart
+         * @fires moveend
+         * @returns {Map} `this`
+         * @example
+         * // Sets a left padding of 300px, and a top padding of 50px
+         * map.setPadding({ left: 300, top: 50 });
+         */
+        setPadding(padding: PaddingOptions, eventData?: EventData): this;
 
         rotateTo(bearing: number, options?: mapboxgl.AnimationOptions, eventData?: EventData): this;
 
@@ -1213,7 +1249,7 @@ declare namespace mapboxgl {
         contains(lnglat: LngLatLike): boolean;
 
         /** Extend the bounds to include a given LngLat or LngLatBounds. */
-        extend(obj: mapboxgl.LngLat | mapboxgl.LngLatBounds): this;
+        extend(obj: mapboxgl.LngLatLike | mapboxgl.LngLatBoundsLike): this;
 
         /** Get the point equidistant from this box's corners */
         getCenter(): mapboxgl.LngLat;
