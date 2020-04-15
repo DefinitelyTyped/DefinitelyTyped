@@ -189,8 +189,21 @@ adapter.getForeignObject("obj.id", (err, obj) => { });
 adapter.getObjectAsync("obj.id").then(obj => obj && obj._id.toLowerCase());
 adapter.getForeignObjectAsync("obj.id").then(obj => obj && obj._id.toLowerCase());
 
-adapter.getForeignObjects("*", (err, objs) => objs["foo"]._id.toLowerCase());
-adapter.getForeignObjectsAsync("*").then(objs => objs["foo"]._id.toLowerCase());
+adapter.getForeignObjects("*", (err, objs) => objs!["foo"]._id.toLowerCase());
+adapter.getForeignObjectsAsync("*").then(objs => objs!["foo"]._id.toLowerCase());
+
+adapter.setObject("id", {
+    _id: "id",
+    type: "device",
+    common: {
+        name: "foo"
+    },
+    native: {},
+    protectedNative: ["none"],
+    encryptedNative: ["none"],
+    from: "me",
+    ts: Date.now(),
+});
 
 adapter.getObjectView("system", "admin", {startkey: "foo", endkey: "bar"}, (err, docs) => {
     docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
