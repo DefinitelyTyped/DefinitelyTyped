@@ -7,6 +7,7 @@
 //                 Eric Camellini <https://github.com/ecamellini>
 //                 SardineFish <https://github.com/SardineFish>
 //                 Ryo Ota <https://github.com/nwtgck>
+//                 Sergey Bakulin <https://github.com/vansergen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import BN = require('bn.js');
