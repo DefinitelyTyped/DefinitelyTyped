@@ -133,7 +133,7 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
         cwd?: string;
-        env?: NodeJS.ProcessEnv;
+        env?: NodeJS.Dict<string>;
     }
 
     interface CommonOptions extends ProcessEnvOptions {
