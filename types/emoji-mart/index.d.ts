@@ -1,4 +1,4 @@
-// Type definitions for emoji-mart 3.0.0
+// Type definitions for emoji-mart 3.0
 // Project: https://github.com/missive/emoji-mart
 // Definitions by: Jessica Franco <https://github.com/Jessidhia>
 //                 Nick Winans <https://github.com/Nicell>
