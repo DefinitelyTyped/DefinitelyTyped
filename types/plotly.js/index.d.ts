@@ -220,6 +220,7 @@ export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLEl
 
 // Layout
 export interface Layout {
+	colorway: string[];
 	title: string | Partial<{
 		text: string;
 		font: Partial<Font>;
