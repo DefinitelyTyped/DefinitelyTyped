@@ -69,6 +69,7 @@ export interface PickerProps {
     i18n?: PartialI18n;
     style?: React.CSSProperties;
     title?: string;
+    theme?: string;
     emoji?: string;
     color?: string;
     set?: EmojiSet;
