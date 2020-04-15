@@ -9231,3 +9231,10 @@ export type DynamicColorIOSTuple = {
 };
 
 export function DynamicColorIOS(tuple:DynamicColorIOSTuple): ColorValue;
+
+export namespace LogBox {
+    export function ignoreLogs(patterns:Readonly<(string|RegExp)[]>):void
+    export function ignoreAllLogs(value?:boolean):void
+    export function uninstall():void
+    export function install():void
+}

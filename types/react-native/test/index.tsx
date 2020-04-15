@@ -99,6 +99,7 @@ import {
     DevSettings,
     PlatformColor,
     DynamicColorIOS,
+    LogBox,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -1103,3 +1104,12 @@ const backgroundColor = PlatformColor('bogus', '@color/catalyst_redbox_backgroun
 // DynamicColorIOS
 const dynamicColor = DynamicColorIOS({light:'black',dark:'white'})
 const errorColor = DynamicColorIOS({light: 'red'}) // $ExpectError
+
+// LogBox
+LogBox.ignoreLogs(['test'])
+LogBox.ignoreLogs([/test/gi])
+LogBox.ignoreLogs(['test',/test/gi])
+LogBox.ignoreAllLogs()
+LogBox.ignoreAllLogs(false)
+LogBox.install()
+LogBox.uninstall()
