@@ -47,7 +47,7 @@ declare namespace CryptoJS {
 		toString(encoder?: Encoder): string;
 	}
 	export interface WordArray {
-		iv: string | LibWordArray;
+		iv: string;
 		salt: string;
 		ciphertext: string;
 		key?: string;
