@@ -75,3 +75,5 @@ export interface SideNavSizingProps {
 export interface RefForwardingProps<T = HTMLElement> {
     ref?: React.RefObject<T>;
 }
+
+export type ForwardRefReturn<T, P = {}> = React.ComponentType<P & React.ClassAttributes<T>>;
