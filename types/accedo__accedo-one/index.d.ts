@@ -38,10 +38,7 @@ declare class AccedoClient {
      * @param params
      */
 
-    getEntryById(
-        id: string,
-        params?: Pick<AccedoEntryParams, 'preview' | 'at' | 'locale'>,
-    ): Promise<any>;
+    getEntryById(id: string, params?: Pick<AccedoEntryParams, 'preview' | 'at' | 'locale'>): Promise<any>;
 
     /**
      * Get one content entry, based on the given parameters.
