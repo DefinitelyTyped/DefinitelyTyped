@@ -1,10 +1,15 @@
 import * as React from "react";
+import { ReactAttr } from "../../../typings/shared";
 
-export interface AccordionSkeletonProps {
+interface InheritedProps extends ReactAttr<HTMLUListElement> { }
+
+export interface AccordionSkeletonProps extends InheritedProps {
     align?: "end" | "start";
-    className?: string;
     count?: number,
     open?: boolean,
+    /**
+     * @deprecated
+     */
     uid?: any,
 }
 
