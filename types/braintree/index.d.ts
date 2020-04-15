@@ -25,11 +25,22 @@ declare namespace braintree {
         Sandbox = 'Sandbox',
     }
 
-    export interface GatewayConfig {
+    export type GatewayConfig = KeyGatewayConfig | ClientGatewayConfig | AccessTokenGatewayConfig;
+
+    export interface KeyGatewayConfig {
         environment: Environment;
         merchantId: string;
         publicKey: string;
         privateKey: string;
+    }
+
+    export interface ClientGatewayConfig {
+        clientId: string;
+        clientSecret: string;
+    }
+
+    export interface AccessTokenGatewayConfig {
+        accessToken: string;
     }
 
     export class BraintreeGateway {
@@ -75,6 +86,7 @@ declare namespace braintree {
         subscription: T extends Subscription ? Subscription : never;
         transaction: T extends Transaction ? Transaction : never;
         clientToken: T extends ClientToken ? string : never;
+        credentials: T extends OAuthToken ? OAuthToken : never;
     }
 
     /**
@@ -165,7 +177,7 @@ declare namespace braintree {
         grant(
             sharedPaymentMethodToken: string,
             options: { allowVaulting?: boolean; includeBillingPostalCode?: boolean; revokeAfter?: Date },
-        ): Promise<Readonly<string>>;
+        ): Promise<ValidatedResponse<PaymentMethodNonce>>;
         revoke(sharedPaymentMethodToken: string): Promise<void>;
         update(token: string, updates: PaymentMethodUpdateRequest): Promise<ValidatedResponse<PaymentMethod>>;
     }
@@ -732,11 +744,9 @@ declare namespace braintree {
      */
 
     export interface OAuthToken {
-        credentials: {
-            accessToken: string;
-            expiresAt: string;
-            refreshToken: string;
-        };
+        accessToken: string;
+        expiresAt: string;
+        refreshToken: string;
     }
 
     export interface OAuthCreateTokenFromCodeRequest {
