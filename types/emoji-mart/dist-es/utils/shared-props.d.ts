@@ -92,5 +92,4 @@ export interface PickerProps {
     notFound?(): React.Component;
     notFoundEmoji?: string;
     icons?: CustomIcons;
-    darkMode?: boolean;
 }
