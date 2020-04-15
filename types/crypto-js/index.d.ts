@@ -57,7 +57,7 @@ declare namespace CryptoJS {
 		toString(encoder?: Encoder): string;
 	};
 	interface CipherOption {
-		iv?: LibWordArray;
+		iv?: string | LibWordArray;
 		mode?: Mode;
 		padding?: Padding;
 		[option: string]: any;
