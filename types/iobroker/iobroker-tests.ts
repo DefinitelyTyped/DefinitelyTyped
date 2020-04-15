@@ -302,6 +302,14 @@ adapter.getHistory("state.id", {}, (err, result: ioBroker.GetHistoryResult) => {
 (() => adapter.terminate("Reason"))();
 (() => adapter.terminate("Reason", 4))();
 
+adapter.supportsFeature && !!adapter.supportsFeature("foo");
+(() => {
+    const instance = adapter.getPluginInstance("my-plugin");
+    instance && instance.someMethod();
+    const config = adapter.getPluginConfig("my-plugin");
+    config && config.x;
+});
+
 // $ExpectError
 adapter.states.getStates();
 // $ExpectError
