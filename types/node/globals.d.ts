@@ -432,6 +432,13 @@ declare namespace NodeJS {
         customInspect?: boolean;
         showProxy?: boolean;
         maxArrayLength?: number | null;
+        /**
+         * Specifies the maximum number of characters to
+         * include when formatting. Set to `null` or `Infinity` to show all elements.
+         * Set to `0` or negative to show no characters.
+         * @default Infinity
+         */
+        maxStringLength?: number | null;
         breakLength?: number;
         /**
          * Setting this to `false` causes each object key

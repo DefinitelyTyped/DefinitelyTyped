@@ -1404,6 +1404,21 @@ declare module "fs" {
         ): Promise<{ bytesRead: number, buffer: TBuffer }>;
     }
 
+    interface ReadSyncOptions {
+        /**
+         * @default 0
+         */
+        offset?: number;
+        /**
+         * @default `length of buffer`
+         */
+        length?: number;
+        /**
+         * @default null
+         */
+        position?: number | null;
+    }
+
     /**
      * Synchronously reads data from the file referenced by the supplied file descriptor, returning the number of bytes read.
      * @param fd A file descriptor.
@@ -1413,6 +1428,12 @@ declare module "fs" {
      * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
      */
     function readSync(fd: number, buffer: NodeJS.ArrayBufferView, offset: number, length: number, position: number | null): number;
+
+    /**
+     * Similar to the above `fs.readSync` function, this version takes an optional `options` object.
+     * If no `options` object is specified, it will default with the above values.
+     */
+    function readSync(fd: number, buffer: NodeJS.ArrayBufferView, opts?: ReadSyncOptions): number;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -2051,6 +2072,32 @@ declare module "fs" {
      */
     function writevSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
 
+    function readv(
+        fd: number,
+        buffers: NodeJS.ArrayBufferView[],
+        cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void
+    ): void;
+    function readv(
+        fd: number,
+        buffers: NodeJS.ArrayBufferView[],
+        position: number,
+        cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void
+    ): void;
+
+    interface ReadVResult {
+        bytesRead: number;
+        buffers: NodeJS.ArrayBufferView[];
+    }
+
+    namespace readv {
+        function __promisify__(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
+    }
+
+    /**
+     * See `readv`.
+     */
+    function readvSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
+
     interface OpenDirOptions {
         encoding?: BufferEncoding;
         /**
@@ -2201,6 +2248,11 @@ declare module "fs" {
              * See `fs.writev` promisified version.
              */
             writev(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
+
+            /**
+             * See `fs.readv` promisified version.
+             */
+            readv(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
 
             /**
              * Asynchronous close(2) - close a `FileHandle`.
