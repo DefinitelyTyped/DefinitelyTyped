@@ -12,10 +12,14 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@accedo/accedo-one": [
+                "accedo__accedo-one"
+            ]
+        },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "allowSyntheticDefaultImports": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
