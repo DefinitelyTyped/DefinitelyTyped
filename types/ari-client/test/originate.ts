@@ -164,10 +164,10 @@ Ari.connect(
             incoming.play({ media: 'sound:vm-dialout' }, playback, err => {});
 
             // Originate call from incoming channel to endpoint
-            outgoing.originate({ endpoint: ENDPOINT, app: 'originate-example', appArgs: 'dialed' }, function (
-                err,
-                channel,
-            ) {});
+            outgoing.originate(
+                { endpoint: ENDPOINT, app: 'originate-example', appArgs: 'dialed' },
+                (err, channel) => {},
+            );
         };
 
         // can also use client.start(['app-name'...]) to start multiple applications

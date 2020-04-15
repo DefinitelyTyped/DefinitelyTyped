@@ -33,12 +33,12 @@ export default async () => {
         const play = (channel: Channel, sound: string) => {
             const playback = client.Playback();
 
-            return new Promise(function (resolve, reject) {
-                playback.once('PlaybackFinished', function (event, playback) {
+            return new Promise((resolve, reject) => {
+                playback.once('PlaybackFinished', (event, playback) => {
                     resolve(playback);
                 });
 
-                channel.play({ media: sound }, playback).catch(function (err) {
+                channel.play({ media: sound }, playback).catch(err => {
                     reject(err);
                 });
             });

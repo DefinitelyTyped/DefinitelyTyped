@@ -34,7 +34,7 @@ Ari.connect(
      *  @param {Error} err - error object if any, null otherwise
      *  @param {module:ari-client~Client} client - ARI client
      */
-    function (err, client) {
+    (err, client) => {
         const bridge = client.Bridge();
         // Keep track of bridge state at the application level so we don't have to
         // make extra calls to ARI
@@ -50,7 +50,7 @@ Ari.connect(
              *  @param {Error} err - error object if any, null otherwise
              *  @param {module:resources~Bridge} instance - the created bridge
              */
-            function (err, instance) {
+            (err, instance) => {
                 // Mark this bridge as available
                 const opts = {
                     deviceName: util.format('Stasis:%s', BRIDGE_STATE),
@@ -71,7 +71,7 @@ Ari.connect(
              *  @param {Error} err - error object if any, null otherwise
              *  @param {Object} objects - object of resources (bridge and channel)
              */
-            function (event, objects) {
+            (event, objects) => {
                 if (objects.bridge.channels.length > 0 && currentBridgeState !== 'BUSY') {
                     // Mark this bridge as busy
                     const opts = {
@@ -94,7 +94,7 @@ Ari.connect(
              *  @param {Error} err - error object if any, null otherwise
              *  @param {Object} objects - object of resources (bridge and channel)
              */
-            function (event, objects) {
+            (event, objects) => {
                 if (objects.bridge.channels.length === 0 && currentBridgeState !== 'NOT_INUSE') {
                     // Mark this bridge as available
                     const opts = {
@@ -118,8 +118,8 @@ Ari.connect(
              *  @param {module:resources~Channel} incoming -
              *    channel that has entered Stasis
              */
-            function (event, incoming) {
-                incoming.answer(function (err) {
+            (event, incoming) => {
+                incoming.answer(err => {
                     bridge.addChannel({ channel: incoming.id }, err => {});
                 });
             },

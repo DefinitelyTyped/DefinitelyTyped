@@ -82,7 +82,7 @@ Ari.connect(
                                      *  @param {module:resources~LiveRecording} newRecording -
                                      *    the recording object after creation
                                      */
-                                    function (event, newRecording) {
+                                    (event, newRecording) => {
                                         const playback = client.Playback();
                                         playback.once(
                                             'PlaybackFinished',
@@ -96,7 +96,7 @@ Ari.connect(
                                              *  @param {module:resources~Playback} newPlayback -
                                              *    the playback object after it has been played
                                              */
-                                            function (event, newPlayback) {
+                                            (event, newPlayback) => {
                                                 // Update MWI
                                                 messages += 1;
                                                 const opts = {
@@ -138,7 +138,7 @@ Ari.connect(
                                      *  @param {module:resources~StoredRecording[]} recordings -
                                      *    the array of stored recordings that currently exist
                                      */
-                                    function (err, recordings) {
+                                    (err, recordings) => {
                                         const playback = client.Playback();
                                         const recording = recordings[recordings.length - 1];
 
@@ -157,7 +157,7 @@ Ari.connect(
                                                  *  @param {module:resources~Playback} newPlayback -
                                                  *    the playback object after it has been played
                                                  */
-                                                function (event, newPlayback) {
+                                                (event, newPlayback) => {
                                                     recording.deleteStored(
                                                         /**
                                                          *  Update the new message count for the mailbox and play
@@ -228,7 +228,7 @@ Ari.connect(
                              *  @param {module:resources~Playback} newPlayback -
                              *    the playback object once it has finished
                              */
-                            function (err, newPlayback) {
+                            (err, newPlayback) => {
                                 playback = client.Playback();
                                 channel.play({ media: 'sound:vm-next' }, playback, err => {});
                             },

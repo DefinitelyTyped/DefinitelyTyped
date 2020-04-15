@@ -99,7 +99,7 @@ Ari.connect(
          *  @param {string} sound - the string identifier of the sound to play
          *  @param {Function} callback - callback invoked once playback is finished
          */
-        function play(channel: Channel, sound: string, callback?: (param: any) => void) {
+        const play = (channel: Channel, sound: string, callback?: (param: any) => void) => {
             const playback = client.Playback();
             playback.once('PlaybackFinished', (event, instance) => {
                 if (callback) {
@@ -107,7 +107,7 @@ Ari.connect(
                 }
             });
             channel.play({ media: sound }, playback, (err, playback) => {});
-        }
+        };
 
         // can also use client.start(['app-name'...]) to start multiple applications
         client.start('example');

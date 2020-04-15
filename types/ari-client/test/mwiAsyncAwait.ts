@@ -52,7 +52,7 @@ export default async () => {
                         const playback = client.Playback();
                         const lastMessage = recordings[recordings.length - 1];
 
-                        if (!lastMessage) return await channel.play({ media: 'sound:vm-nomore' }, playback);
+                        if (!lastMessage) return channel.play({ media: 'sound:vm-nomore' }, playback);
 
                         playback.once('PlaybackFinished', async (event, newPlayback) => {
                             await lastMessage.deleteStored();

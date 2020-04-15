@@ -57,7 +57,7 @@ Ari.connect(
          *  @param {module:resources~Channel} channel -
          *    the channel that entered Stasis
          */
-        function getOrCreateBridge(channel: Channel) {
+        const getOrCreateBridge = (channel: Channel) => {
             client.bridges.list(
                 /**
                  *  Attempt to find existing holding bridge. If none is found, create
@@ -69,8 +69,8 @@ Ari.connect(
                  *  @param {module:resources~Bridge[]} bridges - an array of bridges
                  *    representing the currently existing bridges
                  */
-                function (err: Error, bridges: Bridge[]) {
-                    let bridge = bridges.filter(function (candidate: Bridge) {
+                (err: Error, bridges: Bridge[]) => {
+                    let bridge = bridges.filter((candidate: Bridge) => {
                         return candidate['bridge_type'] === 'holding';
                     })[0];
 
@@ -89,8 +89,8 @@ Ari.connect(
                              *  @param {module:resources~Bridge} bridge - The bridge that
                              *    was created
                              */
-                            function (err: Error, bridge: Bridge) {
-                                bridge.on('ChannelLeftBridge', function (event, instances) {
+                            (err: Error, bridge: Bridge) => {
+                                bridge.on('ChannelLeftBridge', (event, instances) => {
                                     cleanupBridge(event, instances, bridge);
                                 });
                                 joinHoldingBridgeAndPlayMoh(bridge, channel);
@@ -103,7 +103,7 @@ Ari.connect(
                     }
                 },
             );
-        }
+        };
 
         /**
          *  If no channel remains in the bridge, destroy it.
@@ -115,12 +115,12 @@ Ari.connect(
          *    instances tied to this channel left bridge event
          *  @param {Bridge} bridge - the bridge the event is attached to
          */
-        function cleanupBridge(event: ChannelLeftBridge, instances: ChannelLeftBridge, bridge: Bridge) {
+        const cleanupBridge = (event: ChannelLeftBridge, instances: ChannelLeftBridge, bridge: Bridge) => {
             const holdingBridge = instances.bridge;
             if (holdingBridge.channels.length === 0 && holdingBridge.id === bridge.id) {
                 bridge.destroy(err => {});
             }
-        }
+        };
 
         /**
          *  Join holding bridge and play music on hold.
@@ -132,11 +132,11 @@ Ari.connect(
          *  @param {module:resources~Channel} channel -
          *    the channel that entered Stasis
          */
-        function joinHoldingBridgeAndPlayMoh(bridge: Bridge, channel: Channel) {
-            bridge.addChannel({ channel: channel.id }, function (err) {
+        const joinHoldingBridgeAndPlayMoh = (bridge: Bridge, channel: Channel) => {
+            bridge.addChannel({ channel: channel.id }, err => {
                 channel.startMoh(err => {});
             });
-        }
+        };
 
         // can also use client.start(['app-name'...]) to start multiple applications
         client.start('bridge-example');

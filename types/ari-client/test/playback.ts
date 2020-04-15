@@ -59,7 +59,7 @@ Ari.connect(
                         const playback = client.Playback();
 
                         // Play demo greeting and register dtmf event listeners
-                        incoming.play({ media: 'sound:demo-congrats' }, playback, function (err, playback) {
+                        incoming.play({ media: 'sound:demo-congrats' }, playback, (err, playback) => {
                             registerDtmfListeners(err, playback, incoming);
                         });
                     },
