@@ -100,7 +100,7 @@ export class Quad extends BaseQuad implements RDF.Quad {
     toJSON(): string;
 }
 
-export class Triple extends Quad implements RDF.Triple {}
+export class Triple extends Quad implements RDF.Quad {}
 
 export namespace DataFactory {
     function namedNode(value: string): NamedNode;
