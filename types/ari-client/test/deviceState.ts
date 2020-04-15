@@ -56,7 +56,7 @@ Ari.connect(
                     deviceName: util.format('Stasis:%s', BRIDGE_STATE),
                     deviceState: 'NOT_INUSE',
                 };
-                client.deviceStates.update(opts, function (err) {});
+                client.deviceStates.update(opts, err => {});
             },
         );
 
@@ -78,7 +78,7 @@ Ari.connect(
                         deviceName: util.format('Stasis:%s', BRIDGE_STATE),
                         deviceState: 'BUSY',
                     };
-                    client.deviceStates.update(opts, function (err) {});
+                    client.deviceStates.update(opts, err => {});
                     currentBridgeState = 'BUSY';
                 }
             },
@@ -101,7 +101,7 @@ Ari.connect(
                         deviceName: util.format('Stasis:%s', BRIDGE_STATE),
                         deviceState: 'NOT_INUSE',
                     };
-                    client.deviceStates.update(opts, function (err) {});
+                    client.deviceStates.update(opts, err => {});
                     currentBridgeState = 'NOT_INUSE';
                 }
             },
@@ -120,7 +120,7 @@ Ari.connect(
              */
             function (event, incoming) {
                 incoming.answer(function (err) {
-                    bridge.addChannel({ channel: incoming.id }, function (err) {});
+                    bridge.addChannel({ channel: incoming.id }, err => {});
                 });
             },
         );

@@ -31,7 +31,7 @@ Ari.connect(
      *  @param {Error} err - error object if any, null otherwise
      *  @param {module:ari-client~Client} client - ARI client
      */
-    function (err, client) {
+    (err, client) => {
         // Create new mailbox
         const mailbox = client.Mailbox('mwi-example');
         let messages = 0;
@@ -49,7 +49,7 @@ Ari.connect(
              *  @param {module:resources~Channel} channel -
              *    the channel that entered Stasis
              */
-            function (event, channel) {
+            (event, channel) => {
                 channel.on(
                     'ChannelDtmfReceived',
                     /**
@@ -62,7 +62,7 @@ Ari.connect(
                      *  @param {module:resources~Channel} channel - the channel that
                      *    received the dtmf event
                      */
-                    function (event, channel) {
+                    (event, channel) => {
                         const digit = event.digit;
                         switch (digit) {
                             case '5':
@@ -103,13 +103,13 @@ Ari.connect(
                                                     oldMessages: 0,
                                                     newMessages: messages,
                                                 };
-                                                mailbox.update(opts, function (err) {});
+                                                mailbox.update(opts, err => {});
 
-                                                channel.hangup(function (err) {});
+                                                channel.hangup(err => {});
                                             },
                                         );
 
-                                        channel.play({ media: 'sound:vm-msgsaved' }, playback, function (err) {});
+                                        channel.play({ media: 'sound:vm-msgsaved' }, playback, err => {});
                                     },
                                 );
 
@@ -121,7 +121,7 @@ Ari.connect(
                                 };
 
                                 // Record a message
-                                channel.record(opts, recording, function (err) {});
+                                channel.record(opts, recording, err => {});
                                 break;
                             case '6':
                                 // Playback last message
@@ -143,7 +143,7 @@ Ari.connect(
                                         const recording = recordings[recordings.length - 1];
 
                                         if (!recording) {
-                                            channel.play({ media: 'sound:vm-nomore' }, playback, function (err) {});
+                                            channel.play({ media: 'sound:vm-nomore' }, playback, err => {});
                                         } else {
                                             playback.once(
                                                 'PlaybackFinished',
@@ -168,20 +168,20 @@ Ari.connect(
                                                          *  @memberof mwi-example
                                                          *  @param {Error} err - error object if any, null otherwise
                                                          */
-                                                        function (err) {
+                                                        err => {
                                                             // Remove MWI
                                                             messages -= 1;
                                                             const opts = {
                                                                 oldMessages: 0,
                                                                 newMessages: messages,
                                                             };
-                                                            mailbox.update(opts, function (err) {});
+                                                            mailbox.update(opts, err => {});
 
                                                             const playback = client.Playback();
                                                             channel.play(
                                                                 { media: 'sound:vm-next' },
                                                                 playback,
-                                                                function (err) {},
+                                                                err => {},
                                                             );
                                                         },
                                                     );
@@ -193,7 +193,7 @@ Ari.connect(
                                             };
 
                                             // Play the latest message
-                                            channel.play(opts, playback, function (err) {});
+                                            channel.play(opts, playback, err => {});
                                         }
                                     },
                                 );
@@ -213,7 +213,7 @@ Ari.connect(
                      *  @memberof mwi-example
                      *  @param {Error} err - error object is any, null otherwise
                      */
-                    function (err) {
+                    err => {
                         let playback = client.Playback();
 
                         playback.once(
@@ -230,11 +230,11 @@ Ari.connect(
                              */
                             function (err, newPlayback) {
                                 playback = client.Playback();
-                                channel.play({ media: 'sound:vm-next' }, playback, function (err) {});
+                                channel.play({ media: 'sound:vm-next' }, playback, err => {});
                             },
                         );
 
-                        channel.play({ media: 'sound:vm-leavemsg' }, playback, function (err) {});
+                        channel.play({ media: 'sound:vm-leavemsg' }, playback, err => {});
                     },
                 );
             },

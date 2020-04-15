@@ -33,7 +33,7 @@ Ari.connect(
      *  @param {Error} err - error object if any, null otherwise
      *  @param {module:ari-client~Client} client - ARI client
      */
-    function (err, client) {
+    (err, client) => {
         // Use once to start the application to ensure this listener will only run
         // for the incoming channel
         client.once(
@@ -48,8 +48,8 @@ Ari.connect(
              *  @param {module:resources~Channel} incoming -
              *    the incoming channel entering Stasis
              */
-            function (event, incoming) {
-                incoming.answer(function (err) {
+            (event, incoming) => {
+                incoming.answer(err => {
                     originate(incoming);
                 });
             },
@@ -63,7 +63,7 @@ Ari.connect(
          *  @param {module:resources~Channel} incoming - the incoming channel that
          *    will originate the call to the endpoint
          */
-        function originate(incoming: Channel) {
+        const originate = (incoming: Channel) => {
             incoming.once(
                 'StasisEnd',
                 /**
@@ -75,8 +75,8 @@ Ari.connect(
                  *  @param {module:resources~Channel} channel -
                  *    the incoming channel leaving Stasis
                  */
-                function (event, channel) {
-                    outgoing.hangup(function (err) {});
+                (event, channel) => {
+                    outgoing.hangup(err => {});
                 },
             );
 
@@ -93,8 +93,8 @@ Ari.connect(
                  *  @param {module:resources~Channel} channel -
                  *    the channel that was destroyed
                  */
-                function (event, channel) {
-                    incoming.hangup(function (err) {});
+                (event, channel) => {
+                    incoming.hangup(err => {});
                 },
             );
 
@@ -110,7 +110,7 @@ Ari.connect(
                  *  @param {module:resources~Channel} outgoing -
                  *    the outgoing channel entering Stasis
                  */
-                function (event, outgoing) {
+                (event, outgoing) => {
                     const bridge = client.Bridge();
 
                     outgoing.once(
@@ -124,8 +124,8 @@ Ari.connect(
                          *  @param {module:resources~Channel} channel -
                          *    the outgoing channel leaving Stasis
                          */
-                        function (event, channel) {
-                            bridge.destroy(function (err) {});
+                        (event, channel) => {
+                            bridge.destroy(err => {});
                         },
                     );
 
@@ -138,7 +138,7 @@ Ari.connect(
                          *  @memberof originate-example
                          *  @param {Error} err - error object if any, null otherwise
                          */
-                        function (err) {
+                        err => {
                             bridge.create(
                                 { type: 'mixing' },
                                 /**
@@ -151,8 +151,8 @@ Ari.connect(
                                  *  @param {module:resources~Bridge} bridge - the newly created
                                  *    mixing bridge
                                  */
-                                function (err, bridge) {
-                                    bridge.addChannel({ channel: [incoming.id, outgoing.id] }, function (err) {});
+                                (err, bridge) => {
+                                    bridge.addChannel({ channel: [incoming.id, outgoing.id] }, err => {});
                                 },
                             );
                         },
@@ -161,14 +161,14 @@ Ari.connect(
             );
 
             const playback = client.Playback();
-            incoming.play({ media: 'sound:vm-dialout' }, playback, function (err) {});
+            incoming.play({ media: 'sound:vm-dialout' }, playback, err => {});
 
             // Originate call from incoming channel to endpoint
             outgoing.originate({ endpoint: ENDPOINT, app: 'originate-example', appArgs: 'dialed' }, function (
                 err,
                 channel,
             ) {});
-        }
+        };
 
         // can also use client.start(['app-name'...]) to start multiple applications
         client.start('originate-example');

@@ -31,7 +31,7 @@ Ari.connect(
      *  @param {Error} err - error object if any, null otherwise
      *  @param {module:ari-client~Client} client - ARI client
      */
-    function (err, client) {
+    (err, client) => {
         if (err) {
             throw err; // program will crash if it fails to connect
         }
@@ -49,7 +49,7 @@ Ari.connect(
              *  @param {module:resources~Channel} incoming -
              *    the channel that entered Stasis
              */
-            function (event, incoming) {
+            (event, incoming) => {
                 // Handle DTMF events
                 incoming.on(
                     'ChannelDtmfReceived',
@@ -64,12 +64,12 @@ Ari.connect(
                      *  @param {module:resources~Channel} channel - the channel that
                      *    received the dtmf event
                      */
-                    function (event, channel) {
+                    (event, channel) => {
                         const digit = event.digit;
                         switch (digit) {
                             case '#':
-                                play(channel, 'sound:vm-goodbye', function (err) {
-                                    channel.hangup(function (err) {
+                                play(channel, 'sound:vm-goodbye', err => {
+                                    channel.hangup(err => {
                                         process.exit(0);
                                     });
                                 });
@@ -83,7 +83,7 @@ Ari.connect(
                     },
                 );
 
-                incoming.answer(function (err) {
+                incoming.answer(err => {
                     play(incoming, 'sound:hello-world');
                 });
             },
@@ -101,12 +101,12 @@ Ari.connect(
          */
         function play(channel: Channel, sound: string, callback?: (param: any) => void) {
             const playback = client.Playback();
-            playback.once('PlaybackFinished', function (event, instance) {
+            playback.once('PlaybackFinished', (event, instance) => {
                 if (callback) {
                     callback(null);
                 }
             });
-            channel.play({ media: sound }, playback, function (err, playback) {});
+            channel.play({ media: sound }, playback, (err, playback) => {});
         }
 
         // can also use client.start(['app-name'...]) to start multiple applications

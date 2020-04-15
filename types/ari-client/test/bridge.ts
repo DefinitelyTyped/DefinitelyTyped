@@ -28,7 +28,7 @@ Ari.connect(
      *  @param {Error} err - error object if any, null otherwise
      *  @param {module:ari-client~Client} client - ARI client
      */
-    function (err, client) {
+    (err, client) => {
         // use once to start the application
         client.on(
             'StasisStart',
@@ -41,8 +41,8 @@ Ari.connect(
              *  @param {module:resources~Channel} channel -
              *    the channel that entered Stasis
              */
-            function (event, incoming) {
-                incoming.answer(function (err) {
+            (event, incoming) => {
+                incoming.answer(err => {
                     getOrCreateBridge(incoming);
                 });
             },
@@ -69,7 +69,7 @@ Ari.connect(
                  *  @param {module:resources~Bridge[]} bridges - an array of bridges
                  *    representing the currently existing bridges
                  */
-                function (err: Error, bridges: Array<Bridge>) {
+                function (err: Error, bridges: Bridge[]) {
                     let bridge = bridges.filter(function (candidate: Bridge) {
                         return candidate['bridge_type'] === 'holding';
                     })[0];
@@ -118,7 +118,7 @@ Ari.connect(
         function cleanupBridge(event: ChannelLeftBridge, instances: ChannelLeftBridge, bridge: Bridge) {
             const holdingBridge = instances.bridge;
             if (holdingBridge.channels.length === 0 && holdingBridge.id === bridge.id) {
-                bridge.destroy(function (err) {});
+                bridge.destroy(err => {});
             }
         }
 
@@ -134,7 +134,7 @@ Ari.connect(
          */
         function joinHoldingBridgeAndPlayMoh(bridge: Bridge, channel: Channel) {
             bridge.addChannel({ channel: channel.id }, function (err) {
-                channel.startMoh(function (err) {});
+                channel.startMoh(err => {});
             });
         }
 

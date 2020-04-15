@@ -31,7 +31,7 @@ Ari.connect(
      *  @param {Error} err - error object if any, null otherwise
      *  @param {module:ari-client~Client} client - ARI client
      */
-    function (err, client) {
+    (err, client) => {
         // Use once to start the application
         client.once(
             'StasisStart',
@@ -45,7 +45,7 @@ Ari.connect(
              *  @param {module:resources~Channel} incoming - the channel entering
              *    Stasis
              */
-            function (event, incoming) {
+            (event, incoming) => {
                 incoming.answer(
                     /**
                      *  Once the incoming channel has been answered, play demo sound and
@@ -55,7 +55,7 @@ Ari.connect(
                      *  @memberof playback-example
                      *  @param {Error} err - error object if any, null otherwise
                      */
-                    function (err) {
+                    err => {
                         const playback = client.Playback();
 
                         // Play demo greeting and register dtmf event listeners
@@ -78,7 +78,7 @@ Ari.connect(
          *  @param {module:resources~Channel} incoming - the incoming channel
          *    responsible for playing and controlling the playback sound
          */
-        function registerDtmfListeners(err: Error, playback: Playback, incoming: Channel) {
+        const registerDtmfListeners = (err: Error, playback: Playback, incoming: Channel) => {
             incoming.on(
                 'ChannelDtmfReceived',
                 /**
@@ -93,28 +93,28 @@ Ari.connect(
                  *  @param {module:resources~Channel} channel - the channel on which
                  *    the dtmf event occured
                  */
-                function (event, channel) {
+                (event, channel) => {
                     const digit = event.digit;
 
                     switch (digit) {
                         case '5':
-                            playback.control({ operation: 'pause' }, function (err) {});
+                            playback.control({ operation: 'pause' }, err => {});
                             break;
                         case '8':
-                            playback.control({ operation: 'unpause' }, function (err) {});
+                            playback.control({ operation: 'unpause' }, err => {});
                             break;
                         case '4':
-                            playback.control({ operation: 'reverse' }, function (err) {});
+                            playback.control({ operation: 'reverse' }, err => {});
                             break;
                         case '6':
-                            playback.control({ operation: 'forward' }, function (err) {});
+                            playback.control({ operation: 'forward' }, err => {});
                             break;
                         case '2':
-                            playback.control({ operation: 'restart' }, function (err) {});
+                            playback.control({ operation: 'restart' }, err => {});
                             break;
                         case '#':
-                            playback.control({ operation: 'stop' }, function (err) {});
-                            incoming.hangup(function (err) {
+                            playback.control({ operation: 'stop' }, err => {});
+                            incoming.hangup(err => {
                                 process.exit(0);
                             });
                             break;
@@ -123,7 +123,7 @@ Ari.connect(
                     }
                 },
             );
-        }
+        };
 
         // can also use client.start(['app-name'...]) to start multiple applications
         client.start('playback-example');

@@ -58,7 +58,7 @@ export default async () => {
         client.on('StasisStart', async (event, incoming) => {
             try {
                 await incoming.answer();
-                const channel = await bridge.addChannel({ channel: incoming.id });
+                await bridge.addChannel({ channel: incoming.id });
             } catch (err) {
                 console.error(err);
             }
