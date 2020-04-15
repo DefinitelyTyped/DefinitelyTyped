@@ -17,8 +17,14 @@ export type PayPalConfig = BraintreeConfig | DirectConfig;
 
 export type PayPalEvent = 'error' | 'token';
 
+export type PayPalStartOptions = {
+  options: {
+    description: string;
+  }
+};
+
 export interface PayPalInstance extends Emitter<PayPalEvent> {
-  start: VoidFunction;
+  start: (payPalStartOptions?: PayPalStartOptions) => void;
   token: TokenHandler;
   destroy: VoidFunction;
 }
