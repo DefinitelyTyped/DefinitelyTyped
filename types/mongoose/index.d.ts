@@ -36,8 +36,9 @@
 //                 Sam Kim <https://github.com/rlaace423>
 //                 Dongjun Lee <https://github.com/ChazEpps>
 //                 Valentin Agachi <https://github.com/avaly>
-//		           Jan Nemcik <https://github.com/JanNemcik>
+//                 Jan Nemcik <https://github.com/JanNemcik>
 //                 Cl3dson <https://github.com/cl3dson> 
+//                 Richard Simko <https://github.com/richardsimko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -2396,18 +2397,26 @@ declare module "mongoose" {
      *  by default, mongoose only returns the first error that occurred in casting the query.
      *  Turn on this option to aggregate all the cast errors.
      */
-      multipleCastError?: boolean;
+    multipleCastError?: boolean;
     /** Field selection. Equivalent to .select(fields).findOneAndUpdate() */
     fields?: any | string;
-    /** If true, delete any properties whose value is undefined when casting an update. In other words,
-    if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined })
-    before sending the update to the server.**/
-    omitUndefined?: boolean;
-    session?: ClientSession;
     /**
      * Only update elements that match the arrayFilters conditions in the document or documents that match the query conditions.
     */
     arrayFilters?: { [key: string]: any }[];
+    /**
+     * if truthy, mongoose will return the document as a plain JavaScript object rather than a mongoose document. See Query.lean() and the Mongoose lean tutorial.
+     */
+    lean?: any;
+    /** If true, delete any properties whose value is undefined when casting an update. In other words,
+    if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined })
+    before sending the update to the server.**/
+    omitUndefined?: boolean;
+    /**
+     * If set to false and schema-level timestamps are enabled, skip timestamps for this update. Note that this allows you to overwrite timestamps.
+     * Does nothing if schema-level timestamps are not set.
+     */
+    timestamps?:boolean;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {

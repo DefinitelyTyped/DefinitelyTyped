@@ -1951,6 +1951,7 @@ MongoModel.findOneAndUpdate({}, {}, {}, cb);
 MongoModel.findOneAndUpdate({}, {}, {});
 MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true });
 MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true, arrayFilters: [{ 'elem._id': 123 }] });
+MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true, timestamps: true });
 MongoModel.findOneAndUpdate({}, {}, cb);
 MongoModel.findOneAndUpdate({}, {});
 MongoModel.findOneAndUpdate();
