@@ -24,4 +24,4 @@ interface ConcatOptions {
 
 declare function concat(concatOptions: ConcatOptions): Promise<void>;
 
-export default concat;
+export = concat;
