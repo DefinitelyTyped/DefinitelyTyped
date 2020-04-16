@@ -320,7 +320,7 @@ export interface Query {
      */
     determinePacket(byte: number, parser: any): any;
 
-    OkPacket: OkPacket;
+    OkPacket: packetCallback;
     ErrorPacket: packetCallback;
     ResultSetHeaderPacket: packetCallback;
     FieldPacket: packetCallback;
@@ -670,6 +670,7 @@ export interface MysqlError extends Error {
 
 // Result from an insert, update, or delete statement.
 export interface OkPacket {
+    fieldCount: number;
     /**
      * The number of affected rows from an insert, update, or delete statement.
      */
@@ -678,6 +679,8 @@ export interface OkPacket {
      * The insert id after inserting a row into a table with an auto increment primary key.
      */
     insertId: number;
+    serverStatus?: number;
+    warningCount?: number;
     /**
      * The server result message from an insert, update, or delete statement.
      */
@@ -686,6 +689,7 @@ export interface OkPacket {
      * The number of changed rows from an update statement. "changedRows" differs from "affectedRows" in that it does not count updated rows whose values were not changed.
      */
     changedRows: number;
+    protocol41: boolean;
 }
 
 export const enum Types {
