@@ -2055,6 +2055,11 @@ declare namespace Joi {
         in(ref: string, options?: ReferenceOptions): Reference;
 
         /**
+         * Checks whether or not the provided argument is an instance of ValidationError
+         */
+        isError(error: any): boolean;
+
+        /**
          * Checks whether or not the provided argument is an expression.
          */
         isExpression(expression: any): boolean;
