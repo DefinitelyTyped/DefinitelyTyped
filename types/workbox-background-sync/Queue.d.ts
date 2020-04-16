@@ -11,7 +11,7 @@ export class Queue {
 
 export interface QueueOptions {
     maxRetentionTime?: number;
-    onSync?: () => void;
+    onSync?: (options: { queue: Queue }) => void|Promise<void>;
 }
 
 export interface QueueEntry<Metadata = any> {
