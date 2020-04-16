@@ -1,4 +1,4 @@
-import { claimsToCamelCase, fetch, metadata, MetadataReader, toPassportConfig } from "passport-saml-metadata";
+import { claimsToCamelCase, fetch, metadata, MetadataReader, toPassportConfig } from "passport-saml-metadata/src";
 import { Profile, Strategy, VerifiedCallback } from "passport-saml";
 
 // From README Example
