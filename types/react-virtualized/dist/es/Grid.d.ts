@@ -71,7 +71,9 @@ export type OverscanIndicesGetterParams = {
     stopIndex: number;
 };
 
-export type OverscanIndicesGetter = (params: OverscanIndicesGetterParams) => OverscanIndexRange;
+export type OverscanIndices = OverscanIndexRange;
+
+export type OverscanIndicesGetter = (params: OverscanIndicesGetterParams) => OverscanIndices;
 
 export type ScrollOffset = {
     scrollLeft: number;
