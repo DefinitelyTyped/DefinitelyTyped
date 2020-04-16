@@ -5,20 +5,19 @@
 
 /// <reference types="node" />
 
-declare module 'ari-client' {
-    export default AriClient;
-    const AriClient: Ari;
+// tslint:disable-next-line:export-just-namespace
+export = Ari;
+export as namespace Ari;
 
-    export interface Ari {
-        connect(
-            baseUrl: string,
-            user: string,
-            pass: string,
-            callback?: (err: Error, client: Client) => void,
-        ): Promise<Client>;
-    }
+declare namespace Ari {
+    function connect(
+        baseUrl: string,
+        user: string,
+        pass: string,
+        callback?: (err: Error, client: Client) => void,
+    ): Promise<Client>;
 
-    export interface Client extends Resource {
+    interface Client extends Resource {
         /* Start and Stop Method Overloads */
         start(apps: string | string[], subscribeAll: boolean, callback?: (err: Error, ...args: any[]) => void): void;
         start(apps: string | string[], callback?: (err: Error, ...args: any[]) => void): void;
@@ -49,52 +48,52 @@ declare module 'ari-client' {
         StoredRecording(id?: string, objValues?: object): StoredRecording;
     }
     /* Event Types */
-    export type APILoadErrorEventType = 'APILoadError';
-    export type EventsEventType = 'Events';
-    export type MessageEventType = 'Message';
-    export type MissingParamsEventType = 'MissingParams';
-    export type EventEventType = 'Event';
-    export type ContactInfoEventType = 'ContactInfo';
-    export type PeerEventType = 'Peer';
-    export type DeviceStateChangedEventType = 'DeviceStateChanged';
-    export type PlaybackStartedEventType = 'PlaybackStarted';
-    export type PlaybackContinuingEventType = 'PlaybackContinuing';
-    export type PlaybackFinishedEventType = 'PlaybackFinished';
-    export type RecordingStartedEventType = 'RecordingStarted';
-    export type RecordingFinishedEventType = 'RecordingFinished';
-    export type RecordingFailedEventType = 'RecordingFailed';
-    export type ApplicationMoveFailedEventType = 'ApplicationMoveFailed';
-    export type ApplicationReplacedEventType = 'ApplicationReplaced';
-    export type BridgeCreatedEventType = 'BridgeCreated';
-    export type BridgeDestroyedEventType = 'BridgeDestroyed';
-    export type BridgeMergedEventType = 'BridgeMerged';
-    export type BridgeVideoSourceChangedEventType = 'BridgeVideoSourceChanged';
-    export type BridgeBlindTransferEventType = 'BridgeBlindTransfer';
-    export type BridgeAttendedTransferEventType = 'BridgeAttendedTransfer';
-    export type ChannelCreatedEventType = 'ChannelCreated';
-    export type ChannelDestroyedEventType = 'ChannelDestroyed';
-    export type ChannelEnteredBridgeEventType = 'ChannelEnteredBridge';
-    export type ChannelLeftBridgeEventType = 'ChannelLeftBridge';
-    export type ChannelStateChangeEventType = 'ChannelStateChange';
-    export type ChannelDtmfReceivedEventType = 'ChannelDtmfReceived';
-    export type ChannelDialplanEventType = 'ChannelDialplan';
-    export type ChannelCallerIdEventType = 'ChannelCallerId';
-    export type ChannelUsereventEventType = 'ChannelUserevent';
-    export type ChannelHangupRequestEventType = 'ChannelHangupRequest';
-    export type ChannelVarsetEventType = 'ChannelVarset';
-    export type ChannelHoldEventType = 'ChannelHold';
-    export type ChannelUnholdEventType = 'ChannelUnhold';
-    export type ChannelTalkingStartedEventType = 'ChannelTalkingStarted';
-    export type ChannelTalkingFinishedEventType = 'ChannelTalkingFinished';
-    export type ContactStatusChangeEventType = 'ContactStatusChange';
-    export type PeerStatusChangeEventType = 'PeerStatusChange';
-    export type EndpointStateChangeEventType = 'EndpointStateChange';
-    export type DialEventType = 'Dial';
-    export type StasisEndEventType = 'StasisEnd';
-    export type StasisStartEventType = 'StasisStart';
-    export type TextMessageReceivedEventType = 'TextMessageReceived';
-    export type ChannelConnectedLineEventType = 'ChannelConnectedLine';
-    export type AnyEventType =
+    type APILoadErrorEventType = 'APILoadError';
+    type EventsEventType = 'Events';
+    type MessageEventType = 'Message';
+    type MissingParamsEventType = 'MissingParams';
+    type EventEventType = 'Event';
+    type ContactInfoEventType = 'ContactInfo';
+    type PeerEventType = 'Peer';
+    type DeviceStateChangedEventType = 'DeviceStateChanged';
+    type PlaybackStartedEventType = 'PlaybackStarted';
+    type PlaybackContinuingEventType = 'PlaybackContinuing';
+    type PlaybackFinishedEventType = 'PlaybackFinished';
+    type RecordingStartedEventType = 'RecordingStarted';
+    type RecordingFinishedEventType = 'RecordingFinished';
+    type RecordingFailedEventType = 'RecordingFailed';
+    type ApplicationMoveFailedEventType = 'ApplicationMoveFailed';
+    type ApplicationReplacedEventType = 'ApplicationReplaced';
+    type BridgeCreatedEventType = 'BridgeCreated';
+    type BridgeDestroyedEventType = 'BridgeDestroyed';
+    type BridgeMergedEventType = 'BridgeMerged';
+    type BridgeVideoSourceChangedEventType = 'BridgeVideoSourceChanged';
+    type BridgeBlindTransferEventType = 'BridgeBlindTransfer';
+    type BridgeAttendedTransferEventType = 'BridgeAttendedTransfer';
+    type ChannelCreatedEventType = 'ChannelCreated';
+    type ChannelDestroyedEventType = 'ChannelDestroyed';
+    type ChannelEnteredBridgeEventType = 'ChannelEnteredBridge';
+    type ChannelLeftBridgeEventType = 'ChannelLeftBridge';
+    type ChannelStateChangeEventType = 'ChannelStateChange';
+    type ChannelDtmfReceivedEventType = 'ChannelDtmfReceived';
+    type ChannelDialplanEventType = 'ChannelDialplan';
+    type ChannelCallerIdEventType = 'ChannelCallerId';
+    type ChannelUsereventEventType = 'ChannelUserevent';
+    type ChannelHangupRequestEventType = 'ChannelHangupRequest';
+    type ChannelVarsetEventType = 'ChannelVarset';
+    type ChannelHoldEventType = 'ChannelHold';
+    type ChannelUnholdEventType = 'ChannelUnhold';
+    type ChannelTalkingStartedEventType = 'ChannelTalkingStarted';
+    type ChannelTalkingFinishedEventType = 'ChannelTalkingFinished';
+    type ContactStatusChangeEventType = 'ContactStatusChange';
+    type PeerStatusChangeEventType = 'PeerStatusChange';
+    type EndpointStateChangeEventType = 'EndpointStateChange';
+    type DialEventType = 'Dial';
+    type StasisEndEventType = 'StasisEnd';
+    type StasisStartEventType = 'StasisStart';
+    type TextMessageReceivedEventType = 'TextMessageReceived';
+    type ChannelConnectedLineEventType = 'ChannelConnectedLine';
+    type AnyEventType =
         | EventsEventType
         | MessageEventType
         | MissingParamsEventType
@@ -140,7 +139,7 @@ declare module 'ari-client' {
         | TextMessageReceivedEventType
         | ChannelConnectedLineEventType;
     /* Event Classes */
-    export interface Events {
+    interface Events {
         /* Methods */
         eventWebsocket(
             params: { app: string | string[]; subscribeAll?: boolean },
@@ -163,28 +162,28 @@ declare module 'ari-client' {
             variables?: any;
         }): Promise<void>;
     }
-    export interface Message {
+    interface Message {
         /* Properties */
         type: string;
         asterisk_id?: string;
     }
-    export interface MissingParams extends Message {
+    interface MissingParams extends Message {
         /* Properties */
         params: string | string[];
     }
-    export interface Event extends Message {
+    interface Event extends Message {
         /* Properties */
         application: string;
         timestamp: Date;
     }
-    export interface ContactInfo {
+    interface ContactInfo {
         /* Properties */
         uri: string;
         contact_status: string;
         aor: string;
         roundtrip_usec?: string;
     }
-    export interface Peer {
+    interface Peer {
         /* Properties */
         peer_status: string;
         cause?: string;
@@ -192,59 +191,59 @@ declare module 'ari-client' {
         port?: string;
         time?: string;
     }
-    export interface DeviceStateChanged extends Event {
+    interface DeviceStateChanged extends Event {
         /* Properties */
         device_state: DeviceState;
     }
-    export interface PlaybackStarted extends Event {
+    interface PlaybackStarted extends Event {
         /* Properties */
         playback: Playback;
     }
-    export interface PlaybackContinuing extends Event {
+    interface PlaybackContinuing extends Event {
         /* Properties */
         playback: Playback;
     }
-    export interface PlaybackFinished extends Event {
+    interface PlaybackFinished extends Event {
         /* Properties */
         playback: Playback;
     }
-    export interface RecordingStarted extends Event {
+    interface RecordingStarted extends Event {
         /* Properties */
         recording: LiveRecording;
     }
-    export interface RecordingFinished extends Event {
+    interface RecordingFinished extends Event {
         /* Properties */
         recording: LiveRecording;
     }
-    export interface RecordingFailed extends Event {
+    interface RecordingFailed extends Event {
         /* Properties */
         recording: LiveRecording;
     }
-    export interface ApplicationMoveFailed extends Event {
+    interface ApplicationMoveFailed extends Event {
         /* Properties */
         channel: Channel;
         destination: string;
         args: string | string[];
     }
-    export interface BridgeCreated extends Event {
+    interface BridgeCreated extends Event {
         /* Properties */
         bridge: Bridge;
     }
-    export interface BridgeDestroyed extends Event {
+    interface BridgeDestroyed extends Event {
         /* Properties */
         bridge: Bridge;
     }
-    export interface BridgeMerged extends Event {
+    interface BridgeMerged extends Event {
         /* Properties */
         bridge: Bridge;
         bridge_from: Bridge;
     }
-    export interface BridgeVideoSourceChanged extends Event {
+    interface BridgeVideoSourceChanged extends Event {
         /* Properties */
         bridge: Bridge;
         old_video_source_id?: string;
     }
-    export interface BridgeBlindTransfer extends Event {
+    interface BridgeBlindTransfer extends Event {
         /* Properties */
         channel: Channel;
         replace_channel?: Channel;
@@ -255,7 +254,7 @@ declare module 'ari-client' {
         is_external: boolean;
         bridge: Bridge;
     }
-    export interface BridgeAttendedTransfer extends Event {
+    interface BridgeAttendedTransfer extends Event {
         /* Properties */
         transferer_first_leg: Channel;
         transferer_second_leg: Channel;
@@ -274,49 +273,49 @@ declare module 'ari-client' {
         destination_threeway_channel: Channel;
         destination_threeway_bridge: Bridge;
     }
-    export interface ChannelCreated extends Event {
+    interface ChannelCreated extends Event {
         /* Properties */
         channel: Channel;
     }
-    export interface ChannelDestroyed extends Event {
+    interface ChannelDestroyed extends Event {
         /* Properties */
         cause: number;
         cause_txt: string;
         channel: Channel;
     }
-    export interface ChannelEnteredBridge extends Event {
+    interface ChannelEnteredBridge extends Event {
         /* Properties */
         bridge: Bridge;
         channel: Channel;
     }
-    export interface ChannelLeftBridge extends Event {
+    interface ChannelLeftBridge extends Event {
         /* Properties */
         bridge: Bridge;
         channel: Channel;
     }
-    export interface ChannelStateChange extends Event {
+    interface ChannelStateChange extends Event {
         /* Properties */
         channel: Channel;
     }
-    export interface ChannelDtmfReceived extends Event {
+    interface ChannelDtmfReceived extends Event {
         /* Properties */
         digit: string;
         duration_ms: number;
         channel: Channel;
     }
-    export interface ChannelDialplan extends Event {
+    interface ChannelDialplan extends Event {
         /* Properties */
         channel: Channel;
         dialplan_app: string;
         dialplan_app_data: string;
     }
-    export interface ChannelCallerId extends Event {
+    interface ChannelCallerId extends Event {
         /* Properties */
         caller_presentation: number;
         caller_presentation_txt: string;
         channel: Channel;
     }
-    export interface ChannelUserevent extends Event {
+    interface ChannelUserevent extends Event {
         /* Properties */
         eventname: string;
         channel?: Channel;
@@ -324,51 +323,51 @@ declare module 'ari-client' {
         endpoint?: Endpoint;
         userevent: object;
     }
-    export interface ChannelHangupRequest extends Event {
+    interface ChannelHangupRequest extends Event {
         /* Properties */
         cause: number;
         soft: boolean;
         channel: Channel;
     }
-    export interface ChannelVarset extends Event {
+    interface ChannelVarset extends Event {
         /* Properties */
         variable: string;
         value: string;
         channel?: Channel;
     }
-    export interface ChannelHold extends Event {
+    interface ChannelHold extends Event {
         /* Properties */
         channel: Channel;
         musicclass?: string;
     }
-    export interface ChannelUnhold extends Event {
+    interface ChannelUnhold extends Event {
         /* Properties */
         channel: Channel;
     }
-    export interface ChannelTalkingStarted extends Event {
+    interface ChannelTalkingStarted extends Event {
         /* Properties */
         channel: Channel;
     }
-    export interface ChannelTalkingFinished extends Event {
+    interface ChannelTalkingFinished extends Event {
         /* Properties */
         channel: Channel;
         duration: number;
     }
-    export interface ContactStatusChange extends Event {
+    interface ContactStatusChange extends Event {
         /* Properties */
         endpoint: Endpoint;
         contact_info: ContactInfo;
     }
-    export interface PeerStatusChange extends Event {
+    interface PeerStatusChange extends Event {
         /* Properties */
         endpoint: Endpoint;
         peer: Peer;
     }
-    export interface EndpointStateChange extends Event {
+    interface EndpointStateChange extends Event {
         /* Properties */
         endpoint: Endpoint;
     }
-    export interface Dial extends Event {
+    interface Dial extends Event {
         /* Properties */
         caller?: Channel;
         peer: Channel;
@@ -377,26 +376,26 @@ declare module 'ari-client' {
         dialstring?: string;
         dialstatus: string;
     }
-    export interface StasisEnd extends Event {
+    interface StasisEnd extends Event {
         /* Properties */
         channel: Channel;
     }
-    export interface StasisStart extends Event {
+    interface StasisStart extends Event {
         /* Properties */
         args: string | string[];
         channel: Channel;
         replace_channel?: Channel;
     }
-    export interface TextMessageReceived extends Event {
+    interface TextMessageReceived extends Event {
         /* Properties */
         message: TextMessage;
         endpoint?: Endpoint;
     }
-    export interface ChannelConnectedLine extends Event {
+    interface ChannelConnectedLine extends Event {
         /* Properties */
         channel: Channel;
     }
-    export interface Resource {
+    interface Resource {
         on(event: MessageEventType, callback: (event: Message, instances: Message) => void): void;
         on(event: MissingParamsEventType, callback: (event: MissingParams, instances: MissingParams) => void): void;
         on(event: EventEventType, callback: (event: Event, instances: Event) => void): void;
@@ -727,7 +726,7 @@ declare module 'ari-client' {
         removeListener(event: AnyEventType, handler: (...args: any[]) => void): void;
         removeAllListeners(event?: AnyEventType): void;
     }
-    export interface Applications {
+    interface Applications {
         /* Methods */
         list(callback: (err: Error, applications: Application[]) => void): void;
         list(): Promise<Application[]>;
@@ -749,7 +748,7 @@ declare module 'ari-client' {
         ): void;
         filter(params: { applicationName: string; filter?: object }): Promise<Application>;
     }
-    export interface Application extends Resource {
+    interface Application extends Resource {
         /* Properties */
         name: string;
         channel_ids: string | string[];
@@ -777,7 +776,7 @@ declare module 'ari-client' {
         filter(callback: (err: Error, application: Application) => void): void;
         filter(params?: { filter?: object }): Promise<Application>;
     }
-    export interface Asterisk {
+    interface Asterisk {
         /* Methods */
         getObject(
             params: { configClass: string; objectType: string; id: string },
@@ -832,7 +831,7 @@ declare module 'ari-client' {
         setGlobalVar(params: { variable: string; value?: string }, callback: (err: Error) => void): void;
         setGlobalVar(params: { variable: string; value?: string }): Promise<void>;
     }
-    export interface BuildInfo {
+    interface BuildInfo {
         /* Properties */
         os: string;
         kernel: string;
@@ -841,17 +840,17 @@ declare module 'ari-client' {
         date: string;
         user: string;
     }
-    export interface SystemInfo {
+    interface SystemInfo {
         /* Properties */
         version: string;
         entity_id: string;
     }
-    export interface SetId {
+    interface SetId {
         /* Properties */
         user: string;
         group: string;
     }
-    export interface ConfigInfo {
+    interface ConfigInfo {
         /* Properties */
         name: string;
         default_language: string;
@@ -860,25 +859,25 @@ declare module 'ari-client' {
         max_load?: number;
         setid: SetId;
     }
-    export interface StatusInfo {
+    interface StatusInfo {
         /* Properties */
         startup_time: Date;
         last_reload_time: Date;
     }
-    export interface AsteriskInfo {
+    interface AsteriskInfo {
         /* Properties */
         build?: BuildInfo;
         system?: SystemInfo;
         config?: ConfigInfo;
         status?: StatusInfo;
     }
-    export interface AsteriskPing {
+    interface AsteriskPing {
         /* Properties */
         asterisk_id: string;
         ping: string;
         timestamp: string;
     }
-    export interface Module {
+    interface Module {
         /* Properties */
         name: string;
         description: string;
@@ -886,23 +885,23 @@ declare module 'ari-client' {
         status: string;
         support_level: string;
     }
-    export interface LogChannel {
+    interface LogChannel {
         /* Properties */
         channel: string;
         type: string;
         status: string;
         configuration: string;
     }
-    export interface Variable {
+    interface Variable {
         /* Properties */
         value: string;
     }
-    export interface ConfigTuple {
+    interface ConfigTuple {
         /* Properties */
         attribute: string;
         value: string;
     }
-    export interface Bridges {
+    interface Bridges {
         /* Methods */
         list(callback: (err: Error, bridges: Bridge[]) => void): void;
         list(): Promise<Bridge[]>;
@@ -1010,7 +1009,7 @@ declare module 'ari-client' {
             terminateOn?: string;
         }): Promise<LiveRecording>;
     }
-    export interface Bridge extends Resource {
+    interface Bridge extends Resource {
         /* Properties */
         id: string;
         technology: string;
@@ -1121,7 +1120,7 @@ declare module 'ari-client' {
             recording: LiveRecording,
         ): Promise<LiveRecording>;
     }
-    export interface Channels {
+    interface Channels {
         /* Methods */
         list(callback: (err: Error, channels: Channel[]) => void): void;
         list(): Promise<Channel[]>;
@@ -1396,7 +1395,7 @@ declare module 'ari-client' {
         rtpstatistics(params: { channelId: string }, callback: (err: Error, rtpstat: RTPstat) => void): void;
         rtpstatistics(params: { channelId: string }): Promise<RTPstat>;
     }
-    export interface DialplanCEP {
+    interface DialplanCEP {
         /* Properties */
         context: string;
         exten: string;
@@ -1404,12 +1403,12 @@ declare module 'ari-client' {
         app_name: string;
         app_data: string;
     }
-    export interface CallerID {
+    interface CallerID {
         /* Properties */
         name: string;
         number: string;
     }
-    export interface RTPstat {
+    interface RTPstat {
         /* Properties */
         txcount: number;
         rxcount: number;
@@ -1444,7 +1443,7 @@ declare module 'ari-client' {
         rxoctetcount: number;
         channel_uniqueid: string;
     }
-    export interface Channel extends Resource {
+    interface Channel extends Resource {
         /* Properties */
         id: string;
         name: string;
@@ -1723,7 +1722,7 @@ declare module 'ari-client' {
         rtpstatistics(callback: (err: Error, rtpstat: RTPstat) => void): void;
         rtpstatistics(): Promise<RTPstat>;
     }
-    export interface DeviceStates {
+    interface DeviceStates {
         /* Methods */
         list(callback: (err: Error, devicestates: DeviceState[]) => void): void;
         list(): Promise<DeviceState[]>;
@@ -1734,7 +1733,7 @@ declare module 'ari-client' {
         delete(params: { deviceName: string }, callback: (err: Error) => void): void;
         delete(params: { deviceName: string }): Promise<void>;
     }
-    export interface DeviceState extends Resource {
+    interface DeviceState extends Resource {
         /* Properties */
         name: string;
         state: string;
@@ -1748,7 +1747,7 @@ declare module 'ari-client' {
         delete(callback: (err: Error) => void): void;
         delete(): Promise<void>;
     }
-    export interface Endpoints {
+    interface Endpoints {
         /* Methods */
         list(callback: (err: Error, endpoints: Endpoint[]) => void): void;
         list(): Promise<Endpoint[]>;
@@ -1781,7 +1780,7 @@ declare module 'ari-client' {
             variables?: any;
         }): Promise<void>;
     }
-    export interface Endpoint extends Resource {
+    interface Endpoint extends Resource {
         /* Properties */
         technology: string;
         resource: string;
@@ -1805,19 +1804,19 @@ declare module 'ari-client' {
         ): void;
         sendMessageToEndpoint(params: { from: string; body?: string; variables?: any }): Promise<void>;
     }
-    export interface TextMessageVariable {
+    interface TextMessageVariable {
         /* Properties */
         key: string;
         value: string;
     }
-    export interface TextMessage {
+    interface TextMessage {
         /* Properties */
         from: string;
         to: string;
         body: string;
         variables?: TextMessageVariable | TextMessageVariable[];
     }
-    export interface Mailboxes {
+    interface Mailboxes {
         /* Methods */
         list(callback: (err: Error, mailboxs: Mailbox[]) => void): void;
         list(): Promise<Mailbox[]>;
@@ -1831,7 +1830,7 @@ declare module 'ari-client' {
         delete(params: { mailboxName: string }, callback: (err: Error) => void): void;
         delete(params: { mailboxName: string }): Promise<void>;
     }
-    export interface Mailbox extends Resource {
+    interface Mailbox extends Resource {
         /* Properties */
         name: string;
         old_messages: number;
@@ -1846,7 +1845,7 @@ declare module 'ari-client' {
         delete(callback: (err: Error) => void): void;
         delete(): Promise<void>;
     }
-    export interface Playbacks {
+    interface Playbacks {
         /* Methods */
         get(params: { playbackId: string }, callback: (err: Error, playback: Playback) => void): void;
         get(params: { playbackId: string }): Promise<Playback>;
@@ -1855,7 +1854,7 @@ declare module 'ari-client' {
         control(params: { playbackId: string; operation: string }, callback: (err: Error) => void): void;
         control(params: { playbackId: string; operation: string }): Promise<void>;
     }
-    export interface Playback extends Resource {
+    interface Playback extends Resource {
         /* Properties */
         id: string;
         media_uri: string;
@@ -1871,7 +1870,7 @@ declare module 'ari-client' {
         control(params: { operation: string }, callback: (err: Error) => void): void;
         control(params: { operation: string }): Promise<void>;
     }
-    export interface Recordings {
+    interface Recordings {
         /* Methods */
         listStored(callback: (err: Error, storedrecordings: StoredRecording[]) => void): void;
         listStored(): Promise<StoredRecording[]>;
@@ -1904,7 +1903,7 @@ declare module 'ari-client' {
         unmute(params: { recordingName: string }, callback: (err: Error) => void): void;
         unmute(params: { recordingName: string }): Promise<void>;
     }
-    export interface StoredRecording extends Resource {
+    interface StoredRecording extends Resource {
         /* Properties */
         name: string;
         format: string;
@@ -1937,7 +1936,7 @@ declare module 'ari-client' {
         unmute(callback: (err: Error) => void): void;
         unmute(): Promise<void>;
     }
-    export interface LiveRecording extends Resource {
+    interface LiveRecording extends Resource {
         /* Properties */
         name: string;
         format: string;
@@ -1976,7 +1975,7 @@ declare module 'ari-client' {
         unmute(callback: (err: Error) => void): void;
         unmute(): Promise<void>;
     }
-    export interface Sounds {
+    interface Sounds {
         /* Methods */
         list(params: { lang?: string; format?: string }, callback: (err: Error, sounds: Sound[]) => void): void;
         list(callback: (err: Error, sounds: Sound[]) => void): void;
@@ -1984,12 +1983,12 @@ declare module 'ari-client' {
         get(params: { soundId: string }, callback: (err: Error, sound: Sound) => void): void;
         get(params: { soundId: string }): Promise<Sound>;
     }
-    export interface FormatLangPair {
+    interface FormatLangPair {
         /* Properties */
         language: string;
         format: string;
     }
-    export interface Sound extends Resource {
+    interface Sound extends Resource {
         /* Properties */
         id: string;
         text?: string;

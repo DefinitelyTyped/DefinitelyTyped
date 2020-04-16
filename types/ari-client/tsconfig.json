@@ -19,6 +19,7 @@
         "lib": [
             "es6"
         ],
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
