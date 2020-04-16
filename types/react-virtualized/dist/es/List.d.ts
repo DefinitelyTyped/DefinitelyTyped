@@ -34,7 +34,7 @@ export type ListProps = GridCoreProps & {
      * Callback invoked with information about the slice of rows that were just rendered.
      * ({ startIndex, stopIndex }): void
      */
-    onRowsRendered?: (info: onRowsRenderedParams) => void;
+    onRowsRendered?: (info: RenderedRows) => void;
     /**
      * Number of rows to render above/below the visible bounds of the list.
      * These rows can help for smoother scrolling on touch devices.
