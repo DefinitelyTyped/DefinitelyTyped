@@ -1,8 +1,9 @@
 // Type definitions for cloudmersive-virus-api-client 1.1
-// Project: https://www.npmjs.com/package/cloudmersive-virus-api-client (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: Jason Luboff<https://github.com/JLuboff>
+// Project: https://github.com/Cloudmersive/Cloudmersive.APIClient.NodeJS.Virus
+// Definitions by: Jason Luboff <https://github.com/JLuboff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-///<reference types="node" />
+
+/// <reference types="node" />
 
 import * as http from 'http';
 export enum CollectionFormatEnum {
@@ -35,14 +36,14 @@ export enum WebsiteThreatType {
     ForcedDownload = 'ForcedDownload',
     UnableToConnect = 'UnableToConnect',
 }
-export interface IApiInstanceAuthentications {
+export interface ApiInstanceAuthentications {
     type: 'apiKey';
     in: 'header';
     name: 'Apikey';
     apiKey: string;
 }
 
-export interface IApiInstance {
+export interface ApiInstance {
     /**
      * @param basePath string - The base URL against which to resolve every API
      * call's (relative) path.
@@ -52,7 +53,7 @@ export interface IApiInstance {
     /**
      * @param authentications object - The authentication methods to be included for all API calls.
      */
-    authentications: { Apikey: IApiInstanceAuthentications };
+    authentications: { Apikey: ApiInstanceAuthentications };
     /**
      * @param defaultHeaders string[] - The default HTTP headers to be included for all API calls.
      * default {}
@@ -88,8 +89,8 @@ export interface IApiInstance {
     requestAgent: null | http.Agent;
 }
 
-export interface IApiClient {
-    instance: IApiInstance;
+export interface ApiClient {
+    instance: ApiInstance;
     CollectionFormatEnum: CollectionFormatEnum;
     /**
      * Parses an ISO-8601 string representation of a date value.
@@ -116,7 +117,7 @@ export interface IApiClient {
     constructFromObject: { (data: any, obj: any, itemType: any): void };
 }
 
-export interface IScanFileAdvancedOptions {
+export interface ScanFileAdvancedOptions {
     /**
      * @param allowExecutables boolean
      * Set to false to block executable files (program code) from being allowed in the input file.
@@ -150,23 +151,23 @@ export interface IScanFileAdvancedOptions {
     restrictFileTypes: string;
 }
 
-export interface IScanFile {
-    (inputFile: Buffer, callback: (error: any, data: IVirusScanResult, response: any) => any): any;
+export interface ScanFile {
+    (inputFile: Buffer, callback: (error: any, data: VirusScanResult, response: any) => any): any;
 }
 
-export interface IScanFileAdvanced {
+export interface ScanFileAdvanced {
     (
         inputFile: Buffer,
-        opts: IScanFileAdvancedOptions,
-        callback: (error: any, data: IVirusScanAdvancedResult, response: any) => any,
+        opts: ScanFileAdvancedOptions,
+        callback: (error: any, data: VirusScanAdvancedResult, response: any) => any,
     ): any;
 }
 
-export interface IScanWebsite {
-    (input: string, callback: (error: any, data: IWebsiteScanResult, response: any) => any): any;
+export interface ScanWebsite {
+    (input: string, callback: (error: any, data: WebsiteScanResult, response: any) => any): any;
 }
 
-export interface IVirusFound {
+export interface VirusFound {
     /**
      * @param FileName string
      * Name of the file containing the virus
@@ -179,7 +180,7 @@ export interface IVirusFound {
     VirusName: string;
 }
 
-export interface IVirusScanResult {
+export interface VirusScanResult {
     /**
      * @param CleanResult boolean
      * True if the scan contained no viruses, false otherwise
@@ -189,10 +190,10 @@ export interface IVirusScanResult {
      * @param FoundViruses null | IVirusFound
      * Array of viruses found, if any
      */
-    FoundViruses: null | IVirusFound[];
+    FoundViruses: null | VirusFound[];
 }
 
-export interface IVirusScanAdvancedResult extends IVirusScanResult {
+export interface VirusScanAdvancedResult extends VirusScanResult {
     /**
      * @param ContainsExecutable boolean
      * True if the scan contained an executable (application code),
@@ -227,7 +228,7 @@ export interface IVirusScanAdvancedResult extends IVirusScanResult {
     VerifiedFileFormat: string;
 }
 
-export interface IWebsiteScanRequest {
+export interface WebsiteScanRequest {
     /**
      * @param Url string
      * URL of the website to scan; should begin with http:// or https://
@@ -235,10 +236,10 @@ export interface IWebsiteScanRequest {
     Url: string;
 }
 
-export interface IWebsiteScanResult extends IVirusScanResult {
+export interface WebsiteScanResult extends VirusScanResult {
     /**
      * @param WebsiteThreatType None, Malware, Phishing, ForcedDownload, UnableToConnect
-     *Type of threat returned; can be None, Malware, ForcedDownload or Phishing
+     * Type of threat returned; can be None, Malware, ForcedDownload or Phishing
      */
     WebsiteThreatType: WebsiteThreatType;
     /**
@@ -251,7 +252,7 @@ export interface IWebsiteScanResult extends IVirusScanResult {
     WebsiteHttpResponseCode: number;
 }
 
-export interface IScanApi {
+export interface ScanApi {
     /**
      * Scan a file for viruses
      * Scan files and content for viruses.
@@ -265,7 +266,7 @@ export interface IScanApi {
      * @param callback function - The callback function, accepting three arguments:
      * error, data, response
      */
-    scanFile: IScanFile;
+    scanFile: ScanFile;
     /**
      * Advanced Scan a file for viruses
      * Advanced Scan files with 360-degree Content Protection across Viruses and Malware,
@@ -302,7 +303,7 @@ export interface IScanApi {
      * @param callback function - The callback function, accepting three arguments:
      * error, data, response
      */
-    scanFileAdvanced: IScanFileAdvanced;
+    scanFileAdvanced: ScanFileAdvanced;
     /**
      * Scan a website for malicious content and threats
      * Operation includes scanning the content of the URL for various types
@@ -311,19 +312,19 @@ export interface IScanApi {
      * @param callback function - The callback function, accepting three arguments:
      * error, data, response
      */
-    scanWebsite: IScanWebsite;
+    scanWebsite: ScanWebsite;
 }
 
-export class ScanApi implements IScanApi {
-    constructor(apiClient?: IApiClient);
-    scanFile: IScanFile;
-    scanFileAdvanced: IScanFileAdvanced;
-    scanWebsite: IScanWebsite;
+export class ScanApi implements ScanApi {
+    constructor(apiClient?: ApiClient);
+    scanFile: ScanFile;
+    scanFileAdvanced: ScanFileAdvanced;
+    scanWebsite: ScanWebsite;
 }
-export const ApiClient: IApiClient;
-export const VirusFound: IVirusFound;
-export const VirusScanAdvancedResult: IVirusScanAdvancedResult;
-export const VirusScanResult: IVirusScanResult;
-export const WebsiteScanResult: IWebsiteScanResult;
-export const WebsiteScanRequest: IWebsiteScanRequest;
+export const ApiClient: ApiClient;
+export const VirusFound: VirusFound;
+export const VirusScanAdvancedResult: VirusScanAdvancedResult;
+export const VirusScanResult: VirusScanResult;
+export const WebsiteScanResult: WebsiteScanResult;
+export const WebsiteScanRequest: WebsiteScanRequest;
 // }

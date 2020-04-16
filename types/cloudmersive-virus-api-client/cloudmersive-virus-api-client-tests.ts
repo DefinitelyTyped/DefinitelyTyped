@@ -3,17 +3,17 @@ import * as CloudmersiveVirusApiClient from 'cloudmersive-virus-api-client';
 CloudmersiveVirusApiClient.WebsiteThreatType;
 // $ExpectType typeof CollectionFormatEnum
 CloudmersiveVirusApiClient.CollectionFormatEnum;
-// $ExpectType IVirusFound
+// $ExpectType VirusFound
 CloudmersiveVirusApiClient.VirusFound;
-// $ExpectType IVirusScanAdvancedResult
+// $ExpectType VirusScanAdvancedResult
 CloudmersiveVirusApiClient.VirusScanAdvancedResult;
-// $ExpectType IVirusScanResult
+// $ExpectType VirusScanResult
 CloudmersiveVirusApiClient.VirusScanResult;
-// $ExpectType IWebsiteScanResult
+// $ExpectType WebsiteScanResult
 CloudmersiveVirusApiClient.WebsiteScanResult;
-// $ExpectType IWebsiteScanRequest
+// $ExpectType WebsiteScanRequest
 CloudmersiveVirusApiClient.WebsiteScanRequest;
-// $ExpectType IApiClient
+// $ExpectType ApiClient
 const defaultClient = CloudmersiveVirusApiClient.ApiClient;
 // $ExpectType Date
 defaultClient.parseDate('1970-01-01');
@@ -23,23 +23,23 @@ defaultClient.constructFromObject({}, {}, {});
 defaultClient.convertToType({}, {});
 // $ExpectType CollectionFormatEnum
 defaultClient.CollectionFormatEnum;
-// $ExpectType IApiInstance
+// $ExpectType ApiInstance
 const defaultInstance = defaultClient.instance;
-// $ExpectType IApiInstanceAuthentications
-const APIKey = defaultInstance.authentications.Apikey;
-APIKey.apiKey = '';
+// $ExpectType ApiInstanceAuthentications
+const APKey = defaultInstance.authentications.Apikey;
+APKey.apiKey = '';
 // $ExpectType ScanApi
-const apiInstance = new CloudmersiveVirusApiClient.ScanApi();
+const apinstance = new CloudmersiveVirusApiClient.ScanApi();
 // $ExpectType any
-apiInstance.scanFile(
+apinstance.scanFile(
     Buffer.alloc(10),
-    (error: any, data: CloudmersiveVirusApiClient.IVirusScanResult, response: any) => {},
+    (error: any, data: CloudmersiveVirusApiClient.VirusScanResult, response: any) => {},
 );
 // $ExpectType any
-apiInstance.scanFileAdvanced(
+apinstance.scanFileAdvanced(
     Buffer.alloc(10),
     { allowExecutables: false, allowInvalidFiles: false, allowScripts: false, restrictFileTypes: '' },
-    (error: any, data: CloudmersiveVirusApiClient.IVirusScanAdvancedResult, response: any) => {},
+    (error: any, data: CloudmersiveVirusApiClient.VirusScanAdvancedResult, response: any) => {},
 );
 // $ExpectType any
-apiInstance.scanWebsite('', (error: any, data: CloudmersiveVirusApiClient.IWebsiteScanResult, response: any) => {});
+apinstance.scanWebsite('', (error: any, data: CloudmersiveVirusApiClient.WebsiteScanResult, response: any) => {});
