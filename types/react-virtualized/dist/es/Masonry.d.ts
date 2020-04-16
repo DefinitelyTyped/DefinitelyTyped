@@ -1,7 +1,7 @@
 import { PureComponent, Validator, Requireable } from 'react';
 import { CellMeasurerCacheInterface, KeyMapper, MeasuredCellParent } from './CellMeasurer';
 import { GridCellRenderer } from './Grid';
-import { IndexRange } from 'react-virtualized';
+import { IndexRange } from '../../index';
 /**
  * Specifies the number of miliseconds during which to disable pointer events while a scroll is in progress.
  * This improves performance and makes scrolling smoother.

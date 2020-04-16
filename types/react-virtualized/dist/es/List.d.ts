@@ -1,6 +1,6 @@
 import { PureComponent, Validator, Requireable } from 'react';
-import { Grid, GridCoreProps, GridCellProps, OverscanIndicesGetter, OverscanIndices } from './Grid';
-import { Index, IndexRange, Alignment } from '../../index';
+import { Grid, GridCoreProps, GridCellProps, OverscanIndicesGetter } from './Grid';
+import { Index, IndexRange, OverscanIndexRange, Alignment } from '../../index';
 import { CellMeasurerCache, CellPosition } from './CellMeasurer';
 import { OnScrollParams } from './ScrollSync';
 
@@ -10,7 +10,7 @@ export type ListRowProps = Pick<GridCellProps, Exclude<keyof GridCellProps, 'row
 
 export type ListRowRenderer = (props: ListRowProps) => React.ReactNode;
 
-export type RenderedRows = OverscanIndices & IndexRange;
+export type RenderedRows = OverscanIndexRange & IndexRange;
 
 export type ListProps = GridCoreProps & {
     deferredMeasurementCache?: CellMeasurerCache;
