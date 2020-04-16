@@ -56,8 +56,10 @@ declare namespace mapboxgl {
         | 'boolean'
         | 'collator'
         | 'format'
+        | 'image'
         | 'literal'
         | 'number'
+        | 'number-format'
         | 'object'
         | 'string'
         | 'to-boolean'
@@ -66,6 +68,7 @@ declare namespace mapboxgl {
         | 'to-string'
         | 'typeof'
         // Feature data
+        | 'accumulated'
         | 'feature-state'
         | 'geometry-type'
         | 'id'
@@ -75,6 +78,7 @@ declare namespace mapboxgl {
         | 'at'
         | 'get'
         | 'has'
+        | 'in'
         | 'length'
         // Decision
         | '!'
@@ -87,8 +91,9 @@ declare namespace mapboxgl {
         | 'all'
         | 'any'
         | 'case'
-        | 'match'
         | 'coalesce'
+        | 'match'
+        | 'within'
         // Ramps, scales, curves
         | 'interpolate'
         | 'interpolate-hcl'
@@ -106,6 +111,7 @@ declare namespace mapboxgl {
         // Color
         | 'rgb'
         | 'rgba'
+        | 'to-rgba'
         // Math
         | '-'
         | '*'
