@@ -75,3 +75,11 @@ export interface CheckboxProps
         Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof BoxKnownProps> {}
 
 export const Checkbox: React.ComponentType<CheckboxProps>;
+
+export interface SwitchProps
+    extends BoxKnownProps,
+        Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BoxKnownProps> {
+    checked?: boolean;
+}
+
+export const Switch: React.ComponentType<SwitchProps>;
