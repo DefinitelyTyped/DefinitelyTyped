@@ -452,6 +452,10 @@ management.updateRole({id: "role_id"}, {
 
 management.getPermissionsInRole({id: "role_id"}).then(permissions => console.log(permissions));
 management.getPermissionsInRole({id: "role_id"}, (err, data) => console.log(data));
+management.getPermissionsInRole({id: "role_id", per_page: 8}).then(permissions => console.log(permissions));
+management.getPermissionsInRole({id: "role_id", per_page: 8}, (err, data) => console.log(data));
+management.getPermissionsInRole({id: "role_id", include_totals: true}).then(permissions => console.log(permissions));
+management.getPermissionsInRole({id: "role_id", include_totals: true}, (err, data) => console.log(data));
 
 management.removePermissionsFromRole({id: "role_id"}, {
         permissions: [
