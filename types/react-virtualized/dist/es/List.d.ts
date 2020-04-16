@@ -10,7 +10,7 @@ export type ListRowProps = Pick<GridCellProps, Exclude<keyof GridCellProps, 'row
 
 export type ListRowRenderer = (props: ListRowProps) => React.ReactNode;
 
-export type onRowsRenderedParams = OverscanIndices & IndexRange;
+export type RenderedRows = OverscanIndices & IndexRange;
 
 export type ListProps = GridCoreProps & {
     deferredMeasurementCache?: CellMeasurerCache;
