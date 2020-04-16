@@ -7,7 +7,6 @@
 
 // tslint:disable-next-line:export-just-namespace
 export = Ari;
-export as namespace Ari;
 
 declare namespace Ari {
     function connect(
@@ -147,12 +146,7 @@ declare namespace Ari {
         ): void;
         eventWebsocket(params: { app: string | string[]; subscribeAll?: boolean }): Promise<Message>;
         userEvent(
-            params: {
-                eventName: string;
-                application: string;
-                source?: string | string[];
-                variables?: any;
-            },
+            params: { eventName: string; application: string; source?: string | string[]; variables?: any },
             callback: (err: Error) => void,
         ): void;
         userEvent(params: {
@@ -784,12 +778,7 @@ declare namespace Ari {
         ): void;
         getObject(params: { configClass: string; objectType: string; id: string }): Promise<ConfigTuple[]>;
         updateObject(
-            params: {
-                configClass: string;
-                objectType: string;
-                id: string;
-                fields?: any;
-            },
+            params: { configClass: string; objectType: string; id: string; fields?: any },
             callback: (err: Error, configtuples: ConfigTuple[]) => void,
         ): void;
         updateObject(params: {
@@ -1035,12 +1024,7 @@ declare namespace Ari {
         destroy(callback: (err: Error) => void): void;
         destroy(): Promise<void>;
         addChannel(
-            params: {
-                channel: string | string[];
-                role?: string;
-                absorbDTMF?: boolean;
-                mute?: boolean;
-            },
+            params: { channel: string | string[]; role?: string; absorbDTMF?: boolean; mute?: boolean },
             callback: (err: Error) => void,
         ): void;
         addChannel(params: {
@@ -1078,13 +1062,7 @@ declare namespace Ari {
             playbackId?: string;
         }): Promise<Playback>;
         playWithId(
-            params: {
-                playbackId: string;
-                media: string | string[];
-                lang?: string;
-                offsetms?: number;
-                skipms?: number;
-            },
+            params: { playbackId: string; media: string | string[]; lang?: string; offsetms?: number; skipms?: number },
             callback: (err: Error, playback: Playback) => void,
         ): void;
         playWithId(params: {
@@ -1220,13 +1198,7 @@ declare namespace Ari {
         hangup(params: { channelId: string; reason?: string }, callback: (err: Error) => void): void;
         hangup(params: { channelId: string; reason?: string }): Promise<void>;
         continueInDialplan(
-            params: {
-                channelId: string;
-                context?: string;
-                extension?: string;
-                priority?: number;
-                label?: string;
-            },
+            params: { channelId: string; context?: string; extension?: string; priority?: number; label?: string },
             callback: (err: Error) => void,
         ): void;
         continueInDialplan(params: {
@@ -1549,12 +1521,7 @@ declare namespace Ari {
         hangup(callback: (err: Error) => void): void;
         hangup(params?: { reason?: string }): Promise<void>;
         continueInDialplan(
-            params: {
-                context?: string;
-                extension?: string;
-                priority?: number;
-                label?: string;
-            },
+            params: { context?: string; extension?: string; priority?: number; label?: string },
             callback: (err: Error) => void,
         ): void;
         continueInDialplan(callback: (err: Error) => void): void;
@@ -1575,13 +1542,7 @@ declare namespace Ari {
         ringStop(callback: (err: Error) => void): void;
         ringStop(): Promise<void>;
         sendDTMF(
-            params: {
-                dtmf?: string;
-                before?: number;
-                between?: number;
-                duration?: number;
-                after?: number;
-            },
+            params: { dtmf?: string; before?: number; between?: number; duration?: number; after?: number },
             callback: (err: Error) => void,
         ): void;
         sendDTMF(callback: (err: Error) => void): void;
@@ -1633,13 +1594,7 @@ declare namespace Ari {
             playback: Playback,
         ): Promise<Playback>;
         playWithId(
-            params: {
-                playbackId: string;
-                media: string | string[];
-                lang?: string;
-                offsetms?: number;
-                skipms?: number;
-            },
+            params: { playbackId: string; media: string | string[]; lang?: string; offsetms?: number; skipms?: number },
             callback: (err: Error, playback: Playback) => void,
         ): void;
         playWithId(params: {
@@ -1679,34 +1634,16 @@ declare namespace Ari {
         setChannelVar(params: { variable: string; value?: string }, callback: (err: Error) => void): void;
         setChannelVar(params: { variable: string; value?: string }): Promise<void>;
         snoopChannel(
-            params: {
-                spy?: string;
-                whisper?: string;
-                app: string;
-                appArgs?: string;
-                snoopId?: string;
-            },
+            params: { spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
             snoopChannel: Channel,
             callback: (err: Error, channel: Channel) => void,
         ): void;
         snoopChannel(
-            params: {
-                spy?: string;
-                whisper?: string;
-                app: string;
-                appArgs?: string;
-                snoopId?: string;
-            },
+            params: { spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
             snoopChannel: Channel,
         ): Promise<Channel>;
         snoopChannelWithId(
-            params: {
-                snoopId: string;
-                spy?: string;
-                whisper?: string;
-                app: string;
-                appArgs?: string;
-            },
+            params: { snoopId: string; spy?: string; whisper?: string; app: string; appArgs?: string },
             callback: (err: Error, channel: Channel) => void,
         ): void;
         snoopChannelWithId(params: {
@@ -1763,13 +1700,7 @@ declare namespace Ari {
         get(callback: (err: Error, endpoint: Endpoint) => void): void;
         get(params?: { tech: string; resource: string }): Promise<Endpoint>;
         sendMessageToEndpoint(
-            params: {
-                tech: string;
-                resource: string;
-                from: string;
-                body?: string;
-                variables?: any;
-            },
+            params: { tech: string; resource: string; from: string; body?: string; variables?: any },
             callback: (err: Error) => void,
         ): void;
         sendMessageToEndpoint(params: {
