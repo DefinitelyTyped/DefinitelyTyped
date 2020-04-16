@@ -1,5 +1,4 @@
 import * as React from "react";
-import { FunctionComponent } from "../../react";
 
 export interface ReactAttr<T = HTMLElement> extends React.HTMLAttributes<T> { }
 export interface ReactAnchorAttr<T = HTMLAnchorElement> extends React.AnchorHTMLAttributes<T> { }
@@ -79,4 +78,4 @@ export interface RefForwardingProps<T = HTMLElement> {
     ref?: React.RefObject<T>;
 }
 
-export type ForwardRefReturn<T, P = {}> = FunctionComponent<P & React.ClassAttributes<T>>;
+export type ForwardRefReturn<T, P = {}> = React.FC<P & React.ClassAttributes<T>>;
