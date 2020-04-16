@@ -1166,3 +1166,14 @@ class LoggingPlugin extends webpack.Plugin {
         });
     }
 }
+
+// Stats Microsoft/DefinitelyTyped#43952
+import { Stats } from 'webpack';
+
+compiler.hooks.compilation.tap('SomePlugin', compilation => {
+    const stats = new Stats(compilation); // $ExpectType Stats
+    Stats.filterWarnings([], warning => true); // $ExpectType string[]
+    stats.formatFilePath('app/src/'); // $ExpectType string
+    stats.normalizeFieldKey('field'); // $ExpectType string
+    stats.sortOrderRegular('!field'); // $ExpectType boolean
+});
