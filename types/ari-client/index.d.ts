@@ -9,10 +9,12 @@ export default AriClient;
 declare const AriClient: Ari;
 
 export interface Ari {
-    /* ARI Client connect function (Callback) */
-    connect(baseUrl: string, user: string, pass: string, callback: (err: Error, client: Client) => void): void;
-    /* ARI Client connect function (Promise) */
-    connect(baseUrl: string, user: string, pass: string): Promise<Client>;
+    connect(
+        baseUrl: string,
+        user: string,
+        pass: string,
+        callback?: (err: Error, client: Client) => void,
+    ): Promise<Client>;
 }
 
 export interface Client extends Resource {
