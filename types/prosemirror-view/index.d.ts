@@ -20,6 +20,11 @@ import {
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
 import { Mapping } from 'prosemirror-transform';
 
+// Exported for testing
+export function __serializeForClipboard<S extends Schema = any>(view: EditorView<S>, slice: Slice<S>): { dom: HTMLElement, text: string };
+export function __parseFromClipboard<S extends Schema = any>(view: EditorView<S>, text: string, html: string, plainText: boolean, $context: ResolvedPos<S>): Slice<S>;
+export function __endComposition(view: EditorView, forceUpdate?: boolean): boolean;
+
 /**
  * The `spec` for a widget decoration
  */
