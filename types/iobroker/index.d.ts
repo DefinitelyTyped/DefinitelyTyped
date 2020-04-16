@@ -908,24 +908,24 @@ declare global {
             // tslint:disable:unified-signatures
             setState(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 callback?: SetStateCallback,
             ): void;
             setState(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 callback?: SetStateCallback,
             ): void;
             setState(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 options: unknown,
                 callback?: SetStateCallback,
             ): void;
             setState(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
                 callback?: SetStateCallback,
@@ -933,41 +933,41 @@ declare global {
             /** Writes a value into the states DB. */
             setStateAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack?: boolean,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             setStateAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 options?: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             setStateAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             /** Writes a value into the states DB only if it has changed. */
             setStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 callback?: SetStateChangedCallback,
             ): void;
             setStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 callback?: SetStateChangedCallback,
             ): void;
             setStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 options: unknown,
                 callback?: SetStateChangedCallback,
             ): void;
             setStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
                 callback?: SetStateChangedCallback,
@@ -975,41 +975,41 @@ declare global {
             /** Writes a value into the states DB only if it has changed. */
             setStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack?: boolean,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             setStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 options?: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             setStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             /** Writes a value (which might not belong to this adapter) into the states DB. */
             setForeignState(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 callback?: SetStateCallback,
             ): void;
             setForeignState(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 callback?: SetStateCallback,
             ): void;
             setForeignState(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 options: unknown,
                 callback?: SetStateCallback,
             ): void;
             setForeignState(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
                 callback?: SetStateCallback,
@@ -1017,41 +1017,41 @@ declare global {
             /** Writes a value (which might not belong to this adapter) into the states DB. */
             setForeignStateAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack?: boolean,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             setForeignStateAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 options?: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             setForeignStateAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             /** Writes a value (which might not belong to this adapter) into the states DB only if it has changed. */
             setForeignStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 callback?: SetStateChangedCallback,
             ): void;
             setForeignStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 callback?: SetStateChangedCallback,
             ): void;
             setForeignStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 options: unknown,
                 callback?: SetStateChangedCallback,
             ): void;
             setForeignStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
                 callback?: SetStateChangedCallback,
@@ -1059,17 +1059,17 @@ declare global {
             /** Writes a value (which might not belong to this adapter) into the states DB only if it has changed. */
             setForeignStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack?: boolean,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             setForeignStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 options?: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             setForeignStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;

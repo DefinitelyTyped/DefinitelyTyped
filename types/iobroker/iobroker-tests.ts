@@ -400,3 +400,13 @@ const folderObj: ioBroker.FolderObject = {
 // Repro from https://github.com/ioBroker/ioBroker.js-controller/issues/782
 // $ExpectError
 adapter.setState("id", {ack: false});
+
+// null is a valid state value
+adapter.setState("id", null);
+adapter.setForeignState("id", null);
+adapter.setStateAsync("id", null);
+adapter.setForeignStateAsync("id", null);
+adapter.setStateChanged("id", null);
+adapter.setForeignStateChanged("id", null);
+adapter.setStateChangedAsync("id", null);
+adapter.setForeignStateChangedAsync("id", null);
