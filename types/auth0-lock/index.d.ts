@@ -86,7 +86,7 @@ interface Auth0LockThemeOptions {
 // https://auth0.com/docs/libraries/lock/v10/sending-authentication-parameters
 interface Auth0LockAuthParamsOptions {
     access_token?: any;
-    connection_scopes?: any;
+    connection_scope?: any;
     device?: any;
     nonce?: any;
     protocol?: any;
