@@ -3,7 +3,6 @@
 // Definitions by: xbim <https://github.com/xbim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
-/// <reference types="node" />
 import { Dispatcher, DispatcherInterface, StoreClass } from 'dispatchr';
 import BaseStore = require('./addons/BaseStore');
 
