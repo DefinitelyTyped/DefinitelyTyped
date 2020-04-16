@@ -3,8 +3,6 @@
 // Definitions by: Paulo Cesar <https://github.com/pocesar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 export default class Hashids {
     private version: string;
     private minAlphabetLength: number;
