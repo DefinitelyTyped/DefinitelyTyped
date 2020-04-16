@@ -8,7 +8,7 @@ import {
     ReactButtonAttr, ThemeProps, ForwardRefReturn
 } from "../../../typings/shared";
 
-type GetMenuOffsetFn = ((menuBody: HTMLElement, direction: Direction, trigger?: HTMLElement, flip?: boolean) => (MenuOffsetData | void));
+type GetMenuOffsetFn = ((menuBody: HTMLElement, direction: Direction, trigger?: HTMLElement, flip?: boolean) => (MenuOffsetData | undefined));
 export declare const getMenuOffset: GetMenuOffsetFn;
 
 type ExcludedAttributes = "aria-expanded" | "aria-haspopup" | "aria-label" | "onBlur" | "onClick" | "onKeyDown" | "onKeyPress" | "role";
