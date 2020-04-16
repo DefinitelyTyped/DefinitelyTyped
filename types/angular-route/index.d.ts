@@ -202,11 +202,11 @@ declare module 'angular' {
             caseInsensitiveMatch?: boolean;
             /**
              * Call this method as a setter to enable/disable eager instantiation of the $route service upon application bootstrap.
-             * 
+             *
              * Instantiating $route early is necessary for capturing the initial $locationChangeStart event and navigating to the appropriate route. Usually, $route is instantiated in time by the ngView directive. Yet, in cases where ngView is included in an asynchronously loaded template (e.g. in another directive's template), the directive factory might not be called soon enough for $route to be instantiated before the initial $locationChangeSuccess event is fired. Eager instantiation ensures that $route is always instantiated in time, regardless of when ngView will be loaded.
              *
              * The default value is true.
-             * 
+             *
              * @param enabled If provided, update the internal eagerInstantiationEnabled flag.
              */
             eagerInstantiationEnabled(enabled: boolean) : IRouteProvider;
