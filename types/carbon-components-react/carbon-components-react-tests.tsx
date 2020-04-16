@@ -15,6 +15,7 @@ import {
     TableBatchActions,
     TableHeader,
     TableRow,
+    Tag,
     TileGroup,
     TooltipDefinition,
     TextArea,
@@ -25,7 +26,6 @@ import {
     MultiSelect,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
-import Tag from "./lib/components/Tag";
 
 // AccordionItem
 const titleNode = (
