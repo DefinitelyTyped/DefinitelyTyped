@@ -1,7 +1,5 @@
 // Usage: ts-node generate.ts
 
-/// <reference types="node" />
-
 import {get} from 'https';
 import {readdir, readFile, writeFile} from 'fs';
 import {join, extname, basename, dirname, relative} from 'path';

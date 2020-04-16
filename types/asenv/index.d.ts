@@ -3,8 +3,6 @@
 // Definitions by: Remisery <https://github.com/remisery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 export function getEnv(): string;
 
 export function isDevelopment(): boolean;

@@ -3,8 +3,6 @@
 // Definitions by: Nischit Ranganath <https://github.com/neeschit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import { EventEmitter } from 'events';
 
 export class Connection extends EventEmitter {

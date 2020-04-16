@@ -4,8 +4,6 @@
 //                 Noam Alffasy <https://github.com/noamalffasy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import { EventEmitter } from "events";
 
 export = localtunnel;

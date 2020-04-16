@@ -5,8 +5,6 @@
 //                 Tieu Philippe Khim <https://github.com/spike008t>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import { EventEmitter } from 'events';
 
 /** The callback executed by a Job */

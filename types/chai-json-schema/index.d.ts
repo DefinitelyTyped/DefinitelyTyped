@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-// <reference types="node"/>
 // <reference types="chai" />
 import tv4 = require('tv4');
 

@@ -3,7 +3,6 @@
 // Definitions by: Mike Cook <https://github.com/migstopheles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node"/>
 import * as AWS from 'aws-sdk';
 
 interface CredstashConfig {

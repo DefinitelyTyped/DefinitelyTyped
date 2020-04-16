@@ -6,8 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="node" />
-
 import { CoreOptions, RequestResponse } from "request";
 import { ReadStream } from "fs";
 

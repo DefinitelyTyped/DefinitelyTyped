@@ -6,8 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-/// <reference types="node" />
-
 export import AWS = require("aws-sdk");
 import * as joi from "joi";
 import stream = require("stream");

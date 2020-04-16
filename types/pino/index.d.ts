@@ -15,8 +15,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-/// <reference types="node"/>
-
 import stream = require('stream');
 import http = require('http');
 import { EventEmitter } from 'events';

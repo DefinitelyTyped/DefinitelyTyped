@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import * as authenticator from "authenticator";
 
 // Functions to test return type of 'function verifyToken()'

@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { Wire, WireConstructor, READY_STATE, ExistingConnectConfig, ConnectConfig, InternalConnectConfig } from './wire';
 import { Identity } from '../identity';
 import { EventEmitter } from 'events';

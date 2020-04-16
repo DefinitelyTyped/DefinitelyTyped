@@ -4,8 +4,6 @@
 //                 Dan Kerimdzhanov <https://github.com/kerimdzhanov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 export interface DotenvListFilesOptions {
     /**
      * Node environment (development/test/production/etc,.).

@@ -2,7 +2,6 @@
 // Project: https://github.com/jaxcore/bumblebee-hotword
 // Definitions by: sheunglaili <https://github.com/sheunglaili>
 // Definitions: https://github.com/DefinitelyTyped/
-/// <reference types="node" />
 
 import { EventEmitter } from "events";
 

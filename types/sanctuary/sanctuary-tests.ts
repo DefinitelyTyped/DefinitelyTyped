@@ -1,4 +1,3 @@
-/// <reference types="node"/>
 import * as S from 'sanctuary';
 
 // $ExpectType readonly (readonly number[])[] || ReadonlyArray<ReadonlyArray<number>>

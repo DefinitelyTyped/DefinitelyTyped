@@ -3,8 +3,6 @@
 // Definitions by: Igor Rogatty <https://github.com/rogatty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 export = Boom;
 
 declare namespace Boom {

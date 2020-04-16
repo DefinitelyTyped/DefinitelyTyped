@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { EventEmitter } from 'events';
 export interface Wire extends EventEmitter {
     connect(address: string): Promise<any>;

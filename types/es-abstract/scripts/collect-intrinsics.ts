@@ -1,5 +1,4 @@
 #!/usr/bin/env ts-node-script
-/// <reference types="node"/>
 import path = require('path');
 import fs = require('fs');
 

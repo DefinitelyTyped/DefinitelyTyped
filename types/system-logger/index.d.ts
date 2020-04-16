@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
 
-/// <reference types="node" />
-
 export enum level {
   error = 0,
   warn = 1,

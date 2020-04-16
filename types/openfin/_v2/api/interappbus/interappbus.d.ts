@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { EventEmitter } from 'events';
 import { Base } from '../base';
 import { Identity } from '../../identity';

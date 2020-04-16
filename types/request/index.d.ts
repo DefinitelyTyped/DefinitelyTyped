@@ -14,8 +14,6 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
 
-/// <reference types="node" />
-
 import caseless = require('caseless');
 import stream = require('stream');
 import http = require('http');

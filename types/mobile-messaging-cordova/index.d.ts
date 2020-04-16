@@ -4,8 +4,6 @@
 //                 tjuric <https://github.com/tjuric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 declare namespace MobileMessagingCordova {
     type OS = 'Android' | 'iOS';
     type Gender = 'Male' | 'Female';
