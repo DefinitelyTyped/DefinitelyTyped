@@ -462,6 +462,7 @@ declare module 'angular' {
             openFrom(from: string | Element | Event | { top: number, left: number }): IPanelAnimation;
             closeTo(to: string | Element | { top: number, left: number }): IPanelAnimation;
             withAnimation(cssClass: string | { open: string, close: string }): IPanelAnimation;
+            duration(duration: number | { open: number, close: number }): IPanelAnimation;
         }
 
         interface IPanelService {

@@ -1,11 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-duplicate-imports": {
-            "severity": "error",
-            "options": {
-                "allow-namespace-imports": true
-            }
-        }
+        "no-duplicate-imports": false
     }
 }

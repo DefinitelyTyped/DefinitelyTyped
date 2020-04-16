@@ -6,7 +6,7 @@
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 //                 Dean L. <https://github.com/dlgrit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// Minimum TypeScript Version: 3.4
 
 import * as t from "@babel/types";
 
@@ -31,6 +31,8 @@ export interface TraverseOptions<S = Node> extends Visitor<S> {
     scope?: Scope;
     noScope?: boolean;
 }
+
+export type ArrayKeys<T> = { [P in keyof T]: T[P] extends any[] ? P : never }[keyof T];
 
 export class Scope {
     constructor(path: NodePath, parentScope?: Scope);
@@ -171,6 +173,8 @@ export interface VisitNodeObject<S, P> {
     exit?: VisitNodeFunction<S, P>;
 }
 
+export type NodePaths<T extends Node | Node[]> = T extends Node[] ? { [K in keyof T]: NodePath<T[K]> } : [NodePath<T>];
+
 export class NodePath<T = Node> {
     constructor(hub: Hub, parent: Node);
     parent: Node;
@@ -272,7 +276,7 @@ export class NodePath<T = Node> {
      *  - Insert the provided nodes after the current node.
      *  - Remove the current node.
      */
-    replaceWithMultiple(nodes: Node[]): void;
+    replaceWithMultiple<Nodes extends Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     /**
      * Parse a string as an expression and replace the current node with the result.
@@ -417,13 +421,13 @@ export class NodePath<T = Node> {
 
     // ------------------------- modification -------------------------
     /** Insert the provided nodes before the current one. */
-    insertBefore(nodes: Node | Node[]): any;
+    insertBefore<Nodes extends Node | Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     /**
      * Insert the provided nodes after the current one. When inserting nodes after an
      * expression, ensure that the completion record is correct by pushing the current node.
      */
-    insertAfter(nodes: Node | Node[]): any;
+    insertAfter<Nodes extends Node | Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     /** Update all sibling node paths after `fromIndex` by `incrementBy`. */
     updateSiblingKeys(fromIndex: number, incrementBy: number): void;
@@ -433,14 +437,14 @@ export class NodePath<T = Node> {
      * @param listKey - The key at which the child nodes are stored (usually body).
      * @param nodes - the nodes to insert.
      */
-    unshiftContainer(listKey: string, nodes: Node | Node[]): void;
+    unshiftContainer<Nodes extends Node | Node[]>(listKey: ArrayKeys<T>, nodes: Nodes): NodePaths<Nodes>;
 
     /**
      * Insert child nodes at the end of the current node.
      * @param listKey - The key at which the child nodes are stored (usually body).
      * @param nodes - the nodes to insert.
      */
-    pushContainer(listKey: string, nodes: Node | Node[]): void;
+    pushContainer<Nodes extends Node | Node[]>(listKey: ArrayKeys<T>, nodes: Nodes): NodePaths<Nodes>;
 
     /** Hoist the current node to the highest scope possible and return a UID referencing it. */
     hoist(scope: Scope): void;

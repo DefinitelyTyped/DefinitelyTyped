@@ -1,6 +1,6 @@
 // Type definitions for mongoose-simple-random 0.4
 // Project: https://github.com/larryprice/mongoose-simple-random
-// Definitions by: Roberts Slisans <https://github.com/rsxdalv>
+// Definitions by: TypeScript Bot <https://github.com/typescript-bot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

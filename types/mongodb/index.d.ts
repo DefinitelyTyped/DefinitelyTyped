@@ -1,4 +1,4 @@
-// Type definitions for MongoDB 3.3
+// Type definitions for MongoDB 3.5
 // Project: https://github.com/mongodb/node-mongodb-native
 //          https://github.com/mongodb/node-mongodb-native/tree/3.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
@@ -27,6 +27,11 @@
 //                 Hossein Saniei <https://github.com/HosseinAgha>
 //                 Alberto Silva <https://github.com/albertossilva>
 //                 Rauno Viskus <https://github.com/Rauno56>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Linus Unnebäck <https://github.com/LinusU>
+//                 Richard Bateman <https://github.com/taxilian>
+//                 Igor Strebezhev <https://github.com/xamgore>
+//                 Valentin Agachi <https://github.com/avaly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -73,7 +78,7 @@ export class MongoClient extends EventEmitter {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#startSession */
     startSession(options?: SessionOptions): ClientSession;
     /** http://mongodb.github.io/node-mongodb-native/3.3/api/MongoClient.html#watch */
-    watch(pipeline?: object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
+    watch<TSchema extends object = {_id: ObjectId}>(pipeline?: object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream<TSchema>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
     withSession(operation: (session: ClientSession) => Promise<any>): Promise<void>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
@@ -223,10 +228,20 @@ export interface MongoCallback<T> {
 
 export type WithTransactionCallback<T> = (session: ClientSession) => Promise<T>;
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoError.html */
+/**
+ * Creates a new MongoError
+ * see {@link http://mongodb.github.io/node-mongodb-native/3.5/api/MongoError.html}
+ */
 export class MongoError extends Error {
-    constructor(message: string);
-    static create(options: object): MongoError;
+    constructor(message: string | Error | object);
+    /**
+     * @deprecated
+     */
+    static create(options: string | Error | object): MongoError;
+    /**
+     * Checks the error to see if it has an error label
+     */
+    hasErrorLabel(label: string): boolean;
     code?: number;
     /**
      * While not documented, the 'errmsg' prop is AFAIK the only way to find out
@@ -250,14 +265,20 @@ export class MongoError extends Error {
 }
 
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoNetworkError.html */
+/**
+ * An error indicating an issue with the network, including TCP errors and timeouts
+ * see {@link https://mongodb.github.io/node-mongodb-native/3.5/api/MongoNetworkError.html}
+ */
 export class MongoNetworkError extends MongoError {
     constructor(message: string);
     errorLabels: string[];
 }
 
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoParseError.html */
+/**
+ * An error used when attempting to parse a value (like a connection string)
+ * see {@link https://mongodb.github.io/node-mongodb-native/3.5/api/MongoParseError.html}
+ */
 export class MongoParseError extends MongoError {
     constructor(message: string);
 }
@@ -271,6 +292,7 @@ export interface MongoClientOptions extends
     ReplSetOptions,
     SocketOptions,
     SSLOptions,
+    TLSOptions,
     HighAvailabilityOptions,
     WriteConcern {
 
@@ -296,7 +318,7 @@ export interface MongoClientOptions extends
     appname?: string;
 
     /**
-     * Authentifikation credentials
+     * Authentication credentials
      */
     auth?: {
         /**
@@ -322,8 +344,15 @@ export interface MongoClientOptions extends
     useUnifiedTopology?: boolean;
 
     /**
+     * With `useUnifiedTopology`, the MongoDB driver will try to find a server to send any given operation to
+     * and keep retrying for `serverSelectionTimeoutMS` milliseconds.
+     * Default: 30000
+     */
+    serverSelectionTimeoutMS?: number;
+
+    /**
      * number of retries for a tailable cursor
-     * Default: 5
+     * @default 5
      */
     numberOfRetries?: number;
 
@@ -386,6 +415,42 @@ export interface SSLOptions {
      * String containing the server name requested via TLS SNI.
      */
     servername?: string;
+}
+
+export interface TLSOptions {
+    /**
+     * Enable TLS connections
+     * @default false
+     */
+    tls?: boolean;
+    /**
+     * Relax TLS constraints, disabling validation
+     * @default false
+     */
+    tlsInsecure?: boolean;
+    /**
+     * path to file with either a single or bundle of certificate authorities
+     * to be considered trusted when making a TLS connection
+     */
+    tlsCAFile?: string;
+    /**
+     * path to the client certificate file or the client private key file;
+     * in the case that they both are needed, the files should be concatenated
+     */
+    tlsCertificateKeyFile?: string;
+    /**
+     * The password to decrypt the client private key to be used for TLS connections
+     */
+    tlsCertificateKeyFilePassword?: string;
+    /**
+     * Specifies whether or not the driver should error when the server’s TLS certificate is invalid
+     */
+    tlsAllowInvalidCertificates?: boolean;
+    /**
+     * Specifies whether or not the driver should error when there is a mismatch between the server’s hostname
+     * and the hostname specified by the TLS certificate
+     */
+    tlsAllowInvalidHostnames?: boolean;
 }
 
 export interface HighAvailabilityOptions {
@@ -534,22 +599,22 @@ export interface ServerOptions extends SSLOptions {
      * the MongoDB driver will try to reconnect every reconnectInterval milliseconds for reconnectTries
      * times, and give up afterward. When the driver gives up, the mongoose connection emits a
      * reconnectFailed event.
-     * Default: 30
+     * @default 30
      */
     reconnectTries?: number;
     /**
      * Will wait # milliseconds between retries
-     * Default: 1000;
+     * @default 1000
      */
     reconnectInterval?: number;
     /**
-     * Default: true;
+     * @default true
      */
     monitoring?: boolean;
 
     /**
      * Enable command monitoring for this client
-     * Default: false
+     * @default false
      */
     monitorCommands?: boolean;
 
@@ -559,17 +624,18 @@ export interface ServerOptions extends SSLOptions {
     socketOptions?: SocketOptions;
 
     /**
-     * Default: 10000; The High availability period for replicaset inquiry
+     * The High availability period for replicaset inquiry
+     * @default 10000
      */
     haInterval?: number;
     /**
-     * Default: false;
+     * @default false
      */
     domainsEnabled?: boolean;
 
     /**
      * Specify a file sync write concern
-     * Default: false
+     * @default false
      */
     fsync?: boolean;
 }
@@ -685,7 +751,7 @@ export class Db extends EventEmitter {
     stats(options?: { scale?: number }): Promise<any>;
     stats(options: { scale?: number }, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.3/api/Db.html#watch */
-    watch(pipeline?: object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream;
+    watch<TSchema extends object = {_id: ObjectId}>(pipeline?: object[], options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream<TSchema>;
 }
 
 export interface CommonOptions extends WriteConcern {
@@ -875,8 +941,8 @@ type EnhancedOmit<T, K> =
 type ExtractIdType<TSchema> =
     TSchema extends { _id: infer U } // user has defined a type for _id
     ? {} extends U ? Exclude<U, {}> :
-      unknown extends U ? ObjectId : U
-    : ObjectId; // user has not defined _id on schema
+    unknown extends U ? ObjectId : U
+     : ObjectId; // user has not defined _id on schema
 
 // this makes _id optional
 type OptionalId<TSchema extends { _id?: any }> =
@@ -1154,16 +1220,16 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch */
-    watch(
+    watch<T = TSchema>(
         pipeline?: object[],
         options?: ChangeStreamOptions & { session?: ClientSession },
-    ): ChangeStream;
+    ): ChangeStream<T>;
 }
 
 /** Update Query */
-type KeysOfAType<TSchema, Type> = { [key in keyof TSchema]: TSchema[key] extends Type ? key : never }[keyof TSchema];
+type KeysOfAType<TSchema, Type> = { [key in keyof TSchema]: NonNullable<TSchema[key]> extends Type ? key : never }[keyof TSchema];
 type KeysOfOtherType<TSchema, Type> = {
-    [key in keyof TSchema]: TSchema[key] extends Type ? never : key;
+    [key in keyof TSchema]: NonNullable<TSchema[key]> extends Type ? never : key;
 }[keyof TSchema];
 
 type AcceptedFields<TSchema, FieldType, AssignableType> = {
@@ -1240,14 +1306,14 @@ export type PullAllOperator<TSchema> = ({
 export type UpdateQuery<TSchema> = {
     /** https://docs.mongodb.com/manual/reference/operator/update-field/ */
     $currentDate?: OnlyFieldsOfType<TSchema, Date, true | { $type: 'date' | 'timestamp' }>;
-    $inc?: OnlyFieldsOfType<TSchema, number>;
+    $inc?: OnlyFieldsOfType<TSchema, number | undefined>;
     $min?: MatchKeysAndValues<TSchema>;
     $max?: MatchKeysAndValues<TSchema>;
-    $mul?: OnlyFieldsOfType<TSchema, number>;
+    $mul?: OnlyFieldsOfType<TSchema, number | undefined>;
     $rename?: { [key: string]: string };
     $set?: MatchKeysAndValues<TSchema>;
     $setOnInsert?: MatchKeysAndValues<TSchema>;
-    $unset?: OnlyFieldsOfType<TSchema, any, ''>;
+    $unset?: OnlyFieldsOfType<TSchema, any, '' | 1 | true>;
 
     /** https://docs.mongodb.com/manual/reference/operator/update-array/ */
     $addToSet?: SetFields<TSchema>;
@@ -1787,24 +1853,78 @@ export interface BulkWriteResultUpsertedIdObject {
     _id: ObjectId;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/BulkWriteResult.html */
+/** http://mongodb.github.io/node-mongodb-native/3.5/api/BulkWriteResult.html */
 export interface BulkWriteResult {
-    ok: number;
+    /**
+     * Evaluates to `true` if the bulk operation correctly executes
+     */
+    ok: boolean;
+
+    /**
+     * The number of documents inserted, excluding upserted documents.
+     *
+     * @see {@link nUpserted} for the number of documents inserted through an upsert.
+     */
     nInserted: number;
-    nUpdated: number;
-    nUpserted: number;
+
+    /**
+     * The number of documents selected for update.
+     *
+     * If the update operation results in no change to the document,
+     * e.g. `$set` expression updates the value to the current value,
+     * {@link nMatched} can be greater than {@link nModified}.
+     */
+    nMatched: number;
+
+    /**
+     * The number of existing documents updated.
+     *
+     * If the update/replacement operation results in no change to the document,
+     * such as setting the value of the field to its current value,
+     * {@link nModified} can be less than {@link nMatched}
+     */
     nModified: number;
+
+    /**
+     * The number of documents inserted by an
+     * [upsert]{@link https://docs.mongodb.com/manual/reference/method/db.collection.update/#upsert-parameter}.
+     */
+    nUpserted: number;
+
+    /**
+     * The number of documents removed.
+     */
     nRemoved: number;
 
+    // Returns an array of all inserted ids
     getInsertedIds(): object[];
+    // Retrieve lastOp if available
     getLastOp(): object;
+    // Returns raw internal result
     getRawResponse(): object;
+
+    /**
+     * Returns the upserted id at the given index
+     * @param index the number of the upserted id to return, returns `undefined` if no result for passed in index
+     */
     getUpsertedIdAt(index: number): BulkWriteResultUpsertedIdObject;
+
+    // Returns an array of all upserted ids
     getUpsertedIds(): BulkWriteResultUpsertedIdObject[];
+    // Retrieve the write concern error if any
     getWriteConcernError(): WriteConcernError;
+
+    /**
+     * Returns a specific write error object
+     * @param index of the write error to return, returns `null` if there is no result for passed in index
+     */
     getWriteErrorAt(index: number): WriteError;
+
+    // Returns the number of write errors off the bulk operation
     getWriteErrorCount(): number;
+    // Retrieve all write errors
     getWriteErrors(): object[];
+    // Returns `true` if the bulk operation contains a write error
     hasWriteErrors(): boolean;
 }
 
@@ -2288,11 +2408,66 @@ export interface GridFSBucketWriteStreamOptions extends WriteConcern {
     disableMD5?: boolean;
 }
 
+/**
+ * This is similar to Parameters but will work with a type which is
+ * a function or with a tuple specifying arguments, which are both
+ * common ways to define eventemitter events
+ */
+type EventArguments<T> = [T] extends [(...args: infer U) => any]
+  ? U
+  : [T] extends [undefined] ? [] : [T];
+
+/**
+ * Type-safe event emitter from https://github.com/andywer/typed-emitter.
+ *
+ * Use it like this:
+ *
+ * interface MyEvents {
+ *   error: (error: Error) => void
+ *   message: (from: string, content: string) => void
+ * }
+ *
+ * const myEmitter = new EventEmitter() as TypedEmitter<MyEvents>
+ *
+ * myEmitter.on("message", (from, content) => {
+ *   // ...
+ * })
+ *
+ * myEmitter.emit("error", "x")  // <- Will catch this type error
+ */
+declare class TypedEventEmitter<Events> {
+    addListener<E extends keyof Events> (event: E, listener: Events[E]): this;
+    on<E extends keyof Events> (event: E, listener: Events[E]): this;
+    once<E extends keyof Events> (event: E, listener: Events[E]): this;
+    prependListener<E extends keyof Events> (event: E, listener: Events[E]): this;
+    prependOnceListener<E extends keyof Events> (event: E, listener: Events[E]): this;
+
+    off<E extends keyof Events>(event: E, listener: Events[E]): this;
+    removeAllListeners<E extends keyof Events> (event?: E): this;
+    removeListener<E extends keyof Events> (event: E, listener: Events[E]): this;
+
+    emit<E extends keyof Events> (event: E, ...args: EventArguments<Events[E]>): boolean;
+    eventNames (): Array<keyof Events>;
+    listeners<E extends keyof Events> (event: E): Function[];
+    listenerCount<E extends keyof Events> (event: E): number;
+
+    getMaxListeners (): number;
+    setMaxListeners (maxListeners: number): this;
+}
+
+interface ChangeStreamEvents<TSchema extends { [key: string]: any } = DefaultSchema> {
+    change: (doc: ChangeEvent<TSchema>) => void;
+    close: () => void;
+    end: () => void;
+    error: (err: MongoError) => void;
+    resumeTokenChanged: (newToken: ResumeToken) => void;
+}
+
 /** http://mongodb.github.io/node-mongodb-native/3.3/api/ChangeStream.html */
-export class ChangeStream extends Readable {
+export class ChangeStream<TSchema extends { [key: string]: any } = DefaultSchema> extends TypedEventEmitter<ChangeStreamEvents<TSchema>> {
     resumeToken: ResumeToken;
 
-    constructor(changeDomain: Db | Collection, pipeline: object[], options?: ChangeStreamOptions);
+    constructor(parent: MongoClient | Db | Collection, pipeline: object[], options?: ChangeStreamOptions);
 
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html#close */
     close(): Promise<any>;
@@ -2315,12 +2490,82 @@ export class ChangeStream extends Readable {
 
 export class ResumeToken {}
 
+export type ChangeEventTypes = 'insert' | 'delete' | 'replace' | 'update' | 'drop' | 'rename' | 'dropDatabase' | 'invalidate';
+export interface ChangeEventBase<TSchema extends { [key: string]: any } = DefaultSchema> {
+    _id: ResumeToken;
+    /**
+     * We leave this off the base type so that we can differentiate
+     * by checking its value and get intelligent types on the other fields
+     */
+    // operationType: ChangeEventTypes;
+    ns: {
+        db: string;
+        coll: string;
+    };
+    clusterTime: Timestamp;
+    txnNumber?: number;
+    lsid?: {
+        "id": any;
+        "uid": any;
+    };
+}
+export interface ChangeEventCR<TSchema extends { [key: string]: any } = DefaultSchema> extends ChangeEventBase<TSchema> {
+    operationType: 'insert' | 'replace';
+    fullDocument?: TSchema;
+    documentKey: {
+        _id: ExtractIdType<TSchema>;
+    };
+}
+type FieldUpdates<TSchema> = Partial<TSchema> & {[key: string]: any};
+export interface ChangeEventUpdate<TSchema extends { [key: string]: any } = DefaultSchema> extends ChangeEventBase<TSchema> {
+    operationType: 'update';
+    updateDescription: {
+        /**
+         * This is an object with all changed fields; if they are nested,
+         * the keys will be paths, e.g. 'question.answer.0.text': 'new text'
+         */
+        updatedFields: FieldUpdates<TSchema>;
+        removedFields: Array<keyof TSchema | string>;
+    };
+    fullDocument?: TSchema;
+    documentKey: {
+        _id: ExtractIdType<TSchema>;
+    };
+}
+export interface ChangeEventDelete<TSchema extends { [key: string]: any } = DefaultSchema> extends ChangeEventBase<TSchema> {
+    operationType: 'delete';
+    documentKey: {
+        _id: ExtractIdType<TSchema>;
+    };
+}
+export interface ChangeEventRename<TSchema extends { [key: string]: any } = DefaultSchema> extends ChangeEventBase<TSchema> {
+    operationType: 'rename';
+    to: {
+        db: string;
+        coll: string;
+    };
+}
+
+export interface ChangeEventOther<TSchema extends { [key: string]: any } = DefaultSchema> extends ChangeEventBase<TSchema> {
+    operationType: 'drop' | 'dropDatabase';
+}
+
+export interface ChangeEventInvalidate<TSchema extends { [key: string]: any } = DefaultSchema> {
+    _id: ResumeToken;
+    operationType: 'invalidate';
+    clusterTime: Timestamp;
+}
+
+export type ChangeEvent<TSchema extends object = {_id: ObjectId}> =
+    ChangeEventCR<TSchema> | ChangeEventUpdate<TSchema> | ChangeEventDelete<TSchema>
+    | ChangeEventRename<TSchema> | ChangeEventOther<TSchema> | ChangeEventInvalidate<TSchema>;
+
 /** https://mongodb.github.io/node-mongodb-native/3.3/api/global.html#ChangeStreamOptions */
 export interface ChangeStreamOptions {
-    fullDocument?: string;
+    fullDocument?: 'default' | 'updateLookup';
     maxAwaitTimeMS?: number;
-    resumeAfter?: object;
-    startAfter?: object;
+    resumeAfter?: ResumeToken;
+    startAfter?: ResumeToken;
     startAtOperationTime?: Timestamp;
     batchSize?: number;
     collation?: CollationDocument;

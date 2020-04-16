@@ -13,6 +13,8 @@
 //                 Krishna Pravin <https://github.com/KrishnaPravin>
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Austin Turner <https://github.com/paustint>
+//                 Kevin Soltysiak <https://github.com/ksol>
+//                 Kohei Matsubara <https://github.com/matsuby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -25,7 +27,7 @@ declare namespace stripe {
 
     interface Stripe {
         elements(options?: elements.ElementsCreateOptions): elements.Elements;
-        createToken(element: elements.Element, options?: TokenOptions): Promise<TokenResponse>;
+        createToken(element: elements.Element, options?: TokenOptions | BankAccountTokenOptions): Promise<TokenResponse>;
         createToken(name: 'bank_account', options: BankAccountTokenOptions): Promise<TokenResponse>;
         createToken(name: 'pii', options: PiiTokenOptions): Promise<TokenResponse>;
         createSource(element: elements.Element, options?: { owner?: OwnerInfo }): Promise<SourceResponse>;
@@ -180,6 +182,34 @@ declare namespace stripe {
         phone?: string;
     }
 
+    interface OfflineAcceptanceMandate {
+        contact_email: string;
+    }
+
+    interface OnlineAcceptanceMandate {
+        date: number;
+        ip: string;
+        user_agent: string;
+    }
+
+    interface SourceMandateAcceptance {
+        date: number;
+        status: 'accepted' | 'refused';
+        ip?: string;
+        offline?: OfflineAcceptanceMandate;
+        online?: OnlineAcceptanceMandate;
+        type?: 'online'| 'offline';
+        user_agent?: string;
+    }
+
+    interface SourceMandate {
+        acceptance?: SourceMandateAcceptance;
+        amount?: number;
+        currency?: string;
+        interval?: 'one_time' | 'scheduled' | 'variable';
+        notification_method?: 'email' | 'manual' | 'none';
+    }
+
     interface SourceOptions {
         type: string;
         flow?: 'redirect' | 'receiver' | 'code_verification' | 'none';
@@ -189,6 +219,7 @@ declare namespace stripe {
         currency?: string;
         amount?: number;
         owner?: OwnerInfo;
+        mandate?: SourceMandate;
         metadata?: {};
         statement_descriptor?: string;
         redirect?: {
@@ -266,7 +297,8 @@ declare namespace stripe {
         | 'card_error'
         | 'idempotency_error'
         | 'invalid_request_error'
-        | 'rate_limit_error';
+        | 'rate_limit_error'
+        | 'validation_error';
 
     interface Error {
         /**

@@ -15,6 +15,7 @@ function test_Notify_constructor() {
         icon: "./logo.png",
         tag: "user",
         timeout: 2,
+        silent: false,
         notifyShow: (e: Event) => console.log("notifyShow", e),
         notifyClose: () => console.log("notifyClose"),
         notifyClick: () => console.log("notifyClick"),

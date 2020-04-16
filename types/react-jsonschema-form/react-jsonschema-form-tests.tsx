@@ -9,6 +9,8 @@ import Form, {
     FieldTemplateProps,
     ArrayFieldTemplateProps,
     ObjectFieldTemplateProps,
+    IdSchema,
+    PathSchema,
 } from 'react-jsonschema-form';
 import SchemaField, { SchemaFieldProps } from 'react-jsonschema-form/lib/components/fields/SchemaField';
 import { JSONSchema6 } from 'json-schema';
@@ -270,3 +272,21 @@ const TestForm = (props: React.ComponentProps<'form'>) => <form {...props} />;
 export const customTagNameUsingComponent = (schema: JSONSchema6) => {
     return <Form schema={schema} tagName={TestForm} />;
 };
+  
+const idSchema: IdSchema<{ test: {} }> = {
+    $id: 'test',
+    test: {
+        $id: 'test',
+    },
+};
+void idSchema.$id;
+void idSchema.test.$id;
+
+const pathSchema: PathSchema<{ test: {} }> = {
+    $name: 'test',
+    test: {
+        $name: 'test',
+    },
+};
+void pathSchema.$name;
+void pathSchema.test.$name;

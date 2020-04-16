@@ -29,6 +29,7 @@ import * as Keygrip from "keygrip";
 import * as compose from "koa-compose";
 import { Socket, ListenOptions } from "net";
 import * as url from "url";
+import * as contentDisposition from "content-disposition";
 
 declare interface ContextDelegatedRequest {
     /**
@@ -278,10 +279,11 @@ declare interface ContextDelegatedRequest {
     is(types: string[]): string | boolean;
 
     /**
-     * Return request header.
+     * Return request header. If the header is not set, will return an empty
+     * string.
      *
-     * The `Referrer` header field is special-cased,
-     * both `Referrer` and `Referer` are interchangeable.
+     * The `Referrer` header field is special-cased, both `Referrer` and
+     * `Referer` are interchangeable.
      *
      * Examples:
      *
@@ -292,7 +294,7 @@ declare interface ContextDelegatedRequest {
      *     // => "text/plain"
      *
      *     this.get('Something');
-     *     // => undefined
+     *     // => ''
      */
     get(field: string): string;
 }
@@ -346,9 +348,10 @@ declare interface ContextDelegatedResponse {
     redirect(url: string, alt?: string): void;
 
     /**
-     * Set Content-Disposition header to "attachment" with optional `filename`.
+     * Set Content-Disposition to "attachment" to signal the client to prompt for download.
+     * Optionally specify the filename of the download and some options.
      */
-    attachment(filename: string): void;
+    attachment(filename?: string, options?: contentDisposition.Options): void;
 
     /**
      * Return the response mime type void of
@@ -512,7 +515,7 @@ declare class Application<
      * Return a request handler callback
      * for node's native http/http2 server.
      */
-    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void;
+    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => Promise<void>;
 
     /**
      * Initialize a new context.
@@ -615,7 +618,11 @@ declare namespace Application {
         is(types: string[]): string;
 
         /**
-         * Return response header.
+         * Return response header. If the header is not set, will return an empty
+         * string.
+         *
+         * The `Referrer` header field is special-cased, both `Referrer` and
+         * `Referer` are interchangeable.
          *
          * Examples:
          *
@@ -624,6 +631,9 @@ declare namespace Application {
          *
          *     this.get('content-type');
          *     // => "text/plain"
+         *
+         *     this.get('Something');
+         *     // => ''
          */
         get(field: string): string;
 

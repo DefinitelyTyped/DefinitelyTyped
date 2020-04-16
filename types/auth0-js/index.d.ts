@@ -5,6 +5,7 @@
 //                 Peter Blazejewicz <https://github.com/peterblazejewicz>
 //                 Bartosz Kotrys <https://github.com/bkotrys>
 //                 Mark Nelissen <https://github.com/marknelissen>
+//                 Tyler Lindell <https://github.com/tylerlindell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace auth0;
@@ -950,6 +951,7 @@ export interface AuthorizeOptions {
     accessType?: string;
     approvalPrompt?: string;
     appState?: any;
+    connection_scope?: string | string[];
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {

@@ -475,6 +475,12 @@
             "asOfVersion": "3.5.0"
         },
         {
+            "libraryName": "@catho/quantum",
+            "typingsPackageName": "catho__quantum",
+            "sourceRepoURL": "https://github.com/catho/quantum",
+            "asOfVersion": "3.9.0"
+        },
+        {
             "libraryName": "chai-http",
             "typingsPackageName": "chai-http",
             "sourceRepoURL": "https://github.com/chaijs/chai-http",
@@ -559,6 +565,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "cloudevents-sdk",
+            "typingsPackageName": "cloudevents-sdk",
+            "sourceRepoURL": "https://github.com/cloudevents/sdk-javascript",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "colors.js (colors)",
             "typingsPackageName": "colors",
             "sourceRepoURL": "https://github.com/Marak/colors.js",
@@ -605,6 +617,12 @@
             "typingsPackageName": "confirmdialog",
             "sourceRepoURL": "https://github.com/allipierre/Type-definitions-for-jquery-confirm/tree/master/types/confirmDialog-js",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "connect-mongo",
+            "typingsPackageName": "connect-mongo",
+            "sourceRepoURL": "https://github.com/jdesboeufs/connect-mongo",
+            "asOfVersion": "3.1.1"
         },
         {
             "libraryName": "consola",
@@ -970,6 +988,12 @@
             "libraryName": "document-promises",
             "typingsPackageName": "document-promises",
             "sourceRepoURL": "https://github.com/jonathantneal/document-promises#readme",
+            "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "docx-templates",
+            "typingsPackageName": "docx-templates",
+            "sourceRepoURL": "https://github.com/guigrpa/docx-templates",
             "asOfVersion": "4.0.0"
         },
         {
@@ -1345,6 +1369,12 @@
             "asOfVersion": "2.2.1"
         },
         {
+            "libraryName": "@types/facebook-js-sdk",
+            "typingsPackageName": "fb",
+            "sourceRepoURL": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+            "asOfVersion": "0.0.28"
+        },
+        {
             "libraryName": "fecha",
             "typingsPackageName": "fecha",
             "sourceRepoURL": "https://github.com/taylorhakes/fecha",
@@ -1649,6 +1679,12 @@
             "typingsPackageName": "griddle-react",
             "sourceRepoURL": "https://github.com/griddlegriddle/griddle",
             "asOfVersion": "1.3.0"
+        },
+        {
+            "libraryName": "gridstack",
+            "typingsPackageName": "gridstack",
+            "sourceRepoURL": "https://github.com/gridstack/gridstack.js",
+            "asOfVersion": "0.5.2"
         },
         {
             "libraryName": "gulp-pug",
@@ -3781,12 +3817,6 @@
             "asOfVersion": "2.4.0"
         },
         {
-            "libraryName": "rdflib",
-            "typingsPackageName": "rdflib",
-            "sourceRepoURL": "http://github.com/linkeddata/rdflib.js",
-            "asOfVersion": "1.0.5"
-        },
-        {
             "libraryName": "re2",
             "typingsPackageName": "re2",
             "sourceRepoURL": "https://github.com/uhop/node-re2",
@@ -4013,6 +4043,12 @@
             "typingsPackageName": "react-native-permissions",
             "sourceRepoURL": "https://github.com/yonahforst/react-native-permissions",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "react-native-responsive-dimensions",
+            "typingsPackageName": "react-native-responsive-dimensions",
+            "sourceRepoURL": "https://github.com/DaniAkash/react-native-responsive-dimensions",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "react-native-safe-area",
@@ -4997,6 +5033,12 @@
             "typingsPackageName": "text-clipper",
             "sourceRepoURL": "https://github.com/arendjr/text-clipper",
             "asOfVersion": "1.3.0"
+        },
+        {
+            "libraryName": "theme-ui",
+            "typingsPackageName": "theme-ui__color",
+            "sourceRepoURL": "https://github.com/system-ui/theme-ui",
+            "asOfVersion": "0.3.1"
         },
         {
             "libraryName": "theming",

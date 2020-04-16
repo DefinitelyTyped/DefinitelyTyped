@@ -20,8 +20,10 @@
 //                  Bui Tan Loc <https://github.com/buitanloc>
 //                  Linus Unnebäck <https://github.com/LinusU>
 //                  Patrick O'Sullivan <https://github.com/REPTILEHAUS>
+//                  Jerome De Leon <https://github.com/JeromeDeLeon>
+//                  Kent Robin Haugen <https://github.com/kentrh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 3.5
 
 /// <reference types="node" />
 /// <reference path="node.d.ts" />
@@ -96,6 +98,8 @@ namespace Parse {
     let serverAuthToken: string | undefined;
     let serverAuthType: string | undefined;
     let serverURL: string;
+    let secret: string;
+    let encryptedUser: boolean;
 
     interface BatchSizeOption {
         batchSize?: number;
@@ -175,6 +179,29 @@ namespace Parse {
 
     interface AuthData {
         [key: string]: any;
+    }
+
+    /**
+     * Interface declaration for Authentication Providers
+     * https://parseplatform.org/Parse-SDK-JS/api/master/AuthProvider.html
+     */
+    interface AuthProvider {
+        /**
+         * Called when _linkWith isn't passed authData. Handle your own authentication here.
+         */
+        authenticate: () => void;
+        /**
+         * (Optional) Called when service is unlinked. Handle any cleanup here.
+         */
+        deauthenticate?: () => void;
+        /**
+         * Unique identifier for this Auth Provider.
+         */
+        getAuthType: () => string;
+        /**
+         * Called when auth data is syncronized. Can be used to determine if authData is still valid
+         */
+        restoreAuthentication: () => boolean;
     }
 
     interface BaseAttributes {
@@ -505,7 +532,7 @@ namespace Parse {
                         : T extends RegExp
                             ? string
                             : T extends Array<infer R>
-                                ? Array<Encode<R>>
+                                ? any[]
                                 : T extends object
                                     ? ToJSON<T>
                                     : T
@@ -630,7 +657,7 @@ namespace Parse {
             X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         doesNotMatchQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
         distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V>;
-        each(callback: Function, options?: Query.EachOptions): Promise<void>;
+        each(callback: (obj: T) => PromiseLike<void> | void, options?: Query.EachOptions): Promise<void>;
         endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
         equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K] | (T['attributes'][K] extends Object ? Pointer : never)): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
@@ -847,8 +874,10 @@ namespace Parse {
         setPassword(password: string, options?: SuccessFailureOptions): boolean;
         getSessionToken(): string;
 
-        linkWith(user: User, authData: AuthData, options: FullOptions): Promise<User>;
-        _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
+        linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
+        _linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
+        _isLinked: (provider: string | AuthProvider) => boolean;
+        _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
     }
     interface UserConstructor extends ObjectStatic {
         new <T extends Attributes>(attributes: T): User<T>;
@@ -865,6 +894,8 @@ namespace Parse {
         extend(protoProps?: any, classProps?: any): any;
         hydrate<T extends User>(userJSON: any): Promise<T>;
         enableUnsafeCurrentUser(): void;
+        logInWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<User>;
+        _registerAuthenticationProvider: (provider: AuthProvider) => void;
     }
     const User: UserConstructor;
 
@@ -1349,7 +1380,7 @@ namespace Parse {
     namespace CoreManager {
         function set(key: string, value: any): void;
         function get(key: string): void;
-      }
+    }
 
     /**
      * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
@@ -1374,6 +1405,24 @@ namespace Parse {
     function isLocalDatastoreEnabled(): boolean;
 
     function setLocalDatastoreController(controller: any): void;
+
+    /**
+     * Call this method to set your LocalDatastoreStorage engine
+     * If using React-Native use {@link Parse.setAsyncStorage Parse.setAsyncStorage()}
+     * @param controller a data storage.
+     */
+    function setLocalDatastoreController(controller: any): void;
+
+    /**
+     * Enable the current user encryption.
+     * This must be called before login any user.
+     */
+    function enableEncryptedUser(): void;
+
+    /**
+     * Flag that indicates whether Encrypted User is enabled.
+     */
+    function isEncryptedUserEnabled(): boolean;
 }
 }
 

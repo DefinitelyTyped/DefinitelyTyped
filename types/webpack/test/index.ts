@@ -315,6 +315,18 @@ configuration = {
         mainTemplate.hooks.localVars.tap('SomePlugin', resource => {
           return resource.trimLeft();
         });
+        mainTemplate.hooks.afterStartup.tap('SomePlugin', (resource, chunk) => {
+            if (chunk.name) {
+                return `/* In named chunk: ${chunk.name} */ ${resource};`;
+            } else {
+                return resource;
+            }
+        });
+        mainTemplate.hooks.hashForChunk.tap('SomePlugin', (hash, chunk) => {
+            if (chunk.name) {
+                hash.update(chunk.name);
+            }
+        });
         if (mainTemplate.hooks.jsonpScript == null) {
           return;
         }
@@ -421,8 +433,11 @@ plugin = new webpack.optimize.UglifyJsPlugin({
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
-        warnings: false
-    }
+        dead_code: true,
+        collapse_vars: true,
+        drop_debugger: true,
+    },
+    warnings: false,
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     sourceMap: false,
@@ -445,7 +460,32 @@ plugin = new webpack.DefinePlugin({
     VERSION: JSON.stringify("5fa3b9"),
     BROWSER_SUPPORTS_HTML5: true,
     TWO: "1+1",
-    "typeof window": JSON.stringify("object")
+    "typeof window": JSON.stringify("object"),
+    OBJECT: {
+        foo: "bar",
+        bar: {
+            DEEP_RUNTIME: webpack.DefinePlugin.runtimeValue(
+                () => JSON.stringify("DEEP_RUUNTIME")
+            ),
+            foofoo: {
+                barbar: false
+            }
+        }
+    },
+    RUNTIME: webpack.DefinePlugin.runtimeValue(
+        () => JSON.stringify("TEST_VALUE")
+    )
+});
+plugin = new webpack.DefinePlugin({
+    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+        ({ module }) => JSON.stringify(module.context)
+    )
+});
+plugin = new webpack.DefinePlugin({
+    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+        () => JSON.stringify("TEST_VALUE"),
+        ["value.txt"]
+    )
 });
 plugin = new webpack.ProvidePlugin(definitions);
 plugin = new webpack.ProvidePlugin({
@@ -483,6 +523,8 @@ plugin = new webpack.EnvironmentPlugin(['a', 'b']);
 plugin = new webpack.EnvironmentPlugin({ a: true, b: 'c' });
 plugin = new webpack.ProgressPlugin((percent: number, message: string) => { });
 plugin = new webpack.ProgressPlugin((percent: number, message: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => { });
+plugin = new webpack.ProgressPlugin({ profile: true });
+plugin = new webpack.ProgressPlugin({ activeModules: true, entries: false });
 plugin = new webpack.HashedModuleIdsPlugin();
 plugin = new webpack.HashedModuleIdsPlugin({
     hashFunction: 'sha256',
@@ -555,6 +597,7 @@ webpack({
         cached: true,
         children: true,
         chunks: true,
+        chunkGroups: true,
         chunkModules: true,
         chunkOrigins: true,
         chunksSort: "field",
@@ -875,6 +918,62 @@ class BannerPlugin extends webpack.Plugin {
                     for (const file of chunk.files) {
                         compilation.getPath("", {});
                     }
+                }
+            });
+        });
+    }
+}
+
+class DefinePlugin extends webpack.Plugin {
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap(
+            "DefinePlugin",
+            (compilation, { normalModuleFactory }) => {
+                normalModuleFactory.hooks.parser
+                    .for("javascript/auto")
+                    .tap("DefinePlugin", (parser) => {
+                        parser.hooks.evaluateIdentifier
+                            .for("TEST")
+                            .tap("DefinePlugin", () => {});
+                    });
+            }
+        );
+    }
+}
+
+class ChunkGroupTestPlugin extends webpack.Plugin {
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap("ChunkGroupTestPlugin", compilation  => {
+            const namedChunkGroupA = compilation.addChunkInGroup('vendors-a');
+            const namedChunkGroupB = compilation.addChunkInGroup({ name: 'vendors-b' });
+            const unnamedChunkGroup = compilation.addChunkInGroup({});
+            if (namedChunkGroupA.getNumberOfChildren() > 0) {
+                for (const chunk of namedChunkGroupA.chunks) {}
+            }
+            Array.from(namedChunkGroupA.childrenIterable).forEach(childGroup => {
+                namedChunkGroupA.removeChild(childGroup);
+                namedChunkGroupA.addChild(childGroup);
+            });
+            Array.from(namedChunkGroupA.parentsIterable).forEach(parentGroup => {});
+            namedChunkGroupA.setParents([namedChunkGroupB]);
+            namedChunkGroupA.setParents(new Set([unnamedChunkGroup]));
+            compilation.hooks.optimizeModules.tap("ChunkGroupTestPlugin", modules => {
+                for (const module of modules) {
+                    const group = compilation.addChunkInGroup('module', module, { start: { line: 0 } }, 'module.js');
+                    if (module.index) {
+                        group.setModuleIndex(module, module.index);
+                    }
+                    if (module.index2) {
+                        group.setModuleIndex2(module, module.index2);
+                    }
+                    console.log(group.getModuleIndex(module), group.getModuleIndex2(module));
+                    break;
+                }
+            });
+            compilation.hooks.optimizeChunks.tap("ChunkGroupTestPlugin", chunks => {
+                const firstChunk = chunks[0];
+                for (const groupChunk of namedChunkGroupA.chunks) {
+                    namedChunkGroupA.insertChunk(firstChunk, groupChunk);
                 }
             });
         });

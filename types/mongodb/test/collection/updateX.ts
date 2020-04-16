@@ -17,6 +17,7 @@ async function run() {
     interface TestModel {
         stringField: string;
         numberField: number;
+        optionalNumberField?: number;
         dateField: Date;
         otherDateField: Date;
         oneMoreDateField: Date;
@@ -44,6 +45,7 @@ async function run() {
     // buildUpdateQuery({ $currentDate: { stringField: true } }); // stringField is not a date Field
 
     buildUpdateQuery({ $inc: { numberField: 1 } });
+    buildUpdateQuery({ $inc: { optionalNumberField: 1 } });
     buildUpdateQuery({ $inc: { 'dot.notation': 2 } });
     buildUpdateQuery({ $inc: { 'subInterfaceArray.$': -10 } });
     buildUpdateQuery({ $inc: { 'subInterfaceArray.$[bla]': 40 } });
@@ -68,6 +70,7 @@ async function run() {
     // buildUpdateQuery({ $min: { numberField: 'a' } }); // Matches the type of the keys
 
     buildUpdateQuery({ $mul: { numberField: 1 } });
+    buildUpdateQuery({ $mul: { optionalNumberField: 1 } });
     buildUpdateQuery({ $mul: { 'dot.notation': 2 } });
     buildUpdateQuery({ $mul: { 'subInterfaceArray.$': -10 } });
     buildUpdateQuery({ $mul: { 'subInterfaceArray.$[bla]': 40 } });
@@ -94,6 +97,13 @@ async function run() {
     buildUpdateQuery({ $unset: { 'subInterfaceArray.$[bla]': '' } });
     buildUpdateQuery({ $unset: { 'subInterfaceArray.$[]': '' } });
 
+    buildUpdateQuery({ $unset: { numberField: 1 } });
+    buildUpdateQuery({ $unset: { dateField: 1 } });
+    buildUpdateQuery({ $unset: { 'dot.notation': 1 } });
+    buildUpdateQuery({ $unset: { 'subInterfaceArray.$': 1 } });
+    buildUpdateQuery({ $unset: { 'subInterfaceArray.$[bla]': 1 } });
+    buildUpdateQuery({ $unset: { 'subInterfaceArray.$[]': 1 } });
+
     buildUpdateQuery({ $rename: { numberField2: 'stringField' } });
 
     buildUpdateQuery({ $addToSet: { fruitTags: 'stringField' } });
@@ -109,6 +119,7 @@ async function run() {
 
     buildUpdateQuery({ $pull: { fruitTags: 'a' } });
     buildUpdateQuery({ $pull: { fruitTags: { $in: ['a'] } } });
+    buildUpdateQuery({ $pull: { maybeFruitTags: 'apple' } });
     buildUpdateQuery({ $pull: { 'dot.notation': 1 } });
     buildUpdateQuery({ $pull: { 'subInterfaceArray.$[]': { $in: ['a'] } } });
     buildUpdateQuery({ $pull: { subInterfaceArray: { field1: 'a' } }});
@@ -121,6 +132,7 @@ async function run() {
     buildUpdateQuery({ $push: { fruitTags: { $each: ['a'], $sort: 1 } } });
     buildUpdateQuery({ $push: { fruitTags: { $each: ['a'], $sort: -1 } } });
     buildUpdateQuery({ $push: { fruitTags: { $each: ['a'], $sort: { 'sub.field': -1 } } } });
+    buildUpdateQuery({ $push: { maybeFruitTags: 'apple' } });
     // buildUpdateQuery({ $push: { fruitTags: { $each: ['stringField'] } } });
     // buildUpdateQuery({ $push: { 'dot.notation': 1 } });
     // buildUpdateQuery({ $push: { 'subInterfaceArray.$[]': { $in: ['a'] } } });

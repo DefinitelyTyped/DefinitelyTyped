@@ -1,4 +1,4 @@
-// Type definitions for Jest 25.1
+// Type definitions for Jest 25.2
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -26,8 +26,10 @@
 //                 Tony Hallett <https://github.com/tonyhallett>
 //                 Jason Yu <https://github.com/ycmjason>
 //                 Devansh Jethmalani <https://github.com/devanshj>
+//                 Pawel Fajfer <https://github.com/pawfa>
+//                 Regev Brody <https://github.com/regevbr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -283,6 +285,12 @@ declare namespace jest {
     ): Required<T>[M] extends (...args: any[]) => any
         ? SpyInstance<ReturnType<Required<T>[M]>, ArgsType<Required<T>[M]>>
         : never;
+    function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
+        object: T,
+        method: M
+    ): Required<T>[M] extends new (...args: any[]) => any
+        ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
+        : never;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -303,12 +311,15 @@ declare namespace jest {
 
     type EmptyFunction = () => void;
     type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
+    type ConstructorArgsType<T> = T extends new (...args: infer A) => any ? A : never;
     type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
     type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
     // see https://github.com/Microsoft/TypeScript/issues/25215
     type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? never : K }[keyof T] &
         string;
     type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never }[keyof T] &
+        string;
+    type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends new (...args: any[]) => any ? K : never }[keyof T] &
         string;
 
     interface DoneCallback {
@@ -796,6 +807,7 @@ declare namespace jest {
         /**
          * Used when you want to check that an item is in a list.
          * For testing the items in the list, this uses `===`, a strict equality check.
+         * It can also check whether a string is a substring of another string.
          *
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particuarly useful for ensuring expected objects have the right structure.
@@ -1042,6 +1054,11 @@ declare namespace jest {
     interface SpyInstance<T = any, Y extends any[] = any> extends MockInstance<T, Y> {}
 
     /**
+     * Represents a function that has been spied on.
+     */
+    type SpiedFunction<T extends (...args: any[]) => any> = SpyInstance<ReturnType<T>, ArgsType<T>>;
+
+    /**
      * Wrap a function with mock definitions
      *
      * @example
@@ -1109,7 +1126,7 @@ declare namespace jest {
          * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
          * don't access stale data.
          */
-        mockClear(): void;
+        mockClear(): this;
         /**
          * Resets all information stored in the mock, including any initial implementation and mock name given.
          *
@@ -1119,7 +1136,7 @@ declare namespace jest {
          * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
          * don't access stale data.
          */
-        mockReset(): void;
+        mockReset(): this;
         /**
          * Does everything that `mockFn.mockReset()` does, and also restores the original (non-mocked) implementation.
          *
@@ -1132,6 +1149,10 @@ declare namespace jest {
          * to restore mocks automatically between tests.
          */
         mockRestore(): void;
+        /**
+         * Returns the function that was set as the implementation of the mock (using mockImplementation).
+         */
+        getMockImplementation(): (...args: Y) => T | undefined;
         /**
          * Accepts a function that should be used as the implementation of the mock. The mock itself will still record
          * all calls that go into and instances that come from itself – the only difference is that the implementation

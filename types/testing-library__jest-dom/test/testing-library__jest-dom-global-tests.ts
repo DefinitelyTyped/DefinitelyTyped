@@ -22,6 +22,7 @@ expect(element).toHaveClass('cls1', 'cls2', 'cls3', 'cls4');
 expect(element).toHaveFocus();
 expect(element).toHaveFormValues({ foo: 'bar', baz: 1 });
 expect(element).toHaveStyle('display: block');
+expect(element).toHaveStyle({ display: 'block', width: 100 });
 expect(element).toHaveTextContent('Text');
 expect(element).toHaveTextContent(/Text/);
 expect(element).toHaveTextContent('Text', { normalizeWhitespace: true });

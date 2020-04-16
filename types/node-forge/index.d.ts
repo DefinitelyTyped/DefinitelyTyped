@@ -12,6 +12,8 @@
 //                 Anders Kaseorg   <https://github.com/andersk>
 //                 Sascha Zarhuber  <https://github.com/saschazar21>
 //                 Rogier Schouten  <https://github.com/rogierschouten>
+//                 Ivan Aseev       <https://github.com/aseevia>
+//                 Wiktor Kwapisiewicz <https://github.com/wiktor-k>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -374,6 +376,8 @@ declare module "node-forge" {
 
         function publicKeyToPem(key: PublicKey, maxline?: number): PEM;
 
+        function publicKeyToRSAPublicKeyPem(key: PublicKey, maxline?: number): PEM;
+
         function publicKeyFromPem(pem: PEM): PublicKey;
 
         function privateKeyFromPem(pem: PEM): PrivateKey;
@@ -675,6 +679,15 @@ declare module "node-forge" {
         }
 
         function createSignedData(): PkcsSignedData;
+
+        interface PkcsEnvelopedData {
+            content?: string | util.ByteBuffer;
+            addRecipient(certificate: pki.Certificate): void;
+            encrypt(): void;
+            toAsn1(): asn1.Asn1;
+        }
+
+        function createEnvelopedData(): PkcsEnvelopedData;
     }
 
     namespace pkcs5 {

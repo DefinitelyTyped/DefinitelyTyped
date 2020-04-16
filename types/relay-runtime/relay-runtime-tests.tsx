@@ -10,14 +10,25 @@ import {
     RecordProxy,
     RecordSource,
     RecordSourceSelectorProxy,
-    RelayNetworkLoggerTransaction,
     Store,
     commitLocalUpdate,
-    createRelayNetworkLogger,
 } from 'relay-runtime';
 
 const source = new RecordSource();
 const store = new Store(source);
+const storeWithNullOptions = new Store(source, {
+    gcScheduler: null,
+    operationLoader: null,
+    gcReleaseBufferSize: null,
+});
+const storeWithOptions = new Store(source, {
+    gcScheduler: () => undefined,
+    operationLoader: {
+        get: () => null,
+        load: () => Promise.resolve(null),
+    },
+    gcReleaseBufferSize: 10,
+});
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Network Layer
@@ -36,10 +47,8 @@ function fetchQuery(operation: any, variables: { [key: string]: string }, cacheC
     });
 }
 
-const RelayNetworkLogger = createRelayNetworkLogger(RelayNetworkLoggerTransaction);
-
 // Create a network layer from the fetch function
-const network = Network.create(RelayNetworkLogger.wrapFetch(fetchQuery));
+const network = Network.create(fetchQuery);
 
 // Create a cache for storing query responses
 const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
@@ -81,6 +90,19 @@ const environment = new Environment({
             kind: 'linked',
         },
     ],
+    log: (logEvent) => {
+        switch (logEvent.name) {
+            case 'execute.start':
+            case 'execute.next':
+            case 'execute.error':
+            case 'execute.info':
+            case 'execute.complete':
+            case 'execute.unsubscribe':
+            case 'queryresource.fetch':
+            default:
+                break;
+        }
+    }
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~

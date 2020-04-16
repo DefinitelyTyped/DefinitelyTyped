@@ -322,6 +322,22 @@ function Argv$command() {
         .argv;
 }
 
+function Argv$positional() {
+    const module: yargs.CommandModule<{}, { paths: string[] }> = {
+        command: 'test <paths...>',
+        builder(yargs) {
+            return yargs.positional('paths', {
+                type: 'string',
+                array: true,
+                demandOption: true
+            });
+        },
+        handler(argv) {
+            argv.paths.map((path) => path);
+        }
+    };
+}
+
 function Argv$commandModule() {
     class CommandOne implements yargs.CommandModule {
         handler(args: yargs.Arguments): void {

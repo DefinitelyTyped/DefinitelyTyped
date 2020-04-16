@@ -1,6 +1,7 @@
 // Type definitions for crypto-js v3.1.8
 // Project: https://github.com/evanvosberg/crypto-js
 // Definitions by: Michael Zabka <https://github.com/misak113>
+//                 Max Lysenko <https://github.com/maximlysenko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = CryptoJS;
@@ -43,6 +44,7 @@ declare namespace CryptoJS {
 	interface LibWordArray {
 		sigBytes: number,
 		words: number[],
+		toString(encoder?: Encoder): string;
 	}
 	export interface WordArray {
 		iv: string;
@@ -145,7 +147,7 @@ declare namespace CryptoJS {
 		lib: {
 			WordArray: {
 				create: (v: any) => LibWordArray;
-				random: (v: number) => string;
+				random: (v: number) => LibWordArray;
 			};
 		};
 		mode: {

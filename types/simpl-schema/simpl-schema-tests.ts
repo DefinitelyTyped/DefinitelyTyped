@@ -1,6 +1,6 @@
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema, { SimpleSchemaDefinition } from 'simpl-schema';
 
-const StringSchema = new SimpleSchema({
+const schema: SimpleSchemaDefinition = {
     basicString: {
         type: String
     },
@@ -27,7 +27,9 @@ const StringSchema = new SimpleSchema({
           else if (text.length < 10) return SimpleSchema.ErrorTypes.MIN_STRING;
         }
     }
-});
+};
+
+const StringSchema = new SimpleSchema(schema);
 
 StringSchema.validate({
     basicString: "Test",

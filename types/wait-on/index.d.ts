@@ -1,4 +1,4 @@
-// Type definitions for wait-on 3.2
+// Type definitions for wait-on 4.0
 // Project: https://github.com/jeffbski/wait-on#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -43,6 +43,11 @@ declare namespace waitOn {
          */
         timeout?: number;
         /**
+         * http HEAD/GET timeout to wait for request
+         * @default 0
+         */
+        httpTimeout?: number;
+        /**
          * Tcp timeout in ms.
          * @default 300
          */
@@ -58,7 +63,11 @@ declare namespace waitOn {
          * @default 750ms.
          */
         window?: number;
-
+        /**
+         * Limit of concurrent connections to a resource
+         * @default Infinity
+         */
+        simultaneous?: number;
         /**
          * Https specific option.
          * see https:// github.com/request/request#readme for specific details

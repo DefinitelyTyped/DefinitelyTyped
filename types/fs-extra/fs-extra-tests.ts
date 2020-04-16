@@ -235,3 +235,7 @@ fs.mkdtemp("foo");
 fs.copyFile("src", "dest").then();
 fs.copyFile("src", "dest", fs.constants.COPYFILE_EXCL).then();
 fs.copyFile("src", "dest", errorCallback);
+
+fs.createSymlink("src", "dest", "dir").then();
+fs.createSymlink("src", "dest", "file").then();
+fs.createSymlink("src", "dest", "dir", errorCallback);

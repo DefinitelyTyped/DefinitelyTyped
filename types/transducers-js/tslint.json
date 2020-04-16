@@ -1,8 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
-        "ban-types": false,
         "no-unnecessary-generics": false
     }
 }

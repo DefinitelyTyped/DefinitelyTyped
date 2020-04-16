@@ -29,7 +29,6 @@ export interface MapOptions {
   fullscreenControlOptions?: { position: number };
   gestureHandling?: string;
   heading?: number;
-  heatmapLibrary?: boolean;
   keyboardShortcuts?: boolean;
   mapTypeControl?: boolean;
   mapTypeControlOptions?: any;
@@ -116,12 +115,27 @@ export interface ChangeEventValue {
   size: Size;
 }
 
+export interface Position {
+  lat: number;
+  lng: number;
+  weight?: number;
+}
+
+export interface Heatmap {
+  positions: Position[];
+  options: {
+    radius?: number;
+    opacity?: number;
+  };
+}
+
 export interface Props {
     bootstrapURLKeys?: BootstrapURLKeys;
     defaultCenter?: Coords;
     center?: Coords;
     defaultZoom?: number;
     zoom?: number;
+    heatmapLibrary?: boolean;
     hoverDistance?: number;
     options?: MapOptions | ((maps: Maps) => MapOptions);
     margin?: any[];
@@ -149,6 +163,7 @@ export interface Props {
     yesIWantToUseGoogleMapApiInternals?: boolean;
     style?: React.HTMLProps<HTMLDivElement>;
     shouldUnregisterMapOnUnmount?: boolean;
+    heatmap?: Heatmap;
 }
 
 export default class GoogleMapReact extends React.Component<Props> {}
