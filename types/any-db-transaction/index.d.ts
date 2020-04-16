@@ -3,8 +3,6 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import anyDB = require("any-db");
 
 declare namespace begin {
