@@ -6,7 +6,7 @@
 interface Transition {
     duration: number;
     name: string;
-    params: any;
+    params?: any;
 }
 
 interface ConcatOptions {
