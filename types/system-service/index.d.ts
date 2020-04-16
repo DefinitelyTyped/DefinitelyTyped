@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
 
-/// <reference types="node" />
-
 import { Logger, LoggerConfiguration, FileConfiguration, SourcesConfiguration } from 'system-logger';
 
 export { Logger, level as Level, fileRotateType as FileRotateType, LoggerConfiguration, FileConfiguration, SourcesConfiguration } from 'system-logger';
