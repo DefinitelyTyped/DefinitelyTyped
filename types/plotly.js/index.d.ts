@@ -17,6 +17,7 @@
 //                 Michael Arnett <https://github.com/marnett-git>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Brandon Mitchell <https://github.com/brammitch>
+//                 Jessica Blizzard <https://github.com/blizzardjessica>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from "d3";
@@ -158,7 +159,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
 	on(event: 'plotly_click' | 'plotly_hover' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
 	on(event: 'plotly_selecting' | 'plotly_selected', callback: (event: PlotSelectionEvent) => void): void;
 	on(event: 'plotly_restyle', callback: (data: PlotRestyleEvent) => void): void;
-	on(event: 'plotly_relayout', callback: (event: PlotRelayoutEvent) => void): void;
+	on(event: 'plotly_relayout' | 'plotly_relayouting', callback: (event: PlotRelayoutEvent) => void): void;
 	on(event: 'plotly_clickannotation', callback: (event: ClickAnnotationEvent) => void): void;
 	on(event: 'plotly_animatingframe', callback: (event: FrameAnimationEvent) => void): void;
 	on(event: 'plotly_legendclick' | 'plotly_legenddoubleclick', callback: (event: LegendClickEvent) => boolean): void;
