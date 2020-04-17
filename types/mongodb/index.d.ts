@@ -2143,6 +2143,7 @@ type DefaultSchema = any;
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html */
 export class Cursor<T = Default> extends Readable {
+    [Symbol.asyncIterator](): AsyncIterableIterator<T>;
     sortValue: string;
     timeout: boolean;
     readPreference: ReadPreference;

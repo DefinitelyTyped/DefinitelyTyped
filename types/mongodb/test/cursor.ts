@@ -6,7 +6,7 @@ async function run() {
   const db = client.db('test');
   const collection = db.collection('test.find');
 
-  let cursor: Cursor;
+  let cursor: Cursor<{ foo: number }>;
   cursor = collection.find();
   cursor = cursor.addCursorFlag('', true);
   cursor = cursor.addQueryModifier('', true);
@@ -16,7 +16,7 @@ async function run() {
   cursor = cursor.hint({ age: 1 });
   cursor = cursor.hint('age_1');
   cursor = cursor.limit(1);
-  cursor = cursor.map(result => {});
+  cursor = cursor.map(result => ({ foo: result.foo }));
   cursor = cursor.max({ age: 130 });
   cursor = cursor.min({ age: 18 });
   cursor = cursor.maxAwaitTimeMS(1);
@@ -32,4 +32,8 @@ async function run() {
   cursor = cursor.snapshot({});
   cursor = cursor.sort({});
   cursor = cursor.stream();
+
+  for await (const item of cursor) {
+    item.foo; // $ExpectType number
+  }
 }
