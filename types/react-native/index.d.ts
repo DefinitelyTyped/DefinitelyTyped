@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.62.2
+// Type definitions for react-native 0.62
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -9238,3 +9238,117 @@ export namespace LogBox {
     export function uninstall(): void
     export function install(): void
 }
+
+
+export type RippleConfig = {
+    color?: ColorValue,
+    borderless?: boolean,
+    radius?: number,
+};
+
+export type Rect = Readonly<{
+    bottom?: number,
+    left?: number,
+    right?: number,
+    top?: number,
+}>;
+
+export type RectOrSize = Rect | number;
+
+export type PressableProps = Readonly<{
+    /**
+     * Accessibility.
+     */
+    accessibilityActions?: Readonly<AccessibilityActionInfo[]>,
+    accessibilityElementsHidden?: boolean,
+    accessibilityHint?: string,
+    accessibilityIgnoresInvertColors?: boolean,
+    accessibilityLabel?: string,
+    accessibilityLiveRegion?: ('none' | 'polite' | 'assertive'),
+    accessibilityRole?: AccessibilityRole,
+    accessibilityState?: AccessibilityState,
+    accessibilityValue?: AccessibilityValue,
+    accessibilityViewIsModal?: boolean,
+    accessible?: boolean,
+    focusable?: boolean,
+    importantForAccessibility?: ('auto' | 'yes' | 'no' | 'no-hide-descendants'),
+    onAccessibilityAction?: (event: AccessibilityActionEvent) => mixed,
+
+    /**
+     * Either children or a render prop that receives a boolean reflecting whether
+     * the component is currently pressed.
+     */
+    children: React.ReactNode | ((state: StateCallbackType) => React.Node),
+
+    /**
+     * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
+     */
+    delayLongPress?: number,
+
+    /**
+     * Whether the press behavior is disabled.
+     */
+    disabled?: boolean,
+
+    /**
+     * Additional distance outside of this view in which a press is detected.
+     */
+    hitSlop?: RectOrSize,
+
+    /**
+     * Additional distance outside of this view in which a touch is considered a
+     * press before `onPressOut` is triggered.
+     */
+    pressRectOffset?: RectOrSize,
+
+    /**
+     * Called when this view's layout changes.
+     */
+    onLayout?: (event: LayoutEvent) => void,
+
+    /**
+     * Called when a long-tap gesture is detected.
+     */
+    onLongPress?: (event: PressEvent) => void,
+
+    /**
+     * Called when a single tap gesture is detected.
+     */
+    onPress?: (event: PressEvent) => void,
+  
+    /**
+     * Called when a touch is engaged before `onPress`.
+     */
+    onPressIn?: (event: PressEvent) => void,
+  
+    /**
+     * Called when a touch is released before `onPress`.
+     */
+    onPressOut?: (event: PressEvent) => void,
+  
+    /**
+     * Either view styles or a function that receives a boolean reflecting whether
+     * the component is currently pressed and returns view styles.
+     */
+    style?: ViewStyleProp | ((state: StateCallbackType) => ViewStyleProp),
+  
+    /**
+     * Identifier used to find this view in tests.
+     */
+    testID?: string,
+  
+    /**
+     * If true, doesn't play system sound on touch.
+     */
+    android_disableSound?: boolean,
+  
+    /**
+     * Enables the Android ripple effect and configures its color.
+     */
+    android_ripple?: RippleConfig,
+  
+    /**
+     * Used only for documentation or testing (e.g. snapshot testing).
+     */
+    testOnly_pressed?: boolean,
+  }>;
