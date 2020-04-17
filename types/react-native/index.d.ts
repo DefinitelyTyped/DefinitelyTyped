@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.63.0-rc.0
+// Type definitions for react-native 0.62.2
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
