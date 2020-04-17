@@ -113,6 +113,15 @@ declare module "mongoose" {
   export type FilterQuery<T> = MongooseFilterQuery<DocumentDefinition<T>>;
 
   /**
+   * Patched version of UpdateQuery to also allow:
+   * - setting attributes directly in the root, without a `$set` wrapper
+   * - setting attributes via dot-notation
+   */
+  export type MongooseUpdateQuery<S> = mongodb.UpdateQuery<S> & mongodb.MatchKeysAndValues<S>;
+
+  export type UpdateQuery<D> = MongooseUpdateQuery<DocumentDefinition<D>>;
+
+  /**
    * Gets and optionally overwrites the function used to pluralize collection names
    * @param fn function to use for pluralization of collection names
    * @returns the current function used to pluralize collection names (defaults to the `mongoose-legacy-pluralize` module's function)
@@ -2009,21 +2018,21 @@ declare module "mongoose" {
      * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
      */
     findOneAndUpdate(callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
-    findOneAndUpdate(update: any,
+    findOneAndUpdate(update: UpdateQuery<DocType>,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
-    findOneAndUpdate(query: FilterQuery<DocType>, update: any,
+    findOneAndUpdate(query: FilterQuery<DocType>, update: UpdateQuery<DocType>,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
-    findOneAndUpdate(query: FilterQuery<DocType>, update: any,
+    findOneAndUpdate(query: FilterQuery<DocType>, update: UpdateQuery<DocType>,
       options: { rawResult: true } & { upsert: true } & { new: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType>, res: any) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<DocType>> & QueryHelpers;
-    findOneAndUpdate(query: FilterQuery<DocType>, update: any,
+    findOneAndUpdate(query: FilterQuery<DocType>, update: UpdateQuery<DocType>,
       options: { upsert: true } & { new: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: DocType, res: any) => void): DocumentQuery<DocType, DocType, QueryHelpers> & QueryHelpers;
-    findOneAndUpdate(query: FilterQuery<DocType>, update: any, options: { rawResult: true } & QueryFindOneAndUpdateOptions,
+    findOneAndUpdate(query: FilterQuery<DocType>, update: UpdateQuery<DocType>, options: { rawResult: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType | null>, res: any) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<DocType | null>> & QueryHelpers;
-    findOneAndUpdate(query: FilterQuery<DocType>, update: any, options: QueryFindOneAndUpdateOptions,
+    findOneAndUpdate(query: FilterQuery<DocType>, update: UpdateQuery<DocType>, options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
 
     /**
@@ -2332,10 +2341,10 @@ declare module "mongoose" {
      * @param doc the update command
      */
     update(callback?: (err: any, affectedRows: number) => void): Query<number> & QueryHelpers;
-    update(doc: any, callback?: (err: any, affectedRows: number) => void): Query<number> & QueryHelpers;
-    update(criteria: FilterQuery<DocType>, doc: any,
+    update(doc: UpdateQuery<DocType>, callback?: (err: any, affectedRows: number) => void): Query<number> & QueryHelpers;
+    update(criteria: FilterQuery<DocType>, doc: UpdateQuery<DocType>,
       callback?: (err: any, affectedRows: number) => void): Query<number> & QueryHelpers;
-    update(criteria: FilterQuery<DocType>, doc: any, options: QueryUpdateOptions,
+    update(criteria: FilterQuery<DocType>, doc: UpdateQuery<DocType>, options: QueryUpdateOptions,
       callback?: (err: any, affectedRows: number) => void): Query<number> & QueryHelpers;
 
     /** Specifies a path for use with chaining. */
@@ -3236,20 +3245,20 @@ declare module "mongoose" {
      * @param id value of _id to query by
      */
     findByIdAndUpdate(): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
-    findByIdAndUpdate(id: any | number | string, update: any,
+    findByIdAndUpdate(id: any | number | string, update: UpdateQuery<T>,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
-    findByIdAndUpdate(id: any | number | string, update: any,
+    findByIdAndUpdate(id: any | number | string, update: UpdateQuery<T>,
       options: { rawResult: true } & { upsert: true } & { new: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, res: T) => void): DocumentQuery<T, T, QueryHelpers> & QueryHelpers;
-    findByIdAndUpdate(id: any | number | string, update: any,
+    findByIdAndUpdate(id: any | number | string, update: UpdateQuery<T>,
       options: { upsert: true, new: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, res: mongodb.FindAndModifyWriteOpResultObject<T>) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<T>> & QueryHelpers;
-    findByIdAndUpdate(id: any | number | string, update: any,
+    findByIdAndUpdate(id: any | number | string, update: UpdateQuery<T>,
       options: { rawResult : true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, res: mongodb.FindAndModifyWriteOpResultObject<T | null>) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
-    findByIdAndUpdate(id: any | number | string, update: any,
+    findByIdAndUpdate(id: any | number | string, update: UpdateQuery<T>,
       options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
@@ -3310,20 +3319,20 @@ declare module "mongoose" {
 +    * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
      */
     findOneAndUpdate(): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
-    findOneAndUpdate(conditions: FilterQuery<T>, update: any,
+    findOneAndUpdate(conditions: FilterQuery<T>, update: UpdateQuery<T>,
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
-    findOneAndUpdate(conditions: FilterQuery<T>, update: any,
+    findOneAndUpdate(conditions: FilterQuery<T>, update: UpdateQuery<T>,
       options: { rawResult : true } & { upsert: true, new: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<T>, res: any) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<T>> & QueryHelpers;
-    findOneAndUpdate(conditions: FilterQuery<T>, update: any,
+    findOneAndUpdate(conditions: FilterQuery<T>, update: UpdateQuery<T>,
       options: { upsert: true, new: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: T, res: any) => void): DocumentQuery<T, T, QueryHelpers> & QueryHelpers;
-    findOneAndUpdate(conditions: FilterQuery<T>, update: any,
+    findOneAndUpdate(conditions: FilterQuery<T>, update: UpdateQuery<T>,
       options: { rawResult: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<T | null>, res: any) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
-    findOneAndUpdate(conditions: FilterQuery<T>, update: any,
+    findOneAndUpdate(conditions: FilterQuery<T>, update: UpdateQuery<T>,
       options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
@@ -3418,17 +3427,17 @@ declare module "mongoose" {
      * Updates documents in the database without returning them.
      * All update values are cast to their appropriate SchemaTypes before being sent.
      */
-    update(conditions: FilterQuery<T>, doc: any,
+    update(conditions: FilterQuery<T>, doc: UpdateQuery<T>,
       callback?: (err: any, raw: any) => void): Query<any> & QueryHelpers;
-    update(conditions: FilterQuery<T>, doc: any, options: ModelUpdateOptions,
+    update(conditions: FilterQuery<T>, doc: UpdateQuery<T>, options: ModelUpdateOptions,
       callback?: (err: any, raw: any) => void): Query<any> & QueryHelpers;
-    updateOne(conditions: FilterQuery<T>, doc: any,
+    updateOne(conditions: FilterQuery<T>, doc: UpdateQuery<T>,
       callback?: (err: any, raw: any) => void): Query<any> & QueryHelpers;
-    updateOne(conditions: FilterQuery<T>, doc: any, options: ModelUpdateOptions,
+    updateOne(conditions: FilterQuery<T>, doc: UpdateQuery<T>, options: ModelUpdateOptions,
       callback?: (err: any, raw: any) => void): Query<any> & QueryHelpers;
-    updateMany(conditions: FilterQuery<T>, doc: any,
+    updateMany(conditions: FilterQuery<T>, doc: UpdateQuery<T>,
       callback?: (err: any, raw: any) => void): Query<any> & QueryHelpers;
-    updateMany(conditions: FilterQuery<T>, doc: any, options: ModelUpdateOptions,
+    updateMany(conditions: FilterQuery<T>, doc: UpdateQuery<T>, options: ModelUpdateOptions,
       callback?: (err: any, raw: any) => void): Query<any> & QueryHelpers;
 
     /** Creates a Query, applies the passed conditions, and returns the Query. */
