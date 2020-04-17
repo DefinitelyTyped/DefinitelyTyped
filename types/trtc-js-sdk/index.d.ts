@@ -230,6 +230,9 @@ declare namespace TRTC {
         /** 取消事件绑定 */
         off<K extends keyof ClientEventMap>(event: K, handler: Callback<ClientEventMap[K]>): void;
 
+        /** 取消所有事件绑定 */
+        off(event: '*'): void;
+
         /** 获取当前房间内远端用户音视频 mute 状态列表。 */
         getRemoteMutedState(): RemoteMutedState[];
 

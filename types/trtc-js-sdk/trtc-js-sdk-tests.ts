@@ -25,3 +25,5 @@ stream.initialize().then(() => {
 client.on('stream-subscribed', ({ stream }) => {
     stream.play('element-id');
 });
+
+client.off('*');
