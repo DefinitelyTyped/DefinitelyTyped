@@ -1,4 +1,4 @@
-import Ari, { Channel } from 'ari-client';
+import Ari, { Channel, Containers } from 'ari-client';
 
 // TypeScript version of example published on project https://github.com/asterisk/node-ari-client.
 
@@ -43,7 +43,11 @@ Ari.connect('http://ari.js:8088', 'user', 'secret', (err, client) => {
         incoming.play({ media: 'sound:vm-dialout' }, playback, err => {});
 
         // Originate call from incoming channel to endpoint
-        outgoing.originate({ endpoint: ENDPOINT, app: 'originate-example', appArgs: 'dialed' }, (err, channel) => {});
+        const variables: Containers = { 'CALLERID(name)': 'Alice', name: 'test' };
+        outgoing.originate(
+            { endpoint: ENDPOINT, app: 'originate-example', appArgs: 'dialed', variables },
+            (err, channel) => {},
+        );
     };
 
     // can also use client.start(['app-name'...]) to start multiple applications
