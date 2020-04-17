@@ -677,7 +677,7 @@ declare namespace Tabulator {
         virtualDom?: boolean;
 
         /** Manually set the size of the virtual DOM buffer	 */
-        virtualDomBuffer?: boolean;
+        virtualDomBuffer?: boolean | number;
         /** placeholder element to display on empty table	 */
         placeholder?: string | HTMLElement;
 
