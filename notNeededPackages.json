@@ -991,6 +991,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "docx-templates",
+            "typingsPackageName": "docx-templates",
+            "sourceRepoURL": "https://github.com/guigrpa/docx-templates",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "dom-helpers",
             "typingsPackageName": "dom-helpers",
             "sourceRepoURL": "https://github.com/react-bootstrap/dom-helpers",

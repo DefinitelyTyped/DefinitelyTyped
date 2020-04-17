@@ -1,9 +1,15 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactAnchorAttr, ReactDivAttr, ReactInputAttr, ReactLabelAttr } from "../../../typings/shared";
+import {
+    EmbeddedIconProps,
+    ReactAnchorAttr,
+    ReactDivAttr,
+    ReactLabelAttr,
+    ThemeProps, ReactButtonAttr
+} from "../../../typings/shared";
 
 // Tile
 
-interface TileInheritedProps extends ReactDivAttr { }
+interface TileInheritedProps extends ReactDivAttr, ThemeProps { }
 
 export interface TileProps extends TileInheritedProps { }
 
@@ -22,14 +28,19 @@ export declare class ClickableTile extends React.Component<ClickableTileProps> {
 type SelectedTileExcludedAttributes = "onChange" | "onClick" | "onKeyDown";
 interface SelectableTileInheritedProps extends
     Omit<ReactLabelAttr, SelectedTileExcludedAttributes>,
-    EmbeddedIconProps
+    ThemeProps
 {
-    onChange?: ReactInputAttr["onChange"],
+    /**
+     * @deprecated
+     */
+    iconDescription?: EmbeddedIconProps["iconDescription"],
 }
 
 export interface SelectableTileProps extends SelectableTileInheritedProps {
     handleClick?(e: React.MouseEvent<HTMLLabelElement>): void,
     handleKeyDown?(e: React.KeyboardEvent<HTMLLabelElement>): void,
+    onChange(e: React.KeyboardEvent<HTMLLabelElement> | React.MouseEvent<HTMLLabelElement>): void,
+    selected?: boolean,
     value: string | number,
 }
 
@@ -37,13 +48,16 @@ export declare class SelectableTile extends React.Component<SelectableTileProps>
 
 // ExpandableTile
 
-interface ExpandableTileInheritedProps extends Omit<ReactDivAttr, "onClick"> { }
+interface ExpandableTileInheritedProps extends Omit<ReactButtonAttr, "onClick">, ThemeProps { }
 
 export interface ExpandableTileProps extends ExpandableTileInheritedProps {
     expanded?: boolean,
-    handleClick?(e: React.MouseEvent<HTMLDivElement>): void,
+    handleClick?(e: React.MouseEvent<HTMLButtonElement>): void,
+    onBeforeClick?(e: React.MouseEvent<HTMLButtonElement>): void,
     tileCollapsedIconText?: string,
     tileExpandedIconText?: string,
+    tileMaxHeight?: number,
+    tilePadding?: number,
 }
 
 export declare class ExpandableTile extends React.Component<ExpandableTileProps> { }

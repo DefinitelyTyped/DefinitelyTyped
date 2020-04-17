@@ -1,5 +1,18 @@
 export default function paypal() {
   const paypal = window.recurly.PayPal();
+
+  window.recurly.PayPal({
+    display: {
+      displayName: 'display-name'
+    }
+  });
+
+  window.recurly.PayPal({
+    braintree: {
+      clientAuthorization: 'client-authorization'
+    }
+  });
+
   // $ExpectError
   window.recurly.PayPal('string');
 
@@ -11,12 +24,9 @@ export default function paypal() {
   paypal.start();
   paypal.start({
     options: {
-      description: 'string',
-    },
+      description: "description"
+    }
   });
 
-  paypal.start({
-    // $ExpectError
-    description: 'string',
-  });
+  paypal.destroy();
 }

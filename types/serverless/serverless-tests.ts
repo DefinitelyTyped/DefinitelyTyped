@@ -1,6 +1,7 @@
 import Serverless from 'serverless';
 import Plugin from 'serverless/classes/Plugin';
 import PluginManager from 'serverless/classes/PluginManager';
+import { getHttp } from 'serverless/plugins/aws/package/compile/events/apiGateway/lib/validate';
 
 const options: Serverless.Options = {
     noDeploy: false,
@@ -37,6 +38,7 @@ class CustomPlugin implements Plugin {
 }
 
 // Test a plugin with missing 'hooks' property
+// prettier-ignore
 class BadPlugin implements Plugin { // $ExpectError
     hoooks: Plugin.Hooks; // emulate a bad 'hooks' definition with a typo
     constructor(badArg: number) {}
@@ -45,17 +47,46 @@ class BadPlugin implements Plugin { // $ExpectError
 const manager = new PluginManager(serverless);
 manager.addPlugin(CustomPlugin);
 // Test adding a plugin with an incorrect constructor
+// prettier-ignore
 manager.addPlugin(BadPlugin); // $ExpectError
 
 // Test provider's 'request' method
 const provider = serverless.getProvider('aws');
 provider.request('AccessAnalyzer', 'createAnalyzer');
 provider.request('CloudFormation', 'deleteStack', {
-    StackName: 'stack'
+    StackName: 'stack',
 });
-provider.request('CloudFormation', 'deleteStack', {
-    StackName: 'stack'
-}, {
-    useCache: true,
-    region: 'us-east-1'
-});
+provider.request(
+    'CloudFormation',
+    'deleteStack',
+    {
+        StackName: 'stack',
+    },
+    {
+        useCache: true,
+        region: 'us-east-1',
+    },
+);
+
+// Test ApiGateway validator
+getHttp(
+    {
+        http: {
+            path: 'myPath',
+            method: 'get',
+        },
+    },
+    'myFunction',
+);
+getHttp(
+    {
+        http: 'GET mypath',
+    },
+    'myFunction',
+);
+getHttp(
+    {
+        sqs: 'arn', // $ExpectError
+    },
+    'myFunction',
+);

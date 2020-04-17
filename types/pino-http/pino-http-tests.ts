@@ -20,6 +20,7 @@ pinoHttp({ useLevel: 'error' });
 pinoHttp({ prettyPrint: true });
 pinoHttp({ autoLogging: false });
 pinoHttp({ autoLogging: { ignorePaths: ['/health'] } });
+pinoHttp({ autoLogging: { ignorePaths: ['/health'], getPath: (req) => req.url } });
 pinoHttp(new Writable());
 pinoHttp({
     customLogLevel(req, res) {

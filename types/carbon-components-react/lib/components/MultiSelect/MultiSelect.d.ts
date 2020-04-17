@@ -4,32 +4,35 @@ import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 import FilterableMultiSelect from "./FilterableMultiSelect";
 import { MultiSelectSortingProps } from "./MultiSelectPropTypes";
+import { ListBoxSize } from "../ListBox/ListBoxPropTypes";
+import { ListBoxSelectionTranslationKey } from "../ListBox/ListBoxSelection";
 
 interface InheritedProps<T extends ListBoxBaseItemType = string> extends
     DownshiftTypedProps<T>,
-    InternationalProps<ListBoxMenuIconTranslationKey>,
+    InternationalProps<ListBoxMenuIconTranslationKey | ListBoxSelectionTranslationKey>,
     MultiSelectSortingProps<T>,
     RequiresIdProps,
     ThemeProps,
     ValidityProps
 {
     disabled?: ListBoxProps["disabled"],
+    size?: ListBoxSize,
     type?: ListBoxProps["type"],
 }
 
 export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extends InheritedProps<T> {
+    direction?: "bottom" | "top",
     downshiftProps?: any, // TODO
-    initialSelectedItems?: T[],
-    items: T[],
+    initialSelectedItems?: readonly T[],
+    items: readonly T[],
     inline?: boolean,
     label?: React.ReactNode,
     locale?: string,
+    onChange: ({ selectedItems }: { selectedItems: T[] }) => void,
     open?: boolean,
     selectionFeedback?: "fixed" | "top" | "top-after-reopen",
-    useTitleInItem?: boolean,
-    placeholder: string,
     titleText?: string,
-    onChange: ({ selectedItems }: { selectedItems: T[] }) => void,
+    useTitleInItem?: boolean,
 }
 
 declare class MultiSelect<T extends ListBoxBaseItemType = string> extends React.Component<MultiSelectProps<T>> {

@@ -1,6 +1,6 @@
 import { Route, Router } from '@hapi/call';
 
-const router = new Router();
+const router = new Router({ isCaseSensitive: false });
 
 router.add({ method: 'get', path: '/user/{userId}'}, { id: 'get_user'});
 

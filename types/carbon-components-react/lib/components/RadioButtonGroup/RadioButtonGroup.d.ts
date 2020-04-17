@@ -11,7 +11,9 @@ interface InheritedProps {
 
 export interface RadioButtonGroupProps extends InheritedProps {
     defaultSelected?: RadioButtonValue,
+    labelPosition?: "left" | "right",
     onChange?(newSelection: RadioButtonValue, name: RadioButtonGroupProps["name"], event: React.ChangeEvent<HTMLInputElement>): void, // required but has default value
+    orientation?: "horizontal" | "vertical",
     valueSelected?: RadioButtonValue,
 }
 
