@@ -9,17 +9,17 @@ export class Queue {
     unshiftRequest(entry: QueueEntry): Promise<void>;
 }
 
-export interface OnSyncCallbackOptions {
+export interface QueueOnSyncEvent {
   queue: Queue;
 }
 
-export interface OnSyncCallback {
-  (options: OnSyncCallbackOptions): void|Promise<void>;
+export interface QueueOnSyncHandler {
+  (options: QueueOnSyncEvent): void|Promise<void>;
 }
 
 export interface QueueOptions {
     maxRetentionTime?: number;
-    onSync?: OnSyncCallback;
+    onSync?: QueueOnSyncHandler;
 }
 
 export interface QueueEntry<Metadata = any> {
