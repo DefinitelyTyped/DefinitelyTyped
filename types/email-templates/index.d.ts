@@ -10,8 +10,8 @@
 // TypeScript Version: 3.3
 
 /// <reference types="nodemailer"/>
-/// <reference types="html-to-text"/>
 
+import { HtmlToTextOptions } from 'html-to-text';
 import JSONTransport = require('nodemailer/lib/json-transport');
 import Mail = require('nodemailer/lib/mailer');
 import SendmailTransport = require('nodemailer/lib/sendmail-transport');
