@@ -669,9 +669,8 @@ declare namespace NodeJS {
         isTTY?: true;
     }
 
-    interface ProcessEnv {
-        [key: string]: string | undefined;
-    }
+    // Alias for compability
+    type ProcessEnv = Dict<string>;
 
     interface HRTime {
         (time?: [number, number]): [number, number];
@@ -781,7 +780,7 @@ declare namespace NodeJS {
         cwd(): string;
         debugPort: number;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
-        env: ProcessEnv;
+        env: Dict<string>;
         exit(code?: number): never;
         exitCode?: number;
         getgid(): number;
@@ -1066,15 +1065,11 @@ declare namespace NodeJS {
     type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
     type ArrayBufferView = TypedArray | DataView;
 
-    interface NodeRequireCache {
-        [path: string]: NodeModule;
-    }
-
     interface Require {
         /* tslint:disable-next-line:callable-types */
         (id: string): any;
         resolve: RequireResolve;
-        cache: NodeRequireCache;
+        cache: Dict<NodeModule>;
         /**
          * @deprecated
          */
@@ -1087,11 +1082,10 @@ declare namespace NodeJS {
         paths(request: string): string[] | null;
     }
 
-    interface RequireExtensions {
+    interface RequireExtensions extends Dict<(m: Module, filename: string) => any> {
         '.js': (m: Module, filename: string) => any;
         '.json': (m: Module, filename: string) => any;
         '.node': (m: Module, filename: string) => any;
-        [ext: string]: (m: Module, filename: string) => any;
     }
     interface Module {
         exports: any;
@@ -1102,5 +1096,13 @@ declare namespace NodeJS {
         parent: Module | null;
         children: Module[];
         paths: string[];
+    }
+
+    interface Dict<T> {
+        [key: string]: T | undefined;
+    }
+
+    interface ReadOnlyDict<T> {
+        readonly [key: string]: T | undefined;
     }
 }
