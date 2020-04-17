@@ -1,5 +1,5 @@
 Bindings for the Akamai [EdgeWorker API]. This allows you to write
-your EdgeWorkers in TypeScript
+your EdgeWorkers in TypeScript.
 
 Types are available for the `Request` and `Response` objects, as well as the
 built-in modules.
@@ -55,4 +55,4 @@ function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) {
 }
 ```
 
-[EdgeWorker API]: https://developer.akamai.com/api/web_performance/edgeworkers/v1.html
+[EdgeWorker API]: https://learn.akamai.com/en-us/webhelp/edgeworkers/edgeworkers-user-guide/GUID-14077BCA-0D9F-422C-8273-2F3E37339D5B.html
