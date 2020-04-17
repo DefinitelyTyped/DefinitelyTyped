@@ -1,6 +1,6 @@
 /**
- * This provides `video.core.novtt.js` alternative distribution typings :
- * `import videojs from 'video.js/dist/alt/video.core.novtt';`
+ * This provides `video.core.js` alternative distribution typings :
+ * `import videojs from 'video.js/dist/alt/video.core';`
  */
-import videojs from "../../index";
+import videojs from '../../index';
 export default videojs;
