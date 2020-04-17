@@ -20,6 +20,7 @@ declare function WebpackHotMiddleware(
 
 declare namespace WebpackHotMiddleware {
 	interface ClientOptions {
+		path?: string;
 		reload?: boolean;
 		name?: string;
 		timeout?: number;
