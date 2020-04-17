@@ -1,5 +1,6 @@
 import rdf = require('rdf-ext');
-import { Literal, Quad, Dataset, NamedNode, Stream, Sink, DataFactory, DatasetFactory } from 'rdf-js';
+import { Literal, Quad, NamedNode, Stream, Sink, DataFactory, DatasetCoreFactory } from 'rdf-js';
+import { DatasetIndexed as Dataset } from 'rdf-dataset-indexed/dataset';
 import QuadExt = require('rdf-ext/lib/Quad');
 import DataFactoryExt = require('rdf-ext/lib/DataFactory');
 import DatasetExt = require('rdf-ext/lib/Dataset');
@@ -9,8 +10,8 @@ import { Readable } from 'stream';
 const factory: DataFactory = rdf;
 
 function rdfExt_factory() {
-    const baseFactory: DatasetFactory = rdf;
-    const factory: DatasetFactory<QuadExt, Quad> = rdf;
+    const baseFactory: DatasetCoreFactory = rdf;
+    const factory: DatasetCoreFactory<QuadExt, Quad> = rdf;
 
     const baseDataset: Dataset = rdf.dataset();
     const dataset: Dataset<QuadExt> = rdf.dataset();
@@ -241,7 +242,7 @@ function dataset_merge(): DatasetExt {
     return rdf.dataset().merge(other);
 }
 
-function dataset_merge_arrau(): DatasetExt {
+function dataset_merge_array(): DatasetExt {
     const other: Quad[] = <any> {};
     return rdf.dataset().merge(other);
 }
