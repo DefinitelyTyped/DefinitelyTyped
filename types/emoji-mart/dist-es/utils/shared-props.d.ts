@@ -92,4 +92,7 @@ export interface PickerProps {
     notFoundEmoji?: string;
     icons?: CustomIcons;
     darkMode?: boolean;
+    theme?: 'auto' | 'light' | 'dark';
+    enableFrequentEmojiSort?: boolean;
+    useButton?: boolean;
 }
