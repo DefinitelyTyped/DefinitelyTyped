@@ -951,7 +951,7 @@ async function testPlatform() {
     const snapshop = await platform.getSnapshot();
     platform.applySnapshot(snapshop);
     // create, reparent & close Views
-    const newViewIdentity = await platform.createView({url: 'some url', name: 'some name', target: {uuid: 'uuid', name: 'window name'}});
+    const {identity: newViewIdentity} = await platform.createView({url: 'some url', name: 'some name', target: {uuid: 'uuid', name: 'window name'}});
     platform.reparentView({uuid: 'uuid', name: 'view_name'}, {uuid: 'uuid', name: 'target_name'});
     platform.closeView(newViewIdentity);
     // createWindow
@@ -983,7 +983,6 @@ async function testView() {
     // ** Instance Methods ** //
     // attach
     view.attach({uuid: 'uuid', name: 'target window name'});
-
     // show and hide
     view.show().then(() => view.hide());
     // setBounds
@@ -998,4 +997,24 @@ async function testView() {
     view.setCustomWindowHandler(['url1.html, url2.html'], () => null);
     // destroy
     view.destroy();
+}
+
+async function testLayout() {
+    // ** Class Methods ** //
+
+    const layout = fin.desktop.Platform.Layout.getCurrentSync();
+    const sameLayout = await fin.desktop.Platform.Layout.getCurrent();
+
+    const config = await layout.getConfig();
+
+    fin.desktop.Platform.Layout.init({layout: config});
+
+    const wrappedLayout = await fin.desktop.Platform.Layout.wrap(layout.identity);
+    const anotherWrappedLayout = fin.desktop.Platform.Layout.wrapSync(layout.identity);
+
+    // ** Instance Methods ** //
+    layout.replace(config);
+    layout.applyPreset({presetType: "columns"});
+    layout.getConfig().then(config => config.settings && config.settings.hasHeaders);
+    layout.identity.uuid;
 }
