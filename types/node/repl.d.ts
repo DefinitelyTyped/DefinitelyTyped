@@ -37,6 +37,11 @@ declare module "repl" {
          */
         eval?: REPLEval;
         /**
+         * Defines if the repl prints output previews or not.
+         * @default `true` Always `false` in case `terminal` is falsy.
+         */
+        preview?: boolean;
+        /**
          * If `true`, specifies that the default `writer` function should include ANSI color
          * styling to REPL output. If a custom `writer` function is provided then this has no
          * effect.

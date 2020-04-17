@@ -1,5 +1,4 @@
 import { Coordinate } from '../../coordinate';
-import Disposable from '../../Disposable';
 import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
 import { DeclutterItems } from '../../PluggableMap';
@@ -8,7 +7,7 @@ import { DeclutterGroup } from '../canvas';
 import { SerializableInstructions } from './Builder';
 import BuilderType from './BuilderType';
 
-export default class ExecutorGroup extends Disposable {
+export default class ExecutorGroup {
     constructor(
         maxExtent: Extent,
         resolution: number,

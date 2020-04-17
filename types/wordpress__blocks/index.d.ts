@@ -1,6 +1,7 @@
 // Type definitions for @wordpress/blocks 6.4
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
+//                 Jon Surrell <https://github.com/sirreal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -272,6 +273,12 @@ export namespace AttributeSource {
               default?: string;
           });
 
+    interface Children {
+        source: 'children';
+        type: 'array';
+        selector?: string;
+    }
+
     interface HTML {
         source: 'html';
         type: 'string';
@@ -327,6 +334,7 @@ export namespace AttributeSource {
 
 export type BlockAttribute<T> =
     | AttributeSource.Attribute
+    | AttributeSource.Children
     | AttributeSource.HTML
     | AttributeSource.Meta
     | AttributeSource.Query<T>

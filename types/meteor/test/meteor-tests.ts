@@ -44,7 +44,7 @@ interface MessageDAO {
     _id: string;
     text: string;
 }
-    
+
 const Rooms = new Mongo.Collection<RoomDAO>('rooms');
 let Messages = new Mongo.Collection<MessageDAO>('messages');
 interface MonkeyDAO {
@@ -59,13 +59,20 @@ var Monkeys = new Mongo.Collection<MonkeyDAO>('monkeys');
 
 /**
  * From Core, Meteor.startup section
- * Tests Meteor.isServer, Meteor.startup, Collection.insert(), Collection.find()
+ * Tests Meteor.isServer, Meteor.startup, Collection.insert(), Collection.find(), Collection.rawCollection(), Collection.rawDatabase()
  */
 if (Meteor.isServer) {
     Meteor.startup(function () {
         if (Rooms.find().count() === 0) {
             Rooms.insert({ name: "Initial room" });
         }
+
+        Rooms.rawDatabase().stats().then(
+            stats => console.log('stats', stats),
+            error => console.error('stats', error)
+        );
+
+        Rooms.rawCollection().aggregate([{$group: {_id: null, names: {$addToSet: '$name'}}}]).toArray().then();
     });
 }
 
@@ -226,7 +233,7 @@ interface PostDAO {
     _id: string;
     title: string;
     body: string;
-} 
+}
 
 var Posts : Mongo.Collection<iPost> | Mongo.Collection<PostDAO> = new Mongo.Collection<PostDAO>("posts");
 Posts.insert({ title: "Hello world", body: "First post" });
@@ -507,6 +514,14 @@ Meteor.publish("userData", function () {
     return Meteor.users.find({ _id: this.userId },
         { fields: { 'other': 1, 'things': 1 } });
 });
+
+/**
+ * `null` can be passed as the first argument
+ * `is_auto` can be passed as an option
+ */
+Meteor.publish(null, function () {
+    return 3;
+}, { is_auto : true });
 
 Meteor.users.deny({ update: function () { return true; } });
 

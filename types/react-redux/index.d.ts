@@ -15,6 +15,7 @@
 //                 Jonathan Ziller <https://github.com/mrwolfz>
 //                 Dylan Vann <https://github.com/dylanvann>
 //                 Yuki Ito <https://github.com/Lazyuki>
+//                 Kazuma Ebina <https://github.com/kazuma1989>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -483,14 +484,14 @@ export const ReactReduxContext: Context<ReactReduxContextValue>;
  */
 export function batch(cb: () => void): void;
 
+// tslint:disable:no-unnecessary-generics
+
 /**
  * Compares two arbitrary values for shallow equality. Object values are compared based on their keys, i.e. they must
  * have the same keys and for each key the value must be equal according to the `Object.is()` algorithm. Non-object
  * values are also compared with the same algorithm as `Object.is()`.
  */
-export function shallowEqual(left: any, right: any): boolean;
-
-// tslint:disable:no-unnecessary-generics
+export function shallowEqual<T>(left: T, right: any): boolean;
 
 /**
  * A hook to access the redux `dispatch` function.

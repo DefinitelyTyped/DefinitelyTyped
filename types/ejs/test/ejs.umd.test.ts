@@ -36,3 +36,9 @@ expectType<{
 	<T>(path: string, data: ejs.Data, opts: ejs.Options, cb: ejs.RenderFileCallback<T>): T;
 	(path: string, data?: ejs.Data, opts?: ejs.Options): Promise<string>;
 }>(ejs.renderFile);
+
+// https://github.com/mde/ejs#options
+const renderOptions: ejs.Options = {
+	beautify: true,
+	filename: './index.ejs',
+};

@@ -4,6 +4,7 @@
 //                 horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
 //                 murbanowicz <https://github.com/murbanowicz>
+//                 Samuel Bodin <https://github.com/bodinsamuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -2851,6 +2852,10 @@ declare module "mongoose" {
     strict?: boolean;
     /** disables update-only mode, allowing you to overwrite the doc (false) */
     overwrite?: boolean;
+    /**
+    * Only update elements that match the arrayFilters conditions in the document or documents that match the query conditions.
+    */
+    arrayFilters?: { [key: string]: any }[];
     /** other options */
     [other: string]: any;
   }

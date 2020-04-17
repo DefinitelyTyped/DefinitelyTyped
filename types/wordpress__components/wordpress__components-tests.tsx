@@ -407,7 +407,7 @@ const kbshortcuts = {
 //
 // modal
 //
-<C.Modal title="This is my modal" onRequestClose={() => console.log('closing modal')}>
+<C.Modal title="This is my modal" isDismissible={true} onRequestClose={() => console.log('closing modal')}>
     <button onClick={() => console.log('clicked')}>My custom close button</button>
 </C.Modal>;
 

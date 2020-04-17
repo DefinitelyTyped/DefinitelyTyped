@@ -5,6 +5,7 @@
 //                 Peter Blazejewicz <https://github.com/peterblazejewicz>
 //                 Bartosz Kotrys <https://github.com/bkotrys>
 //                 Mark Nelissen <https://github.com/marknelissen>
+//                 Tyler Lindell <https://github.com/tylerlindell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace auth0;
@@ -113,11 +114,10 @@ export class DBConnection {
     constructor(request: any, option: any);
 
     /**
-     * Signup a new user
-     *
-     * @param options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
+     * Creates a new user in a Auth0 Database connection
+     * @param options https://auth0.com/docs/api/authentication#signup
      */
-    signup(options: DbSignUpOptions, callback: Auth0Callback<any>): void;
+    signup(options: DbSignUpOptions, callback: Auth0Callback<DbSignUpResults>): void;
 
     /**
      * Initializes the change password flow
@@ -140,12 +140,17 @@ export class Management {
     getUser(userId: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
     /**
-     * Updates the user metdata. It will patch the user metdata with the attributes sent.
+     * Updates the user metadata. It will patch the user metadata with the attributes sent.
      * https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id
      *
      */
     patchUserMetadata(userId: string, userMetadata: any, callback: Auth0Callback<Auth0UserProfile>): void;
-
+    /**
+     * Updates the user attributes.
+     * It will patch the root attributes that the server allows it.
+     * {@link https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id}
+     */
+    patchUserAttributes(userId: string, user: Auth0UserProfile, callback: Auth0Callback<Auth0UserProfile>): void;
     /**
      * Link two users. https://auth0.com/docs/api/management/v2#!/Users/post_identities
      *
@@ -242,10 +247,17 @@ export class WebAuth {
     login(options: CrossOriginLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
-     * Runs the callback code for the cross origin authentication call. This method is meant to be called by the cross origin authentication callback url.
-     *
+     * Runs the callback code for the cross origin authentication call.
+     * This method is meant to be called by the cross origin authentication callback url.
+     * @deprecated Use {@link crossOriginVerification} instead.
      */
     crossOriginAuthenticationCallback(): void;
+
+    /**
+     * Runs the callback code for the cross origin authentication call.
+     * This method is meant to be called by the cross origin authentication callback url.
+     */
+    crossOriginVerification(): void;
 
     /**
      * Redirects to the auth0 logout endpoint
@@ -333,9 +345,8 @@ export class Popup {
 
     /**
      * Returns a new instance of the popup handler
-     *
      */
-    buildPopupHandler(): any;
+    private buildPopupHandler(): any;
 
     /**
      * Initializes the popup window and returns the instance to be used later in order to avoid being blocked by the browser.
@@ -411,7 +422,7 @@ export class Popup {
             /** determines if Auth0 should render the relay page or not and the caller is responsible of handling the response. */
             owp?: boolean,
         },
-        callback: Auth0Callback<any>,
+        callback: Auth0Callback<Auth0Result>,
     ): void;
 
     /**
@@ -521,7 +532,7 @@ export interface AuthOptions {
     audience?: string;
     /**
      * maximum elapsed time in seconds since the last time the user
-     * was actively authenticatedby the authorization server.
+     * was actively authenticated by the authorization server.
      */
     maxAge?: number;
     leeway?: number;
@@ -588,6 +599,30 @@ export interface Auth0Error {
     original?: any;
     statusCode?: number;
     statusText?: string;
+}
+
+/**
+ * result of the Auth request.
+ * If there is no token available, this value will be null.
+ */
+export interface Auth0Result {
+    /**
+     * token that allows access to the specified resource server (identified by the audience parameter
+     * or by default Auth0's /userinfo endpoint)
+     */
+    accessToken?: string;
+    /** number of seconds until the access token expires */
+    expiresIn?: number;
+    /** token that identifies the user */
+    idToken?: string;
+    /**
+     * token that can be used to get new access tokens from Auth0.
+     * Note that not all Auth0 Applications can request them
+     * or the resource server might not allow them.
+     */
+    refreshToken?: string;
+    /** values that you receive back on the authentication response */
+    appState?: any;
 }
 
 export type Auth0ParseHashError = Auth0Error & {
@@ -799,13 +834,25 @@ export interface DelegationOptions {
 }
 
 export interface DbSignUpOptions {
+    /** user email address */
     email: string;
+    /** user password */
     password: string;
+    /** name of the connection where the user will be created */
     connection: string;
     /** User desired username. Required if you use a database connection and you have enabled `Requires Username` */
     username?: string;
     scope?: string;
-    user_metadata?: any;
+    /** additional signup attributes used for creating the user. Will be stored in `user_metadata` */
+    userMetadata?: any;
+}
+
+/** result of the signup request */
+export interface DbSignUpResults {
+    /** user's email */
+    email: string;
+    /** if the user's email was verified */
+    emailVerified: boolean;
 }
 
 export interface ParseHashOptions {
@@ -904,6 +951,7 @@ export interface AuthorizeOptions {
     accessType?: string;
     approvalPrompt?: string;
     appState?: any;
+    connection_scope?: string | string[];
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {

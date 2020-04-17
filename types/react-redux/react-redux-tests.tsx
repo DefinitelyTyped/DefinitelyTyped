@@ -1357,7 +1357,9 @@ function testUseSelector() {
         return l === r;
     });
 
-    useSelector(selector, shallowEqual);
+    const correctlyInferred: State = useSelector(selector, shallowEqual);
+    const inferredTypeIsNotString: string = useSelector(selector, shallowEqual); // $ExpectError
+
     const compare = (_l: number, _r: number) => true;
     useSelector(() => 1, compare);
     const compare2 = (_l: number, _r: string) => true;

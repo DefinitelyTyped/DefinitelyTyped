@@ -2,6 +2,7 @@
 // Project: https://github.com/share/sharedb
 // Definitions by: Steve Oney <https://github.com/soney>
 //                 Eric Hwang <https://github.com/ericyhwang>
+//                 Peter Xu <https://github.com/pxpeterxu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -65,8 +66,8 @@ declare namespace sharedb {
         commit(collection: string, id: string, op: Op, snapshot: any, options: any, callback: (...args: any[]) => any): void;
         getSnapshot(collection: string, id: string, fields: any, options: any, callback: (...args: any[]) => any): void;
         getSnapshotBulk(collection: string, ids: string, fields: any, options: any, callback: (...args: any[]) => any): void;
-        getOps(collection: string, id: string, from: number, to: number, options: any, callback: (...args: any[]) => any): void;
-        getOpsToSnapshot(collection: string, id: string, from: number, snapshot: number, options: any, callback: (...args: any[]) => any): void;
+        getOps(collection: string, id: string, from: number | null, to: number | null, options: any, callback: (...args: any[]) => any): void;
+        getOpsToSnapshot(collection: string, id: string, from: number | null, snapshot: number, options: any, callback: (...args: any[]) => any): void;
         getOpsBulk(collection: string, fromMap: any, toMap: any, options: any, callback: (...args: any[]) => any): void;
         getCommittedOpVersion(collection: string, id: string, snapshot: any, op: any, options: any, callback: (...args: any[]) => any): void;
         query: DBQueryMethod;

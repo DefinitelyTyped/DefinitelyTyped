@@ -1,3 +1,5 @@
+import wNumb from 'wnumb';
+
 //basic
 var basicSlider = $("<div/>").noUiSlider({
 	start: 80,

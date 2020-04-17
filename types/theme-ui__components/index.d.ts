@@ -1,8 +1,9 @@
 // Type definitions for @theme-ui/components 0.2
 // Project: https://github.com/system-ui/theme-ui
 // Definitions by: Piotr Monwid-Olechnowicz <https://github.com/hasparus>
+//                 Kristóf Poduszló <https://github.com/kripod>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 3.5
 
 import * as React from 'react';
 import { StyledComponent } from '@emotion/styled';
@@ -11,6 +12,8 @@ import { SxStyleProp } from 'theme-ui';
 import { SpaceProps, ColorProps, ResponsiveValue, MarginProps } from 'styled-system';
 
 export {};
+
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 type Assign<T, U> = {
     [P in keyof (T & U)]: P extends keyof T ? T[P] : P extends keyof U ? U[P] : never;
@@ -32,6 +35,7 @@ export interface BoxProps extends Assign<React.ComponentProps<'div'>, BoxOwnProp
 export const Box: StyledComponent<React.ComponentProps<'div'>, BoxOwnProps, {}>;
 
 export type FlexStyleProps = BoxOwnProps;
+export type FlexProps = BoxProps;
 /**
  * Use the Flex component to create flexbox layouts.
  * @see https://theme-ui.com/components/flex
@@ -46,7 +50,7 @@ export interface GridProps extends BoxProps {
     /**
      * 	Number of columns to use for the layout (cannot be used in conjunction with the width prop)
      */
-    columns?: ResponsiveValue<number>;
+    columns?: ResponsiveValue<string | number>;
     /**
      * Space between child elements
      */

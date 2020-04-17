@@ -174,11 +174,13 @@ type Evolved<A> =
       : never;
 
 /**
- * <needs description>
+ * A set of transformation to run as part of an evolve
+ * @param T - the type to be evolved
  */
-export interface Evolver {
-    [key: string]: ((value: any) => any) | Evolver;
-}
+export type Evolver<T extends Evolvable<any> = any> = {
+    // if T[K] isn't evolvable, don't allow nesting for that property
+    [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
+};
 
 /**
  * <needs description>

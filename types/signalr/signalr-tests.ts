@@ -162,6 +162,8 @@ function test_hubs() {
     proxy.on('addMessage', function (msg?) {
         console.log(msg);
     });
+    //the second argument to proxy.off is optional
+    proxy.off('addMessage');
 
     //a listener may have more than 1 parameter, and you should be able to subscribe and unsubscribe
     function listenerWithMoreParams(id: number, anything: string) {

@@ -1,4 +1,5 @@
 import { BorderWidth, Chart, Point, ChartColor } from 'chart.js';
+import moment = require('moment');
 
 // alternative:
 // import chartjs = require('chart.js');
@@ -36,6 +37,9 @@ const chart: Chart = new Chart(ctx, {
     },
     options: {
         hover: {
+            axis: 'xy',
+            mode: 'nearest',
+            animationDuration: 400,
             intersect: true,
         },
         onHover(ev: MouseEvent, points: any[]) {
@@ -67,7 +71,21 @@ const chart: Chart = new Chart(ctx, {
             xAxes: [
                 {
                     ticks: {
-                        callback: Math.floor,
+                        callback: (value) => {
+                            if (value === 10) {
+                                return Math.floor(value);
+                            }
+
+                            if (value === 20) {
+                                return `${value}`;
+                            }
+
+                            if (value === 30) {
+                                return undefined;
+                            }
+
+                            return null;
+                        },
                         sampleSize: 10,
                     },
                     gridLines: {
@@ -275,6 +293,9 @@ const linearScaleChart: Chart = new Chart(ctx, {
                 scaleLabel: {
                     display: true,
                     labelString: 'Closing price ($)'
+                },
+                afterBuildTicks: (scale, ticks) => {
+                    return [Math.max(...ticks), 10, Math.min(...ticks)];
                 }
             }]
         },
@@ -409,3 +430,31 @@ if (doughnutChart.getDatasetMeta(0).data.length > 0) {
     console.log(doughnutChartView.x);
     console.log(doughnutChartView.y);
 }
+
+// Time Cartesian Axis
+const timeAxisChartData: Chart.ChartData = {
+    datasets: [{
+        data: [
+            { x: new Date(), y: 1 },
+            { y: new Date(), t: 1 },
+            { t: new Date(), y: 1 },
+            { x: moment(), y: 1 },
+            { y: moment(), t: 1 },
+            { t: moment(), y: 1 },
+        ]
+    }]
+};
+
+// Labels
+const timeLabelsChartData: Chart.ChartData = {
+    labels: [
+        'a', 'b', 'c',
+        1, 2, 3,
+        new Date(), new Date(), new Date(),
+        moment(), moment(), moment(),
+    ],
+};
+
+const event = new MouseEvent('click');
+chart.getElementsAtEvent(event);
+chart.getElementsAtXAxis(event);

@@ -317,6 +317,13 @@ declare namespace Stripe {
                  * "legal_entity.first_name").
                  */
                 fields_needed: string[];
+
+                /**
+                 * The set of capabilities you want to unlock for this account (US only).
+                 * Each capability will be inactive until you have provided its specific requirements and Stripe has verified them.
+                 * An account may have some of its requested capabilities be active and some be inactive.
+                 */
+                requested_capabilities?: string[];
             };
         }
 
@@ -1038,6 +1045,31 @@ declare namespace Stripe {
                      */
                     front?: string;
                 };
+
+                /**
+                 * A user-displayable string describing the verification state for the person.
+                 * For example, this may say “Provided identity information could not be verified”.
+                 */
+                details?: string;
+
+                /**
+                 * One of document_address_mismatch, document_dob_mismatch, document_duplicate_type, document_id_number_mismatch,
+                 * document_name_mismatch, failed_keyed_identity, or failed_other.
+                 * A machine-readable code specifying the verification state for the person.
+                 */
+                details_code?:
+                    | 'document_address_mismatch'
+                    | 'document_dob_mismatch'
+                    | 'document_duplicate_type'
+                    | 'document_id_number_mismatch'
+                    | 'document_name_mismatch'
+                    | 'failed_keyed_identity'
+                    | 'failed_other';
+
+                /**
+                 * The state of verification for the person. Possible values are unverified, pending, or verified.
+                 */
+                status?: 'unverified' | 'pending' | 'verified';
             };
         }
 
@@ -10607,8 +10639,17 @@ declare namespace Stripe {
             /**
              * The tax rates that will apply to the subscription.
              */
-
             default_tax_rates?: string[];
+
+            /**
+             * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer’s invoice settings.
+             */
+            default_payment_method?: string;
+
+            /**
+             * Indicates if a customer is on or off-session while an invoice payment is attempted.
+             */
+            off_session?: boolean;
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -10667,6 +10708,12 @@ declare namespace Stripe {
              * prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
              */
             proration_date?: number;
+
+            /**
+             * Determines how to handle prorations when the billing cycle changes or if an item’s quantity changes.
+             * Prorations can be disabled by passing none.
+             */
+            proration_behavior?: 'create_prorations' | 'always_invoice' | 'none';
 
             /**
              * The quantity you'd like to apply to the subscription you're creating. For example, if your plan is £10/user/month, and your customer
@@ -10953,6 +11000,12 @@ declare namespace Stripe {
              * proration that was previewed with the upcoming invoice endpoint.
              */
             proration_date?: number;
+
+            /**
+             * Determines how to handle prorations when the billing cycle changes or if an item’s quantity changes.
+             * Prorations can be disabled by passing none.
+             */
+            proration_behavior?: 'create_prorations' | 'always_invoice' | 'none';
         }
 
         interface ISubscriptionItemListOptions extends IListOptionsCreated {

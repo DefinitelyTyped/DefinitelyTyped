@@ -15,6 +15,7 @@ export interface IOIDCStrategyOption extends IBaseStrategyOption {
     nonceLifetime?: number;
     nonceMaxAmount?: number;
     scope?: string | string[];
+    cookieSameSite?: boolean;
 }
 
 export interface IOIDCStrategyOptionWithRequest extends IOIDCStrategyOption {

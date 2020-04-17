@@ -32,6 +32,10 @@ const test: React.SFC = () => (
           todayHelperRowOffset: 4,
         }}
         locale={{
+          locale: {
+            distanceInWords: () => {},
+            format: () => {}
+          },
           blank: 'Select a date...',
           headerFormat: 'ddd, MMM Do',
           todayLabel: {

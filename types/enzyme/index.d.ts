@@ -13,6 +13,7 @@
 //                 Braiden Cutforth <https://github.com/braidencutforth>
 //                 Erick Zhao <https://github.com/erickzhao>
 //                 Jack Tomaszewski <https://github.com/jtomaszewski>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 

@@ -8,7 +8,7 @@ const err: Error = new Error();
 const args: any[] = [];
 const resCallback: (err: Error | null, res: any) => void = () => {};
 const numCallback: (err: Error | null, res: number) => void = () => {};
-const strCallback: (err: Error | null, res: string) => void = () => {};
+const strCallback: (err: Error | null, res: string | null) => void = () => {};
 const okCallback: (err: Error | null, res: 'OK') => void = () => {};
 const messageHandler: (channel: string, message: any) => void = () => {};
 

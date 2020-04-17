@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "ts-toolbelt": "^4.12.0"
+        "ts-toolbelt": "^6.3.3"
     }
 }

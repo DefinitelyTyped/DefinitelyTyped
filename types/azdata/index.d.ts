@@ -56,6 +56,19 @@ declare module 'azdata' {
 		export function registerCapabilitiesServiceProvider(provider: CapabilitiesProvider): vscode.Disposable;
 
 		/**
+		 * Get the provider corresponding to the given provider ID and type
+		 * @param providerId The ID that the provider was registered with
+		 * @param providerType The type of the provider
+		 */
+		export function getProvider<T extends DataProvider>(providerId: string, providerType: DataProviderType): DataProvider;
+
+		/**
+		 * Get all registered providers of the given type
+		 * @param providerType The type of the providers
+		 */
+		export function getProvidersByType<T extends DataProvider>(providerType: DataProviderType): T[];
+
+		/**
 		 * An [event](#Event) which fires when the specific flavor of a language used in DMP
 		 * connections has changed. And example is for a SQL connection, the flavor changes
 		 * to MSSQL
@@ -180,7 +193,10 @@ declare module 'azdata' {
 		 * Opens the connection dialog, calls the callback with the result. If connection was successful
 		 * returns the connection otherwise returns undefined
 		 */
-		export function openConnectionDialog(providers?: string[], initialConnectionProfile?: IConnectionProfile, connectionCompletionOptions?: IConnectionCompletionOptions): Thenable<connection.Connection>;
+		export function openConnectionDialog(
+			providers?: string[],
+			initialConnectionProfile?: IConnectionProfile,
+			connectionCompletionOptions?: IConnectionCompletionOptions): Thenable<Connection>;
 
 		/**
 		 * Opens the connection and add it to object explorer and opens the dashboard and returns the ConnectionResult
@@ -276,7 +292,6 @@ declare module 'azdata' {
 
 	// EXPORTED INTERFACES /////////////////////////////////////////////////
 	export interface ConnectionInfo {
-
 		options: { [name: string]: any };
 	}
 
@@ -335,8 +350,8 @@ declare module 'azdata' {
 	}
 
 	/**
-	* Options for the actions that could happen after connecting is complete
-	*/
+	 * Options for the actions that could happen after connecting is complete
+	 */
 	export interface IConnectionCompletionOptions {
 		/**
 		 * Save the connection to MRU and settings (only save to setting if profile.saveProfile is set to true)
@@ -367,7 +382,6 @@ declare module 'azdata' {
 	}
 
 	export interface ConnectionInfoSummary {
-
 		/**
 		 * URI identifying the owner of the connection
 		 */
@@ -492,7 +506,6 @@ declare module 'azdata' {
 	}
 
 	export interface ConnectionProvider extends DataProvider {
-
 		connect(connectionUri: string, connectionInfo: ConnectionInfo): Thenable<boolean>;
 
 		disconnect(connectionUri: string): Thenable<boolean>;
@@ -597,7 +610,6 @@ declare module 'azdata' {
 		fileGroupInfoOptions: ServiceOption[];
 	}
 
-
 	// List Databases Request ----------------------------------------------------------------------
 	export interface ListDatabasesResult {
 		databaseNames: Array<string>;
@@ -670,7 +682,6 @@ declare module 'azdata' {
 	}
 
 	export interface ColumnMetadata {
-
 		hasExtendedProperties: boolean;
 
 		defaultValue: string;
@@ -718,9 +729,7 @@ declare module 'azdata' {
 	}
 
 	export interface TableMetadata {
-
 		columns: ColumnMetadata;
-
 	}
 
 	export interface ProviderMetadata {
@@ -760,7 +769,6 @@ declare module 'azdata' {
 	}
 
 	export interface ScriptingProvider extends DataProvider {
-
 		scriptAsOperation(connectionUri: string, operation: ScriptOperation, metadata: ObjectMetadata, paramDetails: ScriptingParamDetails): Thenable<ScriptingResult>;
 
 		registerOnScriptingComplete(handler: (scriptingCompleteResult: ScriptingCompleteResult) => any): void;
@@ -975,12 +983,10 @@ declare module 'azdata' {
 		ownerUri: string;
 	}
 
-
 	export interface QueryExecuteResultSetNotificationParams {
 		resultSetSummary: ResultSetSummary;
 		ownerUri: string;
 	}
-
 
 	export interface QueryExecuteMessageParams {
 		message: IResultMessage;
@@ -1087,7 +1093,6 @@ declare module 'azdata' {
 		objectType: string;
 		queryString: string;
 	}
-
 
 	export interface EditInitializeResult { }
 
@@ -1810,7 +1815,6 @@ declare module 'azdata' {
 
 	// DacFx interfaces  -----------------------------------------------------------------------
 
-
 	// Security service interfaces ------------------------------------------------------------------------
 	export interface CredentialInfo {
 		id: number;
@@ -2042,7 +2046,6 @@ declare module 'azdata' {
 	}
 
 	export interface ProfilerSessionStoppedParams {
-
 		ownerUri: string;
 
 		sessionId: number;
@@ -2418,7 +2421,6 @@ declare module 'azdata' {
 	}
 
 	export interface DashboardWebview {
-
 		/**
 		 * Raised when the webview posts a message.
 		 */
@@ -2459,6 +2461,9 @@ declare module 'azdata' {
 		export function registerWebviewProvider(widgetId: string, handler: (webview: DashboardWebview) => void): void;
 	}
 
+	/**
+	 * Namespace for interacting with the workspace
+	 */
 	export namespace workspace {
 		/**
 		 * An event that is emitted when a [dashboard](#DashboardDocument) is opened.
@@ -2469,6 +2474,30 @@ declare module 'azdata' {
 		 * An event that is emitted when a [dashboard](#DashboardDocument) is focused.
 		 */
 		export const onDidChangeToDashboard: vscode.Event<DashboardDocument>;
+
+		/**
+		 * Create a new model view editor
+		 */
+		export function createModelViewEditor(title: string, options?: ModelViewEditorOptions): ModelViewEditor;
+
+		export interface ModelViewEditor extends window.ModelViewPanel {
+			/**
+			 * `true` if there are unpersisted changes.
+			 * This is editable to support extensions updating the dirty status.
+			 */
+			isDirty: boolean;
+
+			/**
+			 * Opens the editor
+			 */
+			openEditor(position?: vscode.ViewColumn): Thenable<void>;
+
+			/**
+			 * Registers a save handler for this editor. This will be called if [supportsSave](#ModelViewEditorOptions.supportsSave)
+			 * is set to true and the editor is marked as dirty
+			 */
+			registerSaveHandler(handler: () => Thenable<boolean>): void;
+		}
 	}
 
 	export interface DashboardDocument {
@@ -2488,29 +2517,33 @@ declare module 'azdata' {
 	}
 
 	export namespace tasks {
-
 		export interface ITaskHandler {
 			(profile: IConnectionProfile, ...args: any[]): any;
 		}
 
 		/**
-		* Registers a task that can be invoked via a keyboard shortcut,
-		* a menu item, an action, or directly.
-		*
-		* Registering a task with an existing task identifier twice
-		* will cause an error.
-		*
-		* @param task A unique identifier for the task.
-		* @param callback A task handler function.
-		* @param thisArg The `this` context used when invoking the handler function.
-		* @return Disposable which unregisters this task on disposal.
-		*/
+		 * Registers a task that can be invoked via a keyboard shortcut,
+		 * a menu item, an action, or directly.
+		 *
+		 * Registering a task with an existing task identifier twice
+		 * will cause an error.
+		 *
+		 * @param task A unique identifier for the task.
+		 * @param callback A task handler function.
+		 * @param thisArg The `this` context used when invoking the handler function.
+		 * @return Disposable which unregisters this task on disposal.
+		 */
 		export function registerTask(task: string, callback: ITaskHandler, thisArg?: any): vscode.Disposable;
+
+		/**
+		 * Starts an operation to run in the background
+		 * @param operationInfo Operation Information
+		 */
+		export function startBackgroundOperation(operationInfo: BackgroundOperationInfo): void;
 	}
 
 	/**
 	 * Supports defining a model that can be instantiated as a view in the UI
-	 * @export
 	 */
 	export interface ModelBuilder {
 		navContainer(): ContainerBuilder<NavContainer, any, any>;
@@ -2576,16 +2609,13 @@ declare module 'azdata' {
 	}
 
 	export interface FlexBuilder extends ContainerBuilder<FlexContainer, FlexLayout, FlexItemLayout> {
-
 	}
 
 	// Building on top of flex item
 	export interface SplitViewBuilder extends ContainerBuilder<SplitViewContainer, SplitViewLayout, FlexItemLayout> {
-
 	}
 
 	export interface DivBuilder extends ContainerBuilder<DivContainer, DivLayout, DivItemLayout> {
-
 	}
 
 	export interface GroupBuilder extends ContainerBuilder<GroupContainer, GroupLayout, GroupItemLayout> {
@@ -2780,13 +2810,27 @@ declare module 'azdata' {
 	}
 
 	export interface NavContainer extends Container<any, any> {
-
 	}
 
 	/**
 	 * Valid values for the align-items CSS property
 	 */
-	export type AlignItemsType = 'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'baseline' | 'first baseline' | 'last baseline' | 'safe center' | 'unsafe center' | 'inherit' | 'initial' | 'unset';
+	export type AlignItemsType =
+		'normal' |
+		'stretch' |
+		'center' |
+		'start' |
+		'end' |
+		'flex-start' |
+		'flex-end' |
+		'baseline' |
+		'first baseline' |
+		'last baseline' |
+		'safe center' |
+		'unsafe center' |
+		'inherit' |
+		'initial' |
+		'unset';
 
 	/**
 	 * Valid values for the justify-content CSS property
@@ -2811,7 +2855,31 @@ declare module 'azdata' {
 	/**
 	 * Valid values for the display CSS property
 	 */
-	export type DisplayType = 'inline' | 'block' | 'contents' | 'flex' | 'grid' | 'inline-block' | 'inline-flex' | 'inline-grid' | 'inline-table' | 'list-item' | 'run-in' | 'table' | 'table-caption' | ' table-column-group' | 'table-header-group' | 'table-footer-group' | 'table-row-group' | 'table-cell' | 'table-column' | 'table-row' | 'none' | 'initial' | 'inherit' | '';
+	export type DisplayType =
+		'inline' |
+		'block' |
+		'contents' |
+		'flex' |
+		'grid' |
+		'inline-block' |
+		'inline-flex' |
+		'inline-grid' |
+		'inline-table' |
+		'list-item' |
+		'run-in' |
+		'table' |
+		'table-caption' |
+		' table-column-group' |
+		'table-header-group' |
+		'table-footer-group' |
+		'table-row-group' |
+		'table-cell' |
+		'table-column' |
+		'table-row' |
+		'none' |
+		'initial' |
+		'inherit' |
+		'';
 
 	/**
 	 * The config for a FlexBox-based container. This supports easy
@@ -2852,7 +2920,7 @@ declare module 'azdata' {
 		width?: number | string;
 
 		/**
-		 *
+		 * Matches the text-align CSS property.
 		 */
 		textAlign?: TextAlignType;
 
@@ -2867,7 +2935,6 @@ declare module 'azdata' {
 	}
 
 	export interface SplitViewLayout extends FlexLayout {
-
 		/**
 		 * Orientation of the views inside split
 		 */
@@ -2961,7 +3028,6 @@ declare module 'azdata' {
 
 	export interface GroupContainer extends Container<GroupLayout, GroupItemLayout>, GroupContainerProperties {
 	}
-
 
 	export enum Orientation {
 		Horizontal = 'horizontal',
@@ -3155,7 +3221,7 @@ declare module 'azdata' {
 		ariaRowCount?: number;
 		ariaColumnCount?: number;
 		updateCells?: TableCell[];
-		moveFocusOutWithTab?: boolean; //accessibility requirement for tables with no actionable cells
+		moveFocusOutWithTab?: boolean; // accessibility requirement for tables with no actionable cells
 	}
 
 	export interface CheckBoxCell extends TableCell {
@@ -3198,7 +3264,6 @@ declare module 'azdata' {
 	}
 
 	export interface ImageComponentProperties extends ComponentProperties, ComponentWithIcon {
-
 	}
 
 	export interface GroupContainerProperties {
@@ -3340,18 +3405,15 @@ declare module 'azdata' {
 	}
 
 	export interface DomComponent extends Component, DomProperties {
-
 	}
 
 	export interface TextComponent extends Component, TextComponentProperties {
-
 	}
 
 	export interface ImageComponent extends Component, ImageComponentProperties {
 	}
 
 	export interface HyperlinkComponent extends Component, HyperlinkComponentProperties {
-
 	}
 
 	export interface InputBoxComponent extends Component, InputBoxProperties {
@@ -3458,7 +3520,6 @@ declare module 'azdata' {
 		 * Minimum height for editor component
 		 */
 		minimumHeight: number;
-
 	}
 
 	export interface DiffEditorComponent extends Component {
@@ -3947,7 +4008,7 @@ declare module 'azdata' {
 
 	/**
 	 * Namespace for interacting with query editor
-	*/
+	 */
 	export namespace queryeditor {
 		export type QueryEventType =
 			| 'queryStart'
@@ -3964,7 +4025,7 @@ declare module 'azdata' {
 		 * visualize: ResultSetSummary
 		 */
 		export interface QueryEventListener {
-			onQueryEvent(type: QueryEventType, document: queryeditor.QueryDocument, args: ResultSetSummary | string | undefined): void;
+			onQueryEvent(type: QueryEventType, document: QueryDocument, args: ResultSetSummary | string | undefined): void;
 		}
 
 		// new extensibility interfaces
@@ -4002,42 +4063,12 @@ declare module 'azdata' {
 		/**
 		 * Register a query event listener
 		 */
-		export function registerQueryEventListener(listener: queryeditor.QueryEventListener): void;
+		export function registerQueryEventListener(listener: QueryEventListener): void;
 
 		/**
 		 * Get a QueryDocument object for a file URI
 		 */
-		export function getQueryDocument(fileUri: string): Thenable<queryeditor.QueryDocument>;
-	}
-
-	/**
-	 * Namespace for interacting with the workspace
-	 */
-	export namespace workspace {
-
-		/**
-		 * Create a new model view editor
-		 */
-		export function createModelViewEditor(title: string, options?: ModelViewEditorOptions): ModelViewEditor;
-
-		export interface ModelViewEditor extends window.ModelViewPanel {
-			/**
-			 * `true` if there are unpersisted changes.
-			 * This is editable to support extensions updating the dirty status.
-			 */
-			isDirty: boolean;
-
-			/**
-			 * Opens the editor
-			 */
-			openEditor(position?: vscode.ViewColumn): Thenable<void>;
-
-			/**
-			 * Registers a save handler for this editor. This will be called if [supportsSave](#ModelViewEditorOptions.supportsSave)
-			 * is set to true and the editor is marked as dirty
-			 */
-			registerSaveHandler(handler: () => Thenable<boolean>): void;
-		}
+		export function getQueryDocument(fileUri: string): Thenable<QueryDocument>;
 	}
 
 	export interface ModelViewEditorOptions {
@@ -4078,22 +4109,6 @@ declare module 'azdata' {
 		SerializationProvider = 'SerializationProvider'
 	}
 
-	export namespace dataprotocol {
-		/**
-		 * Get the provider corresponding to the given provider ID and type
-		 * @param providerId The ID that the provider was registered with
-		 * @param providerType The type of the provider
-		 */
-		export function getProvider<T extends DataProvider>(providerId: string, providerType: DataProviderType): T;
-
-		/**
-		 * Get all registered providers of the given type
-		 * @param providerType The type of the providers
-		 */
-		export function getProvidersByType<T extends DataProvider>(providerType: DataProviderType): T[];
-	}
-
-
 	/**
 	 * Context object passed as an argument to command callbacks.
 	 * Defines properties that can be sent for any connected context,
@@ -4116,7 +4131,6 @@ declare module 'azdata' {
 	 * explorer tree and take action against it.
 	 */
 	export interface ObjectExplorerContext extends ConnectedContext {
-
 		/**
 		 * Defines whether this is a Connection-level object.
 		 * If not, the object is expected to be a child object underneath
@@ -4156,7 +4170,6 @@ declare module 'azdata' {
 	 * Operation Information
 	 */
 	export interface BackgroundOperationInfo {
-
 		/**
 		 * The operation id. A unique id will be assigned to it If not specified a
 		 */
@@ -4185,15 +4198,6 @@ declare module 'azdata' {
 		 * The actual operation to execute
 		 */
 		operation: (operation: BackgroundOperation) => void;
-	}
-
-	namespace tasks {
-		/**
-		* Starts an operation to run in the background
-		* @param operationInfo Operation Information
-		*/
-		export function startBackgroundOperation(operationInfo: BackgroundOperationInfo): void;
-
 	}
 
 	export interface ConnectionResult {
@@ -4333,7 +4337,6 @@ declare module 'azdata' {
 		 * CellRange objects are __immutable__.
 		 */
 		export class CellRange {
-
 			/**
 			 * The start index. It is before or equal to [end](#CellRange.end).
 			 */
@@ -4398,9 +4401,10 @@ declare module 'azdata' {
 			 */
 			clearOutput(cell?: NotebookCell): Thenable<boolean>;
 
-			/** Clears the outputs of all code cells in a Notebook
-			* @return A promise that resolves with a value indicating if the outputs are cleared or not.
-			*/
+			/**
+			 * Clears the outputs of all code cells in a Notebook
+			 * @return A promise that resolves with a value indicating if the outputs are cleared or not.
+			 */
 			clearAllOutputs(): Thenable<boolean>;
 
 			/**
@@ -4448,21 +4452,21 @@ declare module 'azdata' {
 			/**
 			 * Default kernel for notebook
 			 */
-			defaultKernel?: nb.IKernelSpec;
+			defaultKernel?: IKernelSpec;
 
 			/**
 			 * Optional content used to give an initial notebook state
 			 */
-			initialContent?: nb.INotebookContents | string;
+			initialContent?: INotebookContents | string;
 
 			/**
-			 * A optional boolean value indicating the dirty state after the intial content is loaded, default value is true
+			 * A optional boolean value indicating the dirty state after the initial content is loaded, default value is true
 			 */
 			initialDirtyState?: boolean;
 		}
 
 		/**
-		 * Represents an event describing the change in a [notebook documents's cells](#NotebookDocument.cells).
+		 * Represents an event describing the change in a [notebook document's cells](#NotebookDocument.cells).
 		 */
 		export interface NotebookCellChangeEvent {
 			/**
@@ -4470,7 +4474,7 @@ declare module 'azdata' {
 			 */
 			notebook: NotebookDocument;
 			/**
-			 * The new value for the [notebook documents's cells](#NotebookDocument.cells).
+			 * The new value for the [notebook document's cells](#NotebookDocument.cells).
 			 */
 			cells: NotebookCell[];
 			/**
@@ -4524,16 +4528,15 @@ declare module 'azdata' {
 		 * Register a notebook provider. The supported file types handled by this
 		 * provider are defined in the `package.json:
 		 * ```json
-		* {
-		* 	"contributes": {
-		* 		"notebook.providers": [{
-		* 			"provider": "providername",
-		* 			"fileExtensions": ["FILEEXT"]
-		* 		}]
-		* 	}
-		* }
-		* ```
-		 * @export
+		 * {
+		 * 	"contributes": {
+		 * 		"notebook.providers": [{
+		 * 			"provider": "providername",
+		 * 			"fileExtensions": ["FILEEXT"]
+		 * 		}]
+		 * 	}
+		 * }
+		 * ```
 		 * @param notebook provider
 		 * @returns disposable
 		 */
@@ -4622,7 +4625,6 @@ declare module 'azdata' {
 			save(notebookUri: vscode.Uri, notebook: INotebookContents): Thenable<INotebookContents>;
 		}
 
-
 		/**
 		 * Interface defining the file format contents of a notebook, usually in a serializable
 		 * format. This interface does not have any methods for manipulating or interacting
@@ -4630,7 +4632,6 @@ declare module 'azdata' {
 		 *
 		 */
 		export interface INotebookContents {
-
 			readonly cells: ICellContents[];
 			readonly metadata: INotebookMetadata;
 			readonly nbformat: number;
@@ -4759,7 +4760,7 @@ declare module 'azdata' {
 			| 'error'
 			| 'update_display_data';
 
-		export type Output = nb.IDisplayData | nb.IUpdateDisplayData | nb.IExecuteResult | nb.IErrorResult | nb.IStreamResult;
+		export type Output = IDisplayData | IUpdateDisplayData | IExecuteResult | IErrorResult | IStreamResult;
 
 		//#endregion
 
@@ -4907,7 +4908,6 @@ declare module 'azdata' {
 			 * **See also:** [[IExecuteReply]]
 			 */
 			requestExecute(content: IExecuteRequest, disposeOnDone?: boolean): IFuture;
-
 
 			/**
 			 * Send a `complete_request` message.
@@ -5068,7 +5068,6 @@ declare module 'azdata' {
 		 * responses that may come from the kernel.
 		 */
 		export interface IFuture extends vscode.Disposable {
-
 			/**
 			 * The original outgoing message.
 			 */
@@ -5247,6 +5246,5 @@ declare module 'azdata' {
 		}
 
 		//#endregion
-
 	}
 }

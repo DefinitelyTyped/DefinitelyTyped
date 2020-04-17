@@ -150,7 +150,7 @@ webAuth.signupAndAuthorize({
     password: '123456',
     scope: 'openid',
     username: "blabla",
-    user_metadata: {
+    userMetadata: {
         foo: 'bar'
     }
 }, (err, data) => {});
@@ -163,11 +163,14 @@ webAuth.client.login({
     scope: 'read:order write:order',
 }, (err, authResult) => {/*Auth tokens in the result or an error*/});
 
-webAuth.popup.buildPopupHandler();
+webAuth.popup.buildPopupHandler(); // $ExpectError
 webAuth.popup.preload({});
-webAuth.popup.authorize({ domain: "", redirectUri: "", responseType: "code" }, (err, data) => {
+webAuth.popup.authorize({ domain: "", redirectUri: "", responseType: "code" }, (err, result) => {
     if (err) /* handle error */ return;
-    // do something with data
+    // do something with results
+    if (result) {
+        // ...
+    }
 });
 webAuth.popup.loginWithCredentials({}, (err, data) => {
     if (err) /* handle error */ return;
@@ -184,7 +187,8 @@ webAuth.popup.signupAndLogin({ email: "", password: "", connection: "" }, (err, 
 
 webAuth.login({username: 'bar', password: 'foo', state: '1234'}, (err, data) => {});
 
-webAuth.crossOriginAuthenticationCallback();
+// cross-origin verification
+webAuth.crossOriginVerification();
 
 webAuth.checkSession({
   audience: 'https://mystore.com/api/v2',
@@ -259,9 +263,40 @@ authentication.getUserCountry((err, data) => {});
 authentication.getSSOData();
 authentication.getSSOData(true, (err, data) => {});
 
+// $ExpectError
+authentication.dbConnection.signup();
+// $ExpectError
+authentication.dbConnection.signup({});
+// $ExpectError
+authentication.dbConnection.signup({ connection: 'bla', email: 'blabla' });
+// $ExpectError
+authentication.dbConnection.signup({ connection: 'bla', email: 'blabla', password: '123456' });
 authentication.dbConnection.signup(
     { connection: 'bla', email: 'blabla', password: '123456', username: 'blabla' },
-    () => {}
+    (auth0Error, results) => {
+        if (auth0Error) {
+            const { error, errorDescription } = auth0Error;
+        }
+        if (results) {
+            const { email, emailVerified } = results;
+        }
+    },
+);
+authentication.dbConnection.signup(
+    {
+        email: 'the email',
+        password: 'the password',
+        connection: 'the_connection',
+        userMetadata: {
+            firstName: 'Toon',
+            lastName: 'De Coninck',
+            last_location: 'Mexico',
+        },
+    },
+    (err, data) => {
+        console.assert(err === null);
+        console.assert(data.email !== null);
+    },
 );
 authentication.dbConnection.changePassword({connection: 'bla', email: 'blabla'}, () => {});
 
@@ -286,4 +321,9 @@ management.patchUserMetadata('asd', {role: 'admin'}, (err, user) => {
     if (!err && user.email_verified) return; // do something
 });
 
-management.linkUser('asd', 'eqwe', (err, user) => {});
+// tslint:disable-next-line: prefer-const
+let user: auth0.Auth0UserProfile;
+management.patchUserAttributes(); // $ExpectError
+management.patchUserAttributes('...'); // $ExpectError
+management.patchUserAttributes('...', {}); // $ExpectError
+management.patchUserAttributes('auth0|123', user, (err, user) => {}); // $ExpectType void

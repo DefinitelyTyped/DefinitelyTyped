@@ -1134,7 +1134,7 @@ namespace CSR {
                 }
 
                 if (!vm.value) {
-                    vm.value = ko.observable<any>();
+                    vm.value = ko.observable();
                 }
 
                 vm.value.subscribe(v => { _myData.updateControlValue(fieldName, v); });
@@ -1882,7 +1882,7 @@ namespace MySP {
     export class ClientContextPromise extends SP.ClientContext {
         /** To use this function, you must ensure that jQuery and CSOMPromise js files are loaded to the page */
         executeQueryPromise(): JQueryPromise<any> {
-            const deferred = jQuery.Deferred<any>();
+            const deferred = jQuery.Deferred();
             this.executeQueryAsync(function done(sender, args) {
                 deferred.resolve(sender, args);
             },

@@ -22,7 +22,7 @@ export interface ClientOpts {
     return_buffers?: boolean;
     detect_buffers?: boolean;
     socket_keepalive?: boolean;
-    socket_initialdelay?: number;
+    socket_initial_delay?: number;
     no_ready_check?: boolean;
     enable_offline_queue?: boolean;
     retry_max_delay?: number;
@@ -1230,7 +1230,10 @@ export function createClient(options?: ClientOpts): RedisClient;
 
 export function print(err: Error | null, reply: any): void;
 
-export class RedisError extends Error { }
+export class RedisError extends Error {
+    command: string;
+    args?: unknown[];
+}
 export class ReplyError extends RedisError { }
 export class AbortError extends RedisError { }
 export class ParserError extends RedisError {

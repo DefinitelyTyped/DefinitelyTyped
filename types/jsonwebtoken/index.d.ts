@@ -7,7 +7,9 @@
 //                 Daniel Parker <https://github.com/rlgod>,
 //                 Kjell Dießel <https://github.com/kettil>,
 //                 Robert Gajda <https://github.com/RunAge>,
-//                 Nico Flaig <https://github.com/nflaig>
+//                 Nico Flaig <https://github.com/nflaig>,
+//                 Linus Unnebäck <https://github.com/LinusU>
+//                 Ivan Sieder <https://github.com/ivansieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -89,12 +91,12 @@ export type VerifyErrors =
     | NotBeforeError
     | TokenExpiredError;
 export type VerifyCallback = (
-    err: VerifyErrors,
-    decoded: object | string,
+    err: VerifyErrors | null,
+    decoded: object | undefined,
 ) => void;
 
 export type SignCallback = (
-    err: Error, encoded: string
+    err: Error | null, encoded: string | undefined
 ) => void;
 
 export interface JwtHeader {
@@ -196,7 +198,5 @@ export function verify(
  * [options] - Options for decoding
  * returns - The decoded Token
  */
-export function decode(
-    token: string,
-    options?: DecodeOptions,
-): null | { [key: string]: any } | string;
+export function decode(token: string, options: DecodeOptions & { json: true }): null | { [key: string]: any };
+export function decode(token: string, options?: DecodeOptions): null | { [key: string]: any } | string;

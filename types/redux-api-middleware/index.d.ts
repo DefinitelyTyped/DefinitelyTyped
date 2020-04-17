@@ -1,4 +1,4 @@
-// Type definitions for redux-api-middleware 3.0
+// Type definitions for redux-api-middleware 3.2
 // Project: https://github.com/agraboso/redux-api-middleware
 // Definitions by:  Andrew Luca <https://github.com/iamandrewluca>
 //                  Craig S <https://github.com/Mrman>
@@ -146,6 +146,10 @@ export type RSAAResultAction<Payload = never, Meta = never> =
     | InvalidAction<InternalError | RequestError | ApiError<Payload>>;
 
 export type RSAAActions = RSAARequestAction | RSAAResultAction;
+
+export function createAction<State, Payload, Meta>(
+    clientCall: RSAACall<State, Payload, Meta>
+): RSAAAction<State, Payload, Meta>;
 
 /**
  * Redux behaviour changed by middleware, so overloads here

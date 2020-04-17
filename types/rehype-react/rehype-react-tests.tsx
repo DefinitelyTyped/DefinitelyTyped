@@ -8,6 +8,7 @@ const htmlAst = {
 
 const { Compiler: compile } = new RehypeReact({
     createElement: React.createElement,
+    Fragment: React.Fragment,
     components: {
         button: () => {
             return <button />;

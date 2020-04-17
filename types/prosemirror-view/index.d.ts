@@ -20,6 +20,11 @@ import {
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
 import { Mapping } from 'prosemirror-transform';
 
+// Exported for testing
+export function __serializeForClipboard<S extends Schema = any>(view: EditorView<S>, slice: Slice<S>): { dom: HTMLElement, text: string };
+export function __parseFromClipboard<S extends Schema = any>(view: EditorView<S>, text: string, html: string, plainText: boolean, $context: ResolvedPos<S>): Slice<S>;
+export function __endComposition(view: EditorView, forceUpdate?: boolean): boolean;
+
 /**
  * The `spec` for a widget decoration
  */
@@ -474,7 +479,7 @@ export interface EditorProps<S extends Schema = any> {
    * pasted content parsed by the editor, but you can directly access
    * the event to get at the raw content.
    */
-  handlePaste?: ((view: EditorView<S>, event: Event, slice: Slice<S>) => boolean) | null;
+  handlePaste?: ((view: EditorView<S>, event: ClipboardEvent, slice: Slice<S>) => boolean) | null;
   /**
    * Called when something is dropped on the editor. `moved` will be
    * true if this drop moves from the current selection (which should

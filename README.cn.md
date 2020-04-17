@@ -6,6 +6,8 @@
 
 *你可以去看其他语言的 README，[英语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)，[西班牙语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)，[韩语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)，[俄罗斯语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)*
 
+*[管理员手册](./docs/admin.md)*
+
 ## 目录
 
 * [当前状态](#当前状态)
@@ -57,13 +59,43 @@ npm install --save-dev @types/node
 这通常会在 `package.json` 文件中的 `"types"` 或 `"typings"` 字段中提供，
 或者可以只查找包中的任何 ".d.ts" 文件并手动将它们包含在 `/// <reference path="" />`.
 
-### 其他方法
+#### 旧版本的 TypeScript（2.7 和更早版本）
+
+Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 2.8 及更高版本。如果您使用的是 TypeScript 2.0 到 2.7，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+
+Version | Released | End of Support
+-- | -- | --
+2.8 | March 2018 | March 2020
+2.9 | May 2018 | May 2020
+3.0 | July 2018 | July 2020
+3.1 | September 2018 | September 2020
+3.2 | November 2018 | November 2020
+3.3 | January 2019 | January 2021
+3.4 | March 2019 | March 2021
+3.5 | May 2019 | May 2021
+3.6 | August 2019 | August 2021
+3.7 | November 2019 | November 2021
+3.8 | February 2020 | February 2022
+
+`@types` 软件包具有它们明确支持的 TypeScript 版本的标记，因此通常可以获取早于 2 年窗口的较早版本的软件包。例如，如果运行 `npm dist-tags @types/react`，您将看到 TypeScript 2.5 可以将类型用于 react@16.0，而 TypeScript 2.6 和 2.7 可以将类型用于 react@16.4：
+
+|Tag | Version|
+|----|---------|
+|latest| 16.9.23|
+|ts2.0| 15.0.1|
+| ... | ... |
+|ts2.5| 16.0.36|
+|ts2.6| 16.4.7|
+|ts2.7| 16.4.7|
+| ... | ... |
+
+#### TypeScript 1.*
 
 这些可以被 TypeScript 1.0 使用。
 
-* [Typings](https://github.com/typings/typings)
+* 从该仓库的 `master` 分支手动下载并将其放入您的项目中
+* ~~[Typings](https://github.com/typings/typings)~~ (使用首选替代方案，typings 已经被弃用)
 * ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (使用首选替代方案, nuget DT 类型发布已关闭)
-* 从这个仓库的 `master` 分支手动下载
 
 你可能需要手动添加 [引用](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)。
 
@@ -152,7 +184,11 @@ Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许�
 #### 常见错误
 
 * 首先，请遵循 [手册](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html) 的建议。
-* 格式化：使用4个空格。 对于新代码，这由 Prettier 强制执行。
+* 格式化：使用4个空格。 该仓库已经设置了 prettier，因此你只需要运行 `npm run prettier -- --write path/to/package/**/*.ts`. [使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
+    ```tsx
+    // prettier-ignore
+    const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+    ```
 * `function sum(nums: number[]): number`: 如果函数没有写入的参数，请使用 `ReadonlyArray`.
 * `interface Foo { new(): Foo; }`:
     这定义了一个可实例化的类型，你可能需要的是 `declare class Foo { constructor(); }`.

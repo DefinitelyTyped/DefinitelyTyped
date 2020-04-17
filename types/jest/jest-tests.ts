@@ -417,7 +417,14 @@ const spy3Mock = spy3
     .mockName('name')
     .mockReturnThis()
     .mockReturnValue('value')
-    .mockReturnValueOnce('value')
+    .mockReturnValueOnce('value');
+
+const spiedPromiseTarget = {
+    resolvesString() {
+        return Promise.resolve('string');
+    }
+};
+jest.spyOn(spiedPromiseTarget, 'resolvesString')
     .mockResolvedValue('value')
     .mockResolvedValueOnce('value')
     .mockRejectedValue('value')
@@ -430,10 +437,17 @@ spy4 = jest.spyOn(spiedTarget, 'returnsString');
 spy4.mockImplementation(() => 1);
 spy4.mockRestore();
 
-// $ExpectType SpyInstance<number, []>
-const spy5 = jest.spyOn(spiedTarget2, 'value', 'get');
+let spy5: jest.SpiedFunction<typeof spiedTarget.setValue>;
+
+// $ExpectType SpyInstance<void, [string]>
+spy5 = jest.spyOn(spiedTarget, 'setValue');
 // $ExpectError
-spy5.mockReturnValue('5');
+spy5 = jest.spyOn(spiedTarget, 'returnsString');
+
+// $ExpectType SpyInstance<number, []>
+const spy6 = jest.spyOn(spiedTarget2, 'value', 'get');
+// $ExpectError
+spy6.mockReturnValue('5');
 
 // $ExpectType SpyInstance<void, [number]>
 jest.spyOn(spiedTarget2, 'value', 'set');
@@ -447,6 +461,13 @@ jest.spyOn(spyInterfaceImpl, 'prop');
 jest.spyOn(spyInterfaceImpl, 'prop', 'get');
 // $ExpectType SpyInstance<void, [boolean]>
 jest.spyOn(spyInterfaceImpl, 'method');
+
+class SpyableClass {
+    constructor(a: number, b: string) {}
+    foo() {}
+}
+// $ExpectType SpyInstance<SpyableClass, [number, string]>
+jest.spyOn({ SpyableClass }, "SpyableClass");
 
 interface Type1 {
     a: number;
@@ -472,6 +493,8 @@ class TestMocked {
 
 const mocked: jest.Mocked<TestMocked> = new TestMocked() as any;
 mocked.test1.mockImplementation(() => Promise.resolve({ a: 1 }));
+// $ExpectType (x: Type1) => Promise<Type1> | undefined
+mocked.test1.getMockImplementation();
 mocked.test1.mockReturnValue(Promise.resolve({ a: 1 }));
 // $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>)
 mocked.test1.mockResolvedValue({ a: 1 });
@@ -612,74 +635,67 @@ const snapshotSerializerPlugin: jest.SnapshotSerializerPlugin = {
 expect.addSnapshotSerializer(snapshotSerializerPlugin);
 
 expect.addSnapshotSerializer({
-    print: (value: {}) => '',
+    print: (value: unknown) => '',
     test: (value: {}) => value === value,
 });
 
 expect.addSnapshotSerializer({
-    print: (value: {}, serialize: (val: {}) => string, indent: (str: string) => string, opts: {}) => '',
+    print: (value: unknown, serialize: (val: {}) => string, indent: (str: string) => string, opts: {}) => '',
     test: (value: {}) => value === value,
 });
 
 expect.addSnapshotSerializer({
-    print(value, serialize, indent, opts, colors) {
+    serialize(value, config, indentation, depth, refs, printer) {
         let result = '';
 
-        if (opts.callToJSON !== undefined && opts.callToJSON) {
+        if (config.callToJSON !== undefined && config.callToJSON) {
             result += ' ';
         }
 
-        result += opts.edgeSpacing;
-        result += opts.spacing;
+        result += config.spacingInner;
+        result += config.spacingOuter;
 
-        if (opts.escapeRegex !== undefined && opts.escapeRegex) {
+        if (config.escapeRegex !== undefined && config.escapeRegex) {
             result += ' ';
         }
 
-        if (opts.indent !== undefined) {
-            for (let i = 0; i < opts.indent; i += 1) {
-                result += '\t';
-            }
+        if (indentation !== undefined) {
+            result += indentation;
         }
 
-        if (opts.maxDepth !== undefined) {
-            result = result.substring(0, opts.maxDepth);
+        if (config.maxDepth !== undefined) {
+            result = result.substring(0, config.maxDepth);
         }
 
-        if (opts.min !== undefined && opts.min) {
+        if (config.min !== undefined && config.min) {
             result += ' ';
         }
 
-        if (opts.plugins !== undefined) {
-            for (const plugin of opts.plugins) {
+        if (config.plugins !== undefined) {
+            for (const plugin of config.plugins) {
                 expect.addSnapshotSerializer(plugin);
             }
         }
 
-        if (opts.printFunctionName !== undefined && opts.printFunctionName) {
+        if (config.printFunctionName !== undefined && config.printFunctionName) {
             result += ' ';
         }
 
-        if (opts.theme) {
-            if (opts.theme.comment !== undefined) {
-                result += opts.theme.comment;
-            }
+        return result;
+    },
+    test: (value: {}) => value === value,
+});
 
-            if (opts.theme.content !== undefined) {
-                result += opts.theme.content;
-            }
+// old API
+expect.addSnapshotSerializer({
+    print(value, serialize, indent, opts, colors) {
+        let result = '';
 
-            if (opts.theme.prop !== undefined) {
-                result += opts.theme.prop;
-            }
+        result += opts.edgeSpacing;
+        result += opts.spacing;
 
-            if (opts.theme.tag !== undefined) {
-                result += opts.theme.tag;
-            }
-
-            if (opts.theme.value !== undefined) {
-                result += opts.theme.value;
-            }
+        if (opts.min !== undefined && opts.min) {
+            result += ' ';
         }
 
         for (const color of [colors.comment, colors.content, colors.prop, colors.tag, colors.value]) {
@@ -855,6 +871,7 @@ describe('', () => {
         expect([]).toContain({});
         expect(['abc']).toContain('abc');
         expect(['abc']).toContain('def');
+        expect('abc').toContain('bc');
 
         expect([]).toContainEqual({});
         expect(['abc']).toContainEqual('def');
@@ -1111,129 +1128,6 @@ describe('', () => {
     });
 });
 
-/* Test framework and config */
-
-const globalConfig: jest.GlobalConfig = {
-    bail: true,
-    collectCoverage: false,
-    collectCoverageFrom: ['glob'],
-    collectCoverageOnlyFrom: {
-        abc: true,
-        def: false,
-    },
-    coverageDirectory: '',
-    coverageReporters: [''],
-    coverageThreshold: {
-        global: {
-            abc: 90,
-            def: 100,
-        },
-    },
-    expand: true,
-    forceExit: false,
-    logHeapUsage: true,
-    mapCoverage: false,
-    noStackTrace: true,
-    notify: false,
-    projects: ['projects'],
-    replname: '',
-    reporters: [['abc', {}], ['def', {}]],
-    rootDir: 'path',
-    silent: true,
-    testNamePattern: '',
-    testPathPattern: '',
-    testResultsProcessor: '',
-    updateSnapshot: 'all' as 'all' | 'new' | 'none',
-    useStderr: true,
-    verbose: false,
-    watch: true,
-    watchman: false,
-};
-
-const projectConfig: jest.ProjectConfig = {
-    automock: true,
-    browser: false,
-    cache: true,
-    cacheDirectory: '',
-    clearMocks: true,
-    coveragePathIgnorePatterns: [''],
-    cwd: '',
-    detectLeaks: true,
-    displayName: '',
-    forceCoverageMatch: ['abc', 'def'],
-    globals: {
-        'ts-jest': {},
-    },
-    haste: {
-        defaultPlatform: '',
-        hasteImplModulePath: '',
-        platforms: ['win95', 'win2000', 'clippy'],
-        providesModuleNodeModules: ['abc', 'def'],
-    },
-    moduleDirectories: ['', ''],
-    moduleFileExtensions: ['.ts', '.json'],
-    moduleLoader: 'laoder',
-    moduleNameMapper: [['abc', 'def'], ['ghi', 'jkl']],
-    modulePathIgnorePatterns: ['abc', 'def'],
-    modulePaths: ['abc', 'def'],
-    name: '',
-    resetMocks: true,
-    resetModules: false,
-    resolver: '',
-    rootDir: '',
-    roots: ['', ''],
-    runner: '',
-    setupFiles: ['abc', 'def'],
-    setupTestFrameworkScriptFile: '',
-    skipNodeResolution: true,
-    snapshotSerializers: ['abc', 'def'],
-    testEnvironment: '',
-    testEnvironmentOptions: {},
-    testLocationInResults: true,
-    testMatch: ['.test.ts'],
-    testPathIgnorePatterns: ['*.spec.*'],
-    testRegex: 'abc',
-    testRunner: 'm',
-    testURL: 'localhost:3000',
-    timers: 'real',
-    transform: [['abc', 'def']],
-    transformIgnorePatterns: ['', ''],
-    unmockedModulePathPatterns: ['abc'],
-    watchPathIgnorePatterns: ['def'],
-};
-
-const environment = {
-  global: {},
-  fakeTimers: {
-    clearAllTimers() {},
-    runAllImmediates() {},
-    runAllTicks() {},
-    runAllTimers() {},
-    runTimersToTime(time: number) {},
-    advanceTimersByTime(time: number) {},
-    advanceTimersToNextTimer(step: number) {},
-    runOnlyPendingTimers() {},
-    runWithRealTimers(callback: () => void) {
-      callback();
-    },
-    useFakeTimers() {},
-    useRealTimers() {},
-    getTimerCount() {
-      return 1;
-    },
-  },
-  testFilePath: '',
-  moduleMocker: {},
-  dispose() {},
-  runScript(script: '') {
-    return {};
-  },
-};
-
-const workTestFramework = async (testFramework: jest.TestFramework): Promise<jest.TestResult> => {
-    return testFramework(globalConfig, projectConfig, environment, {}, 'testPath');
-};
-
 /* Jasmine status changers */
 
 describe('', () => {
@@ -1409,21 +1303,6 @@ let matchersUtil2: jasmine.MatchersUtil = {
         return true;
     },
     equals: (a: {}, b: {}, customTesters?: jasmine.CustomEqualityTester[]) => false,
-};
-
-// Jest config
-
-const testJestConfig = (defaults: jest.DefaultOptions) => {
-    const config: jest.InitialOptions = {
-        transform: {
-            '^.+\\.(ts|tsx)$': 'ts-jest',
-        },
-        testMatch: [...defaults.testMatch, '**/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)'],
-        moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
-        globals: {
-            'ts-jest': {},
-        },
-    };
 };
 
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/26368

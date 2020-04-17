@@ -87,6 +87,7 @@ import {
   Tooltip,
   Spinner,
   UncontrolledPopover,
+  Util
 } from 'reactstrap';
 
 // --------------- Alert
@@ -4776,3 +4777,26 @@ class Example130 extends React.Component {
     );
   }
 }
+
+const CustomInputTestInnerRef = () => {
+  const ref = React.createRef<HTMLButtonElement>();
+  return (<CustomInput type="checkbox" innerRef={ref} />);
+};
+
+const PopoverTestInnerRef = () => {
+  const target = React.createRef<HTMLButtonElement>();
+  const container = React.createRef<HTMLDivElement>();
+  return (<Popover target={target} container={container}>Yo!</Popover>);
+};
+
+const UncontrolledTooltipTestInnerRef = () => {
+  const target = React.createRef<HTMLButtonElement>();
+  const container = React.createRef<HTMLDivElement>();
+  return (<UncontrolledTooltip target={target} container={container}>Yo!</UncontrolledTooltip>);
+};
+
+const UtilTest = () => {
+  Util.setGlobalCssModule({
+    btn: 'btn2'
+  });
+};

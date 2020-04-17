@@ -11,6 +11,7 @@
 //                 Desmond Koh <https://github.com/deskoh>
 //                 Maurice de Beijer <https://github.com/mauricedb>
 //                 Kalley Powell <https://github.com/kalley>
+//                 Elías García <https://github.com/elias-garcia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -100,8 +101,8 @@ export interface MixedSchema<T = any> extends Schema<T> {
 }
 
 export interface StringSchemaConstructor {
-    (): StringSchema;
-    new (): StringSchema;
+    <T extends string | null | undefined = undefined>(): T extends string ? StringSchema<T> : StringSchema;
+    new <T extends string | null | undefined = undefined>(): T extends string ? StringSchema<T> : StringSchema;
 }
 
 export interface StringSchema<T extends string | null | undefined = string> extends Schema<T> {
@@ -235,10 +236,9 @@ export type ObjectSchemaDefinition<T extends object | null | undefined> = {
  * This is conducive to the functionality of
  * [yup's `object.shape()` method](https://www.npmjs.com/package/yup#objectshapefields-object-nosortedges-arraystring-string-schema).
  */
-export type Shape<T extends object | null | undefined, U extends object> = {
-    [P in keyof T]: P extends keyof U ? U[P] : T[P];
-} &
-    U;
+export type Shape<T extends object | null | undefined, U extends object> =
+  | ({ [P in keyof T]: P extends keyof U ? U[P] : T[P]; } & U)
+  | PreserveOptionals<T>;
 
 export interface ObjectSchemaConstructor {
     <T extends object>(fields?: ObjectSchemaDefinition<T>): ObjectSchema<T>;
@@ -246,6 +246,9 @@ export interface ObjectSchemaConstructor {
 }
 
 export interface ObjectSchema<T extends object | null | undefined = object> extends Schema<T> {
+    fields: {
+      [k in keyof T]: Schema<T[k]>
+    };
     shape<U extends object>(
         fields: ObjectSchemaDefinition<U>,
         noSortEdges?: Array<[string, string]>,
@@ -254,6 +257,7 @@ export interface ObjectSchema<T extends object | null | undefined = object> exte
     noUnknown(onlyKnownKeys?: boolean, message?: ObjectLocale['noUnknown']): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
+    snakeCase(): ObjectSchema<T>;
     constantCase(): ObjectSchema<T>;
     nullable(isNullable?: true): ObjectSchema<T | null>;
     nullable(isNullable: false): ObjectSchema<Exclude<T, null>>;
@@ -300,7 +304,7 @@ export interface ValidateOptions {
      */
     strict?: boolean;
     /**
-     * Teturn from validation methods on the first error rather than after all validations run. Default - true
+     * Return from validation methods on the first error rather than after all validations run. Default - true
      */
     abortEarly?: boolean;
     /**
@@ -351,12 +355,28 @@ export interface TestOptions<P extends Record<string, any> = {}, R = any> {
     exclusive?: boolean;
 }
 
+export interface SchemaFieldRefDescription {
+    type: 'ref';
+    key: string;
+}
+
+export interface SchemaFieldInnerTypeDescription extends Pick<
+    SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>
+> {
+    innerType?: SchemaFieldDescription;
+}
+
+export type SchemaFieldDescription =
+    | SchemaDescription
+    | SchemaFieldRefDescription
+    | SchemaFieldInnerTypeDescription;
+
 export interface SchemaDescription {
     type: string;
     label: string;
     meta: object;
-    tests: Array<{ name: string; params: object }>;
-    fields: object;
+    tests: Array<{ name: string; params: { [k: string]: any } }>;
+    fields: Record<string, SchemaFieldDescription>;
 }
 
 // ValidationError works a lot more like a class vs. a constructor
@@ -492,8 +512,13 @@ type KeyOfUndefined<T> = {
     [P in keyof T]-?: undefined extends T[P] ? P : never;
 }[keyof T];
 
+type PreserveNull<T> = T extends null ? null : never;
+type PreserveUndefined<T> = T extends undefined ? undefined : never;
+type PreserveOptionals<T> = PreserveNull<T> | PreserveUndefined<T>;
 type Id<T> = { [K in keyof T]: T[K] };
 type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
 type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
-type InnerInferType<T> = Id<NotRequiredProps<T> & RequiredProps<T>>;
+type InnerInferType<T> =
+    | (T extends Array<infer T> ? T[] : Id<NotRequiredProps<T> & RequiredProps<T>>)
+    | PreserveOptionals<T>;
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;

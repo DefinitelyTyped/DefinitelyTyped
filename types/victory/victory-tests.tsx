@@ -980,3 +980,8 @@ const sliceProps: VictorySliceProps = {
     sliceEndAngle: props => props.sliceEndAngle, // $ExpectError
     sliceStartAngle: props => props.slieStartAngle, // $ExpectError
 };
+
+// singleQuadrantDomainPadding test
+test = <VictoryArea singleQuadrantDomainPadding={true} />;
+test = <VictoryArea singleQuadrantDomainPadding={{ x: true }} />;
+test = <VictoryArea singleQuadrantDomainPadding={5} />; // $ExpectError

@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
+import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 
 function TestAnimatedAPI() {
     // Value
@@ -18,6 +18,11 @@ function TestAnimatedAPI() {
         outputRange: [0, 200],
     });
 
+    Animated.timing(v2, {
+        toValue: v1.interpolate({ inputRange: [0, 1], outputRange: [0, 200] }),
+        useNativeDriver: false,
+    });
+
     // ValueXY
     const position = new Animated.ValueXY({ x: 0, y: 0 });
 
@@ -26,6 +31,7 @@ function TestAnimatedAPI() {
         toValue: 0.5,
         tension: 10,
         delay: 100,
+        useNativeDriver: false,
     });
 
     const springXY = Animated.spring(position, {
@@ -33,17 +39,25 @@ function TestAnimatedAPI() {
             x: 1,
             y: 2,
         },
+        useNativeDriver: false,
     });
 
     spring1.start();
     spring1.stop();
 
-    Animated.parallel([Animated.spring(v1, { toValue: 1 }), Animated.spring(v2, { toValue: 1 })], {
-        stopTogether: true,
-    });
+    Animated.parallel(
+        [
+            Animated.spring(v1, { toValue: 1, useNativeDriver: false }),
+            Animated.spring(v2, { toValue: 1, useNativeDriver: false }),
+        ],
+        {
+            stopTogether: true,
+        },
+    );
 
     Animated.decay(v1, {
         velocity: 2,
+        useNativeDriver: false,
     });
 
     Animated.timing(v1, {
@@ -51,6 +65,7 @@ function TestAnimatedAPI() {
         duration: 100,
         delay: 100,
         easing: v => v,
+        useNativeDriver: false,
     });
 
     Animated.add(v1, v2);
@@ -84,7 +99,7 @@ function TestAnimatedAPI() {
                 ]}
             />
 
-            <Animated.Image style={position.getTranslateTransform()} />
+            <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
         </View>
     );
 }

@@ -325,6 +325,13 @@ declare var __webpack_hash__: any;
 declare var __non_webpack_require__: any;
 
 /**
+ * Adds nonce to all scripts that webpack loads.
+ *
+ * To activate the feature a __webpack_nonce__ variable needs to be set in your entry script.
+ */
+declare var __webpack_nonce__: string;
+
+/**
  * Equals the config option debug
  */
 declare var DEBUG: boolean;
