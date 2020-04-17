@@ -1416,7 +1416,10 @@ declare namespace webpack {
         startTime?: number;
         endTime?: number;
 
-        static filterWarnings(warnings: string[], warningsFilter?: (warning: string) => boolean): string[];
+        static filterWarnings(
+          warnings: string[],
+          warningsFilter?: Array<string | RegExp | ((warning: string) => boolean)>
+        ): string[];
         /**
          * Returns the default json options from the stats preset.
          * @param preset The preset to be transformed into json options.
