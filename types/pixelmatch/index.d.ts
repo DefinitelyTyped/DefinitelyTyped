@@ -1,4 +1,4 @@
-// Type definitions for pixelmatch 5.1
+// Type definitions for pixelmatch 5.2
 // Project: https://github.com/mapbox/pixelmatch#readme
 // Definitions by: Oleg Repin <https://github.com/iamolegga>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -31,7 +31,7 @@ interface Options {
     readonly threshold?: number;
     /**
      * If true, disables detecting and ignoring anti-aliased pixels.
-     * @defult false
+     * @default false
      */
     readonly includeAA?: boolean;
     /**
@@ -50,6 +50,12 @@ interface Options {
      * @default [255, 0, 0]
      */
     diffColor?: RGBTuple;
+    /**
+     * An alternative color to use for dark on light differences to differentiate between "added" and "removed" parts.
+     * If not provided, all differing pixels use the color specified by `diffColor`.
+     * @default null
+     */
+    diffColorAlt?: RGBTuple;
     /**
      * Draw the diff over a transparent background (a mask), rather than over the original image.
      * Will not draw anti-aliased pixels (if detected)
