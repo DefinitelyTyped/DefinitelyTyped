@@ -9,11 +9,11 @@ export class Queue {
     unshiftRequest(entry: QueueEntry): Promise<void>;
 }
 
-interface OnSyncCallbackOptions {
+export interface OnSyncCallbackOptions {
   queue: Queue;
 }
 
-interface OnSyncCallback {
+export interface OnSyncCallback {
   (options: OnSyncCallbackOptions): void|Promise<void>;
 }
 
