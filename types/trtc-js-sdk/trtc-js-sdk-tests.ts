@@ -1,7 +1,7 @@
 TRTC.Logger.setLogLevel(TRTC.Logger.LogLevel.INFO);
 
-TRTC.getDevices().then((devices) => {
-    devices.forEach((device) => {
+TRTC.getDevices().then(devices => {
+    devices.forEach(device => {
         console.log(device.deviceId, device.kind);
     });
 });

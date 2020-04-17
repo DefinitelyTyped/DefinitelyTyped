@@ -213,10 +213,7 @@ declare namespace TRTC {
          * });
          * ```
          */
-        subscribe(
-            stream: RemoteStream,
-            options?: { audio?: boolean; video?: boolean; }
-        ): void;
+        subscribe(stream: RemoteStream, options?: { audio?: boolean; video?: boolean }): void;
 
         /**
          * 取消订阅远端流
@@ -316,7 +313,7 @@ declare namespace TRTC {
         /** 用户被踢出房间通知，被踢原因有 */
         'client-banned': RtcError;
         /** 客户端错误事件 */
-        'error': RtcError;
+        error: RtcError;
     }
 
     /**
@@ -330,7 +327,7 @@ declare namespace TRTC {
          * @param elementId HTML <div> 标签ID，该方法内部自动创建的音视频标签将被添加到该容器中。
          * @param options 播放选项
          */
-        play(elementId: HTMLDivElement["id"] | HTMLDivElement, options?: PlayOptions): Promise<void>;
+        play(elementId: HTMLDivElement['id'] | HTMLDivElement, options?: PlayOptions): Promise<void>;
 
         /** 停止播放音视频流,该方法还会将由 `play()` 创建的音视频标签从 HTML 页面中删除。 */
         stop(): void;
@@ -486,7 +483,7 @@ declare namespace TRTC {
          * - `detail`：本地视频内容为 ppt、带有文本内容、绘画或艺术线条的网页。一般屏幕分享默认使用这个提示。
          * - `text`：本地视频内容主要是含有文本的 ppt 或网页等。
          */
-        setVideoContentHint(hint: "motion" | "detail" | "text"): void;
+        setVideoContentHint(hint: 'motion' | 'detail' | 'text'): void;
 
         /**
          * 切换本地流的媒体输入设备,该方法仅适用于从摄像头和麦克风采集音视频的本地流。
@@ -499,7 +496,7 @@ declare namespace TRTC {
          * - 摄像头设备标识通过 getCameras() 获取。在移动设备上，可以通过设置 deviceId 为 'user' 和 'environment' 来切换前置和后置摄像头。
          * - 麦克风设备标识通过 getMicrophones() 获取。
          */
-        switchDevice(type: "audio" | "video", deviceId: string): Promise<void>;
+        switchDevice(type: 'audio' | 'video', deviceId: string): Promise<void>;
 
         /**
          * 添加音频或视频轨道
@@ -584,7 +581,7 @@ declare namespace TRTC {
          * - `main` 主音视频流
          * - `auxiliary` 辅助视频流，通常是一个屏幕分享流
          */
-        getType(): "main" | "auxiliary";
+        getType(): 'main' | 'auxiliary';
     }
 
     interface StreamConfig {
