@@ -23,6 +23,7 @@
 //                 Frederic Reisenhauer <https://github.com/freisenhauer>
 //                 Stefan-Gabriel Muscalu <https://github.com/legraphista>
 //                 Simcha Wood <https://github.com/SimchaWood>
+//                 Steven Barnett <https://github.com/stevendesu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -608,6 +609,13 @@ declare namespace Joi {
     }
 
     interface ValidationError extends Error {
+        // Per the DefinitelyTyped README, classes should be preferred over new-able interfaces
+        // HOWEVER, changing this interface to a class breaks this definition file
+        // Discussion around this can be see in this pull request: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/43970
+        // I really want a better solution, but this is better than nothing:
+        // tslint:disable-next-line:no-misused-new
+        new(): ValidationError;
+
         name: 'ValidationError';
 
         isJoi: boolean;
@@ -2057,7 +2065,7 @@ declare namespace Joi {
         /**
          * Checks whether or not the provided argument is an instance of ValidationError
          */
-        isError(error: any): boolean;
+        isError(error: any): error is ValidationError;
 
         /**
          * Checks whether or not the provided argument is an expression.

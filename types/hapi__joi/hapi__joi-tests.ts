@@ -162,7 +162,7 @@ stringRegexOpts = { invert: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-declare const validErr: Joi.ValidationError;
+const validErr: Joi.ValidationError = new Joi.ValidationError();
 let validErrItem: Joi.ValidationErrorItem;
 let validErrFunc: Joi.ValidationErrorFunction;
 
@@ -204,6 +204,14 @@ validErrFunc = errors => {
 };
 
 Joi.any().error(validErrFunc);
+
+Joi.isError(validErr);
+
+const maybeValidErr = <any> new Joi.ValidationError();
+if (Joi.isError(maybeValidErr)) {
+    // isError is a type guard that allows accessing these properties:
+    maybeValidErr.isJoi;
+}
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
