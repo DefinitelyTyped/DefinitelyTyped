@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.63
+// Type definitions for react-native 0.63.0-rc.0
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -9211,7 +9211,7 @@ declare global {
     const HermesInternal: null | {};
 }
 
-export type NativeColorValue = {
+type NativeColorValue = {
     semantic?: Array<string>,
     dynamic?: {
     light: (ColorValue | ProcessedColorValue),
@@ -9223,18 +9223,18 @@ export type ProcessedColorValue = number | NativeColorValue;
 
 export type ColorValue = null | string | NativeColorValue;
 
-export function PlatformColor(...names:string[]):ColorValue;
+export function PlatformColor(...names: string[]): ColorValue;
 
 export type DynamicColorIOSTuple = {
     light: ColorValue,
     dark: ColorValue,
 };
 
-export function DynamicColorIOS(tuple:DynamicColorIOSTuple): ColorValue;
+export function DynamicColorIOS(tuple: DynamicColorIOSTuple): ColorValue;
 
 export namespace LogBox {
-    export function ignoreLogs(patterns:Readonly<(string|RegExp)[]>):void
-    export function ignoreAllLogs(value?:boolean):void
-    export function uninstall():void
-    export function install():void
+    export function ignoreLogs(patterns: Readonly<(string|RegExp)[]>): void
+    export function ignoreAllLogs(value?: boolean): void
+    export function uninstall(): void
+    export function install(): void
 }

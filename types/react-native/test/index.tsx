@@ -1098,18 +1098,18 @@ DevSettings.reload();
 DevSettings.reload('reload with reason');
 
 // PlatformColor
-const labelColor = PlatformColor('labelColor')
-const backgroundColor = PlatformColor('bogus', '@color/catalyst_redbox_background')
+const labelColor = PlatformColor('labelColor');
+const backgroundColor = PlatformColor('bogus', '@color/catalyst_redbox_background');
 
 // DynamicColorIOS
-const dynamicColor = DynamicColorIOS({light:'black',dark:'white'})
-const errorColor = DynamicColorIOS({light: 'red'}) // $ExpectError
+const dynamicColor = DynamicColorIOS({ light: 'black', dark: 'white' });
+const errorColor = DynamicColorIOS({ light: 'red' }); // $ExpectError
 
 // LogBox
-LogBox.ignoreLogs(['test'])
-LogBox.ignoreLogs([/test/gi])
-LogBox.ignoreLogs(['test',/test/gi])
-LogBox.ignoreAllLogs()
-LogBox.ignoreAllLogs(false)
-LogBox.install()
-LogBox.uninstall()
+LogBox.ignoreLogs(['test']);
+LogBox.ignoreLogs([/test/gi]);
+LogBox.ignoreLogs(['test', /test/gi]);
+LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs(false);
+LogBox.install();
+LogBox.uninstall();
