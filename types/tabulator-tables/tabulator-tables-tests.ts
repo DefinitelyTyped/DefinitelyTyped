@@ -584,10 +584,9 @@ table = new Tabulator('#example-table', {
     },
 });
 
-table = new Tabulator('#test', {
-    blockRedraw: () => {},
-    restoreRedraw: () => {},
-});
+table = new Tabulator('#test', {});
+table.blockRedraw();
+table.restoreRedraw();
 
 table = Tabulator.prototype.findTable('#example-table');
 
