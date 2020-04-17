@@ -190,7 +190,8 @@ adapter.getObjectAsync("obj.id").then(obj => obj && obj._id.toLowerCase());
 adapter.getForeignObjectAsync("obj.id").then(obj => obj && obj._id.toLowerCase());
 
 adapter.getForeignObjects("*", (err, objs) => objs!["foo"]._id.toLowerCase());
-adapter.getForeignObjectsAsync("*").then(objs => objs!["foo"]._id.toLowerCase());
+// getForeignObjectsAsync always returns a Record when it doesn't throw
+adapter.getForeignObjectsAsync("*").then(objs => objs["foo"]._id.toLowerCase());
 
 adapter.setObject("id", {
     _id: "id",

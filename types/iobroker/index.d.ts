@@ -762,18 +762,18 @@ declare global {
             getForeignObjectsAsync(
                 pattern: string,
                 options?: unknown,
-            ): Promise<CallbackReturnTypeOf<GetObjectsCallback>>;
+            ): Promise<NonNullCallbackReturnTypeOf<GetObjectsCallback>>;
             getForeignObjectsAsync(
                 pattern: string,
                 type: ObjectType,
                 options?: unknown,
-            ): Promise<CallbackReturnTypeOf<GetObjectsCallback>>;
+            ): Promise<NonNullCallbackReturnTypeOf<GetObjectsCallback>>;
             getForeignObjectsAsync(
                 pattern: string,
                 type: ObjectType,
                 enums: EnumList,
                 options?: unknown,
-            ): Promise<CallbackReturnTypeOf<GetObjectsCallback>>;
+            ): Promise<NonNullCallbackReturnTypeOf<GetObjectsCallback>>;
             /** Creates or overwrites an object (which might not belong to this adapter) in the object db */
             setForeignObject(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setForeignObject(
