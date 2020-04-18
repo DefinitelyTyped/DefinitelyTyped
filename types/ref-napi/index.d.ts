@@ -188,7 +188,7 @@ export declare var types: {
 };
 
 declare global {
-  interface Buffer{
+  interface Buffer {
     address: typeof address;
     isNull: typeof isNull;
     ref: typeof ref;
