@@ -115,7 +115,7 @@ export function signatureImport(signature: Uint8Array): Uint8Array;
  * - Compose 32-byte scalar `s = k^-1 * (r * d + m)`. Reject nonce if `s` is zero.
  * - The signature is `(r, s)`.
  */
-export function ecdsaSign(message: Uint8Array, privateKey: Uint8Array, options?: SignOptions): {signature: Uint8Array, recId: number};
+export function ecdsaSign(message: Uint8Array, privateKey: Uint8Array, options?: SignOptions): {signature: Uint8Array, recid: number};
 
 /**
  * Verify an ECDSA signature.
@@ -133,7 +133,7 @@ export function ecdsaVerify(signature: Uint8Array, message: Uint8Array, publicKe
 /**
  * Recover an ECDSA public key from a signature.
  */
-export function ecdsaRecover(signature: Uint8Array, recId: number, message: Uint8Array, compressed?: boolean): Uint8Array;
+export function ecdsaRecover(signature: Uint8Array, recid: number, message: Uint8Array, compressed?: boolean): Uint8Array;
 
 /**
  * Compute an EC Diffie-Hellman secret and applied sha256 to compressed public key.

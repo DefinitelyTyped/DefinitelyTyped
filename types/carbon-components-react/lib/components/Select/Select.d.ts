@@ -1,14 +1,25 @@
 import * as React from "react";
-import { EmbeddedIconProps, RequiresIdProps, ThemeProps, ValidityProps } from "../../../typings/shared";
-
-type ExcludedAttributes = "aria-invalid" | "id" | "ref";
-interface InheritedProps extends
-    Omit<React.SelectHTMLAttributes<HTMLSelectElement>, ExcludedAttributes>,
+import {
     EmbeddedIconProps,
     RequiresIdProps,
     ThemeProps,
+    ValidityProps,
+    ForwardRefReturn,
+    CarbonInputSize
+} from "../../../typings/shared";
+
+type ExcludedAttributes = "aria-invalid" | "id" | "ref" | "size";
+interface InheritedProps extends
+    Omit<React.SelectHTMLAttributes<HTMLSelectElement>, ExcludedAttributes>,
+    RequiresIdProps,
+    ThemeProps,
     ValidityProps
-{ }
+{
+    /**
+     * @deprecated
+     */
+    iconDescription?: EmbeddedIconProps["iconDescription"],
+}
 
 export interface SelectProps extends InheritedProps {
     defaultValue?: any,
@@ -17,8 +28,9 @@ export interface SelectProps extends InheritedProps {
     inline?: boolean,
     labelText?: React.ReactNode,
     noLabel?: boolean,
+    size?: Extract<CarbonInputSize, "sm" | "xl">,
 }
 
-declare const Select: React.RefForwardingComponent<HTMLSelectElement, SelectProps>;
+declare const Select: ForwardRefReturn<HTMLSelectElement, SelectProps>;
 
 export default Select;

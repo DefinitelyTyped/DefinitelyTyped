@@ -18,6 +18,7 @@ import {
     RSAAFailureTypeDescriptor,
     RSAARequestAction,
     RSAAResultAction,
+    createAction,
 } from 'redux-api-middleware';
 
 {
@@ -321,4 +322,15 @@ import {
         type: '',
         error: true,
     };
+}
+
+{
+    createAction(); // $ExpectError
+    createAction({}); // $ExpectError
+    // $ExpectType RSAAAction<any, any, any>
+    createAction<any, any, any>({
+        endpoint: '/test/endpoint',
+        method: 'GET',
+        types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'],
+    });
 }

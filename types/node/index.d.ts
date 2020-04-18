@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 13.11
+// Type definitions for non-npm package Node.js 13.13
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>

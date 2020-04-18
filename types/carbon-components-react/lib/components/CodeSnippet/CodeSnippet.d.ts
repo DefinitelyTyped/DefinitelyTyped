@@ -23,6 +23,7 @@ export interface CodeSnippetInlineProps extends SharedProps, InheritedInlineProp
 }
 
 export type AllCodeSnippetProps = CodeSnippetDivProps | CodeSnippetInlineProps;
-declare class CodeSnippet extends React.Component<AllCodeSnippetProps> { }
+
+declare const CodeSnippet: React.FC<AllCodeSnippetProps>;
 
 export default CodeSnippet;

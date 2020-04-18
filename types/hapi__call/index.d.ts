@@ -23,6 +23,7 @@ export interface Match<P = any, D = any> {
 export type Route<P = any, D = any> = Match<P, D> | Error;
 
 export class Router {
+    constructor(routerOptions?: RouterOptions)
     add(definition: RouteDefinition, data?: any): void;
     route(method: string, path: string): Route;
 }

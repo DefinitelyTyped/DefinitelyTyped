@@ -5,6 +5,7 @@ import { Readable } from "stream";
 
 {
     if (workerThreads.isMainThread) {
+        const { port1 } = new workerThreads.MessageChannel();
         module.exports = async function parseJSAsync(script: string) {
             return new Promise((resolve, reject) => {
                 const worker = new workerThreads.Worker(__filename, {
@@ -12,7 +13,8 @@ import { Readable } from "stream";
                         codeRangeSizeMb: 123,
                     },
                     argv: ['asd'],
-                    workerData: script
+                    workerData: script,
+                    transferList: [port1],
                 });
                 worker.on('message', resolve);
                 worker.on('error', reject);

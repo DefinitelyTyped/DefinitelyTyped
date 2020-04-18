@@ -11,8 +11,9 @@ interface FilterItemsExtra<T> {
 
 export interface FilterableMultiSelectProps<T extends ListBoxBaseItemType = string> extends InheritedProps<T> {
     filterItems?(items: ReadonlyArray<T>, extra: FilterItemsExtra<T>): T[],
+    placeholder: string;
 }
 
-declare class FilterableMultiSelect <T extends ListBoxBaseItemType = string>extends React.Component<FilterableMultiSelectProps<T>> { }
+declare class FilterableMultiSelect<T extends ListBoxBaseItemType = string> extends React.Component<FilterableMultiSelectProps<T>> { }
 
 export default FilterableMultiSelect;
