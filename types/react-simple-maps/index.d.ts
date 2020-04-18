@@ -77,6 +77,7 @@ export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
      * @default false
      */
     disableZooming?: boolean;
+    translateExtent?: [Point, Point];
     onMoveStart?: (event: any, position: Position) => void;
     onMoveEnd?: (event: any, position: Position) => void;
     onZoomStart?: (event: any, position: Position) => void;
