@@ -1,0 +1,143 @@
+// Type definitions for siren-parser 8.2
+// Project: https://github.com/Brightspace/node-siren-parser
+// Definitions by: Dillon Redding <https://github.com/dillonredding>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
+
+export default function parseSiren(siren: string | object): Entity;
+
+export interface Entity {
+    class?: string[];
+    properties?: object;
+    entities?: Entity[];
+    links?: Link[];
+    actions?: Action[];
+    title?: string;
+    // embedded link properties
+    rel?: string[];
+    href?: string;
+    type?: string;
+
+    hasAction(actionName: string | RegExp): boolean;
+    hasActionByName(actionName: string | RegExp): boolean;
+    hasActionByClass(actionClass: string | RegExp): boolean;
+    hasActionByMethod(actionMethod: string | RegExp): boolean;
+    hasActionByType(actionType: string | RegExp): boolean;
+    hasClass(cls: string | RegExp): boolean;
+    hasEntity(entityRel: string | RegExp): boolean;
+    hasEntityByRel(entityRel: string | RegExp): boolean;
+    hasSubEntityByRel(entityRel: string | RegExp): boolean;
+    hasEntityByClass(entityClass: string | RegExp): boolean;
+    hasSubEntityByClass(entityClass: string | RegExp): boolean;
+    hasEntityByType(entityType: string | RegExp): boolean;
+    hasSubEntityByType(entityType: string | RegExp): boolean;
+    hasLink(linkRel: string | RegExp): boolean;
+    hasLinkByRel(linkRel: string | RegExp): boolean;
+    hasLinkByClass(linkClass: string | RegExp): boolean;
+    hasLinkByType(linkType: string | RegExp): boolean;
+    hasProperty(property: string | RegExp): boolean;
+
+    getAction(actionName: string | RegExp): Action | undefined;
+    getActionByName(actionName: string | RegExp): Action | undefined;
+    getActionByClass(actionClass: string | RegExp): Action | undefined;
+    getActionsByClass(actionClass: string | RegExp): Action[];
+    getActionByClasses(actionClasses: ReadonlyArray<string | RegExp>): Action | undefined;
+    getActionsByClasses(actionClasses: ReadonlyArray<string | RegExp>): Action[];
+    getActionByMethod(actionMethod: string | RegExp): Action | undefined;
+    getActionsByMethod(actionMethod: string | RegExp): Action[];
+    getActionByType(actionType: string | RegExp): Action | undefined;
+    getActionsByType(actionType: string | RegExp): Action[];
+
+    getLink(linkRel: string | RegExp): Link | undefined;
+    getLinks(linkRel: string | RegExp): Link[];
+    getLinkByRel(linkRel: string | RegExp): Link | undefined;
+    getLinksByRel(linkRel: string | RegExp): Link[];
+    getLinkByRels(linkRels: ReadonlyArray<string | RegExp>): Link | undefined;
+    getLinksByRels(linkRels: ReadonlyArray<string | RegExp>): Link[];
+    getLinkByClass(linkClass: string | RegExp): Link | undefined;
+    getLinksByClass(linkClass: string | RegExp): Link[];
+    getLinkByClasses(linkClasses: ReadonlyArray<string | RegExp>): Link | undefined;
+    getLinksByClasses(linkClasses: ReadonlyArray<string | RegExp>): Link[];
+    getLinkByType(linkType: string | RegExp): Link | undefined;
+    getLinksByType(linkType: string | RegExp): Link[];
+
+    getSubEntity(entityRel: string | RegExp): Entity | undefined;
+    getSubEntities(entityRel: string | RegExp): Entity[];
+    getSubEntityByRel(entityRel: string | RegExp): Entity | undefined;
+    getSubEntitiesByRel(entityRel: string | RegExp): Entity[];
+    getSubEntityByRels(entityRels: ReadonlyArray<string | RegExp>): Entity | undefined;
+    getSubEntitiesByRels(entityRels: ReadonlyArray<string | RegExp>): Entity[];
+    getSubEntityByClass(entityClass: string | RegExp): Entity | undefined;
+    getSubEntitiesByClass(entityClass: string | RegExp): Entity[];
+    getSubEntityByClasses(entityClasses: ReadonlyArray<string | RegExp>): Entity | undefined;
+    getSubEntitiesByClasses(entityClasses: ReadonlyArray<string | RegExp>): Entity[];
+    getSubEntityByType(entityType: string | RegExp): Entity | undefined;
+    getSubEntitiesByType(entityType: string | RegExp): Entity[];
+}
+
+export interface Link {
+    rel: string[];
+    class?: string[];
+    href: string;
+    title?: string;
+    type?: string;
+
+    hasClass(cls: string | RegExp): boolean;
+}
+
+export interface Action {
+    name: string;
+    href: string;
+    class?: string[];
+    method?: string;
+    title?: string;
+    type?: string;
+    fields?: Field[];
+
+    hasClass(cls: string | RegExp): boolean;
+    hasField(fieldName: string | RegExp): boolean;
+    hasFieldByName(fieldName: string | RegExp): boolean;
+    hasFieldByClass(fieldClass: string | RegExp): boolean;
+    hasFieldByType(fieldType: string | RegExp): boolean;
+
+    getField(fieldName: string | RegExp): Field | undefined;
+    getFieldByName(fieldName: string | RegExp): Field | undefined;
+    getFieldByClass(fieldClass: string | RegExp): Field | undefined;
+    getFieldsByClass(fieldClass: string | RegExp): Field[];
+    getFieldByClasses(fieldClasses: ReadonlyArray<string | RegExp>): Field | undefined;
+    getFieldsByClasses(fieldClasses: ReadonlyArray<string | RegExp>): Field[];
+    getFieldByType(fieldType: string | RegExp): Field | undefined;
+    getFieldsByType(fieldType: string | RegExp): Field[];
+}
+
+export interface Field {
+    name: string;
+    class?: string[];
+    type?: FieldType;
+    title?: string;
+    value?: any;
+
+    hasClass(cls: string | RegExp): boolean;
+}
+
+export enum FieldType {
+    Hidden = 'hidden',
+    Text = 'text',
+    Search = 'search',
+    Telephone = 'tel',
+    Url = 'url',
+    Email = 'email',
+    Password = 'password',
+    DateTime = 'datetime',
+    Date = 'date',
+    Month = 'month',
+    Week = 'week',
+    Time = 'time',
+    LocalDateTime = 'datetime-local',
+    Number = 'number',
+    Range = 'range',
+    Color = 'color',
+    Checkbox = 'checkbox',
+    Radio = 'radio',
+    File = 'file'
+}
