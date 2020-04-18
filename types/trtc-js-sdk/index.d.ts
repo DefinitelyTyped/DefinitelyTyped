@@ -3,10 +3,6 @@
 // Definitions by: yokots <https://github.com/yokots>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
 // tslint:disable-next-line:export-just-namespace
 export = TRTC;
 export as namespace TRTC;
