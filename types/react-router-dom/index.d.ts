@@ -1,4 +1,4 @@
-// Type definitions for React Router 5.1
+// Type definitions for React Router 6.0
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 //                 Philip Jackson <https://github.com/p-jackson>
@@ -6,6 +6,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Daniel Nixon <https://github.com/danielnixon>
 //                 Tony Ward <https://github.com/ynotdraw>
+//                 Marek Urbanowicz <https://github.com/murbanowicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -17,22 +18,20 @@ export {
     generatePath,
     Prompt,
     MemoryRouter,
-    RedirectProps,
-    Redirect,
     RouteChildrenProps,
     RouteComponentProps,
     RouteProps,
     Route,
     Router,
+    Routes,
+    RoutesProps,
     StaticRouter,
-    SwitchProps,
-    Switch,
     match,
     matchPath,
     withRouter,
     RouterChildContext,
-    useHistory,
     useLocation,
+    useNavigate,
     useParams,
     useRouteMatch,
 } from 'react-router';

@@ -1,4 +1,4 @@
-// Type definitions for React Router 5.1
+// Type definitions for React Router 6.0
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>
 //                 Yuichi Murata <https://github.com/mrk21>
@@ -21,6 +21,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
 //                 Pawel Fajfer <https://github.com/pawfa>
+//                 Marek Urbanowicz <https://github.com/murbanowicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -48,20 +49,10 @@ export interface MemoryRouterProps {
 export class MemoryRouter extends React.Component<MemoryRouterProps, any> {}
 
 export interface PromptProps {
-    message: string | ((location: H.Location, action: H.Action) => string | boolean);
+    message: string | ((location: H.Location) => string | boolean);
     when?: boolean;
 }
 export class Prompt extends React.Component<PromptProps, any> {}
-
-export interface RedirectProps {
-    to: H.LocationDescriptor;
-    push?: boolean;
-    from?: string;
-    path?: string;
-    exact?: boolean;
-    strict?: boolean;
-}
-export class Redirect extends React.Component<RedirectProps, any> {}
 
 export interface StaticContext {
     statusCode?: number;
@@ -86,9 +77,10 @@ export interface RouteChildrenProps<Params extends { [K in keyof Params]?: strin
 
 export interface RouteProps {
     location?: H.Location;
-    component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+    element?:
+        | ((props: RouteChildrenProps<any>) => React.ReactNode)
+        | React.ReactNode;
     render?: (props: RouteComponentProps<any>) => React.ReactNode;
-    children?: ((props: RouteChildrenProps<any>) => React.ReactNode) | React.ReactNode;
     path?: string | string[];
     exact?: boolean;
     sensitive?: boolean;
@@ -100,6 +92,11 @@ export interface RouterProps {
     history: H.History;
 }
 export class Router extends React.Component<RouterProps, any> {}
+
+export class Routes extends React.Component<RoutesProps, any> {}
+export interface RoutesProps {
+    children?: React.ReactNode;
+}
 
 export interface StaticRouterContext extends StaticContext {
     url?: string;
@@ -113,11 +110,7 @@ export interface StaticRouterProps {
 }
 
 export class StaticRouter extends React.Component<StaticRouterProps, any> {}
-export interface SwitchProps {
-    children?: React.ReactNode;
-    location?: H.Location;
-}
-export class Switch extends React.Component<SwitchProps, any> {}
+
 
 export interface match<Params extends { [K in keyof Params]?: string } = {}> {
     params: Params;
@@ -158,11 +151,11 @@ export function withRouter<P extends RouteComponentProps<any>, C extends React.C
 
 export const __RouterContext: React.Context<RouteComponentProps>;
 
-export function useHistory<HistoryLocationState = H.LocationState>(): H.History<HistoryLocationState>;
-
 export function useLocation<S = H.LocationState>(): H.Location<S>;
 
-export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): Params;
+export function useNavigate(): (path: string) => void;
+
+export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): { [p in keyof Params]: keyof Params[p] extends undefined ? string | undefined : string  };
 
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(): match<Params>;
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(
