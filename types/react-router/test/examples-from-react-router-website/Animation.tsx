@@ -1,12 +1,13 @@
 import * as React from 'react';
 import ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 import {
-  BrowserRouter as Router,
-  RouteComponentProps,
-  Route,
-  LinkProps,
-  Link,
-  Redirect
+    BrowserRouter as Router,
+    RouteComponentProps,
+    Route,
+    LinkProps,
+    Link,
+    useNavigate,
+    useLocation,
 } from 'react-router-dom';
 
 /* you'll need this CSS somewhere
@@ -20,104 +21,108 @@ import {
 }
 */
 
-const AnimationExample = () => (
-  <Router>
-    <Route render={({ location }) => (
-      <div style={styles.fill}>
-        <Route exact path="/" render={() => (
-          <Redirect to="/10/90/50"/>
-        )}/>
+const AnimationExample = () => {
+    const navigate = useNavigate();
+    const path = useLocation();
+    if (path.pathname === '/') {
+        navigate('/10/90/50');
+    }
+    return (
+        <Router>
+            <Route
+                render={({ location }) => (
+                    <div style={styles.fill}>
+                        <ul style={styles.nav}>
+                            <NavLink to="/10/90/50">Red</NavLink>
+                            <NavLink to="/120/100/40">Green</NavLink>
+                            <NavLink to="/200/100/40">Blue</NavLink>
+                            <NavLink to="/310/100/50">Pink</NavLink>
+                        </ul>
 
-        <ul style={styles.nav}>
-          <NavLink to="/10/90/50">Red</NavLink>
-          <NavLink to="/120/100/40">Green</NavLink>
-          <NavLink to="/200/100/40">Blue</NavLink>
-          <NavLink to="/310/100/50">Pink</NavLink>
-        </ul>
-
-        <div style={styles.content}>
-          <ReactCSSTransitionGroup
-            transitionName="fade"
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={300}
-          >
-            {/* no different than other usage of
+                        <div style={styles.content}>
+                            <ReactCSSTransitionGroup
+                                transitionName="fade"
+                                transitionEnterTimeout={300}
+                                transitionLeaveTimeout={300}
+                            >
+                                {/* no different than other usage of
                 ReactCSSTransitionGroup, just make
                 sure to pass `location` to `Route`
                 so it can match the old location
                 as it animates out
             */}
-            <Route
-              location={location}
-              key={location.key}
-              path="/:h/:s/:l"
-              component={HSL}
+                                <Route location={location} key={location.key} path="/:h/:s/:l" component={HSL} />
+                            </ReactCSSTransitionGroup>
+                        </div>
+                    </div>
+                )}
             />
-          </ReactCSSTransitionGroup>
-        </div>
-      </div>
-    )}/>
-  </Router>
-);
+        </Router>
+    );
+};
 
-const NavLink: React.SFC<LinkProps> = (props) => (
-  <li style={styles.navItem}>
-    <Link {...props} style={{ color: 'inherit' }}/>
-  </li>
+const NavLink: React.FunctionComponent<LinkProps> = props => (
+    <li style={styles.navItem}>
+        <Link {...props} style={{ color: 'inherit' }} />
+    </li>
 );
 
 interface HSLParams {
-  h: string;
-  s: string;
-  l: string;
+    h: string;
+    s: string;
+    l: string;
 }
 
-const HSL: React.SFC<RouteComponentProps<HSLParams>> = ({ match: { params } }) => (
-  <div style={{
-    ...styles.fill,
-    ...styles.hsl,
-    background: `hsl(${params.h}, ${params.s}%, ${params.l}%)`
-  }}>hsl({params.h}, {params.s}%, {params.l}%)</div>
+const HSL: React.FunctionComponent<RouteComponentProps<HSLParams>> = ({ match: { params } }) => (
+    <div
+        style={{
+            ...styles.fill,
+            ...styles.hsl,
+            background: `hsl(${params.h}, ${params.s}%, ${params.l}%)`,
+        }}
+    >
+        hsl({params.h}, {params.s}%, {params.l}%)
+    </div>
 );
 
 const styles: any = {};
 
 styles.fill = {
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  top: 0,
-  bottom: 0
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
 };
 
 styles.content = {
-  ...styles.fill,
-  top: '40px',
-  textAlign: 'center'
+    ...styles.fill,
+    top: '40px',
+    textAlign: 'center',
 };
 
 styles.nav = {
-  padding: 0,
-  margin: 0,
-  position: 'absolute',
-  top: 0,
-  height: '40px',
-  width: '100%',
-  display: 'flex'
+    padding: 0,
+    margin: 0,
+    position: 'absolute',
+    top: 0,
+    height: '40px',
+    width: '100%',
+    display: 'flex',
 };
 
 styles.navItem = {
-  textAlign: 'center',
-  flex: 1,
-  listStyleType: 'none',
-  padding: '10px'
+    textAlign: 'center',
+    flex: 1,
+    listStyleType: 'none',
+    padding: '10px',
 };
 
-styles.hsl  = {
-  ...styles.fill,
-  color: 'white',
-  paddingTop: '20px',
-  fontSize: '30px'
+styles.hsl = {
+    ...styles.fill,
+    color: 'white',
+    paddingTop: '20px',
+    fontSize: '30px',
 };
 
 export default AnimationExample;

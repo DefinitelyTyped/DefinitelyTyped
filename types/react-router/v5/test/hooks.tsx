@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate, useLocation, useParams, useRouteMatch } from 'react-router';
+import { useHistory, useLocation, useParams, useRouteMatch } from 'react-router';
 
 interface Params {
     id: string;
@@ -10,23 +10,17 @@ interface OptionalParams {
     s: string | undefined;
 }
 
-interface TypedParams {
-    t: 'a' | 'b' | 'c';
-}
-
 interface LocationState {
     s: string;
 }
 
 const HooksTest: React.FC = () => {
-    const navigate = useNavigate();
+    const history = useHistory<LocationState>();
     const location = useLocation<LocationState>();
     const { id } = useParams();
     const params = useParams<Params>();
-    // $ExpectType OptionalParams
+    // $ExpectType { id?: string | undefined; s: string | undefined; }
     const optionalParams = useParams<OptionalParams>();
-    // $ExpectType TypedParams
-    const typedParams = useParams<TypedParams>();
     // $ExpectType match<Params> | null
     const match1 = useRouteMatch<Params>('/:id');
     // $ExpectType match<Params> | null
@@ -36,13 +30,12 @@ const HooksTest: React.FC = () => {
     // $ExpectType match<Params>
     const match4 = useRouteMatch<Params>();
 
-    navigate('');
+    history.location.state.s;
     location.state.s;
     id && id.replace;
     params.id.replace;
     optionalParams.id && optionalParams.id.replace;
     optionalParams.s && optionalParams.s.replace;
-    typedParams.t.replace;
     match1 && match1.params.id.replace;
     match2 && match2.params.id.replace;
     match3 && match3.params.id.replace;
