@@ -8,7 +8,11 @@ const Map = () => (
         style={{ height: 'auto', width: '100%' }}
         width={980}
     >
-        <ZoomableGroup center={[0, 20]} disablePanning={true}>
+        <ZoomableGroup
+        center={[0, 20]}
+        disablePanning={true}
+        translateExtent={[0, 0], [40, 40]}
+    >
             <Geographies geography="/worldmap.json">
                 {({ geographies }) =>
                     geographies.map((geography, index) => (
