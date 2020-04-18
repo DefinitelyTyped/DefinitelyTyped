@@ -44,6 +44,7 @@
     },
     "files": [
         "index.d.ts",
+        "test/factory/server.ts",
         "test/request/auth.ts",
         "test/request/catch-all.ts",
         "test/request/event-types.ts",
