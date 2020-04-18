@@ -8,7 +8,10 @@
         "baseUrl": "../",
         "typeRoots": [
             "../"
-        ]
+        ],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": []
     },
     "files": [
         "hyphen-tests.ts"
