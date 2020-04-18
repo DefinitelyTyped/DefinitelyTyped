@@ -70,7 +70,14 @@ declare namespace KurentoClient {
     interface WebRtcEndpoint extends ClientInstance, MediaObject, MediaElement {
         addIceCandidate: (candidate: RTCIceCandidate, callback?: Callback<void>) => Promise<void>;
         closeDataChannel: (channelId: number, callback?: Callback<void>) => Promise<void>;
-        createDataChannel: (label?: string, ordered?: boolean, maxPacketLifeTime?: number, maxRetransmits?: number, protocol?: string, callback?: Callback<void>) => Promise<void>;
+        createDataChannel: (
+            label?: string,
+            ordered?: boolean,
+            maxPacketLifeTime?: number,
+            maxRetransmits?: number,
+            protocol?: string,
+            callback?: Callback<void>,
+        ) => Promise<void>;
         gatherCandidates: (callback?: Callback<void>) => Promise<void>;
         getConnectionState: (callback?: Callback<any>) => Promise<any>;
         getICECandidatePairs: (callback?: Callback<any>) => Promise<any>;
