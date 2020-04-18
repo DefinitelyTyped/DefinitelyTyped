@@ -3,8 +3,7 @@
 // Definitions by: James Hill <https://github.com/jhdevuk>, Michel Albers <https://github.com/michelalbers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
-
-declare namespace KurentoClient {
+declare namespace kurento {
     interface Constructor {
         (ws_uri: string, options?: Options): Promise<ClientInstance>;
         getComplexType: (complex: 'IceCandidate') => (value: any) => any;
@@ -15,7 +14,19 @@ declare namespace KurentoClient {
         stopOnEndOfStream?: boolean;
     }
 
-    class ClientInstance {
+    interface Options {
+        failAfter?: number;
+        enableTransactions?: boolean;
+        useImplicitTransactions?: boolean;
+        strict?: boolean;
+        request_timeout?: number;
+        response_timeout?: number;
+        duplicates_timeout?: number;
+        access_token?: string;
+        socket?: any;
+    }
+
+    interface ClientInstance {
         create(type: 'MediaPipeline'): Promise<MediaPipeline>;
         create(type: 'WebRtcEndpoint'): Promise<WebRtcEndpoint>;
         create(type: 'RecorderEndpoint', options: RecorderEndpointOptions): Promise<RecorderEndpoint>;
@@ -138,20 +149,8 @@ declare namespace KurentoClient {
     }
 
     type Callback<T> = (error: Error, result: T) => void;
-
-    interface Options {
-        failAfter?: number;
-        enableTransactions?: boolean;
-        useImplicitTransactions?: boolean;
-        strict?: boolean;
-        request_timeout?: number;
-        response_timeout?: number;
-        duplicates_timeout?: number;
-        access_token?: string;
-        socket?: any;
-    }
 }
 
-declare const kurento: KurentoClient.Constructor;
+declare const kurento: kurento.Constructor;
 
 export = kurento;
