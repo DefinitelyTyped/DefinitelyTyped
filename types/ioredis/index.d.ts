@@ -809,34 +809,10 @@ declare namespace IORedis {
         hscanStream(key: KeyType, options?: ScanStreamOption): Readable;
         zscanStream(key: KeyType, options?: ScanStreamOption): Readable;
 
-        // The stream commands below with variadic args could be more richly
-        // typed if it wasn't for the need to have callback specified as the
-        // last parameter.  I've left the original typings behind in case
-        // typescript ever allowed us to put ...args in the middle, or if ever
-        // we feel it's worth it to define an OverloadedXyzCommand for each
-        // argument pattern
-
-        // xack(key: KeyType, group: string, ...ids: string[]): Promise<number>;
         xack: OverloadedKeyCommand<ValueType, number>;
 
-        // xadd(key: KeyType, id: string, ...args: string[]): Promise<string>;
-        // xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', count: number, ...args: string[]): Promise<string>;
-        // xadd(
-        // key: KeyType,
-        // maxLenOption: 'MAXLEN' | 'maxlen',
-        // approximate: '~',
-        // count: number,
-        // ...args: string[]
-        // ): Promise<string>;
         xadd: OverloadedKeyCommand<ValueType, string>;
 
-        // xclaim(
-        // key: KeyType,
-        // group: string,
-        // consumer: string,
-        // minIdleTime: number,
-        // ...args: ValueType[]
-        // ): Promise<Array<[string, string[]]>>;
         xclaim: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
         xdel: OverloadedKeyCommand<string, number>;
@@ -848,26 +824,16 @@ declare namespace IORedis {
         xlen(key: KeyType): Promise<number>;
         xlen(key: KeyType, callback: Callback<number>): void;
 
-        // xpending(key: KeyType, group: string, ...args: ValueType[]): Promise<any>;
         xpending: OverloadedKeyCommand<ValueType, any>;
 
-        // xrange(key: KeyType, start: string, end: string, ...args: ValueType[]): Promise<Array<[string, string[]]>>;
         xrange: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
         xread: OverloadedListCommand<ValueType, Array<[string, string[]]>>;
 
-        // xreadgroup(
-        // groupOption: 'GROUP' | 'group',
-        // group: string,
-        // consumer: string,
-        // ...args: ValueType[]
-        // ): Promise<Array<[string, string[]]>>;
         xreadgroup: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
-        // xrevrange(key: KeyType, end: string, start: string, ...args: ValueType[]): Promise<Array<[string, string[]]>>;
         xrevrange: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
-        // xtrim(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', ...args: ValueType[]): Promise<number>;
         xtrim: OverloadedKeyCommand<ValueType, number>;
     }
 
