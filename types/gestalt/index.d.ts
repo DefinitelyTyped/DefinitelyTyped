@@ -239,7 +239,7 @@ https://pinterest.github.io/gestalt/#/Flyout
 */
 
 export interface FlyoutProps {
-    anchor: HTMLAnchorElement | any;
+    anchor: any; // ideally a HTMLAnchorElement
     onDismiss: () => void;
     children?: React.ReactNode;
     color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray';
