@@ -30,7 +30,7 @@
 //                 Igor Strebezhev <https://github.com/xamgore>
 //                 Valentin Agachi <https://github.com/avaly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 // Documentation: https://mongodb.github.io/node-mongodb-native/3.1/api/
 
