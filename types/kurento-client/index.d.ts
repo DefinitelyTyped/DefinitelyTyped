@@ -1,6 +1,6 @@
 // Type definitions for kurento-client 6.12
 // Project: https://github.com/Kurento/kurento-client-js, https://www.kurento.org
-// Definitions by: James Hill <https://github.com/jhdevuk>
+// Definitions by: James Hill <https://github.com/jhdevuk>, Michel Albers <https://github.com/michelalbers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -10,13 +10,19 @@ declare namespace KurentoClient {
         getComplexType: (complex: 'IceCandidate') => (value: any) => any;
     }
 
+    interface RecorderEndpointOptions {
+        uri: string;
+        stopOnEndOfStream?: boolean;
+    }
+
     class ClientInstance {
         create(type: 'MediaPipeline'): Promise<MediaPipeline>;
         create(type: 'WebRtcEndpoint'): Promise<WebRtcEndpoint>;
+        create(type: 'RecorderEndpoint', options: RecorderEndpointOptions): Promise<RecorderEndpoint>;
         on(event: 'OnIceCandidate', callback: (event: IceCandidate) => void): void;
         on(event: 'Error', callback: (error: Error) => void): void;
         on(event: 'Recording' | 'Paused' | 'Stopped', callback: () => void): void;
-        getMediaobjectById(objectId: string): Promise<any>;
+        getMediaobjectById(objectId: string): Promise<MediaPipeline | WebRtcEndpoint | RecorderEndpoint>;
         close(): void;
     }
 
@@ -27,6 +33,7 @@ declare namespace KurentoClient {
         addTag: (key: string, value: string, callback?: Callback<void>) => Promise<void>;
         getTag: (key: string, callback?: Callback<string>) => Promise<string>;
         getTags: (callback?: Callback<Tag[]>) => Promise<Tag[]>;
+        getSendTagsInEvents: (callback?: Callback<boolean>) => Promise<boolean>;
         removeTag: (key: string, callback?: Callback<void>) => Promise<void>;
         getChildren: (callback?: Callback<MediaObject[]>) => Promise<MediaObject[]>;
         getCreationTime: (callback?: Callback<number>) => Promise<number>;
@@ -47,6 +54,17 @@ declare namespace KurentoClient {
         getGstreamerDot: (callback?: Callback<string>) => Promise<string>;
         getLatencyStats: (callback?: Callback<boolean>) => Promise<boolean>;
         setLatencyStats: (callback?: Callback<string>) => Promise<string>;
+    }
+
+    interface RecorderEndpoint extends ClientInstance, MediaObject, MediaElement {
+        stopOnEndOfStream: boolean;
+        uri: string;
+        record: (callback?: Callback<void>) => Promise<void>;
+        stopAndWait: (callback?: Callback<void>) => Promise<void>;
+        getMaxOutputBitrate: (callback?: Callback<number>) => Promise<number>;
+        getMinOutputBitrate: (callback?: Callback<number>) => Promise<number>;
+        setMaxOutputBitrate: (bitrate: number, callback?: Callback<number>) => Promise<number>;
+        setMinOutputBitrate: (bitrate: number, callback?: Callback<number>) => Promise<number>;
     }
 
     interface WebRtcEndpoint extends ClientInstance, MediaObject, MediaElement {
