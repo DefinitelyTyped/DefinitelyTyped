@@ -1718,7 +1718,7 @@ declare const ToolbarAndroidBase: Constructor<NativeMethodsMixinType> & typeof T
 
 /**
  * ToolbarAndroid has been deprecated and removed from the package since React Native v0.61.0.
- * It can now be installed and imported from '@react-native-community/datetimepicker' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
  * @see https://github.com/react-native-community/toolbar-android
  * @deprecated
  */
@@ -2468,7 +2468,7 @@ declare const ViewPagerAndroidBase: Constructor<NativeMethodsMixinType> & typeof
 
 /**
  * ViewPagerAndroid has been removed from React Native.
- * It can now be installed and imported from '@react-native-community/viewpager' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/viewpager` instead of 'react-native'.
  * @see https://github.com/react-native-community/react-native-viewpager
  * @deprecated
  */
@@ -2619,7 +2619,7 @@ declare const SegmentedControlIOSBase: Constructor<NativeMethodsMixinType> & typ
 
 /**
  * SegmentedControlIOS has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/segmented-control' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/segmented-control` instead of 'react-native'.
  * @see https://github.com/react-native-community/segmented-control
  * @deprecated
  */
@@ -2866,7 +2866,7 @@ declare const DatePickerIOSBase: Constructor<NativeMethodsMixinType> & typeof Da
 
 /**
  * DatePickerIOS has been merged with DatePickerAndroid and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/datetimepicker' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
  * @see https://github.com/react-native-community/datetimepicker
  * @deprecated
  */
@@ -3075,7 +3075,7 @@ export interface PickerProps extends PickerPropsIOS, PickerPropsAndroid {
 
 /**
  * Picker has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/picker' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/picker` instead of 'react-native'.
  * @see https://github.com/react-native-community/react-native-picker
  * @deprecated
  */
@@ -3111,7 +3111,7 @@ declare class PickerIOSComponent extends React.Component<PickerIOSProps> {}
 declare const PickerIOSBase: Constructor<NativeMethodsMixinType> & typeof PickerIOSComponent;
 /**
  * PickerIOS has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/picker' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/picker` instead of 'react-native'.
  * @see https://github.com/react-native-community/react-native-picker
  * @deprecated
  */
@@ -3121,7 +3121,7 @@ export class PickerIOS extends PickerIOSBase {
 
 /**
  * ProgressBarAndroid has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/progress-bar-android' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/progress-bar-android` instead of 'react-native'.
  * @see https://github.com/react-native-community/progress-bar-android
  * @deprecated
  */
@@ -3211,7 +3211,7 @@ declare class ProgressViewIOSComponent extends React.Component<ProgressViewIOSPr
 declare const ProgressViewIOSBase: Constructor<NativeMethodsMixinType> & typeof ProgressViewIOSComponent;
 /**
  * ProgressViewIOS has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/progress-view' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/progress-view` instead of 'react-native'.
  * @see https://github.com/react-native-community/progress-view
  * @deprecated
  */
@@ -3434,7 +3434,7 @@ declare class SliderComponent extends React.Component<SliderProps> {}
 declare const SliderBase: Constructor<NativeMethodsMixinType> & typeof SliderComponent;
 /**
  * Slider has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/slider' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/slider` instead of 'react-native'.
  * @see https://github.com/react-native-community/react-native-slider
  * @deprecated
  */
@@ -4789,7 +4789,7 @@ declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> {}
 declare const MaskedViewBase: Constructor<NativeMethodsMixinType> & typeof MaskedViewComponent;
 /**
  * MaskedViewIOS has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/masked-view' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/masked-view` instead of 'react-native'.
  * @see https://github.com/react-native-community/react-native-masked-view
  * @deprecated
  */
@@ -8998,7 +8998,7 @@ export const DevSettings: DevSettingsStatic;
 
 /**
  * ART has been removed from React Native.
- * It can now be installed and imported from '@react-native-community/art' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/art` instead of 'react-native'.
  * @see https://github.com/react-native-community/art
  * @deprecated
  */
@@ -9020,7 +9020,7 @@ export type AppState = AppStateStatic;
 
 /**
  * AsyncStorage has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/async-storage' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/async-storage` instead of 'react-native'.
  * @see https://github.com/react-native-community/async-storage
  * @deprecated
  */
@@ -9041,7 +9041,7 @@ export type CameraRoll = CameraRollStatic;
 
 /**
  * Clipboard has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/clipboard' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/clipboard` instead of 'react-native'.
  * @see https://github.com/react-native-community/clipboard
  * @deprecated
  */
@@ -9050,7 +9050,7 @@ export type Clipboard = ClipboardStatic;
 
 /**
  * DatePickerAndroid has been merged with DatePickerIOS and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/datetimepicker' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
  * @see https://github.com/react-native-community/datetimepicker
  * @deprecated 
  */
@@ -9068,7 +9068,7 @@ export type I18nManager = I18nManagerStatic;
 
 /**
  * ImageEditor has been removed from React Native.
- * It can now be installed and imported from '@react-native-community/image-editor' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/image-editor` instead of 'react-native'.
  * @see https://github.com/react-native-community/react-native-image-editor
  * @deprecated
  */
@@ -9077,8 +9077,8 @@ export type ImageEditor = ImageEditorStatic;
 
 /**
  * ImagePickerIOS has been extracted from react-native core and will be removed in a future release.
- * Please upgrade to use either '@react-native-community/react-native-image-picker' or 'expo-image-picker'.
- * If you cannot upgrade to a different library, please install the deprecated '@react-native-community/image-picker-ios' package.
+ * Please upgrade to use either `@react-native-community/react-native-image-picker` or 'expo-image-picker'.
+ * If you cannot upgrade to a different library, please install the deprecated `@react-native-community/image-picker-ios` package.
  * @see https://github.com/react-native-community/react-native-image-picker-ios
  * @deprecated
  */
@@ -9086,9 +9086,10 @@ export const ImagePickerIOS: ImagePickerIOSStatic;
 export type ImagePickerIOS = ImagePickerIOSStatic;
 
 /**
- * ImageEditor has been removed from React Native.
- * It can now be installed and imported from '@react-native-community/image-editor' instead of 'react-native'.
- * @see https://github.com/react-native-community/react-native-image-editor
+ * ImageStore has been removed from React Native.
+ * To get a base64-encoded string from a local image use either of the following third-party libraries:
+ * * expo-file-system: `readAsStringAsync(filepath, 'base64')`
+ * * react-native-fs: `readFile(filepath, 'base64')`
  * @deprecated
  */
 export const ImageStore: ImageStoreStatic;
@@ -9112,8 +9113,8 @@ export type PermissionsAndroid = PermissionsAndroidStatic;
 
 /**
  * PushNotificationIOS has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/push-notification-ios' instead of 'react-native'.
- * @see https://github.com/react-native-community/react-native-push-notification-ios'
+ * It can now be installed and imported from `@react-native-community/push-notification-ios` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-push-notification-ios
  * @deprecated
  */
 export const PushNotificationIOS: PushNotificationIOSStatic;
@@ -9136,7 +9137,7 @@ export type Systrace = SystraceStatic;
 
 /**
  * TimePickerAndroid has been removed from React Native.
- * It can now be installed and imported from '@react-native-community/datetimepicker' instead of 'react-native'.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
  * @see https://github.com/react-native-community/datetimepicker
  * @deprecated
  */
