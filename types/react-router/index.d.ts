@@ -158,7 +158,6 @@ export function useNavigate(): (
     config?: Partial<{ replace: boolean; state: object }>
 ) => void;
 
-
 export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): { [p in keyof Params]: keyof Params[p] extends undefined ? string | undefined : string  };
 
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(): match<Params>;
