@@ -9223,7 +9223,7 @@ export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warn
 
 /**
  * LogBox is enabled by default so there is no need to call unstable_enableLogBox() anymore. This is a no op and will be removed in the next version.
- * @depcreated 
+ * @depcreated
  */
 export function unstable_enableLogBox(): void;
 
