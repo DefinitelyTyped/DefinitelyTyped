@@ -1,5 +1,3 @@
-index.d.ts
-
 af.d.ts
 as.d.ts
 be.d.ts
