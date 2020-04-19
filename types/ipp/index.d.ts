@@ -2,6 +2,7 @@
 // Project: http://github.com/williamkapke/ipp
 // Definitions by: Filip Stenbacka <https://github.com/filiptypjeu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Based on: https://www.iana.org/assignments/ipp-registrations/ipp-registrations.xhtml
 
 /// <reference types="node" />
 
@@ -94,7 +95,7 @@ export interface FullResponse {
     id: number;
     'operation-attributes-tag': OperationAttributes;
     'unsupported-attributes'?: string[];
-    'job-attributes-tag'?: any;
+    'job-attributes-tag'?: object;
     'printer-attributes-tag'?: PrinterDescription;
 }
 
@@ -248,7 +249,7 @@ export interface GetPrinterAttributesResponse {
         'status-message'?: string;
     };
     'unsupported-attributes'?: string[];
-    'printer-attributes-tag': any;
+    'printer-attributes-tag': object;
 }
 
 // GET-JOBS
@@ -465,7 +466,7 @@ export interface OperationAttributes {
     'output-attributes'?: OutputAttributes;
     'output-device-job-states'?: string[];
     'output-device-uuid'?: string;
-    'preferred-attributes'?: any;
+    'preferred-attributes'?: object;
     'printer-geo-location'?: string;
     'printer-id'?: number;
     'printer-ids'?: number[];
@@ -1271,7 +1272,7 @@ export interface OutputAttributes {
 }
 
 export interface DestinationUriReady {
-    'destination-attributes'?: any[];
+    'destination-attributes'?: object[];
     'destination-attributes-supported'?: string[];
     'destination-info'?: string;
     'destination-is-directory'?: boolean;
@@ -1386,7 +1387,7 @@ export interface CoverSheetInfo {
 }
 
 export interface DestinationUris {
-    'destination-attributes'?: any[];
+    'destination-attributes'?: object[];
     'destination-uri'?: string;
     'post-dial-string'?: string;
     'pre-dial-string'?: string;
