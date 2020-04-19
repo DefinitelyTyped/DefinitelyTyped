@@ -153,7 +153,11 @@ export const __RouterContext: React.Context<RouteComponentProps>;
 
 export function useLocation<S = H.LocationState>(): H.Location<S>;
 
-export function useNavigate(): (path: string | number) => void;
+export function useNavigate(): (
+    path: string | number,
+    config?: Partial<{ replace: boolean; state: object }>
+) => void;
+
 
 export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): { [p in keyof Params]: keyof Params[p] extends undefined ? string | undefined : string  };
 
