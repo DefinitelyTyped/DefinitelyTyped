@@ -1,4 +1,4 @@
-import watch, * as RW from 'redux-watch';
+import watch = require('redux-watch');
 
 interface DummyState {
     fieldA: {
@@ -14,15 +14,15 @@ function dummyGetState(): DummyState {
     };
 }
 
-const fieldBChangeHandler: RW.ChangeHandler<string> = (
+const fieldBChangeHandler = (
     newValue: string,
     oldValue: string,
-    pathToField: RW.FieldPath
+    pathToField: any
 ) => {};
 
-const fieldBWatchWrapper: RW.ChangeHandlerWrapper<string> = watch(
+const fieldBWatchWrapper = watch(
     dummyGetState,
     ['fieldA', 'fieldB']
 );
 
-const fieldBWatch: RW.FieldWatch = fieldBWatchWrapper(fieldBChangeHandler);
+const fieldBWatch = fieldBWatchWrapper(fieldBChangeHandler);

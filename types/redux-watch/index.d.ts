@@ -8,20 +8,20 @@
  * For details refer
  * @link https://github.com/mariocasciaro/object-path
  */
-export type FieldPath = string | number | Array<string | number>;
+type FieldPath = string | number | Array<string | number>;
 
 /** Whenever a given state field changes this handler will be called. */
-export type ChangeHandler<T> = (newValue: T, oldValue: T, pathToField: FieldPath) => void;
+type ChangeHandler<T> = (newValue: T, oldValue: T, pathToField: FieldPath) => void;
 
 /** @see ChangeHandlerWrapper */
-export type FieldWatch = () => void;
+type FieldWatch = () => void;
 
 /**
  * @returns Function, that wraps the given change handler in. It should be
  * subscribed to state changes using store.subscribe(). Afterwards, it
  * calls change handler whenever the watched state field changes.
  */
-export type ChangeHandlerWrapper<T> = (changeHandler: ChangeHandler<T>) => FieldWatch;
+type ChangeHandlerWrapper<T> = (changeHandler: ChangeHandler<T>) => FieldWatch;
 
 /**
  * @param getState Function, that returns the Redux store state.
@@ -33,8 +33,10 @@ export type ChangeHandlerWrapper<T> = (changeHandler: ChangeHandler<T>) => Field
  * @returns Function, that listens to changes of the given field of the Redux store
  *      state. On change it calls its parameter, which is a change handler function.
  */
-export default function watch(
+declare function watch(
     getState: () => any,
     pathToField?: FieldPath,
     compare?: (a: any, b: any) => boolean,
 ): ChangeHandlerWrapper<any>;
+
+export = watch;
