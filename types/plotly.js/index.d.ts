@@ -643,6 +643,21 @@ export interface PlotData {
 	xy: Float32Array;
 	error_x: ErrorBar;
 	error_y: ErrorBar;
+	/**
+	 * Array containing integer indices of selected points.
+	 * Has an effect only for traces that support selections.
+	 * Note that an empty array means an empty selection where the `unselected` are turned on for all points,
+	 * whereas, any other non-array values means no selection all where the `selected` and `unselected` styles have no effect.
+	 */
+	selectedpoints: number[];
+	selected: Partial<{
+		marker: Partial<PlotMarker>;
+		textfont: Partial<Font>;
+	}>;
+	unselected: Partial<{
+		marker: Partial<PlotMarker>;
+		textfont: Partial<Font>;
+	}>;
 	xaxis: string;
 	yaxis: string;
 	text: string | string[];

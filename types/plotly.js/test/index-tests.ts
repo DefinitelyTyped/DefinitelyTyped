@@ -157,6 +157,17 @@ const graphDiv = '#test';
 (() => {
 	const data: Array<Partial<PlotData>> = [
 		{
+			selectedpoints: [0, 2],
+			selected: {
+				marker: {
+					color: "blue"
+				}
+			},
+			unselected: {
+				marker: {
+					color: "aqua"
+				}
+			},
 			type: 'bar',
 			labels: ['Eve', 'Cain', 'Seth', 'Enos', 'Noam', 'Abel', 'Awan', 'Enoch', 'Azura'],
 			parents: ['', 'Eve', 'Eve', 'Seth', 'Seth', 'Eve', 'Eve', 'Awan', 'Eve'],
