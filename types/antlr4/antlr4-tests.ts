@@ -2161,7 +2161,7 @@ console.log(tree);
 function getOriginalText(ctx: ParserRuleContext): string {
     const a: number = ctx.start.start;
     const b: number = ctx.stop.stop;
-    const wrong = ctx.start.getInputStream().getText(new Interval(a, b));
+    // WRONG: const wrong = ctx.start.getInputStream().getText(new Interval(a, b));
     const text = ctx.start.getInputStream().getText(a, b);
     return text;
 }
