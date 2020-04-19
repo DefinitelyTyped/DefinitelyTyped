@@ -26,7 +26,6 @@ declare namespace GoogleAppsScript {
      *         .build();
      */
     interface ConferenceData {
-
       /**
        * Prints the JSON representation of this object. This is for debugging only.
        * https://developers.google.com/apps-script/reference/conference-data/conference-data#printJson()
@@ -37,7 +36,6 @@ declare namespace GoogleAppsScript {
      * Builder for creating for ConferenceData objects.
      */
     interface ConferenceDataBuilder {
-
       /**
        * Adds a ConferenceParameter to this ConferenceData. The maximum number of
        * parameters per ConferenceData is 300.
@@ -150,7 +148,6 @@ declare namespace GoogleAppsScript {
      *         .setAuthenticationUrl(authenticationUrl);
      */
     interface ConferenceError {
-
       /**
        * If the error type is AUTHENTICATION, the add-on must
        * provide a URL calling back into the add-on to allow users to log in. The maximum length for
@@ -180,7 +177,6 @@ declare namespace GoogleAppsScript {
      *         .setValue('123456');
      */
     interface ConferenceParameter {
-
       /**
        * Sets the key of this ConferenceParameter. The maximum length for this field is 50
        * characters. Required.
@@ -221,7 +217,6 @@ declare namespace GoogleAppsScript {
      *         .setUri('https://example.com/moreJoiningInfo');
      */
     interface EntryPoint {
-
       /**
        * Adds the feature of the entry point, such as being toll or toll-free.
        * https://developers.google.com/apps-script/reference/conference-data/entry-point#addFeature(EntryPointFeature)

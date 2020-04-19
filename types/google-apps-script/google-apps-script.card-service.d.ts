@@ -10,7 +10,6 @@
 
 declare namespace GoogleAppsScript {
   namespace Card_Service {
-
     /**
      * An action that enables interactivity within UI elements. The action does not happen directly on
      * the client but rather invokes an Apps Script callback function with optional parameters.
