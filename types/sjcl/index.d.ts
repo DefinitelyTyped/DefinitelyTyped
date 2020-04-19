@@ -189,7 +189,7 @@ declare namespace sjcl {
     // ________________________________________________________________________
 
     interface SjclCodec<T> {
-        fromBits(bits: BitArray): T;
+        fromBits(bits: BitArray, _noEquals?: boolean, _url?: boolean): T;
         toBits(value: T): BitArray;
     }
 
