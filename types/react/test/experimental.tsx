@@ -51,9 +51,7 @@ function useExperimentalHooks() {
 
     // $ExpectType string
     const pathname = React.useMutableSource(
-        // $ExpectType MutableSource<Window, string>
         locationSource,
-        // $ExpectType (source: Window) => string
         source => source.location.pathname,
         (window, callback) => {
             // $ExpectType Window
