@@ -1,4 +1,4 @@
-// Type definitions for jest-environment-puppeteer 4.3
+// Type definitions for jest-environment-puppeteer 4.4
 // Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/jest-environment-puppeteer
 // Definitions by: Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
@@ -7,7 +7,7 @@
 // TypeScript Version: 3.4
 
 import { JestEnvironment } from '@jest/environment';
-import { JestFakeTimers as FakeTimers } from '@jest/fake-timers';
+import { JestFakeTimers as FakeTimers, LolexFakeTimers } from '@jest/fake-timers';
 import { Circus, Global as GlobalType, Config } from '@jest/types';
 import { ModuleMocker } from 'jest-mock';
 import { Browser, Page, BrowserContext } from 'puppeteer';
@@ -67,6 +67,7 @@ interface Global extends GlobalType.Global {
 declare class PuppeteerEnvironment implements JestEnvironment {
   context: Context | null;
   fakeTimers: FakeTimers<Timer> | null;
+  fakeTimersLolex: LolexFakeTimers | null;
   global: Global;
   moduleMocker: ModuleMocker | null;
   constructor(config: Config.ProjectConfig);
