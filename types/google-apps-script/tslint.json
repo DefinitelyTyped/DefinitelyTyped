@@ -6,7 +6,6 @@
         "interface-name": false,
         "max-line-length": false,
         "no-unnecessary-qualifier": false,
-        "unified-signatures": false,
-        "indent": [true, "spaces", 2]
+        "unified-signatures": false
     }
 }
