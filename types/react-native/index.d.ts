@@ -9052,7 +9052,7 @@ export type Clipboard = ClipboardStatic;
  * DatePickerAndroid has been merged with DatePickerIOS and will be removed in a future release.
  * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
  * @see https://github.com/react-native-community/datetimepicker
- * @deprecated 
+ * @deprecated
  */
 export const DatePickerAndroid: DatePickerAndroidStatic;
 export type DatePickerAndroid = DatePickerAndroidStatic;
