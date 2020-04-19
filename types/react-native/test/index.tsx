@@ -18,7 +18,9 @@ import {
     AppState,
     BackHandler,
     Button,
+    CheckBox,
     ColorPropType,
+    DataSourceAssetCallback,
     DeviceEventEmitter,
     DeviceEventEmitterStatic,
     NativeEventEmitter,
@@ -32,6 +34,8 @@ import {
     ImageBackground,
     InteractionManager,
     Linking,
+    ListView,
+    ListViewDataSource,
     StyleSheet,
     StyleProp,
     Systrace,
@@ -40,6 +44,7 @@ import {
     TextProps,
     View,
     ViewStyle,
+    ViewPagerAndroid,
     FlatList,
     FlatListProps,
     ScaledSize,
@@ -75,6 +80,7 @@ import {
     TextInputSubmitEditingEventData,
     KeyboardAvoidingView,
     Modal,
+    TimePickerAndroid,
     DatePickerAndroid,
     Picker,
     ViewPropTypes,
@@ -360,6 +366,26 @@ function appStateTest() {
     AppState.addEventListener('focus', appStateListener);
 }
 
+// ViewPagerAndroid
+export class ViewPagerAndroidTest {
+    render() {
+        return (
+            <ViewPagerAndroid
+                style={{ height: 56 }}
+                initialPage={0}
+                keyboardDismissMode={'on-drag'}
+                onPageScroll={e => {
+                    console.log(`position: ${e.nativeEvent.position}`);
+                    console.log(`offset: ${e.nativeEvent.offset}`);
+                }}
+                onPageSelected={e => {
+                    console.log(`position: ${e.nativeEvent.position}`);
+                }}
+            />
+        );
+    }
+}
+
 const profiledJSONParse = Systrace.measure('JSON', 'parse', JSON.parse);
 profiledJSONParse('[]');
 
@@ -470,7 +496,7 @@ const getInitialUrlTest = () =>
         }
     });
 
-class ScrollerListComponentTest extends React.Component {
+class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log(event);
     };
@@ -484,20 +510,39 @@ class ScrollerListComponentTest extends React.Component {
         const scrollViewStyle2 = {
             flex: 1,
         };
-
         return (
-            <ScrollView
-                horizontal={true}
-                nestedScrollEnabled={true}
-                invertStickyHeaders={true}
-                contentOffset={{ x: 0, y: 0 }}
-                snapToStart={false}
-                snapToEnd={false}
-                snapToOffsets={[100, 300, 500]}
-                style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
-                onScrollToTop={() => {}}
-                scrollToOverflowEnabled={true}
-                fadingEdgeLength={200}
+            <ListView
+                dataSource={this.state.dataSource}
+                renderScrollComponent={props => {
+                    if (props.scrollEnabled) {
+                        throw new Error('Expected scroll to be enabled.');
+                    }
+
+                    return (
+                        <ScrollView
+                            horizontal={true}
+                            nestedScrollEnabled={true}
+                            invertStickyHeaders={true}
+                            contentOffset={{ x: 0, y: 0 }}
+                            snapToStart={false}
+                            snapToEnd={false}
+                            snapToOffsets={[100, 300, 500]}
+                            {...props}
+                            style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
+                            onScrollToTop={() => {}}
+                            scrollToOverflowEnabled={true}
+                            fadingEdgeLength={200}
+                        />
+                    );
+                }}
+                renderRow={({ type, data }, _, row) => {
+                    return <Text>Filler</Text>;
+                }}
+                onScroll={this.eventHandler}
+                onScrollBeginDrag={this.eventHandler}
+                onScrollEndDrag={this.eventHandler}
+                onMomentumScrollBegin={this.eventHandler}
+                onMomentumScrollEnd={this.eventHandler}
             />
         );
     }
@@ -588,6 +633,20 @@ class MaskedViewTest extends React.Component {
     }
 }
 
+const CheckboxTest = () => (
+    <CheckBox
+        testID="testId"
+        disabled={false}
+        onChange={value => {
+            console.log(value);
+        }}
+        onValueChange={value => {
+            console.log(value);
+        }}
+        value={true}
+    />
+);
+
 class InputAccessoryViewTest extends React.Component {
     render() {
         const uniqueID = 'foobar';
@@ -598,6 +657,16 @@ class InputAccessoryViewTest extends React.Component {
         );
     }
 }
+
+// DataSourceAssetCallback
+const dataSourceAssetCallback1: DataSourceAssetCallback = {
+    rowHasChanged: (r1, r2) => true,
+    sectionHeaderHasChanged: (h1, h2) => true,
+    getRowData: (dataBlob, sectionID, rowID) => (sectionID as number) + (rowID as number),
+    getSectionHeaderData: (dataBlob, sectionID) => sectionID as string,
+};
+
+const dataSourceAssetCallback2: DataSourceAssetCallback = {};
 
 // DeviceEventEmitterStatic
 const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
@@ -784,6 +853,8 @@ export class ImageBackgroundProps extends React.Component {
     }
 }
 
+const listViewDataSourceTest = new ListView.DataSource({ rowHasChanged: () => true });
+
 class AccessibilityTest extends React.Component {
     render() {
         return (
@@ -816,6 +887,19 @@ const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then(isEnabled => {
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
 const ModalTest = () => <Modal hardwareAccelerated />;
+
+const TimePickerAndroidTest = () => {
+    TimePickerAndroid.open({
+        hour: 8,
+        minute: 15,
+        is24Hour: true,
+        mode: 'spinner',
+    }).then(result => {
+        if (result.action === TimePickerAndroid.timeSetAction) {
+            console.log('Time', result.hour, result.minute);
+        }
+    });
+};
 
 const DatePickerAndroidTest = () => {
     DatePickerAndroid.open({
