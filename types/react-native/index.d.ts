@@ -1578,145 +1578,6 @@ export class TextInput extends TextInputBase {
     clear: () => void;
 }
 
-export type ToolbarAndroidAction = {
-    /**
-     *  title: required, the title of this action
-     */
-    title: string;
-
-    /**
-     * icon: the icon for this action, e.g. require('./some_icon.png')
-     */
-    icon?: ImageURISource;
-
-    /**
-     * show: when to show this action as an icon or hide it in the overflow menu: always, ifRoom or never
-     */
-    show?: 'always' | 'ifRoom' | 'never';
-
-    /**
-     * showWithText: boolean, whether to show text alongside the icon or not
-     */
-    showWithText?: boolean;
-};
-
-export interface ToolbarAndroidProps extends ViewProps {
-    /**
-     * Sets possible actions on the toolbar as part of the action menu. These are displayed as icons
-     * or text on the right side of the widget. If they don't fit they are placed in an 'overflow'
-     * menu.
-     *
-     * This property takes an array of objects, where each object has the following keys:
-     *
-     * * `title`: **required**, the title of this action
-     * * `icon`: the icon for this action, e.g. `require('./some_icon.png')`
-     * * `show`: when to show this action as an icon or hide it in the overflow menu: `always`,
-     * `ifRoom` or `never`
-     * * `showWithText`: boolean, whether to show text alongside the icon or not
-     */
-    actions?: ToolbarAndroidAction[];
-
-    /**
-     * Sets the content inset for the toolbar ending edge.
-     * The content inset affects the valid area for Toolbar content other
-     * than the navigation button and menu. Insets define the minimum
-     * margin for these components and can be used to effectively align
-     * Toolbar content along well-known gridlines.
-     */
-    contentInsetEnd?: number;
-
-    /**
-     * Sets the content inset for the toolbar starting edge.
-     * The content inset affects the valid area for Toolbar content
-     * other than the navigation button and menu. Insets define the
-     * minimum margin for these components and can be used to effectively
-     * align Toolbar content along well-known gridlines.
-     */
-    contentInsetStart?: number;
-
-    /**
-     * Sets the toolbar logo.
-     */
-    logo?: ImageURISource;
-
-    /**
-     * Sets the navigation icon.
-     */
-    navIcon?: ImageURISource;
-
-    /**
-     * Callback that is called when an action is selected. The only
-     * argument that is passed to the callback is the position of the
-     * action in the actions array.
-     */
-    onActionSelected?: (position: number) => void;
-
-    /**
-     * Callback called when the icon is selected.
-     */
-    onIconClicked?: () => void;
-
-    /**
-     * Sets the overflow icon.
-     */
-    overflowIcon?: ImageURISource;
-
-    /**
-     * Used to set the toolbar direction to RTL.
-     * In addition to this property you need to add
-     * android:supportsRtl="true"
-     * to your application AndroidManifest.xml and then call
-     * setLayoutDirection(LayoutDirection.RTL) in your MainActivity
-     * onCreate method.
-     */
-    rtl?: boolean;
-
-    /**
-     * Sets the toolbar subtitle.
-     */
-    subtitle?: string;
-
-    /**
-     * Sets the toolbar subtitle color.
-     */
-    subtitleColor?: string;
-
-    /**
-     * Used to locate this view in end-to-end tests.
-     */
-    testID?: string;
-
-    /**
-     * Sets the toolbar title.
-     */
-    title?: string;
-
-    /**
-     * Sets the toolbar title color.
-     */
-    titleColor?: string;
-}
-
-/**
- * React component that wraps the Android-only [`Toolbar` widget][0]. A Toolbar can display a logo,
- * navigation icon (e.g. hamburger menu), a title & subtitle and a list of actions. The title and
- * subtitle are expanded so the logo and navigation icons are displayed on the left, title and
- * subtitle in the middle and the actions on the right.
- *
- * If the toolbar has an only child, it will be displayed between the title and actions.
- *
- * Although the Toolbar supports remote images for the logo, navigation and action icons, this
- * should only be used in DEV mode where `require('./some_icon.png')` translates into a packager
- * URL. In release mode you should always use a drawable resource for these icons. Using
- * `require('./some_icon.png')` will do this automatically for you, so as long as you don't
- * explicitly use e.g. `{uri: 'http://...'}`, you will be good.
- *
- * [0]: https://developer.android.com/reference/android/support/v7/widget/Toolbar.html
- */
-declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProps> {}
-declare const ToolbarAndroidBase: Constructor<NativeMethodsMixinType> & typeof ToolbarAndroidComponent;
-export class ToolbarAndroid extends ToolbarAndroidBase {}
-
 /**
  * Gesture recognition on mobile devices is much more complicated than web.
  * A touch can go through several phases as the app determines what the user's intention is.
@@ -2388,91 +2249,6 @@ export class View extends ViewBase {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/viewpagerandroid.html#props
- */
-
-export interface ViewPagerAndroidOnPageScrollEventData {
-    position: number;
-    offset: number;
-}
-
-export interface ViewPagerAndroidOnPageSelectedEventData {
-    position: number;
-}
-
-export interface ViewPagerAndroidProps extends ViewProps {
-    /**
-     * Index of initial page that should be selected. Use `setPage` method to
-     * update the page, and `onPageSelected` to monitor page changes
-     */
-    initialPage?: number;
-
-    /**
-     * When false, the content does not scroll.
-     * The default value is true.
-     */
-    scrollEnabled?: boolean;
-
-    /**
-     * Executed when transitioning between pages (ether because of animation for
-     * the requested page change or when user is swiping/dragging between pages)
-     * The `event.nativeEvent` object for this callback will carry following data:
-     *  - position - index of first page from the left that is currently visible
-     *  - offset - value from range [0,1) describing stage between page transitions.
-     *    Value x means that (1 - x) fraction of the page at "position" index is
-     *    visible, and x fraction of the next page is visible.
-     */
-    onPageScroll?: (event: NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData>) => void;
-
-    /**
-     * This callback will be called once ViewPager finish navigating to selected page
-     * (when user swipes between pages). The `event.nativeEvent` object passed to this
-     * callback will have following fields:
-     *  - position - index of page that has been selected
-     */
-    onPageSelected?: (event: NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData>) => void;
-
-    /**
-     * Function called when the page scrolling state has changed.
-     * The page scrolling state can be in 3 states:
-     * - idle, meaning there is no interaction with the page scroller happening at the time
-     * - dragging, meaning there is currently an interaction with the page scroller
-     * - settling, meaning that there was an interaction with the page scroller, and the
-     *   page scroller is now finishing it's closing or opening animation
-     */
-    onPageScrollStateChanged?: (state: 'Idle' | 'Dragging' | 'Settling') => void;
-
-    /**
-     * Determines whether the keyboard gets dismissed in response to a drag.
-     *   - 'none' (the default), drags do not dismiss the keyboard.
-     *   - 'on-drag', the keyboard is dismissed when a drag begins.
-     */
-    keyboardDismissMode?: 'none' | 'on-drag';
-
-    /**
-     * Blank space to show between pages. This is only visible while scrolling, pages are still
-     * edge-to-edge.
-     */
-    pageMargin?: number;
-}
-
-declare class ViewPagerAndroidComponent extends React.Component<ViewPagerAndroidProps> {}
-declare const ViewPagerAndroidBase: Constructor<NativeMethodsMixinType> & typeof ViewPagerAndroidComponent;
-export class ViewPagerAndroid extends ViewPagerAndroidBase {
-    /**
-     * A helper function to scroll to a specific page in the ViewPager.
-     * The transition between pages will be animated.
-     */
-    setPage(selectedPage: number): void;
-
-    /**
-     * A helper function to scroll to a specific page in the ViewPager.
-     * The transition between pages will *not* be animated.
-     */
-    setPageWithoutAnimation(selectedPage: number): void;
-}
-
-/**
  * It is a component to solve the common problem of views that need to move out of the way of the virtual keyboard.
  * It can automatically adjust either its position or bottom padding based on the position of the keyboard.
  */
@@ -2602,6 +2378,13 @@ export interface InputAccessoryViewProps {
  */
 declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProps> {}
 declare const SegmentedControlIOSBase: Constructor<NativeMethodsMixinType> & typeof SegmentedControlIOSComponent;
+
+/**
+ * SegmentedControlIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/segmented-control' instead of 'react-native'.
+ * @see https://github.com/react-native-community/segmented-control
+ * @deprecated
+ */
 export class SegmentedControlIOS extends SegmentedControlIOSBase {}
 
 export interface NavigatorIOSProps {
@@ -2842,6 +2625,13 @@ export interface DatePickerIOSProps extends ViewProps {
 
 declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}
 declare const DatePickerIOSBase: Constructor<NativeMethodsMixinType> & typeof DatePickerIOSComponent;
+
+/**
+ * DatePickerIOS has been merged with DatePickerAndroid and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/datetimepicker' instead of 'react-native'.
+ * @see https://github.com/react-native-community/datetimepicker
+ * @deprecated
+ */
 export class DatePickerIOS extends DatePickerIOSBase {}
 
 export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
@@ -3046,8 +2836,10 @@ export interface PickerProps extends PickerPropsIOS, PickerPropsAndroid {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/picker.html
- * @see Picker.js
+ * Picker has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/picker' instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-picker
+ * @deprecated
  */
 export class Picker extends React.Component<PickerProps> {
     /**
@@ -3079,13 +2871,21 @@ export interface PickerIOSProps extends ViewProps {
  */
 declare class PickerIOSComponent extends React.Component<PickerIOSProps> {}
 declare const PickerIOSBase: Constructor<NativeMethodsMixinType> & typeof PickerIOSComponent;
+/**
+ * PickerIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/picker' instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-picker
+ * @deprecated
+ */
 export class PickerIOS extends PickerIOSBase {
     static Item: typeof PickerIOSItem;
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/progressbarandroid.html
- * @see ProgressBarAndroid.android.js
+ * ProgressBarAndroid has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/progress-bar-android' instead of 'react-native'.
+ * @see https://github.com/react-native-community/progress-bar-android
+ * @deprecated
  */
 export interface ProgressBarAndroidProps extends ViewProps {
     /**
@@ -3171,6 +2971,12 @@ export interface ProgressViewIOSProps extends ViewProps {
 }
 declare class ProgressViewIOSComponent extends React.Component<ProgressViewIOSProps> {}
 declare const ProgressViewIOSBase: Constructor<NativeMethodsMixinType> & typeof ProgressViewIOSComponent;
+/**
+ * ProgressViewIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/progress-view' instead of 'react-native'.
+ * @see https://github.com/react-native-community/progress-view
+ * @deprecated
+ */
 export class ProgressViewIOS extends ProgressViewIOSBase {}
 
 export interface RefreshControlPropsIOS extends ViewProps {
@@ -3388,6 +3194,12 @@ export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
  */
 declare class SliderComponent extends React.Component<SliderProps> {}
 declare const SliderBase: Constructor<NativeMethodsMixinType> & typeof SliderComponent;
+/**
+ * Slider has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/slider' instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-slider
+ * @deprecated
+ */
 export class Slider extends SliderBase {}
 export type SliderIOS = Slider;
 
@@ -4532,158 +4344,6 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
     windowSize?: number;
 }
 
-/**
- * @see https://facebook.github.io/react-native/docs/listview.html#props
- */
-export interface ListViewProps extends ScrollViewProps {
-    /**
-     * An instance of [ListView.DataSource](docs/listviewdatasource.html) to use
-     */
-    dataSource: ListViewDataSource;
-
-    /**
-     * Flag indicating whether empty section headers should be rendered.
-     * In the future release empty section headers will be rendered by
-     * default, and the flag will be deprecated. If empty sections are not
-     * desired to be rendered their indices should be excluded from
-     * sectionID object.
-     */
-    enableEmptySections?: boolean;
-
-    /**
-     * How many rows to render on initial component mount.  Use this to make
-     * it so that the first screen worth of data apears at one time instead of
-     * over the course of multiple frames.
-     */
-    initialListSize?: number;
-
-    /**
-     * (visibleRows, changedRows) => void
-     *
-     * Called when the set of visible rows changes.  `visibleRows` maps
-     * { sectionID: { rowID: true }} for all the visible rows, and
-     * `changedRows` maps { sectionID: { rowID: true | false }} for the rows
-     * that have changed their visibility, with true indicating visible, and
-     * false indicating the view has moved out of view.
-     */
-    onChangeVisibleRows?: (
-        visibleRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>,
-        changedRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>,
-    ) => void;
-
-    /**
-     * Called when all rows have been rendered and the list has been scrolled
-     * to within onEndReachedThreshold of the bottom.  The native scroll
-     * event is provided.
-     */
-    onEndReached?: () => void;
-
-    /**
-     * Threshold in pixels for onEndReached.
-     */
-    onEndReachedThreshold?: number;
-
-    /**
-     * Number of rows to render per event loop.
-     */
-    pageSize?: number;
-
-    /**
-     * A performance optimization for improving scroll perf of
-     * large lists, used in conjunction with overflow: 'hidden' on the row
-     * containers.  Use at your own risk.
-     */
-    removeClippedSubviews?: boolean;
-
-    /**
-     * () => renderable
-     *
-     * The header and footer are always rendered (if these props are provided)
-     * on every render pass.  If they are expensive to re-render, wrap them
-     * in StaticContainer or other mechanism as appropriate.  Footer is always
-     * at the bottom of the list, and header at the top, on every render pass.
-     */
-    renderFooter?: () => React.ReactElement;
-
-    /**
-     * () => renderable
-     *
-     * The header and footer are always rendered (if these props are provided)
-     * on every render pass.  If they are expensive to re-render, wrap them
-     * in StaticContainer or other mechanism as appropriate.  Footer is always
-     * at the bottom of the list, and header at the top, on every render pass.
-     */
-    renderHeader?: () => React.ReactElement;
-
-    /**
-     * (rowData, sectionID, rowID) => renderable
-     * Takes a data entry from the data source and its ids and should return
-     * a renderable component to be rendered as the row.  By default the data
-     * is exactly what was put into the data source, but it's also possible to
-     * provide custom extractors.
-     */
-    renderRow: (
-        rowData: any,
-        sectionID: string | number,
-        rowID: string | number,
-        highlightRow?: boolean,
-    ) => React.ReactElement;
-
-    /**
-     * A function that returns the scrollable component in which the list rows are rendered.
-     * Defaults to returning a ScrollView with the given props.
-     */
-    renderScrollComponent?: (props: ScrollViewProps) => React.ReactElement<ScrollViewProps>;
-
-    /**
-     * (sectionData, sectionID) => renderable
-     *
-     * If provided, a sticky header is rendered for this section.  The sticky
-     * behavior means that it will scroll with the content at the top of the
-     * section until it reaches the top of the screen, at which point it will
-     * stick to the top until it is pushed off the screen by the next section
-     * header.
-     */
-    renderSectionHeader?: (sectionData: any, sectionId: string | number) => React.ReactElement;
-
-    /**
-     * (sectionID, rowID, adjacentRowHighlighted) => renderable
-     * If provided, a renderable component to be rendered as the separator below each row
-     * but not the last row if there is a section header below.
-     * Take a sectionID and rowID of the row above and whether its adjacent row is highlighted.
-     */
-    renderSeparator?: (
-        sectionID: string | number,
-        rowID: string | number,
-        adjacentRowHighlighted?: boolean,
-    ) => React.ReactElement;
-
-    /**
-     * How early to start rendering rows before they come on screen, in
-     * pixels.
-     */
-    scrollRenderAheadDistance?: number;
-
-    /**
-     * An array of child indices determining which children get docked to the
-     * top of the screen when scrolling. For example, passing
-     * `stickyHeaderIndices={[0]}` will cause the first child to be fixed to the
-     * top of the scroll view. This property is not supported in conjunction
-     * with `horizontal={true}`.
-     * @platform ios
-     */
-    stickyHeaderIndices?: number[];
-
-    /**
-     * Makes the sections headers sticky. The sticky behavior means that it will scroll with the
-     * content at the top of the section until it reaches the top of the screen, at which point it
-     * will stick to the top until it is pushed off the screen by the next section header. This
-     * property is not supported in conjunction with `horizontal={true}`. Only enabled by default
-     * on iOS because of typical platform standards.
-     */
-    stickySectionHeadersEnabled?: boolean;
-}
-
 interface TimerMixin {
     setTimeout: typeof setTimeout;
     clearTimeout: typeof clearTimeout;
@@ -4695,34 +4355,6 @@ interface TimerMixin {
     cancelAnimationFrame: typeof cancelAnimationFrame;
 }
 
-declare class ListViewComponent extends React.Component<ListViewProps> {}
-declare const ListViewBase: Constructor<ScrollResponderMixin> & Constructor<TimerMixin> & typeof ListViewComponent;
-export class ListView extends ListViewBase {
-    static DataSource: ListViewDataSource;
-
-    /**
-     * Exports some data, e.g. for perf investigations or analytics.
-     */
-    getMetrics: () => {
-        contentLength: number;
-        totalRows: number;
-        renderedRows: number;
-        visibleRows: number;
-    };
-
-    /**
-     * Provides a handle to the underlying scroll responder.
-     */
-    getScrollResponder: () => any;
-
-    /**
-     * Scrolls to a given x, y offset, either immediately or with a smooth animation.
-     *
-     * See `ScrollView#scrollTo`.
-     */
-    scrollTo: (y?: number | { x?: number; y?: number; animated?: boolean }, x?: number, animated?: boolean) => void;
-}
-
 interface MaskedViewIOSProps extends ViewProps {
     maskElement: React.ReactElement;
 }
@@ -4732,6 +4364,12 @@ interface MaskedViewIOSProps extends ViewProps {
  */
 declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> {}
 declare const MaskedViewBase: Constructor<NativeMethodsMixinType> & typeof MaskedViewComponent;
+/**
+ * MaskedViewIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/masked-view' instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-masked-view
+ * @deprecated
+ */
 export class MaskedViewIOS extends MaskedViewBase {}
 
 export interface ModalBaseProps {
@@ -5367,136 +5005,6 @@ export interface SystraceStatic {
      * @return replacement function
      */
     measure<T extends Function>(objName: string, fnName: string, func: T): T;
-}
-
-/**
- * //FIXME: Could not find docs. Inferred from examples and jscode : ListViewDataSource.js
- */
-export interface DataSourceAssetCallback {
-    rowHasChanged?: (r1: any, r2: any) => boolean;
-    sectionHeaderHasChanged?: (h1: any, h2: any) => boolean;
-    getRowData?: (dataBlob: any, sectionID: number | string, rowID: number | string) => any;
-    getSectionHeaderData?: (dataBlob: any, sectionID: number | string) => any;
-}
-
-/**
- * Provides efficient data processing and access to the
- * `ListView` component.  A `ListViewDataSource` is created with functions for
- * extracting data from the input blob, and comparing elements (with default
- * implementations for convenience).  The input blob can be as simple as an
- * array of strings, or an object with rows nested inside section objects.
- *
- * To update the data in the datasource, use `cloneWithRows` (or
- * `cloneWithRowsAndSections` if you care about sections).  The data in the
- * data source is immutable, so you can't modify it directly.  The clone methods
- * suck in the new data and compute a diff for each row so ListView knows
- * whether to re-render it or not.
- */
-export interface ListViewDataSource {
-    /**
-     * You can provide custom extraction and `hasChanged` functions for section
-     * headers and rows.  If absent, data will be extracted with the
-     * `defaultGetRowData` and `defaultGetSectionHeaderData` functions.
-     *
-     * The default extractor expects data of one of the following forms:
-     *
-     *      { sectionID_1: { rowID_1: <rowData1>, ... }, ... }
-     *
-     *    or
-     *
-     *      { sectionID_1: [ <rowData1>, <rowData2>, ... ], ... }
-     *
-     *    or
-     *
-     *      [ [ <rowData1>, <rowData2>, ... ], ... ]
-     *
-     * The constructor takes in a params argument that can contain any of the
-     * following:
-     *
-     * - getRowData(dataBlob, sectionID, rowID);
-     * - getSectionHeaderData(dataBlob, sectionID);
-     * - rowHasChanged(prevRowData, nextRowData);
-     * - sectionHeaderHasChanged(prevSectionData, nextSectionData);
-     */
-    new (onAsset: DataSourceAssetCallback): ListViewDataSource;
-
-    /**
-     * Clones this `ListViewDataSource` with the specified `dataBlob` and
-     * `rowIdentities`. The `dataBlob` is just an aribitrary blob of data. At
-     * construction an extractor to get the interesting informatoin was defined
-     * (or the default was used).
-     *
-     * The `rowIdentities` is is a 2D array of identifiers for rows.
-     * ie. [['a1', 'a2'], ['b1', 'b2', 'b3'], ...].  If not provided, it's
-     * assumed that the keys of the section data are the row identities.
-     *
-     * Note: This function does NOT clone the data in this data source. It simply
-     * passes the functions defined at construction to a new data source with
-     * the data specified. If you wish to maintain the existing data you must
-     * handle merging of old and new data separately and then pass that into
-     * this function as the `dataBlob`.
-     */
-    cloneWithRows(
-        dataBlob: Array<any> | { [key: string]: any },
-        rowIdentities?: Array<string | number>,
-    ): ListViewDataSource;
-
-    /**
-     * This performs the same function as the `cloneWithRows` function but here
-     * you also specify what your `sectionIdentities` are. If you don't care
-     * about sections you should safely be able to use `cloneWithRows`.
-     *
-     * `sectionIdentities` is an array of identifiers for  sections.
-     * ie. ['s1', 's2', ...].  If not provided, it's assumed that the
-     * keys of dataBlob are the section identities.
-     *
-     * Note: this returns a new object!
-     */
-    cloneWithRowsAndSections(
-        dataBlob: Array<any> | { [key: string]: any },
-        sectionIdentities?: Array<string | number>,
-        rowIdentities?: Array<Array<string | number>>,
-    ): ListViewDataSource;
-
-    getRowCount(): number;
-    getRowAndSectionCount(): number;
-
-    /**
-     * Returns if the row is dirtied and needs to be rerendered
-     */
-    rowShouldUpdate(sectionIndex: number, rowIndex: number): boolean;
-
-    /**
-     * Gets the data required to render the row.
-     */
-    getRowData(sectionIndex: number, rowIndex: number): any;
-
-    /**
-     * Gets the rowID at index provided if the dataSource arrays were flattened,
-     * or null of out of range indexes.
-     */
-    getRowIDForFlatIndex(index: number): string;
-
-    /**
-     * Gets the sectionID at index provided if the dataSource arrays were flattened,
-     * or null for out of range indexes.
-     */
-    getSectionIDForFlatIndex(index: number): string;
-
-    /**
-     * Returns an array containing the number of rows in each section
-     */
-    getSectionLengths(): Array<number>;
-
-    /**
-     * Returns if the section header is dirtied and needs to be rerendered
-     */
-    sectionHeaderShouldUpdate(sectionIndex: number): boolean;
-
-    /**
-     * Gets the data required to render the section header
-     */
-    getSectionHeaderData(sectionIndex: number): any;
 }
 
 /**
@@ -6591,79 +6099,6 @@ declare class SnapshotViewIOSComponent extends React.Component<SnapshotViewIOSPr
 declare const SnapshotViewIOSBase: Constructor<NativeMethodsMixinType> & typeof SnapshotViewIOSComponent;
 export class SnapshotViewIOS extends SnapshotViewIOSBase {}
 
-// Deduced from
-// https://github.com/facebook/react-native/commit/052cd7eb8afa7a805ef13e940251be080499919c
-
-/**
- * Data source wrapper around ListViewDataSource to allow for tracking of
- * which row is swiped open and close opened row(s) when another row is swiped
- * open.
- *
- * See https://github.com/facebook/react-native/pull/5602 for why
- * ListViewDataSource is not subclassed.
- */
-export interface SwipeableListViewDataSource {
-    cloneWithRowsAndSections(
-        dataBlob: any,
-        sectionIdentities?: Array<string>,
-        rowIdentities?: Array<Array<string>>,
-    ): SwipeableListViewDataSource;
-    getDataSource(): ListViewDataSource;
-    getOpenRowID(): string;
-    getFirstRowID(): string;
-    setOpenRowID(rowID: string): SwipeableListViewDataSource;
-}
-
-export interface SwipeableListViewProps {
-    /**
-     * To alert the user that swiping is possible, the first row can bounce
-     * on component mount.
-     */
-    bounceFirstRowOnMount: boolean;
-
-    /**
-     * Use `SwipeableListView.getNewDataSource()` to get a data source to use,
-     * then use it just like you would a normal ListView data source
-     */
-    dataSource: SwipeableListViewDataSource;
-
-    // Maximum distance to open to after a swipe
-    maxSwipeDistance: number;
-
-    // Callback method to render the swipeable view
-    renderRow: (
-        rowData: any,
-        sectionID: string | number,
-        rowID: string | number,
-        highlightRow?: boolean,
-    ) => React.ReactElement;
-
-    // Callback method to render the view that will be unveiled on swipe
-    renderQuickActions(rowData: any, sectionID: string | number, rowID: string | number): React.ReactElement;
-}
-
-/**
- * A container component that renders multiple SwipeableRow's in a ListView
- * implementation. This is designed to be a drop-in replacement for the
- * standard React Native `ListView`, so use it as if it were a ListView, but
- * with extra props, i.e.
- *
- * let ds = SwipeableListView.getNewDataSource();
- * ds.cloneWithRowsAndSections(dataBlob, ?sectionIDs, ?rowIDs);
- * // ..
- * <SwipeableListView renderRow={..} renderQuickActions={..} {..ListView props} />
- *
- * SwipeableRow can be used independently of this component, but the main
- * benefit of using this component is
- *
- * - It ensures that at most 1 row is swiped open (auto closes others)
- * - It can bounce the 1st row of the list so users know it's swipeable
- * - More to come
- */
-export class SwipeableListView extends React.Component<SwipeableListViewProps> {
-    static getNewDataSource(): SwipeableListViewDataSource;
-}
-
 //////////////////////////////////////////////////////////////////////////
 //
 // A P I s
@@ -7110,151 +6545,6 @@ export interface ButtonProps {
 }
 
 export class Button extends React.Component<ButtonProps> {}
-
-export type CameraRollGroupType = 'Album' | 'All' | 'Event' | 'Faces' | 'Library' | 'PhotoStream' | 'SavedPhotos';
-export type CameraRollAssetType = 'All' | 'Videos' | 'Photos';
-
-export interface CameraRollFetchParams {
-    first: number;
-    after?: string;
-    groupTypes?: CameraRollGroupType;
-    groupName?: string;
-    assetType?: CameraRollAssetType;
-}
-
-export interface CameraRollNodeInfo {
-    image: Image;
-    group_name: string;
-    timestamp: number;
-    location: any;
-}
-
-export interface CameraRollEdgeInfo {
-    node: CameraRollNodeInfo;
-}
-
-export interface CameraRollAssetInfo {
-    edges: CameraRollEdgeInfo[];
-    page_info: {
-        has_next_page: boolean;
-        end_cursor: string;
-    };
-}
-
-export interface GetPhotosParamType {
-    first: number;
-    after?: string;
-    groupTypes?: CameraRollGroupType;
-    groupName?: string;
-    assetType?: CameraRollAssetType;
-    mimeTypes?: string[];
-}
-
-export interface GetPhotosReturnType {
-    edges: {
-        node: {
-            type: string;
-            group_name: string;
-            image: {
-                uri: string;
-                height: number;
-                width: number;
-                playableDuration: number;
-                isStored?: boolean;
-            };
-            timestamp: number;
-            location: {
-                latitude: number;
-                longitude: number;
-                altitude: number;
-                heading: number;
-                speed: number;
-            };
-        };
-    }[];
-
-    page_info: {
-        has_next_page: boolean;
-        start_cursor?: string;
-        end_cursor?: string;
-    };
-}
-
-/**
- * CameraRoll provides access to the local camera roll / gallery.
- * Before using this you must link the RCTCameraRoll library.
- * You can refer to (Linking)[https://facebook.github.io/react-native/docs/linking-libraries-ios.html] for help.
- */
-export interface CameraRollStatic {
-    GroupTypesOptions: CameraRollGroupType[]; //'Album','All','Event','Faces','Library','PhotoStream','SavedPhotos'
-    AssetTypeOptions: CameraRollAssetType[]; // "All", "Videos", "Photos"
-
-    /**
-     * Saves the image to the camera roll / gallery.
-     *
-     * @tag On Android, this is a local URI, such as "file:///sdcard/img.png".
-     * On iOS, the tag can be one of the following:
-     *      local URI
-     *      assets-library tag
-     *      a tag not maching any of the above, which means the image data will be stored in memory (and consume memory as long as the process is alive)
-     *
-     * @deprecated use saveToCameraRoll instead
-     */
-    saveImageWithTag(tag: string): Promise<string>;
-
-    /**
-     * Saves the photo or video to the camera roll / gallery.
-     *
-     * On Android, the tag must be a local image or video URI, such as `"file:///sdcard/img.png"`.
-     *
-     * On iOS, the tag can be any image URI (including local, remote asset-library and base64 data URIs)
-     * or a local video file URI (remote or data URIs are not supported for saving video at this time).
-     *
-     * If the tag has a file extension of .mov or .mp4, it will be inferred as a video. Otherwise
-     * it will be treated as a photo. To override the automatic choice, you can pass an optional
-     * `type` parameter that must be one of 'photo' or 'video'.
-     *
-     * Returns a Promise which will resolve with the new URI.
-     */
-    saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>;
-
-    /**
-     * Invokes callback with photo identifier objects from the local camera roll of the device matching shape defined by getPhotosReturnChecker.
-     *
-     * @param params See getPhotosParamChecker.
-     */
-    getPhotos(params: GetPhotosParamType): Promise<GetPhotosReturnType>;
-}
-
-// https://facebook.github.io/react-native/docs/checkbox.html
-export interface CheckBoxProps extends ViewProps {
-    /**
-     * If true the user won't be able to toggle the checkbox. Default value is false.
-     */
-    disabled?: boolean;
-
-    /**
-     * Used in case the props change removes the component.
-     */
-    onChange?: (value: boolean) => void;
-
-    /**
-     * Invoked with the new value when the value changes.
-     */
-    onValueChange?: (value: boolean) => void;
-
-    /**
-     * Used to locate this view in end-to-end tests.
-     */
-    testID?: string;
-
-    /**
-     * The value of the checkbox. If true the checkbox will be turned on. Default value is false.
-     */
-    value?: boolean;
-}
-
-export class CheckBox extends React.Component<CheckBoxProps> {}
 
 /** Clipboard gives you an interface for setting and getting content from Clipboard on both iOS and Android */
 export interface ClipboardStatic {
@@ -7898,78 +7188,6 @@ export class StatusBar extends React.Component<StatusBarProps> {
  * @deprecated Use StatusBar instead
  */
 export interface StatusBarIOSStatic extends NativeEventEmitter {}
-
-export interface TimePickerAndroidOpenOptions {
-    hour?: number;
-    minute?: number;
-    is24Hour?: boolean;
-    mode?: 'clock' | 'spinner' | 'default';
-}
-
-export interface TimePickerAndroidTimeSetAction {
-    action: 'timeSetAction';
-    hour: number;
-    minute: number;
-}
-
-export interface TimePickerAndroidDismissedAction {
-    action: 'dismissedAction';
-}
-
-export type TimePickerAndroidOpenReturn = TimePickerAndroidTimeSetAction | TimePickerAndroidDismissedAction;
-
-/**
- * Opens the standard Android time picker dialog.
- *
- * ### Example
- *
- * ```
- * try {
- *   const {action, hour, minute} = await TimePickerAndroid.open({
- *     hour: 14,
- *     minute: 0,
- *     is24Hour: false, // Will display '2 PM'
- *   });
- *   if (action !== TimePickerAndroid.dismissedAction) {
- *     // Selected hour (0-23), minute (0-59)
- *   }
- * } catch ({code, message}) {
- *   console.warn('Cannot open time picker', message);
- * }
- * ```
- */
-export interface TimePickerAndroidStatic {
-    /**
-     * Opens the standard Android time picker dialog.
-     *
-     * The available keys for the `options` object are:
-     *   * `hour` (0-23) - the hour to show, defaults to the current time
-     *   * `minute` (0-59) - the minute to show, defaults to the current time
-     *   * `is24Hour` (boolean) - If `true`, the picker uses the 24-hour format. If `false`,
-     *     the picker shows an AM/PM chooser. If undefined, the default for the current locale
-     *     is used.
-     *   * `mode` (enum('clock', 'spinner', 'default')) - set the time picker mode
-     *     * 'clock': Show a time picker in clock mode.
-     *     * 'spinner': Show a time picker in spinner mode.
-     *     * 'default': Show a default time picker based on Android versions.
-     *
-     * Returns a Promise which will be invoked an object containing `action`, `hour` (0-23),
-     * `minute` (0-59) if the user picked a time. If the user dismissed the dialog, the Promise will
-     * still be resolved with action being `TimePickerAndroid.dismissedAction` and all the other keys
-     * being undefined. **Always** check whether the `action` before reading the values.
-     */
-    open(options: TimePickerAndroidOpenOptions): Promise<TimePickerAndroidOpenReturn>;
-
-    /**
-     * A time has been selected.
-     */
-    timeSetAction: 'timeSetAction';
-
-    /**
-     * The dialog has been dismissed.
-     */
-    dismissedAction: 'dismissedAction';
-}
 
 /**
  * This exposes the native ToastAndroid module as a JS module. This has a function 'show'
@@ -8700,50 +7918,6 @@ export interface ImagePickerIOSStatic {
     ): void;
 }
 
-export interface ImageStoreStatic {
-    /**
-     * Check if the ImageStore contains image data for the specified URI.
-     * @platform ios
-     */
-    hasImageForTag(uri: string, callback: (hasImage: boolean) => void): void;
-
-    /**
-     * Delete an image from the ImageStore. Images are stored in memory and
-     * must be manually removed when you are finished with them, otherwise they
-     * will continue to use up RAM until the app is terminated. It is safe to
-     * call `removeImageForTag()` without first calling `hasImageForTag()`, it
-     * will simply fail silently.
-     * @platform ios
-     */
-    removeImageForTag(uri: string): void;
-
-    /**
-     * Stores a base64-encoded image in the ImageStore, and returns a URI that
-     * can be used to access or display the image later. Images are stored in
-     * memory only, and must be manually deleted when you are finished with
-     * them by calling `removeImageForTag()`.
-     *
-     * Note that it is very inefficient to transfer large quantities of binary
-     * data between JS and native code, so you should avoid calling this more
-     * than necessary.
-     * @platform ios
-     */
-    addImageFromBase64(base64ImageData: string, success: (uri: string) => void, failure: (error: any) => void): void;
-
-    /**
-     * Retrieves the base64-encoded data for an image in the ImageStore. If the
-     * specified URI does not match an image in the store, the failure callback
-     * will be called.
-     *
-     * Note that it is very inefficient to transfer large quantities of binary
-     * data between JS and native code, so you should avoid calling this more
-     * than necessary. To display an image in the ImageStore, you can just pass
-     * the URI to an `<Image/>` component; there is no need to retrieve the
-     * base64 data.
-     */
-    getBase64ForTag(uri: string, success: (base64ImageData: string) => void, failure: (error: any) => void): void;
-}
-
 //
 // Interfacing with Native Modules
 // https://facebook.github.io/react-native/docs/native-modules-ios.html
@@ -8764,123 +7938,6 @@ export interface NativeEventSubscription {
  * @see https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript
  */
 type RCTNativeAppEventEmitter = DeviceEventEmitterStatic;
-
-interface ImageCropData {
-    /**
-     * The top-left corner of the cropped image, specified in the original
-     * image's coordinate space.
-     */
-    offset: {
-        x: number;
-        y: number;
-    };
-
-    /**
-     * The size (dimensions) of the cropped image, specified in the original
-     * image's coordinate space.
-     */
-    size: {
-        width: number;
-        height: number;
-    };
-
-    /**
-     * (Optional) size to scale the cropped image to.
-     */
-    displaySize?: { width: number; height: number };
-
-    /**
-     * (Optional) the resizing mode to use when scaling the image. If the
-     * `displaySize` param is not specified, this has no effect.
-     */
-    resizeMode?: 'contain' | 'cover' | 'stretch';
-}
-
-interface ImageEditorStatic {
-    /**
-     * Crop the image specified by the URI param. If URI points to a remote
-     * image, it will be downloaded automatically. If the image cannot be
-     * loaded/downloaded, the failure callback will be called.
-     *
-     * If the cropping process is successful, the resultant cropped image
-     * will be stored in the ImageStore, and the URI returned in the success
-     * callback will point to the image in the store. Remember to delete the
-     * cropped image from the ImageStore when you are done with it.
-     */
-    cropImage(
-        uri: string,
-        cropData: ImageCropData,
-        success: (uri: string) => void,
-        failure: (error: Object) => void,
-    ): void;
-}
-
-export interface ARTNodeMixin {
-    opacity?: number;
-    originX?: number;
-    originY?: number;
-    scaleX?: number;
-    scaleY?: number;
-    scale?: number;
-    title?: string;
-    x?: number;
-    y?: number;
-    visible?: boolean;
-}
-
-export interface ARTGroupProps extends ARTNodeMixin {
-    width?: number;
-    height?: number;
-}
-
-export interface ARTClippingRectangleProps extends ARTNodeMixin {
-    width?: number;
-    height?: number;
-}
-
-export interface ARTRenderableMixin extends ARTNodeMixin {
-    fill?: string;
-    stroke?: string;
-    strokeCap?: 'butt' | 'square' | 'round';
-    strokeDash?: number[];
-    strokeJoin?: 'bevel' | 'miter' | 'round';
-    strokeWidth?: number;
-}
-
-export interface ARTShapeProps extends ARTRenderableMixin {
-    d: string;
-    width?: number;
-    height?: number;
-}
-
-export interface ARTTextProps extends ARTRenderableMixin {
-    font?: string;
-    alignment?: string;
-}
-
-export interface ARTSurfaceProps {
-    style?: StyleProp<ViewStyle>;
-    width: number;
-    height: number;
-}
-
-export class ClippingRectangle extends React.Component<ARTClippingRectangleProps> {}
-
-export class Group extends React.Component<ARTGroupProps> {}
-
-export class Shape extends React.Component<ARTShapeProps> {}
-
-export class Surface extends React.Component<ARTSurfaceProps> {}
-
-export class ARTText extends React.Component<ARTTextProps> {}
-
-export interface ARTStatic {
-    ClippingRectangle: typeof ClippingRectangle;
-    Group: typeof Group;
-    Shape: typeof Shape;
-    Surface: typeof Surface;
-    Text: typeof ARTText;
-}
 
 export type KeyboardEventName =
     | 'keyboardWillShow'
@@ -8942,11 +7999,6 @@ export const DevSettings: DevSettingsStatic;
 //
 //////////////////////////////////////////////////////////////////////////
 
-// TODO: The following components need to be added
-// - [ ] ART
-export const ART: ARTStatic;
-export type ART = ARTStatic;
-
 //////////// APIS //////////////
 export const ActionSheetIOS: ActionSheetIOSStatic;
 export type ActionSheetIOS = ActionSheetIOSStatic;
@@ -8960,6 +8012,12 @@ export type Alert = AlertStatic;
 export const AppState: AppStateStatic;
 export type AppState = AppStateStatic;
 
+/**
+ * AsyncStorage has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/async-storage' instead of 'react-native'.
+ * @see https://github.com/react-native-community/async-storage
+ * @deprecated
+ */
 export const AsyncStorage: AsyncStorageStatic;
 export type AsyncStorage = AsyncStorageStatic;
 
@@ -8967,18 +8025,20 @@ export const BackHandler: BackHandlerStatic;
 export type BackHandler = BackHandlerStatic;
 
 /**
- * CameraRoll has been extracted from react-native core and will be removed in a future release.
- * "It can now be installed and imported from '@react-native-community/cameraroll' instead of 'react-native'.
- * See 'https://github.com/react-native-community/react-native-cameraroll',
- *
+ * Clipboard has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/clipboard' instead of 'react-native'.
+ * @see https://github.com/react-native-community/clipboard
  * @deprecated
  */
-export const CameraRoll: CameraRollStatic;
-export type CameraRoll = CameraRollStatic;
-
 export const Clipboard: ClipboardStatic;
 export type Clipboard = ClipboardStatic;
 
+/**
+ * DatePickerAndroid has been merged with DatePickerIOS and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/datetimepicker' instead of 'react-native'.
+ * @see https://github.com/react-native-community/datetimepicker
+ * @deprecated 
+ */
 export const DatePickerAndroid: DatePickerAndroidStatic;
 export type DatePickerAndroid = DatePickerAndroidStatic;
 
@@ -8991,14 +8051,15 @@ export const Easing: EasingStatic;
 export const I18nManager: I18nManagerStatic;
 export type I18nManager = I18nManagerStatic;
 
-export const ImageEditor: ImageEditorStatic;
-export type ImageEditor = ImageEditorStatic;
-
+/**
+ * ImagePickerIOS has been extracted from react-native core and will be removed in a future release.
+ * Please upgrade to use either '@react-native-community/react-native-image-picker' or 'expo-image-picker'.
+ * If you cannot upgrade to a different library, please install the deprecated '@react-native-community/image-picker-ios' package.
+ * @see https://github.com/react-native-community/react-native-image-picker-ios
+ * @deprecated
+ */
 export const ImagePickerIOS: ImagePickerIOSStatic;
 export type ImagePickerIOS = ImagePickerIOSStatic;
-
-export const ImageStore: ImageStoreStatic;
-export type ImageStore = ImageStoreStatic;
 
 export const InteractionManager: InteractionManagerStatic;
 
@@ -9019,7 +8080,7 @@ export type PermissionsAndroid = PermissionsAndroidStatic;
 /**
  * PushNotificationIOS has been extracted from react-native core and will be removed in a future release.
  * It can now be installed and imported from '@react-native-community/push-notification-ios' instead of 'react-native'.
- * See https://github.com/react-native-community/react-native-push-notification-ios'
+ * @see https://github.com/react-native-community/react-native-push-notification-ios'
  * @deprecated
  */
 export const PushNotificationIOS: PushNotificationIOSStatic;
@@ -9039,9 +8100,6 @@ export type StatusBarIOS = StatusBarIOSStatic;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
-
-export const TimePickerAndroid: TimePickerAndroidStatic;
-export type TimePickerAndroid = TimePickerAndroidStatic;
 
 export const ToastAndroid: ToastAndroidStatic;
 export type ToastAndroid = ToastAndroidStatic;
@@ -9120,6 +8178,10 @@ export function processColor(color: any): number;
 
 export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warnings: string[]) => void };
 
+/**
+ * LogBox is enabled by default so there is no need to call unstable_enableLogBox() anymore. This is a no op and will be removed in the next version.
+ * @depcreated 
+ */
 export function unstable_enableLogBox(): void;
 
 //////////////////////////////////////////////////////////////////////////

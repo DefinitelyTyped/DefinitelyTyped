@@ -11,8 +11,6 @@ import {
     ViewProps,
     ViewPropsIOS,
     ViewPropsAndroid,
-    ToolbarAndroidProps,
-    ViewPagerAndroidProps,
     SegmentedControlIOSProps,
     ScrollViewProps,
     ScrollViewPropsIOS,
@@ -47,7 +45,6 @@ import {
     FlatListProps,
     VirtualizedListProps,
     SectionListProps,
-    ListViewProps,
     MaskedViewIOSProps,
     ModalProps,
     TouchableWithoutFeedbackProps,
@@ -107,12 +104,6 @@ declare module 'react-native' {
 
     /** @deprecated Use ViewPropsAndroid */
     export type ViewPropertiesAndroid = ViewPropsAndroid;
-
-    /** @deprecated Use ToolbarAndroidProps */
-    export type ToolbarAndroidProperties = ToolbarAndroidProps;
-
-    /** @deprecated Use ViewPagerAndroidProps */
-    export type ViewPagerAndroidProperties = ViewPagerAndroidProps;
 
     /** @deprecated Use SegmentedControlIOSProps */
     export type SegmentedControlIOSProperties = SegmentedControlIOSProps;
@@ -215,9 +206,6 @@ declare module 'react-native' {
 
     /** @deprecated Use SectionListProps */
     export type SectionListProperties<ItemT> = SectionListProps<ItemT>;
-
-    /** @deprecated Use ListViewProps */
-    export type ListViewProperties = ListViewProps;
 
     /** @deprecated Use MaskedViewIOSProps */
     export type MaskedViewIOSProperties = MaskedViewIOSProps;
