@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { UrlWithStringQuery } from "url";
+import { UrlWithStringQuery } from 'url';
 
 export interface ParsedBuffer {
     version: string;
@@ -18,7 +18,11 @@ export interface ParsedBuffer {
 
 export function parse(buf: Buffer): ParsedBuffer;
 export function serialize(msg: object): Buffer;
-export function request(opts: string | UrlWithStringQuery, buffer: Buffer, cb: (error: Error | null, response: ParsedBuffer) => void): void;
+export function request(
+    opts: string | UrlWithStringQuery,
+    buffer: Buffer,
+    cb: (error: Error | null, response: ParsedBuffer) => void,
+): void;
 export const attributes: object;
 export const attribute: object;
 export const keywords: object;
