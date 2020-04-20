@@ -162,7 +162,6 @@ export type To =
     hash: String;
   }>;
 
-
 export function useNavigate(): (
     path: To,
     config?: Partial<{ replace: boolean; state: object }>
