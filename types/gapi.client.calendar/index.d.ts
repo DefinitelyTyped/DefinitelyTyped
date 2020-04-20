@@ -1,6 +1,7 @@
 // Type definitions for Google Calendar API v3 3.0
 // Project: https://developers.google.com/google-apps/calendar/firstapp
-// Definitions by: Bolisov Alexey <https://github.com/Bolisov> and Harpo Jaeger <https://github.com/harpojaeger>
+// Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+//                 Harpo Jaeger <https://github.com/harpojaeger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
