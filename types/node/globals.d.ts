@@ -676,8 +676,8 @@ declare namespace NodeJS {
         isTTY?: true;
     }
 
-    // Alias for compability
-    type ProcessEnv = Dict<string>;
+    // Alias for compatibility
+    interface ProcessEnv extends Dict<string> {}
 
     interface HRTime {
         (time?: [number, number]): [number, number];
@@ -787,7 +787,7 @@ declare namespace NodeJS {
         cwd(): string;
         debugPort: number;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
-        env: Dict<string>;
+        env: ProcessEnv;
         exit(code?: number): never;
         exitCode?: number;
         getgid(): number;
