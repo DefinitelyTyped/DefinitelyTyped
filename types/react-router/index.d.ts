@@ -153,8 +153,18 @@ export const __RouterContext: React.Context<RouteComponentProps>;
 
 export function useLocation<S = H.LocationState>(): H.Location<S>;
 
+export type To =
+| string
+| number
+| Partial<{
+    pathname: String;
+    search: String;
+    hash: String;
+  }>;
+
+
 export function useNavigate(): (
-    path: string | number,
+    path: To,
     config?: Partial<{ replace: boolean; state: object }>
 ) => void;
 
@@ -164,3 +174,5 @@ export function useRouteMatch<Params extends { [K in keyof Params]?: string } = 
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(
     path: string | string[] | RouteProps,
 ): match<Params> | null;
+
+export function useMatch(to: To): boolean;  
