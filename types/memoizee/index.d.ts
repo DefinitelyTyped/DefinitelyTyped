@@ -3,6 +3,7 @@
 // Definitions by: Juan Picado <https://github.com/juanpicado>
 //                 Patrick Muff <https://github.com/dislick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.1
 
 declare namespace memoizee {
   interface Options<F extends (...args: any[]) => any> {
