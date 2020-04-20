@@ -3,9 +3,5 @@ function CustomComponent() {
 }
 
 function App() {
-    return (
-        <div sx={{ fontWeight: 'bold' }}>
-            <CustomComponent />
-        </div>
-    );
+    return <CustomComponent sx={{ fontWeight: 'bold' }} />;
 }
