@@ -19,7 +19,7 @@ declare function WebpackHotMiddleware(
 ): NextHandleFunction & WebpackHotMiddleware.EventStream;
 
 declare namespace WebpackHotMiddleware {
-	interface ClientOptions {
+	interface Options {
 		path?: string;
 		reload?: boolean;
 		name?: string;
