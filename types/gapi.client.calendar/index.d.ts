@@ -2095,20 +2095,20 @@ declare namespace gapi.client {
             }): Request<Channel>;
         }
 
-        const acl: calendar.AclResource;
+        const acl: AclResource;
 
-        const calendarList: calendar.CalendarListResource;
+        const calendarList: CalendarListResource;
 
-        const calendars: calendar.CalendarsResource;
+        const calendars: CalendarsResource;
 
-        const channels: calendar.ChannelsResource;
+        const channels: ChannelsResource;
 
-        const colors: calendar.ColorsResource;
+        const colors: ColorsResource;
 
-        const events: calendar.EventsResource;
+        const events: EventsResource;
 
-        const freebusy: calendar.FreebusyResource;
+        const freebusy: FreebusyResource;
 
-        const settings: calendar.SettingsResource;
+        const settings: SettingsResource;
     }
 }
