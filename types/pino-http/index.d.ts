@@ -31,6 +31,7 @@ declare namespace PinoHttp {
         stream?: DestinationStream;
         autoLogging?: boolean | autoLoggingOptions;
         customLogLevel?: (res: ServerResponse, error: Error) => Level;
+        customAttributeKeys?: customAttributeKeys;
     }
 
     interface GenReqId {
@@ -40,6 +41,13 @@ declare namespace PinoHttp {
     interface autoLoggingOptions {
         ignorePaths?: string[];
         getPath?: (req: IncomingMessage) => string | undefined;
+    }
+    
+    interface customAttributeKeys {
+      req?: string;
+      res?: string;
+      err?: string;
+      responseTime?: string;
     }
 }
 
