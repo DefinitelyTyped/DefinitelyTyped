@@ -40,4 +40,4 @@ class CustomJestEnvironment extends JestEnvironmentPuppeteer {
 type JestEnvironmentPuppeteerGlobal = JestEnvironmentPuppeteer['global']; // $ExpectType Global
 type JestEnvironmentPuppeteerGlobalPuppeteer = JestEnvironmentPuppeteer['global']['jestPuppeteer']; // $ExpectType JestPuppeteer
 type JestEnvironmentPuppeteerFakeTimers = JestEnvironmentPuppeteer['fakeTimers']; // $ExpectType FakeTimers<Timer> | null
-type JestEnvironmentPuppeteerFakeTimers = JestEnvironmentPuppeteer['fakeTimersLolex']; // $ExpectType LolexFakeTimers | null
+type JestEnvironmentPuppeteerFakeTimersLolex = JestEnvironmentPuppeteer['fakeTimersLolex']; // $ExpectType LolexFakeTimers | null
