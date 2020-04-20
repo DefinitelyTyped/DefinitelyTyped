@@ -2,10 +2,10 @@
 // Project: https://github.com/kripod/glaze/blob/master/packages/babel-plugin-glaze/README.md
 // Definitions by: Kristóf Poduszló <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import {} from 'react';
+// TypeScript Version: 3.8
 
 import { ThemedStyle } from 'glaze';
+import {} from 'react';
 
 declare module 'react' {
     interface Attributes {

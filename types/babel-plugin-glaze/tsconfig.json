@@ -5,6 +5,7 @@
             "dom",
             "es6"
         ],
+        "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
