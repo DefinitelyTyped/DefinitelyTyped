@@ -42,7 +42,7 @@ declare namespace PinoHttp {
         ignorePaths?: string[];
         getPath?: (req: IncomingMessage) => string | undefined;
     }
-    
+
     interface customAttributeKeys {
       req?: string;
       res?: string;
