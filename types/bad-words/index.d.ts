@@ -1,6 +1,6 @@
 // Type definitions for bad-words 3.0
 // Project: https://github.com/web-mech/badwords#readme
-// Definitions by: Tom Pridham <https://github.com/me>
+// Definitions by: Tom Pridham <https://github.com/TomPridham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
