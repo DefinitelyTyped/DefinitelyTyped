@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "glaze": ">=0.5.1"
+  }
+}
