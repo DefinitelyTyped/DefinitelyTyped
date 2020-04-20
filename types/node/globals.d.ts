@@ -1078,7 +1078,7 @@ declare namespace NodeJS {
         resolve: RequireResolve;
         cache: {
           [id: string]: NodeModule;
-        }
+        };
         /**
          * @deprecated
          */
