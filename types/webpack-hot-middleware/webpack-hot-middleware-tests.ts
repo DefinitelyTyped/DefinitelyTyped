@@ -12,7 +12,7 @@ webpackHotMiddlewareInstance = webpackHotMiddleware(compiler, {
 	heartbeat: 2000
 });
 
-const clientOpts: webpackHotMiddleware.ClientOptions = {
+const clientOpts: webpackHotMiddleware.Options = {
 	path: '/__webpack_hmr',
 	reload: true,
 	name: '__webpack_hmr_custom_bundle_name',
