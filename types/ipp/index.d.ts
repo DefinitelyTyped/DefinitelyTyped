@@ -6,6 +6,28 @@
 
 /// <reference types="node" />
 
+import { UrlWithStringQuery } from "url";
+
+export interface ParsedBuffer {
+    version: string;
+    operation: PrinterOpertaion;
+    statusCode: StatusCode;
+    id: number;
+    data: string;
+}
+
+export function parse(buf: Buffer): ParsedBuffer;
+export function serialize(msg: object): Buffer;
+export function request(opts: string | UrlWithStringQuery, buffer: Buffer, cb: (error: Error | null, response: ParsedBuffer) => void): void;
+export const attributes: object;
+export const attribute: object;
+export const keywords: object;
+export const versions: object;
+export const enums: object;
+export const tags: object;
+export const operations: object;
+export const statusCodes: object;
+
 export class Printer {
     constructor(url: string, options?: PrinterOptions);
 
