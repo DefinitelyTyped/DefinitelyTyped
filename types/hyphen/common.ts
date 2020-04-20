@@ -8,6 +8,9 @@ interface HyphenationOptions {
     hyphenChar?: string;
 }
 
-export type HyphenationFunctionSync = (textToHyphenate: string, options?: HyphenationOptions) => string;
+export type HyphenationFunctionSync = (textToHyphenate: string, options?: Readonly<HyphenationOptions>) => string;
 
-export type HyphenationFunctionAsync = (textToHyphenate: string, options?: HyphenationOptions) => Promise<string>;
+export type HyphenationFunctionAsync = (
+    textToHyphenate: string,
+    options?: Readonly<HyphenationOptions>,
+) => Promise<string>;

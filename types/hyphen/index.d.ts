@@ -2,7 +2,7 @@
 // Project: https://github.com/ytiurin/hyphen
 // Definitions by: Krisztián Balla <https://github.com/krisztianb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { HyphenationFunctionAsync, HyphenationFunctionSync, PatternDefinitions } from "./common";
+import { HyphenationFunctionAsync, HyphenationFunctionSync, PatternDefinitions } from './common';
 
 interface FactoryOptions {
     async?: boolean;
@@ -12,8 +12,8 @@ interface FactoryOptions {
 }
 
 declare function createHyphenator(
-    patternsDefinition: PatternDefinitions,
-    options?: FactoryOptions
+    patternsDefinition: Readonly<PatternDefinitions>,
+    options?: Readonly<FactoryOptions>,
 ): HyphenationFunctionAsync | HyphenationFunctionSync;
 
 export = createHyphenator;
