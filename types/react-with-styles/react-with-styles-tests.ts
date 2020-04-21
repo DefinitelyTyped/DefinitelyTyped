@@ -6,7 +6,7 @@ declare module 'react-with-styles' {
     unit: number;
   }
 }
- 
+
 const Component: React.FC<WithStylesProps> = ({ styles }) =>
   React.createElement('div', { ...css(styles.wrapper) });
 
