@@ -42,6 +42,8 @@ const siren = {
 
 const entity = parseSiren(siren);
 
+D2L.Hypermedia.Siren.Parse(siren);
+
 // expect(entity).to.have.sirenAction('fancy-action');
 // expect(entity).to.have.a.sirenAction.with.method('GET');
 // expect(entity).to.have.sirenLinks.with.classes('foo', 'bar'); // Will pass if at least 1 of resource's actions have each given class

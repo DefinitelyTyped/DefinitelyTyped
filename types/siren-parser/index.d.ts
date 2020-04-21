@@ -78,5 +78,15 @@ export interface Entity {
     getSubEntitiesByType(entityType: string | RegExp): Entity[];
 }
 
+declare global {
+    namespace D2L {
+        namespace Hypermedia {
+            namespace Siren {
+                function Parse(siren: string | object): Entity;
+            }
+        }
+    }
+}
+
 export { Link } from './Link';
 export { Action, Field, FieldType } from './Action';
