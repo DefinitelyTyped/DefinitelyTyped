@@ -20,9 +20,7 @@ export function switchChildrenNodeName(children: any, nodeName: string): any;
  */
 export type WPElement = import('react').ReactElement<
     any,
-    | string
-    | ((props: any) => import('react').ReactElement<any, string | any | (new (props: any) => Component<any, any, any>)>)
-    | (new (props: any) => Component<any, any, any>)
+    string | ((props: any) => import('react').ReactElement<any, any>) | (new (props: any) => Component<any, any>)
 >;
 /**
  * Object containing a React component.

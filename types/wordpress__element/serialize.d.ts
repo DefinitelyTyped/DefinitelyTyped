@@ -67,11 +67,6 @@ export type WPComponent = import('react').ComponentClass<{}, any> | import('reac
 export type WPElement = import('react').ReactElement<
     any,
     | string
-    | ((
-          props: any,
-      ) => import('react').ReactElement<
-          any,
-          string | any | (new (props: any) => import('react').Component<any, any, any>)
-      >)
+    | ((props: any) => import('react').ReactElement<any, any>)
     | (new (props: any) => import('react').Component<any, any, any>)
 >;
