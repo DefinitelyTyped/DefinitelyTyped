@@ -2,7 +2,7 @@ import * as React from 'react';
 import { withStyles, WithStylesProps, css } from 'react-with-styles';
 
 declare module 'react-with-styles' {
-  export interface Theme {
+  interface Theme {
     unit: number;
   }
 }
