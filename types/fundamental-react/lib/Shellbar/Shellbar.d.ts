@@ -9,6 +9,7 @@ export type ShellbarProps = {
         notificationCount: number;
         callback?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     }>;
+    backButton?: () => void;
     className?: string;
     copilot?: boolean;
     disableStyles?: boolean;
