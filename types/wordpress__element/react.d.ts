@@ -1,18 +1,18 @@
 /**
  * Concatenate two or more React children objects.
  *
- * @param {...?Object} childrenArguments Array of children arguments (array of arrays/strings/objects) to concatenate.
+ * @param  childrenArguments Array of children arguments (array of arrays/strings/objects) to concatenate.
  *
- * @return {Array} The concatenated value.
+ * @return  The concatenated value.
  */
 export function concatChildren(...childrenArguments: any[]): any[];
 /**
  * Switches the nodeName of all the elements in the children object.
  *
- * @param {?Object} children Children object.
- * @param {string}  nodeName Node name.
+ * @param  children Children object.
+ * @param   nodeName Node name.
  *
- * @return {?Object} The updated children object.
+ * @return  The updated children object.
  */
 export function switchChildrenNodeName(children: any, nodeName: string): any;
 /**
