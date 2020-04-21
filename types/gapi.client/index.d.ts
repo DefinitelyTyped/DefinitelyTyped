@@ -24,7 +24,7 @@ declare namespace gapi {
          * Creates a HTTP request for making RESTful requests.
          * An object encapsulating the various arguments for this method.
          */
-        function request<T>(args: {
+        function request(args: {
             /**
              * The URL to handle the request
              */
@@ -50,7 +50,7 @@ declare namespace gapi {
             //  */
             // callback?: () => any;
         // tslint:disable-next-line:no-unnecessary-generics
-        }): Request<T>;
+        }): Request<any>;
 
         /**
          * Sets the API key for the application.
