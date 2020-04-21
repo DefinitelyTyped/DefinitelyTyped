@@ -49,7 +49,6 @@ declare namespace gapi {
             //  * If supplied, the request is executed immediately and no gapi.client.HttpRequest object is returned
             //  */
             // callback?: () => any;
-        // tslint:disable-next-line:no-unnecessary-generics
         }): Request<any>;
 
         /**
@@ -142,8 +141,7 @@ declare namespace gapi {
         /**
          * Creates a batch object for batching individual requests.
          */
-        // tslint:disable-next-line:no-unnecessary-generics
-        function newBatch<T>(): Batch<T>;
+        function newBatch(): Batch<any>;
     }
 
     namespace auth {
