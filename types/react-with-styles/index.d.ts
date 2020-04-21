@@ -10,7 +10,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { CSSProperties } from 'aphrodite';
 
-interface Theme { [key: string]: any; }
+// tslint:disable-next-line no-empty-interface
+interface Theme {}
 
 interface WithStylesProps<T = Theme> {
     /**
