@@ -4,7 +4,7 @@
 //                 Brie Bunge <https://github.com/brieb>
 //                 Joe Lencioni <https://github.com/lencioni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
