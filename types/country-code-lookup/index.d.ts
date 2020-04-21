@@ -1,4 +1,4 @@
-// Type definitions for country-code-lookup 0.0.17
+// Type definitions for country-code-lookup 0.0
 // Project: https://github.com/richorama/country-code-lookup
 // Definitions by: Felix Schlenkrich <https://github.com/fastereder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
