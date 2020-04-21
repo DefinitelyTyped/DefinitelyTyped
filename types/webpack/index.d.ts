@@ -1339,6 +1339,8 @@ declare namespace webpack {
         rmdir(path: string, callback: (err: Error | undefined | null) => void): void;
         unlink(path: string, callback: (err: Error | undefined | null) => void): void;
         writeFile(path: string, data: any, callback: (err: Error | undefined | null) => void): void;
+        readFile(path: string, callback: (err: Error | undefined | null, contents: Buffer) => void): void;
+        readFileSync(path: string): Buffer;
     }
 
     interface SortableSet<T> extends Set<T> {
