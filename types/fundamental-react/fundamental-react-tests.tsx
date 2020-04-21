@@ -1927,7 +1927,7 @@ const shellbars = (
             ]}
         />
         <Shellbar
-            backButton={function w() {}}
+            backAction={function w() {}}
             logo={
                 <img
                     alt="SAP"
