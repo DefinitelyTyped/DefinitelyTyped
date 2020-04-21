@@ -1870,7 +1870,8 @@ declare namespace Office {
         /**
          * Triggers when any date or time of the selected appointment or series is changed in Outlook. Supported with task pane only.
          * 
-         * The event handler receives an argument of type `Office.AppointmentTimeChangedEventArgs`.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.appointmenttimechangedeventargs?view=outlook-js-1.7 | Office.AppointmentTimeChangedEventArgs}.
          * 
          * [Api set: Mailbox 1.7]
          */
@@ -1878,7 +1879,8 @@ declare namespace Office {
         /**
          * Triggers when an attachment is added to or removed from an item. Supported with task pane only.
          * 
-         * The event handler receives an argument of type `Office.AttachmentsChangedEventArgs`.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.attachmentschangedeventargs?view=outlook-js-1.8 | Office.AttachmentsChangedEventArgs}.
          * 
          * [Api set: Mailbox 1.8]
          */
@@ -1927,7 +1929,8 @@ declare namespace Office {
         /**
          * Triggers when the appointment location is changed in Outlook. Supported with task pane only.
          * 
-         * The event handler receives an argument of type `Office.EnhancedLocationsChangedEventArgs`.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.enhancedlocationschangedeventargs?view=outlook-js-1.8 | Office.EnhancedLocationsChangedEventArgs}.
          * 
          * [Api set: Mailbox 1.8]
          */
@@ -1953,7 +1956,8 @@ declare namespace Office {
         /**
          * Triggers when the OfficeTheme is changed in Outlook. Supported with task pane only.
          * 
-         * The event handler receives an argument of type `Office.OfficeThemeChangedEventArgs`.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.officethemechangedeventargs?view=outlook-js-preview | Office.OfficeThemeChangedEventArgs}.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -1963,7 +1967,8 @@ declare namespace Office {
         /**
          * Triggers when the recipient list of the selected item or the appointment location is changed in Outlook. Supported with task pane only.
          * 
-         * The event handler receives an argument of type `Office.RecipientsChangedEventArgs`.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.recipientschangedeventargs?view=outlook-js-1.7 | Office.RecipientsChangedEventArgs}.
          * 
          * [Api set: Mailbox 1.7]
          */
@@ -1971,7 +1976,8 @@ declare namespace Office {
         /**
          * Triggers when the recurrence pattern of the selected series is changed in Outlook. Supported with task pane only.
          * 
-         * The event handler receives an argument of type `Office.RecurrenceChangedEventArgs`.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.recurrencechangedeventargs?view=outlook-js-1.7 | Office.RecurrenceChangedEventArgs}.
          * 
          * [Api set: Mailbox 1.7]
          */
