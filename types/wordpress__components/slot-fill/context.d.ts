@@ -1,4 +1,4 @@
-import { Component, ComponentType, Consumer as ContextConsumer } from '@wordpress/element';
+import { Component, ComponentType, Consumer as ContextConsumer } from 'react';
 
 export interface SlotFillContext {
     registerSlot(name: string, instance: Component): void;

@@ -24,9 +24,6 @@
             "@wordpress/data": [
                 "wordpress__data"
             ],
-            "@wordpress/element": [
-                "wordpress__element"
-            ],
             "@wordpress/notices": [
                 "wordpress__notices"
             ],
