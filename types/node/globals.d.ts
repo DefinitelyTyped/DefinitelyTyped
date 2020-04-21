@@ -327,7 +327,7 @@ declare class Buffer extends Uint8Array {
     write(string: string, encoding?: BufferEncoding): number;
     write(string: string, offset: number, encoding?: BufferEncoding): number;
     write(string: string, offset: number, length: number, encoding?: BufferEncoding): number;
-    toString(encoding?: string, start?: number, end?: number): string;
+    toString(encoding?: BufferEncoding, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer'; data: number[] };
     equals(otherBuffer: Uint8Array): boolean;
     compare(
