@@ -70,6 +70,11 @@ import * as util from 'util';
 
 {
     fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 0);
+    fs.readSync(1, Buffer.from(''), {
+        length: 123,
+        offset: 456,
+        position: null,
+    });
 }
 
 {
@@ -351,4 +356,10 @@ async function testPromisify() {
 
     const readStream = fs.createReadStream('./index.d.ts');
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
+}
+
+{
+    fs.readvSync(123, [Buffer.from('wut')]);
+    fs.readv(123, [Buffer.from('wut')], 123, (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
+    });
 }

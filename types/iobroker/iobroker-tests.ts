@@ -190,7 +190,8 @@ adapter.getObjectAsync("obj.id").then(obj => obj && obj._id.toLowerCase());
 adapter.getForeignObjectAsync("obj.id").then(obj => obj && obj._id.toLowerCase());
 
 adapter.getForeignObjects("*", (err, objs) => objs!["foo"]._id.toLowerCase());
-adapter.getForeignObjectsAsync("*").then(objs => objs!["foo"]._id.toLowerCase());
+// getForeignObjectsAsync always returns a Record when it doesn't throw
+adapter.getForeignObjectsAsync("*").then(objs => objs["foo"]._id.toLowerCase());
 
 adapter.setObject("id", {
     _id: "id",
@@ -400,3 +401,13 @@ const folderObj: ioBroker.FolderObject = {
 // Repro from https://github.com/ioBroker/ioBroker.js-controller/issues/782
 // $ExpectError
 adapter.setState("id", {ack: false});
+
+// null is a valid state value
+adapter.setState("id", null);
+adapter.setForeignState("id", null);
+adapter.setStateAsync("id", null);
+adapter.setForeignStateAsync("id", null);
+adapter.setStateChanged("id", null);
+adapter.setForeignStateChanged("id", null);
+adapter.setStateChangedAsync("id", null);
+adapter.setForeignStateChangedAsync("id", null);

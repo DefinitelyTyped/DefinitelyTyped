@@ -16,6 +16,8 @@ export type Direction = "bottom" | "left" | "right" | "top";
 export type ListBoxBaseItemType = object | string;
 export type TooltipAlignment = "center" | "end" | "start";
 export type TooltipPosition = Direction;
+export type CarbonSize = "lg" | "sm" | "xs";
+export type CarbonInputSize = "sm" | "lg" | "xl";
 
 export interface DownshiftTypedProps<ItemType> {
     itemToString?(item: ItemType): string,
@@ -75,3 +77,5 @@ export interface SideNavSizingProps {
 export interface RefForwardingProps<T = HTMLElement> {
     ref?: React.RefObject<T>;
 }
+
+export type ForwardRefReturn<T, P = {}> = React.FC<P & React.ClassAttributes<T>>;

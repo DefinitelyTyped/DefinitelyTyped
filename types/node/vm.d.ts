@@ -1,7 +1,5 @@
 declare module "vm" {
-    interface Context {
-        [key: string]: any;
-    }
+    interface Context extends NodeJS.Dict<any> { }
     interface BaseOptions {
         /**
          * Specifies the filename used in stack traces produced by this script.

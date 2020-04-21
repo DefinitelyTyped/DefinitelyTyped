@@ -15,7 +15,7 @@ export interface TriggerProps {
 
 export interface ModalWrapperProps extends InheritedProps, TriggerProps {
     handleOpen?(e: React.MouseEvent<HTMLElement>): void,
-    handleSubmit?(): boolean,
+    handleSubmit(): boolean,
     shouldCloseAfterSubmit?: boolean,
     status?: string,
 }

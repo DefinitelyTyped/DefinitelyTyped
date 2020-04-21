@@ -13,6 +13,7 @@ import { readFile } from 'fs';
         showProxy: true,
         maxArrayLength: 10,
         breakLength: 20,
+        maxStringLength: 123,
         compact: true,
         sorted(a, b) {
             return b.localeCompare(a);

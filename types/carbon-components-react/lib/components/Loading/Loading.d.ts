@@ -13,6 +13,6 @@ export interface LoadingProps extends InheritedProps {
     withOverlay?: boolean,
 }
 
-declare class Loading extends React.Component<LoadingProps> { }
+declare const Loading: React.FC<LoadingProps>;
 
 export default Loading;
