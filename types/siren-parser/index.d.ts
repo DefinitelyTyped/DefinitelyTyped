@@ -4,7 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-export default function parseSiren(siren: string | object): Entity;
+import { Link } from './Link';
+import { Action } from './Action';
+
+export default function(entity: string | object): Entity;
 
 export interface Entity {
     class?: string[];
@@ -75,69 +78,5 @@ export interface Entity {
     getSubEntitiesByType(entityType: string | RegExp): Entity[];
 }
 
-export interface Link {
-    rel: string[];
-    class?: string[];
-    href: string;
-    title?: string;
-    type?: string;
-
-    hasClass(cls: string | RegExp): boolean;
-}
-
-export interface Action {
-    name: string;
-    href: string;
-    class?: string[];
-    method?: string;
-    title?: string;
-    type?: string;
-    fields?: Field[];
-
-    hasClass(cls: string | RegExp): boolean;
-    hasField(fieldName: string | RegExp): boolean;
-    hasFieldByName(fieldName: string | RegExp): boolean;
-    hasFieldByClass(fieldClass: string | RegExp): boolean;
-    hasFieldByType(fieldType: string | RegExp): boolean;
-
-    getField(fieldName: string | RegExp): Field | undefined;
-    getFieldByName(fieldName: string | RegExp): Field | undefined;
-    getFieldByClass(fieldClass: string | RegExp): Field | undefined;
-    getFieldsByClass(fieldClass: string | RegExp): Field[];
-    getFieldByClasses(fieldClasses: ReadonlyArray<string | RegExp>): Field | undefined;
-    getFieldsByClasses(fieldClasses: ReadonlyArray<string | RegExp>): Field[];
-    getFieldByType(fieldType: string | RegExp): Field | undefined;
-    getFieldsByType(fieldType: string | RegExp): Field[];
-}
-
-export interface Field {
-    name: string;
-    class?: string[];
-    type?: FieldType;
-    title?: string;
-    value?: any;
-
-    hasClass(cls: string | RegExp): boolean;
-}
-
-export enum FieldType {
-    Hidden = 'hidden',
-    Text = 'text',
-    Search = 'search',
-    Telephone = 'tel',
-    Url = 'url',
-    Email = 'email',
-    Password = 'password',
-    DateTime = 'datetime',
-    Date = 'date',
-    Month = 'month',
-    Week = 'week',
-    Time = 'time',
-    LocalDateTime = 'datetime-local',
-    Number = 'number',
-    Range = 'range',
-    Color = 'color',
-    Checkbox = 'checkbox',
-    Radio = 'radio',
-    File = 'file'
-}
+export { Link } from './Link';
+export { Action, Field, FieldType } from './Action';
