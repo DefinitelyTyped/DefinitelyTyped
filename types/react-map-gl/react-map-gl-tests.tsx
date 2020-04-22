@@ -125,7 +125,7 @@ class MyMap extends React.Component<{}, State> {
                         id="raster-tiles-source"
                         type="raster"
                         scheme="tms"
-                        tiles={['path/to/tiles/{z}/{x}/{y}.png']}
+                        tiles={["path/to/tiles/{z}/{x}/{y}.png"]}
                         tileSize={256}
                     >
                         <Layer
