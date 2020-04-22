@@ -61,10 +61,6 @@ declare global {
         type ObjectType = 'state' | 'channel' | 'device';
         type CommonType = 'number' | 'string' | 'boolean' | 'array' | 'object' | 'mixed' | 'file';
 
-        // Maybe this should extend Record<string, any>,
-        // but the extra properties aren't defined anywhere,
-        // so I'd rather force the user to explicitly state
-        // they know what they're doing by casting to any
         interface ObjectCommon {
             /** name of this object */
             name: string;
@@ -200,15 +196,22 @@ declare global {
             common?: Partial<ObjectCommon>;
         }
 
-        type Object = StateObject | ChannelObject | DeviceObject | FolderObject | OtherObject;
+        // Base type for Objects. Should not be used directly
+        type AnyObject = StateObject | ChannelObject | DeviceObject | FolderObject | OtherObject;
 
-        type SettableObjectWorker<T extends ioBroker.Object> = Pick<T, Exclude<keyof T, '_id' | 'acl'>> & {
+        // For all objects that are exposed to the user we need to tone the strictness down.
+        // Otherwise, every operation on objects becomes a pain to work with
+        type Object = AnyObject & {
+            common: Record<string, any>
+        };
+
+        type SettableObjectWorker<T extends ioBroker.AnyObject> = Pick<T, Exclude<keyof T, '_id' | 'acl'>> & {
             _id?: T['_id'];
             acl?: T['acl'];
         };
 
         // In set[Foreign]Object[NotExists] methods, the ID and acl of the object is optional
-        type SettableObject = SettableObjectWorker<ioBroker.Object>;
+        type SettableObject = SettableObjectWorker<ioBroker.AnyObject>;
         type PartialObject = PartialStateObject | PartialChannelObject | PartialDeviceObject | PartialFolderObject | PartialOtherObject;
 
         /** Defines access rights for a single file */

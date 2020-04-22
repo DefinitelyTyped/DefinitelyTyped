@@ -411,3 +411,9 @@ adapter.setStateChanged("id", null);
 adapter.setForeignStateChanged("id", null);
 adapter.setStateChangedAsync("id", null);
 adapter.setForeignStateChangedAsync("id", null);
+
+adapter.getObjectAsync("id").then(obj => {
+    if (obj && obj.common && obj.common.alias && obj.common.alias.id) {
+
+    }
+})
