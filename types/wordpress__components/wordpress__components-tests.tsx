@@ -1,5 +1,6 @@
 import * as C from '@wordpress/components';
-import { Component, MouseEvent as ReactMouseEvent } from 'react';
+import { Component } from '@wordpress/element';
+import { MouseEvent as ReactMouseEvent } from 'react';
 
 //
 // primitives

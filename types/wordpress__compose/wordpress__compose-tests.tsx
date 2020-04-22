@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component } from '@wordpress/element';
 import * as C from '@wordpress/compose';
 
 //
