@@ -12,8 +12,8 @@ export as namespace invariant;
 
 declare namespace invariant {
   interface InvariantStatic {
-    (testValue:false, format?:string, ...extra:any[]):never;
-    (testValue:any, format?:string, ...extra:any[]):void;
+    (testValue:false, format:string, ...extra:any[]):never;
+    (testValue:any, format:string, ...extra:any[]):void;
   }
 }
 
