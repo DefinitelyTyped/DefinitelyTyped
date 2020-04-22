@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface IStream {
-    update?(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-    write?(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+    update?(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
+    write?(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
 }
 
 import HashStatic = ObjectHash.HashStatic;

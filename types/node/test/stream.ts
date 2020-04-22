@@ -27,7 +27,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType any
             chunk;
-            // $ExpectType string
+            // $ExpectType BufferEncoding
             enc;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -35,7 +35,7 @@ function simplified_stream_ctor_test() {
         writev(chunks, cb) {
             // $ExpectType Writable
             this;
-            // $ExpectType { chunk: any; encoding: string; }[]
+            // $ExpectType { chunk: any; encoding: BufferEncoding; }[]
             chunks;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -68,7 +68,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType any
             chunk;
-            // $ExpectType string
+            // $ExpectType BufferEncoding
             enc;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -76,7 +76,7 @@ function simplified_stream_ctor_test() {
         writev(chunks, cb) {
             // $ExpectType Duplex
             this;
-            // $ExpectType { chunk: any; encoding: string; }[]
+            // $ExpectType { chunk: any; encoding: BufferEncoding; }[]
             chunks;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -113,7 +113,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType any
             chunk;
-            // $ExpectType string
+            // $ExpectType BufferEncoding
             enc;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -121,7 +121,7 @@ function simplified_stream_ctor_test() {
         writev(chunks, cb) {
             // $ExpectType Transform
             this;
-            // $ExpectType { chunk: any; encoding: string; }[]
+            // $ExpectType { chunk: any; encoding: BufferEncoding; }[]
             chunks;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -145,7 +145,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType any
             chunk;
-            // $ExpectType string
+            // $ExpectType BufferEncoding
             enc;
             // $ExpectType TransformCallback
             cb;

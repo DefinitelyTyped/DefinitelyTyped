@@ -327,7 +327,7 @@ declare class Buffer extends Uint8Array {
     write(string: string, encoding?: BufferEncoding): number;
     write(string: string, offset: number, encoding?: BufferEncoding): number;
     write(string: string, offset: number, length: number, encoding?: BufferEncoding): number;
-    toString(encoding?: string, start?: number, end?: number): string;
+    toString(encoding?: BufferEncoding, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer'; data: number[] };
     equals(otherBuffer: Uint8Array): boolean;
     compare(
@@ -572,7 +572,7 @@ declare namespace NodeJS {
     interface ReadableStream extends EventEmitter {
         readable: boolean;
         read(size?: number): string | Buffer;
-        setEncoding(encoding: string): this;
+        setEncoding(encoding: BufferEncoding): this;
         pause(): this;
         resume(): this;
         isPaused(): boolean;
@@ -586,10 +586,10 @@ declare namespace NodeJS {
     interface WritableStream extends EventEmitter {
         writable: boolean;
         write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
-        write(str: string, encoding?: string, cb?: (err?: Error | null) => void): boolean;
+        write(str: string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
         end(cb?: () => void): void;
         end(data: string | Uint8Array, cb?: () => void): void;
-        end(str: string, encoding?: string, cb?: () => void): void;
+        end(str: string, encoding?: BufferEncoding, cb?: () => void): void;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
