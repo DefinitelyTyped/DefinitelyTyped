@@ -1,0 +1,5 @@
+{
+    "dependencies": {
+        "@types/chai": "^4.2.0"
+    }
+}
