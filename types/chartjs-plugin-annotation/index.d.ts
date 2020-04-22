@@ -71,7 +71,7 @@ declare namespace ChartJsAnnotation {
   interface LineAnnotationOptions extends CommonAnnotationOptions {
     type: 'line';
     mode: 'horizontal' | 'vertical';
-    scaleID?: string;
+    scaleID: string;
     value: number | string; // value or label
     endValue?: number | string; // value or label
 
