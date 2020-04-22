@@ -33,7 +33,7 @@ export interface ReactourStep {
     /**
      * Position of step content
      */
-    position?: ReactourStepPosition;
+    position?: ReactourStepPosition | Number[];
 
     /**
      * DOM selector to find the target element
