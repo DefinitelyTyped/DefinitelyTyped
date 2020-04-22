@@ -1934,6 +1934,8 @@ declare namespace echarts {
             /**
              * The width of the bar. Adaptive when not specified.
              *
+             * Can be an absolute value like 40 or a percent value like '60%'. The percent is based on the calculated category width.
+             *
              * In a single coodinate system, this attribute is shared by multiple
              * `'bar'` series.
              * This attribute should be set on the last `'bar'` series in the
@@ -1943,10 +1945,14 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-bar.barWidth
              */
-            barWidth?: number;
+            barWidth?: number | string;
 
             /**
              * The maximum width of the bar. Adaptive when not specified.
+             *
+             * Has higer priority than barWidth.
+             *
+             * Can be an absolute value like 40 or a percent value like '60%'. The percent is based on the calculated category width.
              *
              * In a single coodinate system, this attribute is shared by multiple
              * `'bar'` series.
@@ -1957,7 +1963,25 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-bar.barMaxWidth
              */
-            barMaxWidth?: number;
+            barMaxWidth?: number | string;
+
+            /**
+             * The minimum width of the bar. In cartesian the default value is 1, otherwise the default value if null.
+             *
+             * Has higer priority than barWidth.
+             *
+             * Can be an absolute value like 40 or a percent value like ''60%''. The percent is based on the calculated category width.
+             *
+             * In a single coodinate system, this attribute is shared by multiple
+             * ''bar'' series.
+             * This attribute should be set on the last ''bar'' series in the
+             * coodinate system, then it will be adopted by all 'bar' series
+             * in the coordinate system.
+             *
+             *              *
+             * @see https://echarts.apache.org/en/option.html#series-bar.barMinWidth
+             */
+            barMinWidth?: number | string;
 
             /**
              * The minimum width of bar.

@@ -9,7 +9,7 @@ export default function threeDSecure() {
 
   const el = document.querySelector('div');
   if (el) {
-      threeDSecure.attach(el);
+    threeDSecure.attach(el);
   }
 
   // $ExpectError

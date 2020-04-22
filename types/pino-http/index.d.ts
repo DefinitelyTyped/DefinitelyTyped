@@ -1,8 +1,9 @@
-// Type definitions for pino-http 4.4
+// Type definitions for pino-http 5.0
 // Project: https://github.com/pinojs/pino-http#readme
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 //                 Jeremy Forsythe <https://github.com/jdforsythe>
 //                 Griffin Yourick <https://github.com/tough-griff>
+//                 Jorge Barnaby <https://github.com/yorch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -38,6 +39,7 @@ declare namespace PinoHttp {
 
     interface autoLoggingOptions {
         ignorePaths?: string[];
+        getPath?: (req: IncomingMessage) => string | undefined;
     }
 }
 

@@ -156,7 +156,7 @@ declare namespace Draft {
                 ariaDescribedBy?: string;
                 ariaExpanded?: boolean;
                 ariaLabel?: string;
-                ariaLabelledBy?: boolean;
+                ariaLabelledBy?: string;
                 ariaMultiline?: boolean;
                 ariaOwneeID?: string;
 

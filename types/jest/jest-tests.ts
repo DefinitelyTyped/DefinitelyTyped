@@ -635,12 +635,12 @@ const snapshotSerializerPlugin: jest.SnapshotSerializerPlugin = {
 expect.addSnapshotSerializer(snapshotSerializerPlugin);
 
 expect.addSnapshotSerializer({
-    print: (value: {}) => '',
+    print: (value: unknown) => '',
     test: (value: {}) => value === value,
 });
 
 expect.addSnapshotSerializer({
-    print: (value: {}, serialize: (val: {}) => string, indent: (str: string) => string, opts: {}) => '',
+    print: (value: unknown, serialize: (val: {}) => string, indent: (str: string) => string, opts: {}) => '',
     test: (value: {}) => value === value,
 });
 

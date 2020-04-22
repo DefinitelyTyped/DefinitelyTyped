@@ -723,7 +723,7 @@ export class HubsApi {
 
 export interface CreateStorageDataAttributes {
     name: string;
-    extension: BaseAttributesExtensionObject;
+    extension?: BaseAttributesExtensionObject;
 }
 
 export interface CreateItemDataRelationshipsTipData {
@@ -1047,6 +1047,7 @@ export interface CreateStorageDataRelationships {
 }
 
 export interface CreateStorageData {
+    type: string;
     attributes?: CreateStorageDataAttributes;
     relationships?: CreateStorageDataRelationships;
 }
