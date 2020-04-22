@@ -1,4 +1,4 @@
-// Type definitions for chromedriver 80.0
+// Type definitions for chromedriver 81.0
 // Project: https://github.com/giggio/node-chromedriver
 // Definitions by: Peter Safranek <https://github.com/pe8ter>
 //                 Armin Jazi <https://github.com/tetrohed>
