@@ -130,5 +130,6 @@ export function parse(str: string, options?: CookieParseOptions): { [key: string
  * @param name the name for the cookie
  * @param value value to set the cookie to
  * @param [options] object containing serialization options
+ * @throws {TypeError} when `maxAge` options is invalid
  */
 export function serialize(name: string, value: string, options?: CookieSerializeOptions): string;
