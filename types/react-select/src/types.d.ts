@@ -66,7 +66,7 @@ export type ActionTypes =
   | 'clear'
   | 'create-option';
 
-export interface ActionMeta {
+export interface ActionMeta<OptionType extends OptionTypeBase> {
   action: ActionTypes;
   name?: string;
   option?: OptionType;
