@@ -134,7 +134,7 @@ export class TransformIterator<S, T> extends BufferedIterator<T> {
     source: AsyncIterator<S>;
 
     _validateSource(source: AsyncIterator<S>, allowDestination?: boolean): void;
-    _transform(item: S, done: (result: T) => void): void;
+    _transform(item: S, done: (result?: T) => void): void;
     _closeWhenDone(): void;
 
     constructor(source?: AsyncIterator<S> | TransformIteratorOptions<S>, options?: TransformIteratorOptions<S>);
@@ -148,7 +148,7 @@ export interface SimpleTransformIteratorOptions<S, T> extends TransformIteratorO
 
     filter?(item: S): boolean;
     map?(item: S): T;
-    transform?(item: S, callback: (result: T) => void): void;
+    transform?(item: S, callback: (result?: T) => void): void;
 }
 
 export class SimpleTransformIterator<S, T> extends TransformIterator<S, T> {
@@ -159,7 +159,7 @@ export class SimpleTransformIterator<S, T> extends TransformIterator<S, T> {
 
     _filter?(item: S): boolean;
     _map?(item: S): T;
-    _transform(item: S, done: (result: T) => void): void;
+    _transform(item: S, done: (result?: T) => void): void;
 
     _insert(inserter: AsyncIterator<S>, done: () => void): void;
 

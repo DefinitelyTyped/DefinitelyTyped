@@ -38,6 +38,15 @@ function test_asynciterator() {
     const str: string = it1.toString();
 
     const stit1: SimpleTransformIterator<number, string> = it1.transform();
+    const stit1_: SimpleTransformIterator<number, string> = it1.transform({
+      transform: (item, done) => {
+        if (item === 0) {
+          done();
+        } else {
+          done('' + item);
+        }
+      },
+    });
     const stit2: SimpleTransformIterator<number, string> = it1.map((number: number) => 'i' + number);
     const stit3: AsyncIterator<string> = it1.map((number: number) => 'i' + number);
     const stit4: AsyncIterator<number> = it2.map(parseInt);
