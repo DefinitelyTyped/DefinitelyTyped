@@ -5,15 +5,13 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node"/>
-/// <reference types="koa"/>
 /// <reference types="qs"/>
 
 import * as http from 'http';
-import * as Koa from 'koa';
 import * as qs from 'qs';
 
 declare namespace CoBody {
-    type Context = http.IncomingMessage | Koa.Context;
+    type Context = http.IncomingMessage | { req: http.IncomingMessage };
 
     export interface Parse {
         (context: Context, options?: Options): Promise<any>;
