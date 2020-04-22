@@ -411,3 +411,6 @@ adapter.setStateChanged("id", null);
 adapter.setForeignStateChanged("id", null);
 adapter.setStateChangedAsync("id", null);
 adapter.setForeignStateChangedAsync("id", null);
+
+// Allow alias states
+adapter.getObjectAsync("id").then(obj => obj && obj.type === "state" && obj.common.alias && obj.common.alias.id.toUpperCase());
