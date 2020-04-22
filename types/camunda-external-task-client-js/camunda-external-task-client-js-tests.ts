@@ -2,7 +2,7 @@ import { Client, HandlerArgs, Task, TaskService, TopicSubscription, Variables } 
 
 new Client({ baseUrl: '' }); // $ExpectType Client
 new Variables(); // $ExpectType Variables
-new Variables().set('a', 42).getAllTyped(); // $ExpectType TypedValue[]
+new Variables().set('a', 42).getAllTyped(); // $ExpectType TypedValueMap
 
 const client: Client = new Client({ baseUrl: '' }); // $ExpectType Client
 client.on('subscribe', (topic: string, topicSubscription: TopicSubscription) => {});
