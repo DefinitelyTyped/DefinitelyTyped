@@ -90,11 +90,11 @@ export interface TypedValue {
 }
 
 export interface TaskService {
-    complete(task: Task, processVariables?: Variables, localVariables?: Variables): void;
-    handleFailure(task: Task, options?: HandleFailureOptions): void;
-    handleBpmnError(task: Task, errorCode: string, errorMessage?: string, variables?: Variables): void;
-    extendLock(task: Task, newDuration: number): void;
-    unlock(task: Task): void;
+    complete(task: Task, processVariables?: Variables, localVariables?: Variables): Promise<void>;
+    handleFailure(task: Task, options?: HandleFailureOptions): Promise<void>;
+    handleBpmnError(task: Task, errorCode: string, errorMessage?: string, variables?: Variables): Promise<void>;
+    extendLock(task: Task, newDuration: number): Promise<void>;
+    unlock(task: Task): Promise<void>;
 }
 
 export interface HandleFailureOptions {
