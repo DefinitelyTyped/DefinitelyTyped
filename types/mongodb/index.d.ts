@@ -1234,20 +1234,16 @@ type KeysOfOtherType<TSchema, Type> = {
 }[keyof TSchema];
 
 type AcceptedFields<TSchema, FieldType, AssignableType> = {
-    readonly [key in KeysOfAType<TSchema, FieldType>]?: AssignableType;
+    [key in KeysOfAType<TSchema, FieldType>]?: AssignableType;
 };
 
 /** It avoid uses fields of non Type */
 type NotAcceptedFields<TSchema, FieldType> = {
-    readonly [key in KeysOfOtherType<TSchema, FieldType>]?: never;
+    [key in KeysOfOtherType<TSchema, FieldType>]?: never;
 };
 
 type DotAndArrayNotation<AssignableType> = {
-    readonly [key: string]: AssignableType;
-};
-
-type ReadonlyPartial<TSchema> = {
-    readonly [key in keyof TSchema]?: TSchema[key];
+    [key: string]: AssignableType;
 };
 
 export type OnlyFieldsOfType<TSchema, FieldType = any, AssignableType = FieldType> = AcceptedFields<
@@ -1258,7 +1254,7 @@ export type OnlyFieldsOfType<TSchema, FieldType = any, AssignableType = FieldTyp
     NotAcceptedFields<TSchema, FieldType> &
     DotAndArrayNotation<AssignableType>;
 
-export type MatchKeysAndValues<TSchema> = ReadonlyPartial<TSchema> & DotAndArrayNotation<any>;
+export type MatchKeysAndValues<TSchema> = Partial<TSchema> & DotAndArrayNotation<any>;
 
 type Unpacked<Type> = Type extends Array<infer Element> ? Element : Type;
 
@@ -1278,31 +1274,31 @@ export type ArrayOperator<Type> = {
 };
 
 export type SetFields<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[] | undefined>]?: UpdateOptionalId<Unpacked<TSchema[key]>> | AddToSetOperators<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
+    [key in KeysOfAType<TSchema, any[] | undefined>]?: UpdateOptionalId<Unpacked<TSchema[key]>> | AddToSetOperators<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
 } &
     NotAcceptedFields<TSchema, any[] | undefined>) & {
-    readonly [key: string]: AddToSetOperators<any> | any;
+    [key: string]: AddToSetOperators<any> | any;
 };
 
 export type PushOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[]>]?: UpdateOptionalId<Unpacked<TSchema[key]>> | ArrayOperator<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
+    [key in KeysOfAType<TSchema, any[]>]?: UpdateOptionalId<Unpacked<TSchema[key]>> | ArrayOperator<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
 } &
     NotAcceptedFields<TSchema, any[]>) & {
-    readonly [key: string]: ArrayOperator<any> | any;
+    [key: string]: ArrayOperator<any> | any;
 };
 
 export type PullOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[]>]?: Partial<Unpacked<TSchema[key]>> | ObjectQuerySelector<Unpacked<TSchema[key]>>;
+    [key in KeysOfAType<TSchema, any[]>]?: Partial<Unpacked<TSchema[key]>> | ObjectQuerySelector<Unpacked<TSchema[key]>>;
 } &
     NotAcceptedFields<TSchema, any[]>) & {
-    readonly [key: string]: QuerySelector<any> | any;
+    [key: string]: QuerySelector<any> | any;
 };
 
 export type PullAllOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[]>]?: TSchema[key];
+    [key in KeysOfAType<TSchema, any[]>]?: TSchema[key];
 } &
     NotAcceptedFields<TSchema, any[]>) & {
-    readonly [key: string]: any[];
+    [key: string]: any[];
 };
 
 /** https://docs.mongodb.com/manual/reference/operator/update */

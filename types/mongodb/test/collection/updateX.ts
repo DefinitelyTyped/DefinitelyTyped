@@ -200,6 +200,37 @@ async function run() {
     // buildUpdateQuery({ $push: { 'dot.notation': 1 } });
     // buildUpdateQuery({ $push: { 'subInterfaceArray.$[]': { $in: ['a'] } } });
 
+    const updateMutated: UpdateQuery<TestModel> = {
+        $inc: {
+            numberField: 1
+        },
+        $pull: {
+            fruitTags: 'a'
+        },
+        $push: {
+            fruitTags: 'b'
+        },
+        $set: {
+            stringField: 'foo'
+        },
+        $unset: {
+            numberField: 1
+        }
+    };
+    if (updateMutated.$pull) {
+        delete updateMutated.$pull.fruitTags;
+    }
+    if (updateMutated.$push) {
+        delete updateMutated.$push.numberFfruitTagsield;
+    }
+    if (updateMutated.$set) {
+        delete updateMutated.$set.stringField;
+    }
+    if (updateMutated.$unset) {
+        delete updateMutated.$unset.numberField;
+    }
+    buildUpdateQuery(updateMutated);
+
     collectionTType.updateOne({ stringField: 'bla' }, justASample);
 
     collectionTType.updateMany(
