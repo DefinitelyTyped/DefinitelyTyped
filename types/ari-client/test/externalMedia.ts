@@ -28,35 +28,36 @@ export default class TsgBridge extends EventEmitter {
         return this.bridge;
     }
 
-    async destroy() {
-        let destroyed = await this.bridge.destroy();
-        return destroyed;
+    destroy() {
+        return this.bridge.destroy();
     }
 
     async addChannel(channel: Channel) {
         await this.bridge.addChannel({ channel: channel.id });
 
-        //check if we actually want to snoop
+        // check if we actually want to snoop
         if (config.get('rtpServer.host')) {
-            //create the bridge that'll link the snooping channel & externalMedia channels
-            let snoopBridge = this.ariClient.Bridge();
-            let externalMediaChannel = this.ariClient.Channel();
+            // create the bridge that'll link the snooping channel & externalMedia channels
+            const snoopBridge = this.ariClient.Bridge();
+            const externalMediaChannel = this.ariClient.Channel();
             let externalMediaUdpSourcePort: number;
-            let callerName = channel.caller.name || 'Unknown';
+            const callerName = channel.caller.name || 'Unknown';
+            const app: string = config.get('ari.appName');
+            const format: string = config.get('rtpServer.format');
 
-            let bridgeRes = await snoopBridge.create({ type: 'mixing', name: `${channel.id}-snooping-bridge` });
+            await snoopBridge.create({ type: 'mixing', name: `${channel.id}-snooping-bridge` });
             this.logger.info('created a bridge for the snoop & externalMedia');
 
-            let snoopOptions = {
-                app: <string>config.get('ari.appName'),
+            const snoopOptions = {
+                app,
                 appArgs: 'snooping',
                 channelId: channel.id,
                 snoopId: channel.id + '_snoop',
                 spy: 'in',
             };
 
-            //create the external Media channel
-            let snoopChannelRes = await this.ariClient.channels.snoopChannelWithId(snoopOptions);
+            // create the external Media channel
+            const snoopChannelRes = await this.ariClient.channels.snoopChannelWithId(snoopOptions);
             this.logger.info('created a snooping channel');
 
             snoopBridge.addChannel({ channel: snoopChannelRes.id });
@@ -76,26 +77,28 @@ export default class TsgBridge extends EventEmitter {
                 this.emit('streamEnded', {
                     roomName: channel.dialplan.exten,
                     port: externalMediaUdpSourcePort,
-                    callerName: callerName,
+                    callerName,
                     channelId: channel.id,
                 });
             });
 
-            let externalMediaOptions = {
-                app: <string>config.get('ari.appName'),
+            const externalMediaOptions = {
+                app,
                 external_host: `${config.get('rtpServer.host')}:${config.get('rtpServer.port')}`,
-                format: <string>config.get('rtpServer.format'),
+                format,
             };
 
-            let externalMediaRes = await externalMediaChannel.externalMedia(externalMediaOptions);
+            const externalMediaRes = await externalMediaChannel.externalMedia(externalMediaOptions);
 
-            //set the externalMediaSourcePort
-            externalMediaUdpSourcePort = externalMediaRes.channelvars?.UNICASTRTP_LOCAL_PORT;
+            // set the externalMediaSourcePort
+            externalMediaUdpSourcePort = externalMediaRes.channelvars
+                ? externalMediaRes.channelvars.UNICASTRTP_LOCAL_PORT
+                : undefined;
 
             this.emit('newStream', {
                 roomName: channel.dialplan.exten,
                 port: externalMediaUdpSourcePort,
-                callerName: callerName,
+                callerName,
                 channelId: channel.id,
             });
 
