@@ -1280,6 +1280,31 @@ export interface Channels {
     dial(params: { channelId: string; caller?: string; timeout?: number }): Promise<void>;
     rtpstatistics(params: { channelId: string }, callback: (err: Error, rtpstat: RTPstat) => void): void;
     rtpstatistics(params: { channelId: string }): Promise<RTPstat>;
+    externalMedia(
+        params: {
+            channelId?: string;
+            app: string;
+            variables?: Containers;
+            external_host: string;
+            encapsulation?: string;
+            transport?: string;
+            connection_type?: string;
+            format: string;
+            direction?: string;
+        },
+        callback: (err: Error, channel: Channel) => void,
+    ): void;
+    externalMedia(params: {
+        channelId?: string;
+        app: string;
+        variables?: Containers;
+        external_host: string;
+        encapsulation?: string;
+        transport?: string;
+        connection_type?: string;
+        format: string;
+        direction?: string;
+    }): Promise<Channel>;
 }
 export interface DialplanCEP {
     /* Properties */
@@ -1560,6 +1585,29 @@ export interface Channel extends Resource {
     dial(params?: { caller?: string; timeout?: number }): Promise<void>;
     rtpstatistics(callback: (err: Error, rtpstat: RTPstat) => void): void;
     rtpstatistics(): Promise<RTPstat>;
+    externalMedia(
+        params: {
+            app: string;
+            variables?: Containers;
+            external_host: string;
+            encapsulation?: string;
+            transport?: string;
+            connection_type?: string;
+            format: string;
+            direction?: string;
+        },
+        callback: (err: Error, channel: Channel) => void,
+    ): void;
+    externalMedia(params: {
+        app: string;
+        variables?: Containers;
+        external_host: string;
+        encapsulation?: string;
+        transport?: string;
+        connection_type?: string;
+        format: string;
+        direction?: string;
+    }): Promise<Channel>;
 }
 export interface DeviceStates {
     /* Methods */
