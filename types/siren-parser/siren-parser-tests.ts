@@ -104,47 +104,53 @@ entity.getSubEntitiesByRels(['thing1', /thing2/]);
 
 // Link
 const link = entity.getLink('crazy');
-link?.rel;
-link?.href;
-link?.class;
-link?.title;
-link?.type;
+if (link) {
+    link.rel;
+    link.href;
+    link.class;
+    link.title;
+    link.type;
 
-// Link.hasClass
-link?.hasClass('foo');
+    // Link.hasClass
+    link.hasClass('foo');
+}
 
 // Action
 const action = entity.getActionByName('fancy-action');
-action?.name;
-action?.href;
-action?.class;
-action?.method;
-action?.title;
-action?.type;
-action?.fields;
+if (action) {
+    action.name;
+    action.href;
+    action.class;
+    action.method;
+    action.title;
+    action.type;
+    action.fields;
 
-// Action.hasXByY
-action?.hasFieldByName('max');
-action?.hasFieldByClass('max');
-action?.hasFieldByType('max');
-action?.hasClass('max');
+    // Action.hasXByY
+    action.hasFieldByName('max');
+    action.hasFieldByClass('max');
+    action.hasFieldByType('max');
+    action.hasClass('max');
 
-// Action.getXByY
-action?.getFieldByName('crazy');
-action?.getFieldByClass('crazy');
-action?.getFieldsByClass('crazy');
-action?.getFieldByClasses(['crazy', /self/]);
-action?.getFieldsByClasses(['crazy', /self/]);
-action?.getFieldByType('crazy');
-action?.getFieldsByType('crazy');
+    // Action.getXByY
+    action.getFieldByName('crazy');
+    action.getFieldByClass('crazy');
+    action.getFieldsByClass('crazy');
+    action.getFieldByClasses(['crazy', /self/]);
+    action.getFieldsByClasses(['crazy', /self/]);
+    action.getFieldByType('crazy');
+    action.getFieldsByType('crazy');
 
-// Field
-const field = action?.getField('max');
-field?.name;
-field?.value;
-field?.class;
-field?.type;
-field?.title;
+    // Field
+    const field = action.getField('max');
+    if (field) {
+        field.name;
+        field.value;
+        field.class;
+        field.type;
+        field.title;
 
-// Field.hasClass
-field?.hasClass('foo');
+        // Field.hasClass
+        field.hasClass('foo');
+    }
+}

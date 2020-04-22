@@ -2,7 +2,7 @@
 // Project: https://github.com/Brightspace/node-siren-parser
 // Definitions by: Dillon Redding <https://github.com/dillonredding>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 3.0
 
 import { Link } from './Link';
 import { Action } from './Action';
