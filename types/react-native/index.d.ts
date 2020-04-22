@@ -1225,6 +1225,11 @@ export interface TextInputAndroidProps {
      * Vertically align text when `multiline` is set to true
      */
     textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center';
+
+    /**
+     * When false, it will prevent the soft keyboard from showing when the field is focused. The default value is true
+     */
+    showSoftInputOnFocus?: boolean;
 }
 
 export type KeyboardType = 'default' | 'email-address' | 'numeric' | 'phone-pad' | 'number-pad' | 'decimal-pad';
