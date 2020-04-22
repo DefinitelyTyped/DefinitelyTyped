@@ -1695,7 +1695,7 @@ export interface TextMessage {
     from: string;
     to: string;
     body: string;
-    variables?: TextMessageVariable | TextMessageVariable[];
+    variables?: Containers;
 }
 export interface Mailboxes {
     /* Methods */
