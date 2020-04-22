@@ -1,22 +1,24 @@
+import * as MapboxGL from 'mapbox-gl';
 import * as React from 'react';
+
 import {
-    InteractiveMap,
     CanvasOverlay,
-    SVGOverlay,
-    HTMLOverlay,
+    CanvasRedrawOptions,
     FullscreenControl,
     GeolocateControl,
-    ScaleControl,
-    CanvasRedrawOptions,
+    HTMLOverlay,
     HTMLRedrawOptions,
-    SVGRedrawOptions,
-    StaticMap,
-    ViewportProps,
-    Source,
+    InteractiveMap,
     Layer,
     LinearInterpolator,
+    SVGOverlay,
+    SVGRedrawOptions,
+    ScaleControl,
+    Source,
+    StaticMap,
+    ViewportProps,
 } from 'react-map-gl';
-import * as MapboxGL from 'mapbox-gl';
+
 import { FeatureCollection } from 'geojson';
 
 interface State {
@@ -53,9 +55,13 @@ class MyMap extends React.Component<{}, State> {
                 <InteractiveMap
                     {...this.state.viewport}
                     mapboxApiAccessToken="pk.test"
+                    mapboxApiUrl="http://url.test"
                     ref={this.setRefInteractive}
                     onViewportChange={viewport => this.setState({ viewport })}
                     onViewStateChange={({ viewState }) => this.setState({ viewport: viewState })}
+                    onContextMenu={event => {
+                        event.preventDefault();
+                    }}
                 >
                     <FullscreenControl className="test-class" container={document.querySelector('body')} />
                     <GeolocateControl
@@ -119,7 +125,7 @@ class MyMap extends React.Component<{}, State> {
                         id="raster-tiles-source"
                         type="raster"
                         scheme="tms"
-                        tiles={["path/to/tiles/{z}/{x}/{y}.png"]}
+                        tiles={['path/to/tiles/{z}/{x}/{y}.png']}
                         tileSize={256}
                     >
                         <Layer
@@ -164,9 +170,9 @@ class MyMap extends React.Component<{}, State> {
 
     private readonly setRefInteractive = (el: InteractiveMap) => {
         this.map = el.getMap();
-    }
+    };
 
     private readonly setRefStatic = (el: StaticMap) => {
         this.map = el.getMap();
-    }
+    };
 }
