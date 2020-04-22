@@ -1,4 +1,4 @@
-// Type definitions for invariant 2.2.0
+// Type definitions for invariant 2.2.4
 // Project: https://github.com/zertosh/invariant
 // Definitions by: MichaelBennett <https://github.com/bennett000>
 //                 dtinth <https://github.com/dtinth>
