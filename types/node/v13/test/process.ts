@@ -13,6 +13,10 @@ import { EventEmitter } from "events";
     ok(process.argv[0] === process.argv0);
 }
 {
+    let module: NodeModule | undefined;
+    module = process.mainModule;
+}
+{
     process.on("message", (req: any) => { });
     process.addListener("beforeExit", (code: number) => { });
     process.once("disconnect", () => { });

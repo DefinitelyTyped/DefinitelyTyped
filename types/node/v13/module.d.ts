@@ -7,6 +7,9 @@ declare module "module" {
          */
         function syncBuiltinESMExports(): void;
 
+        /**
+         * @experimental
+         */
         function findSourceMap(path: string, error?: Error): SourceMap;
         interface SourceMapPayload {
             file: string;
@@ -26,6 +29,9 @@ declare module "module" {
             originalColumn: number;
         }
 
+        /**
+         * @experimental
+         */
         class SourceMap {
             readonly payload: SourceMapPayload;
             constructor(payload: SourceMapPayload);

@@ -55,8 +55,14 @@ import { AsyncResource, createHook, triggerAsyncId, executionAsyncId, executionA
     ctx.exit((a: number) => {
         // noop?
     }, 1);
+    const esRet: number = ctx.exitSyncAndReturn((a: number) => {
+        return 123;
+    }, 1);
     ctx.run('test', (a: number) => {
         const store: string | undefined = ctx.getStore();
+    }, 1);
+    const rsSet = ctx.runSyncAndReturn('test', (a: number) => {
+        return 123;
     }, 1);
     ctx.enterWith('test');
 }
