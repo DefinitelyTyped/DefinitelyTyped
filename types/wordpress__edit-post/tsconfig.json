@@ -21,6 +21,9 @@
             "@wordpress/data": [
                 "wordpress__data"
             ],
+            "@wordpress/element": [
+                "wordpress__element"
+            ],
             "@wordpress/components": [
                 "wordpress__components"
             ],
