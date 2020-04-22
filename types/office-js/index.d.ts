@@ -27372,7 +27372,7 @@ declare namespace Excel {
         visible: boolean;
         /**
          *
-         * Specfies the width, in points, of the chart title. Null if chart title is not visible.
+         * Specifies the width, in points, of the chart title. Null if chart title is not visible.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -50963,7 +50963,7 @@ declare namespace Excel {
             visible?: boolean;
             /**
              *
-             * Specfies the width, in points, of the chart title. Null if chart title is not visible.
+             * Specifies the width, in points, of the chart title. Null if chart title is not visible.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -58684,7 +58684,7 @@ declare namespace Excel {
             visible?: boolean;
             /**
              *
-             * Specfies the width, in points, of the chart title. Null if chart title is not visible.
+             * Specifies the width, in points, of the chart title. Null if chart title is not visible.
              *
              * [Api set: ExcelApi 1.7]
              */
