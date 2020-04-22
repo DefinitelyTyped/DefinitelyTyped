@@ -75,6 +75,8 @@ export abstract class AsyncIterator<T> implements EventEmitter {
     prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
     prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     eventNames(): Array<string | symbol>;
+
+    static wrap<S>(source?: AsyncIterator<S> | TransformIteratorOptions<S> | NodeJS.ReadableStream, options?: TransformIteratorOptions<S>): TransformIterator<S, any>;
 }
 
 export class EmptyIterator<T> extends AsyncIterator<T> {

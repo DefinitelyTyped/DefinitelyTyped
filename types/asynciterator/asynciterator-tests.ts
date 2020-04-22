@@ -1,5 +1,6 @@
 import { ArrayIterator, AsyncIterator, BufferedIterator, ClonedIterator, EmptyIterator, IntegerIterator,
   MultiTransformIterator, SingletonIterator, SimpleTransformIterator, TransformIterator } from "asynciterator";
+import * as fs from "fs";
 
 function test_asynciterator() {
     // We can't instantiate an abstract class.
@@ -64,6 +65,8 @@ function test_asynciterator() {
     const intit2: IntegerIterator = AsyncIterator.range(10, 100);
     const intit3: IntegerIterator = AsyncIterator.range(10);
     const intit4: IntegerIterator = AsyncIterator.range();
+
+    const wrapit = AsyncIterator.wrap(fs.createReadStream('stream.txt'));
 }
 
 function test_emptyiterator() {
