@@ -1343,7 +1343,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
         Array<'horizontal' | 'vertical'>,
         Array<'horizontal' | 'vertical'>
     >(['horizontal'], ['vertical'], ['horizontal', 'vertical']),
-    'symbol-sort-key': 0,
+    'symbol-sort-key': eitherType(0, expression),
 };
 
 const symbolPaint: mapboxgl.SymbolPaint = {
