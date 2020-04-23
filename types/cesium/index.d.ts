@@ -3888,9 +3888,9 @@ declare namespace Cesium {
         shadow: ShadowMode;
         show: boolean;
         /**
-        * Optimization option.
-        * Determines if level of detail skipping should be applied during the traversal.
-        * @default false
+         * Optimization option.
+         * Determines if level of detail skipping should be applied during the traversal.
+         * @default false
         */
         skipLevelOfDetail: boolean;
         skipLevels: number;
@@ -6274,7 +6274,7 @@ declare namespace Cesium {
     namespace defaultValue {
         const EMPTY_OBJECT: any;
     }
-    
+
     class GroundPrimitive {
         readonly allowPicking: boolean;
         readonly asynchronous: boolean;
