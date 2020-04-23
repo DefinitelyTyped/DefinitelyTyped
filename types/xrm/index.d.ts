@@ -4223,6 +4223,10 @@ declare namespace Xrm {
              *  The message to be displyed in the alert dialog.
              */
             text: string;
+            /**
+             * (Optional) String. The title of the alert dialog.
+             */
+            title?: string;
         }
 
         interface ConfirmStrings {
