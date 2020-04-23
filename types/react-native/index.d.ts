@@ -6327,6 +6327,11 @@ export interface ScrollViewPropsAndroid {
      * @platform android
      */
     fadingEdgeLength?: number;
+
+    /**
+     * Causes the scrollbars not to turn transparent when they are not in use. The default value is false.
+     */
+    persistentScrollbar?: boolean;
 }
 
 export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollViewPropsAndroid, Touchable {
