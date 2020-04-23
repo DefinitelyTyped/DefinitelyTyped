@@ -22,6 +22,7 @@
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Marek Urbanowicz <https://github.com/murbanowicz>
+//                 Aaron Ross <https://github.com/superhawk610>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -174,4 +175,37 @@ export function useRouteMatch<Params extends { [K in keyof Params]?: string } = 
     path: string | string[] | RouteProps,
 ): match<Params> | null;
 
-export function useMatch(to: Destination): boolean;  
+export interface RouteRenderConfig {
+    path: string;
+    element?: React.ReactNode;
+    children: RouteConfig[];
+}
+
+export interface RouteRenderWithChildrenConfig {
+    path: string;
+    element: React.ReactNode;
+}
+
+export interface RouteRedirectConfig {
+    path: string;
+    redirectTo: string;
+}
+
+export type RouteConfig = RouteRenderConfig | RouteRenderWithChildrenConfig | RouteRedirectConfig;
+
+/**
+ * Returns the element of the route that matched the current location, prepared
+ * with the correct context to render the remainder of the route tree. Route
+ * elements in the tree must render an <Outlet> to render their child route's
+ * element.
+ *
+ * Route objects may take one of 2 forms:
+ *
+ * - `{ path, element?, children }`
+ * - `{ path, redirectTo }`
+ * 
+ * If no `element` is provided, `<Outlet />` will be used implicitly.
+ */
+export function useRoutes(routes: RouteConfig[], basename?: string, caseSensitive?: boolean): React.ReactNode;
+
+export function useMatch(to: Destination): boolean;
