@@ -3891,7 +3891,7 @@ declare namespace Cesium {
          * Optimization option.
          * Determines if level of detail skipping should be applied during the traversal.
          * @default false
-        */
+         */
         skipLevelOfDetail: boolean;
         skipLevels: number;
         skipScreenSpaceErrorFactor: number;
@@ -4487,7 +4487,14 @@ declare namespace Cesium {
         width: number;
         loop: boolean;
         id: any;
-        constructor(options?: { clampToGround?: Property; show?: boolean; width?: number; loop?: boolean; material?: Material | MaterialProperty | Color; positions?: Cartesian3[] | CallbackProperty; id?: any });
+        constructor(options?: { 
+            clampToGround?: Property;
+            show?: boolean;
+            width?: number;
+            loop?: boolean;
+            material?: Material | MaterialProperty | Color; positions?: Cartesian3[] | CallbackProperty;
+            id?: any
+        });
     }
 
     class PolylineCollection {
