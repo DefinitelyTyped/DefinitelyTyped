@@ -49,6 +49,7 @@ client = redis.createClient({
 
 const connected: boolean = client.connected;
 const retry_delay: number = client.retry_delay;
+const retry_delay: Error = new Error('Retry failed');
 const retry_backoff: number = client.retry_backoff;
 const command_queue: any[] = client.command_queue;
 const offline_queue: any[] = client.offline_queue;

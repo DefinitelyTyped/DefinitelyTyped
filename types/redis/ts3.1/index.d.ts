@@ -1167,7 +1167,7 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     connected: boolean;
     command_queue_length: number;
     offline_queue_length: number;
-    retry_delay: number;
+    retry_delay: number | Error;
     retry_backoff: number;
     command_queue: any[];
     offline_queue: any[];
