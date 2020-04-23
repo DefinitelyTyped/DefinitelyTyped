@@ -24,7 +24,6 @@
 //                 Luis Pais <https://github.com/ranguna>
 //                 Hossein Saniei <https://github.com/HosseinAgha>
 //                 Alberto Silva <https://github.com/albertossilva>
-//                 Rauno Viskus <https://github.com/Rauno56>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Richard Bateman <https://github.com/taxilian>
