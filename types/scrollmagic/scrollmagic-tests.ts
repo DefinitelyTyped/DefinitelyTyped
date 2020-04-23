@@ -2,6 +2,8 @@ import ScrollMagic, { DestroyEvent, SceneProgressEvent } from 'scrollmagic';
 
 const myController = new ScrollMagic.Controller();
 
+const currentVersion = ScrollMagic.version;
+
 function handleDestroy(e: DestroyEvent) {
     console.log(e);
 }

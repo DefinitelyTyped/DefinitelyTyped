@@ -13,6 +13,8 @@
         "typeRoots": [
             "../"
         ],
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
