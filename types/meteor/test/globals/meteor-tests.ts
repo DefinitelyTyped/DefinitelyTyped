@@ -603,6 +603,8 @@ Template.registerHelper('testHelper', function () {
 });
 
 var instance = Template.instance();
+var userId = instance.data.userId;
+
 var data = Template.currentData();
 var data = Template.parentData(1);
 var body = Template.body;
