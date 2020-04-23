@@ -40,7 +40,7 @@ type readFileCallback = (err: Error | null, file?: Buffer) => void;
  * Callback invoked when resolving a potential symlink
  *
  * @param error
- * @param isFile If the given file exists
+ * @param resolved Absolute path to the resolved file
  */
 type realpathCallback = (err: Error | null, resolved?: string) => void;
 
