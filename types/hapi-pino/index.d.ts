@@ -1,4 +1,4 @@
-// Type definitions for hapi-pino 8.0.0
+// Type definitions for hapi-pino 8.0
 // Project: https://github.com/pinojs/hapi-pino#readme
 // Definitions by: Rodrigo Saboya <https://github.com/saboya>
 //                 Todd Bealmear <https://github.com/todd>
