@@ -91,4 +91,4 @@ export const peek: () => HelmetData;
 export const rewind: () => HelmetData;
 export const renderStatic: () => HelmetData;
 export const canUseDOM: boolean;
-export default Helmet;
+export { Helmet };
