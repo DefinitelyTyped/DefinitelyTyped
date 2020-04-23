@@ -5,6 +5,7 @@ import { connect, MongoError, ObjectId } from 'mongodb';
 async function run() {
   interface Collection {
     foo: number;
+    nested: { num: number; };
     test: string;
   }
 
@@ -15,15 +16,23 @@ async function run() {
   collection.distinct('test', { foo: 1 }, (err: MongoError, fields: string[]) => {});
   collection.distinct('test', { foo: 1 }, { maxTimeMS: 400 }, (err: MongoError, fields: string[]) => {});
 
-  collection.distinct('_id', (err: MongoError, fields: ObjectId[]) => {});
-  collection.distinct('_id', { foo: 1 }, (err: MongoError, fields: ObjectId[]) => {});
-  collection.distinct('_id', { foo: 1 }, { maxTimeMS: 400 }, (err: MongoError, fields: ObjectId[]) => {});
-
   collection.distinct('test'); // $ExpectType Promise<string[]>
   collection.distinct('test', { foo: 1 }); // $ExpectType Promise<string[]>
   collection.distinct('test', { foo: 1 }, { maxTimeMS: 400 }); // $ExpectType Promise<string[]>
 
+  collection.distinct('_id', (err: MongoError, fields: ObjectId[]) => {});
+  collection.distinct('_id', { foo: 1 }, (err: MongoError, fields: ObjectId[]) => {});
+  collection.distinct('_id', { foo: 1 }, { maxTimeMS: 400 }, (err: MongoError, fields: ObjectId[]) => {});
+
   collection.distinct('_id'); // $ExpectType Promise<ObjectId[]>
   collection.distinct('_id', { foo: 1 }); // $ExpectType Promise<ObjectId[]>
   collection.distinct('_id', { foo: 1 }, { maxTimeMS: 400 }); // $ExpectType Promise<ObjectId[]>
+
+  collection.distinct('nested.num', (err: MongoError, fields: any[]) => {});
+  collection.distinct('nested.num', { foo: 1 }, (err: MongoError, fields: any[]) => {});
+  collection.distinct('nested.num', { foo: 1 }, { maxTimeMS: 400 }, (err: MongoError, fields: any[]) => {});
+
+  collection.distinct('nested.num'); // $ExpectType Promise<any[]>
+  collection.distinct('nested.num', { foo: 1 }); // $ExpectType Promise<any[]>
+  collection.distinct('nested.num', { foo: 1 }, { maxTimeMS: 400 }); // $ExpectType Promise<any[]>
 }
