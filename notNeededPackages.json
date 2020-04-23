@@ -5527,6 +5527,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "yaml",
+            "typingsPackageName": "yaml",
+            "sourceRepoURL": "https://github.com/eemeli/yaml",
+            "asOfVersion": "1.9.0"
+        },
+        {
             "libraryName": "year-days",
             "typingsPackageName": "year-days",
             "sourceRepoURL": "https://github.com/sindresorhus/year-days",
