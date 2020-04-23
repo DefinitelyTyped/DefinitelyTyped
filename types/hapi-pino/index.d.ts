@@ -3,7 +3,7 @@
 // Definitions by: Rodrigo Saboya <https://github.com/saboya>
 //                 Todd Bealmear <https://github.com/todd>
 //                 Matt Jeanes <https://github.com/BlooJeans>
-//                 Matt Jeanes <https://github.com/GoPro16>
+//                 Kyle Gray <https://github.com/GoPro16>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
