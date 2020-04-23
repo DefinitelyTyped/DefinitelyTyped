@@ -49,6 +49,7 @@ export type TestOptionsMessage<Extra extends Record<string, any> = {}, R = any> 
     | ((params: Extra & Partial<TestMessageParams>) => R);
 
 export interface Schema<T> {
+    type: string;
     clone(): this;
     label(label: string): this;
     meta(metadata: any): this;
@@ -220,6 +221,7 @@ export interface NotRequiredArraySchema<T> extends BasicArraySchema<T[] | undefi
 }
 
 export interface ArraySchema<T> extends BasicArraySchema<T[]> {
+    innerType: Schema<T>;
     of<U>(type: Schema<U>): ArraySchema<U>;
     nullable(isNullable?: true): NullableArraySchema<T>;
     nullable(isNullable: false | boolean): ArraySchema<T>;
