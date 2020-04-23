@@ -1,4 +1,4 @@
-// Type definitions for hapi-pino 6.4
+// Type definitions for hapi-pino 8.0.0
 // Project: https://github.com/pinojs/hapi-pino#readme
 // Definitions by: Rodrigo Saboya <https://github.com/saboya>
 //                 Todd Bealmear <https://github.com/todd>
@@ -14,7 +14,7 @@ import { Plugin, Request } from '@hapi/hapi';
 
 declare module '@hapi/hapi' {
     interface Server {
-        logger: () => pino.Logger;
+        logger: pino.Logger;
     }
 
     interface Request {
