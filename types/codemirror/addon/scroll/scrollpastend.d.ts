@@ -1,4 +1,4 @@
-// Type definitions for CodeMirror
+// Type definitions for codemirror
 // Project: https://github.com/codemirror/CodeMirror
 // Definitions by: ficristo <https://github.com/ficristo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

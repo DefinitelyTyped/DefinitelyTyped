@@ -5,7 +5,7 @@
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 //                 Jessica Franco <https://github.com/Jessidhia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// Minimum TypeScript Version: 3.4
 
 import { GeneratorOptions } from "@babel/generator";
 import traverse, { Visitor, NodePath } from "@babel/traverse";
@@ -71,7 +71,7 @@ export interface TransformOptions {
      *
      * Default: `undefined`
      */
-    configFile?: string | false | null;
+    configFile?: string | boolean | null;
 
     /**
      * Specify whether or not to use .babelrc and
@@ -87,7 +87,7 @@ export interface TransformOptions {
      *
      * Default: `(root)`
      */
-    babelrcRoots?: true | string | string[] | null;
+    babelrcRoots?: boolean | MatchPattern | MatchPattern[] | null;
 
     /**
      * Defaults to environment variable `BABEL_ENV` if set, or else `NODE_ENV` if set, or else it defaults to `"development"`
@@ -192,7 +192,7 @@ export interface TransformOptions {
      *
      * Default: `null`
      */
-    ignore?: string[] | null;
+    ignore?: MatchPattern[] | null;
 
     /**
      * This option is a synonym for "test"
@@ -240,7 +240,7 @@ export interface TransformOptions {
      *
      * Default: `null`
      */
-    only?: string | RegExp | Array<string | RegExp> | null;
+    only?: MatchPattern[] | null;
 
     /**
      * Allows users to provide an array of options that will be merged into the current configuration one at a time.
@@ -330,6 +330,7 @@ export interface TransformCaller {
     name: string;
     // e.g. set to true by `babel-loader` and false by `babel-jest`
     supportsStaticESM?: boolean;
+    supportsDynamicImport?: boolean;
     // augment this with a "declare module '@babel/core' { ... }" if you need more keys
 }
 

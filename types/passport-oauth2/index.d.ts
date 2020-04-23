@@ -4,6 +4,7 @@
 //                 Wang Zishi <https://github.com/WangZishi>
 //                 Eduardo AC <https://github.com/EduardoAC>
 //                 Ivan Fernandes <https://github.com/ivan94>
+//                 Daphne Smit <https://github.com/daphnesmit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -72,6 +73,9 @@ declare namespace OAuth2Strategy {
         sessionKey?: string;
         store?: StateStore;
         state?: any;
+        skipUserProfile?: any;
+        pkce?: boolean;
+        proxy?: any;
     }
     interface StrategyOptions extends _StrategyOptionsBase {
         passReqToCallback?: false;

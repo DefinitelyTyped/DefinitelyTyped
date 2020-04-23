@@ -6,6 +6,7 @@
 //                 Kallu609 <https://github.com/Kallu609>
 //                 XC-Zhang <https://github.com/XC-Zhang>
 //                 AdityaThebe <https://github.com/adityathebe>
+//                 Michael Orlov <https://github.com/MiklerGM>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -143,10 +144,12 @@ declare namespace TelegramBot {
     }
 
     interface SendPhotoOptions extends SendBasicOptions {
+        parse_mode?: ParseMode;
         caption?: string;
     }
 
     interface SendAudioOptions extends SendBasicOptions {
+        parse_mode?: ParseMode;
         caption?: string;
         duration?: number;
         performer?: string;
@@ -154,6 +157,7 @@ declare namespace TelegramBot {
     }
 
     interface SendDocumentOptions extends SendBasicOptions {
+        parse_mode?: ParseMode;
         caption?: string;
     }
 
@@ -165,6 +169,7 @@ declare namespace TelegramBot {
     type SendStickerOptions = SendBasicOptions;
 
     interface SendVideoOptions extends SendBasicOptions {
+        parse_mode?: ParseMode;
         duration?: number;
         width?: number;
         height?: number;
@@ -172,6 +177,7 @@ declare namespace TelegramBot {
     }
 
     interface SendVoiceOptions extends SendBasicOptions {
+        parse_mode?: ParseMode;
         caption?: string;
         duration?: number;
     }

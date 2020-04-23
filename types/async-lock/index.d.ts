@@ -3,6 +3,7 @@
 // Definitions by: Elisée MAURER <https://github.com/elisee>
 //                 Alejandro <https://github.com/afharo>
 //                 Anatoly <https://github.com/rhymmor>
+//                 Humulus <https://github.com/humulus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -13,6 +14,7 @@ interface AsyncLockOptions {
     maxPending?: number;
     domainReentrant?: boolean;
     Promise?: any;
+    skipQueue?: boolean;
 }
 
 declare class AsyncLock {

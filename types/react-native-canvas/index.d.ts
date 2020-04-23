@@ -121,7 +121,7 @@ export interface CanvasRenderingContext2D {
     scale: (x: number, y: number) => void;
     setLineDash: (segments: number[]) => void;
     setTransform: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
-    stroke: (path: Path2D) => void;
+    stroke: (path?: Path2D) => void;
     strokeRect: (x: number, y: number, width: number, height: number) => void;
     strokeText: (text: string, x: number, y: number, maxWidth?: number) => void;
     transform: (a: number, b: number, c: number, d: number, e: number, f: number) => void;

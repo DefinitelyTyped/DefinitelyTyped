@@ -1,8 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-
-// test heavily based up https://github.com/tannerlinsley/react-table/blob/master/examples/kitchen-sink-controlled/src/App.js
-
 import {
     Cell,
     CellProps,
@@ -14,6 +11,8 @@ import {
     Hooks,
     IdType,
     Row,
+    UseColumnOrderInstanceProps,
+    UseColumnOrderState,
     useExpanded,
     UseExpandedInstanceProps,
     UseExpandedOptions,
@@ -25,6 +24,11 @@ import {
     UseFiltersInstanceProps,
     UseFiltersOptions,
     UseFiltersState,
+    useGlobalFilter,
+    UseGlobalFiltersColumnOptions,
+    UseGlobalFiltersInstanceProps,
+    UseGlobalFiltersOptions,
+    UseGlobalFiltersState,
     useGroupBy,
     UseGroupByCellProps,
     UseGroupByColumnOptions,
@@ -37,11 +41,20 @@ import {
     UsePaginationInstanceProps,
     UsePaginationOptions,
     UsePaginationState,
+    UseResizeColumnsColumnOptions,
+    UseResizeColumnsColumnProps,
+    UseResizeColumnsOptions,
+    UseResizeColumnsState,
     useRowSelect,
     UseRowSelectInstanceProps,
     UseRowSelectOptions,
     UseRowSelectRowProps,
     UseRowSelectState,
+    UseRowStateCellProps,
+    UseRowStateInstanceProps,
+    UseRowStateOptions,
+    UseRowStateRowProps,
+    UseRowStateState,
     useSortBy,
     UseSortByColumnOptions,
     UseSortByColumnProps,
@@ -51,53 +64,69 @@ import {
     useTable,
 } from 'react-table';
 
+// test heavily based up https://github.com/tannerlinsley/react-table/blob/master/examples/kitchen-sink-controlled/src/App.js
+
 declare module 'react-table' {
     // take this file as-is, or comment out the sections that don't apply to your plugin configuration
 
     interface TableOptions<D extends object>
         extends UseExpandedOptions<D>,
             UseFiltersOptions<D>,
+            UseGlobalFiltersOptions<D>,
             UseGroupByOptions<D>,
             UsePaginationOptions<D>,
+            UseResizeColumnsOptions<D>,
             UseRowSelectOptions<D>,
+            UseRowStateOptions<D>,
             UseSortByOptions<D> {
         updateMyData: (rowIndex: number, columnId: string, value: any) => void;
     }
 
     interface TableInstance<D extends object = {}>
-        extends UseExpandedInstanceProps<D>,
+        extends UseColumnOrderInstanceProps<D>,
+            UseExpandedInstanceProps<D>,
             UseFiltersInstanceProps<D>,
+            UseGlobalFiltersInstanceProps<D>,
             UseGroupByInstanceProps<D>,
             UsePaginationInstanceProps<D>,
             UseRowSelectInstanceProps<D>,
+            UseRowStateInstanceProps<D>,
             UseSortByInstanceProps<D> {
         editable: boolean;
     }
 
     interface TableState<D extends object = {}>
-        extends UseExpandedState<D>,
+        extends UseColumnOrderState<D>,
+            UseExpandedState<D>,
             UseFiltersState<D>,
+            UseGlobalFiltersState<D>,
             UseGroupByState<D>,
             UsePaginationState<D>,
+            UseResizeColumnsState<D>,
             UseRowSelectState<D>,
+            UseRowStateState<D>,
             UseSortByState<D> {}
 
-    interface Column<D extends object = {}>
+    interface ColumnInterface<D extends object = {}>
         extends UseFiltersColumnOptions<D>,
+            UseGlobalFiltersColumnOptions<D>,
             UseGroupByColumnOptions<D>,
+            UseResizeColumnsColumnOptions<D>,
             UseSortByColumnOptions<D> {}
 
     interface ColumnInstance<D extends object = {}>
         extends UseFiltersColumnProps<D>,
             UseGroupByColumnProps<D>,
+            UseResizeColumnsColumnProps<D>,
             UseSortByColumnProps<D> {}
 
-    interface Cell<D extends object = {}> extends UseGroupByCellProps<D> {}
+    interface Cell<D extends object = {}> extends UseGroupByCellProps<D>, UseRowStateCellProps<D> {}
 
     interface Row<D extends object = {}>
         extends UseExpandedRowProps<D>,
             UseGroupByRowProps<D>,
-            UseRowSelectRowProps<D> {}
+            UseRowSelectRowProps<D>,
+            UseRowStateRowProps<D> {}
 }
 
 interface Data {
@@ -360,12 +389,13 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
         },
         useGroupBy,
         useFilters,
+        useGlobalFilter,
         useSortBy,
         useExpanded,
         usePagination,
         useRowSelect,
         (hooks: Hooks<Data>) => {
-            hooks.flatColumns.push(columns => [
+            hooks.allColumns.push(columns => [
                 {
                     id: 'selection',
                     // Make this column a groupByBoundary. This ensures that groupBy columns
@@ -430,7 +460,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                                         <td {...cell.getCellProps()}>
                                             {cell.isGrouped ? (
                                                 <>
-                                                    <span {...row.getExpandedToggleProps()}>
+                                                    <span {...row.getToggleRowExpandedProps()}>
                                                         {row.isExpanded ? '👇' : '👉'}
                                                     </span>{' '}
                                                     {cell.render('Cell', { editable: false })} ({row.subRows.length})
@@ -439,7 +469,8 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                                                 // If the cell is aggregated, use the Aggregated
                                                 // renderer for cell
                                                 cell.render('Aggregated')
-                                            ) : cell.isRepeatedValue ? null : (// For cells with repeated values, render null
+                                            ) : cell.isPlaceholder ? null : (
+                                                // For cells with repeated values, render null
                                                 // Otherwise, just render the regular cell
                                                 cell.render('Cell', { editable: true })
                                             )}
@@ -597,7 +628,7 @@ const Component = (props: {}) => {
                         // count the total rows being aggregated,
                         // then sum any of those counts if they are
                         // aggregated further
-                        aggregate: ['sum', 'count'],
+                        aggregate: 'count',
                         Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} Names`,
                     },
                     {
@@ -609,7 +640,7 @@ const Component = (props: {}) => {
                         // first count the UNIQUE values from the rows
                         // being aggregated, then sum those counts if
                         // they are aggregated further
-                        aggregate: ['sum', 'uniqueCount'],
+                        aggregate: 'uniqueCount',
                         Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} Unique Names`,
                     },
                 ],
@@ -625,6 +656,7 @@ const Component = (props: {}) => {
                         // Aggregate the average age of visitors
                         aggregate: 'average',
                         Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (avg)`,
+                        disableGlobalFilter: true,
                     },
                     {
                         Header: 'Visits',

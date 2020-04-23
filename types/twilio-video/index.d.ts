@@ -5,6 +5,7 @@
 //                 katashin <https://github.com/ktsn>
 //                 Benjamin Santalucia <https://github.com/ben8p>
 //                 Erick Delfin <https://github.com/nifled>
+//                 Adam Montgomery <https://github.com/howitzer-industries>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -487,6 +488,7 @@ export class VideoTrack extends Track {
  * Global (https://media.twiliocdn.com/sdk/js/video/releases/2.0.0-beta1/docs/global.html)
  */
 export const version: string;
+export const isSupported: boolean;
 
 /** Members */
 export type AudioCodec = 'isac' | 'opus' | 'PCMA' | 'PCMU';
@@ -498,7 +500,6 @@ export function connect(token: string, options?: ConnectOptions): Promise<Room>;
 export function createLocalAudioTrack(options?: CreateLocalTrackOptions): Promise<LocalAudioTrack>;
 export function createLocalTracks(options?: CreateLocalTracksOptions): Promise<LocalTrack[]>;
 export function createLocalVideoTrack(options?: CreateLocalTrackOptions): Promise<LocalVideoTrack>;
-export function isSupported(): boolean;
 export function rewriteLocalTrackIds(room: Room, trackStats: LocalTrackStats[]): LocalTrackStats[];
 
 /** Type Definitions */
@@ -522,7 +523,7 @@ export interface ConnectOptions {
     networkQuality?: boolean | NetworkQualityConfiguration;
     region?: 'au1' | 'br1' | 'ie1' | 'de1' | 'jp1' | 'sg1' | 'us1' | 'us2' | 'gll';
     preferredAudioCodecs?: AudioCodec[];
-    preferredVideoCodecs?: VideoCodec[] | VideoCodecSettings[];
+    preferredVideoCodecs?: Array<VideoCodec | VideoCodecSettings | VP8CodecSettings>;
     logLevel?: LogLevel | LogLevels;
     tracks?: LocalTrack[] | MediaStreamTrack[];
     video?: boolean | CreateLocalTrackOptions;
@@ -594,7 +595,7 @@ export interface VideoCodecSettings {
     codec: VideoCodec;
 }
 export type VideoTrackPublication = LocalVideoTrackPublication | RemoteVideoTrackPublication;
-export interface VP8CodecSettings {
-    name: VideoCodec;
+export interface VP8CodecSettings extends VideoCodecSettings {
+    codec: 'VP8';
     simulcast?: boolean;
 }

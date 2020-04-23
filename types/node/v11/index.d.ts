@@ -39,6 +39,7 @@
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
 //                 Ivan Sieder <https://github.com/ivansieder>
 //                 Minh Son Nguyen <https://github.com/nguymin4>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.2.
@@ -54,6 +55,9 @@
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
+
+// We can't include assert.d.ts in base.d.ts, as it'll cause duplication errors in +ts3.7
+/// <reference path="assert.d.ts" />
 
 // TypeScript 2.1-specific augmentations:
 

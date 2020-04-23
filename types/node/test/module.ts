@@ -37,8 +37,8 @@ const resolved2: string = customRequire2.resolve('test');
 const paths1: string[] | null  = customRequire1.resolve.paths('test');
 const paths2: string[] | null  = customRequire2.resolve.paths('test');
 
-const cachedModule1: Module = customRequire1.cache['/path/to/module.js'];
-const cachedModule2: Module = customRequire2.cache['/path/to/module.js'];
+const cachedModule1: Module | undefined = customRequire1.cache['/path/to/module.js'];
+const cachedModule2: Module | undefined = customRequire2.cache['/path/to/module.js'];
 
 const main1: Module | undefined = customRequire1.main;
 const main2: Module | undefined = customRequire2.main;

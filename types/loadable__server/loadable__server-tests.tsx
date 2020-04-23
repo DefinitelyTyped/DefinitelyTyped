@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChunkExtractor, AttrFn } from '@loadable/server';
+import { ChunkExtractor, AttrFn, Chunk } from '@loadable/server';
 
 // Should be satisfied by `stats` or `statsFile`
 new ChunkExtractor({ stats: {} });
@@ -13,7 +13,11 @@ const {
 	getScriptTags,
 	getStyleElements,
 	getStyleTags,
-	requireEntrypoint
+    requireEntrypoint,
+    getInlineStyleTags,
+    getInlineStyleElements,
+    getCssString,
+    getMainAssets
 } = new ChunkExtractor({ stats: {} });
 
 // collectChunks
@@ -43,6 +47,13 @@ const attrFn: AttrFn = (chunk) => {
         url: chunk.url
     };
 };
+
+// getMainAssets
+{
+    // should return an array of Chunk
+    const assets: Chunk[] = getMainAssets();
+    const typedAssets: Chunk[] = getMainAssets('script');
+}
 
 // getLinkElements
 {
@@ -102,6 +113,36 @@ const attrFn: AttrFn = (chunk) => {
     const tags: string = getStyleTags();
     const tagsWithAttrs: string = getStyleTags(attributes);
     const tagsWithAttrFn: string = getStyleTags(attrFn);
+}
+
+// getInlineStyleTags
+{
+    // Should return a promise of inline style links as a string.
+    const elements: Promise<string> = getInlineStyleTags();
+    const elementsWithAttrs: Promise<string> = getInlineStyleTags(
+        attributes
+    );
+    const elementsWithAttrFn: Promise<string> = getInlineStyleTags(
+        attrFn
+    );
+}
+
+// getInlineStyleElements
+{
+    // Should return a promise with an array of React elements
+    const elements: Promise<Array<React.ReactElement<{}>>> = getInlineStyleElements();
+    const elementsWithAttrs: Promise<Array<React.ReactElement<{}>>> = getInlineStyleElements(
+        attributes
+    );
+    const elementsWithAttrFn: Promise<Array<React.ReactElement<{}>>> = getInlineStyleElements(
+        attrFn
+    );
+}
+
+// getCssString
+{
+    // Should return a promise with string
+    const elements: Promise<string> = getCssString();
 }
 
 // requireEntrypoint

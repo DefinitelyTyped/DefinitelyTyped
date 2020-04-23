@@ -15,6 +15,7 @@ import {
     PaymentMethodNonce,
     Transaction,
     WebhookNotificationKind,
+    MerchantAccountCreateRequest
 } from 'braintree';
 
 /**
@@ -145,4 +146,41 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 
     const reportUrl = notification.accountUpdaterDailyReport.reportUrl;
     if (!reportUrl) return;
+})();
+
+/**
+ * Gateway function helper
+ */
+const gateway2: BraintreeGateway = braintree.connect({
+    environment: braintree.Environment.Sandbox,
+    merchantId: 'abc123',
+    publicKey: 'def456',
+    privateKey: 'xyz789',
+});
+
+(async () => {
+    const merchantAccount: MerchantAccountCreateRequest = {
+        individual: {
+            address: {
+                locality: 'New York',
+                postalCode: '10001',
+                region: 'New York',
+                streetAddress: '222 Oak Street'
+            },
+            dateOfBirth: '20200214',
+            email: 'merchant@example.com',
+            firstName: 'Jane',
+            lastName: 'Doe'
+        },
+        funding: {
+            destination: 'Bank',
+            accountNumber: '123456789',
+            routingNumber: '021000021'
+        },
+        masterMerchantAccountId: 'master_merchant',
+        tosAccepted: true
+    };
+    const response = await gateway2.merchantAccount.create(merchantAccount);
+    if (!response) return;
+    const id = response.merchantAccount.masterMerchantAccount?.id;
 })();

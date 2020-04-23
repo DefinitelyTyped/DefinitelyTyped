@@ -55,6 +55,11 @@ lexer = moo.states({
     },
 });
 
+lexer.pushState('lit');
+lexer.popState();
+lexer.setState('lit');
+lexer.popState();
+
 moo.compile({
     myError: moo.error
 });
@@ -76,6 +81,8 @@ lexer.next();
 lexer.next();
 lexer.reset('a different line\n', info);
 lexer.next();
+
+Array.from(lexer.reset('lex this'));
 
 // Transform: https://github.com/no-context/moo#transform
 moo.compile({

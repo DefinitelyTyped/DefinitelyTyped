@@ -386,14 +386,14 @@ declare namespace IORedis {
 
         zrevrangebyscore(
             key: KeyType,
-            min: number | string,
             max: number | string,
+            min: number | string,
             withScores?: 'WITHSCORES',
         ): Promise<string[]>;
         zrevrangebyscore(
             key: KeyType,
-            min: number | string,
             max: number | string,
+            min: number | string,
             withScores: 'WITHSCORES',
             limit: 'LIMIT',
             offset: number,
@@ -401,8 +401,8 @@ declare namespace IORedis {
         ): Promise<string[]>;
         zrevrangebyscore(
             key: KeyType,
-            min: number | string,
             max: number | string,
+            min: number | string,
             limit: 'LIMIT',
             offset: number,
             count: number,
@@ -1325,6 +1325,9 @@ declare namespace IORedis {
         rpush(key: KeyType, ...values: ValueType[]): Promise<number>;
 
         rpushBuffer(key: string, ...values: Buffer[]): Promise<number>;
+
+        lpop(key: KeyType, callback: (err: Error, res: string) => void): void;
+        lpop(key: KeyType): Promise<string>;
 
         lpopBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
         lpopBuffer(key: KeyType): Promise<Buffer>;

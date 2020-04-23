@@ -1230,9 +1230,19 @@ export function createClient(options?: ClientOpts): RedisClient;
 
 export function print(err: Error | null, reply: any): void;
 
-export class RedisError extends Error { }
-export class ReplyError extends RedisError { }
-export class AbortError extends RedisError { }
+export class RedisError extends Error {
+    name: string;
+}
+export class ReplyError extends RedisError {
+    command: string;
+    args?: unknown[];
+    code: string;
+}
+export class AbortError extends RedisError {
+    command: string;
+    args?: unknown[];
+    code?: string;
+}
 export class ParserError extends RedisError {
     offset: number;
     buffer: Buffer;

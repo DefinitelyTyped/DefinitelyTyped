@@ -180,6 +180,7 @@ declare namespace OSS {
 
     interface PutObjectResult {
         name: string;
+        url: string;
         data: object;
         res: NormalSuccessResponse;
     }

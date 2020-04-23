@@ -349,7 +349,7 @@ export class FeatureGroup<P extends FeatureGroupProps = FeatureGroupProps, E ext
 }
 
 export interface GeoJSONProps extends PathProps, FeatureGroupEvents, Leaflet.GeoJSONOptions {
-    data: GeoJSON.GeoJsonObject;
+    data: GeoJSON.GeoJsonObject | GeoJSON.GeoJsonObject[];
 }
 export class GeoJSON<P extends GeoJSONProps = GeoJSONProps, E extends Leaflet.GeoJSON = Leaflet.GeoJSON> extends FeatureGroup<P, E> {
     createLeafletElement(props: P): E;

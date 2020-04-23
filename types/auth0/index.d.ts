@@ -118,6 +118,20 @@ export interface Rule {
   order?: number;
 }
 
+export interface RulesConfig {
+  /**
+   * Key for a rules config variable.
+   */
+  key: string;
+}
+
+export interface RulesConfigData {
+  /**
+   * Value for a rules config variable.
+   */
+  value: string
+}
+
 export interface Role {
     id?: string;
     name?: string;
@@ -166,6 +180,15 @@ export interface PermissionsData {
 export interface PermissionData {
     resource_server_identifier: string;
     permission_name: string;
+}
+
+export interface GetRolePermissionsData extends ObjectWithId {
+    per_page?: number;
+    page?: number;
+}
+
+export interface GetRolePermissionsDataPaged extends GetRolePermissionsData {
+    include_totals: boolean;
 }
 
 export interface GetRoleUsersData extends ObjectWithId {
@@ -564,6 +587,12 @@ export interface AuthorizationCodeGrantOptions {
   redirect_uri: string;
 }
 
+export interface TokenResponse {
+    access_token: string;
+    token_type: string;
+    expires_in: number;
+}
+
 export interface ObjectWithId {
   id: string;
 }
@@ -669,13 +698,22 @@ export interface VerificationEmailJob {
     created_at?: string;
 }
 
-export interface ImportUsersOptions {
-    users: string;
+export interface BaseImportUsersOptions {
     connection_id: string;
     upsert?: boolean;
     external_id?: string;
     send_completion_email?: boolean;
 }
+
+export interface ImportUsersFromFileOptions extends BaseImportUsersOptions {
+    users: string;
+}
+
+export interface ImportUsersFromJsonOptions extends BaseImportUsersOptions {
+    users_json: string;
+}
+
+export type ImportUsersOptions = ImportUsersFromFileOptions | ImportUsersFromJsonOptions;
 
 export interface ExportUsersOptions {
     connection_id?: string;
@@ -836,11 +874,11 @@ export class AuthenticationClient {
   getProfile(accessToken: string): Promise<any>;
   getProfile(accessToken: string, cb: (err: Error, message: string) => void): void;
 
-  clientCredentialsGrant(options: ClientCredentialsGrantOptions): Promise<any>;
-  clientCredentialsGrant(options: ClientCredentialsGrantOptions, cb: (err: Error, response: any) => void): void;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions): Promise<TokenResponse>;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
-  passwordGrant(options: PasswordGrantOptions): Promise<any>;
-  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: any) => void): void;
+  passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
+  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
 }
 
@@ -931,6 +969,10 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   getPermissionsInRole(params: ObjectWithId): Promise<Permission[]>;
   getPermissionsInRole(params: ObjectWithId, cb: (err: Error, permissions: Permission[]) => void): void;
+  getPermissionsInRole(params: GetRolePermissionsData): Promise<Permission[]>;
+  getPermissionsInRole(params: GetRolePermissionsData, cb: (err: Error, permissions: Permission[]) => void): void;
+  getPermissionsInRole(params: GetRolePermissionsDataPaged): Promise<PermissionPage>;
+  getPermissionsInRole(params: GetRolePermissionsDataPaged, cb: (err: Error, permissionPage: PermissionPage) => void): void;
 
   removePermissionsFromRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
   removePermissionsFromRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
@@ -961,6 +1003,16 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   deleteRule(params: ObjectWithId): Promise<void>;
   deleteRule(params: ObjectWithId, cb: (err: Error) => void): void;
 
+  // Rules Configurations
+  getRulesConfigs(): Promise<RulesConfig[]>;
+  getRulesConfigs(cb: (err: Error, rulesConfigs: RulesConfig[]) => void): void;
+
+  setRulesConfig(params: RulesConfig, data: RulesConfigData): Promise<RulesConfig & RulesConfigData>;
+  setRulesConfig(params: RulesConfig, data: RulesConfigData,
+    cb: (err: Error, rulesConfig: RulesConfig & RulesConfigData) => void):void;
+
+  deleteRulesConfig(params: RulesConfig): Promise<void>;
+  deleteRulesConfig(params: RulesConfig, cb: (err: Error) => void): void;
 
   // Users
   getUsers(params: GetUsersDataPaged): Promise<UserPage<A, U>>;

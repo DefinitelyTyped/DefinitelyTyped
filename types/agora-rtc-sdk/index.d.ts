@@ -1629,7 +1629,9 @@ declare namespace AgoraRTC {
          *
          * @returns The audio level. The value range is [0,1].
          */
+
         getAudioLevel(): number | undefined;
+
         /**
          * Retrieves the Audio Track
          *

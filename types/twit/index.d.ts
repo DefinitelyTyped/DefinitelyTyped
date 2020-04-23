@@ -7,6 +7,7 @@
 //                 plhery <https://github.com/plhery>
 //                 justGoscha <https://github.com/justgoscha>
 //                 darkade <https://github.com/darkade>
+//                 brianjychan <https://github.com/brianjychan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -282,6 +283,7 @@ declare module 'twit' {
       include_user_entities?: boolean,
       stringify_ids?: boolean,
       in_reply_to_status_id?: number | string,
+      page?: number,
     }
     export interface PromiseResponse {
       data: Response,

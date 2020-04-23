@@ -271,7 +271,7 @@ declare function writeAsciiToMemory(str: string, buffer: number, dontAddNull: bo
 declare function addRunDependency(id: any): void;
 declare function removeRunDependency(id: any): void;
 
-declare function addFunction(func: () => any, signature?: string): number;
+declare function addFunction(func: (...args: any[]) => any, signature?: string): number;
 declare function removeFunction(funcPtr: number): void;
 
 declare var ALLOC_NORMAL: number;

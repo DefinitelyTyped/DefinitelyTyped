@@ -2,8 +2,7 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "interface-over-type-literal": false,
-        "prefer-method-signature": false,
         "prefer-declare-function": false,
-        "semicolon": false
+        "prefer-method-signature": false
     }
 }
