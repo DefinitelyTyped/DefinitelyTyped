@@ -3,7 +3,6 @@
 //          https://github.com/mongodb/node-mongodb-native/tree/3.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 //                 Alan Marcell <https://github.com/alanmarcell>
-//                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Gaurav Lahoti <https://github.com/dante-101>
 //                 Mariano Cortesi <https://github.com/mcortesi>
 //                 Enrico Picci <https://github.com/EnricoPicci>
@@ -25,7 +24,6 @@
 //                 Luis Pais <https://github.com/ranguna>
 //                 Hossein Saniei <https://github.com/HosseinAgha>
 //                 Alberto Silva <https://github.com/albertossilva>
-//                 Rauno Viskus <https://github.com/Rauno56>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Richard Bateman <https://github.com/taxilian>
@@ -1014,10 +1012,14 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     deleteOne(filter: FilterQuery<TSchema>, options?: CommonOptions & { bypassDocumentValidation?: boolean }): Promise<DeleteWriteOpResultObject>;
     deleteOne(filter: FilterQuery<TSchema>, options: CommonOptions & { bypassDocumentValidation?: boolean }, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#distinct */
-    distinct(key: string, callback: MongoCallback<any>): void;
-    distinct(key: string, query: FilterQuery<TSchema>, callback: MongoCallback<any>): void;
-    distinct(key: string, query?: FilterQuery<TSchema>, options?: { readPreference?: ReadPreferenceOrMode, maxTimeMS?: number, session?: ClientSession }): Promise<any>;
-    distinct(key: string, query: FilterQuery<TSchema>, options: { readPreference?: ReadPreferenceOrMode, maxTimeMS?: number, session?: ClientSession }, callback: MongoCallback<any>): void;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, callback: MongoCallback<Array<WithId<TSchema>[Key]>>): void;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, query: FilterQuery<TSchema>, callback: MongoCallback<Array<WithId<TSchema>[Key]>>): void;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, query?: FilterQuery<TSchema>, options?: MongoDistinctPreferences): Promise<Array<WithId<TSchema>[Key]>>;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, query: FilterQuery<TSchema>, options: MongoDistinctPreferences, callback: MongoCallback<Array<WithId<TSchema>[Key]>>): void;
+    distinct(key: string, callback: MongoCallback<any[]>): void;
+    distinct(key: string, query: FilterQuery<TSchema>, callback: MongoCallback<any[]>): void;
+    distinct(key: string, query?: FilterQuery<TSchema>, options?: MongoDistinctPreferences): Promise<any[]>;
+    distinct(key: string, query: FilterQuery<TSchema>, options: MongoDistinctPreferences, callback: MongoCallback<any[]>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#drop */
     drop(options?: { session: ClientSession }): Promise<any>;
     drop(callback: MongoCallback<any>): void;
@@ -1764,7 +1766,29 @@ export interface MongoCountPreferences {
      * The preferred read preference
      */
     readPreference?: ReadPreferenceOrMode;
+    /**
+     * Number of miliseconds to wait before aborting the query.
+     */
     maxTimeMS?: number;
+    /**
+     * Optional session to use for this operation
+     */
+    session?: ClientSession;
+}
+
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#distinct */
+export interface MongoDistinctPreferences {
+    /**
+     * The preferred read preference
+     */
+    readPreference?: ReadPreferenceOrMode;
+    /**
+     * Number of miliseconds to wait before aborting the query.
+     */
+    maxTimeMS?: number;
+    /**
+     * Optional session to use for this operation
+     */
     session?: ClientSession;
 }
 
