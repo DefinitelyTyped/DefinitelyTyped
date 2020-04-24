@@ -20,4 +20,5 @@
 declare function findReplace<T>(array: T[], findFn: (x: T) => boolean, ...replaceWiths: Array<T | ((x: T) => T)>): T[];
 declare function findReplace(array: any[], findFn: (x: any) => boolean, ...replaceWiths: any[]): any[];
 
+export as namespace findReplace;
 export = findReplace;
