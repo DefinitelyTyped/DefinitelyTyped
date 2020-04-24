@@ -162,7 +162,7 @@ export function useHistory<HistoryLocationState = H.LocationState>(): H.History<
 
 export function useLocation<S = H.LocationState>(): H.Location<S>;
 
-export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): Params;
+export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): { [K in keyof Params]: Params[K] };
 
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(): match<Params>;
 export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(
