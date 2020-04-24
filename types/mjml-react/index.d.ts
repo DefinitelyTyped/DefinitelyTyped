@@ -39,7 +39,7 @@ export function render(email: React.ReactElement, options?: Mjml2HtmlOptions): {
 
 // Components
 
-export interface RequiredChildrenProps {
+export interface RequiredChildrenProps<C extends React.ReactNode = React.ReactNode> {
     children: React.ReactNode;
 }
 
@@ -314,7 +314,7 @@ export interface MjmlSectionProps {
     direction?: 'ltr' | 'rtl';
 }
 
-export class MjmlSection extends React.Component<MjmlSectionProps & RequiredChildrenProps & BorderProps & PaddingProps & ClassNameProps> { }
+export class MjmlSection extends React.Component<MjmlSectionProps & RequiredChildrenProps<MjmlColumn> & BorderProps & PaddingProps & ClassNameProps> { }
 
 // mj-social
 export interface MjmlSocialProps {
