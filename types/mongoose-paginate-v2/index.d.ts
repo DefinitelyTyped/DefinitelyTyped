@@ -7,7 +7,7 @@
 //                 Dongjun Lee <https://github.com/ChazEpps>
 //                 gamsterX <https://github.com/gamsterx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 //
 // Based on type declarations for mongoose-paginate 5.0.0.
 

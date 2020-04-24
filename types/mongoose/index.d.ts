@@ -37,10 +37,10 @@
 //                 Dongjun Lee <https://github.com/ChazEpps>
 //                 Valentin Agachi <https://github.com/avaly>
 //                 Jan Nemcik <https://github.com/JanNemcik>
-//                 Cl3dson <https://github.com/cl3dson> 
+//                 Cl3dson <https://github.com/cl3dson>
 //                 Richard Simko <https://github.com/richardsimko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -107,7 +107,7 @@ declare module "mongoose" {
       ? mongodb.Condition<T[P]>
       : mongodb.Condition<T[P] | string>;
   } &
-    mongodb.RootQuerySelector<T>;  
+    mongodb.RootQuerySelector<T>;
 
   /* FilterQuery alias type for using as type for filter/conditions parameters */
   export type FilterQuery<T> = MongooseFilterQuery<DocumentDefinition<T>>;
@@ -363,7 +363,7 @@ declare module "mongoose" {
      * Each state change emits its associated event name.
      */
     readyState: number;
-      
+
     /** Connected database name */
     name: string
 
