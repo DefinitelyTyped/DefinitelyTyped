@@ -3,6 +3,7 @@
 // Definitions by: Pedro Mutter <https://github.com/MutterPedro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import { EventEmitter } from 'events';
 
 interface CacheOptions {
