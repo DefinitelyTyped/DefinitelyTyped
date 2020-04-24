@@ -33,8 +33,9 @@ app.get<{ foo: string }>('/:foo', req => {
 app.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
 
 // Query can be a custom type
-app.get<{}, any, any, {q: string}>('/:foo', req => {
+app.get<{}, any, any, {q: string, u?: string }>('/:foo', req => {
     req.query.q; // $ExpectType string
+    req.query.u; // $ExpectType string | undefined
     req.query.a; // $ExpectError
 });
 
