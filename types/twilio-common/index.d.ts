@@ -3,6 +3,7 @@
 // Definitions by: William Lohan <https://github.com/gatimus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import { EventEmitter } from 'events';
 
 export class AccessManager extends EventEmitter {
