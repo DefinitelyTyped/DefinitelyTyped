@@ -1,7 +1,7 @@
 import * as BranchSDK from 'branch-sdk';
 
-const _noop_callback_with_data = (err: BranchSDK.ErrorMessage, data: any) => null;
-const _noop_callback_without_data = (err: BranchSDK.ErrorMessage) => null;
+const _noop_callback_with_data = (err: BranchSDK.BranchError, data: any) => null;
+const _noop_callback_without_data = (err: BranchSDK.BranchError) => null;
 
 const _base_deep_link_data: BranchSDK.DeepLinkData = {};
 const _channel_deep_link_data: BranchSDK.DeepLinkData = { channel: 'test-channel' };
@@ -94,11 +94,11 @@ BranchSDK.logEvent('test-event', { foo: 'bar' }, [{ content: 'item' }]); // $Exp
 BranchSDK.logEvent('test-event', { foo: 'bar' }, [{ content: 'item' }], 'event-alias'); // $ExpectType void
 BranchSDK.logEvent('test-event', { foo: 'bar' }, [{ content: 'item' }], 'event-alias', _noop_callback_without_data); // $ExpectType void
 
-BranchSDK.trackCommerceEvent('test-commerce-event', { your_commerce_data: 'here' }); // $ExpectType void
-BranchSDK.trackCommerceEvent('test-commerce-event', { your_commerce_data: 'here' }, { metadata: 'here' }); // $ExpectType void
+BranchSDK.trackCommerceEvent('purchase', { your_commerce_data: 'here' }); // $ExpectType void
+BranchSDK.trackCommerceEvent('purchase', { your_commerce_data: 'here' }, { metadata: 'here' }); // $ExpectType void
 // $ExpectType void
 BranchSDK.trackCommerceEvent(
-    'test-commerce-event',
+    'purchase',
     { your_commerce_data: 'here' },
     { metadata: 'here' },
     _noop_callback_without_data,
