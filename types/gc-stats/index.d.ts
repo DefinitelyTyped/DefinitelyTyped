@@ -3,6 +3,7 @@
 // Definitions by: Vitor Fernandes <https://github.com/vfernandestoptal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import { EventEmitter } from "events";
 
 declare namespace GCStats {
