@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+/// <reference types="node" />
 import * as opentracing from "opentracing";
 import { EventEmitter } from "events";
 
