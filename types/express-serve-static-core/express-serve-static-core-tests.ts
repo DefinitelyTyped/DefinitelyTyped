@@ -39,9 +39,9 @@ app.get<{}, any, any, {q: string, u?: string }>('/:foo', req => {
     req.query.a; // $ExpectError
 });
 
-// Query will be defaulted to Query type
+// Query will be defaulted to any type
 app.get('/:foo', req => {
-    req.query; // $ExpectType Query
+    req.query; // $ExpectType any
 });
 
 // Default types
