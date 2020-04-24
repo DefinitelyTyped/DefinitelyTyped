@@ -173,7 +173,7 @@ declare module "meteor/mongo" {
             update(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
                 multi?: boolean;
                 upsert?: boolean;
-                arrayFilters? : any[];
+                arrayFilters? : { [identifier: string]: any }[];
             }, callback?: Function): number;
             upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
                 multi?: boolean;
