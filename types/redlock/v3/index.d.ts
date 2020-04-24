@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
+/// <reference types="node" />
 import * as Promise from 'bluebird';
 import { EventEmitter } from 'events';
 
