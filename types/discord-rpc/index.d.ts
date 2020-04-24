@@ -6,6 +6,7 @@
 //                 Sankarsan Kampa <https://github.com/k3rn31p4nic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import { EventEmitter } from 'events';
 
 export function register(id: string): boolean;
