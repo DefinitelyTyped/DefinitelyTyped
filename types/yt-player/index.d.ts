@@ -3,6 +3,7 @@
 // Definitions by: Thomas Röggla <https://github.com/troeggla>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import { EventEmitter } from "events";
 
 interface YouTubePlayerOptions {
