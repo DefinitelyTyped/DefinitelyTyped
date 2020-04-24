@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as assert from 'assert';
 import * as util from 'util';
+import * as fsPromises from 'fs/promises';
 
 {
     fs.writeFile("thebible.txt",
@@ -348,6 +349,12 @@ async function testPromisify() {
         encoding: 'utf8',
         bufferSize: 42,
     });
+}
+
+{
+    fsPromises.readFile("/test/file");
+    const _fsPromises: typeof fsPromises = fs.promises;
+    _fsPromises.open("/foo/bar", "r+");
 }
 
 {
