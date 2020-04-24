@@ -4,6 +4,7 @@
 //                 James <https://github.com/durandj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+/// <reference types="node" />
 import { EventEmitter } from 'events';
 
 export interface Session {
