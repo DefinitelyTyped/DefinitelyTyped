@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import standardEngine = require('standard-engine');
 import { cli, linter as Linter, LinterOptions } from 'standard-engine';
 import path = require('path');
