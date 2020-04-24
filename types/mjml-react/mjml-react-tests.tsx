@@ -38,3 +38,16 @@ function renderOutTestEmail() {
         </Mjml>
     ), { validationLevel: 'soft' });
 }
+
+function testNonColumnSectionChild() {
+    // $ExpectError
+    const instance = (
+        <Mjml>
+            <MjmlBody>
+                <MjmlSection>
+                    <h1>Hi</h1>
+                </MjmlSection>
+            </MjmlBody>
+        </Mjml>
+    );
+}
