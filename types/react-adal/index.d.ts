@@ -70,7 +70,7 @@ export interface AdalConfig {
     /**
      * Array of keywords or URIs. Adal will attach a token to outgoing requests that have these keywords or URIs.
      */
-    endpoints?: { [resource: string]: string };
+    endpoints: { [resource: string]: string };
     /**
      * Array of keywords or URIs. Adal will not attach a token to outgoing requests that have these keywords or URIs.
      */
