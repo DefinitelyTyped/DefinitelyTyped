@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import gamepad = require('gamepad');
 
 // Initialize the library
