@@ -23,9 +23,9 @@ const HooksTest: React.FC = () => {
     const location = useLocation<LocationState>();
     const { id } = useParams();
     const params = useParams<Params>();
-    // $ExpectType { id?: string | undefined; s: string | undefined; }
+    // $ExpectType OptionalParams
     const optionalParams = useParams<OptionalParams>();
-    // $ExpectType { t: "a" | "b" | "c"; }
+    // $ExpectType TypedParams
     const typedParams = useParams<TypedParams>();
     // $ExpectType match<Params> | null
     const match1 = useRouteMatch<Params>('/:id');
