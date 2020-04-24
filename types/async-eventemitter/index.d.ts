@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
+/// <reference types="node" />
 import { EventEmitter } from "events";
 
 /**
