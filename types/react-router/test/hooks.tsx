@@ -11,7 +11,7 @@ interface OptionalParams {
 }
 
 interface TypedParams {
-    t: 'a'| 'b' | 'c';
+    t: 'a' | 'b' | 'c';
 }
 
 interface LocationState {
@@ -25,7 +25,7 @@ const HooksTest: React.FC = () => {
     const params = useParams<Params>();
     // $ExpectType { id?: string | undefined; s: string | undefined; }
     const optionalParams = useParams<OptionalParams>();
-    // $ExpectType { t: 'a'| 'b' | 'c'; }
+    // $ExpectType { t: "a" | "b" | "c"; }
     const typedParams = useParams<TypedParams>();
     // $ExpectType match<Params> | null
     const match1 = useRouteMatch<Params>('/:id');
