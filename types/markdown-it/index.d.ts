@@ -6,6 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.0
 
+/// <reference types="node" />
 import MarkdownIt = require('./lib');
 
 export = MarkdownIt;
