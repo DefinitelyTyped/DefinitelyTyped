@@ -3,6 +3,7 @@
 // Definitions by: Eunchong Yu <https://github.com/Kroisse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import { EventEmitter } from 'events';
 
 export = memwatch;
