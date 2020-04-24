@@ -3,6 +3,7 @@
 // Definitions by: Avery Fay <https://github.com/btmorex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import { BinaryLike } from 'crypto';
 import { CachePolicyOptions, Plugin, ServerStateCookieOptions } from '@hapi/hapi';
 
