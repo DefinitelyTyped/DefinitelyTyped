@@ -1743,7 +1743,7 @@ declare namespace React {
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean;
-        defaultValue?: string | number | string[];
+        defaultValue?: string | number | ReadonlyArray<string>;
         suppressContentEditableWarning?: boolean;
         suppressHydrationWarning?: boolean;
 
@@ -1912,7 +1912,7 @@ declare namespace React {
         target?: string;
         type?: string;
         useMap?: string;
-        value?: string | string[] | number;
+        value?: string | ReadonlyArray<string> | number;
         width?: number | string;
         wmode?: string;
         wrap?: string;
@@ -1965,7 +1965,7 @@ declare namespace React {
         formTarget?: string;
         name?: string;
         type?: 'submit' | 'reset' | 'button';
-        value?: string | string[] | number;
+        value?: string | ReadonlyArray<string> | number;
     }
 
     interface CanvasHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -1983,7 +1983,7 @@ declare namespace React {
     }
 
     interface DataHTMLAttributes<T> extends HTMLAttributes<T> {
-        value?: string | string[] | number;
+        value?: string | ReadonlyArray<string> | number;
     }
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2095,7 +2095,7 @@ declare namespace React {
         src?: string;
         step?: number | string;
         type?: string;
-        value?: string | string[] | number;
+        value?: string | ReadonlyArray<string> | number;
         width?: number | string;
 
         onChange?: ChangeEventHandler<T>;
@@ -2117,7 +2117,7 @@ declare namespace React {
     }
 
     interface LiHTMLAttributes<T> extends HTMLAttributes<T> {
-        value?: string | string[] | number;
+        value?: string | ReadonlyArray<string> | number;
     }
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2168,7 +2168,7 @@ declare namespace React {
         max?: number | string;
         min?: number | string;
         optimum?: number;
-        value?: string | string[] | number;
+        value?: string | ReadonlyArray<string> | number;
     }
 
     interface QuoteHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2202,7 +2202,7 @@ declare namespace React {
         disabled?: boolean;
         label?: string;
         selected?: boolean;
-        value?: string | string[] | number;
+        value?: string | ReadonlyArray<string> | number;
     }
 
     interface OutputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2213,12 +2213,12 @@ declare namespace React {
 
     interface ParamHTMLAttributes<T> extends HTMLAttributes<T> {
         name?: string;
-        value?: string | string[] | number;
+        value?: string | ReadonlyArray<string> | number;
     }
 
     interface ProgressHTMLAttributes<T> extends HTMLAttributes<T> {
         max?: number | string;
-        value?: string | string[] | number;
+        value?: string | ReadonlyArray<string> | number;
     }
 
     interface SlotHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2246,7 +2246,7 @@ declare namespace React {
         name?: string;
         required?: boolean;
         size?: number;
-        value?: string | string[] | number;
+        value?: string | ReadonlyArray<string> | number;
         onChange?: ChangeEventHandler<T>;
     }
 
@@ -2285,7 +2285,7 @@ declare namespace React {
         readOnly?: boolean;
         required?: boolean;
         rows?: number;
-        value?: string | string[] | number;
+        value?: string | ReadonlyArray<string> | number;
         wrap?: string;
 
         onChange?: ChangeEventHandler<T>;
