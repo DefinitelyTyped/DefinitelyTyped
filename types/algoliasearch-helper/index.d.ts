@@ -6,6 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+/// <reference types="node" />
 import { Client } from 'algoliasearch';
 import { EventEmitter } from 'events';
 import algoliasearch = require('algoliasearch');
