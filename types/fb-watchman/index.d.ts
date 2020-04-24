@@ -3,6 +3,7 @@
 // Definitions by: Wu Haotian <https://github.com/whtsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import { EventEmitter } from 'events';
 
 // Emit the responses to these when they get sent down to us
