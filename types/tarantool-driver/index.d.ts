@@ -3,6 +3,7 @@
 // Definitions by: Evgeni Zharkov <https://github.com/zharkov-eu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import { EventEmitter } from "events";
 
 declare namespace TarantoolConnection {
