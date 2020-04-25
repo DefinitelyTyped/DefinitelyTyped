@@ -10,6 +10,8 @@
 
 export = prompts;
 
+import { Readable, Writable } from 'stream';
+
 declare function prompts<T extends string = string>(
     questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
     options?: prompts.Options
@@ -89,6 +91,8 @@ declare namespace prompts {
         suggest?: ((input: any, choices: Choice[]) => Promise<any>);
         limit?: number;
         mask?: string;
+        stdout?: Writable;
+        stdin?: Readable;
     }
 
     type Answers<T extends string> = { [id in T]: any };
