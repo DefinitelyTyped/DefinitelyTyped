@@ -1,10 +1,10 @@
-export interface Token {
+interface Token {
     type: string;
     value: string;
-    output: unknown;
+    output: any;
 }
 
-export interface State {
+interface State {
     globstar: boolean;
     consumed: string;
     tokens: Token[];
@@ -17,5 +17,5 @@ export interface State {
     output: string;
 }
 
-const parse = (input: string, options: { maxLength: number }) => State;
+declare function parse(input: string, options: { maxLength: number }): State;
 export = parse;

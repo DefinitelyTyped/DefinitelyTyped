@@ -2,8 +2,9 @@
 // Project: https://github.com/micromatch/picomatch
 // Definitions by: Patrick <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.0
 
-import { State } from './parse';
+import parse = require('./parse');
 import constants = require('./constants');
 
 interface PicomatchOptions {
@@ -51,11 +52,11 @@ interface Picomatch {
     test(
         input: string,
         regex: RegExp,
-        options: { format: unknown },
+        options: { format: any },
         test?: {},
-    ): { isMatch: boolean; match: boolean; output: unknown };
+    ): { isMatch: boolean; match: boolean; output: any };
 
-    matchBase(input: string, glob: RegExp | string, options: {}, posix?: unknown): boolean;
+    matchBase(input: string, glob: RegExp | string, options: {}, posix?: any): boolean;
 
     isMatch(str: string | string[], patterns: string | string[], options?: {}): boolean;
 
@@ -63,7 +64,12 @@ interface Picomatch {
 
     scan(input: string, options: {}): {};
 
-    compileRe(state: State, options?: { contains?: boolean }, returnOutput?: boolean, returnState?: boolean): RegExp;
+    compileRe(
+        state: ReturnType<typeof parse>,
+        options?: { contains?: boolean },
+        returnOutput?: boolean,
+        returnState?: boolean,
+    ): RegExp;
 
     makeRe(input: string, options?: {}, returnOutput?: boolean, returnState?: boolean): Picomatch['compileRe'];
 
