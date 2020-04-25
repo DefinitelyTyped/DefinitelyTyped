@@ -15,7 +15,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@typeform/embed": ["typeform__embed"]
+        }
     },
     "files": [
         "index.d.ts",
