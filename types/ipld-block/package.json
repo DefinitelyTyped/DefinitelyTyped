@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "cids": "~0.8.0"
+    }
+}
