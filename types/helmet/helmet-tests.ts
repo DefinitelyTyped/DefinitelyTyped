@@ -232,7 +232,8 @@ function noSniffTest() {
  * @summary Test for {@see helmet#referrerPolicy} function.
  */
 function referrerPolicyTest() {
-    app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
+    app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
+    app.use(helmet.referrerPolicy({ policy: ['no-referrer', 'origin', 'strict-origin', 'strict-origin-when-cross-origin'] }));
 }
 
 /**
