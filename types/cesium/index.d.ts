@@ -2518,7 +2518,7 @@ declare namespace Cesium {
         polyline: PolylineGraphics;
         polylineVolume: PolylineVolumeGraphics;
         position: PositionProperty;
-        properties: any;
+        properties: PropertyBag;
         propertyNames: any[];
         rectangle: RectangleGraphics;
         show: boolean;
@@ -3889,10 +3889,10 @@ declare namespace Cesium {
         shadow: ShadowMode;
         show: boolean;
         /**
-        * Optimization option.
-        * Determines if level of detail skipping should be applied during the traversal.
-        * @default false
-        */
+         * Optimization option.
+         * Determines if level of detail skipping should be applied during the traversal.
+         * @default false
+         */
         skipLevelOfDetail: boolean;
         skipLevels: number;
         skipScreenSpaceErrorFactor: number;
