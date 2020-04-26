@@ -164,7 +164,12 @@ declare namespace Xrm {
      */
     interface OrganizationSettings {
         /**
+         * Returns a lookup object containing the ID, name, and entity type of the base currency for the current organization.
+         */
+        baseCurrency: LookupValue;
+        /**
          * Returns the ID of the base currency for the current organization.
+         * @deprecated Deprecated in v9.1; use {@link Xrm.OrganizationSettings.baseCurrency globalContext.organizationSettings.baseCurrency} instead to display name along with the ID.
          */
         baseCurrencyId: string;
 
@@ -269,15 +274,26 @@ declare namespace Xrm {
          */
         languageId: number;
         /**
+         * Returns a collection of lookup objects containing the GUID and display name of each of the security role or teams that the user is associated with.
+         */
+        roles: Collection.ItemCollection<LookupValue>;
+        /**
          * Returns an array of strings that represent the GUID values of each of the security role privilege that the user is associated with or any teams that the user is associated with.
          */
         securityRolePrivileges: string[];
         /**
          * Returns an array of strings that represent the GUID values of each of the security role that the user is associated with or any teams that the user is associated with.
+         * @deprecated Deprecated in v9.1; use {@link Xrm.UserSettings.roles globalContext.userSettings.roles} instead to display names of security roles or teams along with the ID.
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
         securityRoles: string[];
         /**
+         * Returns a lookup object containing the ID, display name, and entity type of the transaction currency for the current user.
+         */
+        transactionCurrency: LookupValue;
+        /**
          * Returns the transaction currency ID for the current user.
+         * @deprecated Deprecated in v9.1; use {@link Xrm.UserSettings.transactionCurrency globalContext.userSettings.transactionCurrency} instead to display name along with the ID.
          */
         transactionCurrencyId: string;
         /**
@@ -439,7 +455,7 @@ declare namespace Xrm {
 
         /**
          * Gets all user security roles.
-         * @deprecated Deprecated in v9.  Use {@link Xrm.UserSettings.securityRoles globalContext.userSettings.securityRoles} instead.
+         * @deprecated Deprecated in v9.  Use {@link Xrm.UserSettings.roles globalContext.userSettings.roles} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns An array of user role identifiers, in Guid format.
          * @example Example: ["cf4cc7ce-5d51-df11-97e0-00155db232d0"]
