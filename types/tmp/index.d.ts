@@ -1,4 +1,4 @@
-// Type definitions for tmp 0.1
+// Type definitions for tmp 0.2
 // Project: http://github.com/raszi/node-tmp
 // Definitions by: Jared Klopper <https://github.com/optical>
 //                 Gyusun Yeom <https://github.com/Perlmint>
