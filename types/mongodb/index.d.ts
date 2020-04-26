@@ -942,7 +942,7 @@ type ExtractIdType<TSchema> =
      : ObjectId; // user has not defined _id on schema
 
 // this makes _id optional
-type OptionalId<TSchema extends { _id?: any }> =
+export type OptionalId<TSchema extends { _id?: any }> =
     ObjectId extends TSchema['_id']
         // a Schema with ObjectId _id type or "any" or "indexed type" provided
         ? EnhancedOmit<TSchema, '_id'> & { _id?: ExtractIdType<TSchema> }
@@ -950,7 +950,7 @@ type OptionalId<TSchema extends { _id?: any }> =
         : WithId<TSchema>;
 
 // this adds _id as a required property
-type WithId<TSchema> = EnhancedOmit<TSchema, '_id'> & { _id: ExtractIdType<TSchema> };
+export type WithId<TSchema> = EnhancedOmit<TSchema, '_id'> & { _id: ExtractIdType<TSchema> };
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html */
 export interface Collection<TSchema extends { [key: string]: any } = DefaultSchema> {
