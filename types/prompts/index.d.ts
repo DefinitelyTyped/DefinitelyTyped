@@ -8,6 +8,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
+/// <reference types="node" />
+
 export = prompts;
 
 import { Readable, Writable } from 'stream';
