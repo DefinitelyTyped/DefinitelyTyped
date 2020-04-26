@@ -164,7 +164,7 @@ declare namespace helmet {
     }
 
     export interface IHelmetReferrerPolicyConfiguration {
-        policy?: string;
+        policy?: string | string[];
     }
 
     export interface IHelmetXssFilterConfiguration {
