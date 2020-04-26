@@ -4141,6 +4141,12 @@
             "asOfVersion": "4.1.0"
         },
         {
+            "libraryName": "react-tooltip",
+            "typingsPackageName": "react-tooltip",
+            "sourceRepoURL": "https://github.com/wwayne/react-tooltip",
+            "asOfVersion": "4.2.4"
+        },
+        {
             "libraryName": "react-webcam",
             "typingsPackageName": "react-webcam",
             "sourceRepoURL": "https://github.com/mozmorris/react-webcam",
