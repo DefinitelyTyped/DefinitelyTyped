@@ -1076,7 +1076,9 @@ declare namespace NodeJS {
         /* tslint:disable-next-line:callable-types */
         (id: string): any;
         resolve: RequireResolve;
-        cache: Dict<NodeModule>;
+        cache: {
+          [id: string]: NodeModule;
+        };
         /**
          * @deprecated
          */
