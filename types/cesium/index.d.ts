@@ -2136,7 +2136,6 @@ declare namespace Cesium {
         translucencyByDistance?: Property;
         disableDepthTestDistance?: Property | number;
         pixelOffsetScaleByDistance?: Property;
-        imageSubRegion?: Property;
         heightReference?: Property;
         constructor(options?: { image?: Property;
             show?: Property;
