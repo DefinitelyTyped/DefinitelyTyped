@@ -743,6 +743,8 @@ objSchema = objSchema.instance(func, str);
 
 objSchema = objSchema.ref();
 
+objSchema = objSchema.regex();
+
 { // common
     objSchema = objSchema.allow(x);
     objSchema = objSchema.allow(x, x);
