@@ -10,6 +10,7 @@
 //                 Thierry Régagnon <https://github.com/tregagnon>
 //                 Brian Wilson <https://github.com/echoabstract>
 //                 Sebastiaan Pasma <https://github.com/spasma>
+//                 bdbai <https://github.com/bdbai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -4884,12 +4885,12 @@ declare namespace chrome.permissions {
          * Optional.
          * List of named permissions (does not include hosts or origins). Anything listed here must appear in the optional_permissions list in the manifest.
          */
-        origins?: string[];
+        permissions?: string[];
         /**
          * Optional.
          * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional_permissions list in the manifest. For example, if http://*.example.com/ or http://* appears in optional_permissions, you can request an origin of http://help.example.com/. Any path is ignored.
          */
-        permissions?: string[];
+        origins?: string[];
     }
 
     export interface PermissionsRemovedEvent {
