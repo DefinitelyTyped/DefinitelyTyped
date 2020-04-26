@@ -5,7 +5,8 @@
 //                 katashin <https://github.com/ktsn>
 //                 Benjamin Santalucia <https://github.com/ben8p>
 //                 Erick Delfin <https://github.com/nifled>
-//                 Adam Montgomery <https://github.com/howitzer-industries>
+//                 Adam Montgomery <https://github.com/howitzer-industries>,
+//                 Vivani <https://github.com/meet-rs-api>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -103,9 +104,9 @@ export class LocalParticipant extends Participant {
     tracks: Map<Track.SID, LocalTrackPublication>;
     videoTracks: Map<Track.SID, LocalVideoTrackPublication>;
 
-    publishTrack(track: LocalTrack): Promise<LocalTrackPublication>;
     publishTrack(
-        mediaStreamTrack: MediaStreamTrack, options?: LocalTrackOptions,
+        track: LocalTrack | MediaStreamTrack,
+        options?: LocalTrackOptions
     ): Promise<LocalTrackPublication>;
     publishTracks(
         tracks: Array<LocalTrack | MediaStreamTrack>,
@@ -494,6 +495,7 @@ export const isSupported: boolean;
 export type AudioCodec = 'isac' | 'opus' | 'PCMA' | 'PCMU';
 export type LogLevel = 'debug' | 'info' | 'warn' | 'error' | 'off';
 export type VideoCodec = 'H264' | 'VP8' | 'VP9';
+export type TrackPriority = 'low' | 'standard' | 'high';
 
 /** Methods */
 export function connect(token: string, options?: ConnectOptions): Promise<Room>;
@@ -569,8 +571,10 @@ export interface LocalDataTrackOptions {
 }
 export type LocalTrack = LocalAudioTrack | LocalVideoTrack | LocalDataTrack;
 export interface LocalTrackOptions {
-    logLevel: LogLevel | LogLevels;
+    logLevel?: LogLevel | LogLevels;
     name?: string;
+    // v2.0.0+ https://www.twilio.com/docs/video/tutorials/using-track-priority-api#using-priorities
+    priority?: TrackPriority;
 }
 export interface LogLevels {
     default: LogLevel;
