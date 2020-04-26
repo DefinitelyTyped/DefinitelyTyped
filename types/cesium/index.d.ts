@@ -2118,24 +2118,25 @@ declare namespace Cesium {
     }
 
     class BillboardGraphics {
-        definitionChanged: Event;
-        image: Property;
-        imageSubRegion: Property;
-        scale: Property;
-        rotation: Property;
-        alignedAxis: Property;
-        horizontalOrigin: Property;
-        verticalOrigin: Property;
-        color: Property;
-        eyeOffset: Property;
-        pixelOffset: Property;
-        show: Property;
-        width: Property;
-        height: Property;
-        scaleByDistance: Property;
-        translucencyByDistance: Property;
-        disableDepthTestDistance: Property | number;
-        pixelOffsetScaleByDistance: Property;
+        definitionChanged?: Event;
+        image?: Property;
+        imageSubRegion?: Property;
+        scale?: Property;
+        rotation?: Property;
+        alignedAxis?: Property;
+        horizontalOrigin?: Property;
+        verticalOrigin?: Property;
+        color?: Property;
+        eyeOffset?: Property;
+        pixelOffset?: Property;
+        show?: Property;
+        width?: Property;
+        height?: Property;
+        scaleByDistance?: Property;
+        translucencyByDistance?: Property;
+        disableDepthTestDistance?: Property | number;
+        pixelOffsetScaleByDistance?: Property;
+        imageSubRegion?: Property;
         heightReference?: Property;
         constructor(options?: { image?: Property;
             show?: Property;
@@ -2153,7 +2154,7 @@ declare namespace Cesium {
             translucencyByDistance?: Property;
             pixelOffsetScaleByDistance?: Property;
             disableDepthTestDistance?: Property | number;
-            imageSubRegion?: Property
+            imageSubRegion?: Property;
             heightReference?: Property;
         });
         clone(result?: BillboardGraphics): BillboardGraphics;
@@ -2517,7 +2518,7 @@ declare namespace Cesium {
         polyline: PolylineGraphics;
         polylineVolume: PolylineVolumeGraphics;
         position: PositionProperty;
-        properties: PropertyBag;
+        properties: any;
         propertyNames: any[];
         rectangle: RectangleGraphics;
         show: boolean;
@@ -2702,7 +2703,7 @@ declare namespace Cesium {
 
     class LabelGraphics {
         definitionChanged: Event;
-        text: ConstantProperty;
+        text: Property | string;
         font: string;
         style: Property;
         fillColor: Color;
@@ -2719,7 +2720,7 @@ declare namespace Cesium {
         translucencyByDistance: Property;
         pixelOffsetScaleByDistance: Property;
         constructor(options?: {
-            text?: Property;
+            text?: Property | string;
             font?: string;
             style?: Property;
             fillColor?: Color;
@@ -2739,7 +2740,7 @@ declare namespace Cesium {
             heightReference?: Property;
             scaleByDistance?: Property;
             distanceDisplayCondition?: Property;
-            disableDepthTestDistance?: number;
+            disableDepthTestDistance?: Property | number;
         });
         clone(result?: LabelGraphics): LabelGraphics;
         merge(source: LabelGraphics): LabelGraphics;
@@ -3888,10 +3889,10 @@ declare namespace Cesium {
         shadow: ShadowMode;
         show: boolean;
         /**
-         * Optimization option.
-         * Determines if level of detail skipping should be applied during the traversal.
-         * @default false
-         */
+        * Optimization option.
+        * Determines if level of detail skipping should be applied during the traversal.
+        * @default false
+        */
         skipLevelOfDetail: boolean;
         skipLevels: number;
         skipScreenSpaceErrorFactor: number;
@@ -4487,14 +4488,7 @@ declare namespace Cesium {
         width: number;
         loop: boolean;
         id: any;
-        constructor(options?: { 
-            clampToGround?: Property;
-            show?: boolean;
-            width?: number;
-            loop?: boolean;
-            material?: Material | MaterialProperty | Color; positions?: Cartesian3[] | CallbackProperty;
-            id?: any
-        });
+        constructor(options?: { show?: boolean; width?: number; loop?: boolean; material?: Material; positions?: Cartesian3[]; id?: any });
     }
 
     class PolylineCollection {
