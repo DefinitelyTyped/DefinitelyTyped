@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "target": "es6",
         "module": "commonjs",
         "lib": [
             "es6"
@@ -9,16 +8,24 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "sparqljs": [
+                "sparqljs/v2"
+            ],
+            "sparqljs/*": [
+                "sparqljs/v2/*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "yog-ral-tests.ts"
+        "sparqljs-tests.ts"
     ]
 }

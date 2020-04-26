@@ -1,15 +1,14 @@
-// Type definitions for sparqljs 3.0
+// Type definitions for sparqljs 2.1
 // Project: https://github.com/RubenVerborgh/SPARQL.js
 // Definitions by: Alexey Morozov <https://github.com/AlexeyMz>
-//                 Ruben Taelman <https://github.com/rubensworks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 export const Parser: {
-    new (options?: {
+    new (
         prefixes?: { [prefix: string]: string },
         baseIRI?: string,
-    }): SparqlParser;
+    ): SparqlParser;
 };
 
 export const Generator: {
