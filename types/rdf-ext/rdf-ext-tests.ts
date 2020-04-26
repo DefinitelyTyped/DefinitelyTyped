@@ -178,7 +178,7 @@ function static_Triple_fromBaseTerms(): Quad {
     const predicate: NamedNode = <any> {};
     const object: NamedNode = <any> {};
 
-    return rdf.triple(subject, predicate, object);
+    return rdf.quad(subject, predicate, object);
 }
 
 function instance_Quad_fromBaseTerms(): Quad {
@@ -197,7 +197,7 @@ function instance_Triple_fromBaseTerms(): Quad {
     const predicate: NamedNode = <any> {};
     const object: NamedNode = <any> {};
 
-    return factory.triple(subject, predicate, object);
+    return factory.quad(subject, predicate, object);
 }
 
 function Quad_toJSON(): boolean {
