@@ -25,7 +25,7 @@ export type oauth2tokenCallback = (
 ) => any;
 
 export type dataCallback = (
-  err: {statusCode: number, data?: any},
+  err: {statusCode: number, data?: any} | null,
   result?: string | Buffer,
   response?: IncomingMessage
 ) => any;
