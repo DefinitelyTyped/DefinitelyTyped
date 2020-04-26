@@ -1262,6 +1262,8 @@ export type MatchKeysAndValues<TSchema> = ReadonlyPartial<TSchema> & DotAndArray
 
 type Unpacked<Type> = Type extends Array<infer Element> ? Element : Type;
 
+type UpdateOptionalId<T> = T extends { _id?: any } ? OptionalId<T> : T;
+
 export type SortValues = -1 | 1;
 
 export type AddToSetOperators<Type> = {
@@ -1276,14 +1278,14 @@ export type ArrayOperator<Type> = {
 };
 
 export type SetFields<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[] | undefined>]?: Unpacked<TSchema[key]> | AddToSetOperators<TSchema[key]>;
+    readonly [key in KeysOfAType<TSchema, any[] | undefined>]?: UpdateOptionalId<Unpacked<TSchema[key]>> | AddToSetOperators<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
 } &
     NotAcceptedFields<TSchema, any[] | undefined>) & {
     readonly [key: string]: AddToSetOperators<any> | any;
 };
 
 export type PushOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[]>]?: Unpacked<TSchema[key]> | ArrayOperator<TSchema[key]>;
+    readonly [key in KeysOfAType<TSchema, any[]>]?: UpdateOptionalId<Unpacked<TSchema[key]>> | ArrayOperator<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
 } &
     NotAcceptedFields<TSchema, any[]>) & {
     readonly [key: string]: ArrayOperator<any> | any;
