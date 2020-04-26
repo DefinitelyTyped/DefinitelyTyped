@@ -280,6 +280,7 @@ export class RemoteTrackPublication extends TrackPublication {
     isTrackEnabled: boolean;
     kind: Track.Kind;
     track: RemoteTrack | null;
+    priority: TrackPriority;
 }
 export class RemoteTrackStats extends TrackStats {
     bytesReceived: number | null;
@@ -287,6 +288,8 @@ export class RemoteTrackStats extends TrackStats {
 }
 export class RemoteVideoTrack extends VideoTrack {
     sid: Track.SID;
+    priority: TrackPriority;
+    setPriority(priority: TrackPriority | null): void;
 }
 export class RemoteVideoTrackPublication extends RemoteTrackPublication {
     kind: 'video';
@@ -573,7 +576,6 @@ export type LocalTrack = LocalAudioTrack | LocalVideoTrack | LocalDataTrack;
 export interface LocalTrackOptions {
     logLevel?: LogLevel | LogLevels;
     name?: string;
-    // v2.0.0+ https://www.twilio.com/docs/video/tutorials/using-track-priority-api#using-priorities
     priority?: TrackPriority;
 }
 export interface LogLevels {
