@@ -675,9 +675,20 @@ declare namespace Hexo {
         }
 
         interface Renderer {
-            register(srcExt: string, outExt: string, fn: (data: HexoRendererData, options: any) => string, sync: true): void;
-            register(srcExt: string, outExt: string, fn: (data: HexoRendererData, options: any) => Promise<string>, sync: false): void;
-            register(srcExt: string, outExt: string, fn: (data: HexoRendererData, options: any) => Promise<string>): void;
+            register(srcExt: string, outExt: string, fn: (data: RendererData, options: any) => string, sync: true): void;
+            register(srcExt: string, outExt: string, fn: (data: RendererData, options: any) => Promise<string>, sync: false): void;
+            register(srcExt: string, outExt: string, fn: (data: RendererData, options: any) => Promise<string>): void;
+        }
+
+        interface RendererData {
+            /**
+             * File content.
+             */
+            readonly text: string;
+            /**
+             * File path.
+             */
+            readonly path?: string;
         }
 
         interface Tag {
@@ -960,17 +971,6 @@ interface CategoryPage extends IndexPage {
 
 interface TagPage extends IndexPage {
     tag: string;
-}
-
-interface HexoRendererData {
-    /**
-     * File content.
-     */
-    readonly text: string;
-    /**
-     * File path.
-     */
-    readonly path?: string;
 }
 
 export = Hexo;
