@@ -415,7 +415,6 @@ declare namespace IORedis {
             callback: Callback<number>
         ): void;
 
-
         zunionstore: OverloadedKeyCommand<KeyType | number, number>;
 
         zinterstore: OverloadedKeyCommand<KeyType | number, number>;
@@ -549,35 +548,35 @@ declare namespace IORedis {
             offset: number,
             count: number,
         ): Promise<string[]>;
-        zrevrangebylex(
+        zrangebylex(
             key: KeyType,
             min: string,
             max: string,
-        ): Promise<string[]>;
-        zrevrangebylex(
+            callback: Callback<string[]>,
+        ): void;
+        zrangebylex(
             key: KeyType,
             min: string,
             max: string,
             limit: 'LIMIT',
             offset: number,
             count: number,
-        ): Promise<string[]>;
+            callback: Callback<string[]>,
+        ): void;
 
-        zrangebylex(
+        zrevrangebylex(
             key: KeyType,
             min: string,
             max: string,
-            callback: Callback<string[]>,
-        ): void;
-        zrangebylex(
+        ): Promise<string[]>;
+        zrevrangebylex(
             key: KeyType,
             min: string,
             max: string,
             limit: 'LIMIT',
             offset: number,
             count: number,
-            callback: Callback<string[]>,
-        ): void;
+        ): Promise<string[]>;
         zrevrangebylex(
             key: KeyType,
             min: string,
@@ -1146,13 +1145,6 @@ declare namespace IORedis {
             offset: number,
             count: number,
             callback?: Callback<string[]>,
-        ): Pipeline;
-
-        zcount(
-            key: KeyType,
-            min: number | string,
-            max: number | string,
-            callback?: (err: Error, res: number) => void,
         ): Pipeline;
 
         zcount(key: KeyType, min: number | string, max: number | string, callback?: Callback<number>): Pipeline;
