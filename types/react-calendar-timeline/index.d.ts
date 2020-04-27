@@ -293,6 +293,8 @@ declare module 'react-calendar-timeline' {
     }
     export class TimelineHeaders extends React.Component<TimelineHeadersProps> {}
 
+    export type TimelineHeaderProps = TimelineHeadersProps;
+
     export interface SidebarHeaderChildrenFnProps<Data> {
         getRootProps: (propsToOverride?: { style: React.CSSProperties }) => { style: React.CSSProperties };
         data: Data;
