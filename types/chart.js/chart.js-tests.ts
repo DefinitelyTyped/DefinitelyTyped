@@ -459,7 +459,6 @@ const event = new MouseEvent('click');
 chart.getElementsAtEvent(event);
 chart.getElementsAtXAxis(event);
 
-
 // Number array chart data
 const chartWithNumberArrayData: Chart = new Chart(ctx, {
     type: 'bar',
