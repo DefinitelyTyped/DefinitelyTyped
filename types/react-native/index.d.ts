@@ -464,7 +464,7 @@ export interface Insets {
     right?: number;
 }
 
-export interface PressableProps extends AccessibilityProps {
+export interface PressableProps extends AccessibilityProps, ViewProps {
     /**
     * Called when a single tap gesture is detected.
     */
@@ -485,8 +485,6 @@ export interface PressableProps extends AccessibilityProps {
      */
     onLongPress?: (event: GestureResponderEvent) => void;
 
-    style?: StyleProp<ViewStyle>;
-
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
      */
@@ -498,25 +496,10 @@ export interface PressableProps extends AccessibilityProps {
     disabled?: boolean;
 
     /**
-     * Additional distance outside of this view in which a press is detected.
-     */
-    hitSlop?: number;
-
-    /**
      * Additional distance outside of this view in which a touch is considered a
      * press before `onPressOut` is triggered.
      */
     pressRectOffset?: number;
-
-    /**
-     * Called when this view's layout changes.
-     */
-    onLayout?: (event: LayoutChangeEvent) => void;
-
-    /**
-     * Identifier used to find this view in tests.
-     */
-    testID?: string;
 
     /**
      * If true, doesn't play system sound on touch.
