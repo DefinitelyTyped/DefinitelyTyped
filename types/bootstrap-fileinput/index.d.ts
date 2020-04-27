@@ -122,23 +122,24 @@ declare namespace BootstrapFileInput {
         theme?: string;
         /**
          * Whether file selection is mandatory before upload (for ajax) or submit of the form (for non-ajax). When set to true, and if files are not
-         * selected before upload, this will show the error message as set in msgFilerequired. Defaults to false.
+         * selected before upload, this will show the error message as set in msgFilerequired.
+         * @default false
          */
         required?: boolean;
         /**
          * Whether to orient the widget in Right-To-Left (RTL) mode. To view RTL orientation you must set this to true and also must load the
-         * css/fileinput-rtl.css file after the css/fileinput.css on your page for RTL styling. Defaults to false.
+         * css/fileinput-rtl.css file after the css/fileinput.css on your page for RTL styling.
+         * @default false
          */
         rtl?: boolean;
         /**
          * Whether to hide the preview content (image, pdf content, text content, etc.) within the thumbnail.
-         * Defaults to false.
          * When set to true, only the file name and file size as defined in the thumbnail footer layout template will be displayed.
+         * @default false
          */
         hideThumbnailContent?: boolean;
         /**
          * Whether to encode all the URLs before triggering the ajax calls.
-         * Defaults to true.
          * The following URLs are currently set and used within the plugin:
          *     * uploadUrl
          *     * deleteUrl
@@ -146,61 +147,62 @@ declare namespace BootstrapFileInput {
          *     * url within initialPreviewConfig
          *     * downloadUrl within initialPreviewConfig
          *     * testUrl within resumableUploadOptions
+         * @default true
          */
         encodeUrl?: boolean;
         /**
          * Whether to focus the file caption after browsing and selecting a file.
-         * Defaults to true.
+         * @default true
          */
         focusCaptionOnBrowse?: boolean;
         /**
          * Whether to focus the file caption after clearing / removing the files (using the remove button for example).
-         * Defaults to true.
+         * @default true
          */
         focusCaptionOnClear?: boolean;
         /**
          * Whether to display the file caption.
-         * Defaults to true.
+         * @default true
          */
         showCaption?: boolean;
         /**
          * Whether to display the file preview.
-         * Defaults to true.
+         * @default true
          */
         showPreview?: boolean;
         /**
          * Whether to display the file remove/clear button.
-         * Defaults to true.
+         * @default true
          */
         showRemove?: boolean;
         /**
          * Whether to display the file upload button.
-         * Defaults to true.
+         * @default true
          * This will default to a form submit button, unless the uploadUrl is specified.
          */
         showUpload?: boolean;
         /**
          * Whether to display the file upload cancel button.
-         * Defaults to true.
+         * @default true
          * This will be only enabled and displayed when an AJAX upload is in process.
          */
         showCancel?: boolean;
         /**
          * Whether to display the close icon in the preview.
-         * Defaults to true.
+         * @default true
          * This will be only parsed when showPreview is true or when you are using the {close} tag in your preview templates.
          */
         showClose?: boolean;
         /**
          * Whether to persist display of the uploaded file thumbnails in the preview window (for ajax uploads) until the remove/clear button is pressed.
-         * Defaults to true.
+         * @default true
          * When set to false, a next batch of files selected for upload will clear these thumbnails from preview.
          */
         showUploadedThumbs?: boolean;
         /**
          * Whether to automatically replace the files in the preview after the maxFileCount limit is reached and a new set of file(s) is/are selected.
          * This will only work if a valid maxFileCount is set.
-         * Defaults to false.
+         * @default false
          */
         autoReplace?: boolean;
         /**
@@ -441,7 +443,7 @@ declare namespace BootstrapFileInput {
         uploadUrl?: string;
         /**
          * whether the batch upload of multiple files will be asynchronous/in parallel.
-         * Defaults to true.
+         * @default true
          */
         uploadAsync?: boolean;
         /**
@@ -522,7 +524,7 @@ declare namespace BootstrapFileInput {
         maxFileCount?: number;
         /**
          * whether to include initial preview file count (server uploaded files) in validating minFileCount and maxFileCount.
-         * Defaults to false.
+         * @default false
          */
         validateInitialCount?: boolean;
         /**
@@ -802,7 +804,7 @@ declare namespace BootstrapFileInput {
         /**
          * whether to enable a drag and drop zone for dragging and dropping files to.
          * This is available only for ajax based uploads.
-         * Defaults to true.
+         * @default true
          */
         dropZoneEnabled?: boolean;
         /**
@@ -849,7 +851,7 @@ declare namespace BootstrapFileInput {
         ajaxDeleteSettings?: JQueryAjaxSettings;
         /**
          * whether to show details of the error stack from the server log when an error is encountered via ajax response.
-         * Defaults to true.
+         * @default true
          */
         showAjaxErrorDetails?: boolean;
     }
@@ -1148,22 +1150,27 @@ declare namespace BootstrapFileInput {
         removeTitle?: string;
         /**
          * whether to show the upload button in the thumbnail.
+         * @default true // will be always false for resumable uploads
          */
         showUpload?: boolean | (() => boolean);
         /**
          * whether to show the download button in the thumbnail.
+         * @default true
          */
         showDownload?: boolean | (() => boolean);
         /**
          * whether to show the remove button in the thumbnail.
+         * @default true
          */
         showRemove?: boolean | (() => boolean);
         /**
          * whether to show the zoom button in the thumbnail.
+         * @default true
          */
         showZoom?: boolean | (() => boolean);
         /**
          * whether to show the drag button in the thumbnail (applicable only for initial preview content)
+         * @default true
          */
         showDrag?: boolean | (() => boolean);
         /**
