@@ -300,9 +300,7 @@ export class NodePath<T = Node> {
      */
     replaceExpressionWithStatements<Nodes extends Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
-    replaceInline<T extends Node | Node[]>(
-        nodes: T,
-    ): T extends Node[] ? { [K in keyof T]: NodePath<T[K]> } : [NodePath<T>];
+    replaceInline<Nodes extends Node | Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     // ------------------------- evaluation -------------------------
     /**
