@@ -9,6 +9,7 @@
         "target": "es2017",
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "noUnusedLocals": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",

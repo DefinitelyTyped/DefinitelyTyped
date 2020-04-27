@@ -8,6 +8,7 @@
         "strictNullChecks": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "noUnusedLocals": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

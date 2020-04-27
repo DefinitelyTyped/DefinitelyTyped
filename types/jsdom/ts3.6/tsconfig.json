@@ -4,6 +4,7 @@
 		"lib": ["es2015", "dom"],
 		"noImplicitAny": true,
 		"noImplicitThis": true,
+		"noUnusedLocals": true,
 		"strictNullChecks": true,
 		"strictFunctionTypes": true,
 		"baseUrl": "../../",
