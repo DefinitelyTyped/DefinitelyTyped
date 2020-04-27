@@ -136,7 +136,7 @@ declare namespace Benchmark {
         elapsed: number;
         timeStamp: number;
     }
-    
+
     export interface Target {
         options: Options;
         async?: boolean;
