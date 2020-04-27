@@ -163,7 +163,7 @@ declare namespace Benchmark {
             elapsed?: number;
             period?: number;
             timeStamp?: number;
-        }
+        };
         running: boolean;
         count?: number;
         compiled?: Function;
