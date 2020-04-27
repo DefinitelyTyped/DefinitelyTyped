@@ -12,6 +12,10 @@ interface PicomatchOptions {
     onResult?: (result: Result) => void;
     onIgnore?: (result: Result) => void;
     onMatch?: (result: Result) => void;
+    dot?: boolean;
+    windows?: boolean;
+    contains?: boolean;
+    format?: (input: string) => string;
 }
 
 type Matcher = (test: string) => boolean;
@@ -52,7 +56,7 @@ interface Picomatch {
     test(
         input: string,
         regex: RegExp,
-        options: { format: any },
+        options?: PicomatchOptions,
         test?: {},
     ): { isMatch: boolean; match: boolean; output: any };
 
@@ -66,12 +70,17 @@ interface Picomatch {
 
     compileRe(
         state: ReturnType<typeof parse>,
-        options?: { contains?: boolean },
+        options?: PicomatchOptions,
         returnOutput?: boolean,
         returnState?: boolean,
     ): RegExp;
 
-    makeRe(input: string, options?: {}, returnOutput?: boolean, returnState?: boolean): Picomatch['compileRe'];
+    makeRe(
+        input: string,
+        options?: PicomatchOptions,
+        returnOutput?: boolean,
+        returnState?: boolean,
+    ): Picomatch['compileRe'];
 
     toRegex(source: string | RegExp, options?: { flags?: string; nocase?: boolean; debug?: boolean }): RegExp;
 
