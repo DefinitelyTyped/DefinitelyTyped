@@ -1,5 +1,5 @@
 import { NavigableMenu } from '@wordpress/components';
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 declare namespace NavigableToolbar {
     interface Props extends NavigableMenu.Props {

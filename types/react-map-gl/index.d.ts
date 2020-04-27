@@ -48,6 +48,7 @@ export interface MapboxProps extends Partial<ViewState> {
     container?: object;
     gl?: object;
     mapboxApiAccessToken?: string;
+    mapboxApiUrl?: string;
     attributionControl?: boolean;
     preserveDrawingBuffer?: boolean;
     reuseMaps?: boolean;
@@ -202,7 +203,7 @@ export class MapController implements BaseMapController {
     updateViewport(newMapState: MapState, extraProps: any, extraState: ExtraState): void;
 }
 
-export interface PointerEvent {
+export interface PointerEvent extends MouseEvent {
     type: string;
     point: [number, number];
     lngLat: [number, number];

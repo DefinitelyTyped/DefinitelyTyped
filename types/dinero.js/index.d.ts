@@ -21,6 +21,8 @@ declare namespace DineroFactory {
     let globalFormatRoundingMode: string;
     let globalExchangeRatesApi: ExchangeRatesApiOptions;
     function normalizePrecision(objects: ReadonlyArray<Dinero>): Dinero[];
+    function minimum(objects: ReadonlyArray<Dinero>): Dinero;
+    function maximum(objects: ReadonlyArray<Dinero>): Dinero;
 
     interface Options {
         amount?: number;

@@ -3649,6 +3649,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "postcss-nested",
+            "typingsPackageName": "postcss-nested",
+            "sourceRepoURL": "https://github.com/postcss/postcss-nested",
+            "asOfVersion": "4.2.1"
+        },
+        {
             "libraryName": "postmark",
             "typingsPackageName": "postmark",
             "sourceRepoURL": "http://wildbit.github.io/postmark.js",
@@ -4139,6 +4145,12 @@
             "typingsPackageName": "react-toastify",
             "sourceRepoURL": "https://github.com/fkhadra/react-toastify#readme",
             "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "react-tooltip",
+            "typingsPackageName": "react-tooltip",
+            "sourceRepoURL": "https://github.com/wwayne/react-tooltip",
+            "asOfVersion": "4.2.4"
         },
         {
             "libraryName": "react-webcam",
