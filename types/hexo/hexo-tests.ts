@@ -436,7 +436,7 @@ h.on('ready', () => {
     }
 
     {
-        h.extend.renderer.register('ts', 'js', (data, options) => {
+        h.extend.renderer.register('ts', 'js', (data: Hexo.extend.RendererData, options) => {
             console.log(data.path);
             console.log(data.text);
             return 'result';
