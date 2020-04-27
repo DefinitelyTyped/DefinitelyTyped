@@ -11,6 +11,9 @@ tar.pack('./my-directory').pipe(fs.createWriteStream('my-tarball.tar'));
 // extracting a directory
 fs.createReadStream('my-other-tarball.tar').pipe(tar.extract('./my-other-directory'));
 
+// extracting a directory and stripping the first level
+fs.createReadStream('my-other-tarball.tar').pipe(tar.extract('./my-other-directory', { strip: 1 }));
+
 /*
  * Ignore various files
  */
