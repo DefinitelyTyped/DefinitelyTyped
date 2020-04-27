@@ -1,10 +1,11 @@
 language: node_js
 node_js:
-  - 10
+    - 10
 
 notifications:
-  email: false
+    email: false
 
 script:
- - npm run test
- - if [[ $TRAVIS_EVENT_TYPE == "cron" ]]; then npm run update-codeowners || travis_terminate 1; fi
+    - node_modules/.bin/prettier --list-different $(if [[ $TRAVIS_PULL_REQUEST == "false" ]]; then git diff --name-only HEAD~; else git diff --name-only $TRAVIS_BRANCH; fi)
+    - npm run test
+    - if [[ $TRAVIS_EVENT_TYPE == "cron" ]]; then npm run update-codeowners || travis_terminate 1; fi

@@ -20,18 +20,22 @@
         "update-codeowners": "node scripts/update-codeowners.js",
         "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed",
         "lint": "dtslint types",
-        "prettier": "prettier"
+        "prettier": "prettier --write '*.{js,json,md,ts,yml}' '{scripts,types,docs}/**/*.{js,json,md,ts,yml}'"
     },
     "devDependencies": {
         "dtslint": "latest",
+        "husky": "^4.2.5",
+        "lint-staged": "^10.1.7",
         "prettier": "^2.0.2",
         "types-publisher": "github:Microsoft/types-publisher#production"
     },
     "husky": {
         "hooks": {
-            "_comment": "This will remove husky from when we started migrating to use prettier",
-            "pre-commit": "npm uninstall husky"
+            "pre-commit": "lint-staged"
         }
+    },
+    "lint-staged": {
+        "*.{js,ts,json,md,yml}": ["prettier --write"]
     },
     "dependencies": {}
 }
