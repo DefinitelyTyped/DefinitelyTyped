@@ -15,6 +15,9 @@ ejs.clearCache;
 // $ExpectType Cache
 ejs.cache;
 
+// $ExpectType string | undefined
+ejs.delimiter;
+
 expectType<{
 	(template: string, opts: ejs.Options & { async: true; client?: false }): ejs.AsyncTemplateFunction;
 	(template: string, opts: ejs.Options & { async: true; client: true }): ejs.AsyncClientFunction;
