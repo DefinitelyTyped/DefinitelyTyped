@@ -464,6 +464,80 @@ export interface Insets {
     right?: number;
 }
 
+export interface PressableProps extends AccessibilityProps {
+    /**
+    * Called when a single tap gesture is detected.
+    */
+    onPress?: (event: GestureResponderEvent) => void;
+
+    /**
+     * Called when a touch is engaged before `onPress`.
+     */
+    onPressIn?: (event: GestureResponderEvent) => void;
+
+    /**
+    * Called when a touch is released before `onPress`.
+    */
+    onPressOut?: (event: GestureResponderEvent) => void;
+
+    /**
+     * Called when a long-tap gesture is detected.
+     */
+    onLongPress?: (event: GestureResponderEvent) => void;
+
+    style?: StyleProp<ViewStyle>;
+
+    /**
+     * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
+     */
+    delayLongPress?: number;
+
+    /**
+     * Whether the press behavior is disabled.
+     */
+    disabled?: boolean;
+
+    /**
+     * Additional distance outside of this view in which a press is detected.
+     */
+    hitSlop?: number;
+
+    /**
+     * Additional distance outside of this view in which a touch is considered a
+     * press before `onPressOut` is triggered.
+     */
+    pressRectOffset?: number;
+
+    /**
+     * Called when this view's layout changes.
+     */
+    onLayout?: (event: LayoutChangeEvent) => void;
+
+    /**
+     * Identifier used to find this view in tests.
+     */
+    testID?: string;
+
+    /**
+     * If true, doesn't play system sound on touch.
+     */
+    android_disableSound?: boolean;
+
+    /**
+     * Enables the Android ripple effect and configures its color.
+     */
+    android_ripple?: RippleBackgroundPropType;
+
+    /**
+     * Used only for documentation or testing (e.g. snapshot testing).
+     */
+    testOnly_pressed?: boolean;
+}
+
+declare class PressableComponent extends React.Component<PressableProps> {}
+declare const PressableBase: Constructor<NativeMethodsMixinType> & typeof PressableComponent;
+export class Pressable extends PressableBase {}
+
 /**
  * //FIXME: need to find documentation on which component is a TTouchable and can implement that interface
  * @see React.DOMAtributes
@@ -5081,6 +5155,7 @@ interface RippleBackgroundPropType extends BaseBackgroundPropType {
     type: 'RippleAndroid';
     color?: number;
     borderless?: boolean;
+    radius?: number;
 }
 
 interface ThemeAttributeBackgroundPropType extends BaseBackgroundPropType {

@@ -97,6 +97,7 @@ import {
     Appearance,
     useColorScheme,
     DevSettings,
+    Pressable,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -350,6 +351,25 @@ export class TouchableNativeFeedbackTest extends React.Component {
                     <Text style={{ margin: 30 }}>Button</Text>
                 </View>
             </TouchableNativeFeedback>
+        );
+    }
+}
+
+// PressableTest
+export class PressableTest extends React.Component {
+    onPressButton = (e: GestureResponderEvent) => {
+        e.persist();
+        e.isPropagationStopped();
+        e.isDefaultPrevented();
+    };
+
+    render() {
+        return (
+            <Pressable onPress={this.onPressButton}>
+                <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                    <Text style={{ margin: 30 }}>Button</Text>
+                </View>
+            </Pressable>
         );
     }
 }
