@@ -460,6 +460,9 @@ declare namespace CodeMirror {
         "subtract" Reduce the indentation of the line. */
         indentLine(line: number, dir?: string): void;
 
+        /** Indent a selection */
+        indentSelection(how: string): void;
+
         /** Tells you whether the editor's content can be edited by the user. */
         isReadOnly(): boolean;
 
@@ -677,6 +680,9 @@ declare namespace CodeMirror {
     }
 
     interface Doc {
+        /** Get the mode option **/
+        modeOption: any;
+
         /** Get the current editor content. You can pass it an optional argument to specify the string to be used to separate lines (defaults to "\n"). */
         getValue(seperator?: string): string;
 
