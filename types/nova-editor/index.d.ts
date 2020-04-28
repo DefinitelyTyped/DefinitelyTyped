@@ -4,12 +4,23 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.3
 
-// tslint:disable-next-line:no-empty-interface
-interface ReadableStream {}
-// tslint:disable-next-line:no-empty-interface
-interface WritableStream {}
-
 // Currently at beta 10
+
+/// https://novadocs.panic.com/extensions/
+
+// This runs in an extension of Apple's JavaScriptCore, manually set libs
+
+/// <reference no-default-lib="true"/>
+/// <reference lib="es2015" />
+
+declare function require(module: string): any;
+declare const exports: typeof module.exports;
+declare const module: { exports: any };
+declare const __filename: string;
+declare const __dirname: string;
+
+type ReadableStream = unknown;
+type WritableStream = unknown;
 
 /// https://novadocs.panic.com/api-reference/assistants-registry/
 
