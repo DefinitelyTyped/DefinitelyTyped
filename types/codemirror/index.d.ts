@@ -8,6 +8,7 @@
 //                 ysulyma <https://github.com/ysulyma>
 //                 azoson <https://github.com/azoson>
 //                 kylesferrazza <https://github.com/kylesferrazza>
+//                 koddsson <https://github.com/koddsson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
