@@ -2,7 +2,7 @@
 // Project: https://novadocs.panic.com
 // Definitions by: Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0:
+// Minimum TypeScript Version: 3.0
 
 // currently applies to beta 10
 
