@@ -159,7 +159,6 @@ function TestAnimatedAPI() {
 
             <AnimatedView ref={legacyRef} />
 
-
             <AnimatedComp ref={AnimatedCompRef} width={v1} />
             <ForwardComp ref={ForwardCompRef} width={1} />
             <AnimatedForwardComp ref={AnimatedForwardCompRef} width={10} />
