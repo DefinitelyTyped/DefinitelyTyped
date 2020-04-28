@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Apple Music API 0.1
+// Type definitions for non-npm package Apple Music API 0.2
 // Project: https://developer.apple.com/documentation/applemusicapi/
 // Definitions by: Noah Chase <https://github.com/nchase>
 //                 Useff Chase <https://github.com/useffc>
@@ -8,6 +8,11 @@ declare namespace AppleMusicApi {
     // https://developer.apple.com/documentation/applemusicapi/songresponse
     interface SongResponse {
         data: Song[];
+    }
+
+    // https://developer.apple.com/documentation/applemusicapi/albumresponse
+    interface AlbumResponse {
+        data: Album[];
     }
 
     // https://developer.apple.com/documentation/applemusicapi/relationship
@@ -151,6 +156,7 @@ declare namespace AppleMusicApi {
     // https://developer.apple.com/documentation/applemusicapi/album/relationships
     interface AlbumRelationships {
         artists: Relationship<Artist>;
+        tracks: Relationship<Song>;
         genres: {};
     }
 
