@@ -139,6 +139,12 @@ declare module "meteor/accounts-base" {
             methodName: string;
             methodArguments: any[];
         }
+        
+        function generateResetToken(userId: string, email: string, reason: "resetPassword" | "enrollAccount",extraTokenData: any):{
+            email:string;
+            user: Meteor.User;
+            token: string;
+        };
     }
 
     module Accounts {
