@@ -237,7 +237,7 @@ declare module "imagekit" {
         requestId: string;
     }
 
-    interface PurgeCacheStatus {
+    interface PurgeCacheStatusResponse {
         status: 'Pending' | 'Completed';
     }
 
@@ -282,8 +282,8 @@ declare module "imagekit" {
         public purgeCache(fullUrl: string, callback: Callback<PurgeCacheResponse>): void;
         public purgeCache(fullUrl: string): Promise<PurgeCacheResponse>;
 
-        public getPurgeCacheStatus(cacheRequestId: string, callback: Callback<PurgeCacheStatus>): void;
-        public getPurgeCacheStatus(cacheRequestId: string): Promise<PurgeCacheStatus>;
+        public getPurgeCacheStatus(cacheRequestId: string, callback: Callback<PurgeCacheStatusResponse>): void;
+        public getPurgeCacheStatus(cacheRequestId: string): Promise<PurgeCacheStatusResponse>;
 
         public getAuthenticationParameters(token: string, expire: number): {token: string; expire: number; signature: string};
 
