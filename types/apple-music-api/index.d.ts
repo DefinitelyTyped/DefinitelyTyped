@@ -132,13 +132,17 @@ declare namespace AppleMusicApi {
     interface Album extends Resource {
         // https://developer.apple.com/documentation/applemusicapi/album/attributes
         attributes?: {
-            albumName: string;
+            // albumName might not actually be a required attribute of Album.
+            // There may be a typo in Apple's documentation, their data doesn't
+            // actually return this attribute for the example I picked and the description of the field references music videos, further increasingly the likelihood that it's just a typo):
+            albumName?: string;
             artistName: string;
             artwork?: Artwork;
             contentRating?: 'clean' | 'explicit';
             copyright?: string;
             editorialNotes?: EditorialNotes;
             genreNames: string[];
+            isCompilation: boolean;
             isComplete: boolean;
             isSingle: boolean;
             name: string;
@@ -157,7 +161,7 @@ declare namespace AppleMusicApi {
     interface AlbumRelationships {
         artists: Relationship<Artist>;
         tracks: Relationship<Song>;
-        genres: {};
+        genres?: Relationship<Genre>;
     }
 
     // https://developer.apple.com/documentation/applemusicapi/genre
