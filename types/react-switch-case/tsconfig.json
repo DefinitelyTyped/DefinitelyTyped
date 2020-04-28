@@ -10,7 +10,8 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
     },
     "files": ["index.d.ts", "react-switch-case-tests.tsx"]
 }
