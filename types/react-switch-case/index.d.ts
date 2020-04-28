@@ -14,7 +14,7 @@ interface CaseProps {
 }
 
 declare class Swtich extends React.Component<SwitchProps> {}
-export declare class Case extends React.Component<CaseProps> {}
-export declare class Default extends React.Component {}
+export class Case extends React.Component<CaseProps> {}
+export class Default extends React.Component {}
 
 export default Swtich;
