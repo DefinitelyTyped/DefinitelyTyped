@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 
+const AnimatedView = Animated.createAnimatedComponent(View);
+
 function TestAnimatedAPI() {
     // Value
     const v1 = new Animated.Value(0);
@@ -88,9 +90,13 @@ function TestAnimatedAPI() {
 
     Animated.event([{ nativeEvent: { contentOffset: { y: v1 } } }], { useNativeDriver: true, listener });
 
+    const ref = React.useRef<View>(null);
+    const legacyRef = React.useRef<Animated.LegacyRef<View>>(null);
+
     return (
-        <View>
+        <View ref={ref}>
             <Animated.View
+                ref={ref}
                 style={[
                     position.getLayout(),
                     {
@@ -98,6 +104,14 @@ function TestAnimatedAPI() {
                     },
                 ]}
             />
+
+            <AnimatedView ref={ref} style={{ top: 3 }}>
+                i has children
+            </AnimatedView>
+
+            <Animated.View ref={legacyRef} />
+
+            <AnimatedView ref={legacyRef} />
 
             <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
         </View>
