@@ -616,7 +616,7 @@ declare class TextEditor {
     selectToEndOfWord(): void;
     scrollToCursorPosition(): void;
     scrollToPosition(position: number): void;
-    symbolsForSelectedRanges(): Array<NovaSymbol | null>;
+    symbolsForSelectedRanges(): ReadonlyArray<NovaSymbol | null>;
 }
 
 /// https://novadocs.panic.com/api-reference/text-editor-edit/
