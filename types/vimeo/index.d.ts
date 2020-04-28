@@ -3,11 +3,11 @@
 // Definitions by: Matthew Leffler <https://github.com/mattleff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type CompleteCallback = (
+export type CompleteCallback<T = object> = (
     err: string | undefined,
-    result: undefined | object,
+    result: undefined | T,
     statusCode?: number,
-    headers?: object,
+    headers?: object
 ) => void;
 
 export type ProgressCallback = (bytesUploaded: number, bytesTotal: number) => void;
@@ -59,7 +59,8 @@ export class Vimeo {
      *                                  `host`, `port`, `query` or `headers`.
      * @param callback  Called when complete, `function (err, json)`.
      */
-    request(url: string | RequestOptions, callback: CompleteCallback): void;
+    // tslint:disable-next-line no-unnecessary-generics
+    request<T>(url: string | RequestOptions, callback: CompleteCallback<T>): void;
 
     /**
      * Set a user access token to be used with library requests.
