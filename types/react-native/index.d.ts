@@ -59,6 +59,8 @@
 
 import * as React from 'react';
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
 type Constructor<T> = new (...args: any[]) => T;
 
 export type MeasureOnSuccessCallback = (
@@ -464,7 +466,11 @@ export interface Insets {
     right?: number;
 }
 
-export interface PressableProps extends AccessibilityProps, ViewProps {
+export interface PressableStateCallbackType {
+    pressed: boolean;
+}
+
+export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style'> {
     /**
     * Called when a single tap gesture is detected.
     */
@@ -484,6 +490,12 @@ export interface PressableProps extends AccessibilityProps, ViewProps {
      * Called when a long-tap gesture is detected.
      */
     onLongPress?: (event: GestureResponderEvent) => void;
+
+    /**
+     * Either children or a render prop that receives a boolean reflecting whether
+     * the component is currently pressed.
+     */
+    children: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode),
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
@@ -515,6 +527,12 @@ export interface PressableProps extends AccessibilityProps, ViewProps {
      * Used only for documentation or testing (e.g. snapshot testing).
      */
     testOnly_pressed?: boolean;
+
+    /**
+     * Either view styles or a function that receives a boolean reflecting whether
+     * the component is currently pressed and returns view styles.
+     */
+    style?: StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>);
 }
 
 declare class PressableComponent extends React.Component<PressableProps> {}
