@@ -150,6 +150,7 @@ declare module "imagekit" {
         height: number;
         width: number;
         size: number;
+        // TODO: specify majority of returned formats
         format: 'jpg' | string;
         hasColorProfile: boolean;
         quality: number;
@@ -215,6 +216,7 @@ declare module "imagekit" {
                 InteropIndex: string;
                 InteropVersion: string;
             },
+            // TODO: determine structure of this object
             makernote: {[key: string]: string}
         }
     }
