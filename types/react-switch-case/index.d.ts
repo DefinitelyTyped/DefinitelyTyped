@@ -3,8 +3,6 @@
 // Definitions by: Fernando Falci <https://github.com/Falci>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
-
 import * as React from 'react';
 
 export interface SwitchProps {
