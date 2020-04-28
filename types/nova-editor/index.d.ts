@@ -1,7 +1,10 @@
-// Type definitions for non-npm package nova-editor 1.0 (beta 10)
+// Type definitions for non-npm package nova-editor 1.0
 // Project: https://novadocs.panic.com
 // Definitions by: Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.0:
+
+// currently applies to beta 10
 
 declare class LanguageClient {
     constructor(
@@ -10,10 +13,10 @@ declare class LanguageClient {
         serverOptions: {
             type?: 'stdio' | 'socket' | 'pipe';
             path: string;
-            args?: Array<string>;
+            args?: string[];
             env?: { [key: string]: string };
         },
-        clientOptions: { syntaxes: Array<string> },
+        clientOptions: { syntaxes: string[] },
     );
 
     readonly identifier: string;
@@ -89,7 +92,7 @@ declare class Color {
 }
 
 interface ColorAssistant {
-    parseColorStrings(colorStrings: ReadonlyArray<String>): ReadonlyArray<Color>;
+    parseColorStrings(colorStrings: ReadonlyArray<string>): ReadonlyArray<Color>;
 }
 
 declare enum CompletionReason {
@@ -144,12 +147,12 @@ declare class CompletionItem {
     documentation?: string;
     filterText?: string;
     range?: Range;
-    commitCharacters?: Array<string>;
+    commitCharacters?: string[];
     tokenize: boolean; // default false
 }
 
 interface CompletionAssistant {
-    provideCompletionItems(editor: TextEditor, context: CompletionContext): Array<CompletionItem>;
+    provideCompletionItems(editor: TextEditor, context: CompletionContext): CompletionItem[];
 }
 
 declare class IssueCollection {
@@ -157,12 +160,12 @@ declare class IssueCollection {
 
     name: string;
 
-    append(uri: string, issues: Array<Issue>): void;
+    append(uri: string, issues: Issue[]): void;
     dispose(): void;
     clear(): void;
     has(uri: string): void;
     get(uri: string): void;
-    set(uri: string, issues: Array<Issue>): void;
+    set(uri: string, issues: Issue[]): void;
     remove(uri: string): void;
 }
 
@@ -184,7 +187,7 @@ declare class Issue {
 }
 
 interface IssueAssistant {
-    provideIssues(editor: TextEditor): Array<Issue>;
+    provideIssues(editor: TextEditor): Issue[];
 }
 
 interface AssistantsRegistry {
@@ -202,12 +205,12 @@ interface NovaObject {
 declare const nova: NovaObject;
 
 interface Console {
-    assert(condition: () => unknown, message: string, ...params: Array<unknown>): void;
+    assert(condition: () => unknown, message: string, ...params: unknown[]): void;
     clear(): void;
-    log(message: unknown, ...params: Array<unknown>): void;
-    info(message: unknown, ...params: Array<unknown>): void;
-    warn(message: unknown, ...params: Array<unknown>): void;
-    error(message: unknown, ...params: Array<unknown>): void;
+    log(message: unknown, ...params: unknown[]): void;
+    info(message: unknown, ...params: unknown[]): void;
+    warn(message: unknown, ...params: unknown[]): void;
+    error(message: unknown, ...params: unknown[]): void;
     group(): void;
     groupEnd(): void;
     count(label?: string): void;

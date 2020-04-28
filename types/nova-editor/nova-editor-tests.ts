@@ -6,7 +6,7 @@ const client = new LanguageClient(
         path: `/usr/bin/env`,
         args: ['bash', '-c', `${nova.extension.path}/run.sh | tee /tmp/nova-typescript.sh.log`],
         env: {
-            WORKSPACE_DIR: nova.workspace.path ?? '',
+            WORKSPACE_DIR: nova.workspace.path || '',
         },
     },
     {
