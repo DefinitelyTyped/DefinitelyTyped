@@ -171,7 +171,7 @@ declare namespace Bull {
 
     returnvalue: any;
 
-    failedReason: string;
+    failedReason?: string;
 
     /**
      * Get progress on a job
