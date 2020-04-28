@@ -36,6 +36,7 @@
 //                 André Krüger <https://github.com/akrger>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
 //                 Christian Ost <https://github.com/ca057>
+//                 David Sheldrick <https://github.com/ds300>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -8314,11 +8315,17 @@ export interface EasingStatic {
     inOut(easing: EasingFunction): EasingFunction;
 }
 
+// We need to alias these views so we can reference them in the Animated
+// namespace where their names are shadowed.
+declare const _View: typeof View;
+declare const _Image: typeof Image;
+declare const _Text: typeof Text;
+declare const _ScrollView: typeof ScrollView;
+declare const _FlatList: typeof FlatList;
+declare const _SectionList: typeof SectionList;
 export namespace Animated {
     type AnimatedValue = Value;
     type AnimatedValueXY = ValueXY;
-
-    type Base = Animated;
 
     class Animated {
         // Internal class, no public API.
@@ -8637,6 +8644,8 @@ export namespace Animated {
 
     export type ComponentProps<T> = T extends React.ComponentType<infer P> | React.Component<infer P> ? P : never;
 
+    export type LegacyRef<C> = { getNode(): C };
+
     export interface WithAnimatedValue<T>
         extends ThisType<
             T extends object
@@ -8646,31 +8655,31 @@ export namespace Animated {
                 : T | Value | AnimatedInterpolation
         > {}
 
-    export type AnimatedProps<T> = { [key in keyof T]: WithAnimatedValue<T[key]> };
+    export type AnimatedProps<T> = { [key in keyof T]: WithAnimatedValue<T[key]> } &
+        (T extends {
+            ref?: React.Ref<infer R>;
+        }
+            ? { ref?: React.Ref<R | { getNode(): R }> }
+            : {});
 
-    export interface AnimatedComponent<
-        T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>
-    > extends React.FC<AnimatedProps<ComponentProps<T>>> {
-        getNode: () => T;
-    }
+    export interface AnimatedComponent<T extends React.ComponentType<any>>
+        extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
 
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent<
-        T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>
-    >(component: T): AnimatedComponent<T extends React.ComponentClass<ComponentProps<T>> ? InstanceType<T> : T>;
+    export function createAnimatedComponent<T extends React.ComponentType<any>>(component: T): AnimatedComponent<T>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
      * props and style.
      */
-    export const View: AnimatedComponent<View>;
-    export const Image: AnimatedComponent<Image>;
-    export const Text: AnimatedComponent<Text>;
-    export const ScrollView: AnimatedComponent<ScrollView>;
-    export const FlatList: AnimatedComponent<FlatList>;
-    export const SectionList: AnimatedComponent<SectionList>;
+    export const View: AnimatedComponent<typeof _View>;
+    export const Image: AnimatedComponent<typeof _Image>;
+    export const Text: AnimatedComponent<typeof _Text>;
+    export const ScrollView: AnimatedComponent<typeof _ScrollView>;
+    export const FlatList: AnimatedComponent<typeof _FlatList>;
+    export const SectionList: AnimatedComponent<typeof _SectionList>;
 }
 
 // tslint:disable-next-line:interface-name
