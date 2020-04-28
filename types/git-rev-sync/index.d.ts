@@ -4,7 +4,7 @@
 //                 pkuczynski <https://github.com/pkuczynski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function branch(branch?: string): void;
+export function branch(filePath?: string): string;
 export function count(): number;
 export function date(): Date;
 export function hasUnstagedChanges(): boolean;
