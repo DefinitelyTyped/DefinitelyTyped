@@ -1,4 +1,4 @@
-// Type definitions for nova-editor 1.0b10
+// Type definitions for non-npm package nova-editor 1.0 (beta 10)
 // Project: https://novadocs.panic.com
 // Definitions by: Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
