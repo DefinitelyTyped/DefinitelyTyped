@@ -2,6 +2,7 @@
 // Project: https://github.com/ben-ng/convert-units#readme
 // Definitions by: vladkampov <https://github.com/vladkampov>
 //                 ben-ng <https://github.com/ben-ng>
+//                 Toby Bell <https://github.com/tobybell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -129,6 +130,6 @@ declare class Convert {
     measures(): measure[];
 }
 
-declare function convert(value: number): Convert;
+declare function convert(value?: number): Convert;
 
 export = convert;

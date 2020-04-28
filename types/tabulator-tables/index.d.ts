@@ -687,7 +687,7 @@ declare namespace Tabulator {
         /** Function to generate tooltips for cells	 */
         tooltips?: GlobalTooltipOption;
         /** When to regenerate cell tooltip value	 */
-        tooltipGenerationMode?: 'load';
+        tooltipGenerationMode?: 'load' | 'hover';
 
         /** Keybinding configuration object	 */
         keybindings?: false | KeyBinding;

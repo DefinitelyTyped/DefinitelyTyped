@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import { ReactAttr, ForwardRefReturn } from "../../../typings/shared";
 
 interface InheritedProps {
     className?: ReactAttr["className"],
@@ -7,9 +7,10 @@ interface InheritedProps {
 }
 
 export interface SideNavSwitcherProps extends InheritedProps {
-    options: string[],
+    labelText: string;
+    options: readonly string[],
 }
 
-declare const SideNavSwitcher: React.RefForwardingComponent<HTMLSelectElement, SideNavSwitcherProps>;
+declare const SideNavSwitcher: ForwardRefReturn<HTMLSelectElement, SideNavSwitcherProps>;
 
 export default SideNavSwitcher;

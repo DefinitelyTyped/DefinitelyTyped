@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
-import * as t from "@babel/types";
+import * as t from '@babel/types';
 
 export type Node = t.Node;
 
@@ -41,7 +41,7 @@ export class Scope {
     parentBlock: Node;
     parent: Scope;
     hub: Hub;
-    bindings: { [name: string]: Binding; };
+    bindings: { [name: string]: Binding };
 
     /** Traverse node with current scope and path. */
     traverse<S>(node: Node | Node[], opts: TraverseOptions<S>, state: S): void;
@@ -105,12 +105,7 @@ export class Scope {
 
     removeData(key: string): void;
 
-    push(opts: {
-        id: t.LVal,
-        init?: t.Expression,
-        unique?: boolean,
-        kind?: "var" | "let" | "const",
-    }): void;
+    push(opts: { id: t.LVal; init?: t.Expression; unique?: boolean; kind?: 'var' | 'let' | 'const' }): void;
 
     getProgramParent(): Scope;
 
@@ -146,11 +141,17 @@ export class Scope {
 }
 
 export class Binding {
-    constructor(opts: { existing: Binding; identifier: t.Identifier; scope: Scope; path: NodePath; kind: "var" | "let" | "const"; });
+    constructor(opts: {
+        existing: Binding;
+        identifier: t.Identifier;
+        scope: Scope;
+        path: NodePath;
+        kind: 'var' | 'let' | 'const';
+    });
     identifier: t.Identifier;
     scope: Scope;
     path: NodePath;
-    kind: "var" | "let" | "const" | "module";
+    kind: 'var' | 'let' | 'const' | 'module';
     referenced: boolean;
     references: number;
     referencePaths: NodePath[];
@@ -158,11 +159,13 @@ export class Binding {
     constantViolations: NodePath[];
 }
 
-export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
-    [Type in Node["type"]]?: VisitNode<S, Extract<Node, { type: Type; }>>;
-} & {
-    [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>
-};
+export type Visitor<S = {}> = VisitNodeObject<S, Node> &
+    {
+        [Type in Node['type']]?: VisitNode<S, Extract<Node, { type: Type }>>;
+    } &
+    {
+        [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
+    };
 
 export type VisitNode<S, P> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
 
@@ -244,7 +247,7 @@ export class NodePath<T = Node> {
     /** Get the earliest path in the tree where the provided `paths` intersect. */
     getDeepestCommonAncestorFrom(
         paths: NodePath[],
-        filter?: (deepest: Node, i: number, ancestries: NodePath[]) => NodePath
+        filter?: (deepest: Node, i: number, ancestries: NodePath[]) => NodePath,
     ): NodePath;
 
     /**
@@ -285,19 +288,19 @@ export class NodePath<T = Node> {
      * transforming ASTs is an antipattern and SHOULD NOT be encouraged. Even if it's
      * easier to use, your transforms will be extremely brittle.
      */
-    replaceWithSourceString(replacement: any): void;
+    replaceWithSourceString(replacement: any): [NodePath];
 
     /** Replace the current node with another. */
-    replaceWith(replacement: Node | NodePath): void;
+    replaceWith<T extends Node>(replacement: T | NodePath<T>): [NodePath<T>];
 
     /**
      * This method takes an array of statements nodes and then explodes it
      * into expressions. This method retains completion records which is
      * extremely important to retain original semantics.
      */
-    replaceExpressionWithStatements(nodes: Node[]): Node;
+    replaceExpressionWithStatements<Nodes extends Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
-    replaceInline(nodes: Node | Node[]): void;
+    replaceInline<Nodes extends Node | Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     // ------------------------- evaluation -------------------------
     /**
@@ -458,10 +461,14 @@ export class NodePath<T = Node> {
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 
-    get<K extends keyof T>(key: K, context?: boolean | TraversalContext):
-        T[K] extends Array<Node | null | undefined> ? Array<NodePath<T[K][number]>> :
-        T[K] extends Node | null | undefined ? NodePath<T[K]> :
-        never;
+    get<K extends keyof T>(
+        key: K,
+        context?: boolean | TraversalContext,
+    ): T[K] extends Array<Node | null | undefined>
+        ? Array<NodePath<T[K][number]>>
+        : T[K] extends Node | null | undefined
+        ? NodePath<T[K]>
+        : never;
     get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
 
     getBindingIdentifiers(duplicates?: boolean): Node[];

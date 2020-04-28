@@ -4,6 +4,7 @@
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import { Utf8AsciiLatin1Encoding, Hash as CryptoHash } from "crypto";
 import { Readable, Transform } from "stream";
 

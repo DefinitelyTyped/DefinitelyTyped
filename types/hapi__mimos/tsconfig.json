@@ -22,6 +22,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "hapi__mimos-tests.ts"
     ]
 }

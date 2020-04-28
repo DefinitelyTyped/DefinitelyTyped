@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 // prettier-ignore
 export default function navigateRegions<T extends ComponentType<any>>(wrapped: T):

@@ -1,4 +1,4 @@
-import { ComponentType, DragEvent } from '@wordpress/element';
+import { ComponentType, DragEvent } from 'react';
 
 declare namespace DropZone {
     interface Props {

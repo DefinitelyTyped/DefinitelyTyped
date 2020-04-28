@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Label, Input, Select, Textarea, Radio, Checkbox, Slider } from '@rebass/forms';
+import { Label, Input, Select, Textarea, Radio, Checkbox, Slider, Switch } from '@rebass/forms';
 
 export default () => (
     <>
@@ -32,6 +32,9 @@ export default () => (
         </Label>
         <Label width={[1 / 2, 1 / 4]} p={2}>
             <Slider id="remember" name="remember" value={50} />
+        </Label>
+        <Label width={[1 / 2, 1 / 4]} p={2}>
+            <Switch />
         </Label>
     </>
 );

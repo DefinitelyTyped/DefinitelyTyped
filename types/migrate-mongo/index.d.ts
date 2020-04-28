@@ -2,7 +2,7 @@
 // Project: https://github.com/seppevs/migrate-mongo#readme
 // Definitions by: Amit Beckenstein <https://github.com/amitbeck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+// Minimum TypeScript Version: 3.2
 
 import * as mongo from 'mongodb';
 
