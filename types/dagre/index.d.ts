@@ -4,6 +4,7 @@
 //                 Lisa Vallfors <https://github.com/Frankrike>
 //                 Pete Vilter <https://github.com/vilterp>
 //                 David Newell <https://github.com/rustedgrail>
+//                 Graham Lea <https://github.com/GrahamLea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -16,7 +17,7 @@ export namespace graphlib {
         graph(): GraphLabel;
         isDirected(): boolean;
         isMultiGraph(): boolean;
-        setGraph(label: GraphLabel): Graph;
+	setGraph(label: GraphLabel): Graph<T>;
 
         edge(edgeObj: Edge): GraphEdge;
         edge(outNodeName: string, inNodeName: string, name?: string): GraphEdge;
@@ -26,10 +27,10 @@ export namespace graphlib {
         hasEdge(outNodeName: string, inNodeName: string, name?: string): boolean;
         inEdges(inNodeName: string, outNodeName?: string): Edge[]|undefined;
         outEdges(outNodeName: string, inNodeName?: string): Edge[]|undefined;
-        removeEdge(outNodeName: string, inNodeName: string): Graph;
-        setDefaultEdgeLabel(callback: string|((v: string, w: string, name?: string) => string|Label)): Graph;
-        setEdge(params: Edge, value?: string|{[key: string]: any}): Graph;
-        setEdge(sourceId: string, targetId: string, value?: string|Label, name?: string): Graph;
+	removeEdge(outNodeName: string, inNodeName: string): Graph<T>;
+	setDefaultEdgeLabel(callback: string|((v: string, w: string, name?: string) => string|Label)): Graph<T>;
+	setEdge(params: Edge, value?: string|{[key: string]: any}): Graph<T>;
+	setEdge(sourceId: string, targetId: string, value?: string|Label, name?: string): Graph<T>;
 
         children(parentName: string): string|undefined;
         hasNode(name: string): boolean;
@@ -39,9 +40,9 @@ export namespace graphlib {
         nodes(): string[];
         parent(childName: string): string|undefined;
         predecessors(name: string): Array<Node<T>>|undefined;
-        removeNode(name: string): Graph;
-        setDefaultNodeLabel(callback: string|((nodeId: string) => string|Label)): Graph;
-        setNode(name: string, label: string|Label): Graph;
+	removeNode(name: string): Graph<T>;
+	setDefaultNodeLabel(callback: string|((nodeId: string) => string|Label)): Graph<T>;
+	setNode(name: string, label: string|Label): Graph<T>;
         setParent(childName: string, parentName: string): void;
         sinks(): Array<Node<T>>;
         sources(): Array<Node<T>>;
@@ -62,7 +63,7 @@ export namespace graphlib {
         function isAcyclic(graph: Graph): boolean;
         function postorder(graph: Graph, nodeNames: string|string[]): string[];
         function preorder(graph: Graph, nodeNames: string|string[]): string[];
-        function prim(graph: Graph, weightFn?: WeightFn): Graph;
+	function prim<T>(graph: Graph<T>, weightFn?: WeightFn): Graph<T>;
         function tarjam(graph: Graph): string[][];
         function topsort(graph: Graph): string[];
     }
