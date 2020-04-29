@@ -29,7 +29,7 @@ export interface SyntheticEventData extends OptionalEventProperties {
     clientX?: number;
     clientY?: number;
     changedTouches?: TouchList;
-    charCode?: boolean;
+    charCode?: number;
     clipboardData?: DataTransfer;
     ctrlKey?: boolean;
     deltaMode?: number;
