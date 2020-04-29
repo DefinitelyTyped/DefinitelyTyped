@@ -5,15 +5,11 @@
 //					Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace WebBluetooth;
-export = WebBluetooth;
+export type BluetoothServiceUUID = number | string;
+export type BluetoothCharacteristicUUID = number | string;
+export type BluetoothDescriptorUUID = number | string;
 
-declare namespace WebBluetooth {
-    type BluetoothServiceUUID = number | string;
-    type BluetoothCharacteristicUUID = number | string;
-    type BluetoothDescriptorUUID = number | string;
-
-    interface BluetoothRequestDeviceFilter {
+export interface BluetoothRequestDeviceFilter {
         services?: BluetoothServiceUUID[];
         name?: string;
         namePrefix?: string;
@@ -21,7 +17,7 @@ declare namespace WebBluetooth {
         serviceDataUUID?: BluetoothServiceUUID;
     }
 
-    type RequestDeviceOptions = {
+export type RequestDeviceOptions = {
         filters: BluetoothRequestDeviceFilter[];
         optionalServices?: BluetoothServiceUUID[];
     } | {
@@ -29,7 +25,7 @@ declare namespace WebBluetooth {
         optionalServices?: BluetoothServiceUUID[];
     };
 
-    interface BluetoothRemoteGATTDescriptor {
+export interface BluetoothRemoteGATTDescriptor {
         readonly characteristic: BluetoothRemoteGATTCharacteristic;
         readonly uuid: string;
         readonly value?: DataView;
@@ -37,7 +33,7 @@ declare namespace WebBluetooth {
         writeValue(value: BufferSource): Promise<void>;
     }
 
-    interface BluetoothCharacteristicProperties {
+export interface BluetoothCharacteristicProperties {
         readonly broadcast: boolean;
         readonly read: boolean;
         readonly writeWithoutResponse: boolean;
@@ -49,11 +45,11 @@ declare namespace WebBluetooth {
         readonly writableAuxiliaries: boolean;
     }
 
-    interface CharacteristicEventHandlers {
+export interface CharacteristicEventHandlers {
         oncharacteristicvaluechanged: (this: this, ev: Event) => any;
     }
 
-    interface BluetoothRemoteGATTCharacteristic extends EventTarget, CharacteristicEventHandlers {
+export interface BluetoothRemoteGATTCharacteristic extends EventTarget, CharacteristicEventHandlers {
         readonly service?: BluetoothRemoteGATTService;
         readonly uuid: string;
         readonly properties: BluetoothCharacteristicProperties;
@@ -68,13 +64,13 @@ declare namespace WebBluetooth {
         addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     }
 
-    interface ServiceEventHandlers {
+export interface ServiceEventHandlers {
         onserviceadded: (this: this, ev: Event) => any;
         onservicechanged: (this: this, ev: Event) => any;
         onserviceremoved: (this: this, ev: Event) => any;
     }
 
-    interface BluetoothRemoteGATTService extends EventTarget, CharacteristicEventHandlers, ServiceEventHandlers {
+export interface BluetoothRemoteGATTService extends EventTarget, CharacteristicEventHandlers, ServiceEventHandlers {
         readonly device: BluetoothDevice;
         readonly uuid: string;
         readonly isPrimary: boolean;
@@ -88,7 +84,7 @@ declare namespace WebBluetooth {
         addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     }
 
-    interface BluetoothRemoteGATTServer {
+export interface BluetoothRemoteGATTServer {
         readonly device: BluetoothDevice;
         readonly connected: boolean;
         connect(): Promise<BluetoothRemoteGATTServer>;
@@ -97,12 +93,12 @@ declare namespace WebBluetooth {
         getPrimaryServices(service?: BluetoothServiceUUID): Promise<BluetoothRemoteGATTService[]>;
     }
 
-    interface BluetoothDeviceEventHandlers {
+export interface BluetoothDeviceEventHandlers {
         onadvertisementreceived: (this: this, ev: Event) => any;
         ongattserverdisconnected: (this: this, ev: Event) => any;
     }
 
-    interface BluetoothDevice extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers {
+export interface BluetoothDevice extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers {
         readonly id: string;
         readonly name?: string;
         readonly gatt?: BluetoothRemoteGATTServer;
@@ -115,7 +111,7 @@ declare namespace WebBluetooth {
         addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     }
 
-    interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers {
+export interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers {
         getAvailability(): Promise<boolean>;
         onavailabilitychanged: (this: this, ev: Event) => any;
         readonly referringDevice?: BluetoothDevice;
@@ -124,7 +120,6 @@ declare namespace WebBluetooth {
         addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     }
 
-    interface Navigator {
+export interface Navigator {
 	    bluetooth: Bluetooth;
     }
-}

@@ -1,7 +1,10 @@
+import { BluetoothRemoteGATTService, BluetoothDevice, BluetoothRemoteGATTServer, BluetoothRemoteGATTCharacteristic } from "web-bluetooth";
+
 // Example 1 (from the spec):
 let chosenHeartRateService: BluetoothRemoteGATTService = null;
 
-navigator.bluetooth.requestDevice({
+const nav: any = window.navigator;
+nav.bluetooth.requestDevice({
 	filters: [{
 		services: ['heart_rate'],
 	}]
