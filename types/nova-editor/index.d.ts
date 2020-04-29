@@ -88,6 +88,7 @@ declare class CompletionItem {
     detail?: string;
     documentation?: string;
     filterText?: string;
+    insertText?: string;
     range?: Range;
     commitCharacters?: string[];
     tokenize: boolean; // default false
