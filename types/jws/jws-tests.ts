@@ -56,3 +56,6 @@ const verifier = jws.createVerify();
 pubKeyStream.pipe(verifier.publicKey);
 sigStream.pipe(verifier.signature);
 verifier.on('done', (verified, obj) => {});
+
+// jws.ALGORITHMS defined
+const algorithms = jws.ALGORITHMS;

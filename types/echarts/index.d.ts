@@ -1,4 +1,4 @@
-// Type definitions for ECharts 4.4.0
+// Type definitions for ECharts 4.6.0
 // Project: http://echarts.apache.org
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>
 //                 AntiMoron <https://github.com/AntiMoron>
@@ -1310,6 +1310,13 @@ declare namespace echarts {
                 axisTick?: CartesianAxis.Tick;
 
                 /**
+                 * Settings related to axis minor tick.
+                 *
+                 * @see https://echarts.apache.org/en/option.html#yAxis.minorTick
+                 */
+                minorTick?: CartesianAxis.MinorTick;
+
+                /**
                  * Settings related to axis label.
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.axisLabel
@@ -1322,8 +1329,14 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.splitLine
                  */
-
                 splitLine?: CartesianAxis.SplitLine;
+
+                /**
+                 * Minor SplitLine of axis in grid area.
+                 *
+                 * @see https://echarts.apache.org/en/option.html#yAxis.minorSplitLine
+                 */
+                minorSplitLine?: CartesianAxis.MinorSplitLine;
 
                 /**
                  * Split area of axis in grid area, not shown by default.
@@ -1417,6 +1430,16 @@ declare namespace echarts {
                 /**
                  * @todo describe
                  */
+                interface MinorTick {
+                    show?: boolean;
+                    splitNumber?: number;
+                    length?: number;
+                    lineStyle?: LineStyle;
+                }
+
+                /**
+                 * @todo describe
+                 */
                 interface Label extends TextStyleWithRich {
                     show?: boolean;
                     interval?: number | Function;
@@ -1434,6 +1457,14 @@ declare namespace echarts {
                 interface SplitLine {
                     show?: boolean;
                     interval?: number | Function;
+                    lineStyle?: LineStyle;
+                }
+
+                /**
+                 * @todo describe
+                 */
+                interface MinorSplitLine {
+                    show?: boolean;
                     lineStyle?: LineStyle;
                 }
 

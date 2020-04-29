@@ -3392,7 +3392,7 @@ interface PowerCreep extends RoomObject {
      */
     usePower(power: PowerConstant, target?: RoomObject): ScreepsReturnCode;
     /**
-     * Withdraw resources from a structure.
+     * Withdraw resources from a structure, tombstone, or ruin.
      *
      * The target has to be at adjacent square to the creep.
      *
@@ -3403,7 +3403,7 @@ interface PowerCreep extends RoomObject {
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
 interface PowerCreepConstructor extends _Constructor<PowerCreep>, _ConstructorById<PowerCreep> {
