@@ -1,6 +1,7 @@
 // Type definitions for parse5 5.0
 // Project: https://github.com/inikulin/parse5
 // Definitions by: Ivan Nikulin <https://github.com/inikulin>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -86,7 +87,7 @@ export interface SerializerOptions {
      *
      * **Default:** `treeAdapters.default`
      */
-    treeAdapter?: TreeAdapter;
+    treeAdapter?: SerializerTreeAdapter;
 }
 
 /**
@@ -310,7 +311,7 @@ export type CommentNode = DefaultTreeCommentNode | object;
  *
  * @see [default implementation](https://github.com/inikulin/parse5/blob/master/lib/tree_adapters/default.js)
  */
-export interface TreeAdapter {
+export interface TreeAdapter extends SerializerTreeAdapter {
     /**
      * Creates a document node.
      */
@@ -367,12 +368,6 @@ export interface TreeAdapter {
         contentElement: DocumentFragment
     ): void;
     /**
-     * Returns the `<template>` element content element.
-     *
-     * @param templateElement - `<template>` element.
-     */
-    getTemplateContent(templateElement: Element): DocumentFragment;
-    /**
      * Sets the document type. If the `document` already contains a document type node, the `name`, `publicId` and `systemId`
      * properties of this node will be updated with the provided values. Otherwise, creates a new document type node
      * with the given properties and inserts it into the `document`.
@@ -395,12 +390,6 @@ export interface TreeAdapter {
      * @param mode - Document mode.
      */
     setDocumentMode(document: Document, mode: DocumentMode): void;
-    /**
-     * Returns [document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
-     *
-     * @param document - Document node.
-     */
-    getDocumentMode(document: Document): DocumentMode;
     /**
      * Removes a node from its parent.
      *
@@ -436,6 +425,40 @@ export interface TreeAdapter {
      * @param attrs - Attributes to copy.
      */
     adoptAttributes(recipient: Element, attrs: Attribute[]): void;
+    /**
+     * Attaches source code location information to the node.
+     *
+     * @param node - Node.
+     */
+    setNodeSourceCodeLocation(node: Node, location: Location | StartTagLocation | ElementLocation): void;
+    /**
+     * Returns the given node's source code location information.
+     *
+     * @param node - Node.
+     */
+    getNodeSourceCodeLocation(node: Node): Location | StartTagLocation | ElementLocation;
+}
+
+/**
+ * Tree adapter is a set of utility functions that provides minimal required abstraction layer beetween parser and a specific AST format.
+ * Note that `TreeAdapter` is not designed to be a general purpose AST manipulation library. You can build such library
+ * on top of existing `TreeAdapter` or use one of the existing libraries from npm.
+ *
+ * @see [default implementation](https://github.com/inikulin/parse5/blob/master/lib/tree_adapters/default.js)
+ */
+export interface SerializerTreeAdapter {
+    /**
+     * Returns the `<template>` element content element.
+     *
+     * @param templateElement - `<template>` element.
+     */
+    getTemplateContent(templateElement: Element): DocumentFragment;
+    /**
+     * Returns [document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
+     *
+     * @param document - Document node.
+     */
+    getDocumentMode(document: Document): DocumentMode;
     /**
      * Returns the first child of the given node.
      *

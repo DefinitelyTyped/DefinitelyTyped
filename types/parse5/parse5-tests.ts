@@ -6,7 +6,8 @@ const document = parse5.parse("<html>");
 
 document; // $ExpectType Document
 
-const defaultAdapter = new Object() as parse5.TreeAdapter;
+declare const defaultAdapter: parse5.TreeAdapter;
+declare const defaultSerializerAdapter: parse5.SerializerTreeAdapter;
 
 parse5.parse("<html>", {}); // $ExpectType Document
 parse5.parse("<html>", { sourceCodeLocationInfo: true }); // $ExpectType Document
@@ -69,8 +70,8 @@ const html = parse5.serialize(element);
 
 html; // $ExpectType string
 
-parse5.serialize(element, { treeAdapter: defaultAdapter });
-parse5.serialize(element, { treeAdapter: defaultAdapter });
+parse5.serialize(element, { treeAdapter: defaultAdapter }); // $ExpectType string
+parse5.serialize(element, { treeAdapter: defaultSerializerAdapter }); // $ExpectType string
 
 // Location info
 const loc = (element as parse5.DefaultTreeElement).sourceCodeLocation!;
