@@ -147,7 +147,7 @@ declare namespace later {
          * @param dateTo: The latest a valid instance can occur
          */
         next(numberOfInst: 1, dateFrom?: Date, dateTo?: Date): Date;
-        next(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        next(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
 
         /**
          * Finds the next valid range or ranges of the current schedule,
@@ -160,7 +160,7 @@ declare namespace later {
          * @param dateTo: The latest a valid range can occur
          */
         nextRange(numberOfInst: 1, dateFrom?: Date, dateTo?: Date): Date;
-        nextRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        nextRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
 
         /**
          * Finds the previous valid instance or instances of the current schedule,
@@ -173,7 +173,7 @@ declare namespace later {
          * @param dateTo: The latest a valid instance can occur
          */
         prev(numberOfInst: 1, dateFrom?: Date, dateTo?: Date): Date;
-        prev(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        prev(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
 
         /**
          * Finds the previous valid range or ranges of the current schedule,
@@ -186,7 +186,7 @@ declare namespace later {
          * @param dateTo: The latest a valid range can occur
          */
         prevRange(numberOfInst: 1, dateFrom?: Date, dateTo?: Date): Date;
-        prevRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        prevRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
     }
 
     interface RecurrenceBuilder extends ScheduleData {
