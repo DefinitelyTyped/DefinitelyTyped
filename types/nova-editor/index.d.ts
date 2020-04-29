@@ -24,12 +24,12 @@ type WritableStream = unknown;
 
 /// https://novadocs.panic.com/api-reference/assistants-registry/
 
-type Selector = string;
+type AssistantsRegistrySelector = string | { syntax: string };
 
 interface AssistantsRegistry {
-    registerColorAssistant(selector: Selector, object: ColorAssistant): Disposable;
-    registerCompletionAssistant(selector: Selector, object: CompletionAssistant): Disposable;
-    registerIssueAssistant(selector: Selector, object: IssueAssistant): Disposable;
+    registerColorAssistant(selector: AssistantsRegistrySelector, object: ColorAssistant): Disposable;
+    registerCompletionAssistant(selector: AssistantsRegistrySelector, object: CompletionAssistant): Disposable;
+    registerIssueAssistant(selector: AssistantsRegistrySelector, object: IssueAssistant): Disposable;
 }
 
 interface ColorAssistant {
