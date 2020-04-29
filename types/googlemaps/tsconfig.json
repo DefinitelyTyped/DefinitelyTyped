@@ -21,6 +21,7 @@
         "index.d.ts",
         "reference/coordinates.d.ts",
         "reference/event.d.ts",
+        "reference/control.d.ts",
         "googlemaps-tests.ts"
     ]
 }
