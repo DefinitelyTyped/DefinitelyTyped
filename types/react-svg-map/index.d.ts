@@ -1,4 +1,4 @@
-// Type definitions for react-svg-map 2.1.0
+// Type definitions for react-svg-map 2.1
 // Project: https://github.com/VictorCazanave/react-svg-map
 // Definitions by: Nick Glazer <https://github.com/nickglazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
