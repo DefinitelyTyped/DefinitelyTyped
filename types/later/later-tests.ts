@@ -588,18 +588,16 @@ function LaterTest_GenerateRecurences() {
 }
 
 function LaterTest_CalculateOccurences() {
-    // Initialise next variable.
-    let next: Date[] = [];
 
     // calculate the next 10 occurrences of a recur schedule
     const recurSched = later.parse.recur().last().dayOfMonth();
 
-    next = <Date[]> later.schedule(recurSched).next(10);
+    const nextMultiple: Date[] = later.schedule(recurSched).next(10);
 
     // calculate the previous occurrence starting from March 21, 2013
     const cronSched = later.parse.cron('0 0/5 14,18 * * ?');
 
-    next = <Date[]> later.schedule(cronSched).prev(1, new Date(2013, 2, 21));
+    const nextSingle: Date = later.schedule(cronSched).prev(1, new Date(2013, 2, 21));
 }
 
 function LaterTest_ExecuteCodeUsingSchedule() {
