@@ -28,7 +28,7 @@ amplify.publish("dataexample2", "bar", "baz");
 
 // Subscribe and publish with context and data
 
-amplify.subscribe("datacontextexample", $("p:first"), data => {
+amplify.subscribe("datacontextexample", $("p:first"), function (data) {
     this.text(data.exampleText); // first p element would have "foo bar baz" as text
 });
 
