@@ -1,6 +1,12 @@
-// Type definitions for pinyin-engine
+// Type definitions for pinyin-engine 1.1
 // Project: https://github.com/aui/pinyin-engine
-// Definitions by: xiongxiaoliang <https://github.com/xiongxiaoliang>
+// Definitions by: 王合亮 <https://github.com/xiongxiaoliang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'pinyin-engine';
+export = PinyinEngine;
+
+declare class PinyinEngine {
+    constructor(dataList?: Array<string | object>, keyList?: string[]);
+
+    query(val: string): string[];
+}
