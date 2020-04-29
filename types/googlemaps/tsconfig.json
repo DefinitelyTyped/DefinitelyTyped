@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
+        "reference/coordinates.d.ts",
         "reference/event.d.ts",
         "googlemaps-tests.ts"
     ]
