@@ -243,6 +243,7 @@ amplify.request({
     }
 });
 // Handling Status
+
 // Status in Success and Error Callbacks
 
 // amplify.request comes with built in support for status.The status parameter appears in the default success or error callbacks when using an ajax definition.
