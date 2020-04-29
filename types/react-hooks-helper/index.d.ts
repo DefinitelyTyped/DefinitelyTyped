@@ -10,14 +10,15 @@ export as namespace ReactHooksHelper;
 
 export interface NavigationProps {
     next: () => void;
-    previous?: () => void;
-    go?: (step: number | string) => void;
-    play?: () => void;
-    pause?: () => void;
+    previous: () => void;
+    go: (step: number | string) => void;
+    // play and pause are always returned though have no effect if autoAdvanceDuration is 0 (default)
+    play: () => void;
+    pause: () => void;
 }
 
 export interface UseStepParams {
-    initialStep?: number;
+    initialStep?: number | string;
     autoAdvanceDuration?: number;
     steps: string[] | number;
 }
@@ -26,7 +27,7 @@ export interface UseStepResponse {
     autoAdvanceDuration: number;
     isPaused: boolean;
     index: number;
-    step: number;
+    step: number | string;
     navigation: NavigationProps;
 }
 
