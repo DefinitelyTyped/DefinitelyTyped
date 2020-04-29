@@ -1,23 +1,19 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
-        "paths": {
-            "react-navigation": [
-                "react-navigation/v1"
-            ],
-            "react-navigation/*": [
-                "react-navigation/v1/*"
-            ],
-            "react-router": [ "react-router/v5"]
-        },
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
+        "paths": {
+            "react-router": [ "react-router/v5"],
+            "react-router-dom": [ "react-router-dom/v5"]
+        },
         "jsx": "react",
         "strictNullChecks": true,
         "strictFunctionTypes": true,
@@ -28,6 +24,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-router-navigation-tests.tsx"
+        "react-router-dom-tests.tsx"
     ]
 }

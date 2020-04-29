@@ -9,6 +9,9 @@
         "lib": [
             "es6"
         ],
+        "paths": {
+            "react-router": [ "react-router/v5"]
+        },
         "jsx": "react",
         "strictNullChecks": true,
         "strictFunctionTypes": true,

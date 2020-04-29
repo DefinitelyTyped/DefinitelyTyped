@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "module": "commonjs",
@@ -10,6 +10,9 @@
             "es6",
             "dom"
         ],
+        "paths": {
+            "react-router": [ "react-router/v5"]
+        },
         "jsx": "react",
         "strictNullChecks": true,
         "strictFunctionTypes": false,
@@ -38,7 +41,10 @@
         "test/hooks.tsx",
         "test/NavigateWithContext.tsx",
         "test/MemoryRouter.tsx",
+        "test/Prompt.tsx",
+        "test/Switch.tsx",
         "test/InheritingRoute.tsx",
+        "test/WithRouter.tsx",
         "test/RouterContext.tsx"
     ]
 }
