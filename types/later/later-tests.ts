@@ -588,7 +588,6 @@ function LaterTest_GenerateRecurences() {
 }
 
 function LaterTest_CalculateOccurences() {
-
     // calculate the next 10 occurrences of a recur schedule
     const recurSched = later.parse.recur().last().dayOfMonth();
 
