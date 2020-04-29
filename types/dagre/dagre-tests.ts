@@ -50,3 +50,14 @@ dagre.graphlib.alg.tarjam(gDagre);
 dagre.graphlib.alg.topsort(gDagre);
 
 const primGraph: Graph<ZIndex> = dagre.graphlib.alg.prim(gDagre);
+
+const node: dagre.Node = { x: 0, y: 0, width: 0, height: 0 };
+// Test optional properties of base Node:
+node.class = "";
+node.label = "";
+node.padding = 0;
+node.paddingX = 0;
+node.paddingY = 0;
+node.rx = 0;
+node.ry = 0;
+node.shape = "";

@@ -122,4 +122,12 @@ export type Node<T = {}> = T & {
     y: number;
     width: number;
     height: number;
+    class?: string;
+    label?: string;
+    padding?: number;
+    paddingX?: number;
+    paddingY?: number;
+    rx?: number;
+    ry?: number;
+    shape?: string;
 };
