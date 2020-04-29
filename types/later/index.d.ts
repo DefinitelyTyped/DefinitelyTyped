@@ -146,7 +146,8 @@ declare namespace later {
          * @param dateFrom: The earliest a valid instance can occur
          * @param dateTo: The latest a valid instance can occur
          */
-        next(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
+        next(numberOfInst: 1, dateFrom?: Date, dateTo?: Date): Date;
+        next(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
 
         /**
          * Finds the next valid range or ranges of the current schedule,
@@ -158,7 +159,8 @@ declare namespace later {
          * @param dateFrom: The earliest a valid range can occur
          * @param dateTo: The latest a valid range can occur
          */
-        nextRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
+        nextRange(numberOfInst: 1, dateFrom?: Date, dateTo?: Date): Date;
+        nextRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
 
         /**
          * Finds the previous valid instance or instances of the current schedule,
@@ -170,7 +172,8 @@ declare namespace later {
          * @param dateFrom: The earliest a valid instance can occur
          * @param dateTo: The latest a valid instance can occur
          */
-        prev(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
+        prev(numberOfInst: 1, dateFrom?: Date, dateTo?: Date): Date;
+        prev(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
 
         /**
          * Finds the previous valid range or ranges of the current schedule,
@@ -182,7 +185,8 @@ declare namespace later {
          * @param dateFrom: The earliest a valid range can occur
          * @param dateTo: The latest a valid range can occur
          */
-        prevRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
+        prevRange(numberOfInst: 1, dateFrom?: Date, dateTo?: Date): Date;
+        prevRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
     }
 
     interface RecurrenceBuilder extends ScheduleData {
