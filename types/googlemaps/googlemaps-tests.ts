@@ -750,9 +750,13 @@ const placeResult = autocomplete.getPlace();
 placeResult.name; // $ExpectType string
 
 /***** google.maps.places.AutocompleteService *****/
-new google.maps.places.AutocompleteService().getPlacePredictions({ input: 'Kyiv, Ukr' }, result => {
-    result[0].structured_formatting.secondary_text_matched_substrings; // $ExpectType PredictionSubstring[] | undefined
-});
+new google.maps.places.AutocompleteService().getPlacePredictions(
+    { input: 'Kyiv, Ukr', origin: { lat: 50.4021368, lng: 30.252522 } },
+    result => {
+        result[0].distance_meters; // $ExpectType number | undefined
+        result[0].structured_formatting.secondary_text_matched_substrings; // $ExpectType PredictionSubstring[] | undefined
+    },
+);
 
 /***** google.maps.ImageMapType *****/
 const imageMapType = new google.maps.ImageMapType({
