@@ -617,6 +617,7 @@ declare class TextEditor {
     selectToEndOfWord(): void;
     scrollToCursorPosition(): void;
     scrollToPosition(position: number): void;
+    symbolAtPosition(position: number): NovaSymbol | null;
     symbolsForSelectedRanges(): ReadonlyArray<NovaSymbol | null>;
 }
 
