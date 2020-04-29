@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "jest-diff": "^25.2.1",
-        "pretty-format": "^25.2.1"
+        "@jest/globals": "^25.5.2"
     }
 }
