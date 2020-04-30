@@ -1310,7 +1310,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
     interface LinkParams {
         // Link
         labelField?: string;
-        label?: string;
+        label?: string | ((cell: CellComponent) => string);
         urlPrefix?: string;
         urlField?: string;
         url?: string;
