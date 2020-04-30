@@ -72,6 +72,11 @@ declare namespace Rellax {
          * Do we want rellax element to be relative to the mentioned wrapper.
          */
         relativeToWrapper?: boolean;
+
+        /**
+         * Each breakpoint value represents the resolution for mobile, tablet, desktop respectively.
+         */
+        breakpoints?: [number, number, number];
     }
 }
 
