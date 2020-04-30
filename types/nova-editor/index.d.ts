@@ -128,7 +128,7 @@ declare enum CompletionItemKind {
 /// https://novadocs.panic.com/api-reference/composite-disposable/
 
 declare class CompositeDisposable extends Disposable {
-    private constructor();
+    constructor();
 
     add(object: Disposable): void;
     remove(object: Disposable): void;
@@ -397,8 +397,8 @@ declare class LanguageClient {
     readonly name: string;
     readonly running: boolean;
 
-    onNotification(method: string, callback: (parameters: unknown) => void): void;
-    onRequest(method: string, callback: (parameters: unknown) => unknown | Promise<unknown>): void;
+    onNotification(method: string, callback: (parameters: any) => void): void;
+    onRequest(method: string, callback: (parameters: any) => unknown | Promise<unknown>): void;
     sendRequest(method: string, parameters?: unknown): Promise<unknown>;
     sendNotification(method: string, parameters?: unknown): void;
     start(): void;
@@ -632,7 +632,7 @@ interface TextEditorEdit {
 /// https://novadocs.panic.com/api-reference/tree-data-provider/
 
 interface TreeDataProvider<E> {
-    getChildren(element: E): E[] | Promise<E[]>;
+    getChildren(element: E | null): E[] | Promise<E[]>;
     getParent?(element: E): E;
     getTreeItem(element: E): TreeItem;
 }
@@ -662,7 +662,7 @@ declare enum TreeItemCollapsibleState {
 /// https://novadocs.panic.com/api-reference/tree-view/
 
 declare class TreeView<E> extends Disposable {
-    constructor(identifier: string, options: { dataProvider: TreeDataProvider<E> });
+    constructor(identifier: string, options?: { dataProvider: TreeDataProvider<E> });
 
     readonly visible: boolean;
     readonly selection: E[];
@@ -672,7 +672,7 @@ declare class TreeView<E> extends Disposable {
     onDidExpandElement(callback: (element: E) => void): Disposable;
     onDidCollapseElement(callback: (element: E) => void): Disposable;
     reload(element?: E | null): Promise<void>;
-    reveal(element: E, options: { select?: boolean; focus?: boolean; reveal: number }): void;
+    reveal(element: E | null, options?: { select?: boolean; focus?: boolean; reveal?: number }): void;
 }
 
 /// https://novadocs.panic.com/api-reference/workspace/
