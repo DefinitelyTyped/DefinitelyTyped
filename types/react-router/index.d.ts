@@ -158,9 +158,9 @@ export function withRouter<P extends RouteComponentProps<any>, C extends React.C
 
 export const __RouterContext: React.Context<RouteComponentProps>;
 
-export function useHistory<HistoryLocationState = H.LocationState>(): H.History<HistoryLocationState>;
+export function useHistory<HistoryLocationState = H.LocationState, History = H.History<HistoryLocationState>>(): History;
 
-export function useLocation<S = H.LocationState>(): H.Location<S>;
+export function useLocation<S = H.LocationState, Location = H.Location<S>>(): Location;
 
 export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): Params;
 
