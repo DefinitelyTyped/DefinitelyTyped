@@ -110,7 +110,7 @@ export type GraphEventCallbacks = {
 export type GraphProps = {
     id: string;
     data?: GraphData;
-    config?: GraphConfiguration;
+    config?: Partial<GraphConfiguration>;
 } & Partial<GraphEventCallbacks>;
 
 export class Graph extends Component<GraphProps, any> {
