@@ -41,6 +41,9 @@ export interface ReactMicProps {
     /** Callback that is executed when chunk of audio is available */
     onData?: (recordedData: Blob) => void;
 
+    /** defaults -> "audio/webm".  Set to "audio/wav" for WAV or "audio/mp3" for MP3 audio format (available in React-Mic-Gold) */
+    mimeType?: 'audio/webm' | 'audio/wav';
+
     /** Sound wave color */
     strokeColor?: string;
 
