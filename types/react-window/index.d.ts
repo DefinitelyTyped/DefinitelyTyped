@@ -428,7 +428,7 @@ export class FixedSizeGrid extends Component<FixedSizeGridProps> {
     /**
      * Scroll to the specified offsets.
      */
-    scrollTo(params: { scrollLeft: number; scrollTop: number }): void;
+    scrollTo(params: { scrollLeft?: number; scrollTop?: number }): void;
     /**
      * Scroll to the specified item.
      *
