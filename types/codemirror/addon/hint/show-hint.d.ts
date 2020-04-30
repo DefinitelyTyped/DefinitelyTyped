@@ -1,4 +1,4 @@
-// Type definitions for CodeMirror
+// Type definitions for codemirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: jacqt <https://github.com/jacqt>
 //                 basarat <https://github.com/basarat>
@@ -61,8 +61,8 @@ declare module "codemirror" {
         closeOnUnfocus?: boolean;
         completeOnSingleClick?: boolean;
         container?: HTMLElement | null;
-        customKeys?: {[x: string]: () => void} | null;
-        extraKeys?: {[x: string]: () => void} | null;
+        customKeys?: {[key: string]: ((editor: Editor, handle: Handle) => void) | string} | null;
+        extraKeys?: {[key: string]: ((editor: Editor, handle: Handle) => void) | string} | null;
     }
 
     /** The Handle used to interact with the autocomplete dialog box.*/

@@ -1,4 +1,4 @@
-// Type definitions for newrelic 6.2
+// Type definitions for newrelic 6.4
 // Project: http://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
@@ -6,6 +6,7 @@
 //                 Kyle Scully <https://github.com/zieka>
 //                 Kenneth Aasan <https://github.com/kennethaasan>
 //                 Jon Flaishans <https://github.com/funkswing>
+//                 Dylan Smith <https://github.com/dylansmith>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
@@ -337,7 +338,7 @@ export const instrumentMessages: Instrument;
  */
 export function shutdown(cb?: (error?: Error) => void): void;
 export function shutdown(
-    options?: { collectPendingData?: boolean; timeout?: number },
+    options?: { collectPendingData?: boolean; timeout?: number; waitForIdle?: boolean },
     cb?: (error?: Error) => void,
 ): void;
 
@@ -407,6 +408,13 @@ export interface TransactionHandle {
      * Parses incoming distributed trace header payload.
      */
     acceptDistributedTracePayload(payload: DistributedTracePayload): void;
+
+    /**
+     * Inserts distributed trace headers into the provided headers map.
+     */
+    insertDistributedTraceHeaders(headers: {
+        [header: string]: number | string | string[] | undefined;
+    }): void;
 }
 
 export interface LinkingMetadata {

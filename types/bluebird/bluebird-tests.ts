@@ -1,4 +1,4 @@
-// Tests by: Bart van der Schoor <https://github.com/Bartvds>, thislooksfun <https://github.com/thislooksfun>
+// Tests by: Bart van der Schoor <https://github.com/Bartvds>
 
 // Note: replicate changes to all overloads in both definition and test file
 // Note: keep both static and instance members inline (so similar)

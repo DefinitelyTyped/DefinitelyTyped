@@ -23,6 +23,7 @@ declare module '@keystonejs/app-graphql' {
         schemaName?: string;
         apollo?: {
             validationRules?: [];
+            introspection?: boolean;
         };
     }
 

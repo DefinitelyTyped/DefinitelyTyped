@@ -20,6 +20,7 @@ concurrently(
 concurrently(['npm:watch-*', { command: 'nodemon', name: 'server' }], {
     prefix: 'name',
     killOthers: ['failure', 'success'],
+    maxProcesses: 2,
     restartTries: 3,
 }).then(
     results => {},

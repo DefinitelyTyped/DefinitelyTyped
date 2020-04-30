@@ -6,6 +6,7 @@
 /// <reference types="node" />
 
 export const HANDTYPES: HandName[];
+export const CARDS: Deck;
 export const ranks: Buffer;
 
 export function evalHand(cards: string[]): EvaluatedHand;

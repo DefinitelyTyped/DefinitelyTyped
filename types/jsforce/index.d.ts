@@ -9,8 +9,9 @@
 //                 Andrés Catalán <https://github.com/catalandres>
 //                 Ken Human <https://github.com/kenhuman>
 //                 Doug Ayers <https://github.com/douglascayers>
+//                 Arlo Godfrey <https://github.com/Arlodotexe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.7
 
 export * from './api/analytics';
 export * from './api/apex';

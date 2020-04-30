@@ -1,9 +1,9 @@
-// Type definitions for jest-image-snapshot 2.11
+// Type definitions for jest-image-snapshot 2.12
 // Project: https://github.com/americanexpress/jest-image-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 //                 erbridge <https://github.com/erbridge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
 
 /// <reference types="jest" />
 
@@ -48,6 +48,11 @@ export interface MatchImageSnapshotOptions {
      * Changes diff image layout direction, default is horizontal.
      */
     diffDirection?: 'horizontal' | 'vertical';
+    /**
+     * Will output base64 string of a diff image to console in case of failed tests (in addition to creating a diff image).
+     * This string can be copy-pasted to a browser address string to preview the diff for a failed test.
+     */
+    dumpDiffToConsole?: boolean;
     /**
      * Removes coloring from the console output, useful if storing the results to a file.
      * Defaults to false.

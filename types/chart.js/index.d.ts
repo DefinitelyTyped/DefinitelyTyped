@@ -24,6 +24,8 @@
 //                 Oscar Cabrera <https://github.com/mrjack88>
 //                 Carlos Anoceto <https://github.com/canoceto>
 //                 Nobuhiko Futagami <https://github.com/nobu222>
+//                 Marco Ru <https://github.com/Marcoru97>
+//                 Tony Liu <https://github.com/tonybadguy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -47,6 +49,7 @@ declare class Chart {
     generateLegend: () => {};
     getElementAtEvent: (e: any) => [{}];
     getElementsAtEvent: (e: any) => Array<{}>;
+    getElementsAtXAxis: (e: any) => Array<{}>;
     getDatasetAtEvent: (e: any) => Array<{}>;
     getDatasetMeta: (index: number) => Meta;
     ctx: CanvasRenderingContext2D | null;
@@ -370,26 +373,33 @@ declare namespace Chart {
     }
 
     interface ChartTooltipModel {
+        afterBody: string[];
         backgroundColor: string;
+        beforeBody: string[];
         body: ChartTooltipModelBody[];
         bodyFontColor: string;
         bodyFontSize: number;
         bodySpacing: number;
         borderColor: string;
         borderWidth: number;
+        caretPadding: number;
         caretSize: number;
         caretX: number;
         caretY: number;
         cornerRadius: number;
         dataPoints: ChartTooltipItem[];
         displayColors: boolean;
+        footer: string[];
         footerFontColor: string;
         footerFontSize: number;
         footerMarginTop: number;
         footerSpacing: number;
         height: number;
+        labelColors: string[];
+        labelTextColors: string[];
         legendColorBackground: string;
         opacity: number;
+        title: string[];
         titleFontColor: string;
         titleFontSize: number;
         titleMarginBottom: number;
@@ -434,6 +444,7 @@ declare namespace Chart {
         mode?: InteractionMode;
         animationDuration?: number;
         intersect?: boolean;
+        axis?: 'x' | 'y' | 'xy';
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
     }
 
@@ -554,7 +565,10 @@ declare namespace Chart {
         backdropPaddingX?: number;
         backdropPaddingY?: number;
         beginAtZero?: boolean;
-        callback?(value: any, index: any, values: any): string | number;
+        /**
+         * If the callback returns null or undefined the associated grid line will be hidden.
+         */
+        callback?(value: number | string, index: number, values: number[] | string[]): string | number | null | undefined;
         display?: boolean;
         fontColor?: ChartColor;
         fontFamily?: string;
@@ -640,7 +654,7 @@ declare namespace Chart {
         borderJoinStyle?: 'bevel' | 'round' | 'miter';
         borderSkipped?: PositionType | PositionType[] | Scriptable<PositionType>;
         categoryPercentage?: number;
-        data?: Array<number | null | undefined> | ChartPoint[];
+        data?: Array<number | null | undefined | number[]> | ChartPoint[];
         fill?: boolean | number | string;
         hitRadius?: number | number[] | Scriptable<number>;
         hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
@@ -710,7 +724,7 @@ declare namespace Chart {
         afterUpdate?(scale?: any): void;
         afterSetDimension?(scale?: any): void;
         afterDataLimits?(scale?: any): void;
-        afterBuildTicks?(scale?: any): void;
+        afterBuildTicks?(scale: any, ticks: number[]): number[];
         afterTickToLabelConversion?(scale?: any): void;
         afterCalculateTickRotation?(scale?: any): void;
         afterFit?(scale?: any): void;

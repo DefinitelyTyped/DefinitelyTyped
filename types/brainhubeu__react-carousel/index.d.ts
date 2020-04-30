@@ -1,6 +1,7 @@
-// Type definitions for @brainhubeu/react-carousel 1.10
+// Type definitions for @brainhubeu/react-carousel 1.13
 // Project: https://github.com/brainhubeu/react-carousel
 // Definitions by: Jack Allen <https://github.com/jackall3n>
+//                Jeff Wen <https://github.com/sinchang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -13,6 +14,7 @@ export interface DotsProps {
     thumbnails?: ImgProps[];
     value?: number;
     onChange?(value: number): void;
+    rtl?: boolean;
 }
 
 export class Dots extends React.Component<DotsProps> {
@@ -40,6 +42,7 @@ export interface CarouselProps {
     animationSpeed?: number;
     dots?: boolean;
     breakpoints?: any;
+    rtl?: boolean;
 }
 
 export default class extends React.Component<CarouselProps> {

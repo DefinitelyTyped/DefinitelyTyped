@@ -13,6 +13,15 @@ export function compose(
     dx2: number,
     dy2: number,
 ): Transform;
+export function composeCssTransform(
+    dx1: number,
+    dy1: number,
+    sx: number,
+    sy: number,
+    angle: number,
+    dx2: number,
+    dy2: number,
+): string;
 export function create(): Transform;
 export function determinant(mat: Transform): number;
 export function invert(source: Transform): Transform;

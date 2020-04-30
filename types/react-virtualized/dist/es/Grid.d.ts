@@ -2,7 +2,7 @@ import { Validator, Requireable, PureComponent, Component } from 'react';
 import { List } from './List';
 import { Table } from './Table';
 import { CellMeasurerCache, MeasuredCellParent } from './CellMeasurer';
-import { Index, Map, Alignment } from '../../index';
+import { Index, Map, Alignment, OverscanIndexRange } from '../../index';
 
 export type RenderedSection = {
     columnOverscanStartIndex: number;
@@ -70,10 +70,9 @@ export type OverscanIndicesGetterParams = {
     startIndex: number;
     stopIndex: number;
 };
-export type OverscanIndices = {
-    overscanStartIndex: number;
-    overscanStopIndex: number;
-};
+
+export type OverscanIndices = OverscanIndexRange;
+
 export type OverscanIndicesGetter = (params: OverscanIndicesGetterParams) => OverscanIndices;
 
 export type ScrollOffset = {

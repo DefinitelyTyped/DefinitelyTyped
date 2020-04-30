@@ -1,4 +1,4 @@
-// Type definitions for Dot-Object 1.7
+// Type definitions for Dot-Object 2.1
 // Project: https://github.com/rhalff/dot-object
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -99,7 +99,7 @@ declare namespace DotObject {
          * @param {Object} obj
          * @param {Object} mods
          */
-        object(obj: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
+        object(obj: object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): object;
         /**
          *
          * Pick a value from an object using dot notation.

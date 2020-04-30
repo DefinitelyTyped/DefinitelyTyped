@@ -167,9 +167,11 @@
         "test/path-tests.ts",
         "test/pathEq-tests.ts",
         "test/pathOr-tests.ts",
+        "test/paths-tests.ts",
         "test/pathSatisfies-tests.ts",
         "test/pick-tests.ts",
         "test/pickAll-tests.ts",
-        "test/pickBy-tests.ts"
+        "test/pickBy-tests.ts",
+        "test/propEq-tests.ts"
     ]
 }

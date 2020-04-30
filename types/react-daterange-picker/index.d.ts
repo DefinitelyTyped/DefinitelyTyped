@@ -4,6 +4,7 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Donald Ford <https://github.com/donaldtf>
 //                 Vlad Florescu <https://github.com/vladflorescu94>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -14,9 +15,13 @@ import * as momentRange from 'moment-range';
 export default class DateRangePicker extends React.Component<Props> {}
 export as namespace ReactDateRangePicker;
 
+/**
+ * see {@link https://github.com/onefinestay/react-daterange-picker#available-props}
+ */
 export interface BaseProps<T = DateRangePicker> extends React.Props<T> {
     bemBlock?: string;
     bemNamespace?: string;
+    className?: string;
     dateStates?: DateState[];
     defaultState?: string;
     disableNavigation?: boolean;
@@ -28,6 +33,10 @@ export interface BaseProps<T = DateRangePicker> extends React.Props<T> {
     initialMonth?: number;
     initialYear?: number;
     initialRange?: {};
+    /**
+     * @default moment().locale()
+     */
+    locale?: string;
     maximumDate?: Date;
     minimumDate?: Date;
     numberOfCalendars?: number;

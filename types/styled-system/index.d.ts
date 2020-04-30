@@ -18,6 +18,8 @@
 //                 Craig Michael Thompson <https://github.com/craga89>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
 //                 Hammad Jutt <https://github.com/hammadj>
+//                 Dhruv Jain <https://github.com/maddhruv>
+//                 Jeffrey Cherewaty <https://github.com/cherewaty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -58,7 +60,7 @@ export type RequiredTheme = Required<Theme>;
 export type ResponsiveValue<
     T,
     ThemeType extends Theme = RequiredTheme,
-    > = T | Array<T | null> | { [key in ThemeValue<'breakpoints', ThemeType> & string | number]?: T };
+    > = T | null | Array<T | null> | { [key in ThemeValue<'breakpoints', ThemeType> & string | number]?: T };
 
 export type ThemeValue<K extends keyof ThemeType, ThemeType, TVal = any> =
     ThemeType[K] extends TVal[] ? number :
@@ -228,7 +230,9 @@ export interface MarginProps<ThemeType extends Theme = RequiredTheme>
     | 'mr'
     | 'marginRight'
     | 'my'
-    | 'mx'> {
+    | 'marginY'
+    | 'mx'
+    | 'marginX'> {
 }
 
 export interface MarginTopProps<ThemeType extends Theme = RequiredTheme> extends Pick<SpaceProps<ThemeType>, 'mt' | 'marginTop'> {
@@ -262,7 +266,9 @@ export interface PaddingProps<ThemeType extends Theme = RequiredTheme>
     | 'pr'
     | 'paddingRight'
     | 'py'
-    | 'px'> {
+    | 'paddingY'
+    | 'px'
+    | 'paddingX'> {
 }
 
 export interface PaddingTopProps<ThemeType extends Theme = RequiredTheme> extends Pick<SpaceProps<ThemeType>, 'pt' | 'paddingTop'> {
@@ -1188,7 +1194,7 @@ export interface OpacityProps<ThemeType extends Theme = RequiredTheme> {
      *
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/opacity)
      */
-    opacity?: ResponsiveValue<CSS.OpacityProperty, ThemeType>;
+    opacity?: ResponsiveValue<CSS.GlobalsNumber, ThemeType>;
 }
 
 export const opacity: styleFn;

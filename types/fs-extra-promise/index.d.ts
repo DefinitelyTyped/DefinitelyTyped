@@ -71,6 +71,7 @@ export function readAsync(fd: number, buffer: Buffer, offset: number, length: nu
 export function readFileAsync(filename: string, options: string | ReadOptions): Promise<string>;
 export function readFileAsync(filename: string): Promise<Buffer>;
 export function writeFileAsync(filename: string, data: any, options?: string | WriteOptions): Promise<void>;
+export function mkdtempAsync(prefix: string, options: string | {encoding: string}): Promise<string>;
 export function appendFileAsync(filename: string, data: any, option?: string | WriteOptions): Promise<void>;
 
 export function existsAsync(path: string): Promise<boolean>;

@@ -1,11 +1,11 @@
-// Type definitions for ol 6.1
+// Type definitions for ol 6.3
 // Project: https://github.com/openlayers/openlayers, https://openlayers.org
 // Definitions by: Rifa'i M. Hanif <https://github.com/hanreev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 // Minimum TypeScript Version: 3.1
 
-// These definitions was generated using jsdoc. See https://github.com/hanreev/types-ol
+// These definitions is generated using jsdoc. See https://github.com/hanreev/types-ol
 
 export { default as AssertionError } from './AssertionError';
 export { default as Collection } from './Collection';

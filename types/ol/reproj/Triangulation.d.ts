@@ -13,6 +13,7 @@ export default class Triangulation {
         targetExtent: Extent,
         maxSourceExtent: Extent,
         errorThreshold: number,
+        opt_destinationResolution: number,
     );
     calculateSourceExtent(): Extent;
     getTriangles(): Triangle[];

@@ -1,7 +1,7 @@
 // Type definitions for prompts 2.0
 // Project: https://github.com/terkelg/prompts
 // Definitions by: Berkay GURSOY <https://github.com/Berkays>
-//                 Daniel Perez Alvarez <https://github.com/danielpa9708>
+//                 Daniel Perez Alvarez <https://github.com/unindented>
 //                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
 //                 theweirdone <https://github.com/theweirdone>
 //                 whoaa512 <https://github.com/whoaa512>
@@ -59,6 +59,7 @@ declare namespace prompts {
         title: string;
         value: any;
         disable?: boolean;
+        description?: string;
     }
 
     interface Options {
@@ -80,7 +81,7 @@ declare namespace prompts {
         float?: boolean;
         round?: number;
         increment?: number;
-        seperator?: string;
+        separator?: string;
         active?: string;
         inactive?: string;
         choices?: Choice[];

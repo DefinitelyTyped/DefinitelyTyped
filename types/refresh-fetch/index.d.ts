@@ -12,7 +12,7 @@ export function configureRefreshFetch<T>(
     shouldRefreshToken: (error: any) => boolean;
   }): T;
 
-export function fetchJSON<ResponseBody>(url: string | Request | URL, options?: object): Promise<{
+export function fetchJSON<ResponseBody>(url: string | Request | URL, options?: RequestInit): Promise<{
   /* tslint:disable-next-line no-unnecessary-generics */
   body: ResponseBody;
   response: Response;

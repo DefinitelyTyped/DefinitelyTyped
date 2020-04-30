@@ -19,20 +19,20 @@ declare module "fs" {
         isFIFO(): boolean;
         isSocket(): boolean;
 
-        dev: number;
-        ino: number;
-        mode: number;
-        nlink: number;
-        uid: number;
-        gid: number;
-        rdev: number;
-        size: number;
-        blksize: number;
-        blocks: number;
-        atimeMs: number;
-        mtimeMs: number;
-        ctimeMs: number;
-        birthtimeMs: number;
+        dev: T;
+        ino: T;
+        mode: T;
+        nlink: T;
+        uid: T;
+        gid: T;
+        rdev: T;
+        size: T;
+        blksize: T;
+        blocks: T;
+        atimeMs: T;
+        mtimeMs: T;
+        ctimeMs: T;
+        birthtimeMs: T;
         atime: Date;
         mtime: Date;
         ctime: Date;
@@ -134,62 +134,131 @@ declare module "fs" {
         close(): void;
         bytesRead: number;
         path: string | Buffer;
+        pending: boolean;
 
         /**
          * events.EventEmitter
          *   1. open
          *   2. close
+         *   3. ready
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "open", listener: (fd: number) => void): this;
         addListener(event: "close", listener: () => void): this;
+        addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+        addListener(event: "end", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "open", listener: (fd: number) => void): this;
+        addListener(event: "pause", listener: () => void): this;
+        addListener(event: "readable", listener: () => void): this;
+        addListener(event: "ready", listener: () => void): this;
+        addListener(event: "resume", listener: () => void): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "open", listener: (fd: number) => void): this;
         on(event: "close", listener: () => void): this;
+        on(event: "data", listener: (chunk: Buffer | string) => void): this;
+        on(event: "end", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "open", listener: (fd: number) => void): this;
+        on(event: "pause", listener: () => void): this;
+        on(event: "readable", listener: () => void): this;
+        on(event: "ready", listener: () => void): this;
+        on(event: "resume", listener: () => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "open", listener: (fd: number) => void): this;
         once(event: "close", listener: () => void): this;
+        once(event: "data", listener: (chunk: Buffer | string) => void): this;
+        once(event: "end", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "open", listener: (fd: number) => void): this;
+        once(event: "pause", listener: () => void): this;
+        once(event: "readable", listener: () => void): this;
+        once(event: "ready", listener: () => void): this;
+        once(event: "resume", listener: () => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "open", listener: (fd: number) => void): this;
         prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+        prependListener(event: "end", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "open", listener: (fd: number) => void): this;
+        prependListener(event: "pause", listener: () => void): this;
+        prependListener(event: "readable", listener: () => void): this;
+        prependListener(event: "ready", listener: () => void): this;
+        prependListener(event: "resume", listener: () => void): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "open", listener: (fd: number) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+        prependOnceListener(event: "end", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "open", listener: (fd: number) => void): this;
+        prependOnceListener(event: "pause", listener: () => void): this;
+        prependOnceListener(event: "readable", listener: () => void): this;
+        prependOnceListener(event: "ready", listener: () => void): this;
+        prependOnceListener(event: "resume", listener: () => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     class WriteStream extends stream.Writable {
         close(): void;
         bytesWritten: number;
         path: string | Buffer;
+        pending: boolean;
 
         /**
          * events.EventEmitter
          *   1. open
          *   2. close
+         *   3. ready
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "open", listener: (fd: number) => void): this;
         addListener(event: "close", listener: () => void): this;
+        addListener(event: "drain", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "finish", listener: () => void): this;
+        addListener(event: "open", listener: (fd: number) => void): this;
+        addListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        addListener(event: "ready", listener: () => void): this;
+        addListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "open", listener: (fd: number) => void): this;
         on(event: "close", listener: () => void): this;
+        on(event: "drain", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "finish", listener: () => void): this;
+        on(event: "open", listener: (fd: number) => void): this;
+        on(event: "pipe", listener: (src: stream.Readable) => void): this;
+        on(event: "ready", listener: () => void): this;
+        on(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "open", listener: (fd: number) => void): this;
         once(event: "close", listener: () => void): this;
+        once(event: "drain", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "finish", listener: () => void): this;
+        once(event: "open", listener: (fd: number) => void): this;
+        once(event: "pipe", listener: (src: stream.Readable) => void): this;
+        once(event: "ready", listener: () => void): this;
+        once(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "open", listener: (fd: number) => void): this;
         prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "drain", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "finish", listener: () => void): this;
+        prependListener(event: "open", listener: (fd: number) => void): this;
+        prependListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        prependListener(event: "ready", listener: () => void): this;
+        prependListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "open", listener: (fd: number) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "drain", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "finish", listener: () => void): this;
+        prependOnceListener(event: "open", listener: (fd: number) => void): this;
+        prependOnceListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: "ready", listener: () => void): this;
+        prependOnceListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     /**
@@ -786,14 +855,15 @@ declare module "fs" {
     interface MakeDirectoryOptions {
         /**
          * Indicates whether parent folders should be created.
+         * If a folder was created, the path to the first created folder will be returned.
          * @default false
          */
         recursive?: boolean;
         /**
          * A file mode. If a string is passed, it is parsed as an octal integer. If not specified
-         * @default 0o777.
+         * @default 0o777
          */
-        mode?: number;
+        mode?: number | string;
     }
 
     /**
@@ -802,7 +872,23 @@ declare module "fs" {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdir(path: PathLike, options: number | string | MakeDirectoryOptions | undefined | null, callback: NoParamCallback): void;
+    function mkdir(path: PathLike, options: MakeDirectoryOptions & { recursive: true }, callback: (err: NodeJS.ErrnoException | null, path: string) => void): void;
+
+    /**
+     * Asynchronous mkdir(2) - create a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+     * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     */
+    function mkdir(path: PathLike, options: number | string | (MakeDirectoryOptions & { recursive?: false; }) | null | undefined, callback: NoParamCallback): void;
+
+    /**
+     * Asynchronous mkdir(2) - create a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+     * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     */
+    function mkdir(path: PathLike, options: number | string | MakeDirectoryOptions | null | undefined, callback: (err: NodeJS.ErrnoException | null, path: string | undefined) => void): void;
 
     /**
      * Asynchronous mkdir(2) - create a directory with a mode of `0o777`.
@@ -818,7 +904,23 @@ declare module "fs" {
          * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
          * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function __promisify__(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<void>;
+        function __promisify__(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): Promise<string>;
+
+        /**
+         * Asynchronous mkdir(2) - create a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+         * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         */
+        function __promisify__(path: PathLike, options?: number | string | (MakeDirectoryOptions & { recursive?: false; }) | null): Promise<void>;
+
+        /**
+         * Asynchronous mkdir(2) - create a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+         * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         */
+        function __promisify__(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<string | undefined>;
     }
 
     /**
@@ -827,7 +929,23 @@ declare module "fs" {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdirSync(path: PathLike, options?: number | string | MakeDirectoryOptions | null): void;
+    function mkdirSync(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): string;
+
+    /**
+     * Synchronous mkdir(2) - create a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+     * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     */
+    function mkdirSync(path: PathLike, options?: number | string | (MakeDirectoryOptions & { recursive?: false; }) | null): void;
+
+    /**
+     * Synchronous mkdir(2) - create a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+     * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     */
+    function mkdirSync(path: PathLike, options?: number | string | MakeDirectoryOptions | null): string | undefined;
 
     /**
      * Asynchronously creates a unique temporary directory.
@@ -1286,6 +1404,21 @@ declare module "fs" {
         ): Promise<{ bytesRead: number, buffer: TBuffer }>;
     }
 
+    interface ReadSyncOptions {
+        /**
+         * @default 0
+         */
+        offset?: number;
+        /**
+         * @default `length of buffer`
+         */
+        length?: number;
+        /**
+         * @default null
+         */
+        position?: number | null;
+    }
+
     /**
      * Synchronously reads data from the file referenced by the supplied file descriptor, returning the number of bytes read.
      * @param fd A file descriptor.
@@ -1295,6 +1428,12 @@ declare module "fs" {
      * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
      */
     function readSync(fd: number, buffer: NodeJS.ArrayBufferView, offset: number, length: number, position: number | null): number;
+
+    /**
+     * Similar to the above `fs.readSync` function, this version takes an optional `options` object.
+     * If no `options` object is specified, it will default with the above values.
+     */
+    function readSync(fd: number, buffer: NodeJS.ArrayBufferView, opts?: ReadSyncOptions): number;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -1933,6 +2072,32 @@ declare module "fs" {
      */
     function writevSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
 
+    function readv(
+        fd: number,
+        buffers: NodeJS.ArrayBufferView[],
+        cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void
+    ): void;
+    function readv(
+        fd: number,
+        buffers: NodeJS.ArrayBufferView[],
+        position: number,
+        cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void
+    ): void;
+
+    interface ReadVResult {
+        bytesRead: number;
+        buffers: NodeJS.ArrayBufferView[];
+    }
+
+    namespace readv {
+        function __promisify__(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
+    }
+
+    /**
+     * See `readv`.
+     */
+    function readvSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
+
     interface OpenDirOptions {
         encoding?: BufferEncoding;
         /**
@@ -2085,6 +2250,11 @@ declare module "fs" {
             writev(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
 
             /**
+             * See `fs.readv` promisified version.
+             */
+            readv(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
+
+            /**
              * Asynchronous close(2) - close a `FileHandle`.
              */
             close(): Promise<void>;
@@ -2209,7 +2379,23 @@ declare module "fs" {
          * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
          * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function mkdir(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<void>;
+        function mkdir(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): Promise<string>;
+
+        /**
+         * Asynchronous mkdir(2) - create a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+         * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         */
+        function mkdir(path: PathLike, options?: number | string | (MakeDirectoryOptions & { recursive?: false; }) | null): Promise<void>;
+
+        /**
+         * Asynchronous mkdir(2) - create a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+         * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         */
+        function mkdir(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<string | undefined>;
 
         /**
          * Asynchronous readdir(3) - read a directory.

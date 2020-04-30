@@ -103,7 +103,7 @@ export interface AmqpConnectionManager extends EventEmitter {
 	 * Create a new ChannelWrapper. This is a proxy for the actual channel (which may or may not exist at any moment, depending on whether or not we are currently connected.)
 	 * @param opts
 	 */
-	createChannel(opts: CreateChannelOpts): ChannelWrapper;
+	createChannel(opts?: CreateChannelOpts): ChannelWrapper;
 
 	/**
 	 * Returns true if the AmqpConnectionManager is connected to a broker, false otherwise.
@@ -206,4 +206,9 @@ export interface ChannelWrapper extends EventEmitter {
 	 * Close a channel, clean up resources associated with it.
 	 */
 	close(): Promise<void>;
+
+	/**
+	 * Returns a Promise which resolves when this channel next connects.
+	 */
+	waitForConnect(): Promise<void>;
 }

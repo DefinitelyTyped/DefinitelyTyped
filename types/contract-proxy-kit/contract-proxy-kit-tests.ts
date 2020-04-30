@@ -73,7 +73,7 @@ CPK.create({ web3 }).then(async cpk => {
             data: '0x',
         },
         {
-            operation: CPK.CALL,
+            operation: CPK.CALL.toString(),
             to: '0xffcf8fdee72ac11b5c542428b35eef5769c409f0',
             value: `${1e18}`,
             data: '0x',
@@ -93,7 +93,7 @@ CPK.create({ web3 }).then(async cpk => {
     await cpk.execTransactions(
         [
             {
-                operation: CPK.CALL,
+                operation: CPK.CALL.toString(),
                 to: '0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1',
                 value: `${1e18}`,
                 data: '0x',

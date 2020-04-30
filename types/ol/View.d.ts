@@ -1,6 +1,6 @@
 import { Type } from './centerconstraint';
 import { Coordinate } from './coordinate';
-import { EventsKey } from './events';
+import { EventsKey, ListenerFunction } from './events';
 import BaseEvent from './events/Event';
 import { Extent } from './extent';
 import SimpleGeometry from './geom/SimpleGeometry';
@@ -72,6 +72,7 @@ export interface ViewOptions {
     multiWorld?: boolean;
     constrainResolution?: boolean;
     smoothResolutionConstraint?: boolean;
+    showFullExtent?: boolean;
     projection?: ProjectionLike;
     resolution?: number;
     resolutions?: number[];
@@ -109,6 +110,7 @@ export default class View extends BaseObject {
     getConstrainedCenter(targetCenter: Coordinate | undefined, opt_targetResolution?: number): Coordinate;
     getConstrainedResolution(targetResolution: number | undefined, opt_direction?: number): number;
     getConstrainedZoom(targetZoom: number | undefined, opt_direction?: number): number;
+    getConstrainResolution(): boolean;
     getConstraints(): Constraints;
     getHints(opt_hints?: number[]): number[];
     getInteracting(): boolean;
@@ -139,11 +141,12 @@ export default class View extends BaseObject {
     setMinZoom(zoom: number): void;
     setResolution(resolution: number | undefined): void;
     setRotation(rotation: number): void;
+    setViewportSize(opt_size?: Size): void;
     setZoom(zoom: number): void;
     updateAnimations_(): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

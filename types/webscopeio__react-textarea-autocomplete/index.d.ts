@@ -1,4 +1,4 @@
-// Type definitions for webscopeio__react-textarea-autocomplete 2.3
+// Type definitions for webscopeio__react-textarea-autocomplete 4.6
 // Project: https://github.com/webscopeio/react-textarea-autocomplete
 // Definitions by: Michal Zochowski <https://github.com/michauzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -68,9 +68,7 @@ export interface TriggerType<TItem> {
     [key: string]: SettingType<TItem>;
 }
 
-type PickedAttributes = "onChange" | "onSelect" | "onBlur" | "value";
-
-export interface TextareaProps<TItem> extends Pick<React.InputHTMLAttributes<HTMLTextAreaElement>, PickedAttributes> {
+export interface TextareaProps<TItem> extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     /**
      * Define triggers and their corresponding behavior.
      */

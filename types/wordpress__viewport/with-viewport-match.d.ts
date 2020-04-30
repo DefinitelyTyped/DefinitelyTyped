@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 /**
  * Higher-order component creator, creating a new component which renders with the given prop names,
