@@ -1,19 +1,14 @@
 import * as React from 'react';
-import { Dialog } from 'rc-easyui';
-import {useState} from "../react";
+import * as rcui from 'rc-easyui';
 
-interface IProps {
+type Element = React.ReactElement;
 
-}
-const ExampleDialog: React.FC<IProps> = (props: IProps) => {
-    const [dialogOpen] = useState<boolean>(false);
+function Dialog(props: {}): Element {
     return(
-        <Dialog
-            closed={!dialogOpen}
+        <rcui.Dialog
+            closed={true}
             title="Basic Dialog"
-            style={{width:'400px',height:'200px'}}
+            style={{ width: '400px', height: '200px' }}
         />
-    )
-};
-
-export default ExampleDialog;
+    );
+}

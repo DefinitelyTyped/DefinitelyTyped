@@ -45,7 +45,6 @@ export class Accordion extends React.Component <any> {
     select(e: any): void;
 
     unselect(e: any): void;
-
 }
 
 export class AccordionPanel  extends React.Component <any> {
@@ -74,7 +73,6 @@ export class AccordionPanel  extends React.Component <any> {
     setLast(e: any): void;
 
     unselect(): void;
-
 }
 
 export class ButtonGroup extends React.Component <any> {
@@ -83,9 +81,7 @@ export class ButtonGroup extends React.Component <any> {
     render(): any;
 
     static defaultProps: {
-        selectionMode: string;
-    };
-
+        selectionMode: string;    };
 }
 
 export class Calendar extends React.Component <any> {
@@ -144,7 +140,6 @@ export class Calendar extends React.Component <any> {
     toArray(e: any): any;
 
     toDate(e: any): any;
-
 }
 
 export class CheckBox extends React.Component <any> {
@@ -167,7 +162,6 @@ export class CheckBox extends React.Component <any> {
     updateValues(): void;
 
     wrapperClasses(): any;
-
 }
 
 export class ComboBox extends React.Component <any> {
@@ -218,7 +212,6 @@ export class ComboBox extends React.Component <any> {
     updateSelection(e: any): void;
 
     updateText(e: any): void;
-
 }
 
 export class ComboGrid extends React.Component <any> {
@@ -247,7 +240,6 @@ export class ComboGrid extends React.Component <any> {
     setValue(e: any): void;
 
     updateText(): void;
-
 }
 
 export class ComboTree extends React.Component <any> {
@@ -278,7 +270,6 @@ export class ComboTree extends React.Component <any> {
     setValue(e: any): void;
 
     updateText(): void;
-
 }
 
 export class DataGrid extends React.Component <any> {
@@ -323,7 +314,6 @@ export class DataGrid extends React.Component <any> {
     updateFrozenView(e: any, t: any): void;
 
     viewComponent(): any;
-
 }
 
 export class DataList extends React.Component <any> {
@@ -368,7 +358,6 @@ export class DataList extends React.Component <any> {
     setData(e: any): void;
 
     virtualItemStyle(): any;
-
 }
 
 export class DateBox extends React.Component <any> {
@@ -403,10 +392,9 @@ export class DateBox extends React.Component <any> {
     setValue(e: any): void;
 
     text(): any;
-
 }
 
-export class Dialog extends React.Component <any>{
+export class Dialog extends React.Component <any> {
     constructor(e: any);
 
     bodyClasses(): any;
@@ -454,7 +442,6 @@ export class Dialog extends React.Component <any>{
     vcenter(): void;
 
     static zIndex: number;
-
 }
 
 export class Draggable {
@@ -473,7 +460,6 @@ export class Draggable {
     renderProxy(): any;
 
     showProxy(): any;
-
 }
 
 export class DraggableProxy extends React.Component <any> {
@@ -492,7 +478,6 @@ export class DraggableProxy extends React.Component <any> {
     proxyStyles(): any;
 
     render(): any;
-
 }
 
 export class Droppable extends React.Component <any> {
@@ -505,7 +490,6 @@ export class Droppable extends React.Component <any> {
     componentWillUnmount(): void;
 
     render(): any;
-
 }
 
 export class FieldBase extends React.Component <any> {
@@ -525,9 +509,7 @@ export class FieldBase extends React.Component <any> {
         invalid: boolean;
         validateOnBlur: boolean;
         validateOnChange: boolean;
-        validateOnCreate: boolean;
-    };
-
+        validateOnCreate: boolean;    };
 }
 
 export class FileButton extends React.Component <any> {
@@ -546,7 +528,6 @@ export class FileButton extends React.Component <any> {
     upload(): void;
 
     static fileId: number;
-
 }
 
 export class Form extends React.Component <any> {
@@ -557,7 +538,6 @@ export class Form extends React.Component <any> {
     handleSubmit(e: any): void;
 
     render(): any;
-
 }
 
 export class FormField extends React.Component <any> {
@@ -574,7 +554,6 @@ export class FormField extends React.Component <any> {
     renderLabel(e: any): any;
 
     static idIndex: number;
-
 }
 
 export class GridBase extends React.Component <any> {
@@ -657,7 +636,6 @@ export class GridBase extends React.Component <any> {
     scrollTop(e: any): any;
 
     viewComponent(): any;
-
 }
 
 export class GridColumn extends React.Component <any> {
@@ -685,9 +663,7 @@ export class GridColumn extends React.Component <any> {
         frozen: boolean;
         order: string;
         rowspan: number;
-        sortable: boolean;
-    };
-
+        sortable: boolean;    };
 }
 
 export class GridColumnGroup extends React.Component <any> {
@@ -705,9 +681,7 @@ export class GridColumnGroup extends React.Component <any> {
 
     static defaultProps: {
         align: string;
-        frozen: boolean;
-    };
-
+        frozen: boolean;    };
 }
 
 export class GridHeaderRow extends React.Component <any> {
@@ -722,7 +696,6 @@ export class GridHeaderRow extends React.Component <any> {
     onColumnRemove(e: any): void;
 
     render(): any;
-
 }
 
 export class InputBase extends React.Component <any> {
@@ -763,7 +736,6 @@ export class InputBase extends React.Component <any> {
     setValue(e: any): void;
 
     text(): any;
-
 }
 
 export class Label extends React.Component <any> {
@@ -772,9 +744,7 @@ export class Label extends React.Component <any> {
     render(): any;
 
     static defaultProps: {
-        align: string;
-    };
-
+        align: string;    };
 }
 
 export class Layout extends React.Component <any> {
@@ -807,7 +777,6 @@ export class Layout extends React.Component <any> {
     renderLayout(): any;
 
     updatePaddings(): void;
-
 }
 
 export class LayoutPanel extends React.Component <any> {
@@ -840,7 +809,6 @@ export class LayoutPanel extends React.Component <any> {
     panelStyles(): any;
 
     render(): any;
-
 }
 
 export class LinkButton extends React.Component <any> {
@@ -875,14 +843,12 @@ export class LinkButton extends React.Component <any> {
     renderOthers(): any;
 
     text(): any;
-
 }
 
 export class LocaleBase {
     constructor(...args: any[]);
 
     t(e: any, ...args: any[]): any;
-
 }
 
 export class LocaleProvider  extends React.Component <any> {
@@ -893,7 +859,6 @@ export class LocaleProvider  extends React.Component <any> {
     getChildContext(): any;
 
     render(): any;
-
 }
 
 export class MaskedBox  extends React.Component <any> {
@@ -918,7 +883,6 @@ export class MaskedBox  extends React.Component <any> {
     seekNext(e: any): any;
 
     seekPrev(e: any): any;
-
 }
 
 export class Menu  extends React.Component <any> {
@@ -957,7 +921,6 @@ export class Menu  extends React.Component <any> {
     showContextMenu(e: any, t: any): any;
 
     static zIndex: number;
-
 }
 
 export class MenuButton  extends React.Component <any> {
@@ -984,7 +947,6 @@ export class MenuButton  extends React.Component <any> {
     renderMenu(): any;
 
     showMenu(): void;
-
 }
 
 export class MenuItem  extends React.Component <any> {
@@ -1007,16 +969,13 @@ export class MenuItem  extends React.Component <any> {
     render(): any;
 
     static defaultProps: {
-        disabled: boolean;
-    };
-
+        disabled: boolean;    };
 }
 
 export class MenuSep extends React.Component <any> {
     constructor(...args: any[]);
 
     render(): any;
-
 }
 
 export class Messager extends React.Component <any> {
@@ -1037,9 +996,7 @@ export class Messager extends React.Component <any> {
     static defaultProps: {
         buttons: any[];
         defaultCancel: string;
-        defaultOk: string;
-    };
-
+        defaultOk: string;    };
 }
 
 export class NumberBox extends React.Component <any> {
@@ -1068,7 +1025,6 @@ export class NumberBox extends React.Component <any> {
     renderInput(): any;
 
     setValue(e: any): void;
-
 }
 
 export class Pagination extends React.Component <any> {
@@ -1105,7 +1061,6 @@ export class Pagination extends React.Component <any> {
     renderLayout(e: any, t: any): any;
 
     selectPage(e: any): void;
-
 }
 
 export class Panel extends React.Component <any> {
@@ -1150,7 +1105,6 @@ export class Panel extends React.Component <any> {
     render(): any;
 
     toggle(): void;
-
 }
 
 export class PasswordBox extends React.Component <any> {
@@ -1169,7 +1123,6 @@ export class PasswordBox extends React.Component <any> {
     handleInputChange(e: any): void;
 
     renderOthers(): any;
-
 }
 
 export class ProgressBar extends React.Component <any> {
@@ -1183,9 +1136,7 @@ export class ProgressBar extends React.Component <any> {
 
     static defaultProps: {
         showValue: boolean;
-        value: number;
-    };
-
+        value: number;    };
 }
 
 export class RadioButton extends React.Component <any> {
@@ -1208,7 +1159,6 @@ export class RadioButton extends React.Component <any> {
     setChecked(e: any): void;
 
     wrapperClasses(): any;
-
 }
 
 export class Resizable extends React.Component <any> {
@@ -1221,7 +1171,6 @@ export class Resizable extends React.Component <any> {
     componentWillUnmount(): void;
 
     render(): any;
-
 }
 
 export class SearchBox extends React.Component <any> {
@@ -1250,7 +1199,6 @@ export class SearchBox extends React.Component <any> {
     renderOthers(): any;
 
     setCategory(e: any): void;
-
 }
 
 export class SideMenu extends React.Component <any> {
@@ -1273,7 +1221,6 @@ export class SideMenu extends React.Component <any> {
     renderItems(): any;
 
     setData(e: any): void;
-
 }
 
 export class Slider extends React.Component <any> {
@@ -1314,7 +1261,6 @@ export class Slider extends React.Component <any> {
     value2(): any;
 
     value2pos(e: any): any;
-
 }
 
 export class SplitButton extends React.Component <any> {
@@ -1327,7 +1273,6 @@ export class SplitButton extends React.Component <any> {
     render(): any;
 
     renderInners(): any;
-
 }
 
 export class SubMenu extends React.Component <any> {
@@ -1340,7 +1285,6 @@ export class SubMenu extends React.Component <any> {
     componentWillUnmount(): void;
 
     render(): any;
-
 }
 
 export class SwitchButton extends React.Component <any> {
@@ -1355,7 +1299,6 @@ export class SwitchButton extends React.Component <any> {
     render(): any;
 
     setValue(e: any): void;
-
 }
 
 export class TabPanel extends React.Component <any> {
@@ -1374,7 +1317,6 @@ export class TabPanel extends React.Component <any> {
     select(): any;
 
     unselect(): void;
-
 }
 
 export class Tabs extends React.Component <any> {
@@ -1439,7 +1381,6 @@ export class Tabs extends React.Component <any> {
     tabsStyle(): any;
 
     unselect(e: any): void;
-
 }
 
 export class TagBox extends React.Component <any> {
@@ -1478,14 +1419,12 @@ export class TagBox extends React.Component <any> {
     renderInput(): any;
 
     updateText(e: any): void;
-
 }
 
 export class TextBox extends React.Component <any> {
     constructor(...args: any[]);
 
     text(): any;
-
 }
 
 export class TextEditor extends React.Component <any> {
@@ -1506,7 +1445,6 @@ export class TextEditor extends React.Component <any> {
     render(): any;
 
     setValue(e: any): void;
-
 }
 
 export class TimePicker extends React.Component <any> {
@@ -1519,7 +1457,6 @@ export class TimePicker extends React.Component <any> {
     handleTimeChange(e: any): void;
 
     renderPanel(): any;
-
 }
 
 export class TimeSpinner extends React.Component <any> {
@@ -1556,7 +1493,6 @@ export class TimeSpinner extends React.Component <any> {
     setValue(e: any): void;
 
     text(): any;
-
 }
 
 export class Tooltip extends React.Component <any> {
@@ -1589,7 +1525,6 @@ export class Tooltip extends React.Component <any> {
     renderTip(): any;
 
     show(): void;
-
 }
 
 export class Tree extends React.Component <any> {
@@ -1622,7 +1557,6 @@ export class Tree extends React.Component <any> {
     uncheckAllNodes(): void;
 
     uncheckNode(e: any): void;
-
 }
 
 export class TreeGrid extends React.Component <any> {
@@ -1645,7 +1579,6 @@ export class TreeGrid extends React.Component <any> {
     uncheckRow(e: any): void;
 
     viewComponent(): any;
-
 }
 
 export class Validation extends React.Component <any> {
@@ -1670,7 +1603,6 @@ export class Validation extends React.Component <any> {
     validate(e: any): void;
 
     validateField(e: any, t: any): any;
-
 }
 
 export class VirtualScroll extends React.Component <any> {
@@ -1711,50 +1643,39 @@ export class VirtualScroll extends React.Component <any> {
     setData(e: any): void;
 
     splitHeights(e: any): any;
-
 }
 
 export const filterOperators: {
     beginwith: {
         isMatch: any;
-        text: string;
-    };
+        text: string;    };
     contains: {
         isMatch: any;
-        text: string;
-    };
+        text: string;    };
     endwith: {
         isMatch: any;
-        text: string;
-    };
+        text: string;    };
     equal: {
         isMatch: any;
-        text: string;
-    };
+        text: string;    };
     greater: {
         isMatch: any;
-        text: string;
-    };
+        text: string;    };
     greaterorequal: {
         isMatch: any;
-        text: string;
-    };
+        text: string;    };
     less: {
         isMatch: any;
-        text: string;
-    };
+        text: string;    };
     lessorequal: {
         isMatch: any;
-        text: string;
-    };
+        text: string;    };
     nofilter: {
         isMatch: any;
-        text: string;
-    };
+        text: string;    };
     notequal: {
         isMatch: any;
-        text: string;
-    };
+        text: string;    };
 };
 
 export function DateTimeSpinner(...args: any[]): any;
@@ -1768,15 +1689,12 @@ export namespace Accordion {
         namespace locale {
             // Circular reference from rc_easyui.Accordion.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Accordion.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -1791,7 +1709,6 @@ export namespace Accordion {
         function onPanelSelect(e: any): void;
 
         function onPanelUnselect(e: any): void;
-
     }
 
     namespace propTypes {
@@ -1814,53 +1731,43 @@ export namespace Accordion {
         namespace animate {
             // Circular reference from rc_easyui.Accordion.propTypes.animate
             const isRequired: any;
-
         }
 
         namespace border {
             // Circular reference from rc_easyui.Accordion.propTypes.border
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.Accordion.propTypes.className
             const isRequired: any;
-
         }
 
         namespace multiple {
             // Circular reference from rc_easyui.Accordion.propTypes.multiple
             const isRequired: any;
-
         }
 
         namespace onPanelSelect {
             // Circular reference from rc_easyui.Accordion.propTypes.onPanelSelect
             const isRequired: any;
-
         }
 
         namespace onPanelUnselect {
             // Circular reference from rc_easyui.Accordion.propTypes.onPanelUnselect
             const isRequired: any;
-
         }
 
         namespace selectedIndex {
             // Circular reference from rc_easyui.Accordion.propTypes.selectedIndex
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.Accordion.propTypes.style
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace AccordionPanel {
@@ -1872,15 +1779,12 @@ export namespace AccordionPanel {
         namespace locale {
             // Circular reference from rc_easyui.AccordionPanel.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.AccordionPanel.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -1913,7 +1817,6 @@ export namespace AccordionPanel {
         function onCollapse(): void;
 
         function onExpand(): void;
-
     }
 
     namespace propTypes {
@@ -1966,143 +1869,118 @@ export namespace AccordionPanel {
         namespace animate {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.animate
             const isRequired: any;
-
         }
 
         namespace bodyCls {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.bodyCls
             const isRequired: any;
-
         }
 
         namespace bodyStyle {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.bodyStyle
             const isRequired: any;
-
         }
 
         namespace border {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.border
             const isRequired: any;
-
         }
 
         namespace closable {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.closable
             const isRequired: any;
-
         }
 
         namespace closeIconCls {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.closeIconCls
             const isRequired: any;
-
         }
 
         namespace closed {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.closed
             const isRequired: any;
-
         }
 
         namespace collapseIconCls {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.collapseIconCls
             const isRequired: any;
-
         }
 
         namespace collapsed {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.collapsed
             const isRequired: any;
-
         }
 
         namespace collapsible {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.collapsible
             const isRequired: any;
-
         }
 
         namespace expandIconCls {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.expandIconCls
             const isRequired: any;
-
         }
 
         namespace footer {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.footer
             const isRequired: any;
-
         }
 
         namespace footerCls {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.footerCls
             const isRequired: any;
-
         }
 
         namespace footerStyle {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.footerStyle
             const isRequired: any;
-
         }
 
         namespace header {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.header
             const isRequired: any;
-
         }
 
         namespace headerCls {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.headerCls
             const isRequired: any;
-
         }
 
         namespace headerStyle {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.headerStyle
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace onCollapse {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.onCollapse
             const isRequired: any;
-
         }
 
         namespace onExpand {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.onExpand
             const isRequired: any;
-
         }
 
         namespace showFooter {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.showFooter
             const isRequired: any;
-
         }
 
         namespace showHeader {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.showHeader
             const isRequired: any;
-
         }
 
         namespace title {
             // Circular reference from rc_easyui.AccordionPanel.propTypes.title
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace ButtonGroup {
@@ -2114,15 +1992,12 @@ export namespace ButtonGroup {
         namespace locale {
             // Circular reference from rc_easyui.ButtonGroup.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.ButtonGroup.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace propTypes {
@@ -2131,11 +2006,8 @@ export namespace ButtonGroup {
         namespace selectionMode {
             // Circular reference from rc_easyui.ButtonGroup.propTypes.selectionMode
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Calendar {
@@ -2147,15 +2019,12 @@ export namespace Calendar {
         namespace locale {
             // Circular reference from rc_easyui.Calendar.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Calendar.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -2184,7 +2053,6 @@ export namespace Calendar {
         function onSelectionChange(e: any): void;
 
         function validator(e: any): any;
-
     }
 
     namespace propTypes {
@@ -2219,89 +2087,73 @@ export namespace Calendar {
         namespace border {
             // Circular reference from rc_easyui.Calendar.propTypes.border
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.Calendar.propTypes.className
             const isRequired: any;
-
         }
 
         namespace firstDay {
             // Circular reference from rc_easyui.Calendar.propTypes.firstDay
             const isRequired: any;
-
         }
 
         namespace info {
             // Circular reference from rc_easyui.Calendar.propTypes.info
             const isRequired: any;
-
         }
 
         namespace month {
             // Circular reference from rc_easyui.Calendar.propTypes.month
             const isRequired: any;
-
         }
 
         namespace months {
             // Circular reference from rc_easyui.Calendar.propTypes.months
             const isRequired: any;
-
         }
 
         namespace selection {
             // Circular reference from rc_easyui.Calendar.propTypes.selection
             const isRequired: any;
-
         }
 
         namespace showInfo {
             // Circular reference from rc_easyui.Calendar.propTypes.showInfo
             const isRequired: any;
-
         }
 
         namespace showWeek {
             // Circular reference from rc_easyui.Calendar.propTypes.showWeek
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.Calendar.propTypes.style
             const isRequired: any;
-
         }
 
         namespace validator {
             // Circular reference from rc_easyui.Calendar.propTypes.validator
             const isRequired: any;
-
         }
 
         namespace weekNumberHeader {
             // Circular reference from rc_easyui.Calendar.propTypes.weekNumberHeader
             const isRequired: any;
-
         }
 
         namespace weeks {
             // Circular reference from rc_easyui.Calendar.propTypes.weeks
             const isRequired: any;
-
         }
 
         namespace year {
             // Circular reference from rc_easyui.Calendar.propTypes.year
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace CheckBox {
@@ -2325,51 +2177,42 @@ export namespace CheckBox {
         namespace fieldAdd {
             // Circular reference from rc_easyui.CheckBox.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.CheckBox.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.CheckBox.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.CheckBox.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.CheckBox.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.CheckBox.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.CheckBox.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.CheckBox.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -2382,7 +2225,6 @@ export namespace CheckBox {
         const values: any[];
 
         function onChange(e: any): void;
-
     }
 
     namespace propTypes {
@@ -2403,47 +2245,38 @@ export namespace CheckBox {
         namespace checked {
             // Circular reference from rc_easyui.CheckBox.propTypes.checked
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.CheckBox.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.CheckBox.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace multiple {
             // Circular reference from rc_easyui.CheckBox.propTypes.multiple
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.CheckBox.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.CheckBox.propTypes.value
             const isRequired: any;
-
         }
 
         namespace values {
             // Circular reference from rc_easyui.CheckBox.propTypes.values
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace ComboBox {
@@ -2467,51 +2300,42 @@ export namespace ComboBox {
         namespace fieldAdd {
             // Circular reference from rc_easyui.ComboBox.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.ComboBox.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.ComboBox.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.ComboBox.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.ComboBox.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.ComboBox.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.ComboBox.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.ComboBox.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -2582,7 +2406,6 @@ export namespace ComboBox {
         function onSelectionChange(e: any): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -2671,251 +2494,208 @@ export namespace ComboBox {
         namespace addonLeft {
             // Circular reference from rc_easyui.ComboBox.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.ComboBox.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace arrowAlign {
             // Circular reference from rc_easyui.ComboBox.propTypes.arrowAlign
             const isRequired: any;
-
         }
 
         namespace arrowIconCls {
             // Circular reference from rc_easyui.ComboBox.propTypes.arrowIconCls
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.ComboBox.propTypes.className
             const isRequired: any;
-
         }
 
         namespace data {
             // Circular reference from rc_easyui.ComboBox.propTypes.data
             const isRequired: any;
-
         }
 
         namespace delay {
             // Circular reference from rc_easyui.ComboBox.propTypes.delay
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.ComboBox.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.ComboBox.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace filter {
             // Circular reference from rc_easyui.ComboBox.propTypes.filter
             const isRequired: any;
-
         }
 
         namespace groupField {
             // Circular reference from rc_easyui.ComboBox.propTypes.groupField
             const isRequired: any;
-
         }
 
         namespace hasDownArrow {
             // Circular reference from rc_easyui.ComboBox.propTypes.hasDownArrow
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.ComboBox.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.ComboBox.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.ComboBox.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.ComboBox.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.ComboBox.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace lazy {
             // Circular reference from rc_easyui.ComboBox.propTypes.lazy
             const isRequired: any;
-
         }
 
         namespace limitToList {
             // Circular reference from rc_easyui.ComboBox.propTypes.limitToList
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.ComboBox.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace multiple {
             // Circular reference from rc_easyui.ComboBox.propTypes.multiple
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.ComboBox.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.ComboBox.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.ComboBox.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace pageNumber {
             // Circular reference from rc_easyui.ComboBox.propTypes.pageNumber
             const isRequired: any;
-
         }
 
         namespace pageSize {
             // Circular reference from rc_easyui.ComboBox.propTypes.pageSize
             const isRequired: any;
-
         }
 
         namespace panelAlign {
             // Circular reference from rc_easyui.ComboBox.propTypes.panelAlign
             const isRequired: any;
-
         }
 
         namespace panelStyle {
             // Circular reference from rc_easyui.ComboBox.propTypes.panelStyle
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.ComboBox.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.ComboBox.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace renderItem {
             // Circular reference from rc_easyui.ComboBox.propTypes.renderItem
             const isRequired: any;
-
         }
 
         namespace rowHeight {
             // Circular reference from rc_easyui.ComboBox.propTypes.rowHeight
             const isRequired: any;
-
         }
 
         namespace separator {
             // Circular reference from rc_easyui.ComboBox.propTypes.separator
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.ComboBox.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.ComboBox.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textField {
             // Circular reference from rc_easyui.ComboBox.propTypes.textField
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.ComboBox.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace total {
             // Circular reference from rc_easyui.ComboBox.propTypes.total
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.ComboBox.propTypes.value
             const isRequired: any;
-
         }
 
         namespace valueField {
             // Circular reference from rc_easyui.ComboBox.propTypes.valueField
             const isRequired: any;
-
         }
 
         namespace virtualScroll {
             // Circular reference from rc_easyui.ComboBox.propTypes.virtualScroll
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace ComboGrid {
@@ -2939,51 +2719,42 @@ export namespace ComboGrid {
         namespace fieldAdd {
             // Circular reference from rc_easyui.ComboGrid.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.ComboGrid.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.ComboGrid.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.ComboGrid.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.ComboGrid.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.ComboGrid.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.ComboGrid.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.ComboGrid.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -3036,7 +2807,6 @@ export namespace ComboGrid {
         function onFocus(): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -3101,179 +2871,148 @@ export namespace ComboGrid {
         namespace addonLeft {
             // Circular reference from rc_easyui.ComboGrid.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.ComboGrid.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace arrowAlign {
             // Circular reference from rc_easyui.ComboGrid.propTypes.arrowAlign
             const isRequired: any;
-
         }
 
         namespace arrowIconCls {
             // Circular reference from rc_easyui.ComboGrid.propTypes.arrowIconCls
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.ComboGrid.propTypes.className
             const isRequired: any;
-
         }
 
         namespace data {
             // Circular reference from rc_easyui.ComboGrid.propTypes.data
             const isRequired: any;
-
         }
 
         namespace delay {
             // Circular reference from rc_easyui.ComboGrid.propTypes.delay
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.ComboGrid.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.ComboGrid.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace hasDownArrow {
             // Circular reference from rc_easyui.ComboGrid.propTypes.hasDownArrow
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.ComboGrid.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.ComboGrid.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.ComboGrid.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.ComboGrid.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.ComboGrid.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.ComboGrid.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace multiple {
             // Circular reference from rc_easyui.ComboGrid.propTypes.multiple
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.ComboGrid.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.ComboGrid.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.ComboGrid.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace panelAlign {
             // Circular reference from rc_easyui.ComboGrid.propTypes.panelAlign
             const isRequired: any;
-
         }
 
         namespace panelStyle {
             // Circular reference from rc_easyui.ComboGrid.propTypes.panelStyle
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.ComboGrid.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.ComboGrid.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace separator {
             // Circular reference from rc_easyui.ComboGrid.propTypes.separator
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.ComboGrid.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.ComboGrid.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.ComboGrid.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.ComboGrid.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace ComboTree {
@@ -3297,51 +3036,42 @@ export namespace ComboTree {
         namespace fieldAdd {
             // Circular reference from rc_easyui.ComboTree.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.ComboTree.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.ComboTree.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.ComboTree.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.ComboTree.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.ComboTree.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.ComboTree.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.ComboTree.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -3394,7 +3124,6 @@ export namespace ComboTree {
         function onFocus(): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -3459,179 +3188,148 @@ export namespace ComboTree {
         namespace addonLeft {
             // Circular reference from rc_easyui.ComboTree.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.ComboTree.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace arrowAlign {
             // Circular reference from rc_easyui.ComboTree.propTypes.arrowAlign
             const isRequired: any;
-
         }
 
         namespace arrowIconCls {
             // Circular reference from rc_easyui.ComboTree.propTypes.arrowIconCls
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.ComboTree.propTypes.className
             const isRequired: any;
-
         }
 
         namespace data {
             // Circular reference from rc_easyui.ComboTree.propTypes.data
             const isRequired: any;
-
         }
 
         namespace delay {
             // Circular reference from rc_easyui.ComboTree.propTypes.delay
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.ComboTree.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.ComboTree.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace hasDownArrow {
             // Circular reference from rc_easyui.ComboTree.propTypes.hasDownArrow
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.ComboTree.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.ComboTree.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.ComboTree.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.ComboTree.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.ComboTree.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.ComboTree.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace multiple {
             // Circular reference from rc_easyui.ComboTree.propTypes.multiple
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.ComboTree.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.ComboTree.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.ComboTree.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace panelAlign {
             // Circular reference from rc_easyui.ComboTree.propTypes.panelAlign
             const isRequired: any;
-
         }
 
         namespace panelStyle {
             // Circular reference from rc_easyui.ComboTree.propTypes.panelStyle
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.ComboTree.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.ComboTree.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace separator {
             // Circular reference from rc_easyui.ComboTree.propTypes.separator
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.ComboTree.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.ComboTree.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.ComboTree.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.ComboTree.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace DataGrid {
@@ -3643,15 +3341,12 @@ export namespace DataGrid {
         namespace locale {
             // Circular reference from rc_easyui.DataGrid.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.DataGrid.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -3717,8 +3412,7 @@ export namespace DataGrid {
             notequal: {
                 isMatch: any;
                 text: string;
-            };
-        };
+            };        };
 
         const filterPosition: string;
 
@@ -3807,7 +3501,6 @@ export namespace DataGrid {
         function onSelectionChange(): void;
 
         function onSortChange(): void;
-
     }
 
     namespace propTypes {
@@ -3894,245 +3587,203 @@ export namespace DataGrid {
         namespace border {
             // Circular reference from rc_easyui.DataGrid.propTypes.border
             const isRequired: any;
-
         }
 
         namespace clickToEdit {
             // Circular reference from rc_easyui.DataGrid.propTypes.clickToEdit
             const isRequired: any;
-
         }
 
         namespace columnMoving {
             // Circular reference from rc_easyui.DataGrid.propTypes.columnMoving
             const isRequired: any;
-
         }
 
         namespace data {
             // Circular reference from rc_easyui.DataGrid.propTypes.data
             const isRequired: any;
-
         }
 
         namespace dblclickToEdit {
             // Circular reference from rc_easyui.DataGrid.propTypes.dblclickToEdit
             const isRequired: any;
-
         }
 
         namespace editMode {
             // Circular reference from rc_easyui.DataGrid.propTypes.editMode
             const isRequired: any;
-
         }
 
         namespace expanderWidth {
             // Circular reference from rc_easyui.DataGrid.propTypes.expanderWidth
             const isRequired: any;
-
         }
 
         namespace filterBtnPosition {
             // Circular reference from rc_easyui.DataGrid.propTypes.filterBtnPosition
             const isRequired: any;
-
         }
 
         namespace filterDelay {
             // Circular reference from rc_easyui.DataGrid.propTypes.filterDelay
             const isRequired: any;
-
         }
 
         namespace filterMatchingType {
             // Circular reference from rc_easyui.DataGrid.propTypes.filterMatchingType
             const isRequired: any;
-
         }
 
         namespace filterOperators {
             // Circular reference from rc_easyui.DataGrid.propTypes.filterOperators
             const isRequired: any;
-
         }
 
         namespace filterPosition {
             // Circular reference from rc_easyui.DataGrid.propTypes.filterPosition
             const isRequired: any;
-
         }
 
         namespace filterRules {
             // Circular reference from rc_easyui.DataGrid.propTypes.filterRules
             const isRequired: any;
-
         }
 
         namespace filterable {
             // Circular reference from rc_easyui.DataGrid.propTypes.filterable
             const isRequired: any;
-
         }
 
         namespace footerData {
             // Circular reference from rc_easyui.DataGrid.propTypes.footerData
             const isRequired: any;
-
         }
 
         namespace frozenAlign {
             // Circular reference from rc_easyui.DataGrid.propTypes.frozenAlign
             const isRequired: any;
-
         }
 
         namespace frozenWidth {
             // Circular reference from rc_easyui.DataGrid.propTypes.frozenWidth
             const isRequired: any;
-
         }
 
         namespace groupField {
             // Circular reference from rc_easyui.DataGrid.propTypes.groupField
             const isRequired: any;
-
         }
 
         namespace idField {
             // Circular reference from rc_easyui.DataGrid.propTypes.idField
             const isRequired: any;
-
         }
 
         namespace lazy {
             // Circular reference from rc_easyui.DataGrid.propTypes.lazy
             const isRequired: any;
-
         }
 
         namespace loadMsg {
             // Circular reference from rc_easyui.DataGrid.propTypes.loadMsg
             const isRequired: any;
-
         }
 
         namespace loading {
             // Circular reference from rc_easyui.DataGrid.propTypes.loading
             const isRequired: any;
-
         }
 
         namespace multiSort {
             // Circular reference from rc_easyui.DataGrid.propTypes.multiSort
             const isRequired: any;
-
         }
 
         namespace pageNumber {
             // Circular reference from rc_easyui.DataGrid.propTypes.pageNumber
             const isRequired: any;
-
         }
 
         namespace pageOptions {
             // Circular reference from rc_easyui.DataGrid.propTypes.pageOptions
             const isRequired: any;
-
         }
 
         namespace pagePosition {
             // Circular reference from rc_easyui.DataGrid.propTypes.pagePosition
             const isRequired: any;
-
         }
 
         namespace pageSize {
             // Circular reference from rc_easyui.DataGrid.propTypes.pageSize
             const isRequired: any;
-
         }
 
         namespace pagination {
             // Circular reference from rc_easyui.DataGrid.propTypes.pagination
             const isRequired: any;
-
         }
 
         namespace renderDetail {
             // Circular reference from rc_easyui.DataGrid.propTypes.renderDetail
             const isRequired: any;
-
         }
 
         namespace renderGroup {
             // Circular reference from rc_easyui.DataGrid.propTypes.renderGroup
             const isRequired: any;
-
         }
 
         namespace rowCss {
             // Circular reference from rc_easyui.DataGrid.propTypes.rowCss
             const isRequired: any;
-
         }
 
         namespace rowHeight {
             // Circular reference from rc_easyui.DataGrid.propTypes.rowHeight
             const isRequired: any;
-
         }
 
         namespace selection {
             // Circular reference from rc_easyui.DataGrid.propTypes.selection
             const isRequired: any;
-
         }
 
         namespace selectionMode {
             // Circular reference from rc_easyui.DataGrid.propTypes.selectionMode
             const isRequired: any;
-
         }
 
         namespace showFooter {
             // Circular reference from rc_easyui.DataGrid.propTypes.showFooter
             const isRequired: any;
-
         }
 
         namespace showHeader {
             // Circular reference from rc_easyui.DataGrid.propTypes.showHeader
             const isRequired: any;
-
         }
 
         namespace sorts {
             // Circular reference from rc_easyui.DataGrid.propTypes.sorts
             const isRequired: any;
-
         }
 
         namespace striped {
             // Circular reference from rc_easyui.DataGrid.propTypes.striped
             const isRequired: any;
-
         }
 
         namespace total {
             // Circular reference from rc_easyui.DataGrid.propTypes.total
             const isRequired: any;
-
         }
 
         namespace virtualScroll {
             // Circular reference from rc_easyui.DataGrid.propTypes.virtualScroll
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace DataList {
@@ -4144,15 +3795,12 @@ export namespace DataList {
         namespace locale {
             // Circular reference from rc_easyui.DataList.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.DataList.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -4208,8 +3856,7 @@ export namespace DataList {
             notequal: {
                 isMatch: any;
                 text: string;
-            };
-        };
+            };        };
 
         const filterPosition: string;
 
@@ -4262,7 +3909,6 @@ export namespace DataList {
         function onRowUnselect(): void;
 
         function onSelectionChange(): void;
-
     }
 
     namespace propTypes {
@@ -4329,185 +3975,153 @@ export namespace DataList {
         namespace border {
             // Circular reference from rc_easyui.DataList.propTypes.border
             const isRequired: any;
-
         }
 
         namespace data {
             // Circular reference from rc_easyui.DataList.propTypes.data
             const isRequired: any;
-
         }
 
         namespace filterBtnPosition {
             // Circular reference from rc_easyui.DataList.propTypes.filterBtnPosition
             const isRequired: any;
-
         }
 
         namespace filterDelay {
             // Circular reference from rc_easyui.DataList.propTypes.filterDelay
             const isRequired: any;
-
         }
 
         namespace filterMatchingType {
             // Circular reference from rc_easyui.DataList.propTypes.filterMatchingType
             const isRequired: any;
-
         }
 
         namespace filterOperators {
             // Circular reference from rc_easyui.DataList.propTypes.filterOperators
             const isRequired: any;
-
         }
 
         namespace filterPosition {
             // Circular reference from rc_easyui.DataList.propTypes.filterPosition
             const isRequired: any;
-
         }
 
         namespace filterRules {
             // Circular reference from rc_easyui.DataList.propTypes.filterRules
             const isRequired: any;
-
         }
 
         namespace filterable {
             // Circular reference from rc_easyui.DataList.propTypes.filterable
             const isRequired: any;
-
         }
 
         namespace hoverCls {
             // Circular reference from rc_easyui.DataList.propTypes.hoverCls
             const isRequired: any;
-
         }
 
         namespace idField {
             // Circular reference from rc_easyui.DataList.propTypes.idField
             const isRequired: any;
-
         }
 
         namespace itemCls {
             // Circular reference from rc_easyui.DataList.propTypes.itemCls
             const isRequired: any;
-
         }
 
         namespace itemStyle {
             // Circular reference from rc_easyui.DataList.propTypes.itemStyle
             const isRequired: any;
-
         }
 
         namespace lazy {
             // Circular reference from rc_easyui.DataList.propTypes.lazy
             const isRequired: any;
-
         }
 
         namespace loadMsg {
             // Circular reference from rc_easyui.DataList.propTypes.loadMsg
             const isRequired: any;
-
         }
 
         namespace loading {
             // Circular reference from rc_easyui.DataList.propTypes.loading
             const isRequired: any;
-
         }
 
         namespace onListScroll {
             // Circular reference from rc_easyui.DataList.propTypes.onListScroll
             const isRequired: any;
-
         }
 
         namespace pageNumber {
             // Circular reference from rc_easyui.DataList.propTypes.pageNumber
             const isRequired: any;
-
         }
 
         namespace pageOptions {
             // Circular reference from rc_easyui.DataList.propTypes.pageOptions
             const isRequired: any;
-
         }
 
         namespace pagePosition {
             // Circular reference from rc_easyui.DataList.propTypes.pagePosition
             const isRequired: any;
-
         }
 
         namespace pageSize {
             // Circular reference from rc_easyui.DataList.propTypes.pageSize
             const isRequired: any;
-
         }
 
         namespace pagination {
             // Circular reference from rc_easyui.DataList.propTypes.pagination
             const isRequired: any;
-
         }
 
         namespace renderItem {
             // Circular reference from rc_easyui.DataList.propTypes.renderItem
             const isRequired: any;
-
         }
 
         namespace rowHeight {
             // Circular reference from rc_easyui.DataList.propTypes.rowHeight
             const isRequired: any;
-
         }
 
         namespace scrollPosition {
             // Circular reference from rc_easyui.DataList.propTypes.scrollPosition
             const isRequired: any;
-
         }
 
         namespace selectedCls {
             // Circular reference from rc_easyui.DataList.propTypes.selectedCls
             const isRequired: any;
-
         }
 
         namespace selection {
             // Circular reference from rc_easyui.DataList.propTypes.selection
             const isRequired: any;
-
         }
 
         namespace selectionMode {
             // Circular reference from rc_easyui.DataList.propTypes.selectionMode
             const isRequired: any;
-
         }
 
         namespace total {
             // Circular reference from rc_easyui.DataList.propTypes.total
             const isRequired: any;
-
         }
 
         namespace virtualScroll {
             // Circular reference from rc_easyui.DataList.propTypes.virtualScroll
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace DateBox {
@@ -4531,51 +4145,42 @@ export namespace DateBox {
         namespace fieldAdd {
             // Circular reference from rc_easyui.DateBox.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.DateBox.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.DateBox.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.DateBox.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.DateBox.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.DateBox.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.DateBox.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.DateBox.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -4632,7 +4237,6 @@ export namespace DateBox {
         function onFocus(): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -4709,215 +4313,178 @@ export namespace DateBox {
         namespace addonLeft {
             // Circular reference from rc_easyui.DateBox.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.DateBox.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace arrowAlign {
             // Circular reference from rc_easyui.DateBox.propTypes.arrowAlign
             const isRequired: any;
-
         }
 
         namespace arrowIconCls {
             // Circular reference from rc_easyui.DateBox.propTypes.arrowIconCls
             const isRequired: any;
-
         }
 
         namespace calendarOptions {
             // Circular reference from rc_easyui.DateBox.propTypes.calendarOptions
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.DateBox.propTypes.className
             const isRequired: any;
-
         }
 
         namespace closeText {
             // Circular reference from rc_easyui.DateBox.propTypes.closeText
             const isRequired: any;
-
         }
 
         namespace currentText {
             // Circular reference from rc_easyui.DateBox.propTypes.currentText
             const isRequired: any;
-
         }
 
         namespace delay {
             // Circular reference from rc_easyui.DateBox.propTypes.delay
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.DateBox.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.DateBox.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace format {
             // Circular reference from rc_easyui.DateBox.propTypes.format
             const isRequired: any;
-
         }
 
         namespace hasDownArrow {
             // Circular reference from rc_easyui.DateBox.propTypes.hasDownArrow
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.DateBox.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.DateBox.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace info {
             // Circular reference from rc_easyui.DateBox.propTypes.info
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.DateBox.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.DateBox.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.DateBox.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.DateBox.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace multiple {
             // Circular reference from rc_easyui.DateBox.propTypes.multiple
             const isRequired: any;
-
         }
 
         namespace okText {
             // Circular reference from rc_easyui.DateBox.propTypes.okText
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.DateBox.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.DateBox.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.DateBox.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace panelAlign {
             // Circular reference from rc_easyui.DateBox.propTypes.panelAlign
             const isRequired: any;
-
         }
 
         namespace panelStyle {
             // Circular reference from rc_easyui.DateBox.propTypes.panelStyle
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.DateBox.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.DateBox.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace separator {
             // Circular reference from rc_easyui.DateBox.propTypes.separator
             const isRequired: any;
-
         }
 
         namespace showInfo {
             // Circular reference from rc_easyui.DateBox.propTypes.showInfo
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.DateBox.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.DateBox.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.DateBox.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.DateBox.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace DateTimeSpinner {
@@ -4941,51 +4508,42 @@ export namespace DateTimeSpinner {
         namespace fieldAdd {
             // Circular reference from rc_easyui.DateTimeSpinner.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.DateTimeSpinner.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.DateTimeSpinner.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.DateTimeSpinner.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.DateTimeSpinner.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.DateTimeSpinner.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.DateTimeSpinner.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.DateTimeSpinner.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -5032,7 +4590,6 @@ export namespace DateTimeSpinner {
         function onFocus(): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -5099,185 +4656,153 @@ export namespace DateTimeSpinner {
         namespace addonLeft {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace ampm {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.ampm
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.className
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace format {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.format
             const isRequired: any;
-
         }
 
         namespace highlight {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.highlight
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace increment {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.increment
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace max {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.max
             const isRequired: any;
-
         }
 
         namespace min {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.min
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace reversed {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.reversed
             const isRequired: any;
-
         }
 
         namespace selections {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.selections
             const isRequired: any;
-
         }
 
         namespace spinAlign {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.spinAlign
             const isRequired: any;
-
         }
 
         namespace spinners {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.spinners
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.DateTimeSpinner.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Dialog {
@@ -5289,15 +4814,12 @@ export namespace Dialog {
         namespace locale {
             // Circular reference from rc_easyui.Dialog.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Dialog.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -5344,7 +4866,6 @@ export namespace Dialog {
         function onOpen(): void;
 
         function onResize(e: any): void;
-
     }
 
     namespace propTypes {
@@ -5407,173 +4928,143 @@ export namespace Dialog {
         namespace animate {
             // Circular reference from rc_easyui.Dialog.propTypes.animate
             const isRequired: any;
-
         }
 
         namespace autoCenter {
             // Circular reference from rc_easyui.Dialog.propTypes.autoCenter
             const isRequired: any;
-
         }
 
         namespace bodyCls {
             // Circular reference from rc_easyui.Dialog.propTypes.bodyCls
             const isRequired: any;
-
         }
 
         namespace bodyStyle {
             // Circular reference from rc_easyui.Dialog.propTypes.bodyStyle
             const isRequired: any;
-
         }
 
         namespace border {
             // Circular reference from rc_easyui.Dialog.propTypes.border
             const isRequired: any;
-
         }
 
         namespace borderType {
             // Circular reference from rc_easyui.Dialog.propTypes.borderType
             const isRequired: any;
-
         }
 
         namespace closable {
             // Circular reference from rc_easyui.Dialog.propTypes.closable
             const isRequired: any;
-
         }
 
         namespace closeIconCls {
             // Circular reference from rc_easyui.Dialog.propTypes.closeIconCls
             const isRequired: any;
-
         }
 
         namespace closed {
             // Circular reference from rc_easyui.Dialog.propTypes.closed
             const isRequired: any;
-
         }
 
         namespace collapseIconCls {
             // Circular reference from rc_easyui.Dialog.propTypes.collapseIconCls
             const isRequired: any;
-
         }
 
         namespace collapsed {
             // Circular reference from rc_easyui.Dialog.propTypes.collapsed
             const isRequired: any;
-
         }
 
         namespace collapsible {
             // Circular reference from rc_easyui.Dialog.propTypes.collapsible
             const isRequired: any;
-
         }
 
         namespace draggable {
             // Circular reference from rc_easyui.Dialog.propTypes.draggable
             const isRequired: any;
-
         }
 
         namespace expandIconCls {
             // Circular reference from rc_easyui.Dialog.propTypes.expandIconCls
             const isRequired: any;
-
         }
 
         namespace footer {
             // Circular reference from rc_easyui.Dialog.propTypes.footer
             const isRequired: any;
-
         }
 
         namespace footerCls {
             // Circular reference from rc_easyui.Dialog.propTypes.footerCls
             const isRequired: any;
-
         }
 
         namespace footerStyle {
             // Circular reference from rc_easyui.Dialog.propTypes.footerStyle
             const isRequired: any;
-
         }
 
         namespace header {
             // Circular reference from rc_easyui.Dialog.propTypes.header
             const isRequired: any;
-
         }
 
         namespace headerCls {
             // Circular reference from rc_easyui.Dialog.propTypes.headerCls
             const isRequired: any;
-
         }
 
         namespace headerStyle {
             // Circular reference from rc_easyui.Dialog.propTypes.headerStyle
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.Dialog.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace modal {
             // Circular reference from rc_easyui.Dialog.propTypes.modal
             const isRequired: any;
-
         }
 
         namespace onCollapse {
             // Circular reference from rc_easyui.Dialog.propTypes.onCollapse
             const isRequired: any;
-
         }
 
         namespace onExpand {
             // Circular reference from rc_easyui.Dialog.propTypes.onExpand
             const isRequired: any;
-
         }
 
         namespace resizable {
             // Circular reference from rc_easyui.Dialog.propTypes.resizable
             const isRequired: any;
-
         }
 
         namespace showFooter {
             // Circular reference from rc_easyui.Dialog.propTypes.showFooter
             const isRequired: any;
-
         }
 
         namespace showHeader {
             // Circular reference from rc_easyui.Dialog.propTypes.showHeader
             const isRequired: any;
-
         }
 
         namespace title {
             // Circular reference from rc_easyui.Dialog.propTypes.title
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Draggable {
@@ -5585,15 +5076,12 @@ export namespace Draggable {
         namespace locale {
             // Circular reference from rc_easyui.Draggable.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Draggable.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -5612,7 +5100,6 @@ export namespace Draggable {
         function onDragEnd(e: any): void;
 
         function onDragStart(e: any): void;
-
     }
 
     namespace propTypes {
@@ -5651,101 +5138,83 @@ export namespace Draggable {
         namespace axis {
             // Circular reference from rc_easyui.Draggable.propTypes.axis
             const isRequired: any;
-
         }
 
         namespace cursor {
             // Circular reference from rc_easyui.Draggable.propTypes.cursor
             const isRequired: any;
-
         }
 
         namespace delay {
             // Circular reference from rc_easyui.Draggable.propTypes.delay
             const isRequired: any;
-
         }
 
         namespace deltaX {
             // Circular reference from rc_easyui.Draggable.propTypes.deltaX
             const isRequired: any;
-
         }
 
         namespace deltaY {
             // Circular reference from rc_easyui.Draggable.propTypes.deltaY
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.Draggable.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace edge {
             // Circular reference from rc_easyui.Draggable.propTypes.edge
             const isRequired: any;
-
         }
 
         namespace handle {
             // Circular reference from rc_easyui.Draggable.propTypes.handle
             const isRequired: any;
-
         }
 
         namespace onDrag {
             // Circular reference from rc_easyui.Draggable.propTypes.onDrag
             const isRequired: any;
-
         }
 
         namespace onDragEnd {
             // Circular reference from rc_easyui.Draggable.propTypes.onDragEnd
             const isRequired: any;
-
         }
 
         namespace onDragStart {
             // Circular reference from rc_easyui.Draggable.propTypes.onDragStart
             const isRequired: any;
-
         }
 
         namespace proxy {
             // Circular reference from rc_easyui.Draggable.propTypes.proxy
             const isRequired: any;
-
         }
 
         namespace proxyCls {
             // Circular reference from rc_easyui.Draggable.propTypes.proxyCls
             const isRequired: any;
-
         }
 
         namespace proxyStyle {
             // Circular reference from rc_easyui.Draggable.propTypes.proxyStyle
             const isRequired: any;
-
         }
 
         namespace revert {
             // Circular reference from rc_easyui.Draggable.propTypes.revert
             const isRequired: any;
-
         }
 
         namespace scope {
             // Circular reference from rc_easyui.Draggable.propTypes.scope
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace DraggableProxy {
@@ -5757,15 +5226,12 @@ export namespace DraggableProxy {
         namespace locale {
             // Circular reference from rc_easyui.DraggableProxy.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.DraggableProxy.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace propTypes {
@@ -5776,17 +5242,13 @@ export namespace DraggableProxy {
         namespace className {
             // Circular reference from rc_easyui.DraggableProxy.propTypes.className
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.DraggableProxy.propTypes.style
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Droppable {
@@ -5798,15 +5260,12 @@ export namespace Droppable {
         namespace locale {
             // Circular reference from rc_easyui.Droppable.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Droppable.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -5819,7 +5278,6 @@ export namespace Droppable {
         function onDragOver(e: any): void;
 
         function onDrop(e: any): void;
-
     }
 
     namespace propTypes {
@@ -5830,17 +5288,13 @@ export namespace Droppable {
         namespace disabled {
             // Circular reference from rc_easyui.Droppable.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace scope {
             // Circular reference from rc_easyui.Droppable.propTypes.scope
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace FieldBase {
@@ -5864,51 +5318,42 @@ export namespace FieldBase {
         namespace fieldAdd {
             // Circular reference from rc_easyui.FieldBase.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.FieldBase.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.FieldBase.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.FieldBase.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.FieldBase.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.FieldBase.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.FieldBase.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.FieldBase.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace propTypes {
@@ -5925,35 +5370,28 @@ export namespace FieldBase {
         namespace invalid {
             // Circular reference from rc_easyui.FieldBase.propTypes.invalid
             const isRequired: any;
-
         }
 
         namespace name {
             // Circular reference from rc_easyui.FieldBase.propTypes.name
             const isRequired: any;
-
         }
 
         namespace validateOnBlur {
             // Circular reference from rc_easyui.FieldBase.propTypes.validateOnBlur
             const isRequired: any;
-
         }
 
         namespace validateOnChange {
             // Circular reference from rc_easyui.FieldBase.propTypes.validateOnChange
             const isRequired: any;
-
         }
 
         namespace validateOnCreate {
             // Circular reference from rc_easyui.FieldBase.propTypes.validateOnCreate
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace FileButton {
@@ -5965,15 +5403,12 @@ export namespace FileButton {
         namespace locale {
             // Circular reference from rc_easyui.FileButton.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.FileButton.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -6012,7 +5447,6 @@ export namespace FileButton {
         function onSelect(e: any): void;
 
         function onSuccess(e: any): void;
-
     }
 
     namespace propTypes {
@@ -6059,125 +5493,103 @@ export namespace FileButton {
         namespace accept {
             // Circular reference from rc_easyui.FileButton.propTypes.accept
             const isRequired: any;
-
         }
 
         namespace autoUpload {
             // Circular reference from rc_easyui.FileButton.propTypes.autoUpload
             const isRequired: any;
-
         }
 
         namespace capture {
             // Circular reference from rc_easyui.FileButton.propTypes.capture
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.FileButton.propTypes.className
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.FileButton.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace href {
             // Circular reference from rc_easyui.FileButton.propTypes.href
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.FileButton.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.FileButton.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace method {
             // Circular reference from rc_easyui.FileButton.propTypes.method
             const isRequired: any;
-
         }
 
         namespace multiple {
             // Circular reference from rc_easyui.FileButton.propTypes.multiple
             const isRequired: any;
-
         }
 
         namespace onClick {
             // Circular reference from rc_easyui.FileButton.propTypes.onClick
             const isRequired: any;
-
         }
 
         namespace outline {
             // Circular reference from rc_easyui.FileButton.propTypes.outline
             const isRequired: any;
-
         }
 
         namespace plain {
             // Circular reference from rc_easyui.FileButton.propTypes.plain
             const isRequired: any;
-
         }
 
         namespace selected {
             // Circular reference from rc_easyui.FileButton.propTypes.selected
             const isRequired: any;
-
         }
 
         namespace size {
             // Circular reference from rc_easyui.FileButton.propTypes.size
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.FileButton.propTypes.style
             const isRequired: any;
-
         }
 
         namespace text {
             // Circular reference from rc_easyui.FileButton.propTypes.text
             const isRequired: any;
-
         }
 
         namespace toggle {
             // Circular reference from rc_easyui.FileButton.propTypes.toggle
             const isRequired: any;
-
         }
 
         namespace url {
             // Circular reference from rc_easyui.FileButton.propTypes.url
             const isRequired: any;
-
         }
 
         namespace withCredentials {
             // Circular reference from rc_easyui.FileButton.propTypes.withCredentials
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Form {
@@ -6205,63 +5617,52 @@ export namespace Form {
         namespace fieldAdd {
             // Circular reference from rc_easyui.Form.childContextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.Form.childContextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.Form.childContextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.Form.childContextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.Form.childContextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.Form.childContextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace floatingLabel {
             // Circular reference from rc_easyui.Form.childContextTypes.floatingLabel
             const isRequired: any;
-
         }
 
         namespace labelAlign {
             // Circular reference from rc_easyui.Form.childContextTypes.labelAlign
             const isRequired: any;
-
         }
 
         namespace labelPosition {
             // Circular reference from rc_easyui.Form.childContextTypes.labelPosition
             const isRequired: any;
-
         }
 
         namespace labelWidth {
             // Circular reference from rc_easyui.Form.childContextTypes.labelWidth
             const isRequired: any;
-
         }
-
     }
 
     namespace contextTypes {
@@ -6272,15 +5673,12 @@ export namespace Form {
         namespace locale {
             // Circular reference from rc_easyui.Form.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Form.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -6303,7 +5701,6 @@ export namespace Form {
         function onSubmit(e: any): void;
 
         function onValidate(e: any): void;
-
     }
 
     namespace propTypes {
@@ -6338,89 +5735,73 @@ export namespace Form {
         namespace className {
             // Circular reference from rc_easyui.Form.propTypes.className
             const isRequired: any;
-
         }
 
         namespace delay {
             // Circular reference from rc_easyui.Form.propTypes.delay
             const isRequired: any;
-
         }
 
         namespace errorType {
             // Circular reference from rc_easyui.Form.propTypes.errorType
             const isRequired: any;
-
         }
 
         namespace floatingLabel {
             // Circular reference from rc_easyui.Form.propTypes.floatingLabel
             const isRequired: any;
-
         }
 
         namespace labelAlign {
             // Circular reference from rc_easyui.Form.propTypes.labelAlign
             const isRequired: any;
-
         }
 
         namespace labelPosition {
             // Circular reference from rc_easyui.Form.propTypes.labelPosition
             const isRequired: any;
-
         }
 
         namespace labelWidth {
             // Circular reference from rc_easyui.Form.propTypes.labelWidth
             const isRequired: any;
-
         }
 
         namespace model {
             // Circular reference from rc_easyui.Form.propTypes.model
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.Form.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onValidate {
             // Circular reference from rc_easyui.Form.propTypes.onValidate
             const isRequired: any;
-
         }
 
         namespace rules {
             // Circular reference from rc_easyui.Form.propTypes.rules
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.Form.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tooltipPosition {
             // Circular reference from rc_easyui.Form.propTypes.tooltipPosition
             const isRequired: any;
-
         }
 
         namespace validateRules {
             // Circular reference from rc_easyui.Form.propTypes.validateRules
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace FormField {
@@ -6440,39 +5821,32 @@ export namespace FormField {
         namespace floatingLabel {
             // Circular reference from rc_easyui.FormField.contextTypes.floatingLabel
             const isRequired: any;
-
         }
 
         namespace labelAlign {
             // Circular reference from rc_easyui.FormField.contextTypes.labelAlign
             const isRequired: any;
-
         }
 
         namespace labelPosition {
             // Circular reference from rc_easyui.FormField.contextTypes.labelPosition
             const isRequired: any;
-
         }
 
         namespace labelWidth {
             // Circular reference from rc_easyui.FormField.contextTypes.labelWidth
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.FormField.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.FormField.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace propTypes {
@@ -6493,47 +5867,38 @@ export namespace FormField {
         namespace className {
             // Circular reference from rc_easyui.FormField.propTypes.className
             const isRequired: any;
-
         }
 
         namespace label {
             // Circular reference from rc_easyui.FormField.propTypes.label
             const isRequired: any;
-
         }
 
         namespace labelAlign {
             // Circular reference from rc_easyui.FormField.propTypes.labelAlign
             const isRequired: any;
-
         }
 
         namespace labelPosition {
             // Circular reference from rc_easyui.FormField.propTypes.labelPosition
             const isRequired: any;
-
         }
 
         namespace labelWidth {
             // Circular reference from rc_easyui.FormField.propTypes.labelWidth
             const isRequired: any;
-
         }
 
         namespace name {
             // Circular reference from rc_easyui.FormField.propTypes.name
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.FormField.propTypes.style
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace GridBase {
@@ -6545,15 +5910,12 @@ export namespace GridBase {
         namespace locale {
             // Circular reference from rc_easyui.GridBase.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.GridBase.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -6617,8 +5979,7 @@ export namespace GridBase {
             notequal: {
                 isMatch: any;
                 text: string;
-            };
-        };
+            };        };
 
         const filterPosition: string;
 
@@ -6699,7 +6060,6 @@ export namespace GridBase {
         function onSelectionChange(): void;
 
         function onSortChange(): void;
-
     }
 
     namespace propTypes {
@@ -6778,221 +6138,183 @@ export namespace GridBase {
         namespace border {
             // Circular reference from rc_easyui.GridBase.propTypes.border
             const isRequired: any;
-
         }
 
         namespace clickToEdit {
             // Circular reference from rc_easyui.GridBase.propTypes.clickToEdit
             const isRequired: any;
-
         }
 
         namespace columnMoving {
             // Circular reference from rc_easyui.GridBase.propTypes.columnMoving
             const isRequired: any;
-
         }
 
         namespace data {
             // Circular reference from rc_easyui.GridBase.propTypes.data
             const isRequired: any;
-
         }
 
         namespace dblclickToEdit {
             // Circular reference from rc_easyui.GridBase.propTypes.dblclickToEdit
             const isRequired: any;
-
         }
 
         namespace editMode {
             // Circular reference from rc_easyui.GridBase.propTypes.editMode
             const isRequired: any;
-
         }
 
         namespace filterBtnPosition {
             // Circular reference from rc_easyui.GridBase.propTypes.filterBtnPosition
             const isRequired: any;
-
         }
 
         namespace filterDelay {
             // Circular reference from rc_easyui.GridBase.propTypes.filterDelay
             const isRequired: any;
-
         }
 
         namespace filterMatchingType {
             // Circular reference from rc_easyui.GridBase.propTypes.filterMatchingType
             const isRequired: any;
-
         }
 
         namespace filterOperators {
             // Circular reference from rc_easyui.GridBase.propTypes.filterOperators
             const isRequired: any;
-
         }
 
         namespace filterPosition {
             // Circular reference from rc_easyui.GridBase.propTypes.filterPosition
             const isRequired: any;
-
         }
 
         namespace filterRules {
             // Circular reference from rc_easyui.GridBase.propTypes.filterRules
             const isRequired: any;
-
         }
 
         namespace filterable {
             // Circular reference from rc_easyui.GridBase.propTypes.filterable
             const isRequired: any;
-
         }
 
         namespace footerData {
             // Circular reference from rc_easyui.GridBase.propTypes.footerData
             const isRequired: any;
-
         }
 
         namespace frozenAlign {
             // Circular reference from rc_easyui.GridBase.propTypes.frozenAlign
             const isRequired: any;
-
         }
 
         namespace frozenWidth {
             // Circular reference from rc_easyui.GridBase.propTypes.frozenWidth
             const isRequired: any;
-
         }
 
         namespace idField {
             // Circular reference from rc_easyui.GridBase.propTypes.idField
             const isRequired: any;
-
         }
 
         namespace lazy {
             // Circular reference from rc_easyui.GridBase.propTypes.lazy
             const isRequired: any;
-
         }
 
         namespace loadMsg {
             // Circular reference from rc_easyui.GridBase.propTypes.loadMsg
             const isRequired: any;
-
         }
 
         namespace loading {
             // Circular reference from rc_easyui.GridBase.propTypes.loading
             const isRequired: any;
-
         }
 
         namespace multiSort {
             // Circular reference from rc_easyui.GridBase.propTypes.multiSort
             const isRequired: any;
-
         }
 
         namespace pageNumber {
             // Circular reference from rc_easyui.GridBase.propTypes.pageNumber
             const isRequired: any;
-
         }
 
         namespace pageOptions {
             // Circular reference from rc_easyui.GridBase.propTypes.pageOptions
             const isRequired: any;
-
         }
 
         namespace pagePosition {
             // Circular reference from rc_easyui.GridBase.propTypes.pagePosition
             const isRequired: any;
-
         }
 
         namespace pageSize {
             // Circular reference from rc_easyui.GridBase.propTypes.pageSize
             const isRequired: any;
-
         }
 
         namespace pagination {
             // Circular reference from rc_easyui.GridBase.propTypes.pagination
             const isRequired: any;
-
         }
 
         namespace rowCss {
             // Circular reference from rc_easyui.GridBase.propTypes.rowCss
             const isRequired: any;
-
         }
 
         namespace rowHeight {
             // Circular reference from rc_easyui.GridBase.propTypes.rowHeight
             const isRequired: any;
-
         }
 
         namespace selection {
             // Circular reference from rc_easyui.GridBase.propTypes.selection
             const isRequired: any;
-
         }
 
         namespace selectionMode {
             // Circular reference from rc_easyui.GridBase.propTypes.selectionMode
             const isRequired: any;
-
         }
 
         namespace showFooter {
             // Circular reference from rc_easyui.GridBase.propTypes.showFooter
             const isRequired: any;
-
         }
 
         namespace showHeader {
             // Circular reference from rc_easyui.GridBase.propTypes.showHeader
             const isRequired: any;
-
         }
 
         namespace sorts {
             // Circular reference from rc_easyui.GridBase.propTypes.sorts
             const isRequired: any;
-
         }
 
         namespace striped {
             // Circular reference from rc_easyui.GridBase.propTypes.striped
             const isRequired: any;
-
         }
 
         namespace total {
             // Circular reference from rc_easyui.GridBase.propTypes.total
             const isRequired: any;
-
         }
 
         namespace virtualScroll {
             // Circular reference from rc_easyui.GridBase.propTypes.virtualScroll
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace GridColumn {
@@ -7004,15 +6326,12 @@ export namespace GridColumn {
         namespace locale {
             // Circular reference from rc_easyui.GridColumn.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.GridColumn.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace propTypes {
@@ -7065,143 +6384,118 @@ export namespace GridColumn {
         namespace align {
             // Circular reference from rc_easyui.GridColumn.propTypes.align
             const isRequired: any;
-
         }
 
         namespace cellCss {
             // Circular reference from rc_easyui.GridColumn.propTypes.cellCss
             const isRequired: any;
-
         }
 
         namespace colspan {
             // Circular reference from rc_easyui.GridColumn.propTypes.colspan
             const isRequired: any;
-
         }
 
         namespace defaultFilterOperator {
             // Circular reference from rc_easyui.GridColumn.propTypes.defaultFilterOperator
             const isRequired: any;
-
         }
 
         namespace editRules {
             // Circular reference from rc_easyui.GridColumn.propTypes.editRules
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.GridColumn.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace editor {
             // Circular reference from rc_easyui.GridColumn.propTypes.editor
             const isRequired: any;
-
         }
 
         namespace expander {
             // Circular reference from rc_easyui.GridColumn.propTypes.expander
             const isRequired: any;
-
         }
 
         namespace field {
             // Circular reference from rc_easyui.GridColumn.propTypes.field
             const isRequired: any;
-
         }
 
         namespace filter {
             // Circular reference from rc_easyui.GridColumn.propTypes.filter
             const isRequired: any;
-
         }
 
         namespace filterOperators {
             // Circular reference from rc_easyui.GridColumn.propTypes.filterOperators
             const isRequired: any;
-
         }
 
         namespace filterable {
             // Circular reference from rc_easyui.GridColumn.propTypes.filterable
             const isRequired: any;
-
         }
 
         namespace footer {
             // Circular reference from rc_easyui.GridColumn.propTypes.footer
             const isRequired: any;
-
         }
 
         namespace frozen {
             // Circular reference from rc_easyui.GridColumn.propTypes.frozen
             const isRequired: any;
-
         }
 
         namespace halign {
             // Circular reference from rc_easyui.GridColumn.propTypes.halign
             const isRequired: any;
-
         }
 
         namespace header {
             // Circular reference from rc_easyui.GridColumn.propTypes.header
             const isRequired: any;
-
         }
 
         namespace order {
             // Circular reference from rc_easyui.GridColumn.propTypes.order
             const isRequired: any;
-
         }
 
         namespace render {
             // Circular reference from rc_easyui.GridColumn.propTypes.render
             const isRequired: any;
-
         }
 
         namespace rowspan {
             // Circular reference from rc_easyui.GridColumn.propTypes.rowspan
             const isRequired: any;
-
         }
 
         namespace sortable {
             // Circular reference from rc_easyui.GridColumn.propTypes.sortable
             const isRequired: any;
-
         }
 
         namespace sorter {
             // Circular reference from rc_easyui.GridColumn.propTypes.sorter
             const isRequired: any;
-
         }
 
         namespace title {
             // Circular reference from rc_easyui.GridColumn.propTypes.title
             const isRequired: any;
-
         }
 
         namespace width {
             // Circular reference from rc_easyui.GridColumn.propTypes.width
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace GridColumnGroup {
@@ -7213,15 +6507,12 @@ export namespace GridColumnGroup {
         namespace locale {
             // Circular reference from rc_easyui.GridColumnGroup.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.GridColumnGroup.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace propTypes {
@@ -7234,23 +6525,18 @@ export namespace GridColumnGroup {
         namespace align {
             // Circular reference from rc_easyui.GridColumnGroup.propTypes.align
             const isRequired: any;
-
         }
 
         namespace frozen {
             // Circular reference from rc_easyui.GridColumnGroup.propTypes.frozen
             const isRequired: any;
-
         }
 
         namespace width {
             // Circular reference from rc_easyui.GridColumnGroup.propTypes.width
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace GridHeaderRow {
@@ -7262,15 +6548,12 @@ export namespace GridHeaderRow {
         namespace locale {
             // Circular reference from rc_easyui.GridHeaderRow.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.GridHeaderRow.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace propTypes {
@@ -7281,17 +6564,13 @@ export namespace GridHeaderRow {
         namespace className {
             // Circular reference from rc_easyui.GridHeaderRow.propTypes.className
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.GridHeaderRow.propTypes.style
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace InputBase {
@@ -7315,51 +6594,42 @@ export namespace InputBase {
         namespace fieldAdd {
             // Circular reference from rc_easyui.InputBase.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.InputBase.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.InputBase.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.InputBase.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.InputBase.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.InputBase.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.InputBase.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.InputBase.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -7390,7 +6660,6 @@ export namespace InputBase {
         function onFocus(): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -7437,125 +6706,103 @@ export namespace InputBase {
         namespace addonLeft {
             // Circular reference from rc_easyui.InputBase.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.InputBase.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.InputBase.propTypes.className
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.InputBase.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.InputBase.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.InputBase.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.InputBase.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.InputBase.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.InputBase.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.InputBase.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.InputBase.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.InputBase.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.InputBase.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.InputBase.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.InputBase.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.InputBase.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.InputBase.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.InputBase.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.InputBase.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.InputBase.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Label {
@@ -7567,17 +6814,13 @@ export namespace Label {
         namespace align {
             // Circular reference from rc_easyui.Label.propTypes.align
             const isRequired: any;
-
         }
 
         namespace htmlFor {
             // Circular reference from rc_easyui.Label.propTypes.htmlFor
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Layout {
@@ -7589,15 +6832,12 @@ export namespace Layout {
         namespace locale {
             // Circular reference from rc_easyui.Layout.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Layout.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -7606,7 +6846,6 @@ export namespace Layout {
         function onPanelResizeStop(e: any): void;
 
         function onPanelResizing(e: any): void;
-
     }
 
     namespace propTypes {
@@ -7615,11 +6854,8 @@ export namespace Layout {
         namespace selectedTab {
             // Circular reference from rc_easyui.Layout.propTypes.selectedTab
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace LayoutPanel {
@@ -7631,15 +6867,12 @@ export namespace LayoutPanel {
         namespace locale {
             // Circular reference from rc_easyui.LayoutPanel.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.LayoutPanel.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -7676,7 +6909,6 @@ export namespace LayoutPanel {
         function onCollapse(): void;
 
         function onExpand(): void;
-
     }
 
     namespace propTypes {
@@ -7737,167 +6969,138 @@ export namespace LayoutPanel {
         namespace animate {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.animate
             const isRequired: any;
-
         }
 
         namespace bodyCls {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.bodyCls
             const isRequired: any;
-
         }
 
         namespace bodyStyle {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.bodyStyle
             const isRequired: any;
-
         }
 
         namespace border {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.border
             const isRequired: any;
-
         }
 
         namespace closable {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.closable
             const isRequired: any;
-
         }
 
         namespace closeIconCls {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.closeIconCls
             const isRequired: any;
-
         }
 
         namespace closed {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.closed
             const isRequired: any;
-
         }
 
         namespace collapseIconCls {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.collapseIconCls
             const isRequired: any;
-
         }
 
         namespace collapsed {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.collapsed
             const isRequired: any;
-
         }
 
         namespace collapsedSize {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.collapsedSize
             const isRequired: any;
-
         }
 
         namespace collapsible {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.collapsible
             const isRequired: any;
-
         }
 
         namespace expandIconCls {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.expandIconCls
             const isRequired: any;
-
         }
 
         namespace expander {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.expander
             const isRequired: any;
-
         }
 
         namespace footer {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.footer
             const isRequired: any;
-
         }
 
         namespace footerCls {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.footerCls
             const isRequired: any;
-
         }
 
         namespace footerStyle {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.footerStyle
             const isRequired: any;
-
         }
 
         namespace header {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.header
             const isRequired: any;
-
         }
 
         namespace headerCls {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.headerCls
             const isRequired: any;
-
         }
 
         namespace headerStyle {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.headerStyle
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace onCollapse {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.onCollapse
             const isRequired: any;
-
         }
 
         namespace onExpand {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.onExpand
             const isRequired: any;
-
         }
 
         namespace region {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.region
             const isRequired: any;
-
         }
 
         namespace showFooter {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.showFooter
             const isRequired: any;
-
         }
 
         namespace showHeader {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.showHeader
             const isRequired: any;
-
         }
 
         namespace split {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.split
             const isRequired: any;
-
         }
 
         namespace title {
             // Circular reference from rc_easyui.LayoutPanel.propTypes.title
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace LinkButton {
@@ -7909,15 +7112,12 @@ export namespace LinkButton {
         namespace locale {
             // Circular reference from rc_easyui.LinkButton.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.LinkButton.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -7936,7 +7136,6 @@ export namespace LinkButton {
         const toggle: boolean;
 
         function onClick(): void;
-
     }
 
     namespace propTypes {
@@ -7969,83 +7168,68 @@ export namespace LinkButton {
         namespace className {
             // Circular reference from rc_easyui.LinkButton.propTypes.className
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.LinkButton.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace href {
             // Circular reference from rc_easyui.LinkButton.propTypes.href
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.LinkButton.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.LinkButton.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace onClick {
             // Circular reference from rc_easyui.LinkButton.propTypes.onClick
             const isRequired: any;
-
         }
 
         namespace outline {
             // Circular reference from rc_easyui.LinkButton.propTypes.outline
             const isRequired: any;
-
         }
 
         namespace plain {
             // Circular reference from rc_easyui.LinkButton.propTypes.plain
             const isRequired: any;
-
         }
 
         namespace selected {
             // Circular reference from rc_easyui.LinkButton.propTypes.selected
             const isRequired: any;
-
         }
 
         namespace size {
             // Circular reference from rc_easyui.LinkButton.propTypes.size
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.LinkButton.propTypes.style
             const isRequired: any;
-
         }
 
         namespace text {
             // Circular reference from rc_easyui.LinkButton.propTypes.text
             const isRequired: any;
-
         }
 
         namespace toggle {
             // Circular reference from rc_easyui.LinkButton.propTypes.toggle
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace LocaleBase {
@@ -8057,15 +7241,12 @@ export namespace LocaleBase {
         namespace locale {
             // Circular reference from rc_easyui.LocaleBase.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.LocaleBase.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace propTypes {
@@ -8076,17 +7257,13 @@ export namespace LocaleBase {
         namespace className {
             // Circular reference from rc_easyui.LocaleBase.propTypes.className
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.LocaleBase.propTypes.style
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace LocaleProvider {
@@ -8098,17 +7275,13 @@ export namespace LocaleProvider {
         namespace locale {
             // Circular reference from rc_easyui.LocaleProvider.childContextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.LocaleProvider.childContextTypes.t
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace MaskedBox {
@@ -8132,51 +7305,42 @@ export namespace MaskedBox {
         namespace fieldAdd {
             // Circular reference from rc_easyui.MaskedBox.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.MaskedBox.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.MaskedBox.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.MaskedBox.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.MaskedBox.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.MaskedBox.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.MaskedBox.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.MaskedBox.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -8191,8 +7355,7 @@ export namespace MaskedBox {
         const masks: {
             "*": string;
             "9": string;
-            a: string;
-        };
+            a: string;        };
 
         const multiline: boolean;
 
@@ -8215,7 +7378,6 @@ export namespace MaskedBox {
         function onFocus(): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -8268,143 +7430,118 @@ export namespace MaskedBox {
         namespace addonLeft {
             // Circular reference from rc_easyui.MaskedBox.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.MaskedBox.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.MaskedBox.propTypes.className
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.MaskedBox.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.MaskedBox.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.MaskedBox.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.MaskedBox.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.MaskedBox.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.MaskedBox.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.MaskedBox.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace mask {
             // Circular reference from rc_easyui.MaskedBox.propTypes.mask
             const isRequired: any;
-
         }
 
         namespace masks {
             // Circular reference from rc_easyui.MaskedBox.propTypes.masks
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.MaskedBox.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.MaskedBox.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.MaskedBox.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.MaskedBox.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.MaskedBox.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace promptChar {
             // Circular reference from rc_easyui.MaskedBox.propTypes.promptChar
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.MaskedBox.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.MaskedBox.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.MaskedBox.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.MaskedBox.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.MaskedBox.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Menu {
@@ -8416,15 +7553,12 @@ export namespace Menu {
         namespace locale {
             // Circular reference from rc_easyui.Menu.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Menu.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -8439,7 +7573,6 @@ export namespace Menu {
         function onItemClick(e: any): void;
 
         function onShow(): void;
-
     }
 
     namespace propTypes {
@@ -8462,53 +7595,43 @@ export namespace Menu {
         namespace className {
             // Circular reference from rc_easyui.Menu.propTypes.className
             const isRequired: any;
-
         }
 
         namespace duration {
             // Circular reference from rc_easyui.Menu.propTypes.duration
             const isRequired: any;
-
         }
 
         namespace inline {
             // Circular reference from rc_easyui.Menu.propTypes.inline
             const isRequired: any;
-
         }
 
         namespace menuCls {
             // Circular reference from rc_easyui.Menu.propTypes.menuCls
             const isRequired: any;
-
         }
 
         namespace menuStyle {
             // Circular reference from rc_easyui.Menu.propTypes.menuStyle
             const isRequired: any;
-
         }
 
         namespace menuWidth {
             // Circular reference from rc_easyui.Menu.propTypes.menuWidth
             const isRequired: any;
-
         }
 
         namespace noline {
             // Circular reference from rc_easyui.Menu.propTypes.noline
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.Menu.propTypes.style
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace MenuButton {
@@ -8520,15 +7643,12 @@ export namespace MenuButton {
         namespace locale {
             // Circular reference from rc_easyui.MenuButton.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.MenuButton.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -8557,7 +7677,6 @@ export namespace MenuButton {
         function onMenuItemClick(e: any): void;
 
         function onMenuShow(): void;
-
     }
 
     namespace propTypes {
@@ -8596,101 +7715,83 @@ export namespace MenuButton {
         namespace className {
             // Circular reference from rc_easyui.MenuButton.propTypes.className
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.MenuButton.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace duration {
             // Circular reference from rc_easyui.MenuButton.propTypes.duration
             const isRequired: any;
-
         }
 
         namespace href {
             // Circular reference from rc_easyui.MenuButton.propTypes.href
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.MenuButton.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.MenuButton.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace menu {
             // Circular reference from rc_easyui.MenuButton.propTypes.menu
             const isRequired: any;
-
         }
 
         namespace menuAlign {
             // Circular reference from rc_easyui.MenuButton.propTypes.menuAlign
             const isRequired: any;
-
         }
 
         namespace onClick {
             // Circular reference from rc_easyui.MenuButton.propTypes.onClick
             const isRequired: any;
-
         }
 
         namespace outline {
             // Circular reference from rc_easyui.MenuButton.propTypes.outline
             const isRequired: any;
-
         }
 
         namespace plain {
             // Circular reference from rc_easyui.MenuButton.propTypes.plain
             const isRequired: any;
-
         }
 
         namespace selected {
             // Circular reference from rc_easyui.MenuButton.propTypes.selected
             const isRequired: any;
-
         }
 
         namespace size {
             // Circular reference from rc_easyui.MenuButton.propTypes.size
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.MenuButton.propTypes.style
             const isRequired: any;
-
         }
 
         namespace text {
             // Circular reference from rc_easyui.MenuButton.propTypes.text
             const isRequired: any;
-
         }
 
         namespace toggle {
             // Circular reference from rc_easyui.MenuButton.propTypes.toggle
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace MenuItem {
@@ -8702,15 +7803,12 @@ export namespace MenuItem {
         namespace locale {
             // Circular reference from rc_easyui.MenuItem.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.MenuItem.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace propTypes {
@@ -8729,41 +7827,33 @@ export namespace MenuItem {
         namespace className {
             // Circular reference from rc_easyui.MenuItem.propTypes.className
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.MenuItem.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.MenuItem.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.MenuItem.propTypes.style
             const isRequired: any;
-
         }
 
         namespace text {
             // Circular reference from rc_easyui.MenuItem.propTypes.text
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.MenuItem.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Messager {
@@ -8775,15 +7865,12 @@ export namespace Messager {
         namespace locale {
             // Circular reference from rc_easyui.Messager.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Messager.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace propTypes {
@@ -8804,47 +7891,38 @@ export namespace Messager {
         namespace buttons {
             // Circular reference from rc_easyui.Messager.propTypes.buttons
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.Messager.propTypes.className
             const isRequired: any;
-
         }
 
         namespace content {
             // Circular reference from rc_easyui.Messager.propTypes.content
             const isRequired: any;
-
         }
 
         namespace icon {
             // Circular reference from rc_easyui.Messager.propTypes.icon
             const isRequired: any;
-
         }
 
         namespace messagerType {
             // Circular reference from rc_easyui.Messager.propTypes.messagerType
             const isRequired: any;
-
         }
 
         namespace msg {
             // Circular reference from rc_easyui.Messager.propTypes.msg
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.Messager.propTypes.style
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace NumberBox {
@@ -8868,51 +7946,42 @@ export namespace NumberBox {
         namespace fieldAdd {
             // Circular reference from rc_easyui.NumberBox.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.NumberBox.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.NumberBox.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.NumberBox.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.NumberBox.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.NumberBox.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.NumberBox.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.NumberBox.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -8961,7 +8030,6 @@ export namespace NumberBox {
         function onFocus(): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -9030,191 +8098,158 @@ export namespace NumberBox {
         namespace addonLeft {
             // Circular reference from rc_easyui.NumberBox.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.NumberBox.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.NumberBox.propTypes.className
             const isRequired: any;
-
         }
 
         namespace decimalSeparator {
             // Circular reference from rc_easyui.NumberBox.propTypes.decimalSeparator
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.NumberBox.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.NumberBox.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace groupSeparator {
             // Circular reference from rc_easyui.NumberBox.propTypes.groupSeparator
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.NumberBox.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.NumberBox.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace increment {
             // Circular reference from rc_easyui.NumberBox.propTypes.increment
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.NumberBox.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.NumberBox.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.NumberBox.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace max {
             // Circular reference from rc_easyui.NumberBox.propTypes.max
             const isRequired: any;
-
         }
 
         namespace min {
             // Circular reference from rc_easyui.NumberBox.propTypes.min
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.NumberBox.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.NumberBox.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.NumberBox.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.NumberBox.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.NumberBox.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace precision {
             // Circular reference from rc_easyui.NumberBox.propTypes.precision
             const isRequired: any;
-
         }
 
         namespace prefix {
             // Circular reference from rc_easyui.NumberBox.propTypes.prefix
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.NumberBox.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace reversed {
             // Circular reference from rc_easyui.NumberBox.propTypes.reversed
             const isRequired: any;
-
         }
 
         namespace spinAlign {
             // Circular reference from rc_easyui.NumberBox.propTypes.spinAlign
             const isRequired: any;
-
         }
 
         namespace spinners {
             // Circular reference from rc_easyui.NumberBox.propTypes.spinners
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.NumberBox.propTypes.style
             const isRequired: any;
-
         }
 
         namespace suffix {
             // Circular reference from rc_easyui.NumberBox.propTypes.suffix
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.NumberBox.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.NumberBox.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.NumberBox.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Pagination {
@@ -9226,15 +8261,12 @@ export namespace Pagination {
         namespace locale {
             // Circular reference from rc_easyui.Pagination.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Pagination.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -9265,7 +8297,6 @@ export namespace Pagination {
         const total: number;
 
         function onPageChange(): void;
-
     }
 
     namespace propTypes {
@@ -9302,95 +8333,78 @@ export namespace Pagination {
         namespace afterPageText {
             // Circular reference from rc_easyui.Pagination.propTypes.afterPageText
             const isRequired: any;
-
         }
 
         namespace beforePageText {
             // Circular reference from rc_easyui.Pagination.propTypes.beforePageText
             const isRequired: any;
-
         }
 
         namespace displayMsg {
             // Circular reference from rc_easyui.Pagination.propTypes.displayMsg
             const isRequired: any;
-
         }
 
         namespace layout {
             // Circular reference from rc_easyui.Pagination.propTypes.layout
             const isRequired: any;
-
         }
 
         namespace links {
             // Circular reference from rc_easyui.Pagination.propTypes.links
             const isRequired: any;
-
         }
 
         namespace loading {
             // Circular reference from rc_easyui.Pagination.propTypes.loading
             const isRequired: any;
-
         }
 
         namespace onPageChange {
             // Circular reference from rc_easyui.Pagination.propTypes.onPageChange
             const isRequired: any;
-
         }
 
         namespace pageList {
             // Circular reference from rc_easyui.Pagination.propTypes.pageList
             const isRequired: any;
-
         }
 
         namespace pageNumber {
             // Circular reference from rc_easyui.Pagination.propTypes.pageNumber
             const isRequired: any;
-
         }
 
         namespace pageSize {
             // Circular reference from rc_easyui.Pagination.propTypes.pageSize
             const isRequired: any;
-
         }
 
         namespace renderExt {
             // Circular reference from rc_easyui.Pagination.propTypes.renderExt
             const isRequired: any;
-
         }
 
         namespace showPageInfo {
             // Circular reference from rc_easyui.Pagination.propTypes.showPageInfo
             const isRequired: any;
-
         }
 
         namespace showPageList {
             // Circular reference from rc_easyui.Pagination.propTypes.showPageList
             const isRequired: any;
-
         }
 
         namespace showPageRefresh {
             // Circular reference from rc_easyui.Pagination.propTypes.showPageRefresh
             const isRequired: any;
-
         }
 
         namespace total {
             // Circular reference from rc_easyui.Pagination.propTypes.total
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Panel {
@@ -9402,15 +8416,12 @@ export namespace Panel {
         namespace locale {
             // Circular reference from rc_easyui.Panel.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Panel.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -9439,7 +8450,6 @@ export namespace Panel {
         function onCollapse(): void;
 
         function onExpand(): void;
-
     }
 
     namespace propTypes {
@@ -9492,143 +8502,118 @@ export namespace Panel {
         namespace animate {
             // Circular reference from rc_easyui.Panel.propTypes.animate
             const isRequired: any;
-
         }
 
         namespace bodyCls {
             // Circular reference from rc_easyui.Panel.propTypes.bodyCls
             const isRequired: any;
-
         }
 
         namespace bodyStyle {
             // Circular reference from rc_easyui.Panel.propTypes.bodyStyle
             const isRequired: any;
-
         }
 
         namespace border {
             // Circular reference from rc_easyui.Panel.propTypes.border
             const isRequired: any;
-
         }
 
         namespace closable {
             // Circular reference from rc_easyui.Panel.propTypes.closable
             const isRequired: any;
-
         }
 
         namespace closeIconCls {
             // Circular reference from rc_easyui.Panel.propTypes.closeIconCls
             const isRequired: any;
-
         }
 
         namespace closed {
             // Circular reference from rc_easyui.Panel.propTypes.closed
             const isRequired: any;
-
         }
 
         namespace collapseIconCls {
             // Circular reference from rc_easyui.Panel.propTypes.collapseIconCls
             const isRequired: any;
-
         }
 
         namespace collapsed {
             // Circular reference from rc_easyui.Panel.propTypes.collapsed
             const isRequired: any;
-
         }
 
         namespace collapsible {
             // Circular reference from rc_easyui.Panel.propTypes.collapsible
             const isRequired: any;
-
         }
 
         namespace expandIconCls {
             // Circular reference from rc_easyui.Panel.propTypes.expandIconCls
             const isRequired: any;
-
         }
 
         namespace footer {
             // Circular reference from rc_easyui.Panel.propTypes.footer
             const isRequired: any;
-
         }
 
         namespace footerCls {
             // Circular reference from rc_easyui.Panel.propTypes.footerCls
             const isRequired: any;
-
         }
 
         namespace footerStyle {
             // Circular reference from rc_easyui.Panel.propTypes.footerStyle
             const isRequired: any;
-
         }
 
         namespace header {
             // Circular reference from rc_easyui.Panel.propTypes.header
             const isRequired: any;
-
         }
 
         namespace headerCls {
             // Circular reference from rc_easyui.Panel.propTypes.headerCls
             const isRequired: any;
-
         }
 
         namespace headerStyle {
             // Circular reference from rc_easyui.Panel.propTypes.headerStyle
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.Panel.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace onCollapse {
             // Circular reference from rc_easyui.Panel.propTypes.onCollapse
             const isRequired: any;
-
         }
 
         namespace onExpand {
             // Circular reference from rc_easyui.Panel.propTypes.onExpand
             const isRequired: any;
-
         }
 
         namespace showFooter {
             // Circular reference from rc_easyui.Panel.propTypes.showFooter
             const isRequired: any;
-
         }
 
         namespace showHeader {
             // Circular reference from rc_easyui.Panel.propTypes.showHeader
             const isRequired: any;
-
         }
 
         namespace title {
             // Circular reference from rc_easyui.Panel.propTypes.title
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace PasswordBox {
@@ -9652,51 +8637,42 @@ export namespace PasswordBox {
         namespace fieldAdd {
             // Circular reference from rc_easyui.PasswordBox.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.PasswordBox.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.PasswordBox.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.PasswordBox.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.PasswordBox.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.PasswordBox.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.PasswordBox.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.PasswordBox.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -9739,7 +8715,6 @@ export namespace PasswordBox {
         function onFocus(): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -9798,161 +8773,133 @@ export namespace PasswordBox {
         namespace addonLeft {
             // Circular reference from rc_easyui.PasswordBox.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.PasswordBox.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace checkInterval {
             // Circular reference from rc_easyui.PasswordBox.propTypes.checkInterval
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.PasswordBox.propTypes.className
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.PasswordBox.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.PasswordBox.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace eyeAlign {
             // Circular reference from rc_easyui.PasswordBox.propTypes.eyeAlign
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.PasswordBox.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.PasswordBox.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.PasswordBox.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.PasswordBox.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.PasswordBox.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace lastDelay {
             // Circular reference from rc_easyui.PasswordBox.propTypes.lastDelay
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.PasswordBox.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.PasswordBox.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.PasswordBox.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.PasswordBox.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace passwordChar {
             // Circular reference from rc_easyui.PasswordBox.propTypes.passwordChar
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.PasswordBox.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.PasswordBox.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace revealed {
             // Circular reference from rc_easyui.PasswordBox.propTypes.revealed
             const isRequired: any;
-
         }
 
         namespace showEye {
             // Circular reference from rc_easyui.PasswordBox.propTypes.showEye
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.PasswordBox.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.PasswordBox.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.PasswordBox.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.PasswordBox.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace ProgressBar {
@@ -9964,15 +8911,12 @@ export namespace ProgressBar {
         namespace locale {
             // Circular reference from rc_easyui.ProgressBar.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.ProgressBar.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace propTypes {
@@ -9991,41 +8935,33 @@ export namespace ProgressBar {
         namespace barCls {
             // Circular reference from rc_easyui.ProgressBar.propTypes.barCls
             const isRequired: any;
-
         }
 
         namespace barStyle {
             // Circular reference from rc_easyui.ProgressBar.propTypes.barStyle
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.ProgressBar.propTypes.className
             const isRequired: any;
-
         }
 
         namespace showValue {
             // Circular reference from rc_easyui.ProgressBar.propTypes.showValue
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.ProgressBar.propTypes.style
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.ProgressBar.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace RadioButton {
@@ -10049,58 +8985,48 @@ export namespace RadioButton {
         namespace fieldAdd {
             // Circular reference from rc_easyui.RadioButton.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.RadioButton.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.RadioButton.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.RadioButton.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.RadioButton.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.RadioButton.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.RadioButton.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.RadioButton.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
         const disabled: boolean;
 
         function onChange(e: any): void;
-
     }
 
     namespace propTypes {
@@ -10117,35 +9043,28 @@ export namespace RadioButton {
         namespace disabled {
             // Circular reference from rc_easyui.RadioButton.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace groupValue {
             // Circular reference from rc_easyui.RadioButton.propTypes.groupValue
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.RadioButton.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.RadioButton.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.RadioButton.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Resizable {
@@ -10157,15 +9076,12 @@ export namespace Resizable {
         namespace locale {
             // Circular reference from rc_easyui.Resizable.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Resizable.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -10188,7 +9104,6 @@ export namespace Resizable {
         function onResizeStop(e: any): void;
 
         function onResizing(e: any): void;
-
     }
 
     namespace propTypes {
@@ -10215,65 +9130,53 @@ export namespace Resizable {
         namespace disabled {
             // Circular reference from rc_easyui.Resizable.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace edge {
             // Circular reference from rc_easyui.Resizable.propTypes.edge
             const isRequired: any;
-
         }
 
         namespace handles {
             // Circular reference from rc_easyui.Resizable.propTypes.handles
             const isRequired: any;
-
         }
 
         namespace maxHeight {
             // Circular reference from rc_easyui.Resizable.propTypes.maxHeight
             const isRequired: any;
-
         }
 
         namespace maxWidth {
             // Circular reference from rc_easyui.Resizable.propTypes.maxWidth
             const isRequired: any;
-
         }
 
         namespace minHeight {
             // Circular reference from rc_easyui.Resizable.propTypes.minHeight
             const isRequired: any;
-
         }
 
         namespace minWidth {
             // Circular reference from rc_easyui.Resizable.propTypes.minWidth
             const isRequired: any;
-
         }
 
         namespace onResizeStart {
             // Circular reference from rc_easyui.Resizable.propTypes.onResizeStart
             const isRequired: any;
-
         }
 
         namespace onResizeStop {
             // Circular reference from rc_easyui.Resizable.propTypes.onResizeStop
             const isRequired: any;
-
         }
 
         namespace onResizing {
             // Circular reference from rc_easyui.Resizable.propTypes.onResizing
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace SearchBox {
@@ -10297,51 +9200,42 @@ export namespace SearchBox {
         namespace fieldAdd {
             // Circular reference from rc_easyui.SearchBox.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.SearchBox.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.SearchBox.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.SearchBox.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.SearchBox.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.SearchBox.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.SearchBox.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.SearchBox.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -10382,7 +9276,6 @@ export namespace SearchBox {
         function onSearch(e: any): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -10441,161 +9334,133 @@ export namespace SearchBox {
         namespace addonLeft {
             // Circular reference from rc_easyui.SearchBox.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.SearchBox.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace buttonAlign {
             // Circular reference from rc_easyui.SearchBox.propTypes.buttonAlign
             const isRequired: any;
-
         }
 
         namespace buttonIconCls {
             // Circular reference from rc_easyui.SearchBox.propTypes.buttonIconCls
             const isRequired: any;
-
         }
 
         namespace categories {
             // Circular reference from rc_easyui.SearchBox.propTypes.categories
             const isRequired: any;
-
         }
 
         namespace category {
             // Circular reference from rc_easyui.SearchBox.propTypes.category
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.SearchBox.propTypes.className
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.SearchBox.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.SearchBox.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.SearchBox.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.SearchBox.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.SearchBox.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.SearchBox.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.SearchBox.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace menuAlign {
             // Circular reference from rc_easyui.SearchBox.propTypes.menuAlign
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.SearchBox.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.SearchBox.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.SearchBox.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.SearchBox.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace onSearch {
             // Circular reference from rc_easyui.SearchBox.propTypes.onSearch
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.SearchBox.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.SearchBox.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.SearchBox.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.SearchBox.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.SearchBox.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.SearchBox.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace SideMenu {
@@ -10607,15 +9472,12 @@ export namespace SideMenu {
         namespace locale {
             // Circular reference from rc_easyui.SideMenu.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.SideMenu.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -10636,7 +9498,6 @@ export namespace SideMenu {
         function onItemClick(e: any): void;
 
         function onSelectionChange(e: any): void;
-
     }
 
     namespace propTypes {
@@ -10667,77 +9528,63 @@ export namespace SideMenu {
         namespace animate {
             // Circular reference from rc_easyui.SideMenu.propTypes.animate
             const isRequired: any;
-
         }
 
         namespace border {
             // Circular reference from rc_easyui.SideMenu.propTypes.border
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.SideMenu.propTypes.className
             const isRequired: any;
-
         }
 
         namespace collapsed {
             // Circular reference from rc_easyui.SideMenu.propTypes.collapsed
             const isRequired: any;
-
         }
 
         namespace collapsedCls {
             // Circular reference from rc_easyui.SideMenu.propTypes.collapsedCls
             const isRequired: any;
-
         }
 
         namespace data {
             // Circular reference from rc_easyui.SideMenu.propTypes.data
             const isRequired: any;
-
         }
 
         namespace floatMenuPosition {
             // Circular reference from rc_easyui.SideMenu.propTypes.floatMenuPosition
             const isRequired: any;
-
         }
 
         namespace floatMenuWidth {
             // Circular reference from rc_easyui.SideMenu.propTypes.floatMenuWidth
             const isRequired: any;
-
         }
 
         namespace multiple {
             // Circular reference from rc_easyui.SideMenu.propTypes.multiple
             const isRequired: any;
-
         }
 
         namespace selection {
             // Circular reference from rc_easyui.SideMenu.propTypes.selection
             const isRequired: any;
-
         }
 
         namespace showCollapsedText {
             // Circular reference from rc_easyui.SideMenu.propTypes.showCollapsedText
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.SideMenu.propTypes.style
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Slider {
@@ -10761,51 +9608,42 @@ export namespace Slider {
         namespace fieldAdd {
             // Circular reference from rc_easyui.Slider.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.Slider.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.Slider.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.Slider.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.Slider.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.Slider.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.Slider.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Slider.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -10836,7 +9674,6 @@ export namespace Slider {
         const validateOnCreate: boolean;
 
         function onChange(e: any): void;
-
     }
 
     namespace propTypes {
@@ -10873,95 +9710,78 @@ export namespace Slider {
         namespace disabled {
             // Circular reference from rc_easyui.Slider.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace invalid {
             // Circular reference from rc_easyui.Slider.propTypes.invalid
             const isRequired: any;
-
         }
 
         namespace max {
             // Circular reference from rc_easyui.Slider.propTypes.max
             const isRequired: any;
-
         }
 
         namespace min {
             // Circular reference from rc_easyui.Slider.propTypes.min
             const isRequired: any;
-
         }
 
         namespace mode {
             // Circular reference from rc_easyui.Slider.propTypes.mode
             const isRequired: any;
-
         }
 
         namespace name {
             // Circular reference from rc_easyui.Slider.propTypes.name
             const isRequired: any;
-
         }
 
         namespace range {
             // Circular reference from rc_easyui.Slider.propTypes.range
             const isRequired: any;
-
         }
 
         namespace reversed {
             // Circular reference from rc_easyui.Slider.propTypes.reversed
             const isRequired: any;
-
         }
 
         namespace rule {
             // Circular reference from rc_easyui.Slider.propTypes.rule
             const isRequired: any;
-
         }
 
         namespace showTip {
             // Circular reference from rc_easyui.Slider.propTypes.showTip
             const isRequired: any;
-
         }
 
         namespace step {
             // Circular reference from rc_easyui.Slider.propTypes.step
             const isRequired: any;
-
         }
 
         namespace validateOnBlur {
             // Circular reference from rc_easyui.Slider.propTypes.validateOnBlur
             const isRequired: any;
-
         }
 
         namespace validateOnChange {
             // Circular reference from rc_easyui.Slider.propTypes.validateOnChange
             const isRequired: any;
-
         }
 
         namespace validateOnCreate {
             // Circular reference from rc_easyui.Slider.propTypes.validateOnCreate
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.Slider.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace SplitButton {
@@ -10973,15 +9793,12 @@ export namespace SplitButton {
         namespace locale {
             // Circular reference from rc_easyui.SplitButton.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.SplitButton.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -11010,7 +9827,6 @@ export namespace SplitButton {
         function onMenuItemClick(e: any): void;
 
         function onMenuShow(): void;
-
     }
 
     namespace propTypes {
@@ -11049,101 +9865,83 @@ export namespace SplitButton {
         namespace className {
             // Circular reference from rc_easyui.SplitButton.propTypes.className
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.SplitButton.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace duration {
             // Circular reference from rc_easyui.SplitButton.propTypes.duration
             const isRequired: any;
-
         }
 
         namespace href {
             // Circular reference from rc_easyui.SplitButton.propTypes.href
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.SplitButton.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.SplitButton.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace menu {
             // Circular reference from rc_easyui.SplitButton.propTypes.menu
             const isRequired: any;
-
         }
 
         namespace menuAlign {
             // Circular reference from rc_easyui.SplitButton.propTypes.menuAlign
             const isRequired: any;
-
         }
 
         namespace onClick {
             // Circular reference from rc_easyui.SplitButton.propTypes.onClick
             const isRequired: any;
-
         }
 
         namespace outline {
             // Circular reference from rc_easyui.SplitButton.propTypes.outline
             const isRequired: any;
-
         }
 
         namespace plain {
             // Circular reference from rc_easyui.SplitButton.propTypes.plain
             const isRequired: any;
-
         }
 
         namespace selected {
             // Circular reference from rc_easyui.SplitButton.propTypes.selected
             const isRequired: any;
-
         }
 
         namespace size {
             // Circular reference from rc_easyui.SplitButton.propTypes.size
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.SplitButton.propTypes.style
             const isRequired: any;
-
         }
 
         namespace text {
             // Circular reference from rc_easyui.SplitButton.propTypes.text
             const isRequired: any;
-
         }
 
         namespace toggle {
             // Circular reference from rc_easyui.SplitButton.propTypes.toggle
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace SubMenu {
@@ -11155,15 +9953,12 @@ export namespace SubMenu {
         namespace locale {
             // Circular reference from rc_easyui.SubMenu.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.SubMenu.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace propTypes {
@@ -11180,35 +9975,28 @@ export namespace SubMenu {
         namespace className {
             // Circular reference from rc_easyui.SubMenu.propTypes.className
             const isRequired: any;
-
         }
 
         namespace menuCls {
             // Circular reference from rc_easyui.SubMenu.propTypes.menuCls
             const isRequired: any;
-
         }
 
         namespace menuStyle {
             // Circular reference from rc_easyui.SubMenu.propTypes.menuStyle
             const isRequired: any;
-
         }
 
         namespace menuWidth {
             // Circular reference from rc_easyui.SubMenu.propTypes.menuWidth
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.SubMenu.propTypes.style
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace SwitchButton {
@@ -11232,51 +10020,42 @@ export namespace SwitchButton {
         namespace fieldAdd {
             // Circular reference from rc_easyui.SwitchButton.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.SwitchButton.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.SwitchButton.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.SwitchButton.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.SwitchButton.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.SwitchButton.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.SwitchButton.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.SwitchButton.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -11297,7 +10076,6 @@ export namespace SwitchButton {
         const validateOnCreate: boolean;
 
         function onChange(e: any): void;
-
     }
 
     namespace propTypes {
@@ -11328,77 +10106,63 @@ export namespace SwitchButton {
         namespace disabled {
             // Circular reference from rc_easyui.SwitchButton.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace handleText {
             // Circular reference from rc_easyui.SwitchButton.propTypes.handleText
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.SwitchButton.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace invalid {
             // Circular reference from rc_easyui.SwitchButton.propTypes.invalid
             const isRequired: any;
-
         }
 
         namespace name {
             // Circular reference from rc_easyui.SwitchButton.propTypes.name
             const isRequired: any;
-
         }
 
         namespace offText {
             // Circular reference from rc_easyui.SwitchButton.propTypes.offText
             const isRequired: any;
-
         }
 
         namespace onText {
             // Circular reference from rc_easyui.SwitchButton.propTypes.onText
             const isRequired: any;
-
         }
 
         namespace readonly {
             // Circular reference from rc_easyui.SwitchButton.propTypes.readonly
             const isRequired: any;
-
         }
 
         namespace validateOnBlur {
             // Circular reference from rc_easyui.SwitchButton.propTypes.validateOnBlur
             const isRequired: any;
-
         }
 
         namespace validateOnChange {
             // Circular reference from rc_easyui.SwitchButton.propTypes.validateOnChange
             const isRequired: any;
-
         }
 
         namespace validateOnCreate {
             // Circular reference from rc_easyui.SwitchButton.propTypes.validateOnCreate
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.SwitchButton.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace TabPanel {
@@ -11410,15 +10174,12 @@ export namespace TabPanel {
         namespace locale {
             // Circular reference from rc_easyui.TabPanel.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.TabPanel.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -11451,7 +10212,6 @@ export namespace TabPanel {
         function onCollapse(): void;
 
         function onExpand(): void;
-
     }
 
     namespace propTypes {
@@ -11508,155 +10268,128 @@ export namespace TabPanel {
         namespace animate {
             // Circular reference from rc_easyui.TabPanel.propTypes.animate
             const isRequired: any;
-
         }
 
         namespace bodyCls {
             // Circular reference from rc_easyui.TabPanel.propTypes.bodyCls
             const isRequired: any;
-
         }
 
         namespace bodyStyle {
             // Circular reference from rc_easyui.TabPanel.propTypes.bodyStyle
             const isRequired: any;
-
         }
 
         namespace border {
             // Circular reference from rc_easyui.TabPanel.propTypes.border
             const isRequired: any;
-
         }
 
         namespace closable {
             // Circular reference from rc_easyui.TabPanel.propTypes.closable
             const isRequired: any;
-
         }
 
         namespace closeIconCls {
             // Circular reference from rc_easyui.TabPanel.propTypes.closeIconCls
             const isRequired: any;
-
         }
 
         namespace closed {
             // Circular reference from rc_easyui.TabPanel.propTypes.closed
             const isRequired: any;
-
         }
 
         namespace collapseIconCls {
             // Circular reference from rc_easyui.TabPanel.propTypes.collapseIconCls
             const isRequired: any;
-
         }
 
         namespace collapsed {
             // Circular reference from rc_easyui.TabPanel.propTypes.collapsed
             const isRequired: any;
-
         }
 
         namespace collapsible {
             // Circular reference from rc_easyui.TabPanel.propTypes.collapsible
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.TabPanel.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace expandIconCls {
             // Circular reference from rc_easyui.TabPanel.propTypes.expandIconCls
             const isRequired: any;
-
         }
 
         namespace footer {
             // Circular reference from rc_easyui.TabPanel.propTypes.footer
             const isRequired: any;
-
         }
 
         namespace footerCls {
             // Circular reference from rc_easyui.TabPanel.propTypes.footerCls
             const isRequired: any;
-
         }
 
         namespace footerStyle {
             // Circular reference from rc_easyui.TabPanel.propTypes.footerStyle
             const isRequired: any;
-
         }
 
         namespace header {
             // Circular reference from rc_easyui.TabPanel.propTypes.header
             const isRequired: any;
-
         }
 
         namespace headerCls {
             // Circular reference from rc_easyui.TabPanel.propTypes.headerCls
             const isRequired: any;
-
         }
 
         namespace headerStyle {
             // Circular reference from rc_easyui.TabPanel.propTypes.headerStyle
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.TabPanel.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace onCollapse {
             // Circular reference from rc_easyui.TabPanel.propTypes.onCollapse
             const isRequired: any;
-
         }
 
         namespace onExpand {
             // Circular reference from rc_easyui.TabPanel.propTypes.onExpand
             const isRequired: any;
-
         }
 
         namespace selected {
             // Circular reference from rc_easyui.TabPanel.propTypes.selected
             const isRequired: any;
-
         }
 
         namespace showFooter {
             // Circular reference from rc_easyui.TabPanel.propTypes.showFooter
             const isRequired: any;
-
         }
 
         namespace showHeader {
             // Circular reference from rc_easyui.TabPanel.propTypes.showHeader
             const isRequired: any;
-
         }
 
         namespace title {
             // Circular reference from rc_easyui.TabPanel.propTypes.title
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Tabs {
@@ -11668,15 +10401,12 @@ export namespace Tabs {
         namespace locale {
             // Circular reference from rc_easyui.Tabs.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Tabs.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -11707,7 +10437,6 @@ export namespace Tabs {
         function onTabSelect(e: any): void;
 
         function onTabUnselect(e: any): void;
-
     }
 
     namespace propTypes {
@@ -11742,89 +10471,73 @@ export namespace Tabs {
         namespace border {
             // Circular reference from rc_easyui.Tabs.propTypes.border
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.Tabs.propTypes.className
             const isRequired: any;
-
         }
 
         namespace headerHeight {
             // Circular reference from rc_easyui.Tabs.propTypes.headerHeight
             const isRequired: any;
-
         }
 
         namespace headerWidth {
             // Circular reference from rc_easyui.Tabs.propTypes.headerWidth
             const isRequired: any;
-
         }
 
         namespace justified {
             // Circular reference from rc_easyui.Tabs.propTypes.justified
             const isRequired: any;
-
         }
 
         namespace narrow {
             // Circular reference from rc_easyui.Tabs.propTypes.narrow
             const isRequired: any;
-
         }
 
         namespace plain {
             // Circular reference from rc_easyui.Tabs.propTypes.plain
             const isRequired: any;
-
         }
 
         namespace scrollIncrement {
             // Circular reference from rc_easyui.Tabs.propTypes.scrollIncrement
             const isRequired: any;
-
         }
 
         namespace scrollable {
             // Circular reference from rc_easyui.Tabs.propTypes.scrollable
             const isRequired: any;
-
         }
 
         namespace selectedIndex {
             // Circular reference from rc_easyui.Tabs.propTypes.selectedIndex
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.Tabs.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabHeight {
             // Circular reference from rc_easyui.Tabs.propTypes.tabHeight
             const isRequired: any;
-
         }
 
         namespace tabPosition {
             // Circular reference from rc_easyui.Tabs.propTypes.tabPosition
             const isRequired: any;
-
         }
 
         namespace tabWidth {
             // Circular reference from rc_easyui.Tabs.propTypes.tabWidth
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace TagBox {
@@ -11848,51 +10561,42 @@ export namespace TagBox {
         namespace fieldAdd {
             // Circular reference from rc_easyui.TagBox.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.TagBox.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.TagBox.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.TagBox.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.TagBox.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.TagBox.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.TagBox.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.TagBox.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -11963,7 +10667,6 @@ export namespace TagBox {
         function onSelectionChange(e: any): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -12054,257 +10757,213 @@ export namespace TagBox {
         namespace addonLeft {
             // Circular reference from rc_easyui.TagBox.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.TagBox.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace arrowAlign {
             // Circular reference from rc_easyui.TagBox.propTypes.arrowAlign
             const isRequired: any;
-
         }
 
         namespace arrowIconCls {
             // Circular reference from rc_easyui.TagBox.propTypes.arrowIconCls
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.TagBox.propTypes.className
             const isRequired: any;
-
         }
 
         namespace data {
             // Circular reference from rc_easyui.TagBox.propTypes.data
             const isRequired: any;
-
         }
 
         namespace delay {
             // Circular reference from rc_easyui.TagBox.propTypes.delay
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.TagBox.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.TagBox.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace filter {
             // Circular reference from rc_easyui.TagBox.propTypes.filter
             const isRequired: any;
-
         }
 
         namespace groupField {
             // Circular reference from rc_easyui.TagBox.propTypes.groupField
             const isRequired: any;
-
         }
 
         namespace hasDownArrow {
             // Circular reference from rc_easyui.TagBox.propTypes.hasDownArrow
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.TagBox.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.TagBox.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.TagBox.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.TagBox.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.TagBox.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace lazy {
             // Circular reference from rc_easyui.TagBox.propTypes.lazy
             const isRequired: any;
-
         }
 
         namespace limitToList {
             // Circular reference from rc_easyui.TagBox.propTypes.limitToList
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.TagBox.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace multiple {
             // Circular reference from rc_easyui.TagBox.propTypes.multiple
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.TagBox.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.TagBox.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.TagBox.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace pageNumber {
             // Circular reference from rc_easyui.TagBox.propTypes.pageNumber
             const isRequired: any;
-
         }
 
         namespace pageSize {
             // Circular reference from rc_easyui.TagBox.propTypes.pageSize
             const isRequired: any;
-
         }
 
         namespace panelAlign {
             // Circular reference from rc_easyui.TagBox.propTypes.panelAlign
             const isRequired: any;
-
         }
 
         namespace panelStyle {
             // Circular reference from rc_easyui.TagBox.propTypes.panelStyle
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.TagBox.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.TagBox.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace renderItem {
             // Circular reference from rc_easyui.TagBox.propTypes.renderItem
             const isRequired: any;
-
         }
 
         namespace rowHeight {
             // Circular reference from rc_easyui.TagBox.propTypes.rowHeight
             const isRequired: any;
-
         }
 
         namespace separator {
             // Circular reference from rc_easyui.TagBox.propTypes.separator
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.TagBox.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.TagBox.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace tagCss {
             // Circular reference from rc_easyui.TagBox.propTypes.tagCss
             const isRequired: any;
-
         }
 
         namespace textField {
             // Circular reference from rc_easyui.TagBox.propTypes.textField
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.TagBox.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace total {
             // Circular reference from rc_easyui.TagBox.propTypes.total
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.TagBox.propTypes.value
             const isRequired: any;
-
         }
 
         namespace valueField {
             // Circular reference from rc_easyui.TagBox.propTypes.valueField
             const isRequired: any;
-
         }
 
         namespace virtualScroll {
             // Circular reference from rc_easyui.TagBox.propTypes.virtualScroll
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace TextBox {
@@ -12328,51 +10987,42 @@ export namespace TextBox {
         namespace fieldAdd {
             // Circular reference from rc_easyui.TextBox.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.TextBox.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.TextBox.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.TextBox.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.TextBox.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.TextBox.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.TextBox.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.TextBox.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -12403,7 +11053,6 @@ export namespace TextBox {
         function onFocus(): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -12450,125 +11099,103 @@ export namespace TextBox {
         namespace addonLeft {
             // Circular reference from rc_easyui.TextBox.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.TextBox.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.TextBox.propTypes.className
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.TextBox.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.TextBox.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.TextBox.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.TextBox.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.TextBox.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.TextBox.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.TextBox.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.TextBox.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.TextBox.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.TextBox.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.TextBox.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.TextBox.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.TextBox.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.TextBox.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.TextBox.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.TextBox.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.TextBox.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace TextEditor {
@@ -12592,51 +11219,42 @@ export namespace TextEditor {
         namespace fieldAdd {
             // Circular reference from rc_easyui.TextEditor.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.TextEditor.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.TextEditor.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.TextEditor.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.TextEditor.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.TextEditor.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.TextEditor.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.TextEditor.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -12645,7 +11263,6 @@ export namespace TextEditor {
         function onChange(e: any): void;
 
         function onFocus(): void;
-
     }
 
     namespace propTypes {
@@ -12668,53 +11285,43 @@ export namespace TextEditor {
         namespace invalid {
             // Circular reference from rc_easyui.TextEditor.propTypes.invalid
             const isRequired: any;
-
         }
 
         namespace name {
             // Circular reference from rc_easyui.TextEditor.propTypes.name
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.TextEditor.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.TextEditor.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.TextEditor.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace validateOnBlur {
             // Circular reference from rc_easyui.TextEditor.propTypes.validateOnBlur
             const isRequired: any;
-
         }
 
         namespace validateOnChange {
             // Circular reference from rc_easyui.TextEditor.propTypes.validateOnChange
             const isRequired: any;
-
         }
 
         namespace validateOnCreate {
             // Circular reference from rc_easyui.TextEditor.propTypes.validateOnCreate
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace TimePicker {
@@ -12738,51 +11345,42 @@ export namespace TimePicker {
         namespace fieldAdd {
             // Circular reference from rc_easyui.TimePicker.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.TimePicker.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.TimePicker.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.TimePicker.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.TimePicker.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.TimePicker.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.TimePicker.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.TimePicker.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -12833,7 +11431,6 @@ export namespace TimePicker {
         function onFocus(): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -12898,179 +11495,148 @@ export namespace TimePicker {
         namespace addonLeft {
             // Circular reference from rc_easyui.TimePicker.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.TimePicker.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace ampm {
             // Circular reference from rc_easyui.TimePicker.propTypes.ampm
             const isRequired: any;
-
         }
 
         namespace arrowAlign {
             // Circular reference from rc_easyui.TimePicker.propTypes.arrowAlign
             const isRequired: any;
-
         }
 
         namespace arrowIconCls {
             // Circular reference from rc_easyui.TimePicker.propTypes.arrowIconCls
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.TimePicker.propTypes.className
             const isRequired: any;
-
         }
 
         namespace delay {
             // Circular reference from rc_easyui.TimePicker.propTypes.delay
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.TimePicker.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.TimePicker.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace hasDownArrow {
             // Circular reference from rc_easyui.TimePicker.propTypes.hasDownArrow
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.TimePicker.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.TimePicker.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.TimePicker.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.TimePicker.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.TimePicker.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.TimePicker.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace multiple {
             // Circular reference from rc_easyui.TimePicker.propTypes.multiple
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.TimePicker.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.TimePicker.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.TimePicker.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace panelAlign {
             // Circular reference from rc_easyui.TimePicker.propTypes.panelAlign
             const isRequired: any;
-
         }
 
         namespace panelStyle {
             // Circular reference from rc_easyui.TimePicker.propTypes.panelStyle
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.TimePicker.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.TimePicker.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace separator {
             // Circular reference from rc_easyui.TimePicker.propTypes.separator
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.TimePicker.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.TimePicker.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.TimePicker.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.TimePicker.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace TimeSpinner {
@@ -13094,51 +11660,42 @@ export namespace TimeSpinner {
         namespace fieldAdd {
             // Circular reference from rc_easyui.TimeSpinner.contextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.TimeSpinner.contextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.TimeSpinner.contextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.TimeSpinner.contextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.TimeSpinner.contextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.TimeSpinner.contextTypes.fieldRemove
             const isRequired: any;
-
         }
 
         namespace locale {
             // Circular reference from rc_easyui.TimeSpinner.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.TimeSpinner.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -13185,7 +11742,6 @@ export namespace TimeSpinner {
         function onFocus(): void;
 
         function textFormatter(e: any): any;
-
     }
 
     namespace propTypes {
@@ -13252,185 +11808,153 @@ export namespace TimeSpinner {
         namespace addonLeft {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.addonLeft
             const isRequired: any;
-
         }
 
         namespace addonRight {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.addonRight
             const isRequired: any;
-
         }
 
         namespace ampm {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.ampm
             const isRequired: any;
-
         }
 
         namespace className {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.className
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace editable {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.editable
             const isRequired: any;
-
         }
 
         namespace format {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.format
             const isRequired: any;
-
         }
 
         namespace highlight {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.highlight
             const isRequired: any;
-
         }
 
         namespace iconAlign {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.iconAlign
             const isRequired: any;
-
         }
 
         namespace iconCls {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.iconCls
             const isRequired: any;
-
         }
 
         namespace increment {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.increment
             const isRequired: any;
-
         }
 
         namespace inputCls {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.inputCls
             const isRequired: any;
-
         }
 
         namespace inputId {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.inputId
             const isRequired: any;
-
         }
 
         namespace inputStyle {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.inputStyle
             const isRequired: any;
-
         }
 
         namespace max {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.max
             const isRequired: any;
-
         }
 
         namespace min {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.min
             const isRequired: any;
-
         }
 
         namespace multiline {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.multiline
             const isRequired: any;
-
         }
 
         namespace onBlur {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.onBlur
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onFocus {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.onFocus
             const isRequired: any;
-
         }
 
         namespace placeholder {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.placeholder
             const isRequired: any;
-
         }
 
         namespace readOnly {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.readOnly
             const isRequired: any;
-
         }
 
         namespace reversed {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.reversed
             const isRequired: any;
-
         }
 
         namespace selections {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.selections
             const isRequired: any;
-
         }
 
         namespace spinAlign {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.spinAlign
             const isRequired: any;
-
         }
 
         namespace spinners {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.spinners
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.style
             const isRequired: any;
-
         }
 
         namespace tabIndex {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.tabIndex
             const isRequired: any;
-
         }
 
         namespace textFormatter {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.textFormatter
             const isRequired: any;
-
         }
 
         namespace value {
             // Circular reference from rc_easyui.TimeSpinner.propTypes.value
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Tooltip {
@@ -13442,15 +11966,12 @@ export namespace Tooltip {
         namespace locale {
             // Circular reference from rc_easyui.Tooltip.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Tooltip.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -13483,7 +12004,6 @@ export namespace Tooltip {
         function onPosition(e: any): void;
 
         function onShow(): void;
-
     }
 
     namespace propTypes {
@@ -13532,131 +12052,108 @@ export namespace Tooltip {
         namespace className {
             // Circular reference from rc_easyui.Tooltip.propTypes.className
             const isRequired: any;
-
         }
 
         namespace content {
             // Circular reference from rc_easyui.Tooltip.propTypes.content
             const isRequired: any;
-
         }
 
         namespace deltaX {
             // Circular reference from rc_easyui.Tooltip.propTypes.deltaX
             const isRequired: any;
-
         }
 
         namespace deltaY {
             // Circular reference from rc_easyui.Tooltip.propTypes.deltaY
             const isRequired: any;
-
         }
 
         namespace disabled {
             // Circular reference from rc_easyui.Tooltip.propTypes.disabled
             const isRequired: any;
-
         }
 
         namespace hideDelay {
             // Circular reference from rc_easyui.Tooltip.propTypes.hideDelay
             const isRequired: any;
-
         }
 
         namespace hideEvent {
             // Circular reference from rc_easyui.Tooltip.propTypes.hideEvent
             const isRequired: any;
-
         }
 
         namespace onHide {
             // Circular reference from rc_easyui.Tooltip.propTypes.onHide
             const isRequired: any;
-
         }
 
         namespace onPosition {
             // Circular reference from rc_easyui.Tooltip.propTypes.onPosition
             const isRequired: any;
-
         }
 
         namespace onShow {
             // Circular reference from rc_easyui.Tooltip.propTypes.onShow
             const isRequired: any;
-
         }
 
         namespace position {
             // Circular reference from rc_easyui.Tooltip.propTypes.position
             const isRequired: any;
-
         }
 
         namespace showDelay {
             // Circular reference from rc_easyui.Tooltip.propTypes.showDelay
             const isRequired: any;
-
         }
 
         namespace showEvent {
             // Circular reference from rc_easyui.Tooltip.propTypes.showEvent
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.Tooltip.propTypes.style
             const isRequired: any;
-
         }
 
         namespace target {
             // Circular reference from rc_easyui.Tooltip.propTypes.target
             const isRequired: any;
-
         }
 
         namespace tooltipCls {
             // Circular reference from rc_easyui.Tooltip.propTypes.tooltipCls
             const isRequired: any;
-
         }
 
         namespace tooltipStyle {
             // Circular reference from rc_easyui.Tooltip.propTypes.tooltipStyle
             const isRequired: any;
-
         }
 
         namespace trackMouse {
             // Circular reference from rc_easyui.Tooltip.propTypes.trackMouse
             const isRequired: any;
-
         }
 
         namespace tracking {
             // Circular reference from rc_easyui.Tooltip.propTypes.tracking
             const isRequired: any;
-
         }
 
         namespace valign {
             // Circular reference from rc_easyui.Tooltip.propTypes.valign
             const isRequired: any;
-
         }
 
         namespace zIndex {
             // Circular reference from rc_easyui.Tooltip.propTypes.zIndex
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Tree {
@@ -13668,15 +12165,12 @@ export namespace Tree {
         namespace locale {
             // Circular reference from rc_easyui.Tree.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Tree.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -13721,7 +12215,6 @@ export namespace Tree {
         function onNodeUncheck(e: any): void;
 
         function onSelectionChange(e: any): void;
-
     }
 
     namespace propTypes {
@@ -13752,77 +12245,63 @@ export namespace Tree {
         namespace animate {
             // Circular reference from rc_easyui.Tree.propTypes.animate
             const isRequired: any;
-
         }
 
         namespace cascadeCheck {
             // Circular reference from rc_easyui.Tree.propTypes.cascadeCheck
             const isRequired: any;
-
         }
 
         namespace checkbox {
             // Circular reference from rc_easyui.Tree.propTypes.checkbox
             const isRequired: any;
-
         }
 
         namespace clickToEdit {
             // Circular reference from rc_easyui.Tree.propTypes.clickToEdit
             const isRequired: any;
-
         }
 
         namespace data {
             // Circular reference from rc_easyui.Tree.propTypes.data
             const isRequired: any;
-
         }
 
         namespace dblclickToEdit {
             // Circular reference from rc_easyui.Tree.propTypes.dblclickToEdit
             const isRequired: any;
-
         }
 
         namespace editor {
             // Circular reference from rc_easyui.Tree.propTypes.editor
             const isRequired: any;
-
         }
 
         namespace filter {
             // Circular reference from rc_easyui.Tree.propTypes.filter
             const isRequired: any;
-
         }
 
         namespace filterIncludingChild {
             // Circular reference from rc_easyui.Tree.propTypes.filterIncludingChild
             const isRequired: any;
-
         }
 
         namespace render {
             // Circular reference from rc_easyui.Tree.propTypes.render
             const isRequired: any;
-
         }
 
         namespace selectLeafOnly {
             // Circular reference from rc_easyui.Tree.propTypes.selectLeafOnly
             const isRequired: any;
-
         }
 
         namespace selection {
             // Circular reference from rc_easyui.Tree.propTypes.selection
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace TreeGrid {
@@ -13834,15 +12313,12 @@ export namespace TreeGrid {
         namespace locale {
             // Circular reference from rc_easyui.TreeGrid.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.TreeGrid.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -13914,8 +12390,7 @@ export namespace TreeGrid {
             notequal: {
                 isMatch: any;
                 text: string;
-            };
-        };
+            };        };
 
         const filterPosition: string;
 
@@ -14010,7 +12485,6 @@ export namespace TreeGrid {
         function onSelectionChange(): void;
 
         function onSortChange(): void;
-
     }
 
     namespace propTypes {
@@ -14101,257 +12575,213 @@ export namespace TreeGrid {
         namespace animate {
             // Circular reference from rc_easyui.TreeGrid.propTypes.animate
             const isRequired: any;
-
         }
 
         namespace border {
             // Circular reference from rc_easyui.TreeGrid.propTypes.border
             const isRequired: any;
-
         }
 
         namespace cascadeCheck {
             // Circular reference from rc_easyui.TreeGrid.propTypes.cascadeCheck
             const isRequired: any;
-
         }
 
         namespace checkbox {
             // Circular reference from rc_easyui.TreeGrid.propTypes.checkbox
             const isRequired: any;
-
         }
 
         namespace clickToEdit {
             // Circular reference from rc_easyui.TreeGrid.propTypes.clickToEdit
             const isRequired: any;
-
         }
 
         namespace columnMoving {
             // Circular reference from rc_easyui.TreeGrid.propTypes.columnMoving
             const isRequired: any;
-
         }
 
         namespace data {
             // Circular reference from rc_easyui.TreeGrid.propTypes.data
             const isRequired: any;
-
         }
 
         namespace dblclickToEdit {
             // Circular reference from rc_easyui.TreeGrid.propTypes.dblclickToEdit
             const isRequired: any;
-
         }
 
         namespace editMode {
             // Circular reference from rc_easyui.TreeGrid.propTypes.editMode
             const isRequired: any;
-
         }
 
         namespace filter {
             // Circular reference from rc_easyui.TreeGrid.propTypes.filter
             const isRequired: any;
-
         }
 
         namespace filterBtnPosition {
             // Circular reference from rc_easyui.TreeGrid.propTypes.filterBtnPosition
             const isRequired: any;
-
         }
 
         namespace filterDelay {
             // Circular reference from rc_easyui.TreeGrid.propTypes.filterDelay
             const isRequired: any;
-
         }
 
         namespace filterIncludingChild {
             // Circular reference from rc_easyui.TreeGrid.propTypes.filterIncludingChild
             const isRequired: any;
-
         }
 
         namespace filterMatchingType {
             // Circular reference from rc_easyui.TreeGrid.propTypes.filterMatchingType
             const isRequired: any;
-
         }
 
         namespace filterOperators {
             // Circular reference from rc_easyui.TreeGrid.propTypes.filterOperators
             const isRequired: any;
-
         }
 
         namespace filterPosition {
             // Circular reference from rc_easyui.TreeGrid.propTypes.filterPosition
             const isRequired: any;
-
         }
 
         namespace filterRules {
             // Circular reference from rc_easyui.TreeGrid.propTypes.filterRules
             const isRequired: any;
-
         }
 
         namespace filterable {
             // Circular reference from rc_easyui.TreeGrid.propTypes.filterable
             const isRequired: any;
-
         }
 
         namespace footerData {
             // Circular reference from rc_easyui.TreeGrid.propTypes.footerData
             const isRequired: any;
-
         }
 
         namespace frozenAlign {
             // Circular reference from rc_easyui.TreeGrid.propTypes.frozenAlign
             const isRequired: any;
-
         }
 
         namespace frozenWidth {
             // Circular reference from rc_easyui.TreeGrid.propTypes.frozenWidth
             const isRequired: any;
-
         }
 
         namespace idField {
             // Circular reference from rc_easyui.TreeGrid.propTypes.idField
             const isRequired: any;
-
         }
 
         namespace lazy {
             // Circular reference from rc_easyui.TreeGrid.propTypes.lazy
             const isRequired: any;
-
         }
 
         namespace loadMsg {
             // Circular reference from rc_easyui.TreeGrid.propTypes.loadMsg
             const isRequired: any;
-
         }
 
         namespace loading {
             // Circular reference from rc_easyui.TreeGrid.propTypes.loading
             const isRequired: any;
-
         }
 
         namespace multiSort {
             // Circular reference from rc_easyui.TreeGrid.propTypes.multiSort
             const isRequired: any;
-
         }
 
         namespace pageNumber {
             // Circular reference from rc_easyui.TreeGrid.propTypes.pageNumber
             const isRequired: any;
-
         }
 
         namespace pageOptions {
             // Circular reference from rc_easyui.TreeGrid.propTypes.pageOptions
             const isRequired: any;
-
         }
 
         namespace pagePosition {
             // Circular reference from rc_easyui.TreeGrid.propTypes.pagePosition
             const isRequired: any;
-
         }
 
         namespace pageSize {
             // Circular reference from rc_easyui.TreeGrid.propTypes.pageSize
             const isRequired: any;
-
         }
 
         namespace pagination {
             // Circular reference from rc_easyui.TreeGrid.propTypes.pagination
             const isRequired: any;
-
         }
 
         namespace rowCss {
             // Circular reference from rc_easyui.TreeGrid.propTypes.rowCss
             const isRequired: any;
-
         }
 
         namespace rowHeight {
             // Circular reference from rc_easyui.TreeGrid.propTypes.rowHeight
             const isRequired: any;
-
         }
 
         namespace selection {
             // Circular reference from rc_easyui.TreeGrid.propTypes.selection
             const isRequired: any;
-
         }
 
         namespace selectionMode {
             // Circular reference from rc_easyui.TreeGrid.propTypes.selectionMode
             const isRequired: any;
-
         }
 
         namespace showFooter {
             // Circular reference from rc_easyui.TreeGrid.propTypes.showFooter
             const isRequired: any;
-
         }
 
         namespace showHeader {
             // Circular reference from rc_easyui.TreeGrid.propTypes.showHeader
             const isRequired: any;
-
         }
 
         namespace sorts {
             // Circular reference from rc_easyui.TreeGrid.propTypes.sorts
             const isRequired: any;
-
         }
 
         namespace striped {
             // Circular reference from rc_easyui.TreeGrid.propTypes.striped
             const isRequired: any;
-
         }
 
         namespace total {
             // Circular reference from rc_easyui.TreeGrid.propTypes.total
             const isRequired: any;
-
         }
 
         namespace treeField {
             // Circular reference from rc_easyui.TreeGrid.propTypes.treeField
             const isRequired: any;
-
         }
 
         namespace virtualScroll {
             // Circular reference from rc_easyui.TreeGrid.propTypes.virtualScroll
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace Validation {
@@ -14371,39 +12801,32 @@ export namespace Validation {
         namespace fieldAdd {
             // Circular reference from rc_easyui.Validation.childContextTypes.fieldAdd
             const isRequired: any;
-
         }
 
         namespace fieldBlur {
             // Circular reference from rc_easyui.Validation.childContextTypes.fieldBlur
             const isRequired: any;
-
         }
 
         namespace fieldChange {
             // Circular reference from rc_easyui.Validation.childContextTypes.fieldChange
             const isRequired: any;
-
         }
 
         namespace fieldFocus {
             // Circular reference from rc_easyui.Validation.childContextTypes.fieldFocus
             const isRequired: any;
-
         }
 
         namespace fieldName {
             // Circular reference from rc_easyui.Validation.childContextTypes.fieldName
             const isRequired: any;
-
         }
 
         namespace fieldRemove {
             // Circular reference from rc_easyui.Validation.childContextTypes.fieldRemove
             const isRequired: any;
-
         }
-
     }
 
     namespace contextTypes {
@@ -14414,15 +12837,12 @@ export namespace Validation {
         namespace locale {
             // Circular reference from rc_easyui.Validation.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.Validation.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -14431,7 +12851,6 @@ export namespace Validation {
         function onChange(e: any, t: any): void;
 
         function onValidate(e: any): void;
-
     }
 
     namespace propTypes {
@@ -14454,53 +12873,43 @@ export namespace Validation {
         namespace className {
             // Circular reference from rc_easyui.Validation.propTypes.className
             const isRequired: any;
-
         }
 
         namespace delay {
             // Circular reference from rc_easyui.Validation.propTypes.delay
             const isRequired: any;
-
         }
 
         namespace model {
             // Circular reference from rc_easyui.Validation.propTypes.model
             const isRequired: any;
-
         }
 
         namespace onChange {
             // Circular reference from rc_easyui.Validation.propTypes.onChange
             const isRequired: any;
-
         }
 
         namespace onValidate {
             // Circular reference from rc_easyui.Validation.propTypes.onValidate
             const isRequired: any;
-
         }
 
         namespace rules {
             // Circular reference from rc_easyui.Validation.propTypes.rules
             const isRequired: any;
-
         }
 
         namespace style {
             // Circular reference from rc_easyui.Validation.propTypes.style
             const isRequired: any;
-
         }
 
         namespace validateRules {
             // Circular reference from rc_easyui.Validation.propTypes.validateRules
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace VirtualScroll {
@@ -14512,15 +12921,12 @@ export namespace VirtualScroll {
         namespace locale {
             // Circular reference from rc_easyui.VirtualScroll.contextTypes.locale
             const isRequired: any;
-
         }
 
         namespace t {
             // Circular reference from rc_easyui.VirtualScroll.contextTypes.t
             const isRequired: any;
-
         }
-
     }
 
     namespace defaultProps {
@@ -14545,7 +12951,6 @@ export namespace VirtualScroll {
         function onPageChange(e: any): void;
 
         function onUpdate(e: any): void;
-
     }
 
     namespace propTypes {
@@ -14578,88 +12983,72 @@ export namespace VirtualScroll {
         namespace data {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.data
             const isRequired: any;
-
         }
 
         namespace lazy {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.lazy
             const isRequired: any;
-
         }
 
         namespace maxDivHeight {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.maxDivHeight
             const isRequired: any;
-
         }
 
         namespace maxVisibleHeight {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.maxVisibleHeight
             const isRequired: any;
-
         }
 
         namespace onPageChange {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.onPageChange
             const isRequired: any;
-
         }
 
         namespace onUpdate {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.onUpdate
             const isRequired: any;
-
         }
 
         namespace pageNumber {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.pageNumber
             const isRequired: any;
-
         }
 
         namespace pageSize {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.pageSize
             const isRequired: any;
-
         }
 
         namespace renderItem {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.renderItem
             const isRequired: any;
-
         }
 
         namespace renderItems {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.renderItems
             const isRequired: any;
-
         }
 
         namespace reset {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.reset
             const isRequired: any;
-
         }
 
         namespace rowHeight {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.rowHeight
             const isRequired: any;
-
         }
 
         namespace total {
             // Circular reference from rc_easyui.VirtualScroll.propTypes.total
             const isRequired: any;
-
         }
-
     }
-
 }
 
 export namespace classHelper {
     function classNames(...args: any[]): any;
-
 }
 
 export namespace dateHelper {
@@ -14672,7 +13061,6 @@ export namespace dateHelper {
     function parseSelections(e: any): any;
 
     function setAmPm(e: any): void;
-
 }
 
 export namespace domHelper {
@@ -14717,7 +13105,6 @@ export namespace domHelper {
     function toStyleValue(e: any): any;
 
     function unbind(e: any, t: any, n: any): void;
-
 }
 
 export namespace treeHelper {
@@ -14742,6 +13129,4 @@ export namespace treeHelper {
     function uncheckAllNodes(e: any, t: any): void;
 
     function uncheckNode(e: any, t: any): void;
-
 }
-
