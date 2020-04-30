@@ -4569,7 +4569,7 @@ export namespace DateTimeSpinner {
 
         const reversed: boolean;
 
-        const selections: (number[])[];
+        const selections: Array<(number[])>;
 
         const spinAlign: string;
 
@@ -11721,7 +11721,7 @@ export namespace TimeSpinner {
 
         const reversed: boolean;
 
-        const selections: (number[])[];
+        const selections: Array<(number[])>;
 
         const spinAlign: string;
 
