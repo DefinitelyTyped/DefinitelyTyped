@@ -12,6 +12,10 @@ class ReactMicTest extends React.Component {
                 onData={data => console.log(data)}
                 strokeColor="#000000"
                 backgroundColor="#FF4081"
+                channelCount={1}
+                echoCancellation
+                autoGainControl
+                noiseSuppression
             />
         );
     }

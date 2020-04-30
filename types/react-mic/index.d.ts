@@ -48,7 +48,7 @@ export interface ReactMicProps {
     backgroundColor?: string;
     
     /** Specify 1 for mono, defaults -> 2 (stereo) */
-    channelCount?: number;
+    channelCount?: 1 | 2;
     
     /** Enables/disables echo cancellation, defaults -> false */
     echoCancellation?: boolean;
