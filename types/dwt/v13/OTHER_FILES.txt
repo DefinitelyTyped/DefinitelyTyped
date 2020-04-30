@@ -1,4 +1,3 @@
 addon.ocr.d.ts
 addon.ocrp.d.ts
-addon.pdf.d.ts
 addon.webcam.d.ts
