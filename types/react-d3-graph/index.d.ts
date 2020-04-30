@@ -32,7 +32,6 @@ export type GraphLevelNodeConfiguration = {
 
 export type GraphNode = {
     id: string;
-    name: string;
 } & Partial<NodeLevelNodeConfiguration>;
 
 export type LinkLevelLinkConfiguration = {
@@ -58,7 +57,6 @@ export type GraphLevelLinkConfiguration = {
 } & LinkLevelLinkConfiguration;
 
 export type GraphLink = {
-    id: string;
     source: string;
     target: string;
 } & Partial<LinkLevelLinkConfiguration>;
