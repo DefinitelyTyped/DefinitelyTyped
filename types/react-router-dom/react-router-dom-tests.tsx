@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavLink, NavLinkProps, match, Link, RouteComponentProps, LinkProps } from 'react-router-dom';
 import * as H from 'history';
 
-const getIsActive = (extraProp: string) => (match: match, location: H.Location) => !!extraProp;
+const getIsActive = (extraProp: string) => (match: match | null, location: H.Location) => !!extraProp;
 
 interface Props extends NavLinkProps {
     extraProp: string;

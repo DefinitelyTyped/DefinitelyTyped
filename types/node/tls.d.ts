@@ -38,7 +38,7 @@ declare module "tls" {
         subject: Certificate;
         issuer: Certificate;
         subjectaltname: string;
-        infoAccess: { [index: string]: string[] | undefined };
+        infoAccess: NodeJS.Dict<string[]>;
         modulus: string;
         exponent: string;
         valid_from: string;

@@ -128,6 +128,7 @@ error.errors = ['error'];
 
 // mixed
 let mixed: MixedSchema = yup.mixed();
+mixed.type;
 mixed.clone();
 mixed.label('label');
 mixed.meta({ meta: 'value' });
@@ -303,6 +304,7 @@ yup.object()
 
 // String schema
 function strSchemaTests(strSchema: yup.StringSchema) {
+    strSchema.type;
     strSchema.isValid('hello'); // => true
     strSchema.required();
     strSchema.required('req');
@@ -357,6 +359,7 @@ yup.string<123>();
 
 // Number schema
 const numSchema = yup.number(); // $ExpectType NumberSchema<number>
+numSchema.type;
 numSchema.isValid(10); // => true
 numSchema.min(5);
 numSchema.min(5, 'message');
@@ -394,10 +397,12 @@ numSchema
 
 // Boolean Schema
 const boolSchema = yup.boolean();
+boolSchema.type;
 boolSchema.isValid(true); // => true
 
 // Date Schema
 const dateSchema = yup.date();
+dateSchema.type;
 dateSchema.isValid(new Date()); // => true
 dateSchema.min(new Date());
 dateSchema.min('2017-11-12');
@@ -412,6 +417,9 @@ dateSchema.max('2017-11-12', () => 'message');
 
 // Array Schema
 const arrSchema = yup.array().of(yup.number().min(2));
+arrSchema.type;
+arrSchema.innerType;
+arrSchema.innerType.type;
 arrSchema.isValid([2, 3]); // => true
 arrSchema.isValid([1, -24]); // => false
 arrSchema.required();
@@ -459,7 +467,7 @@ yup.object().shape({
 yup.object({
     num: yup.number(),
 });
-
+objSchema.type;
 objSchema.from('prop', 'myProp');
 objSchema.from('prop', 'myProp', true);
 objSchema.noUnknown();

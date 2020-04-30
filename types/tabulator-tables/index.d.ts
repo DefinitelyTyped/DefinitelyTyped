@@ -677,7 +677,7 @@ declare namespace Tabulator {
         virtualDom?: boolean;
 
         /** Manually set the size of the virtual DOM buffer	 */
-        virtualDomBuffer?: boolean;
+        virtualDomBuffer?: boolean | number;
         /** placeholder element to display on empty table	 */
         placeholder?: string | HTMLElement;
 
@@ -687,7 +687,7 @@ declare namespace Tabulator {
         /** Function to generate tooltips for cells	 */
         tooltips?: GlobalTooltipOption;
         /** When to regenerate cell tooltip value	 */
-        tooltipGenerationMode?: 'load';
+        tooltipGenerationMode?: 'load' | 'hover';
 
         /** Keybinding configuration object	 */
         keybindings?: false | KeyBinding;
@@ -749,11 +749,6 @@ declare namespace Tabulator {
 
         /** Setting the invalidOptionWarnings option to false will disable console warning messages for invalid properties in the table constructor and column definition object */
         invalidOptionWarnings?: boolean;
-
-        /** Prevent actions from riggering an update of the Virtual DOM: */
-        blockRedraw?: () => void;
-        /** This will restore automatic table redrawing and trigger an appropriate redraw if one was needed as a result of any actions that happened while the redraw was blocked. */
-        restoreRedraw?: () => void;
 
         /** Callback is triggered when the table is vertically scrolled. */
         scrollVertical?: (top: any) => void;
@@ -1947,8 +1942,14 @@ declare class Tabulator {
 
     The redraw function also has an optional boolean argument that when set to true triggers a full rerender of the table including all data on all rows.*/
     redraw: (force?: boolean) => void;
+
+    /** Prevent actions from riggering an update of the Virtual DOM: */
+    blockRedraw: () => void;
+    /** This will restore automatic table redrawing and trigger an appropriate redraw if one was needed as a result of any actions that happened while the redraw was blocked. */
+    restoreRedraw: () => void;
+
     /** If you want to manually change the height of the table at any time, you can use the setHeight function, which will also redraw the virtual DOM if necessary. */
-    setHeight: (height: number) => void;
+    setHeight: (height: number | string) => void;
     /** You can trigger sorting using the setSort function */
     setSort: (sortList: string | Tabulator.Sorter[], dir?: Tabulator.SortDirection) => void;
     getSorters: () => void;

@@ -1,6 +1,7 @@
 // Type definitions for react-bootstrap-table-next 4.0
 // Project: https://github.com/react-bootstrap-table/react-bootstrap-table2#readme
 // Definitions by: Wlad Meixner <https://github.com/gosticks>
+//                 Valentin Slobozanin <https://github.com/ignefolio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -135,6 +136,27 @@ export interface ColumnDescription<T extends object = any, E = any> {
     footerTitle?: boolean;
     footerEvents?: { onClick: (e: any, column: ColumnDescription<T, E>, columnIndex: number) => void };
     footerAlign?: CellAlignment | ((column: ColumnDescription<T, E>, colIndex: number) => CellAlignment);
+
+    /**
+     * CSV Column options only used with the toolkit provider
+     */
+
+    /**
+     * export csv cell type can be Number or String
+     */
+    csvType?: object;
+    /**
+     * Custom csv cell formatter used when exporting csv
+     */
+    csvFormatter?: ColumnFormatter<T, E>;
+    /**
+     * csvText defaults to column.text
+     */
+    csvText?: string;
+    /**
+     * Toggle column display in CSV export
+     */
+    csvExport?: boolean;
 }
 
 /**
@@ -242,6 +264,10 @@ export type PaginationOptions = Partial<{
      */
     hidePageListOnlyOnePage: boolean;
     /**
+     * custom page button inside the pagination list
+     */
+    pageButtonRenderer: (options: PageButtonRendererOptions) => JSX.Element;
+    /**
      * callback function when page was changing
      */
     onPageChange: (page: number, sizePerPage: number) => void;
@@ -250,10 +276,86 @@ export type PaginationOptions = Partial<{
      */
     onSizePerPageChange: (page: number, sizePerPage: number) => void;
     /**
+     * custom pagination list component
+     */
+    pageListRenderer: (options: PageListRendererOptions) => JSX.Element;
+    /**
+     * custom size per page
+     */
+    sizePerPageRenderer: (options: SizePerPageRendererOptions) => JSX.Element;
+    /**
+     * custom size per page dropdown component
+     */
+    sizePerPageOptionRenderer: (options: SizePerPageOptionRendererOptions) => JSX.Element;
+    /**
      * custom the pagination total
      */
     paginationTotalRenderer: (from: number, to: number, size: number) => JSX.Element;
 }>;
+
+export interface SizePerPageOptionRendererOptions {
+    /**
+     * text of the option
+     */
+    text: string;
+    /**
+     * size of per page option
+     */
+    page: number;
+    /**
+     * call it when you need to change size per page
+     */
+    onSizePerPageChange: (page: number, sizePerPage: number) => void;
+}
+
+export interface PageListRendererOptions {
+    /**
+     * current page
+     */
+    pages: Array<{ active: boolean; disabled: boolean; page: number; title: string }>;
+    /**
+     * call it when you need to change page
+     */
+    onPageChange: (page: number, sizePerPage: number) => void;
+}
+
+export interface PageButtonRendererOptions {
+    /**
+     * page number
+     */
+    page: number | string;
+    /**
+     * is this page the current page or not
+     */
+    active: boolean;
+    /**
+     *  is this page disabled or not
+     */
+    disabled: boolean;
+    /**
+     * page title
+     */
+    title: string;
+    /**
+     * call it when you need to change page
+     */
+    onPageChange: (page: number, sizePerPage: number) => void;
+}
+
+export interface SizePerPageRendererOptions {
+    /**
+     * dropdown options
+     */
+    options: Array<{ text: string; value: number }>;
+    /**
+     * current size per page
+     */
+    currentSizePerPage: number;
+    /**
+     * call it when you need to change size per page
+     */
+    onSizePerPageChange: (page: number, sizePerPage: number) => void;
+}
 
 export interface SelectRowProps<T> {
     mode: RowSelectionType;
@@ -331,7 +433,7 @@ export interface BootstrapTableProps<T extends object = any> {
     data: any[];
     columns: ColumnDescription[];
     bootstrap4?: boolean;
-    remote?: boolean | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean }>;
+    remote?: boolean | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
     noDataIndication?: () => JSX.Element | JSX.Element | string;
     striped?: boolean;
     bordered?: boolean;

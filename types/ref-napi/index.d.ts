@@ -186,3 +186,27 @@ export declare var types: {
     int32: Type; uchar: Type; size_t: Type;
     uint32: Type; short: Type;
 };
+
+declare global {
+  interface Buffer {
+    address: typeof address;
+    isNull: typeof isNull;
+    ref: typeof ref;
+    deref: typeof deref;
+    readObject: typeof readObject;
+    writeObject: typeof writeObject;
+    readPointer: typeof readPointer;
+    writePointer: typeof writePointer;
+    readCString: typeof readCString;
+    writeCString: typeof writeCString;
+    readInt64BE: typeof readInt64BE;
+    writeInt64BE: typeof writeInt64BE;
+    readUInt64BE: typeof readUInt64BE;
+    writeUInt64BE: typeof writeUInt64BE;
+    readInt64LE: typeof readInt64LE;
+    writeInt64LE: typeof writeInt64LE;
+    reinterpret: typeof reinterpret;
+    reinterpretUntilZeros: typeof reinterpretUntilZeros;
+    type?: Type;
+  }
+}

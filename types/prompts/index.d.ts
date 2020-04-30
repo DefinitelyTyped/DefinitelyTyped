@@ -81,7 +81,7 @@ declare namespace prompts {
         float?: boolean;
         round?: number;
         increment?: number;
-        seperator?: string;
+        separator?: string;
         active?: string;
         inactive?: string;
         choices?: Choice[];

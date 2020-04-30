@@ -210,3 +210,6 @@ fs.isDirectory(path, isDirectoryCallback);
 fs.isDirectory(path);
 isDirectory = fs.isDirectorySync(path);
 fs.isDirectoryAsync(path);
+
+fs.mkdtempAsync(str, str);
+fs.mkdtempAsync(str, {encoding: str});
