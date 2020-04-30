@@ -7,6 +7,8 @@
 
 import { Component, MouseEvent } from 'react';
 
+export type LableProperty = ((node: GraphNode) => string) | string;
+
 export interface NodeLevelNodeConfiguration {
     color: string;
     fontColor: string;
@@ -17,8 +19,8 @@ export interface NodeLevelNodeConfiguration {
     strokeWidth: number;
     svg: string;
     symbolType: string;
-    viewGenerator: (node: GraphNode) => string | keyof GraphNode;
-    labelProperty: (node: GraphNode) => string | keyof GraphNode;
+    viewGenerator: (node: GraphNode) => string;
+    labelProperty: LableProperty;
 }
 
 export interface GraphLevelNodeConfiguration extends NodeLevelNodeConfiguration {
@@ -27,8 +29,9 @@ export interface GraphLevelNodeConfiguration extends NodeLevelNodeConfiguration 
     highlightColor: string;
     highlightFontSize: number;
     highlightFontWeight: string;
-    highlightStrokeColor: string;
-    highlightStrokeWidth: number;
+    highlightStrokeColor: "SAME" | string;
+    highlightStrokeWidth: "SAME" | number;
+    mouseCursor: string;
 }
 
 export interface GraphNode extends Partial<NodeLevelNodeConfiguration> {
@@ -49,12 +52,12 @@ export interface GraphLevelLinkConfiguration extends LinkLevelLinkConfiguration 
     highlightColor: string;
     highlightFontSize: number;
     highlightFontWeight: string;
-    labelProperty: keyof GraphLink;
-    mouseCursor: string;
+    labelProperty: LableProperty;
     renderLabel: boolean;
     semanticStrokeWidth: boolean;
     markerHeight: number;
     type: string;
+    mouseCursor: string;
 }
 
 export interface GraphLink extends Partial<LinkLevelLinkConfiguration> {
@@ -63,8 +66,8 @@ export interface GraphLink extends Partial<LinkLevelLinkConfiguration> {
 }
 
 export interface GraphConfiguration {
-    node: GraphLevelNodeConfiguration;
-    link: GraphLevelLinkConfiguration;
+    node: Partial<GraphLevelNodeConfiguration>;
+    link: Partial<GraphLevelLinkConfiguration>;
     automaticRearrangeAfterDropNode: boolean;
     collapsible: boolean;
     directed: boolean;
@@ -86,7 +89,7 @@ export interface GraphConfiguration {
         gravity: number;
         linkLength: number;
         linkStrength: number;
-        disableLinkForce: number;
+        disableLinkForce: boolean;
     };
 }
 
