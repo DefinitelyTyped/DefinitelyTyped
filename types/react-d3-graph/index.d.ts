@@ -19,7 +19,7 @@ export interface NodeLevelNodeConfiguration {
     strokeWidth: number;
     svg: string;
     symbolType: string;
-    viewGenerator: (node: GraphNode) => string;
+    viewGenerator: (node: GraphNode) => any;
     labelProperty: LableProperty;
 }
 
