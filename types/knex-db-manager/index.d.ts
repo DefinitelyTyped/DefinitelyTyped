@@ -13,7 +13,7 @@ export interface KnexDbManager {
     close(): Promise<void>;
     closeKnex(): Promise<void>;
     dbVersion(): Promise<string>;
-    populateDb(glob: string): Promise<void>;
+    populateDb(glob?: string): Promise<void>;
     copyDb(fromDbName?: string, toDbName?: string): Promise<void>;
     truncateDb(ignoreTables?: [string]): Promise<void>;
     knexInstance(): QueryBuilder;
@@ -23,6 +23,7 @@ export interface DbManagerConfig {
     collate?: string[];
     superUser?: string;
     superPassword?: string;
+    populatePathPattern?: string;
 }
 
 export interface DbanagerFactoryConfig {
