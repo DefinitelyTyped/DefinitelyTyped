@@ -1,4 +1,4 @@
-// Type definitions for knex-db-manager 0.5
+// Type definitions for knex-db-manager 0.6.1
 // Project: https://github.com/Vincit/knex-db-manager#readme
 // Definitions by: Dmitrii Solovev <https://github.com/dimonnwc3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
