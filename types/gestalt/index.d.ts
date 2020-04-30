@@ -731,7 +731,7 @@ https://pinterest.github.io/gestalt/#/Sticky
 export interface StickyProps {
     bottom?: number | string;
     children?: React.ReactNode;
-    dangerouslySetZIndex?: { __zIndex: string };
+    dangerouslySetZIndex?: { __zIndex: number };
     left?: number | string;
     right?: number | string;
     top?: number | string;
