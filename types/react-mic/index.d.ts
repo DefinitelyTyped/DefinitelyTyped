@@ -46,16 +46,16 @@ export interface ReactMicProps {
 
     /** Background color */
     backgroundColor?: string;
-    
+
     /** Specify 1 for mono, defaults -> 2 (stereo) */
     channelCount?: 1 | 2;
-    
+
     /** Enables/disables echo cancellation, defaults -> false */
     echoCancellation?: boolean;
-    
+
     /** Enables/disables auto gain control, defaults -> false */
     autoGainControl?: boolean;
-    
+
     /** Enables/disables background noise suppression, defaults -> false */
-    noiseSuppression?: boolean
+    noiseSuppression?: boolean;
 }
