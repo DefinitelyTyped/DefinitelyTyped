@@ -83,3 +83,14 @@ const client = new mongodb.MongoClient(url, {
 // Test other error classes
 new mongodb.MongoNetworkError('network error');
 new mongodb.MongoParseError('parse error');
+
+// Streams
+const gridFSBucketTests = (bucket: mongodb.GridFSBucket) => {
+    const openUploadStream  = bucket.openUploadStream('file.dat');
+    openUploadStream.on('close', () => {});
+    openUploadStream.on('end', () => {});
+    openUploadStream.abort(() => {
+        openUploadStream.removeAllListeners();
+    });
+    openUploadStream.abort();
+};
