@@ -39,11 +39,17 @@ function retryStrategyNumber(options: redis.RetryStrategyOptions): number {
 function retryStrategyError(options: redis.RetryStrategyOptions): Error {
   return new Error('Foo');
 }
+function retryStrategyUndefined(options: redis.RetryStrategyOptions): undefined {
+  return undefined;
+}
 client = redis.createClient({
   retry_strategy: retryStrategyNumber
 });
 client = redis.createClient({
   retry_strategy: retryStrategyError
+});
+client = redis.createClient({
+  retry_strategy: retryStrategyUndefined
 });
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
