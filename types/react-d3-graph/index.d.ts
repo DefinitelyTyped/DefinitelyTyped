@@ -73,7 +73,7 @@ export interface GraphConfiguration {
     directed: boolean;
     focusZoom: number;
     focusAnimationDuration: number;
-    height: number | string;
+    height: number;
     nodeHighlightBehavior: boolean;
     linkHighlightBehavior: boolean;
     highlightDegree: number;
@@ -83,7 +83,7 @@ export interface GraphConfiguration {
     panAndZoom: boolean;
     staticGraph: boolean;
     staticGraphWithDragAndDrop: boolean;
-    width: number | string;
+    width: number;
     d3: {
         alphaTarget: number;
         gravity: number;
