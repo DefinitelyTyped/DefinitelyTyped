@@ -15,7 +15,8 @@
  */
 
 export as namespace accedoOne;
-export default function accedoOne(config: AccedoConfig): AccedoClient;
+declare function accedoOne(config: AccedoConfig): AccedoClient;
+export = accedoOne;
 export {};
 
 declare class AccedoClient {
