@@ -7,7 +7,7 @@ export class Example extends React.Component {
             <div>
                 <Graph
                  id="test"
-                 data={{ nodes: [{ id: 'node1' }, { id: 'node2' }] , links: [{source: "node1", target: "node2"}] }} 
+                 data={{ nodes: [{ id: 'node1' }, { id: 'node2' }] , links: [{source: "node1", target: "node2"}] }}
                  config={{}}
                  />
                 <Link />

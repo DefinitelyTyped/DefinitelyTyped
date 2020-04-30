@@ -5,9 +5,9 @@
 //                 Robin Leclerc <https://github.com/BreadAndRoses95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component, MouseEvent } from "react";
+import { Component, MouseEvent } from 'react';
 
-export type NodeLevelNodeConfiguration = {
+export interface NodeLevelNodeConfiguration {
     color: string;
     fontColor: string;
     opacity: number;
@@ -19,8 +19,9 @@ export type NodeLevelNodeConfiguration = {
     symbolType: string;
     viewGenerator: (node: GraphNode) => string | keyof GraphNode;
     labelProperty: (node: GraphNode) => string | keyof GraphNode;
-};
-export type GraphLevelNodeConfiguration = {
+}
+
+export interface GraphLevelNodeConfiguration extends NodeLevelNodeConfiguration {
     fontSize: number;
     fontWeight: string;
     highlightColor: string;
@@ -28,21 +29,21 @@ export type GraphLevelNodeConfiguration = {
     highlightFontWeight: string;
     highlightStrokeColor: string;
     highlightStrokeWidth: number;
-} & NodeLevelNodeConfiguration;
+}
 
-export type GraphNode = {
+export interface GraphNode extends Partial<NodeLevelNodeConfiguration> {
     id: string;
-} & Partial<NodeLevelNodeConfiguration>;
+}
 
-export type LinkLevelLinkConfiguration = {
+export interface LinkLevelLinkConfiguration {
     color: string;
     fontColor: string;
     opacity: number;
     strokeWidth: number;
     markerWidth: number;
-};
+}
 
-export type GraphLevelLinkConfiguration = {
+export interface GraphLevelLinkConfiguration extends LinkLevelLinkConfiguration {
     fontSize: number;
     fontWeight: string;
     highlightColor: string;
@@ -54,14 +55,14 @@ export type GraphLevelLinkConfiguration = {
     semanticStrokeWidth: boolean;
     markerHeight: number;
     type: string;
-} & LinkLevelLinkConfiguration;
+}
 
-export type GraphLink = {
+export interface GraphLink extends Partial<LinkLevelLinkConfiguration> {
     source: string;
     target: string;
-} & Partial<LinkLevelLinkConfiguration>;
+}
 
-export type GraphConfiguration = {
+export interface GraphConfiguration {
     node: GraphLevelNodeConfiguration;
     link: GraphLevelLinkConfiguration;
     automaticRearrangeAfterDropNode: boolean;
@@ -87,15 +88,15 @@ export type GraphConfiguration = {
         linkStrength: number;
         disableLinkForce: number;
     };
-};
+}
 
-export type GraphData = {
+export interface GraphData {
     nodes: GraphNode[];
     links: GraphLink[];
     focusedNodeId?: string;
-};
+}
 
-export type GraphEventCallbacks = {
+export interface GraphEventCallbacks {
     onClickNode: (nodeId: string) => void;
     onDoubleClickNode: (nodeId: string) => void;
     onRightClickNode: (event: MouseEvent, nodeId: string) => void;
@@ -106,12 +107,12 @@ export type GraphEventCallbacks = {
     onMouseOverLink: (source: string, target: string) => void;
     onMouseOutLink: (source: string, target: string) => void;
     onNodePositionChange: (nodeId: string, x: number, y: number) => void;
-};
-export type GraphProps = {
+}
+export interface GraphProps extends Partial<GraphEventCallbacks> {
     id: string;
     data?: GraphData;
     config?: Partial<GraphConfiguration>;
-} & Partial<GraphEventCallbacks>;
+}
 
 export class Graph extends Component<GraphProps, any> {
     constructor(props: any, ...args: any[]);
