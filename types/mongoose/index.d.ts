@@ -1044,6 +1044,11 @@ declare module "mongoose" {
   interface SchemaOptions {
     /** defaults to false (which means use the connection's autoIndex option) */
     autoIndex?: boolean;
+    /**
+     * When false, use the connection's autoCreate option
+     * @default false
+     */
+    autoCreate?: boolean;
     /** defaults to true */
     bufferCommands?: boolean;
     /** defaults to false */
