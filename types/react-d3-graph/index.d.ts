@@ -5,11 +5,12 @@
 //                 Robin Leclerc <https://github.com/BreadAndRoses95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component, MouseEvent } from 'react';
+import {Component, MouseEvent} from 'react';
 
-export type LableProperty = ((node: GraphNode) => string) | string;
+export type NodeLabelProperty<N extends GraphNode> = ((node: N) => string) | keyof N;
+export type LinkLabelProperty<L extends GraphLink> = ((node: L) => string) | keyof L;
 
-export interface NodeLevelNodeConfiguration {
+export interface NodeLevelNodeConfiguration<N extends GraphNode> {
     color: string;
     fontColor: string;
     opacity: number;
@@ -19,11 +20,11 @@ export interface NodeLevelNodeConfiguration {
     strokeWidth: number;
     svg: string;
     symbolType: string;
-    viewGenerator: (node: GraphNode) => any;
-    labelProperty: LableProperty;
+    viewGenerator: (node: N) => any;
+    labelProperty: NodeLabelProperty<N>;
 }
 
-export interface GraphLevelNodeConfiguration extends NodeLevelNodeConfiguration {
+export interface GraphLevelNodeConfiguration<N extends GraphNode> extends NodeLevelNodeConfiguration<N> {
     fontSize: number;
     fontWeight: string;
     highlightColor: string;
@@ -34,7 +35,7 @@ export interface GraphLevelNodeConfiguration extends NodeLevelNodeConfiguration 
     mouseCursor: string;
 }
 
-export interface GraphNode extends Partial<NodeLevelNodeConfiguration> {
+export interface GraphNode extends Partial<NodeLevelNodeConfiguration<GraphNode>> {
     id: string;
 }
 
@@ -46,13 +47,13 @@ export interface LinkLevelLinkConfiguration {
     markerWidth: number;
 }
 
-export interface GraphLevelLinkConfiguration extends LinkLevelLinkConfiguration {
+export interface GraphLevelLinkConfiguration<L extends GraphLink> extends LinkLevelLinkConfiguration {
     fontSize: number;
     fontWeight: string;
     highlightColor: string;
     highlightFontSize: number;
     highlightFontWeight: string;
-    labelProperty: LableProperty;
+    labelProperty: LinkLabelProperty<L>;
     renderLabel: boolean;
     semanticStrokeWidth: boolean;
     markerHeight: number;
@@ -65,9 +66,9 @@ export interface GraphLink extends Partial<LinkLevelLinkConfiguration> {
     target: string;
 }
 
-export interface GraphConfiguration {
-    node: Partial<GraphLevelNodeConfiguration>;
-    link: Partial<GraphLevelLinkConfiguration>;
+export interface GraphConfiguration<N extends GraphNode, L extends GraphLink> {
+    node: Partial<GraphLevelNodeConfiguration<N>>;
+    link: Partial<GraphLevelLinkConfiguration<L>>;
     automaticRearrangeAfterDropNode: boolean;
     collapsible: boolean;
     directed: boolean;
@@ -93,9 +94,9 @@ export interface GraphConfiguration {
     };
 }
 
-export interface GraphData {
-    nodes: GraphNode[];
-    links: GraphLink[];
+export interface GraphData<N extends GraphNode, L extends GraphLink> {
+    nodes: N[];
+    links: L[];
     focusedNodeId?: string;
 }
 
@@ -111,14 +112,15 @@ export interface GraphEventCallbacks {
     onMouseOutLink: (source: string, target: string) => void;
     onNodePositionChange: (nodeId: string, x: number, y: number) => void;
 }
-export interface GraphProps extends Partial<GraphEventCallbacks> {
+
+export interface GraphProps<N extends GraphNode, L extends GraphLink> extends Partial<GraphEventCallbacks> {
     id: string;
-    data?: GraphData;
-    config?: Partial<GraphConfiguration>;
+    data?: GraphData<N, L>;
+    config?: Partial<GraphConfiguration<N, L>>;
 }
 
-export class Graph extends Component<GraphProps, any> {
-    constructor(props: any, ...args: any[]);
+export class Graph<N extends GraphNode, L extends GraphLink> extends Component<GraphProps<N, L>, any> {
+    constructor(props: GraphProps<N, L>, ...args: any[]);
 
     UNSAFE_componentWillReceiveProps(nextProps: any): any;
 
