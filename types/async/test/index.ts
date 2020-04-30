@@ -338,6 +338,22 @@ async.retry(
     (err, result) => {},
 );
 
+async.retryable(
+    (callback) => {},
+);
+async.retryable(
+    3,
+    (callback) => {},
+);
+async.retryable(
+    { times: 3, interval: 200 },
+    (callback) => {},
+);
+async.retryable(
+    { times: 3, interval: retryCount => 200 * retryCount },
+    (callback) => {},
+);
+
 async.parallel([
         (callback: (err: Error, val: string) => void) => { },
         callback => { }
