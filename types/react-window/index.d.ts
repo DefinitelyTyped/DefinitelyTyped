@@ -3,6 +3,7 @@
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Alex Guerra <https://github.com/heyimalex>
 //                 John Gozde <https://github.com/jgoz>
+//                 fnknzzz <https://github.com/fnknzzz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
