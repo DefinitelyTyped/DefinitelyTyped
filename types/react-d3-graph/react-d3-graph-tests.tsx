@@ -6,10 +6,20 @@ export class Example extends React.Component {
         return (
             <div>
                 <Graph
-                 id="test"
-                 data={{ nodes: [{ id: 'node1' }, { id: 'node2' }] , links: [{source: "node1", target: "node2"}] }}
-                 config={{}}
-                 />
+                    id="test"
+                    data={{
+                        nodes: [
+                            { id: 'node1', labelProperty: 'id' },
+                            { id: 'node2', name: 'node2Name' },
+                        ],
+                        links: [{ source: 'node1', target: 'node2' }],
+                    }}
+                    config={{
+                        node: {
+                            labelProperty: node => node.name || 'No name',
+                        },
+                    }}
+                />
                 <Link />
                 <Node />
             </div>

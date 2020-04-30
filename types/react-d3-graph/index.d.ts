@@ -10,7 +10,9 @@ import {Component, MouseEvent} from 'react';
 export type NodeLabelProperty<N extends GraphNode> = ((node: N) => string) | keyof N;
 export type LinkLabelProperty<L extends GraphLink> = ((node: L) => string) | keyof L;
 
-export interface NodeLevelNodeConfiguration<N extends GraphNode> {
+type NodeWithExtraParameters = GraphNode & { [key: string]: string };
+
+export interface NodeLevelNodeConfiguration {
     color: string;
     fontColor: string;
     opacity: number;
@@ -20,11 +22,20 @@ export interface NodeLevelNodeConfiguration<N extends GraphNode> {
     strokeWidth: number;
     svg: string;
     symbolType: string;
-    viewGenerator: (node: N) => any;
-    labelProperty: NodeLabelProperty<N>;
+    viewGenerator: (node: NodeWithExtraParameters) => any;
+    labelProperty: NodeLabelProperty<NodeWithExtraParameters>;
 }
 
-export interface GraphLevelNodeConfiguration<N extends GraphNode> extends NodeLevelNodeConfiguration<N> {
+export interface GraphLevelNodeConfiguration<N extends GraphNode> {
+    color: string;
+    fontColor: string;
+    opacity: number;
+    renderLabel: boolean;
+    size: number;
+    strokeColor: string;
+    strokeWidth: number;
+    svg: string;
+    symbolType: string;
     fontSize: number;
     fontWeight: string;
     highlightColor: string;
@@ -33,9 +44,11 @@ export interface GraphLevelNodeConfiguration<N extends GraphNode> extends NodeLe
     highlightStrokeColor: "SAME" | string;
     highlightStrokeWidth: "SAME" | number;
     mouseCursor: string;
+    viewGenerator: (node: N) => any;
+    labelProperty: NodeLabelProperty<N>
 }
 
-export interface GraphNode extends Partial<NodeLevelNodeConfiguration<GraphNode>> {
+export interface GraphNode extends Partial<NodeLevelNodeConfiguration> {
     id: string;
 }
 
