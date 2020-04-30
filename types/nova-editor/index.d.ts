@@ -317,7 +317,7 @@ declare class FileSystem {
     CURRENT: FileSystemBitField;
     END: FileSystemBitField;
 
-    access(path: string, modes: FileSystemBitField): boolean;
+    access(path: string, modes: number): boolean;
     copy(src: string, dest: string): void;
     copyAsync(src: string, dest: string, callback: (err?: Error) => void): void;
     copyAsync<T>(src: string, dest: string, callback: (this: T, err?: Error) => void, thisValue: T): void;
@@ -718,7 +718,7 @@ interface Workspace {
     showChoicePalette(
         choices: string[],
         options?: { placeholder?: string },
-        callback?: (choice: string | null, choiceIndex: number) => void,
+        callback?: (choice: string | null, choiceIndex: number | null) => void,
     ): void;
     showFileChooser(
         message: string,
