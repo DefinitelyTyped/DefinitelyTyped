@@ -69,7 +69,7 @@ export type GraphConfiguration = {
     directed: boolean;
     focusZoom: number;
     focusAnimationDuration: number;
-    height: number;
+    height: number | string;
     nodeHighlightBehavior: boolean;
     linkHighlightBehavior: boolean;
     highlightDegree: number;
@@ -79,7 +79,7 @@ export type GraphConfiguration = {
     panAndZoom: boolean;
     staticGraph: boolean;
     staticGraphWithDragAndDrop: boolean;
-    width: number;
+    width: number | string;
     d3: {
         alphaTarget: number;
         gravity: number;
