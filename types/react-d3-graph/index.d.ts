@@ -5,7 +5,7 @@
 //                 Robin Leclerc <https://github.com/BreadAndRoses95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component, MouseEvent } from 'react';
+import { Component, MouseEvent } from "react";
 
 export type NodeLevelNodeConfiguration = {
     color: string;
