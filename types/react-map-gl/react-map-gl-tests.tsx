@@ -1,22 +1,24 @@
+import * as MapboxGL from 'mapbox-gl';
 import * as React from 'react';
+
 import {
-    InteractiveMap,
     CanvasOverlay,
-    SVGOverlay,
-    HTMLOverlay,
+    CanvasRedrawOptions,
     FullscreenControl,
     GeolocateControl,
-    ScaleControl,
-    CanvasRedrawOptions,
+    HTMLOverlay,
     HTMLRedrawOptions,
-    SVGRedrawOptions,
-    StaticMap,
-    ViewportProps,
-    Source,
+    InteractiveMap,
     Layer,
     LinearInterpolator,
+    SVGOverlay,
+    SVGRedrawOptions,
+    ScaleControl,
+    Source,
+    StaticMap,
+    ViewportProps,
 } from 'react-map-gl';
-import * as MapboxGL from 'mapbox-gl';
+
 import { FeatureCollection } from 'geojson';
 
 interface State {
@@ -53,9 +55,13 @@ class MyMap extends React.Component<{}, State> {
                 <InteractiveMap
                     {...this.state.viewport}
                     mapboxApiAccessToken="pk.test"
+                    mapboxApiUrl="http://url.test"
                     ref={this.setRefInteractive}
                     onViewportChange={viewport => this.setState({ viewport })}
                     onViewStateChange={({ viewState }) => this.setState({ viewport: viewState })}
+                    onContextMenu={event => {
+                        event.preventDefault();
+                    }}
                 >
                     <FullscreenControl className="test-class" container={document.querySelector('body')} />
                     <GeolocateControl
@@ -113,6 +119,22 @@ class MyMap extends React.Component<{}, State> {
                                 'circle-radius': 10,
                                 'circle-color': '#007cbf',
                             }}
+                        ></Layer>
+                    </Source>
+                    <Source
+                        id="raster-tiles-source"
+                        type="raster"
+                        scheme="tms"
+                        tiles={["path/to/tiles/{z}/{x}/{y}.png"]}
+                        tileSize={256}
+                    >
+                        <Layer
+                            id="raster-layer"
+                            type="raster"
+                            source="raster-tiles-source"
+                            paint={{}}
+                            minzoom={0}
+                            maxzoom={22}
                         ></Layer>
                     </Source>
                 </InteractiveMap>

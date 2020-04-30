@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { ComponentType, Consumer, Provider, useContext } from '@wordpress/element';
+import { ComponentType, Consumer, Provider } from 'react';
 import { AnyAction as Action, combineReducers, Reducer } from 'redux';
 
 /**

@@ -40,26 +40,30 @@ export interface ParamsDictionary { [key: string]: string; }
 export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
 
-export interface RequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any> {
+// Return type of qs.parse, the default query parser (https://expressjs.com/en/api.html#app-settings-property).
+export interface Query { [key: string]: string | Query | Array<string | Query>; }
+
+export interface RequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query> {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2
-    (req: Request<P, ResBody, ReqBody>, res: Response<ResBody>, next: NextFunction): any;
+    (req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction): any;
 }
 
-export type ErrorRequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any> = (err: any, req: Request<P, ResBody, ReqBody>, res: Response<ResBody>, next: NextFunction) => any;
+export type ErrorRequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query> =
+    (err: any, req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction) => any;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
-export type RequestHandlerParams<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any>
-    = RequestHandler<P, ResBody, ReqBody>
-    | ErrorRequestHandler<P, ResBody, ReqBody>
+export type RequestHandlerParams<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query>
+    = RequestHandler<P, ResBody, ReqBody, ReqQuery>
+    | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery>
     | Array<RequestHandler<P>
     | ErrorRequestHandler<P>>;
 
 export interface IRouterMatcher<T, Method extends 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' = any> {
     // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any>(path: PathParams, ...handlers: Array<RequestHandler<P, ResBody, ReqBody>>): T;
+    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query>(path: PathParams, ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery>>): T;
     // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any>(path: PathParams, ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody>>): T;
+    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query>(path: PathParams, ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery>>): T;
     (path: PathParams, subApplication: Application): T;
 }
 
@@ -209,7 +213,7 @@ export type Errback = (err: Error) => void;
  *     app.get<ParamsArray>(/user\/(.*)/, (req, res) => res.send(req.params[0]));
  *     app.get<ParamsArray>('/user/*', (req, res) => res.send(req.params[0]));
  */
-export interface Request<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any> extends http.IncomingMessage, Express.Request {
+export interface Request<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query> extends http.IncomingMessage, Express.Request {
     /**
      * Return request header.
      *
@@ -463,7 +467,7 @@ export interface Request<P extends Params = ParamsDictionary, ResBody = any, Req
 
     params: P;
 
-    query: any;
+    query: ReqQuery;
 
     route: any;
 

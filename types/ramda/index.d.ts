@@ -3,7 +3,6 @@
 // Definitions by: Scott O'Malley <https://github.com/TheHandsomeCoder>
 //                 Erwin Poeze <https://github.com/donnut>
 //                 Matt DeKrey <https://github.com/mdekrey>
-//                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 //                 Vítor Castro <https://github.com/teves-castro>
@@ -29,6 +28,7 @@
 //                 Jituan Lin <https://github.com/jituanlin>
 //                 Philippe Mills <https://github.com/Philippe-mills>
 //                 Saul Mirone <https://github.com/Saul-Mirone>
+//                 Nicholai Nissen <https://github.com/Nicholaiii>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -578,6 +578,7 @@ export function eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
  * Returns true if its arguments are equivalent, false otherwise. Dispatches to an equals method if present.
  * Handles cyclical data structures.
  */
+export function equals<T>(__: Placeholder, b: T): (a: T) => boolean;
 export function equals<T>(a: T, b: T): boolean;
 export function equals<T>(a: T): (b: T) => boolean;
 
@@ -831,6 +832,7 @@ export function intersperse<T>(separator: T): (list: readonly T[]) => T[];
  * using an appropriate iterator function based on the accumulator type.
  */
 export function into<T>(acc: any, xf: (...a: readonly any[]) => any, list: readonly T[]): T[];
+export function into<T, R>(acc: any, xf: (...a: readonly any[]) => R[], list: readonly T[]): R[];
 export function into(acc: any, xf: (...a: readonly any[]) => any): <T>(list: readonly T[]) => T[];
 export function into(acc: any): <T>(xf: (...a: readonly any[]) => any, list: readonly T[]) => T[];
 
@@ -1367,6 +1369,12 @@ export function pathEq(path: Path): _.F.Curry<(a: any, b: any) => boolean>;
 export function pathOr<T>(defaultValue: T, path: Path, obj: any): T;
 export function pathOr<T>(defaultValue: T, path: Path): (obj: any) => T;
 export function pathOr<T>(defaultValue: T): _.F.Curry<(a: Path, b: any) => T>;
+
+/**
+ * Retrieves the values at given paths of an object.
+ */
+export function paths<T>(paths: Path[], obj: any): T[] | undefined;
+export function paths<T>(paths: Path[]): (obj: any) => T[] | undefined;
 
 /**
  * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.

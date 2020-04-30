@@ -2519,6 +2519,7 @@ declare namespace Cesium {
         propertyNames: any[];
         rectangle: RectangleGraphics;
         show: boolean;
+        tileset: Cesium3DTilesetGraphics;
         viewFrom: Property;
         wall: WallGraphics;
         constructor(options?: {
@@ -2547,6 +2548,7 @@ declare namespace Cesium {
           polylineVolume?: PolylineVolumeGraphics;
           properties?: PropertyBag;
           rectangle?: RectangleGraphics;
+          tileset?: Cesium3DTilesetGraphics;
           wall?: WallGraphics
         });
         addProperty(propertyName: string): void;
@@ -4711,6 +4713,7 @@ declare namespace Cesium {
         readonly renderError: Event;
         requestRenderMode: boolean;
         rethrowRenderErrors: boolean;
+        readonly sampleHeightSupported: boolean;
         readonly scene3DOnly: boolean;
         readonly screenSpaceCameraController: ScreenSpaceCameraController;
         shadowMap: ShadowMap;
@@ -4738,6 +4741,8 @@ declare namespace Cesium {
             maximumRenderTimeChange?: number
         });
         cartesianToCanvasCoordinates(position: Cartesian3, result?: Cartesian2): Cartesian2;
+        clampToHeight(cartesian: Cartesian3, objectsToExclude?: any[], width?: number, result?: Cartesian3): Cartesian3;
+        clampToHeightMostDetailed(cartesian: Cartesian3[], objectsToExclude?: any[], width?: number): Promise<Cartesian3[]>;
         completeMorph(): void;
         destroy(): void;
         drillPick(windowPosition: Cartesian2, limit?: number): any[];
@@ -4749,6 +4754,8 @@ declare namespace Cesium {
         pick(windowPosition: Cartesian2, width?: number, height?: number): any;
         pickPosition(windowPosition: Cartesian2, result?: Cartesian3): Cartesian3;
         requestRender(): void;
+        sampleHeight(cartographic: Cartographic, objectsToExclude?: any[], width?: number): number;
+        sampleHeightMostDetailed(cartographic: Cartographic, objectsToExclude?: any[], width?: number): Promise<number[]>;
     }
 
     class ScreenSpaceCameraController {

@@ -32,6 +32,17 @@ app.get<{ foo: string }>('/:foo', req => {
 // Params cannot be a custom type that does not conform to constraint
 app.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
 
+// Query can be a custom type
+app.get<{}, any, any, {q: string}>('/:foo', req => {
+    req.query.q; // $ExpectType string
+    req.query.a; // $ExpectError
+});
+
+// Query will be defaulted to Query type
+app.get('/:foo', req => {
+    req.query; // $ExpectType Query
+});
+
 // Default types
 app.post("/", (req, res) => {
     req.params[0]; // $ExpectType string

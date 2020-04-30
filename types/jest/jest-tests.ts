@@ -493,6 +493,8 @@ class TestMocked {
 
 const mocked: jest.Mocked<TestMocked> = new TestMocked() as any;
 mocked.test1.mockImplementation(() => Promise.resolve({ a: 1 }));
+// $ExpectType (x: Type1) => Promise<Type1> | undefined
+mocked.test1.getMockImplementation();
 mocked.test1.mockReturnValue(Promise.resolve({ a: 1 }));
 // $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>)
 mocked.test1.mockResolvedValue({ a: 1 });
@@ -633,12 +635,12 @@ const snapshotSerializerPlugin: jest.SnapshotSerializerPlugin = {
 expect.addSnapshotSerializer(snapshotSerializerPlugin);
 
 expect.addSnapshotSerializer({
-    print: (value: {}) => '',
+    print: (value: unknown) => '',
     test: (value: {}) => value === value,
 });
 
 expect.addSnapshotSerializer({
-    print: (value: {}, serialize: (val: {}) => string, indent: (str: string) => string, opts: {}) => '',
+    print: (value: unknown, serialize: (val: {}) => string, indent: (str: string) => string, opts: {}) => '',
     test: (value: {}) => value === value,
 });
 

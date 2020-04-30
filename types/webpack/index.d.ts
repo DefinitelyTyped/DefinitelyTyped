@@ -21,11 +21,14 @@
 //                 Felix Haus <https://github.com/ofhouse>
 //                 Daniel Chin <https://github.com/danielthank>
 //                 Daiki Ihara <https://github.com/sasurau4>
+//                 Dion Shi <https://github.com/dionshihk>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
 
+import { Hash as CryptoHash } from 'crypto';
 import {
   Tapable,
   HookMap,
@@ -224,6 +227,7 @@ declare namespace webpack {
          * - "window" - Assign to window
          * - "assign" - Assign to a global variable
          * - "jsonp" - Generate Webpack JSONP module
+         * - "system" - Generate a SystemJS module
          */
         libraryTarget?: LibraryTarget;
         /** Configure which module or modules will be exposed via the `libraryTarget` */
@@ -258,7 +262,7 @@ declare namespace webpack {
         futureEmitAssets?: boolean;
     }
 
-    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp';
+    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp' | 'system';
 
     type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
 
@@ -921,11 +925,43 @@ declare namespace webpack {
             toString(): string;
         }
 
+        type GroupOptions = string | { name?: string; };
+
         class ChunkGroup {
+            chunks: Chunk[];
+            childrenIterable: SortableSet<ChunkGroup>;
+            parentsIterable: SortableSet<ChunkGroup>;
+            insertChunk(chunk: Chunk, before: Chunk): boolean;
+            getNumberOfChildren(): number;
+            setModuleIndex(module: Module, index: number): void;
+            getModuleIndex(module: Module): number | undefined;
+            setModuleIndex2(module: Module, index: number): void;
+            getModuleIndex2(module: Module): number | undefined;
+            addChild(chunk: ChunkGroup): boolean;
+            removeChild(chunk: ChunkGroup): boolean;
+            setParents(newParents: Iterable<ChunkGroup>): void;
         }
 
         class ChunkHash {
         }
+
+        interface SourcePosition {
+            line: number;
+            column?: number;
+        }
+
+        interface RealDependencyLocation {
+            start: SourcePosition;
+            end?: SourcePosition;
+            index?: number;
+        }
+
+        interface SynteticDependencyLocation {
+            name: string;
+            index?: number;
+        }
+
+        type DependencyLocation = SynteticDependencyLocation | RealDependencyLocation;
 
         class Dependency {
             constructor();
@@ -1121,6 +1157,8 @@ declare namespace webpack {
             requireExtensions: SyncWaterfallHook<string, Chunk, string>;
             requireEnsure: SyncWaterfallHook<string, Chunk, string>;
             localVars: SyncWaterfallHook<string, Chunk, string>;
+            afterStartup: SyncWaterfallHook<string, Chunk, string>;
+            hashForChunk: SyncHook<CryptoHash, Chunk>;
           };
           outputOptions: Output;
           requireFn: string;
@@ -1199,6 +1237,8 @@ declare namespace webpack {
             missingDependencies: SortableSet<string>;
             hash?: string;
             getStats(): Stats;
+            addChunkInGroup(groupOptions: GroupOptions): ChunkGroup;
+            addChunkInGroup(groupOptions: GroupOptions, module: Module, loc: DependencyLocation, request: string): ChunkGroup;
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
@@ -1370,20 +1410,33 @@ declare namespace webpack {
         apply(resolver: any /* EnhancedResolve.Resolver */): void;
     }
 
-    abstract class Stats {
+    class Stats {
         compilation: compilation.Compilation;
         hash?: string;
         startTime?: number;
         endTime?: number;
+
+        static filterWarnings(
+          warnings: string[],
+          warningsFilter?: Array<string | RegExp | ((warning: string) => boolean)>
+        ): string[];
         /**
          * Returns the default json options from the stats preset.
          * @param preset The preset to be transformed into json options.
          */
         static presetToOptions(preset?: Stats.Preset): Stats.ToJsonOptionsObject;
+
+        constructor(compilation: compilation.Compilation);
+
+        formatFilePath(filePath: string): string;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
         hasWarnings(): boolean;
+        /** Remove a prefixed "!" that can be specified to reverse sort order */
+        normalizeFieldKey(field: string): string;
+        /** if a field is prefixed by a "!" reverse sort order */
+        sortOrderRegular(field: string): boolean;
         /** Returns compilation information as a JSON object. */
         toJson(options?: Stats.ToJsonOptions, forToString?: boolean): Stats.ToJsonOutput;
         /** Returns a formatted string of the compilation information (similar to CLI output). */
@@ -1832,7 +1885,45 @@ declare namespace webpack {
     }
 
     class ProgressPlugin extends Plugin {
-        constructor(options?: (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void);
+        constructor(options?: ProgressPlugin.Options | ProgressPlugin.Handler);
+    }
+
+    namespace ProgressPlugin {
+        /**
+         * A handler function which will be called when webpack hooks report progress
+         */
+        type Handler = (percentage: number, msg: string, ...args: string[]) => void;
+        interface Options {
+            /**
+             * Show active modules count and one active module in progress message
+             * Default: true
+             */
+            activeModules?: boolean;
+            /**
+             * Show entries count in progress message
+             * Default: false
+             */
+            entries?: boolean;
+            /**
+             * Function that executes for every progress step
+             */
+            handler?: Handler;
+            /**
+             * Show modules count in progress message
+             * Default: true
+             */
+            modules?: boolean;
+            /**
+             * Minimum modules count to start with, only for mode = modules
+             * Default: 500
+             */
+            modulesCount?: number;
+            /**
+             * Collect profile data for progress steps
+             * Default: false
+             */
+            profile?: boolean | null;
+        }
     }
 
     class EnvironmentPlugin extends Plugin {

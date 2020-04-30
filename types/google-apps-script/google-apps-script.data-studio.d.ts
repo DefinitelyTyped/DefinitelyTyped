@@ -134,7 +134,7 @@ declare namespace GoogleAppsScript {
     interface DebugError {
       printJson(): string;
       setText(text: string): DebugError;
-      throwException(): void;
+      throwException(): never;
     }
     /**
      * Contains field-related data. Its properties determine how the field is used in Data Studio.
@@ -453,7 +453,7 @@ declare namespace GoogleAppsScript {
       printJson(): string;
       setDebugText(text: string): UserError;
       setText(text: string): UserError;
-      throwException(): void;
+      throwException(): never;
     }
     /**
      * function getData(request: GoogleAppsScript.Data_Studio.Request<YourConnectorParams>)

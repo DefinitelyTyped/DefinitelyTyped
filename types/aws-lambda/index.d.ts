@@ -33,6 +33,7 @@
 //                 Alex Bolenok <https://github.com/alex-bolenok-centralreach>
 //                 Marian Zange <https://github.com/marianzange>
 //                 Alexander Pepper <https://github.com/apepper>
+//                 Alessandro Palumbo <https://github.com/apalumbo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -59,6 +60,7 @@ export * from "./trigger/codepipeline-cloudwatch-stage";
 export * from "./trigger/cognito-user-pool-trigger";
 // TODO: export * from "./trigger/config";
 export * from "./trigger/dynamodb-stream";
+export * from "./trigger/eventbridge";
 // ElastiCache section just describes using lambdas in an ElastiCache context (VPC issues, etc.)
 // EC2 events are delivered using cloudwatch events...
 // TODO: export * from "./trigger/iot"; for "IoT Events"

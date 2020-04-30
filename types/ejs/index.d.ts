@@ -119,7 +119,7 @@ export let closeDelimiter: string;
  *
  * @default '%'
  */
-export let delimiter: string;
+export let delimiter: string | undefined;
 
 /**
  * Promise implementation -- defaults to the native implementation if available
@@ -377,9 +377,8 @@ export interface Options {
 	closeDelimiter?: string;
 
 	/**
-	 * The delimiter used in template compilation.
-	 *
-	 * @default ejs.delimiter
+	 * Character to use with angle brackets for open/close
+	 * @default '%'
 	 */
 	delimiter?: string;
 
@@ -409,6 +408,13 @@ export interface Options {
 	 * @default false
 	 */
 	async?: boolean;
+
+	/**
+	 * Make sure to set this to 'false' in order to skip UglifyJS parsing,
+	 * when using ES6 features (`const`, etc) as UglifyJS doesn't understand them.
+	 * @default true
+	 */
+	beautify?: boolean;
 
 	/**
 	 * Name to use for the object storing local variables when not using `with` or destructuring.

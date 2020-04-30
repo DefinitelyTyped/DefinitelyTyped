@@ -5,6 +5,7 @@ import {
     DataTableCustomRenderProps,
     DataTableHeader,
     DataTableRow,
+    DatePickerInput,
     Dropdown,
     FileUploader,
     NumberInput,
@@ -14,6 +15,7 @@ import {
     TableBatchActions,
     TableHeader,
     TableRow,
+    Tag,
     TileGroup,
     TooltipDefinition,
     TextArea,
@@ -21,6 +23,7 @@ import {
     FormItem,
     FileUploaderDropContainer,
     FileUploaderItem,
+    MultiSelect,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -274,6 +277,15 @@ const uisLinkT5 = (
     <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
 );
 
+// DatePickerInput
+const datePickerInputWithHideLabel = (
+    <DatePickerInput
+        hideLabel={true}
+        id="my-date-picker-input"
+        labelText="my-label-text"
+    />
+);
+
 // Dropdown
 const dropdownItemCanBeElement = (
     <Dropdown
@@ -314,12 +326,12 @@ const tooltipDefHasTriggerClassName = (
 // Tabs
 const tabCanBeDisabled = (
     <Tab
-        handleTabAnchorFocus={() => { }}
         handleTabClick={() => { }}
         handleTabKeyDown={() => { }}
         href="#"
         tabIndex={0}
         disabled
+        selected={false}
     />
 );
 
@@ -331,6 +343,19 @@ const SliderHasOnChange = (
         value={5}
         onChange={(newValue) => newValue.value}
     />
+);
+
+// Tag
+const ChipTagFilterUndef = (
+    <Tag />
+);
+
+const ChipTagFalse = (
+    <Tag filter={false}/>
+);
+
+const FilterTag = (
+    <Tag filter onClose={() => {}}/>
 );
 
 // TextArea
@@ -433,5 +458,30 @@ const fileUploaderItem = (
         onDelete={ (event, content) => {} }
         status="edit"
         uuid="id1"
+    />
+)
+
+const multiSelect = (
+    <MultiSelect
+    id="clusters"
+    initialSelectedItems={['one']}
+    items={['one', 'two']}
+    light
+    titleText="Choose an item"
+    itemToString={item => item}
+    onChange={({ selectedItems }) => {}}
+    />
+)
+
+const multiSelectFilterable = (
+    <MultiSelect.Filterable
+    id="clusters"
+    initialSelectedItems={['one']}
+    items={['one', 'two']}
+    light
+    placeholder="Filter"
+    titleText="Choose an item"
+    itemToString={item => item}
+    onChange={({ selectedItems }) => {}}
     />
 )

@@ -1,5 +1,6 @@
 import { Coordinate } from './coordinate';
 import BaseEvent from './events/Event';
+import { FrameState } from './PluggableMap';
 import PriorityQueue from './structs/PriorityQueue';
 import Tile from './Tile';
 
@@ -10,3 +11,10 @@ export default class TileQueue extends PriorityQueue<any> {
     getTilesLoading(): number;
     loadMoreTiles(maxTotalLoading: number, maxNewLoads: number): void;
 }
+export function getTilePriority(
+    frameState: FrameState,
+    tile: Tile,
+    tileSourceKey: string,
+    tileCenter: Coordinate,
+    tileResolution: number,
+): number;

@@ -21,7 +21,7 @@ export interface SliderProps extends InheritedProps {
     minLabel?: string,
     onRelease?(data: { value: SliderProps["value"] }): void,
     step?: number,
-    stepMuliplier?: number, // typo exists in source
+    stepMultiplier?: number,
     value: number,
     onChange: (value: SliderOnChangeArg) => void
 }

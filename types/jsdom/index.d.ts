@@ -62,7 +62,7 @@ declare module 'jsdom' {
 	}
 
 	class ResourceLoader {
-		fetch(url: string, options: FetchOptions): Promise<Buffer>;
+		fetch(url: string, options: FetchOptions): Promise<Buffer> | null;
 
 		constructor(obj?: ResourceLoaderConstructorOptions);
 	}

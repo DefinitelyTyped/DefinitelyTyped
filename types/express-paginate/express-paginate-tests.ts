@@ -12,7 +12,7 @@ app.get('/users', async (req, res, next) => {
     return findAndCountAll({limit: req.query.limit, offset: req.skip})
         .then(results => {
             const itemCount = results.count;
-            const pageCount = Math.ceil(results.count / req.query.limit);
+            const pageCount = Math.ceil(results.count / parseInt(req.query.limit as string, 10));
             res.render('users/all_users', {
                 users: results.rows,
                 pageCount,
@@ -20,7 +20,7 @@ app.get('/users', async (req, res, next) => {
                 currentPageHref: paginate.href(req)(false, req.params),
                 // Instead of exposing this to the html template, we'll test this here and pass a static number
                 hasNextPages: paginate.hasNextPages(req)(pageCount),
-                pages: paginate.getArrayPages(req)(3, pageCount, req.query.page)
+                pages: paginate.getArrayPages(req)(3, pageCount, parseInt(req.query.page as string, 10))
             });
         }).catch(next);
 });

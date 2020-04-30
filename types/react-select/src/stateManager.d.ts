@@ -16,7 +16,7 @@ export interface Props<OptionType extends OptionTypeBase> {
   inputValue?: string;
   menuIsOpen?: boolean;
   value?: ValueType<OptionType>;
-  onChange?: (value: ValueType<OptionType>, actionMeta: ActionMeta) => void;
+  onChange?: (value: ValueType<OptionType>, actionMeta: ActionMeta<OptionType>) => void;
 }
 
 type StateProps<T extends SelectProps<any>> = Pick<T, Exclude<keyof T,
@@ -49,7 +49,7 @@ export class StateManager<
   blur(): void;
   getProp(key: string): any;
   callProp(name: string, ...args: any[]): any;
-  onChange: (value: ValueType<OptionType>, actionMeta: ActionMeta) => void;
+  onChange: (value: ValueType<OptionType>, actionMeta: ActionMeta<OptionType>) => void;
   onInputChange: (value: ValueType<OptionType>, actionMeta: InputActionMeta) => void;
   onMenuOpen: () => void;
   onMenuClose: () => void;

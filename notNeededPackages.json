@@ -991,6 +991,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "docx-templates",
+            "typingsPackageName": "docx-templates",
+            "sourceRepoURL": "https://github.com/guigrpa/docx-templates",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "dom-helpers",
             "typingsPackageName": "dom-helpers",
             "sourceRepoURL": "https://github.com/react-bootstrap/dom-helpers",
@@ -3643,6 +3649,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "postcss-nested",
+            "typingsPackageName": "postcss-nested",
+            "sourceRepoURL": "https://github.com/postcss/postcss-nested",
+            "asOfVersion": "4.2.1"
+        },
+        {
             "libraryName": "postmark",
             "typingsPackageName": "postmark",
             "sourceRepoURL": "http://wildbit.github.io/postmark.js",
@@ -4039,6 +4051,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-native-responsive-dimensions",
+            "typingsPackageName": "react-native-responsive-dimensions",
+            "sourceRepoURL": "https://github.com/DaniAkash/react-native-responsive-dimensions",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "react-native-safe-area",
             "typingsPackageName": "react-native-safe-area",
             "sourceRepoURL": "https://github.com/miyabi/react-native-safe-area#readme",
@@ -4127,6 +4145,12 @@
             "typingsPackageName": "react-toastify",
             "sourceRepoURL": "https://github.com/fkhadra/react-toastify#readme",
             "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "react-tooltip",
+            "typingsPackageName": "react-tooltip",
+            "sourceRepoURL": "https://github.com/wwayne/react-tooltip",
+            "asOfVersion": "4.2.4"
         },
         {
             "libraryName": "react-webcam",
@@ -5513,6 +5537,12 @@
             "typingsPackageName": "xterm",
             "sourceRepoURL": "https://github.com/sourcelair/xterm.js/",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "yaml",
+            "typingsPackageName": "yaml",
+            "sourceRepoURL": "https://github.com/eemeli/yaml",
+            "asOfVersion": "1.9.0"
         },
         {
             "libraryName": "year-days",
