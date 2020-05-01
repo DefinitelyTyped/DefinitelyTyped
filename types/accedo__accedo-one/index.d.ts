@@ -6,7 +6,8 @@
 
 /**
  * @example
- * ~ import accedoOne = require("@accedo/accedo-one");
+ * ~ import accedoOne from "@accedo/accedo-one"; // ESM Syntax
+ * ~ import accedoOne = require("@accedo/accedo-one"); // CJS Syntax
  * ~ const accedo = accedoOne({ ... });
  * ~
  * ~ accedo.getEntries(...);
