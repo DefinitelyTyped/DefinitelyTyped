@@ -5,12 +5,12 @@
 //                 Robin Leclerc <https://github.com/BreadAndRoses95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Component, MouseEvent} from 'react';
+import { Component, MouseEvent } from 'react';
 
 export type NodeLabelProperty<N extends GraphNode> = ((node: N) => string) | keyof N;
 export type LinkLabelProperty<L extends GraphLink> = ((node: L) => string) | keyof L;
 
-type NodeWithExtraParameters = GraphNode & { [key: string]: string };
+export type NodeWithExtraParameters = GraphNode & { [key: string]: string };
 
 export interface NodeLevelNodeConfiguration {
     color: string;
@@ -41,11 +41,11 @@ export interface GraphLevelNodeConfiguration<N extends GraphNode> {
     highlightColor: string;
     highlightFontSize: number;
     highlightFontWeight: string;
-    highlightStrokeColor: "SAME" | string;
-    highlightStrokeWidth: "SAME" | number;
+    highlightStrokeColor: 'SAME' | string;
+    highlightStrokeWidth: 'SAME' | number;
     mouseCursor: string;
     viewGenerator: (node: N) => any;
-    labelProperty: NodeLabelProperty<N>
+    labelProperty: NodeLabelProperty<N>;
 }
 
 export interface GraphNode extends Partial<NodeLevelNodeConfiguration> {
