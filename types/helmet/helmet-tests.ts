@@ -70,7 +70,6 @@ function contentSecurityPolicyTest() {
 
     function reportUriCb(req: express.Request, res: express.Response) { return '/some-uri'; }
     function reportOnlyCb(req: express.Request, res: express.Response) { return false; }
-    // prettier-ignore
     app.use(helmet.contentSecurityPolicy({})); // $ExpectError
     app.use(helmet.contentSecurityPolicy({ directives: {
         imgSrc: ['self']
