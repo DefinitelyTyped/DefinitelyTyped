@@ -1472,7 +1472,7 @@ declare module "mongoose" {
      * options to every document of your schema by default, set your schemas
      * toJSON option to the same argument.
      */
-    toJSON(options?: DocumentToObjectOptions): any;
+    toJSON<T = any>(options?: DocumentToObjectOptions): T;
 
     /**
      * Converts this document into a plain javascript object, ready for storage in MongoDB.
