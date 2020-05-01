@@ -7,7 +7,6 @@
         "no-duplicate-imports": false,
         "no-redundant-jsdoc": false,
         "prefer-declare-function": false,
-        "prefer-method-signature": false,
-        "strict-export-declare-modifiers": false
+        "prefer-method-signature": false
     }
 }
