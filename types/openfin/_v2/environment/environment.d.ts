@@ -11,5 +11,6 @@ export interface Environment {
     getWebWindow(identity: Identity): Window;
     getCurrentEntityIdentity(): Identity;
     getCurrentEntityType(): EntityType;
+    raiseEvent(eventName: string, eventArgs: any): void;
 }
 export declare const notImplementedEnvErrorMsg = "Not implemented in this environment";
