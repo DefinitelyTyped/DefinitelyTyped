@@ -249,7 +249,8 @@ let autoComplete: Tabulator.AutoCompleteParams = {
         // prefix all titles with the work "Mr"
         return 'Mr ' + title;
     },
-    values: true, // create list of values from all values contained in this column
+    values: true, // create list of values from all values contained in this column,
+    sortValuesList:'asc', // sort the values by ascending order,
 };
 colDef.editorParams = autoComplete;
 
