@@ -295,7 +295,7 @@ declare namespace jest {
          * @see
          * [testing-library/jest-dom#tohavedisplayvalue](https:github.com/testing-library/jest-dom#tohavedisplayvalue)
          */
-        toHaveDisplayValue(value?: string | string[]): R;
+        toHaveDisplayValue(value: string | string[]): R;
         /**
          * @description
          * This allows you to check whether the given form element has the specified displayed value (the one the
