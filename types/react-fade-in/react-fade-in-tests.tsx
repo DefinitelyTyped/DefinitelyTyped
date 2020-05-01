@@ -12,7 +12,7 @@ export const _ = () => (
             <div>Element 5</div>
             <div>Element 6</div>
         </FadeIn>
-        <FadeIn className="typescript">
+        <FadeIn className="container">
             <div>Element 1</div>
             <div>Element 2</div>
             <div>Element 3</div>
@@ -36,5 +36,22 @@ export const _ = () => (
             <div>Element 5</div>
             <div>Element 6</div>
         </FadeIn>
+        <FadeIn childClassName='child'>
+            <div>Element 1</div>
+            <div>Element 2</div>
+            <div>Element 3</div>
+            <div>Element 4</div>
+            <div>Element 5</div>
+            <div>Element 6</div>
+        </FadeIn>
+        
+        <style>{`
+           .container {
+             border: 1px solid blue;
+           }
+           .child {
+             color: red;
+           }
+         `}</style>
     </>
 );
