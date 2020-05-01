@@ -1,3 +1,4 @@
+import Tabulator from 'tabulator-tables';
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
 
@@ -87,11 +88,11 @@ table
         // handle error updating data
     });
 
-let row1: Tabulator.RowComponent;
-let row2: Tabulator.RowComponent;
+// let row1: Tabulator.RowComponent;
+// let row2: Tabulator.RowComponent;
 
 // column definitions
-let colDef: Tabulator.ColumnDefinition = { title: 'title', field: '' };
+const colDef: Tabulator.ColumnDefinition = { title: 'title', field: '' };
 colDef.sorter = customSorter;
 
 // prettier-ignore
@@ -236,7 +237,7 @@ colDef.editorParams = cell => {
     return {};
 };
 
-let autoComplete: Tabulator.AutoCompleteParams = {
+const autoComplete: Tabulator.AutoCompleteParams = {
     showListOnEmpty: true, // show all values when the list is empty,
     freetext: true, // allow the user to set the value of the cell to a free text entry
     allowEmpty: true, // allow empty string values
@@ -305,7 +306,7 @@ colDef.validator = {
 colDef.validator = 'float';
 colDef.validator = { type: 'float', parameters: {} };
 
-let validators: Tabulator.Validator[] = [
+const validators: Tabulator.Validator[] = [
     { type: 'integer', parameters: {} },
     {
         type: (cell, value, parameters) => {
@@ -322,14 +323,14 @@ colDef.headerFilterFunc = (headerValue, rowValue, rowData, filterParams) => {
 
 // Cell Component
 
-let cell = <Tabulator.CellComponent>{};
+const cell = <Tabulator.CellComponent>{};
 cell.nav().down();
 
-let data = cell.getData();
+const data = cell.getData();
 table = cell.getTable();
 
 // Row Component
-let row = <Tabulator.RowComponent>{};
+const row = <Tabulator.RowComponent>{};
 row.delete()
     .then(() => {
         // run code after row has been deleted
@@ -339,7 +340,7 @@ row.delete()
     });
 
 // Options
-let options = <Tabulator.Options>{};
+const options = <Tabulator.Options>{};
 options.keybindings = {
     navPrev: 'ctrl + 1',
     navNext: false,
@@ -461,7 +462,7 @@ table.download('pdf', 'data.pdf', {
         doc.text('SOME TEXT', 1, 1);
         return {
             styles: {
-                fillColor: [200, 00, 00],
+                fillColor: [200, 0, 0],
             },
         };
     },
@@ -491,7 +492,7 @@ table.download('csv', 'data.csv', { delimiter: '.' });
 // 4.4 updates
 table.moveColumn('name', 'age', true);
 
-let column = {} as Tabulator.ColumnComponent;
+const column = {} as Tabulator.ColumnComponent;
 column.move('age', true);
 
 colDef.editorParams = {
@@ -513,8 +514,8 @@ colDef.editorParams = {
 
 colDef.clipboard = false;
 
-let group = {} as Tabulator.GroupComponent;
-let field = group.getField();
+const group = {} as Tabulator.GroupComponent;
+const field = group.getField();
 
 options.tabEndNewRow = true;
 options.tabEndNewRow = { name: 'steve', age: 62 };
@@ -535,7 +536,7 @@ colDef.editor = (cell, onRendered, success, cancel, editorParams) => {
     return editor;
 };
 
-let groupColDef: Tabulator.ColumnDefinition = {
+const groupColDef: Tabulator.ColumnDefinition = {
     title: 'Full name',
     field: '',
     columns: [

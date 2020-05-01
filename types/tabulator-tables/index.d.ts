@@ -2,7 +2,7 @@
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 4.0
 
 // tslint:disable:max-line-length
 // tslint:disable:jsdoc-format
@@ -170,7 +170,7 @@ declare namespace Tabulator {
         "sorters":"sorters",
         "filters":"filters",
         }
-    	 */
+         */
         paginationDataSent?: Record<string, string>;
         /** When using the addRow function on a paginated table, rows will be added relative to the current page (ie to the top or bottom of the current page), with overflowing rows being shifted onto the next page.
 
@@ -2117,3 +2117,5 @@ declare class Tabulator {
     /** Lookup the table object for any existing table using the element they were created on. */
     findTable: (query: string) => Tabulator;
 }
+
+export default Tabulator;
