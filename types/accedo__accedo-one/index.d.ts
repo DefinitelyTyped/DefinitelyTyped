@@ -6,7 +6,7 @@
 
 /**
  * @example
- * ~ import accedoOne from "@accedo/accedo-one"
+ * ~ import accedoOne = require("@accedo/accedo-one");
  * ~ const accedo = accedoOne({ ... });
  * ~
  * ~ accedo.getEntries(...);
