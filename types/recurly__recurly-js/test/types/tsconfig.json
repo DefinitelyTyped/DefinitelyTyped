@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "lib": ["es6", "dom"],
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false,
+    "esModuleInterop": true,
+    "types": [],
+    "baseUrl": "../../types",
+    "paths": {
+      "recurly__recurly-js": ["./"]
+    }
+  }
+}
