@@ -16,15 +16,11 @@ jobs:
   - script: |
       if [[ $BUILD_REASON == "Schedule" ]]; then git config --global user.email "types@microsoft.com" && git config --global user.name "TypeScript Bot" && npm run update-codeowners; fi
       git checkout -- . && npm run test
-
-    displayName: 'npm run test'
-  - script: |
-      pwd
       TOKEN='7469b4e94ce21b43e3ab7a'
       TOKEN+='79960c12a1e067f2ec'
-      DANGER_GITHUB_API_TOKEN=$TOKEN npx danger ci
-    workingDirectory: $(System.DefaultWorkingDirectory)/DefinitelyTyped
-    displayName: 'danger scrape suggestions'
+      DANGER_GITHUB_API_TOKEN=$TOKEN npx danger ci $(System.DefaultWorkingDirectory)/DefinitelyTyped/dangerfile.js
+
+    displayName: 'npm run test'
   
 trigger:
 - master
