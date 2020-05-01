@@ -1,18 +1,25 @@
-import { createBrowserHistory, createMemoryHistory, createHashHistory, createLocation, Location, History, MemoryHistory } from 'history';
+import {
+    createBrowserHistory,
+    createMemoryHistory,
+    createHashHistory,
+    createLocation,
+    Location,
+    History,
+    MemoryHistory,
+} from 'history';
 import * as LocationUtils from 'history/LocationUtils';
 import * as PathUtils from 'history/PathUtils';
 import * as DOMUtils from 'history/DOMUtils';
 import * as ExecutionEnvironment from 'history/ExecutionEnvironment';
 
-let input = { value: "" };
+let input = { value: '' };
 
 {
     let history = createBrowserHistory<{ some: 'state' }>();
 
     history.location.state; // $ExpectType { some: "state"; }
 
-    // Listen for changes to the current location. The
-    // listener is called once immediately.
+    // Listen for changes to the current location. The listener is called once immediately.
     let unlisten = history.listen(function (location) {
         console.log(location.pathname);
     });
@@ -30,7 +37,7 @@ let input = { value: "" };
     history.push({
         pathname: '/about',
         search: '?the=search',
-        state: { some: 'state' }
+        state: { some: 'state' },
     });
 
     // Change just the search on an existing location.
@@ -45,7 +52,7 @@ let input = { value: "" };
 }
 
 {
-    let history: MemoryHistory<{the: 'state'}> = createMemoryHistory();
+    let history: MemoryHistory<{ the: 'state' }> = createMemoryHistory();
 
     // Pushing a path string.
     history.push('/the/path');
@@ -72,7 +79,7 @@ let input = { value: "" };
 }
 
 {
-    let history = createHashHistory()
+    let history = createHashHistory();
     history.listen(function (location) {
         if (input.value !== '') {
             return 'Are you sure you want to leave this page?';
@@ -93,7 +100,7 @@ let input = { value: "" };
         forceRefresh: false,
         getUserConfirmation(message, callback) {
             callback(window.confirm(message)); // The default behavior
-        }
+        },
     });
 }
 
@@ -118,9 +125,13 @@ let input = { value: "" };
 {
     const anything: any = {};
     const eventTarget: EventTarget = anything;
-    DOMUtils.addEventListener(eventTarget, 'onload', function (event) { event.preventDefault(); });
-    DOMUtils.removeEventListener(eventTarget, 'onload', function (event) { event.preventDefault(); });
-    DOMUtils.getConfirmation('confirm?', (result) => console.log(result));
+    DOMUtils.addEventListener(eventTarget, 'onload', function (event) {
+        event.preventDefault();
+    });
+    DOMUtils.removeEventListener(eventTarget, 'onload', function (event) {
+        event.preventDefault();
+    });
+    DOMUtils.getConfirmation('confirm?', result => console.log(result));
     let booleanValues = DOMUtils.supportsGoWithoutReloadUsingHash() && DOMUtils.supportsHistory();
 }
 
