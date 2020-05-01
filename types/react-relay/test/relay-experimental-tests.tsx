@@ -367,6 +367,7 @@ function RefetchableFragment() {
 
     interface Props {
         comment: CommentBody_comment$key;
+        commentNullable: CommentBody_comment$key | null;
     }
 
     return function CommentBody(props: Props) {
@@ -380,10 +381,21 @@ function RefetchableFragment() {
             `,
             props.comment,
         );
+        const [dataNullable] = useRefetchableFragment<CommentBodyRefetchQuery, CommentBody_comment$key>(
+            graphql`
+                fragment CommentBody_comment on Comment @refetchable(queryName: "CommentBodyRefetchQuery") {
+                    body(lang: $lang) {
+                        text
+                    }
+                }
+            `,
+            props.commentNullable,
+        );
 
         return (
             <>
-                <p>{data!.body!.text}</p>
+                <p>{data.body!.text}</p>
+                <p>{dataNullable!.body!.text}</p>
                 <button onClick={() => refetch({ lang: 'SPANISH' }, { fetchPolicy: 'store-or-network' })}>
                     Translate Comment
                 </button>
