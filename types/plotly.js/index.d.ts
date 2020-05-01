@@ -178,6 +178,7 @@ export interface ToImgopts {
 	format: 'jpeg' | 'png' | 'webp' | 'svg';
 	width: number;
 	height: number;
+	scale?: number;
 }
 
 export interface DownloadImgopts {
