@@ -7,6 +7,7 @@
 //                 Yui T. <https://github.com/yuit>
 //                 Yamagishi Kazutoshi <https://github.com/ykzts>
 //                 Justin Hall <https://github.com/wKovacs64>
+//                 Andriy2 <https://github.com/Andriy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
