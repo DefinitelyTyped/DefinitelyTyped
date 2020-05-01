@@ -321,6 +321,15 @@ colDef.headerFilterFunc = (headerValue, rowValue, rowData, filterParams) => {
     return rowData.name === filterParams.name && rowValue < headerValue; // must return a boolean, true if it passes the filter.
 };
 
+// Calculation
+colDef.bottomCalc = (values, data, calcParams) => {
+    return {};
+};
+
+colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
+    return '';
+};
+
 // Cell Component
 
 let cell = <Tabulator.CellComponent>{};

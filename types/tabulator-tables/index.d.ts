@@ -1226,7 +1226,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | 'sum'
         | 'concat'
         | 'count'
-        | ((values: any[], data: any[], calcParams: {}) => number);
+        | ((values: any[], data: any[], calcParams: {}) => any);
     type ColumnCalcParams = (values: any, data: any) => any;
     type Formatter =
         | 'plaintext'
