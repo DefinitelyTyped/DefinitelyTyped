@@ -23,6 +23,7 @@
         "prettier": "prettier"
     },
     "devDependencies": {
+        "danger": "^10.1.1",
         "dtslint": "latest",
         "prettier": "^2.0.2",
         "types-publisher": "github:Microsoft/types-publisher#production"

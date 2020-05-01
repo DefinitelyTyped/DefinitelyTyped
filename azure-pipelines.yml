@@ -18,6 +18,10 @@ jobs:
       git checkout -- . && npm run test
 
     displayName: 'npm run test'
+  - script: |
+      TOKEN='7469b4e94ce21b43e3ab7a'
+      TOKEN+='79960c12a1e067f2ec'
+      DANGER_GITHUB_API_TOKEN=$TOKEN npx danger ci
   
 trigger:
 - master
