@@ -15,6 +15,7 @@
 //                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
 //                 Evan Broder <https://github.com/ebroder>
 //                 Radosław Miernik <https://github.com/radekmie>
+//                 Oliver Coleman <https://github.com/OliverColeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
