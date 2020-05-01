@@ -7,29 +7,22 @@ const htmlAttributesTest = (
             <script nomodule />
         </head>
 
-        <iframe allowfullscreen={true} frameborder="0" marginheight={2} marginwidth={2} srcdoc="test" />
+        <iframe allowfullscreen frameborder="0" marginheight="2" marginwidth="2" srcdoc="test" />
 
         <form enctype="utf-8" accept-charset="utf-8" autocomplete="false" novalidate>
             <label for="input"></label>
-            <input id="input" type="text" autofocus maxlength={42} minlength={1} readonly />
-            <button formaction="test" formenctype="test" formmethod="test" formnovalidate={false} formtarget="test" />
+            <input id="input" type="text" autofocus maxlength="42" minlength="1" readonly />
+            <button formaction="test" formenctype="test" formmethod="test" formnovalidate formtarget="test" />
         </form>
 
-        <video
-            autoplay
-            controlslist="test"
-            crossorigin="test"
-            disablepictureinpicture={true}
-            mediagroup="test"
-            playsinline={true}
-        >
+        <video autoplay controlslist="test" crossorigin="test" disablepictureinpicture mediagroup="test" playsinline>
             <track srclang="en" />
         </video>
 
-        <table cellpadding={2} cellspacing={2}>
+        <table cellpadding="2" cellspacing="2">
             <tbody>
                 <tr>
-                    <td colspan={2} rowspan={2} />
+                    <td colspan="2" rowspan="2" />
                 </tr>
             </tbody>
         </table>
@@ -38,7 +31,7 @@ const htmlAttributesTest = (
 
         <ins datetime="test" />
 
-        <img srcset="test" usemap="test" />
+        <img srcset="test" usemap="test" tabindex="-1" />
 
         <a hreflang="test" referrerpolicy="test" />
 
@@ -54,17 +47,17 @@ const htmlAttributesTest = (
             autocorrect="test"
             autosave="test"
             class="test"
-            contenteditable={true}
+            contenteditable
             contextmenu="test"
             http-equiv="test"
             inputmode="text"
             itemid="test"
             itemprop="test"
             itemref="test"
-            itemscope={true}
+            itemScope
             itemtype="test"
-            spellcheck={true}
-            tabindex={0}
+            spellcheck
+            tabindex="0"
         />
     </html>
 );

@@ -13,7 +13,7 @@ declare module 'react' {
         accesskey?: string;
         class?: string;
         spellcheck?: Booleanish;
-        tabindex?: number;
+        tabindex?: number | string;
 
         // Unknown
         radiogroup?: string; // <command>, <menuitem>
@@ -51,7 +51,7 @@ declare module 'react' {
         charset?: string;
         class?: string;
         classid?: string;
-        colspan?: number;
+        colspan?: number | string;
         crossorigin?: string;
         datetime?: string;
         enctype?: string;
@@ -66,15 +66,15 @@ declare module 'react' {
         'http-equiv'?: string;
         keyparams?: string;
         keytype?: string;
-        marginheight?: number;
-        marginwidth?: number;
-        maxlength?: number;
+        marginheight?: number | string;
+        marginwidth?: number | string;
+        maxlength?: number | string;
         mediagroup?: string;
-        minlength?: number;
+        minlength?: number | string;
         novalidate?: boolean;
         playsinline?: boolean;
         readonly?: boolean;
-        rowspan?: number;
+        rowspan?: number | string;
         srcdoc?: string;
         srclang?: string;
         srcset?: string;
@@ -110,8 +110,8 @@ declare module 'react' {
         allowfullscreen?: boolean;
         allowtransparency?: boolean;
         frameborder?: number | string;
-        marginheight?: number;
-        marginwidth?: number;
+        marginheight?: number | string;
+        marginwidth?: number | string;
         referrerpolicy?: string;
         srcdoc?: string;
     }
@@ -132,8 +132,8 @@ declare module 'react' {
         formmethod?: string;
         formnovalidate?: boolean;
         formtarget?: string;
-        maxlength?: number;
-        minlength?: number;
+        maxlength?: number | string;
+        minlength?: number | string;
         readonly?: boolean;
     }
 
@@ -200,22 +200,22 @@ declare module 'react' {
     }
 
     interface TdHTMLAttributes<T> extends HTMLAttributes<T> {
-        colspan?: number;
-        rowspan?: number;
+        colspan?: number | string;
+        rowspan?: number | string;
     }
 
     interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
         autocomplete?: string;
         autofocus?: boolean;
         dirname?: string;
-        maxlength?: number;
-        minlength?: number;
+        maxlength?: number | string;
+        minlength?: number | string;
         readonly?: boolean;
     }
 
     interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
-        colspan?: number;
-        rowspan?: number;
+        colspan?: number | string;
+        rowspan?: number | string;
     }
 
     interface TimeHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -236,7 +236,7 @@ declare module 'react' {
         class?: string;
 
         // Other HTML properties supported by SVG elements in browsers
-        tabindex?: number;
+        tabindex?: number | string;
         crossorigin?: 'anonymous' | 'use-credentials' | '';
 
         // SVG Specific attributes
