@@ -65,11 +65,11 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-#### Older versions of TypeScript (2.7 and earlier)
+#### Older versions of TypeScript (2.8 and earlier)
 
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
-Currently versions 2.8 and above are tested.
-If you're using TypeScript 2.0 to 2.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+Currently versions 2.9 and above are tested.
+If you're using TypeScript 2.0 to 2.8, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -86,6 +86,7 @@ Version | Released | End of Support
 3.6 | August 2019 | August 2021
 3.7 | November 2019 | November 2021
 3.8 | February 2020 | February 2022
+3.9 | May 2020 | May 2022
 
 `@types` packages have tags for versions of TypeScript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
 For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript 2.5 can use types for react@16.0, whereas TypeScript 2.6 and 2.7 can use types for react@16.4:
