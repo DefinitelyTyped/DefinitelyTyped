@@ -1,5 +1,4 @@
 import './ts3.6/node-tests';
-import './test/querystring';
 
 import * as assert from 'assert';
 

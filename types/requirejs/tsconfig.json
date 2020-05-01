@@ -15,7 +15,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "module": [
+                "module/v0"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

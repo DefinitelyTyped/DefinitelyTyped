@@ -1,3 +1,4 @@
+import * as console from 'console';
 import * as events from 'events';
 
 const emitter: events.EventEmitter = new events.EventEmitter();

@@ -1,4 +1,4 @@
-declare module "punycode" {
+declare module 'punycode' {
     /**
      * @deprecated since v7.0.0
      * The version of the punycode module bundled in Node.js is being deprecated.

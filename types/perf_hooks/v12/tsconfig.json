@@ -1,0 +1,33 @@
+{
+    "files": [
+        "index.d.ts",
+        "perf_hooks-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "async_hooks": [
+                "async_hooks/v12"
+            ],
+            "perf_hooks": [
+                "perf_hooks/v12"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

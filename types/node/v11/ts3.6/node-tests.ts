@@ -1,43 +1,26 @@
 import '../test/assert';
-import '../test/buffer';
-import '../test/child_process';
-import '../test/cluster';
-import '../test/crypto';
-import '../test/dgram';
 import '../test/events';
 import '../test/global';
-import '../test/http';
-import '../test/http2';
-import '../test/net';
-import '../test/os';
-import '../test/path';
-import '../test/perf_hooks';
-import '../test/process';
-import '../test/readline';
-import '../test/repl';
-import '../test/stream';
-import '../test/tls';
-import '../test/tty';
-import '../test/util';
-import '../test/v8';
-import '../test/worker_threads';
-import '../test/zlib';
 
-import assert = require("assert");
-import * as fs from "fs";
-import * as url from "url";
-import * as util from "util";
-import * as http from "http";
-import * as https from "https";
-import * as vm from "vm";
-import * as console2 from "console";
-import * as string_decoder from "string_decoder";
-import * as timers from "timers";
-import * as dns from "dns";
-import * as async_hooks from "async_hooks";
-import * as inspector from "inspector";
-import * as trace_events from "trace_events";
-import Module = require("module");
+import * as assert from 'assert';
+import * as async_hooks from 'async_hooks';
+import { Buffer } from 'buffer';
+import * as console2 from 'console';
+import * as constants from 'constants';
+import * as dns from 'dns';
+import * as fs from 'fs';
+import * as http from 'http';
+import * as https from 'https';
+import * as inspector from 'inspector';
+import { Module } from 'module';
+import { ErrnoException } from 'node';
+import * as process from 'process';
+import * as string_decoder from 'string_decoder';
+import * as timers from 'timers';
+import * as trace_events from 'trace_events';
+import * as url from 'url';
+import * as util from 'util';
+import * as vm from 'vm';
 
 ////////////////////////////////////////////////////
 /// File system tests : http://nodejs.org/api/fs.html
@@ -107,7 +90,7 @@ import Module = require("module");
     }
 
     {
-        fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => {});
+        fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: ErrnoException | null, bytesRead: number, buffer: DataView) => {});
     }
 
     {
@@ -144,7 +127,7 @@ import Module = require("module");
         fs.readdirSync('path', { encoding: enc });
         fs.readdirSync('path', { });
 
-        fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => {});
+        fs.readdir('path', { withFileTypes: true }, (err: ErrnoException | null, files: fs.Dirent[]) => {});
     }
 
     async function testPromisify() {
@@ -822,22 +805,22 @@ import Module = require("module");
 
 {
     dns.lookup("nodejs.org", (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", 4, (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", 6, (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", {}, (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
@@ -849,17 +832,17 @@ import Module = require("module");
             all: false
         },
         (err, address, family) => {
-            const _err: NodeJS.ErrnoException | null = err;
+            const _err: ErrnoException | null = err;
             const _address: string = address;
             const _family: number = family;
         }
     );
     dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
     dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
 
@@ -867,13 +850,13 @@ import Module = require("module");
         return Math.random() > 0.5 ? true : false;
     }
     dns.lookup("nodejs.org", { all: trueOrFalse() }, (err, addresses, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
     });
 
     dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _hostname: string = hostname;
         const _service: string = service;
     });
@@ -939,7 +922,6 @@ import Module = require("module");
 /// Constants Tests                                     ///
 ///////////////////////////////////////////////////////////
 
-import * as constants from 'constants';
 {
     let str: string;
     let num: number;
@@ -1199,7 +1181,6 @@ import * as constants from 'constants';
 ////////////////////////////////////////////////////
 /// module tests : http://nodejs.org/api/modules.html
 ////////////////////////////////////////////////////
-import moduleModule = require('module');
 
 {
     require.extensions[".ts"] = () => "";
@@ -1213,7 +1194,7 @@ import moduleModule = require('module');
     let paths: string[] = module.paths;
     paths = m1.paths;
 
-    moduleModule.createRequireFromPath('./test')('test');
+    Module.createRequireFromPath('./test')('test');
 }
 
 ////////////////////////////////////////////////////

@@ -1,5 +1,6 @@
-import { WASI } from "wasi";
 import * as fs from 'fs';
+import * as process from 'process';
+import { WASI } from 'wasi';
 
 {
     const wasi = new WASI({

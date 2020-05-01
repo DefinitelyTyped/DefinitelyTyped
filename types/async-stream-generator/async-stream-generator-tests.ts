@@ -1,3 +1,5 @@
+/// <reference lib="esnext.asynciterable" />
+
 import streamify = require('async-stream-generator');
 
 async function* generator() {

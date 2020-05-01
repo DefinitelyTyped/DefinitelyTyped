@@ -19,7 +19,7 @@ declare module 'wasi' {
          * directories within the sandbox. The corresponding values in `preopens` are
          * the real paths to those directories on the host machine.
          */
-        preopens?: NodeJS.Dict<string>;
+        preopens?: { [key: string]: string | undefined };
 
         /**
          * By default, WASI applications terminate the Node.js
@@ -81,6 +81,6 @@ declare module 'wasi' {
          * should be passed as the `wasi_snapshot_preview1` import during the instantiation of a
          * [`WebAssembly.Instance`][].
          */
-        readonly wasiImport: NodeJS.Dict<any>; // TODO: Narrow to DOM types
+        readonly wasiImport: { [key: string]: any }; // TODO: Narrow to DOM types
     }
 }

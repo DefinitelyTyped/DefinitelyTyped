@@ -1,0 +1,66 @@
+{
+    "files": [
+        "index.d.ts",
+        "process-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "buffer": [
+                "buffer/v12"
+            ],
+            "console": [
+                "console/v12"
+            ],
+            "dns": [
+                "dns/v12"
+            ],
+            "domain": [
+                "domain/v12"
+            ],
+            "module": [
+                "module/v12"
+            ],
+            "net": [
+                "net/v12"
+            ],
+            "node": [
+                "node/v12"
+            ],
+            "node/*": [
+                "node/v12/*"
+            ],
+            "process": [
+                "process/v12"
+            ],
+            "stream": [
+                "stream/v12"
+            ],
+            "timers": [
+                "timers/v12"
+            ],
+            "tty": [
+                "tty/v12"
+            ],
+            "util": [
+                "util/v12"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

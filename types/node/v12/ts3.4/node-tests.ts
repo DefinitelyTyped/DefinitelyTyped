@@ -1,45 +1,26 @@
 import '../test/assert';
-import '../test/async_hooks';
-import '../test/buffer';
-import '../test/child_process';
-import '../test/cluster';
-import '../test/crypto';
-import '../test/dgram';
 import '../test/events';
-import '../test/fs';
 import '../test/global';
-import '../test/http';
-import '../test/http2';
-import '../test/net';
-import '../test/os';
-import '../test/path';
-import '../test/perf_hooks';
-import '../test/process';
-import '../test/readline';
-import '../test/repl';
-import '../test/stream';
-import '../test/string_decoder';
-import '../test/tls';
-import '../test/tty';
-import '../test/util';
-import '../test/v8';
-import '../test/vm';
-import '../test/worker_threads';
-import '../test/zlib';
 
-import assert = require("assert");
-import * as fs from "fs";
-import * as url from "url";
-import * as util from "util";
-import * as http from "http";
-import * as https from "https";
-import * as console2 from "console";
-import * as timers from "timers";
-import * as dns from "dns";
-import * as inspector from "inspector";
-import * as trace_events from "trace_events";
-import * as dgram from "dgram";
-import Module = require("module");
+import * as assert from 'assert';
+import { Buffer } from 'buffer';
+import * as console2 from 'console';
+import * as constants from 'constants';
+import * as dgram from 'dgram';
+import * as dns from 'dns';
+import * as fs from 'fs';
+import * as http from 'http';
+import * as https from 'https';
+import * as inspector from 'inspector';
+import { Module } from 'module';
+import { ErrnoException } from 'node';
+import * as process from 'process';
+import * as stream from 'stream';
+import * as timers from 'timers';
+import * as trace_events from 'trace_events';
+import * as tty from 'tty';
+import * as url from 'url';
+import * as util from 'util';
 
 ////////////////////////////////////////////////////
 /// Url tests : http://nodejs.org/api/url.html
@@ -454,22 +435,22 @@ import Module = require("module");
 
 {
     dns.lookup("nodejs.org", (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", 4, (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", 6, (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", {}, (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
@@ -481,17 +462,17 @@ import Module = require("module");
             all: false
         },
         (err, address, family) => {
-            const _err: NodeJS.ErrnoException | null = err;
+            const _err: ErrnoException | null = err;
             const _address: string = address;
             const _family: number = family;
         }
     );
     dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
     dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
 
@@ -499,13 +480,13 @@ import Module = require("module");
         return Math.random() > 0.5 ? true : false;
     }
     dns.lookup("nodejs.org", { all: trueOrFalse() }, (err, addresses, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
     });
 
     dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
-        const _err: NodeJS.ErrnoException | null = err;
+        const _err: ErrnoException | null = err;
         const _hostname: string = hostname;
         const _service: string = service;
     });
@@ -571,7 +552,6 @@ import Module = require("module");
 /// Constants Tests                                     ///
 ///////////////////////////////////////////////////////////
 
-import * as constants from 'constants';
 {
     let str: string;
     let num: number;
@@ -779,7 +759,6 @@ import * as constants from 'constants';
 ////////////////////////////////////////////////////
 /// module tests : http://nodejs.org/api/modules.html
 ////////////////////////////////////////////////////
-import moduleModule = require('module');
 
 {
     require.extensions[".ts"] = () => "";
@@ -794,8 +773,8 @@ import moduleModule = require('module');
     const path: string = module.path;
     paths = m1.paths;
 
-    const customRequire1 = moduleModule.createRequireFromPath('./test');
-    const customRequire2 = moduleModule.createRequire('./test');
+    const customRequire1 = Module.createRequireFromPath('./test');
+    const customRequire2 = Module.createRequire('./test');
 
     customRequire1('test');
     customRequire2('test');
@@ -816,8 +795,6 @@ import moduleModule = require('module');
 /////////////////////////////////////////////////////////
 /// stream tests : https://nodejs.org/api/stream.html ///
 /////////////////////////////////////////////////////////
-import stream = require('stream');
-import tty = require('tty');
 
 {
     const writeStream = fs.createWriteStream('./index.d.ts');

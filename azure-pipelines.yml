@@ -8,16 +8,59 @@ jobs:
   timeoutInMinutes: 360
 
   steps:
-  - task: Npm@1
-    displayName: 'npm install'
-    inputs:
-      verbose: false
+  #- task: Npm@1
+  #  displayName: 'npm install'
+  #  inputs:
+  #    verbose: false
 
   - script: |
       if [[ $BUILD_REASON == "Schedule" ]]; then git config --global user.email "types@microsoft.com" && git config --global user.name "TypeScript Bot" && npm run update-codeowners; fi
       git checkout -- .
 
-      npm run test-all
+      git clone https://github.com/microsoft/DefinitelyTyped-tools.git
+      patch --directory DefinitelyTyped-tools --strip 1 <<'patchfile'
+      --- a/packages/definitions-parser/src/lib/definition-parser.ts
+      +++ b/packages/definitions-parser/src/lib/definition-parser.ts
+      @@ -279,12 +279,9 @@ function getTypingDataForSingleTypesVersion(
+           types.set(untestedTypeFile, createSourceFile(untestedTypeFile, fs.readFile(untestedTypeFile)));
+         }
+       
+      -  const { dependencies: dependenciesWithDeclaredModules, globals, declaredModules } = getModuleInfo(packageName, types);
+      -  const declaredModulesSet = new Set(declaredModules);
+      -  // Don't count an import of "x" as a dependency if we saw `declare module "x"` somewhere.
+      -  const dependenciesSet = new Set(filter(dependenciesWithDeclaredModules, m => !declaredModulesSet.has(m)));
+      +  const { dependencies: dependenciesSet, globals, declaredModules } = getModuleInfo(packageName, types);
+         const testDependencies = Array.from(
+      -    filter(getTestDependencies(packageName, types, tests.keys(), dependenciesSet, fs), m => !declaredModulesSet.has(m))
+      +    getTestDependencies(packageName, types, tests.keys(), dependenciesSet, fs)
+         );
+       
+         const { dependencies, pathMappings } = calculateDependencies(
+      patchfile
+      #curl https://patch-diff.githubusercontent.com/raw/microsoft/DefinitelyTyped-tools/pull/98.patch | patch --directory DefinitelyTyped-tools --strip 1
+      #sed --in-place '/await runWithListeningChildProcesses/iconsole.log(require.resolve("dtslint"));' DefinitelyTyped-tools/packages/dtslint-runner/src/main.ts
+      git clone https://github.com/microsoft/dtslint.git
+      curl https://patch-diff.githubusercontent.com/raw/microsoft/dtslint/pull/308.patch | patch --directory dtslint --strip 1
+      yarn --cwd dtslint link
+      yarn --cwd dtslint link dtslint
+      yarn --cwd DefinitelyTyped-tools link dtslint
+      yarn --cwd DefinitelyTyped-tools
+      tsc --build DefinitelyTyped-tools/packages/dtslint-runner
+      yarn --cwd dtslint
+      yarn --cwd dtslint build
+      #sed --in-place '/require("tslint")/iconsole.log("A1 " + require.resolve("tslint"));' node_modules/dtslint/bin/lint.js
+      #sed --in-place '/require("tslint")/iconsole.log("B1 " + require.resolve("tslint"));' DefinitelyTyped-tools/node_modules/dtslint/bin/lint.js
+      #sed --in-place '/require("typescript")/iconsole.log("A2 " + require.resolve("typescript"));' node_modules/tslint/lib/linter.js
+      #sed --in-place '/require("typescript")/ithrow undefined;' node_modules/tslint/lib/linter.js
+      #sed --in-place '/require("typescript")/iconsole.trace();' node_modules/tslint/lib/linter.js
+      #sed --in-place '/require(".\/test")/iconsole.trace();' node_modules/tslint/lib/runner.js
+      #sed --in-place '/require("typescript")/iconsole.log("B2 " + require.resolve("typescript"));' DefinitelyTyped-tools/node_modules/dtslint/node_modules/tslint/lib/linter.js
+      #node_modules/dtslint/bin/index.js types/async-stream-generator
+      #DefinitelyTyped-tools/node_modules/dtslint/bin/index.js types/async-stream-generator
+      #git diff --no-index node_modules/dtslint DefinitelyTyped-tools/node_modules/dtslint
+      #git diff --no-index node_modules/tslint DefinitelyTyped-tools/node_modules/dtslint/node_modules/tslint
+      #git diff --no-index node_modules/typescript/package.json DefinitelyTyped-tools/node_modules/typescript/package.json
+      node DefinitelyTyped-tools/packages/dtslint-runner/dist/index.js --path .
 
 
     displayName: 'npm run test-all'

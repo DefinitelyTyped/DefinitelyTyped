@@ -61,7 +61,7 @@ declare module 'assert' {
         function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
 
         function throws(block: () => any, message?: string | Error): void;
-        function throws(block: () => any, error: RegExp | Function | Object | Error, message?: string | Error): void;
+        function throws(block: () => any, error: RegExp | Function | object | Error, message?: string | Error): void;
         function doesNotThrow(block: () => any, message?: string | Error): void;
         function doesNotThrow(block: () => any, error: RegExp | Function, message?: string | Error): void;
 
@@ -70,7 +70,7 @@ declare module 'assert' {
         function rejects(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
         function rejects(
             block: (() => Promise<any>) | Promise<any>,
-            error: RegExp | Function | Object | Error,
+            error: RegExp | Function | object | Error,
             message?: string | Error,
         ): Promise<void>;
         function doesNotReject(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;

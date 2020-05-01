@@ -19,8 +19,80 @@
             "../../"
         ],
         "paths": {
+            "async_hooks": [
+                "async_hooks/v11"
+            ],
+            "buffer": [
+                "buffer/v11"
+            ],
+            "console": [
+                "console/v11"
+            ],
+            "constants": [
+                "constants/v11"
+            ],
+            "dns": [
+                "dns/v11"
+            ],
+            "domain": [
+                "domain/v11"
+            ],
+            "fs": [
+                "fs/v11"
+            ],
+            "http": [
+                "http/v11"
+            ],
+            "https": [
+                "https/v11"
+            ],
+            "inspector": [
+                "inspector/v11"
+            ],
+            "module": [
+                "module/v11"
+            ],
+            "net": [
+                "net/v11"
+            ],
             "node": [
                 "node/v11"
+            ],
+            "node/*": [
+                "node/v11/*"
+            ],
+            "process": [
+                "process/v11"
+            ],
+            "querystring": [
+                "querystring/v11"
+            ],
+            "stream": [
+                "stream/v11"
+            ],
+            "string_decoder": [
+                "string_decoder/v11"
+            ],
+            "timers": [
+                "timers/v11"
+            ],
+            "tls": [
+                "tls/v11"
+            ],
+            "trace_events": [
+                "trace_events/v11"
+            ],
+            "tty": [
+                "tty/v11"
+            ],
+            "url": [
+                "url/v11"
+            ],
+            "util": [
+                "util/v11"
+            ],
+            "vm": [
+                "vm/v11"
             ]
         },
         "types": [],

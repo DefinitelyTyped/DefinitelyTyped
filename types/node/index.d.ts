@@ -49,8 +49,6 @@
 // NOTE: These definitions support NodeJS and TypeScript 3.7.
 // Typically type modifications should be made in base.d.ts instead of here
 
-/// <reference path="base.d.ts" />
-
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
 //          - ~/index.d.ts        - Definitions specific to TypeScript 2.8
@@ -59,3 +57,5 @@
 // NOTE: Augmentations for TypeScript 3.5 and later should use individual files for overrides
 //       within the respective ~/ts3.5 (or later) folder. However, this is disallowed for versions
 //       prior to TypeScript 3.5, so the older definitions will be found here.
+
+export * from './base';

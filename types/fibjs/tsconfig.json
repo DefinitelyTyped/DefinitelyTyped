@@ -14,7 +14,66 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "console": [
+                "console/v0"
+            ],
+            "constants": [
+                "constants/v0"
+            ],
+            "crypto": [
+                "crypto/v0"
+            ],
+            "dgram": [
+                "dgram/v0"
+            ],
+            "dns": [
+                "dns/v0"
+            ],
+            "fs": [
+                "fs/v0"
+            ],
+            "http": [
+                "http/v0"
+            ],
+            "net": [
+                "net/v0"
+            ],
+            "os": [
+                "os/v0"
+            ],
+            "path": [
+                "path/v0"
+            ],
+            "process": [
+                "process/v0"
+            ],
+            "querystring": [
+                "querystring/v0"
+            ],
+            "string_decoder": [
+                "string_decoder/v0"
+            ],
+            "timers": [
+                "timers/v0"
+            ],
+            "tty": [
+                "tty/v0"
+            ],
+            "url": [
+                "url/v0"
+            ],
+            "util": [
+                "util/v0"
+            ],
+            "vm": [
+                "vm/v0"
+            ],
+            "zlib": [
+                "zlib/v0"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

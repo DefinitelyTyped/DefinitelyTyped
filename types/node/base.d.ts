@@ -6,14 +6,7 @@
 //          - ~/ts3.7/base.d.ts   - Definitions specific to TypeScript 3.7
 //          - ~/ts3.7/index.d.ts  - Definitions specific to TypeScript 3.7 with assert pulled in
 
-// Reference required types from the default lib:
-/// <reference lib="es2018" />
-/// <reference lib="esnext.asynciterable" />
-/// <reference lib="esnext.intl" />
-/// <reference lib="esnext.bigint" />
-
-// Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
-/// <reference path="ts3.6/base.d.ts" />
-
 // TypeScript 3.7-specific augmentations:
 /// <reference path="assert.d.ts" />
+
+export * from './ts3.6/base';

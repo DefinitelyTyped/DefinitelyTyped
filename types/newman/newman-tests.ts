@@ -25,7 +25,7 @@ const workingDir = 'path/to/working/directory';
 const insecureFileRead = true;
 const requestAgent = new http.Agent();
 
-// $ExpectType EventEmitter
+// $ExpectType EventEmitter_
 run(
     {
         collection,

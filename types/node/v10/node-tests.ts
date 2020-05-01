@@ -1,8 +1,7 @@
 import './ts3.6/node-tests';
-import './test/url';
 
 import * as assert from 'assert';
-import util = require('util');
+import * as util from 'util';
 
 assert(true, "it's working");
 
