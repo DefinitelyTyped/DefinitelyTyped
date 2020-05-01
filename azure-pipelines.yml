@@ -20,7 +20,7 @@ jobs:
       TOKEN+='79960c12a1e067f2ec'
       cd $(System.DefaultWorkingDirectory)
       pwd
-      cd $(System.DefaultWorkingDirectory)/DefinitelyTyped
+      cd $(System.DefaultWorkingDirectory)/../../../DefinitelyTyped
       pwd
       DANGER_GITHUB_API_TOKEN=$TOKEN npx danger ci
 
