@@ -28,3 +28,5 @@ export function useRefetchableFragment<
     fragmentInput: GraphQLTaggedNode,
     fragmentRef: TKey | null,
 ): ReturnType<TQuery, TKey, $Call<KeyReturnType<TKey>> | null>;
+
+export {};
