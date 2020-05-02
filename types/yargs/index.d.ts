@@ -511,7 +511,7 @@ declare namespace yargs {
          * Provide the usage data as a string.
          * @param printCallback a function with a single argument.
          */
-        showHelp(printCallback: (s: any) => void): Argv<T>;
+        showHelp(printCallback: (s: string) => void): Argv<T>;
 
         /**
          * By default, yargs outputs a usage string if any error is detected.
