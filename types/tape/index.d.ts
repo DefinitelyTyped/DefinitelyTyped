@@ -242,10 +242,10 @@ declare namespace tape {
         /**
          * Tape emits some node events you can hook up to.
          */
-        on(event: 'prerun' | 'run'  | 'end', callback: () => any );
-        on(event: 'test', callback: (t: Test) => any);
-        on(event: 'result', callback: (result: string | Result) => any );
-        on(event: 'plan', callback: (n: number) => any );
+        on(event: 'prerun' | 'run'  | 'end', callback: () => void );
+        on(event: 'test', callback: (t: Test) => void);
+        on(event: 'result', callback: (result: string | Result) => void );
+        on(event: 'plan', callback: (n: number) => void );
     }
 
     interface Result {
