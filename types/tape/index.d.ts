@@ -238,5 +238,23 @@ declare namespace tape {
          * Assert that string does not match the RegExp regexp. Will throw (not just fail) when the first two arguments are the wrong type.
          */
         doesNotMatch(actual: string, expected: RegExp, msg?: string, extra?: AssertOptions): void;
+        
+        /**
+         * Tape emits some node events you can hook up to.
+         */
+        on(event: 'prerun' | 'run'  | 'end', callback: () => any );
+        on(event: 'test', callback: (t: Test) => any);
+        on(event: 'result', callback: (result: string | Result) => any );
+        on(event: 'plan', callback: (n: number) => any );
+    }
+
+    interface Result {
+        id: number;
+        ok: boolean;
+        skip?: boolean | string;
+        todo?: boolean | string;
+        name: string;
+        operator?: string;
+        objectPrintDepth?: number;
     }
 }
