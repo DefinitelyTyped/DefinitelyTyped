@@ -256,5 +256,13 @@ declare namespace tape {
         name: string;
         operator?: string;
         objectPrintDepth?: number;
+        actual?: any;
+        expected?: any;
+        error?: Error;
+        functionName?: string;
+        file?: string;
+        line?: number;
+        column?: number;
+        at?: string;
     }
 }
