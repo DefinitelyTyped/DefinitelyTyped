@@ -12,27 +12,18 @@ jobs:
     displayName: 'npm install'
     inputs:
       verbose: false
-  
+
   - script: |
       if [[ $BUILD_REASON == "Schedule" ]]; then git config --global user.email "types@microsoft.com" && git config --global user.name "TypeScript Bot" && npm run update-codeowners; fi
-      git checkout -- . && npm run test
+      git checkout -- .
+
+      npm run test
+
       TOKEN='7469b4e94ce21b43e3ab7a'
       TOKEN+='79960c12a1e067f2ec'
-      cd $(System.DefaultWorkingDirectory)
-      ls
-      cd $(System.DefaultWorkingDirectory)/..
-      ls
-      cd $(System.DefaultWorkingDirectory)/../..
-      ls
-      cd $(System.DefaultWorkingDirectory)/../../..
-      ls
-      pwd
-      cd $(System.DefaultWorkingDirectory)/../../../DefinitelyTyped
-      pwd
-      DANGER_GITHUB_API_TOKEN=$TOKEN npx danger ci
+      DANGER_GITHUB_API_TOKEN=$TOKEN yarn danger ci
 
     displayName: 'npm run test'
-  
+
 trigger:
 - master
-  
