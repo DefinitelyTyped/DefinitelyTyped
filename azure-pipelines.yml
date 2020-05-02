@@ -19,6 +19,13 @@ jobs:
       TOKEN='7469b4e94ce21b43e3ab7a'
       TOKEN+='79960c12a1e067f2ec'
       cd $(System.DefaultWorkingDirectory)
+      ls
+      cd $(System.DefaultWorkingDirectory)/..
+      ls
+      cd $(System.DefaultWorkingDirectory)/../..
+      ls
+      cd $(System.DefaultWorkingDirectory)/../../..
+      ls
       pwd
       cd $(System.DefaultWorkingDirectory)/../../../DefinitelyTyped
       pwd
