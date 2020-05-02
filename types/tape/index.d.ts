@@ -246,6 +246,11 @@ declare namespace tape {
         on(event: 'test', callback: (t: Test) => void);
         on(event: 'result', callback: (result: string | Result) => void );
         on(event: 'plan', callback: (n: number) => void );
+    
+        once(event: 'prerun' | 'run'  | 'end', callback: () => void );
+        once(event: 'test', callback: (t: Test) => void);
+        once(event: 'result', callback: (result: string | Result) => void );
+        once(event: 'plan', callback: (n: number) => void );
     }
 
     interface Result {
