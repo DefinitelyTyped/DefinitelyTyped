@@ -1,4 +1,4 @@
-// Type definitions for detect-port 1.1
+// Type definitions for detect-port 1.3.0
 // Project: https://github.com/node-modules/detect-port
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Ivan Medina <https://github.com/ivandevp>
