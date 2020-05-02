@@ -4,7 +4,7 @@
         "lib": [
             "es6"
         ],
-        "jsx": "react",
+        "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
