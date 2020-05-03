@@ -4,6 +4,8 @@
 // Definitions by: Weslen Nascimento <https://github.com/weslenng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 import { EventEmitter } from 'events';
 
 export interface SearchOptions {
