@@ -78,7 +78,7 @@ export interface VerifyOptions {
     ignoreNotBefore?: boolean;
     jwtid?: string;
     /**
-     * f you want to check `nonce` claim, provide a string value here.
+     * If you want to check `nonce` claim, provide a string value here.
      * It is used on Open ID for the ID Tokens. ([Open ID implementation notes](https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes))
      */
     nonce?: string;
