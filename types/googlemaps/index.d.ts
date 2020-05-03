@@ -46,6 +46,7 @@ THE SOFTWARE.
 /// <reference path="./reference/coordinates.d.ts" />
 /// <reference path="./reference/event.d.ts" />
 /// <reference path="./reference/control.d.ts" />
+/// <reference path="./reference/places-widget.d.ts" />
 
 declare namespace google.maps {
     /**
@@ -3077,27 +3078,6 @@ declare namespace google.maps {
 
     /***** Places Library *****/
     namespace places {
-        class Autocomplete extends MVCObject {
-            constructor(inputField: HTMLInputElement, opts?: AutocompleteOptions);
-            getBounds(): LatLngBounds;
-            getPlace(): PlaceResult;
-            setBounds(bounds: LatLngBounds | LatLngBoundsLiteral): void;
-            setComponentRestrictions(restrictions: ComponentRestrictions): void;
-            setFields(fields: string[] | undefined): void;
-            setOptions(options: AutocompleteOptions): void;
-            setTypes(types: string[]): void;
-        }
-
-        interface AutocompleteOptions {
-            bounds?: LatLngBounds | LatLngBoundsLiteral;
-            componentRestrictions?: ComponentRestrictions;
-            placeIdOnly?: boolean;
-            strictBounds?: boolean;
-            types?: string[];
-            type?: string;
-            fields?: string[];
-        }
-
         interface AutocompletePrediction {
             description: string;
 
@@ -3374,17 +3354,6 @@ declare namespace google.maps {
         enum RankBy {
             PROMINENCE = 0,
             DISTANCE = 1,
-        }
-
-        class SearchBox extends MVCObject {
-            constructor(inputField: HTMLInputElement, opts?: SearchBoxOptions);
-            getBounds(): LatLngBounds;
-            getPlaces(): PlaceResult[];
-            setBounds(bounds: LatLngBounds | LatLngBoundsLiteral): void;
-        }
-
-        interface SearchBoxOptions {
-            bounds: LatLngBounds | LatLngBoundsLiteral;
         }
 
         interface TextSearchRequest {

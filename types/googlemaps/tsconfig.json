@@ -22,6 +22,7 @@
         "reference/coordinates.d.ts",
         "reference/event.d.ts",
         "reference/control.d.ts",
+        "reference/places-widget.d.ts",
         "googlemaps-tests.ts"
     ]
 }
