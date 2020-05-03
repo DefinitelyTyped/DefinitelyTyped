@@ -1909,31 +1909,6 @@ declare namespace google.maps {
 
     /***** Places Library *****/
     namespace places {
-        interface AutocompletePrediction {
-            description: string;
-
-            /**
-             * The distance in meters of the place from the {@link AutocompletionRequest#origin}.
-             * @see {@link https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletePrediction.distance_meters Maps JavaScript API}
-             */
-            distance_meters?: number;
-
-            id: string;
-            matched_substrings: PredictionSubstring[];
-            place_id: string;
-            reference: string;
-            structured_formatting: AutocompleteStructuredFormatting;
-            terms: PredictionTerm[];
-            types: string[];
-        }
-
-        interface AutocompleteStructuredFormatting {
-            main_text: string;
-            main_text_matched_substrings: PredictionSubstring[];
-            secondary_text: string;
-            secondary_text_matched_substrings?: PredictionSubstring[];
-        }
-
         interface OpeningHours {
             /**
              * @deprecated open_now is deprecated as of November 2019 and will be turned off in November 2020.
@@ -1956,52 +1931,6 @@ declare namespace google.maps {
             minutes: number;
             nextDate: number;
             time: string;
-        }
-
-        interface PredictionTerm {
-            offset: number;
-            value: string;
-        }
-
-        interface PredictionSubstring {
-            length: number;
-            offset: number;
-        }
-
-        class AutocompleteService {
-            constructor();
-            getPlacePredictions(
-                request: AutocompletionRequest,
-                callback: (result: AutocompletePrediction[], status: PlacesServiceStatus) => void,
-            ): void;
-            getQueryPredictions(
-                request: QueryAutocompletionRequest,
-                callback: (result: QueryAutocompletePrediction[], status: PlacesServiceStatus) => void,
-            ): void;
-        }
-
-        class AutocompleteSessionToken {}
-
-        interface AutocompletionRequest {
-            bounds?: LatLngBounds | LatLngBoundsLiteral;
-            componentRestrictions?: ComponentRestrictions;
-            input: string;
-            location?: LatLng;
-            offset?: number;
-
-            /**
-             * The location where {@link AutocompletePrediction#distance_meters} is calculated from.
-             * @see {@link https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest.origin Maps JavaScript API}
-             */
-            origin?: LatLng | LatLngLiteral;
-
-            radius?: number;
-            sessionToken?: AutocompleteSessionToken;
-            types?: string[];
-        }
-
-        interface ComponentRestrictions {
-            country: string | string[];
         }
 
         type LocationBias =
@@ -2154,22 +2083,6 @@ declare namespace google.maps {
             REQUEST_DENIED = 'REQUEST_DENIED',
             UNKNOWN_ERROR = 'UNKNOWN_ERROR',
             ZERO_RESULTS = 'ZERO_RESULTS',
-        }
-
-        interface QueryAutocompletePrediction {
-            description: string;
-            id?: string;
-            matched_substrings: PredictionSubstring[];
-            place_id: string;
-            terms: PredictionTerm[];
-        }
-
-        interface QueryAutocompletionRequest {
-            bounds?: LatLngBounds | LatLngBoundsLiteral;
-            input?: string;
-            location?: LatLng;
-            offset?: number;
-            radius?: number;
         }
 
         interface RadarSearchRequest {
