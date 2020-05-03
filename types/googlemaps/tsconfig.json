@@ -19,17 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "reference/coordinates.d.ts",
-        "reference/event.d.ts",
-        "reference/control.d.ts",
-        "reference/kml.d.ts",
-        "reference/image-overlay.d.ts",
-        "reference/drawing.d.ts",
-        "reference/visualization.d.ts",
-        "reference/max-zoom.d.ts",
-        "reference/street-view.d.ts",
-        "reference/street-view-service.d.ts",
-        "reference/places-widget.d.ts",
         "googlemaps-tests.ts"
     ]
 }

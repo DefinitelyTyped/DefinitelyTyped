@@ -43,17 +43,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+/// <reference path="./reference/map.d.ts" />
 /// <reference path="./reference/coordinates.d.ts" />
 /// <reference path="./reference/event.d.ts" />
 /// <reference path="./reference/control.d.ts" />
+/// <reference path="./reference/geometry.d.ts" />
+
+/// <reference path="./reference/marker.d.ts" />
+/// <reference path="./reference/info-window.d.ts" />
+/// <reference path="./reference/polygon.d.ts" />
+/// <reference path="./reference/data.d.ts" />
+/// <reference path="./reference/overlay-view.d.ts" />
 /// <reference path="./reference/kml.d.ts" />
 /// <reference path="./reference/image-overlay.d.ts" />
 /// <reference path="./reference/drawing.d.ts" />
 /// <reference path="./reference/visualization.d.ts" />
 /// <reference path="./reference/max-zoom.d.ts" />
+
 /// <reference path="./reference/street-view.d.ts" />
 /// <reference path="./reference/street-view-service.d.ts" />
+
 /// <reference path="./reference/places-widget.d.ts" />
+/// <reference path="./reference/places-service.d.ts" />
+/// <reference path="./reference/places-autocomplete-service.d.ts" />
+/// <reference path="./reference/geocoder.d.ts" />
+
+/// <reference path="./reference/directions.d.ts" />
+/// <reference path="./reference/distance-matrix.d.ts" />
+/// <reference path="./reference/elevation.d.ts" />
 
 declare namespace google.maps {
     /**
