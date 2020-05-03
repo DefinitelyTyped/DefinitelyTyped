@@ -5852,7 +5852,7 @@ function JQuery() {
             // $ExpectType JQuery<HTMLSpanElement>
             $('p').find('span');
 
-            // $ExpectType JQuery<Element>
+            // $ExpectType JQuery<HTMLElement>
             $('p').find('.class-name');
 
             // $ExpectType JQuery<HTMLElement>
@@ -5861,7 +5861,7 @@ function JQuery() {
             // $ExpectType JQuery<HTMLSpanElement>
             $('p').find(new HTMLSpanElement());
 
-            // $ExpectType JQuery<Element>
+            // $ExpectType JQuery<HTMLElement>
             $('p').find(new Element());
 
             // $ExpectType JQuery<HTMLElement>
