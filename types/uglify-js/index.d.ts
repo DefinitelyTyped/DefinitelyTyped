@@ -426,6 +426,11 @@ export interface MinifyOutput {
 export interface SourceMapOptions {
     includeSources?: boolean;
     filename?: string;
+    /**
+     * Include symbol names in the source map
+     * @default true
+     */
+    names?: boolean;
     url?: string | 'inline';
     root?: string;
     content?: RawSourceMap;
