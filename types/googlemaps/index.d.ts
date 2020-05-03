@@ -47,6 +47,7 @@ THE SOFTWARE.
 /// <reference path="./reference/event.d.ts" />
 /// <reference path="./reference/control.d.ts" />
 /// <reference path="./reference/drawing.d.ts" />
+/// <reference path="./reference/visualization.d.ts" />
 /// <reference path="./reference/street-view-service.d.ts" />
 /// <reference path="./reference/places-widget.d.ts" />
 
@@ -3365,30 +3366,6 @@ declare namespace google.maps {
             INVALID_LAYER = 'INVALID_LAYER',
             OK = 'OK',
             UNKNOWN_ERROR = 'UNKNOWN_ERROR',
-        }
-
-        class HeatmapLayer extends MVCObject {
-            constructor(opts?: HeatmapLayerOptions);
-            getData(): MVCArray<LatLng | WeightedLocation>;
-            getMap(): Map;
-            setData(data: MVCArray<LatLng | WeightedLocation> | LatLng[] | WeightedLocation[]): void;
-            setMap(map: Map | null): void;
-            setOptions(options: HeatmapLayerOptions): void;
-        }
-
-        interface HeatmapLayerOptions {
-            data: any;
-            dissipating?: boolean;
-            gradient?: string[];
-            map?: Map;
-            maxIntensity?: number;
-            opacity?: number;
-            radius?: number;
-        }
-
-        interface WeightedLocation {
-            location: LatLng;
-            weight: number;
         }
 
         class MouseEvent {
