@@ -2,6 +2,7 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "no-object-literal-type-assertion": false,
-        "strict-export-declare-modifiers": false
+        "strict-export-declare-modifiers": false,
+        "no-unnecessary-generics": false
     }
 }

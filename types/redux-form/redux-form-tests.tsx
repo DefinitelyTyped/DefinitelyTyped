@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Action, Dispatch } from "redux";
+import { Dispatch } from "redux";
 import {
     reduxForm,
     InjectedFormProps,
@@ -8,7 +8,6 @@ import {
     GenericForm,
     FormSection,
     formValues,
-    formValueSelector,
     Field,
     GenericField,
     WrappedFieldProps,
@@ -23,15 +22,12 @@ import {
     FormAction,
     actionTypes,
     submit,
-    SubmissionError,
-    FieldArrayFieldsProps
+    SubmissionError
 } from "redux-form";
 
 import {
     Field as ImmutableField,
-    reduxForm as immutableReduxForm,
-    startSubmit as immutableStartSubmit,
-    stopSubmit as immutableStopSubmit
+    reduxForm as immutableReduxForm
 } from "redux-form/immutable";
 
 import LibField, {
@@ -39,7 +35,6 @@ import LibField, {
 } from "redux-form/lib/Field";
 import libReducer from "redux-form/lib/reducer";
 import LibFormSection from "redux-form/lib/FormSection";
-import libFormValueSelector from "redux-form/lib/formValueSelector";
 import libReduxForm from "redux-form/lib/reduxForm";
 import libActions from "redux-form/lib/actions";
 import LibSubmissionError from "redux-form/lib/SubmissionError";
