@@ -22,6 +22,7 @@
         "reference/coordinates.d.ts",
         "reference/event.d.ts",
         "reference/control.d.ts",
+        "reference/kml.d.ts",
         "reference/drawing.d.ts",
         "reference/visualization.d.ts",
         "reference/max-zoom.d.ts",
