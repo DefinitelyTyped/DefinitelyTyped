@@ -1,4 +1,3 @@
-// Minimum TypeScript Version: 3.0
 import { Engine, EngineChain } from 'node-uci';
 
 (async () => {
