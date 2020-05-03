@@ -46,6 +46,7 @@ THE SOFTWARE.
 /// <reference path="./reference/coordinates.d.ts" />
 /// <reference path="./reference/event.d.ts" />
 /// <reference path="./reference/control.d.ts" />
+/// <reference path="./reference/street-view-service.d.ts" />
 /// <reference path="./reference/places-widget.d.ts" />
 
 declare namespace google.maps {
@@ -2827,30 +2828,9 @@ declare namespace google.maps {
         position?: ControlPosition;
     }
 
-    interface StreetViewLink {
-        description?: string;
-        heading?: number;
-        pano?: string;
-    }
-
     interface StreetViewPov {
         heading?: number;
         pitch?: number;
-    }
-
-    interface StreetViewPanoramaData {
-        copyright?: string;
-        imageDate?: string;
-        links?: StreetViewLink[];
-        location?: StreetViewLocation;
-        tiles?: StreetViewTileData;
-    }
-
-    interface StreetViewLocation {
-        description?: string;
-        latLng?: LatLng;
-        pano?: string;
-        shortDescription?: string;
     }
 
     interface StreetViewTileData {
@@ -2858,49 +2838,6 @@ declare namespace google.maps {
         centerHeading?: number;
         tileSize?: Size;
         worldSize?: Size;
-    }
-
-    enum StreetViewPreference {
-        BEST = 'best',
-        NEAREST = 'nearest',
-    }
-
-    enum StreetViewSource {
-        DEFAULT = 'default',
-        OUTDOOR = 'outdoor',
-    }
-
-    interface StreetViewLocationRequest {
-        location: LatLng | LatLngLiteral;
-        preference?: StreetViewPreference;
-        radius?: number;
-        source?: StreetViewSource;
-    }
-
-    interface StreetViewPanoRequest {
-        pano: string;
-    }
-
-    class StreetViewService {
-        getPanorama(
-            request: StreetViewLocationRequest | StreetViewPanoRequest,
-            cb: (data: StreetViewPanoramaData | null, status: StreetViewStatus) => void,
-        ): void;
-        getPanoramaById(
-            pano: string,
-            callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void,
-        ): void;
-        getPanoramaByLocation(
-            latlng: LatLng | LatLngLiteral,
-            radius: number,
-            callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void,
-        ): void;
-    }
-
-    enum StreetViewStatus {
-        OK = 'OK',
-        UNKNOWN_ERROR = 'UNKNOWN_ERROR',
-        ZERO_RESULTS = 'ZERO_RESULTS',
     }
 
     class StreetViewCoverageLayer extends MVCObject {
