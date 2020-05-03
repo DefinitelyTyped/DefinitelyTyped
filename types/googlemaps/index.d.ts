@@ -48,6 +48,7 @@ THE SOFTWARE.
 /// <reference path="./reference/control.d.ts" />
 /// <reference path="./reference/drawing.d.ts" />
 /// <reference path="./reference/visualization.d.ts" />
+/// <reference path="./reference/max-zoom.d.ts" />
 /// <reference path="./reference/street-view-service.d.ts" />
 /// <reference path="./reference/places-widget.d.ts" />
 
@@ -2388,20 +2389,6 @@ declare namespace google.maps {
         OVER_QUERY_LIMIT = 'OVER_QUERY_LIMIT',
         REQUEST_DENIED = 'REQUEST_DENIED',
         UNKNOWN_ERROR = 'UNKNOWN_ERROR',
-    }
-
-    class MaxZoomService {
-        getMaxZoomAtLatLng(latlng: LatLng | LatLngLiteral, callback: (result: MaxZoomResult) => void): void;
-    }
-
-    interface MaxZoomResult {
-        status: MaxZoomStatus;
-        zoom: number;
-    }
-
-    enum MaxZoomStatus {
-        ERROR = 'ERROR',
-        OK = 'OK',
     }
 
     class DistanceMatrixService {
