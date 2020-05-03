@@ -5,7 +5,7 @@
 
 import { EventEmitter } from 'events';
 
-export type SearchOptions = {
+export interface SearchOptions {
     searchmoves?: ReadonlyArray<string>;
     ponder?: boolean;
     wtime?: number;
@@ -17,12 +17,12 @@ export type SearchOptions = {
     nodes?: number;
     mate?: number;
     movetime?: number;
-};
+}
 
-export type SearchResult = {
+export interface SearchResult {
     bestmove: string;
     info: ReadonlyArray<string>;
-};
+}
 
 export class Engine {
     constructor(enginePath: string);
