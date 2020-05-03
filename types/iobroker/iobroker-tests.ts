@@ -308,6 +308,9 @@ adapter.unsubscribeStates('*');
 adapter.unsubscribeForeignObjects('*');
 adapter.unsubscribeForeignStates('*');
 
+adapter.encrypt("key", "top secret").toLocaleLowerCase();
+adapter.decrypt("key", "garbled nonsense").toLocaleLowerCase();
+
 adapter.log.info('msg');
 adapter.log.debug('msg');
 adapter.log.warn('msg');
