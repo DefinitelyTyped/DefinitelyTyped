@@ -43,6 +43,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+/// <reference path="./style-reference.d.ts" />
+
 /// <reference path="./reference/map.d.ts" />
 /// <reference path="./reference/coordinates.d.ts" />
 /// <reference path="./reference/event.d.ts" />
@@ -80,194 +82,14 @@ declare namespace google.maps {
      */
     const version: string;
 
-    /***** Map *****/
-
-    interface MapHandlerMap {
-        /**
-         * This event is fired when the viewport bounds have changed.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.bounds_changed Maps JavaScript API}
-         * @see {@link Map#getBounds}
-         * @see {@link Map#fitBounds}
-         * @see {@link Map#panToBounds}
-         */
-        bounds_changed: [];
-
-        /**
-         * This event is fired when the map center property changes.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.center_changed Maps JavaScript API}
-         * @see {@link MapOptions#center}
-         * @see {@link Map#getCenter}
-         * @see {@link Map#setCenter}
-         */
-        center_changed: [];
-
-        /**
-         * This event is fired when the user clicks on the map.
-         * An ApiMouseEvent with properties for the clicked location is returned unless a place icon was clicked, in which case an IconMouseEvent with a placeid is returned.
-         * IconMouseEvent and ApiMouseEvent are identical, except that IconMouseEvent has the placeid field.
-         * The event can always be treated as an ApiMouseEvent when the placeid is not important.
-         * The click event is not fired if a marker or infowindow was clicked.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.click Maps JavaScript API}
-         */
-        click: [MouseEvent | IconMouseEvent];
-
-        /**
-         * This event is fired when the user double-clicks on the map. Note that the click event will also fire, right before this one.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.dblclick Maps JavaScript API}
-         */
-        dblclick: [MouseEvent];
-
-        /**
-         * This event is repeatedly fired while the user drags the map.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.drag Maps JavaScript API}
-         */
-        drag: [];
-
-        /**
-         * This event is fired when the user stops dragging the map.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.dragend Maps JavaScript API}
-         */
-        dragend: [];
-
-        /**
-         * This event is fired when the user starts dragging the map.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.dragstart Maps JavaScript API}
-         */
-        dragstart: [];
-
-        /**
-         * This event is fired when the map heading property changes.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.heading_changed Maps JavaScript API}
-         * @see {@link MapOptions#heading}
-         * @see {@link Map#getHeading}
-         * @see {@link Map#setHeading}
-         */
-        heading_changed: [];
-
-        /**
-         * This event is fired when the map becomes idle after panning or zooming.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.idle Maps JavaScript API}
-         */
-        idle: [];
-
-        /**
-         * This event is fired when the mapTypeId property changes.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.maptypeid_changed Maps JavaScript API}
-         * @see {@link MapOptions#mapTypeId}
-         * @see {@link Map#getMapTypeId}
-         * @see {@link Map#setMapTypeId}
-         */
-        maptypeid_changed: [];
-
-        /**
-         * This event is fired whenever the user's mouse moves over the map container.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.mousemove Maps JavaScript API}
-         */
-        mousemove: [MouseEvent];
-
-        /**
-         * This event is fired when the user's mouse exits the map container.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.mouseout Maps JavaScript API}
-         */
-        mouseout: [MouseEvent];
-
-        /**
-         * This event is fired when the user's mouse enters the map container.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.mouseover Maps JavaScript API}
-         */
-        mouseover: [MouseEvent];
-
-        /**
-         * This event is fired when the projection has changed.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.projection_changed Maps JavaScript API}
-         * @see {@link Map#getProjection}
-         */
-        projection_changed: [];
-
-        /**
-         * This event is fired when the DOM contextmenu event is fired on the map container.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.rightclick Maps JavaScript API}
-         */
-        rightclick: [MouseEvent];
-
-        /**
-         * This event is fired when the visible tiles have finished loading.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.tilesloaded Maps JavaScript API}
-         */
-        tilesloaded: [];
-
-        /**
-         * This event is fired when the map tilt property changes.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.tilt_changed Maps JavaScript API}
-         * @see {@link MapOptions#tilt}
-         * @see {@link Map#getTilt}
-         * @see {@link Map#setTilt}
-         */
-        tilt_changed: [];
-
-        /**
-         * This event is fired when the map zoom property changes.
-         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.zoom_changed Maps JavaScript API}
-         * @see {@link MapOptions#zoom}
-         * @see {@link Map#getZoom}
-         * @see {@link Map#setZoom}
-         */
-        zoom_changed: [];
-    }
-
-    type GestureHandlingOptions = 'cooperative' | 'greedy' | 'none' | 'auto';
-
-    enum ZoomControlStyle {
-        DEFAULT = 0,
-        SMALL = 1,
-        LARGE = 2,
-    }
-
-    type DrawingMode = 'Point' | 'LineString' | 'Polygon';
-
-    type MarkerChangeOptionEventNames =
-        | 'animation_changed'
-        | 'clickable_changed'
-        | 'cursor_changed'
-        | 'draggable_changed'
-        | 'flat_changed'
-        | 'icon_changed'
-        | 'position_changed'
-        | 'shape_changed'
-        | 'title_changed'
-        | 'visible_changed'
-        | 'zindex_changed';
-
-    type MarkerMouseEventNames =
-        | 'click'
-        | 'dblclick'
-        | 'drag'
-        | 'dragend'
-        | 'dragstart'
-        | 'mousedown'
-        | 'mouseout'
-        | 'mouseover'
-        | 'mouseup'
-        | 'rightclick';
-
-    interface BaseDirectionsStep {
-        distance: Distance;
-        duration: Duration;
-        end_location: LatLng;
-        instructions: string;
-        path: LatLng[];
-        start_location: LatLng;
-        transit: TransitDetails;
-        travel_mode: TravelMode;
-    }
-
-    /***** Save to Google Maps *****/
+    // TODO find source documentation
     interface Attribution {
         iosDeepLinkId?: string;
         source?: string;
         webUrl?: string;
     }
 
+    // TODO find source documentation
     class SaveWidget {
         constructor(container: Node, opts?: SaveWidgetOptions);
         getAttribution(): Attribution;
@@ -277,70 +99,13 @@ declare namespace google.maps {
         setPlace(place: Place): void;
     }
 
+    // TODO find source documentation
     interface SaveWidgetOptions {
         attribution?: Attribution;
         place?: Place;
     }
 
-    type MapTypeStyleFeatureType =
-        | 'all'
-        | 'administrative'
-        | 'administrative.country'
-        | 'administrative.land_parcel'
-        | 'administrative.locality'
-        | 'administrative.neighborhood'
-        | 'administrative.province'
-        | 'landscape'
-        | 'landscape.man_made'
-        | 'landscape.natural'
-        | 'landscape.natural.landcover'
-        | 'landscape.natural.terrain'
-        | 'poi'
-        | 'poi.attraction'
-        | 'poi.business'
-        | 'poi.government'
-        | 'poi.medical'
-        | 'poi.park'
-        | 'poi.place_of_worship'
-        | 'poi.school'
-        | 'poi.sports_complex'
-        | 'road'
-        | 'road.arterial'
-        | 'road.highway'
-        | 'road.highway.controlled_access'
-        | 'road.local'
-        | 'transit'
-        | 'transit.line'
-        | 'transit.station'
-        | 'transit.station.airport'
-        | 'transit.station.bus'
-        | 'transit.station.rail'
-        | 'water';
-
-    type MapTypeStyleElementType =
-        | 'all'
-        | 'geometry'
-        | 'geometry.fill'
-        | 'geometry.stroke'
-        | 'labels'
-        | 'labels.icon'
-        | 'labels.text'
-        | 'labels.text.fill'
-        | 'labels.text.stroke';
-
-    interface MapTypeStyler {
-        color?: string;
-        gamma?: number;
-        hue?: string;
-        invert_lightness?: boolean;
-        lightness?: number;
-        saturation?: number;
-        visibility?: string;
-        weight?: number;
-    }
-
-    /***** Layers *****/
-
+    // TODO find source documentation
     class FusionTablesLayer extends MVCObject {
         constructor(options: FusionTablesLayerOptions);
         getMap(): Map;
@@ -348,6 +113,7 @@ declare namespace google.maps {
         setOptions(options: FusionTablesLayerOptions): void;
     }
 
+    // TODO find source documentation
     interface FusionTablesLayerOptions {
         clickable?: boolean;
         heatmap?: FusionTablesHeatmap;
@@ -357,6 +123,7 @@ declare namespace google.maps {
         suppressInfoWindows?: boolean;
     }
 
+    // TODO find source documentation
     interface FusionTablesQuery {
         from?: string;
         limit?: number;
@@ -366,6 +133,7 @@ declare namespace google.maps {
         where?: string;
     }
 
+    // TODO find source documentation
     interface FusionTablesStyle {
         markerOptions?: FusionTablesMarkerOptions;
         polygonOptions?: FusionTablesPolygonOptions;
@@ -373,14 +141,17 @@ declare namespace google.maps {
         where?: string;
     }
 
+    // TODO find source documentation
     interface FusionTablesHeatmap {
         enabled: boolean;
     }
 
+    // TODO find source documentation
     interface FusionTablesMarkerOptions {
         iconName: string;
     }
 
+    // TODO find source documentation
     interface FusionTablesPolygonOptions {
         fillColor?: string;
         fillOpacity?: number;
@@ -389,12 +160,14 @@ declare namespace google.maps {
         strokeWeight?: number;
     }
 
+    // TODO find source documentation
     interface FusionTablesPolylineOptions {
         strokeColor?: string;
         strokeOpacity?: number;
         strokeWeight?: number;
     }
 
+    // TODO find source documentation
     interface FusionTablesMouseEvent {
         infoWindowHtml?: string;
         latLng?: LatLng;
@@ -402,12 +175,13 @@ declare namespace google.maps {
         row?: object; // Object<FusionTablesCell>
     }
 
+    // TODO find source documentation
     interface FusionTablesCell {
         columnName?: string;
         value?: string;
     }
 
-    /***** AdSense Library *****/
+    // TODO find source documentation
     namespace adsense {
         class AdUnit extends MVCObject {
             constructor(container: Element, opts: AdUnitOptions);
@@ -468,21 +242,8 @@ declare namespace google.maps {
         }
     }
 
-    /***** Places Library *****/
-    namespace places {
-        interface RadarSearchRequest {
-            bounds?: LatLngBounds | LatLngBoundsLiteral;
-            keyword?: string;
-            location?: LatLng | LatLngLiteral;
-            name?: string;
-            radius?: number;
-            types?: string[] /* Deprecated. Will be removed February 16, 2017 */;
-            type?: string;
-        }
-    }
-
-    /***** Visualization Library *****/
     namespace visualization {
+        // TODO find source documentation
         class MapsEngineLayer extends MVCObject {
             constructor(options: MapsEngineLayerOptions);
             getLayerId(): string;
@@ -502,6 +263,7 @@ declare namespace google.maps {
             setZIndex(zIndex: number): void;
         }
 
+        // TODO find source documentation
         interface MapsEngineLayerOptions {
             accessToken?: string;
             clickable?: boolean;
@@ -515,10 +277,12 @@ declare namespace google.maps {
             zIndex?: number;
         }
 
+        // TODO find source documentation
         interface MapsEngineLayerProperties {
             name: string;
         }
 
+        // TODO find source documentation
         interface MapsEngineMouseEvent {
             featureId?: string;
             infoWindowHtml?: string;
@@ -526,16 +290,19 @@ declare namespace google.maps {
             pixelOffset?: Size;
         }
 
+        // TODO find source documentation
         enum MapsEngineStatus {
             INVALID_LAYER = 'INVALID_LAYER',
             OK = 'OK',
             UNKNOWN_ERROR = 'UNKNOWN_ERROR',
         }
 
+        // TODO find source documentation
         class MouseEvent {
             stop(): void;
         }
 
+        // TODO find source documentation
         class MapsEventListener {}
     }
 }

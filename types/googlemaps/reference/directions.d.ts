@@ -215,6 +215,18 @@ declare namespace google.maps {
         via_waypoints: LatLng[];
     }
 
+    // TODO find source documentation
+    interface BaseDirectionsStep {
+        distance: Distance;
+        duration: Duration;
+        end_location: LatLng;
+        instructions: string;
+        path: LatLng[];
+        start_location: LatLng;
+        transit: TransitDetails;
+        travel_mode: TravelMode;
+    }
+
     interface DirectionsStep extends BaseDirectionsStep {
         /**
          * This field will only be available if travel_mode is set to TRANSIT.

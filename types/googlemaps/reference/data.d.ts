@@ -1,4 +1,6 @@
 declare namespace google.maps {
+    type DrawingMode = 'Point' | 'LineString' | 'Polygon';
+
     class Data extends MVCObject {
         constructor(options?: Data.DataOptions);
         add(feature: Data.Feature | Data.FeatureOptions): Data.Feature;

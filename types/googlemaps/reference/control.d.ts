@@ -76,6 +76,13 @@ declare namespace google.maps {
         position?: ControlPosition;
     }
 
+    // TODO find source documentation
+    enum ZoomControlStyle {
+        DEFAULT = 0,
+        SMALL = 1,
+        LARGE = 2,
+    }
+
     /** Options for the rendering of the zoom control. */
     interface ZoomControlOptions {
         /**

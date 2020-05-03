@@ -1,4 +1,30 @@
 declare namespace google.maps {
+    type MarkerChangeOptionEventNames =
+        | 'animation_changed'
+        | 'clickable_changed'
+        | 'cursor_changed'
+        | 'draggable_changed'
+        | 'flat_changed'
+        | 'icon_changed'
+        | 'position_changed'
+        | 'shape_changed'
+        | 'title_changed'
+        | 'visible_changed'
+        | 'zindex_changed';
+
+    type MarkerMouseEventNames =
+        | 'click'
+        | 'dblclick'
+        | 'drag'
+        | 'dragend'
+        | 'dragstart'
+        | 'mousedown'
+        | 'mouseout'
+        | 'mouseover'
+        | 'mouseup'
+        | 'rightclick';
+
+
     /**
      * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker Maps JavaScript API}
      */

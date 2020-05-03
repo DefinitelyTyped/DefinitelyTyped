@@ -1,4 +1,15 @@
 declare namespace google.maps.places {
+    // TODO find source documentation
+    interface RadarSearchRequest {
+        bounds?: LatLngBounds | LatLngBoundsLiteral;
+        keyword?: string;
+        location?: LatLng | LatLngLiteral;
+        name?: string;
+        radius?: number;
+        types?: string[] /* Deprecated. Will be removed February 16, 2017 */;
+        type?: string;
+    }
+
     class PlacesService {
         constructor(attrContainer: HTMLDivElement | Map);
         findPlaceFromPhoneNumber(
