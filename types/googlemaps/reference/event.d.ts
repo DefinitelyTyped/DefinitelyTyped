@@ -1,64 +1,68 @@
-declare namespace google.maps.event {
-    /**
-     * Cross browser event handler registration. This listener is removed by
-     * calling removeListener(handle) for the handle that is returned by this
-     * function.
-     */
-    function addDomListener(
-        instance: object,
-        eventName: string,
-        handler: (event: Event) => void,
-        capture?: boolean,
-    ): MapsEventListener;
-
-    /**
-     * Wrapper around addDomListener that removes the listener after the first
-     * event.
-     */
-    function addDomListenerOnce(
-        instance: object,
-        eventName: string,
-        handler: (event: Event) => void,
-        capture?: boolean,
-    ): MapsEventListener;
-
-    /**
-     * Adds the given listener function to the given event name for the given
-     * object instance. Returns an identifier for this listener that can be used
-     * with removeListener().
-     */
-    function addListener(instance: object, eventName: string, handler: (...args: any[]) => void): MapsEventListener;
-
-    /**
-     * Like addListener, but the handler removes itself after handling the first
-     * event.
-     */
-    function addListenerOnce(instance: object, eventName: string, handler: (...args: any[]) => void): MapsEventListener;
-
-    /**
-     * Removes all listeners for all events for the given instance.
-     */
-    function clearInstanceListeners(instance: object): void;
-
-    /**
-     * Removes all listeners for the given event for the given instance.
-     */
-    function clearListeners(instance: object, eventName: string): void;
-
-    /**
-     * Removes the given listener, which should have been returned by
-     * addListener above. Equivalent to calling listener.remove().
-     */
-    function removeListener(listener: MapsEventListener): void;
-
-    /**
-     * Triggers the given event. All arguments after eventName are passed as
-     * arguments to the listeners.
-     */
-    function trigger(instance: any, eventName: string, ...args: any[]): void;
-}
-
 declare namespace google.maps {
+    namespace event {
+        /**
+         * Cross browser event handler registration. This listener is removed by
+         * calling removeListener(handle) for the handle that is returned by this
+         * function.
+         */
+        function addDomListener(
+            instance: object,
+            eventName: string,
+            handler: (event: Event) => void,
+            capture?: boolean,
+        ): MapsEventListener;
+
+        /**
+         * Wrapper around addDomListener that removes the listener after the first
+         * event.
+         */
+        function addDomListenerOnce(
+            instance: object,
+            eventName: string,
+            handler: (event: Event) => void,
+            capture?: boolean,
+        ): MapsEventListener;
+
+        /**
+         * Adds the given listener function to the given event name for the given
+         * object instance. Returns an identifier for this listener that can be used
+         * with removeListener().
+         */
+        function addListener(instance: object, eventName: string, handler: (...args: any[]) => void): MapsEventListener;
+
+        /**
+         * Like addListener, but the handler removes itself after handling the first
+         * event.
+         */
+        function addListenerOnce(
+            instance: object,
+            eventName: string,
+            handler: (...args: any[]) => void,
+        ): MapsEventListener;
+
+        /**
+         * Removes all listeners for all events for the given instance.
+         */
+        function clearInstanceListeners(instance: object): void;
+
+        /**
+         * Removes all listeners for the given event for the given instance.
+         */
+        function clearListeners(instance: object, eventName: string): void;
+
+        /**
+         * Removes the given listener, which should have been returned by
+         * addListener above. Equivalent to calling listener.remove().
+         */
+        function removeListener(listener: MapsEventListener): void;
+
+        /**
+         * Triggers the given event. All arguments after eventName are passed as
+         * arguments to the listeners.
+         */
+        function trigger(instance: any, eventName: string, ...args: any[]): void;
+    }
+
     interface MapsEventListener {
         /**
          * Removes the listener.  Equivalent to calling
