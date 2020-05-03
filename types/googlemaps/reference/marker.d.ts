@@ -24,7 +24,6 @@ declare namespace google.maps {
         | 'mouseup'
         | 'rightclick';
 
-
     /**
      * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker Maps JavaScript API}
      */

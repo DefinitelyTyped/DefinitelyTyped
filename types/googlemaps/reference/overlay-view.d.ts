@@ -72,5 +72,4 @@ declare namespace google.maps {
         fromLatLngToDivPixel(latLng: LatLng): Point;
         getWorldWidth(): number;
     }
-
 }

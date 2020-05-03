@@ -62,5 +62,4 @@ declare namespace google.maps {
         heading?: number;
         pano?: string;
     }
-
 }
