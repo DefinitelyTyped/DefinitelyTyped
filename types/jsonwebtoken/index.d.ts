@@ -10,6 +10,7 @@
 //                 Nico Flaig <https://github.com/nflaig>,
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Ivan Sieder <https://github.com/ivansieder>
+//                 Jack Allen <https://github.com/jackall3n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -90,9 +91,9 @@ export type VerifyErrors =
     | JsonWebTokenError
     | NotBeforeError
     | TokenExpiredError;
-export type VerifyCallback = (
+export type VerifyCallback<T = object> = (
     err: VerifyErrors | null,
-    decoded: object | undefined,
+    decoded: T | undefined,
 ) => void;
 
 export type SignCallback = (
@@ -169,7 +170,7 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): object | string;
+export function verify<T = object>(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): T | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -180,16 +181,16 @@ export function verify(token: string, secretOrPublicKey: Secret, options?: Verif
  * [options] - Options for the verification
  * callback - Callback to get the decoded token on
  */
-export function verify(
+export function verify<T = object>(
     token: string,
     secretOrPublicKey: Secret | GetPublicKeyOrSecret,
-    callback?: VerifyCallback,
+    callback?: VerifyCallback<T>,
 ): void;
-export function verify(
+export function verify<T = object>(
     token: string,
     secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     options?: VerifyOptions,
-    callback?: VerifyCallback,
+    callback?: VerifyCallback<T>,
 ): void;
 
 /**
