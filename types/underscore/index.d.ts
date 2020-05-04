@@ -5076,22 +5076,22 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.each
         **/
-        each(iterator: _.ListIterator<T, void>, context?: any): _Chain<T>;
+        each(iterator: _.ListIterator<T, void>, context?: any): _Chain<T, T[]>;
 
         /**
         * @see _.each
         **/
-        each(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T>;
+        each(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T, _.Dictionary<T>>;
 
         /**
         * @see _.each
         **/
-        forEach(iterator: _.ListIterator<T, void>, context?: any): _Chain<T>;
+        forEach(iterator: _.ListIterator<T, void>, context?: any): _Chain<T, T[]>;
 
         /**
         * @see _.each
         **/
-        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T>;
+        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T, _.Dictionary<T>>;
 
         /**
         * Wrapped type `any[]`.
@@ -5189,18 +5189,18 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.filter
         **/
-        filter(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+        filter(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _Chain<T, T[]>;
 
         /**
         * @see _.filter
         **/
-        select(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+        select(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.where
         **/
-        where<U extends {}>(properties: U): _Chain<T>;
+        where<U extends {}>(properties: U): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5212,7 +5212,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.reject
         **/
-        reject(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+        reject(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5258,7 +5258,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.invoke
         **/
-        invoke(methodName: string, ...args: any[]): _Chain<T>;
+        invoke(methodName: string, ...args: any[]): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5354,13 +5354,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.shuffle
         **/
-        shuffle(): _Chain<T>;
+        shuffle(): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.sample
         **/
-        sample<T>(n: number): _Chain<T>;
+        sample<T>(n: number): _Chain<T, T[]>;
 
         /**
         * @see _.sample
@@ -5371,7 +5371,7 @@ declare module _ {
         * Wrapped type `any`.
         * @see _.toArray
         **/
-        toArray(): _Chain<T>;
+        toArray(): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any`.
@@ -5393,7 +5393,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.first
         **/
-        first(n: number): _Chain<T>;
+        first(n: number): _Chain<T, T[]>;
 
         /**
         * @see _.first
@@ -5403,7 +5403,7 @@ declare module _ {
         /**
         * @see _.first
         **/
-        head(n: number): _Chain<T>;
+        head(n: number): _Chain<T, T[]>;
 
         /**
         * @see _.first
@@ -5413,13 +5413,13 @@ declare module _ {
         /**
         * @see _.first
         **/
-        take(n: number): _Chain<T>;
+        take(n: number): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.initial
         **/
-        initial(n?: number): _Chain<T>;
+        initial(n?: number): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5431,29 +5431,29 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.last
         **/
-        last(n: number): _Chain<T>;
+        last(n: number): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.rest
         **/
-        rest(n?: number): _Chain<T>;
+        rest(n?: number): _Chain<T, T[]>;
 
         /**
         * @see _.rest
         **/
-        tail(n?: number): _Chain<T>;
+        tail(n?: number): _Chain<T, T[]>;
 
         /**
         * @see _.rest
         **/
-        drop(n?: number): _Chain<T>;
+        drop(n?: number): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.compact
         **/
-        compact(): _Chain<T>;
+        compact(): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any`.
@@ -5471,7 +5471,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.partition
         **/
-        partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[]>;
+        partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[], [T[], T[]]>;
 
         /**
         * Wrapped type `any[][]`.
@@ -5483,35 +5483,35 @@ declare module _ {
         * Wrapped type `any[][]`.
         * @see _.intersection
         **/
-        intersection(...arrays: _.List<T>[]): _Chain<T>;
+        intersection(...arrays: _.List<T>[]): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.difference
         **/
-        difference(...others: _.List<T>[]): _Chain<T>;
+        difference(...others: _.List<T>[]): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand): _Chain<T>;
+        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq<TSort>(iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand, context?: any): _Chain<T>;
+        uniq<TSort>(iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand, context?: any): _Chain<T, T[]>;
 
         /**
         * @see _.uniq
         **/
-        unique<TSort>(isSorted?: boolean, iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand): _Chain<T>;
+        unique<TSort>(isSorted?: boolean, iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand): _Chain<T, T[]>;
 
         /**
         * @see _.uniq
         **/
-        unique<TSort>(iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand, context?: any): _Chain<T>;
+        unique<TSort>(iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[][]`.
@@ -5585,7 +5585,7 @@ declare module _ {
          * Wrapped type `any[][]`.
          * @see _.chunk
          **/
-        chunk(): _Chain<T>;
+        chunk(): _Chain<T, T[][]>;
 
         /* ***********
         * Functions *
@@ -6114,7 +6114,7 @@ declare module _ {
     interface _ChainSingle<T> {
         value(): T;
     }
-    interface _ChainOfArrays<T> extends _Chain<T[]> {
-        flatten(shallow?: boolean): _Chain<T>;
+    interface _ChainOfArrays<T> extends _Chain<T[], T[][]> {
+        flatten(shallow?: boolean): _Chain<T, T[]>;
     }
 }
