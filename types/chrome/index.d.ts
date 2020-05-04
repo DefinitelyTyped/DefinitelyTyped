@@ -3823,6 +3823,7 @@ declare namespace chrome.input.ime {
         /**
          * Optional.
          * The ID of the request.
+         * @deprecated since Chrome 79.
          */
         requestId?: string;
         /** Value of the key being pressed */
