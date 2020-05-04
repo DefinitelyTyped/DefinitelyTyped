@@ -8,7 +8,7 @@ qs.parse('a=b');
 qs.parse('a=b&c=d', { delimiter: '&' });
 
 () => {
-    var obj = qs.parse('a=z&b[c]=z&d=z&d=z&e[][f]=z');
+    let obj = qs.parse('a=z&b[c]=z&d=z&d=z&e[][f]=z');
     obj; // $ExpectType ParsedQs
     obj.a; // $ExpectType string | ParsedQs | string[] | ParsedQs[]
     assert.deepEqual(obj, { a: 'c' });
@@ -18,7 +18,7 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 };
 
 {
-    var obj = qs.parse('a=c', {
+    let obj = qs.parse('a=c', {
         decoder: (str, defaultDecoder, charset, type) => {
             switch (type) {
                 case 'key': return str;
@@ -281,7 +281,7 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 }
 
 () => {
-    var obj = qs.parse('a=%82%B1%82%F1%82%C9%82%BF%82%CD%81I');
+    let obj = qs.parse('a=%82%B1%82%F1%82%C9%82%BF%82%CD%81I');
     assert.deepEqual(obj, { a: 'こんにちは！' });
 }
 
