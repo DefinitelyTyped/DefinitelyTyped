@@ -98,7 +98,6 @@ import {
     useColorScheme,
     DevSettings,
     VirtualizedList,
-    ListRenderItemInfo
 } from 'react-native';
 
 declare module 'react-native' {
