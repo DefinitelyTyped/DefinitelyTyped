@@ -5355,7 +5355,7 @@ declare module _ {
         /**
         * @see _.sample
         **/
-        sample<T>(): _Chain<T>;
+        sample<T>(): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type `any`.
@@ -5388,7 +5388,7 @@ declare module _ {
         /**
         * @see _.first
         **/
-        head(): _Chain<T>;
+        head(): _ChainSingle<T | undefined>;
 
         /**
         * @see _.first
@@ -5398,7 +5398,7 @@ declare module _ {
         /**
         * @see _.first
         **/
-        take(): _Chain<T>;
+        take(): _ChainSingle<T | undefined>;
 
         /**
         * @see _.first
