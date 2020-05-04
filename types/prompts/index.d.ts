@@ -9,7 +9,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
+/// <reference types="node" />
+
 export = prompts;
+
+import { Readable, Writable } from 'stream';
 
 declare function prompts<T extends string = string>(
     questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
@@ -92,6 +96,8 @@ declare namespace prompts {
         suggest?: ((input: any, choices: Choice[]) => Promise<any>);
         limit?: number;
         mask?: string;
+        stdout?: Writable;
+        stdin?: Readable;
     }
 
     type Answers<T extends string> = { [id in T]: any };
