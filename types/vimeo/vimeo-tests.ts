@@ -39,10 +39,10 @@ client.request('', completeHandler);
 client.request('', completeHandlerShort);
 
 // $ExpectType void
-client.request<string>('', (err: string | undefined, result: string | undefined) => {});
+client.request('', (err: string | undefined, result: string | undefined) => {});
 
 // $ExpectType void
-client.request<{ thing: string }>('', (err: string | undefined, result: { thing: string } | undefined) => {});
+client.request('', (err: string | undefined, result: { thing: string } | undefined) => {});
 
 const requestOptions: RequestOptions = {
     method: 'GET',
@@ -60,7 +60,7 @@ const requestOptionsFull: RequestOptions = {
 };
 
 // $ExpectType void
-client.request<string>(requestOptionsFull, (err: string | undefined, result: string | undefined) => {});
+client.request(requestOptionsFull, (err: string | undefined, result: string | undefined) => {});
 
 // $ExpectType Vimeo
 const clientWithoutAccessToken = new Vimeo('', '');

@@ -3,9 +3,9 @@
 // Definitions by: Matthew Leffler <https://github.com/mattleff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type CompleteCallback<T = object> = (
+export type CompleteCallback = (
     err: string | undefined,
-    result: undefined | T,
+    result: any,
     statusCode?: number,
     headers?: object
 ) => void;
@@ -59,8 +59,7 @@ export class Vimeo {
      *                                  `host`, `port`, `query` or `headers`.
      * @param callback  Called when complete, `function (err, json)`.
      */
-    // tslint:disable-next-line no-unnecessary-generics
-    request<T>(url: string | RequestOptions, callback: CompleteCallback<T>): void;
+    request(url: string | RequestOptions, callback: CompleteCallback): void;
 
     /**
      * Set a user access token to be used with library requests.
