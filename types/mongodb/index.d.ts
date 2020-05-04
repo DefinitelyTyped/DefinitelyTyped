@@ -29,6 +29,7 @@
 //                 Richard Bateman <https://github.com/taxilian>
 //                 Igor Strebezhev <https://github.com/xamgore>
 //                 Valentin Agachi <https://github.com/avaly>
+//                 HitkoDev <https://github.com/HitkoDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -43,6 +44,8 @@ import { checkServerIdentity } from 'tls';
 
 // We can use TypeScript Omit once minimum required TypeScript Version is above 3.5
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+
+type FlattenIfArray<T> = T extends Array<infer R> ? R : T;
 
 export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
@@ -1012,10 +1015,10 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     deleteOne(filter: FilterQuery<TSchema>, options?: CommonOptions & { bypassDocumentValidation?: boolean }): Promise<DeleteWriteOpResultObject>;
     deleteOne(filter: FilterQuery<TSchema>, options: CommonOptions & { bypassDocumentValidation?: boolean }, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#distinct */
-    distinct<Key extends keyof WithId<TSchema>>(key: Key, callback: MongoCallback<Array<WithId<TSchema>[Key]>>): void;
-    distinct<Key extends keyof WithId<TSchema>>(key: Key, query: FilterQuery<TSchema>, callback: MongoCallback<Array<WithId<TSchema>[Key]>>): void;
-    distinct<Key extends keyof WithId<TSchema>>(key: Key, query?: FilterQuery<TSchema>, options?: MongoDistinctPreferences): Promise<Array<WithId<TSchema>[Key]>>;
-    distinct<Key extends keyof WithId<TSchema>>(key: Key, query: FilterQuery<TSchema>, options: MongoDistinctPreferences, callback: MongoCallback<Array<WithId<TSchema>[Key]>>): void;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>): void;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, query: FilterQuery<TSchema>, callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>): void;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, query?: FilterQuery<TSchema>, options?: MongoDistinctPreferences): Promise<Array<FlattenIfArray<WithId<TSchema>[Key]>>>;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, query: FilterQuery<TSchema>, options: MongoDistinctPreferences, callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>): void;
     distinct(key: string, callback: MongoCallback<any[]>): void;
     distinct(key: string, query: FilterQuery<TSchema>, callback: MongoCallback<any[]>): void;
     distinct(key: string, query?: FilterQuery<TSchema>, options?: MongoDistinctPreferences): Promise<any[]>;
