@@ -4367,23 +4367,12 @@ export interface SectionListStatic<SectionT> extends React.ComponentClass<Sectio
  * @see https://facebook.github.io/react-native/docs/virtualizedlist.html
  */
 
-export class VirtualizedList<ItemT> extends React.Component<
-  VirtualizedListProps<ItemT>
-> {
-  scrollToEnd: (params?: { animated?: boolean }) => void;
-  scrollToIndex: (params: {
-    animated?: boolean;
-    index: number;
-    viewOffset?: number;
-    viewPosition?: number;
-  }) => void;
-  scrollToItem: (params: {
-    animated?: boolean;
-    item: ItemT;
-    viewPosition?: number;
-  }) => void;
-  scrollToOffset: (params: { animated?: boolean; offset: number }) => void;
-  recordInteraction: () => void;
+export class VirtualizedList<ItemT> extends React.Component<VirtualizedListProps<ItemT>> {
+    scrollToEnd: (params?: { animated?: boolean }) => void;
+    scrollToIndex: (params: { animated?: boolean; index: number; viewOffset?: number; viewPosition?: number }) => void;
+    scrollToItem: (params: { animated?: boolean; item: ItemT; viewPosition?: number }) => void;
+    scrollToOffset: (params: { animated?: boolean; offset: number }) => void;
+    recordInteraction: () => void;
 }
 
 /**
