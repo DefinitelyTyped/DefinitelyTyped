@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@jest/globals": "^25.5.2"
+        "@jest/globals": "^26.0.0"
     }
 }
