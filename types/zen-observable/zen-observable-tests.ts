@@ -13,25 +13,21 @@ function assert(val: boolean) {
 new Observable<number>(observer => {
     [1, 2, 3].forEach(one => observer.next(one));
     observer.complete();
-})
-    .subscribe(val => assert(typeof val === 'number'));
+}).subscribe(val => assert(typeof val === 'number'));
 
 /**
  * Observable.of
  */
 
-Observable.of(1, 2, 3)
-    .subscribe(val => assert(typeof val === 'number'));
+Observable.of(1, 2, 3).subscribe(val => assert(typeof val === 'number'));
 
 /**
  * Observable.from
  */
 
-Observable.from(Observable.of(1, 2, 3))
-    .subscribe(val => assert(typeof val === 'number'));
+Observable.from(Observable.of(1, 2, 3)).subscribe(val => assert(typeof val === 'number'));
 
-Observable.from([1, 2, 3])
-    .subscribe(val => assert(typeof val === 'number'));
+Observable.from([1, 2, 3]).subscribe(val => assert(typeof val === 'number'));
 
 Observable.from({
     subscribe(observer: ZenObservable.SubscriptionObserver<number>) {
@@ -40,23 +36,20 @@ Observable.from({
     },
     [Symbol.observable](this: ZenObservable.ObservableLike<number>) {
         return this;
-    }
-})
-    .subscribe(val => assert(typeof val === 'number'));
+    },
+}).subscribe(val => assert(typeof val === 'number'));
 
 Observable.from({
     [Symbol.observable]() {
         return Observable.of(1, 2, 3);
-    }
-})
-    .subscribe(val => assert(typeof val === 'number'));
+    },
+}).subscribe(val => assert(typeof val === 'number'));
 
 /**
  * observable.forEach
  */
 
-Observable.of(1, 2, 3)
-    .forEach(val => assert(typeof val === 'number'));
+Observable.of(1, 2, 3).forEach(val => assert(typeof val === 'number'));
 
 /**
  * observable.map
@@ -99,8 +92,8 @@ Observable.of(1, 2, 3)
  */
 
 Observable.of(1, 2, 3)
-.concat(Observable.of(4, 5, 6), Observable.of(7, 8, 9))
-.subscribe(val => assert(typeof val === 'number'));
+    .concat(Observable.of(4, 5, 6), Observable.of(7, 8, 9))
+    .subscribe(val => assert(typeof val === 'number'));
 
 /**
  * ZenObservable
