@@ -1,17 +1,16 @@
 import * as React from "react";
-import { ShapeOf } from "../../../typings/shared";
 
 interface InheritedProps extends React.TableHTMLAttributes<HTMLTableElement> { }
 
-export interface HeaderType {
-    key?: string;
-    header?: React.ReactNode;
-}
+// export interface HeaderType {
+//     key?: string;
+//     header?: React.ReactNode;
+// }
 
 export interface DataTableSkeletonProps extends InheritedProps {
     compact?: boolean;
     columnCount?: number;
-    headers?: ReadonlyArray<string> | ReadonlyArray<ShapeOf<HeaderType>>;
+    // headers?: ReadonlyArray<string> | ReadonlyArray<ShapeOf<HeaderType>>; // doesn't seem to be used anymore but prop type is still there so leaving this commented out.
     rowCount?: number;
     zebra?: boolean;
 }

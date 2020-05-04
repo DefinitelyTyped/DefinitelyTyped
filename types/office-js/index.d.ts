@@ -782,10 +782,6 @@ declare namespace Office {
         *
         * Do not use a dialog box to interact with a document. Use a task pane instead.
         * 
-        * For a design pattern that you can use to create a dialog box, see 
-        * {@link https://github.com/OfficeDev/Office-Add-in-UX-Design-Patterns/blob/master/Patterns/Client_Dialog.md | Client Dialog}  in the Office 
-        * Add-in UX Design Patterns repository on GitHub.
-        * 
         * **displayDialogAsync Errors**:
         * 
         * <table>
@@ -886,10 +882,6 @@ declare namespace Office {
         * - Temporarily increase the surface area that a user has available to complete a task.
         *
         * Do not use a dialog box to interact with a document. Use a task pane instead.
-        * 
-        * For a design pattern that you can use to create a dialog box, see 
-        * {@link https://github.com/OfficeDev/Office-Add-in-UX-Design-Patterns/blob/master/Patterns/Client_Dialog.md | Client Dialog}  in the Office 
-        * Add-in UX Design Patterns repository on GitHub.
         * 
         * **displayDialogAsync Errors**:
         * 
@@ -1629,7 +1621,8 @@ declare namespace Office {
         /**
          * Triggers when any date or time of the selected appointment or series is changed in Outlook. Supported with task pane only.
          * 
-         * The event handler receives an argument of type `Office.AppointmentTimeChangedEventArgs`.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.appointmenttimechangedeventargs?view=outlook-js-1.7 | Office.AppointmentTimeChangedEventArgs}.
          * 
          * [Api set: Mailbox 1.7]
          */
@@ -1637,7 +1630,8 @@ declare namespace Office {
         /**
          * Triggers when an attachment is added to or removed from an item. Supported with task pane only.
          * 
-         * The event handler receives an argument of type `Office.AttachmentsChangedEventArgs`.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.attachmentschangedeventargs?view=outlook-js-1.8 | Office.AttachmentsChangedEventArgs}.
          * 
          * [Api set: Mailbox 1.8]
          */
@@ -1666,7 +1660,7 @@ declare namespace Office {
          */
         DialogEventReceived,
         /**
-         * Triggers when Dialog sends a message via MessageParent.
+         * Triggers when a dialog sends a message via `messageParent`.
          */
         DialogMessageReceived,
         /**
@@ -1680,7 +1674,8 @@ declare namespace Office {
         /**
          * Triggers when the appointment location is changed in Outlook. Supported with task pane only.
          * 
-         * The event handler receives an argument of type `Office.EnhancedLocationsChangedEventArgs`.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.enhancedlocationschangedeventargs?view=outlook-js-1.8 | Office.EnhancedLocationsChangedEventArgs}.
          * 
          * [Api set: Mailbox 1.8]
          */
@@ -1706,7 +1701,8 @@ declare namespace Office {
         /**
          * Triggers when the recipient list of the selected item or the appointment location is changed in Outlook. Supported with task pane only.
          * 
-         * The event handler receives an argument of type `Office.RecipientsChangedEventArgs`.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.recipientschangedeventargs?view=outlook-js-1.7 | Office.RecipientsChangedEventArgs}.
          * 
          * [Api set: Mailbox 1.7]
          */
@@ -1714,7 +1710,8 @@ declare namespace Office {
         /**
          * Triggers when the recurrence pattern of the selected series is changed in Outlook. Supported with task pane only.
          * 
-         * The event handler receives an argument of type `Office.RecurrenceChangedEventArgs`.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.recurrencechangedeventargs?view=outlook-js-1.7 | Office.RecurrenceChangedEventArgs}.
          * 
          * [Api set: Mailbox 1.7]
          */
@@ -11781,6 +11778,18 @@ declare namespace Office {
      *
      * @remarks
      * 
+     * **Recommended practices**
+     * 
+     * Currently, internet headers are a finite resource on a user's mailbox. When the quota is exhausted, you can't create any more internet headers
+     * on that mailbox, which can result in unexpected behavior from clients that rely on this to function.
+     * 
+     * Apply the following guidelines when you create internet headers in your add-in.
+     * 
+     * - Create the minimum number of headers required.
+     * 
+     * - Name headers so that you can reuse and update their values later. As such, avoid naming headers in a variable manner
+     * (for example, based on user input, timestamp, etc.).
+     * 
      * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
      * 
      * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
@@ -17306,7 +17315,11 @@ declare namespace Excel {
     function getDataCommonPostprocess(response: any, callArgs: any): any;
     /**
      *
-     * Provides information about the binding that raised the SelectionChanged event.
+     * Provides information about the selection that raised the "SelectionChanged" event.
+     * 
+     * **Note**: If multiple, discontiguous cells are selected, 
+     * `Binding.onSelectionChanged` only reports row and column information for one selection.
+     * Use `Worksheet.onSelectionChanged` for multiple selected ranges.
      *
      * [Api set: ExcelApi 1.2]
      */
@@ -22098,8 +22111,12 @@ declare namespace Excel {
          */
         readonly onDataChanged: OfficeExtension.EventHandlers<Excel.BindingDataChangedEventArgs>;
         /**
-         *
+         * 
          * Occurs when the selected content in the binding is changed.
+         * 
+         * **Note**: If multiple, discontiguous cells are selected, 
+         * `Binding.onSelectionChanged` only reports row and column information for one selection. 
+         * Use `Worksheet.onSelectionChanged` for multiple selected ranges.
          *
          * [Api set: ExcelApi 1.2]
          *
@@ -67277,6 +67294,8 @@ declare namespace Word {
     /**
      *
      * Specifies the options to be included in a search operation.
+     * 
+     * To learn more about how to use search options in the Word JavaScript APIs, read {@link https://docs.microsoft.com/office/dev/add-ins/word/search-option-guidance | Use search options to find text in your Word add-in}.
      *
      * [Api set: WordApi 1.1]
      */

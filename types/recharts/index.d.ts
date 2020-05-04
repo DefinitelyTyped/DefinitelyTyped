@@ -20,6 +20,7 @@
 //                 Ville Kentta <https://github.com/vkentta>
 //                 Fabien Caylus <https://github.com/fcaylus>
 //                 Samuel Weckstrom <https://github.com/samuelweckstrom>
+//                 George Cheng <https://github.com/Gerhut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -49,7 +50,7 @@ export type ScaleType =
 export type PositionType =
     'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside' | 'insideLeft' | 'insideRight' |
     'insideTop' | 'insideBottom' | 'insideTopLeft' | 'insideBottomLeft' | 'insideTopRight' |
-    'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center';
+    'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center' | 'centerTop' | 'centerBottom';
 export type StackOffsetType = 'sign' | 'expand' | 'none' | 'wiggle' | 'silhouette';
 export type LineType =
     'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' |

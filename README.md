@@ -10,7 +10,7 @@
 
 * [Current status](#current-status)
 * [How can I contribute?](#how-can-i-contribute)
-    * [Test](#test)
+    * [Testing](#testing)
     * [Make a pull request](#make-a-pull-request)
         * [Edit an existing package](#edit-an-existing-package)
         * [Create a new package](#create-a-new-package)
@@ -29,6 +29,7 @@ It may be helpful for contributors experiencing any issues with their PRs and pa
 * All packages are type-checking/linting cleanly on typescript@next: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
 * All packages are being [published to npm](https://github.com/microsoft/types-publisher) in under an hour: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) has been active on DefinitelyTyped [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+* Current [infrastructure status updates](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
 
 If anything here seems wrong, or any of the above are failing, please raise an issue in [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
 
@@ -64,11 +65,11 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-#### Older versions of TypeScript (2.7 and earlier)
+#### Older versions of TypeScript (2.8 and earlier)
 
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
-Currently versions 2.8 and above are tested.
-If you're using TypeScript 2.0 to 2.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+Currently versions 2.9 and above are tested.
+If you're using TypeScript 2.0 to 2.8, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -85,6 +86,7 @@ Version | Released | End of Support
 3.6 | August 2019 | August 2021
 3.7 | November 2019 | November 2021
 3.8 | February 2020 | February 2022
+3.9 | May 2020 | May 2022
 
 `@types` packages have tags for versions of TypeScript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
 For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript 2.5 can use types for react@16.0, whereas TypeScript 2.6 and 2.7 can use types for react@16.4:
@@ -112,17 +114,16 @@ You may need to add manual [references](http://www.typescriptlang.org/docs/handb
 
 Definitely Typed only works because of contributions by users like you!
 
-### Test
+### Testing
 
 Before you share your improvement with the world, use it yourself.
 
 #### Test editing an existing package
 
-To add new features you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation).
-You can also directly edit the types in `node_modules/@types/foo/index.d.ts`, or copy them from there and follow the steps below.
+To test local to your app, you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to extend existing types from the DT module you want to work on.
+Alternatively, you can also edit the types directly in `node_modules/@types/foo/index.d.ts` to validate your changes, then bring the changes to this repo with the steps below.
 
-
-#### Test a new package
+#### Adding tests to a new package
 
 Add to your `tsconfig.json`:
 
@@ -131,10 +132,12 @@ Add to your `tsconfig.json`:
 "typeRoots": ["types"],
 ```
 
-(You can also use `src/types`.)
 Create `types/foo/index.d.ts` containing declarations for the module "foo".
 You should now be able to import from `"foo"` in your code and it will route to the new type definition.
 Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
+
+If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+
 Once you've tested your definitions with real code, make a [PR](#make-a-pull-request)
 then follow the instructions to [edit an existing package](#edit-an-existing-package) or
 [create a new package](#create-a-new-package).
@@ -167,6 +170,39 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
 If it doesn't, you can do so yourself in the comment associated with the PR.
 
+#### Editing tests on an existing package
+
+There should be a `[modulename]-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
+If you don't see any test files in the module's folder, create a `[modulename]-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/yourmodule`.
+
+Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
+If you don't see any test files in the module's folder, create a `[modulename]-tests.ts`
+
+For example, this change to a function in a `.d.ts` file adding an a new param to a function:
+
+`index.d.ts`:
+
+```diff
+- export function twoslash(body: string): string
++ export function twoslash(body: string, config?: { version: string }): string
+```
+
+`index-tests.ts`:
+```diff
+import {twoslash} from "./"
+
+// $ExpectType string
+const result = twoslash("//")
+
++ // Handle options param
++ const resultWithOptions = twoslash("//", { version: "3.7" })
++ // When the param is incorrect
++ // $ExpectError
++ const resultWithOptions = twoslash("//", {  })
+```
+
+You can validate your changes with `npm test` from the root of this repo, which takes changed files into account.
 
 #### Create a new package
 

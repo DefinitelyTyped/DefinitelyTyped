@@ -681,10 +681,10 @@ declare namespace Bull {
     removeRepeatableByKey(key: string): Promise<void>;
 
     /**
-     * Returns a promise that will return an array of job instances of the given types.
+     * Returns a promise that will return an array of job instances of the given job statuses.
      * Optional parameters for range and ordering are provided.
      */
-    getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
+    getJobs(types: JobStatus[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
 
     /**
      * Returns a object with the logs according to the start and end arguments. The returned count
@@ -698,9 +698,9 @@ declare namespace Bull {
     getJobCounts(): Promise<JobCounts>;
 
     /**
-     * Returns a promise that resolves with the job counts for the given queue of the given types.
+     * Returns a promise that resolves with the job counts for the given queue of the given job statuses.
      */
-    getJobCountByTypes(types: string[] | string): Promise<JobCounts>;
+    getJobCountByTypes(types: JobStatus[] | JobStatus): Promise<JobCounts>;
 
     /**
      * Returns a promise that resolves with the quantity of completed jobs.

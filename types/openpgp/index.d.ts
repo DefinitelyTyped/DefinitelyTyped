@@ -7,6 +7,7 @@
 //                 Eric Camellini <https://github.com/ecamellini>
 //                 SardineFish <https://github.com/SardineFish>
 //                 Ryo Ota <https://github.com/nwtgck>
+//                 Sergey Bakulin <https://github.com/vansergen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 import BN = require('bn.js');
@@ -99,7 +100,7 @@ export namespace cleartext {
      * @param armoredText text to be parsed
      * @returns new cleartext message object
      */
-    function readArmored(armoredText: string | ReadableStream<String>): CleartextMessage;
+    function readArmored(armoredText: string | ReadableStream<String>): Promise<CleartextMessage>;
 
     /**
      * Creates a new CleartextMessage object from text
@@ -1033,7 +1034,6 @@ export namespace encoding {
         /**
          * Add additional information to the armor version of an OpenPGP binary
          * packet block.
-         * @author Alex
          * @version 2011-12-16
          * @param customComment (optional) additional comment to add to the armored string
          * @returns The header information
@@ -1775,13 +1775,13 @@ export namespace key {
          * When `capabilities` is null, defaults to returning the expiry date of the primary key.
          * Returns null if `capabilities` is passed and the key does not have the specified capabilities or is revoked or invalid.
          * Returns Infinity if the key doesn't expire.
-         * @param {encrypt | sign | encrypt_sign} capabilities, optional
+         * @param capabilities, optional
          * @param keyId, optional
          * @param userId, optional user ID
          * @returns
          */
         getExpirationTime(
-            capabilities?: any,
+            capabilities?: "encrypt" | "sign" | "encrypt_sign",
             keyId?: type.keyid.Keyid,
             userId?: object,
         ): Promise<Date | Infinity | null>;
@@ -2218,13 +2218,13 @@ export namespace key {
 
     /**
      * Returns the preferred symmetric/aead algorithm for a set of keys
-     * @param {symmetric | aead} type Type of preference to return
+     * @param type Type of preference to return
      * @param keys Set of keys
      * @param date (optional) use the given date for verification instead of the current time
      * @param userIds (optional) user IDs
      * @returns Preferred symmetric algorithm
      */
-    function getPreferredAlgo(type: any, keys: any[], date: Date, userIds: any[]): Promise<enums.symmetric>;
+    function getPreferredAlgo(type: "symmetric" | "aead", keys: any[], date: Date, userIds: any[]): Promise<enums.symmetric>;
 
     /**
      * Returns whether aead is supported by all keys in the set
@@ -2820,24 +2820,24 @@ export namespace message {
      * @param text
      * @param filename (optional)
      * @param date (optional)
-     * @param {utf8 | binary | text | mime} type (optional) data packet type
+     * @param type (optional) data packet type
      * @returns new message object
      */
-    function fromText(text: string | ReadableStream<String>, filename?: string, date?: Date, type?: any): Message;
+    function fromText(text: string | ReadableStream<String>, filename?: string, date?: Date, type?: "utf8" | "binary" | "text" | "mime"): Message;
 
     /**
      * creates new message object from binary data
      * @param bytes
      * @param filename (optional)
      * @param date (optional)
-     * @param {utf8 | binary | text | mime} type (optional) data packet type
+     * @param type (optional) data packet type
      * @returns new message object
      */
     function fromBinary(
         bytes: Uint8Array | ReadableStream<Uint8Array>,
         filename?: string,
         date?: Date,
-        type?: any,
+        type?: "utf8" | "binary" | "text" | "mime",
     ): Message;
 }
 
@@ -2895,7 +2895,6 @@ export namespace packet {
 
         /**
          * Compression algorithm
-         * @type {compression}
          */
         algorithm: any;
 
@@ -2942,9 +2941,9 @@ export namespace packet {
          * Set the packet data to a javascript native string, end of line
          * will be normalized to \r\n and by default text is converted to UTF8
          * @param text Any native javascript string
-         * @param {utf8 | binary | text | mime} format (optional) The format of the string of bytes
+         * @param format (optional) The format of the string of bytes
          */
-        setText(text: string | ReadableStream<String>, format: any): void;
+        setText(text: string | ReadableStream<String>, format?: "utf8" | "binary" | "text" | "mime"): void;
 
         /**
          * Returns literal data packets as native JavaScript string
@@ -2957,9 +2956,9 @@ export namespace packet {
         /**
          * Set the packet data to value represented by the provided string of bytes.
          * @param bytes The string of bytes
-         * @param {utf8 | binary | text | mime} format The format of the string of bytes
+         * @param format The format of the string of bytes
          */
-        setBytes(bytes: Uint8Array | ReadableStream<Uint8Array>, format: any): void;
+        setBytes(bytes: Uint8Array | ReadableStream<Uint8Array>, format: "utf8" | "binary" | "text" | "mime"): void;
 
         /**
          * Get the byte sequence representing the literal packet data
@@ -3903,14 +3902,14 @@ export namespace packet {
 
         /**
          * En/decrypt the payload.
-         * @param {encrypt | decrypt} fn Whether to encrypt or decrypt
+         * @param fn Whether to encrypt or decrypt
          * @param key The session key used to en/decrypt the payload
          * @param data The data to en/decrypt
          * @param streaming Whether the top-level function will return a stream
          * @returns
          */
         crypt(
-            fn: any,
+            fn: "encrypt" | "decrypt",
             key: Uint8Array,
             data: Uint8Array | ReadableStream<Uint8Array>,
             streaming: boolean,

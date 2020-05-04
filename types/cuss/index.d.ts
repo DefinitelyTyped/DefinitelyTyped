@@ -1,4 +1,4 @@
-// Type definitions for cuss 1.18
+// Type definitions for cuss 1.19
 // Project: https://github.com/words/cuss#readme
 // Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

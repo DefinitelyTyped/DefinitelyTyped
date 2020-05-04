@@ -137,10 +137,10 @@ export const eachOf: typeof forEachOf;
 export const eachOfSeries: typeof forEachOf;
 export const eachOfLimit: typeof forEachOfLimit;
 export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>, callback: AsyncResultArrayCallback<R, E>): void;
-export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>): Promise<R>;
+export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>): Promise<R[]>;
 export const mapSeries: typeof map;
 export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback: AsyncResultArrayCallback<R, E>): void;
-export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>): Promise<R>;
+export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>): Promise<R[]>;
 
 export function mapValuesLimit<T, R, E = Error>(
     obj: Dictionary<T>,

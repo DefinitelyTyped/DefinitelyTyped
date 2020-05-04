@@ -33,7 +33,7 @@ export interface MapStore {
     getSourceMapSync(filePath: string): any;
     addInputSourceMapsSync(coverageData: any): void;
     sourceFinder(filePath: string): string;
-    transformCoverage(coverageMap: CoverageMap): CoverageMap;
+    transformCoverage(coverageMap: CoverageMap): Promise<CoverageMap>;
     dispose(): void;
 }
 

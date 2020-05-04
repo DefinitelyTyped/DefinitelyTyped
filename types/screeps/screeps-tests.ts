@@ -749,6 +749,15 @@ function resources(o: GenericStore): ResourceConstant[] {
     creep.withdraw(tombstone, RESOURCE_ENERGY);
 }
 
+// Ruin
+
+{
+    const ruin = room.find(FIND_RUINS)[0];
+
+    creep.withdraw(ruin, RESOURCE_ENERGY);
+    powerCreep.withdraw(ruin, RESOURCE_ENERGY);
+}
+
 {
     if (Game.cpu.hasOwnProperty("getHeapStatistics")) {
         const heap = Game.cpu.getHeapStatistics!();

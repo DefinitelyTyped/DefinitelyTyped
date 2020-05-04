@@ -9,5 +9,7 @@ async function run() {
   collection.stats((err: MongoError, stats: CollStats) => {});
 
   const stats = await collection.stats();
-  stats.wiredTiger.cache['bytes currently in the cache']; // $ExpectType number
+  if (stats.wiredTiger) {
+    stats.wiredTiger.cache['bytes currently in the cache']; // $ExpectType number
+  }
 }

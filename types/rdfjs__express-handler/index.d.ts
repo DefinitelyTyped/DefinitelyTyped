@@ -1,4 +1,4 @@
-// Type definitions for @rdfjs/express-handler 1.0
+// Type definitions for @rdfjs/express-handler 1.1
 // Project: https://github.com/rdfjs-base/express-handler
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,10 +19,15 @@ declare module 'express' {
     }
 }
 
+interface BaseIriFromRequest {
+    (req: Request): Promise<string> | string;
+}
+
 interface RdfHandlerOptions {
     factory?: DatasetCoreFactory;
     formats?: typeof formats;
     defaultMediaType?: string;
+    baseIriFromRequest?: boolean | BaseIriFromRequest;
 }
 
 interface RdfHandler {

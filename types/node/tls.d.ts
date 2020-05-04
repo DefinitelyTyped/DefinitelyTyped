@@ -38,12 +38,13 @@ declare module "tls" {
         subject: Certificate;
         issuer: Certificate;
         subjectaltname: string;
-        infoAccess: { [index: string]: string[] | undefined };
+        infoAccess: NodeJS.Dict<string[]>;
         modulus: string;
         exponent: string;
         valid_from: string;
         valid_to: string;
         fingerprint: string;
+        fingerprint256: string;
         ext_key_usage: string[];
         serialNumber: string;
         raw: Buffer;

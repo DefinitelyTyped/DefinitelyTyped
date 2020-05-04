@@ -1,11 +1,11 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps {
-    id?: ReactAttr["id"],
+interface InheritedProps extends ReactDivAttr { }
+
+export interface ToggleSmallSkeletonProps extends InheritedProps {
+    labelText?: string,
 }
-
-export interface ToggleSmallSkeletonProps extends InheritedProps { }
 
 declare class ToggleSmallSkeleton extends React.Component<ToggleSmallSkeletonProps> { }
 

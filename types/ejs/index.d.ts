@@ -119,7 +119,7 @@ export let closeDelimiter: string;
  *
  * @default '%'
  */
-export let delimiter: string;
+export let delimiter: string | undefined;
 
 /**
  * Promise implementation -- defaults to the native implementation if available
@@ -377,9 +377,8 @@ export interface Options {
 	closeDelimiter?: string;
 
 	/**
-	 * The delimiter used in template compilation.
-	 *
-	 * @default ejs.delimiter
+	 * Character to use with angle brackets for open/close
+	 * @default '%'
 	 */
 	delimiter?: string;
 

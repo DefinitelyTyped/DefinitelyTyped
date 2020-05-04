@@ -411,7 +411,7 @@ declare namespace Dockerode {
         Name: string;
         EndpointID: string;
         MacAddress: string;
-        Ipv4Address: string;
+        IPv4Address: string;
         IPv6Address: string;
     }
 
@@ -932,12 +932,14 @@ declare namespace Dockerode {
         socketPath?: string;
         host?: string;
         port?: number | string;
+        username?: string;
         ca?: string | string[] | Buffer | Buffer[];
         cert?: string | string[] | Buffer | Buffer[];
         key?: string | string[] | Buffer | Buffer[] | KeyObject[];
-        protocol?: 'https' | 'http';
+        protocol?: 'https' | 'http' | 'ssh';
         timeout?: number;
         version?: string;
+        sshAuthAgent?: string;
         Promise?: typeof Promise;
     }
 

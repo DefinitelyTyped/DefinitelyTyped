@@ -63,11 +63,11 @@ export class Identify {
     /** Append a value or values to a user property */
     append(key: string, value: number | string | any[] | object): Identify;
     /** Prepend a value or values to a user property */
-    prepend(key: string, value: number | string | any[] | object): Identify;
+    prepend(key: string, value: boolean | number | string | any[] | object): Identify;
     /** Sets the value of a given user property */
-    set(key: string, value: number | string | any[] | object): Identify;
+    set(key: string, value: boolean | number | string | any[] | object): Identify;
     /** Sets the value of a given user property only once */
-    setOnce(key: string, value: number | string | any[] | object): Identify;
+    setOnce(key: string, value: boolean | number | string | any[] | object): Identify;
     /** Unset and remove a user property */
     unset(key: string): Identify;
 }
