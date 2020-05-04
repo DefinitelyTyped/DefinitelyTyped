@@ -4,6 +4,7 @@ import {
     createHashHistory,
     createLocation,
     Location,
+    LocationDescriptor,
     History,
     MemoryHistory,
 } from 'history';
@@ -42,6 +43,15 @@ let input = { value: '' };
 
     // Change just the search on an existing location.
     history.push({ pathname: location.pathname, search: '?the=other+search' });
+
+    // Function parameter allows testing of ambiguous location type (i.e. either string or object)
+    (location: LocationDescriptor<{ some: 'state' }>) => {
+        // Push a new entry of ambiguous type
+        history.push(location);
+
+        // Replace the current entry with one of ambiguous type
+        history.replace(location);
+    };
 
     // Go back to the previous history entry. The following
     // two lines are synonymous.
