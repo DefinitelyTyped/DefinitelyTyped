@@ -110,7 +110,6 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     initialValues?: Partial<FormData>;
     keepDirtyOnReinitialize?: boolean;
     updateUnregisteredFields?: boolean;
-    submitAsSideEffect: boolean;
     keepValues?: boolean;
     onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: DecoratedFormProps<FormData, P, ErrorType>, previousValues: Partial<FormData>): void;
     onSubmit?: FormSubmitHandler<FormData, P, ErrorType> | SubmitHandler<FormData, P, ErrorType>;
