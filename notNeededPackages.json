@@ -3043,6 +3043,12 @@
             "asOfVersion": "0.7.6"
         },
         {
+            "libraryName": "node-vault",
+            "typingsPackageName": "node-vault",
+            "sourceRepoURL": "https://github.com/kr1sp1n/node-vault",
+            "asOfVersion": "0.9.13"
+        },
+        {
             "libraryName": "nookies",
             "typingsPackageName": "nookies",
             "sourceRepoURL": "https://github.com/maticzav/nookies#readme",
