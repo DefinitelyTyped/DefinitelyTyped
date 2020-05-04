@@ -1100,7 +1100,7 @@ const VirtualizedListTest = () => {
     }
 
     const getItemCount = (data: number[]) => data.length;
-    
+
     return (
         <VirtualizedList
             data={DATA}
