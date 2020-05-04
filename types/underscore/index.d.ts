@@ -4134,7 +4134,7 @@ declare module _ {
         /**
         * @see _.each
         **/
-        each(iterator: _.ObjectIterator<T, void>, context?: any): _.List<T>;
+        each(iterator: _.ObjectIterator<T, void>, context?: any): _.Dictionary<T>;
 
         /**
         * @see _.each
@@ -4144,7 +4144,7 @@ declare module _ {
         /**
         * @see _.each
         **/
-        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _.List<T>;
+        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _.Dictionary<T>;
 
         /**
         * Wrapped type `any[]`.
