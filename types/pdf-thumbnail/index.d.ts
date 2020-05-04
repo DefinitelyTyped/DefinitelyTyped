@@ -4,34 +4,41 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-export type Operations = 'compress' | 'crop' | 'resize';
+declare namespace pdf {
+    type Operations = 'compress' | 'crop' | 'resize';
 
-export interface CompressParams {
-    type?: string;
-    quality?: number;
+    interface CompressParams {
+        type?: string;
+        quality?: number;
+    }
+
+    interface CropParams {
+        width: number;
+        height: number;
+        x: number;
+        y: number;
+        ratio?: boolean;
+    }
+
+    interface ResizeParams {
+        width?: number;
+        height?: number;
+    }
+
+    interface OperationsParams {
+        compress: CompressParams;
+        crop: CropParams;
+        resize: ResizeParams;
+    }
+
+    type PDFThumbnailOptions = {
+        [op in Operations]?: OperationsParams[op];
+    };
 }
 
-export interface CropParams {
-    width: number;
-    height: number;
-    x: number;
-    y: number;
-    ratio?: boolean;
-}
+declare function pdf(
+    body: NodeJS.ReadableStream | Buffer | string,
+    options?: pdf.PDFThumbnailOptions,
+): Promise<NodeJS.ReadableStream>;
 
-export interface ResizeParams {
-    width?: number;
-    height?: number;
-}
-
-export interface OperationsParams {
-    compress: CompressParams;
-    crop: CropParams;
-    resize: ResizeParams;
-}
-
-export type PDFThumbnailOptions = {
-    [op in Operations]?: OperationsParams[op];
-};
-
-export default function pdf(body: NodeJS.ReadableStream | Buffer | string, options?: PDFThumbnailOptions): Promise<NodeJS.ReadableStream>;
+export = pdf;
