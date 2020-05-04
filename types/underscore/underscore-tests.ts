@@ -872,9 +872,8 @@ namespace TestSample {
     let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
     let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
 
-    // at some point it would be nice to remove <T> from sample<T>(...) in Underscore<T, V = T> and Chain<T, V = T>
-    // so they can use the interface's T instead of having their own separate T that has to be specified
-    // also, ideally all versions of sample without n should include undefined as a possible result
+    // ideally all versions of sample without n should include undefined as a possible result since _.sample([]) yields undefined
+    // also, ideally _Chain.sample should be updated to return _ChainSingle<T | undefined>
 
     // without n
     {
@@ -1064,8 +1063,7 @@ namespace TestFirst {
     let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
     let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
 
-    // at some point it would be nice to remove <T> from sample<T>(...) in Underscore<T, V = T> and Chain<T, V = T>
-    // so they can use the interface's T instead of having their own separate T that has to be specified
+    // ideally _Chain.head and _Chain.take should be updated to return _ChainSingle<T | undefined> like _Chain.first correctly does
 
     // without n
     {
@@ -1291,9 +1289,6 @@ namespace TestInitial {
     let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
     let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
 
-    // at some point it would be nice to remove <T> from sample<T>(...) in Underscore<T, V = T> and Chain<T, V = T>
-    // so they can use the interface's T instead of having their own separate T that has to be specified
-
     // without n
     {
         let result: _.List<{ a: string }>;
@@ -1386,9 +1381,6 @@ namespace TestLast {
     let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
     let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
 
-    // at some point it would be nice to remove <T> from sample<T>(...) in Underscore<T, V = T> and Chain<T, V = T>
-    // so they can use the interface's T instead of having their own separate T that has to be specified
-
     // without n
     {
         let result: { a: string } | undefined;
@@ -1480,9 +1472,6 @@ namespace TestRest {
     let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
     let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
     let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-
-    // at some point it would be nice to remove <T> from sample<T>(...) in Underscore<T, V = T> and Chain<T, V = T>
-    // so they can use the interface's T instead of having their own separate T that has to be specified
 
     // without n
     {
