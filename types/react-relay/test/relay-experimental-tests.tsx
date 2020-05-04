@@ -339,8 +339,8 @@ function ArrayOfNullableFragment() {
  */
 function RefetchableFragment() {
     interface CommentBodyRefetchQueryVariables {
-        lang?: string | null;
-        id?: string | null;
+        lang: string;
+        id: string;
     }
     interface CommentBodyRefetchQueryResponse {
         readonly node: {
