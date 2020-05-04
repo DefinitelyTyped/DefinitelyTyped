@@ -41,8 +41,6 @@ export interface ParamsDictionary { [key: string]: string; }
 export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
 
-// Return type of qs.parse, the default query parser (https://expressjs.com/en/api.html#app-settings-property).
-
 export interface RequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2
     (req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction): any;
