@@ -98,6 +98,7 @@ import {
     useColorScheme,
     DevSettings,
     VirtualizedList,
+    ListRenderItemInfo,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -1105,7 +1106,7 @@ const VirtualizedListTest = () => {
         <VirtualizedList
             data={DATA}
             initialNumToRender={4}
-            renderItem={({ item }) => <Text>{item.title}</Text>}
+            renderItem={({ item }: ListRenderItemInfo<ReturnType<typeof getItem>>) => <Text>{item.title}</Text>}
             getItemCount={getItemCount}
             getItem={getItem}
         />
