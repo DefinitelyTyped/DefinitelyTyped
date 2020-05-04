@@ -4114,6 +4114,7 @@ declare module _ {
         * @return Wrapped `obj`.
         **/
         chain<T>(obj: T[]): _Chain<T, T[]>;
+        chain<T>(obj: _.List<T>): _Chain<T, _.List<T>>;
         chain<T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(obj: V): _Chain<T, V>;
         chain<T extends {}>(obj: T): _Chain<T>;
     }
