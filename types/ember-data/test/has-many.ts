@@ -62,11 +62,11 @@ class Polymorphic extends DS.Model {
     paymentMethods = DS.hasMany('payment-method', { polymorphic: true });
 }
 // when used as cp
-// $ExpectType ManyArray<BlogComment> | null
+// $ExpectType ManyArray<any> | null
 blogPost.hasMany('commentsAsync').value();
 
 // when used as decorator
-// $ExpectType ManyArray<BlogComment> | null
+// $ExpectType ManyArray<any> | null
 blogPost.hasMany('archivedComments').value();
 
 // $ExpectType "ids" | "link"

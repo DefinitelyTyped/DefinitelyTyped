@@ -25,18 +25,6 @@ type ModelKeys<Model extends DS.Model> = Exclude<keyof Model, keyof DS.Model>;
 type AttributesFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to attr properties only (TS 2.8)
 type RelationshipsFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)
 
-// infer the generic type of hasMany when used as computed or decorator
-type UnpackManyArray<T> =
-    T extends DS.ManyArray<infer X> ? X :
-    T extends DS.PromiseManyArray<infer Y> ? Y :
-    T extends Ember.ComputedProperty<DS.PromiseManyArray<infer Z>, any> ? Z :
-    T;
-
-// used to infer the generic type of belongsTo when used as computed or decorator
-type UnpackComputedProperty<T> =
-    T extends Ember.ComputedProperty<infer Y> ? Y:
-    T;
-
 export interface ChangedAttributes {
     [key: string]: [any, any] | undefined;
 }
@@ -558,11 +546,11 @@ export namespace DS {
         /**
          * Get the reference for the specified belongsTo relationship.
          */
-        belongsTo<T extends keyof this = RelationshipsFor<this>>(name: T): BelongsToReference<UnpackComputedProperty<this[T]>>;
+        belongsTo(name: RelationshipsFor<this>): BelongsToReference<any>;
         /**
          * Get the reference for the specified hasMany relationship.
          */
-        hasMany<T extends keyof this = RelationshipsFor<this>>(name: T): HasManyReference<UnpackManyArray<this[T]>>;
+        hasMany(name: RelationshipsFor<this>): HasManyReference<any>;
         /**
          * Given a callback, iterates over each of the relationships in the model,
          * invoking the callback with the name of each relationship and its relationship

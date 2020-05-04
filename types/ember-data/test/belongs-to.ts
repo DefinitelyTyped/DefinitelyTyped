@@ -35,11 +35,14 @@ folder.set('parent', folder.get('parent'));
 folder.set('parent', store.findRecord('folder', 3));
 
 // when used as cp
-// $ExpectType Folder | null
+// $ExpectType any
 folder.belongsTo('parent').value();
 
+// $ExpectType Folder | null
+(folder.belongsTo('parent') as DS.BelongsToReference<Folder>).value();
+
 // when used as decorator
-// $ExpectType Icon | null
+// $ExpectType any
 folder.belongsTo('icon').value();
 
 // $ExpectType "id" | "link"
