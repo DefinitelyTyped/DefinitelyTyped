@@ -65,6 +65,6 @@ declare namespace QueryString {
     type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
     function stringify(obj: any, options?: IStringifyOptions): string;
-    function parse(str: string, options?: Omit<IParseOptions, 'decoder'>): ParsedQs;
+    function parse(str: string, options?: Omit<IParseOptions, 'decoder'> & { decoder?: never }): ParsedQs;
     function parse(str: string, options?: IParseOptions): { [key: string]: PoorMansUnknown };
 }

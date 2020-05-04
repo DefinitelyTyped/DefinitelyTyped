@@ -30,6 +30,20 @@ qs.parse('a=b&c=d', { delimiter: '&' });
     obj.a; // $ExpectType PoorMansUnknown
 }
 
+{
+    const options: qs.IParseOptions = {
+        decoder: (str, defaultDecoder, charset, type) => {
+            switch (type) {
+                case 'key': return str;
+                case 'value': return parseFloat(str);
+            }
+        },
+    };
+    let obj = qs.parse('a=c', options);
+    obj; // $ExpectType { [key: string]: PoorMansUnknown; }
+    obj.a; // $ExpectType PoorMansUnknown
+}
+
 () => {
     var plainObject = qs.parse('a[hasOwnProperty]=b', { plainObjects: true });
     assert.deepEqual(plainObject, { a: { hasOwnProperty: 'b' } });
