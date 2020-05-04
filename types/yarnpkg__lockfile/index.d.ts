@@ -1,6 +1,7 @@
 // Type definitions for @yarnpkg/lockfile 1.0.2
 // Project: https://github.com/yarnpkg/yarn/tree/master/packages/lockfile
-// Definitions by: Eric Wang <https://github.com/fa93hws> - rigwild <https://github.com/rigwild>
+// Definitions by: Eric Wang <https://github.com/fa93hws>
+//                 rigwild <https://github.com/rigwild>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Dependency {
