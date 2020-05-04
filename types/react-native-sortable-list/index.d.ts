@@ -1,4 +1,4 @@
-// Type definitions for react-native-sortable-list 0.0.24
+// Type definitions for react-native-sortable-list 0.0
 // Project: https://github.com/gitim/react-native-sortable-list
 // Definitions by: Michael Sivolobov <https://github.com/sivolobov>
 //                 Vince Maiuri <https://github.com/RookY2K>
@@ -87,7 +87,7 @@ interface SortableListProps<T, K> {
      *  - 'handled', the keyboard will not dismiss automatically when the tap was handled by a children,
      *    (or captured by an ancestor).
      */
-    keyboardShouldPersistTaps?: 'never' | 'always' | 'handled',
+    keyboardShouldPersistTaps?: 'never' | 'always' | 'handled';
 
     /**
      * whether you intend to use the toggleRowActive method to activate a row or use the out of box solution.
