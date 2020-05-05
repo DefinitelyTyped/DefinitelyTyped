@@ -1388,19 +1388,19 @@ declare namespace Office {
      */
     interface OfficeTheme {
         /**
-         * Gets the Office theme body background color as a hexadecimal color triplet (e.g. "FFA500").
+         * Gets the Office theme body background color as a hexadecimal color triplet (e.g., "FFA500").
          */
         bodyBackgroundColor: string;
         /**
-         * Gets the Office theme body foreground color as a hexadecimal color triplet (e.g. "FFA500").
+         * Gets the Office theme body foreground color as a hexadecimal color triplet (e.g., "FFA500").
          */
         bodyForegroundColor: string;
         /**
-         * Gets the Office theme control background color as a hexadecimal color triplet (e.g. "FFA500").
+         * Gets the Office theme control background color as a hexadecimal color triplet (e.g., "FFA500").
          */
         controlBackgroundColor: string;
         /**
-         * Gets the Office theme control foreground color as a hexadecimal color triplet (e.g. "FFA500").
+         * Gets the Office theme control foreground color as a hexadecimal color triplet (e.g., "FFA500").
          */
         controlForegroundColor: string;
     }
@@ -15496,7 +15496,7 @@ declare namespace Office {
          */
         days?: MailboxEnums.Days[] | string[];
         /**
-         * Represents the number of the week in the selected month e.g. 'first' for first week of the month.
+         * Represents the number of the week in the selected month e.g., 'first' for first week of the month.
          */
         weekNumber?: MailboxEnums.WeekNumber | string;
         /**
@@ -19914,7 +19914,7 @@ declare namespace Excel {
         readonly worksheet: Excel.Worksheet;
         /**
          *
-         * Specifies the range reference in A1-style. Address value will contain the Sheet reference (e.g. "Sheet1!A1:B4").
+         * Specifies the range reference in A1-style. Address value will contain the Sheet reference (e.g., "Sheet1!A1:B4").
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -20814,7 +20814,7 @@ declare namespace Excel {
         readonly worksheet: Excel.Worksheet;
         /**
          *
-         * Returns the RangeAreas reference in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g. "Sheet1!A1:B4, Sheet1!D1:D4").
+         * Returns the RangeAreas reference in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g., "Sheet1!A1:B4, Sheet1!D1:D4").
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -23797,7 +23797,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * HTML color code representing the color of the background, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
+         * HTML color code representing the color of the background, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange")
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -23812,7 +23812,7 @@ declare namespace Excel {
         pattern: Excel.FillPattern | "None" | "Solid" | "Gray50" | "Gray75" | "Gray25" | "Horizontal" | "Vertical" | "Down" | "Up" | "Checker" | "SemiGray75" | "LightHorizontal" | "LightVertical" | "LightDown" | "LightUp" | "Grid" | "CrissCross" | "Gray16" | "Gray8" | "LinearGradient" | "RectangularGradient";
         /**
          *
-         * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g. "FFA500").
+         * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g., "FFA500").
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -23891,7 +23891,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+         * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -24058,7 +24058,7 @@ declare namespace Excel {
         bold: boolean;
         /**
          *
-         * HTML color code representation of the text color. E.g. #FF0000 represents Red.
+         * HTML color code representation of the text color. e.g., #FF0000 represents Red.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -24072,7 +24072,7 @@ declare namespace Excel {
         italic: boolean;
         /**
          *
-         * Font name (e.g. "Calibri")
+         * Font name (e.g., "Calibri")
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -25382,14 +25382,14 @@ declare namespace Excel {
         hasDataLabel: boolean;
         /**
          *
-         * HTML color code representation of the marker background color of data point. E.g. #FF0000 represents Red.
+         * HTML color code representation of the marker background color of data point. e.g., #FF0000 represents Red.
          *
          * [Api set: ExcelApi 1.7]
          */
         markerBackgroundColor: string;
         /**
          *
-         * HTML color code representation of the marker foreground color of data point. E.g. #FF0000 represents Red.
+         * HTML color code representation of the marker foreground color of data point. e.g., #FF0000 represents Red.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -26906,7 +26906,7 @@ declare namespace Excel {
         height: number;
         /**
          *
-         * Specifies the left, in points, of a the legend on the chart. Null if legend is not visible.
+         * Specifies the left, in points, of the legend on the chart. Null if legend is not visible.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -27583,7 +27583,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.1]
          *
-         * @param color HTML color code representing the color of the background, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+         * @param color HTML color code representing the color of the background, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
          */
         setSolidColor(color: string): void;
         /**
@@ -27950,7 +27950,7 @@ declare namespace Excel {
         bold: boolean;
         /**
          *
-         * HTML color code representation of the text color. E.g. #FF0000 represents Red.
+         * HTML color code representation of the text color. e.g., #FF0000 represents Red.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -27964,14 +27964,14 @@ declare namespace Excel {
         italic: boolean;
         /**
          *
-         * Font name (e.g. "Calibri")
+         * Font name (e.g., "Calibri")
          *
          * [Api set: ExcelApi 1.1]
          */
         name: string;
         /**
          *
-         * Size of the font (e.g. 11)
+         * Size of the font (e.g., 11)
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -29040,7 +29040,7 @@ declare namespace Excel {
          * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
                      For example ">50" for number greater than 50 or "=*s" for values ending in "s".
                     
-                     Used as a number in the case of top/bottom items/percents. E.g. "5" for the top 5 items if filterOn is set to "topItems"
+                     Used as a number in the case of top/bottom items/percents. e.g., "5" for the top 5 items if filterOn is set to "topItems"
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -29234,7 +29234,7 @@ declare namespace Excel {
         readonly numberFormat: Excel.NumberFormatInfo;
         /**
          *
-         * Gets the culture name in the format languagecode2-country/regioncode2 (e.g. "zh-cn" or "en-us"). This is based on current system settings.
+         * Gets the culture name in the format languagecode2-country/regioncode2 (e.g., "zh-cn" or "en-us"). This is based on current system settings.
          *
          * [Api set: ExcelApi 1.11]
          */
@@ -29341,7 +29341,7 @@ declare namespace Excel {
     /**
      *
      * A scoped collection of custom XML parts.
-                A scoped collection is the result of some operation, e.g. filtering by namespace.
+                A scoped collection is the result of some operation, e.g., filtering by namespace.
                 A scoped collection cannot be scoped any further.
      *
      * [Api set: ExcelApi 1.5]
@@ -30772,7 +30772,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param sortBy Specifies if the sorting is done in an ascending or descending order.
+         * @param sortBy Specifies if the sorting is done in ascending or descending order.
          */
         sortByLabels(sortBy: SortBy): void;
         /**
@@ -30781,7 +30781,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param sortBy Specifies if the sorting is done in an ascending or descending order.
+         * @param sortBy Specifies if the sorting is done in ascending or descending order.
          * @param valuesHierarchy Specifies the values hierarchy on the data axis to be used for sorting.
          * @param pivotItemScope The items that should be used for the scope of the sorting. These will be the
                     items that make up the row or column that you want to sort on. If a string is used instead of a PivotItem,
@@ -30795,7 +30795,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param sortBy Specifies if the sorting is done in an ascending or descending order.
+         * @param sortBy Specifies if the sorting is done in ascending or descending order.
          * @param valuesHierarchy Specifies the values hierarchy on the data axis to be used for sorting.
          * @param pivotItemScope The items that should be used for the scope of the sorting. These will be the
                     items that make up the row or column that you want to sort on. If a string is used instead of a PivotItem,
@@ -31833,7 +31833,7 @@ declare namespace Excel {
         readonly positiveFormat: Excel.ConditionalDataBarPositiveFormat;
         /**
          *
-         * HTML color code representing the color of the Axis line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+         * HTML color code representing the color of the Axis line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
                     "" (empty string) if no axis is present or set.
          *
          * [Api set: ExcelApi 1.6]
@@ -31928,7 +31928,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+         * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
                     "" (empty string) if no border is present or set.
          *
          * [Api set: ExcelApi 1.6]
@@ -31936,7 +31936,7 @@ declare namespace Excel {
         borderColor: string;
         /**
          *
-         * HTML color code representing the fill color, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+         * HTML color code representing the fill color, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -32000,7 +32000,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+         * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
                     "Empty String" if no border is present or set.
          *
          * [Api set: ExcelApi 1.6]
@@ -32008,7 +32008,7 @@ declare namespace Excel {
         borderColor: string;
         /**
          *
-         * HTML color code representing the fill color, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+         * HTML color code representing the fill color, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -32441,7 +32441,7 @@ declare namespace Excel {
     interface ConditionalColorScaleCriterion {
         /**
          *
-         * HTML color code representation of the color scale color. E.g. #FF0000 represents Red.
+         * HTML color code representation of the color scale color. e.g., #FF0000 represents Red.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -32901,7 +32901,7 @@ declare namespace Excel {
         bold: boolean;
         /**
          *
-         * HTML color code representation of the text color. E.g. #FF0000 represents Red.
+         * HTML color code representation of the text color. e.g., #FF0000 represents Red.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -32985,7 +32985,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * HTML color code representing the color of the fill, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+         * HTML color code representing the color of the fill, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -33048,7 +33048,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+         * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -34893,14 +34893,14 @@ declare namespace Excel {
     interface CommentRichContent {
         /**
          *
-         * An array containing all the entities (e.g. people) mentioned within the comment.
+         * An array containing all the entities (e.g., people) mentioned within the comment.
          *
          * [Api set: ExcelApi 1.11]
          */
         mentions?: Excel.CommentMention[];
         /**
          *
-         * Specifies the rich content of the comment (e.g. comment content with mentions, the first mentioned entity has an id attribute of 0, and the second mentioned entity has an id attribute of 1.
+         * Specifies the rich content of the comment (e.g., comment content with mentions, the first mentioned entity has an id attribute of 0, and the second mentioned entity has an id attribute of 1.
          *
          * [Api set: ExcelApi 1.11]
          */
@@ -35052,7 +35052,7 @@ declare namespace Excel {
         readonly id: string;
         /**
          *
-         * Gets the entities (e.g. people) that are mentioned in comments.
+         * Gets the entities (e.g., people) that are mentioned in comments.
          *
          * [Api set: ExcelApi 1.11]
          */
@@ -35066,7 +35066,7 @@ declare namespace Excel {
         resolved: boolean;
         /**
          *
-         * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+         * Gets the rich comment content (e.g., mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
          *
          * [Api set: ExcelApi 1.11]
          */
@@ -35148,7 +35148,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.10]
          *
-         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, 1.11 for CommentRichContent object]
+         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g., for comments with mentions). [Api set: ExcelApi 1.10 for string, 1.11 for CommentRichContent object]
          * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, 1.11 for Enum ContentType.Mention]
          */
         add(content: CommentRichContent | string, contentType?: Excel.ContentType): Excel.CommentReply;
@@ -35157,7 +35157,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.10]
          *
-         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g. for comments with mentions). [Api set: ExcelApi 1.10 for string, 1.11 for CommentRichContent object]
+         * @param content The comment's content. This can be either a string or Interface CommentRichContent (e.g., for comments with mentions). [Api set: ExcelApi 1.10 for string, 1.11 for CommentRichContent object]
          * @param contentType Optional. The type of content contained within the comment. The default value is enum `ContentType.Plain`. [Api set: ExcelApi 1.10 for Enum ContentType.Plain, 1.11 for Enum ContentType.Mention]
          */
         add(content: CommentRichContent | string, contentType?: "Plain" | "Mention"): Excel.CommentReply;
@@ -35253,7 +35253,7 @@ declare namespace Excel {
         readonly id: string;
         /**
          *
-         * The entities (e.g. people) that are mentioned in comments.
+         * The entities (e.g., people) that are mentioned in comments.
          *
          * [Api set: ExcelApi 1.11]
          */
@@ -35267,7 +35267,7 @@ declare namespace Excel {
         readonly resolved: boolean;
         /**
          *
-         * The rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+         * The rich comment content (e.g., mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
          *
          * [Api set: ExcelApi 1.11]
          */
@@ -36243,7 +36243,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * Represents the shape fill foreground color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
+         * Represents the shape fill foreground color in HTML color format, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange")
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -36287,7 +36287,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param color A string that represents the fill color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+         * @param color A string that represents the fill color in HTML color format, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
          */
         setSolidColor(color: string): void;
         /**
@@ -36328,7 +36328,7 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * Represents the line color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+         * Represents the line color in HTML color format, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -36647,7 +36647,7 @@ declare namespace Excel {
         bold: boolean;
         /**
          *
-         * HTML color code representation of the text color (e.g. "#FF0000" represents red). Returns null if the TextRange includes text fragments with different colors.
+         * HTML color code representation of the text color (e.g., "#FF0000" represents red). Returns null if the TextRange includes text fragments with different colors.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -36661,14 +36661,14 @@ declare namespace Excel {
         italic: boolean;
         /**
          *
-         * Represents font name (e.g. "Calibri"). If the text is Complex Script or East Asian language, this is the corresponding font name; otherwise it is the Latin font name.
+         * Represents font name (e.g., "Calibri"). If the text is Complex Script or East Asian language, this is the corresponding font name; otherwise it is the Latin font name.
          *
          * [Api set: ExcelApi 1.9]
          */
         name: string;
         /**
          *
-         * Represents font size in points (e.g. 11). Returns null if the TextRange includes text fragments with different font sizes.
+         * Represents font size in points (e.g., 11). Returns null if the TextRange includes text fragments with different font sizes.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -43869,7 +43869,7 @@ declare namespace Excel {
         interface RangeFillUpdateData {
             /**
              *
-             * HTML color code representing the color of the background, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
+             * HTML color code representing the color of the background, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange")
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -43884,7 +43884,7 @@ declare namespace Excel {
             pattern?: Excel.FillPattern | "None" | "Solid" | "Gray50" | "Gray75" | "Gray25" | "Horizontal" | "Vertical" | "Down" | "Up" | "Checker" | "SemiGray75" | "LightHorizontal" | "LightVertical" | "LightDown" | "LightUp" | "Grid" | "CrissCross" | "Gray16" | "Gray8" | "LinearGradient" | "RectangularGradient";
             /**
              *
-             * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g. "FFA500").
+             * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g., "FFA500").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -43910,7 +43910,7 @@ declare namespace Excel {
         interface RangeBorderUpdateData {
             /**
              *
-             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -43961,7 +43961,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color. E.g. #FF0000 represents Red.
+             * HTML color code representation of the text color. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -43975,7 +43975,7 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Font name (e.g. "Calibri")
+             * Font name (e.g., "Calibri")
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -44606,14 +44606,14 @@ declare namespace Excel {
             hasDataLabel?: boolean;
             /**
              *
-             * HTML color code representation of the marker background color of data point. E.g. #FF0000 represents Red.
+             * HTML color code representation of the marker background color of data point. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.7]
              */
             markerBackgroundColor?: string;
             /**
              *
-             * HTML color code representation of the marker foreground color of data point. E.g. #FF0000 represents Red.
+             * HTML color code representation of the marker foreground color of data point. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -45310,7 +45310,7 @@ declare namespace Excel {
             height?: number;
             /**
              *
-             * Specifies the left, in points, of a the legend on the chart. Null if legend is not visible.
+             * Specifies the left, in points, of the legend on the chart. Null if legend is not visible.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -45669,7 +45669,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color. E.g. #FF0000 represents Red.
+             * HTML color code representation of the text color. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -45683,14 +45683,14 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Font name (e.g. "Calibri")
+             * Font name (e.g., "Calibri")
              *
              * [Api set: ExcelApi 1.1]
              */
             name?: string;
             /**
              *
-             * Size of the font (e.g. 11)
+             * Size of the font (e.g., 11)
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -46481,7 +46481,7 @@ declare namespace Excel {
             positiveFormat?: Excel.Interfaces.ConditionalDataBarPositiveFormatUpdateData;
             /**
              *
-             * HTML color code representing the color of the Axis line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the Axis line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
                         "" (empty string) if no axis is present or set.
              *
              * [Api set: ExcelApi 1.6]
@@ -46529,7 +46529,7 @@ declare namespace Excel {
         interface ConditionalDataBarPositiveFormatUpdateData {
             /**
              *
-             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
                         "" (empty string) if no border is present or set.
              *
              * [Api set: ExcelApi 1.6]
@@ -46537,7 +46537,7 @@ declare namespace Excel {
             borderColor?: string;
             /**
              *
-             * HTML color code representing the fill color, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the fill color, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -46554,7 +46554,7 @@ declare namespace Excel {
         interface ConditionalDataBarNegativeFormatUpdateData {
             /**
              *
-             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
                         "Empty String" if no border is present or set.
              *
              * [Api set: ExcelApi 1.6]
@@ -46562,7 +46562,7 @@ declare namespace Excel {
             borderColor?: string;
             /**
              *
-             * HTML color code representing the fill color, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the fill color, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -46774,7 +46774,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color. E.g. #FF0000 represents Red.
+             * HTML color code representation of the text color. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -46805,7 +46805,7 @@ declare namespace Excel {
         interface ConditionalRangeFillUpdateData {
             /**
              *
-             * HTML color code representing the color of the fill, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the fill, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -46815,7 +46815,7 @@ declare namespace Excel {
         interface ConditionalRangeBorderUpdateData {
             /**
              *
-             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -47529,7 +47529,7 @@ declare namespace Excel {
         interface ShapeFillUpdateData {
             /**
              *
-             * Represents the shape fill foreground color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
+             * Represents the shape fill foreground color in HTML color format, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange")
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -47546,7 +47546,7 @@ declare namespace Excel {
         interface ShapeLineFormatUpdateData {
             /**
              *
-             * Represents the line color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * Represents the line color in HTML color format, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -47695,7 +47695,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color (e.g. "#FF0000" represents red). Returns null if the TextRange includes text fragments with different colors.
+             * HTML color code representation of the text color (e.g., "#FF0000" represents red). Returns null if the TextRange includes text fragments with different colors.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -47709,14 +47709,14 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Represents font name (e.g. "Calibri"). If the text is Complex Script or East Asian language, this is the corresponding font name; otherwise it is the Latin font name.
+             * Represents font name (e.g., "Calibri"). If the text is Complex Script or East Asian language, this is the corresponding font name; otherwise it is the Latin font name.
              *
              * [Api set: ExcelApi 1.9]
              */
             name?: string;
             /**
              *
-             * Represents font size in points (e.g. 11). Returns null if the TextRange includes text fragments with different font sizes.
+             * Represents font size in points (e.g., 11). Returns null if the TextRange includes text fragments with different font sizes.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -48309,7 +48309,7 @@ declare namespace Excel {
             format?: Excel.Interfaces.RangeFormatData;
             /**
              *
-             * Specifies the range reference in A1-style. Address value will contain the Sheet reference (e.g. "Sheet1!A1:B4").
+             * Specifies the range reference in A1-style. Address value will contain the Sheet reference (e.g., "Sheet1!A1:B4").
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -48533,7 +48533,7 @@ declare namespace Excel {
             format?: Excel.Interfaces.RangeFormatData;
             /**
              *
-             * Returns the RangeAreas reference in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g. "Sheet1!A1:B4, Sheet1!D1:D4").
+             * Returns the RangeAreas reference in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g., "Sheet1!A1:B4, Sheet1!D1:D4").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -49185,7 +49185,7 @@ declare namespace Excel {
         interface RangeFillData {
             /**
              *
-             * HTML color code representing the color of the background, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
+             * HTML color code representing the color of the background, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange")
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -49200,7 +49200,7 @@ declare namespace Excel {
             pattern?: Excel.FillPattern | "None" | "Solid" | "Gray50" | "Gray75" | "Gray25" | "Horizontal" | "Vertical" | "Down" | "Up" | "Checker" | "SemiGray75" | "LightHorizontal" | "LightVertical" | "LightDown" | "LightUp" | "Grid" | "CrissCross" | "Gray16" | "Gray8" | "LinearGradient" | "RectangularGradient";
             /**
              *
-             * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g. "FFA500").
+             * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g., "FFA500").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -49226,7 +49226,7 @@ declare namespace Excel {
         interface RangeBorderData {
             /**
              *
-             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -49276,7 +49276,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color. E.g. #FF0000 represents Red.
+             * HTML color code representation of the text color. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -49290,7 +49290,7 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Font name (e.g. "Calibri")
+             * Font name (e.g., "Calibri")
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -49949,14 +49949,14 @@ declare namespace Excel {
             hasDataLabel?: boolean;
             /**
              *
-             * HTML color code representation of the marker background color of data point. E.g. #FF0000 represents Red.
+             * HTML color code representation of the marker background color of data point. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.7]
              */
             markerBackgroundColor?: string;
             /**
              *
-             * HTML color code representation of the marker foreground color of data point. E.g. #FF0000 represents Red.
+             * HTML color code representation of the marker foreground color of data point. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -50737,7 +50737,7 @@ declare namespace Excel {
             height?: number;
             /**
              *
-             * Specifies the left, in points, of a the legend on the chart. Null if legend is not visible.
+             * Specifies the left, in points, of the legend on the chart. Null if legend is not visible.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -51145,7 +51145,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color. E.g. #FF0000 represents Red.
+             * HTML color code representation of the text color. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -51159,14 +51159,14 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Font name (e.g. "Calibri")
+             * Font name (e.g., "Calibri")
              *
              * [Api set: ExcelApi 1.1]
              */
             name?: string;
             /**
              *
-             * Size of the font (e.g. 11)
+             * Size of the font (e.g., 11)
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -51538,7 +51538,7 @@ declare namespace Excel {
             numberFormat?: Excel.Interfaces.NumberFormatInfoData;
             /**
              *
-             * Gets the culture name in the format languagecode2-country/regioncode2 (e.g. "zh-cn" or "en-us"). This is based on current system settings.
+             * Gets the culture name in the format languagecode2-country/regioncode2 (e.g., "zh-cn" or "en-us"). This is based on current system settings.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -52241,7 +52241,7 @@ declare namespace Excel {
             positiveFormat?: Excel.Interfaces.ConditionalDataBarPositiveFormatData;
             /**
              *
-             * HTML color code representing the color of the Axis line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the Axis line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
                         "" (empty string) if no axis is present or set.
              *
              * [Api set: ExcelApi 1.6]
@@ -52289,7 +52289,7 @@ declare namespace Excel {
         interface ConditionalDataBarPositiveFormatData {
             /**
              *
-             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
                         "" (empty string) if no border is present or set.
              *
              * [Api set: ExcelApi 1.6]
@@ -52297,7 +52297,7 @@ declare namespace Excel {
             borderColor?: string;
             /**
              *
-             * HTML color code representing the fill color, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the fill color, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -52314,7 +52314,7 @@ declare namespace Excel {
         interface ConditionalDataBarNegativeFormatData {
             /**
              *
-             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
                         "Empty String" if no border is present or set.
              *
              * [Api set: ExcelApi 1.6]
@@ -52322,7 +52322,7 @@ declare namespace Excel {
             borderColor?: string;
             /**
              *
-             * HTML color code representing the fill color, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the fill color, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -52541,7 +52541,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color. E.g. #FF0000 represents Red.
+             * HTML color code representation of the text color. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -52572,7 +52572,7 @@ declare namespace Excel {
         interface ConditionalRangeFillData {
             /**
              *
-             * HTML color code representing the color of the fill, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the fill, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -52582,7 +52582,7 @@ declare namespace Excel {
         interface ConditionalRangeBorderData {
             /**
              *
-             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -53180,7 +53180,7 @@ declare namespace Excel {
             id?: string;
             /**
              *
-             * Gets the entities (e.g. people) that are mentioned in comments.
+             * Gets the entities (e.g., people) that are mentioned in comments.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -53194,7 +53194,7 @@ declare namespace Excel {
             resolved?: boolean;
             /**
              *
-             * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+             * Gets the rich comment content (e.g., mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -53243,7 +53243,7 @@ declare namespace Excel {
             id?: string;
             /**
              *
-             * The entities (e.g. people) that are mentioned in comments.
+             * The entities (e.g., people) that are mentioned in comments.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -53257,7 +53257,7 @@ declare namespace Excel {
             resolved?: boolean;
             /**
              *
-             * The rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+             * The rich comment content (e.g., mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -53546,7 +53546,7 @@ declare namespace Excel {
         interface ShapeFillData {
             /**
              *
-             * Represents the shape fill foreground color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
+             * Represents the shape fill foreground color in HTML color format, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange")
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53570,7 +53570,7 @@ declare namespace Excel {
         interface ShapeLineFormatData {
             /**
              *
-             * Represents the line color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * Represents the line color in HTML color format, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53726,7 +53726,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color (e.g. "#FF0000" represents red). Returns null if the TextRange includes text fragments with different colors.
+             * HTML color code representation of the text color (e.g., "#FF0000" represents red). Returns null if the TextRange includes text fragments with different colors.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -53740,14 +53740,14 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Represents font name (e.g. "Calibri"). If the text is Complex Script or East Asian language, this is the corresponding font name; otherwise it is the Latin font name.
+             * Represents font name (e.g., "Calibri"). If the text is Complex Script or East Asian language, this is the corresponding font name; otherwise it is the Latin font name.
              *
              * [Api set: ExcelApi 1.9]
              */
             name?: string;
             /**
              *
-             * Represents font size in points (e.g. 11). Returns null if the TextRange includes text fragments with different font sizes.
+             * Represents font size in points (e.g., 11). Returns null if the TextRange includes text fragments with different font sizes.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -54463,7 +54463,7 @@ declare namespace Excel {
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
             /**
              *
-             * Specifies the range reference in A1-style. Address value will contain the Sheet reference (e.g. "Sheet1!A1:B4").
+             * Specifies the range reference in A1-style. Address value will contain the Sheet reference (e.g., "Sheet1!A1:B4").
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -54690,7 +54690,7 @@ declare namespace Excel {
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
             /**
              *
-             * Returns the RangeAreas reference in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g. "Sheet1!A1:B4, Sheet1!D1:D4").
+             * Returns the RangeAreas reference in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g., "Sheet1!A1:B4, Sheet1!D1:D4").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -56001,7 +56001,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * HTML color code representing the color of the background, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
+             * HTML color code representing the color of the background, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange")
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -56016,7 +56016,7 @@ declare namespace Excel {
             pattern?: boolean;
             /**
              *
-             * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g. "FFA500").
+             * The HTML color code representing the color of the range pattern, of the form #RRGGBB (e.g., "FFA500").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -56051,7 +56051,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -56099,7 +56099,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * For EACH ITEM in the collection: HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -56154,7 +56154,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color. E.g. #FF0000 represents Red.
+             * HTML color code representation of the text color. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -56168,7 +56168,7 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Font name (e.g. "Calibri")
+             * Font name (e.g., "Calibri")
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -57383,14 +57383,14 @@ declare namespace Excel {
             hasDataLabel?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: HTML color code representation of the marker background color of data point. E.g. #FF0000 represents Red.
+             * For EACH ITEM in the collection: HTML color code representation of the marker background color of data point. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.7]
              */
             markerBackgroundColor?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: HTML color code representation of the marker foreground color of data point. E.g. #FF0000 represents Red.
+             * For EACH ITEM in the collection: HTML color code representation of the marker foreground color of data point. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -57451,14 +57451,14 @@ declare namespace Excel {
             hasDataLabel?: boolean;
             /**
              *
-             * HTML color code representation of the marker background color of data point. E.g. #FF0000 represents Red.
+             * HTML color code representation of the marker background color of data point. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.7]
              */
             markerBackgroundColor?: boolean;
             /**
              *
-             * HTML color code representation of the marker foreground color of data point. E.g. #FF0000 represents Red.
+             * HTML color code representation of the marker foreground color of data point. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -58372,7 +58372,7 @@ declare namespace Excel {
             height?: boolean;
             /**
              *
-             * Specifies the left, in points, of a the legend on the chart. Null if legend is not visible.
+             * Specifies the left, in points, of the legend on the chart. Null if legend is not visible.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -58929,7 +58929,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color. E.g. #FF0000 represents Red.
+             * HTML color code representation of the text color. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -58943,14 +58943,14 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Font name (e.g. "Calibri")
+             * Font name (e.g., "Calibri")
              *
              * [Api set: ExcelApi 1.1]
              */
             name?: boolean;
             /**
              *
-             * Size of the font (e.g. 11)
+             * Size of the font (e.g., 11)
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -59498,7 +59498,7 @@ declare namespace Excel {
             numberFormat?: Excel.Interfaces.NumberFormatInfoLoadOptions;
             /**
              *
-             * Gets the culture name in the format languagecode2-country/regioncode2 (e.g. "zh-cn" or "en-us"). This is based on current system settings.
+             * Gets the culture name in the format languagecode2-country/regioncode2 (e.g., "zh-cn" or "en-us"). This is based on current system settings.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -59533,7 +59533,7 @@ declare namespace Excel {
         /**
          *
          * A scoped collection of custom XML parts.
-                    A scoped collection is the result of some operation, e.g. filtering by namespace.
+                    A scoped collection is the result of some operation, e.g., filtering by namespace.
                     A scoped collection cannot be scoped any further.
          *
          * [Api set: ExcelApi 1.5]
@@ -60823,7 +60823,7 @@ declare namespace Excel {
             positiveFormat?: Excel.Interfaces.ConditionalDataBarPositiveFormatLoadOptions;
             /**
              *
-             * HTML color code representing the color of the Axis line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the Axis line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
                         "" (empty string) if no axis is present or set.
              *
              * [Api set: ExcelApi 1.6]
@@ -60880,7 +60880,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
                         "" (empty string) if no border is present or set.
              *
              * [Api set: ExcelApi 1.6]
@@ -60888,7 +60888,7 @@ declare namespace Excel {
             borderColor?: boolean;
             /**
              *
-             * HTML color code representing the fill color, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the fill color, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -60914,7 +60914,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
                         "Empty String" if no border is present or set.
              *
              * [Api set: ExcelApi 1.6]
@@ -60922,7 +60922,7 @@ declare namespace Excel {
             borderColor?: boolean;
             /**
              *
-             * HTML color code representing the fill color, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the fill color, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -61231,7 +61231,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color. E.g. #FF0000 represents Red.
+             * HTML color code representation of the text color. e.g., #FF0000 represents Red.
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -61271,7 +61271,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * HTML color code representing the color of the fill, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the fill, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -61290,7 +61290,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -61323,7 +61323,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: HTML color code representing the color of the border line, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * For EACH ITEM in the collection: HTML color code representing the color of the border line, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -62242,7 +62242,7 @@ declare namespace Excel {
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
             /**
              *
-             * For EACH ITEM in the collection: Specifies the range reference in A1-style. Address value will contain the Sheet reference (e.g. "Sheet1!A1:B4").
+             * For EACH ITEM in the collection: Specifies the range reference in A1-style. Address value will contain the Sheet reference (e.g., "Sheet1!A1:B4").
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -62482,7 +62482,7 @@ declare namespace Excel {
             id?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets the entities (e.g. people) that are mentioned in comments.
+             * For EACH ITEM in the collection: Gets the entities (e.g., people) that are mentioned in comments.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -62496,7 +62496,7 @@ declare namespace Excel {
             resolved?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+             * For EACH ITEM in the collection: Gets the rich comment content (e.g., mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -62550,7 +62550,7 @@ declare namespace Excel {
             id?: boolean;
             /**
              *
-             * Gets the entities (e.g. people) that are mentioned in comments.
+             * Gets the entities (e.g., people) that are mentioned in comments.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -62564,7 +62564,7 @@ declare namespace Excel {
             resolved?: boolean;
             /**
              *
-             * Gets the rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+             * Gets the rich comment content (e.g., mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -62618,7 +62618,7 @@ declare namespace Excel {
             id?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: The entities (e.g. people) that are mentioned in comments.
+             * For EACH ITEM in the collection: The entities (e.g., people) that are mentioned in comments.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -62632,7 +62632,7 @@ declare namespace Excel {
             resolved?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: The rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+             * For EACH ITEM in the collection: The rich comment content (e.g., mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -62686,7 +62686,7 @@ declare namespace Excel {
             id?: boolean;
             /**
              *
-             * The entities (e.g. people) that are mentioned in comments.
+             * The entities (e.g., people) that are mentioned in comments.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -62700,7 +62700,7 @@ declare namespace Excel {
             resolved?: boolean;
             /**
              *
-             * The rich comment content (e.g. mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
+             * The rich comment content (e.g., mentions in comments). This string is not meant to be displayed to end-users. Your add-in should only use this to parse rich comment content.
              *
              * [Api set: ExcelApi 1.11]
              */
@@ -63495,7 +63495,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * Represents the shape fill foreground color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange")
+             * Represents the shape fill foreground color in HTML color format, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange")
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63528,7 +63528,7 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
-             * Represents the line color in HTML color format, of the form #RRGGBB (e.g. "FFA500") or as a named HTML color (e.g. "orange").
+             * Represents the line color in HTML color format, of the form #RRGGBB (e.g., "FFA500") or as a named HTML color (e.g., "orange").
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63718,7 +63718,7 @@ declare namespace Excel {
             bold?: boolean;
             /**
              *
-             * HTML color code representation of the text color (e.g. "#FF0000" represents red). Returns null if the TextRange includes text fragments with different colors.
+             * HTML color code representation of the text color (e.g., "#FF0000" represents red). Returns null if the TextRange includes text fragments with different colors.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -63732,14 +63732,14 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Represents font name (e.g. "Calibri"). If the text is Complex Script or East Asian language, this is the corresponding font name; otherwise it is the Latin font name.
+             * Represents font name (e.g., "Calibri"). If the text is Complex Script or East Asian language, this is the corresponding font name; otherwise it is the Latin font name.
              *
              * [Api set: ExcelApi 1.9]
              */
             name?: boolean;
             /**
              *
-             * Represents font size in points (e.g. 11). Returns null if the TextRange includes text fragments with different font sizes.
+             * Represents font size in points (e.g., 11). Returns null if the TextRange includes text fragments with different font sizes.
              *
              * [Api set: ExcelApi 1.9]
              */
