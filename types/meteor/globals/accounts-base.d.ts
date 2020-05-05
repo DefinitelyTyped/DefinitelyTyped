@@ -72,7 +72,7 @@ declare module Accounts {
 
     function logoutOtherClients(callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
     
-    function generateResetToken(userId: string, email: string, reason: "resetPassword" | "enrollAccount",extraTokenData: any):{
+    function generateResetToken(userId: string, email: string, reason: "resetPassword" | "enrollAccount", extraTokenData: any):{
         email:string;
         user: Meteor.User;
         token: string;
