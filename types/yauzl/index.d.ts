@@ -86,10 +86,6 @@ export interface Options {
     strictFileNames?: boolean;
 }
 
-export function open(path: string, options: Options, callback?: (err?: Error, zipfile?: ZipFile) => void): void;
-export function open(path: string, callback?: (err?: Error, zipfile?: ZipFile) => void): void;
-export function fromFd(fd: number, options: Options, callback?: (err?: Error, zipfile?: ZipFile) => void): void;
-export function fromFd(fd: number, callback?: (err?: Error, zipfile?: ZipFile) => void): void;
 export function fromBuffer(buffer: Buffer, options: Options, callback?: (err?: Error, zipfile?: ZipFile) => void): void;
 export function fromBuffer(buffer: Buffer, callback?: (err?: Error, zipfile?: ZipFile) => void): void;
 export function fromRandomAccessReader(reader: RandomAccessReader, totalSize: number, options: Options, callback: (err?: Error, zipfile?: ZipFile) => void): void;
