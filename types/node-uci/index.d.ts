@@ -1,9 +1,9 @@
-// Minimum TypeScript Version: 3.0
 // Type definitions for node-uci 1.3
 // Project: https://github.com/ebemunk/node-uci
 // Definitions by: Weslen Nascimento <https://github.com/weslenng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// Minimum TypeScript Version: 3.0
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
