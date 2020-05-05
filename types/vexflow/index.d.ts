@@ -65,6 +65,8 @@ declare namespace Vex {
         fillText(text : string, x : number, y : number) : IRenderContext;
         save() : IRenderContext;
         restore() : IRenderContext;
+        openGroup() : Node | undefined;
+        closeGroup() : void;
 
         /**
          * canvas returns TextMetrics, SVG returns SVGRect, Raphael returns {width : number, height : number}. Only width is used throughout VexFlow.
@@ -172,8 +174,8 @@ declare namespace Vex {
         }
 
         namespace Annotation {
-            const enum Justify {LEFT = 1, CENTER, RIGHT, CENTER_STEM}
-            const enum VerticalJustify {TOP = 1, CENTER, BOTTOM, CENTER_STEM}
+            enum Justify {LEFT = 1, CENTER, RIGHT, CENTER_STEM}
+            enum VerticalJustify {TOP = 1, CENTER, BOTTOM, CENTER_STEM}
             const CATEGORY : string;
         }
 
@@ -200,7 +202,7 @@ declare namespace Vex {
         }
 
         namespace Barline {
-            const enum type {SINGLE = 1, DOUBLE, END, REPEAT_BEGIN, REPEAT_END, REPEAT_BOTH, NONE}
+            enum type {SINGLE = 1, DOUBLE, END, REPEAT_BEGIN, REPEAT_END, REPEAT_BOTH, NONE}
         }
 
         class Barline extends StaveModifier {
@@ -323,6 +325,8 @@ declare namespace Vex {
             fillText(text : string, x : number, y : number) : void;
             save() : void;
             restore() : void;
+            openGroup() : undefined;
+            closeGroup() : void;
         }
 
         class Clef extends StaveModifier {
@@ -372,7 +376,7 @@ declare namespace Vex {
         }
 
         namespace Curve {
-            const enum Position {NEAR_HEAD = 1, NEAR_TOP}
+            enum Position {NEAR_HEAD = 1, NEAR_TOP}
         }
 
         class Dot extends Modifier {
@@ -567,7 +571,7 @@ declare namespace Vex {
         }
 
         namespace Modifier {
-            const enum Position {LEFT = 1, RIGHT, ABOVE, BELOW}
+            enum Position {LEFT = 1, RIGHT, ABOVE, BELOW}
             const CATEGORY : string
         }
 
@@ -737,7 +741,7 @@ declare namespace Vex {
         }
 
         namespace PedalMarking {
-            const enum Styles {TEXT = 1, BRACKET, MIXED}
+            enum Styles {TEXT = 1, BRACKET, MIXED}
             const GLYPHS : {[name : string] : {code : string, x_shift : number, y_shift : number}};
         }
 
@@ -778,6 +782,8 @@ declare namespace Vex {
             fillText(text : string, x : number, y : number) : RaphaelContext;
             save() : RaphaelContext;
             restore() : RaphaelContext;
+            openGroup() : undefined;
+            closeGroup() : void;
         }
 
         class Renderer {
@@ -794,8 +800,8 @@ declare namespace Vex {
         }
 
         namespace Renderer {
-            const enum Backends {CANVAS = 1, RAPHAEL, SVG, VML}
-            const enum LineEndType {NONE = 1, UP, DOWN}
+            enum Backends {CANVAS = 1, RAPHAEL, SVG, VML}
+            enum LineEndType {NONE = 1, UP, DOWN}
         }
 
         class Repetition extends StaveModifier {
@@ -810,7 +816,7 @@ declare namespace Vex {
         }
 
         namespace Repetition {
-            const enum type { NONE = 1, CODA_LEFT, CODA_RIGHT, SEGNO_LEFT, SEGNO_RIGHT, DC, DC_AL_CODA, DC_AL_FINE, DS, DS_AL_CODA, DS_AL_FINE, FINE }
+            enum type { NONE = 1, CODA_LEFT, CODA_RIGHT, SEGNO_LEFT, SEGNO_RIGHT, DC, DC_AL_CODA, DC_AL_FINE, DS, DS_AL_CODA, DS_AL_FINE, FINE }
         }
 
         class Stave {
@@ -888,7 +894,7 @@ declare namespace Vex {
         }
 
         namespace StaveConnector {
-            const enum type { SINGLE_RIGHT = 0, SINGLE_LEFT = 1, SINGLE = 1, DOUBLE = 2, BRACE = 3, BRACKET = 4, BOLD_DOUBLE_LEFT = 5, BOLD_DOUBLE_RIGHT = 6, THIN_DOUBLE = 7, NONE = 8 }
+            enum type { SINGLE_RIGHT = 0, SINGLE_LEFT = 1, SINGLE = 1, DOUBLE = 2, BRACE = 3, BRACKET = 4, BOLD_DOUBLE_LEFT = 5, BOLD_DOUBLE_RIGHT = 6, THIN_DOUBLE = 7, NONE = 8 }
         }
 
         class StaveHairpin {
@@ -903,7 +909,7 @@ declare namespace Vex {
         }
 
         namespace StaveHairpin {
-            const enum type { CRESC = 1, DECRESC }
+            enum type { CRESC = 1, DECRESC }
         }
 
         class StaveLine {
@@ -921,8 +927,8 @@ declare namespace Vex {
         }
 
         namespace StaveLine {
-            const enum TextVerticalPosition { TOP = 1, BOTTOM }
-            const enum TextJustification { LEFT = 1, CENTER, RIGHT }
+            enum TextVerticalPosition { TOP = 1, BOTTOM }
+            enum TextJustification { LEFT = 1, CENTER, RIGHT }
         }
 
         class StaveModifier {
@@ -941,7 +947,7 @@ declare namespace Vex {
 
         namespace StaveModifier {
           // @see https://github.com/0xfe/vexflow/blob/master/src/stavemodifier.js#L9
-          const enum Position { LEFT = 1, RIGHT = 2, ABOVE = 3, BELOW = 4, BEGIN = 5, END = 6 }
+          enum Position { LEFT = 1, RIGHT = 2, ABOVE = 3, BELOW = 4, BEGIN = 5, END = 6 }
         }
 
         class StaveNote extends StemmableNote {
@@ -954,7 +960,7 @@ declare namespace Vex {
             getModifierStartXY() : {x : number, y : number};
             getDots() : number;
             x_shift: number;
-            
+
             constructor(note_struct : {type? : string, dots? : number, duration : string, clef? : string, keys : string[], octave_shift? : number, auto_stem? : boolean, stem_direction? : number});
             static DEBUG : boolean;
             static format(notes : StaveNote[] , state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
@@ -1108,7 +1114,7 @@ declare namespace Vex {
             static DEBUG : boolean;
             flag: Glyph;
             getAttribute(attr : string) : any;
-            setFlagStyle(style_struct : {shadowColor? : string, shadowBlur? : string, fillStyle? : string, strokeStyle? : string}) : void;                
+            setFlagStyle(style_struct : {shadowColor? : string, shadowBlur? : string, fillStyle? : string, strokeStyle? : string}) : void;
             getStem() : Stem;
             setStem(stem : Stem) : StemmableNote;
             buildStem() : StemmableNote;
@@ -1135,7 +1141,7 @@ declare namespace Vex {
 
             // actually this is not really consistent in the vexflow code "ctx.measureText(this.string_number).width" looks
             // like it is a string. But from the use of it it might be a number ?!
-            constructor(number : number|string); 
+            constructor(number : number|string);
             static format(nums : StringNumber[], state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
             string_number : number|string;
             getNote()  : Note;
@@ -1166,7 +1172,7 @@ declare namespace Vex {
         }
 
         namespace Stroke {
-            const enum Type {BRUSH_DOWN = 1, BRUSH_UP, ROLL_DOWN, ROLL_UP, RASQUEDO_DOWN, RASQUEDO_UP, ARPEGGIO_DIRECTIONLESS}
+            enum Type {BRUSH_DOWN = 1, BRUSH_UP, ROLL_DOWN, ROLL_UP, RASQUEDO_DOWN, RASQUEDO_UP, ARPEGGIO_DIRECTIONLESS}
             const CATEGORY : string;
         }
 
@@ -1209,6 +1215,8 @@ declare namespace Vex {
             fillText(text : string, x : number, y : number) : SVGContext;
             save() : SVGContext;
             restore() : SVGContext;
+            openGroup() : Node;
+            closeGroup() : void;
         }
 
         class TabNote extends StemmableNote {
@@ -1280,7 +1288,7 @@ declare namespace Vex {
         }
 
         namespace TextBracket {
-            const enum Positions {TOP = 1, BOTTOM = -1}
+            enum Positions {TOP = 1, BOTTOM = -1}
         }
 
         class TextDynamics extends Note {
@@ -1300,7 +1308,7 @@ declare namespace Vex {
         }
 
         namespace TextNote {
-            const enum Justification {LEFT = 1, CENTER, RIGHT}
+            enum Justification {LEFT = 1, CENTER, RIGHT}
             const GLYPHS : {[name : string] : {code : string, point : number, x_shift : number, y_shift : number}}
         }
 
@@ -1445,8 +1453,8 @@ declare namespace Vex {
             getLargestTickWidth() : number;
             getSmallestTickCount() : Fraction;
             getTickables() : Tickable[];
-            getMode() : number;
-            setMode(mode : number) : Voice;
+            getMode() : Voice.Mode;
+            setMode(mode : Voice.Mode) : Voice;
             getResolutionMultiplier() : number;
             getActualResolution() : number;
             setStave(stave : Stave) : Voice;
@@ -1462,7 +1470,7 @@ declare namespace Vex {
         }
 
         namespace Voice {
-            const enum Mode {STRICT = 1, SOFT, FULL}
+            enum Mode {STRICT = 1, SOFT, FULL}
         }
 
         class VoiceGroup {
@@ -1479,7 +1487,7 @@ declare namespace Vex {
         }
 
         namespace Volta {
-            const enum type {NONE = 1, BEGIN, MID, END, BEGIN_END}
+            enum type {NONE = 1, BEGIN, MID, END, BEGIN_END}
         }
     }
 }

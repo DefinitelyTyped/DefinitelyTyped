@@ -2,6 +2,7 @@ declare module "worker_threads" {
     import { Context } from "vm";
     import { EventEmitter } from "events";
     import { Readable, Writable } from "stream";
+    import { URL } from "url";
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
@@ -62,7 +63,7 @@ declare module "worker_threads" {
          * were passed as CLI options to the script.
          */
         argv?: any[];
-        env?: NodeJS.ProcessEnv | typeof SHARE_ENV;
+        env?: NodeJS.Dict<string> | typeof SHARE_ENV;
         eval?: boolean;
         workerData?: any;
         stdin?: boolean;
@@ -70,6 +71,10 @@ declare module "worker_threads" {
         stderr?: boolean;
         execArgv?: string[];
         resourceLimits?: ResourceLimits;
+        /**
+         * Additional data to send in the first worker message.
+         */
+        transferList?: Array<ArrayBuffer | MessagePort>;
     }
 
     interface ResourceLimits {
@@ -85,7 +90,12 @@ declare module "worker_threads" {
         readonly threadId: number;
         readonly resourceLimits?: ResourceLimits;
 
-        constructor(filename: string, options?: WorkerOptions);
+        /**
+         * @param filename  The path to the Worker’s main script or module.
+         *                  Must be either an absolute path or a relative path (i.e. relative to the current working directory) starting with ./ or ../,
+         *                  or a WHATWG URL object using file: protocol. If options.eval is true, this is a string containing JavaScript code rather than a path.
+         */
+        constructor(filename: string | URL, options?: WorkerOptions);
 
         postMessage(value: any, transferList?: Array<ArrayBuffer | MessagePort>): void;
         ref(): void;

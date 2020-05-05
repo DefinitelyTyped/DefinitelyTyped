@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import ssri = require("ssri");
 import { createReadStream } from "fs";
 

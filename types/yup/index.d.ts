@@ -1,4 +1,4 @@
-// Type definitions for yup 0.26
+// Type definitions for yup 0.28
 // Project: https://github.com/jquense/yup
 // Definitions by: Dominik Hardtke <https://github.com/dhardtke>,
 //                 Vladyslav Tserman <https://github.com/vtserman>,
@@ -49,6 +49,7 @@ export type TestOptionsMessage<Extra extends Record<string, any> = {}, R = any> 
     | ((params: Extra & Partial<TestMessageParams>) => R);
 
 export interface Schema<T> {
+    type: string;
     clone(): this;
     label(label: string): this;
     meta(metadata: any): this;
@@ -101,8 +102,8 @@ export interface MixedSchema<T = any> extends Schema<T> {
 }
 
 export interface StringSchemaConstructor {
-    <T extends string | null | undefined = undefined>(): T extends string ? StringSchema<T> : StringSchema;
-    new <T extends string | null | undefined = undefined>(): T extends string ? StringSchema<T> : StringSchema;
+    <T extends string | null | undefined = string>(): T extends string ? StringSchema<T> : StringSchema;
+    new <T extends string | null | undefined = string>(): T extends string ? StringSchema<T> : StringSchema;
 }
 
 export interface StringSchema<T extends string | null | undefined = string> extends Schema<T> {
@@ -220,6 +221,7 @@ export interface NotRequiredArraySchema<T> extends BasicArraySchema<T[] | undefi
 }
 
 export interface ArraySchema<T> extends BasicArraySchema<T[]> {
+    innerType: Schema<T>;
     of<U>(type: Schema<U>): ArraySchema<U>;
     nullable(isNullable?: true): NullableArraySchema<T>;
     nullable(isNullable: false | boolean): ArraySchema<T>;

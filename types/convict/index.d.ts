@@ -1,9 +1,10 @@
-// Type definitions for convict 4.2
+// Type definitions for convict 5.2
 // Project: https://github.com/mozilla/node-convict
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Vesa Poikajärvi <https://github.com/vesse>
 //                 Eli Young <https://github.com/elyscape>
 //                 Suntharesan Mohan <https://github.com/vanthiyathevan>
+//                 Igor Strebezhev <https://github.com/xamgore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -56,7 +57,11 @@ declare namespace convict {
         | Boolean;
 
     interface SchemaObj<T = any> {
-        default: T;
+        /**
+         * You can define a configuration property as "required" without providing a default value.
+         * Set its default to null and if your format doesn't accept null it will throw an error.
+         */
+        default: T | null;
         doc?: string;
         /**
          * From the implementation:

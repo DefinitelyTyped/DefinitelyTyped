@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Apple Music API 0.1
+// Type definitions for non-npm package Apple Music API 0.2
 // Project: https://developer.apple.com/documentation/applemusicapi/
 // Definitions by: Noah Chase <https://github.com/nchase>
 //                 Useff Chase <https://github.com/useffc>
@@ -8,6 +8,11 @@ declare namespace AppleMusicApi {
     // https://developer.apple.com/documentation/applemusicapi/songresponse
     interface SongResponse {
         data: Song[];
+    }
+
+    // https://developer.apple.com/documentation/applemusicapi/albumresponse
+    interface AlbumResponse {
+        data: Album[];
     }
 
     // https://developer.apple.com/documentation/applemusicapi/relationship
@@ -127,13 +132,17 @@ declare namespace AppleMusicApi {
     interface Album extends Resource {
         // https://developer.apple.com/documentation/applemusicapi/album/attributes
         attributes?: {
-            albumName: string;
+            // albumName might not actually be a required attribute of Album.
+            // There may be a typo in Apple's documentation, their data doesn't
+            // actually return this attribute for the example I picked and the description of the field references music videos, further increasingly the likelihood that it's just a typo):
+            albumName?: string;
             artistName: string;
             artwork?: Artwork;
             contentRating?: 'clean' | 'explicit';
             copyright?: string;
             editorialNotes?: EditorialNotes;
             genreNames: string[];
+            isCompilation: boolean;
             isComplete: boolean;
             isSingle: boolean;
             name: string;
@@ -151,7 +160,8 @@ declare namespace AppleMusicApi {
     // https://developer.apple.com/documentation/applemusicapi/album/relationships
     interface AlbumRelationships {
         artists: Relationship<Artist>;
-        genres: {};
+        tracks: Relationship<Song>;
+        genres?: Relationship<Genre>;
     }
 
     // https://developer.apple.com/documentation/applemusicapi/genre

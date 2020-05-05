@@ -22,6 +22,7 @@
 //                 Daniel Chin <https://github.com/danielthank>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Dion Shi <https://github.com/dionshihk>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1409,20 +1410,33 @@ declare namespace webpack {
         apply(resolver: any /* EnhancedResolve.Resolver */): void;
     }
 
-    abstract class Stats {
+    class Stats {
         compilation: compilation.Compilation;
         hash?: string;
         startTime?: number;
         endTime?: number;
+
+        static filterWarnings(
+          warnings: string[],
+          warningsFilter?: Array<string | RegExp | ((warning: string) => boolean)>
+        ): string[];
         /**
          * Returns the default json options from the stats preset.
          * @param preset The preset to be transformed into json options.
          */
         static presetToOptions(preset?: Stats.Preset): Stats.ToJsonOptionsObject;
+
+        constructor(compilation: compilation.Compilation);
+
+        formatFilePath(filePath: string): string;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
         hasWarnings(): boolean;
+        /** Remove a prefixed "!" that can be specified to reverse sort order */
+        normalizeFieldKey(field: string): string;
+        /** if a field is prefixed by a "!" reverse sort order */
+        sortOrderRegular(field: string): boolean;
         /** Returns compilation information as a JSON object. */
         toJson(options?: Stats.ToJsonOptions, forToString?: boolean): Stats.ToJsonOutput;
         /** Returns a formatted string of the compilation information (similar to CLI output). */

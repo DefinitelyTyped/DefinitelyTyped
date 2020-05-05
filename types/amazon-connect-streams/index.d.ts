@@ -1,6 +1,7 @@
 // Type definitions for Amazon Connect Streams API 1.4
 // Project: https://github.com/aws/amazon-connect-streams
 // Definitions by: Andy Hopper <https://github.com/andyhopp>
+//                 Ivan Bliskavka <https://github.com/ibliskavka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 declare namespace connect {
@@ -64,40 +65,56 @@ declare namespace connect {
 
     interface Core {
         initCCP(containerDiv: HTMLElement, options: InitCCPOptions): void;
+        terminate(): void;
+        initialized: boolean;
     }
     let core: Core;
 
     interface SoftPhoneOptions {
         /*
-        * Whether to disable the ringtone.
-        */
+         * Whether to disable the ringtone.
+         */
         disableRingtone?: boolean;
         /*
-        * Whether to display the softphone in a frame.
-        */
+         * Whether to display the softphone in a frame.
+         */
         allowFramedSoftphone?: boolean;
         /*
-        * A URL for a custom ringtone.
-        */
+         * A URL for a custom ringtone.
+         */
         ringtoneUrl?: string;
-     }
+    }
 
     interface InitCCPOptions {
         /*
-        * The URL for the Connect CCP.
-        */
+         * The URL for the Connect CCP.
+         */
         ccpUrl: string;
+        /**
+         * Amazon connect instance region
+         * Only required for chat channel
+         */
+        region?: string;
         /*
-        * Whether to display the login view.
-        */
+         * Whether to display the login view.
+         */
         loginPopup?: boolean;
+        /**
+         * Defaults to false.
+         * Set to true to automatically close the loginPopup window after authentication.
+         */
+        loginPopupAutoClose?: boolean;
+        /**
+         * Allows custom URL to be used to initiate the ccp, as in the case of SAML authentication.
+         */
+        loginUrl?: string;
         /*
-        * Options specifying softphone configuration.
-        */
+         * Options specifying softphone configuration.
+         */
         softphone?: SoftPhoneOptions;
-     }
+    }
 
-     enum AgentStateType {
+    enum AgentStateType {
         INIT = 'init',
         ROUTABLE = 'routable',
         NOT_ROUTABLE = 'not_routable',
@@ -105,14 +122,14 @@ declare namespace connect {
     }
 
     enum AgentAvailStates {
-        INIT = "Init",
-        BUSY = "Busy",
-        AFTER_CALL_WORK = "AfterCallWork",
-        CALLING_CUSTOMER = "CallingCustomer",
-        DIALING = "Dialing",
-        JOINING = "Joining",
-        PENDING_AVAILABLE = "PendingAvailable",
-        PENDING_BUSY = "PendingBusy"
+        INIT = 'Init',
+        BUSY = 'Busy',
+        AFTER_CALL_WORK = 'AfterCallWork',
+        CALLING_CUSTOMER = 'CallingCustomer',
+        DIALING = 'Dialing',
+        JOINING = 'Joining',
+        PENDING_AVAILABLE = 'PendingAvailable',
+        PENDING_BUSY = 'PendingBusy'
     }
 
     enum AgentErrorStates {
@@ -211,25 +228,25 @@ declare namespace connect {
     }
 
     /*
-    * A callback to receive notifications of success or failure.
-    */
+     * A callback to receive notifications of success or failure.
+     */
     type SuccessFailCallback = () => void;
 
     interface SuccessFailOptions {
         /*
-        * A {SuccessFailCallback} to receive a notification of success.
-        */
+         * A {SuccessFailCallback} to receive a notification of success.
+         */
         success?: SuccessFailCallback;
         /*
-        * A {SuccessFailCallback} to receive a notification of failure.
-        */
-       failure?: SuccessFailCallback;
+         * A {SuccessFailCallback} to receive a notification of failure.
+         */
+        failure?: SuccessFailCallback;
     }
     interface ConnectOptions extends SuccessFailOptions {
         /*
-        * A string containing a Connect Queue ARN.
-        */
-       queueARN?: string;
+         * A string containing a Connect Queue ARN.
+         */
+        queueARN?: string;
     }
 
     interface MuteState {
@@ -287,6 +304,17 @@ declare namespace connect {
          * @param callback A callback to receive updates on agent mute state
          */
         onMuteToggle(callback: MuteCallback): void;
+
+        /**
+         * Subscribe a method to be called when the agent is put into an error state specific to softphone functionality.
+         * @param callback
+         */
+        onSoftphoneError(callback: AgentCallback): void;
+        /**
+         * Subscribe a method to be called whenever new agent data is available.
+         * @param callback
+         */
+        onStateChange(callback: (agentStateChange: AgentStateChange) => void): void;
 
         /**
          * Get the agent's current AgentState object indicating their availability state type.
@@ -391,6 +419,24 @@ declare namespace connect {
         muted?: boolean;
     }
 
+    /**
+     * An object containing the Agent old state and new state
+     */
+    interface AgentStateChange {
+        /**
+         * The Agent object
+         */
+        agent: Agent;
+        /**
+         * The name of the agent's previous state.
+         */
+        oldState: string;
+        /**
+         * The name of the agent's new state.
+         */
+        newState: string;
+    }
+
     interface AgentConfiguration {
         /**
          * The agent's user friendly display name.
@@ -456,6 +502,12 @@ declare namespace connect {
          * Subscribe a method to be invoked whenever the contact is ended or destroyed.
          */
         onEnded(callback: ContactCallback): void;
+
+        /**
+         * Subscribe a method to be invoked when the contact is connecting.
+         */
+        onConnecting(callback: ContactCallback): void;
+
         /**
          * Subscribe a method to be invoked when the contact is connected.
          */
@@ -520,7 +572,7 @@ declare namespace connect {
         /**
          * Get a map from attribute name to value for each attribute associated with the contact.
          */
-        getAttributes(): { [key: string]: string };
+        getAttributes(): { [key: string]: { label: string; value: string } };
         /*
          * Determine whether this contact is a softphone call.
          */
@@ -611,9 +663,9 @@ declare namespace connect {
 
     interface SendDigitOptions extends SuccessFailOptions {
         /*
-        * A string containing digits to send.
-        */
-       digits: string;
+         * A string containing digits to send.
+         */
+        digits: string;
     }
 
     interface Connection {
@@ -640,7 +692,7 @@ declare namespace connect {
         /**
          * Get the type of connection.
          */
-        getType(): "inbound" | "outbound" | "monitoring";
+        getType(): 'inbound' | 'outbound' | 'monitoring';
         /**
          * Determine if the connection is the contact's initial connection.
          */

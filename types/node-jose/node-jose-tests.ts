@@ -39,6 +39,8 @@ everything = keystore.all({ alg: 'RSA-OAEP' });
 // filter by 'kid' + 'kty' + 'alg'
 everything = keystore.all({ kid: 'kid', kty: 'RSA', alg: 'RSA-OAEP' });
 
+keystore.all().forEach(rawKey => rawKey.kid);
+
 keystore.add('input').then(result => {});
 
 keystore.add('input', 'json').then(result => {

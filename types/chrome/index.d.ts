@@ -10,6 +10,7 @@
 //                 Thierry Régagnon <https://github.com/tregagnon>
 //                 Brian Wilson <https://github.com/echoabstract>
 //                 Sebastiaan Pasma <https://github.com/spasma>
+//                 bdbai <https://github.com/bdbai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -2467,7 +2468,7 @@ declare namespace chrome.enterprise.platformKeys {
      * function(array of ArrayBuffer certificates) {...};
      * Parameter certificates: The list of certificates, each in DER encoding of a X.509 certificate.
      */
-    export function getCertificates(tokenId: string, callback: (certificates: ArrayBuffer) => void): void;
+    export function getCertificates(tokenId: string, callback: (certificates: ArrayBuffer[]) => void): void;
     /**
      * Imports certificate to the given token if the certified key is already stored in this token. After a successful certification request, this function should be used to store the obtained certificate and to make it available to the operating system and browser for authentication.
      * @param tokenId The id of a Token returned by getTokens.
@@ -3819,6 +3820,12 @@ declare namespace chrome.input.ime {
          * Whether or not the ALT key is pressed.
          */
         altKey?: boolean;
+        /**
+         * Optional.
+         * Whether or not the ALTGR key is pressed.
+         * @since Chrome 79.
+         */
+        altgrKey?: boolean;
         /** The ID of the request. */
         requestId: string;
         /** Value of the key being pressed */
@@ -4884,12 +4891,12 @@ declare namespace chrome.permissions {
          * Optional.
          * List of named permissions (does not include hosts or origins). Anything listed here must appear in the optional_permissions list in the manifest.
          */
-        origins?: string[];
+        permissions?: string[];
         /**
          * Optional.
          * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional_permissions list in the manifest. For example, if http://*.example.com/ or http://* appears in optional_permissions, you can request an origin of http://help.example.com/. Any path is ignored.
          */
-        permissions?: string[];
+        origins?: string[];
     }
 
     export interface PermissionsRemovedEvent {

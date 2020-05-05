@@ -2118,24 +2118,25 @@ declare namespace Cesium {
     }
 
     class BillboardGraphics {
-        definitionChanged: Event;
-        image: Property;
-        imageSubRegion: Property;
-        scale: Property;
-        rotation: Property;
-        alignedAxis: Property;
-        horizontalOrigin: Property;
-        verticalOrigin: Property;
-        color: Property;
-        eyeOffset: Property;
-        pixelOffset: Property;
-        show: Property;
-        width: Property;
-        height: Property;
-        scaleByDistance: Property;
-        translucencyByDistance: Property;
-        disableDepthTestDistance: Property;
-        pixelOffsetScaleByDistance: Property;
+        definitionChanged?: Event;
+        image?: Property;
+        imageSubRegion?: Property;
+        scale?: Property;
+        rotation?: Property;
+        alignedAxis?: Property;
+        horizontalOrigin?: Property;
+        verticalOrigin?: Property;
+        color?: Property;
+        eyeOffset?: Property;
+        pixelOffset?: Property;
+        show?: Property;
+        width?: Property;
+        height?: Property;
+        scaleByDistance?: Property;
+        translucencyByDistance?: Property;
+        disableDepthTestDistance?: Property | number;
+        pixelOffsetScaleByDistance?: Property;
+        heightReference?: Property;
         constructor(options?: { image?: Property;
             show?: Property;
             scale?: Property;
@@ -2151,8 +2152,8 @@ declare namespace Cesium {
             scaleByDistance?: Property;
             translucencyByDistance?: Property;
             pixelOffsetScaleByDistance?: Property;
-            disableDepthTestDistance?: Property;
-            imageSubRegion?: Property
+            disableDepthTestDistance?: Property | number;
+            imageSubRegion?: Property;
             heightReference?: Property;
         });
         clone(result?: BillboardGraphics): BillboardGraphics;
@@ -2387,6 +2388,7 @@ declare namespace Cesium {
         remove(dataSource: DataSource, destroy?: boolean): boolean;
         removeAll(destroy?: boolean): void;
         contains(dataSource: DataSource): boolean;
+        lowerToBottom(dataSource: DataSource): void;
         indexOf(dataSource: DataSource): number;
         get(index: number): DataSource;
         getByName(name: string): DataSource[];
@@ -2422,8 +2424,8 @@ declare namespace Cesium {
 
     class EllipseGraphics {
         definitionChanged: Event;
-        semiMajorAxis: Property;
-        semiMinorAxis: Property;
+        semiMajorAxis: Property | number;
+        semiMinorAxis: Property | number;
         rotation: Property;
         show: Property;
         material: MaterialProperty | Color;
@@ -2437,8 +2439,8 @@ declare namespace Cesium {
         outlineWidth: number;
         numberOfVerticalLines: Property;
         constructor(options?: {
-            semiMajorAxis?: number;
-            semiMinorAxis?: number;
+            semiMajorAxis?: Property | number;
+            semiMinorAxis?: Property | number;
             height?: Property;
             extrudedHeight?: Property;
             show?: Property;
@@ -2528,7 +2530,7 @@ declare namespace Cesium {
           availability?: TimeIntervalCollection;
           show?: boolean;
           description?: Property;
-          position?: PositionProperty;
+          position?: CallbackProperty | PositionProperty;
           orientation?: Property | Quaternion;
           viewFrom?: Property;
           parent?: Entity;
@@ -2700,7 +2702,7 @@ declare namespace Cesium {
 
     class LabelGraphics {
         definitionChanged: Event;
-        text: Property;
+        text: Property | string;
         font: string;
         style: Property;
         fillColor: Color;
@@ -2710,12 +2712,14 @@ declare namespace Cesium {
         verticalOrigin: Property;
         eyeOffset: Property;
         pixelOffset: Property;
+        backgroundColor: Property;
         scale: Property;
+        showBackground?: Property;
         show: Property;
         translucencyByDistance: Property;
         pixelOffsetScaleByDistance: Property;
         constructor(options?: {
-            text?: Property;
+            text?: Property | string;
             font?: string;
             style?: Property;
             fillColor?: Color;
@@ -2735,6 +2739,7 @@ declare namespace Cesium {
             heightReference?: Property;
             scaleByDistance?: Property;
             distanceDisplayCondition?: Property;
+            disableDepthTestDistance?: Property | number;
         });
         clone(result?: LabelGraphics): LabelGraphics;
         merge(source: LabelGraphics): LabelGraphics;
@@ -2873,7 +2878,7 @@ declare namespace Cesium {
         distanceDisplayCondition: Property;
         show: Property;
         material: MaterialProperty | Color;
-        hierarchy: Property;
+        hierarchy: Property | Cartesian3[] | PolygonHierarchy;
         height: Property;
         heightReference: Property;
         extrudedHeight: Property;
@@ -2888,7 +2893,7 @@ declare namespace Cesium {
         shadows: Property;
         zIndex: ConstantProperty;
         constructor(options?: {
-            hierarchy?: Property;
+            hierarchy?: Property | Cartesian3[] | PolygonHierarchy;
             height?: Property | number;
             heightReference?: Property;
             extrudedHeight?: Property;
@@ -2949,16 +2954,16 @@ declare namespace Cesium {
         granularity: Property;
         shadows: Property;
         show: Property;
-        material: MaterialProperty;
-        positions: Property;
-        width: Property;
+        material: MaterialProperty | Color;
+        positions: Property | Cartesian3[];
+        width: Property | number;
         zIndex: ConstantProperty;
         constructor(options?: {
             positions?: Property | Cartesian3[];
             clampToGround?: Property | boolean;
             width?: Property | number;
             show?: Property | boolean;
-            material?: MaterialProperty;
+            material?: MaterialProperty | Color;
             granularity?: Property;
             arcType?: Property | ArcType;
             depthFailMaterial?: MaterialProperty;
@@ -3024,7 +3029,7 @@ declare namespace Cesium {
     abstract class Property {
         readonly isConstant: boolean;
         readonly definitionChanged: Event;
-        getValue(time: JulianDate, result?: any): any;
+        getValue(time?: JulianDate, result?: any): any;
         equals(other?: Property): boolean;
     }
 
@@ -4426,7 +4431,7 @@ declare namespace Cesium {
         readonly infiniteProjectionMatrix: Matrix4;
         readonly fovy: number;
         static packedLength: number;
-        constructor(options?: {fov: number; aspectRatio: number; near: number; far: number; xOffset: number; yOffset: number});
+        constructor(options?: {fov: number; aspectRatio: number; near?: number; far?: number; xOffset?: number; yOffset?: number});
         pack(value: PerspectiveFrustum, array: number[], startingIndex: number): number[];
         unpack(array: number[], startingIndex: number, result: PerspectiveFrustum): PerspectiveFrustum;
         clone(result?: PerspectiveFrustum): PerspectiveFrustum;
@@ -4660,7 +4665,7 @@ declare namespace Cesium {
     class Scene {
         backgroundColor: Color;
         readonly camera: Camera;
-        readonly canvas: Element;
+        readonly canvas: HTMLCanvasElement;
         completeMorphOnUserInput: boolean;
         debugCommandFilter: (command: any) => boolean;
         readonly debugFrustumStatistics: any;

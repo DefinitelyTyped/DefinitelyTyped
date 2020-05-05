@@ -79,6 +79,11 @@ interface Numeral {
 	localeData(key?: string): NumeralJSLocale;
 
 	/**
+	 * This function resets the configuration to all the defaults
+	 */
+	reset(): void;
+
+	/**
 	 * Registers a language definition or a custom format definition.
 	 *
 	 * @param what Allowed values are: either 'format' or 'locale'
