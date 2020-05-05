@@ -1,4 +1,4 @@
-// Type definitions for detox 14.5
+// Type definitions for detox 16.4
 // Project: https://github.com/wix/detox
 // Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>
 //                 Steve Chun <https://github.com/stevechun>
