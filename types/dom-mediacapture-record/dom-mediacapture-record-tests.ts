@@ -58,3 +58,9 @@ recorder.onpause = null;
 recorder.onresume = null;
 recorder.onstart = null;
 recorder.onstop = null;
+
+recorder.addEventListener('dataavailable', (e: BlobEvent) => {});
+recorder.addEventListener('error', (e: MediaRecorderErrorEvent) => {});
+recorder.addEventListener('pause', onEvent);
+recorder.addEventListener('resume', onEvent);
+recorder.addEventListener('dataavailable', onEvent);

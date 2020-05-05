@@ -278,7 +278,7 @@ f("one");
 
 #### 풀 리퀘스트(Pull request)를 제출했습니다. 이게 합쳐질 때까지 얼마나 걸리나요?
 
-상황에 따라 다르지만, 대부분의 풀 리퀘스트(Pull request)들은 일주일 안에 합쳐집니다. 머릿주석에 있는 저자 중 한명에 의해 승인된 풀 리퀘스트(Pull request)는 보통 더 빨리 합쳐집니다. 새로운 패키지에 대한 풀 리퀘스트(Pull request)는 관리자의 세세한 코드 리뷰를 필요로 하기 때문에 더 오래 걸리는 경우가 많습니다. 각 PR 들은 합쳐지기 전에 TypeScript or DefinitelyTyped 팀 구성원의 코드 리뷰를 받아야 하며, 이는 사람이 하는 일이기 때문에 느려질 수도 있으니 양해를 바랍니다. [풀 리퀘스트 번다운 보드(PR Burndown Board)](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/3?card_filter_query=is%3Aopen)에서 열린 풀 리퀘스트에 대한 관리자들의 진행도를 확인하실 수 있습니다.
+상황에 따라 다르지만, 대부분의 풀 리퀘스트(Pull request)들은 일주일 안에 합쳐집니다. 머릿주석에 있는 저자 중 한명에 의해 승인된 풀 리퀘스트(Pull request)는 보통 더 빨리 합쳐집니다. 새로운 패키지에 대한 풀 리퀘스트(Pull request)는 관리자의 세세한 코드 리뷰를 필요로 하기 때문에 더 오래 걸리는 경우가 많습니다. 각 PR 들은 합쳐지기 전에 TypeScript or DefinitelyTyped 팀 구성원의 코드 리뷰를 받아야 하며, 이는 사람이 하는 일이기 때문에 느려질 수도 있으니 양해를 바랍니다. [풀 리퀘스트 번다운 보드(New Pull Request Status Board)](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5)에서 열린 풀 리퀘스트에 대한 관리자들의 진행도를 확인하실 수 있습니다.
 
 #### 내 풀 리퀘스트(Pull request)는 합쳐졌습니다. 언제 NPM 에 `@types` 패키지가 갱신되나요?
 

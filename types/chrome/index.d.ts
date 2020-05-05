@@ -3820,6 +3820,12 @@ declare namespace chrome.input.ime {
          * Whether or not the ALT key is pressed.
          */
         altKey?: boolean;
+        /**
+         * Optional.
+         * Whether or not the ALTGR key is pressed.
+         * @since Chrome 79.
+         */
+        altgrKey?: boolean;
         /** The ID of the request. */
         requestId: string;
         /** Value of the key being pressed */

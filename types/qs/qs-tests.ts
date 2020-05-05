@@ -8,11 +8,40 @@ qs.parse('a=b');
 qs.parse('a=b&c=d', { delimiter: '&' });
 
 () => {
-    var obj = qs.parse('a=c');
+    let obj = qs.parse('a=z&b[c]=z&d=z&d=z&e[][f]=z');
+    obj; // $ExpectType ParsedQs
+    obj.a; // $ExpectType string | ParsedQs | string[] | ParsedQs[]
     assert.deepEqual(obj, { a: 'c' });
 
     var str = qs.stringify(obj);
     assert.equal(str, 'a=c');
+};
+
+{
+    let obj = qs.parse('a=c', {
+        decoder: (str, defaultDecoder, charset, type) => {
+            switch (type) {
+                case 'key': return str;
+                case 'value': return parseFloat(str);
+            }
+        },
+    });
+    obj; // $ExpectType { [key: string]: PoorMansUnknown; }
+    obj.a; // $ExpectType PoorMansUnknown
+}
+
+{
+    const options: qs.IParseOptions = {
+        decoder: (str, defaultDecoder, charset, type) => {
+            switch (type) {
+                case 'key': return str;
+                case 'value': return parseFloat(str);
+            }
+        },
+    };
+    let obj = qs.parse('a=c', options);
+    obj; // $ExpectType { [key: string]: PoorMansUnknown; }
+    obj.a; // $ExpectType PoorMansUnknown
 }
 
 () => {
@@ -266,7 +295,7 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 }
 
 () => {
-    var obj = qs.parse('a=%82%B1%82%F1%82%C9%82%BF%82%CD%81I');
+    let obj = qs.parse('a=%82%B1%82%F1%82%C9%82%BF%82%CD%81I');
     assert.deepEqual(obj, { a: 'こんにちは！' });
 }
 
