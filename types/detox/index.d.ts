@@ -13,6 +13,7 @@ declare global {
     const waitFor: Detox.WaitFor;
     const expect: Detox.Expect<Detox.Expect<Promise<void>>>;
     const by: Detox.Matchers;
+    const detoxCircus: Detox.DetoxCircus;
 
     namespace Detox {
         interface Detox {
@@ -583,6 +584,26 @@ declare global {
              * Launch config for specifying the native language and locale
              */
             languageAndLocale?: LanguageAndLocale;
+        }
+
+        interface CircusTestEventListenerBase {
+            handleTestEvent(event: any, state: any): Promise<void>;
+        }
+
+        interface DetoxCircus {
+            /**
+             * A get function that Enables access to this instance (single in each worker's scope)
+             */
+            getEnv(): {
+                /**
+                 * Registers a listener such as an adapter or reporter
+                 * @param listener
+                 * @example
+                 * detoxCircus.getEnv().addEventsListener(adapter)
+                 * detoxCircus.getEnv().addEventsListener(assignReporter)
+                 */
+                addEventsListener(listener: CircusTestEventListenerBase): void
+            };
         }
     }
 }
