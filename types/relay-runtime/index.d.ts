@@ -1,14 +1,18 @@
-// Type definitions for relay-runtime 6.0
+// Type definitions for relay-runtime 8.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
 //                 Cameron Knight <https://github.com/ckknight>
 //                 Renan Machado <https://github.com/renanmav>
+//                 Stephen Pittman <https://github.com/Stephen2>
+//                 Martin Zlámal <https://github.com/mrtnzlml>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-export { ConnectionMetadata } from './lib/handlers/connection/RelayConnectionHandler';
-export { EdgeRecord, PageInfo } from './lib/handlers/connection/RelayConnectionInterface';
+import ConnectionInterface from './lib/handlers/connection/ConnectionInterface';
+export { ConnectionInterface };
+export { ConnectionMetadata } from './lib/handlers/connection/ConnectionHandler';
+export { EdgeRecord, PageInfo } from './lib/handlers/connection/ConnectionInterface';
 export {
     DeclarativeMutationConfig,
     MutationTypes,
@@ -21,7 +25,6 @@ export {
 } from './lib/mutations/RelayDeclarativeMutationConfig';
 export { OptimisticMutationConfig } from './lib/mutations/applyOptimisticMutation';
 export { MutationConfig, MutationParameters } from './lib/mutations/commitMutation';
-export { RelayNetworkLog, LoggerTransactionConfig } from './lib/network/RelayNetworkLoggerTransaction';
 export {
     ExecuteFunction,
     FetchFunction,
@@ -35,7 +38,6 @@ export {
     UploadableMap,
 } from './lib/network/RelayNetworkTypes';
 export { ObservableFromValue, Observer, Subscribable, Subscription } from './lib/network/RelayObservable';
-export { GraphiQLPrinter, NetworkLogger } from './lib/network/createRelayNetworkLogger';
 export {
     GraphQLTaggedNode,
     graphql,
@@ -45,6 +47,11 @@ export {
     getRefetchableFragment,
     getRequest,
 } from './lib/query/RelayModernGraphQLTag';
+export {
+    isClientID,
+    generateClientID,
+    generateUniqueClientID,
+} from './lib/store/ClientID';
 export {
     ConnectionEvent,
     ConnectionID,
@@ -62,8 +69,6 @@ export {
     FragmentReference,
     FragmentSpecResolver,
     HandleFieldPayload,
-    Logger,
-    LoggerProvider,
     MissingFieldHandler,
     ModuleImportPointer,
     NormalizationSelector,
@@ -168,10 +173,10 @@ export { readInlineData } from './lib/store/readInlineData';
 
 // Extensions
 export { RelayDefaultHandlerProvider as DefaultHandlerProvider } from './lib/handlers/RelayDefaultHandlerProvider';
-export {
-    missingViewerFieldHandler as DefaultMissingFieldHandlers,
-} from './lib/handlers/RelayDefaultMissingFieldHandlers';
-import * as ConnectionHandler from './lib/handlers/connection/RelayConnectionHandler';
+
+import getDefaultMissingFieldHandlers from './lib/handlers/getRelayDefaultMissingFieldHandlers';
+export { getDefaultMissingFieldHandlers };
+import * as ConnectionHandler from './lib/handlers/connection/ConnectionHandler';
 export { ConnectionHandler };
 
 // Helpers (can be implemented via the above API)
@@ -184,21 +189,29 @@ export { requestSubscription } from './lib/subscription/requestSubscription';
 
 // Utilities
 export { RelayProfiler } from './lib/util/RelayProfiler';
+export { getRelayHandleKey } from './lib/util/getRelayHandleKey';
 
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
 export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
-export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerTransaction';
-export { createRelayNetworkLogger } from './lib/network/createRelayNetworkLogger';
 export { deepFreeze } from './lib/util/deepFreeze';
 
-// These match the output of relay-compiler-language-typescript.
-export interface _RefType<T> {
-    ' $refType': T;
-}
-export interface _FragmentRefs<T> {
-    ' $fragmentRefs': T;
+/**
+ * relay-compiler-language-typescript support for fragment references
+ */
+
+export interface _RefType<Ref extends string> {
+    ' $refType': Ref;
 }
 
+export interface _FragmentRefs<Refs extends string> {
+    ' $fragmentRefs': FragmentRefs<Refs>;
+}
+
+// This is used in the actual artifacts to define the various fragment references a container holds.
+export type FragmentRefs<Refs extends string> = {
+    [ref in Refs]: true;
+};
+
 // This is a utility type for converting from a data type to a fragment reference that will resolve to that data type.
-export type FragmentRef<T> = T extends _RefType<infer U> ? _FragmentRefs<U> : never;
+export type FragmentRef<Fragment> = Fragment extends _RefType<infer U> ? _FragmentRefs<U> : never;

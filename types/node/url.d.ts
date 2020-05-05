@@ -1,29 +1,35 @@
 declare module "url" {
     import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
 
-    interface UrlObjectCommon {
-        auth?: string;
-        hash?: string;
-        host?: string;
-        hostname?: string;
-        href?: string;
-        path?: string;
-        pathname?: string;
-        protocol?: string;
-        search?: string;
-        slashes?: boolean;
-    }
-
     // Input to `url.format`
-    interface UrlObject extends UrlObjectCommon {
-        port?: string | number;
+    interface UrlObject {
+        auth?: string | null;
+        hash?: string | null;
+        host?: string | null;
+        hostname?: string | null;
+        href?: string | null;
+        pathname?: string | null;
+        protocol?: string | null;
+        search?: string | null;
+        slashes?: boolean | null;
+        port?: string | number | null;
         query?: string | null | ParsedUrlQueryInput;
     }
 
     // Output of `url.parse`
-    interface Url extends UrlObjectCommon {
-        port?: string;
-        query?: string | null | ParsedUrlQuery;
+    interface Url {
+        auth: string | null;
+        hash: string | null;
+        host: string | null;
+        hostname: string | null;
+        href: string;
+        path: string | null;
+        pathname: string | null;
+        protocol: string | null;
+        search: string | null;
+        slashes: boolean | null;
+        port: string | null;
+        query: string | null | ParsedUrlQuery;
     }
 
     interface UrlWithParsedQuery extends Url {
@@ -86,7 +92,7 @@ declare module "url" {
     }
 
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
+        constructor(init?: URLSearchParams | string | NodeJS.Dict<string | string[]> | Iterable<[string, string]> | Array<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;

@@ -1,6 +1,7 @@
 import { Environment } from './environment';
 import { NewConnectConfig } from '../transport/wire';
 import { Identity } from '../identity';
+import { EntityType } from '../api/frame/frame';
 export default class OpenFinEnvironment implements Environment {
     writeToken: (path: string, token: string) => Promise<string>;
     retrievePort: (config: NewConnectConfig) => Promise<number>;
@@ -11,4 +12,5 @@ export default class OpenFinEnvironment implements Environment {
     isWindowExists: (uuid: string, name: string) => boolean;
     getWebWindow: (identity: Identity) => Window;
     getCurrentEntityIdentity: () => Identity;
+    getCurrentEntityType: () => EntityType;
 }

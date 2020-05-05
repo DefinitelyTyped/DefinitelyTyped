@@ -1,26 +1,25 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
   namespace Analytics {
     namespace Collection {
       namespace Data {
-        export interface GaCollection {
+        interface GaCollection {
           // Returns Analytics data for a view (profile).
           get(ids: string, start_date: string, end_date: string, metrics: string): Analytics.Schema.GaData;
           // Returns Analytics data for a view (profile).
           get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs: object): Analytics.Schema.GaData;
         }
-        export interface McfCollection {
+        interface McfCollection {
           // Returns Analytics Multi-Channel Funnels data for a view (profile).
           get(ids: string, start_date: string, end_date: string, metrics: string): Analytics.Schema.McfData;
           // Returns Analytics Multi-Channel Funnels data for a view (profile).
           get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs: object): Analytics.Schema.McfData;
         }
-        export interface RealtimeCollection {
+        interface RealtimeCollection {
           // Returns real time data for a view (profile).
           get(ids: string, metrics: string): Analytics.Schema.RealtimeData;
           // Returns real time data for a view (profile).
@@ -28,13 +27,13 @@ declare namespace GoogleAppsScript {
         }
       }
       namespace Management {
-        export interface AccountSummariesCollection {
+        interface AccountSummariesCollection {
           // Lists account summaries (lightweight tree comprised of accounts/properties/profiles) to which the user has access.
           list(): Analytics.Schema.AccountSummaries;
           // Lists account summaries (lightweight tree comprised of accounts/properties/profiles) to which the user has access.
           list(optionalArgs: object): Analytics.Schema.AccountSummaries;
         }
-        export interface AccountUserLinksCollection {
+        interface AccountUserLinksCollection {
           // Adds a new user to the given account.
           insert(resource: Schema.EntityUserLink, accountId: string): Analytics.Schema.EntityUserLink;
           // Lists account-user links for a given account.
@@ -46,23 +45,23 @@ declare namespace GoogleAppsScript {
           // Updates permissions for an existing user on the given account.
           update(resource: Schema.EntityUserLink, accountId: string, linkId: string): Analytics.Schema.EntityUserLink;
         }
-        export interface AccountsCollection {
+        interface AccountsCollection {
           // Lists all accounts to which the user has access.
           list(): Analytics.Schema.Accounts;
           // Lists all accounts to which the user has access.
           list(optionalArgs: object): Analytics.Schema.Accounts;
         }
-        export interface ClientIdCollection {
+        interface ClientIdCollection {
           // Hashes the given Client ID.
           hashClientId(resource: Analytics.Schema.HashClientIdRequest): Analytics.Schema.HashClientIdResponse;
         }
-        export interface CustomDataSourcesCollection {
+        interface CustomDataSourcesCollection {
           // List custom data sources to which the user has access.
           list(accountId: string, webPropertyId: string): Analytics.Schema.CustomDataSources;
           // List custom data sources to which the user has access.
           list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.CustomDataSources;
         }
-        export interface CustomDimensionsCollection {
+        interface CustomDimensionsCollection {
           // Get a custom dimension to which the user has access.
           get(accountId: string, webPropertyId: string, customDimensionId: string): Analytics.Schema.CustomDimension;
           // Create a new custom dimension.
@@ -80,7 +79,7 @@ declare namespace GoogleAppsScript {
           // Updates an existing custom dimension.
           update(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string, optionalArgs: object): Analytics.Schema.CustomDimension;
         }
-        export interface CustomMetricsCollection {
+        interface CustomMetricsCollection {
           // Get a custom metric to which the user has access.
           get(accountId: string, webPropertyId: string, customMetricId: string): Analytics.Schema.CustomMetric;
           // Create a new custom metric.
@@ -98,7 +97,7 @@ declare namespace GoogleAppsScript {
           // Updates an existing custom metric.
           update(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string, optionalArgs: object): Analytics.Schema.CustomMetric;
         }
-        export interface ExperimentsCollection {
+        interface ExperimentsCollection {
           // Returns an experiment to which the user has access.
           get(accountId: string, webPropertyId: string, profileId: string, experimentId: string): Analytics.Schema.Experiment;
           // Create a new experiment.
@@ -114,7 +113,7 @@ declare namespace GoogleAppsScript {
           // Update an existing experiment.
           update(resource: Schema.Experiment, accountId: string, webPropertyId: string, profileId: string, experimentId: string): Analytics.Schema.Experiment;
         }
-        export interface FiltersCollection {
+        interface FiltersCollection {
           // Returns a filters to which the user has access.
           get(accountId: string, filterId: string): Analytics.Schema.Filter;
           // Create a new filter.
@@ -130,7 +129,7 @@ declare namespace GoogleAppsScript {
           // Updates an existing filter.
           update(resource: Schema.Filter, accountId: string, filterId: string): Analytics.Schema.Filter;
         }
-        export interface GoalsCollection {
+        interface GoalsCollection {
           // Gets a goal to which the user has access.
           get(accountId: string, webPropertyId: string, profileId: string, goalId: string): Analytics.Schema.Goal;
           // Create a new goal.
@@ -144,7 +143,7 @@ declare namespace GoogleAppsScript {
           // Updates an existing goal.
           update(resource: Schema.Goal, accountId: string, webPropertyId: string, profileId: string, goalId: string): Analytics.Schema.Goal;
         }
-        export interface ProfileFilterLinksCollection {
+        interface ProfileFilterLinksCollection {
           // Returns a single profile filter link.
           get(accountId: string, webPropertyId: string, profileId: string, linkId: string): Analytics.Schema.ProfileFilterLink;
           // Create a new profile filter link.
@@ -160,7 +159,7 @@ declare namespace GoogleAppsScript {
           // Update an existing profile filter link.
           update(resource: Schema.ProfileFilterLink, accountId: string, webPropertyId: string, profileId: string, linkId: string): Analytics.Schema.ProfileFilterLink;
         }
-        export interface ProfileUserLinksCollection {
+        interface ProfileUserLinksCollection {
           // Adds a new user to the given view (profile).
           insert(resource: Schema.EntityUserLink, accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.EntityUserLink;
           // Lists profile-user links for a given view (profile).
@@ -172,7 +171,7 @@ declare namespace GoogleAppsScript {
           // Updates permissions for an existing user on the given view (profile).
           update(resource: Schema.EntityUserLink, accountId: string, webPropertyId: string, profileId: string, linkId: string): Analytics.Schema.EntityUserLink;
         }
-        export interface ProfilesCollection {
+        interface ProfilesCollection {
           // Gets a view (profile) to which the user has access.
           get(accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.Profile;
           // Create a new view (profile).
@@ -188,7 +187,7 @@ declare namespace GoogleAppsScript {
           // Updates an existing view (profile).
           update(resource: Schema.Profile, accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.Profile;
         }
-        export interface RemarketingAudienceCollection {
+        interface RemarketingAudienceCollection {
           // Gets a remarketing audience to which the user has access.
           get(accountId: string, webPropertyId: string, remarketingAudienceId: string): Analytics.Schema.RemarketingAudience;
           // Creates a new remarketing audience.
@@ -204,13 +203,13 @@ declare namespace GoogleAppsScript {
           // Updates an existing remarketing audience.
           update(resource: Schema.RemarketingAudience, accountId: string, webPropertyId: string, remarketingAudienceId: string): Analytics.Schema.RemarketingAudience;
         }
-        export interface SegmentsCollection {
+        interface SegmentsCollection {
           // Lists segments to which the user has access.
           list(): Analytics.Schema.Segments;
           // Lists segments to which the user has access.
           list(optionalArgs: object): Analytics.Schema.Segments;
         }
-        export interface UnsampledReportsCollection {
+        interface UnsampledReportsCollection {
           // Returns a single unsampled report.
           get(accountId: string, webPropertyId: string, profileId: string, unsampledReportId: string): Analytics.Schema.UnsampledReport;
           // Create a new unsampled report.
@@ -222,7 +221,7 @@ declare namespace GoogleAppsScript {
           // Deletes an unsampled report.
           remove(accountId: string, webPropertyId: string, profileId: string, unsampledReportId: string): void;
         }
-        export interface UploadsCollection {
+        interface UploadsCollection {
           // Delete data associated with a previous upload.
           deleteUploadData(resource: Schema.AnalyticsDataimportDeleteUploadDataRequest, accountId: string, webPropertyId: string, customDataSourceId: string): void;
           // List uploads to which the user has access.
@@ -236,7 +235,7 @@ declare namespace GoogleAppsScript {
           // Upload data for a custom data source.
           uploadData(accountId: string, webPropertyId: string, customDataSourceId: string, mediaData: any): Analytics.Schema.Upload;
         }
-        export interface WebPropertyAdWordsLinksCollection {
+        interface WebPropertyAdWordsLinksCollection {
           // Returns a web property-Google Ads link to which the user has access.
           get(accountId: string, webPropertyId: string, webPropertyAdWordsLinkId: string): Analytics.Schema.EntityAdWordsLink;
           // Creates a webProperty-Google Ads link.
@@ -252,7 +251,7 @@ declare namespace GoogleAppsScript {
           // Updates an existing webProperty-Google Ads link.
           update(resource: Schema.EntityAdWordsLink, accountId: string, webPropertyId: string, webPropertyAdWordsLinkId: string): Analytics.Schema.EntityAdWordsLink;
         }
-        export interface WebpropertiesCollection {
+        interface WebpropertiesCollection {
           // Gets a web property to which the user has access.
           get(accountId: string, webPropertyId: string): Analytics.Schema.Webproperty;
           // Create a new property if the account has fewer than 20 properties. Web properties are visible in the Google Analytics interface only if they have at least one profile.
@@ -266,7 +265,7 @@ declare namespace GoogleAppsScript {
           // Updates an existing web property.
           update(resource: Schema.Webproperty, accountId: string, webPropertyId: string): Analytics.Schema.Webproperty;
         }
-        export interface WebpropertyUserLinksCollection {
+        interface WebpropertyUserLinksCollection {
           // Adds a new user to the given web property.
           insert(resource: Schema.EntityUserLink, accountId: string, webPropertyId: string): Analytics.Schema.EntityUserLink;
           // Lists webProperty-user links for a given web property.
@@ -280,23 +279,23 @@ declare namespace GoogleAppsScript {
         }
       }
       namespace Metadata {
-        export interface ColumnsCollection {
+        interface ColumnsCollection {
           // Lists all columns for a report type
           list(reportType: string): Analytics.Schema.Columns;
         }
       }
       namespace UserDeletion {
-        export interface UserDeletionRequestCollection {
+        interface UserDeletionRequestCollection {
           // Insert or update a user deletion requests.
           upsert(resource: Schema.UserDeletionRequest): Analytics.Schema.UserDeletionRequest;
         }
       }
-      export interface DataCollection {
+      interface DataCollection {
         Ga?: Analytics.Collection.Data.GaCollection;
         Mcf?: Analytics.Collection.Data.McfCollection;
         Realtime?: Analytics.Collection.Data.RealtimeCollection;
       }
-      export interface ManagementCollection {
+      interface ManagementCollection {
         AccountSummaries?: Analytics.Collection.Management.AccountSummariesCollection;
         AccountUserLinks?: Analytics.Collection.Management.AccountUserLinksCollection;
         Accounts?: Analytics.Collection.Management.AccountsCollection;
@@ -318,21 +317,21 @@ declare namespace GoogleAppsScript {
         Webproperties?: Analytics.Collection.Management.WebpropertiesCollection;
         WebpropertyUserLinks?: Analytics.Collection.Management.WebpropertyUserLinksCollection;
       }
-      export interface MetadataCollection {
+      interface MetadataCollection {
         Columns?: Analytics.Collection.Metadata.ColumnsCollection;
       }
-      export interface ProvisioningCollection {
+      interface ProvisioningCollection {
         // Creates an account ticket.
         createAccountTicket(resource: Schema.AccountTicket): Analytics.Schema.AccountTicket;
         // Provision account.
         createAccountTree(resource: Schema.AccountTreeRequest): Analytics.Schema.AccountTreeResponse;
       }
-      export interface UserDeletionCollection {
+      interface UserDeletionCollection {
         UserDeletionRequest?: Analytics.Collection.UserDeletion.UserDeletionRequestCollection;
       }
     }
     namespace Schema {
-      export interface Account {
+      interface Account {
         childLink?: Analytics.Schema.AccountChildLink;
         created?: string;
         id?: string;
@@ -343,20 +342,20 @@ declare namespace GoogleAppsScript {
         starred?: boolean;
         updated?: string;
       }
-      export interface AccountChildLink {
+      interface AccountChildLink {
         href?: string;
         type?: string;
       }
-      export interface AccountPermissions {
+      interface AccountPermissions {
         effective?: string[];
       }
-      export interface AccountRef {
+      interface AccountRef {
         href?: string;
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface AccountSummaries {
+      interface AccountSummaries {
         items?: Analytics.Schema.AccountSummary[];
         itemsPerPage?: number;
         kind?: string;
@@ -366,14 +365,14 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface AccountSummary {
+      interface AccountSummary {
         id?: string;
         kind?: string;
         name?: string;
         starred?: boolean;
         webProperties?: Analytics.Schema.WebPropertySummary[];
       }
-      export interface AccountTicket {
+      interface AccountTicket {
         account?: Analytics.Schema.Account;
         id?: string;
         kind?: string;
@@ -381,7 +380,7 @@ declare namespace GoogleAppsScript {
         redirectUri?: string;
         webproperty?: Analytics.Schema.Webproperty;
       }
-      export interface AccountTreeRequest {
+      interface AccountTreeRequest {
         accountName?: string;
         kind?: string;
         profileName?: string;
@@ -389,13 +388,13 @@ declare namespace GoogleAppsScript {
         webpropertyName?: string;
         websiteUrl?: string;
       }
-      export interface AccountTreeResponse {
+      interface AccountTreeResponse {
         account?: Analytics.Schema.Account;
         kind?: string;
         profile?: Analytics.Schema.Profile;
         webproperty?: Analytics.Schema.Webproperty;
       }
-      export interface Accounts {
+      interface Accounts {
         items?: Analytics.Schema.Account[];
         itemsPerPage?: number;
         kind?: string;
@@ -405,27 +404,27 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface AdWordsAccount {
+      interface AdWordsAccount {
         autoTaggingEnabled?: boolean;
         customerId?: string;
         kind?: string;
       }
-      export interface AnalyticsDataimportDeleteUploadDataRequest {
+      interface AnalyticsDataimportDeleteUploadDataRequest {
         customDataImportUids?: string[];
       }
-      export interface Column {
+      interface Column {
         attributes?: object;
         id?: string;
         kind?: string;
       }
-      export interface Columns {
+      interface Columns {
         attributeNames?: string[];
         etag?: string;
         items?: Analytics.Schema.Column[];
         kind?: string;
         totalResults?: number;
       }
-      export interface CustomDataSource {
+      interface CustomDataSource {
         accountId?: string;
         childLink?: Analytics.Schema.CustomDataSourceChildLink;
         created?: string;
@@ -443,15 +442,15 @@ declare namespace GoogleAppsScript {
         uploadType?: string;
         webPropertyId?: string;
       }
-      export interface CustomDataSourceChildLink {
+      interface CustomDataSourceChildLink {
         href?: string;
         type?: string;
       }
-      export interface CustomDataSourceParentLink {
+      interface CustomDataSourceParentLink {
         href?: string;
         type?: string;
       }
-      export interface CustomDataSources {
+      interface CustomDataSources {
         items?: Analytics.Schema.CustomDataSource[];
         itemsPerPage?: number;
         kind?: string;
@@ -461,7 +460,7 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface CustomDimension {
+      interface CustomDimension {
         accountId?: string;
         active?: boolean;
         created?: string;
@@ -475,11 +474,11 @@ declare namespace GoogleAppsScript {
         updated?: string;
         webPropertyId?: string;
       }
-      export interface CustomDimensionParentLink {
+      interface CustomDimensionParentLink {
         href?: string;
         type?: string;
       }
-      export interface CustomDimensions {
+      interface CustomDimensions {
         items?: Analytics.Schema.CustomDimension[];
         itemsPerPage?: number;
         kind?: string;
@@ -489,7 +488,7 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface CustomMetric {
+      interface CustomMetric {
         accountId?: string;
         active?: boolean;
         created?: string;
@@ -506,11 +505,11 @@ declare namespace GoogleAppsScript {
         updated?: string;
         webPropertyId?: string;
       }
-      export interface CustomMetricParentLink {
+      interface CustomMetricParentLink {
         href?: string;
         type?: string;
       }
-      export interface CustomMetrics {
+      interface CustomMetrics {
         items?: Analytics.Schema.CustomMetric[];
         itemsPerPage?: number;
         kind?: string;
@@ -520,7 +519,7 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface EntityAdWordsLink {
+      interface EntityAdWordsLink {
         adWordsAccounts?: Analytics.Schema.AdWordsAccount[];
         entity?: Analytics.Schema.EntityAdWordsLinkEntity;
         id?: string;
@@ -529,10 +528,10 @@ declare namespace GoogleAppsScript {
         profileIds?: string[];
         selfLink?: string;
       }
-      export interface EntityAdWordsLinkEntity {
+      interface EntityAdWordsLinkEntity {
         webPropertyRef?: Analytics.Schema.WebPropertyRef;
       }
-      export interface EntityAdWordsLinks {
+      interface EntityAdWordsLinks {
         items?: Analytics.Schema.EntityAdWordsLink[];
         itemsPerPage?: number;
         kind?: string;
@@ -541,7 +540,7 @@ declare namespace GoogleAppsScript {
         startIndex?: number;
         totalResults?: number;
       }
-      export interface EntityUserLink {
+      interface EntityUserLink {
         entity?: Analytics.Schema.EntityUserLinkEntity;
         id?: string;
         kind?: string;
@@ -549,16 +548,16 @@ declare namespace GoogleAppsScript {
         selfLink?: string;
         userRef?: Analytics.Schema.UserRef;
       }
-      export interface EntityUserLinkEntity {
+      interface EntityUserLinkEntity {
         accountRef?: Analytics.Schema.AccountRef;
         profileRef?: Analytics.Schema.ProfileRef;
         webPropertyRef?: Analytics.Schema.WebPropertyRef;
       }
-      export interface EntityUserLinkPermissions {
+      interface EntityUserLinkPermissions {
         effective?: string[];
         local?: string[];
       }
-      export interface EntityUserLinks {
+      interface EntityUserLinks {
         items?: Analytics.Schema.EntityUserLink[];
         itemsPerPage?: number;
         kind?: string;
@@ -567,7 +566,7 @@ declare namespace GoogleAppsScript {
         startIndex?: number;
         totalResults?: number;
       }
-      export interface Experiment {
+      interface Experiment {
         accountId?: string;
         created?: string;
         description?: string;
@@ -597,18 +596,18 @@ declare namespace GoogleAppsScript {
         winnerConfidenceLevel?: number;
         winnerFound?: boolean;
       }
-      export interface ExperimentParentLink {
+      interface ExperimentParentLink {
         href?: string;
         type?: string;
       }
-      export interface ExperimentVariations {
+      interface ExperimentVariations {
         name?: string;
         status?: string;
         url?: string;
         weight?: number;
         won?: boolean;
       }
-      export interface Experiments {
+      interface Experiments {
         items?: Analytics.Schema.Experiment[];
         itemsPerPage?: number;
         kind?: string;
@@ -618,7 +617,7 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface Filter {
+      interface Filter {
         accountId?: string;
         advancedDetails?: Analytics.Schema.FilterAdvancedDetails;
         created?: string;
@@ -635,7 +634,7 @@ declare namespace GoogleAppsScript {
         updated?: string;
         uppercaseDetails?: Analytics.Schema.FilterUppercaseDetails;
       }
-      export interface FilterAdvancedDetails {
+      interface FilterAdvancedDetails {
         caseSensitive?: boolean;
         extractA?: string;
         extractB?: string;
@@ -650,7 +649,7 @@ declare namespace GoogleAppsScript {
         outputToFieldIndex?: number;
         overrideOutputField?: boolean;
       }
-      export interface FilterExpression {
+      interface FilterExpression {
         caseSensitive?: boolean;
         expressionValue?: string;
         field?: string;
@@ -658,33 +657,33 @@ declare namespace GoogleAppsScript {
         kind?: string;
         matchType?: string;
       }
-      export interface FilterLowercaseDetails {
+      interface FilterLowercaseDetails {
         field?: string;
         fieldIndex?: number;
       }
-      export interface FilterParentLink {
+      interface FilterParentLink {
         href?: string;
         type?: string;
       }
-      export interface FilterRef {
+      interface FilterRef {
         accountId?: string;
         href?: string;
         id?: string;
         kind?: string;
         name?: string;
       }
-      export interface FilterSearchAndReplaceDetails {
+      interface FilterSearchAndReplaceDetails {
         caseSensitive?: boolean;
         field?: string;
         fieldIndex?: number;
         replaceString?: string;
         searchString?: string;
       }
-      export interface FilterUppercaseDetails {
+      interface FilterUppercaseDetails {
         field?: string;
         fieldIndex?: number;
       }
-      export interface Filters {
+      interface Filters {
         items?: Analytics.Schema.Filter[];
         itemsPerPage?: number;
         kind?: string;
@@ -694,7 +693,7 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface GaData {
+      interface GaData {
         columnHeaders?: Analytics.Schema.GaDataColumnHeaders[];
         containsSampledData?: boolean;
         dataLastRefreshed?: string;
@@ -713,27 +712,27 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         totalsForAllResults?: object;
       }
-      export interface GaDataColumnHeaders {
+      interface GaDataColumnHeaders {
         columnType?: string;
         dataType?: string;
         name?: string;
       }
-      export interface GaDataDataTable {
+      interface GaDataDataTable {
         cols?: Analytics.Schema.GaDataDataTableCols[];
         rows?: Analytics.Schema.GaDataDataTableRows[];
       }
-      export interface GaDataDataTableCols {
+      interface GaDataDataTableCols {
         id?: string;
         label?: string;
         type?: string;
       }
-      export interface GaDataDataTableRows {
+      interface GaDataDataTableRows {
         c?: Analytics.Schema.GaDataDataTableRowsC[];
       }
-      export interface GaDataDataTableRowsC {
+      interface GaDataDataTableRowsC {
         v?: string;
       }
-      export interface GaDataProfileInfo {
+      interface GaDataProfileInfo {
         accountId?: string;
         internalWebPropertyId?: string;
         profileId?: string;
@@ -741,7 +740,7 @@ declare namespace GoogleAppsScript {
         tableId?: string;
         webPropertyId?: string;
       }
-      export interface GaDataQuery {
+      interface GaDataQuery {
         dimensions?: string;
         end_date?: string;
         filters?: string;
@@ -754,7 +753,7 @@ declare namespace GoogleAppsScript {
         start_date?: string;
         start_index?: number;
       }
-      export interface Goal {
+      interface Goal {
         accountId?: string;
         active?: boolean;
         created?: string;
@@ -774,42 +773,42 @@ declare namespace GoogleAppsScript {
         visitTimeOnSiteDetails?: Analytics.Schema.GoalVisitTimeOnSiteDetails;
         webPropertyId?: string;
       }
-      export interface GoalEventDetails {
+      interface GoalEventDetails {
         eventConditions?: GoalEventDetailsEventConditions[];
         useEventValue?: boolean;
       }
-      export interface GoalEventDetailsEventConditions {
+      interface GoalEventDetailsEventConditions {
         comparisonType?: string;
         comparisonValue?: string;
         expression?: string;
         matchType?: string;
         type?: string;
       }
-      export interface GoalParentLink {
+      interface GoalParentLink {
         href?: string;
         type?: string;
       }
-      export interface GoalUrlDestinationDetails {
+      interface GoalUrlDestinationDetails {
         caseSensitive?: boolean;
         firstStepRequired?: boolean;
         matchType?: string;
         steps?: GoalUrlDestinationDetailsSteps[];
         url?: string;
       }
-      export interface GoalUrlDestinationDetailsSteps {
+      interface GoalUrlDestinationDetailsSteps {
         name?: string;
         number?: number;
         url?: string;
       }
-      export interface GoalVisitNumPagesDetails {
+      interface GoalVisitNumPagesDetails {
         comparisonType?: string;
         comparisonValue?: string;
       }
-      export interface GoalVisitTimeOnSiteDetails {
+      interface GoalVisitTimeOnSiteDetails {
         comparisonType?: string;
         comparisonValue?: string;
       }
-      export interface Goals {
+      interface Goals {
         items?: Goal[];
         itemsPerPage?: number;
         kind?: string;
@@ -819,25 +818,25 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface HashClientIdRequest {
+      interface HashClientIdRequest {
         clientId?: string;
         kind?: string;
         webPropertyId?: string;
       }
-      export interface HashClientIdResponse {
+      interface HashClientIdResponse {
         clientId?: string;
         hashedClientId?: string;
         kind?: string;
         webPropertyId?: string;
       }
-      export interface IncludeConditions {
+      interface IncludeConditions {
         daysToLookBack?: number;
         isSmartList?: boolean;
         kind?: string;
         membershipDurationDays?: number;
         segment?: string;
       }
-      export interface LinkedForeignAccount {
+      interface LinkedForeignAccount {
         accountId?: string;
         eligibleForSearch?: boolean;
         id?: string;
@@ -849,7 +848,7 @@ declare namespace GoogleAppsScript {
         type?: string;
         webPropertyId?: string;
       }
-      export interface McfData {
+      interface McfData {
         columnHeaders?: McfDataColumnHeaders[];
         containsSampledData?: boolean;
         id?: string;
@@ -866,12 +865,12 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         totalsForAllResults?: object;
       }
-      export interface McfDataColumnHeaders {
+      interface McfDataColumnHeaders {
         columnType?: string;
         dataType?: string;
         name?: string;
       }
-      export interface McfDataProfileInfo {
+      interface McfDataProfileInfo {
         accountId?: string;
         internalWebPropertyId?: string;
         profileId?: string;
@@ -879,7 +878,7 @@ declare namespace GoogleAppsScript {
         tableId?: string;
         webPropertyId?: string;
       }
-      export interface McfDataQuery {
+      interface McfDataQuery {
         dimensions?: string;
         end_date?: string;
         filters?: string;
@@ -892,15 +891,15 @@ declare namespace GoogleAppsScript {
         start_date?: string;
         start_index?: number;
       }
-      export interface McfDataRows {
+      interface McfDataRows {
         conversionPathValue?: McfDataRowsConversionPathValue[];
         primitiveValue?: string;
       }
-      export interface McfDataRowsConversionPathValue {
+      interface McfDataRowsConversionPathValue {
         interactionType?: string;
         nodeValue?: string;
       }
-      export interface Profile {
+      interface Profile {
         accountId?: string;
         botFilteringEnabled?: boolean;
         childLink?: ProfileChildLink;
@@ -928,11 +927,11 @@ declare namespace GoogleAppsScript {
         webPropertyId?: string;
         websiteUrl?: string;
       }
-      export interface ProfileChildLink {
+      interface ProfileChildLink {
         href?: string;
         type?: string;
       }
-      export interface ProfileFilterLink {
+      interface ProfileFilterLink {
         filterRef?: Analytics.Schema.FilterRef;
         id?: string;
         kind?: string;
@@ -940,7 +939,7 @@ declare namespace GoogleAppsScript {
         rank?: number;
         selfLink?: string;
       }
-      export interface ProfileFilterLinks {
+      interface ProfileFilterLinks {
         items?: ProfileFilterLink[];
         itemsPerPage?: number;
         kind?: string;
@@ -950,14 +949,14 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface ProfileParentLink {
+      interface ProfileParentLink {
         href?: string;
         type?: string;
       }
-      export interface ProfilePermissions {
+      interface ProfilePermissions {
         effective?: string[];
       }
-      export interface ProfileRef {
+      interface ProfileRef {
         accountId?: string;
         href?: string;
         id?: string;
@@ -966,14 +965,14 @@ declare namespace GoogleAppsScript {
         name?: string;
         webPropertyId?: string;
       }
-      export interface ProfileSummary {
+      interface ProfileSummary {
         id?: string;
         kind?: string;
         name?: string;
         starred?: boolean;
         type?: string;
       }
-      export interface Profiles {
+      interface Profiles {
         items?: Profile[];
         itemsPerPage?: number;
         kind?: string;
@@ -983,7 +982,7 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface RealtimeData {
+      interface RealtimeData {
         columnHeaders?: RealtimeDataColumnHeaders[];
         id?: string;
         kind?: string;
@@ -994,12 +993,12 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         totalsForAllResults?: object;
       }
-      export interface RealtimeDataColumnHeaders {
+      interface RealtimeDataColumnHeaders {
         columnType?: string;
         dataType?: string;
         name?: string;
       }
-      export interface RealtimeDataProfileInfo {
+      interface RealtimeDataProfileInfo {
         accountId?: string;
         internalWebPropertyId?: string;
         profileId?: string;
@@ -1007,7 +1006,7 @@ declare namespace GoogleAppsScript {
         tableId?: string;
         webPropertyId?: string;
       }
-      export interface RealtimeDataQuery {
+      interface RealtimeDataQuery {
         dimensions?: string;
         filters?: string;
         ids?: string;
@@ -1015,7 +1014,7 @@ declare namespace GoogleAppsScript {
         metrics?: string[];
         sort?: string[];
       }
-      export interface RemarketingAudience {
+      interface RemarketingAudience {
         accountId?: string;
         audienceDefinition?: RemarketingAudienceAudienceDefinition;
         audienceType?: string;
@@ -1031,18 +1030,18 @@ declare namespace GoogleAppsScript {
         updated?: string;
         webPropertyId?: string;
       }
-      export interface RemarketingAudienceAudienceDefinition {
+      interface RemarketingAudienceAudienceDefinition {
         includeConditions?: IncludeConditions;
       }
-      export interface RemarketingAudienceStateBasedAudienceDefinition {
+      interface RemarketingAudienceStateBasedAudienceDefinition {
         excludeConditions?: RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions;
         includeConditions?: IncludeConditions;
       }
-      export interface RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions {
+      interface RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions {
         exclusionDuration?: string;
         segment?: string;
       }
-      export interface RemarketingAudiences {
+      interface RemarketingAudiences {
         items?: RemarketingAudience[];
         itemsPerPage?: number;
         kind?: string;
@@ -1052,7 +1051,7 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface Segment {
+      interface Segment {
         created?: string;
         definition?: string;
         id?: string;
@@ -1063,7 +1062,7 @@ declare namespace GoogleAppsScript {
         type?: string;
         updated?: string;
       }
-      export interface Segments {
+      interface Segments {
         items?: Segment[];
         itemsPerPage?: number;
         kind?: string;
@@ -1073,7 +1072,7 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface UnsampledReport {
+      interface UnsampledReport {
         accountId?: string;
         cloudStorageDownloadDetails?: UnsampledReportCloudStorageDownloadDetails;
         created?: string;
@@ -1094,14 +1093,14 @@ declare namespace GoogleAppsScript {
         updated?: string;
         webPropertyId?: string;
       }
-      export interface UnsampledReportCloudStorageDownloadDetails {
+      interface UnsampledReportCloudStorageDownloadDetails {
         bucketId?: string;
         objectId?: string;
       }
-      export interface UnsampledReportDriveDownloadDetails {
+      interface UnsampledReportDriveDownloadDetails {
         documentId?: string;
       }
-      export interface UnsampledReports {
+      interface UnsampledReports {
         items?: UnsampledReport[];
         itemsPerPage?: number;
         kind?: string;
@@ -1111,7 +1110,7 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface Upload {
+      interface Upload {
         accountId?: string;
         customDataSourceId?: string;
         errors?: string[];
@@ -1120,7 +1119,7 @@ declare namespace GoogleAppsScript {
         status?: string;
         uploadTime?: string;
       }
-      export interface Uploads {
+      interface Uploads {
         items?: Upload[];
         itemsPerPage?: number;
         kind?: string;
@@ -1129,23 +1128,23 @@ declare namespace GoogleAppsScript {
         startIndex?: number;
         totalResults?: number;
       }
-      export interface UserDeletionRequest {
+      interface UserDeletionRequest {
         deletionRequestTime?: string;
         firebaseProjectId?: string;
         id?: UserDeletionRequestId;
         kind?: string;
         webPropertyId?: string;
       }
-      export interface UserDeletionRequestId {
+      interface UserDeletionRequestId {
         type?: string;
         userId?: string;
       }
-      export interface UserRef {
+      interface UserRef {
         email?: string;
         id?: string;
         kind?: string;
       }
-      export interface WebPropertyRef {
+      interface WebPropertyRef {
         accountId?: string;
         href?: string;
         id?: string;
@@ -1153,7 +1152,7 @@ declare namespace GoogleAppsScript {
         kind?: string;
         name?: string;
       }
-      export interface WebPropertySummary {
+      interface WebPropertySummary {
         id?: string;
         internalWebPropertyId?: string;
         kind?: string;
@@ -1163,7 +1162,7 @@ declare namespace GoogleAppsScript {
         starred?: boolean;
         websiteUrl?: string;
       }
-      export interface Webproperties {
+      interface Webproperties {
         items?: Webproperty[];
         itemsPerPage?: number;
         kind?: string;
@@ -1173,7 +1172,7 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
         username?: string;
       }
-      export interface Webproperty {
+      interface Webproperty {
         accountId?: string;
         childLink?: WebpropertyChildLink;
         created?: string;
@@ -1194,20 +1193,20 @@ declare namespace GoogleAppsScript {
         updated?: string;
         websiteUrl?: string;
       }
-      export interface WebpropertyChildLink {
+      interface WebpropertyChildLink {
         href?: string;
         type?: string;
       }
-      export interface WebpropertyParentLink {
+      interface WebpropertyParentLink {
         href?: string;
         type?: string;
       }
-      export interface WebpropertyPermissions {
+      interface WebpropertyPermissions {
         effective?: string[];
       }
     }
   }
-  export interface Analytics {
+  interface Analytics {
     Data?: Analytics.Collection.DataCollection;
     Management?: Analytics.Collection.ManagementCollection;
     Metadata?: Analytics.Collection.MetadataCollection;

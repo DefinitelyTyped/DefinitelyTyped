@@ -1,5 +1,29 @@
 Frida.version; // $ExpectType string
 
+// $ExpectType NativePointer
+const p = ptr(1234);
+
+// $ExpectType NativePointer
+p.sign();
+// $ExpectType NativePointer
+p.sign("ia", 42);
+// $ExpectError
+p.sign("invalid", 42);
+
+// $ExpectType NativePointer
+p.strip();
+// $ExpectType NativePointer
+p.strip("ia");
+// $ExpectError
+p.strip("invalid");
+
+// $ExpectType NativePointer
+p.blend(1337);
+// $ExpectError
+p.blend(ptr(42));
+// $ExpectError
+p.blend();
+
 const otherPuts = new NativeCallback(() => {
     return 0;
 }, "int", ["pointer"]);
@@ -52,3 +76,42 @@ const obj = new ObjC.Object(ptr("0x42"));
 
 // $ExpectType Object
 obj;
+
+Java.enumerateClassLoadersSync()
+    .forEach(classLoader => {
+        // $ExpectType ClassFactory
+        const factory = Java.ClassFactory.get(classLoader);
+        interface Props {
+            myMethod: Java.MethodDispatcher;
+            myField: Java.Field<number>;
+        }
+        // $ExpectType Wrapper<Props>
+        const MyJavaClass = factory.use<Props>("my.java.class");
+        // $ExpectError
+        factory.use<{ illegal: string }>("");
+        // $ExpectType string
+        MyJavaClass.$className;
+        // $ExpectType MethodDispatcher<Props>
+        MyJavaClass.myMethod;
+        // $ExpectType Wrapper<Props>
+        MyJavaClass.myMethod.holder;
+        // $ExpectType Wrapper<Props>
+        MyJavaClass.myMethod.holder.myField.holder.myMethod.holder;
+        MyJavaClass.myMethod.implementation = function(...args) {
+            // $ExpectType MethodDispatcher<Props>
+            this.myMethod;
+            // $ExpectType Field<number, Props>
+            this.myField;
+            // $ExpectType number
+            this.myField.value;
+        };
+        // $ExpectType Wrapper<Props>
+        Java.retain(MyJavaClass);
+        interface AnotherProps {
+            anotherMethod: Java.MethodDispatcher;
+            anotherField: Java.Field<string>;
+        }
+        const MyAnotherJavaClass = factory.use<AnotherProps>("my.another.java.class");
+        // $ExpectType Wrapper<AnotherProps>
+        Java.cast(MyJavaClass, MyAnotherJavaClass);
+    });

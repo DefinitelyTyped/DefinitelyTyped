@@ -42,7 +42,7 @@ const urls = WebpackDevServerUtils.prepareUrls('http', 'localhost', 3000);
 WebpackDevServerUtils.createCompiler({ webpack, config: {}, appName: 'app', urls, useYarn: true });
 
 // $ExpectType ProxyConfigArrayItem[] || ProxyConfigArray
-WebpackDevServerUtils.prepareProxy(undefined, 'build');
+WebpackDevServerUtils.prepareProxy(undefined, 'build', '/test');
 
 const loaderContext: webpack.loader.LoaderContext = null!;
 // $ExpectType string

@@ -1,8 +1,13 @@
 import * as oracledb from 'oracledb';
-import * as dotenv from 'dotenv';
-import * as assert from 'assert';
 
-dotenv.config();
+
+import defaultOracledb from 'oracledb';
+// import dotenv from 'dotenv';
+import assert from 'assert';
+
+
+
+// dotenv.config();
 
 /*
 
@@ -77,7 +82,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
     );
 
     assert(
-        info.bindNames.includes('MYDATE'),
+        info.bindNames.findIndex(s => s === 'MYDATE') >= 0,
         'connection.getStatementInfo() has invalid bindNames field in its response',
     );
     assert(info.statementType === 1, 'connection.getStatementInfo() has invalid statementType field in its response');
@@ -96,6 +101,10 @@ const testQueryStream = async (connection: oracledb.Connection): Promise<void> =
                 type: oracledb.NUMBER,
                 val: 20,
             },
+            anotherValue: {
+                dir: oracledb.BIND_INOUT,
+                type: oracledb.DB_TYPE_NCLOB,
+            }
         });
 
         let data = '';
@@ -153,8 +162,9 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
 
     assert.deepStrictEqual(result.metaData[0], { name: '1' });
 
-    const { resultSet } = result;
+    const { resultSet, lastRowid } = result;
 
+    console.log(lastRowid);
     console.log('Testing resultSet.getRow()...');
 
     const row = await resultSet.getRow();
@@ -484,3 +494,21 @@ const testGenerics = async () => {
 
     console.log(result3.outBinds[0].firstColumn);
 }
+
+
+
+const test4point1 = async (): Promise<void> => {
+  defaultOracledb.poolMaxPerShard = 45;
+
+  await oracledb.createPool({
+    poolMaxPerShard: 5,
+  });
+
+  const connection = await oracledb.getConnection({
+    shardingKey: ['TEST', 1234, new Date(), new Buffer('1234')],
+    superShardingKey: ['TEST', 1234, new Date(), new Buffer('1234')],
+  });
+
+  connection.clientInfo = '12345';
+  connection.dbOp = '12345';
+};

@@ -1,39 +1,34 @@
-// Type definitions for humps v1.1.0
+// Type definitions for humps 1.1
 // Project: https://github.com/domchristie/humps
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace humps {
+export function camelize(value: string): string;
+export function pascalize(value: string): string;
+export function decamelize(value: string, optionsOrProcessor?: OptionOrProcessor): string;
+export function depascalize(value: string, optionsOrProcessor?: OptionOrProcessor): string;
 
-	function camelize(value: string): string;
-	function pascalize(value: string): string;
-	function decamelize(value: string, optionsOrProcessor?: OptionOrProcessor): string;
-	function depascalize(value: string, optionsOrProcessor?: OptionOrProcessor): string;
+export function camelizeKeys(str: object[], optionsOrProcessor?: OptionOrProcessor): object[];
+export function camelizeKeys(str: object, optionsOrProcessor?: OptionOrProcessor): object;
 
-	function camelizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
-	function pascalizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
-	function decamelizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
-	function depascalizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
+export function pascalizeKeys(str: object[], optionsOrProcessor?: OptionOrProcessor): object[];
+export function pascalizeKeys(str: object, optionsOrProcessor?: OptionOrProcessor): object;
 
-	function camelizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
-	function pascalizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
-	function decamelizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
-	function depascalizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
+export function decamelizeKeys(str: object[], optionsOrProcessor?: OptionOrProcessor): object[];
+export function decamelizeKeys(str: object, optionsOrProcessor?: OptionOrProcessor): object;
 
-	interface HumpsOptions {
-		separator?: string;
-		split?: RegExp;
-		process?: HumpsProcessor;
-	}
-	interface HumpsProcessor {
-		(key: string, convert: HumpsProcessorParameter, options?: HumpsOptions): string;
-	}
-	interface HumpsProcessorParameter {
-		(key: string, options?: HumpsOptions): string;
-	}
-	type OptionOrProcessor = HumpsOptions | HumpsProcessor;
+export function depascalizeKeys(str: object[], optionsOrProcessor?: OptionOrProcessor): object[];
+export function depascalizeKeys(str: object, optionsOrProcessor?: OptionOrProcessor): object;
+
+export interface HumpsOptions {
+    separator?: string;
+    split?: RegExp;
+    process?: HumpsProcessor;
 }
-
-declare module "humps" {
-	export = humps;
+export interface HumpsProcessor {
+    (key: string, convert: HumpsProcessorParameter, options?: HumpsOptions): string;
 }
+export interface HumpsProcessorParameter {
+    (key: string, options?: HumpsOptions): string;
+}
+export type OptionOrProcessor = HumpsOptions | HumpsProcessor;

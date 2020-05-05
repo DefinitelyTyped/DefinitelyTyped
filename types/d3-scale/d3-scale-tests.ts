@@ -386,6 +386,33 @@ outputString = logScaleNumString(10);
 const copiedLogScale: d3Scale.ScaleLogarithmic<number, string> = logScaleNumString.copy();
 
 // -------------------------------------------------------------------------------
+// SymLog Scale Factory
+// -------------------------------------------------------------------------------
+
+// scaleLog() ---------------------------------------------------------------------
+
+let symLogScaleNumber: d3Scale.ScaleSymLog<number, number>;
+let symLogScaleString: d3Scale.ScaleSymLog<string, string>;
+let symLogScaleNumString: d3Scale.ScaleSymLog<number, string>;
+
+symLogScaleNumber = d3Scale.scaleSymlog();
+symLogScaleString = d3Scale.scaleSymlog<string>();
+symLogScaleNumString = d3Scale.scaleSymlog<number, string>();
+// ScaleSymLog Interface ========================================================
+
+// constant --------------------------------------------------------------------
+
+const constant: number = symLogScaleNumber.constant();
+
+symLogScaleNumber = symLogScaleNumber.constant(2);
+
+// tickFormat(...) -----------------------------------------------------------------
+
+tickFormatNumberFn = symLogScaleNumber.tickFormat();
+tickFormatNumberFn = symLogScaleNumber.tickFormat(5);
+tickFormatNumberFn = symLogScaleNumber.tickFormat(5, '+%');
+
+// -------------------------------------------------------------------------------
 // Identity Scale Factory
 // -------------------------------------------------------------------------------
 

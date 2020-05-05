@@ -15,7 +15,7 @@ interface SharedProps extends
     SizingProps
 {
     as?: ReactCreateElementParam,
-    hasOnlyIcon?: boolean,
+    hasIconOnly?: boolean,
     kind?: ButtonKind, // required but has default value
     size?: ButtonSize,
 }

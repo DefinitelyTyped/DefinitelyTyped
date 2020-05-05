@@ -29,12 +29,17 @@ const res: TelegramBot.InlineQueryResultArticle = {
 MyTelegramBot.answerInlineQuery('queryId', [res, res, res], { is_personal: true });
 MyTelegramBot.forwardMessage(1234, 5678, 'memberID', { disable_notification: true });
 MyTelegramBot.sendPhoto(1234, 'photo/path', { caption: 'Foo' });
+MyTelegramBot.sendPhoto(1234, 'photo/path', { caption: 'Foo', parse_mode: 'HTML' });
 MyTelegramBot.sendAudio(1234, 'audio/path', { caption: 'Foo' });
+MyTelegramBot.sendAudio(1234, 'audio/path', { caption: 'Foo', parse_mode: 'Markdown' });
 MyTelegramBot.sendDocument(1234, 'doc/path', { caption: 'Foo' }, { fileOption: true });
+MyTelegramBot.sendDocument(1234, 'doc/path', { caption: 'Foo', parse_mode: 'HTML' }, { fileOption: true });
 MyTelegramBot.sendSticker(1234, 'sticker/path', { reply_to_message_id: 5678 });
 MyTelegramBot.sendVideo(1234, 'video/path', { caption: 'Foo' });
+MyTelegramBot.sendVideo(1234, 'video/path', { caption: 'Foo', parse_mode: 'MarkdownV2' });
 MyTelegramBot.sendVideoNote(1234, 'video/path', { disable_notification: true });
 MyTelegramBot.sendVoice(1234, 'voice/path', { caption: 'Foo' });
+MyTelegramBot.sendVoice(1234, 'voice/path', { caption: 'Foo', parse_mode: 'HTML' });
 MyTelegramBot.sendChatAction(1234, 'typing');
 MyTelegramBot.kickChatMember(1234, 'myUserID');
 MyTelegramBot.unbanChatMember(1234, 'myUserID');

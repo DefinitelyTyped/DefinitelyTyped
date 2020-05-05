@@ -13,7 +13,7 @@ export interface CSSTransitionClassNames {
     exitDone?: string;
 }
 
-export interface CSSTransitionProps extends TransitionProps {
+export type CSSTransitionProps = TransitionProps & {
     /**
      * The animation `classNames` applied to the component as it enters or exits.
      * A single name can be provided and it will be suffixed for each stage: e.g.
@@ -38,7 +38,7 @@ export interface CSSTransitionProps extends TransitionProps {
      * ```
      */
     classNames?: string | CSSTransitionClassNames;
-}
+};
 
 declare class CSSTransition extends Component<CSSTransitionProps> {}
 

@@ -8,7 +8,7 @@
 
 /// <reference types="node" />
 
-export type LoadImageCallback = (image: HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
+export type LoadImageCallback = (eventOrImage: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
 
 export type ParseMetaDataCallback = (data: ImageHead) => void;
 
@@ -76,7 +76,7 @@ export interface CropTrueOptions {
 export interface CropFalseOptions {
     crop?: false;
 }
-export type CropOptions = CanvasTrueOptions | CropFalseOptions;
+export type CropOptions = CropTrueOptions | CropFalseOptions;
 
 // Setting 'orientation' automatically sets 'meta' to true
 // so setting it to false is not valid in that case

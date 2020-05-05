@@ -39,6 +39,10 @@ const upload = new Tus.Upload(file, {
 upload.start();
 
 upload.abort();
+upload.abort(true);
+upload.abort(true, (err?: Error) => {
+    console.log("Failed because: " + err);
+});
 
 const upload2 = new Tus.Upload(file, {
 	endpoint: ""
@@ -50,4 +54,8 @@ const reader = {
 const upload3 = new Tus.Upload(reader, {
     endpoint: '',
     uploadLengthDeferred: true,
+});
+
+Tus.Upload.terminate('https://myurl.com', {
+	endpoint: ""
 });

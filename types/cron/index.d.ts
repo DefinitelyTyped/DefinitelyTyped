@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/cron
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 //                 Lundarl Gholoi <https://github.com/winup>
+//                 koooge <https://github.com/koooge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -48,7 +49,7 @@ export declare interface CronJobParameters {
     /**
      * A function that will fire when the job is stopped with ```job.stop()```, and may also be called by ```onTick``` at the end of each run.
      */
-    onComplete?: CronCommand;
+    onComplete?: CronCommand | null;
     /**
      * Specifies whether to start the job just before exiting the constructor. By default this is set to false. If left at default you will need to call ```job.start()``` in order to start the job (assuming ```job``` is the variable you set the cronjob to). This does not immediately fire your ```onTick``` function, it just gives you more control over the behavior of your jobs.
      */
@@ -97,7 +98,7 @@ export declare class CronJob {
      * @param utcOffset This allows you to specify the offset of your timezone rather than using the ```timeZone``` param. Probably don't use both ```timeZone``` and ```utcOffset``` together or weird things may happen.
      * @param unrefTimeout If you have code that keeps the event loop running and want to stop the node process when that finishes regardless of the state of your cronjob, you can do so making use of this parameter. This is off by default and cron will run as if it needs to control the event loop. For more information take a look at [timers#timers_timeout_unref](https://nodejs.org/api/timers.html#timers_timeout_unref) from the NodeJS docs.
      */
-    constructor(cronTime: string | Date | Moment, onTick: CronCommand, onComplete?: CronCommand, start?: boolean, timeZone?: string, context?: any, runOnInit?: boolean, utcOffset?: string | number, unrefTimeout?: boolean);
+    constructor(cronTime: string | Date | Moment, onTick: CronCommand, onComplete?: CronCommand | null, start?: boolean, timeZone?: string, context?: any, runOnInit?: boolean, utcOffset?: string | number, unrefTimeout?: boolean);
     /**
      * Create a new ```CronJob```.
      * @param options Job parameters.
@@ -140,7 +141,7 @@ export declare class CronJob {
 }
 
 export declare function job(options: CronJobParameters): CronJob;
-export declare function job(cronTime: string | Date | Moment, onTick: () => void, onComplete?: CronCommand, start?: boolean, timeZone?: string, context?: any, runOnInit?: boolean, utcOffset?: string | number, unrefTimeout?: boolean): CronJob;
+export declare function job(cronTime: string | Date | Moment, onTick: () => void, onComplete?: CronCommand | null, start?: boolean, timeZone?: string, context?: any, runOnInit?: boolean, utcOffset?: string | number, unrefTimeout?: boolean): CronJob;
 export declare function time(source: string | Date | Moment, zone?: string): CronTime;
 export declare function sendAt(cronTime: string | Date | Moment): Moment;
 export declare function timeout(cronTime: string | Date | Moment): number;

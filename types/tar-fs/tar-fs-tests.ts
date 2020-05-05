@@ -1,7 +1,6 @@
 import tar = require("tar-fs");
 import fs = require("fs");
 import path = require("path");
-import stream = require("stream");
 
 /*
  * Default test
@@ -11,6 +10,9 @@ tar.pack('./my-directory').pipe(fs.createWriteStream('my-tarball.tar'));
 
 // extracting a directory
 fs.createReadStream('my-other-tarball.tar').pipe(tar.extract('./my-other-directory'));
+
+// extracting a directory and stripping the first level
+fs.createReadStream('my-other-tarball.tar').pipe(tar.extract('./my-other-directory', { strip: 1 }));
 
 /*
  * Ignore various files
@@ -95,4 +97,22 @@ tar.extract('./my-directory', {
 tar.pack('./my-directory', {
 	strict: false,
 	dereference: true,
+});
+
+/*
+ * Return type of tar-stream
+ */
+tar.pack('./my-directory').entry({ name: 'generated-file.txt' }, '1234');
+tar.pack('./my-directory').finalize();
+
+/**
+ * Interact with tar-stream and do multiple packs
+ */
+tar.pack('./my-directory', {
+  finalize: false,
+  finish: (parentPack) => {
+    tar.pack('./other-directory', {
+      pack: parentPack
+    });
+  }
 });

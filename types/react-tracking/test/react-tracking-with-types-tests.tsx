@@ -39,6 +39,11 @@ const track: Track<TrackingData, Props, State> = _track;
 )
 class ClassPage extends React.Component<Props, State> {
     @track({ event: 'Clicked' })
+    @track((_props, _state, [e]: [React.MouseEvent]) => {
+        if (e.ctrlKey) {
+            return { event: 'Click + ctrl key' };
+        }
+    })
     handleClick() {
         // ... other stuff
     }

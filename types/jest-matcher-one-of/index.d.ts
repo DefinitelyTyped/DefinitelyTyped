@@ -2,11 +2,11 @@
 // Project: https://github.com/d4nyll/jest-matcher-one-of#readme
 // Definitions by: Joe Mitchard <https://github.com/joemitchard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
 
 /// <reference types="jest" />
 declare namespace jest {
-    interface Matchers<R> {
+    interface Matchers<R, T> {
         toBeOneOf(expected: any[]): R;
     }
 }

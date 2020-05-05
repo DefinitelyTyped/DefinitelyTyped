@@ -2,6 +2,7 @@
 // Project: https://github.com/BoxFactura/pulltorefresh.js
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 //                 Tamas Kinsztler <https://github.com/humpedli>
+//                 Samuel Bodin <https://github.com/bodinsamuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function init(options?: Options): void;
@@ -28,6 +29,12 @@ export interface Options {
      * (default: `50`)
      */
     distReload?: number;
+
+    /**
+     * After which distance should we start pulling.
+     * (Default: `0`)
+     */
+    distIgnore?: number;
 
     /**
      * Before which element the pull to refresh elements will be?
@@ -96,6 +103,16 @@ export interface Options {
     refreshTimeout?: number;
 
     /**
+     * It returns the default HTML for the widget, __PREFIX__ is replaced.
+     */
+    getMarkup?(): string;
+
+    /**
+     * It returns the default CSS for the widget, __PREFIX__ is replaced.
+     */
+    getStyles?(): string;
+
+    /**
      * The initialize function.
      */
     onInit?(): void;
@@ -120,14 +137,6 @@ export interface Options {
      * Defaults to `!window.scrollY`
      */
     shouldPullToRefresh?(): boolean;
-
-    /**
-     * This value will be passed as `{ passive: true|false }` to `touchmove`
-     * listeners if passive-handlers are supported.
-     *
-     * Defaults to `false`
-     */
-    passive?: boolean;
 }
 
 /**

@@ -190,3 +190,5 @@ ClearBlade.Trigger.Fetch("triggername", genericCallback);
 ///////////////////////////////////////
 ClearBlade.Timer.Create("timername", {}, genericCallback);
 ClearBlade.Timer.Fetch("timername", genericCallback);
+
+declare var ClearBlade: CbServer.ClearBladeGlobal;

@@ -1,17 +1,33 @@
-// Type definitions for webidl2 23.8
+// Type definitions for webidl2 23.11
 // Project: https://github.com/w3c/webidl2.js#readme
 // Definitions by: Kagama Sascha Rosylight <https://github.com/saschanaz>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace WebIDL2;
 
 export function parse(str: string, options?: ParseOptions): IDLRootType[];
 
-export type IDLRootType = InterfaceType | InterfaceMixinType | NamespaceType | CallbackType | DictionaryType | EnumType | TypedefType | IncludesType;
+export type IDLRootType =
+    | InterfaceType
+    | InterfaceMixinType
+    | NamespaceType
+    | CallbackType
+    | DictionaryType
+    | EnumType
+    | TypedefType
+    | IncludesType;
 
-export type IDLInterfaceMemberType = OperationMemberType | ConstructorMemberType | AttributeMemberType | ConstantMemberType | DeclarationMemberType;
+export type IDLInterfaceMemberType =
+    | OperationMemberType
+    | ConstructorMemberType
+    | AttributeMemberType
+    | ConstantMemberType
+    | DeclarationMemberType;
 
 export type IDLNamespaceMemberType = OperationMemberType | AttributeMemberType;
+
+export type IDLTypeDescription = SingleTypeDescription | UnionTypeDescription;
 
 export interface ParseOptions {
     /** Boolean indicating whether the result should include EOF node or not. */
@@ -20,21 +36,35 @@ export interface ParseOptions {
     sourceName?: string;
 }
 
-export interface WebIDLParseError {
+export class WebIDLParseError extends Error {
+    constructor(options: {
+        message: string;
+        bareMessage: string;
+        context: string;
+        line: number;
+        sourceName?: string;
+        input: string;
+        tokens: ValueDescription[];
+    });
+
+    name: "WebIDLParseError";
+
     /** the error message */
     message: string;
+    bareMessage: string;
+
+    context: string;
     /** the line at which the error occurred. */
     line: number;
+    sourceName: string | undefined;
+
     /** a short peek at the text at the point where the error happened */
     input: string;
     /** the five tokens at the point of error, as understood by the tokeniser */
     tokens: ValueDescription[];
-
-    toString(): string;
 }
 
-// tslint:disable-next-line interface-name
-export interface IDLTypeDescription {
+export interface SingleTypeDescription {
     /** String indicating where this type is used. Can be null if not applicable. */
     type: string | null;
     /** Boolean indicating if it is a sequence. Same as generic === "sequence" */
@@ -44,14 +74,34 @@ export interface IDLTypeDescription {
     /** Boolean indicating whether this is nullable or not. */
     nullable: boolean;
     /** Boolean indicating whether this is a union type or not. */
-    union: boolean;
+    union: false;
     /**
      * In most cases, this will just be a string with the type name.
      * If the type is a union, then this contains an array of the types it unites.
      * If it is a generic type, it contains the IDL type description for the type in the sequence,
      * the eventual value of the promise, etc.
      */
-    idlType: string | IDLTypeDescription[];
+    idlType: string;
+}
+
+export interface UnionTypeDescription {
+    /** String indicating where this type is used. Can be null if not applicable. */
+    type: string | null;
+    /** Boolean indicating if it is a sequence. Same as generic === "sequence" */
+    sequence: boolean;
+    /** String indicating the generic type (e.g. "Promise", "sequence"). null otherwise. */
+    generic: string | null;
+    /** Boolean indicating whether this is nullable or not. */
+    nullable: boolean;
+    /** Boolean indicating whether this is a union type or not. */
+    union: true;
+    /**
+     * In most cases, this will just be a string with the type name.
+     * If the type is a union, then this contains an array of the types it unites.
+     * If it is a generic type, it contains the IDL type description for the type in the sequence,
+     * the eventual value of the promise, etc.
+     */
+    idlType: IDLTypeDescription[];
 }
 
 export interface InterfaceType {
@@ -118,17 +168,14 @@ export interface DictionaryType {
     extAttrs: ExtendedAttribute[];
 }
 
-export interface DictionaryMemberType extends FieldType {
-    /** Boolean indicating whether this is a required field. */
-    required: boolean;
-    /** A default value, absent if there is none. */
-    default: ValueDescription | null;
-}
+export type DictionaryMemberType = FieldType;
 
 export interface FieldType {
     type: "field";
     /** The name of the field. */
     name: string;
+    /** Boolean indicating whether this is a required field. */
+    required: boolean;
     /** An IDL Type describing what field's type. */
     idlType: IDLTypeDescription;
     /** A list of extended attributes. */
@@ -142,7 +189,7 @@ export interface EnumType {
     /** The enum's name. */
     name: string;
     /** An array of values (strings). */
-    values: Array<{ type: "string", value: string }>;
+    values: Array<{ type: "string"; value: string }>;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
 }
@@ -173,6 +220,8 @@ export interface ConstructorMemberType {
     arguments: Argument[];
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: InterfaceType;
 }
 
 export interface OperationMemberType {
@@ -187,6 +236,8 @@ export interface OperationMemberType {
     arguments: Argument[];
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: InterfaceType | InterfaceMixinType | NamespaceType;
 }
 
 export interface AttributeMemberType {
@@ -203,6 +254,8 @@ export interface AttributeMemberType {
     idlType: IDLTypeDescription;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: InterfaceType | InterfaceMixinType | NamespaceType;
 }
 
 export interface ConstantMemberType {
@@ -217,6 +270,8 @@ export interface ConstantMemberType {
     value: ValueDescription;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: InterfaceType | InterfaceMixinType;
 }
 
 export interface Argument {
@@ -231,6 +286,8 @@ export interface Argument {
     name: string;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** The container of this type. */
+    parent: CallbackType | ConstructorMemberType | ExtendedAttribute | OperationMemberType;
 }
 
 export interface ExtendedAttribute {
@@ -238,14 +295,21 @@ export interface ExtendedAttribute {
     name: string;
     /** If the extended attribute takes arguments or if its right-hand side does they are listed here. */
     arguments: Argument[];
-    /** If there is a right-hand side, this will capture its type ("identifier" or "identifier-list") and its value. */
-    rhs: ExtendedAttributeRightHandSideIdentifier | ExtendedAttributeRightHandSideIdentifierList | null;
+    /** If there is a right-hand side, this will capture its type and value. */
+    rhs: ExtendedAttributeRightHandSide | null;
+    /** The container of this extended attribute. */
+    parent: IDLRootType | FieldType | IDLInterfaceMemberType;
 }
 
-export interface Token {
-    type: "float" | "integer" | "identifier" | "string" | "whitespace" | "other";
-    value: string;
-}
+export type ExtendedAttributeRightHandSide =
+    | ExtendedAttributeRightHandSideIdentifier
+    | ExtendedAttributeRightHandSideIdentifierList
+    | ExtendedAttributeRightHandSideString
+    | ExtendedAttributeRightHandSideStringList
+    | ExtendedAttributeRightHandSideDecimal
+    | ExtendedAttributeRightHandSideDecimalList
+    | ExtendedAttributeRightHandSideInteger
+    | ExtendedAttributeRightHandSideIntegerList;
 
 export interface ExtendedAttributeRightHandSideIdentifier {
     type: "identifier";
@@ -255,6 +319,41 @@ export interface ExtendedAttributeRightHandSideIdentifier {
 export interface ExtendedAttributeRightHandSideIdentifierList {
     type: "identifier-list";
     value: ExtendedAttributeRightHandSideIdentifier[];
+}
+
+export interface ExtendedAttributeRightHandSideString {
+    type: "string";
+    value: string;
+}
+
+export interface ExtendedAttributeRightHandSideStringList {
+    type: "string-list";
+    value: ExtendedAttributeRightHandSideString[];
+}
+
+export interface ExtendedAttributeRightHandSideDecimal {
+    type: "decimal";
+    value: string;
+}
+
+export interface ExtendedAttributeRightHandSideDecimalList {
+    type: "decimal-list";
+    value: ExtendedAttributeRightHandSideDecimal[];
+}
+
+export interface ExtendedAttributeRightHandSideInteger {
+    type: "integer";
+    value: string;
+}
+
+export interface ExtendedAttributeRightHandSideIntegerList {
+    type: "integer-list";
+    value: ExtendedAttributeRightHandSideInteger[];
+}
+
+export interface Token {
+    type: "decimal" | "integer" | "identifier" | "string" | "whitespace" | "other";
+    value: string;
 }
 
 export interface ValueDescription {

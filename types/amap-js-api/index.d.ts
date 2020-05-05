@@ -15,6 +15,7 @@
 /// <reference path="lngLat.d.ts" />
 /// <reference path="map.d.ts" />
 /// <reference path="pixel.d.ts" />
+/// <reference path="plugin.d.ts" />
 /// <reference path="size.d.ts" />
 /// <reference path="type-util.d.ts" />
 /// <reference path="util.d.ts" />

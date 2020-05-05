@@ -1,7 +1,6 @@
-// Type definitions for mssql 4.3.0
+// Type definitions for mssql 6.0.0
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
-//                 Ben Farr <https://github.com/jaminfarr>
 //                 Vitor Buzinaro <https://github.com/buzinas>
 //                 Matt Richardson <https://github.com/mrrichar>
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
@@ -9,6 +8,7 @@
 //                 David Gasperoni <https://github.com/mcdado>
 //                 Jeff Wooden <https://github.com/woodenconsulting>
 //                 Cahil Foley <https://github.com/cahilfoley>
+//                 Rifa Achrinza <https://github.com/achrinza>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -160,14 +160,12 @@ export declare var ISOLATION_LEVEL: {
     SNAPSHOT: IIsolationLevel
 }
 
-export interface IOptions {
-    encrypt?: boolean;
+export interface IOptions extends tds.ConnectionOptions {
+    beforeConnect?: void;
+    connectionString?: string;
     instanceName?: string;
-    useUTC?: boolean;
-    tdsVersion?: string;
-    appName?: string;
-    abortTransactionOnError?: boolean;
     trustedConnection?: boolean;
+    useUTC?: boolean;
 }
 
 export interface IPool {

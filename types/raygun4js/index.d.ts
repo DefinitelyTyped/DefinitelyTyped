@@ -370,8 +370,9 @@ interface RaygunV2 {
             | "saveIfOffline",
         value: boolean
     ): void;
+	(key: "filterSensitiveData", values: Array<string | RegExp>): void;
     (
-        key: "filterSensitiveData" | "whitelistCrossOriginDomains" | "withTags",
+        key: "whitelistCrossOriginDomains" | "withTags",
         values: string[]
     ): void;
     (key: "send" | "withCustomData", value: any): void;

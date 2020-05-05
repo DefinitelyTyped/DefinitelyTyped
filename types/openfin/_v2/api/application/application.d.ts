@@ -7,7 +7,7 @@ import Transport from '../../transport/transport';
 import { Bounds } from '../../shapes';
 import { ApplicationEvents } from '../events/application';
 import { ApplicationOption } from './applicationOption';
-import { BrowserView } from '../browserview/browserview';
+import { View } from '../view/view';
 export interface TrayIconClickReply extends Point, Reply<'application', 'tray-icon-clicked'> {
     button: number;
     monitorInfo: MonitorInfo;
@@ -65,6 +65,9 @@ export interface RvmLaunchOptions {
  *
  * @property {boolean} [disableIabSecureLogging=false]
  * When set to `true` it will disable IAB secure logging for the app.
+ *
+ * @property {boolean} [fdc3Api=false]
+ * A flag to enable FDC3 API.  When set to `true` the `fdc3` API object is present for all windows
  *
  * @property {string} [loadErrorMessage="There was an error loading the application."]
  * An error message to display when the application (launched via manifest) fails to load.
@@ -168,7 +171,7 @@ export default class ApplicationModule extends Base {
     /**
      * Retrieves application's manifest and returns a running instance of the application.
      * @param {string} manifestUrl - The URL of app's manifest.
-     * @param { rvmLaunchOpts} [opts] - Parameters that the RVM will use.
+     * @param {RvmLaunchOptions} [opts] - Parameters that the RVM will use.
      * @return {Promise.<Application>}
      * @tutorial Application.startFromManifest
      * @static
@@ -319,10 +322,10 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
     /**
     * Retrieves current application's views.
     * @experimental
-    * @return {Promise.Array.<BrowserView>}
+    * @return {Promise.Array.<View>}
     * @tutorial Application.getViews
     */
-    getViews(): Promise<Array<BrowserView>>;
+    getViews(): Promise<Array<View>>;
     /**
      * Returns the current zoom level of the application.
      * @return {Promise.<number>}
@@ -373,17 +376,17 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
     /**
      * Sends a message to the RVM to upload the application's logs. On success,
      * an object containing logId is returned.
-     * @return {Promise.<any>}
+     * @return {Promise.<LogInfo>}
      * @tutorial Application.sendApplicationLog
      */
     sendApplicationLog(): Promise<LogInfo>;
     /**
      * Adds a customizable icon in the system tray.  To listen for a click on the icon use the `tray-icon-clicked` event.
-     * @param { string } iconUrl Image URL to be used as the icon
+     * @param { string } icon Image URL or base64 encoded string to be used as the icon
      * @return {Promise.<void>}
      * @tutorial Application.setTrayIcon
      */
-    setTrayIcon(iconUrl: string): Promise<void>;
+    setTrayIcon(icon: string): Promise<void>;
     /**
      * Sets new application's shortcut configuration. Windows only.
      * @param { ShortCutConfig } config New application's shortcut configuration.

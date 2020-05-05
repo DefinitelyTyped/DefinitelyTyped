@@ -9,6 +9,7 @@ mixpanel.track_links('#nav', 'Clicked Nav Link');
 mixpanel.track_forms('#register', 'Created Account');
 mixpanel.time_event('Registered');
 mixpanel.track('Registered', {Gender: 'Male', Age: 21});
+mixpanel.track('Left page', {duration_seconds: 35}, {transport: 'sendBeacon'});
 mixpanel.register({Gender: 'Female'});
 mixpanel.register({
   Email: 'jdoe@example.com',

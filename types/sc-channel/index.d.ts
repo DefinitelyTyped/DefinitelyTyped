@@ -1,45 +1,56 @@
-// Type definitions for sc-channel 1.2
+// Type definitions for sc-channel 2.0
 // Project: https://github.com/SocketCluster/sc-channel
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
 
-import Emitter = require("component-emitter");
-import { SCExchange, handlerFunction } from "sc-broker-cluster";
+import AsyncIterableStream = require('async-iterable-stream');
+import StreamDemux = require('stream-demux');
+import DemuxedConsumableStream = require('stream-demux/demuxed-consumable-stream');
 
-export interface SCChannelOptions {
-    waitForAuth?: boolean;
-    batch?: boolean;
-    data?: any;
-}
-
-export class SCChannel extends Emitter {
-    readonly PENDING: "pending";
-    readonly SUBSCRIBED: "subscribed";
-    readonly UNSUBSCRIBED: "unsubscribed";
+declare class SCChannel<T> extends AsyncIterableStream<T> {
+    readonly PENDING: 'pending';
+    readonly SUBSCRIBED: 'subscribed';
+    readonly UNSUBSCRIBED: 'unsubscribed';
 
     name: string;
-    state: ChannelState;
-    waitForAuth: boolean;
-    batch: boolean;
-    data: any;
+    client: SCChannel.Client;
 
-    constructor(name: string, client: SCExchange, options?: SCChannelOptions);
+    state: SCChannel.ChannelState;
+    options: object;
 
-    setOptions(options?: SCChannelOptions): void;
-    getState(): "pending" | "subscribed" | "unsubscribed";
+    constructor(name: string, client: SCChannel.Client, eventDemux: StreamDemux<T>, dataStream: AsyncIterableStream<T>);
+
+    createAsyncIterator(timeout?: number): AsyncIterableStream.AsyncIterator<T>;
+
+    listener(eventName: string): DemuxedConsumableStream<T>;
+    closeListener(eventName: string): void;
+    closeAllListeners(): void;
+
+    close(): void;
 
     subscribe(options?: any): void;
     unsubscribe(): void;
+
     isSubscribed(includePending?: boolean): boolean;
 
-    publish(data: any, callback?: (err?: Error) => void): void;
-
-    watch(handler: handlerFunction): void;
-    unwatch(handler?: handlerFunction): void;
-    watchers(): handlerFunction[];
-
-    destroy(): void;
+    publish(data: any): any;
 }
 
-export type ChannelState = "pending" | "subscribed" | "unsubscribed";
+export = SCChannel;
+
+declare namespace SCChannel {
+    interface Client {
+        closeChannel(channelName: string): void;
+
+        getChannelState(channelName: string): ChannelState;
+        getChannelOptions(channelName: string): object;
+
+        subscribe(channelName: string): SCChannel<any>;
+        unsubscribe(channelName: string): void;
+        isSubscribed(channelName: string, includePending?: boolean): boolean;
+
+        publish(channelName: string, data: any): any;
+    }
+
+    type ChannelState = 'pending' | 'subscribed' | 'unsubscribed';
+}

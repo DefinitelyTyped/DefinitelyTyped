@@ -3,6 +3,7 @@ declare const window: any;
 declare const alert: (msg: string) => any;
 declare const console: {log: any};
 
+_.VERSION; // $ExpectType string
 _.each([1, 2, 3], (num) => alert(num.toString()));
 _.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
 
@@ -195,6 +196,11 @@ _.max(numbers);
 _.min(numbers);
 
 _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
+
+_([1, 2, 3]).chain()
+    .sortBy(x => -x)
+    .sortBy(x => -x)
+    .value().length;
 
 _([1.3, 2.1, 2.4]).groupBy((e) => Math.floor(e));
 _.groupBy([1.3, 2.1, 2.4], (num) => Math.floor(num).toString());

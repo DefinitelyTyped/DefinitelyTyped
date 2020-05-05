@@ -1,4 +1,4 @@
-import { performance, monitorEventLoopDelay, PerformanceObserverCallback, PerformanceObserver } from 'perf_hooks';
+import { performance, monitorEventLoopDelay, PerformanceObserverCallback, PerformanceObserver, PerformanceEntry, EntryType, constants } from 'perf_hooks';
 
 performance.mark('start');
 (
@@ -6,16 +6,23 @@ performance.mark('start');
 )();
 performance.mark('end');
 
-const { duration } = performance.getEntriesByName('discover')[0];
-const timeOrigin = performance.timeOrigin;
+const perfEntry: PerformanceEntry = performance.getEntriesByName('discover')[0];
+const timeOrigin: number = performance.timeOrigin;
 
 const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => {
-    const {
-        duration,
-        entryType,
-        name,
-        startTime,
-    } = list.getEntries()[0];
+    const entries: PerformanceEntry[] = list.getEntries();
+    const duration: number = entries[0].duration;
+    const name: string = entries[0].name;
+    const startTime: number = entries[0].startTime;
+    const entryTypes: EntryType = entries[0].entryType;
+    const kind: number | undefined = entries[0].kind;
+    const flags: number | undefined = entries[0].flags;
+
+    if (kind === constants.NODE_PERFORMANCE_GC_MAJOR) {
+        if (flags === constants.NODE_PERFORMANCE_GC_FLAGS_ALL_EXTERNAL_MEMORY) {
+        }
+    }
+
     obs.disconnect();
     performance.clearFunctions();
 };

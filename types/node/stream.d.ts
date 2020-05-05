@@ -6,7 +6,9 @@ declare module "stream" {
     }
 
     namespace internal {
-        class Stream extends internal { }
+        class Stream extends internal {
+            constructor(opts?: ReadableOptions);
+        }
 
         interface ReadableOptions {
             highWaterMark?: number;
@@ -48,56 +50,72 @@ declare module "stream" {
              * 1. close
              * 2. data
              * 3. end
-             * 4. readable
-             * 5. error
+             * 4. error
+             * 5. pause
+             * 6. readable
+             * 7. resume
              */
             addListener(event: "close", listener: () => void): this;
             addListener(event: "data", listener: (chunk: any) => void): this;
             addListener(event: "end", listener: () => void): this;
-            addListener(event: "readable", listener: () => void): this;
             addListener(event: "error", listener: (err: Error) => void): this;
+            addListener(event: "pause", listener: () => void): this;
+            addListener(event: "readable", listener: () => void): this;
+            addListener(event: "resume", listener: () => void): this;
             addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
             emit(event: "close"): boolean;
             emit(event: "data", chunk: any): boolean;
             emit(event: "end"): boolean;
-            emit(event: "readable"): boolean;
             emit(event: "error", err: Error): boolean;
+            emit(event: "pause"): boolean;
+            emit(event: "readable"): boolean;
+            emit(event: "resume"): boolean;
             emit(event: string | symbol, ...args: any[]): boolean;
 
             on(event: "close", listener: () => void): this;
             on(event: "data", listener: (chunk: any) => void): this;
             on(event: "end", listener: () => void): this;
-            on(event: "readable", listener: () => void): this;
             on(event: "error", listener: (err: Error) => void): this;
+            on(event: "pause", listener: () => void): this;
+            on(event: "readable", listener: () => void): this;
+            on(event: "resume", listener: () => void): this;
             on(event: string | symbol, listener: (...args: any[]) => void): this;
 
             once(event: "close", listener: () => void): this;
             once(event: "data", listener: (chunk: any) => void): this;
             once(event: "end", listener: () => void): this;
-            once(event: "readable", listener: () => void): this;
             once(event: "error", listener: (err: Error) => void): this;
+            once(event: "pause", listener: () => void): this;
+            once(event: "readable", listener: () => void): this;
+            once(event: "resume", listener: () => void): this;
             once(event: string | symbol, listener: (...args: any[]) => void): this;
 
             prependListener(event: "close", listener: () => void): this;
             prependListener(event: "data", listener: (chunk: any) => void): this;
             prependListener(event: "end", listener: () => void): this;
-            prependListener(event: "readable", listener: () => void): this;
             prependListener(event: "error", listener: (err: Error) => void): this;
+            prependListener(event: "pause", listener: () => void): this;
+            prependListener(event: "readable", listener: () => void): this;
+            prependListener(event: "resume", listener: () => void): this;
             prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
             prependOnceListener(event: "close", listener: () => void): this;
             prependOnceListener(event: "data", listener: (chunk: any) => void): this;
             prependOnceListener(event: "end", listener: () => void): this;
-            prependOnceListener(event: "readable", listener: () => void): this;
             prependOnceListener(event: "error", listener: (err: Error) => void): this;
+            prependOnceListener(event: "pause", listener: () => void): this;
+            prependOnceListener(event: "readable", listener: () => void): this;
+            prependOnceListener(event: "resume", listener: () => void): this;
             prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
             removeListener(event: "close", listener: () => void): this;
             removeListener(event: "data", listener: (chunk: any) => void): this;
             removeListener(event: "end", listener: () => void): this;
-            removeListener(event: "readable", listener: () => void): this;
             removeListener(event: "error", listener: (err: Error) => void): this;
+            removeListener(event: "pause", listener: () => void): this;
+            removeListener(event: "readable", listener: () => void): this;
+            removeListener(event: "resume", listener: () => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
             [Symbol.asyncIterator](): AsyncIterableIterator<any>;
@@ -118,10 +136,12 @@ declare module "stream" {
 
         class Writable extends Stream implements NodeJS.WritableStream {
             readonly writable: boolean;
+            readonly writableEnded: boolean;
             readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
+            readonly writableCorked: number;
             destroyed: boolean;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
@@ -209,6 +229,9 @@ declare module "stream" {
             allowHalfOpen?: boolean;
             readableObjectMode?: boolean;
             writableObjectMode?: boolean;
+            readableHighWaterMark?: number;
+            writableHighWaterMark?: number;
+            writableCorked?: number;
             read?(this: Duplex, size: number): void;
             write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -219,10 +242,12 @@ declare module "stream" {
         // Note: Duplex extends both Readable and Writable.
         class Duplex extends Readable implements Writable {
             readonly writable: boolean;
+            readonly writableEnded: boolean;
             readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
+            readonly writableCorked: number;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -258,9 +283,15 @@ declare module "stream" {
 
         class PassThrough extends Transform { }
 
+        interface FinishedOptions {
+            error?: boolean;
+            readable?: boolean;
+            writable?: boolean;
+        }
+        function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options: FinishedOptions, callback: (err?: NodeJS.ErrnoException | null) => void): () => void;
         function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, callback: (err?: NodeJS.ErrnoException | null) => void): () => void;
         namespace finished {
-            function __promisify__(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream): Promise<void>;
+            function __promisify__(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options?: FinishedOptions): Promise<void>;
         }
 
         function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: T, callback?: (err: NodeJS.ErrnoException | null) => void): T;
@@ -305,7 +336,12 @@ declare module "stream" {
             ): Promise<void>;
         }
 
-        interface Pipe { }
+        interface Pipe {
+            close(): void;
+            hasRef(): boolean;
+            ref(): void;
+            unref(): void;
+        }
     }
 
     export = internal;

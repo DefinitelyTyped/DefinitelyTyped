@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "strange-tests.ts",
-        "tree.d.ts"
+        "strange-tests.ts"
     ]
 }

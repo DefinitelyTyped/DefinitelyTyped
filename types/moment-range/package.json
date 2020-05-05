@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "moment": "^2.18.1"
-    }
-}

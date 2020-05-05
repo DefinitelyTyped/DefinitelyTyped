@@ -49,12 +49,13 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
                     slidesPerPage={1}
                     slidesPerScroll={3}
                     stopAutoPlayOnHover
-                    value={value}>
+                    value={value}
+                    rtl={false}>
                     <img alt="image-1"/>
                     <img alt="image-2"/>
                     <img alt="image-3"/>
                 </Carousel>
-                <Dots number={slides.length} value={value} onChange={this.handleChange}/>
+                <Dots number={slides.length} value={value} onChange={this.handleChange} rtl={false}/>
             </>
         );
     }

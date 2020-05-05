@@ -1,13 +1,16 @@
 // Type definitions for non-npm package @ember/debug 3.0
 // Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Fdebug
 // Definitions by: Mike North <https://github.com/mike-north>
+//                 Chris Krycho <https://github.com/chriskrycho>
+//                 Dan Freeman <https://github.com/dfreeman>
+//                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /**
  * Define an assertion that will throw an exception if the condition is not met.
  */
-export function assert(desc: string, test?: boolean): void | never;
+export function assert(desc: string, test?: any): void | never;
 /**
  * Display a debug notice.
  */

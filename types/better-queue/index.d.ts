@@ -11,7 +11,9 @@
 
 /// <reference types="node" />
 
-declare class BetterQueue<T = any, K = any> extends NodeJS.EventEmitter {
+import { EventEmitter } from 'events';
+
+declare class BetterQueue<T = any, K = any> extends EventEmitter {
   constructor(options: BetterQueue.QueueOptions<T, K>);
   constructor(process: BetterQueue.ProcessFunction<T, K>, options?: Partial<BetterQueue.QueueOptions<T, K>>);
 
@@ -115,7 +117,7 @@ declare namespace BetterQueue {
     [key: string]: any;
   }
 
-  class Ticket extends NodeJS.EventEmitter {
+  class Ticket extends EventEmitter {
     on(event: TicketEvent, listener: (...args: any[]) => void): this;
   }
 

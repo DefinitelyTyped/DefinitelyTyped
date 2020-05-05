@@ -1,42 +1,40 @@
 // Tests evaluated from:
 // https://github.com/domchristie/humps/blob/master/README.md
 
-import * as humps from "humps";
+import * as humps from 'humps';
 
-let someObject = { attr_one: 'foo', attr_two: 'bar' };
-let someArray = [{ attr_one: 'foo' }, { attr_one: 'bar' }]
+const someObject = { attr_one: 'foo', attr_two: 'bar' };
+const someArray = [{ attr_one: 'foo' }, { attr_one: 'bar' }];
 
-let someOptions: humps.HumpsOptions = {
-	separator: '-'
+const someOptions: humps.HumpsOptions = {
+    separator: '-',
 };
-let someOptions2: humps.HumpsOptions = {
-	split: /^[A-Z0-9_]+$/
+const someOptions2: humps.HumpsOptions = {
+    split: /^[A-Z0-9_]+$/,
 };
-let someOptions3: humps.HumpsOptions = {
-	separator: '-',
-	process: function (key: string, convert: humps.HumpsProcessorParameter, options: humps.HumpsOptions) {
-		return /^[A-Z0-9_]+$/.test(key) ? key : convert(key, options);
-	}
+const someOptions3: humps.HumpsOptions = {
+    separator: '-',
+    process(key: string, convert: humps.HumpsProcessorParameter, options: humps.HumpsOptions) {
+        return /^[A-Z0-9_]+$/.test(key) ? key : convert(key, options);
+    },
 };
 
+humps.camelize('hello_world');
 
-humps.camelize('hello_world')
-
-humps.decamelize('fooBar')
-humps.decamelize('fooBarBaz', someOptions)
+humps.decamelize('fooBar');
+humps.decamelize('fooBarBaz', someOptions);
 
 humps.camelizeKeys(someObject);
 
 humps.camelizeKeys(someArray);
 
-humps.camelizeKeys(someObject, function (key, convert) {
-  return /^[A-Z0-9_]+$/.test(key) ? key : convert(key);
+humps.camelizeKeys(someObject, (key, convert) => {
+    return /^[A-Z0-9_]+$/.test(key) ? key : convert(key);
 });
 
-humps.decamelizeKeys(someObject, function (key, convert, options) {
-  return /^[A-Z0-9_]+$/.test(key) ? key : convert(key, options);
+humps.decamelizeKeys(someObject, (key, convert, options) => {
+    return /^[A-Z0-9_]+$/.test(key) ? key : convert(key, options);
 });
-
 
 humps.camelize('hello_world-foo bar');
 
@@ -44,7 +42,7 @@ humps.pascalize('hello_world-foo bar');
 
 humps.decamelize('helloWorldFooBar');
 humps.decamelize('helloWorldFooBar', someOptions);
-humps.decamelize('helloWorld1', { split: /(?=[A-Z0-9])/ })
+humps.decamelize('helloWorld1', { split: /(?=[A-Z0-9])/ });
 
 humps.depascalize('helloWorldFooBar');
 
@@ -67,3 +65,8 @@ humps.camelizeKeys(someObject, someOptions3);
 humps.pascalizeKeys(someObject, someOptions3);
 humps.decamelizeKeys(someObject, someOptions3);
 humps.depascalizeKeys(someObject, someOptions3);
+
+[...humps.camelizeKeys(someArray)];
+[...humps.pascalizeKeys(someArray)];
+[...humps.decamelizeKeys(someArray)];
+[...humps.depascalizeKeys(someArray)];

@@ -1,10 +1,19 @@
 import * as React from "react";
-import { DownshiftTypedProps, InternationalProps, ReactInputAttr, RequiresIdProps, ThemeProps, ValidityProps } from "../../../typings/shared";
+import {
+    DownshiftTypedProps,
+    InternationalProps,
+    ReactInputAttr,
+    RequiresIdProps,
+    ThemeProps,
+    ValidityProps,
+    Direction
+} from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 import { ListBoxSelectionTranslationKey } from "../ListBox/ListBoxSelection";
+import { ListBoxSize } from "../ListBox/ListBoxPropTypes";
 
-type ExcludedAttributes = "id" | "onChange" | "placeholder" | "ref";
+type ExcludedAttributes = "id" | "onChange" | "placeholder" | "ref" | "size";
 interface InheritedProps<ItemType> extends
     Omit<ReactInputAttr, ExcludedAttributes>,
     DownshiftTypedProps<ItemType>,
@@ -20,14 +29,17 @@ interface InheritedProps<ItemType> extends
 
 export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<ItemType, object>>
 extends InheritedProps<ItemType> {
+    direction?: Extract<Direction, "bottom" | "top">,
     downshiftProps?: any, // TODO
     helperText?: React.ReactNode,
     initialSelectedItem?: ItemType;
     items: ItemType[],
     itemToElement?: CustomElementProps extends object ? React.ComponentType<CustomElementProps> : never,
-    onChange?(data: { selectedItem?: ItemType }): void,
+    onChange?(data: { selectedItem?: ItemType | null }): void,
     onInputChange?(inputValue?: string): void,
+    selectedItem?: ItemType | null,
     shouldFilterItem?(item: ItemType, itemToString?: ComboBoxProps<ItemType>["itemToString"], inputValue?: string): void,
+    size?: ListBoxSize,
     titleText?: React.ReactNode,
 }
 

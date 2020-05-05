@@ -2,6 +2,7 @@
 // Project: https://github.com/styled-system/styled-system
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 //                 Bartosz Szewczyk <https://github.com/sztobar>
+//                 Ryan Dowling <https://github.com/RyanTheAllmighty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -53,7 +54,7 @@ interface CSSOthersObjectForCSSObject {
 /**
  * Map all nested selectors
  */
-interface CSSSelectorObject {
+export interface CSSSelectorObject {
     [cssSelector: string]: SystemStyleObject;
 }
 
@@ -332,6 +333,18 @@ interface OverwriteCSSProperties {
      * @see https://developer.mozilla.org/docs/Web/CSS/font-weight
      */
     fontWeight?: CSS.FontWeightProperty | string;
+    /**
+     * The **`z-index`** CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one.
+     *
+     * **Initial value**: `auto`
+     *
+     * | Chrome | Firefox | Safari |  Edge  |  IE   |
+     * | :----: | :-----: | :----: | :----: | :---: |
+     * | **1**  |  **1**  | **1**  | **12** | **4** |
+     *
+     * @see https://developer.mozilla.org/docs/Web/CSS/z-index
+     */
+    zIndex?: CSS.ZIndexProperty | string;
 }
 
 /**
@@ -340,7 +353,7 @@ interface OverwriteCSSProperties {
  * theme function or nested) in `SystemCssProperties`.
  */
 interface AllSystemCSSProperties
-    extends Omit<CSSProperties, 'boxShadow' | 'fontWeight'>,
+    extends Omit<CSSProperties, 'boxShadow' | 'fontWeight' | 'zIndex'>,
         AliasesCSSProperties,
         OverwriteCSSProperties {}
 
@@ -351,7 +364,7 @@ export type SystemCssProperties = {
         | SystemStyleObject;
 };
 
-interface VariantProperty {
+export interface VariantProperty {
     /**
      * **`Variants`** can be useful for applying complex styles to a component based on a single prop.
      *
@@ -376,7 +389,7 @@ interface VariantProperty {
     variant: string;
 }
 
-interface UseThemeFunction {
+export interface UseThemeFunction {
     (theme: any): SystemStyleObject;
 }
 
@@ -390,7 +403,8 @@ export type SystemStyleObject =
     | CSSPseudoSelectorProps
     | CSSSelectorObject
     | VariantProperty
-    | UseThemeFunction;
+    | UseThemeFunction
+    | null;
 
 /**
  * Helper to define theme values.
@@ -415,7 +429,7 @@ export type Theme =
     | ThemeBreakPoints
     | { [variantPart: string]: Theme };
 
-interface ThemeBreakPoints {
+export interface ThemeBreakPoints {
     breakpoints: string[] | number[];
 }
 

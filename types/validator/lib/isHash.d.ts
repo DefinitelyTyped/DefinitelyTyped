@@ -1,3 +1,3 @@
-import * as validator from "validator";
-declare const isHash: typeof validator.isHash;
-export = isHash;
+import validator from '../';
+export type HashAlgorithm = validator.HashAlgorithm;
+export default validator.isHash;
