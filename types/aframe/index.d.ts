@@ -419,6 +419,27 @@ export interface AFrame {
 }
 
 // module.exports
+export const AComponent: AFrame['AComponent'];
+export const AEntity: AFrame['AEntity'];
+export const ANodule: AFrame['ANode'];
+export const AScene: AFrame['AScene'];
+export const components: AFrame['components'];
+export const geometries: AFrame['geometries'];
+export const primitives: AFrame['primitives'];
+export const scenes: AFrame['scenes'];
+export const schema: AFrame['schema'];
+export const shaders: AFrame['shaders'];
+export const systems: AFrame['systems'];
+export const THREE: AFrame['THREE'];
+export const TWEEN: AFrame['TWEEN'];
+export const utils: AFrame['utils'];
+export const version: AFrame['version'];
+export const registerComponent: AFrame['registerComponent'];
+export const registerElement: AFrame['registerElement'];
+export const registerGeometry: AFrame['registerGeometry'];
+export const registerPrimitive: AFrame['registerPrimitive'];
+export const registerShader: AFrame['registerShader'];
+export const registerSystem: AFrame['registerSystem'];
 
 // global exports
 declare global {
