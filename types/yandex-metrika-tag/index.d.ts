@@ -10,12 +10,12 @@ declare namespace ym {
         (counterId: number, eventName: 'init', parameters: InitParameters): void;
         (counterId: number, eventName: 'addFileExtension', extensions: string | string[]): void;
         // tslint:disable-next-line no-unnecessary-generics
-        <CTX extends any>(counterId: number, eventName: 'extLink', url: string, options?: ExtLinkOptions<CTX>): void;
+        <CTX>(counterId: number, eventName: 'extLink', url: string, options?: ExtLinkOptions<CTX>): void;
         // tslint:disable-next-line no-unnecessary-generics
-        <CTX extends any>(counterId: number, eventName: 'file', url: string, options?: FileOptions<CTX>): void;
+        <CTX>(counterId: number, eventName: 'file', url: string, options?: FileOptions<CTX>): void;
         (counterId: number, eventName: 'getClientID', cb: (clientID: string) => void): void;
         // tslint:disable-next-line no-unnecessary-generics
-        <CTX extends any>(counterId: number, eventName: 'hit', url: string, options?: HitOptions<CTX>): void;
+        <CTX>(counterId: number, eventName: 'hit', url: string, options?: HitOptions<CTX>): void;
         /** @deprecated */
         (
             counterId: number,
@@ -26,10 +26,10 @@ declare namespace ym {
             params?: VisitParameters,
         ): void;
         // tslint:disable-next-line no-unnecessary-generics
-        <CTX extends any>(counterId: number, eventName: 'notBounce', options?: NotBounceOptions<CTX>): void;
+        <CTX>(counterId: number, eventName: 'notBounce', options?: NotBounceOptions<CTX>): void;
         (counterId: number, eventName: 'params', parameters: VisitParameters | VisitParameters[]): void;
         // tslint:disable-next-line no-unnecessary-generics
-        <CTX extends any>(
+        <CTX>(
             counterId: number,
             eventName: 'reachGoal',
             target: string,
