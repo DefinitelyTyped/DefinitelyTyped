@@ -10,7 +10,7 @@ export interface RetryStrategyOptions {
     attempt: number;
 }
 
-export type RetryStrategy = (options: RetryStrategyOptions) => number | Error;
+export type RetryStrategy = (options: RetryStrategyOptions) => number | Error | unknown;
 
 export interface ClientOpts {
     host?: string;
