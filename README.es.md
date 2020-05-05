@@ -239,7 +239,7 @@ La `master` branch es automáticamente publicada en el alcance de los  `@types` 
 
 #### He enviado un pull request. ¿Cuánto tardará en ser merged?
 
-Esto depende, pero la mayoría de los pull requests serán merged en alrededor de una semana. PRs que hayan sido aprobados por un autor listado en el encabezado de las definiciones usualmente son merged más rápidamente; PRs para nuevas definiciones tomarán más tiempo ya que requieren más revisiones de los mantenedores. Cada PR es revisado por un miembro de TypeScript o DefinitelyTyped antes de ser merged, por favor sé paciente debido a que factores humanos pueden causar retrasos. Revisa el [PR Burndown Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/3?card_filter_query=is%3Aopen) para ver el progreso mientras los mantenedores trabajan en los PRs abiertos.
+Esto depende, pero la mayoría de los pull requests serán merged en alrededor de una semana. PRs que hayan sido aprobados por un autor listado en el encabezado de las definiciones usualmente son merged más rápidamente; PRs para nuevas definiciones tomarán más tiempo ya que requieren más revisiones de los mantenedores. Cada PR es revisado por un miembro de TypeScript o DefinitelyTyped antes de ser merged, por favor sé paciente debido a que factores humanos pueden causar retrasos. Revisa el [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) para ver el progreso mientras los mantenedores trabajan en los PRs abiertos.
 
 #### Mi PR ha sido merged; ¿cuándo será actualizado el paquete de `@types` NPM?
 
