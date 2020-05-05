@@ -262,8 +262,8 @@ export interface Layout {
 	margin: Partial<Margin>;
 	height: number;
 	width: number;
-    hovermode: 'closest' | 'x' | 'y' | 'x unified' | 'y unified' | false;
-    hoverdistance: number;
+	hovermode: 'closest' | 'x' | 'y' | 'x unified' | 'y unified' | false;
+	hoverdistance: number;
 	hoverlabel: Partial<HoverLabel>;
 	calendar: Calendar;
 	'xaxis.range': [Datum, Datum];
