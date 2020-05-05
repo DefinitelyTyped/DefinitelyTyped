@@ -421,7 +421,7 @@ export interface AFrame {
 // module.exports
 export const AComponent: AFrame['AComponent'];
 export const AEntity: AFrame['AEntity'];
-export const ANode: AFrame['ANode'];
+export const ANodule: AFrame['ANode'];
 export const AScene: AFrame['AScene'];
 export const components: AFrame['components'];
 export const geometries: AFrame['geometries'];
