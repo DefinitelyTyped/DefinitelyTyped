@@ -39,6 +39,7 @@ type Constructor<E> = new (...args: any[]) => E;
 type CatchFilter<E> = ((error: E) => boolean) | (object & E);
 type Resolvable<R> = R | PromiseLike<R>;
 type IterateFunction<T, R> = (item: T, index: number, arrayLength: number) => Resolvable<R>;
+type ResultArrayToInspection<T> = T extends [infer T1, infer T2, infer T3, infer T4, infer T5] ? [Bluebird.Inspection<T1>, Bluebird.Inspection<T2>, Bluebird.Inspection<T3>, Bluebird.Inspection<T4>, Bluebird.Inspection<T5>] : T extends [infer T1, infer T2, infer T3, infer T4] ? [Bluebird.Inspection<T1>, Bluebird.Inspection<T2>, Bluebird.Inspection<T3>, Bluebird.Inspection<T4>] : T extends [infer T1, infer T2, infer T3] ? [Bluebird.Inspection<T1>, Bluebird.Inspection<T2>, Bluebird.Inspection<T3>] : T extends [infer T1, infer T2] ? [Bluebird.Inspection<T1>, Bluebird.Inspection<T2>] : T extends [infer T1] ? [Bluebird.Inspection<T1>] : T extends (infer R)[] ? Bluebird.Inspection<R>[] : never;
 
 declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   readonly [Symbol.toStringTag]: "Object";
@@ -572,6 +573,13 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
   all(): Bluebird<never>;
+
+  static allSettled<T1, T2, T3, T4, T5>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>, Resolvable<T5>]): Bluebird<ResultArrayToInspection<[T1, T2, T3, T4, T5]>>;
+  static allSettled<T1, T2, T3, T4>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>]): Bluebird<ResultArrayToInspection<[T1, T2, T3, T4]>>;
+  static allSettled<T1, T2, T3>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>]): Bluebird<ResultArrayToInspection<[T1, T2, T3]>>;
+  static allSettled<T1, T2>(values: [Resolvable<T1>, Resolvable<T2>]): Bluebird<ResultArrayToInspection<[T1, T2]>>;
+  static allSettled<T1>(values: [Resolvable<T1>]): Bluebird<ResultArrayToInspection<[T1]>>;
+  static allSettled<R>(values: Resolvable<Iterable<Resolvable<R>>>): Bluebird<Bluebird.Inspection<R>[]>;
 
   /**
    * Same as calling `Promise.props(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
