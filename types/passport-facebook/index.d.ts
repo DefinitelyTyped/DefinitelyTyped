@@ -35,16 +35,6 @@ export interface StrategyOption {
     scopeSeparator?: string;
     enableProof?: boolean;
     profileFields?: string[];
-
-    authorizationURL?: string;
-    tokenURL?: string;
-    profileURL?: string;
-    graphAPIVersion?: string;
-
-    display?: 'page' | 'popup' | 'touch';
-
-    authType?: 'reauthenticate';
-    authNonce?: string;
 }
 
 export interface StrategyOptionWithRequest extends StrategyOption {
