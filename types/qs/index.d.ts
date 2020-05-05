@@ -61,10 +61,7 @@ declare namespace QueryString {
     // 3.0+, we can replace this with `unknown`.
     type PoorMansUnknown = {} | null | undefined;
 
-    // Not supported natively until TS 3.5
-    type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
     function stringify(obj: any, options?: IStringifyOptions): string;
-    function parse(str: string, options?: Omit<IParseOptions, 'decoder'> & { decoder?: never }): ParsedQs;
+    function parse(str: string, options?: IParseOptions & { decoder?: never }): ParsedQs;
     function parse(str: string, options?: IParseOptions): { [key: string]: PoorMansUnknown };
 }
