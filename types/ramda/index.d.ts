@@ -1371,6 +1371,12 @@ export function pathOr<T>(defaultValue: T, path: Path): (obj: any) => T;
 export function pathOr<T>(defaultValue: T): _.F.Curry<(a: Path, b: any) => T>;
 
 /**
+ * Retrieves the values at given paths of an object.
+ */
+export function paths<T>(paths: Path[], obj: any): T[] | undefined;
+export function paths<T>(paths: Path[]): (obj: any) => T[] | undefined;
+
+/**
  * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.
  */
 export function pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path, obj: U): boolean;

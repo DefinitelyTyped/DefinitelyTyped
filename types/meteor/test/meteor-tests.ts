@@ -18,6 +18,7 @@ import { Template } from "meteor/templating";
 import { Blaze } from "meteor/blaze";
 import { Session } from "meteor/session";
 import { HTTP } from "meteor/http";
+import { ReactiveDict } from "meteor/reactive-dict";
 import { ReactiveVar } from "meteor/reactive-var";
 import { Accounts } from "meteor/accounts-base";
 import { BrowserPolicy } from "meteor/browser-policy-common";
@@ -780,6 +781,29 @@ Blaze.toHTMLWithData(testTemplate, { test: 1 });
 Blaze.toHTMLWithData(testTemplate, function () { });
 Blaze.toHTMLWithData(testView, { test: 1 });
 Blaze.toHTMLWithData(testView, function () { });
+
+var reactiveDict1 = new ReactiveDict();
+var reactiveDict2 = new ReactiveDict();
+var reactiveDict3 = new ReactiveDict('reactive-dict-3');
+var reactiveDict4 = new ReactiveDict('reactive-dict-4', { foo: 'bar' });
+var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar' });
+
+reactiveDict1.setDefault('foo', 'bar');
+reactiveDict1.setDefault({ foo: 'bar' });
+
+reactiveDict1.set('foo', 'bar');
+reactiveDict2.set({ foo: 'bar' });
+
+reactiveDict1.get('foo') === 'bar';
+
+reactiveDict1.equals('foo', 'bar');
+
+reactiveDict1.all();
+
+reactiveDict1.clear();
+
+reactiveDict1.destroy();
+
 
 var reactiveVar1 = new ReactiveVar<string>('test value');
 var reactiveVar2 = new ReactiveVar<string>('test value', function (oldVal: any) { return true; });

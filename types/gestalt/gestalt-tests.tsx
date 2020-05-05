@@ -56,7 +56,7 @@ const MasonryComponent = ({}) => {
 <Column span={1} />;
 <Container />;
 <Divider />;
-<Flyout onDismiss={() => {}} anchor={React.useRef()} />;
+<Flyout onDismiss={() => {}} anchor={React.useRef().current} />;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
 <IconButton accessibilityLabel="icon" />;

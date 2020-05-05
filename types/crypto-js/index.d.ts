@@ -30,7 +30,7 @@ declare namespace CryptoJS {
 	interface StreamCipher extends Cipher {}
 
 	interface CipherHelper {
-		encrypt(message: string | LibWordArray, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
+		encrypt(message: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
 		decrypt(encryptedMessage: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): DecryptedMessage;
 	}
 	interface Encryptor {
@@ -57,7 +57,7 @@ declare namespace CryptoJS {
 		toString(encoder?: Encoder): string;
 	};
 	interface CipherOption {
-		iv?: string;
+		iv?: string | WordArray;
 		mode?: Mode;
 		padding?: Padding;
 		[option: string]: any;
@@ -147,7 +147,7 @@ declare namespace CryptoJS {
 		lib: {
 			WordArray: {
 				create: (v: any) => LibWordArray;
-				random: (v: number) => LibWordArray;
+				random: (v: number) => WordArray;
 			};
 		};
 		mode: {

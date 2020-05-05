@@ -654,7 +654,7 @@ declare namespace Chart {
         borderJoinStyle?: 'bevel' | 'round' | 'miter';
         borderSkipped?: PositionType | PositionType[] | Scriptable<PositionType>;
         categoryPercentage?: number;
-        data?: Array<number | null | undefined> | ChartPoint[];
+        data?: Array<number | null | undefined | number[]> | ChartPoint[];
         fill?: boolean | number | string;
         hitRadius?: number | number[] | Scriptable<number>;
         hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;

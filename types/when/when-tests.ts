@@ -199,7 +199,7 @@ when.unfold(function (x) {
 }, function (x) {
 	return x < 10;
 }, function (y) {
-	delete y.foo;
+	delete (y as { foo?: string }).foo;
 }, 0);
 
 /* when.promise(resolver) */

@@ -103,6 +103,16 @@ declare global {
             /** role of the state (used in user interfaces to indicate which widget to choose) */
             role: string;
 
+            /** Configures this state as an alias for another state */
+            alias?: {
+                /** The target state id */
+                id: string;
+                /** An optional conversion function when reading, e.g. `"(val − 32) * 5/9"` */
+                read?: string;
+                /** An optional conversion function when reading, e.g. `"(val * 9/5) + 32"` */
+                write?: string;
+            };
+
             /**
              * Dictionary of possible values for this state in the form
              * <pre>

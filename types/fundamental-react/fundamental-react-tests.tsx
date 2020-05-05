@@ -1927,6 +1927,35 @@ const shellbars = (
             ]}
         />
         <Shellbar
+            backAction={function w() {}}
+            logo={
+                <img
+                    alt="SAP"
+                    src="//unpkg.com/fiori-fundamentals/dist/images/sap-logo.png"
+                />
+            }
+            productTitle="Corporate Portal"
+            profile={{
+                colorAccent: 8,
+                initials: "JS",
+                userName: "John Snow"
+            }}
+            profileMenu={[
+                {
+                    callback: function w() {},
+                    glyph: "action-settings",
+                    name: "Settings",
+                    size: "s"
+                },
+                {
+                    callback: function w() {},
+                    glyph: "log",
+                    name: "Sign Out",
+                    size: "s"
+                }
+            ]}
+        />
+        <Shellbar
             logoSAP
             notifications={{
                 callback: function w() {},

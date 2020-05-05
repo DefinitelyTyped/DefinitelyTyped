@@ -4,6 +4,7 @@
 //                 Josh Gachnang <https://github.com/joshgachnang>
 //                 Calvin Chhour <https://github.com/calvinchhour>
 //                 Muhammed Hafiz <https://github.com/zifahm>
+//                 Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -238,7 +239,7 @@ https://pinterest.github.io/gestalt/#/Flyout
 */
 
 export interface FlyoutProps {
-    anchor: React.RefObject<any>;
+    anchor: any; // ideally a HTMLAnchorElement
     onDismiss: () => void;
     children?: React.ReactNode;
     color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray';
