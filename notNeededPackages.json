@@ -3487,6 +3487,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "parse-duration",
+            "typingsPackageName": "parse-duration",
+            "sourceRepoURL": "https://github.com/jkroso/parse-duration",
+            "asOfVersion": "0.3.0"
+        },
+        {
             "libraryName": "parse-ms",
             "typingsPackageName": "parse-ms",
             "sourceRepoURL": "https://github.com/sindresorhus/parse-ms",
