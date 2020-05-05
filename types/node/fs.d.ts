@@ -1514,7 +1514,7 @@ declare module "fs" {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param options An object that may contain an optional flag. If a flag is not provided, it defaults to `'r'`.
      */
-    function readFileSync(path: PathLike | number, options?: { encoding?: null; flag?: string; } | null): Buffer;
+    function readFileSync(path: PathLike | number, options?: { encoding?: string | null; flag?: string; } | null): Buffer;
 
     /**
      * Synchronously reads the entire contents of a file.
