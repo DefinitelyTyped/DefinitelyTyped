@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, Button, animateScroll, Helpers, Events, Element, scrollSpy, scroller } from 'react-scroll';
+import { Link, Button, animateScroll, Helpers, Events, Element, ScrollLink, scrollSpy, scroller } from 'react-scroll';
 
 Events.scrollEvent.register('begin', (to, element) => {
     console.log('begin');
@@ -39,7 +39,7 @@ const linkTest1 = (
     </Link>
 );
 
-const LinkTest2 = (
+const linkTest2 = (
     <Link activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} delay={1000}>
         Test 2 (delay)
     </Link>
@@ -139,3 +139,16 @@ scroller.scrollTo('myScrollToElement', {
     smooth: 'easeInOutQuint',
     containerId: 'ContainerElementID',
 });
+
+const CustomScrollLink = ScrollLink(CustomComponent);
+<CustomScrollLink to="testTo" />;
+const CustomScrollLinkWithScroller = ScrollLink(CustomComponent, {
+    unmount: () => {},
+    register: (name: string, element: any) => {},
+    unregister: (name: string) => {},
+    get: (name: string) => {},
+    setActiveLink: (link: string) => {},
+    getActiveLink: () => '',
+    scrollTo: (to: string, props: any) => {},
+});
+<CustomScrollLinkWithScroller to="testTo" />;
