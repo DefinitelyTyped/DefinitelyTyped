@@ -5,6 +5,7 @@
 //                 Hammad Jutt <https://github.com/hammadj>
 //                 pera <https://github.com/santiagofm>
 //                 Max Komarychev <https://github.com/maxkomarychev>
+//                 Dor Ben Baruch <https://github.com/Dor256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare global {
     const device: Detox.Device;
