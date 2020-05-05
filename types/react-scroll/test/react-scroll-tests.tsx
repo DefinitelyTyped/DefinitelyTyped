@@ -1,5 +1,16 @@
 import * as React from 'react';
-import { Link, Button, animateScroll, Helpers, Events, Element, ScrollLink, scrollSpy, scroller } from 'react-scroll';
+import {
+    Link,
+    Button,
+    animateScroll,
+    Helpers,
+    Events,
+    Element,
+    ScrollElement,
+    ScrollLink,
+    scrollSpy,
+    scroller,
+} from 'react-scroll';
 
 Events.scrollEvent.register('begin', (to, element) => {
     console.log('begin');
@@ -152,3 +163,6 @@ const CustomScrollLinkWithScroller = ScrollLink(CustomComponent, {
     scrollTo: (to: string, props: any) => {},
 });
 <CustomScrollLinkWithScroller to="testTo" />;
+
+const CustomScrollElement = ScrollElement(CustomComponent);
+<CustomScrollElement name="test" id="test" />;
