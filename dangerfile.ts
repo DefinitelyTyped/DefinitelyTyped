@@ -1,20 +1,18 @@
 import fs = require('fs')
 import os = require('os')
-import { message, warn } from "danger"
+import { message, warn, markdown } from "danger"
 const suggestionsDir = [os.homedir(), ".dts", "suggestions"].join('/')
-let msg = "\n\n=== SUGGESTIONS ===\n"
-const suggestionLines: string[] = [];
+const lines: string[] = []
 if (fs.existsSync(suggestionsDir)) {
     for (const suggestionFile of fs.readdirSync(suggestionsDir)) {
-        msg += suggestionFile
-        const path = [suggestionsDir, suggestionFile].join('/');
-        const suggestions = fs.readFileSync(path, "utf8").split("\n");
-        suggestionLines.push(`"${suggestionFile}": [${suggestions.join(",")}]`);
+        const path = [suggestionsDir, suggestionFile].join('/')
+        const suggestions = JSON.parse(fs.readFileSync(path, "utf8")) as Array<{ fileName: string, ruleName: string, message: string }>
+        const name = suggestionFile.slice(0, suggestionFile.indexOf('.txt'))
+        lines.push("## " + name)
+        for (const s of suggestions) {
+            lines.push("- " + s.fileName.slice(s.fileName.indexOf("types/" + name)) + " &mdash; " + s.message)
+        }
     }
-    message(msg)
-    message(suggestionLines.join('\n'))
-}
-else {
-    message("no suggestions found");
+    markdown(lines.join('\n'))
 }
 
