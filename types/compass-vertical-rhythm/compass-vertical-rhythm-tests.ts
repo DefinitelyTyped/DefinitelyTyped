@@ -36,9 +36,13 @@ const cvr = compassVerticalRhythm({
     minLinePadding: '2px',
 });
 
+// $ExpectType number
 cvr.rhythm();
+// $ExpectType number
 cvr.rhythm(1);
+// $ExpectType number
 cvr.rhythm(1, '16px');
+// $ExpectType number
 cvr.rhythm(1, '16px', 4);
 
 cvr.establishBaseline().fontSize;
