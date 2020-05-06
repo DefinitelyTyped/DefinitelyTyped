@@ -787,6 +787,9 @@ function Mutation() {
                         },
                         onCompleted(data) {
                             console.log(data);
+                            console.log(data.id);
+                            console.log(data.like_count);
+                            console.log(data.viewer_does_like);
                         },
                     });
                 }}
