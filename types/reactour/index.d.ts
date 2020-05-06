@@ -1,4 +1,4 @@
-// Type definitions for reactour 1.13
+// Type definitions for reactour 1.17
 // Project: https://github.com/elrumordelaluz/reactour#readme
 // Definitions by: Paweł Dąbrowski <https://github.com/paolostyle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -51,6 +51,11 @@ export interface ReactourStep {
      * Additional styles
      */
     style?: React.CSSProperties;
+
+    /**
+     * Text read to screen reader software for this step's navigation dot
+     */
+    navDotAriaLabel?: string;
 }
 
 export interface ReactourProps {
@@ -238,6 +243,12 @@ export interface ReactourProps {
      * @default 1
      */
     updateDelay?: number;
+
+    /**
+     * Disable FocusLock component
+     * @default false
+     */
+    disableFocusLock?: boolean;
 }
 
 export interface ReactourState {
