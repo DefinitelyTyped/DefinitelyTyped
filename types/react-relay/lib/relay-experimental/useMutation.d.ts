@@ -16,4 +16,7 @@ export interface UseMutationConfig<TMutation extends MutationParameters> {
 }
 
 // tslint:disable-next-line no-unnecessary-generics
-export function useMutation<TMutation extends MutationParameters>(mutation: GraphQLTaggedNode): [(config: UseMutationConfig<TMutation>) => Disposable, boolean];
+export function useMutation<TMutation extends MutationParameters>(
+    mutation: GraphQLTaggedNode, 
+    commitMutationFn?: (environment: IEnvironment, config: MutationConfig<TMutation>) => Disposable,
+): [(config: UseMutationConfig<TMutation>) => Disposable, boolean];
