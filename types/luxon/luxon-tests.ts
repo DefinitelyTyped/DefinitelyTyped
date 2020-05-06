@@ -1,16 +1,14 @@
 import {
     DateTime,
     Duration,
-    Interval,
-    Info,
-    Settings,
-    InvalidZone,
-    LocalZone,
     FixedOffsetZone,
     IANAZone,
+    Info,
+    Interval,
+    Settings,
     Zone,
-    ZoneOffsetOptions,
     ZoneOffsetFormat,
+    ZoneOffsetOptions,
 } from 'luxon';
 
 /* DateTime */
@@ -71,9 +69,11 @@ getters.isInLeapYear;
 dt.toBSON(); // $ExpectType Date
 dt.toHTTP(); // $ExpectType string
 dt.toISO(); // $ExpectType string
-dt.toISO({ includeOffset: true }); // $ExpectType string
+dt.toISO({ includeOffset: true, format: 'extended' }); // $ExpectType string
 dt.toISODate(); // $ExpectType string
+dt.toISODate({ format: 'basic'}); // $ExpectType string
 dt.toISOTime(); // $ExpectType string
+dt.toISOTime({ format: 'basic' }); // $ExpectType string
 dt.toISOWeekDate(); // $ExpectType string
 dt.toJSDate(); // $ExpectType Date
 dt.toJSON(); // $ExpectType string
