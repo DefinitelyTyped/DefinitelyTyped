@@ -776,7 +776,7 @@ declare namespace CodeMirror {
         clientHeight: any;
     }
 
-    interface TextMarker {
+    interface TextMarker extends Partial<TextMarkerOptions> {
         /** Remove the mark. */
         clear(): void;
 
