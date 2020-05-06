@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.22
+// Type definitions for luxon 1.24
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -11,7 +11,6 @@
 //                 Aitor Pérez Rodal <https://github.com/Aitor1995>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 export type DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
@@ -67,10 +66,34 @@ export interface ToSQLOptions {
     includeZone?: boolean;
 }
 
+export type ToISOFormat = 'basic' | 'extended';
+
 export interface ToISOTimeOptions {
+    /**
+     * @default false
+     */
     suppressMilliseconds?: boolean;
+    /**
+     * @default false
+     */
     suppressSeconds?: boolean;
+    /**
+     * @default true
+     */
     includeOffset?: boolean;
+    /**
+     * choose between the basic and extended format
+     * @default 'extended'
+     */
+    format?: ToISOFormat;
+}
+
+export interface ToISODateOptions {
+    /**
+     * choose between the basic and extended format
+     * @default 'extended'
+     */
+    format?: ToISOFormat;
 }
 
 // alias for backwards compatibility
@@ -250,7 +273,8 @@ export class DateTime {
     toFormat(format: string, options?: DateTimeFormatOptions): string;
     toHTTP(): string;
     toISO(options?: ToISOTimeOptions): string;
-    toISODate(): string;
+    /** Returns an ISO 8601-compliant string representation of this DateTime's date component */
+    toISODate(options?: ToISODateOptions): string;
     toISOTime(options?: ToISOTimeOptions): string;
     toISOWeekDate(): string;
     toJSDate(): Date;
