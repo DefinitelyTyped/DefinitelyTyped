@@ -32,7 +32,7 @@ interface VerticalRhythmStyles {
 }
 
 interface VerticalRhythm {
-    rhythm(lines?: number, fontSize?: string, offset?: number): string;
+    rhythm(lines?: number, fontSize?: string, offset?: number): number;
     establishBaseline(): VerticalRhythmStyles;
     linesForFontSize(fontSize: string): number;
     adjustFontSizeTo(toSize: string, lines?: number | 'auto' | null, fromSize?: string): VerticalRhythmStyles;
