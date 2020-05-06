@@ -13,6 +13,7 @@ import {
     useRefetchableFragment,
     usePaginationFragment,
     useBlockingPaginationFragment,
+    useMutation
 } from 'react-relay/hooks';
 
 const source = new RecordSource();
@@ -732,6 +733,64 @@ function BlockingPaginationFragment_WithNonNullUserProp() {
 
                 <button onClick={() => loadNext(10)}>Load more friends</button>
             </>
+        );
+    };
+}
+
+/**
+ * Tests for useMutation
+ * see https://relay.dev/docs/en/experimental/api-reference#usemutation
+ */
+function Mutation() {
+    interface FeedbackLikeMutationResponse {
+        id: string;
+        viewer_does_like: boolean;
+        like_count: number;
+    }
+
+    interface FeedbackLikeMutationVariables {
+        input: {
+            id: string,
+            text: string;
+        };
+    }
+
+    interface FeedbackLikeMutation {
+        readonly response: FeedbackLikeMutationResponse;
+        readonly variables: FeedbackLikeMutationVariables;
+    }
+
+    return function LikeButton() {
+        const [commit, isInFlight] = useMutation<FeedbackLikeMutation>(graphql`
+            mutation FeedbackLikeMutation($input: FeedbackLikeData!) {
+                feedback_like(data: $input) {
+                    feedback {
+                        id
+                        viewer_does_like
+                        like_count
+                    }
+                }
+            }
+        `);
+        if (isInFlight) {
+          return <div>loading</div>;
+        }
+        return (
+            <button
+                onClick={() => {
+                    commit({
+                        variables: {
+                            input: {
+                                id: '123',
+                                text: 'text',
+                            },
+                        },
+                        onCompleted(data) {
+                            console.log(data);
+                        },
+                    });
+                }}
+            />
         );
     };
 }
