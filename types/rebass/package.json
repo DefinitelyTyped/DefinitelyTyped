@@ -1,0 +1,9 @@
+{
+	"private": true,
+	"dependencies": {
+		"@emotion/css": "^10.0"
+	},
+	"devDependencies": {
+		"@emotion/styled": "^10.0"
+	}
+}

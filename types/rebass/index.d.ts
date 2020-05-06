@@ -15,14 +15,28 @@ import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
 import * as React from 'react';
 import * as StyledComponents from 'styled-components';
 import * as StyledSystem from 'styled-system';
+import * as Emotion from '@emotion/css'
 
 export {};
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
+type StyledComponentsCSS = (
+    | StyledComponents.CSSObject
+    | StyledComponents.FlattenSimpleInterpolation
+);
+
+type EmotionCSS = (
+    | Emotion.CSSObject
+    | Emotion.SerializedStyles
+);
+
 export interface BaseProps extends React.RefAttributes<any> {
     as?: React.ElementType;
-    css?: StyledComponents.CSSObject | StyledComponents.FlattenSimpleInterpolation | string;
+    css?:
+        | StyledComponentsCSS
+        | EmotionCSS
+        | string;
 }
 
 /**
