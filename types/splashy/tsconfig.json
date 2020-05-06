@@ -3,7 +3,7 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "DOM"
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

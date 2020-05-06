@@ -1,5 +1,18 @@
 import splashy from 'splashy';
 
-const url: string = 'https://kikobeats.com/images/avatar.jpg';
+const url = 'https://kikobeats.com/images/avatar.jpg';
+const image = new HTMLImageElement();
+const buffer = Buffer.from(
+    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
+);
 
-const palette = await splashy(url);
+(async () => {
+    let palette = await splashy(url);
+    console.log(palette);
+
+    palette = await splashy(image);
+    console.log(palette);
+
+    palette = await splashy(buffer);
+    console.log(palette);
+})();
