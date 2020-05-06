@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 // tslint:disable:no-unnecessary-generics
 // prettier-ignore

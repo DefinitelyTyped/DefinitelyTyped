@@ -1991,7 +1991,7 @@ declare namespace mapboxgl {
         'text-radial-offset'?: number | Expression;
         'text-variable-anchor'?: Anchor[];
         'text-writing-mode'?: ('horizontal' | 'vertical')[];
-        'symbol-sort-key'?: number;
+        'symbol-sort-key'?: number | Expression;
     }
 
     export interface SymbolPaint {

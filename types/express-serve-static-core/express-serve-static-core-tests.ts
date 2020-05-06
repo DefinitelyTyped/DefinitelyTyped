@@ -40,7 +40,7 @@ app.get<{}, any, any, {q: string}>('/:foo', req => {
 
 // Query will be defaulted to Query type
 app.get('/:foo', req => {
-    req.query; // $ExpectType Query
+    req.query; // $ExpectType ParsedQs
 });
 
 // Default types

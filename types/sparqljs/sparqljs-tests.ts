@@ -24,10 +24,10 @@ function officialExamples() {
 }
 
 function advancedOptions() {
-    const parser = new SparqlJs.Parser(
-        {rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'},
-        'http://example.com'
-    );
+    const parser = new SparqlJs.Parser({
+        prefixes: {rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'},
+        baseIRI: 'http://example.com'
+    });
     const generator = new SparqlJs.Generator({allPrefixes: false});
 }
 

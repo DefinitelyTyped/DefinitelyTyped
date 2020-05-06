@@ -59,9 +59,9 @@ npm install --save-dev @types/node
 这通常会在 `package.json` 文件中的 `"types"` 或 `"typings"` 字段中提供，
 或者可以只查找包中的任何 ".d.ts" 文件并手动将它们包含在 `/// <reference path="" />`.
 
-#### 旧版本的 TypeScript（2.7 和更早版本）
+#### 旧版本的 TypeScript（2.8 和更早版本）
 
-Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 2.8 及更高版本。如果您使用的是 TypeScript 2.0 到 2.7，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 2.9 及更高版本。如果您使用的是 TypeScript 2.0 到 2.8，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
 
 Version | Released | End of Support
 -- | -- | --
@@ -76,6 +76,7 @@ Version | Released | End of Support
 3.6 | August 2019 | August 2021
 3.7 | November 2019 | November 2021
 3.8 | February 2020 | February 2022
+3.9 | May 2020 | May 2022
 
 `@types` 软件包具有它们明确支持的 TypeScript 版本的标记，因此通常可以获取早于 2 年窗口的较早版本的软件包。例如，如果运行 `npm dist-tags @types/react`，您将看到 TypeScript 2.5 可以将类型用于 react@16.0，而 TypeScript 2.6 和 2.7 可以将类型用于 react@16.4：
 
@@ -279,7 +280,7 @@ f("one");
 
 #### 我已经发起了 PR, 它多久会被合并？
 
-这得看情况，但是大多数的 PR 会在一周内被合并。已经由定义包头部中的作者同意的 PR 通常会更快被合并。新定义类型的 PR 需要更多时间，因为它们需要维护人员花更多的时间去审核。每一个 PR 在合并之前都会由 TypeScript 或 Definitely Typed 的团队成员进行审核，所以请耐心等待这些因为人为因素导致的延迟。通过查看 [PR Burndown Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/3?card_filter_query=is%3Aopen)，可以看到维护人员在开放 PRs 的工作进度。
+这得看情况，但是大多数的 PR 会在一周内被合并。已经由定义包头部中的作者同意的 PR 通常会更快被合并。新定义类型的 PR 需要更多时间，因为它们需要维护人员花更多的时间去审核。每一个 PR 在合并之前都会由 TypeScript 或 Definitely Typed 的团队成员进行审核，所以请耐心等待这些因为人为因素导致的延迟。通过查看 [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5)，可以看到维护人员在开放 PRs 的工作进度。
 
 #### 我的 PR 被合并了，什么时候 `@types` 的 NPM 包会被更新？
 

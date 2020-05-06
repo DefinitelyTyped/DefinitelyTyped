@@ -3,7 +3,6 @@
 //          https://github.com/mongodb/node-mongodb-native/tree/3.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 //                 Alan Marcell <https://github.com/alanmarcell>
-//                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Gaurav Lahoti <https://github.com/dante-101>
 //                 Mariano Cortesi <https://github.com/mcortesi>
 //                 Enrico Picci <https://github.com/EnricoPicci>
@@ -14,7 +13,6 @@
 //                 Bastien Arata <https://github.com/BastienAr>
 //                 Wan Bachtiar <https://github.com/sindbach>
 //                 Geraldine Lemeur <https://github.com/geraldinelemeur>
-//                 Jimmy Shimizu <https://github.com/jishi>
 //                 Dominik Heigl <https://github.com/various89>
 //                 Angela-1 <https://github.com/angela-1>
 //                 Mikael Lirbank <https://github.com/lirbank>
@@ -26,14 +24,14 @@
 //                 Luis Pais <https://github.com/ranguna>
 //                 Hossein Saniei <https://github.com/HosseinAgha>
 //                 Alberto Silva <https://github.com/albertossilva>
-//                 Rauno Viskus <https://github.com/Rauno56>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Richard Bateman <https://github.com/taxilian>
 //                 Igor Strebezhev <https://github.com/xamgore>
 //                 Valentin Agachi <https://github.com/avaly>
+//                 HitkoDev <https://github.com/HitkoDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 // Documentation: https://mongodb.github.io/node-mongodb-native/3.1/api/
 
@@ -46,6 +44,8 @@ import { checkServerIdentity } from 'tls';
 
 // We can use TypeScript Omit once minimum required TypeScript Version is above 3.5
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+
+type FlattenIfArray<T> = T extends Array<infer R> ? R : T;
 
 export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
@@ -945,7 +945,7 @@ type ExtractIdType<TSchema> =
      : ObjectId; // user has not defined _id on schema
 
 // this makes _id optional
-type OptionalId<TSchema extends { _id?: any }> =
+export type OptionalId<TSchema extends { _id?: any }> =
     ObjectId extends TSchema['_id']
         // a Schema with ObjectId _id type or "any" or "indexed type" provided
         ? EnhancedOmit<TSchema, '_id'> & { _id?: ExtractIdType<TSchema> }
@@ -953,7 +953,7 @@ type OptionalId<TSchema extends { _id?: any }> =
         : WithId<TSchema>;
 
 // this adds _id as a required property
-type WithId<TSchema> = EnhancedOmit<TSchema, '_id'> & { _id: ExtractIdType<TSchema> };
+export type WithId<TSchema> = EnhancedOmit<TSchema, '_id'> & { _id: ExtractIdType<TSchema> };
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html */
 export interface Collection<TSchema extends { [key: string]: any } = DefaultSchema> {
@@ -982,9 +982,9 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     aggregate<T = TSchema>(pipeline: object[], callback: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
     aggregate<T = TSchema>(pipeline?: object[], options?: CollectionAggregationOptions, callback?: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite */
-    bulkWrite(operations: object[], callback: MongoCallback<BulkWriteOpResultObject>): void;
-    bulkWrite(operations: object[], options?: CollectionBulkWriteOptions): Promise<BulkWriteOpResultObject>;
-    bulkWrite(operations: object[], options: CollectionBulkWriteOptions, callback: MongoCallback<BulkWriteOpResultObject>): void;
+    bulkWrite(operations: Array<BulkWriteOperation<TSchema>>, callback: MongoCallback<BulkWriteOpResultObject>): void;
+    bulkWrite(operations: Array<BulkWriteOperation<TSchema>>, options?: CollectionBulkWriteOptions): Promise<BulkWriteOpResultObject>;
+    bulkWrite(operations: Array<BulkWriteOperation<TSchema>>, options: CollectionBulkWriteOptions, callback: MongoCallback<BulkWriteOpResultObject>): void;
     /**
      * http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#count
      * @deprecated Use countDocuments or estimatedDocumentCount
@@ -1015,10 +1015,14 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     deleteOne(filter: FilterQuery<TSchema>, options?: CommonOptions & { bypassDocumentValidation?: boolean }): Promise<DeleteWriteOpResultObject>;
     deleteOne(filter: FilterQuery<TSchema>, options: CommonOptions & { bypassDocumentValidation?: boolean }, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#distinct */
-    distinct(key: string, callback: MongoCallback<any>): void;
-    distinct(key: string, query: FilterQuery<TSchema>, callback: MongoCallback<any>): void;
-    distinct(key: string, query?: FilterQuery<TSchema>, options?: { readPreference?: ReadPreferenceOrMode, maxTimeMS?: number, session?: ClientSession }): Promise<any>;
-    distinct(key: string, query: FilterQuery<TSchema>, options: { readPreference?: ReadPreferenceOrMode, maxTimeMS?: number, session?: ClientSession }, callback: MongoCallback<any>): void;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>): void;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, query: FilterQuery<TSchema>, callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>): void;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, query?: FilterQuery<TSchema>, options?: MongoDistinctPreferences): Promise<Array<FlattenIfArray<WithId<TSchema>[Key]>>>;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, query: FilterQuery<TSchema>, options: MongoDistinctPreferences, callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>): void;
+    distinct(key: string, callback: MongoCallback<any[]>): void;
+    distinct(key: string, query: FilterQuery<TSchema>, callback: MongoCallback<any[]>): void;
+    distinct(key: string, query?: FilterQuery<TSchema>, options?: MongoDistinctPreferences): Promise<any[]>;
+    distinct(key: string, query: FilterQuery<TSchema>, options: MongoDistinctPreferences, callback: MongoCallback<any[]>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#drop */
     drop(options?: { session: ClientSession }): Promise<any>;
     drop(callback: MongoCallback<any>): void;
@@ -1261,6 +1265,8 @@ export type MatchKeysAndValues<TSchema> = ReadonlyPartial<TSchema> & DotAndArray
 
 type Unpacked<Type> = Type extends Array<infer Element> ? Element : Type;
 
+type UpdateOptionalId<T> = T extends { _id?: any } ? OptionalId<T> : T;
+
 export type SortValues = -1 | 1;
 
 export type AddToSetOperators<Type> = {
@@ -1275,14 +1281,14 @@ export type ArrayOperator<Type> = {
 };
 
 export type SetFields<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[] | undefined>]?: Unpacked<TSchema[key]> | AddToSetOperators<TSchema[key]>;
+    readonly [key in KeysOfAType<TSchema, any[] | undefined>]?: UpdateOptionalId<Unpacked<TSchema[key]>> | AddToSetOperators<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
 } &
     NotAcceptedFields<TSchema, any[] | undefined>) & {
     readonly [key: string]: AddToSetOperators<any> | any;
 };
 
 export type PushOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[]>]?: Unpacked<TSchema[key]> | ArrayOperator<TSchema[key]>;
+    readonly [key in KeysOfAType<TSchema, any[]>]?: UpdateOptionalId<Unpacked<TSchema[key]>> | ArrayOperator<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
 } &
     NotAcceptedFields<TSchema, any[]>) & {
     readonly [key: string]: ArrayOperator<any> | any;
@@ -1454,6 +1460,61 @@ export type FilterQuery<T> = {
     [P in keyof T]?: Condition<T[P]>;
 } &
     RootQuerySelector<T>;
+
+/** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#insertone */
+export type BulkWriteInsertOneOperation<T> = {
+    insertOne: {
+        document: T
+    }
+};
+
+/** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#updateone-and-updatemany */
+export type BulkWriteUpdateOperation<T> = {
+    arrayFilters?: object[];
+    collation?: object;
+    hint?: string | object;
+    filter: FilterQuery<T>;
+    update: UpdateQuery<T>;
+    upsert?: boolean;
+};
+export type BulkWriteUpdateOneOperation<T> = {
+    updateOne: BulkWriteUpdateOperation<T>;
+};
+export type BulkWriteUpdateManyOperation<T> = {
+    updateMany: BulkWriteUpdateOperation<T>;
+};
+
+/** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#replaceone */
+export type BulkWriteReplaceOneOperation<T> = {
+    replaceOne: {
+        collation?: object;
+        hint?: string | object;
+        filter: FilterQuery<T>;
+        replacement: T;
+        upsert?: boolean;
+    }
+};
+
+/** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#deleteone-and-deletemany */
+export type BulkWriteDeleteOperation<T> = {
+    collation?: object;
+    filter: FilterQuery<T>;
+};
+export type BulkWriteDeleteOneOperation<T> = {
+    deleteOne: BulkWriteDeleteOperation<T>;
+};
+export type BulkWriteDeleteManyOperation<T> = {
+    deleteMany: BulkWriteDeleteOperation<T>;
+};
+
+/** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite */
+export type BulkWriteOperation<T> =
+    BulkWriteInsertOneOperation<T> |
+    BulkWriteUpdateOneOperation<T> |
+    BulkWriteUpdateManyOperation<T> |
+    BulkWriteReplaceOneOperation<T> |
+    BulkWriteDeleteOneOperation<T> |
+    BulkWriteDeleteManyOperation<T>;
 
 /** http://docs.mongodb.org/manual/reference/command/collStats/ */
 export interface CollStats {
@@ -1765,7 +1826,29 @@ export interface MongoCountPreferences {
      * The preferred read preference
      */
     readPreference?: ReadPreferenceOrMode;
+    /**
+     * Number of miliseconds to wait before aborting the query.
+     */
     maxTimeMS?: number;
+    /**
+     * Optional session to use for this operation
+     */
+    session?: ClientSession;
+}
+
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#distinct */
+export interface MongoDistinctPreferences {
+    /**
+     * The preferred read preference
+     */
+    readPreference?: ReadPreferenceOrMode;
+    /**
+     * Number of miliseconds to wait before aborting the query.
+     */
+    maxTimeMS?: number;
+    /**
+     * Optional session to use for this operation
+     */
     session?: ClientSession;
 }
 
@@ -2120,6 +2203,7 @@ type DefaultSchema = any;
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html */
 export class Cursor<T = Default> extends Readable {
+    [Symbol.asyncIterator](): AsyncIterableIterator<T>;
     sortValue: string;
     timeout: boolean;
     readPreference: ReadPreference;
@@ -2390,6 +2474,14 @@ export interface GridFSBucketReadStreamOptions {
 export class GridFSBucketWriteStream extends Writable {
     id: GridFSBucketWriteStreamId;
     constructor(bucket: GridFSBucket, filename: string, options?: GridFSBucketWriteStreamOptions);
+
+    /**
+     * Places this write stream into an aborted state (all future writes fail)
+     * and deletes all chunks that have already been written.
+     * @param [callback] called when chunks are successfully removed or error occurred
+     * @see {@link https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketWriteStream.html#abort}
+     */
+    abort(callback?: () => void): void;
 }
 
 /** https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucketWriteStream.html */

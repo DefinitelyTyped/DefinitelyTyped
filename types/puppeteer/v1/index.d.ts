@@ -2219,6 +2219,8 @@ export interface FetcherOptions {
   path?: string;
   /** Possible values are: `mac`, `win32`, `win64`, `linux`. Defaults to the current platform. */
   platform?: Platform;
+  /** Possible values are `firefox` and `chrome`. Defaults to chrome. */
+  product?: 'chrome' | 'firefox';
 }
 
 /** Attaches Puppeteer to an existing Chromium instance */

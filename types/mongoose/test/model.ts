@@ -63,6 +63,7 @@ MongoModel.aggregate(
 );
 MongoModel.aggregate([])
     .group({ _id: null, maxBalance: { $max: '$balance' } })
+    .hint({ _id: 1, maxBalance: 1 })
     .exec(cb);
 MongoModel.count({ type: 'jungle' }, function (err, count) {
     count.toFixed();
