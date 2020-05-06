@@ -1,6 +1,6 @@
 // Type definitions for modularscale 2.0
 // Project: https://github.com/KyleAMathews/modularscale
-// Definitions by: Cyril CHAPON <https://github.com/me>
+// Definitions by: Cyril CHAPON <https://github.com/cyrilchapon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type RatioLiteral =
