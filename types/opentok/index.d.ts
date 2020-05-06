@@ -135,8 +135,8 @@ declare module 'opentok' {
 
     public createSession(options: OpenTok.SessionOptions, callback: (error: Error | null, session?: OpenTok.Session) => void): void;
     public generateToken(sessionId: string, options: OpenTok.TokenOptions): OpenTok.Token;
-    public startArchive(sessionId: string, options: OpenTok.ArchiveOptions, callback: (error: Error | null, archive: OpenTok.Archive) => void): void;
-    public stopArchive(archiveId: string, callback: (error: Error | null, archive: OpenTok.Archive) => void): void;
+    public startArchive(sessionId: string, options: OpenTok.ArchiveOptions, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
+    public stopArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
     public getArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
     public deleteArchive(archiveId: string, callback: (error: Error | null) => void): void;
     public listArchives(options: OpenTok.ListArchivesOptions, callback: (error: Error | null, archives?: OpenTok.Archive[], totalCount?: number) => void): void;
