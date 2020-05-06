@@ -46,7 +46,7 @@ const ianaZoneTest = DateTime.fromObject({
     zone: ianaZone,
 });
 
-FixedOffsetZone.utcInstance;
+FixedOffsetZone.utcInstance.equals(FixedOffsetZone.instance(0));
 
 FixedOffsetZone.instance(60);
 FixedOffsetZone.parseSpecifier('UTC+6');
