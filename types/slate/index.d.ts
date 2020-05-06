@@ -1798,7 +1798,7 @@ export class Editor implements Controller {
         properties: string | MarkProperties | MarkJSON | Mark,
         newProperties: string | Partial<MarkProperties> | Partial<MarkJSON> | Partial<Mark>
     ): Editor;
-    setNodeByKey(key: string, properties: string | BlockProperties | InlineProperties): Editor;
+    setNodeByKey(key: string, properties: string | Partial<BlockProperties> | Partial<InlineProperties>): Editor;
     setNodeByPath(path: Immutable.List<number>, newProperties: string | NodeProperties): Editor;
     setTextByKey(key: string, text: string, marks: Immutable.Set<Mark>): Editor;
     setTextByPath(path: Immutable.List<number>, text: string, marks: Immutable.Set<Mark>): Editor;
