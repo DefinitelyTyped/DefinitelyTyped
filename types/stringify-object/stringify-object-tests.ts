@@ -28,3 +28,8 @@ stringifyObject([1, 2, 3], {
 stringifyObject([1, 2, 3], {
     transform: (val, key, value) => value
 });
+
+/** pad */
+stringifyObject([1, 2, 3], {
+    indent: '  ',
+}, ' ');
