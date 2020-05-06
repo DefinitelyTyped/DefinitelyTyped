@@ -1,4 +1,4 @@
-import { GraphQLTaggedNode, Disposable, MutationConfig, MutationParameters, PayloadError, DeclarativeMutationConfig, SelectorStoreUpdater, UploadableMap } from "relay-runtime";
+import { GraphQLTaggedNode, Disposable, MutationConfig, MutationParameters, IEnvironment, PayloadError, DeclarativeMutationConfig, SelectorStoreUpdater, UploadableMap } from "relay-runtime";
 
 export interface UseMutationConfig<TMutation extends MutationParameters> {
     configs?: DeclarativeMutationConfig[];
@@ -8,7 +8,7 @@ export interface UseMutationConfig<TMutation extends MutationParameters> {
         errors: PayloadError[],
     ) => void;
     onUnsubscribe?: () => void;
-    optimisticResponse?: TMutation["response"];
+    optimisticResponse?: TMutation["rawResponse"];
     optimisticUpdater?: SelectorStoreUpdater;
     updater?: SelectorStoreUpdater;
     uploadables?: UploadableMap;

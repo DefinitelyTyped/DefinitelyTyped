@@ -742,10 +742,24 @@ function BlockingPaginationFragment_WithNonNullUserProp() {
  * see https://relay.dev/docs/en/experimental/api-reference#usemutation
  */
 function Mutation() {
+    interface FeedbackLikeMutationRawResponse {
+        readonly feedback_like: {
+            readonly feedback: {
+                readonly id: string;
+                readonly viewer_does_like?: boolean | null;
+                readonly like_count?: number | null;
+            }
+        } | null;
+    }
+
     interface FeedbackLikeMutationResponse {
-        id: string;
-        viewer_does_like: boolean;
-        like_count: number;
+        readonly feedback_like: {
+            readonly feedback: {
+                readonly id: string;
+                readonly viewer_does_like?: boolean | null;
+                readonly like_count?: number | null;
+            }
+        } | null;
     }
 
     interface FeedbackLikeMutationVariables {
@@ -756,13 +770,14 @@ function Mutation() {
     }
 
     interface FeedbackLikeMutation {
+        readonly rawResponse: FeedbackLikeMutationRawResponse;
         readonly response: FeedbackLikeMutationResponse;
         readonly variables: FeedbackLikeMutationVariables;
     }
 
     return function LikeButton() {
         const [commit, isInFlight] = useMutation<FeedbackLikeMutation>(graphql`
-            mutation FeedbackLikeMutation($input: FeedbackLikeData!) {
+            mutation FeedbackLikeMutation($input: FeedbackLikeData!) @raw_response_type {
                 feedback_like(data: $input) {
                     feedback {
                         id
@@ -787,10 +802,17 @@ function Mutation() {
                         },
                         onCompleted(data) {
                             console.log(data);
-                            console.log(data.id);
-                            console.log(data.like_count);
-                            console.log(data.viewer_does_like);
+                            console.log(data.feedback_like?.feedback.id);
+                            console.log(data.feedback_like?.feedback?.like_count);
+                            console.log(data.feedback_like?.feedback?.viewer_does_like);
                         },
+                        optimisticResponse: {
+                            feedback_like: {
+                                feedback: {
+                                    id: "1"
+                                }
+                            }
+                        }
                     });
                 }}
             />
