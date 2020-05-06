@@ -7,7 +7,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'opentok' {
+
     namespace OpenTok {
+
         export type OutputMode = 'composed' | 'individual';
 
         export type ArchiveStatus = 'available' | 'expired' | 'failed' | 'paused' | 'started' | 'stopped' | 'uploaded';
@@ -80,7 +82,7 @@ declare module 'opentok' {
 
         export interface BroadcastLayoutOptions {
             type: 'bestFit' | 'pip' | 'verticalPresentation' | 'horizontalPresentation' | 'custom';
-            stylesheet?: string;
+            stylesheet?: string
         }
 
         export interface BroadcastOutputOptionsRtmp {
@@ -131,38 +133,16 @@ declare module 'opentok' {
     class OpenTok {
         constructor(apiKey: string, apiSecret: string);
 
-        public createSession(
-            options: OpenTok.SessionOptions,
-            callback: (error: Error | null, session?: OpenTok.Session) => void,
-        ): void;
+        public createSession(options: OpenTok.SessionOptions, callback: (error: Error | null, session?: OpenTok.Session) => void): void;
         public generateToken(sessionId: string, options: OpenTok.TokenOptions): OpenTok.Token;
-        public startArchive(
-            sessionId: string,
-            options: OpenTok.ArchiveOptions,
-            callback: (error: Error | null, archive?: OpenTok.Archive) => void,
-        ): void;
+        public startArchive(sessionId: string, options: OpenTok.ArchiveOptions, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
         public stopArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
         public getArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
         public deleteArchive(archiveId: string, callback: (error: Error | null) => void): void;
-        public listArchives(
-            options: OpenTok.ListArchivesOptions,
-            callback: (error: Error | null, archives?: OpenTok.Archive[], totalCount?: number) => void,
-        ): void;
-        public startBroadcast(
-            sessionId: string,
-            options: OpenTok.BroadcastOptions,
-            callback: (error: Error, broadcast: OpenTok.Broadcast) => void,
-        ): void;
-        public stopBroadcast(
-            broadcastId: string,
-            callback: (error: Error, broadcast: OpenTok.BroadcastStopResponse) => void,
-        ): void;
-        public signal(
-            sessionId: string,
-            connectionId: string | null,
-            data: OpenTok.SignalOptions,
-            callback: (error: Error) => void,
-        ): void;
+        public listArchives(options: OpenTok.ListArchivesOptions, callback: (error: Error | null, archives?: OpenTok.Archive[], totalCount?: number) => void): void;
+        public startBroadcast(sessionId: string, options: OpenTok.BroadcastOptions, callback: (error: Error | null, broadcast: OpenTok.Broadcast) => void): void;
+        public stopBroadcast(broadcastId: string, callback: (error: Error | null, broadcast: OpenTok.BroadcastStopResponse) => void): void;
+        public signal(sessionId: string, connectionId: string | null, data: OpenTok.SignalOptions, callback: (error: Error) => void): void;
     }
 
     export = OpenTok;
