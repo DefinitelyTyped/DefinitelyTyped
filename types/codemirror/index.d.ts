@@ -787,9 +787,6 @@ declare namespace CodeMirror {
         /**  Called when you've done something that might change the size of the marker and want to cheaply update the display*/
         changed(): void;
 
-        /**  Returns an object representing the options for the marker. If copyWidget is given true, it will clone the value of the replacedWith option, if any. */
-        getOptions(copyWidget: boolean): CodeMirror.TextMarkerOptions;
-
         /** Fired when the cursor enters the marked range */
         on(eventName: 'beforeCursorEnter', handler: () =>  void) : void;
         off(eventName: 'beforeCursorEnter', handler: () => void) : void;
