@@ -1,6 +1,6 @@
-// Type definitions for html-minifier-terser 5.0
+// Type definitions for html-minifier-terser 5.1
 // Project: https://danielruf.github.io/html-minifier-terser/
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/me>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace minify {
@@ -72,7 +72,7 @@ declare namespace minify {
         html5?: boolean;
         /**
          * Array of regex'es that allow to ignore certain comments, when matched
-         * @default [/^!/]
+         * @default [ /^!/, /^\s*#/ ]
          */
         ignoreCustomComments?: RegExp[];
         /**

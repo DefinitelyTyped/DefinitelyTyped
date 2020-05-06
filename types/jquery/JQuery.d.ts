@@ -4135,7 +4135,7 @@ $( "p" )
      */
     find<K extends keyof HTMLElementTagNameMap>(selector_element: K | JQuery<K>): JQuery<HTMLElementTagNameMap[K]>;
     find<K extends keyof SVGElementTagNameMap>(selector_element: K | JQuery<K>): JQuery<SVGElementTagNameMap[K]>;
-    find<E extends Element>(selector_element: JQuery.Selector | E | JQuery<E>): JQuery<E>;
+    find<E extends HTMLElement>(selector_element: JQuery.Selector | Element | E | JQuery<E>): JQuery<E>;
     /**
      * Stop the currently-running animation, remove all queued animations, and complete all animations for the matched elements.
      * @param queue The name of the queue in which to stop animations.

@@ -3043,6 +3043,12 @@
             "asOfVersion": "0.7.6"
         },
         {
+            "libraryName": "node-vault",
+            "typingsPackageName": "node-vault",
+            "sourceRepoURL": "https://github.com/kr1sp1n/node-vault",
+            "asOfVersion": "0.9.13"
+        },
+        {
             "libraryName": "nookies",
             "typingsPackageName": "nookies",
             "sourceRepoURL": "https://github.com/maticzav/nookies#readme",
@@ -3479,6 +3485,12 @@
             "typingsPackageName": "parse-columns",
             "sourceRepoURL": "https://github.com/sindresorhus/parse-columns",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "parse-duration",
+            "typingsPackageName": "parse-duration",
+            "sourceRepoURL": "https://github.com/jkroso/parse-duration",
+            "asOfVersion": "0.3.0"
         },
         {
             "libraryName": "parse-ms",

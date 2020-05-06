@@ -23,5 +23,7 @@ function getDriveService() {
 function authCallback(request: any) {
     const driveService = getDriveService();
     const isAuthorized = driveService.handleCallback(request);
+    const storage = driveService.getStorage();
+    storage.setValue('isAuthorized', isAuthorized);
     Logger.log(isAuthorized ? 'success' : 'denied');
 }
