@@ -802,9 +802,14 @@ function Mutation() {
                         },
                         onCompleted(data) {
                             console.log(data);
-                            console.log(data.feedback_like?.feedback.id);
-                            console.log(data.feedback_like?.feedback?.like_count);
-                            console.log(data.feedback_like?.feedback?.viewer_does_like);
+
+                            if (data.feedback_like == null) {
+                                return;
+                            }
+
+                            console.log(data.feedback_like.feedback.id);
+                            console.log(data.feedback_like.feedback.like_count);
+                            console.log(data.feedback_like.feedback.viewer_does_like);
                         },
                         optimisticResponse: {
                             feedback_like: {
