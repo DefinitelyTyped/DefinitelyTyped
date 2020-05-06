@@ -530,7 +530,7 @@ export class IANAZone extends Zone {
 }
 
 export class FixedOffsetZone extends Zone {
-    static utcInstance: string;
+    static utcInstance: FixedOffsetZone;
     static instance(offset: number): FixedOffsetZone;
     static parseSpecifier(s: string): FixedOffsetZone;
 }
