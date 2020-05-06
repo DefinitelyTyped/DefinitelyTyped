@@ -133,7 +133,7 @@ declare module 'opentok' {
   class OpenTok {
     constructor(apiKey: string, apiSecret: string);
 
-    public createSession(options: OpenTok.SessionOptions, callback: (error: Error, session: OpenTok.Session) => void): void;
+    public createSession(options: OpenTok.SessionOptions, callback: (error: Error | null, session?: OpenTok.Session) => void): void;
     public generateToken(sessionId: string, options: OpenTok.TokenOptions): OpenTok.Token;
     public startArchive(sessionId: string, options: OpenTok.ArchiveOptions, callback: (error: Error | null, archive: OpenTok.Archive) => void): void;
     public stopArchive(archiveId: string, callback: (error: Error | null, archive: OpenTok.Archive) => void): void;
