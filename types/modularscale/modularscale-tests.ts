@@ -1,4 +1,5 @@
-import modularscale, { RatioLiteral } from 'modularscale';
+import modularscale = require('modularscale');
+import { RatioLiteral } from 'modularscale';
 
 // $ExpectError
 const a: RatioLiteral = 'hey';

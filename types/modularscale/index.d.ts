@@ -3,23 +3,27 @@
 // Definitions by: Cyril CHAPON <https://github.com/cyrilchapon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type RatioLiteral =
-    | 'minor second'
-    | 'major second'
-    | 'minor third'
-    | 'major third'
-    | 'augmented fourth'
-    | 'perfect fifth'
-    | 'minor sixth'
-    | 'golden'
-    | 'phi'
-    | 'major sixth'
-    | 'minor seventh'
-    | 'major seventh'
-    | 'octave'
-    | 'major tenth'
-    | 'major eleventh'
-    | 'major twelfth'
-    | 'double octave';
+export = modularscale;
 
-export default function modularscale(value: number, ratio?: number | RatioLiteral): number;
+declare function modularscale(value: number, ratio?: number | modularscale.RatioLiteral): number;
+
+declare namespace modularscale {
+    type RatioLiteral =
+        | 'minor second'
+        | 'major second'
+        | 'minor third'
+        | 'major third'
+        | 'augmented fourth'
+        | 'perfect fifth'
+        | 'minor sixth'
+        | 'golden'
+        | 'phi'
+        | 'major sixth'
+        | 'minor seventh'
+        | 'major seventh'
+        | 'octave'
+        | 'major tenth'
+        | 'major eleventh'
+        | 'major twelfth'
+        | 'double octave';
+}
