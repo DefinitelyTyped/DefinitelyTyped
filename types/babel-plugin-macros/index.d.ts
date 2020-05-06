@@ -11,25 +11,25 @@ import * as Babel from '@babel/core';
 export = babelPluginMacros;
 
 declare namespace babelPluginMacros {
-    export interface References {
+    interface References {
         [key: string]: Babel.NodePath[];
     }
 
-    export interface Options {
+    interface Options {
         configName?: string;
     }
 
-    export interface MacroParams {
+    interface MacroParams {
         references: { default: Babel.NodePath[] } & References;
         state: Babel.PluginPass;
         babel: typeof Babel;
     }
 
-    export type MacroHandler = (params: MacroParams) => void;
+    type MacroHandler = (params: MacroParams) => void;
 
-    export class MacroError extends Error {}
+    class MacroError extends Error {}
 
-    export function createMacro(handler: MacroHandler, options?: Options): any;
+    function createMacro(handler: MacroHandler, options?: Options): any;
 }
 
 declare function babelPluginMacros(babel: typeof Babel, options: any): Babel.PluginObj;

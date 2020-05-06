@@ -842,13 +842,11 @@ export class NodePath<T = Node> {
     assertRegexLiteral(opts?: object): void;
 }
 
-type ErrorConstructor = typeof Error;
-
 export interface HubInterface {
     getCode(): string | undefined;
     getScope(): Scope | undefined;
-    addHelper(name: string): Object;
-    buildError(node: Object, msg: string, Error: ErrorConstructor): Error;
+    addHelper(name: string): any;
+    buildError(node: any, msg: string, Error: ErrorConstructor): Error;
 }
 
 export class Hub implements HubInterface {
@@ -857,8 +855,8 @@ export class Hub implements HubInterface {
     options: any;
     getCode(): string | undefined;
     getScope(): Scope | undefined;
-    addHelper(name: string): Object;
-    buildError(node: Object, msg: string, Error: ErrorConstructor): Error;
+    addHelper(name: string): any;
+    buildError(node: any, msg: string, Constructor: typeof Error): Error;
 }
 
 export interface TraversalContext {
