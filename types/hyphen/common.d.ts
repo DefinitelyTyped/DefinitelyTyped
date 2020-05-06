@@ -3,7 +3,7 @@ export interface PatternDefinitions {
     exceptions: string[];
 }
 
-interface HyphenationOptions {
+export interface HyphenationOptions {
     debug?: boolean;
     hyphenChar?: string;
 }
