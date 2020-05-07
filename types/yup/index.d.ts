@@ -457,6 +457,7 @@ interface MixedLocale {
     oneOf?: TestOptionsMessage<{ values: any }>;
     notOneOf?: TestOptionsMessage<{ values: any }>;
     notType?: LocaleValue;
+    defined?: TestOptionsMessage;
 }
 
 interface StringLocale {
