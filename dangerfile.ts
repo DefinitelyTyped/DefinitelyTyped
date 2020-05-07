@@ -27,7 +27,16 @@ if (fs.existsSync(suggestionsDir)) {
         lines.push("## " + packageName)
         for (const fileName in missingProperties) {
             const properties = missingProperties[fileName]
-            lines.push("### " + fileName + "\n was missing the following properties: \n1. " + properties.join('\n1. '))
+            lines.push(`### ${fileName}
+was missing the following properties: 
+1. ` + properties.slice(0,5).join('\n1. '))
+            if (properties.length > 5) {
+                const extras = properties.slice(5)
+                lines.push(`
+
+as well as these ${extras.length} other properties: ` + extras.join(", "))
+
+            }
         }
     }
     markdown(lines.join('\n'))
