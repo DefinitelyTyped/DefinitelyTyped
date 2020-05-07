@@ -624,14 +624,14 @@ declare global {
             // TODO: getCertificates cannot be represented with promises right now
 
             /**
-             * Encrypt the cleartext with the given key, so it can be stored securely in adapter settings.
+             * Encrypt the given cleartext, so it can be stored securely in adapter settings.
              */
-            encrypt(key: string, cleartext: string): string;
+            encrypt(cleartext: string): string;
 
             /**
              * Decrypt a value that has been encrypted with the `encrypt` method
              */
-            decrypt(key: string, ciphertext: string): string;
+            decrypt(ciphertext: string): string;
 
             /**
              * Terminates the adapter execution but does not disable the adapter
