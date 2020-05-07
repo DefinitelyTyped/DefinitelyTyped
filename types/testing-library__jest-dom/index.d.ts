@@ -253,12 +253,9 @@ declare namespace jest {
         toHaveClass(...classNames: string[]): R;
         /**
          * @description
-         * Check whether the given form element has the specified value.
-         *
-         * Accepts `<input>`, `<select>`, and `<textarea>` elements with the exception of `<input type="checkbox">` and
-         * `<input type="radiobox">`, which can be matched only using
-         * [toBeChecked](https:github.com/testing-library/jest-dom#tobechecked) or
-         * [toHaveFormValues](https:github.com/testing-library/jest-dom#tohaveformvalues).
+         * This allows you to check whether the given form element has the specified displayed value (the one the
+         * end user will see). It accepts <input>, <select> and <textarea> elements with the exception of <input type="checkbox">
+         * and <input type="radio">, which can be meaningfully matched only using toBeChecked or toHaveFormValues.
          * @example
          * <label for="input-example">First name</label>
          * <input type="text" id="input-example" value="Luca" />
@@ -298,9 +295,7 @@ declare namespace jest {
         toHaveDisplayValue(value: string | string[]): R;
         /**
          * @description
-         * This allows you to check whether the given form element has the specified displayed value (the one the
-         * end user will see). It accepts <input>, <select> and <textarea> elements with the exception of <input type="checkbox">
-         * and <input type="radio">, which can be meaningfully matched only using toBeChecked or toHaveFormValues.
+         * Assert whether an element has focus or not.
          * @example
          * <div>
          *   <input type="text" data-testid="element-to-focus" />
