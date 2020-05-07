@@ -1,6 +1,6 @@
 // Type definitions for node-downloader-helper 1.0
 // Project: https://github.com/hgouveia/node-downloader-helper
-// Definitions by: Rémy Jeancolas <https://github.com/RemyJeancolas>, Roberto Araujo <https://github.com/RemyJeancolas>
+// Definitions by: Rémy Jeancolas <https://github.com/RemyJeancolas>, Roberto Araujo <https://github.com/Roberto-Araujo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
