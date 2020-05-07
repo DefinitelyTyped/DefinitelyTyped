@@ -4470,7 +4470,7 @@ declare namespace Xrm {
             /**
              * A dictionary object that passes extra parameters to the form. Invalid parameters will cause an error.
              */
-            data: { [attributeName: string]: any };
+            data?: { [attributeName: string]: any };
             /**
              * ID of the form instance to be displayed.
              */
