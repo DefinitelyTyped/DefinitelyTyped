@@ -351,7 +351,7 @@ declare namespace PouchDB {
         }
 
         interface BulkGetOptions extends Options {
-            docs: Array<{ id: string; rev: RevisionId }>;
+            docs: Array<{ id: string; rev?: RevisionId }>;
             revs?: boolean;
             attachments?: boolean;
             binary?: boolean;
