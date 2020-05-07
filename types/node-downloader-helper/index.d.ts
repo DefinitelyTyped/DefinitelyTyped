@@ -23,13 +23,13 @@ export interface Options {
         maxRetries: number,
         delay: number,
     }; // { maxRetries: number, delay: number in ms } or false to disable (default)
-    removeOnStops?: boolean; // remove the file when is stopped (default:true)
+    removeOnStop?: boolean; // remove the file when is stopped (default:true)
     removeOnFail?: boolean; // remove the file when fail (default:true)
 }
 
 export interface Stats {
     total: number; // total size that needs to be downloaded in bytes
-    name: string; // name of fille
+    name: string; // name of file
     downloaded: number; // downloaded size in bytes
     progress: number; // progress porcentage 0-100%
     speed: number; // download speed in bytes
@@ -43,11 +43,25 @@ export interface DownloadInfo {
     downloadedSize: number; // the downloaded amount (only if is resumed otherwise always 0)
 }
 
+export interface FinalDownloadInfo {
+    fileName: string; // assigned name
+    filePath: string; // download path
+    totalSize: number; // total file size got from the server
+    onDiskSize: number; // total size of file on the disk
+    downloadedSize: number; // the total size downloaded
+}
+
 export interface FilePaths {
-    path: string;
-    fileName: string;
-    prevPath: string;
-    prevFileName: string;
+    path: string; // modified path name
+    fileName: string; // modified file name
+    prevPath: string; // original path name
+    prevFileName: string; // original file name
+}
+
+export interface DownloaderError {
+    message: string; // Error message
+    status: number | undefined; // Http status response if available
+    body: string | undefined; // Http body response if available
 }
 
 export enum DH_STATES {
@@ -63,12 +77,13 @@ export enum DH_STATES {
 
 export interface DownloaderHelper {
     on(event: 'start' | 'timeout' | 'pause' | 'stop' | string, callback: () => void): this;
-    on(event: 'download' | 'end', callback: (downloadInfo: DownloadInfo) => void): this;
+    on(event: 'download', callback: (downloadInfo: DownloadInfo) => void): this;
+    on(event: 'end', callback: (finalDownloadInfo: FinalDownloadInfo) => void): this;
     on(event: 'resume', callback: (isResume: boolean) => void): this;
     on(event: 'renamed', callback: (filePaths: FilePaths) => void): this;
     on(event: 'retry', callback: (attempt: number, retryOpts: any) => void): this;
     on(event: 'progress', callback: (stats: Stats) => void): this;
-    on(event: 'error', callback: (error: Error) => void): this;
+    on(event: 'error', callback: (error: DownloaderError) => void): this;
     on(event: 'stateChanged', callback: (state: DH_STATES) => void): this;
 }
 
