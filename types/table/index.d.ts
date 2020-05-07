@@ -1,21 +1,13 @@
-// Type definitions for table 4.0
+// Type definitions for table 5.0
 // Project: https://github.com/gajus/table
 // Definitions by: Evan Shortiss <https://github.com/evanshortiss>
 //                 mrmlnc <https://github.com/mrmlnc>
+//                 Daniel Perez Alvarez <https://github.com/unindented>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type BorderType = 'honeywell' | 'norc' | 'ramac' | 'void';
+export type TableBorderTemplate = 'honeywell' | 'norc' | 'ramac' | 'void';
 
-export interface ColumnConfig {
-    alignment?: 'left' | 'center' | 'right';
-    paddingLeft?: number;
-    paddingRight?: number;
-    truncate?: number;
-    width?: number;
-    wrapWord?: boolean;
-}
-
-export interface JoinStruct {
+export interface TableBorder {
     topBody?: string;
     topJoin?: string;
     topLeft?: string;
@@ -36,18 +28,34 @@ export interface JoinStruct {
     joinJoin?: string;
 }
 
+export interface TableColumns {
+    alignment?: 'left' | 'center' | 'right';
+    paddingLeft?: number;
+    paddingRight?: number;
+    truncate?: number;
+    width?: number;
+    wrapWord?: boolean;
+}
+
+export type TableDrawHorizontalLine = (index: number, size: number) => boolean;
+
 export interface TableUserConfig {
+    border?: TableBorder;
     columns?: {
-        [index: number]: ColumnConfig
+        [index: number]: TableColumns;
     };
-    drawHorizontalLine?: (index: number, size: number) => boolean;
-    border?: JoinStruct;
-    columnDefault?: ColumnConfig;
+    columnDefault?: TableColumns;
     columnCount?: number;
+    drawHorizontalLine?: TableDrawHorizontalLine;
+    singleLine?: boolean;
+}
+
+export interface TableStream {
+    write(row: string[]): void;
 }
 
 export function table(data: any[], userConfig?: TableUserConfig): string;
 
-export function createStream(userConfig: TableUserConfig): { write: string[] };
+export function createStream(userConfig: TableUserConfig): TableStream;
 
-export function getBorderCharacters(templateName: BorderType): JoinStruct;
+export function getBorderCharacters(templateName: TableBorderTemplate): TableBorder;

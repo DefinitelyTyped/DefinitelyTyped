@@ -2,6 +2,7 @@ import { BaseEvent, ApplicationEvent, BaseEventMap } from './base';
 import { MonitorInfo } from '../system/monitor';
 import { PropagatedWindowEvents } from './window';
 import { PropagatedApplicationEvents } from './application';
+import { PropagatedViewEvents } from './view';
 export interface IdleEvent<Topic, Type> extends BaseEvent<Topic, Type> {
     elapsedTime: number;
     isIdle: boolean;
@@ -21,6 +22,6 @@ export interface SystemEventMapping<Topic = string, Type = string> extends BaseE
     'monitor-info-changed': MonitorEvent<Topic, Type>;
     'session-changed': SessionChangedEvent<Topic, Type>;
 }
-export declare type SystemEvents = PropagatedWindowEvents<'system'> & PropagatedApplicationEvents<'system'> & {
+export declare type SystemEvents = PropagatedWindowEvents<'system'> & PropagatedApplicationEvents<'system'> & PropagatedViewEvents<'system'> & {
     [Type in keyof SystemEventMapping]: SystemEventMapping<'system', Type>[Type];
 };

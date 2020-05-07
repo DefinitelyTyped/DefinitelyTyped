@@ -2,9 +2,9 @@
 // Project: https://hexo.io/
 // Definitions by: KentarouTakeda <https://github.com/kentarouTakeda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
-import EventEmitter = require('events');
+import { EventEmitter } from 'events';
 import moment = require('moment');
 import { ParsedArgs } from 'minimist';
 import Logger = require('bunyan');

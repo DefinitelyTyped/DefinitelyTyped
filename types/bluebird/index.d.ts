@@ -341,7 +341,6 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * the promise as snapshotted at the time of calling `.reflect()`.
    */
   reflect(): Bluebird<Bluebird.Inspection<R>>;
-  reflect(): Bluebird<Bluebird.Inspection<any>>;
 
   /**
    * This is a convenience method for doing:
@@ -567,7 +566,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  all(this: Bluebird<Iterable<{}>>): Bluebird<R>;
+  all<Q>(this: Bluebird<R & Iterable<Q>>): Bluebird<R>;
 
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -594,7 +593,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  some(this: Bluebird<Iterable<{}>>, count: number): Bluebird<R>;
+  some<Q>(this: Bluebird<R & Iterable<Q>>, count: number): Bluebird<R>;
 
   /**
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.

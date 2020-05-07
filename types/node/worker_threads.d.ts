@@ -2,9 +2,11 @@ declare module "worker_threads" {
     import { Context } from "vm";
     import { EventEmitter } from "events";
     import { Readable, Writable } from "stream";
+    import { URL } from "url";
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
+    const SHARE_ENV: unique symbol;
     const threadId: number;
     const workerData: any;
 
@@ -54,12 +56,31 @@ declare module "worker_threads" {
     }
 
     interface WorkerOptions {
+        /**
+         * List of arguments which would be stringified and appended to
+         * `process.argv` in the worker. This is mostly similar to the `workerData`
+         * but the values will be available on the global `process.argv` as if they
+         * were passed as CLI options to the script.
+         */
+        argv?: any[];
+        env?: NodeJS.Dict<string> | typeof SHARE_ENV;
         eval?: boolean;
         workerData?: any;
         stdin?: boolean;
         stdout?: boolean;
         stderr?: boolean;
         execArgv?: string[];
+        resourceLimits?: ResourceLimits;
+        /**
+         * Additional data to send in the first worker message.
+         */
+        transferList?: Array<ArrayBuffer | MessagePort>;
+    }
+
+    interface ResourceLimits {
+        maxYoungGenerationSizeMb?: number;
+        maxOldGenerationSizeMb?: number;
+        codeRangeSizeMb?: number;
     }
 
     class Worker extends EventEmitter {
@@ -67,8 +88,14 @@ declare module "worker_threads" {
         readonly stdout: Readable;
         readonly stderr: Readable;
         readonly threadId: number;
+        readonly resourceLimits?: ResourceLimits;
 
-        constructor(filename: string, options?: WorkerOptions);
+        /**
+         * @param filename  The path to the Worker’s main script or module.
+         *                  Must be either an absolute path or a relative path (i.e. relative to the current working directory) starting with ./ or ../,
+         *                  or a WHATWG URL object using file: protocol. If options.eval is true, this is a string containing JavaScript code rather than a path.
+         */
+        constructor(filename: string | URL, options?: WorkerOptions);
 
         postMessage(value: any, transferList?: Array<ArrayBuffer | MessagePort>): void;
         ref(): void;
@@ -78,29 +105,16 @@ declare module "worker_threads" {
          * Returns a Promise for the exit code that is fulfilled when the `exit` event is emitted.
          */
         terminate(): Promise<number>;
-        /**
-         * Transfer a `MessagePort` to a different `vm` Context. The original `port`
-         * object will be rendered unusable, and the returned `MessagePort` instance will
-         * take its place.
-         *
-         * The returned `MessagePort` will be an object in the target context, and will
-         * inherit from its global `Object` class. Objects passed to the
-         * `port.onmessage()` listener will also be created in the target context
-         * and inherit from its global `Object` class.
-         *
-         * However, the created `MessagePort` will no longer inherit from
-         * `EventEmitter`, and only `port.onmessage()` can be used to receive
-         * events using it.
-         */
-        moveMessagePortToContext(port: MessagePort, context: Context): MessagePort;
 
         /**
-         * Receive a single message from a given `MessagePort`. If no message is available,
-         * `undefined` is returned, otherwise an object with a single `message` property
-         * that contains the message payload, corresponding to the oldest message in the
-         * `MessagePort`’s queue.
+         * Returns a readable stream for a V8 snapshot of the current state of the Worker.
+         * See [`v8.getHeapSnapshot()`][] for more details.
+         *
+         * If the Worker thread is no longer running, which may occur before the
+         * [`'exit'` event][] is emitted, the returned `Promise` will be rejected
+         * immediately with an [`ERR_WORKER_NOT_RUNNING`][] error
          */
-        receiveMessageOnPort(port: MessagePort): {} | undefined;
+        getHeapSnapshot(): Promise<Readable>;
 
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "exit", listener: (exitCode: number) => void): this;
@@ -150,4 +164,28 @@ declare module "worker_threads" {
         off(event: "online", listener: () => void): this;
         off(event: string | symbol, listener: (...args: any[]) => void): this;
     }
+
+    /**
+     * Transfer a `MessagePort` to a different `vm` Context. The original `port`
+     * object will be rendered unusable, and the returned `MessagePort` instance will
+     * take its place.
+     *
+     * The returned `MessagePort` will be an object in the target context, and will
+     * inherit from its global `Object` class. Objects passed to the
+     * `port.onmessage()` listener will also be created in the target context
+     * and inherit from its global `Object` class.
+     *
+     * However, the created `MessagePort` will no longer inherit from
+     * `EventEmitter`, and only `port.onmessage()` can be used to receive
+     * events using it.
+     */
+    function moveMessagePortToContext(port: MessagePort, context: Context): MessagePort;
+
+    /**
+     * Receive a single message from a given `MessagePort`. If no message is available,
+     * `undefined` is returned, otherwise an object with a single `message` property
+     * that contains the message payload, corresponding to the oldest message in the
+     * `MessagePort`’s queue.
+     */
+    function receiveMessageOnPort(port: MessagePort): { message: any } | undefined;
 }

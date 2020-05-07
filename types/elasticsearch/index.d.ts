@@ -9,6 +9,8 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Paul Brabban <https://github.com/brabster>
 //                 Budi Irawan <https://github.com/deerawan>
+//                 Yonatan Kiron <https://github.com/YonatanKiron>
+//                 Jani Šumak <https://github.com/dasdachs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -899,6 +901,7 @@ export interface CatSegmentsParams extends GenericParams {
 
 export interface CatShardsParams extends CatCommonParams {
     index?: NameList;
+    bytes?: CatBytes;
 }
 
 export interface CatSnapshotsParams extends GenericParams {
@@ -1283,15 +1286,16 @@ export interface IndicesPutAliasParams extends GenericParams {
 }
 
 export interface IndicesPutMappingParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    updateAllTypes?: boolean;
-    index: NameList;
-    type: string;
-    body: any;
+  timeout?: TimeSpan;
+  masterTimeout?: TimeSpan;
+  ignoreUnavailable?: boolean;
+  allowNoIndices?: boolean;
+  expandWildcards?: ExpandWildcards;
+  updateAllTypes?: boolean;
+  index: NameList;
+  type: string;
+  includeTypeName?: boolean;
+  body: any;
 }
 
 export interface IndicesPutSettingsParams extends GenericParams {

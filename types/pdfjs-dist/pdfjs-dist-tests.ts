@@ -16,7 +16,7 @@ getDocument('helloworld.pdf').promise.then(function (pdf) {
 function renderPage(pageNum: number) {
 	pdfDoc.getPage(pageNum).then(function (page) {
 		var scale = 1.5;
-		var viewport = page.getViewport(scale);
+		var viewport = page.getViewport({scale: scale});
 
 		//
 		// Prepare canvas using PDF page dimensions

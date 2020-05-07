@@ -202,6 +202,7 @@ $("#diaporama").slick({
     dotsClass: 'slick-dots',
     draggable: true,
     fade: false,
+    focusOnChange: false,
     focusOnSelect: false,
     easing: "linear",
     edgeFriction: 0.15,
@@ -247,7 +248,7 @@ $("#diaporama").on('beforeChange', function(event, slick: JQuerySlick, currentSl
    slick.originalSettings; // $ExpectedType JQuerySlickOptions
    slick.initials; // $ExpectedType JQuerySlickInitials
 
-   // Some properties of `initials` object (that are merged to the Slick instance)  
+   // Some properties of `initials` object (that are merged to the Slick instance)
    slick.animating; // $ExpectedType boolean
    slick.initials.animating; // $ExpectedType boolean
    slick.dragging; // $ExpectedType boolean

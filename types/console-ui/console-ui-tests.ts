@@ -1,4 +1,4 @@
-import { Question } from 'inquirer';
+import { DistinctQuestion } from 'inquirer';
 import UI = require('console-ui');
 
 new UI({
@@ -50,7 +50,7 @@ ui.startProgress('hello');
 ui.stopProgress();
 ui.stopProgress('hello'); // $ExpectError
 
-const question: Question<{ answer: boolean }> = {
+const question: DistinctQuestion<{ answer: boolean }> = {
     message: 'Yes / No?',
     type: 'confirm'
 };

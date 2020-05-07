@@ -18,12 +18,33 @@ backstop('test', {
     id: 'foo',
     scenarios: [],
     viewports: [],
-  }
+    dockerCommandTemplate:
+      'docker run --rm -it --net="host" --mount type=bind,source="{cwd}",target=/src backstopjs/backstopjs:{version} {backstopCommand} {args}',
+  },
 });
 
 /** Custom example */
 
-const scenarios: Scenario[] = [{ label: 'fake', url: 'fakeUrl' }];
+const scenarios: Scenario[] = [
+  {
+    label: 'Microsoft',
+    url: 'https://microsoft.com/',
+    referenceUrl: '',
+    readyEvent: '',
+    readySelector: '',
+    delay: 0,
+    hideSelectors: [],
+    removeSelectors: [],
+    hoverSelector: '',
+    clickSelector: '',
+    postInteractionWait: 0,
+    selectors: [],
+    selectorExpansion: true,
+    expect: 0,
+    misMatchThreshold: 0.1,
+    requireSameDimensions: true,
+  },
+];
 const viewports: Viewport[] = [
   {
     name: 'phone',
@@ -37,6 +58,16 @@ const viewports: Viewport[] = [
   },
   {
     name: 'desktop',
+    width: 1280,
+    height: 1024,
+  },
+  {
+    label: 'tablet_v',
+    width: 1280,
+    height: 1024,
+  },
+  {
+    label: 'tablet_h',
     width: 1280,
     height: 1024,
   },

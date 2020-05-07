@@ -127,6 +127,10 @@ declare namespace App {
 
   interface AppInstance<T extends AnyObject = {}> {
     /**
+     * 全局对象
+     */
+    globalData?: AnyObject;
+    /**
      * 生命周期回调 监听应用初始化
      *
      * 应用初始化完成时触发，全局只触发一次。

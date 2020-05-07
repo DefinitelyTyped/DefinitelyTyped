@@ -1,16 +1,23 @@
 import * as React from 'react';
-import { InstantSearch, Hits, Highlight, SearchBox, RefinementList, CurrentRefinements, ClearRefinements, Pagination, Menu, Configure, Index } from 'react-instantsearch/dom';
+import {
+  InstantSearch,
+  Hits,
+  Highlight,
+  SearchBox,
+  RefinementList,
+  CurrentRefinements,
+  ClearRefinements,
+  Pagination,
+  Menu,
+  Configure,
+  Index
+} from 'react-instantsearch/dom';
 import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-core';
 
 // DOM
-// https://community.algolia.com/react-instantsearch/Getting_started.html
 () => {
   const App = () => (
-    <InstantSearch
-      appId="latency"
-      apiKey="3d9875e51fbd20c7754e65422f7ce5e1"
-      indexName="bestbuy"
-    >
+    <InstantSearch searchClient={{}} indexName="bestbuy">
       <Search />
     </InstantSearch>
   );
@@ -79,10 +86,7 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 
   function App() {
     return (
-      <InstantSearch
-        indexName="instant_search"
-        searchClient={{}}
-      >
+      <InstantSearch indexName="instant_search" searchClient={{}}>
         <Hits hitComponent={Hit} />
       </InstantSearch>
     );
@@ -127,14 +131,8 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 // https://community.algolia.com/react-instantsearch/guide/i18n.html
 () => {
   const App = () => (
-    <InstantSearch
-      indexName="..."
-      searchClient={{}}
-    >
-      <Menu
-        attribute="fruits"
-        translations={{ showMore: 'Voir plus' }}
-      />
+    <InstantSearch indexName="..." searchClient={{}}>
+      <Menu attribute="fruits" translations={{ showMore: 'Voir plus' }} />
     </InstantSearch>
   );
 };
@@ -161,10 +159,7 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 // https://community.algolia.com/react-instantsearch/guide/Default_refinements.html
 () => {
   const App = () => (
-    <InstantSearch
-      indexName="..."
-      searchClient={{}}
-    >
+    <InstantSearch indexName="..." searchClient={{}}>
       <SearchBox defaultRefinement="hi" />
       <Menu attribute="fruits" defaultRefinement="Orange" />
     </InstantSearch>
@@ -200,41 +195,28 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 
 () => {
   // https://community.algolia.com/react-instantsearch/guide/Search_parameters.html
-  <InstantSearch
-    indexName="indexName"
-    searchClient={{}}
-  >
-    <Configure distinct={1}/>
+  <InstantSearch indexName="indexName" searchClient={{}}>
+    <Configure distinct={1} />
     // widgets
   </InstantSearch>;
 };
 
-(() => {
-  function onSearchBoxChange(event: React.SyntheticEvent<HTMLInputElement>) {
-  }
+() => {
+  function onSearchBoxChange(event: React.SyntheticEvent<HTMLInputElement>) {}
 
-  function onSearchBoxReset(event: React.SyntheticEvent<HTMLFormElement>) {
-  }
+  function onSearchBoxReset(event: React.SyntheticEvent<HTMLFormElement>) {}
 
-  function onSearchBoxSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
-  }
+  function onSearchBoxSubmit(event: React.SyntheticEvent<HTMLFormElement>) {}
 
-  <SearchBox
-      onChange={onSearchBoxChange} onReset={onSearchBoxReset} onSubmit={onSearchBoxSubmit}
-      submit={<></>} />;
-});
+  <SearchBox onChange={onSearchBoxChange} onReset={onSearchBoxReset} onSubmit={onSearchBoxSubmit} submit={<></>} />;
+};
 
-import { createInstantSearch } from 'react-instantsearch-dom/server';
+import { findResultsState } from 'react-instantsearch-dom/server';
 // import { createServer } from 'http';
 declare function createServer(handler: (req: any, res: any) => any): any;
 import { renderToString } from 'react-dom/server';
 
-() => {
-  // https://community.algolia.com/react-instantsearch/guide/Server-side_rendering.html
-
-  // Now we create a dedicated `InstantSearch` component
-  const { InstantSearch, findResultsState } = createInstantSearch();
-
+const test = () => {
   class App extends React.Component<any> {
     render() {
       return (
@@ -252,12 +234,12 @@ import { renderToString } from 'react-dom/server';
   }
 
   const server = createServer(async (req, res) => {
-    const searchState = {query: 'chair'};
-    const resultsState = await findResultsState(App, {searchState});
-    const appInitialState = {searchState, resultsState};
+    const searchState = { query: 'chair' };
+    const resultsState = await findResultsState(App, { searchState });
+    const appInitialState = { searchState, resultsState };
     const appAsString = renderToString(<App {...appInitialState} />);
     res.send(
-  `
+      `
   <!doctype html>
   <html>
     <body>

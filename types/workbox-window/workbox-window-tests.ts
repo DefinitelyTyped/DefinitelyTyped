@@ -1,16 +1,69 @@
-import { Workbox } from 'workbox-window';
+/* tslint:disable:comment-format no-namespace */
 
-{
-    const wb = new Workbox('/sw.js');
+"use strict";
 
-    wb.addEventListener('message', (event) => {
-        event.target; // $ExpectType Workbox
-        event.data; // $ExpectType any
-    });
+import {
+    Workbox,
+    WorkboxEvent,
+    WorkboxEventMap,
+    messageSW,
+} from "workbox-window";
 
-    wb.addEventListener('waiting', (event) => {
-        event.isUpdate; // $ExpectType boolean | undefined
-    });
+//==============================================================================
+// WorkboxWindow.Workbox
+//==============================================================================
 
-    wb.register(); // $ExpectType Promise<ServiceWorkerRegistration>
+export namespace WorkboxTest {
+    declare const url: string;
+    declare const options: RegistrationOptions;
+
+    // $ExpectType Workbox
+    new Workbox(url);
+    // $ExpectType Workbox
+    new Workbox(url, options);
+
+    declare const workbox: Workbox;
+    declare const event: WorkboxEvent;
+    declare const eventListener: () => void;
+    declare const eventType: keyof WorkboxEventMap;
+    declare const messageData: any;
+    declare const registerOptions: Workbox.RegisterOptions;
+
+    // $ExpectType Promise<ServiceWorker>
+    workbox.active;
+
+    // $ExpectType Promise<ServiceWorker>
+    workbox.controlling;
+
+    // $ExpectType void
+    workbox.addEventListener(eventType, eventListener);
+
+    // $ExpectType void
+    workbox.dispatchEvent(event);
+
+    // $ExpectType Promise<ServiceWorker>
+    workbox.getSW();
+
+    // $ExpectType Promise<any>
+    workbox.messageSW(messageData);
+
+    // $ExpectType Promise<ServiceWorkerRegistration>
+    workbox.register();
+    // $ExpectType Promise<ServiceWorkerRegistration>
+    workbox.register(registerOptions);
+
+    // $ExpectType void
+    workbox.removeEventListener(eventType, eventListener);
+}
+
+//==============================================================================
+// WorkboxWindow.messageSW
+//==============================================================================
+
+export namespace MessageSWTest {
+    declare const data: any;
+    declare const worker: ServiceWorker;
+
+    // $ExpectType Promise<any>
+    messageSW(worker, data);
 }

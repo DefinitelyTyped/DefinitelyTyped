@@ -24,7 +24,7 @@ declare module "cluster" {
     class Worker extends events.EventEmitter {
         id: number;
         process: child.ChildProcess;
-        send(message: any, sendHandle?: any, callback?: (error: Error | null) => void): boolean;
+        send(message: child.Serializable, sendHandle?: child.SendHandle, callback?: (error: Error | null) => void): boolean;
         kill(signal?: string): void;
         destroy(signal?: string): void;
         disconnect(): void;
@@ -96,13 +96,14 @@ declare module "cluster" {
         fork(env?: any): Worker;
         isMaster: boolean;
         isWorker: boolean;
-        // TODO: cluster.schedulingPolicy
+        schedulingPolicy: number;
         settings: ClusterSettings;
         setupMaster(settings?: ClusterSettings): void;
         worker?: Worker;
-        workers?: {
-            [index: string]: Worker | undefined
-        };
+        workers?: NodeJS.Dict<Worker>;
+
+        readonly SCHED_NONE: number;
+        readonly SCHED_RR: number;
 
         /**
          * events.EventEmitter
@@ -170,17 +171,18 @@ declare module "cluster" {
         prependOnceListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
     }
 
+    const SCHED_NONE: number;
+    const SCHED_RR: number;
+
     function disconnect(callback?: () => void): void;
     function fork(env?: any): Worker;
     const isMaster: boolean;
     const isWorker: boolean;
-    // TODO: cluster.schedulingPolicy
+    let schedulingPolicy: number;
     const settings: ClusterSettings;
     function setupMaster(settings?: ClusterSettings): void;
     const worker: Worker;
-    const workers: {
-        [index: string]: Worker | undefined
-    };
+    const workers: NodeJS.Dict<Worker>;
 
     /**
      * events.EventEmitter

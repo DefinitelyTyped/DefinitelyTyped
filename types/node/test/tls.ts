@@ -1,4 +1,18 @@
-import { createSecureContext, SecureContext, ConnectionOptions, connect, getCiphers, DEFAULT_ECDH_CURVE, createServer, TLSSocket, rootCertificates } from "tls";
+import {
+    createSecureContext,
+    SecureContext,
+    ConnectionOptions,
+    connect,
+    PeerCertificate,
+    EphemeralKeyInfo,
+    getCiphers,
+    DEFAULT_ECDH_CURVE,
+    DEFAULT_MAX_VERSION,
+    DEFAULT_MIN_VERSION,
+    createServer,
+    TLSSocket,
+    rootCertificates,
+} from "tls";
 import * as fs from "fs";
 
 {
@@ -10,24 +24,72 @@ import * as fs from "fs";
 
     const connOpts: ConnectionOptions = {
         host: "127.0.0.1",
-        port: 55
+        port: 55,
+        pskCallback(hint) {
+            if (hint === 'something??') {
+                return null;
+            }
+            return {
+                identitty: 'henlo',
+                psk: Buffer.from('asd'),
+            };
+        },
     };
     const tlsSocket = connect(connOpts);
 
+    const cert: PeerCertificate | object | null = tlsSocket.getCertificate();
+    const keyInfo: EphemeralKeyInfo | object | null = tlsSocket.getEphemeralKeyInfo();
+    const finishedMsg: Buffer | undefined = tlsSocket.getFinished();
+    const peerFinishedMsg: Buffer | undefined = tlsSocket.getPeerFinished();
+    const sharedAlgs: string[] = tlsSocket.getSharedSigalgs();
+    const isSessionReused: boolean = tlsSocket.isSessionReused();
+
+    if (keyInfo && "type" in keyInfo) {
+        const keyType: string = keyInfo.type;
+        const keyName: string | undefined = keyInfo.name;
+        const keySize: number = keyInfo.size;
+    }
+
+    tlsSocket.disableRenegotiation();
     tlsSocket.enableTrace();
 
     const ciphers: string[] = getCiphers();
     const curve: string = DEFAULT_ECDH_CURVE;
+    const maxVersion: string = DEFAULT_MAX_VERSION;
+    const minVersion: string = DEFAULT_MIN_VERSION;
+
+    const buf: Buffer = tlsSocket.exportKeyingMaterial(123, 'test', Buffer.from('nope'));
 }
 
 {
     const _server = createServer({
         enableTrace: true,
+        pskCallback(socket, ident) {
+            if (ident === 'something') {
+                return null;
+            }
+            return Buffer.from('asdasd');
+        }
     });
 
     _server.addContext("example", {
         cert: fs.readFileSync("cert_filepath"),
         key: fs.readFileSync("key_filepath")
+    });
+}
+
+{
+    const _server = createServer({}, (socket) => {
+        const _keys: Buffer = _server.getTicketKeys();
+        _server.setTicketKeys(_keys);
+    });
+}
+
+{
+    const _server = createServer({});
+    _server.setSecureContext({
+        key: "NOT REALLY A KEY",
+        cert: "SOME CERTIFICATE",
     });
 }
 

@@ -29,7 +29,7 @@ export type AddableFunction = (runtime: Flow) => void;
 export type AddableToAction = Action | AddableFunction;
 
 export class EventContext {
-    new(context: EventContext | object): this;
+    constructor(context: EventContext | object);
     stageContext(topics: string | ReadonlyArray<string>): StageContext;
     state(): State;
     repub(type: string, handler: (event: any) => void): void;
@@ -44,7 +44,7 @@ export class StageContext extends EventContext {
 }
 
 export class ReadableStream extends Readable {
-    new(topic: string, emitter: EventEmitter): this;
+    constructor(topic: string, emitter: EventEmitter);
     push(data: any): boolean;
 }
 

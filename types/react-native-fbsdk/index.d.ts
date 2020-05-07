@@ -1,6 +1,8 @@
-// Type definitions for react-native-fbsdk 0.7
+// Type definitions for react-native-fbsdk 1.1
 // Project: https://github.com/facebook/react-native-fbsdk
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
+//                 Thibault Malbranche <https://github.com/titozzz>
+//                 Stuart Forrest <https://github.com/stuartforrest-infinity>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -477,9 +479,11 @@ export interface AccessTokenMap {
     userID: string;
     permissions: Permissions[];
     declinedPermissions: Permissions[];
+    expiredPermissions: Permissions[];
     accessTokenSource?: string;
     expirationTime: number;
     lastRefreshTime: number;
+    dataAccessExpirationTime: number;
 }
 
 /**
@@ -606,6 +610,23 @@ export interface Params {
     [key: string]: string | number;
 }
 
+/**
+ * Info about a user to increase chances of matching a Facebook user.
+ * See https://developers.facebook.com/docs/app-events/advanced-matching for
+ * more info about the expected format of each field.
+ */
+export interface UserData {
+    email?: string;
+    firstName?: string;
+    lastName?: string;
+    phone?: string;
+    dateOfBirth?: string;
+    gender?: 'm' | 'f';
+    city?: string;
+    state?: string;
+    zip?: string;
+    country?: string;
+}
 export namespace AppEventsLogger {
     /**
      * Sets the current event flushing behavior specifying when events
@@ -646,6 +667,11 @@ export namespace AppEventsLogger {
     function setUserID(userID: string | null): void;
 
     /**
+     * Set additional data about the user to increase chances of matching a Facebook user.
+     */
+    function setUserData(userData: UserData): void;
+
+    /**
      * For iOS only, sets and sends device token to register the current application for push notifications.
      * @platform ios
      */
@@ -656,18 +682,6 @@ export namespace AppEventsLogger {
      * @platform Android
      */
     function setPushNotificationsRegistrationId(registrationId: string): void;
-}
-
-export namespace AppInviteDialog {
-    /**
-     * Check if the dialog can be shown.
-     */
-    function canShow(): Promise<any>;
-
-    /**
-     * Shows the dialog using the specified content.
-     */
-    function show(appInviteContent: AppInviteContent): Promise<any>;
 }
 
 export namespace GameRequestDialog {
@@ -769,63 +783,15 @@ export class GraphRequestManager {
 
 export type AuxiliaryViewPosition = 'top' | 'bottom' | 'inline';
 export type HorizontalAlignment = 'center' | 'left' | 'right';
-export type LikeViewStyle = 'button'|  // Note 'button' is only available on Android.
-                    'standard' |
-                    'box_count';
-
-export interface LikeViewProps {
-    /**
-     * The objectId and type for the object to like.
-     */
-    objectIdAndType: ObjectIdAndType;
-
-    /**
-     * The style to use for the receiver.  Distinct from React styling.
-     */
-    likeViewStyle?: LikeViewStyle;
-
-    /**
-     * The position for the auxiliary view for the receiver.
-     */
-    auxiliaryViewPosition?: AuxiliaryViewPosition;
-
-    /**
-     * The text alignment of the social sentence.
-     */
-    horizontalAlignment?: HorizontalAlignment;
-
-    /**
-     * The foreground color to use for the content of the receiver.
-     */
-    foregroundColor?: number;
-
-    /**
-     * If true, a sound is played when the receiver is toggled.
-     */
-    soundEnabled?: boolean;
-
-    /**
-     * View style, if any.
-     */
-    style?: ViewStyle;
-}
-
-export class LikeView extends Component<LikeViewProps, any> {}
 
 export type TooltipBehaviorIOS = 'auto' | 'force_display' | 'disable';
 
 export interface LoginButtonProps {
     /**
-     * Represents the read permissions to request when the login button
+     * Represents the permissions to request when the login button
      * is pressed.
      */
-    readPermissions?: Permissions[];
-
-    /**
-     * Represents the publish permissions to request when the login
-     * button is pressed.
-     */
-    publishPermissions?: Permissions[];
+    permissions?: Permissions[];
 
     /**
      * The callback invoked upon error/completion of a login request.
@@ -898,16 +864,8 @@ export type LoginBehaviorAndroid =
  * Indicate how Facebook Login should be attempted on iOS.
  */
 export type LoginBehaviorIOS =
-    // Attempts log in through the native Facebook app.
-    // The SDK may still use Safari instead.
-    // See details in https://developers.facebook.com/blog/post/2015/10/29/Facebook-Login-iOS9/
-    'native' |
     // Attempts log in through the Safari browser.
-    'browser' |
-    // Attempts log in through the Facebook account currently signed in through Settings.
-    'system_account' |
-    // Attempts log in through a modal UIWebView pop-up.
-    'web';
+    'browser';
 
 /**
  * Shows the results of a login operation.
@@ -921,7 +879,7 @@ export interface LoginResult {
 
 export namespace LoginManager {
     /**
-     * Logs the user in with the requested read and/or publish permissions.
+     * Logs the user in with the requested permissions.
      */
     function logInWithPermissions(permissions: Permissions[]): Promise<LoginResult>;
 

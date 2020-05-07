@@ -67,7 +67,7 @@ declare namespace SeamlessImmutable {
         asMutable(opts: AsMutableOptions<true>): T;
         asMutable(opts: AsMutableOptions): T | { [K in keyof T]: Immutable<T[K]> };
 
-        merge(part: DeepPartial<T>, config?: MergeConfig): Immutable<T>;
+        merge(part: DeepPartial<T | Immutable<T>>, config?: MergeConfig): Immutable<T>;
 
         update<K extends keyof T>(property: K, updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
         update<TValue>(property: string, updaterFunction: (value: TValue, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
@@ -108,7 +108,7 @@ declare namespace SeamlessImmutable {
         /** Custom implementation of the array functions, which return Immutable. */
         interface Overrides<T> {
             forEach(callbackfn: (value: Immutable<T>, index: number, array: Immutable<T[]>) => void, thisArg?: any): void;
-            map<TTarget>(mapFuction: (item: Immutable<T>) => TTarget): Immutable<TTarget[]>;
+            map<TTarget>(mapFuction: (item: Immutable<T>, index: number, array: Immutable<T[]>) => TTarget): Immutable<TTarget[]>;
             filter(filterFunction: (item: Immutable<T>) => boolean): Immutable<T[]>;
             slice(start?: number, end?: number): Immutable<T[]>;
             concat(...arr: Array<T|T[]|Immutable<T>|Array<Immutable<T>>|Immutable<T[]>>): Immutable<T[]>;

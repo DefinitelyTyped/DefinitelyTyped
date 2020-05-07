@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isAscii: typeof validator.isAscii;
-export = isAscii;
+import validator from '../';
+export default validator.isAscii;

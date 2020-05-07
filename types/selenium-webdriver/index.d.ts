@@ -7,6 +7,7 @@
 //   Ben Dixon <https://github.com/bendxn>,
 //   Ziyu <https://github.com/oddui>
 //   Johann Wolf <https://github.com/beta-vulgaris>
+//   Aleksey Chemakin <https://github.com/Dzenly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -15,17 +16,21 @@ import * as edge from './edge';
 import * as firefox from './firefox';
 import * as ie from './ie';
 import { By, ByHash } from './lib/by';
+import { Browser, Capability, Capabilities, ITimeouts } from './lib/capabilities';
 import * as command from './lib/command';
 import * as http from './http';
 import { Actions, Button, Key, Origin } from './lib/input';
 import { promise } from './lib/promise';
+import * as logging from './lib/logging';
 import * as until from './lib/until';
 import * as safari from './safari';
 
 export { By, ByHash } from './lib/by';
+export { Browser, Capability, Capabilities, ITimeouts } from './lib/capabilities';
 export { Actions, Button, Key, Origin } from './lib/input';
 export { promise } from './lib/promise';
-export { until as until };
+export { until };
+export { logging };
 
 /**
  * Typings for lib/error
@@ -300,347 +305,6 @@ export namespace error {
    * Lookup the err in table of errors.
    */
   function encodeError(err: any): {error: string, message: string};
-}
-
-export namespace logging {
-  /**
-   * A hash describing log preferences.
-   * @typedef {Object.<logging.Type, logging.LevelName>}
-   */
-  class Preferences {
-    setLevel(type: string, level: Level | string | number): void;
-    toJSON(): { [key: string]: string };
-  }
-
-  interface IType {
-    /** Logs originating from the browser. */
-    BROWSER: string;
-    /** Logs from a WebDriver client. */
-    CLIENT: string;
-    /** Logs from a WebDriver implementation. */
-    DRIVER: string;
-    /** Logs related to performance. */
-    PERFORMANCE: string;
-    /** Logs from the remote server. */
-    SERVER: string;
-  }
-
-  /**
-   * Common log types.
-   * @enum {string}
-   */
-  const Type: IType;
-
-  /**
-   * Defines a message level that may be used to control logging output.
-   *
-   * @final
-   */
-  class Level {
-    name_: string;
-    value_: number;
-    /**
-     * @param {string} name the level's name.
-     * @param {number} level the level's numeric value.
-     */
-    constructor(name: string, level: number);
-
-    /** @override */
-    toString(): string;
-
-    /** This logger's name. */
-    name: string;
-
-    /** The numeric log level. */
-    value: number;
-
-    /**
-     * Indicates no log messages should be recorded.
-     * @const
-     */
-    static OFF: Level;
-    /**
-     * Log messages with a level of `1000` or higher.
-     * @const
-     */
-    static SEVERE: Level;
-    /**
-     * Log messages with a level of `900` or higher.
-     * @const
-     */
-    static WARNING: Level;
-    /**
-     * Log messages with a level of `800` or higher.
-     * @const
-     */
-    static INFO: Level;
-    /**
-     * Log messages with a level of `700` or higher.
-     * @const
-     */
-    static DEBUG: Level;
-    /**
-     * Log messages with a level of `500` or higher.
-     * @const
-     */
-    static FINE: Level;
-    /**
-     * Log messages with a level of `400` or higher.
-     * @const
-     */
-    static FINER: Level;
-    /**
-     * Log messages with a level of `300` or higher.
-     * @const
-     */
-    static FINEST: Level;
-    /**
-     * Indicates all log messages should be recorded.
-     * @const
-     */
-    static ALL: Level;
-  }
-
-  /**
-   * Converts a level name or value to a {@link logging.Level} value.
-   * If the name/value is not recognized, {@link logging.Level.ALL}
-   * will be returned.
-   * @param {(number|string)} nameOrValue The log level name, or value, to
-   *     convert .
-   * @return {!logging.Level} The converted level.
-   */
-  function getLevel(nameOrValue: string | number): Level;
-
-  interface IEntryJSON {
-    level: string;
-    message: string;
-    timestamp: number;
-    type: string;
-  }
-
-  /**
-   * A single log entry.
-   */
-  class Entry {
-    /**
-     * @param {(!logging.Level|string)} level The entry level.
-     * @param {string} message The log message.
-     * @param {number=} opt_timestamp The time this entry was generated, in
-     *     milliseconds since 0:00:00, January 1, 1970 UTC. If omitted, the
-     *     current time will be used.
-     * @param {string=} opt_type The log type, if known.
-     * @constructor
-     */
-    constructor(level: Level | string | number, message: string, opt_timestamp?: number, opt_type?: string | IType);
-
-    /** @type {!logging.Level} */
-    level: Level;
-
-    /** @type {string} */
-    message: string;
-
-    /** @type {number} */
-    timestamp: number;
-
-    /** @type {string} */
-    type: string;
-
-    /**
-     * @return {{level: string, message: string, timestamp: number,
-     *           type: string}} The JSON representation of this entry.
-     */
-    toJSON(): IEntryJSON;
-  }
-
-  /**
-   * An object used to log debugging messages. Loggers use a hierarchical,
-   * dot-separated naming scheme. For instance, 'foo' is considered the parent of
-   * the 'foo.bar' and an ancestor of 'foo.bar.baz'.
-   *
-   * Each logger may be assigned a {@linkplain #setLevel log level}, which
-   * controls which level of messages will be reported to the
-   * {@linkplain #addHandler handlers} attached to this instance. If a log level
-   * is not explicitly set on a logger, it will inherit its parent.
-   *
-   * This class should never be directly instantiated. Instead, users should
-   * obtain logger references using the {@linkplain ./logging.getLogger()
-   * getLogger()} function.
-   *
-   * @final
-   */
-  class Logger {
-    /**
-     * @param {string} name the name of this logger.
-     * @param {Level=} opt_level the initial level for this logger.
-     */
-    constructor(name: string, opt_level?: Level);
-
-    /** @private {string} */
-    name_: string;
-    /** @private {Level} */
-    level_: Level;
-    /** @private {Logger} */
-    parent_: Logger;
-    /** @private {Set<function(!Entry)>} */
-    handlers_: any;
-
-    /** @return {string} the name of this logger. */
-    getName(): string;
-
-    /**
-     * @param {Level} level the new level for this logger, or `null` if the logger
-     *     should inherit its level from its parent logger.
-     */
-    setLevel(level: Level): void;
-
-    /** @return {Level} the log level for this logger. */
-    getLevel(): Level;
-
-    /**
-     * @return {!Level} the effective level for this logger.
-     */
-    getEffectiveLevel(): Level;
-
-    /**
-     * @param {!Level} level the level to check.
-     * @return {boolean} whether messages recorded at the given level are loggable
-     *     by this instance.
-     */
-    isLoggable(level: Level): boolean;
-
-    /**
-     * Adds a handler to this logger. The handler will be invoked for each message
-     * logged with this instance, or any of its descendants.
-     *
-     * @param {function(!Entry)} handler the handler to add.
-     */
-    addHandler(handler: any): void;
-
-    /**
-     * Removes a handler from this logger.
-     *
-     * @param {function(!Entry)} handler the handler to remove.
-     * @return {boolean} whether a handler was successfully removed.
-     */
-    removeHandler(handler: any): void;
-
-    /**
-     * Logs a message at the given level. The message may be defined as a string
-     * or as a function that will return the message. If a function is provided,
-     * it will only be invoked if this logger's
-     * {@linkplain #getEffectiveLevel() effective log level} includes the given
-     * `level`.
-     *
-     * @param {!Level} level the level at which to log the message.
-     * @param {(string|function(): string)} loggable the message to log, or a
-     *     function that will return the message.
-     */
-    log(level: Level, loggable: string | Function): void;
-
-    /**
-     * Logs a message at the {@link Level.SEVERE} log level.
-     * @param {(string|function(): string)} loggable the message to log, or a
-     *     function that will return the message.
-     */
-    severe(loggable: string | Function): void;
-
-    /**
-     * Logs a message at the {@link Level.WARNING} log level.
-     * @param {(string|function(): string)} loggable the message to log, or a
-     *     function that will return the message.
-     */
-    warning(loggable: string | Function): void;
-
-    /**
-     * Logs a message at the {@link Level.INFO} log level.
-     * @param {(string|function(): string)} loggable the message to log, or a
-     *     function that will return the message.
-     */
-    info(loggable: string | Function): void;
-
-    /**
-     * Logs a message at the {@link Level.DEBUG} log level.
-     * @param {(string|function(): string)} loggable the message to log, or a
-     *     function that will return the message.
-     */
-    debug(loggable: string | Function): void;
-
-    /**
-     * Logs a message at the {@link Level.FINE} log level.
-     * @param {(string|function(): string)} loggable the message to log, or a
-     *     function that will return the message.
-     */
-    fine(loggable: string | Function): void;
-
-    /**
-     * Logs a message at the {@link Level.FINER} log level.
-     * @param {(string|function(): string)} loggable the message to log, or a
-     *     function that will return the message.
-     */
-    finer(loggable: string | Function): void;
-
-    /**
-     * Logs a message at the {@link Level.FINEST} log level.
-     * @param {(string|function(): string)} loggable the message to log, or a
-     *     function that will return the message.
-     */
-    finest(loggable: string | Function): void;
-  }
-
-  /**
-   * Maintains a collection of loggers.
-   *
-   * @final
-   */
-  class LogManager {
-    /**
-     * Retrieves a named logger, creating it in the process. This function will
-     * implicitly create the requested logger, and any of its parents, if they
-     * do not yet exist.
-     *
-     * @param {string} name the logger's name.
-     * @return {!Logger} the requested logger.
-     */
-    getLogger(name?: string): Logger;
-
-    /**
-     * Creates a new logger.
-     *
-     * @param {string} name the logger's name.
-     * @param {!Logger} parent the logger's parent.
-     * @return {!Logger} the new logger.
-     * @private
-     */
-    createLogger_(name: string, parent: Logger): Logger;
-  }
-
-  /**
-   * Retrieves a named logger, creating it in the process. This function will
-   * implicitly create the requested logger, and any of its parents, if they
-   * do not yet exist.
-   *
-   * @param {string} name the logger's name.
-   * @return {!Logger} the requested logger.
-   */
-  function getLogger(name?: string): Logger;
-
-  /**
-   * Adds the console handler to the given logger. The console handler will log
-   * all messages using the JavaScript Console API.
-   *
-   * @param {Logger=} opt_logger The logger to add the handler to; defaults
-   *     to the root logger.
-   */
-  function addConsoleHandler(opt_logger?: Logger): void;
-
-  /**
-   * Removes the console log handler from the given logger.
-   *
-   * @param {Logger=} opt_logger The logger to remove the handler from; defaults
-   *     to the root logger.
-   * @see exports.addConsoleHandler
-   */
-  function removeConsoleHandler(opt_logger?: Logger): void;
 }
 
 /**
@@ -921,30 +585,6 @@ export class AlertPromise extends Alert {
 }
 
 /**
- * Recognized browser names.
- * @enum {string}
- */
-export interface IBrowser {
-  ANDROID: string;
-  CHROME: string;
-  EDGE: string;
-  FIREFOX: string;
-  IE: string;
-  INTERNET_EXPLORER: string;
-  IPAD: string;
-  IPHONE: string;
-  OPERA: string;
-  PHANTOM_JS: string;
-  SAFARI: string;
-  HTMLUNIT: string;
-}
-
-/**
- * Instace of
- */
-export const Browser: IBrowser;
-
-/**
  * ProxyConfig
  */
 export interface ProxyConfig {
@@ -1069,7 +709,7 @@ export class Builder {
    * @return {?string} The URL of the proxy server to use for the WebDriver's
    *    HTTP connections, or `null` if not set.
    */
-  getWebDriverProxy(): string;
+  getWebDriverProxy(): string|null;
 
   /**
    * Sets the default action to take with an unexpected alert before returning
@@ -1078,7 +718,7 @@ export class Builder {
    *     'dismiss', or 'ignore'. Defaults to 'dismiss'.
    * @return {!Builder} A self reference.
    */
-  setAlertBehavior(behavior: string): Builder;
+  setAlertBehavior(behavior?: string): Builder;
 
   /**
    * Sets Chrome-specific options for drivers created by this builder. Any
@@ -1092,6 +732,21 @@ export class Builder {
   setChromeOptions(options: chrome.Options): Builder;
 
   /**
+   * @return {chrome.Options} the Chrome specific options currently configured
+   *     for this builder.
+   */
+  getChromeOptions(): chrome.Options;
+
+  /**
+   * Sets the service builder to use for managing the chromedriver child process
+   * when creating new Chrome sessions.
+   *
+   * @param {chrome.ServiceBuilder} service the service to use.
+   * @return {!Builder} A self reference.
+   */
+  setChromeService(service: chrome.ServiceBuilder): Builder;
+
+  /**
    * Set {@linkplain edge.Options options} specific to Microsoft's Edge browser
    * for drivers created by this builder. Any proxy settings defined on the
    * given options will take precedence over those set through
@@ -1101,6 +756,15 @@ export class Builder {
    * @return {!Builder} A self reference.
    */
   setEdgeOptions(options: edge.Options): Builder;
+
+  /**
+   * Sets the {@link edge.ServiceBuilder} to use to manage the
+   * MicrosoftEdgeDriver child process when creating sessions locally.
+   *
+   * @param {edge.ServiceBuilder} service the service to use.
+   * @return {!Builder} a self reference.
+   */
+  setEdgeService(service: edge.ServiceBuilder): Builder;
 
   /**
    * Sets Firefox-specific options for drivers created by this builder. Any
@@ -1114,6 +778,21 @@ export class Builder {
   setFirefoxOptions(options: firefox.Options): Builder;
 
   /**
+   * @return {firefox.Options} the Firefox specific options currently configured
+   *     for this instance.
+   */
+  getFirefoxOptions(): firefox.Options;
+
+  /**
+   * Sets the {@link firefox.ServiceBuilder} to use to manage the geckodriver
+   * child process when creating Firefox sessions locally.
+   *
+   * @param {firefox.ServiceBuilder} service the service to use.
+   * @return {!Builder} a self reference.
+   */
+  setFirefoxService(service: firefox.ServiceBuilder): Builder;
+
+  /**
    * Set Internet Explorer specific {@linkplain ie.Options options} for drivers
    * created by this builder. Any proxy settings defined on the given options
    * will take precedence over those set through {@link #setProxy}.
@@ -1122,6 +801,15 @@ export class Builder {
    * @return {!Builder} A self reference.
    */
   setIeOptions(options: ie.Options): Builder;
+
+  /**
+   * Sets the {@link ie.ServiceBuilder} to use to manage the geckodriver
+   * child process when creating IE sessions locally.
+   *
+   * @param {ie.ServiceBuilder} service the service to use.
+   * @return {!Builder} a self reference.
+   */
+  setIeService(service: ie.ServiceBuilder): Builder;
 
   /**
    * Sets the logging preferences for the created session. Preferences may be
@@ -1149,7 +837,13 @@ export class Builder {
    * @param {!safari.Options} options The Safari options to use.
    * @return {!Builder} A self reference.
    */
-  setSafari(options: safari.Options): Builder;
+  setSafariOptions(options: safari.Options): Builder;
+
+  /**
+   * @return {safari.Options} the Safari specific options currently configured
+   *     for this instance.
+   */
+  getSafariOptions(): safari.Options;
 
   /**
    * Sets the http agent to use for each request.
@@ -1160,6 +854,11 @@ export class Builder {
    * @return {!Builder} A self reference.
    */
   usingHttpAgent(agent: any): Builder;
+
+  /**
+   * @return {http.Agent} The http agent used for each request
+   */
+  getHttpAgent(): any|null;
 
   /**
    * Sets the URL of a remote WebDriver server to use. Once a remote URL has
@@ -1198,264 +897,6 @@ export class Builder {
 }
 
 export type Locator = By | Function | ByHash;
-
-/**
- * Common webdriver capability keys.
- * @enum {string}
- */
-export interface ICapability {
-  /**
-   * Indicates whether a driver should accept all SSL certs by default. This
-   * capability only applies when requesting a new session. To query whether
-   * a driver can handle insecure SSL certs, see
-   * {@link Capability.SECURE_SSL}.
-   */
-  ACCEPT_SSL_CERTS: string;
-
-  /**
-   * The browser name. Common browser names are defined in the
-   * {@link Browser} enum.
-   */
-  BROWSER_NAME: string;
-
-  /**
-   * Defines how elements should be scrolled into the viewport for interaction.
-   * This capability will be set to zero (0) if elements are aligned with the
-   * top of the viewport, or one (1) if aligned with the bottom. The default
-   * behavior is to align with the top of the viewport.
-   */
-  ELEMENT_SCROLL_BEHAVIOR: string;
-
-  /**
-   * Whether the driver is capable of handling modal alerts (e.g. alert,
-   * confirm, prompt). To define how a driver <i>should</i> handle alerts,
-   * use {@link Capability.UNEXPECTED_ALERT_BEHAVIOR}.
-   */
-  HANDLES_ALERTS: string;
-
-  /**
-   * Key for the logging driver logging preferences.
-   */
-  LOGGING_PREFS: string;
-
-  /**
-   * Whether this session generates native events when simulating user input.
-   */
-  NATIVE_EVENTS: string;
-
-  /**
-   * Describes the platform the browser is running on. Will be one of
-   * ANDROID, IOS, LINUX, MAC, UNIX, or WINDOWS. When <i>requesting</i> a
-   * session, ANY may be used to indicate no platform preference (this is
-   * semantically equivalent to omitting the platform capability).
-   */
-  PLATFORM: string;
-
-  /**
-   * Describes the proxy configuration to use for a new WebDriver session.
-   */
-  PROXY: string;
-
-  /** Whether the driver supports changing the brower's orientation. */
-  ROTATABLE: string;
-
-  /**
-   * Whether a driver is only capable of handling secure SSL certs. To request
-   * that a driver accept insecure SSL certs by default, use
-   * {@link Capability.ACCEPT_SSL_CERTS}.
-   */
-  SECURE_SSL: string;
-
-  /** Whether the driver supports manipulating the app cache. */
-  SUPPORTS_APPLICATION_CACHE: string;
-
-  /** Whether the driver supports locating elements with CSS selectors. */
-  SUPPORTS_CSS_SELECTORS: string;
-
-  /** Whether the browser supports JavaScript. */
-  SUPPORTS_JAVASCRIPT: string;
-
-  /** Whether the driver supports controlling the browser's location info. */
-  SUPPORTS_LOCATION_CONTEXT: string;
-
-  /** Whether the driver supports taking screenshots. */
-  TAKES_SCREENSHOT: string;
-
-  /**
-   * Defines how the driver should handle unexpected alerts. The value should
-   * be one of 'accept', 'dismiss', or 'ignore.
-   */
-  UNEXPECTED_ALERT_BEHAVIOR: string;
-
-  /** Defines the browser version. */
-  VERSION: string;
-}
-
-/**
- * The standard WebDriver capability keys.
- */
-export const Capability: ICapability;
-
-/**
- * Describes a set of capabilities for a WebDriver session.
- */
-export class Capabilities {
-  // region Constructors
-
-  /**
-   * @param {(Capabilities|Object)=} opt_other Another set of
-   *     capabilities to merge into this instance.
-   * @constructor
-   */
-  constructor(opt_other?: Capabilities|{});
-
-  // endregion
-
-  // region Methods
-
-  /** @return {!Object} The JSON representation of this instance. */
-  toJSON(): any;
-
-  /**
-   * Merges another set of capabilities into this instance. Any duplicates in
-   * the provided set will override those already set on this instance.
-   * @param {!(Capabilities|Object)} other The capabilities to
-   *     merge into this instance.
-   * @return {!Capabilities} A self reference.
-   */
-  merge(other: Capabilities|{}): Capabilities;
-
-  /**
-   * @param {string} key The capability to set.
-   * @param {*} value The capability value.  Capability values must be JSON
-   *     serializable. Pass {@code null} to unset the capability.
-   * @return {!Capabilities} A self reference.
-   */
-  set(key: string, value: any): Capabilities;
-
-  /**
-   * Sets the logging preferences. Preferences may be specified as a
-   * {@link logging.Preferences} instance, or a as a map of log-type to
-   * log-level.
-   * @param {!(logging.Preferences|Object.<string, string>)} prefs The
-   *     logging preferences.
-   * @return {!Capabilities} A self reference.
-   */
-  setLoggingPrefs(prefs: logging.Preferences|{}): Capabilities;
-
-  /**
-   * Sets the proxy configuration for this instance.
-   * @param {ProxyConfig} proxy The desired proxy configuration.
-   * @return {!Capabilities} A self reference.
-   */
-  setProxy(proxy: ProxyConfig): Capabilities;
-
-  /**
-   * Sets whether native events should be used.
-   * @param {boolean} enabled Whether to enable native events.
-   * @return {!Capabilities} A self reference.
-   */
-  setEnableNativeEvents(enabled: boolean): Capabilities;
-
-  /**
-   * Sets how elements should be scrolled into view for interaction.
-   * @param {number} behavior The desired scroll behavior: either 0 to align
-   *     with the top of the viewport or 1 to align with the bottom.
-   * @return {!Capabilities} A self reference.
-   */
-  setScrollBehavior(behavior: number): Capabilities;
-
-  /**
-   * Sets the default action to take with an unexpected alert before returning
-   * an error.
-   * @param {string} behavior The desired behavior; should be 'accept',
-   *     'dismiss', or 'ignore'. Defaults to 'dismiss'.
-   * @return {!Capabilities} A self reference.
-   */
-  setAlertBehavior(behavior: string): Capabilities;
-
-  /**
-   * @param {string} key The capability to return.
-   * @return {*} The capability with the given key, or {@code null} if it has
-   *     not been set.
-   */
-  get(key: string): any;
-
-  /**
-   * @param {string} key The capability to check.
-   * @return {boolean} Whether the specified capability is set.
-   */
-  has(key: string): boolean;
-
-  // endregion
-
-  // region Static Methods
-
-  /**
-   * @return {!Capabilities} A basic set of capabilities for Android.
-   */
-  static android(): Capabilities;
-
-  /**
-   * @return {!Capabilities} A basic set of capabilities for Chrome.
-   */
-  static chrome(): Capabilities;
-
-  /**
-   * @return {!Capabilities} A basic set of capabilities for Microsoft Edge.
-   */
-  static edge(): Capabilities;
-
-  /**
-   * @return {!Capabilities} A basic set of capabilities for Firefox.
-   */
-  static firefox(): Capabilities;
-
-  /**
-   * @return {!Capabilities} A basic set of capabilities for
-   *     Internet Explorer.
-   */
-  static ie(): Capabilities;
-
-  /**
-   * @return {!Capabilities} A basic set of capabilities for iPad.
-   */
-  static ipad(): Capabilities;
-
-  /**
-   * @return {!Capabilities} A basic set of capabilities for iPhone.
-   */
-  static iphone(): Capabilities;
-
-  /**
-   * @return {!Capabilities} A basic set of capabilities for Opera.
-   */
-  static opera(): Capabilities;
-
-  /**
-   * @return {!Capabilities} A basic set of capabilities for
-   *     PhantomJS.
-   */
-  static phantomjs(): Capabilities;
-
-  /**
-   * @return {!Capabilities} A basic set of capabilities for Safari.
-   */
-  static safari(): Capabilities;
-
-  /**
-   * @return {!Capabilities} A basic set of capabilities for HTMLUnit.
-   */
-  static htmlunit(): Capabilities;
-
-  /**
-   * @return {!Capabilities} A basic set of capabilities for HTMLUnit
-   *                                   with enabled Javascript.
-   */
-  static htmlunitwithjs(): Capabilities;
-
-  // endregion
-}
 
 /**
  * Describes an event listener registered on an {@linkplain EventEmitter}.
@@ -1722,7 +1163,7 @@ export class Options {
    *     cookies visible to the current page.
    * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol#Cookie_JSON_Object
    */
-  getCookies(): Promise<IWebDriverOptionsCookie[]>;
+  getCookies(): Promise<IWebDriverCookie[]>;
 
   /**
    * Schedules a command to retrieve the cookie with the given name. Returns
@@ -1733,7 +1174,7 @@ export class Options {
    *     named cookie, or {@code null} if there is no such cookie.
    * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol#Cookie_JSON_Object
    */
-  getCookie(name: string): Promise<IWebDriverOptionsCookie>;
+  getCookie(name: string): Promise<IWebDriverCookie>;
 
   /**
    * @return {!Logs} The interface for managing driver
@@ -1758,39 +1199,6 @@ export class Options {
   window(): Window;
 
   // endregion
-}
-
-interface ITimeouts {
-  /**
-   * Sets the amount of time to wait, in milliseconds, for an asynchronous
-   * script to finish execution before returning an error. If the timeout is
-   * less than or equal to 0, the script will be allowed to run indefinitely.
-   */
-  script?: number;
-  /**
-   * Sets the amount of time to wait, in milliseconds, for a page load to
-   * complete before returning an error.  If the timeout is negative,
-   * page loads may be indefinite.
-   */
-  pageLoad?: number;
-  /**
-   * Specifies the amount of time in milliseconds the driver should wait when
-   * searching for an element if it is not immediately present.
-   * <p/>
-   * When searching for a single element, the driver should poll the page
-   * until the element has been found, or this timeout expires before failing
-   * with a {@code bot.ErrorCode.NO_SUCH_ELEMENT} error. When searching
-   * for multiple elements, the driver should poll the page until at least one
-   * element has been found or this timeout has expired.
-   * <p/>
-   * Setting the wait timeout to 0 (its default value), disables implicit
-   * waiting.
-   * <p/>
-   * Increasing the implicit wait timeout should be used judiciously as it
-   * will have an adverse effect on test run time, especially when used with
-   * slower location strategies like XPath.
-   */
-  implicit?: number;
 }
 
 /**
@@ -1942,9 +1350,8 @@ export class TargetLocator {
   defaultContent(): Promise<void>;
 
   /**
-   * Schedules a command to switch the focus of all future commands to another
-   * frame on the page. The target frame may be specified as one of the
-   * following:
+   * Changes the focus of all future commands to another frame on the page. The
+   * target frame may be specified as one of the following:
    *
    * - A number that specifies a (zero-based) index into [window.frames](
    *   https://developer.mozilla.org/en-US/docs/Web/API/Window.frames).
@@ -1960,7 +1367,17 @@ export class TargetLocator {
    * @return {!Promise<void>} A promise that will be resolved
    *     when the driver has changed focus to the specified frame.
    */
-  frame(nameOrIndex: number|WebElement): Promise<void>;
+  frame(id: number|WebElement|null): Promise<void>;
+
+  /**
+   * Changes the focus of all future commands to the parent frame of the
+   * currently selected frame. This command has no effect if the driver is
+   * already focused on the top-level browsing context.
+   *
+   * @return {!Promise<void>} A promise that will be resolved when the command
+   *     has completed.
+   */
+  parentFrame(): Promise<void>;
 
   /**
    * Schedules a command to switch the focus of all future commands to another
@@ -1976,6 +1393,19 @@ export class TargetLocator {
    *     when the driver has changed focus to the specified window.
    */
   window(nameOrHandle: string): Promise<void>;
+
+  /**
+   * Creates a new browser window and switches the focus for future
+   * commands of this driver to the new window.
+   *
+   * @param {string} typeHint 'window' or 'tab'. The created window is not
+   *     guaranteed to be of the requested type; if the driver does not support
+   *     the requested type, a new browser window will be created of whatever type
+   *     the driver does support.
+   * @return {!Promise<void>} A promise that will be resolved
+   *     when the driver has changed focus to the new window.
+   */
+  newWindow(typeHint: string): Promise<void>;
 
   /**
    * Schedules a command to change focus to the active modal dialog, such as

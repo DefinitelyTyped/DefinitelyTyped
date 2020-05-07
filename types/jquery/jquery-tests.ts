@@ -115,6 +115,9 @@ function JQueryStatic() {
         $('span', $('p'));
 
         // $ExpectType JQuery<HTMLElement>
+        $('span', 'p');
+
+        // $ExpectType JQuery<HTMLElement>
         $('span');
 
         // $ExpectType JQuery<SVGLineElement>
@@ -5846,14 +5849,29 @@ function JQuery() {
         }
 
         function find() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').find('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find('.class-name');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').find(new HTMLElement());
 
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find(new HTMLSpanElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find(new Element());
+
             // $ExpectType JQuery<HTMLElement>
             $('p').find($('span'));
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find($<HTMLSpanElement>('.class-name'));
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find<HTMLSpanElement>($('.class-name'));
         }
 
         function addBack() {
@@ -5894,11 +5912,17 @@ function JQuery() {
         function first() {
             // $ExpectType JQuery<HTMLElement>
             $('p').first();
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find('span').first();
         }
 
         function last() {
             // $ExpectType JQuery<HTMLElement>
             $('p').last();
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find('span').first();
         }
 
         function offsetParent() {
@@ -6382,6 +6406,7 @@ function JQuery_AjaxSettings() {
             return 'filtered';
         },
         dataType: 'mycustomtype',
+        enctype: 'application/x-www-form-urlencoded',
         error(jqXHR, textStatus, errorThrown) {
             // $ExpectType any
             this;
@@ -6758,7 +6783,14 @@ function JQuery_jqXHR() {
         }
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
@@ -7314,7 +7346,14 @@ function JQuery_Promise3() {
         return s;
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
@@ -7459,7 +7498,14 @@ function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, strin
         return s;
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
@@ -7580,7 +7626,14 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
         return s;
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // $ExpectError
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 }
@@ -8010,6 +8063,54 @@ function JQuery_TypeEventHandlers() {
             // $ExpectType HTMLElement
             this;
             // $ExpectType MouseUpEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        drag(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragend(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragEndEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragenter(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragEnterEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragexit(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragExitEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragleave(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragLeaveEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragover(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragOverEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragstart(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragStartEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        drop(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DropEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
             event;
         },
         keydown(event) {

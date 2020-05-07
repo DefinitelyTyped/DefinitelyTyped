@@ -1,11 +1,12 @@
-// Type definitions for mini-css-extract-plugin 0.2
+// Type definitions for mini-css-extract-plugin 0.9
 // Project: https://github.com/webpack-contrib/mini-css-extract-plugin
 // Definitions by: JounQin <https://github.com/JounQin>
 //                 Katsuya Hino <https://github.com/dobogo>
+//                 Spencer Miskoviak <https://github.com/skovy>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-import { Plugin } from 'webpack';
+import { compilation, Plugin } from 'webpack';
 
 /**
  * Lightweight CSS extraction webpack plugin
@@ -27,6 +28,24 @@ declare namespace MiniCssExtractPlugin {
          */
         filename?: string;
         chunkFilename?: string;
+        /**
+         * For projects where CSS ordering has been mitigated through consistent
+         * use of scoping or naming conventions, the CSS order warnings can be
+         * disabled by setting this flag to true for the plugin.
+         */
+        ignoreOrder?: boolean;
+        /**
+         * By default, mini-css-extract-plugin generates JS modules that use the CommonJS
+         * modules syntax. There are some cases in which using ES modules is beneficial,
+         * like in the case of module concatenation and tree shaking.
+         */
+        esModule?: boolean;
+        /**
+         * With the `moduleFilename` option you can use chunk data to customize the filename.
+         * This is particularly useful when dealing with multiple entry points
+         * and wanting to get more control out of the filename for a given entry point/chunk
+         */
+        moduleFilename?: (chunk: compilation.Chunk) => string;
     }
 }
 

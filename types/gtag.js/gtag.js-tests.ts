@@ -6,6 +6,7 @@ gtag('event', 'login', {
 });
 
 gtag('set', {currency: 'USD'});
+gtag('js', new Date());
 gtag('set', {
   country: 'US',
   currency: 'USD'

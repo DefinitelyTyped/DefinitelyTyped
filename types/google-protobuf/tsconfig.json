@@ -18,18 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "google/protobuf/compiler/plugin_pb.d.ts",
-        "google/protobuf/any_pb.d.ts",
-        "google/protobuf/api_pb.d.ts",
-        "google/protobuf/descriptor_pb.d.ts",
-        "google/protobuf/duration_pb.d.ts",
-        "google/protobuf/empty_pb.d.ts",
-        "google/protobuf/field_mask_pb.d.ts",
-        "google/protobuf/source_context_pb.d.ts",
-        "google/protobuf/struct_pb.d.ts",
-        "google/protobuf/timestamp_pb.d.ts",
-        "google/protobuf/type_pb.d.ts",
-        "google/protobuf/wrappers_pb.d.ts",
         "google-protobuf-tests.ts"
     ]
 }

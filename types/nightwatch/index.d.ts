@@ -7,6 +7,90 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+export interface ChromePerfLoggingPrefs {
+    /**
+     * Default: true. Whether or not to collect events from Network domain.
+     */
+    enableNetwork?: boolean;
+    /**
+     * Default: true. Whether or not to collect events from Page domain.
+     */
+    enablePage?: boolean;
+    /**
+     * A comma-separated string of Chrome tracing categories for which trace events should be collected.
+     * An unspecified or empty string disables tracing.
+     */
+    traceCategories?: string;
+    /**
+     * Default: 1000. The requested number of milliseconds between DevTools trace buffer usage events. For example, if 1000,
+     * then once per second, DevTools will report how full the trace buffer is. If a report indicates the buffer usage is 100%,
+     * a warning will be issued.
+     */
+    bufferUsageReportingInterval?: number;
+}
+
+export interface ChromeOptions {
+    /**
+     * 	List of command-line arguments to use when starting Chrome. Arguments with an associated value should be separated by a '=' sign
+     * (e.g., ['start-maximized', 'user-data-dir=/tmp/temp_profile']).
+     */
+    args?: string[];
+    /**
+     * Path to the Chrome executable to use (on Mac OS X, this should be the actual binary, not just the app. e.g.,
+     * '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')
+     */
+    binary?: string;
+    /**
+     * A list of Chrome extensions to install on startup. Each item in the list should be a base-64 encoded packed Chrome extension (.crx)
+     */
+    extensions?: string[];
+    /**
+     * A dictionary with each entry consisting of the name of the preference and its value. These preferences are applied
+     * to the Local State file in the user data folder.
+     */
+    localState?: Record<string, string>;
+    /**
+     * A dictionary with each entry consisting of the name of the preference and its value. These preferences are only applied
+     * to the user profile in use.
+     */
+    prefs?: Record<string, string>;
+    /**
+     * Default: false. If false, Chrome will be quit when ChromeDriver is killed, regardless of whether the session is quit.
+     * If true, Chrome will only be quit if the session is quit (or closed). Note, if true, and the session is not quit,
+     * ChromeDriver cannot clean up the temporary user data directory that the running Chrome instance is using.
+     */
+    detach?: boolean;
+    /**
+     * An address of a Chrome debugger server to connect to, in the form of <hostname/ip:port>, e.g. '127.0.0.1:38947'
+     */
+    debuggerAddress?: string;
+    /**
+     * List of Chrome command line switches to exclude that ChromeDriver by default passes when starting Chrome.
+     * Do not prefix switches with --.
+     */
+    excludeSwitches?: string[];
+    /**
+     * Directory to store Chrome minidumps . (Supported only on Linux.)
+     */
+    minidumpPath?: string;
+    /**
+     * A dictionary with either a value for “deviceName,” or values for “deviceMetrics” and “userAgent.” Refer to Mobile Emulation for more information.
+     */
+    mobileEmulation?: Record<string, string>;
+    /**
+     * An optional dictionary that specifies performance logging preferences. See below for more information.
+     */
+    perfLoggingPrefs?: ChromePerfLoggingPrefs;
+    /**
+     * A list of window types that will appear in the list of window handles. For access to <webview> elements, include "webview" in this list.
+     */
+    windowTypes?: string[];
+    /**
+     * Flag to activate W3C WebDriver API. Chromedriver (as of version 2.41 at least) simply does not support the W3C WebDriver API.
+     */
+    w3c?: boolean;
+}
+
 export interface NightwatchDesiredCapabilities {
     /**
      * The name of the browser being used; should be one of {android|chrome|firefox|htmlunit|internet explorer|iPhone|iPad|opera|safari}.
@@ -33,7 +117,7 @@ export interface NightwatchDesiredCapabilities {
     /**
      * Whether the session can interact with modal popups, such as window.alert and window.confirm.
      */
-    handlesAlerts: boolean;
+    handlesAlerts?: boolean;
 
     /**
      * Whether the session supports CSS selectors when searching for elements.
@@ -106,6 +190,10 @@ export interface NightwatchDesiredCapabilities {
         driver?: string;
         server?: string;
     };
+    /**
+     * This is a list of all the Chrome-specific desired capabilities.
+     */
+    chromeOptions?: ChromeOptions;
 }
 
 export interface NightwatchScreenshotOptions {
@@ -151,7 +239,7 @@ export interface NightwatchOptions {
     /**
      * Location(s) where page object files will be loaded from.
      */
-    page_object_path?: string | string[];
+    page_objects_path?: string | string[];
 
     /**
      * Location of an external globals module which will be loaded and made available to the test as a property globals on the main client instance.
@@ -195,6 +283,16 @@ export interface NightwatchOptions {
      * Example: "test_runner" : {"type" : "mocha", "options" : {"ui" : "tdd"}}
      */
     test_runner?: string | NightwatchTestRunner;
+
+    /**
+     * Allows for webdriver config (mostly the same as selenium)
+     */
+    webdriver?: {
+        port: number;
+        start_process: boolean;
+        server_path: string;
+        cli_args: string[];
+    };
 }
 
 export interface NightwatchGlobals {
@@ -288,49 +386,49 @@ export interface NightwatchTestSettingGeneric {
     /**
      * A url which can be used later in the tests as the main url to load. Can be useful if your tests will run on different environments, each one with a different url.
      */
-    launch_url: string;
+    launch_url?: string;
 
     /**
      * The hostname/IP on which the selenium server is accepting connections.
      */
-    selenium_host: string;
+    selenium_host?: string;
 
     /**
      * The port number on which the selenium server is accepting connections.
      */
-    selenium_port: number;
+    selenium_port?: number;
 
     /**
      * Whether to show extended Selenium command logs.
      */
-    silent: boolean;
+    silent?: boolean;
 
     /**
      * Use to disable terminal output completely.
      */
-    output: boolean;
+    output?: boolean;
 
     /**
      * Use to disable colored output in the terminal.
      */
-    disable_colors: boolean;
+    disable_colors?: boolean;
 
     /**
      * In case the selenium server requires credentials this username will be used to compute the Authorization header.
      * The value can be also an environment variable, in which case it will look like this: "username" : "${SAUCE_USERNAME}"
      */
-    username: string;
+    username?: string;
 
     /**
      * This field will be used together with username to compute the Authorization header.
      * Like username, the value can be also an environment variable: "access_key" : "${SAUCE_ACCESS_KEY}"
      */
-    access_key: string;
+    access_key?: string;
 
     /**
      * Proxy requests to the selenium server. http, https, socks(v5), socks5, sock4, and pac are accepted. Uses node-proxy-agent. Example: http://user:pass@host:port
      */
-    proxy: string;
+    proxy?: string;
 
     /**
      * An object which will be passed to the Selenium WebDriver when a new session will be created. You can specify browser name for instance along with other capabilities.
@@ -341,49 +439,49 @@ export interface NightwatchTestSettingGeneric {
      * }
      * You can view the complete list of capabilities https://code.google.com/p/selenium/wiki/DesiredCapabilities.
      */
-    desiredCapabilities: NightwatchDesiredCapabilities;
+    desiredCapabilities?: NightwatchDesiredCapabilities;
 
     /**
      * An object which will be made available within the test and can be overwritten per environment. Example:"globals" : {  "myGlobal" : "some_global" }
      */
-    globals: NightwatchGlobals;
+    globals?: NightwatchGlobals;
 
     /**
      * An array of folders or file patterns to be skipped (relative to the main source folder).
      * Example: "exclude" : ["excluded-folder"] or: "exclude" : ["test-folder/*-smoke.js"]
      */
-    exclude: string[];
+    exclude?: string[];
 
     /**
      * Folder or file pattern to be used when loading the tests. Files that don't match this patter will be ignored.
      * Example: "filter" : "tests/*-smoke.js"
      */
-    filter: string;
+    filter?: string;
 
     /**
      * Do not show the Base64 image data in the (verbose) log when taking screenshots.
      */
-    log_screenshot_data: boolean;
+    log_screenshot_data?: boolean;
 
     /**
      * Use xpath as the default locator strategy
      */
-    use_xpath: boolean;
+    use_xpath?: boolean;
 
     /**
      * Same as Selenium settings cli_args. You can override the global cli_args on a per-environment basis.
      */
-    cli_args: any;
+    cli_args?: any;
 
     /**
      * End the session automatically when the test is being terminated, usually after a failed assertion.
      */
-    end_session_on_fail: boolean;
+    end_session_on_fail?: boolean;
 
     /**
      * Skip the rest of testcases (if any) when one testcase fails..
      */
-    skip_testcases_on_fail: boolean;
+    skip_testcases_on_fail?: boolean;
 }
 
 export interface NightwatchTestSettingScreenshots extends NightwatchTestSettingGeneric {

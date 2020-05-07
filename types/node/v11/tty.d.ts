@@ -3,6 +3,7 @@ declare module "tty" {
 
     function isatty(fd: number): boolean;
     class ReadStream extends net.Socket {
+        constructor(fd: number, options?: net.SocketConstructorOpts);
         isRaw: boolean;
         setRawMode(mode: boolean): void;
         isTTY: boolean;
@@ -14,6 +15,7 @@ declare module "tty" {
      */
     type Direction = -1 | 0 | 1;
     class WriteStream extends net.Socket {
+        constructor(fd: number);
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "resize", listener: () => void): this;
 

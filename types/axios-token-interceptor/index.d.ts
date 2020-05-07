@@ -1,6 +1,7 @@
-// Type definitions for axios-token-interceptor 0.1
+// Type definitions for axios-token-interceptor 0.2
 // Project: https://github.com/sandrinodimattia/axios-token-interceptor#readme
-// Definitions by: Mike Dodge <https://github.com/innovation-team>
+// Definitions by: Vivint Team Innovation <https://github.com/innovation-team>
+//                 Mike Dodge <https://github.com/mgdodge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -9,7 +10,7 @@ import { AxiosRequestConfig } from 'axios';
 // Module
 declare function AxiosTokenProvider(Options: AxiosTokenProvider.InterceptorOptions): AxiosTokenProvider.TokenProvider;
 declare namespace AxiosTokenProvider {
-	function tokenCache(getToken: Promise<string>, options: TokenCacheOptions): TokenCache;
+	function tokenCache(getToken: () => Promise<string>, options: TokenCacheOptions): TokenCache;
 
 	// Interfaces
 	interface InterceptorOptions {
@@ -27,6 +28,7 @@ declare namespace AxiosTokenProvider {
 	}
 
 	interface TokenCache {
+        (): Promise<string>;
 		reset(): void;
 	}
 }

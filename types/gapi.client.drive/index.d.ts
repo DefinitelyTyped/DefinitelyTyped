@@ -1259,6 +1259,12 @@ declare namespace gapi.client {
                 keepRevisionForever?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**
+                 * The name of the file. This is not necessarily unique within a folder.
+                 * Note that for immutable items such as the top level folders of shared drives,
+                 * My Drive root folder, and Application Data folder the name is constant.
+                 */
+                name?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** A language hint for OCR processing during image import (ISO 639-1 code). */

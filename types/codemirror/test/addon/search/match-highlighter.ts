@@ -1,6 +1,6 @@
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/search/match-highlighter";
 
-
-
-var myCodeMirror: CodeMirror.Editor = CodeMirror(document.body, {
+const myCodeMirror: CodeMirror.Editor = CodeMirror(document.body, {
     highlightSelectionMatches: true
 });

@@ -1,13 +1,13 @@
-import Serverless = require("../index");
-import Plugin = require("./Plugin");
+import Serverless = require('../index');
+import Plugin = require('./Plugin');
 
 declare class PluginManager {
-    constructor(serverless: Serverless)
+    constructor(serverless: Serverless);
 
     setCliOptions(options: Serverless.Options): void;
     setCliCommands(commands: {}): void;
 
-    addPlugin(plugin: typeof Plugin): void;
+    addPlugin(plugin: Plugin.PluginStatic): void;
     loadAllPlugins(servicePlugins: {}): void;
     loadPlugins(plugins: {}): void;
     loadCorePlugins(): void;

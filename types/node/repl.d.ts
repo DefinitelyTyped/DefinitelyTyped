@@ -37,6 +37,11 @@ declare module "repl" {
          */
         eval?: REPLEval;
         /**
+         * Defines if the repl prints output previews or not.
+         * @default `true` Always `false` in case `terminal` is falsy.
+         */
+        preview?: boolean;
+        /**
          * If `true`, specifies that the default `writer` function should include ANSI color
          * styling to REPL output. If a custom `writer` function is provided then this has no
          * effect.
@@ -141,7 +146,7 @@ declare module "repl" {
         /**
          * The commands registered via `replServer.defineCommand()`.
          */
-        readonly commands: { readonly [name: string]: REPLCommand | undefined };
+        readonly commands: NodeJS.ReadOnlyDict<REPLCommand>;
         /**
          * A value indicating whether the REPL is currently in "editor mode".
          *
@@ -353,13 +358,13 @@ declare module "repl" {
     /**
      * A flag passed in the REPL options. Evaluates expressions in sloppy mode.
      */
-    export const REPL_MODE_SLOPPY: symbol; // TODO: unique symbol
+    const REPL_MODE_SLOPPY: unique symbol;
 
     /**
      * A flag passed in the REPL options. Evaluates expressions in strict mode.
      * This is equivalent to prefacing every repl statement with `'use strict'`.
      */
-    export const REPL_MODE_STRICT: symbol; // TODO: unique symbol
+    const REPL_MODE_STRICT: unique symbol;
 
     /**
      * Creates and starts a `repl.REPLServer` instance.

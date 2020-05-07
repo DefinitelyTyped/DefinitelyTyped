@@ -1,10 +1,17 @@
 import { Extent } from '../extent';
 import GeometryType from '../geom/GeometryType';
-import { ProjectionLike } from '../proj';
+import { ProjectionLike, TransformFunction } from '../proj';
 
 export default class RenderFeature {
-    constructor(type: GeometryType, flatCoordinates: number[], ends: number[] | number[][], properties: { [key: string]: any }, id: number | string);
+    constructor(
+        type: GeometryType,
+        flatCoordinates: number[],
+        ends: number[] | number[][],
+        properties: { [key: string]: any },
+        id: number | string | undefined,
+    );
     get(key: string): any;
+    getEnds(): number[] | number[][];
     getExtent(): Extent;
     getFlatInteriorPoint(): number[];
     getFlatInteriorPoints(): number[];
@@ -18,5 +25,6 @@ export default class RenderFeature {
     getStride(): number;
     getStyleFunction(): any;
     getType(): GeometryType;
+    simplifyTransformed(squaredTolerance: number, opt_transform?: TransformFunction): RenderFeature;
     transform(source: ProjectionLike, destination: ProjectionLike): void;
 }

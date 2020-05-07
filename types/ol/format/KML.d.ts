@@ -17,6 +17,7 @@ import ImageStyle from '../style/Image';
 import Stroke from '../style/Stroke';
 import Style, { StyleFunction } from '../style/Style';
 import Text from '../style/Text';
+import { ReadOptions } from './Feature';
 import XMLFeature from './XMLFeature';
 
 export interface GxTrackObject {
@@ -28,6 +29,7 @@ export interface Options {
     showPointNames?: boolean;
     defaultStyle?: Style[];
     writeStyles?: boolean;
+    crossOrigin?: string;
 }
 export interface Vec2 {
     x: number;
@@ -38,6 +40,7 @@ export interface Vec2 {
 }
 export default class KML extends XMLFeature {
     constructor(opt_options?: Options);
+    protected readFeaturesFromNode(node: Node, opt_options?: ReadOptions): Feature<Geometry>[];
     readName(source: Document | Element | string): string;
     readNameFromDocument(doc: Document): string;
     readNameFromNode(node: Element): string;

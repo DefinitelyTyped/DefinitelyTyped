@@ -208,7 +208,7 @@ export interface Association {
     label?: string;
 }
 
-export interface Reference {
+export interface Reference extends Association {
     referenceType: ReferenceType;
 }
 

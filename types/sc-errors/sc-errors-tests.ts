@@ -1,55 +1,59 @@
-import * as scErrors from "sc-errors";
-import http = require("http");
-import * as socketClusterServer from "socketcluster-server";
-
-const httpServer = http.createServer();
-const scServer = socketClusterServer.attach(httpServer);
+import * as scErrors from 'sc-errors';
 
 // Create the various errors.
-const authTokenExpiredError = new scErrors.AuthTokenExpiredError("error", new Date());
-const authTokenInvalidError = new scErrors.AuthTokenInvalidError("error");
-const authTokenNotBeforeError = new scErrors.AuthTokenNotBeforeError("error", new Date());
-const authTokenError = new scErrors.AuthTokenError("error");
-const silentMiddlewareBlockedError = new scErrors.SilentMiddlewareBlockedError("error", scServer.MIDDLEWARE_AUTHENTICATE);
-const invalidActionError = new scErrors.InvalidActionError("error");
-const invalidArgumentsError = new scErrors.InvalidArgumentsError("error");
-const invalidOptionsError = new scErrors.InvalidOptionsError("error");
-const invalidMessageError = new scErrors.InvalidMessageError("error");
-const socketProtocolError = new scErrors.SocketProtocolError("error", 1001);
-const serverProtocolError = new scErrors.ServerProtocolError("error");
-const httpServerError = new scErrors.HTTPServerError("error");
-const resourceLimitError = new scErrors.ResourceLimitError("error");
-const timeoutError = new scErrors.TimeoutError("error");
-const badConnectionError = new scErrors.BadConnectionError("error", "connectAbort");
-const brokerError = new scErrors.BrokerError("error");
-const processExitError = new scErrors.ProcessExitError("error");
-const unknownError = new scErrors.UnknownError("error");
+
+new scErrors.AuthTokenExpiredError('error', new Date());
+new scErrors.AuthTokenInvalidError('error');
+new scErrors.AuthTokenNotBeforeError('error', new Date());
+new scErrors.AuthTokenError('error');
+new scErrors.SilentMiddlewareBlockedError('error', 'authenticate');
+new scErrors.InvalidActionError('error');
+new scErrors.InvalidArgumentsError('error');
+new scErrors.InvalidOptionsError('error');
+new scErrors.InvalidMessageError('error');
+new scErrors.SocketProtocolError('error', 1001);
+new scErrors.ServerProtocolError('error');
+new scErrors.HTTPServerError('error');
+new scErrors.ResourceLimitError('error');
+new scErrors.TimeoutError('error');
+new scErrors.BadConnectionError('error', 'connectAbort');
+new scErrors.BrokerError('error');
+new scErrors.ProcessExitError('error');
+new scErrors.UnknownError('error');
 
 // Check some of the error and ignore statusses
-console.log(scErrors.socketProtocolErrorStatuses[1001]);
-console.log(scErrors.socketProtocolErrorStatuses[4000]);
 
-console.log(scErrors.socketProtocolIgnoreStatuses[1000]);
+// $ExpectType string
+scErrors.socketProtocolErrorStatuses[1001];
+
+// $ExpectType string
+scErrors.socketProtocolErrorStatuses[4000];
+
+// $ExpectType string
+scErrors.socketProtocolIgnoreStatuses[1000];
 
 // Dehydrate and hydrate an error
+
 const err = new Error();
+
 let dehydratedError = scErrors.dehydrateError(err);
-let hydratedError = scErrors.hydrateError(dehydratedError);
+scErrors.hydrateError(dehydratedError);
 
 dehydratedError = scErrors.dehydrateError(err, true);
-hydratedError = scErrors.hydrateError(dehydratedError);
+scErrors.hydrateError(dehydratedError);
 
 // decycle
+
 const foo = {
-    bar: 5
+    bar: 5,
 };
 const baz = {
     a: 1,
-    b: "test",
+    b: 'test',
     c: foo,
     d: {
-        d1: foo
-    }
+        d1: foo,
+    },
 };
 
-const decycledBaz = scErrors.decycle(baz);
+scErrors.decycle(baz);

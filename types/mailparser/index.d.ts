@@ -1,4 +1,4 @@
-// Type definitions for mailparser 2.4
+// Type definitions for mailparser 2.7
 // Project: https://github.com/nodemailer/mailparser
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 Andrey Volynkin <https://github.com/Avol-V>
@@ -42,7 +42,13 @@ export type HeaderValue = string | string[] | AddressObject | Date | StructuredH
  * A Map object with lowercase header keys.
  */
 export type Headers = Map<string, HeaderValue>;
-
+/**
+ * An array of raw header lines
+ */
+export type HeaderLines = ReadonlyArray<{
+    key: string;
+    line: string;
+}>;
 /**
  * Address details.
  */
@@ -108,6 +114,10 @@ interface AttachmentCommon {
 	 * A Map value that holds MIME headers for the attachment node.
 	 */
 	headers: Headers;
+    /**
+	 * An array of raw header lines for the attachment node.
+	 */
+	headerLines: HeaderLines;
 	/**
 	 * A MD5 hash of the message content.
 	 */
@@ -167,7 +177,7 @@ interface ParsedMail {
 	/**
 	 * An array of attachments.
 	 */
-	attachments?: Attachment[];
+	attachments: Attachment[];
 	/**
 	 * A Map object with lowercase header keys.
 	 *
@@ -177,6 +187,10 @@ interface ParsedMail {
 	 * - `date` value is a Date object.
 	 */
 	headers: Headers;
+    /**
+	 * An array of raw header lines
+	 */
+	headerLines: HeaderLines;
 	/**
 	 * The HTML body of the message.
 	 *
@@ -185,19 +199,19 @@ interface ParsedMail {
 	 * If the message included embedded images as cid: urls then these are all
 	 * replaced with base64 formatted data: URIs.
 	 */
-	html: string | boolean;
+	html: string | false;
 	/**
 	 * The plaintext body of the message.
 	 */
-	text: string;
+	text?: string;
 	/**
 	 * The plaintext body of the message formatted as HTML.
 	 */
-	textAsHtml: string;
+	textAsHtml?: string;
 	/**
 	 * The subject line.
 	 */
-	subject: string;
+	subject?: string;
 	/**
 	 * An array of referenced Message-ID values.
 	 *
@@ -211,11 +225,11 @@ interface ParsedMail {
 	/**
 	 * An address object for the `To:` header.
 	 */
-	to: AddressObject;
+	to?: AddressObject;
 	/**
 	 * An address object for the `From:` header.
 	 */
-	from: AddressObject;
+	from?: AddressObject;
 	/**
 	 * An address object for the `Cc:` header.
 	 */

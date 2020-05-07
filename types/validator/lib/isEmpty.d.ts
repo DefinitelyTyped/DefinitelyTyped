@@ -1,3 +1,3 @@
-import * as validator from "validator";
-declare const isEmpty: typeof validator.isEmpty;
-export = isEmpty;
+import validator from '../';
+export type IsEmptyOptions = validator.IsEmptyOptions;
+export default validator.isEmpty;

@@ -50,7 +50,11 @@ $("#tree").fancytree(<Fancytree.FancytreeOptions>{
 	unselectableIgnore: false,
 	unselectableStatus: function (event, data) {
 		return false;
-	}
+	},
+	strings: {
+		noData: 'custom no data message'
+	},
+	rtl: true,
 });
 
 //$("#tree").fancytree();
@@ -80,6 +84,11 @@ tree.loadKeyPath("/1/2", function (node, status) {
 		node.setActive();
 	}
 });
+
+tree.expandAll();
+tree.expandAll(false);
+tree.expandAll(true);
+tree.expandAll(true, { noAnimation: true });
 
 var node = $.ui.fancytree.getNode($("#tree"));
 alert($.ui.fancytree.version);

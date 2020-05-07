@@ -1,6 +1,7 @@
 // Type definitions for Segment's analytics.js
 // Project: https://segment.com/docs/libraries/analytics.js/
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
+//                 Miroslav Petrik <https://github.com/MiroslavPetrik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -15,8 +16,74 @@ declare namespace SegmentAnalytics {
     context?: object;
   }
 
+  interface CookieOptions {
+    maxage?: number;
+    domain?: string;
+    path?: string;
+    secure?: boolean;
+  }
+
+  interface MetricsOptions {
+    host?: string;
+    sampleRate?: number;
+    flushTimer?: number;
+    maxQueueSize?: number;
+  }
+
+  interface StoreOptions {
+    enabled?: boolean;
+  }
+
+  interface UserOptions {
+    cookie?: {
+      key: string;
+      oldKey: string;
+    };
+    localStorage?: {
+      key: string;
+    };
+    persist?: boolean;
+  }
+
+  interface GroupOptions {
+    cookie?: {
+      key: string;
+    };
+    localStorage?: {
+      key: string;
+    };
+    persist?: boolean;
+  }
+
+  interface InitOptions {
+    cookie?: CookieOptions;
+    metrics?: MetricsOptions;
+    localStorage?: StoreOptions;
+    user?: UserOptions;
+    group?: GroupOptions;
+    integrations?: {
+      All?: boolean;
+      [integration: string]: boolean | undefined;
+    };
+  }
+
+  interface IntegrationsSettings {
+    [key: string]: any;
+  }
+
   // The actual analytics.js object
   interface AnalyticsJS {
+    /* Use a plugin */
+    use(plugin: (analytics: AnalyticsJS) => void): this;
+
+    /* Initialize with the given integration `settings` and `options`. */
+    init(settings?: IntegrationsSettings, options?: InitOptions): this;
+
+    /* Define a new integration */
+    addIntegration(integration: (options: any) => void): this;
+
+    /*  Set the user's `id`. */
+    setAnonymousId(id: string): this;
 
     /* Configure Segment with write key */
     load(writeKey: string): void;
@@ -140,3 +207,8 @@ declare namespace SegmentAnalytics {
 }
 
 declare var analytics: SegmentAnalytics.AnalyticsJS;
+
+declare module '@segment/analytics.js-core' {
+  var analytics: SegmentAnalytics.AnalyticsJS;
+  export default analytics;
+}

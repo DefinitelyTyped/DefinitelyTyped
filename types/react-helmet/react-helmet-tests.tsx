@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Helmet, HelmetData } from "react-helmet";
+import HelmetDefaultExport from "react-helmet";
 
 const Application = () =>
     <div className="application">
@@ -102,6 +103,31 @@ function HTML() {
         }
     `}</style>
 </Helmet>;
+
+<HelmetDefaultExport>
+    <html lang="en" />
+</HelmetDefaultExport>;
+
+// undefined value
+<Helmet htmlAttributes={{ id: undefined }} />;
+<Helmet bodyAttributes={{ id: undefined }} />;
+
+// boolean value
+<Helmet htmlAttributes={{ draggable: false }} />;
+<Helmet bodyAttributes={{ draggable: false }} />;
+
+// number value
+<Helmet htmlAttributes={{ tabIndex: -1 }} />;
+<Helmet bodyAttributes={{ tabIndex: -1 }} />;
+
+// arbitrary data- attribute
+<Helmet htmlAttributes={{ 'data-foo': 'bar' }} />;
+<Helmet bodyAttributes={{ 'data-foo': 'bar' }} />;
+
+// $ExpectError
+<Helmet htmlAttributes={{ hidden: 42 }} />;
+// $ExpectError
+<Helmet bodyAttributes={{ hidden: 42 }} />;
 
 // $ExpectError
 <Helmet link={[ invalidProp: 'foo' ]} />;

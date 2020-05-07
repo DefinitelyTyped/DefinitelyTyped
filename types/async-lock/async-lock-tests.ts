@@ -27,3 +27,4 @@ lock.isBusy('key');
 const lock2 = new AsyncLock({ timeout : 5000 });
 const lock3 = new AsyncLock({ maxPending : 5000 });
 const lock4 = new AsyncLock({ Promise: null });
+const lock5 = new AsyncLock({ skipQueue: true });

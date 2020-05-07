@@ -209,7 +209,7 @@ export interface TotpOptions extends SharedOptions {
     /**
      * The counter value, calculated from time by default
      */
-    counter?: string;
+    counter?: number;
 }
 
 export interface TotpVerifyOptions extends SharedOptions {
@@ -250,7 +250,7 @@ export interface TotpVerifyOptions extends SharedOptions {
     /**
      * The counter value, calculated from time by default
      */
-    counter?: string;
+    counter?: number;
 }
 
 export interface OtpauthURLOptions extends SharedOptions {

@@ -75,7 +75,7 @@ declare class Environment<
 
     register(name: string, namespace?: string): string;
 
-    registerStub(Generator: Generator, namespace: string): this;
+    registerStub(generator: typeof Generator, namespace: string): this;
 
     resolveModulePath(moduleId: string): string;
 
@@ -102,9 +102,9 @@ declare namespace Environment {
     }
 
     namespace Adapter {
-        type Question<T> = inquirer.Question<T>;
+        type Question<T> = inquirer.DistinctQuestion<T>;
 
-        type Questions<T> = inquirer.Questions<T>;
+        type Questions<T> = inquirer.QuestionCollection<T>;
 
         type Answers = inquirer.Answers;
     }

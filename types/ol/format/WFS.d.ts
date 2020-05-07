@@ -1,5 +1,7 @@
 import { Extent } from '../extent';
 import Feature from '../Feature';
+import Geometry from '../geom/Geometry';
+import { ReadOptions } from './Feature';
 import Bbox from './filter/Bbox';
 import ComparisonBinary from './filter/ComparisonBinary';
 import Contains from './filter/Contains';
@@ -61,6 +63,7 @@ export interface WriteTransactionOptions {
 }
 export default class WFS extends XMLFeature {
     constructor(opt_options?: Options);
+    protected readFeaturesFromNode(node: Node, opt_options?: ReadOptions): Feature<Geometry>[];
     getFeatureType(): string[] | string;
     readFeatureCollectionMetadata(source: Document | Element | object | string): FeatureCollectionMetadata;
     readFeatureCollectionMetadataFromDocument(doc: Document): FeatureCollectionMetadata;
@@ -68,8 +71,13 @@ export default class WFS extends XMLFeature {
     readTransactionResponse(source: Document | Element | object | string): TransactionResponse;
     readTransactionResponseFromDocument(doc: Document): TransactionResponse;
     readTransactionResponseFromNode(node: Element): TransactionResponse;
-    setFeatureType(featureType: string[] | string): void;
+    setFeatureType(featureType: string[] | string | undefined): void;
     writeGetFeature(options: WriteGetFeatureOptions): Node;
-    writeTransaction(inserts: Feature[], updates: Feature[], deletes: Feature[], options: WriteTransactionOptions): Node;
+    writeTransaction(
+        inserts: Feature<Geometry>[],
+        updates: Feature<Geometry>[],
+        deletes: Feature<Geometry>[],
+        options: WriteTransactionOptions,
+    ): Node;
 }
 export function writeFilter(filter: Filter): Node;

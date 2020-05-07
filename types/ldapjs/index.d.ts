@@ -1,4 +1,4 @@
-// Type definitions for ldapjs
+// Type definitions for ldapjs 1.0
 // Project: http://ldapjs.org
 // Definitions by: Charles Villemure <https://github.com/cvillemure>, Peter Kooijmans <https://github.com/peterkooijmans>, Pablo Moleri <https://github.com/pmoleri>, Michael Scott-Nelson <https://github.com/mscottnelson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,15 +18,15 @@ export interface ErrorCallback {
 }
 
 export interface CompareCallback {
-	(error: Error, matched?: boolean): void;
+	(error: Error | null, matched?: boolean): void;
 }
 
 export interface ExopCallback {
-	(error: Error, value: string, result?: any): void;
+	(error: Error | null, value: string, result?: any): void;
 }
 
 export interface CallBack {
-	(error: Error, result?: any): void;
+	(error: Error | null, result?: any): void;
 }
 
 export interface ClientOptions {
@@ -51,10 +51,15 @@ export interface ClientOptions {
 }
 
 export interface SearchOptions {
-	scope?: string;
+	/** Defaults to base */
+	scope?: "base" | "one" | "sub";
+	/**  Defaults to (objectclass=*) */
 	filter?: string | Filter;
-	attributes?: string[];
+	/** Defaults to the empty set, which means all attributes */
+	attributes?: string | string[];
+	/** Defaults to 0 (unlimited) */
 	sizeLimit?: number;
+	/** Timeout in seconds. Defaults to 10. Lots of servers will ignore this! */
 	timeLimit?: number;
 	derefAliases?: number;
 	typesOnly?: boolean;
@@ -292,7 +297,7 @@ export interface Server extends EventEmitter {
 	/**
 	 * Unix Domain Socket
 	 * Start a UNIX socket server listening for connections on the given path.
-	 * This function is asynchronous. The last parameter callback will be called when the server has been bound. 
+	 * This function is asynchronous. The last parameter callback will be called when the server has been bound.
 	 */
 	listen(path: string): void;
 	listen(path: string, callback: any): void;
@@ -349,7 +354,9 @@ export class NoSuchAttributeError {
 export class ProtocolError {
 	constructor(error?: string);
 }
-
+export class OperationsError {
+	constructor(error?: string);
+}
 
 declare class Filter {
 	matches(obj: any): boolean;
@@ -359,7 +366,7 @@ declare class Filter {
 export function parseFilter(filterString: string): Filter;
 
 export class EqualityFilter extends Filter {
-	constructor(options: { attribute: string, value: string })
+	constructor(options: { attribute: string, value: string | Buffer })
 }
 
 export class PresenceFilter extends Filter {
@@ -392,6 +399,15 @@ export class NotFilter extends Filter {
 
 export class ApproximateFilter extends Filter {
 	constructor(options: { attribute: string, value: string })
+}
+
+export class ExtensibleFilter extends Filter {
+    constructor(options: {
+        rule?: string;
+        matchType?: string;
+        value: string;
+        dnAttributes?: boolean;
+    })
 }
 
 export interface AttributeJson {

@@ -2,9 +2,9 @@
 // Project: https://github.com/nfriedly/express-rate-limit
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, makepost <https://github.com/makepost>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
-import express = require("express");
+import express = require('express');
 
 declare namespace RateLimit {
     type StoreIncrementCallback = (err?: {}, hits?: number) => void;

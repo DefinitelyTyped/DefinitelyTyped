@@ -1,4 +1,4 @@
-// Type definitions for express-http-proxy 1.5
+// Type definitions for express-http-proxy 1.6
 // Project: https://github.com/villadora/express-http-proxy#readme
 // Definitions by:  ulrichb <https://github.com/ulrichb>
 //                  Daniel Schopf <https://github.com/Danscho>
@@ -7,7 +7,7 @@
 //                  John L. Singleton <https://github.com/jsinglet>
 //                  Lindsay Wardell <https://github.com/lindsaykwardell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { RequestHandler, Request, Response, NextFunction } from "express";
 import { RequestOptions, IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
@@ -25,7 +25,7 @@ declare namespace proxy {
             res: Response,
             next: NextFunction
         ) => any;
-        proxyReqPathResolver?: (req: Request) => string;
+        proxyReqPathResolver?: (req: Request) => string | Promise<string>;
         proxyReqOptDecorator?: (
             proxyReqOpts: RequestOptions,
             srcReq: Request

@@ -1,14 +1,18 @@
-// Type definitions for @google-cloud/kms 0.2
+// Type definitions for @google-cloud/kms 1.5
 // Project: https://github.com/googleapis/nodejs-kms
 // Definitions by: Ben Talbot <https://github.com/ben-tbotlabs>
+//                 Caian Ertl <https://github.com/caiertl>
+//                 Steven Collins <https://github.com/carboncollins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.4
 
 /// <reference types="node" />
 
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 
 export namespace v1 {
+    type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
     enum CryptoKeyVersionAlgorithm {
         // Not specified.
         CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED = 0,
@@ -106,6 +110,12 @@ export namespace v1 {
         CAVIUM_V1_COMPRESSED = 3,
     }
 
+    interface Digest {
+        sha256?: Buffer;
+        sha384?: Buffer;
+        sha512?: Buffer;
+    }
+
     interface KeyOperationAttestation {
         format: AttestationFormat;
     }
@@ -178,7 +188,7 @@ export namespace v1 {
 
         interface EncryptRequest {
             name: string;
-            plaintext: string;
+            plaintext: Buffer;
             additionalAuthenticatedData?: string;
         }
         interface EncryptResponse {
@@ -189,13 +199,20 @@ export namespace v1 {
 
         interface DecryptRequest {
             name: string;
-            ciphertext: string;
+            ciphertext: Buffer;
             additionalAuthenticatedData?: string;
         }
         interface DecryptResponse {
             plaintext: Buffer;
         }
         type DecryptCallback = (err: Error | null, apiResponse: [DecryptResponse, any, any]) => void;
+
+        interface CreateKeyRingRequest {
+            parent: string;
+            keyRingId: string;
+            keyRing?: Partial<KeyRing>;
+        }
+        type CreateKeyRingCallback = (err: Error | null, apiResponse: [KeyRing, any, any]) => void;
 
         interface ListKeyRingsRequest {
             parent: string;
@@ -204,12 +221,31 @@ export namespace v1 {
         }
         type ListKeyRingsCallback = (err: Error | null, apiResponse: [KeyRing[], any, any]) => void;
 
+        interface CreateCryptoKeyRequest {
+            parent: string;
+            cryptoKeyId: string;
+            cryptoKey: Partial<Omit<CryptoKey, 'purpose'>> & {
+                purpose: keyof typeof CryptoKeyPurpose;
+            };
+            skipInitialVersionCreation?: boolean;
+        }
+        type CreateCryptoKeyCallback = (err: Error | null, apiResponse: [CryptoKey, any, any]) => void;
+
         interface ListCryptoKeysRequest {
             parent: string;
             page_size?: number;
             page_token?: string;
         }
         type ListCryptoKeysCallback = (err: Error | null, apiResponse: [CryptoKey[], any, any]) => void;
+
+        interface AsymmetricSignRequest {
+            name: string;
+            digest: Digest;
+        }
+        interface AsymmetricSignResponse {
+            signature: Buffer;
+        }
+        type AsymmetricSignCallback = (err: Error | null, apiResponse: [AsymmetricSignResponse, any, any]) => void;
     }
 
     class KeyManagementServiceClient {
@@ -229,13 +265,27 @@ export namespace v1 {
         decrypt(request: KeyManagementServiceClient.DecryptRequest, callback: KeyManagementServiceClient.DecryptCallback): void;
         decrypt(request: KeyManagementServiceClient.DecryptRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.DecryptCallback): void;
 
+        createKeyRing(request: KeyManagementServiceClient.CreateKeyRingRequest, callback: KeyManagementServiceClient.CreateKeyRingCallback): void;
+        createKeyRing(request: KeyManagementServiceClient.CreateKeyRingRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.CreateKeyRingCallback): void;
+        // This needs to be after the declaration that has callback but not options.
+        createKeyRing(request: KeyManagementServiceClient.CreateKeyRingRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyRing, any, any]>;
+
         listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyRing[], any, any]>;
         listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, callback: KeyManagementServiceClient.ListKeyRingsCallback): void;
         listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.ListKeyRingsCallback): void;
 
+        createCryptoKey(request: KeyManagementServiceClient.CreateCryptoKeyRequest, callback: KeyManagementServiceClient.CreateCryptoKeyCallback): void;
+        createCryptoKey(request: KeyManagementServiceClient.CreateCryptoKeyRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.CreateCryptoKeyCallback): void;
+        // This needs to be after the declaration that has callback but not options.
+        createCryptoKey(request: KeyManagementServiceClient.CreateCryptoKeyRequest, gaxOpts?: GAX.CallOptions): Promise<[CryptoKey, any, any]>;
+
         listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, gaxOpts?: GAX.CallOptions): Promise<[CryptoKey[], any, any]>;
         listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, callback: KeyManagementServiceClient.ListCryptoKeysCallback): void;
         listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.ListCryptoKeysCallback): void;
+
+        asymmetricSign(request: KeyManagementServiceClient.AsymmetricSignRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyManagementServiceClient.AsymmetricSignResponse, any, any]>;
+        asymmetricSign(request: KeyManagementServiceClient.AsymmetricSignRequest, callback: KeyManagementServiceClient.AsymmetricSignCallback): void;
+        asymmetricSign(request: KeyManagementServiceClient.AsymmetricSignRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.AsymmetricSignCallback): void;
     }
 }
 

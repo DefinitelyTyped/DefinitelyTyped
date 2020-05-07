@@ -17,9 +17,9 @@ declare namespace echarts {
              * and move together.
              * Axes are linked according to the value of axisPointer.
              * See
-             * [sampleA](https://ecomfe.github.io/echarts-examples/public/view.html?c=candlestick-brush&edit=1&reset=1)
+             * [sampleA](https://echarts.apache.org/examples/en/view.html?c=candlestick-brush&edit=1&reset=1)
              * and
-             * [sampleB](https://ecomfe.github.io/echarts-examples/public/view.html?c=scatter-nutrients-matrix&edit=1&reset=1).
+             * [sampleB](https://echarts.apache.org/examples/en/view.html?c=scatter-nutrients-matrix&edit=1&reset=1).
              * link is an array, where each item represents a 'link group'.
              * Axes will be linked when they are refered
              * in the same link group.
@@ -39,7 +39,7 @@ declare namespace echarts {
              *     ...
              * ]
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#axisPointer.link
+             * @see https://echarts.apache.org/en/option.html#axisPointer.link
              */
             link?: object[];
 

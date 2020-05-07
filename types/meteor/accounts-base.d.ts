@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 declare module "meteor/accounts-base" {
     interface URLS {
         resetPassword: (token: string) => string;

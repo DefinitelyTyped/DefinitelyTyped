@@ -13,6 +13,11 @@ import SMTPConnection = require('./smtp-connection');
 import XOAuth2 = require('./xoauth2');
 
 declare namespace SMTPTransport {
+    interface AuthenticationTypeCustom extends SMTPConnection.Credentials {
+        type: 'CUSTOM';
+        method: string;
+    }
+
     interface AuthenticationTypeLogin {
         type: 'LOGIN';
         user: string;

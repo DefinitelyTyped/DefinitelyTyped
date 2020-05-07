@@ -22,7 +22,17 @@ interface SuperUser extends User {
 factory.setAdapter("my-adapter", "my-adapter-name");
 
 // Testing sequence to use it on its own
-const scoreSequence = factory.seq<number>('User.score', score => score + 1);
+const scoreSequence = factory.sequence<number>(
+  'User.score',
+  score => score + 1,
+);
+const scoreSeq = factory.seq<number>('User.score', score => score + 1);
+
+// Testing sequence resetting
+factory.resetSeq();
+factory.resetSequence();
+factory.resetSeq('User.score');
+factory.resetSequence('User.score');
 
 // Testing define with seq, assoc, assocAttrs, assocMany
 factory.define<User>(

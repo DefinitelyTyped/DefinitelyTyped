@@ -10,7 +10,7 @@ export interface RetryStrategyOptions {
     attempt: number;
 }
 
-export type RetryStrategy = (options: RetryStrategyOptions) => number | Error;
+export type RetryStrategy = (options: RetryStrategyOptions) => number | Error | unknown;
 
 export interface ClientOpts {
     host?: string;
@@ -22,7 +22,7 @@ export interface ClientOpts {
     return_buffers?: boolean;
     detect_buffers?: boolean;
     socket_keepalive?: boolean;
-    socket_initialdelay?: number;
+    socket_initial_delay?: number;
     no_ready_check?: boolean;
     enable_offline_queue?: boolean;
     retry_max_delay?: number;
@@ -376,13 +376,17 @@ export interface Commands<R> {
      * Remove all keys from all databases.
      */
     flushall(cb?: Callback<string>): R;
+    flushall(async: "ASYNC", cb?: Callback<string>): R;
     FLUSHALL(cb?: Callback<string>): R;
+    FLUSHALL(async: 'ASYNC', cb?: Callback<string>): R;
 
     /**
      * Remove all keys from the current database.
      */
     flushdb(cb?: Callback<'OK'>): R;
+    flushdb(async: "ASYNC", cb?: Callback<string>): R;
     FLUSHDB(cb?: Callback<'OK'>): R;
+    FLUSHDB(async: 'ASYNC', cb?: Callback<string>): R;
 
     /**
      * Add one or more geospatial items in the geospatial index represented using a sorted set.
@@ -1163,7 +1167,7 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     connected: boolean;
     command_queue_length: number;
     offline_queue_length: number;
-    retry_delay: number;
+    retry_delay: number | Error;
     retry_backoff: number;
     command_queue: any[];
     offline_queue: any[];
@@ -1226,9 +1230,19 @@ export function createClient(options?: ClientOpts): RedisClient;
 
 export function print(err: Error | null, reply: any): void;
 
-export class RedisError extends Error { }
-export class ReplyError extends RedisError { }
-export class AbortError extends RedisError { }
+export class RedisError extends Error {
+    name: string;
+}
+export class ReplyError extends RedisError {
+    command: string;
+    args?: unknown[];
+    code: string;
+}
+export class AbortError extends RedisError {
+    command: string;
+    args?: unknown[];
+    code?: string;
+}
 export class ParserError extends RedisError {
     offset: number;
     buffer: Buffer;

@@ -1,5 +1,5 @@
-// Type definitions for react-big-calendar 0.22
-// Project: https://github.com/intljusticemission/react-big-calendar
+// Type definitions for react-big-calendar 0.24
+// Project: https://github.com/jquense/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
 //                 Krzysztof Bezrąk <https://github.com/pikpok>
@@ -14,24 +14,28 @@
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Eric Kenney <https://github.com/KenneyE>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
+//                 Jan Michalak <https://github.com/michalak111>
+//                 Felix Hessenberger <https://github.com/fhessenberger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
 import * as React from 'react';
 
-export type DayPropGetter = (date: Date) => { className?: string, style?: React.CSSProperties };
-export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => { className?: string, style?: React.CSSProperties };
-export type SlotPropGetter = (date: Date) => { className?: string, style?: React.CSSProperties };
+export type DayPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
+export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => React.HTMLAttributes<HTMLDivElement>;
+export type SlotPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
+export type SlotGroupPropGetter = () => React.HTMLAttributes<HTMLDivElement>;
 export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type ViewsProps = View[] | {
-    work_week?: boolean | React.SFC | React.Component,
-    day?: boolean | React.SFC | React.Component,
-    agenda?: boolean | React.SFC | React.Component,
-    month?: boolean | React.SFC | React.Component,
-    week?: boolean | React.SFC | React.Component
+    work_week?: boolean | React.ComponentType<any> & ViewStatic,
+    day?: boolean | React.ComponentType<any> & ViewStatic,
+    agenda?: boolean | React.ComponentType<any> & ViewStatic,
+    month?: boolean | React.ComponentType<any> & ViewStatic,
+    week?: boolean | React.ComponentType<any> & ViewStatic
 };
+export type DayLayoutAlgorithm = 'overlap' | 'no-overlap';
 export type NavigateAction = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 export interface Event {
     allDay?: boolean;
@@ -45,8 +49,8 @@ export interface DateRange {
     end: Date;
 }
 
-export type DateFormatFunction = (date: Date, culture?: string, localizer?: object) => string;
-export type DateRangeFormatFunction = (range: DateRange, culture?: string, localizer?: object) => string;
+export type DateFormatFunction = (date: Date, culture?: Culture, localizer?: DateLocalizer) => string;
+export type DateRangeFormatFunction = (range: DateRange, culture?: Culture, localizer?: DateLocalizer) => string;
 export type DateFormat = string | DateFormatFunction;
 
 export interface Formats {
@@ -137,7 +141,6 @@ export interface Components<TEvent extends object = Event> {
     event?: React.ComponentType<EventProps<TEvent>>;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
     eventContainerWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    dayWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     timeSlotWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     timeGutterHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
@@ -228,7 +231,7 @@ export interface Messages {
     noEventsInRange?: string;
 }
 
-export type Culture = string | string[];
+export type Culture = string;
 export type FormatInput = number | string | Date;
 
 export interface DateLocalizerSpec {
@@ -284,6 +287,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     rtl?: boolean;
     eventPropGetter?: EventPropGetter<TEvent>;
     slotPropGetter?: SlotPropGetter;
+    slotGroupPropGetter?: SlotGroupPropGetter;
     dayPropGetter?: DayPropGetter;
     showMultiDayTimes?: boolean;
     min?: stringOrDate;
@@ -293,6 +297,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     formats?: Formats;
     components?: Components<TEvent>;
     messages?: Messages;
+    dayLayoutAlgorithm?: DayLayoutAlgorithm;
     titleAccessor?: keyof TEvent | ((event: TEvent) => string);
     tooltipAccessor?: keyof TEvent | ((event: TEvent) => string);
     allDayAccessor?: keyof TEvent | ((event: TEvent) => boolean);
@@ -301,7 +306,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     resourceAccessor?: keyof TEvent | ((event: TEvent) => any);
     resources?: TResource[];
     resourceIdAccessor?: keyof TResource | ((resource: TResource) => any);
-    resourceTitleAccessor?: keyof TResource | ((resource: TResource) => string);
+    resourceTitleAccessor?: keyof TResource | ((resource: TResource) => any);
     defaultView?: View;
     defaultDate?: Date;
     className?: string;
@@ -309,8 +314,15 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onShowMore?: (events: TEvent[], date: Date) => void;
 }
 
+export interface TitleOptions {
+    formats: DateFormat[];
+    culture?: string;
+    [propName: string]: any;
+}
+
 export interface ViewStatic {
     navigate(date: Date, action: NavigateAction, props: any): Date;
+    title(date: Date, options: TitleOptions): string;
 }
 
 export interface MoveOptions {
@@ -326,11 +338,11 @@ export class Calendar<
 
 export interface components {
     dateCellWrapper: React.ComponentType;
-    dayWrapper: React.ComponentType;
     eventWrapper: React.ComponentType<Event>;
 }
 export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;
 export function momentLocalizer(momentInstance: object): DateLocalizer;
+export function dateFnsLocalizer(config: object): DateLocalizer;
 export interface Navigate {
     PREVIOUS: 'PREV';
     NEXT: 'NEXT';

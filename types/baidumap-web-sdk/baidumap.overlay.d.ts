@@ -227,7 +227,7 @@ declare namespace BMap {
 		strokeWeight?: number;
 		strokeOpacity?: number;
 		fillOpacity?: number;
-		strokeStyle?: number;
+		strokeStyle?: string;
 		enableMassClear?: boolean;
 		enableEditing?: boolean;
 		enableClicking?: boolean;

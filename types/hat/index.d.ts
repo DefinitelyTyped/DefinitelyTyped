@@ -1,6 +1,7 @@
 // Type definitions for hat 0.0
 // Project: https://github.com/substack/node-hat
 // Definitions by: Sasha Grin <https://github.com/tup1tsa>
+//                 Miro Yovchev <https://github.com/myovchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HatsList {
@@ -12,7 +13,7 @@ interface Rack {
     base: number;
     hats: HatsList;
 
-    (data: any): string;
+    (data?: any): string;
     get(id: string): any;
     set(id: string, value: any): Rack;
 }

@@ -1,12 +1,15 @@
-import { EventsKey } from '../events';
-import Event from '../events/Event';
+import { EventsKey, ListenerFunction } from '../events';
+import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
+import { FeatureLike } from '../Feature';
 import FeatureFormat from '../format/Feature';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
 import { Size } from '../size';
-import { LoadFunction, UrlFunction } from '../Tile';
+import Tile, { LoadFunction, UrlFunction } from '../Tile';
 import TileGrid from '../tilegrid/TileGrid';
+import VectorRenderTile from '../VectorRenderTile';
 import VectorTile_1 from '../VectorTile';
 import { AttributionLike } from './Source';
 import State from './State';
@@ -15,6 +18,7 @@ import UrlTile from './UrlTile';
 
 export interface Options {
     attributions?: AttributionLike;
+    attributionsCollapsible?: boolean;
     cacheSize?: number;
     extent?: Extent;
     format?: FeatureFormat;
@@ -25,6 +29,7 @@ export interface Options {
     maxZoom?: number;
     minZoom?: number;
     tileSize?: number | Size;
+    maxResolution?: number;
     tileGrid?: TileGrid;
     tileLoadFunction?: LoadFunction;
     tileUrlFunction?: UrlFunction;
@@ -32,18 +37,26 @@ export interface Options {
     transition?: number;
     urls?: string[];
     wrapX?: boolean;
+    zDirection?: number;
 }
 export default class VectorTile extends UrlTile {
     constructor(options: Options);
     protected tileClass: VectorTile_1;
     clear(): void;
+    expireCache(projection: Projection, usedTiles: { [key: string]: boolean }): void;
+    getFeaturesInExtent(extent: Extent): FeatureLike[];
     getOverlaps(): boolean;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
-    on(type: 'change', listener: (evt: Event) => void): EventsKey;
-    once(type: 'change', listener: (evt: Event) => void): EventsKey;
-    un(type: 'change', listener: (evt: Event) => void): void;
+    getSourceTiles(pixelRatio: number, projection: Projection, tile: VectorRenderTile): VectorTile_1[];
+    getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
+    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'change', listener: (evt: BaseEvent) => void): void;
+    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'error', listener: (evt: BaseEvent) => void): void;
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
@@ -57,3 +70,4 @@ export default class VectorTile extends UrlTile {
     once(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
     un(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): void;
 }
+export function defaultLoadFunction(tile: VectorTile_1, url: string): void;

@@ -2,7 +2,7 @@
 // Project: https://github.com/saintedlama/passport-local-mongoose
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="mongoose" />
 /// <reference types="passport-local" />
@@ -27,10 +27,14 @@ declare module 'mongoose' {
     resetAttempts(cb: (err: any, res: any) => void): void;
   }
 
+  interface AuthenticateMethod<T> {
+    (username: string, password: string): Promise<AuthenticationResult>;
+    (username: string, password: string, cb: (err: any, user: T | boolean, error: any) => void): void;
+  }
+
   // statics
   interface PassportLocalModel<T extends Document> extends Model<T> {
-    authenticate(): (username: string, password: string) => Promise<AuthenticationResult>;
-    authenticate(): (username: string, password: string, cb: (err: any, user: T | boolean, error: any) => void) => void;
+    authenticate(): AuthenticateMethod<T> 
     serializeUser(): (user: PassportLocalModel<T>, cb: (err: any, id?: any) => void) => void;
     deserializeUser(): (username: string, cb: (err: any, user?: any) => void) => void;
 

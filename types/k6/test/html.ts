@@ -79,9 +79,9 @@ derived = selection.first();
 element = selection.get(7);
 derived = selection.has('.item');
 selection.html(); // $ExpectType string | undefined
-derived = selection.is('.item');
-derived = selection.is(tester);
-derived = selection.is(selection);
+selection.is('.item'); // $ExpectType boolean
+selection.is(tester); // $ExpectType boolean
+selection.is(selection); // $ExpectType boolean
 derived = selection.last();
 selection.map(mapper); // $ExpectType unknown[]
 derived = selection.next('span');
@@ -210,8 +210,8 @@ href.hostname(); // $ExpectType string
 href.origin(); // $ExpectType string
 href.password(); // $ExpectType string
 href.pathname(); // $ExpectType string
+href.port(); // $ExpectType string
 href.protocol(); // $ExpectType string
-href.post(); // $ExpectType string
 href.relList(); // $ExpectType string[]
 href.search(); // $ExpectType string
 href.text(); // $ExpectType string

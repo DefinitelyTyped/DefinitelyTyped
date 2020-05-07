@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/d3kit
 // Definitions by: Morgan Benton <https://github.com/morphatic/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 import * as d3 from "d3";
 

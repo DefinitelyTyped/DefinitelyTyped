@@ -80,6 +80,57 @@ function test_fetchUrlWithRequestObject() {
     handlePromise(fetch(request));
 }
 
+function test_fetchUrlObject() {
+    handlePromise(fetch(new URL("https://example.org")));
+}
+
+async function test_responseReturnTypes() {
+    const response = await fetch(new URL("https://example.org"));
+
+    // $ExpectType Blob
+    const blob = await response.clone().blob();
+
+    // $ExpectType string
+    const text = await response.clone().text();
+
+    // $ExpectType Buffer
+    const buffer = await response.clone().buffer();
+}
+
+function test_fetchUrlObjectWithRequestObject() {
+    const requestOptions: RequestInit = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        signal: {
+            aborted: false,
+
+            addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+                capture?: boolean,
+                once?: boolean,
+                passive?: boolean
+            }) => undefined,
+
+            removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+                capture?: boolean
+            }) => undefined,
+
+            dispatchEvent: (event: any) => false
+        }
+    };
+    const request: Request = new Request(
+        new URL("https://example.org"),
+        requestOptions
+    );
+    const timeout: number = request.timeout;
+    const size: number = request.size;
+    const agent: Agent | ((parsedUrl: URL) => Agent) | undefined = request.agent;
+    const protocol: string = request.protocol;
+
+    handlePromise(fetch(request));
+}
+
 function test_globalFetchVar() {
     fetch("http://test.com", {}).then(response => {
         // for test only
@@ -108,10 +159,15 @@ function handlePromise(
         });
 }
 
-function test_headersRaw() {
+function test_headers() {
     const headers = new Headers();
     const myHeader = "foo";
     headers.raw()[myHeader]; // $ExpectType string[]
+
+    [...headers]; // $ExpectType [string, string][]
+    [...headers.entries()]; // $ExpectType [string, string][]
+    [...headers.keys()]; // $ExpectType string[]
+    [...headers.values()]; // $ExpectType [string][]
 }
 
 function test_isRedirect() {
@@ -120,7 +176,15 @@ function test_isRedirect() {
 }
 
 function test_FetchError() {
-    new FetchError("message", "type", "systemError");
+    new FetchError("message", "type", {
+        name: 'Error',
+        message: 'Error message',
+        code: "systemError",
+    });
+    new FetchError("message", "type", {
+        name: 'Error',
+        message: "Error without code",
+    });
     new FetchError("message", "type");
 }
 

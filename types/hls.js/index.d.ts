@@ -4,6 +4,7 @@
 //                 Johan Brook <https://github.com/brookback>
 //                 Adrián Caballero <https://github.com/adripanico>
 //                 Alexey I. Berezin <https://github.com/beraliv>
+//                 Arkadiusz Babiarz <https://github.com/drax98>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -350,6 +351,15 @@ declare namespace Hls {
         log?: CustomLogger;
         debug?: CustomLogger;
         error?: CustomLogger;
+    }
+
+    interface AudioTrack {
+        buffer: SourceBuffer;
+        container: string;
+        codec: string;
+        id: string;
+        initSegment?: Uint8Array;
+        levelCodec: string;
     }
 
     interface Config {
@@ -1700,15 +1710,6 @@ declare class Hls {
      * first level index (index of first level appearing in Manifest. it is usually defined as start level hint for player)
      */
     firstLevel: number;
-    /**
-     * array of audio tracks exposed in manifest
-     */
-    readonly audioTracks: AudioTrack[];
-    /**
-     * get: returns audio track id
-     * set: sets audio track id (returned by)
-     */
-    audioTrack: number;
     /**
      * position of live sync point (ie edge of live position minus safety delay defined by hls.config.liveSyncDuration)
      */

@@ -26,6 +26,7 @@ declare namespace Modal {
         dialogComponent?: any; // TODO: Add more specific type
         dialogTransitionTimeout?: number;
         enforceFocus?: boolean;
+        restoreFocus?: boolean;
         keyboard?: boolean;
         onBackdropClick?: (node: HTMLElement) => any;
         onEscapeKeyDown?: (node: HTMLElement) => any;

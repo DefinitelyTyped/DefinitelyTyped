@@ -129,6 +129,9 @@ connection.config.queryFormat = function(query, values) {
     });
 };
 
+// $ExpectType string
+connection.config.queryFormat("UPDATE posts SET title = :title", {title: "Hello MySQL"});
+
 connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"});
 
 const s: stream.Readable = connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"}).stream({highWaterMark: 5});
@@ -431,3 +434,5 @@ connection = mysql.createConnection({debug: true});
 connection = mysql.createConnection({debug: ['ComQueryPacket', 'RowDataPacket']});
 connection = mysql.createConnection({dateStrings: ['DATE']});
 connection = mysql.createConnection({dateStrings: true});
+connection = mysql.createConnection({flags: '-FOUND_ROWS'});
+connection = mysql.createConnection({flags: ['-FOUND_ROWS']});

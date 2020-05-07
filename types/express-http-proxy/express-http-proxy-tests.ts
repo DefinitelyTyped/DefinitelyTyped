@@ -12,6 +12,10 @@ proxy("www.google.com", {
 });
 
 proxy("www.google.com", {
+    proxyReqPathResolver: async req => req.url
+});
+
+proxy("www.google.com", {
     limit: "10mb"
 });
 

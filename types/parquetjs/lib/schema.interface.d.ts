@@ -1,5 +1,7 @@
+export type SchemaInterfaceField = SingleFieldInterface | NestedFieldsInterface;
+
 export interface SchemaInterface {
-    [key: string]: SingleFieldInterface | NestedFieldsInterface;
+    [key: string]: SchemaInterfaceField;
 }
 
 export interface SingleFieldInterface {
@@ -7,9 +9,11 @@ export interface SingleFieldInterface {
     encoding?: string;
     bitWidth?: number;
     optional?: boolean;
+    repeated?: boolean;
 }
 
 export interface NestedFieldsInterface {
-    repeated: boolean;
+    optional?: boolean;
+    repeated?: boolean;
     fields: SchemaInterface;
 }

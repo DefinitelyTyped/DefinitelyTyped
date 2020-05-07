@@ -1,5 +1,5 @@
-import PhotoSwipeUI_Default = require('./dist/photoswipe-ui-default/index');
-import PhotoSwipe = require('./index');
+import PhotoSwipeUI_Default = require('photoswipe/dist/photoswipe-ui-default');
+import PhotoSwipe = require('photoswipe');
 
 function test_defaultUI() {
     var items: PhotoSwipeUI_Default.Item[] = [
@@ -19,7 +19,10 @@ function test_defaultUI() {
             h: 2000,
 
             msrc: "path/to/image3-thumb.jpg"
-        }
+        },
+        {
+            html: "<h1>Hello World</h1>",
+        },
     ];
 
     var options: PhotoSwipe.Options = {

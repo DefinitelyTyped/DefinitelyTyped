@@ -5,14 +5,13 @@ import {
 } from "gremlin";
 
 const {
-  RemoteConnection,
-  RemoteStrategy,
-  RemoteTraversal,
-  DriverRemoteConnection,
-  Client,
-  ResultSet,
-  Authenticator,
-  PlainTextSaslAuthenticator,
+    RemoteConnection,
+    RemoteStrategy,
+    RemoteTraversal,
+    DriverRemoteConnection,
+    Client,
+    ResultSet,
+    auth: { Authenticator, PlainTextSaslAuthenticator },
 } = driver;
 
 const {
@@ -41,6 +40,7 @@ const {
   pop,
   scope,
   t,
+  traversal,
   statics,
 } = process;
 
@@ -58,6 +58,8 @@ const {
   toLong,
 } = structure;
 
+import Statics = process.Statics;
+
 function constructorTests() {
   const remoteConnection = new RemoteConnection("test");
   const remoteStrategy = new RemoteStrategy(remoteConnection);
@@ -74,9 +76,12 @@ function constructorTests() {
 
   remoteStrategy.apply(remoteTraversal);
 
+  const eventHandler = (logline: string) => {};
+  driverRemoteConnection.addListener('log', eventHandler);
   driverRemoteConnection.open();
   driverRemoteConnection.submit(new Bytecode());
   driverRemoteConnection.close();
+  driverRemoteConnection.removeListener('log', eventHandler);
 
   client.open();
   client.submit(new Bytecode());
@@ -138,6 +143,7 @@ function processTests() {
   TextP.startingWith();
 
   traversal.getBytecode();
+  traversal.hasNext();
   traversal.iterate();
   traversal.next();
   traversal.toList();
@@ -254,4 +260,64 @@ function predefinedEnumTests() {
   t.key.toString() === "key";
   t.label.toString() === "label";
   t.value.toString() === "value";
+}
+
+function dslTests() {
+  // DSL definition
+
+  interface TestDSLStatics extends Statics<TestDSLTraversal> {
+      aged: (age: number) => TestDSLTraversal;
+      hasNotLabel: (...args: string[]) => TestDSLTraversal;
+  }
+
+  let __: TestDSLStatics;
+
+  class TestDSLTraversal extends GraphTraversal {
+    private static _statics: TestDSLStatics;
+
+    static get statics(): TestDSLStatics {
+      if (!TestDSLTraversal._statics) {
+        // Should construct a proper statics object here that fits the return type
+        // ie. merge the newly defined DSL steps with the base Tinkerpop statics
+        TestDSLTraversal._statics = <TestDSLStatics> statics;
+      }
+
+      return TestDSLTraversal._statics;
+    }
+
+    aged(age: number): TestDSLTraversal {
+      return this.has('person', 'age', age);
+    }
+
+    hasNotLabel(...args: string[]): TestDSLTraversal {
+      return this.not(__.hasLabel(...args));
+    }
+  }
+
+  class TestDSLTraversalSource extends GraphTraversalSource<TestDSLTraversal> {
+    person(name: string): TestDSLTraversal {
+      return this.V().has('person', 'name', name);
+    }
+  }
+
+  // DSL usage
+
+  __ = TestDSLTraversal.statics;
+
+  const connection = new DriverRemoteConnection('test');
+  const g = traversal(TestDSLTraversalSource).withRemote(connection);
+
+  g.person('test').aged(33);
+  g.person('test').where(__.hasNotLabel('test')).aged(33);
+  g.V().where(__.hasNotLabel('test'));
+  g.V().aged(33);
+}
+
+async function asyncIteratorTest() {
+  const t = new process.Traversal(null, null, new Bytecode());
+
+  // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+  for await (const v of t) {
+    v;
+  }
 }

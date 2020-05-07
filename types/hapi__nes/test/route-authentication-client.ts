@@ -15,5 +15,8 @@ import NesClient = require('@hapi/nes/lib/client');
 var client = new NesClient.Client('ws://localhost');
 client.connect({ auth: { headers: { authorization: 'Basic am9objpzZWNyZXQ=' } } }).then(() => {
 
+    return client.reauthenticate({ headers: { authorization: 'Bearer am9objpzZWNyZXQ=' } });
+}).then(() => {
+
     return client.request('hello');
 });

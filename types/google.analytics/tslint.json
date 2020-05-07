@@ -1,10 +1,9 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "ban-types": false,
         "dt-header": false,
         "npm-naming": false,
-        "ban-types": false,
-        "unified-signatures": false,
-        "no-unnecessary-generics": false
+        "unified-signatures": false
     }
 }

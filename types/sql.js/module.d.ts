@@ -2,14 +2,14 @@
 /// <reference types="emscripten" />
 
 export namespace SqlJs {
-    type ValueType = number | string | Uint8Array;
+    type ValueType = number | string | Uint8Array | null;
     type ParamsObject = Record<string, ValueType>;
     type ParamsCallback = (obj: ParamsObject) => void;
     type Config = Partial<typeof Module>;
 
     interface QueryResults {
         columns: string[];
-        values: ValueType[];
+        values: ValueType[][];
     }
 
     class Database {

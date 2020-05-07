@@ -4,6 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Pbf {
+    static readonly Varint: 0;
+    static readonly Fixed64: 1;
+    static readonly Bytes: 2;
+    static readonly Fixed32: 5;
+
     buf: Uint8Array;
     pos: number;
     type: number;

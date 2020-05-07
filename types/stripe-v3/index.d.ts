@@ -10,6 +10,11 @@
 //                 Marlos Borges <https://github.com/marlosin>
 //                 Thomas Marek <https://github.com/ttmarek>
 //                 Kim Ehrenpohl <https://github.com/kimehrenpohl>
+//                 Krishna Pravin <https://github.com/KrishnaPravin>
+//                 Hiroshi Ioka <https://github.com/hirochachacha>
+//                 Austin Turner <https://github.com/paustint>
+//                 Kevin Soltysiak <https://github.com/ksol>
+//                 Kohei Matsubara <https://github.com/matsuby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -22,43 +27,78 @@ declare namespace stripe {
 
     interface Stripe {
         elements(options?: elements.ElementsCreateOptions): elements.Elements;
-        createToken(element: elements.Element, options?: TokenOptions): Promise<TokenResponse>;
+        createToken(element: elements.Element, options?: TokenOptions | BankAccountTokenOptions): Promise<TokenResponse>;
         createToken(name: 'bank_account', options: BankAccountTokenOptions): Promise<TokenResponse>;
         createToken(name: 'pii', options: PiiTokenOptions): Promise<TokenResponse>;
         createSource(element: elements.Element, options?: { owner?: OwnerInfo }): Promise<SourceResponse>;
         createSource(options: SourceOptions): Promise<SourceResponse>;
         retrieveSource(options: RetrieveSourceOptions): Promise<SourceResponse>;
-        redirectToCheckout(options: StripeCheckoutOptions): Promise<StripeRedirectResponse>;
+        // We use function overloading instead of a union here to ensure that redirectToCheckout can only be
+        // called with either the server options or the client options - not a mix of both.
+        redirectToCheckout(options: StripeClientCheckoutOptions): Promise<StripeRedirectResponse>;
+        // tslint:disable-next-line unified-signatures
+        redirectToCheckout(options: StripeServerCheckoutOptions): Promise<StripeRedirectResponse>;
         paymentRequest(options: paymentRequest.StripePaymentRequestOptions): paymentRequest.StripePaymentRequest;
         createPaymentMethod(
             type: paymentMethod.paymentMethodType,
             element: elements.Element,
             options?: CreatePaymentMethodOptions,
         ): Promise<PaymentMethodResponse>;
+        createPaymentMethod(
+            data: PaymentMethodData
+        ): Promise<PaymentMethodResponse>;
         retrievePaymentIntent(
             clientSecret: string,
         ): Promise<PaymentIntentResponse>;
+        /** @deprecated */
         handleCardPayment(
             clientSecret: string,
             element: elements.Element,
             options?: HandleCardPaymentOptions,
         ): Promise<PaymentIntentResponse>;
+        /** @deprecated */
         handleCardPayment(
             clientSecret: string,
             options?: HandleCardPaymentWithoutElementsOptions,
         ): Promise<PaymentIntentResponse>;
+        /**
+         * Use stripe.confirmCardPayment when the customer submits your payment form.
+         * When called, it will confirm the PaymentIntent with data you provide and
+         * carry out 3DS or other next actions if they are required.
+         */
+        confirmCardPayment(
+            clientSecret: string,
+            data?: ConfirmCardPaymentData,
+            options?: ConfirmCardPaymentOptions,
+        ): Promise<PaymentIntentResponse>;
         handleCardAction(
             clientSecret: string,
         ): Promise<PaymentIntentResponse>;
+        confirmSepaDebitPayment(
+            clientSecret: string,
+            data?: ConfirmSepaDebitPaymentData,
+        ): Promise<PaymentIntentResponse>;
+        /** @deprecated */
         handleCardSetup(
             clientSecret: string,
             element: elements.Element,
-            data: HandleCardSetupOptions,
+            data?: HandleCardSetupOptions,
         ): Promise<SetupIntentResponse>;
+        /** @deprecated */
         handleCardSetup(
             clientSecret: string,
-            data: HandleCardSetupOptionsWithoutElementsOptions,
+            data?: HandleCardSetupOptionsWithoutElementsOptions,
         ): Promise<SetupIntentResponse>;
+        confirmCardSetup(
+            clientSecret: string,
+            data?: ConfirmCardSetupData,
+            options?: ConfirmCardSetupOptions,
+        ): Promise<SetupIntentResponse>;
+        confirmSepaDebitSetup(
+            clientSecret: string,
+            data?: ConfirmSepaDebitSetupData,
+        ): Promise<SetupIntentResponse>;
+        /** @deprecated */
         confirmPaymentIntent(
             clientSecret: string,
             element: elements.Element,
@@ -75,15 +115,19 @@ declare namespace stripe {
     };
 
     type billingAddressCollectionType = 'required' | 'auto' | '';
-    interface StripeCheckoutOptions {
+
+    interface StripeClientCheckoutOptions {
         items: StripeCheckoutItem[];
         successUrl: string;
         cancelUrl: string;
         clientReferenceId?: string;
         customerEmail?: string;
         billingAddressCollection?: billingAddressCollectionType;
-        sessionId?: string;
         locale?: string;
+    }
+
+    interface StripeServerCheckoutOptions {
+        sessionId: string;
     }
 
     interface StripeCheckoutItem {
@@ -138,6 +182,34 @@ declare namespace stripe {
         phone?: string;
     }
 
+    interface OfflineAcceptanceMandate {
+        contact_email: string;
+    }
+
+    interface OnlineAcceptanceMandate {
+        date: number;
+        ip: string;
+        user_agent: string;
+    }
+
+    interface SourceMandateAcceptance {
+        date: number;
+        status: 'accepted' | 'refused';
+        ip?: string;
+        offline?: OfflineAcceptanceMandate;
+        online?: OnlineAcceptanceMandate;
+        type?: 'online'| 'offline';
+        user_agent?: string;
+    }
+
+    interface SourceMandate {
+        acceptance?: SourceMandateAcceptance;
+        amount?: number;
+        currency?: string;
+        interval?: 'one_time' | 'scheduled' | 'variable';
+        notification_method?: 'email' | 'manual' | 'none';
+    }
+
     interface SourceOptions {
         type: string;
         flow?: 'redirect' | 'receiver' | 'code_verification' | 'none';
@@ -147,6 +219,7 @@ declare namespace stripe {
         currency?: string;
         amount?: number;
         owner?: OwnerInfo;
+        mandate?: SourceMandate;
         metadata?: {};
         statement_descriptor?: string;
         redirect?: {
@@ -156,6 +229,10 @@ declare namespace stripe {
         usage?: 'reusable' | 'single_use';
         three_d_secure?: {
             card: string;
+        };
+        sofort?: {
+            country: string;
+            preferred_language?: 'de' | 'en' | 'es' | 'it' | 'fr' | 'nl' | 'pl';
         };
     }
 
@@ -220,7 +297,8 @@ declare namespace stripe {
         | 'card_error'
         | 'idempotency_error'
         | 'invalid_request_error'
-        | 'rate_limit_error';
+        | 'rate_limit_error'
+        | 'validation_error';
 
     interface Error {
         /**
@@ -391,11 +469,19 @@ declare namespace stripe {
     }
 
     interface ShippingDetails {
+        /** Shipping address. */
         address: ShippingDetailsAddress;
-        name: string | null;
-        carrier: string | null;
-        phone: string | null;
-        tracking_number: string | null;
+        /** Recipient name. */
+        name: string;
+        /** The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc. */
+        carrier?: string;
+        /** Recipient phone (including extension). */
+        phone?: string;
+        /**
+         * The tracking number for a physical product, obtained from the delivery service.
+         * If multiple tracking numbers were generated for this purchase, please separate them with commas.
+         */
+        tracking_number?: string;
     }
 
     interface CreatePaymentMethodOptions {
@@ -406,6 +492,19 @@ declare namespace stripe {
          */
         billing_details?: BillingDetails;
         metadata?: Metadata;
+    }
+
+    interface PaymentMethodData {
+        /**
+         * Billing information associated with the PaymentMethod
+         * that may be used or required by particular types of
+         * payment methods.
+         */
+        type: string;
+        card?: elements.Element;
+        ideal?: elements.Element | { bank: string };
+        sepa_debit?: elements.Element | { iban: string };
+        billing_details?: BillingDetails;
     }
 
     interface HandleCardPaymentOptions {
@@ -459,7 +558,101 @@ declare namespace stripe {
                 token: string;
             }
         };
+        /**
+         * Instead of payment_method, the ID of a Source may be passed in.
+         * (Note that this is undocumented as of August 2019).
+         */
+       source?: string;
     }
+
+    /**
+     * Data to be sent with the request.
+     * Refer to the Payment Intents API for a full list of parameters.
+     */
+    interface ConfirmCardPaymentData {
+        /*
+         * Either the id of an existing PaymentMethod,
+         * or an object containing data to create a PaymentMethod with.
+         * See the use case sections below for details.
+         * Recomended
+         */
+        payment_method?: string | {
+            /*
+             * Uses the provided card or cardNumber Element to create a
+             * PaymentMethod to use for confirmation.
+             */
+            card: elements.Element | {
+                /*
+                 * Converts the provided token into a PaymentMethod to use for
+                 * confirmation.
+                 */
+                token: string,
+            },
+            /**
+             * The billing_details associated with the card.
+             */
+            billing_details?: BillingDetails,
+        };
+        /**
+         * The shipping details for the payment, if collected.
+         * Recomended
+         */
+        shipping?: ShippingDetails;
+        /**
+         * If you are handling next actions yourself,
+         * pass in a return_url. If the subsequent action is redirect_to_url,
+         * this URL will be used on the return path for the redirect.
+         */
+        return_url?: string;
+        /**
+         * Email address that the receipt for the resulting payment will be sent to.
+         */
+        receipt_email?: string;
+        /**
+         * If the PaymentIntent is associated with a customer and this parameter is set to true,
+         * the provided payment method will be attached to the customer. Default is false.
+         */
+        save_payment_method?: boolean;
+        /**
+         * Indicates that you intend to make future payments with this PaymentIntent's payment method.
+         */
+        setup_future_usage?: boolean;
+    }
+    interface ConfirmCardPaymentOptions {
+        /*
+         * Set this to false if you want to handle next actions yourself, or if
+         * you want to defer next action handling until later (e.g. for use in
+         * the PaymentRequest API). Default is true.
+         */
+        handleActions?: boolean;
+    }
+
+    interface ConfirmSepaDebitPaymentData {
+        /**
+         * Pass an object to confirm using data collected by an iban Element or
+         * by passing data directly and to supply additional required billing
+         * details:
+         */
+        payment_method?: string | {
+            /**
+             * An iban Element.
+             */
+            sepa_debit: elements.Element | {
+                /*
+                 * An IBAN account number.
+                 */
+                iban: string,
+            },
+            /**
+             * The customer's billing_details. name and email are required.
+             */
+            billing_details: {
+                name: string,
+                email: string,
+            }
+        };
+    }
+
     interface HandleCardSetupOptions {
         /**
          * Use this parameter to supply additional data relevant to
@@ -483,10 +676,8 @@ declare namespace stripe {
 
     interface ConfirmPaymentIntentOptions {
         /**
-         * A return_url may be supplied if you are not planning to use
-         * stripe.handleCardPayment to complete the payment. If you are
-         * handling next actions yourself, pass in a return_url. If the
-         * subsequent action is redirect_to_url, this URL will be used
+         * If you are handling next actions yourself, pass in a return_url.
+         * If the subsequent action is redirect_to_url, this URL will be used
          * on the return path for the redirect.
          */
         return_url?: string;
@@ -514,6 +705,10 @@ declare namespace stripe {
          * customer. Default is false.
          */
         save_payment_method?: boolean;
+        /**
+         * Indicates that you intend to make future payments with this PaymentIntent's payment method.
+         */
+        setup_future_usage?: string;
     }
 
     interface ConfirmPaymentIntentWithoutElementsOptions extends ConfirmPaymentIntentOptions {
@@ -538,6 +733,66 @@ declare namespace stripe {
                  * use for the payment.
                  */
                 token: string;
+            }
+        };
+    }
+
+    interface ConfirmCardSetupData {
+        /*
+         * Pass an object to confirm using data collected by a card or
+         * cardNumber Element or an with an existing token and to supply
+         * additional data relevant to the PaymentMethod, such as billing
+         * details:
+         */
+        payment_method?: string | {
+            /*
+             * Uses the provided card or cardNumber Element to create a
+             * PaymentMethod to use for confirmation.
+             */
+            card: elements.Element | {
+                /*
+                 * Converts the provided token into a PaymentMethod to use for
+                 * confirmation.
+                 */
+                token: string,
+            },
+            /**
+             * The billing_details associated with the card.
+             */
+            billing_details?: BillingDetails,
+        };
+    }
+    interface ConfirmCardSetupOptions {
+        /*
+         * Set this to false if you want to handle next actions yourself, or if
+         * you want to defer next action handling until later (e.g. for use in
+         * the PaymentRequest API). Default is true.
+         */
+        handleActions?: boolean;
+    }
+
+    interface ConfirmSepaDebitSetupData {
+        /**
+         * Pass an object to confirm using data collected by an iban Element or
+         * by passing data directly and to supply additional required billing
+         * details:
+         */
+        payment_method?: string | {
+            /**
+             * An iban Element.
+             */
+            sepa_debit: elements.Element | {
+                /*
+                 * An IBAN account number.
+                 */
+                iban: string,
+            },
+            /**
+             * The customer's billing_details. name and email are required.
+             */
+            billing_details: {
+                name: string,
+                email: string,
             }
         };
     }
@@ -623,12 +878,17 @@ declare namespace stripe {
             source: Source;
         }
 
+        interface StripePaymentMethodPaymentResponse extends StripePaymentResponse {
+            paymentMethod: paymentMethod.PaymentMethod;
+        }
+
         interface StripePaymentRequest {
             canMakePayment(): Promise<{ applePay?: boolean } | null>;
             show(): void;
             update(options: StripePaymentRequestUpdateOptions): void;
             on(event: 'token', handler: (response: StripeTokenPaymentResponse) => void): void;
             on(event: 'source', handler: (response: StripeSourcePaymentResponse) => void): void;
+            on(event: 'paymentmethod', handler: (response: StripePaymentMethodPaymentResponse) => void): void;
             on(event: 'cancel', handler: () => void): void;
             on(event: 'shippingaddresschange', handler: (response: { updateWith: (options: UpdateDetails) => void, shippingAddress: ShippingAddress }) => void): void;
             on(event: 'shippingoptionchange', handler: (response: { updateWith: (options: UpdateDetails) => void, shippingOption: ShippingOption }) => void): void;
@@ -650,6 +910,8 @@ declare namespace stripe {
             mount(domElement: any): void;
             on(event: eventTypes, handler: handler): void;
             on(event: 'click', handler: (response: { preventDefault: () => void }) => void): void;
+            addEventListener(event: eventTypes, handler: handler): void;
+            addEventListener(event: 'click', handler: (response: { preventDefault: () => void }) => void): void;
             focus(): void;
             blur(): void;
             clear(): void;
@@ -677,6 +939,7 @@ declare namespace stripe {
         type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban' | 'idealBank';
         interface Elements {
             create(type: elementsType, options?: ElementsOptions): Element;
+            getElement(type: elementsType): Element | null;
         }
 
         interface ElementsOptions {
@@ -920,6 +1183,11 @@ declare namespace stripe {
             on_behalf_of: string | null;
 
             /**
+             * ID of the payment method used in this PaymentIntent.
+             */
+            payment_method: string | null;
+
+            /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
              */
             payment_method_types: string[];
@@ -938,6 +1206,13 @@ declare namespace stripe {
              * Shipping information for this PaymentIntent.
              */
             shipping: ShippingDetails | null;
+
+            /**
+             * The ID of a Source (e.g. 'src_abc123' or 'card_abc123').
+             * Will be null unless this PaymentIntent was created with a source
+             * instead of a payment_method. (Undocumented as of August 2019)
+             */
+            source: string | null;
 
             /**
              * Extra information about a PaymentIntent. This will appear on your

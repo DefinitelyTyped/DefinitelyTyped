@@ -22,6 +22,7 @@ declare class Client {
     unsubscribe(path: string, handler?: Client.Handler): Promise<any>;
     subscriptions(): string[];
     overrideReconnectionAuth(auth: any): void;
+    reauthenticate(auth: any): Promise<true>;
 }
 
 declare namespace Client {

@@ -31,7 +31,7 @@ export class Channel {
   onMessage(event: string, payload: any, ref: any): any;
 
   on(event: string, callback: (response?: any) => void): number;
-  off(event: string): void;
+  off(event: string, ref?: number): void;
 
   push(event: string, payload: object, timeout?: number): Push;
 }
@@ -71,10 +71,10 @@ export class Socket {
   log(kind: string, message: string, data: any): void;
   hasLogger(): boolean;
 
-  onOpen(callback: () => void): void;
-  onClose(callback: () => void): void;
-  onError(callback: () => void): void;
-  onMessage(callback: () => void): void;
+  onOpen(callback: (cb: any) => void): void;
+  onClose(callback: (cb: any) => void): void;
+  onError(callback: (cb: any) => void): void;
+  onMessage(callback: (cb: any) => void): void;
 
   makeRef(): string;
 }
