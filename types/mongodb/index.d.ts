@@ -2261,7 +2261,7 @@ export class Cursor<T = Default> extends Readable {
     next(): Promise<T | null>;
     next(callback: MongoCallback<T | null>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#project */
-    project(value: object): Cursor<T>;
+    project<E = T>(value: object): Cursor<E>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#read */
     read(size: number): string | Buffer | void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#next */
