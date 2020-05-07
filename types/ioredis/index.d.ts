@@ -15,6 +15,7 @@
 //                 Tianlin <https://github.com/tianlinle>
 //                 Demian Rodriguez <https://github.com/demian85>
 //                 Andrew Lavers <https://github.com/alavers>
+//                 Claudiu Ceia <https://github.com/ClaudiuCeia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -402,6 +403,18 @@ declare namespace IORedis {
         zremrangebyrank(key: KeyType, start: number, stop: number, callback: Callback<number>): void;
         zremrangebyrank(key: KeyType, start: number, stop: number): Promise<number>;
 
+        zremrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+        ): Promise<number>;
+        zremrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+            callback: Callback<number>
+        ): void;
+
         zunionstore: OverloadedKeyCommand<KeyType | number, number>;
 
         zinterstore: OverloadedKeyCommand<KeyType | number, number>;
@@ -516,6 +529,64 @@ declare namespace IORedis {
             key: KeyType,
             max: number | string,
             min: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<string[]>,
+        ): void;
+
+        zrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+        ): Promise<string[]>;
+        zrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<string[]>;
+        zrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+            callback: Callback<string[]>,
+        ): void;
+        zrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<string[]>,
+        ): void;
+
+        zrevrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+        ): Promise<string[]>;
+        zrevrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<string[]>;
+        zrevrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+            callback: Callback<string[]>,
+        ): void;
+        zrevrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
             limit: 'LIMIT',
             offset: number,
             count: number,
@@ -1012,6 +1083,13 @@ declare namespace IORedis {
 
         zremrangebyrank(key: KeyType, start: number, stop: number, callback?: Callback<number>): Pipeline;
 
+        zremrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+            callback?: Callback<number>,
+        ): Pipeline;
+
         zunionstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): Pipeline;
 
         zinterstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): Pipeline;
@@ -1037,6 +1115,37 @@ declare namespace IORedis {
         zrangebyscore(key: KeyType, min: number | string, max: number | string, ...args: string[]): Pipeline;
 
         zrevrangebyscore(key: KeyType, max: number | string, min: number | string, ...args: string[]): Pipeline;
+
+        zrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+            callback?: Callback<string[]>,
+        ): Pipeline;
+        zrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback?: Callback<string[]>,
+        ): Pipeline;
+        zrevrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+            callback?: Callback<string[]>,
+        ): Pipeline;
+        zrevrangebylex(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback?: Callback<string[]>,
+        ): Pipeline;
 
         zcount(key: KeyType, min: number | string, max: number | string, callback?: Callback<number>): Pipeline;
 
