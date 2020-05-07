@@ -89,10 +89,14 @@ const gridFSBucketTests = (bucket: mongodb.GridFSBucket) => {
     const openUploadStream  = bucket.openUploadStream('file.dat');
     openUploadStream.on('close', () => {});
     openUploadStream.on('end', () => {});
+    openUploadStream.abort(); // $ExpectType void
     openUploadStream.abort(() => {
         openUploadStream.removeAllListeners();
     });
-    openUploadStream.abort();
+    openUploadStream.abort((error) => {
+        error; // $ExpectType MongoError
+    });
+    openUploadStream.abort((error, result) => {});
 };
 
 // Compression
