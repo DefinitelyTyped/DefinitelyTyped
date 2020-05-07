@@ -417,7 +417,14 @@ const spy3Mock = spy3
     .mockName('name')
     .mockReturnThis()
     .mockReturnValue('value')
-    .mockReturnValueOnce('value')
+    .mockReturnValueOnce('value');
+
+const spiedPromiseTarget = {
+    resolvesString() {
+        return Promise.resolve('string');
+    }
+};
+jest.spyOn(spiedPromiseTarget, 'resolvesString')
     .mockResolvedValue('value')
     .mockResolvedValueOnce('value')
     .mockRejectedValue('value')
@@ -430,10 +437,17 @@ spy4 = jest.spyOn(spiedTarget, 'returnsString');
 spy4.mockImplementation(() => 1);
 spy4.mockRestore();
 
-// $ExpectType SpyInstance<number, []>
-const spy5 = jest.spyOn(spiedTarget2, 'value', 'get');
+let spy5: jest.SpiedFunction<typeof spiedTarget.setValue>;
+
+// $ExpectType SpyInstance<void, [string]>
+spy5 = jest.spyOn(spiedTarget, 'setValue');
 // $ExpectError
-spy5.mockReturnValue('5');
+spy5 = jest.spyOn(spiedTarget, 'returnsString');
+
+// $ExpectType SpyInstance<number, []>
+const spy6 = jest.spyOn(spiedTarget2, 'value', 'get');
+// $ExpectError
+spy6.mockReturnValue('5');
 
 // $ExpectType SpyInstance<void, [number]>
 jest.spyOn(spiedTarget2, 'value', 'set');
@@ -479,6 +493,8 @@ class TestMocked {
 
 const mocked: jest.Mocked<TestMocked> = new TestMocked() as any;
 mocked.test1.mockImplementation(() => Promise.resolve({ a: 1 }));
+// $ExpectType (x: Type1) => Promise<Type1> | undefined
+mocked.test1.getMockImplementation();
 mocked.test1.mockReturnValue(Promise.resolve({ a: 1 }));
 // $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>)
 mocked.test1.mockResolvedValue({ a: 1 });
@@ -619,12 +635,12 @@ const snapshotSerializerPlugin: jest.SnapshotSerializerPlugin = {
 expect.addSnapshotSerializer(snapshotSerializerPlugin);
 
 expect.addSnapshotSerializer({
-    print: (value: {}) => '',
+    print: (value: unknown) => '',
     test: (value: {}) => value === value,
 });
 
 expect.addSnapshotSerializer({
-    print: (value: {}, serialize: (val: {}) => string, indent: (str: string) => string, opts: {}) => '',
+    print: (value: unknown, serialize: (val: {}) => string, indent: (str: string) => string, opts: {}) => '',
     test: (value: {}) => value === value,
 });
 
@@ -855,6 +871,7 @@ describe('', () => {
         expect([]).toContain({});
         expect(['abc']).toContain('abc');
         expect(['abc']).toContain('def');
+        expect('abc').toContain('bc');
 
         expect([]).toContainEqual({});
         expect(['abc']).toContainEqual('def');

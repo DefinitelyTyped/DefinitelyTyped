@@ -23,7 +23,7 @@ Promise
         const artistByName: Artist = results[2];
         const searchResult: SearchResult[] = results[3];
         const song: Song = results[4];
-        const songsByArtist: SongByArtist[] = results[5] as SongByArtist[];
+        const songsByArtist: SongByArtist[] = results[5];
 
         console.log('album', album.name);
         console.log('artist', artist.name);

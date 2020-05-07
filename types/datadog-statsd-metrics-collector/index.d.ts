@@ -6,7 +6,7 @@
 import dogstatsd = require('node-dogstatsd');
 
 declare class Collector implements dogstatsd.StatsDClient {
-    constructor(client: dogstatsd.StatsDClient, delayMilliseconds?: number);
+    constructor(client: dogstatsd.StatsDClient | null, delayMilliseconds?: number);
 
     timing(stat: string, time: number, sample_rate?: number, tags?: string[]): void;
 

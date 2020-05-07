@@ -403,6 +403,7 @@ editor
 .setInlinesAtRange(range, "paragraph")
 .setMarkByKey('a', 0, 2, { type: 'bold', data: { thing: 'value' } }, { data: { thing: false } })
 .setNodeByKey("a", "paragraph")
+.setNodeByKey("a", { data: Data.create({}) })
 .setNodeByPath(List([0]), "paragraph")
 .setReadOnly(true)
 .setValue(value)

@@ -1,10 +1,11 @@
-// Type definitions for react-native-snap-carousel 3.7
+// Type definitions for react-native-snap-carousel 3.8
 // Project: https://github.com/archriss/react-native-snap-carousel
 // Definitions by: jnbt <https://github.com/jnbt>
 //                 Jacob Froman <https://github.com/j-fro>
 //                 Nikolay Polukhin <https://github.com/gazaret>
 //                 Guillaume Amat <https://github.com/GuillaumeAmat>
 //                 Vitor Luiz Cavalcanti <https://github.com/VitorLuizC>
+//                 Lemon Garrett <https://github.com/egarrett94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -337,6 +338,18 @@ export class ParallaxImage extends React.Component<ParallaxImageProperties> { }
 
 export interface PaginationProps {
     /**
+     * Length of dot animation (milliseconds)
+     */
+    animatedDuration?: number;
+    /**
+     * Controls "bounciness"/overshoot on dot animation
+     */
+    animatedFriction?: number;
+    /**
+     * Controls speed dot animation
+     */
+    animatedTension?: number;
+    /**
      * Number of dots to display
      */
     dotsLength: number;
@@ -357,6 +370,10 @@ export interface PaginationProps {
      * Style for dots' container that will be merged with the default one
      */
     containerStyle?: StyleProp<ViewStyle>;
+    /**
+     * Delay in ms, from the start of the touch, before onPressIn is called on dot
+     */
+    delayPressInDot?: number;
     /**
      * Background color of the active dot.
      * Use this if you want to animate the change between active and inactive colors,

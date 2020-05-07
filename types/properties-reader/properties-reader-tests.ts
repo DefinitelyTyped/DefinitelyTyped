@@ -12,6 +12,8 @@ properties = properties.append('/another.file').append('/yet/another.file');
 properties = properties.read('some.property = Value \n another.property = Another Value');
 properties = properties.set('property.name', 'Property Value');
 
+properties.save('/another.file');
+
 properties.get('main.some.thing') === 'foo';
 properties.get('blah.some.thing') === 'bar';
 

@@ -3,6 +3,7 @@
 // Definitions by: Jason Bothell <https://github.com/jasonhaxstuff>
 //                 Jack Baron <https://github.com/lolPants>
 //                 Dylan Hackworth <https://github.com/dylhack>
+//                 Sankarsan Kampa <https://github.com/k3rn31p4nic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
@@ -186,8 +187,8 @@ export interface VoiceSettings {
 export interface Presence {
 	state?: string;
 	details?: string;
-	startTimestamp?: number;
-	endTimestamp?: number;
+	startTimestamp?: number | Date;
+	endTimestamp?: number | Date;
 	largeImageKey?: string;
 	largeImageText?: string;
 	smallImageKey?: string;

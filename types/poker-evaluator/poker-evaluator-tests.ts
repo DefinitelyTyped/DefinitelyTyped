@@ -1,7 +1,6 @@
-import { HandName, Deck, Card, EvaluatedHand, CARDS, HANDTYPES, evalHand, ranks, evalCard } from 'poker-evaluator';
+import { Deck, evalCard, evalHand, EvaluatedHand, HandName, HANDTYPES, ranks } from 'poker-evaluator';
 
 HANDTYPES; // $ExpectType HandName[]
-CARDS; // $ExpectType Deck
 ranks; // $ExpectType Buffer
 
 evalHand(['as', 'ks', 'qs', 'js', 'ts', '3c', '5h']); // $ExpectType EvaluatedHand
@@ -15,7 +14,6 @@ const result: EvaluatedHand = {
 evalCard('as'); // $ExpectType number
 
 const highCardName: HandName = 'high card';
-const card: Card = '2c';
 const deck: Deck = {
     '2c': 1,
     '2d': 2,

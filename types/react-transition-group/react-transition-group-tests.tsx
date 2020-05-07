@@ -169,6 +169,8 @@ const Test: React.StatelessComponent = () => {
                     <div>{ "test" }</div>
                 </Transition>
 
+                <Transition addEndListener={() => {}}/>
+
                 <CSSTransition
                     in
                     mountOnEnter

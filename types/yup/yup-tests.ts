@@ -63,6 +63,25 @@ const node: ObjectSchema<any> = yup.object().shape({
     id: yup.number(),
     child: yup.lazy(() => node.default(undefined)),
 });
+
+// ObjectSchema.fields
+const fieldsTestSchema = yup.object().shape({
+  s: yup.string(),
+  n: yup.number(),
+  m: yup.mixed(),
+  b: yup.boolean(),
+  d: yup.date(),
+  a: yup.array(),
+  o: yup.object()
+});
+const stringField: Schema<string> = fieldsTestSchema.fields.s;
+const numberField: Schema<number> = fieldsTestSchema.fields.n;
+const mixedField: Schema<any> = fieldsTestSchema.fields.m;
+const booleanField: Schema<boolean> = fieldsTestSchema.fields.b;
+const dateField: Schema<Date> = fieldsTestSchema.fields.d;
+const arrayField: Schema<any[]> = fieldsTestSchema.fields.a;
+const objectField: Schema<object> = fieldsTestSchema.fields.o;
+
 const renderable = yup.lazy(value => {
     switch (typeof value) {
         case 'number':
@@ -109,6 +128,7 @@ error.errors = ['error'];
 
 // mixed
 let mixed: MixedSchema = yup.mixed();
+mixed.type;
 mixed.clone();
 mixed.label('label');
 mixed.meta({ meta: 'value' });
@@ -283,51 +303,63 @@ yup.object()
     });
 
 // String schema
+function strSchemaTests(strSchema: yup.StringSchema) {
+    strSchema.type;
+    strSchema.isValid('hello'); // => true
+    strSchema.required();
+    strSchema.required('req');
+    strSchema.required(() => 'req');
+    strSchema.length(5, 'message');
+    strSchema.length(5, () => 'message');
+    strSchema.length(5, ({ length }) => `must be ${length}`);
+    // $ExpectError
+    strSchema.length(5, ({ min }) => `must be ${min}`);
+    strSchema.min(5, 'message');
+    strSchema.min(5, () => 'message');
+    strSchema.min(5, ({ min }) => `more than ${min}`);
+    // $ExpectError
+    strSchema.min(5, ({ max }) => `more than ${max}`);
+    strSchema.max(5, 'message');
+    strSchema.max(5, () => 'message');
+    strSchema.max(5, ({ max }) => `less than ${max}`);
+    // $ExpectError
+    strSchema.max(5, ({ min }) => `less than ${min}`);
+    strSchema.matches(/(hi|bye)/);
+    strSchema.matches(/(hi|bye)/, 'invalid');
+    strSchema.matches(/(hi|bye)/, () => 'invalid');
+    strSchema.matches(/(hi|bye)/, ({ regex }) => `Does not match ${regex}`);
+    strSchema.email();
+    strSchema.email('invalid');
+    strSchema.email(() => 'invalid');
+    strSchema.email(({ regex }) => `Does not match ${regex}`);
+    strSchema.url();
+    strSchema.url('bad url');
+    strSchema.url(() => 'bad url');
+    strSchema.url(({ regex }) => `Does not match ${regex}`);
+    strSchema.ensure();
+    strSchema.trim();
+    strSchema.trim('trimmed');
+    strSchema.trim(() => 'trimmed');
+    strSchema.lowercase();
+    strSchema.lowercase('lower');
+    strSchema.lowercase(() => 'lower');
+    strSchema.uppercase();
+    strSchema.uppercase('upper');
+    strSchema.uppercase(() => 'upper');
+}
+
 const strSchema = yup.string(); // $ExpectType StringSchema<string>
-strSchema.isValid('hello'); // => true
-strSchema.required();
-strSchema.required('req');
-strSchema.required(() => 'req');
-strSchema.length(5, 'message');
-strSchema.length(5, () => 'message');
-strSchema.length(5, ({ length }) => `must be ${length}`);
+strSchemaTests(strSchema);
+
+const strLiteralSchema = yup.string<'foo' | 'bar'>(); // $ExpectType StringSchema<"foo"> | StringSchema<"bar">
+strSchemaTests(strLiteralSchema);
+
 // $ExpectError
-strSchema.length(5, ({ min }) => `must be ${min}`);
-strSchema.min(5, 'message');
-strSchema.min(5, () => 'message');
-strSchema.min(5, ({ min }) => `more than ${min}`);
-// $ExpectError
-strSchema.min(5, ({ max }) => `more than ${max}`);
-strSchema.max(5, 'message');
-strSchema.max(5, () => 'message');
-strSchema.max(5, ({ max }) => `less than ${max}`);
-// $ExpectError
-strSchema.max(5, ({ min }) => `less than ${min}`);
-strSchema.matches(/(hi|bye)/);
-strSchema.matches(/(hi|bye)/, 'invalid');
-strSchema.matches(/(hi|bye)/, () => 'invalid');
-strSchema.matches(/(hi|bye)/, ({ regex }) => `Does not match ${regex}`);
-strSchema.email();
-strSchema.email('invalid');
-strSchema.email(() => 'invalid');
-strSchema.email(({ regex }) => `Does not match ${regex}`);
-strSchema.url();
-strSchema.url('bad url');
-strSchema.url(() => 'bad url');
-strSchema.url(({ regex }) => `Does not match ${regex}`);
-strSchema.ensure();
-strSchema.trim();
-strSchema.trim('trimmed');
-strSchema.trim(() => 'trimmed');
-strSchema.lowercase();
-strSchema.lowercase('lower');
-strSchema.lowercase(() => 'lower');
-strSchema.uppercase();
-strSchema.uppercase('upper');
-strSchema.uppercase(() => 'upper');
+yup.string<123>();
 
 // Number schema
 const numSchema = yup.number(); // $ExpectType NumberSchema<number>
+numSchema.type;
 numSchema.isValid(10); // => true
 numSchema.min(5);
 numSchema.min(5, 'message');
@@ -365,10 +397,12 @@ numSchema
 
 // Boolean Schema
 const boolSchema = yup.boolean();
+boolSchema.type;
 boolSchema.isValid(true); // => true
 
 // Date Schema
 const dateSchema = yup.date();
+dateSchema.type;
 dateSchema.isValid(new Date()); // => true
 dateSchema.min(new Date());
 dateSchema.min('2017-11-12');
@@ -383,6 +417,9 @@ dateSchema.max('2017-11-12', () => 'message');
 
 // Array Schema
 const arrSchema = yup.array().of(yup.number().min(2));
+arrSchema.type;
+arrSchema.innerType;
+arrSchema.innerType.type;
 arrSchema.isValid([2, 3]); // => true
 arrSchema.isValid([1, -24]); // => false
 arrSchema.required();
@@ -430,7 +467,7 @@ yup.object().shape({
 yup.object({
     num: yup.number(),
 });
-
+objSchema.type;
 objSchema.from('prop', 'myProp');
 objSchema.from('prop', 'myProp', true);
 objSchema.noUnknown();
@@ -439,6 +476,7 @@ objSchema.noUnknown(true, 'message');
 objSchema.noUnknown(true, () => 'message');
 objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
+objSchema.snakeCase();
 objSchema.constantCase();
 
 const description: SchemaDescription = {
@@ -446,7 +484,7 @@ const description: SchemaDescription = {
     label: 'label',
     meta: { key: 'value' },
     tests: [
-        { name: 'test1', params: {} },
+        { name: 'test1', params: {param1: 'param1'} },
         { name: 'test2', params: {} },
     ],
     fields: {
@@ -476,6 +514,8 @@ const description: SchemaDescription = {
         },
      },
 };
+
+const param1: any = description.tests[0].params.param1;
 
 const testOptions: TestOptions = {
     name: 'name',
@@ -659,7 +699,7 @@ const definitionBC: yup.ObjectSchemaDefinition<BC> = {
     b: yup.string(),
     c: yup.number(),
 };
-const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<Shape<AB, BC>>
+const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<{ a: string; b: string; } & BC>
 
 // $ExpectError
 yup.object<MyInterface>({
@@ -823,3 +863,39 @@ function wrapper<T>(b: boolean, msx: MixedSchema<T>): MixedSchema<T> {
 
 const resultingSchema1 = wrapper<string | number>(false, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number>
 const resultingSchema2 = wrapper<string | number>(true, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | null>
+
+const arrayOfStringsSchema = yup.array().of(yup.string());
+type ArrayOfStrings = yup.InferType<typeof arrayOfStringsSchema>;
+function returnTheArray(data: ArrayOfStrings): any[] {
+    return data;
+}
+
+const topLevelStringNullable = yup.string().nullable();
+const topLevelStringNullableExample: yup.InferType<typeof topLevelStringNullable> = null;
+
+const topLevelObjectNullable = yup.object().nullable();
+const topLevelObjectNullableExample: yup.InferType<typeof topLevelObjectNullable> = null;
+
+const topLevelArrayNullable = yup.array().nullable();
+const topLevelArrayNullableExample: yup.InferType<typeof topLevelArrayNullable> = null;
+
+const nestedNullableShape = yup.object().shape({
+    foo: yup.object().nullable().shape({})
+});
+const nestedNullableShapeExample: yup.InferType<typeof nestedNullableShape> = {
+    foo: null
+};
+
+const nestedShapeNullable = yup.object().shape({
+    foo: yup.object().shape({}).nullable()
+});
+const nestedShapeNullableExample: yup.InferType<typeof nestedShapeNullable> = {
+    foo: null
+};
+
+const nestedArrayNullable = yup.object().shape({
+    foo: yup.array().nullable()
+});
+const nestedArrayNullableExample: yup.InferType<typeof nestedArrayNullable> = {
+    foo: null
+};

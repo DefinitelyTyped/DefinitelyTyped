@@ -3,7 +3,7 @@
 // Definitions by: Meir Gottlieb <https://github.com/meirgottlieb>
 //                 Jeff Principe <https://github.com/princjef>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="node" />
 

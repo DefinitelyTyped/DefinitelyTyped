@@ -17,9 +17,16 @@ declare module 'wasi' {
          * directories within the sandbox. The corresponding values in `preopens` are
          * the real paths to those directories on the host machine.
          */
-        preopens?: {
-            [key: string]: string;
-        };
+        preopens?: NodeJS.Dict<string>;
+
+        /**
+         * By default, WASI applications terminate the Node.js
+         * process via the `__wasi_proc_exit()` function. Setting this option to `true`
+         * causes `wasi.start()` to return the exit code rather than terminate the
+         * process.
+         * @default false
+         */
+        returnOnExit?: boolean;
     }
 
     class WASI {
@@ -40,6 +47,6 @@ declare module 'wasi' {
          * should be passed as the `wasi_unstable` import during the instantiation of a
          * [`WebAssembly.Instance`][].
          */
-        readonly wasiImport: { [key: string]: any }; // TODO: Narrow to DOM types
+        readonly wasiImport: NodeJS.Dict<any>; // TODO: Narrow to DOM types
     }
 }

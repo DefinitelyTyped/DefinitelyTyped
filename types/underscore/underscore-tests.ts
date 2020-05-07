@@ -3,6 +3,7 @@ declare const window: any;
 declare const alert: (msg: string) => any;
 declare const console: {log: any};
 
+_.VERSION; // $ExpectType string
 _.each([1, 2, 3], (num) => alert(num.toString()));
 _.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
 

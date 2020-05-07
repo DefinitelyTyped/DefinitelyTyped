@@ -1,3 +1,5 @@
+/// <reference types="emscripten" />
+
 /// Extending Module
 // This requires -s "EXTRA_EXPORTED_RUNTIME_METHODS=['cwrap','ccall','getValue','setvalue']"
 // in emcc compilation flags
@@ -25,7 +27,7 @@ function ModuleTest(): void {
         [{name: "func-name", kind: "function"}],
         (module: WebAssembly.Module) => {}
     );
-    const memFile: string = Module.locateFile("http://www.example.org/file.mem");
+    const memFile: string = Module.locateFile("file.mem", "http://www.example.org/");
     Module.onCustomMessage(new MessageEvent("TestType"));
 
     Module.print = (text) => alert('stdout: ' + text);

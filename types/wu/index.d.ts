@@ -107,11 +107,8 @@ declare namespace wu {
 		tap(fn: Consumer<T>): WuIterable<T>;
 		toArray(): T[];
 		unique(): WuIterable<T>;
-		// TODO: this makes no sense, where did the second entry come from?
-		// tslint:disable-next-line no-unnecessary-generics
-		zip<U>(iter2: Iterable<T>): WuIterable<[T, U]>;
-		// tslint:disable-next-line no-unnecessary-generics
-		zipLongest<U>(iter2: Iterable<T>): WuIterable<[T, U]>;
+		zip<U>(iter2: Iterable<U>): WuIterable<[T, U]>;
+		zipLongest<U>(iter2: Iterable<U>): WuIterable<[T, U]>;
 		zipWith: any;
 		unzip: any;
 		tee(n?: number): Array<WuIterable<T>>;

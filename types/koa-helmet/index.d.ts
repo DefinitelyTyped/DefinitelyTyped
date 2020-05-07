@@ -1,4 +1,4 @@
-// Type definitions for koa-helmet 3.1
+// Type definitions for koa-helmet 5.2
 // Project: https://github.com/venables/koa-helmet#readme
 // Definitions by: Nick Simmons <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,13 +11,19 @@ import {
     IHelmetXssFilterConfiguration,
     IHelmetDnsPrefetchControlConfiguration,
     IHelmetHpkpConfiguration,
-    IHelmetReferrerPolicyConfiguration } from 'helmet';
+    IHelmetReferrerPolicyConfiguration,
+    IHelmetHidePoweredByConfiguration,
+    IHelmetPermittedCrossDomainPoliciesConfiguration,
+    IHelmetExpectCtConfiguration,
+} from 'helmet';
 import { Middleware, Context } from 'koa';
 
 declare namespace koaHelmet {
     type KoaHelmetContentSecurityPolicyDirectiveFunction = (ctx: Context) => string;
 
     type KoaHelmetCspDirectiveValue = string | KoaHelmetContentSecurityPolicyDirectiveFunction;
+
+    type KoaHelmetFeaturePolicyDirectiveValue = string;
 
     interface KoaHelmetContentSecurityPolicyDirectives {
         baseUri?: KoaHelmetCspDirectiveValue[];
@@ -36,6 +42,47 @@ declare namespace koaHelmet {
         sandbox?: KoaHelmetCspDirectiveValue[];
         scriptSrc?: KoaHelmetCspDirectiveValue[];
         styleSrc?: KoaHelmetCspDirectiveValue[];
+    }
+
+    interface KoaHelmetFeaturePolicyDirectives {
+        accelerometer?: KoaHelmetFeaturePolicyDirectiveValue[];
+        ambientLightSensor?: KoaHelmetFeaturePolicyDirectiveValue[];
+        autoplay?: KoaHelmetFeaturePolicyDirectiveValue[];
+        camera?: KoaHelmetFeaturePolicyDirectiveValue[];
+        documentDomain?: KoaHelmetFeaturePolicyDirectiveValue[];
+        documentWrite?: KoaHelmetFeaturePolicyDirectiveValue[];
+        encryptedMedia?: KoaHelmetFeaturePolicyDirectiveValue[];
+        fontDisplayLateSwap?: KoaHelmetFeaturePolicyDirectiveValue[];
+        fullscreen?: KoaHelmetFeaturePolicyDirectiveValue[];
+        geolocation?: KoaHelmetFeaturePolicyDirectiveValue[];
+        gyroscope?: KoaHelmetFeaturePolicyDirectiveValue[];
+        layoutAnimations?: KoaHelmetFeaturePolicyDirectiveValue[];
+        legacyImageFormats?: KoaHelmetFeaturePolicyDirectiveValue[];
+        loadingFrameDefaultEager?: KoaHelmetFeaturePolicyDirectiveValue[];
+        magnetometer?: KoaHelmetFeaturePolicyDirectiveValue[];
+        microphone?: KoaHelmetFeaturePolicyDirectiveValue[];
+        midi?: KoaHelmetFeaturePolicyDirectiveValue[];
+        oversizedImages?: KoaHelmetFeaturePolicyDirectiveValue[];
+        payment?: KoaHelmetFeaturePolicyDirectiveValue[];
+        pictureInPicture?: KoaHelmetFeaturePolicyDirectiveValue[];
+        serial?: KoaHelmetFeaturePolicyDirectiveValue[];
+        speaker?: KoaHelmetFeaturePolicyDirectiveValue[];
+        syncScript?: KoaHelmetFeaturePolicyDirectiveValue[];
+        syncXhr?: KoaHelmetFeaturePolicyDirectiveValue[];
+        unoptimizedImages?: KoaHelmetFeaturePolicyDirectiveValue[];
+        unoptimizedLosslessImages?: KoaHelmetFeaturePolicyDirectiveValue[];
+        unoptimizedLossyImages?: KoaHelmetFeaturePolicyDirectiveValue[];
+        unsizedMedia?: KoaHelmetFeaturePolicyDirectiveValue[];
+        usb?: KoaHelmetFeaturePolicyDirectiveValue[];
+        verticalScroll?: KoaHelmetFeaturePolicyDirectiveValue[];
+        vibrate?: KoaHelmetFeaturePolicyDirectiveValue[];
+        vr?: KoaHelmetFeaturePolicyDirectiveValue[];
+        wakeLock?: KoaHelmetFeaturePolicyDirectiveValue[];
+        xr?: KoaHelmetFeaturePolicyDirectiveValue[];
+    }
+
+    interface KoaHelmetFeaturePolicyConfiguration {
+        features: KoaHelmetFeaturePolicyDirectives;
     }
 
     interface KoaHelmetContentSecurityPolicyConfiguration {
@@ -58,6 +105,10 @@ declare namespace koaHelmet {
         noSniff(): Middleware;
         referrerPolicy(options?: IHelmetReferrerPolicyConfiguration): Middleware;
         xssFilter(options?: IHelmetXssFilterConfiguration): Middleware;
+        hidePoweredBy(options?: IHelmetHidePoweredByConfiguration): Middleware;
+        permittedCrossDomainPolicies(options?: IHelmetPermittedCrossDomainPoliciesConfiguration): Middleware;
+        featurePolicy(options: KoaHelmetFeaturePolicyConfiguration): Middleware;
+        expectCt(options?: IHelmetExpectCtConfiguration): Middleware;
     }
 }
 

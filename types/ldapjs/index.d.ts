@@ -18,15 +18,15 @@ export interface ErrorCallback {
 }
 
 export interface CompareCallback {
-	(error: Error, matched?: boolean): void;
+	(error: Error | null, matched?: boolean): void;
 }
 
 export interface ExopCallback {
-	(error: Error, value: string, result?: any): void;
+	(error: Error | null, value: string, result?: any): void;
 }
 
 export interface CallBack {
-	(error: Error, result?: any): void;
+	(error: Error | null, result?: any): void;
 }
 
 export interface ClientOptions {
@@ -366,7 +366,7 @@ declare class Filter {
 export function parseFilter(filterString: string): Filter;
 
 export class EqualityFilter extends Filter {
-	constructor(options: { attribute: string, value: string })
+	constructor(options: { attribute: string, value: string | Buffer })
 }
 
 export class PresenceFilter extends Filter {

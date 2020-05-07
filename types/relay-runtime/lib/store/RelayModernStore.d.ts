@@ -7,7 +7,6 @@ import {
     OperationAvailability,
     OperationDescriptor,
     RecordSource,
-    NormalizationSelector,
     ReaderSelector,
     Snapshot,
     RequestDescriptor,
@@ -22,7 +21,11 @@ import {
 } from './RelayConnection';
 
 export class RelayModernStore implements Store {
-    constructor(source: MutableRecordSource, gcScheduler?: Scheduler, operationLoader?: OperationLoader | null);
+    constructor(source: MutableRecordSource, options?: {
+        gcScheduler?: Scheduler | null,
+        operationLoader?: OperationLoader | null,
+        gcReleaseBufferSize?: number | null,
+    });
     getSource(): RecordSource;
     check(operation: OperationDescriptor, options?: CheckOptions): OperationAvailability;
     retain(operation: OperationDescriptor): Disposable;

@@ -131,10 +131,10 @@ declare namespace lunr {
          * importance when ranking search results. Use a field boost to specify that matches
          * within one field are more important than other fields.
          *
-         * @param field - The name of a field to index in all documents.
+         * @param fieldName - The name of a field to index in all documents.
          * @param attributes - Optional attributes associated with this field.
          */
-        field(field: string, attributes?: object): void;
+        field(fieldName: string, attributes?: { boost?: number, extractor?: (doc: object) => string | object | object[] }): void;
 
         /**
          * A parameter to tune the amount of field length normalisation that is applied when
@@ -171,7 +171,7 @@ declare namespace lunr {
          * @param doc - The document to add to the index.
          * @param attributes - Optional attributes associated with this document.
          */
-        add(doc: object, attributes?: object): void;
+        add(doc: object, attributes?: { boost?: number }): void;
 
         /**
          * Builds the index, creating an instance of lunr.Index.

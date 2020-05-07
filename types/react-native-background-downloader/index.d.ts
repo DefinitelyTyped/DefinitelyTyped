@@ -1,26 +1,38 @@
 // Type definitions for react-native-background-downloader 2.3
 // Project: https://github.com/EkoLabs/react-native-background-downloader.git
 // Definitions by: Junseong Park <https://github.com/Kweiza>
+//                 Adam Hunter <https://github.com/adamrhunter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type SetHeaders = (h: object) => any;
+export interface DownloadHeaders {
+  [key: string]: string | null;
+}
 
-interface TaskInfoObject {
+type SetHeaders = (h: DownloadHeaders) => void;
+
+export interface TaskInfoObject {
     id: string;
     percent: number;
     bytesWritten: number;
     totalBytes: number;
 }
-type TaskInfo = string | TaskInfoObject;
+export type TaskInfo = string | TaskInfoObject;
 
-type BeginHandler = (expectedBytes: number) => any;
-type ProgressHandler = (percent: number, bytesWritten: number, totalBytes: number) => any;
-type DoneHandler = () => any;
-type ErrorHandler = (error: any, errorCode: any) => any;
-interface DownloadTask {
+export type BeginHandler = (expectedBytes: number) => any;
+export type ProgressHandler = (percent: number, bytesWritten: number, totalBytes: number) => any;
+export type DoneHandler = () => any;
+export type ErrorHandler = (error: any, errorCode: any) => any;
+export enum DownloadTaskState {
+  DOWNLOADING = 'DOWNLOADING',
+  PAUSED = 'PAUSED',
+  DONE = 'DONE',
+}
+
+export interface DownloadTask {
     constructor: (taskInfo: TaskInfo) => DownloadTask;
 
-    state: string;
+    id: string;
+    state: DownloadTaskState;
     percent: number;
     bytesWritten: number;
     totalBytes: number;
@@ -40,27 +52,27 @@ interface DownloadTask {
     stop: () => any;
 }
 
-type CheckForExistingDownloads = () => Promise<DownloadTask[]>;
+export type CheckForExistingDownloads = () => Promise<DownloadTask[]>;
 
-interface DownloadOption {
+export interface DownloadOption {
     id: string;
     url: string;
     destination: string;
-    headers?: object;
+    headers?: DownloadHeaders;
 }
 
-type Download = (options: DownloadOption) => DownloadTask;
+export type Download = (options: DownloadOption) => DownloadTask;
 
-interface Directories {
+export interface Directories {
     documents: string;
 }
 
-interface Network {
+export interface Network {
     WIFI_ONLY: string;
     ALL: string;
 }
 
-interface Priority {
+export interface Priority {
     HIGH: string;
     MEDIUM: string;
     LOW: string;
@@ -73,7 +85,7 @@ export const directories: Directories;
 export const Network: Network;
 export const Priority: Priority;
 
-interface RNBackgroundDownloader {
+export interface RNBackgroundDownloader {
     setHeaders: SetHeaders;
     checkForExistingDownloads: CheckForExistingDownloads;
     download: Download;
