@@ -13,7 +13,7 @@
 //                 Kalley Powell <https://github.com/kalley>
 //                 Elías García <https://github.com/elias-garcia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.6
 
 export function reach<T>(schema: Schema<T>, path: string, value?: any, context?: any): Schema<T>;
 export function addMethod<T extends Schema<any>>(
@@ -70,7 +70,6 @@ export interface Schema<T> {
     default(value: any): this;
     default(): T;
     typeError(message?: TestOptionsMessage): this;
-    oneOf(arrayOfValues: Array<T | Ref | null>, message?: MixedLocale['oneOf']): this;
     notOneOf(arrayOfValues: any[], message?: MixedLocale['notOneOf']): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
     test(
@@ -98,7 +97,8 @@ export interface MixedSchema<T = any> extends Schema<T> {
     required(message?: TestOptionsMessage): MixedSchema<Exclude<T, undefined>>;
     notRequired(): MixedSchema<T | undefined>;
     concat(schema: this): this;
-    concat<U>(schema: MixedSchema<U>): MixedSchema<T | U>;
+    concat<U>(schema: Schema<U>): MixedSchema<T | U>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): MixedSchema<U>;
 }
 
 export interface StringSchemaConstructor {
@@ -127,6 +127,7 @@ export interface StringSchema<T extends string | null | undefined = string> exte
     nullable(isNullable?: boolean): StringSchema<T>;
     required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>;
     notRequired(): StringSchema<T | undefined>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): StringSchema<U>;
 }
 
 export interface NumberSchemaConstructor {
@@ -149,6 +150,7 @@ export interface NumberSchema<T extends number | null | undefined = number> exte
     nullable(isNullable?: boolean): NumberSchema<T>;
     required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined>>;
     notRequired(): NumberSchema<T | undefined>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): NumberSchema<U>;
 }
 
 export interface BooleanSchemaConstructor {
@@ -162,6 +164,7 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean> e
     nullable(isNullable?: boolean): BooleanSchema<T>;
     required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, undefined>>;
     notRequired(): BooleanSchema<T | undefined>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): BooleanSchema<U>;
 }
 
 export interface DateSchemaConstructor {
@@ -177,6 +180,7 @@ export interface DateSchema<T extends Date | null | undefined = Date> extends Sc
     nullable(isNullable?: boolean): DateSchema<T>;
     required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined>>;
     notRequired(): DateSchema<T | undefined>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): DateSchema<U>;
 }
 
 export interface ArraySchemaConstructor {
@@ -191,6 +195,12 @@ interface BasicArraySchema<T extends any[] | null | undefined> extends Schema<T>
     compact(
         rejector?: (value: InferredArrayType<T>, index: number, array: Array<InferredArrayType<T>>) => boolean,
     ): this;
+
+    // This doesn't narrow the type of the schema like the more primitive oneOf calls
+    // it would be very complex to do that accurately with the subtypes, and it's not
+    // really worth it because the oneOf check is a shallow (==) comparison so it rarely
+    // applies to arrays anyway.
+    oneOf(arrayOfValues: ReadonlyArray<T | Ref | null>, message?: MixedLocale['oneOf']): this;
 }
 
 export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T[] | null | undefined> {
@@ -230,7 +240,11 @@ export interface ArraySchema<T> extends BasicArraySchema<T[]> {
 }
 
 export type ObjectSchemaDefinition<T extends object | null | undefined> = {
-    [field in keyof T]: Schema<T[field]> | Ref;
+    // This shouldn't be necessary because MixedSchema extends Schema, but type
+    // inference only works with it this way - otherwise when you use a mixed
+    // field in object schema, it will type as `unknown`. Not sure why that is -
+    // maybe some sort of inference depth limit?
+    [field in keyof T]: Schema<T[field]> | MixedSchema<T[field]> | Ref;
 };
 
 /**
@@ -239,8 +253,8 @@ export type ObjectSchemaDefinition<T extends object | null | undefined> = {
  * [yup's `object.shape()` method](https://www.npmjs.com/package/yup#objectshapefields-object-nosortedges-arraystring-string-schema).
  */
 export type Shape<T extends object | null | undefined, U extends object> =
-  | ({ [P in keyof T]: P extends keyof U ? U[P] : T[P]; } & U)
-  | PreserveOptionals<T>;
+    | ({ [P in keyof T]: P extends keyof U ? U[P] : T[P] } & U)
+    | PreserveOptionals<T>;
 
 export interface ObjectSchemaConstructor {
     <T extends object>(fields?: ObjectSchemaDefinition<T>): ObjectSchema<T>;
@@ -249,7 +263,7 @@ export interface ObjectSchemaConstructor {
 
 export interface ObjectSchema<T extends object | null | undefined = object> extends Schema<T> {
     fields: {
-      [k in keyof T]: Schema<T[k]>
+        [k in keyof T]: Schema<T[k]>;
     };
     shape<U extends object>(
         fields: ObjectSchemaDefinition<U>,
@@ -268,6 +282,7 @@ export interface ObjectSchema<T extends object | null | undefined = object> exte
     notRequired(): ObjectSchema<T | undefined>;
     concat(schema: this): this;
     concat<U extends object>(schema: ObjectSchema<U>): ObjectSchema<T & U>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): ObjectSchema<U>;
 }
 
 export type TransformFunction<T> = (this: T, value: any, originalValue: any) => any;
@@ -297,7 +312,7 @@ export interface TestContext {
     parent: any;
     schema: Schema<any>;
     resolve: (value: any) => any;
-    createError: (params?: { path?: string; message?: string, params?: object }) => ValidationError;
+    createError: (params?: { path?: string; message?: string; params?: object }) => ValidationError;
 }
 
 export interface ValidateOptions {
@@ -362,16 +377,12 @@ export interface SchemaFieldRefDescription {
     key: string;
 }
 
-export interface SchemaFieldInnerTypeDescription extends Pick<
-    SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>
-> {
+export interface SchemaFieldInnerTypeDescription
+    extends Pick<SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>> {
     innerType?: SchemaFieldDescription;
 }
 
-export type SchemaFieldDescription =
-    | SchemaDescription
-    | SchemaFieldRefDescription
-    | SchemaFieldInnerTypeDescription;
+export type SchemaFieldDescription = SchemaDescription | SchemaFieldRefDescription | SchemaFieldInnerTypeDescription;
 
 export interface SchemaDescription {
     type: string;
