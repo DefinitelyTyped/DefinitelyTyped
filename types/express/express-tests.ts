@@ -176,7 +176,7 @@ namespace express_tests {
 
     // Query will be defaulted to any
     router.get('/:foo', (req: express.Request<{}>) => {
-        req.query; // $ExpectType Query
+        req.query; // $ExpectType ParsedQs
     });
 
     // Response will default to any type

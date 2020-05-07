@@ -2050,7 +2050,7 @@
 /types/good-storage/                                    @wkl007
 /types/google-adwords-scripts/                          @jafaircl
 /types/google-apps-script/                              @PopGoesTheWza
-/types/google-apps-script-oauth2/                       @dhayab
+/types/google-apps-script-oauth2/                       @dhayab @blacksmoke16
 /types/google-cloud__datastore/                         @beaulac @ogawa0071 @ThomasdenH
 /types/google-cloud__kms/                               @ben-tbotlabs @caiertl @carboncollins
 /types/google-cloud__tasks/                             @ifiokjr

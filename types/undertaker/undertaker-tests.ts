@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import * as fs from "fs";
 import Undertaker = require("undertaker");
 import Registry = require("undertaker-registry");

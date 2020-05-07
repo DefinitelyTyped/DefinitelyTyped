@@ -405,7 +405,7 @@ function test_sortable() {
         drop: function (event, ui) {
             var $item = $(this);
             var $list = $($item.find("a").attr("href"))
-                .find<HTMLElement>(".connectedSortable");
+                .find(".connectedSortable");
             ui.draggable.hide("slow", function () {
                 $tabs.tabs("select", $tab_items.index($item));
                 $(this).appendTo($list).show("slow");

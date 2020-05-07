@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es6",
         "lib": [
             "es6"
         ],
@@ -14,11 +15,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "parse-duration-tests.ts"
+        "pdf-thumbnail-tests.ts"
     ]
 }

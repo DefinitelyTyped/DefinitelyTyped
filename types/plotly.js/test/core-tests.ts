@@ -266,6 +266,17 @@ function rand() {
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
+// Plotly.toImage + scale parameter
+(() => {
+	// Plotly.toImage will turn the plot in the given div into a data URL string
+	// toImage takes the div as the first argument and an object specifying image properties as the other
+	Plotly.toImage(graphDiv, { format: 'png', width: 800, height: 600, scale: 2 }).then((dataUrl) => {
+		// use the dataUrl
+	});
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
 // Plotly.downloadImage
 (() => {
 	// downloadImage will accept the div as the first argument and an object specifying image properties as the other
