@@ -3,7 +3,7 @@
 // Definitions by: Eddie CooRo <https://github.com/Eddie-Cooro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface IGenerateOptions {
+export interface GenerateOptions {
     length?: number;
     numbers?: boolean;
     symbols?: boolean;
@@ -14,5 +14,5 @@ export interface IGenerateOptions {
     strict?: boolean;
 }
 
-export function generate(options?: IGenerateOptions): string;
-export function generateMultiple(count: number, options?: IGenerateOptions): string[];
+export function generate(options?: GenerateOptions): string;
+export function generateMultiple(count: number, options?: GenerateOptions): string[];
