@@ -206,8 +206,7 @@ mixed.test(
     "${path} is not a function",
     (value): value is Set<any> => value instanceof Set,
 );
-// Assertion functions don't narrow the type when used in test objects:
-// $ExpectType MixedSchema<any>
+// $ExpectType MixedSchema<Set<any>>
 mixed.test({
     name: 'is-function',
     exclusive: true,

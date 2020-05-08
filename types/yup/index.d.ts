@@ -96,11 +96,12 @@ export interface MixedSchema<T = any> extends Schema<T> {
         message: TestOptionsMessage,
         test: AssertingTestFunction<U>
         ): MixedSchema<U>;
-        test(
-            name: string,
-            message: TestOptionsMessage,
-            test: TestFunction
-        ): this;
+    test(
+        name: string,
+        message: TestOptionsMessage,
+        test: TestFunction
+    ): this;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>>): MixedSchema<U>;
     test(options: TestOptions<Record<string, any>>): this;
 }
 
@@ -140,6 +141,7 @@ export interface StringSchema<T extends string | null | undefined = string> exte
         message: TestOptionsMessage,
         test: TestFunction
     ): this;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>>): StringSchema<U>;
     test(options: TestOptions<Record<string, any>>): this;
 }
 
@@ -173,6 +175,7 @@ export interface NumberSchema<T extends number | null | undefined = number> exte
         message: TestOptionsMessage,
         test: TestFunction
     ): this;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>>): NumberSchema<U>;
     test(options: TestOptions<Record<string, any>>): this;
 }
 
@@ -197,6 +200,7 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean> e
         message: TestOptionsMessage,
         test: TestFunction
     ): this;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>>): BooleanSchema<U>;
     test(options: TestOptions<Record<string, any>>): this;
 }
 
@@ -223,6 +227,7 @@ export interface DateSchema<T extends Date | null | undefined = Date> extends Sc
         message: TestOptionsMessage,
         test: TestFunction
     ): this;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>>): DateSchema<U>;
     test(options: TestOptions<Record<string, any>>): this;
 }
 
@@ -327,6 +332,7 @@ export interface ObjectSchema<T extends object | null | undefined = object> exte
         message: TestOptionsMessage,
         test: TestFunction
     ): this;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>>): ObjectSchema<U>;
     test(options: TestOptions<Record<string, any>>): this;
 }
 
@@ -429,8 +435,19 @@ interface ExclusiveTestOptions<P extends Record<string, any>> extends BaseTestOp
     name: string;
 }
 
+interface NonExclusiveAssertingTestOptions<U, P extends Record<string, any>> extends NonExclusiveTestOptions<P> {
+    test: AssertingTestFunction<U>;
+}
+
+interface ExclusiveAssertingTestOptions<U, P extends Record<string, any>> extends ExclusiveTestOptions<P> {
+    test: AssertingTestFunction<U>;
+}
+
 export type TestOptions<P extends Record<string, any> = {}> =
   NonExclusiveTestOptions<P> | ExclusiveTestOptions<P>;
+
+export type AssertingTestOptions<U, P extends Record<string, any> = {}> =
+  NonExclusiveAssertingTestOptions<U, P> | ExclusiveAssertingTestOptions<U, P>;
 
 export interface SchemaFieldRefDescription {
     type: 'ref';
