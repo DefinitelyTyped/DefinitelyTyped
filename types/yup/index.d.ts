@@ -329,9 +329,9 @@ export interface TestMessageParams {
     label: string;
 }
 
-export interface TestOptions<P extends Record<string, any> = {}, R = any> {
+interface BaseTestOptions<P extends Record<string, any> = {}, R = any> {
     /**
-     * Unique name identifying the test
+     * Unique name identifying the test. Required for exclusive tests.
      */
     name?: string;
 
@@ -355,6 +355,18 @@ export interface TestOptions<P extends Record<string, any> = {}, R = any> {
      */
     exclusive?: boolean;
 }
+
+interface NonExclusiveTestOptions<P extends Record<string, any> = {}, R = any> extends BaseTestOptions<P, R> {
+    exclusive?: false;
+}
+
+interface ExclusiveTestOptions<P extends Record<string, any> = {}, R = any> extends BaseTestOptions<P, R> {
+    exclusive: true;
+    name: string;
+}
+
+export type TestOptions<P extends Record<string, any> = {}, R = any> =
+  NonExclusiveTestOptions<P, R> | ExclusiveTestOptions<P, R>;
 
 export interface SchemaFieldRefDescription {
     type: 'ref';

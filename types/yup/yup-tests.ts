@@ -199,6 +199,14 @@ mixed.test({
     message: '${path} must be less than 5 characters',
     test: value => value == null || value.length <= 5,
 });
+// Name is required for exclusive tests:
+// $ExpectError
+mixed.test({
+    exclusive: true,
+    // tslint:disable-next-line:no-invalid-template-strings
+    message: '${path} must be less than 5 characters',
+    test: value => value == null || value.length <= 5,
+});
 mixed.test('with-promise', 'It contains invalid value', value => new Promise(resolve => true));
 const testContext = function(this: TestContext) {
     // $ExpectType string
