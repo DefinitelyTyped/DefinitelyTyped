@@ -6,6 +6,8 @@
 
 /// <reference types="redis" />
 
+import {Commands, RedisClient, ClientOpts} from 'redis'
+
 type MethodsToPromisify = keyof Commands<boolean>;
 
 type Promisified<T = RedisClient> = {
