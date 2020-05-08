@@ -167,6 +167,7 @@ mixed.oneOf(['hello', 'world'], ({ values }) => `one of ${values}`);
 // $ExpectError
 mixed.oneOf(['hello', 'world'], ({ random }) => `one of ${random}`);
 mixed.oneOf(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined>
+mixed.equals(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined>
 mixed.notOneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], () => 'message');
 mixed.when('isBig', {
@@ -398,6 +399,7 @@ numSchema
     .then(value => value)
     .catch(err => err);
 numSchema.oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
+numSchema.equals([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
 numSchema.notRequired().oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined>
 
 // Boolean Schema
@@ -405,6 +407,7 @@ const boolSchema = yup.boolean();
 boolSchema.type;
 boolSchema.isValid(true); // => true
 boolSchema.oneOf([true] as const); // $ExpectType BooleanSchema<true>
+boolSchema.equals([true] as const); // $ExpectType BooleanSchema<true>
 boolSchema.notRequired().oneOf([true] as const); // $ExpectType BooleanSchema<true | undefined>
 
 // Date Schema
@@ -422,6 +425,7 @@ dateSchema.max(new Date(), 'message');
 dateSchema.max('2017-11-12', 'message');
 dateSchema.max('2017-11-12', () => 'message');
 dateSchema.oneOf([new Date()] as const); // $ExpectType DateSchema<Date>
+dateSchema.equals([new Date()] as const); // $ExpectType DateSchema<Date>
 dateSchema.notRequired().oneOf([new Date()] as const); // $ExpectType DateSchema<Date | undefined>
 
 // Array Schema
@@ -443,6 +447,7 @@ arrSchema.min(5, 'min');
 arrSchema.min(5, () => 'min');
 arrSchema.compact((value, index, array) => value === array[index]);
 arrSchema.oneOf([]); // $ExpectType ArraySchema<number>
+arrSchema.equals([]); // $ExpectType ArraySchema<number>
 
 const arrOfObjSchema = yup.array().of(
     yup.object().shape({
