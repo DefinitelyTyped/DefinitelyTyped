@@ -31,6 +31,7 @@ expect(element).toHaveValue();
 expect(element).toHaveValue('str');
 expect(element).toHaveValue(['str1', 'str2']);
 expect(element).toHaveValue(1);
+expect(element).toHaveValue(null);
 expect(element).toBeChecked();
 
 expect(element).not.toBeInTheDOM();

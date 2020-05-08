@@ -1,21 +1,6 @@
 import * as yup from 'yup';
-
 // tslint:disable-next-line:no-duplicate-imports
-import {
-    reach,
-    isSchema,
-    date,
-    Schema,
-    ObjectSchema,
-    ValidationError,
-    MixedSchema,
-    SchemaDescription,
-    TestOptions,
-    ValidateOptions,
-    NumberSchema,
-    TestContext,
-    LocaleObject,
-} from 'yup';
+import { isSchema, LocaleObject, MixedSchema, NumberSchema, ObjectSchema, reach, Schema, SchemaDescription, TestContext, TestOptions, ValidateOptions, ValidationError } from 'yup';
 
 // reach function
 const schema1 = yup.object().shape({
@@ -158,7 +143,9 @@ mixed.nullable();
 mixed.required();
 mixed.required('Foo');
 mixed.required(() => 'Foo');
+mixed.defined();
 mixed.notRequired(); // $ExpectType MixedSchema<any>
+mixed.optional(); // $ExpectType MixedSchema<any>
 mixed.typeError('type error');
 mixed.typeError(() => 'type error');
 mixed.oneOf(['hello', 'world'], 'message');
@@ -348,6 +335,7 @@ function strSchemaTests(strSchema: yup.StringSchema) {
     strSchema.uppercase();
     strSchema.uppercase('upper');
     strSchema.uppercase(() => 'upper');
+    strSchema.defined();
 }
 
 const strSchema = yup.string(); // $ExpectType StringSchema<string>
@@ -401,6 +389,7 @@ numSchema
 numSchema.oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
 numSchema.equals([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
 numSchema.notRequired().oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined>
+numSchema.defined();
 
 // Boolean Schema
 const boolSchema = yup.boolean();
@@ -409,6 +398,7 @@ boolSchema.isValid(true); // => true
 boolSchema.oneOf([true] as const); // $ExpectType BooleanSchema<true>
 boolSchema.equals([true] as const); // $ExpectType BooleanSchema<true>
 boolSchema.notRequired().oneOf([true] as const); // $ExpectType BooleanSchema<true | undefined>
+boolSchema.defined();
 
 // Date Schema
 const dateSchema = yup.date();
@@ -432,6 +422,11 @@ dateSchema.notRequired().oneOf([new Date()] as const); // $ExpectType DateSchema
 const arrSchema = yup.array().of(yup.number().min(2));
 arrSchema.type;
 arrSchema.innerType;
+arrSchema.notRequired().innerType;
+arrSchema.optional().innerType;
+arrSchema.nullable().innerType;
+arrSchema.notRequired().nullable().innerType;
+arrSchema.optional().nullable().innerType;
 arrSchema.innerType.type;
 arrSchema.isValid([2, 3]); // => true
 arrSchema.isValid([1, -24]); // => false
@@ -448,6 +443,7 @@ arrSchema.min(5, () => 'min');
 arrSchema.compact((value, index, array) => value === array[index]);
 arrSchema.oneOf([]); // $ExpectType ArraySchema<number>
 arrSchema.equals([]); // $ExpectType ArraySchema<number>
+arrSchema.defined();
 
 const arrOfObjSchema = yup.array().of(
     yup.object().shape({
@@ -489,6 +485,7 @@ objSchema.noUnknown();
 objSchema.noUnknown(true);
 objSchema.noUnknown(true, 'message');
 objSchema.noUnknown(true, () => 'message');
+objSchema.unknown();
 objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
 objSchema.snakeCase();
@@ -500,6 +497,7 @@ interface LiteralExampleObject {
     website: "example.com";
 }
 objSchema.oneOf([{name: "John Doe", age: 35, email: "john@example.com", website: "example.com"}] as LiteralExampleObject[]); // $ExpectType ObjectSchema<LiteralExampleObject>
+objSchema.defined();
 
 const description: SchemaDescription = {
     type: 'type',
