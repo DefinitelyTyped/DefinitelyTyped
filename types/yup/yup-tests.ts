@@ -419,6 +419,9 @@ dateSchema.max('2017-11-12', () => 'message');
 const arrSchema = yup.array().of(yup.number().min(2));
 arrSchema.type;
 arrSchema.innerType;
+arrSchema.notRequired().innerType;
+arrSchema.nullable().innerType;
+arrSchema.notRequired().nullable().innerType;
 arrSchema.innerType.type;
 arrSchema.isValid([2, 3]); // => true
 arrSchema.isValid([1, -24]); // => false

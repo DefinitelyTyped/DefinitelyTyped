@@ -184,16 +184,17 @@ export interface ArraySchemaConstructor {
     new (): ArraySchema<{}>;
 }
 
-interface BasicArraySchema<T extends any[] | null | undefined> extends Schema<T> {
+interface BasicArraySchema<E, T extends E[] | null | undefined> extends Schema<T> {
     min(limit: number | Ref, message?: ArrayLocale['min']): this;
     max(limit: number | Ref, message?: ArrayLocale['max']): this;
     ensure(): this;
     compact(
         rejector?: (value: InferredArrayType<T>, index: number, array: Array<InferredArrayType<T>>) => boolean,
     ): this;
+    innerType: Schema<E>;
 }
 
-export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T[] | null | undefined> {
+export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T, T[] | null | undefined> {
     of<U>(type: Schema<U>): NotRequiredNullableArraySchema<U>;
     nullable(isNullable?: true): NotRequiredNullableArraySchema<T>;
     nullable(isNullable: false): NotRequiredArraySchema<T>;
@@ -202,7 +203,7 @@ export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T[] 
     notRequired(): NotRequiredNullableArraySchema<T>;
 }
 
-export interface NullableArraySchema<T> extends BasicArraySchema<T[] | null> {
+export interface NullableArraySchema<T> extends BasicArraySchema<T, T[] | null> {
     of<U>(type: Schema<U>): NullableArraySchema<U>;
     nullable(isNullable?: true): NullableArraySchema<T>;
     nullable(isNullable: false): ArraySchema<T>;
@@ -211,7 +212,7 @@ export interface NullableArraySchema<T> extends BasicArraySchema<T[] | null> {
     notRequired(): NotRequiredNullableArraySchema<T>;
 }
 
-export interface NotRequiredArraySchema<T> extends BasicArraySchema<T[] | undefined> {
+export interface NotRequiredArraySchema<T> extends BasicArraySchema<T, T[] | undefined> {
     of<U>(type: Schema<U>): NotRequiredArraySchema<U>;
     nullable(isNullable?: true): NotRequiredNullableArraySchema<T>;
     nullable(isNullable: false): NotRequiredArraySchema<T>;
@@ -220,8 +221,7 @@ export interface NotRequiredArraySchema<T> extends BasicArraySchema<T[] | undefi
     notRequired(): NotRequiredArraySchema<T>;
 }
 
-export interface ArraySchema<T> extends BasicArraySchema<T[]> {
-    innerType: Schema<T>;
+export interface ArraySchema<T> extends BasicArraySchema<T, T[]> {
     of<U>(type: Schema<U>): ArraySchema<U>;
     nullable(isNullable?: true): NullableArraySchema<T>;
     nullable(isNullable: false | boolean): ArraySchema<T>;
