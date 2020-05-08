@@ -4246,7 +4246,7 @@ declare namespace Xrm {
              */
             text: string;
             /**
-             * (Optional) String. The title of the alert dialog.
+             * (Optional) The title of the alert dialog.
              */
             title?: string;
         }
