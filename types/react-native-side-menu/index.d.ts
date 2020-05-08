@@ -2,6 +2,7 @@
 // Project: react-native-side-menu
 // Definitions by: Jules Samuel Randolph <https://github.com/jsamr>
 //                 Matt Pawley <https://github.com/toughdeveloper>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ReactNode, Component } from 'react';
 import { GestureResponderEvent, PanResponderGestureState, Animated, ViewStyle } from 'react-native';
@@ -70,6 +71,6 @@ export interface ReactNativeSideMenuProps {
 }
 
 export default class SideMenu extends Component<ReactNativeSideMenuProps> {
-    public openMenu(isOpen: boolean): void;
-    public moveLeft(offset: number): void;
+    openMenu(isOpen: boolean): void;
+    moveLeft(offset: number): void;
 }
