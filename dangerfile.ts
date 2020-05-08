@@ -1,11 +1,12 @@
 import fs = require('fs')
 import os = require('os')
-import { message, warn, markdown } from "danger"
+import { markdown } from "danger"
 const suggestionsDir = [os.homedir(), ".dts", "suggestions"].join('/')
 const lines: string[] = []
 const missingProperty = /module exports a property named '(.+?)', which is missing/
+
 if (fs.existsSync(suggestionsDir)) {
-    lines.push('Inspecting the Javascript source for this package found some properties that are not in the .d.ts files.')
+    lines.push('Inspecting the JavaScript source for this package found some properties that are not in the .d.ts files.')
     lines.push('The check for missing properties isn\'t always right, so take this list as advice, not a requirement.')
     for (const suggestionFile of fs.readdirSync(suggestionsDir)) {
         const path = [suggestionsDir, suggestionFile].join('/')
@@ -33,9 +34,11 @@ was missing the following properties:
             if (properties.length > 5) {
                 const extras = properties.slice(5)
                 lines.push(`
-
-as well as these ${extras.length} other properties: ` + extras.join(", "))
-
+<details>
+<summary>as well as these ${extras.length} other properties...</summary>
+<p>${extras.join(", ")}</p>
+</details>
+`)
             }
         }
     }
