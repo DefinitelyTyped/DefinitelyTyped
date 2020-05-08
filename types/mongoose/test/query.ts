@@ -373,8 +373,8 @@ locWithStringIDQuery.lean().then(location => {
 });
 
 async function testOrFail() {
-  var lq = <mongoose.DocumentQuery<Location, Location>>{};
+    var lq = <mongoose.DocumentQuery<Location, Location>>{};
 
-  var x = await lq.findOne({ color: 'blue' }).orFail().exec(); 
-  x.toJSON();
+    var x = await lq.findOne({ color: 'blue' }).orFail().exec(); 
+    x.toJSON();
 }
