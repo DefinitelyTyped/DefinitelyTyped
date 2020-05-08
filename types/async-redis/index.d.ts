@@ -1,5 +1,10 @@
-import { ClientOpts, RedisClient, Commands } from "redis";
+// Type definitions for async-redis 1.0
+// Project: https://github.com/moaxaca/async-redis
+// Definitions by: philipp-sapronov <https://github.com/philipp-sapronov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
+
+import { Commands, RedisClient, ClientOpts } from 'redis';
 
 type MethodsToPromisify = keyof Commands<boolean>;
 
