@@ -1,6 +1,6 @@
 import fs = require('fs')
 import os = require('os')
-import { markdown } from "danger"
+import { markdown, danger } from "danger"
 const suggestionsDir = [os.homedir(), ".dts", "suggestions"].join('/')
 const lines: string[] = []
 const missingProperty = /module exports a property named '(.+?)', which is missing/
@@ -28,8 +28,12 @@ if (fs.existsSync(suggestionsDir)) {
         lines.push("## " + packageName)
         for (const fileName in missingProperties) {
             const properties = missingProperties[fileName]
-            lines.push(`### ${fileName}
-was missing the following properties: 
+            const unpkgURL = `https://unpkg.com/browse/${packageName}@latest/${fileName}`
+            const dtsName = packageName.replace("@", "").replace("/", "__")
+            const dtsURL = `https://github.com/DefinitelyTyped/DefinitelyTyped/blob/${danger.github.pr.head.sha}/types/${dtsName}/${fileName}`
+
+            lines.push(`### ${fileName} ([<kbd>unpkg</kbd>](${unpkgURL}), [<kbd>d.ts</kbd>](${dtsURL}))
+was missing the following properties:
 1. ` + properties.slice(0,5).join('\n1. '))
             if (properties.length > 5) {
                 const extras = properties.slice(5)
