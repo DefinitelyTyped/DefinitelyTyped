@@ -98,7 +98,7 @@ export interface MixedSchema<T = any> extends Schema<T> {
     notRequired(): MixedSchema<T | undefined>;
     concat(schema: this): this;
     concat<U>(schema: Schema<U>): MixedSchema<T | U>;
-    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): MixedSchema<U>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): MixedSchema<MaintainOptionality<T, U>>;
 }
 
 export interface StringSchemaConstructor {
@@ -127,7 +127,7 @@ export interface StringSchema<T extends string | null | undefined = string> exte
     nullable(isNullable?: boolean): StringSchema<T>;
     required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>;
     notRequired(): StringSchema<T | undefined>;
-    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): StringSchema<U>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): StringSchema<MaintainOptionality<T, U>>;
 }
 
 export interface NumberSchemaConstructor {
@@ -150,7 +150,7 @@ export interface NumberSchema<T extends number | null | undefined = number> exte
     nullable(isNullable?: boolean): NumberSchema<T>;
     required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined>>;
     notRequired(): NumberSchema<T | undefined>;
-    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): NumberSchema<U>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): NumberSchema<MaintainOptionality<T, U>>;
 }
 
 export interface BooleanSchemaConstructor {
@@ -164,7 +164,7 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean> e
     nullable(isNullable?: boolean): BooleanSchema<T>;
     required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, undefined>>;
     notRequired(): BooleanSchema<T | undefined>;
-    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): BooleanSchema<U>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): BooleanSchema<MaintainOptionality<T, U>>;
 }
 
 export interface DateSchemaConstructor {
@@ -180,7 +180,7 @@ export interface DateSchema<T extends Date | null | undefined = Date> extends Sc
     nullable(isNullable?: boolean): DateSchema<T>;
     required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined>>;
     notRequired(): DateSchema<T | undefined>;
-    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): DateSchema<U>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): DateSchema<MaintainOptionality<T, U>>;
 }
 
 export interface ArraySchemaConstructor {
@@ -535,3 +535,5 @@ type InnerInferType<T> =
     | (T extends Array<infer T> ? T[] : Id<NotRequiredProps<T> & RequiredProps<T>>)
     | PreserveOptionals<T>;
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;
+/** If `T` is optional, returns optional `U`. */
+type MaintainOptionality<T, U> = T extends undefined ? U | undefined : U;

@@ -166,7 +166,7 @@ mixed.oneOf(['hello', 'world'], () => 'message');
 mixed.oneOf(['hello', 'world'], ({ values }) => `one of ${values}`);
 // $ExpectError
 mixed.oneOf(['hello', 'world'], ({ random }) => `one of ${random}`);
-mixed.oneOf(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1>
+mixed.oneOf(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined>
 mixed.notOneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], () => 'message');
 mixed.when('isBig', {
@@ -351,6 +351,7 @@ function strSchemaTests(strSchema: yup.StringSchema) {
 
 const strSchema = yup.string(); // $ExpectType StringSchema<string>
 strSchema.oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world">
+strSchema.notRequired().oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world" | undefined>
 strSchemaTests(strSchema);
 
 const strLiteralSchema = yup.string<'foo' | 'bar'>(); // $ExpectType StringSchema<"foo"> | StringSchema<"bar">
@@ -397,12 +398,14 @@ numSchema
     .then(value => value)
     .catch(err => err);
 numSchema.oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
+numSchema.notRequired().oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined>
 
 // Boolean Schema
 const boolSchema = yup.boolean();
 boolSchema.type;
 boolSchema.isValid(true); // => true
 boolSchema.oneOf([true] as const); // $ExpectType BooleanSchema<true>
+boolSchema.notRequired().oneOf([true] as const); // $ExpectType BooleanSchema<true | undefined>
 
 // Date Schema
 const dateSchema = yup.date();
@@ -419,6 +422,7 @@ dateSchema.max(new Date(), 'message');
 dateSchema.max('2017-11-12', 'message');
 dateSchema.max('2017-11-12', () => 'message');
 dateSchema.oneOf([new Date()] as const); // $ExpectType DateSchema<Date>
+dateSchema.notRequired().oneOf([new Date()] as const); // $ExpectType DateSchema<Date | undefined>
 
 // Array Schema
 const arrSchema = yup.array().of(yup.number().min(2));
@@ -874,8 +878,8 @@ function wrapper<T>(b: boolean, msx: MixedSchema<T>): MixedSchema<T> {
     return msx.nullable(b);
 }
 
-const resultingSchema1 = wrapper<string | number>(false, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number>
-const resultingSchema2 = wrapper<string | number>(true, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | null>
+const resultingSchema1 = wrapper<string | number | undefined>(false, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | undefined>
+const resultingSchema2 = wrapper<string | number | undefined>(true, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | null | undefined>
 
 const arrayOfStringsSchema = yup.array().of(yup.string());
 type ArrayOfStrings = yup.InferType<typeof arrayOfStringsSchema>;
