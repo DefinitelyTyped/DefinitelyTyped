@@ -29,4 +29,4 @@ interface AsyncRedisConstructor {
 }
 
 declare const AsyncRedis: AsyncRedisConstructor;
-export default AsyncRedis;
+export = AsyncRedis;
