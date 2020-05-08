@@ -7,7 +7,7 @@ export interface ModalProps extends React.HTMLAttributes<HTMLElement> {
     isOpen?: boolean;
     autoFocus?: boolean;
     size?: string;
-    toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>;
+    toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any> | (() => void);
     keyboard?: boolean;
     backdrop?: boolean | 'static';
     scrollable?: boolean;

@@ -12,7 +12,7 @@ export interface UncontrolledAlertProps extends React.HTMLAttributes<HTMLElement
 }
 export interface AlertProps extends UncontrolledAlertProps {
     isOpen?: boolean;
-    toggle?: React.MouseEventHandler<any>;
+    toggle?: React.MouseEventHandler<any> | (() => void);
 }
 
 declare class Alert<T = {[key: string]: any}> extends React.Component<AlertProps> {}
