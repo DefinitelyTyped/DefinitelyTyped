@@ -73,13 +73,6 @@ export interface Schema<T> {
     oneOf(arrayOfValues: Array<T | Ref | null>, message?: MixedLocale['oneOf']): this;
     notOneOf(arrayOfValues: any[], message?: MixedLocale['notOneOf']): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
-    test(
-        name: string,
-        message: TestOptionsMessage,
-        test: (this: TestContext, value?: any) => boolean | ValidationError | Promise<boolean | ValidationError>
-    ): this;
-    // tslint:disable-next-line:no-unnecessary-generics
-    test<P>(options: TestOptions<P>): this;
     transform(fn: TransformFunction<this>): this;
 }
 
@@ -98,6 +91,17 @@ export interface MixedSchema<T = any> extends Schema<T> {
     notRequired(): MixedSchema<T | undefined>;
     concat(schema: this): this;
     concat<U>(schema: MixedSchema<U>): MixedSchema<T | U>;
+    test<U extends T = T>(
+        name: string,
+        message: TestOptionsMessage,
+        test: AssertingTestFunction<U>
+        ): MixedSchema<U>;
+        test(
+            name: string,
+            message: TestOptionsMessage,
+            test: TestFunction
+        ): this;
+    test(options: TestOptions<Record<string, any>>): this;
 }
 
 export interface StringSchemaConstructor {
@@ -126,6 +130,17 @@ export interface StringSchema<T extends string | null | undefined = string> exte
     nullable(isNullable?: boolean): StringSchema<T>;
     required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>;
     notRequired(): StringSchema<T | undefined>;
+    test<U extends T = T>(
+        name: string,
+        message: TestOptionsMessage,
+        test: AssertingTestFunction<U>
+    ): StringSchema<U>;
+    test(
+        name: string,
+        message: TestOptionsMessage,
+        test: TestFunction
+    ): this;
+    test(options: TestOptions<Record<string, any>>): this;
 }
 
 export interface NumberSchemaConstructor {
@@ -148,6 +163,17 @@ export interface NumberSchema<T extends number | null | undefined = number> exte
     nullable(isNullable?: boolean): NumberSchema<T>;
     required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined>>;
     notRequired(): NumberSchema<T | undefined>;
+    test<U extends T = T>(
+        name: string,
+        message: TestOptionsMessage,
+        test: AssertingTestFunction<U>
+    ): NumberSchema<U>;
+    test(
+        name: string,
+        message: TestOptionsMessage,
+        test: TestFunction
+    ): this;
+    test(options: TestOptions<Record<string, any>>): this;
 }
 
 export interface BooleanSchemaConstructor {
@@ -161,6 +187,17 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean> e
     nullable(isNullable?: boolean): BooleanSchema<T>;
     required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, undefined>>;
     notRequired(): BooleanSchema<T | undefined>;
+    test<U extends T = T>(
+        name: string,
+        message: TestOptionsMessage,
+        test: AssertingTestFunction<U>
+    ): BooleanSchema<U>;
+    test(
+        name: string,
+        message: TestOptionsMessage,
+        test: TestFunction
+    ): this;
+    test(options: TestOptions<Record<string, any>>): this;
 }
 
 export interface DateSchemaConstructor {
@@ -176,6 +213,17 @@ export interface DateSchema<T extends Date | null | undefined = Date> extends Sc
     nullable(isNullable?: boolean): DateSchema<T>;
     required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined>>;
     notRequired(): DateSchema<T | undefined>;
+    test<U extends T = T>(
+        name: string,
+        message: TestOptionsMessage,
+        test: AssertingTestFunction<U>
+    ): DateSchema<U>;
+    test(
+        name: string,
+        message: TestOptionsMessage,
+        test: TestFunction
+    ): this;
+    test(options: TestOptions<Record<string, any>>): this;
 }
 
 export interface ArraySchemaConstructor {
@@ -190,6 +238,8 @@ interface BasicArraySchema<T extends any[] | null | undefined> extends Schema<T>
     compact(
         rejector?: (value: InferredArrayType<T>, index: number, array: Array<InferredArrayType<T>>) => boolean,
     ): this;
+    test(name: string, message: TestOptionsMessage, test: TestFunction): this;
+    test(options: TestOptions<Record<string, any>>): this;
 }
 
 export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T[] | null | undefined> {
@@ -267,7 +317,21 @@ export interface ObjectSchema<T extends object | null | undefined = object> exte
     notRequired(): ObjectSchema<T | undefined>;
     concat(schema: this): this;
     concat<U extends object>(schema: ObjectSchema<U>): ObjectSchema<T & U>;
+    test<U extends T = T>(
+        name: string,
+        message: TestOptionsMessage,
+        test: AssertingTestFunction<U>
+    ): ObjectSchema<U>;
+    test(
+        name: string,
+        message: TestOptionsMessage,
+        test: TestFunction
+    ): this;
+    test(options: TestOptions<Record<string, any>>): this;
 }
+
+export type TestFunction = (this: TestContext, value: any) => boolean | ValidationError | Promise<boolean | ValidationError>;
+export type AssertingTestFunction<T> = (this: TestContext, value: any) => value is T;
 
 export type TransformFunction<T> = (this: T, value: any, originalValue: any) => any;
 
@@ -329,7 +393,7 @@ export interface TestMessageParams {
     label: string;
 }
 
-interface BaseTestOptions<P extends Record<string, any> = {}, R = any> {
+interface BaseTestOptions<P extends Record<string, any>> {
     /**
      * Unique name identifying the test. Required for exclusive tests.
      */
@@ -338,12 +402,12 @@ interface BaseTestOptions<P extends Record<string, any> = {}, R = any> {
     /**
      * Test function, determines schema validity
      */
-    test: (this: TestContext, value: any) => boolean | ValidationError | Promise<boolean | ValidationError>;
+    test: TestFunction;
 
     /**
      * The validation error message
      */
-    message?: TestOptionsMessage<P, R>;
+    message?: TestOptionsMessage<P>;
 
     /**
      * Values passed to message for interpolation
@@ -356,17 +420,17 @@ interface BaseTestOptions<P extends Record<string, any> = {}, R = any> {
     exclusive?: boolean;
 }
 
-interface NonExclusiveTestOptions<P extends Record<string, any> = {}, R = any> extends BaseTestOptions<P, R> {
+interface NonExclusiveTestOptions<P extends Record<string, any>> extends BaseTestOptions<P> {
     exclusive?: false;
 }
 
-interface ExclusiveTestOptions<P extends Record<string, any> = {}, R = any> extends BaseTestOptions<P, R> {
+interface ExclusiveTestOptions<P extends Record<string, any>> extends BaseTestOptions<P> {
     exclusive: true;
     name: string;
 }
 
-export type TestOptions<P extends Record<string, any> = {}, R = any> =
-  NonExclusiveTestOptions<P, R> | ExclusiveTestOptions<P, R>;
+export type TestOptions<P extends Record<string, any> = {}> =
+  NonExclusiveTestOptions<P> | ExclusiveTestOptions<P>;
 
 export interface SchemaFieldRefDescription {
     type: 'ref';
