@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 declare namespace URLInput {
     // TODO: if PostType is ever typed import it and use it here

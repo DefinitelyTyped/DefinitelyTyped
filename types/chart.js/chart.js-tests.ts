@@ -458,3 +458,49 @@ const timeLabelsChartData: Chart.ChartData = {
 const event = new MouseEvent('click');
 chart.getElementsAtEvent(event);
 chart.getElementsAtXAxis(event);
+
+// Number array chart data
+const chartWithNumberArrayData: Chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        datasets: [{
+            backgroundColor: '#000',
+            borderColor: '#f00',
+            data: [
+                [1, 2],
+                [3, 4],
+                [5, 6]
+            ],
+            type: 'line',
+        }]
+    },
+    options: {
+        scales: {
+            displayFormats: {
+                month: 'MMM YYYY',
+            },
+            xAxes: [{
+                type: 'time',
+                distribution: 'series',
+                ticks: {
+                    source: 'data',
+                    autoSkip: true,
+                    sampleSize: 1,
+                }
+            }],
+            yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Closing price ($)'
+                },
+                afterBuildTicks: (scale, ticks) => {
+                    return [Math.max(...ticks), 10, Math.min(...ticks)];
+                }
+            }]
+        },
+        tooltips: {
+            intersect: false,
+            mode: 'index',
+        }
+    }
+});

@@ -10,7 +10,7 @@ export interface TabsProps extends InheritedProps {
     selected?: number,
     selectionMode?: "automatic" | "manual",
     tabContentClassName?: ReactAttr["className"],
-    triggerHref: string,
+    triggerHref?: string, // required but has default value "#"
     type?: "container" | "default";
 }
 

@@ -40,7 +40,17 @@ app.get<{}, any, any, {q: string}>('/:foo', req => {
 
 // Query will be defaulted to Query type
 app.get('/:foo', req => {
-    req.query; // $ExpectType Query
+    req.query; // $ExpectType ParsedQs
+});
+
+// Next can receive a Error parameter to delegate to Error handler
+app.get('/nexterr', (req, res, next) => {
+    next(new Error("dummy")); // $ExpectType void
+});
+
+// Next can receive a 'router' parameter to fall back to next router
+app.get('/nextrouter', (req, res, next) => {
+    next('router'); // $ExpectType void
 });
 
 // Default types
