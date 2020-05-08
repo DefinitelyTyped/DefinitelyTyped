@@ -3041,7 +3041,7 @@ declare namespace Xrm {
             refresh(): void;
             
             /**
-             * Refreshes the grid ribbon.
+             * Refreshes the sub grid ribbon.
              * @see {@link https://docs.microsoft.com/it-it/powerapps/developer/model-driven-apps/clientapi/reference/grids/gridcontrol/refreshribbon External Link: refreshRibbon (Client API reference)}
              */
             refreshRibbon(): void;
