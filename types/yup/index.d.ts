@@ -76,8 +76,7 @@ export interface Schema<T> {
     test(
         name: string,
         message: TestOptionsMessage,
-        test: (this: TestContext, value?: any) => boolean | ValidationError | Promise<boolean | ValidationError>,
-        callbackStyleAsync?: boolean,
+        test: (this: TestContext, value?: any) => boolean | ValidationError | Promise<boolean | ValidationError>
     ): this;
     // tslint:disable-next-line:no-unnecessary-generics
     test<P>(options: TestOptions<P>): this;
