@@ -70,6 +70,6 @@ export interface ReactNativeSideMenuProps {
 }
 
 export default class SideMenu extends Component<ReactNativeSideMenuProps> {
-    public openMenu(isOpen: boolean): void
-    public moveLeft(offset: number): void
+    public openMenu(isOpen: boolean): void;
+    public moveLeft(offset: number): void;
 }

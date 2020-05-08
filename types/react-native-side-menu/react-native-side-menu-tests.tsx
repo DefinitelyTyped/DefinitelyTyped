@@ -17,15 +17,15 @@ export default () => (
         onMove={() => {}}
         onSliding={() => {}}
         menuPosition="left"
-        animationFunction={(prop, value) => Animated.spring(prop, {
-            useNativeDriver: false,
-            toValue: value,
-            friction: 8,
-        })}
+        animationFunction={(prop, value) =>
+            Animated.spring(prop, {
+                useNativeDriver: false,
+                toValue: value,
+                friction: 8,
+            })
+        }
         animationStyle={() => ({
-            transform: [
-                { translateX: 40 }
-            ],
+            transform: [{ translateX: 40 }],
         })}
         bounceBackOnOverdraw={false}
         autoClosing={false}
