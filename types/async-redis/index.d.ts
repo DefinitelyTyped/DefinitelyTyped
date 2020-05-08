@@ -4,9 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
 
-/// <reference types="redis" />
-
-import {Commands, RedisClient, ClientOpts} from 'redis'
+import { Commands, RedisClient, ClientOpts } from 'redis';
 
 type MethodsToPromisify = keyof Commands<boolean>;
 
