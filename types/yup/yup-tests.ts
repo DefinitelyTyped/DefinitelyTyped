@@ -1,21 +1,6 @@
 import * as yup from 'yup';
-
 // tslint:disable-next-line:no-duplicate-imports
-import {
-    reach,
-    isSchema,
-    date,
-    Schema,
-    ObjectSchema,
-    ValidationError,
-    MixedSchema,
-    SchemaDescription,
-    TestOptions,
-    ValidateOptions,
-    NumberSchema,
-    TestContext,
-    LocaleObject,
-} from 'yup';
+import { isSchema, LocaleObject, MixedSchema, NumberSchema, ObjectSchema, reach, Schema, SchemaDescription, TestContext, TestOptions, ValidateOptions, ValidationError } from 'yup';
 
 // reach function
 const schema1 = yup.object().shape({
@@ -128,6 +113,7 @@ error.errors = ['error'];
 
 // mixed
 let mixed: MixedSchema = yup.mixed();
+mixed.type;
 mixed.clone();
 mixed.label('label');
 mixed.meta({ meta: 'value' });
@@ -157,7 +143,9 @@ mixed.nullable();
 mixed.required();
 mixed.required('Foo');
 mixed.required(() => 'Foo');
+mixed.defined();
 mixed.notRequired(); // $ExpectType MixedSchema<any>
+mixed.optional(); // $ExpectType MixedSchema<any>
 mixed.typeError('type error');
 mixed.typeError(() => 'type error');
 mixed.oneOf(['hello', 'world'], 'message');
@@ -303,6 +291,7 @@ yup.object()
 
 // String schema
 function strSchemaTests(strSchema: yup.StringSchema) {
+    strSchema.type;
     strSchema.isValid('hello'); // => true
     strSchema.required();
     strSchema.required('req');
@@ -344,6 +333,7 @@ function strSchemaTests(strSchema: yup.StringSchema) {
     strSchema.uppercase();
     strSchema.uppercase('upper');
     strSchema.uppercase(() => 'upper');
+    strSchema.defined();
 }
 
 const strSchema = yup.string(); // $ExpectType StringSchema<string>
@@ -357,6 +347,7 @@ yup.string<123>();
 
 // Number schema
 const numSchema = yup.number(); // $ExpectType NumberSchema<number>
+numSchema.type;
 numSchema.isValid(10); // => true
 numSchema.min(5);
 numSchema.min(5, 'message');
@@ -391,13 +382,17 @@ numSchema
     .validate(5, { strict: true })
     .then(value => value)
     .catch(err => err);
+numSchema.defined();
 
 // Boolean Schema
 const boolSchema = yup.boolean();
+boolSchema.type;
 boolSchema.isValid(true); // => true
+boolSchema.defined();
 
 // Date Schema
 const dateSchema = yup.date();
+dateSchema.type;
 dateSchema.isValid(new Date()); // => true
 dateSchema.min(new Date());
 dateSchema.min('2017-11-12');
@@ -412,6 +407,14 @@ dateSchema.max('2017-11-12', () => 'message');
 
 // Array Schema
 const arrSchema = yup.array().of(yup.number().min(2));
+arrSchema.type;
+arrSchema.innerType;
+arrSchema.notRequired().innerType;
+arrSchema.optional().innerType;
+arrSchema.nullable().innerType;
+arrSchema.notRequired().nullable().innerType;
+arrSchema.optional().nullable().innerType;
+arrSchema.innerType.type;
 arrSchema.isValid([2, 3]); // => true
 arrSchema.isValid([1, -24]); // => false
 arrSchema.required();
@@ -425,6 +428,7 @@ arrSchema.min(5);
 arrSchema.min(5, 'min');
 arrSchema.min(5, () => 'min');
 arrSchema.compact((value, index, array) => value === array[index]);
+arrSchema.defined();
 
 const arrOfObjSchema = yup.array().of(
     yup.object().shape({
@@ -459,17 +463,19 @@ yup.object().shape({
 yup.object({
     num: yup.number(),
 });
-
+objSchema.type;
 objSchema.from('prop', 'myProp');
 objSchema.from('prop', 'myProp', true);
 objSchema.noUnknown();
 objSchema.noUnknown(true);
 objSchema.noUnknown(true, 'message');
 objSchema.noUnknown(true, () => 'message');
+objSchema.unknown();
 objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
 objSchema.snakeCase();
 objSchema.constantCase();
+objSchema.defined();
 
 const description: SchemaDescription = {
     type: 'type',

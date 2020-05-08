@@ -1,5 +1,5 @@
 import { Schema } from '@wordpress/api-fetch';
-import { ComponentType, ReactNode } from '@wordpress/element';
+import { ComponentType, ReactNode } from 'react';
 
 declare namespace PostTaxonomies {
     interface Props {

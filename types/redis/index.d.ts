@@ -13,6 +13,7 @@
 //                 Adebayo Opesanya <https://github.com/OpesanyaAdebayo>
 //                 Ryo Ota <https://github.com/nwtgck>
 //                 Thomas de Barochez <https://github.com/tdebarochez>
+//                 David Stephens <https://github.com/dwrss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -29,7 +30,7 @@ export interface RetryStrategyOptions {
     attempt: number;
 }
 
-export type RetryStrategy = (options: RetryStrategyOptions) => number | Error;
+export type RetryStrategy = (options: RetryStrategyOptions) => number | Error | undefined;
 
 export interface ClientOpts {
     host?: string;
@@ -1185,7 +1186,7 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     connected: boolean;
     command_queue_length: number;
     offline_queue_length: number;
-    retry_delay: number;
+    retry_delay: number | Error;
     retry_backoff: number;
     command_queue: any[];
     offline_queue: any[];

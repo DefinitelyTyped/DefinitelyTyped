@@ -24,6 +24,7 @@ import {
     FileUploaderDropContainer,
     FileUploaderItem,
     MultiSelect,
+    Tabs,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -49,7 +50,7 @@ interface Row1 extends DataTableRow {
     rowProp: string;
 }
 
-type Header1Key = "h1" | "h2" | "h3";
+type Header1Key = 'h1' | 'h2' | 'h3';
 interface Header1 extends DataTableHeader<Header1Key> {
     headerProp: number;
 }
@@ -121,8 +122,8 @@ const t2 = (
             props.selectRow('qwerty');
             props.sortBy('h3');
 
-            props.rows.forEach((denormalizedRow) => {
-                denormalizedRow.cells.forEach((cell) => {
+            props.rows.forEach(denormalizedRow => {
+                denormalizedRow.cells.forEach(cell => {
                     let cellId = cell.id;
                     let cellHeaderKey = cell.info.header;
                 });
@@ -154,25 +155,21 @@ const t4 = (
         headers={[headerData1]}
         rows={[rowData1]}
         render={data => {
-            let table = (<Table {...data.getTableProps()}>Content</Table>);
+            let table = <Table {...data.getTableProps()}>Content</Table>;
             let header = (
-                <TableHeader {...data.getHeaderProps({ header: headerData1, randomAttr: "asdf" })}>
+                <TableHeader {...data.getHeaderProps({ header: headerData1, randomAttr: 'asdf' })}>
                     {headerData1.header}
                 </TableHeader>
             );
             let header2 = (
-                <TableHeader {...data.getHeaderProps<ExtraStuff>({ header: headerData1, extra1: "test" })}>
+                <TableHeader {...data.getHeaderProps<ExtraStuff>({ header: headerData1, extra1: 'test' })}>
                     {headerData1.header}
                 </TableHeader>
             );
             let rowProps = data.getRowProps({ row: rowData1, extra1: 'qwerty', ...rowData1 });
-            let row = (
-                <TableRow {...rowProps}>
-                    Content
-                </TableRow>
-            );
+            let row = <TableRow {...rowProps}>Content</TableRow>;
             let batchActions = (
-                <TableBatchActions {...data.getBatchActionProps({ spellCheck: true, randomAttr: "Asdf" })}>
+                <TableBatchActions {...data.getBatchActionProps({ spellCheck: true, randomAttr: 'Asdf' })}>
                     Content
                 </TableBatchActions>
             );
@@ -188,12 +185,12 @@ interface T5RowType extends DataTableRow {
     col2: number;
 }
 const t5RowItems: T5RowType[] = [
-    { id: "row0", col1: 0, col2: 0 },
-    { id: "row1", col1: 1, col2: 1 },
+    { id: 'row0', col1: 0, col2: 0 },
+    { id: 'row1', col1: 1, col2: 1 },
 ];
 const t5Headers: DataTableHeader[] = [
     { key: 'col1', header: 'First column' },
-    { key: 'col2', header: 'Second column' }
+    { key: 'col2', header: 'Second column' },
 ];
 const t5 = (
     <DataTable
@@ -204,13 +201,9 @@ const t5 = (
                 <DataTable.Table {...renderProps.getTableProps()}>
                     <DataTable.TableHead>
                         <DataTable.TableRow>
-                            <DataTable.TableSelectAll
-                                {...renderProps.getSelectionProps()}
-                            />
+                            <DataTable.TableSelectAll {...renderProps.getSelectionProps()} />
                             {renderProps.headers.map(header => (
-                                <DataTable.TableHeader
-                                    {...renderProps.getHeaderProps({ header })}
-                                >
+                                <DataTable.TableHeader {...renderProps.getHeaderProps({ header })}>
                                     {header.header}
                                 </DataTable.TableHeader>
                             ))}
@@ -221,13 +214,9 @@ const t5 = (
                         {renderProps.rows.map(row => (
                             <React.Fragment key={row.id}>
                                 <DataTable.TableRow {...renderProps.getRowProps({ row })}>
-                                    <DataTable.TableSelectRow
-                                        {...renderProps.getSelectionProps({ row })}
-                                    />
+                                    <DataTable.TableSelectRow {...renderProps.getSelectionProps({ row })} />
                                     {row.cells.map(cell => (
-                                        <DataTable.TableCell key={cell.id}>
-                                            {cell.value}
-                                        </DataTable.TableCell>
+                                        <DataTable.TableCell key={cell.id}>{cell.value}</DataTable.TableCell>
                                     ))}
                                     <DataTable.TableCell key={`options${row.id}`} />
                                 </DataTable.TableRow>
@@ -242,68 +231,66 @@ const t5 = (
 
 // UIShell - Link
 interface TestCompProps {
-    someProp: number,
+    someProp: number;
 }
 
 class TestComp1 extends React.Component<TestCompProps> {
     render() {
-        return (<div />);
+        return <div />;
     }
 }
 
-const TestComp2 = (props: TestCompProps) => (<div />);
+const TestComp2 = (props: TestCompProps) => <div />;
 
-const uisLinkT1 = (
-    <Link href="#test">Test</Link>
-);
-const uisLinkT2 = (
-    <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src" />
-);
+const uisLinkT1 = <Link href="#test">Test</Link>;
+const uisLinkT2 = <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src" />;
 const uisLinkT3 = (
-    <Link<TestCompProps> element={TestComp1} someProp={2}>ASDF</Link>
+    <Link<TestCompProps> element={TestComp1} someProp={2}>
+        ASDF
+    </Link>
 );
 const uisLinkT4 = (
-    <Link<TestCompProps> element={TestComp2} someProp={2}>ASDF</Link>
+    <Link<TestCompProps> element={TestComp2} someProp={2}>
+        ASDF
+    </Link>
 );
 
 interface TestCompPropsOverwrite {
-    element?: "overwriteTest", // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
-    someProp: string,
+    element?: 'overwriteTest'; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
+    someProp: string;
 }
 
-const TestComp3 = (props: TestCompPropsOverwrite) => (<div />);
+const TestComp3 = (props: TestCompPropsOverwrite) => <div />;
 
 const uisLinkT5 = (
-    <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
+    <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">
+        Testing Overwrite
+    </Link>
 );
 
 // DatePickerInput
 const datePickerInputWithHideLabel = (
-    <DatePickerInput
-        hideLabel={true}
-        id="my-date-picker-input"
-        labelText="my-label-text"
-    />
+    <DatePickerInput hideLabel={true} id="my-date-picker-input" labelText="my-label-text" />
 );
 
 // Dropdown
 const dropdownItemCanBeElement = (
     <Dropdown
         id="my-dropdown"
-        items={["val1", "val2", "val3"]}
+        items={['val1', 'val2', 'val3']}
         label="label"
         titleText=""
         ariaLabel=""
         selectedItem="val2"
-        itemToElement={(item) => (<div>This is my rich content</div>)}
-        itemToString={item => "Selected: " + item}
+        itemToElement={item => <div>This is my rich content</div>}
+        itemToString={item => 'Selected: ' + item}
     />
 );
 
 // TileGroup
 // Value nor name can be undefined
 let value: string | number = 5;
-let name = "old name";
+let name = 'old name';
 const tileGroupA = (
     <TileGroup
         name="my-tile-group-name"
@@ -315,139 +302,86 @@ const tileGroupA = (
 );
 
 // TooltipDefinition
-const tooltipDefHasAlign = (
-    <TooltipDefinition tooltipText="my text" align="end" />
-);
+const tooltipDefHasAlign = <TooltipDefinition tooltipText="my text" align="end" />;
 
-const tooltipDefHasTriggerClassName = (
-    <TooltipDefinition tooltipText="my text" triggerClassName="my-class-name" />
-);
+const tooltipDefHasTriggerClassName = <TooltipDefinition tooltipText="my text" triggerClassName="my-class-name" />;
 
 // Tabs
-const tabCanBeDisabled = (
-    <Tab
-        handleTabClick={() => { }}
-        handleTabKeyDown={() => { }}
-        href="#"
-        tabIndex={0}
-        disabled
-        selected={false}
-    />
+
+const tabsBasicExample = (
+    <Tabs selected={1} onSelectionChange={idx => {}}>
+        <Tab>Tab 1</Tab>
+        <Tab>Tab 2</Tab>
+    </Tabs>
 );
+
+const tabsRenderContentExample = (
+    <Tabs>
+        <Tab
+            renderContent={props => {
+                const { 'aria-hidden': ariaHidden, className, hidden, id, selected } = props;
+                return hidden ? null : (
+                    <div id={id} className={className} aria-hidden={ariaHidden}>
+                        Selected: {selected}
+                    </div>
+                );
+            }}
+        >
+            Render Content Tab
+        </Tab>
+    </Tabs>
+);
+
+const tabCanBeDisabled = <Tab href="#" disabled />;
 
 // Slider
-const SliderHasOnChange = (
-    <Slider
-        max={0}
-        min={10}
-        value={5}
-        onChange={(newValue) => newValue.value}
-    />
-);
+const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue => newValue.value} />;
 
 // Tag
-const ChipTagFilterUndef = (
-    <Tag />
-);
+const ChipTagFilterUndef = <Tag />;
 
-const ChipTagFalse = (
-    <Tag filter={false}/>
-);
+const ChipTagFalse = <Tag filter={false} />;
 
-const FilterTag = (
-    <Tag filter onClose={() => {}}/>
-);
+const FilterTag = <Tag filter onClose={() => {}} />;
 
 // TextArea
-const textAreaWithDefaultRef = (
-    <TextArea labelText="" />
-);
+const textAreaWithDefaultRef = <TextArea labelText="" />;
 
 const HtmlTextAreaRef = React.createRef<HTMLTextAreaElement>();
-const textAreaWithRef = (
-    <TextArea
-        ref={HtmlTextAreaRef}
-        labelText=""
-    />
-);
+const textAreaWithRef = <TextArea ref={HtmlTextAreaRef} labelText="" />;
 
 // TextInput
-const inputWithoutRef = (
-    <TextInput
-        id="my-id"
-        labelText=""
-    />
-);
+const inputWithoutRef = <TextInput id="my-id" labelText="" />;
 
-const passwordInputWithoutRef = (
-    <TextInput.PasswordInput
-        id="my-id"
-        labelText=""
-    />
-);
+const passwordInputWithoutRef = <TextInput.PasswordInput id="my-id" labelText="" />;
 
-const controlledPasswordInputWithoutRef = (
-    <TextInput.ControlledPasswordInput
-        id="my-id"
-        labelText=""
-    />
-);
+const controlledPasswordInputWithoutRef = <TextInput.ControlledPasswordInput id="my-id" labelText="" />;
 
 const inputRef = React.createRef<HTMLInputElement>();
-const inputWithRef = (
-    <TextInput
-        id="my-id"
-        ref={inputRef}
-        labelText=""
-    />
-);
+const inputWithRef = <TextInput id="my-id" ref={inputRef} labelText="" />;
 
-const passwordInputWithRef = (
-    <TextInput.PasswordInput
-        id="my-id"
-        ref={inputRef}
-        labelText=""
-    />
-);
+const passwordInputWithRef = <TextInput.PasswordInput id="my-id" ref={inputRef} labelText="" />;
 
-const controlledPasswordInputWithRef = (
-    <TextInput.ControlledPasswordInput
-        id="my-id"
-        ref={inputRef}
-        labelText=""
-    />
-);
+const controlledPasswordInputWithRef = <TextInput.ControlledPasswordInput id="my-id" ref={inputRef} labelText="" />;
 
 // NumberInput
-const numberInput = (
-    <NumberInput
-        id="my-id"
-        value={12}
-    />
-);
+const numberInput = <NumberInput id="my-id" value={12} />;
 
 // FileUploader
-const fileUploaderHasOnChange = (
-    <FileUploader
-        onChange={(e) => { }}
-    />
-);
+const fileUploaderHasOnChange = <FileUploader onChange={e => {}} />;
 
 const fileUploaderDropContainer = (
     <FileUploaderDropContainer
-        accept={[
-            'image/jpeg',
-            'image/png'
-        ]}
+        accept={['image/jpeg', 'image/png']}
         labelText="Drag and drop files here or click to upload"
         multiple
         name=""
-        onAddFiles={(event, content) => { }}
-        onChange={(event) => { }}
+        onAddFiles={(event, content) => {}}
+        onChange={event => {}}
         role=""
         tabIndex={0}
     />
-)
+);
 
 const fileUploaderItem = (
     <FileUploaderItem
@@ -455,33 +389,33 @@ const fileUploaderItem = (
         errorSubject="File size exceeds limit"
         iconDescription="Clear file"
         name="README.md"
-        onDelete={ (event, content) => {} }
+        onDelete={(event, content) => {}}
         status="edit"
         uuid="id1"
     />
-)
+);
 
 const multiSelect = (
     <MultiSelect
-    id="clusters"
-    initialSelectedItems={['one']}
-    items={['one', 'two']}
-    light
-    titleText="Choose an item"
-    itemToString={item => item}
-    onChange={({ selectedItems }) => {}}
+        id="clusters"
+        initialSelectedItems={['one']}
+        items={['one', 'two']}
+        light
+        titleText="Choose an item"
+        itemToString={item => item}
+        onChange={({ selectedItems }) => {}}
     />
-)
+);
 
 const multiSelectFilterable = (
     <MultiSelect.Filterable
-    id="clusters"
-    initialSelectedItems={['one']}
-    items={['one', 'two']}
-    light
-    placeholder="Filter"
-    titleText="Choose an item"
-    itemToString={item => item}
-    onChange={({ selectedItems }) => {}}
+        id="clusters"
+        initialSelectedItems={['one']}
+        items={['one', 'two']}
+        light
+        placeholder="Filter"
+        titleText="Choose an item"
+        itemToString={item => item}
+        onChange={({ selectedItems }) => {}}
     />
-)
+);

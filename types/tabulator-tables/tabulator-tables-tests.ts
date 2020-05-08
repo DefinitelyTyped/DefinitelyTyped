@@ -249,7 +249,8 @@ let autoComplete: Tabulator.AutoCompleteParams = {
         // prefix all titles with the work "Mr"
         return 'Mr ' + title;
     },
-    values: true, // create list of values from all values contained in this column
+    values: true, // create list of values from all values contained in this column,
+    sortValuesList:'asc', // sort the values by ascending order,
 };
 colDef.editorParams = autoComplete;
 
@@ -318,6 +319,15 @@ let validators: Tabulator.Validator[] = [
 colDef.headerFilterFunc = '!=';
 colDef.headerFilterFunc = (headerValue, rowValue, rowData, filterParams) => {
     return rowData.name === filterParams.name && rowValue < headerValue; // must return a boolean, true if it passes the filter.
+};
+
+// Calculation
+colDef.bottomCalc = (values, data, calcParams) => {
+    return {};
+};
+
+colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
+    return '';
 };
 
 // Cell Component

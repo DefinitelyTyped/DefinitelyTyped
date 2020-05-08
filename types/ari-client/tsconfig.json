@@ -12,7 +12,8 @@
         "test/originate.ts",
         "test/originateAsyncAwait.ts",
         "test/playback.ts",
-        "test/playbackAsyncAwait.ts"
+        "test/playbackAsyncAwait.ts",
+        "test/externalMedia.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
