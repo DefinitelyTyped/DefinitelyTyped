@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 // tslint:disable-next-line:no-duplicate-imports
-import {isSchema, LocaleObject, MixedSchema, NumberSchema, ObjectSchema, reach, Schema, SchemaDescription, TestContext, TestOptions, ValidateOptions, ValidationError} from 'yup';
-
+import { isSchema, LocaleObject, MixedSchema, NumberSchema, ObjectSchema, reach, Schema, SchemaDescription, TestContext, TestOptions, ValidateOptions, ValidationError } from 'yup';
 
 // reach function
 const schema1 = yup.object().shape({
