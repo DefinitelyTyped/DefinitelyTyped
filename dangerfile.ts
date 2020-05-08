@@ -28,7 +28,8 @@ if (fs.existsSync(suggestionsDir)) {
         lines.push("## " + packageName)
         for (const fileName in missingProperties) {
             const properties = missingProperties[fileName]
-            const unpkgURL = `https://unpkg.com/browse/${packageName}@latest/${fileName}`
+            const originalJS = fileName.replace(".d.ts", ".js")
+            const unpkgURL = `https://unpkg.com/browse/${packageName}@latest/${originalJS}`
             const dtsName = packageName.replace("@", "").replace("/", "__")
             const dtsURL = `https://github.com/DefinitelyTyped/DefinitelyTyped/blob/${danger.github.pr.head.sha}/types/${dtsName}/${fileName}`
 
