@@ -3039,7 +3039,7 @@ declare namespace Xrm {
              * @remarks Not available during the "on load" event of the form.
              */
             refresh(): void;
-
+            
             /**
              * Use this method to remove event handlers from the GridControl's OnLoad event.
              * @param handler The handler.
