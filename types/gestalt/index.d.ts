@@ -5,6 +5,7 @@
 //                 Calvin Chhour <https://github.com/calvinchhour>
 //                 Muhammed Hafiz <https://github.com/zifahm>
 //                 Kyle Hensel <https://github.com/k-yle>
+//                 Francisco Jimenez <https://github.com/jimenezff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
