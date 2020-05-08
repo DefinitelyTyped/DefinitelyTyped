@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
 
-/// <reference types="reids" />
+/// <reference types="redis" />
 
 type MethodsToPromisify = keyof Commands<boolean>;
 
