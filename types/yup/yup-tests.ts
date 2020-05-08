@@ -471,6 +471,7 @@ objSchema.noUnknown();
 objSchema.noUnknown(true);
 objSchema.noUnknown(true, 'message');
 objSchema.noUnknown(true, () => 'message');
+objSchema.unknown();
 objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
 objSchema.snakeCase();
