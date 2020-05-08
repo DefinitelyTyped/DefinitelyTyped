@@ -1,21 +1,7 @@
 import * as yup from 'yup';
-
 // tslint:disable-next-line:no-duplicate-imports
-import {
-    reach,
-    isSchema,
-    date,
-    Schema,
-    ObjectSchema,
-    ValidationError,
-    MixedSchema,
-    SchemaDescription,
-    TestOptions,
-    ValidateOptions,
-    NumberSchema,
-    TestContext,
-    LocaleObject,
-} from 'yup';
+import {isSchema, LocaleObject, MixedSchema, NumberSchema, ObjectSchema, reach, Schema, SchemaDescription, TestContext, TestOptions, ValidateOptions, ValidationError} from 'yup';
+
 
 // reach function
 const schema1 = yup.object().shape({
@@ -158,6 +144,7 @@ mixed.nullable();
 mixed.required();
 mixed.required('Foo');
 mixed.required(() => 'Foo');
+mixed.defined();
 mixed.notRequired(); // $ExpectType MixedSchema<any>
 mixed.typeError('type error');
 mixed.typeError(() => 'type error');
@@ -346,6 +333,7 @@ function strSchemaTests(strSchema: yup.StringSchema) {
     strSchema.uppercase();
     strSchema.uppercase('upper');
     strSchema.uppercase(() => 'upper');
+    strSchema.defined();
 }
 
 const strSchema = yup.string(); // $ExpectType StringSchema<string>
@@ -394,11 +382,13 @@ numSchema
     .validate(5, { strict: true })
     .then(value => value)
     .catch(err => err);
+numSchema.defined();
 
 // Boolean Schema
 const boolSchema = yup.boolean();
 boolSchema.type;
 boolSchema.isValid(true); // => true
+boolSchema.defined();
 
 // Date Schema
 const dateSchema = yup.date();
@@ -436,6 +426,7 @@ arrSchema.min(5);
 arrSchema.min(5, 'min');
 arrSchema.min(5, () => 'min');
 arrSchema.compact((value, index, array) => value === array[index]);
+arrSchema.defined();
 
 const arrOfObjSchema = yup.array().of(
     yup.object().shape({
@@ -481,6 +472,7 @@ objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
 objSchema.snakeCase();
 objSchema.constantCase();
+objSchema.defined();
 
 const description: SchemaDescription = {
     type: 'type',
