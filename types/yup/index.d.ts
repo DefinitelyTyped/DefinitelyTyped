@@ -13,7 +13,7 @@
 //                 Kalley Powell <https://github.com/kalley>
 //                 Elías García <https://github.com/elias-garcia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.6
 
 export function reach<T>(schema: Schema<T>, path: string, value?: any, context?: any): Schema<T>;
 export function addMethod<T extends Schema<any>>(
@@ -104,11 +104,11 @@ export interface MixedSchema<T = any> extends Schema<T> {
 }
 
 export interface StringSchemaConstructor {
-    <T extends string | null | undefined = string>(): T extends string ? StringSchema<T> : StringSchema;
-    new <T extends string | null | undefined = string>(): T extends string ? StringSchema<T> : StringSchema;
+    <T extends string | null | undefined = string | undefined>(): T extends string ? StringSchema<T> : StringSchema;
+    new <T extends string | null | undefined = string | undefined>(): T extends string ? StringSchema<T> : StringSchema;
 }
 
-export interface StringSchema<T extends string | null | undefined = string> extends Schema<T> {
+export interface StringSchema<T extends string | null | undefined = string | undefined> extends Schema<T> {
     length(limit: number | Ref, message?: StringLocale['length']): StringSchema<T>;
     min(limit: number | Ref, message?: StringLocale['min']): StringSchema<T>;
     max(limit: number | Ref, message?: StringLocale['max']): StringSchema<T>;
@@ -138,7 +138,7 @@ export interface NumberSchemaConstructor {
     new (): NumberSchema;
 }
 
-export interface NumberSchema<T extends number | null | undefined = number> extends Schema<T> {
+export interface NumberSchema<T extends number | null | undefined = number| undefined> extends Schema<T> {
     min(limit: number | Ref, message?: NumberLocale['min']): NumberSchema<T>;
     max(limit: number | Ref, message?: NumberLocale['max']): NumberSchema<T>;
     lessThan(limit: number | Ref, message?: NumberLocale['lessThan']): NumberSchema<T>;
@@ -162,7 +162,7 @@ export interface BooleanSchemaConstructor {
     new (): BooleanSchema;
 }
 
-export interface BooleanSchema<T extends boolean | null | undefined = boolean> extends Schema<T> {
+export interface BooleanSchema<T extends boolean | null | undefined = boolean | undefined> extends Schema<T> {
     nullable(isNullable?: true): BooleanSchema<T | null>;
     nullable(isNullable: false): BooleanSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): BooleanSchema<T>;
@@ -177,7 +177,7 @@ export interface DateSchemaConstructor {
     new (): DateSchema;
 }
 
-export interface DateSchema<T extends Date | null | undefined = Date> extends Schema<T> {
+export interface DateSchema<T extends Date | null | undefined = Date | undefined> extends Schema<T> {
     min(limit: Date | string | Ref, message?: DateLocale['min']): DateSchema<T>;
     max(limit: Date | string | Ref, message?: DateLocale['max']): DateSchema<T>;
     nullable(isNullable?: true): DateSchema<T | null>;
@@ -190,8 +190,8 @@ export interface DateSchema<T extends Date | null | undefined = Date> extends Sc
 }
 
 export interface ArraySchemaConstructor {
-    <T>(schema?: Schema<T>): ArraySchema<T>;
-    new (): ArraySchema<{}>;
+    <T>(schema?: Schema<T>): NotRequiredArraySchema<T>;
+    new (): NotRequiredArraySchema<{}>;
 }
 
 interface BasicArraySchema<E, T extends E[] | null | undefined> extends Schema<T> {
@@ -261,11 +261,11 @@ export type Shape<T extends object | null | undefined, U extends object> =
   | PreserveOptionals<T>;
 
 export interface ObjectSchemaConstructor {
-    <T extends object>(fields?: ObjectSchemaDefinition<T>): ObjectSchema<T>;
+    <T extends object>(fields?: ObjectSchemaDefinition<T>): ObjectSchema<T | undefined>;
     new (): ObjectSchema<{}>;
 }
 
-export interface ObjectSchema<T extends object | null | undefined = object> extends Schema<T> {
+export interface ObjectSchema<T extends object | null | undefined = object | undefined> extends Schema<T> {
     fields: {
       [k in keyof T]: Schema<T[k]>
     };
