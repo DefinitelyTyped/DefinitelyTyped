@@ -1,5 +1,5 @@
 import { BlankNode, DataFactory, Dataset, DatasetCore, DatasetCoreFactory, DatasetFactory, DefaultGraph, Literal,
-  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Triple, Term, Variable, Quad_Graph } from "rdf-js";
+  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Term, Variable, Quad_Graph } from "rdf-js";
 import { EventEmitter } from "events";
 
 function test_terms() {
@@ -55,14 +55,6 @@ function test_quads() {
     const o1: Term = quad.object;
     const g1: Term = quad.graph;
     quad.equals(quad);
-
-    const triple: Triple = quad;
-    const s2: Term = triple.subject;
-    const p2: Term = triple.predicate;
-    const o2: Term = triple.object;
-    const g2: Term = triple.graph;
-    triple.equals(quad);
-    quad.equals(triple);
 }
 
 function test_datafactory() {
@@ -80,7 +72,6 @@ function test_datafactory() {
     const variable: Variable = dataFactory.variable ? dataFactory.variable('v1') : <any> {};
 
     const term: NamedNode = <any> {};
-    const triple: Quad = dataFactory.triple(term, term, term);
     interface QuadBnode extends BaseQuad {
       subject: Term;
       predicate: Term;

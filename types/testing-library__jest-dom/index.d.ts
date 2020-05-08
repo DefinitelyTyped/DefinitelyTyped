@@ -355,7 +355,7 @@ declare namespace jest {
          * @see
          * [testing-library/jest-dom#tohavevalue](https:github.com/testing-library/jest-dom#tohavevalue)
          */
-        toHaveValue(value?: string | string[] | number): R;
+        toHaveValue(value?: string | string[] | number | null): R;
         /**
          * @description
          * Assert whether the given element is checked.

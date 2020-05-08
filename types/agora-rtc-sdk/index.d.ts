@@ -1629,21 +1629,23 @@ declare namespace AgoraRTC {
          *
          * @returns The audio level. The value range is [0,1].
          */
-        getAudioLevel(): number | void;
+
+        getAudioLevel(): number | undefined;
+
         /**
          * Retrieves the Audio Track
          *
          * This method retrieves the audio track in the stream and can be used together with [[replaceTrack]].
          * @returns If the stream contains an audio track, it will be returned in a `MediaStreamTrack` object.
          */
-        getAudioTrack(): MediaStreamTrack | void;
+        getAudioTrack(): MediaStreamTrack | undefined;
         /**
          * Retrieves the Video Track
          *
          * This method retrieves the video track in the stream and can be used together with [[replaceTrack]].
          * @returns If the stream contains a video track, it will be returned in a `MediaStreamTrack` object.
          */
-        getVideoTrack(): MediaStreamTrack | void;
+        getVideoTrack(): MediaStreamTrack | undefined;
         /**
          * Replaces the Audio/Video Track
          *
@@ -2375,7 +2377,7 @@ declare namespace AgoraRTC {
          * This method retrieves the stream ID.
          * @example `stream.getId()`
          */
-        getId(): number;
+        getId(): number | string;
         /**
          * Gets Connection Statistics
          *

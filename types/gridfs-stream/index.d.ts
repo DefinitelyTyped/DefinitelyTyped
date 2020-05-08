@@ -2,7 +2,7 @@
 // Project: https://github.com/aheckmann/gridfs-stream
 // Definitions by: Lior Mualem <https://github.com/liorm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="node" />
 

@@ -24,8 +24,9 @@ import {
     actionTypes,
     submit,
     SubmissionError,
-    FieldArrayFieldsProps
-} from "redux-form";
+    FieldArrayFieldsProps,
+    DecoratedFormProps,
+} from 'redux-form';
 
 import {
     Field as ImmutableField,
@@ -233,10 +234,11 @@ const testFormWithInitialValuesAndValidationDecorator = reduxForm<MultivalueForm
 });
 
 const testFormWithChangeFunctionDecorator = reduxForm<TestFormData, TestFormComponentProps>({
-    form: "testWithValidation",
-    onChange: (values: Partial<TestFormData>,
+    form: 'testWithValidation',
+    onChange: (
+        values: Partial<TestFormData>,
         dispatch: Dispatch<any>,
-        props: TestFormComponentProps & InjectedFormProps<TestFormData, TestFormComponentProps>,
+        props: DecoratedFormProps<TestFormData, TestFormComponentProps>,
         previousValues: Partial<TestFormData>) => {}
 });
 

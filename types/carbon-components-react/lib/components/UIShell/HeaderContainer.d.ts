@@ -1,8 +1,14 @@
 import * as React from "react";
 
-interface InheritedProps { }
+/**
+ * Convenience interface for the custom render prop.
+ */
+export interface HeaderContainerRenderProps {
+    isSideNavExpanded: boolean,
+    onClickSideNavExpand(): void;
+}
 
-export interface HeaderContainerProps extends InheritedProps {
+export interface HeaderContainerProps {
     isSideNavExpanded?: boolean,
     render: React.ComponentType,
 }

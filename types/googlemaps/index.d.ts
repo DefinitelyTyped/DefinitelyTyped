@@ -3547,6 +3547,13 @@ declare namespace google.maps {
 
         interface AutocompletePrediction {
             description: string;
+
+            /**
+             * The distance in meters of the place from the {@link AutocompletionRequest#origin}.
+             * @see {@link https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletePrediction.distance_meters Maps JavaScript API}
+             */
+            distance_meters?: number;
+
             id: string;
             matched_substrings: PredictionSubstring[];
             place_id: string;
@@ -3617,6 +3624,13 @@ declare namespace google.maps {
             input: string;
             location?: LatLng;
             offset?: number;
+
+            /**
+             * The location where {@link AutocompletePrediction#distance_meters} is calculated from.
+             * @see {@link https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest.origin Maps JavaScript API}
+             */
+            origin?: LatLng | LatLngLiteral;
+
             radius?: number;
             sessionToken?: AutocompleteSessionToken;
             types?: string[];
