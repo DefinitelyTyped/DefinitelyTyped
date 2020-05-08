@@ -146,6 +146,7 @@ mixed.required('Foo');
 mixed.required(() => 'Foo');
 mixed.defined();
 mixed.notRequired(); // $ExpectType MixedSchema<any>
+mixed.optional(); // $ExpectType MixedSchema<any>
 mixed.typeError('type error');
 mixed.typeError(() => 'type error');
 mixed.oneOf(['hello', 'world'], 'message');
@@ -410,8 +411,10 @@ const arrSchema = yup.array().of(yup.number().min(2));
 arrSchema.type;
 arrSchema.innerType;
 arrSchema.notRequired().innerType;
+arrSchema.optional().innerType;
 arrSchema.nullable().innerType;
 arrSchema.notRequired().nullable().innerType;
+arrSchema.optional().nullable().innerType;
 arrSchema.innerType.type;
 arrSchema.isValid([2, 3]); // => true
 arrSchema.isValid([1, -24]); // => false

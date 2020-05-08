@@ -98,6 +98,7 @@ export interface MixedSchema<T = any> extends Schema<T> {
     required(message?: TestOptionsMessage): MixedSchema<Exclude<T, undefined>>;
     defined(): MixedSchema<Exclude<T, undefined>>;
     notRequired(): MixedSchema<T | undefined>;
+    optional(): MixedSchema<T | undefined>;
     concat(schema: this): this;
     concat<U>(schema: MixedSchema<U>): MixedSchema<T | U>;
 }
@@ -129,6 +130,7 @@ export interface StringSchema<T extends string | null | undefined = string> exte
     required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>;
     defined(): StringSchema<Exclude<T, undefined>>;
     notRequired(): StringSchema<T | undefined>;
+    optional(): StringSchema<T | undefined>;
 }
 
 export interface NumberSchemaConstructor {
@@ -152,6 +154,7 @@ export interface NumberSchema<T extends number | null | undefined = number> exte
     required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined>>;
     defined(): NumberSchema<Exclude<T, undefined>>;
     notRequired(): NumberSchema<T | undefined>;
+    optional(): NumberSchema<T | undefined>;
 }
 
 export interface BooleanSchemaConstructor {
@@ -166,6 +169,7 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean> e
     required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, undefined>>;
     defined(): BooleanSchema<Exclude<T, undefined>>;
     notRequired(): BooleanSchema<T | undefined>;
+    optional(): BooleanSchema<T | undefined>;
 }
 
 export interface DateSchemaConstructor {
@@ -182,6 +186,7 @@ export interface DateSchema<T extends Date | null | undefined = Date> extends Sc
     required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined>>;
     defined(): DateSchema<Exclude<T, undefined>>;
     notRequired(): DateSchema<T | undefined>;
+    optional(): DateSchema<T | undefined>;
 }
 
 export interface ArraySchemaConstructor {
@@ -207,6 +212,7 @@ export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T, T
     required(message?: TestOptionsMessage): NullableArraySchema<T>;
     defined(): NullableArraySchema<T>;
     notRequired(): NotRequiredNullableArraySchema<T>;
+    optional(): NotRequiredNullableArraySchema<T>;
 }
 
 export interface NullableArraySchema<T> extends BasicArraySchema<T, T[] | null> {
@@ -217,6 +223,7 @@ export interface NullableArraySchema<T> extends BasicArraySchema<T, T[] | null> 
     required(message?: TestOptionsMessage): NullableArraySchema<T>;
     defined(): NullableArraySchema<T>;
     notRequired(): NotRequiredNullableArraySchema<T>;
+    optional(): NotRequiredNullableArraySchema<T>;
 }
 
 export interface NotRequiredArraySchema<T> extends BasicArraySchema<T, T[] | undefined> {
@@ -227,6 +234,7 @@ export interface NotRequiredArraySchema<T> extends BasicArraySchema<T, T[] | und
     required(message?: TestOptionsMessage): ArraySchema<T>;
     defined(): ArraySchema<T>;
     notRequired(): NotRequiredArraySchema<T>;
+    optional(): NotRequiredArraySchema<T>;
 }
 
 export interface ArraySchema<T> extends BasicArraySchema<T, T[]> {
@@ -236,6 +244,7 @@ export interface ArraySchema<T> extends BasicArraySchema<T, T[]> {
     required(message?: TestOptionsMessage): ArraySchema<T>;
     defined(): ArraySchema<T>;
     notRequired(): NotRequiredArraySchema<T>;
+    optional(): NotRequiredArraySchema<T>;
 }
 
 export type ObjectSchemaDefinition<T extends object | null | undefined> = {
@@ -276,6 +285,7 @@ export interface ObjectSchema<T extends object | null | undefined = object> exte
     required(message?: TestOptionsMessage): ObjectSchema<Exclude<T, undefined>>;
     defined(): ObjectSchema<Exclude<T, undefined>>;
     notRequired(): ObjectSchema<T | undefined>;
+    optional(): ObjectSchema<T | undefined>;
     concat(schema: this): this;
     concat<U extends object>(schema: ObjectSchema<U>): ObjectSchema<T & U>;
 }
