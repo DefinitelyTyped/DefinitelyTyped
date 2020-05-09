@@ -46,7 +46,7 @@ export interface ReactNativeSideMenuProps {
      * Function that accepts event as an argument and specify if side-menu should react on the touch or not.
      * Check https://facebook.github.io/react-native/docs/gesture-responder-system.html for more details
      */
-    onStartShouldSetResponderCapture?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean;
+    onStartShouldSetResponderCapture?: (e: GestureResponderEvent) => boolean;
     /**
      * Callback on menu open/close. Is passed isOpen as an argument
      */
