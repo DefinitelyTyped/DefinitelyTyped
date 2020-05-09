@@ -78,7 +78,7 @@ declare class Gpio extends EventEmitter {
      *
      * @param cb Optional callback
      */
-    destroy(cb?: ErrorCallback): void;
+    destroy(cb: ErrorCallback): void;
     /**
      * Reset the state of the module
      */

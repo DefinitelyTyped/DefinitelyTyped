@@ -24,7 +24,6 @@ gpio.read(7, (err, value) => {});
 
 gpio.input(7, (err, value) => {});
 
-gpio.destroy();
 gpio.destroy(err => {});
 
 gpio.reset();
