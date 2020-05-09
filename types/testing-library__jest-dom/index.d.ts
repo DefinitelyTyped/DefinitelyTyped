@@ -292,7 +292,7 @@ declare namespace jest {
          * @see
          * [testing-library/jest-dom#tohavedisplayvalue](https:github.com/testing-library/jest-dom#tohavedisplayvalue)
          */
-        toHaveDisplayValue(value: string | string[]): R;
+        toHaveDisplayValue(value: string | RegExp | (string|RegExp)[]): R;
         /**
          * @description
          * Assert whether an element has focus or not.
