@@ -2212,7 +2212,7 @@ declare module "mongoose" {
      *
      * @param err optional error to throw if no docs match `filter`
      */
-    orFail(err?: Error | (() => Error)): this;
+    orFail(err?: Error | (() => Error)): DocumentQuery<NonNullable<T>, DocType, QueryHelpers>;
 
     /** Specifies a $polygon condition */
     polygon(...coordinatePairs: number[][]): this;

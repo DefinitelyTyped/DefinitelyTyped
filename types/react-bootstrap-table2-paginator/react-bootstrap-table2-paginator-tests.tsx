@@ -5,7 +5,7 @@ import BootstrapTable, {
     HeaderFormatter,
     ColumnFormatter,
 } from 'react-bootstrap-table-next';
-import paginationFactory from 'react-bootstrap-table2-paginator';
+import paginationFactory, { PaginationProvider, PaginationTotalStandalone, PaginationListStandalone } from 'react-bootstrap-table2-paginator';
 import { render } from 'react-dom';
 
 interface Product {
@@ -87,5 +87,29 @@ render(
         pagination={paginationFactory({ sizePerPage: 10, page: 1 })}
         columns={productColumns}
     />,
+    document.getElementById('app'),
+);
+
+/**
+ * PaginationProvider test
+ */
+
+render(
+    <PaginationProvider
+        pagination={ paginationFactory({ custom: true, totalSize: 2 }) }
+    >
+        {({ paginationProps, paginationTableProps }) => (
+            <>
+                <PaginationTotalStandalone { ...paginationProps } />
+                <PaginationListStandalone { ...paginationProps } />
+                <BootstrapTable
+                    { ...paginationTableProps }
+                    keyField="id"
+                    data={ products }
+                    columns={ productColumns }
+                />
+            </>
+        )}
+    </PaginationProvider>,
     document.getElementById('app'),
 );
