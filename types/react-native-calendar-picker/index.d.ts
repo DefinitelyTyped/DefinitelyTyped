@@ -1,4 +1,4 @@
-// Type definitions for react-native-calendar-picker 6.0
+// Type definitions for react-native-calendar-picker 6.1
 // Project: https://github.com/stephy/CalendarPicker
 // Definitions by: Tobias Hann <https://github.com/automatensalat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,7 +19,9 @@ export interface CalendarPickerProps {
     weekdays?: string[];
     months?: string[];
     startFromMonday?: boolean;
+    showDayStragglers?: boolean;
     allowRangeSelection?: boolean;
+    allowBackwardRangeSelect?: boolean;
     previousTitle?: string;
     nextTitle?: string;
     selectedDayColor?: string;
@@ -38,6 +40,7 @@ export interface CalendarPickerProps {
     todayTextStyle?: StyleProp<TextStyle>;
     textStyle?: StyleProp<TextStyle>;
     customDatesStyles?: CustomDateStyle[];
+    customDatesStylesPriority?: 'dayOfWeek' | 'customDates';
     scaleFactor?: number;
     minDate?: Date;
     maxDate?: Date;
@@ -55,6 +58,8 @@ export interface CalendarPickerProps {
     headingLevel?: number;
     previousTitleStyle?: StyleProp<TextStyle>;
     nextTitleStyle?: StyleProp<TextStyle>;
+    previousComponent?: React.ReactNode;
+    nextComponent?: React.ReactNode;
     dayLabelsWrapper?: StyleProp<ViewStyle>;
     dayOfWeekStyles?: DayOfWeekStyle;
 }
