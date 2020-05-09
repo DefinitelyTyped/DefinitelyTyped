@@ -1,8 +1,9 @@
-// Type definitions for Emscripten 1.39.5
-// Project: http://kripken.github.io/emscripten-site/index.html
+// Type definitions for Emscripten 1.39.16
+// Project: https://emscripten.org
 // Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
 //                 Periklis Tsirakidis <https://github.com/periklis>
 //                 Bumsik Kim <https://github.com/kbumsik>
+//                 Louis DeScioli <https://github.com/lourd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -41,26 +42,6 @@ declare namespace Emscripten {
 }
 
 interface EmscriptenModule {
-    /**
-     * Initializes an EmscriptenModule object and returns it. The initialized
-     * obejct will be passed to then(). Works only when -s MODULARIZE=1 is
-     * enabled. This is default exported function when -s EXPORT_ES6=1 is
-     * enabled.
-     * https://emscripten.org/docs/getting_started/FAQ.html#how-can-i-tell-when-the-page-is-fully-loaded-and-it-is-safe-to-call-compiled-functions
-     * @param moduleOverrides Properties of an initialized module to override.
-     */
-    (moduleOverrides?: Partial<this>): this;
-    /**
-     * Promise-like then() inteface.
-     * WRANGING: Emscripten's then() is not really promise-based 'thenable'.
-     * Don't try to use it with Promise.resolve() or in an async function
-     * without deleting delete Module["then"] in the callback.
-     * https://github.com/kripken/emscripten/issues/5820
-     * Works only when -s MODULARIZE=1 is enabled.
-     * @param callback A callback chained from Module() with an Module instance.
-     */
-    then(callback: (module: this) => void): this;
-
     print(str: string): void;
     printErr(str: string): void;
     arguments: string[];
@@ -118,10 +99,20 @@ interface EmscriptenModule {
     _free(ptr: number): void;
 }
 
-// By default Emscripten emits a single global Module.  Users setting -s
-// MODULARIZE=1 -s EXPORT_NAME=MyMod should declare their own types, e.g.
-// declare var MyMod: EmscriptenModule;
-declare var Module: EmscriptenModule;
+/**
+ * A factory function is generated when setting the `MODULARIZE` build option
+ * to `1` in your Emscripten build. It return a Promise that resolves to an
+ * initialized, ready-to-call `EmscriptenModule` instance.
+ *
+ * By default, the factory function will be named `Module`. It's recommended to
+ * use the `EXPORT_ES6` option, in which the factory function will be the
+ * default export. If used without `EXPORT_ES6`, the factory function will be a
+ * global variable. You can rename the variable using the `EXPORT_NAME` build
+ * option. It's left to you to declare any global variables as needed in your
+ * application's types.
+ * @param moduleOverrides Default properties for the initialized module.
+ */
+type EmscriptenModuleFactory<T extends EmscriptenModule = EmscriptenModule> = (moduleOverrides?: Partial<T>) => Promise<T>;
 
 declare namespace FS {
     interface Lookup {

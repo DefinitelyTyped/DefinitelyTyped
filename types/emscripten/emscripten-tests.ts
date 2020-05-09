@@ -10,6 +10,8 @@ interface EmscriptenModule {
     setValue: typeof setValue;
 }
 
+let Module: EmscriptenModule;
+
 /// Module
 function ModuleTest(): void {
     Module.environment = "WEB";
@@ -142,4 +144,25 @@ function StackAlloc() {
     const ptr = stackAlloc(42);
     const strPtr = allocateUTF8OnStack('testString');
     stackRestore(stack);
+}
+
+let createModule: EmscriptenModuleFactory;
+interface MyModule extends EmscriptenModule {
+    foo: string;
+}
+let createMyModule: EmscriptenModuleFactory<MyModule>;
+
+async function ModuleFactoryTest() {
+    const module1 = await createModule();
+    module1.print('🦆');
+    const module2 = await createModule({
+        print() {
+            console.log('testing passing overrides');
+        }
+    });
+    const myModule: MyModule = await createMyModule({
+        foo: 'bar',
+        locateFile: (url, dir) => '🌈',
+    });
+    myModule.foo;
 }
