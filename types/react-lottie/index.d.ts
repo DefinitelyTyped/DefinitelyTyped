@@ -97,6 +97,7 @@ export interface LottieProps {
     ariaLabel?: string | 'animation';
     isClickToPauseDisabled?: boolean;
     title?: string;
+    style?: React.CSSProperties;
 }
 
 /**
