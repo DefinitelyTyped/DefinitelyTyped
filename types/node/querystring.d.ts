@@ -10,7 +10,7 @@ declare module "querystring" {
 
     interface ParsedUrlQuery extends NodeJS.Dict<string | string[]> { }
 
-    interface ParsedUrlQueryInput extends NodeJS.Dict<string | number | boolean | string[] | number[] | boolean[] | null> {
+    interface ParsedUrlQueryInput extends NodeJS.Dict<string | number | boolean | readonly string[] | readonly number[] | readonly boolean[] | null> {
     }
 
     function stringify(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
