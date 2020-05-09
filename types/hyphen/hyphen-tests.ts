@@ -24,13 +24,13 @@ hyphenateEnGbAsync('hyphenation', { hyphenChar: '#' }).then(result => {
 });
 
 // Test with minWordLength (new option in version 1.6)
-const hyphenateEnUsSyncWithMinWordLength = createHyphenator(hyphenationPatternsEnGb, {
+const hyphenateEnGbSyncWithMinWordLength = createHyphenator(hyphenationPatternsEnGb, {
     hyphenChar: '-',
     minWordLength: 11,
 });
-if (hyphenateEnUsSyncWithMinWordLength('hyphenation') !== 'hy-phen-a-tion') { // hyphenation has 11 chars => hyphenate
+if (hyphenateEnGbSyncWithMinWordLength('hyphenation') !== 'hy-phen-a-tion') { // hyphenation has 11 chars => hyphenate
     throw new Error('Test failed');
 }
-if (hyphenateEnUsSyncWithMinWordLength('sabotaging') !== 'sabotaging') { // sabotaging has 10 chars => don't hyphenate
+if (hyphenateEnGbSyncWithMinWordLength('sabotaging') !== 'sabotaging') { // sabotaging has 10 chars => don't hyphenate
     throw new Error('Test failed');
 }
