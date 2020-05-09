@@ -176,8 +176,17 @@ function test_promise_returns() {
     preparedStatment.execute({ myValue: 1 }).then((recordSet) => { });
     preparedStatment.unprepare().then(() => { });
 
-    var transaction = new sql.Transaction(connection);
+    const transaction = new sql.Transaction(connection);
     transaction.begin().then(() => { });
+    transaction.begin(sql.ISOLATION_LEVEL.READ_COMMITTED).then(() => {}).catch(() => {});
+    transaction.begin(sql.ISOLATION_LEVEL.READ_COMMITTED).then(trans => {}).catch(err => {});
+    transaction.begin(undefined, err => {
+        err; // $ExpectType ConnectionError | TransactionError
+    });
+    (async () => {
+        await transaction.begin();
+        transaction.begin(sql.ISOLATION_LEVEL.READ_COMMITTED)
+    })();
     transaction.commit().then(() => { });
     transaction.rollback().then(() => { });
 
