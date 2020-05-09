@@ -371,3 +371,10 @@ locWithStringIDQuery.lean().then(location => {
         location.save();
     }
 });
+
+async function testOrFail() {
+    var lq = <mongoose.DocumentQuery<Location, Location>>{};
+
+    var x = await lq.findOne({ color: 'blue' }).orFail().exec(); 
+    x.toJSON();
+}
