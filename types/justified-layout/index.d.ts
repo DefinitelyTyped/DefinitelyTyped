@@ -1,17 +1,18 @@
-// Type definitions for justified-layout 4.0.0
+// Type definitions for justified-layout 4.0
 // Project: https://github.com/flickr/justified-layout
 // Definitions by: Alex Walter <https://github.com/ArgonAlex/>
 //                 Liau Jian Jie <https://github.com/liaujianjie/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /**
  * Item to be layout.
  */
-type JustifiedLayoutItem = number | { width: number; height: number };
+export type JustifiedLayoutItem = number | { width: number; height: number };
 
 /**
  * Options for configuring the justified layout.
  */
-type JustifiedLayoutOptions = {
+export interface JustifiedLayoutOptions {
     /**
      * The width that boxes will be contained within irrelevant of padding.
      * @default 1060
@@ -74,12 +75,12 @@ type JustifiedLayoutOptions = {
      * @default "left"
      */
     widowLayoutStyle?: 'left' | 'justify' | 'center';
-};
+}
 
 /**
  * Computed positional and sizing properties of a box in the layout.
  */
-type LayoutBox = {
+export interface LayoutBox {
     /**
      * Aspect ratio of the box.
      */
@@ -100,12 +101,12 @@ type LayoutBox = {
      * Distance between the left side of the box and the left boundary of the justified layout.
      */
     left: number;
-};
+}
 
 /**
  * Results from calculating the justified layout.
  */
-type JustifiedLayoutResult = {
+export interface JustifiedLayoutResult {
     /**
      * Height of the container containing the justified layout.
      */
@@ -118,7 +119,7 @@ type JustifiedLayoutResult = {
      * Computed positional and sizing properties of a box in the justified layout.
      */
     boxes: LayoutBox[];
-};
+}
 
 export default function createJustifiedLayout(
     items: ReadonlyArray<JustifiedLayoutItem>,
