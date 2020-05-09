@@ -9,23 +9,22 @@
 
 /** Other WebAssembly declarations, for compatibility with older versions of Typescript */
 declare namespace WebAssembly {
-    interface Module { }
+    interface Module {}
 }
 
 declare namespace Emscripten {
-    interface FileSystemType {
-    }
-    type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
+    interface FileSystemType {}
+    type EnvironmentType = 'WEB' | 'NODE' | 'SHELL' | 'WORKER';
 
-    type JSType = "number" | "string" | "array" | "boolean";
+    type JSType = 'number' | 'string' | 'array' | 'boolean';
     type TypeCompatibleWithC = number | string | any[] | boolean;
 
     type CIntType = 'i8' | 'i16' | 'i32' | 'i64';
     type CFloatType = 'float' | 'double';
     type CPointerType = 'i8*' | 'i16*' | 'i32*' | 'i64*' | 'float*' | 'double*' | '*';
-    type CType =  CIntType | CFloatType | CPointerType;
+    type CType = CIntType | CFloatType | CPointerType;
 
-    type WebAssemblyImports =  Array<{
+    type WebAssemblyImports = Array<{
         name: string;
         kind: string;
     }>;
@@ -62,7 +61,7 @@ interface EmscriptenModule {
     getPreloadedPackage(remotePackageName: string, remotePackageSize: number): ArrayBuffer;
     instantiateWasm(
         imports: Emscripten.WebAssemblyImports,
-        successCallback: (module: WebAssembly.Module) => void
+        successCallback: (module: WebAssembly.Module) => void,
     ): Emscripten.WebAssemblyExports;
     locateFile(url: string, scriptDirectory: string): string;
     onCustomMessage(event: MessageEvent): void;
@@ -112,7 +111,9 @@ interface EmscriptenModule {
  * application's types.
  * @param moduleOverrides Default properties for the initialized module.
  */
-type EmscriptenModuleFactory<T extends EmscriptenModule = EmscriptenModule> = (moduleOverrides?: Partial<T>) => Promise<T>;
+type EmscriptenModuleFactory<T extends EmscriptenModule = EmscriptenModule> = (
+    moduleOverrides?: Partial<T>,
+) => Promise<T>;
 
 declare namespace FS {
     interface Lookup {
@@ -185,12 +186,27 @@ declare namespace FS {
     function close(stream: FSStream): void;
     function llseek(stream: FSStream, offset: number, whence: number): any;
     function read(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position?: number): number;
-    function write(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position?: number, canOwn?: boolean): number;
+    function write(
+        stream: FSStream,
+        buffer: ArrayBufferView,
+        offset: number,
+        length: number,
+        position?: number,
+        canOwn?: boolean,
+    ): number;
     function allocate(stream: FSStream, offset: number, length: number): void;
-    function mmap(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position: number, prot: number, flags: number): any;
+    function mmap(
+        stream: FSStream,
+        buffer: ArrayBufferView,
+        offset: number,
+        length: number,
+        position: number,
+        prot: number,
+        flags: number,
+    ): any;
     function ioctl(stream: FSStream, cmd: any, arg: any): any;
-    function readFile(path: string, opts: { encoding: "binary", flags?: string }): Uint8Array;
-    function readFile(path: string, opts: { encoding: "utf8", flags?: string }): string;
+    function readFile(path: string, opts: { encoding: 'binary'; flags?: string }): Uint8Array;
+    function readFile(path: string, opts: { encoding: 'utf8'; flags?: string }): string;
     function readFile(path: string, opts?: { flags?: string }): Uint8Array;
     function writeFile(path: string, data: string | ArrayBufferView, opts?: { flags?: string }): void;
 
@@ -205,10 +221,32 @@ declare namespace FS {
         error: null | ((c: number) => any),
     ): void;
 
-    function createLazyFile(parent: string | FSNode, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
-    function createPreloadedFile(parent: string | FSNode, name: string, url: string,
-        canRead: boolean, canWrite: boolean, onload?: () => void, onerror?: () => void, dontCreateFile?: boolean, canOwn?: boolean): void;
-    function createDataFile(parent: string | FSNode, name: string, data: ArrayBufferView, canRead: boolean, canWrite: boolean, canOwn: boolean): FSNode;
+    function createLazyFile(
+        parent: string | FSNode,
+        name: string,
+        url: string,
+        canRead: boolean,
+        canWrite: boolean,
+    ): FSNode;
+    function createPreloadedFile(
+        parent: string | FSNode,
+        name: string,
+        url: string,
+        canRead: boolean,
+        canWrite: boolean,
+        onload?: () => void,
+        onerror?: () => void,
+        dontCreateFile?: boolean,
+        canOwn?: boolean,
+    ): void;
+    function createDataFile(
+        parent: string | FSNode,
+        name: string,
+        data: ArrayBufferView,
+        canRead: boolean,
+        canWrite: boolean,
+        canOwn: boolean,
+    ): FSNode;
 }
 
 declare var MEMFS: Emscripten.FileSystemType;
@@ -229,13 +267,29 @@ declare var IDBFS: Emscripten.FileSystemType;
 //
 // See: https://emscripten.org/docs/getting_started/FAQ.html#why-do-i-get-typeerror-module-something-is-not-a-function
 
-declare function ccall(ident: string, returnType: Emscripten.JSType | null, argTypes: Emscripten.JSType[], args: Emscripten.TypeCompatibleWithC[], opts?: Emscripten.CCallOpts): any;
-declare function cwrap(ident: string, returnType: Emscripten.JSType | null, argTypes: Emscripten.JSType[], opts?: Emscripten.CCallOpts): (...args: any[]) => any;
+declare function ccall(
+    ident: string,
+    returnType: Emscripten.JSType | null,
+    argTypes: Emscripten.JSType[],
+    args: Emscripten.TypeCompatibleWithC[],
+    opts?: Emscripten.CCallOpts,
+): any;
+declare function cwrap(
+    ident: string,
+    returnType: Emscripten.JSType | null,
+    argTypes: Emscripten.JSType[],
+    opts?: Emscripten.CCallOpts,
+): (...args: any[]) => any;
 
 declare function setValue(ptr: number, value: any, type: Emscripten.CType, noSafe?: boolean): void;
 declare function getValue(ptr: number, type: Emscripten.CType, noSafe?: boolean): number;
 
-declare function allocate(slab: number[] | ArrayBufferView | number, types: Emscripten.CType | Emscripten.CType[], allocator: number, ptr?: number): number;
+declare function allocate(
+    slab: number[] | ArrayBufferView | number,
+    types: Emscripten.CType | Emscripten.CType[],
+    allocator: number,
+    ptr?: number,
+): number;
 
 declare function stackAlloc(size: number): number;
 declare function stackSave(): number;
