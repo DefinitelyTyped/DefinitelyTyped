@@ -1,4 +1,4 @@
-import createJustifiedLayout from './';
+import createJustifiedLayout from 'justified-layout';
 
 // Testcase 1: aspect ratios without options
 
