@@ -19,6 +19,8 @@ interface DivaState {
 }
 
 export class Diva {
+         static Events: DivaEvent;
+
          element: HTMLElement;
          options: Options;
          viewerState: ViewerState;
@@ -451,9 +453,4 @@ export class DivaEvent {
   unsubscribeAll(instanceID: string): void;
 }
 
-declare const Global: {
-    new(element: string, options: Partial<Options> & { objectData: string | object }): Diva;
-    Events: DivaEvent;
-};
-
-export { Global as default };
+export { Diva as default };

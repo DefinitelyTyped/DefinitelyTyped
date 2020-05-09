@@ -71,7 +71,7 @@ declare namespace Dropzone {
         filesizeBase?: number;
         maxFiles?: number;
         params?: {};
-        headers?: {};
+        headers?: { [key: string]: string };
         clickable?: boolean | string | HTMLElement | (string | HTMLElement)[];
         ignoreHiddenFiles?: boolean;
         acceptedFiles?: string;
@@ -154,7 +154,7 @@ declare class Dropzone {
     constructor(container: string | HTMLElement, options?: Dropzone.DropzoneOptions);
 
     static autoDiscover: boolean;
-    static options: any;
+    static options: { [key: string]: Dropzone.DropzoneOptions | false };
     static confirm: (question: string, accepted: () => void, rejected?: () => void) => void;
     static createElement(string: string): HTMLElement;
     static isBrowserSupported(): boolean;
@@ -171,6 +171,7 @@ declare class Dropzone {
 
     files: Dropzone.DropzoneFile[];
     defaultOptions: Dropzone.DropzoneOptions;
+    options: Dropzone.DropzoneOptions;
 
     enable(): void;
 

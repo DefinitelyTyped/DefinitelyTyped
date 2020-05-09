@@ -100,7 +100,7 @@ export class Quad extends BaseQuad implements RDF.Quad {
     toJSON(): string;
 }
 
-export class Triple extends Quad implements RDF.Triple {}
+export class Triple extends Quad implements RDF.Quad {}
 
 export namespace DataFactory {
     function namedNode(value: string): NamedNode;
@@ -151,7 +151,7 @@ export interface StreamParserConstructor {
 }
 export const StreamParser: StreamParserConstructor;
 
-export interface N3StreamParser<Q extends BaseQuad = Quad> extends RDF.Stream<Q>, NodeJS.WritableStream, RDF.Sink<Q> {
+export interface N3StreamParser<Q extends BaseQuad = Quad> extends RDF.Stream<Q>, NodeJS.WritableStream, RDF.Sink<EventEmitter, RDF.Stream<Q>> {
     // Below are the NodeJS.ReadableStream methods,
     // we can not extend the interface directly,
     // as `read` clashes with RDF.Sink.
@@ -199,7 +199,7 @@ export interface StreamWriterConstructor {
 }
 export const StreamWriter: StreamWriterConstructor;
 
-export interface N3StreamWriter<Q extends RDF.BaseQuad = Quad> extends NodeJS.ReadWriteStream, RDF.Sink<Q> {}
+export interface N3StreamWriter<Q extends RDF.BaseQuad = Quad> extends NodeJS.ReadWriteStream, RDF.Sink<RDF.Stream<Q>, EventEmitter> {}
 
 export interface N3Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> extends RDF.Store<Q_RDF> {
     readonly size: number;
@@ -215,13 +215,13 @@ export interface N3Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends Bas
     every(callback: QuadPredicate<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): boolean;
     some(callback: QuadPredicate<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): boolean;
     getSubjects(predicate: OTerm, object: OTerm, graph: OTerm): Array<Q_N3['subject']>;
-    forSubjects(callback: QuadCallback<Q_N3>, predicate: OTerm, object: OTerm, graph: OTerm): void;
+    forSubjects(callback: (result: Q_N3['subject']) => void, predicate: OTerm, object: OTerm, graph: OTerm): void;
     getPredicates(subject: OTerm, object: OTerm, graph: OTerm): Array<Q_N3['predicate']>;
-    forPredicates(callback: QuadCallback<Q_N3>, subject: OTerm, object: OTerm, graph: OTerm): void;
+    forPredicates(callback: (result: Q_N3['predicate']) => void, subject: OTerm, object: OTerm, graph: OTerm): void;
     getObjects(subject: OTerm, predicate: OTerm, graph: OTerm): Array<Q_N3['object']>;
-    forObjects(callback: QuadCallback<Q_N3>, subject: OTerm, predicate: OTerm, graph: OTerm): void;
+    forObjects(callback: (result: Q_N3['object']) => void, subject: OTerm, predicate: OTerm, graph: OTerm): void;
     getGraphs(subject: OTerm, predicate: OTerm, object: OTerm): Array<Q_N3['graph']>;
-    forGraphs(callback: QuadCallback<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm): void;
+    forGraphs(callback: (result: Q_N3['graph']) => void, subject: OTerm, predicate: OTerm, object: OTerm): void;
     createBlankNode(suggestedName?: string): BlankNode;
 }
 export interface StoreConstructor {

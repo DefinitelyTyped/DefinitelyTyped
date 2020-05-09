@@ -1,4 +1,4 @@
-// Type definitions for pino 5.15
+// Type definitions for pino 6.0
 // Project: https://github.com/pinojs/pino.git, http://getpino.io
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
@@ -10,6 +10,8 @@
 //                 Raoul Jaeckel <https://github.com/raoulus>
 //                 Cory Donkin <https://github.com/Cooryd>
 //                 Adam Vigneaux <https://github.com/AdamVig>
+//                 Austin Beer <https://github.com/austin-beer>
+//                 Michel Nemnom <https://github.com/Pegase745>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -125,10 +127,18 @@ declare namespace P {
          * The default time function for Pino. Returns a string like `,"time":1493426328206`.
          */
         epochTime: TimeFn;
+        /*
+         * Returns the seconds since Unix epoch
+         */
+        unixTime: TimeFn;
         /**
          * Returns an empty string. This function is used when the `timestamp` option is set to `false`.
          */
         nullTime: TimeFn;
+        /*
+         * Returns ISO 8601-formatted time in UTC
+         */
+        isoTime: TimeFn;
     };
 
     /**
@@ -177,6 +187,7 @@ declare namespace P {
         labels: { [level: number]: string };
     }
     type TimeFn = () => string;
+    type MixinFn = () => object;
 
     interface DestinationStream {
         write(msg: string): void;
@@ -216,6 +227,10 @@ declare namespace P {
         /**
          * Changes the property `level` to any string value you pass in. Default: 'level'
          */
+        levelKey?: string;
+        /**
+         * (DEPRECATED, use `levelKey`) Changes the property `level` to any string value you pass in. Default: 'level'
+         */
         changeLevelName?: string;
         /**
          * Use this option to define additional logging levels.
@@ -228,6 +243,13 @@ declare namespace P {
          * Warning: this option may not be supported by downstream transports.
          */
         useOnlyCustomLevels?: boolean;
+
+        /**
+         * If provided, the `mixin` function is called each time one of the active logging methods
+         * is called. The function must synchronously return an object. The properties of the
+         * returned object will be added to the logged JSON.
+         */
+        mixin?: MixinFn;
 
         /**
          * As an array, the redact option specifies paths that should have their values redacted from any log output.
@@ -250,6 +272,10 @@ declare namespace P {
          * The string key for the 'message' in the JSON object. Default: "msg".
          */
         messageKey?: string;
+        /**
+         * The string key to place any logged object under.
+         */
+        nestedKey?: string;
         /**
          * Enables pino.pretty. This is intended for non-production configurations. This may be set to a configuration
          * object as outlined in http://getpino.io/#/docs/API?id=pretty. Default: `false`.
@@ -310,13 +336,13 @@ declare namespace P {
             write?:
                 | WriteFn
                 | ({
-                    fatal?: WriteFn;
-                    error?: WriteFn;
-                    warn?: WriteFn;
-                    info?: WriteFn;
-                    debug?: WriteFn;
-                    trace?: WriteFn;
-                } & { [logLevel: string]: WriteFn });
+                      fatal?: WriteFn;
+                      error?: WriteFn;
+                      warn?: WriteFn;
+                      info?: WriteFn;
+                      debug?: WriteFn;
+                      trace?: WriteFn;
+                  } & { [logLevel: string]: WriteFn });
 
             /**
              * The serializers provided to `pino` are ignored by default in the browser, including the standard
@@ -405,19 +431,48 @@ declare namespace P {
                  * the `send` function will be called based on the main logging `level` (set via `options.level`,
                  * defaulting to `info`).
                  */
-                level?: Level|string;
+                level?: Level | string;
                 /**
                  * Remotely record log messages.
                  *
                  * @description Called after writing the log message.
                  */
                 send: (level: Level, logEvent: LogEvent) => void;
-            }
+            };
         };
         /**
          * key-value object added as child logger to each log line. If set to null the base child logger is not added
          */
         base?: { [key: string]: any } | null;
+
+        /**
+         * An object containing functions for formatting the shape of the log lines.
+         * These functions should return a JSONifiable object and should never throw.
+         * These functions allow for full customization of the resulting log lines.
+         * For example, they can be used to change the level key name or to enrich the default metadata.
+         */
+        formatters?: {
+          /**
+           * Changes the shape of the log level.
+           * The default shape is { level: number }.
+           * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
+           */
+          level?: (level: string, number: number) => object;
+          /**
+           * Changes the shape of the bindings.
+           * The default shape is { pid, hostname }.
+           * The function takes a single argument, the bindings object.
+           * It will be called every time a child logger is created.
+           */
+          bindings?: (bindings: Bindings) => object;
+          /**
+           * Changes the shape of the log object.
+           * This function will be called every time one of the log methods (such as .info) is called.
+           * All arguments passed to the log method, except the message, will be pass to this function.
+           * By default it does not change the shape of the log object.
+           */
+          log?: (object: object) => object;
+        };
     }
 
     interface PrettyOptions {
@@ -440,6 +495,10 @@ declare namespace P {
          * The key in the JSON object to use for timestamp display. Default: "time".
          */
         timestampKey?: string;
+        /**
+         * Format output of message, e.g. {level} - {pid} will output message: INFO - 1123 Default: `false`.
+         */
+        messageFormat?: false | string;
         /**
          * If set to true, will add color information to the formatted output message. Default: `false`.
          */

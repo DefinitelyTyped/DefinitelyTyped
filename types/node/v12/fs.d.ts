@@ -19,20 +19,20 @@ declare module "fs" {
         isFIFO(): boolean;
         isSocket(): boolean;
 
-        dev: number;
-        ino: number;
-        mode: number;
-        nlink: number;
-        uid: number;
-        gid: number;
-        rdev: number;
-        size: number;
-        blksize: number;
-        blocks: number;
-        atimeMs: number;
-        mtimeMs: number;
-        ctimeMs: number;
-        birthtimeMs: number;
+        dev: T;
+        ino: T;
+        mode: T;
+        nlink: T;
+        uid: T;
+        gid: T;
+        rdev: T;
+        size: T;
+        blksize: T;
+        blocks: T;
+        atimeMs: T;
+        mtimeMs: T;
+        ctimeMs: T;
+        birthtimeMs: T;
         atime: Date;
         mtime: Date;
         ctime: Date;
@@ -794,7 +794,7 @@ declare module "fs" {
          * A file mode. If a string is passed, it is parsed as an octal integer. If not specified
          * @default 0o777.
          */
-        mode?: number;
+        mode?: number | string;
     }
 
     /**
@@ -1824,6 +1824,7 @@ declare module "fs" {
         fd?: number;
         mode?: number;
         autoClose?: boolean;
+        emitClose?: boolean;
         start?: number;
         highWaterMark?: number;
     }): WriteStream;

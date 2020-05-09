@@ -266,6 +266,7 @@ declare namespace Flexmonster {
             showHierarchyCaptions?: boolean;
             showReportFiltersArea?: boolean;
             showTotals?: boolean;
+            showEmptyValues?: boolean;
             title?: string;
             type?: string;
             showAutoCalculationBar?: boolean;

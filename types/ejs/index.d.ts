@@ -2,6 +2,7 @@
 // Project: http://ejs.co/, https://github.com/mde/ejs
 // Definitions by: Ben Liddicott <https://github.com/benliddicott>
 //                 ExE Boss <https://github.com/ExE-Boss>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -118,7 +119,7 @@ export let closeDelimiter: string;
  *
  * @default '%'
  */
-export let delimiter: string;
+export let delimiter: string | undefined;
 
 /**
  * Promise implementation -- defaults to the native implementation if available
@@ -376,9 +377,8 @@ export interface Options {
 	closeDelimiter?: string;
 
 	/**
-	 * The delimiter used in template compilation.
-	 *
-	 * @default ejs.delimiter
+	 * Character to use with angle brackets for open/close
+	 * @default '%'
 	 */
 	delimiter?: string;
 
@@ -410,11 +410,21 @@ export interface Options {
 	async?: boolean;
 
 	/**
+	 * Make sure to set this to 'false' in order to skip UglifyJS parsing,
+	 * when using ES6 features (`const`, etc) as UglifyJS doesn't understand them.
+	 * @default true
+	 */
+	beautify?: boolean;
+
+	/**
 	 * Name to use for the object storing local variables when not using `with` or destructuring.
 	 *
 	 * @default ejs.localsName
 	 */
 	localsName?: string;
+
+	/** Set to a string (e.g., 'echo' or 'print') for a function to print output inside scriptlet tags. */
+	outputFunctionName?: string;
 }
 
 export interface Cache {

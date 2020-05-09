@@ -1,4 +1,4 @@
-// Type definitions for express-http-proxy 1.5
+// Type definitions for express-http-proxy 1.6
 // Project: https://github.com/villadora/express-http-proxy#readme
 // Definitions by:  ulrichb <https://github.com/ulrichb>
 //                  Daniel Schopf <https://github.com/Danscho>
@@ -25,7 +25,7 @@ declare namespace proxy {
             res: Response,
             next: NextFunction
         ) => any;
-        proxyReqPathResolver?: (req: Request) => string;
+        proxyReqPathResolver?: (req: Request) => string | Promise<string>;
         proxyReqOptDecorator?: (
             proxyReqOpts: RequestOptions,
             srcReq: Request

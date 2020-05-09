@@ -70,6 +70,11 @@ import * as util from 'util';
 
 {
     fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 0);
+    fs.readSync(1, Buffer.from(''), {
+        length: 123,
+        offset: 456,
+        position: null,
+    });
 }
 
 {
@@ -275,10 +280,25 @@ async function testPromisify() {
     fs.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,
-    }, () => {
+    }, (err, path) => {
+        err; // $ExpectType ErrnoException | null
+        path; // $ExpectType string
     });
 
+    // $ExpectType string
     fs.mkdirSync('some/test/path', {
+        recursive: true,
+        mode: 0o777,
+    });
+
+    // $ExpectType Promise<string>
+    util.promisify(fs.mkdir)('some/test/path', {
+        recursive: true,
+        mode: 0o777,
+    });
+
+    // $ExpectType Promise<string>
+    fs.promises.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,
     });
@@ -305,7 +325,7 @@ async function testPromisify() {
 (async () => {
     try {
         await fs.promises.rmdir('some/test/path');
-        await fs.promises.rmdir('some/test/path', { recursive: true });
+        await fs.promises.rmdir('some/test/path', { recursive: true, maxRetries: 123, retryDelay: 123 });
     } catch (e) {}
 })();
 
@@ -327,5 +347,19 @@ async function testPromisify() {
     const dirEntProm: Promise<fs.Dir> = fs.promises.opendir('test', {
         encoding: 'utf8',
         bufferSize: 42,
+    });
+}
+
+{
+    const writeStream = fs.createWriteStream('./index.d.ts');
+    const _wom = writeStream.writableObjectMode; // $ExpectType boolean
+
+    const readStream = fs.createReadStream('./index.d.ts');
+    const _rom = readStream.readableObjectMode; // $ExpectType boolean
+}
+
+{
+    fs.readvSync(123, [Buffer.from('wut')]);
+    fs.readv(123, [Buffer.from('wut')], 123, (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
     });
 }

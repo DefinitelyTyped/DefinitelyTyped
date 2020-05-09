@@ -100,12 +100,12 @@ export interface MUIDataTableColumn {
 }
 
 export interface MUIDataTableTextLabels {
-    body: MUIDataTableTextLabelsBody;
-    filter: MUIDataTableTextLabelsFilter;
-    pagination: MUIDataTableTextLabelsPagination;
-    selectedRows: MUIDataTableTextLabelsSelectedRows;
-    toolbar: MUIDataTableTextLabelsToolbar;
-    viewColumns: MUIDataTableTextLabelsViewColumns;
+    body: Partial<MUIDataTableTextLabelsBody>;
+    filter: Partial<MUIDataTableTextLabelsFilter>;
+    pagination: Partial<MUIDataTableTextLabelsPagination>;
+    selectedRows: Partial<MUIDataTableTextLabelsSelectedRows>;
+    toolbar: Partial<MUIDataTableTextLabelsToolbar>;
+    viewColumns: Partial<MUIDataTableTextLabelsViewColumns>;
 }
 
 export interface MUIDataTableFilterOptions {
@@ -160,8 +160,8 @@ export interface MUIDataTableOptions {
         rowCount: number,
         page: number,
         rowsPerPage: number,
-        changeRowsPerPage: () => any,
-        changePage: number
+        changeRowsPerPage: (page: string | number) => void,
+        changePage: (newPage: number) => void
     ) => React.ReactNode;
     customRowRender?: (data: any[], dataIndex: number, rowIndex: number) => React.ReactNode;
     customSearch?: (searchQuery: string, currentRow: any[], columns: any[]) => boolean;
@@ -183,11 +183,11 @@ export interface MUIDataTableOptions {
     ) => React.ReactNode;
     disableToolbarSelect?: boolean;
     download?: boolean;
-    downloadOptions?: {
+    downloadOptions?: Partial<{
         filename: string;
         separator: string;
-        filterOptions?: { useDisplayedColumnsOnly: boolean; useDisplayedRowsOnly: boolean };
-    };
+        filterOptions: Partial<{ useDisplayedColumnsOnly: boolean; useDisplayedRowsOnly: boolean }>;
+    }>;
     elevation?: number;
     expandableRows?: boolean;
     expandableRowsOnClick?: boolean;
@@ -255,7 +255,7 @@ export interface MUIDataTableOptions {
     setRowProps?: (row: any[], rowIndex: number) => object;
     sort?: boolean;
     sortFilterList?: boolean;
-    textLabels?: MUIDataTableTextLabels;
+    textLabels?: Partial<MUIDataTableTextLabels>;
     viewColumns?: boolean;
 }
 

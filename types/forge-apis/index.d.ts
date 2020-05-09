@@ -1,6 +1,6 @@
-// Type definitions for Forge-apis 0.4
+// Type definitions for Forge-apis 0.7
 // Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
-// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
+// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Bryan Huang <https://github.com/dukedhx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -351,6 +351,38 @@ export interface JobPayload {
     output: JobPayloadOutput;
 }
 
+export class CommandsApi {
+    /**
+     * Checks if a user has permission to perform specified actions on specified resources.
+     */
+    checkPermission(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+
+    /**
+     * Retrieves the custom relationships between specified versions of items and other resources in the data domain service
+     */
+    listRefs(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+
+    /**
+     * Retrieves metadata for up to 50 specified items. For example, an item name, or the date it was created. It returns the tip (latest) version of the items.
+     */
+    listItems(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+
+    /**
+     * Creates folders in BIM 360 Docs.
+     */
+    createFolder(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+
+    /**
+     * Publishes the latest version of a Collaboration for Revit (C4R) model to BIM 360 Docs.
+     */
+    publishModel(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+
+    /**
+     * Verifies whether a Collaboration for Revit (C4R) model needs to be published to BIM 360 Docs.
+     */
+    getPublishModelJob(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+}
+
 export class DerivativesApi {
     /**
      * Deletes the manifest and all its translated output files (derivatives). However, it does not delete the design source file.
@@ -547,6 +579,36 @@ export interface CreateRef {
     data?: CreateRefData;
 }
 
+export interface CommandsAttributesExtensionObject {
+    type: string;
+    version: string;
+    data?: object;
+}
+
+export interface CommandsAttributesObject {
+    extension: CommandsAttributesExtensionObject;
+}
+
+export interface CommandsRelationshipsResourceObject {
+    data: object;
+}
+
+export interface CommandsRelationshipsObject {
+    resources: CommandsRelationshipsResourceObject;
+}
+
+export interface CommandsBodyObject {
+    jsonapi: JsonApiVersionJsonapi;
+    data: CommandsBodyObjectData;
+    included?: object;
+}
+
+export interface CommandsBodyObjectData {
+    type: string;
+    attributes: CommandsAttributesObject;
+    relationships: CommandsRelationshipsObject;
+}
+
 export class FoldersApi {
     /**
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project
@@ -661,7 +723,7 @@ export class HubsApi {
 
 export interface CreateStorageDataAttributes {
     name: string;
-    extension: BaseAttributesExtensionObject;
+    extension?: BaseAttributesExtensionObject;
 }
 
 export interface CreateItemDataRelationshipsTipData {
@@ -985,6 +1047,7 @@ export interface CreateStorageDataRelationships {
 }
 
 export interface CreateStorageData {
+    type: string;
     attributes?: CreateStorageDataAttributes;
     relationships?: CreateStorageDataRelationships;
 }

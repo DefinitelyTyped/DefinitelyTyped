@@ -13,6 +13,7 @@ import { readFile } from 'fs';
         showProxy: true,
         maxArrayLength: 10,
         breakLength: 20,
+        maxStringLength: 123,
         compact: true,
         sorted(a, b) {
             return b.localeCompare(a);
@@ -38,6 +39,10 @@ import { readFile } from 'fs';
     util.inspect.replDefaults = {
         colors: true,
     };
+
+    util.inspect({
+        [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize('woop', 'module')),
+    });
 
     util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
 

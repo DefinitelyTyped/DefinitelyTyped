@@ -53,7 +53,7 @@ function writeProtocolsToFile(jsonProtocols: string[]) {
     const template = readFileSync(`${__dirname}/inspector.d.ts.template`, "utf8");
 
     const inspectorDts = substitute(template, substituteArgs).split("\n")
-        .map(line => trimRight(line))
+        .map(trimRight)
         .join("\n");
 
     writeFileSync("./inspector.d.ts", inspectorDts, "utf8");

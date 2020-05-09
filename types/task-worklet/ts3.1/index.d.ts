@@ -16,7 +16,7 @@ interface TaskDescriptor {
 export interface Task<T = unknown> {
     id: number;
     state: State;
-    result: Promise<T>;
+    result: Promise<T extends PromiseLike<infer U> ? U : T>;
 }
 
 export type State =

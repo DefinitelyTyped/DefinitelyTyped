@@ -28,6 +28,19 @@ ineum("wrapEventHandlers", true);
 ineum("wrapTimers", true);
 // $ExpectType void
 ineum("whitelistedOrigins", [/regex/]);
-
 // $ExpectType string | undefined
 ineum("getPageLoadId");
+// $ExpectType void
+ineum("ignoreUserTimings", [/regex/]);
+// $ExpectType void
+ineum("reportEvent", "log");
+// $ExpectType void
+ineum("reportEvent", "log", {
+    duration: 42,
+    backendTraceId: 'abc',
+    error: new Error(),
+    componentStack: 'AppComponent\nButtonComponent',
+    meta: {
+        itemsInCart: 5
+    }
+});

@@ -204,7 +204,7 @@ interface AttributeConfig {
   sizes?: string;
 }
 
-type ImgixHTMLAttributes = React.ImgHTMLAttributes<HTMLImageElement> | React.SourceHTMLAttributes<HTMLSourceElement>;
+type ImgixHTMLAttributes = React.ImgHTMLAttributes<HTMLImageElement> | React.SourceHTMLAttributes<HTMLSourceElement> | Record<string, string>;
 
 interface CommonProps {
   className?: string;
@@ -212,7 +212,7 @@ interface CommonProps {
   htmlAttributes?: ImgixHTMLAttributes;
 }
 
-interface SharedImigixAndSourceProps extends CommonProps {
+export interface SharedImigixAndSourceProps extends CommonProps {
   src: string;
   disableQualityByDPR?: boolean;
   disableSrcSet?: boolean;
@@ -235,7 +235,7 @@ export namespace PublicConfigAPI {
   function enableWarning(name: Warnings): void;
 }
 
-interface BackgroundProps {
+export interface BackgroundProps {
   src: string;
   imgixParams?: ImigixParams;
   className?: string;

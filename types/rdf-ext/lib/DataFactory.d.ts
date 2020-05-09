@@ -1,4 +1,4 @@
-import { DataFactory, Sink, NamedNode, BaseQuad, Quad, Stream } from 'rdf-js';
+import { DataFactory, NamedNode, Quad, Quad_Subject, Quad_Predicate, Quad_Object, Quad_Graph } from 'rdf-js';
 import BlankNodeExt = require("./BlankNode");
 import LiteralExt = require("./Literal");
 import NamedNodeExt = require("./NamedNode");
@@ -12,7 +12,10 @@ import { PropType } from './_PropType';
 type PrefixesRecord = Record<string, NamedNode | string>;
 type Prefixes = PrefixMap | PrefixesRecord;
 
-declare class DataFactoryExt implements DataFactory {
+interface DataFactoryExt extends DataFactory<QuadExt, Quad> {}
+
+// tslint:disable-next-line no-unnecessary-class
+declare class DataFactoryExt  {
   static defaults: {
     defaultGraph: DefaultGraphExt;
     NamedNode: NamedNodeExt;
@@ -29,19 +32,11 @@ declare class DataFactoryExt implements DataFactory {
   static literal(value: string, languageOrDatatype?: string | NamedNode): LiteralExt;
   static variable(value: string): VariableExt;
   static defaultGraph(): DefaultGraphExt;
-  static triple<Q extends BaseQuad = QuadExt>(subject: Q['subject'], predicate: Q['predicate'], object: Q['object']): Q;
-  static quad<Q extends BaseQuad = QuadExt>(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'], graph?: Q['graph']): Q;
+  static triple(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object): QuadExt;
+  static quad(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object, graph?: Quad_Graph): QuadExt;
   static graph(quads?: any): Dataset;
   static prefixMap(prefixes: Prefixes): PrefixMap;
   static dataset(quads?: Quad[], graph?: PropType<QuadExt, 'graph'>): Dataset;
-
-  blankNode(value?: string): BlankNodeExt;
-  defaultGraph(): DefaultGraphExt;
-  literal(value: string, languageOrDatatype?: string | NamedNode): LiteralExt;
-  namedNode(value: string): NamedNode;
-  quad<Q extends BaseQuad = QuadExt>(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'], graph?: Q['graph']): Q;
-  triple<Q extends BaseQuad = QuadExt>(subject: Q['subject'], predicate: Q['predicate'], object: Q['object']): Q;
-  variable(value: string): VariableExt;
 }
 
 export = DataFactoryExt;

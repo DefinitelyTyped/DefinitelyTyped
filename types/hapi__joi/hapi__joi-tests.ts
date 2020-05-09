@@ -54,13 +54,17 @@ validOpts = { context: obj };
 validOpts = { noDefaults: bool };
 validOpts = {
     abortEarly: true,
-    errors: { wrapArrays: bool },
     messages: {
         'any.ref': str,
         'string.email': str
     },
     dateFormat: 'iso'
 };
+// Test various permutations of string, `false`, or `undefined` for both parameters:
+validOpts = { errors: { wrap: { label: str, array: str }}};
+validOpts = { errors: { wrap: { label: false, array: false }}};
+validOpts = { errors: { wrap: { label: str }}};
+validOpts = { errors: { wrap: { array: str }}};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -134,6 +138,9 @@ whenOpts = { is: x };
 whenOpts = { is: schema, then: schema };
 whenOpts = { is: schema, otherwise: schema };
 whenOpts = { is: schemaLike, then: schemaLike, otherwise: schemaLike };
+whenOpts = { not: schema, then: schema };
+whenOpts = { not: schema, otherwise: schema };
+whenOpts = { not: schemaLike, then: schemaLike, otherwise: schemaLike };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -159,7 +166,7 @@ stringRegexOpts = { invert: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-declare const validErr: Joi.ValidationError;
+const validErr = new Joi.ValidationError("message", "details", "original");
 let validErrItem: Joi.ValidationErrorItem;
 let validErrFunc: Joi.ValidationErrorFunction;
 
@@ -186,6 +193,29 @@ validErrItem = {
 validErrFunc = errs => errs[0];
 validErrFunc = errs => 'Some error';
 validErrFunc = errs => err;
+
+// error() can take function with ErrorReport argument
+validErrFunc = errors => {
+    const path: string = errors[0].path[0];
+    const code: string = errors[0].code;
+    const messages = errors[0].prefs.messages;
+
+    const message: string = messages ? messages[code].rendered : 'Error';
+
+    const validationErr = new Error();
+    validationErr.message = `[${path}]: ${message}`;
+    return validationErr;
+};
+
+Joi.any().error(validErrFunc);
+
+Joi.isError(validErr);
+
+const maybeValidErr = <any> new Joi.ValidationError("message", "details", "original");
+if (Joi.isError(maybeValidErr)) {
+    // isError is a type guard that allows accessing these properties:
+    maybeValidErr.isJoi;
+}
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -273,6 +303,13 @@ anySchema = Joi.any();
 
     anySchema = anySchema.default();
     anySchema = anySchema.default(x);
+    anySchema = anySchema.default("string");
+    anySchema = anySchema.default(3.14);
+    anySchema = anySchema.default(true);
+    anySchema = anySchema.default({ foo: "bar" });
+    anySchema = anySchema.default((parent, helpers) => {
+        return helpers.state;
+    });
 
     anySchema = anySchema.required();
     anySchema = anySchema.optional();
@@ -725,6 +762,8 @@ objSchema = objSchema.instance(func, str);
 
 objSchema = objSchema.ref();
 
+objSchema = objSchema.regex();
+
 { // common
     objSchema = objSchema.allow(x);
     objSchema = objSchema.allow(x, x);
@@ -944,6 +983,9 @@ schema = Joi.link(str);
         value = schema.validate(value).value;
 
         result = schema.validate(value);
+        if (result.error) {
+            throw Error('error should not be set');
+        }
         result = schema.validate(value, validOpts);
         asyncResult = schema.validateAsync(value);
         asyncResult = schema.validateAsync(value, validOpts);
@@ -952,6 +994,12 @@ schema = Joi.link(str);
             .then(val => JSON.stringify(val, null, 2))
             .then(val => { throw new Error('one error'); })
             .catch(e => { });
+
+        const falsyValue = { username: 'example' };
+        result = schema.validate(falsyValue);
+        if (!result.error) {
+            throw Error('error should be set');
+        }
     }
 }
 
@@ -1003,11 +1051,18 @@ const Joi3 = Joi.extend({
         asd: {
             args: [
                 {
-                    name: 'allowFalse'
+                    name: 'allowFalse',
+                    ref: true,
+                    assert: Joi.boolean(),
                 }
             ],
-            method(allowFalse) {
-                this.$_createError(str, {}, {}, {}, {});
+            method(allowFalse: boolean) {
+                return this.$_addRule({
+                    name: 'asd',
+                    args: {
+                        allowFalse,
+                    }
+                });
             },
             validate(value: boolean, helpers, params, options) {
                 if (value || params.allowFalse && !value) {

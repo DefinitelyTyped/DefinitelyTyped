@@ -13,6 +13,8 @@ const signature = key.sign(msgHash);
 // Export DER encoded signature in Array
 const derSign = signature.toDER();
 
+const decodedSignature = new elliptic.ec.Signature(derSign);
+
 // Verify signature
 console.log(key.verify(msgHash, derSign));
 

@@ -13,6 +13,7 @@ import {
     useRefetchableFragment,
     usePaginationFragment,
     useBlockingPaginationFragment,
+    useMutation
 } from 'react-relay/hooks';
 
 const source = new RecordSource();
@@ -339,8 +340,8 @@ function ArrayOfNullableFragment() {
  */
 function RefetchableFragment() {
     interface CommentBodyRefetchQueryVariables {
-        lang?: string | null;
-        id?: string | null;
+        lang: string;
+        id: string;
     }
     interface CommentBodyRefetchQueryResponse {
         readonly node: {
@@ -367,6 +368,7 @@ function RefetchableFragment() {
 
     interface Props {
         comment: CommentBody_comment$key;
+        commentNullable: CommentBody_comment$key | null;
     }
 
     return function CommentBody(props: Props) {
@@ -380,10 +382,21 @@ function RefetchableFragment() {
             `,
             props.comment,
         );
+        const [dataNullable] = useRefetchableFragment<CommentBodyRefetchQuery, CommentBody_comment$key>(
+            graphql`
+                fragment CommentBody_comment on Comment @refetchable(queryName: "CommentBodyRefetchQuery") {
+                    body(lang: $lang) {
+                        text
+                    }
+                }
+            `,
+            props.commentNullable,
+        );
 
         return (
             <>
-                <p>{data!.body!.text}</p>
+                <p>{data.body!.text}</p>
+                <p>{dataNullable!.body!.text}</p>
                 <button onClick={() => refetch({ lang: 'SPANISH' }, { fetchPolicy: 'store-or-network' })}>
                     Translate Comment
                 </button>
@@ -720,6 +733,94 @@ function BlockingPaginationFragment_WithNonNullUserProp() {
 
                 <button onClick={() => loadNext(10)}>Load more friends</button>
             </>
+        );
+    };
+}
+
+/**
+ * Tests for useMutation
+ * see https://relay.dev/docs/en/experimental/api-reference#usemutation
+ */
+function Mutation() {
+    interface FeedbackLikeMutationRawResponse {
+        readonly feedback_like: {
+            readonly feedback: {
+                readonly id: string;
+                readonly viewer_does_like?: boolean | null;
+                readonly like_count?: number | null;
+            }
+        } | null;
+    }
+
+    interface FeedbackLikeMutationResponse {
+        readonly feedback_like: {
+            readonly feedback: {
+                readonly id: string;
+                readonly viewer_does_like?: boolean | null;
+                readonly like_count?: number | null;
+            }
+        } | null;
+    }
+
+    interface FeedbackLikeMutationVariables {
+        input: {
+            id: string,
+            text: string;
+        };
+    }
+
+    interface FeedbackLikeMutation {
+        readonly rawResponse: FeedbackLikeMutationRawResponse;
+        readonly response: FeedbackLikeMutationResponse;
+        readonly variables: FeedbackLikeMutationVariables;
+    }
+
+    return function LikeButton() {
+        const [commit, isInFlight] = useMutation<FeedbackLikeMutation>(graphql`
+            mutation FeedbackLikeMutation($input: FeedbackLikeData!) @raw_response_type {
+                feedback_like(data: $input) {
+                    feedback {
+                        id
+                        viewer_does_like
+                        like_count
+                    }
+                }
+            }
+        `);
+        if (isInFlight) {
+          return <div>loading</div>;
+        }
+        return (
+            <button
+                onClick={() => {
+                    commit({
+                        variables: {
+                            input: {
+                                id: '123',
+                                text: 'text',
+                            },
+                        },
+                        onCompleted(data) {
+                            console.log(data);
+
+                            if (data.feedback_like == null) {
+                                return;
+                            }
+
+                            console.log(data.feedback_like.feedback.id);
+                            console.log(data.feedback_like.feedback.like_count);
+                            console.log(data.feedback_like.feedback.viewer_does_like);
+                        },
+                        optimisticResponse: {
+                            feedback_like: {
+                                feedback: {
+                                    id: "1"
+                                }
+                            }
+                        }
+                    });
+                }}
+            />
         );
     };
 }

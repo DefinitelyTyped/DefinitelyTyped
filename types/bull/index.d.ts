@@ -1,4 +1,4 @@
-// Type definitions for bull 3.10
+// Type definitions for bull 3.12
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -17,6 +17,7 @@
 //                 DoYoung Ha <https://github.com/hados99>
 //                 Borys Kupar <https://github.com/borys-kupar>
 //                 Remko Klein <https://github.com/remko79>
+//                 Levi Bostian <https://github.com/levibostian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -680,10 +681,10 @@ declare namespace Bull {
     removeRepeatableByKey(key: string): Promise<void>;
 
     /**
-     * Returns a promise that will return an array of job instances of the given types.
+     * Returns a promise that will return an array of job instances of the given job statuses.
      * Optional parameters for range and ordering are provided.
      */
-    getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
+    getJobs(types: JobStatus[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
 
     /**
      * Returns a object with the logs according to the start and end arguments. The returned count
@@ -697,9 +698,9 @@ declare namespace Bull {
     getJobCounts(): Promise<JobCounts>;
 
     /**
-     * Returns a promise that resolves with the job counts for the given queue of the given types.
+     * Returns a promise that resolves with the job counts for the given queue of the given job statuses.
      */
-    getJobCountByTypes(types: string[] | string): Promise<JobCounts>;
+    getJobCountByTypes(types: JobStatus[] | JobStatus): Promise<JobCounts>;
 
     /**
      * Returns a promise that resolves with the quantity of completed jobs.
@@ -744,6 +745,16 @@ declare namespace Bull {
      * @param limit Maximum amount of jobs to clean per call. If not provided will clean all matching jobs.
      */
     clean(grace: number, status?: JobStatusClean, limit?: number): Promise<Array<Job<T>>>;
+
+    /**
+     * Returns a promise that marks the start of a transaction block.
+     */
+    multi(): Redis.Pipeline;
+
+    /**
+     * Returns the queue specific key.
+     */
+    toKey(queueType: string): string;
 
     /**
      * Listens to queue events
@@ -846,6 +857,11 @@ declare namespace Bull {
      * @param list String with all redis clients
      */
     parseClientList(list: string): Redis.Redis[];
+
+    /**
+     * Returns a promise that resolves when active jobs are finished
+     */
+    whenCurrentJobsFinished(): Promise<void>;
   }
 
   type EventCallback = () => void;

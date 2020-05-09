@@ -70,7 +70,7 @@ declare namespace echarts {
                 fillerColor?: string;
                 borderColor?: string;
                 handleIcon?: string;
-                handleSize?: number;
+                handleSize?: number | string;
                 handleStyle?: object;
                 labelPrecision?: number;
                 labelFormatter?: string | Function;

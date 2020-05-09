@@ -18,6 +18,7 @@ import { Template } from "meteor/templating";
 import { Blaze } from "meteor/blaze";
 import { Session } from "meteor/session";
 import { HTTP } from "meteor/http";
+import { ReactiveDict } from "meteor/reactive-dict";
 import { ReactiveVar } from "meteor/reactive-var";
 import { Accounts } from "meteor/accounts-base";
 import { BrowserPolicy } from "meteor/browser-policy-common";
@@ -44,7 +45,7 @@ interface MessageDAO {
     _id: string;
     text: string;
 }
-    
+
 const Rooms = new Mongo.Collection<RoomDAO>('rooms');
 let Messages = new Mongo.Collection<MessageDAO>('messages');
 interface MonkeyDAO {
@@ -59,13 +60,20 @@ var Monkeys = new Mongo.Collection<MonkeyDAO>('monkeys');
 
 /**
  * From Core, Meteor.startup section
- * Tests Meteor.isServer, Meteor.startup, Collection.insert(), Collection.find()
+ * Tests Meteor.isServer, Meteor.startup, Collection.insert(), Collection.find(), Collection.rawCollection(), Collection.rawDatabase()
  */
 if (Meteor.isServer) {
     Meteor.startup(function () {
         if (Rooms.find().count() === 0) {
             Rooms.insert({ name: "Initial room" });
         }
+
+        Rooms.rawDatabase().stats().then(
+            stats => console.log('stats', stats),
+            error => console.error('stats', error)
+        );
+
+        Rooms.rawCollection().aggregate([{$group: {_id: null, names: {$addToSet: '$name'}}}]).toArray().then();
     });
 }
 
@@ -226,7 +234,7 @@ interface PostDAO {
     _id: string;
     title: string;
     body: string;
-} 
+}
 
 var Posts : Mongo.Collection<iPost> | Mongo.Collection<PostDAO> = new Mongo.Collection<PostDAO>("posts");
 Posts.insert({ title: "Hello world", body: "First post" });
@@ -508,6 +516,14 @@ Meteor.publish("userData", function () {
         { fields: { 'other': 1, 'things': 1 } });
 });
 
+/**
+ * `null` can be passed as the first argument
+ * `is_auto` can be passed as an option
+ */
+Meteor.publish(null, function () {
+    return 3;
+}, { is_auto : true });
+
 Meteor.users.deny({ update: function () { return true; } });
 
 /**
@@ -609,6 +625,8 @@ Template.registerHelper('testHelper', function () {
 });
 
 var instance = Template.instance();
+var userId = instance.data.userId;
+
 var data = Template.currentData();
 var data = Template.parentData(1);
 var body = Template.body;
@@ -763,6 +781,29 @@ Blaze.toHTMLWithData(testTemplate, { test: 1 });
 Blaze.toHTMLWithData(testTemplate, function () { });
 Blaze.toHTMLWithData(testView, { test: 1 });
 Blaze.toHTMLWithData(testView, function () { });
+
+var reactiveDict1 = new ReactiveDict();
+var reactiveDict2 = new ReactiveDict();
+var reactiveDict3 = new ReactiveDict('reactive-dict-3');
+var reactiveDict4 = new ReactiveDict('reactive-dict-4', { foo: 'bar' });
+var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar' });
+
+reactiveDict1.setDefault('foo', 'bar');
+reactiveDict1.setDefault({ foo: 'bar' });
+
+reactiveDict1.set('foo', 'bar');
+reactiveDict2.set({ foo: 'bar' });
+
+reactiveDict1.get('foo') === 'bar';
+
+reactiveDict1.equals('foo', 'bar');
+
+reactiveDict1.all();
+
+reactiveDict1.clear();
+
+reactiveDict1.destroy();
+
 
 var reactiveVar1 = new ReactiveVar<string>('test value');
 var reactiveVar2 = new ReactiveVar<string>('test value', function (oldVal: any) { return true; });

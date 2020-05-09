@@ -1,11 +1,11 @@
 // Type definitions for non-npm package office-runtime 1.0
 // Project: https://github.com/OfficeDev/office-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>,
-//                 Michael Zlatskovsky <https://github.com/Zlatkovsky>,
 //                 Michelle Scharlock <https://github.com/mscharlock>,
 //                 David Chesnut <https://github.com/davidchesnut>,
 //                 Alex Jerabek <https://github.com/AlexJerabek>,
-//                 Sudhi Ramamurthy <https://github.com/sumurthy>
+//                 Sudhi Ramamurthy <https://github.com/sumurthy>,
+//                 Ricky Kirkham <https://github.com/rick-kirkham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript Version: 2.4
 
@@ -21,7 +21,7 @@ declare namespace OfficeRuntime {
   /**
    * Method that enables a pop up web dialog box.
    *
-   * [Api set: CustomFunctionsRuntime 1.1]
+   * [Api set: SharedRuntime 1.1]
    *
    * @param url Must be a string.
    * @param options Optional parameter. Must be of type DisplayWebDialogOptions.
@@ -34,7 +34,7 @@ declare namespace OfficeRuntime {
   /**
    * Asynchronous, global, and persistent key-value storage.
    *
-   * [Api set: CustomFunctionsRuntime 1.1]
+   * [Api set: SharedRuntime 1.1]
    *
    * @remarks
    * Storage limit is 10 MB per domain, which may be shared by multiple add-ins.
@@ -44,7 +44,7 @@ declare namespace OfficeRuntime {
      * Retrieves an item from storage based on its key.
      * Returns a Promise. In the event the Promise does not resolve, returns null.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      * @param key Key of item to be retrieved. Must be a string.
      */
@@ -53,7 +53,7 @@ declare namespace OfficeRuntime {
      * Sets a key-value pair into storage or updates an existing key-value pair.
      * Returns a Promise.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      * @param key Key of item to be set. Must be a string.
      * @param value Must be a string.
@@ -63,7 +63,7 @@ declare namespace OfficeRuntime {
      * Removes an item from storage based on its key.
      * Returns a Promise.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      * @param key Key of item to be removed. Must be a string.
      */
@@ -72,7 +72,7 @@ declare namespace OfficeRuntime {
      * Retrieves multiple items from storage based on their key.
      * Returns a Promise. In the event the Promise does not resolve, returns null.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -81,7 +81,7 @@ declare namespace OfficeRuntime {
      * Sets multiple items into storage or updates multiple items within storage.
      * Returns a Promise.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      * @param keyValues Key-value pairs to be set. Must be strings.
      */
@@ -90,7 +90,7 @@ declare namespace OfficeRuntime {
      * Removes multiple items from storage.
      * Returns a Promise.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -99,7 +99,7 @@ declare namespace OfficeRuntime {
      * Retrieves an array of all keys from storage.
      *  Returns a Promise.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     getKeys(): Promise<string[]>;
@@ -109,7 +109,7 @@ declare namespace OfficeRuntime {
     /**
      * Method to close a dialog box. Returns a Promise.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     close(): Promise<void>;
@@ -120,7 +120,7 @@ declare namespace OfficeRuntime {
      * Optional parameter that determines whether the dialog box displays as a popup (false) or within an IFrame (true).
      * This setting is only applicable to custom functions running on Excel Online.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     displayInIFrame?: boolean;
@@ -128,7 +128,7 @@ declare namespace OfficeRuntime {
      * Optional parameter that defines the height of the dialog box as a percentage of the current display.
      * For example, accepts strings such as: '50%', '50'.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     height?: string;
@@ -136,28 +136,28 @@ declare namespace OfficeRuntime {
      * Optional parameter that defines the width of dialog as a percentage of window.
      * For example, accepts strings such as: '50%', '50'.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     width?: string;
     /**
      * Optional callback that runs when the dialog box sends a message to its parent.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     onMessage?: (message: string, dialog?: Dialog) => void;
     /**
      * Optional callback that runs when the dialog box is closed.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     onClose?: () => void;
     /**
      * Optional callback that runs when the dialog box sends an error.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     onRuntimeError?: (error: Error, dialog?: Dialog) => void;

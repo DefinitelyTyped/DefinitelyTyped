@@ -1,4 +1,4 @@
-// Type definitions for parse 2.10
+// Type definitions for parse 2.12
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -20,6 +20,9 @@
 //                  Bui Tan Loc <https://github.com/buitanloc>
 //                  Linus Unnebäck <https://github.com/LinusU>
 //                  Patrick O'Sullivan <https://github.com/REPTILEHAUS>
+//                  Jerome De Leon <https://github.com/JeromeDeLeon>
+//                  Kent Robin Haugen <https://github.com/kentrh>
+//                  Asen Lekov <https://github.com/L3K0V>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -96,6 +99,8 @@ namespace Parse {
     let serverAuthToken: string | undefined;
     let serverAuthType: string | undefined;
     let serverURL: string;
+    let secret: string;
+    let encryptedUser: boolean;
 
     interface BatchSizeOption {
         batchSize?: number;
@@ -177,10 +182,39 @@ namespace Parse {
         [key: string]: any;
     }
 
+    /**
+     * Interface declaration for Authentication Providers
+     * https://parseplatform.org/Parse-SDK-JS/api/master/AuthProvider.html
+     */
+    interface AuthProvider {
+        /**
+         * Called when _linkWith isn't passed authData. Handle your own authentication here.
+         */
+        authenticate: () => void;
+        /**
+         * (Optional) Called when service is unlinked. Handle any cleanup here.
+         */
+        deauthenticate?: () => void;
+        /**
+         * Unique identifier for this Auth Provider.
+         */
+        getAuthType: () => string;
+        /**
+         * Called when auth data is syncronized. Can be used to determine if authData is still valid
+         */
+        restoreAuthentication: () => boolean;
+    }
+
     interface BaseAttributes {
         createdAt: Date;
         objectId: string;
         updatedAt: Date;
+    }
+
+    interface JSONBaseAttributes {
+        createdAt: string;
+        objectId: string;
+        updatedAt: string;
     }
 
     /**
@@ -260,10 +294,19 @@ namespace Parse {
          * @returns Promise that is resolved with base64 data
          */
         getData(): Promise<string>;
+        url(options?: { forceSecure?: boolean }): string;
+        metadata(): Record<string, any>;
+        tags(): Record<string, any>;
         name(): string;
         save(options?: SuccessFailureOptions): Promise<File>;
+        cancel(): void;
+        destroy(): Promise<File>;
         toJSON(): { __type: string, name: string, url: string };
-        url(options?: { forceSecure: boolean }): string;
+        equals(other: File): boolean;
+        setMetadata(metadata: Record<string, any>): void;
+        addMetadata(key: string, value: any): void;
+        setTags(tags: Record<string, any>): void;
+        addTag(key: string, value: any): void;
     }
 
     /**
@@ -360,13 +403,13 @@ namespace Parse {
         attributes: T;
         className: string;
 
-        add<K extends Extract<keyof T, string>>(
+        add<K extends { [K in keyof T]: T[K] extends any[] ? K : never }[keyof T]>(
             attr: K,
-            item: ((x: any[]) => void) extends ((x: T[K]) => void) ? T[K][number] : never
+            item: T[K][number]
         ): this | false;
-        addAll<K extends Extract<keyof T, string>>(
+        addAll<K extends { [K in keyof T]: T[K] extends any[] ? K : never }[keyof T]>(
             attr: K,
-            items: ((x: any[]) => void) extends ((x: T[K]) => void) ? T[K] : never
+            items: T[K]
         ): this | false;
         addAllUnique: this['addAll'];
         addUnique: this['add'];
@@ -389,6 +432,7 @@ namespace Parse {
         getACL(): ACL | undefined;
         has(attr: Extract<keyof T, string>): boolean;
         increment(attr: Extract<keyof T, string>, amount?: number): this | false;
+        decrement(attr: Extract<keyof T, string>, amount?: number): this | false;
         initialize(): void;
         isDataAvailable(): boolean;
         isNew(): boolean;
@@ -406,7 +450,7 @@ namespace Parse {
         revert(...keys: Array<Extract<keyof T, string>>): void;
         save<K extends Extract<keyof T, string>>(
             attrs?: (((x: T) => void) extends ((x: Attributes) => void) ? Partial<T> : {
-                [key in K]: T[K];
+                [key in K]: T[key];
             }) | null,
             options?: Object.SaveOptions
         ): Promise<this>;
@@ -417,7 +461,7 @@ namespace Parse {
         ): Promise<this>;
         set<K extends Extract<keyof T, string>>(
             attrs: ((x: T) => void) extends ((x: Attributes) => void) ? Partial<T> : {
-                [key in K]: T[K];
+                [key in K]: T[key];
             },
             options?: Object.SetOptions
         ): this | false;
@@ -427,7 +471,7 @@ namespace Parse {
             options?: Object.SetOptions
         ): this | false;
         setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
-        toJSON(): any;
+        toJSON(): Object.ToJSON<T> & JSONBaseAttributes;
         toPointer(): Pointer;
         unPin(): Promise<void>;
         unPinWithName(name: string): Promise<void>;
@@ -454,7 +498,7 @@ namespace Parse {
         pinAll(objects: Object[]): Promise<void>;
         pinAllWithName(name: string, objects: Object[]): Promise<void>;
         registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
-        saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+        saveAll<T extends readonly Object[]>(list: T, options?: Object.SaveAllOptions): Promise<T>;
         unPinAll(objects: Object[]): Promise<void>;
         unPinAllObjects(): Promise<void>;
         unPinAllObjectsWithName(name: string): Promise<void>;
@@ -487,6 +531,27 @@ namespace Parse {
         interface SetOptions extends ErrorOption, SilentOption {
             promise?: any;
         }
+
+        // From https://github.com/parse-community/Parse-SDK-JS/blob/master/src/encode.js
+        type Encode<T> = (
+            T extends Object
+                ? ReturnType<T['toJSON']> | Pointer
+                : T extends (ACL | GeoPoint | Polygon | Relation | File)
+                    ? ReturnType<T['toJSON']>
+                    : T extends Date
+                        ? { __type: 'Date'; iso: string; }
+                        : T extends RegExp
+                            ? string
+                            : T extends Array<infer R>
+                                ? any[]
+                                : T extends object
+                                    ? ToJSON<T>
+                                    : T
+        );
+
+        type ToJSON<T> = {
+            [K in keyof T]: Encode<T[K]>
+        };
     }
 
     class Polygon {
@@ -603,15 +668,24 @@ namespace Parse {
             X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         doesNotMatchQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
         distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V>;
-        each(callback: Function, options?: Query.EachOptions): Promise<void>;
+        eachBatch(callback: (objs: T[]) => PromiseLike<void> | void, options?: Query.BatchOptions): Promise<void>;
+        each(callback: (obj: T) => PromiseLike<void> | void, options?: Query.BatchOptions): Promise<void>;
+        hint(value: string | object): this;
+        explain(explain: boolean): this;
+        map<U>(callback: (currentObject: T, index: number, query: Query) => PromiseLike<U> | U, options?: Query.BatchOptions): Promise<U[]>;
+        reduce(callback: (accumulator: T, currentObject: T, index: number) => PromiseLike<T> | T, initialValue?: undefined, options?: Query.BatchOptions): Promise<T>;
+        reduce<U>(callback: (accumulator: U, currentObject: T, index: number) => PromiseLike<U> | U, initialValue: U, options?: Query.BatchOptions): Promise<U>;
+        filter(callback: (currentObject: T, index: number, query: Query) => PromiseLike<boolean> | boolean, options?: Query.BatchOptions): Promise<T[]>;
         endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
         equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K] | (T['attributes'][K] extends Object ? Pointer : never)): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
-        fromLocalDatastore(): void;
-        fromPin(): void;
-        fromPinWithName(name: string): void;
+        fromNetwork(): this;
+        fromLocalDatastore(): this;
+        fromPin(): this;
+        fromPinWithName(name: string): this;
+        cancel(): this;
         fullText<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: string, options?: Query.FullTextOptions): this;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
         greaterThan<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
@@ -665,6 +739,10 @@ namespace Parse {
             language?: string;
             caseSensitive?: boolean;
             diacriticSensitive?: boolean;
+        }
+
+        interface BatchOptions extends FullOptions {
+            batchSize?: number;
         }
     }
 
@@ -766,7 +844,7 @@ namespace Parse {
      */
     interface Role<T extends Attributes = Attributes> extends Object<T> {
         getRoles(): Relation<Role, Role>;
-        getUsers(): Relation<Role, User>;
+        getUsers<U extends User>(): Relation<Role, U>;
         getName(): string;
         setName(name: string, options?: SuccessFailureOptions): any;
     }
@@ -820,24 +898,28 @@ namespace Parse {
         setPassword(password: string, options?: SuccessFailureOptions): boolean;
         getSessionToken(): string;
 
-        linkWith(user: User, authData: AuthData, options: FullOptions): Promise<User>;
-        _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
+        linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
+        _linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
+        _isLinked: (provider: string | AuthProvider) => boolean;
+        _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
     }
     interface UserConstructor extends ObjectStatic {
         new <T extends Attributes>(attributes: T): User<T>;
         new(attributes?: Attributes): User;
 
         allowCustomUserClass(isAllowed: boolean): void;
-        become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
-        current<T extends Attributes>(): User<T> | undefined;
-        currentAsync(): Promise<User | null>;
-        signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
-        logIn(username: string, password: string, options?: FullOptions): Promise<User>;
-        logOut(): Promise<User>;
-        requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
+        become<T extends User>(sessionToken: string, options?: UseMasterKeyOption): Promise<T>;
+        current<T extends User>(): T | undefined;
+        currentAsync<T extends User>(): Promise<T | null>;
+        signUp<T extends User>(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<T>;
+        logIn<T extends User>(username: string, password: string, options?: FullOptions): Promise<T>;
+        logOut<T extends User>(): Promise<T>;
+        requestPasswordReset<T extends User>(email: string, options?: SuccessFailureOptions): Promise<T>;
         extend(protoProps?: any, classProps?: any): any;
-        hydrate(userJSON: any): Promise<User>;
+        hydrate<T extends User>(userJSON: any): Promise<T>;
         enableUnsafeCurrentUser(): void;
+        logInWith<T extends User>(provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<T>;
+        _registerAuthenticationProvider: (provider: AuthProvider) => void;
     }
     const User: UserConstructor;
 
@@ -861,18 +943,18 @@ namespace Parse {
 
         /**
          * Static method to get all schemas
-         * @param options Valid options are:
-         * - useMasterKey: In Cloud Code and Node only, causes the Master Key to be used for this request.
-         * - sessionToken: A valid session token, used for making a request on behalf of a specific user.
+         *
+         * @return A promise that is resolved with the result when
+         * the query completes.
          */
-        static all(options?: ScopeOptions): Promise<Schema[]>;
+        static all(): Promise<Schema[]>;
 
-        addArray(name: string): this;
-        addBoolean(name: string): this;
-        addDate(name: string): this;
-        addField(name: string, type?: Schema.TYPE): this;
-        addFile(name: string): this;
-        addGeoPoint(name: string): this;
+        addArray(name: string, options?: Schema.FieldOptions<any[]>): this;
+        addBoolean(name: string, options?: Schema.FieldOptions<boolean>): this;
+        addDate(name: string, options?: Schema.FieldOptions<Date>): this;
+        addField<T extends Schema.TYPE = any>(name: string, type?: T, options?: Schema.FieldOptions): this;
+        addFile(name: string, options?: Schema.FieldOptions<File>): this;
+        addGeoPoint(name: string, options?: Schema.FieldOptions<GeoPoint>): this;
 
         /**
          * Adding an Index to Create / Update a Schema
@@ -886,8 +968,8 @@ namespace Parse {
          */
         addIndex(name: string, index: Schema.Index): this;
 
-        addNumber(name: string): this;
-        addObject(name: string): this;
+        addNumber(name: string, options?: Schema.FieldOptions<number>): this;
+        addObject(name: string, options?: Schema.FieldOptions<object>): this;
 
         /**
          * Adding Pointer Field
@@ -895,9 +977,9 @@ namespace Parse {
          * @param targetClass  Name of the target Pointer Class
          * @return Returns the schema, so you can chain this call.
          */
-        addPointer(name: string, targetClass: string): this;
+        addPointer(name: string, targetClass: string, options?: Schema.FieldOptions<Pointer>): this;
 
-        addPolygon(name: string): this;
+        addPolygon(name: string, options?: Schema.FieldOptions<Polygon>): this;
 
         /**
          * Adding Relation Field
@@ -907,18 +989,14 @@ namespace Parse {
          */
         addRelation(name: string, targetClass: string): this;
 
-        addString(name: string): this;
+        addString(name: string, options?: Schema.FieldOptions<string>): this;
 
         /**
          * Removing a Schema from Parse Can only be used on Schema without objects
-         * @param options
-         * Valid options are:
-         * - useMasterKey: In Cloud Code and Node only, causes the Master Key to be used for this request.
-         * - sessionToken: A valid session token, used for making a request on behalf of a specific user.
          * @returns A promise that is resolved with the result when the query completes.
          */
         // @TODO Fix Promise<any>
-        delete(options?: ScopeOptions): Promise<any>;
+        delete(): Promise<any>;
 
         /**
          * Deleting a Field to Update on a Schema
@@ -937,7 +1015,7 @@ namespace Parse {
         /**
          * Get the Schema from Parse
          */
-        get(options?: ScopeOptions): Promise<Schema>;
+        get(): Promise<Schema>;
 
         /**
          * Removes all objects from a Schema (class) in Parse. EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
@@ -948,16 +1026,22 @@ namespace Parse {
         /**
          * Create a new Schema on Parse
          */
-        save(options?: ScopeOptions): Promise<Schema>;
+        save(): Promise<Schema>;
 
         /**
          * Update a Schema on Parse
          */
-        update(options?: ScopeOptions): Promise<Schema>;
+        update(): Promise<Schema>;
     }
 
     namespace Schema {
-        type TYPE = string | number | boolean | Date | File | GeoPoint | any[] | object | Pointer | Relation;
+        type TYPE = 'String' | 'Number' | 'Boolean' | 'Date' | 'File' | 'GeoPoint' | 'Polygon' | 'Array' | 'Object' | 'Pointer' | 'Relation';
+
+        interface FieldOptions
+            <T extends string | number | boolean | Date | File | GeoPoint | Polygon | any[] | object | Pointer | Relation = any> {
+            required?: boolean;
+            defaultValue?: T;
+        }
 
         interface Index {
             [fieldName: string]: TYPE;
@@ -1049,6 +1133,12 @@ namespace Parse {
             context: object;
         }
 
+        interface FileTriggerRequest extends TriggerRequest {
+            file: File;
+            fileSize: number;
+            contentLength: number;
+        }
+
         // Read preference describes how MongoDB driver route read operations to the members of a replica set.
         enum ReadPreferenceOption {
             Primary = 'PRIMARY',
@@ -1078,8 +1168,21 @@ namespace Parse {
             func?: (request: BeforeFindRequest) => Promise<Query> | Promise<void> | Query | void
         ): void;
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => any): void;
-        function beforeLogin(func?: (request: TriggerRequest) => any): void;
+
+        function beforeLogin(func?: (request: TriggerRequest) => PromiseLike<void> | void): void;
+        function afterLogin(func?: (request: TriggerRequest) => PromiseLike<void> | void): void;
+        function afterLogout(func?: (request: TriggerRequest) => PromiseLike<void> | void): void;
+
+        function beforeSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<File> | void): void;
+        function afterSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
+        function beforeDeleteFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
+        function afterDeleteFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
+
         function define(name: string, func: (request: FunctionRequest) => any): void;
+        function define<T extends () => any>(
+            name: string,
+            func: (request: FunctionRequest<{}>) => Promise<ReturnType<T>> | ReturnType<T>
+        ): void;
         function define<T extends (
             param: { [P in keyof Parameters<T>[0]]: Parameters<T>[0][P] }
         ) => any>(
@@ -1316,7 +1419,7 @@ namespace Parse {
     namespace CoreManager {
         function set(key: string, value: any): void;
         function get(key: string): void;
-      }
+    }
 
     /**
      * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
@@ -1341,6 +1444,24 @@ namespace Parse {
     function isLocalDatastoreEnabled(): boolean;
 
     function setLocalDatastoreController(controller: any): void;
+
+    /**
+     * Call this method to set your LocalDatastoreStorage engine
+     * If using React-Native use {@link Parse.setAsyncStorage Parse.setAsyncStorage()}
+     * @param controller a data storage.
+     */
+    function setLocalDatastoreController(controller: any): void;
+
+    /**
+     * Enable the current user encryption.
+     * This must be called before login any user.
+     */
+    function enableEncryptedUser(): void;
+
+    /**
+     * Flag that indicates whether Encrypted User is enabled.
+     */
+    function isEncryptedUserEnabled(): boolean;
 }
 }
 

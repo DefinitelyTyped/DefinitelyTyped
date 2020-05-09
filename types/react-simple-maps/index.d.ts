@@ -2,6 +2,7 @@
 // Project: https://github.com/zcreativelabs/react-simple-maps#readme
 // Definitions by: Novikov Mihail <https://github.com/thepocp>
 //                 Andrej Mihajlov <https://github.com/pronebird>
+//                 Kouame Komenan  <https://github.com/komenank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -13,10 +14,9 @@ export type Point = [number, number];
 
 export interface ProjectionConfig {
     scale?: number;
-    xOffset?: number;
-    yOffset?: number;
+    center?: [number, number];
+    parallels?: [number, number];
     rotate?: [number, number, number];
-    precision?: number;
 }
 export type ProjectionFunction = (width: number, height: number, config: ProjectionConfig) => GeoProjection;
 
@@ -84,7 +84,7 @@ export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
 }
 
 interface GeographiesChildrenArgument {
-    geographies: object[];
+    geographies: any[];
     path: GeoPath;
     projection: GeoProjection;
 }
@@ -97,7 +97,7 @@ export interface GeographiesProps extends React.SVGAttributes<SVGGElement> {
 
 export interface GeographyProps
     extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'style'>> {
-    geography?: object;
+    geography?: any;
     style?: {
         default?: React.CSSProperties;
         hover?: React.CSSProperties;

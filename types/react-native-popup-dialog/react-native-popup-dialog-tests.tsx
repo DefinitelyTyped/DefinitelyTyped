@@ -89,7 +89,7 @@ class Test extends React.Component<any> {
                 <DialogContent>
 
                 </DialogContent>
-                ></Dialog>
+                </Dialog>
             </View>);
     }
 }

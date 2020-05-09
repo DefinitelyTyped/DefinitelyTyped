@@ -59,7 +59,7 @@ declare namespace __WebpackModuleApi {
          * Multiple requires to the same module result in only one module execution and only one export. Therefore a cache in the runtime exists. Removing values from this cache cause new module execution and a new export. This is only needed in rare cases (for compatibility!).
          */
         cache: {
-            [id: string]: NodeModule;
+            [id: string]: NodeModule | undefined;
         }
     }
 
@@ -323,6 +323,13 @@ declare var __webpack_hash__: any;
  * Generates a require function that is not parsed by webpack. Can be used to do cool stuff with a global require function if available.
  */
 declare var __non_webpack_require__: any;
+
+/**
+ * Adds nonce to all scripts that webpack loads.
+ *
+ * To activate the feature a __webpack_nonce__ variable needs to be set in your entry script.
+ */
+declare var __webpack_nonce__: string;
 
 /**
  * Equals the config option debug

@@ -30,6 +30,14 @@ pino({
 });
 
 pino({
+    mixin() { return { customName: 'unknown', customId: 111 }; },
+});
+
+pino({
+    mixin: () => ({ customName: 'unknown', customId: 111 }),
+});
+
+pino({
     redact: { paths: [], censor: 'SECRET' },
 });
 
@@ -69,6 +77,7 @@ pino({
 
 pino({ base: null });
 pino({ base: { foo: 'bar' }, changeLevelName: 'severity' });
+pino({ base: { foo: 'bar' }, levelKey: 'severity' });
 if ('pino' in log) console.log(`pino version: ${log.pino}`);
 
 log.child({ a: 'property' }).info('hello child!');
@@ -157,12 +166,22 @@ const pretty = pino({
 		crlf: false,
 		errorLikeObjectKeys: ['err', 'error'],
 		errorProps: '',
+		messageFormat: false,
+		ignore: '',
 		levelFirst: false,
 		messageKey: 'msg',
-		timestampKey: "timestamp",
+		timestampKey: 'timestamp',
 		translateTime: 'UTC:h:MM:ss TT Z',
 		search: 'foo == `bar`'
 	}
+});
+
+const withTimeFn = pino({
+    timestamp: pino.stdTimeFunctions.isoTime,
+});
+
+const withNestedKey = pino({
+    nestedKey: 'payload',
 });
 
 // Properties/types imported from pino-std-serializers

@@ -1,9 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
-        "dt-header": false,
-        "npm-naming": false,
+        "interface-name": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-any-union": false,
@@ -11,13 +9,13 @@
         "no-duplicate-imports": false,
         "no-empty-interface": false,
         "no-inferrable-types": false,
-        "no-namespace": false,
         "no-mergeable-namespace": false,
+        "no-namespace": false,
         "no-unnecessary-class": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
-        "prefer-template": false,
-        "use-default-type-parameter": false
+        "npm-naming": false,
+        "prefer-template": false
     }
 }

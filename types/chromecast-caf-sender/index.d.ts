@@ -75,7 +75,8 @@ declare namespace cast.framework {
     DISPLAY_STATUS_CHANGED = "displayStatusChanged",
     MEDIA_INFO_CHANGED = "mediaInfoChanged",
     IMAGE_URL_CHANGED = "imageUrlChanged",
-    PLAYER_STATE_CHANGED = "playerStateChanged"
+    PLAYER_STATE_CHANGED = "playerStateChanged",
+    LIVE_SEEKABLE_RANGE_CHANGED = "liveSeekableRange"
   }
 
   enum ActiveInputState {
@@ -236,6 +237,7 @@ declare namespace cast.framework {
     statusText: string;
     title: string;
     displayStatus: string;
+    liveSeekableRange?: chrome.cast.media.LiveSeekableRange;
     mediaInfo?: chrome.cast.media.MediaInfo;
     imageUrl: string | null;
     playerState: chrome.cast.media.PlayerState | null;

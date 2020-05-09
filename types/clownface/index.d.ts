@@ -2,107 +2,104 @@
 // Project: https://github.com/rdf-ext/clownface
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.4
 
 import { Term, DatasetCore, Quad_Graph, NamedNode, BlankNode, Literal } from 'rdf-js';
+import { Context } from './lib/Context';
 
 declare namespace clownface {
-    type TermOrClownface = Clownface | Term;
-    type TermOrLiteral = TermOrClownface | string | number | boolean;
+  type AnyContext = Term | Term[] | undefined;
 
-    type AddCallback<D extends DatasetCore, X extends Term> = (added: SingleContextClownface<D, X>) => void;
-    type SingleOrArray<T> = T | T[];
-    type SingleOrOneElementArray<T> = T | [T];
+  type TermOrClownface<X extends Term = Term> = SafeClownface<X> | X;
+  type TermOrLiteral<X extends Term = Term> = TermOrClownface<X> | string | number | boolean;
 
-    type SingleOrArrayOfTerms = SingleOrArray<TermOrClownface>;
-    type SingleOrArrayOfTermsOrLiterals = SingleOrArray<TermOrLiteral>;
+  type AddCallback<D extends DatasetCore, X extends Term> = (added: Clownface<X, D>) => void;
+  type SingleOrArray<T> = T | readonly T[];
+  type SingleOrOneElementArray<T> = T | readonly [T];
 
-    interface NodeOptions {
-        type?: 'BlankNode' | 'Literal' | 'NamedNode';
-        datatype?: Term | { toString(): string };
-        language?: string;
-    }
+  type SingleOrArrayOfTerms<X extends Term> = SingleOrArray<X> | SafeClownface<X>;
+  type SingleOrArrayOfTermsOrLiterals<X extends Term> = SingleOrArray<TermOrLiteral<X>>;
 
-    type ClownfaceInit<D extends DatasetCore = DatasetCore, T extends Term = Term>
-        = Partial<Pick<Clownface<D, T>, 'dataset' | '_context'> & { graph: Quad_Graph }>;
+  interface NodeOptions {
+    type?: 'BlankNode' | 'Literal' | 'NamedNode';
+    datatype?: Term | { toString(): string };
+    language?: string;
+  }
 
-    interface WithValue {
-        value: string | string[];
-    }
+  type ClownfaceInit<D extends DatasetCore = DatasetCore>
+    = Partial<Pick<Clownface<AnyContext, D>, 'dataset' | '_context'> & { graph: Quad_Graph }>;
 
-    interface WithTerm {
-        term: Term | Term[];
-    }
+  type Iteratee<T extends AnyContext = undefined, D extends DatasetCore = DatasetCore> =
+    T extends undefined
+      ? never
+      : T extends any[]
+      ? Clownface<T[0], D>
+      : Clownface<T, D>;
 
-    interface Clownface<D extends DatasetCore = DatasetCore, T extends Term = Term> {
-        readonly term: T | undefined;
-        readonly terms: T[];
-        readonly value: string | undefined;
-        readonly values: string[];
-        readonly dataset: D;
-        readonly datasets: D[];
-        readonly _context: any;
-        list(): Iterator<Term>;
-        toArray(): Array<Clownface<D, T>>;
-        filter(cb: (quad: Clownface<D, T>) => boolean): Clownface<D, T>;
-        forEach(cb: (quad: Clownface<D, T>) => void): void;
-        map<X>(cb: (quad: Clownface<D, T>, index: number) => X): X[];
+  interface Clownface<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore> {
+    readonly term: T extends undefined ? undefined : T extends any[] ? undefined | T[0] : T;
+    readonly terms: T extends undefined ? Term[] : T extends any[] ? T : [T];
+    readonly value: T extends undefined ? undefined : T extends any[] ? undefined | string[0] : string;
+    readonly values: T extends undefined ? string[] : T extends any[] ? string[] : [string];
+    readonly dataset: D;
+    readonly datasets: D[];
+    readonly _context: Array<Context<D, Term>>;
+    list(): Iterable<Iteratee<T, D>>;
+    toArray(): Array<Clownface<T extends undefined ? never : T extends any[] ? T[0] : T, D>>;
+    filter(cb: (quad: Iteratee<T, D>) => boolean): Clownface<T, D>;
+    forEach(cb: (quad: Iteratee<T, D>) => void): void;
+    map<X>(cb: (quad: Iteratee<T, D>, index: number) => X): X[];
 
-        // tslint:disable:no-unnecessary-generics
-        node<X extends Term = Term>(values: SingleOrArray<boolean | string | number | Term | null>, options?: NodeOptions): SafeClownface<D, X>;
-        blankNode(values?: SingleOrArray<string>): SafeClownface<D, BlankNode>;
-        literal(values: SingleOrArray<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): SafeClownface<D, Literal>;
-        namedNode(values: SingleOrArray<string | NamedNode>): SafeClownface<D, NamedNode>;
+    node(value: SingleOrOneElementArray<boolean | string | number>, options?: NodeOptions): Clownface<Literal, D>;
+    node(values: Array<boolean | string | number>, options?: NodeOptions): Clownface<Literal[], D>;
 
-        in<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
-        out<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
+    node<X extends Term>(value: SingleOrOneElementArray<X>, options?: NodeOptions): Clownface<X, D>;
+    node<X extends Term[]>(values: X, options?: NodeOptions): Clownface<X, D>;
 
-        has<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects?: SingleOrArrayOfTermsOrLiterals): SafeClownface<D, X>;
+    node(value: null, options?: NodeOptions): Clownface<BlankNode, D>;
+    node(values: null[], options?: NodeOptions): Clownface<BlankNode[], D>;
 
-        addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objectsOrCallback?: SingleOrArrayOfTermsOrLiterals | AddCallback<D, X>): SafeClownface<D, X>;
-        addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects: SingleOrArrayOfTermsOrLiterals, callback: AddCallback<D, X>): SafeClownface<D, X>;
+    node(values: Array<boolean | string | number | Term | null>, options?: NodeOptions): Clownface<Term[], D>;
 
-        addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objectsOrCallback?: SingleOrArrayOfTermsOrLiterals | AddCallback<D, X>): SafeClownface<D, X>;
-        addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects: SingleOrArrayOfTermsOrLiterals, callback: AddCallback<D, X>): SafeClownface<D, X>;
+    blankNode(value?: SingleOrOneElementArray<string>): Clownface<BlankNode, D>;
+    blankNode(values: string[]): Clownface<BlankNode[], D>;
 
-        addList<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects?: SingleOrArrayOfTermsOrLiterals, callback?: AddCallback<D, X>): SafeClownface<D, X>;
+    literal(value: SingleOrOneElementArray<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): Clownface<Literal, D>;
+    literal(values: Array<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): Clownface<Literal[], D>;
 
-        deleteIn<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
-        deleteOut<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
-        deleteList<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
-        // tslint:enable:no-unnecessary-generics
-    }
+    namedNode(value: SingleOrOneElementArray<string | NamedNode>): Clownface<NamedNode, D>;
+    namedNode(values: Array<string | NamedNode>): Clownface<NamedNode[], D>;
 
-    interface SafeClownface<D extends DatasetCore = DatasetCore, T extends Term = Term> extends Clownface<D, T> {
-        // tslint:disable:no-unnecessary-generics
-        node<X extends Term = Term>(value: SingleOrOneElementArray<boolean | string | number | Term | null>, options?: NodeOptions): SingleContextClownface<D, X>;
-        node<X extends Term = Term>(values: Array<boolean | string | number | Term | null>, options?: NodeOptions): SafeClownface<D, X>;
-        // tslint:enable:no-unnecessary-generics
+    in(predicates?: SingleOrArrayOfTerms<Term>): SafeClownface<T extends undefined ? never : NamedNode | BlankNode, D>;
+    out(predicates?: SingleOrArrayOfTerms<Term>): SafeClownface<T extends undefined ? never : Term, D>;
 
-        blankNode(value?: SingleOrOneElementArray<string>): SingleContextClownface<D, BlankNode>;
-        blankNode(values: string[]): SafeClownface<D, BlankNode>;
+    has(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<Term>): Clownface<Array<NamedNode | BlankNode>, D>;
 
-        literal(value: SingleOrOneElementArray<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): SingleContextClownface<D, Literal>;
-        literal(values: Array<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): SafeClownface<D, Literal>;
+    addIn(predicates: SingleOrArrayOfTerms<Term>, callback?: AddCallback<D, BlankNode>): Clownface<T, D>;
+    addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects: SingleOrArrayOfTermsOrLiterals<X>, callback?: AddCallback<D, X>): Clownface<T, D>;
 
-        namedNode(value: SingleOrOneElementArray<string | NamedNode>): SingleContextClownface<D, NamedNode>;
-        namedNode(values: Array<string | NamedNode>): SafeClownface<D, NamedNode>;
+    addOut(predicates: SingleOrArrayOfTerms<Term>, callback?: AddCallback<D, BlankNode>): Clownface<T, D>;
+    addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects: SingleOrArrayOfTermsOrLiterals<X>, callback?: AddCallback<D, X>): Clownface<T, D>;
 
-        filter(cb: (quad: SingleContextClownface<D, T>) => boolean): SafeClownface<D, T>;
-        forEach(cb: (quad: SingleContextClownface<D, T>) => void): void;
-        map<X>(cb: (quad: SingleContextClownface<D, T>, index: number) => X): X[];
-        toArray(): Array<SingleContextClownface<D, T>>;
-    }
+    addList<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<X>, callback?: AddCallback<D, X>): Clownface<T, D>;
 
-    interface SingleContextClownface<D extends DatasetCore = DatasetCore, T extends Term = Term> extends SafeClownface<D, T> {
-        readonly term: T;
-        readonly terms: [T];
-        readonly value: string;
-        readonly values: [string];
-    }
+    deleteIn(predicates?: SingleOrArrayOfTerms<Term>): Clownface<T, D>;
+    deleteOut(predicates?: SingleOrArrayOfTerms<Term>): Clownface<T, D>;
+    deleteList(predicates: SingleOrArrayOfTerms<Term>): Clownface<T, D>;
+  }
+
+  type SafeClownface<T extends Term = Term, D extends DatasetCore = DatasetCore> = Clownface<T | T[], D>;
+  type SingleContextClownface<T extends Term = Term, D extends DatasetCore = DatasetCore> = Clownface<T, D>;
+
+  type ClownfaceInitWithTerms<T extends Term | Term[], D extends DatasetCore> = ClownfaceInit<D> & { term: T };
+  type ClownfaceInitWithValue<D extends DatasetCore> = ClownfaceInit<D> & { value: string };
+  type ClownfaceInitWithValues<D extends DatasetCore> = ClownfaceInit<D> & { value: string[] };
 }
 
-declare function clownface<D extends DatasetCore>(options: clownface.ClownfaceInit<D> & clownface.WithTerm | clownface.ClownfaceInit<D> & clownface.WithValue): clownface.SafeClownface<D>;
-declare function clownface<D extends DatasetCore>(options: clownface.ClownfaceInit<D>): clownface.Clownface<D>;
+declare function clownface<D extends DatasetCore, T extends clownface.AnyContext>(other: clownface.Clownface<T, D>): clownface.Clownface<T, D>;
+declare function clownface<D extends DatasetCore>(options: clownface.ClownfaceInitWithValue<D>): clownface.Clownface<Literal, D>;
+declare function clownface<D extends DatasetCore>(options: clownface.ClownfaceInitWithValues<D>): clownface.Clownface<Literal[], D>;
+declare function clownface<D extends DatasetCore, T extends Term | Term[]>(options: clownface.ClownfaceInitWithTerms<T, D>): clownface.Clownface<T, D>;
+declare function clownface<D extends DatasetCore>(options: clownface.ClownfaceInit<D>): clownface.Clownface<clownface.AnyContext, D>;
 
 export = clownface;

@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@storybook/react": "^5.2.0"
-    }
-}

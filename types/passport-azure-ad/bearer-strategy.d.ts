@@ -18,7 +18,7 @@ export interface IBearerStrategyOption extends IBaseStrategyOption {
 }
 
 export interface IBearerStrategyOptionWithRequest extends IBearerStrategyOption {
-    passReqToCallback: true;
+    passReqToCallback: boolean;
 }
 
 export class BearerStrategy implements passport.Strategy {

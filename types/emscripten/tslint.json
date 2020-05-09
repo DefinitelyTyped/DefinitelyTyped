@@ -2,7 +2,7 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "dt-header": false,
-        "npm-naming": false,
-        "no-empty-interface": false
+        "no-empty-interface": false,
+        "npm-naming": false
     }
 }

@@ -1,6 +1,6 @@
 declare module "assert" {
-    function internal(value: any, message?: string | Error): void;
-    namespace internal {
+    function assert(value: any, message?: string | Error): void;
+    namespace assert {
         class AssertionError implements Error {
             name: string;
             message: string;
@@ -45,8 +45,8 @@ declare module "assert" {
         function doesNotReject(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
         function doesNotReject(block: (() => Promise<any>) | Promise<any>, error: RegExp | Function, message?: string | Error): Promise<void>;
 
-        const strict: typeof internal;
+        const strict: typeof assert;
     }
 
-    export = internal;
+    export = assert;
 }

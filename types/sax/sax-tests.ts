@@ -140,7 +140,9 @@ import fs = require("fs");
         const attrValue: string = tag.attributes["name"];
     };
 
-    parser.onattribute = (attr: { name: string; value: string; }) => {};
+    parser.onattribute = (attr: { name: string; value: string; }) => {
+        const tag: sax.Tag = parser.tag;
+    };
 
     parser.onend = () => {};
 

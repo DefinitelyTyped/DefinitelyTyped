@@ -7,8 +7,10 @@ var Engine = Matter.Engine,
 	Constraint = Matter.Constraint,
 	Events = Matter.Events,
 	Query = Matter.Query,
-    Plugin = Matter.Plugin,
-    Render = Matter.Render;
+	Plugin = Matter.Plugin,
+	Render = Matter.Render,
+	Mouse = Matter.Mouse,
+	MouseConstraint = Matter.MouseConstraint;
 
 
 Matter.use('matter-attractors');
@@ -110,3 +112,10 @@ const runner1 = Matter.Runner.create({
 });
 const runner2 = Matter.Runner.create({});
 const runner3 = Matter.Runner.create();
+
+// Mouse
+
+const mouse = Mouse.create(render.canvas);
+const mouseConstraint = MouseConstraint.create(engine, { mouse });
+
+Events.on(mouseConstraint, 'mousemove', (e: Matter.IMouseEvent<Matter.MouseConstraint>) => {})

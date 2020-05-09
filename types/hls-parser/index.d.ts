@@ -1,6 +1,7 @@
 // Type definitions for hls-parser 0.5
 // Project: https://github.com/kuu/hls-parser#readme
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
+//                 Christopher Manouvrier <https://github.com/cmanou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
@@ -20,6 +21,14 @@ export class Data {
 }
 
 export namespace types {
+    interface BasePlaylistConstructorProperties {
+        uri?: string;
+        version?: number;
+        independentSegments?: boolean;
+        start?: { offset: number; precise: boolean };
+        source?: string;
+    }
+
     class Playlist extends Data {
         isMasterPlaylist: boolean;
 
@@ -33,14 +42,7 @@ export namespace types {
 
         source?: string;
 
-        constructor(properties: {
-            isMasterPlaylist: boolean;
-            uri?: string;
-            version?: number;
-            independentSegments: boolean;
-            start?: { offset: number; precise: boolean };
-            source?: string;
-        });
+        constructor(properties: BasePlaylistConstructorProperties & { isMasterPlaylist: boolean });
     }
 
     class MasterPlaylist extends Playlist {
@@ -52,13 +54,15 @@ export namespace types {
 
         sessionKeyList: readonly Key[];
 
-        constructor(properties: {
-            variants?: readonly Variant[];
-            currentVariant?: number;
-            sessionDataList?: readonly SessionData[];
-            sessionKeyList?: readonly Key[];
-            source?: string;
-        });
+        constructor(
+            properties: BasePlaylistConstructorProperties & {
+                variants?: readonly Variant[];
+                currentVariant?: number;
+                sessionDataList?: readonly SessionData[];
+                sessionKeyList?: readonly Key[];
+                source?: string;
+            },
+        );
     }
 
     class MediaPlaylist extends Playlist {
@@ -76,16 +80,18 @@ export namespace types {
 
         segments: readonly Segment[];
 
-        constructor(properties: {
-            targetDuration: number;
-            mediaSequenceBase?: number;
-            discontinuitySequenceBase?: number;
-            endlist?: boolean;
-            playlistType?: 'EVENT' | 'VOD';
-            isIFrame?: boolean;
-            segments?: readonly Segment[];
-            source?: string;
-        });
+        constructor(
+            properties: BasePlaylistConstructorProperties & {
+                targetDuration: number;
+                mediaSequenceBase?: number;
+                discontinuitySequenceBase?: number;
+                endlist?: boolean;
+                playlistType?: 'EVENT' | 'VOD';
+                isIFrame?: boolean;
+                segments?: readonly Segment[];
+                source?: string;
+            },
+        );
     }
 
     class Variant {

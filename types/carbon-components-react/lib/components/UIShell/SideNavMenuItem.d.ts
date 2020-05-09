@@ -13,6 +13,8 @@ export interface SideNavMenuItemPropsBase extends InheritedProps {
 
 export type SideNavMenuItemProps<E extends object = ReactAnchorAttr> = LinkProps<E> & SideNavMenuItemPropsBase;
 
-declare function SideNavMenuItem<E extends object = ReactAnchorAttr>(props: React.PropsWithChildren<SideNavMenuItemProps<E>>, ref: React.Ref<HTMLElement>): React.ReactElement | null;
+declare function SideNavMenuItem<E extends object = ReactAnchorAttr, R extends HTMLElement = HTMLElement>(
+    props: React.PropsWithChildren<SideNavMenuItemProps<E>>, ref: React.Ref<R>
+): React.ReactElement | null;
 
 export default SideNavMenuItem;

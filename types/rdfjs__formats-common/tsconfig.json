@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@rdfjs/sink-map": [
+                "rdfjs__sink-map"
+            ],
+            "@rdfjs/formats-common": [
+                "rdfjs__formats-common"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "rdfjs__formats-common-tests.ts"
+    ]
+}

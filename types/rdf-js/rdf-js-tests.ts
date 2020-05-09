@@ -1,8 +1,6 @@
 import { BlankNode, DataFactory, Dataset, DatasetCore, DatasetCoreFactory, DatasetFactory, DefaultGraph, Literal,
-  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Triple, Term, Variable, Quad_Graph } from "rdf-js";
+  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Term, Variable, Quad_Graph } from "rdf-js";
 import { EventEmitter } from "events";
-
-const factory: DataFactory = <any> {};
 
 function test_terms() {
     // Only types are checked in this tests,
@@ -57,14 +55,6 @@ function test_quads() {
     const o1: Term = quad.object;
     const g1: Term = quad.graph;
     quad.equals(quad);
-
-    const triple: Triple = quad;
-    const s2: Term = triple.subject;
-    const p2: Term = triple.predicate;
-    const o2: Term = triple.object;
-    const g2: Term = triple.graph;
-    triple.equals(quad);
-    quad.equals(triple);
 }
 
 function test_datafactory() {
@@ -82,14 +72,15 @@ function test_datafactory() {
     const variable: Variable = dataFactory.variable ? dataFactory.variable('v1') : <any> {};
 
     const term: NamedNode = <any> {};
-    const triple: Quad = dataFactory.triple(term, term, term);
     interface QuadBnode extends BaseQuad {
       subject: Term;
       predicate: Term;
       object: Term;
       graph: Term;
     }
-    const quad = dataFactory.quad<QuadBnode>(literal1, blankNode1, term, term);
+
+    const quadBnodeFactory: DataFactory<QuadBnode> = <any> {};
+    const quad = quadBnodeFactory.quad(literal1, blankNode1, term, term);
     const hasBnode = quad.predicate.termType === "BlankNode";
 }
 
@@ -109,13 +100,13 @@ function test_stream() {
     const matchStream8: Stream = source.match(term, term, term, term);
     const matchStream9: Stream = source.match(term, term, term, /.*/);
 
-    const sink: Sink = <any> {};
+    const sink: Sink<Stream, EventEmitter> = <any> {};
     const graph: Quad_Graph = <any> {};
     const eventEmitter1: EventEmitter = sink.import(stream);
 
     const store: Store = <any> {};
     const storeSource: Source = store;
-    const storeSink: Sink = store;
+    const storeSink: Sink<Stream, EventEmitter> = store;
     const eventEmitter2: EventEmitter = store.remove(stream);
     const eventEmitter3: EventEmitter = store.removeMatches();
     const eventEmitter4: EventEmitter = store.removeMatches(term);
@@ -147,7 +138,7 @@ function test_datasetcore() {
 
     const dataset1: DatasetCore = datasetCoreFactory1.dataset();
     const dataset2: DatasetCore = datasetCoreFactory1.dataset([quad, quad]);
-    const dataset3: DatasetCore<QuadBnode> = datasetCoreFactory2.dataset([quadBnode, quad]);
+    const dataset3: DatasetCore<QuadBnode, QuadBnode> = datasetCoreFactory2.dataset([quadBnode, quad]);
 
     const dataset2Size: number = dataset2.size;
     const dataset2Add: DatasetCore = dataset2.add(quad);
@@ -283,4 +274,46 @@ function test_dataset() {
     const dataset4Union: Dataset<QuadBnode> = dataset4.union(dataset3);
     const dataset4Iterable: Iterable<QuadBnode> = dataset4;
     const dataset4Core: DatasetCore<QuadBnode> = dataset4;
+}
+
+function test_datasetCoreFactory_covariance() {
+    const quad: BaseQuad = <any> {};
+    const factory: DatasetCoreFactory<Quad, BaseQuad> = <any> {};
+
+    const fromQuads = factory.dataset([quad, quad]);
+}
+
+function test_datasetFactory_covariance() {
+    const quad: BaseQuad = <any> {};
+    const dataset: Dataset = <any> {};
+    const factory: DatasetFactory<Quad, BaseQuad> = <any> {};
+
+    const fromQuads = factory.dataset([quad, quad]);
+    const fromDataset = factory.dataset(dataset);
+}
+
+async function test_dataset_covariance(): Promise<Dataset> {
+    const quad: Quad = <any> {};
+    const dataset: Dataset = <any> {};
+
+    // rdf-ext-like quad
+    interface QuadExt extends Quad {
+        toCanonical(): string;
+    }
+    let datasetExt: Dataset<QuadExt, Quad> = <any> {};
+
+    // stream coming from a generic parser
+    const stream: Stream = <any> {};
+
+    datasetExt = datasetExt.add(quad);
+    datasetExt = datasetExt.delete(quad);
+    datasetExt = datasetExt.addAll([quad, quad]);
+    datasetExt = datasetExt.addAll(dataset);
+    datasetExt.contains(dataset);
+    datasetExt = datasetExt.difference(dataset);
+    datasetExt.equals(dataset);
+    datasetExt.has(quad);
+    datasetExt.intersection(dataset);
+    datasetExt.union(dataset);
+    return datasetExt.import(stream);
 }

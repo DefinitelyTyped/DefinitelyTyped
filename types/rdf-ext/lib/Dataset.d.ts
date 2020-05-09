@@ -1,14 +1,11 @@
-import { Dataset } from 'rdf-js';
+import Dataset = require('rdf-dataset-indexed/dataset');
 import { PropType } from './_PropType';
 import QuadExt = require('./Quad');
 
-interface DatasetExt extends Dataset {
-  readonly length: number;
+interface DatasetExt extends Dataset<QuadExt> {
   toJSON(): Array<ReturnType<PropType<QuadExt, 'toJSON'>>>;
-  clone(): this;
-  readonly includes: PropType<Dataset, 'has'>;
-  merge(other: Dataset): DatasetExt;
-  removeMatches(subject: any, predicate: any, object: any, graph: any): this;
+  toCanonical(): string;
+  equals(other: this): boolean;
 }
 
 export = DatasetExt;

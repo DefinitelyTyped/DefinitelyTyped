@@ -18,6 +18,8 @@ $('#email').on('blur', function() {
         distanceFunction: superStringDistance,  // optional
         suggested: function(element: JQuery, suggestion: MailcheckModule.ISuggestion) {
           // callback code
+          element; // $ExpectType JQuery<HTMLElement>
+          suggestion; // $ExpectType ISuggestion
         },
         empty: function(element: JQuery) {
           // callback code
@@ -33,6 +35,7 @@ Mailcheck.run({
     distanceFunction: superStringDistance,  // optional
     suggested: function(suggestion: MailcheckModule.ISuggestion) {
       // callback code
+      suggestion; // $ExpectType ISuggestion
     },
     empty: function() {
       // callback code
@@ -47,9 +50,18 @@ MC.run({
     distanceFunction: superStringDistance,  // optional
     suggested: function(suggested: MailcheckModule.ISuggestion) {
       // callback code
-      suggested.address === '' && suggested.full === '' && suggested.domain === '';
+      suggested; // $ExpectType ISuggestion
     },
     empty: function() {
       // callback code
     }
 });
+
+const result3 = MC.run({
+    email: 'nonoptional@example.com',
+    domains: domains,                       // optional
+    secondLevelDomains: secondLevelDomains, // optional
+    topLevelDomains: topLevelDomains,       // optional
+    distanceFunction: superStringDistance,  // optional
+});
+result3; // $ExpectType ISuggestion | undefined

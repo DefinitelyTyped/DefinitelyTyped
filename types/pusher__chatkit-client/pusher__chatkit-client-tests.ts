@@ -48,7 +48,7 @@ async function test_connecting() {
     });
 
     // Subscribe to room with no params
-    await currentUser.subscribeToRoomMultipart({
+    const subscribedRoom = await currentUser.subscribeToRoomMultipart({
         roomId: room.id,
     });
 
@@ -77,6 +77,26 @@ async function test_connecting() {
         messageLimit: 10,
     });
 
+    await currentUser.sendSimpleMessage({
+        roomId: room.id,
+        text: 'Hello world!',
+    });
+
+    await currentUser.sendMultipartMessage({
+        roomId: room.id,
+        parts: [
+            { type: "text/plain", content: "🐷😍" },
+            {
+              type: "image/gif",
+              url: "https://gfycat.com/failingforkedheterodontosaurus",
+            },
+            {
+              file: new Blob(),
+              customData: { metadata: 42 },
+            }
+          ],
+    });
+
     currentUser.roomSubscriptions[room.id].disableCursors = false;
     currentUser.roomSubscriptions[room.id].cancel();
 
@@ -86,4 +106,6 @@ async function test_connecting() {
     await currentUser.removeUserFromRoom({ userId: 'keith', roomId: room.id });
     await currentUser.isTypingIn({ roomId: room.id });
     await currentUser.deleteRoom({ roomId: room.id });
+
+    subscribedRoom.users.forEach(user => user.name);
 }

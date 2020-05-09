@@ -1,8 +1,8 @@
-// Type definitions for ioBroker 2.0
+// Type definitions for ioBroker 3.0
 // Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.7
 
 // Note: This is not the definition for the package `iobroker`,
 // which is just an installer, not a library.
@@ -28,7 +28,7 @@ declare global {
 
         interface State {
             /** The value of the state. */
-            val: any;
+            val: string | number | boolean | any[] | Record<string, any> | null;
 
             /** Direction flag: false for desired value and true for actual value. Default: false. */
             ack: boolean;
@@ -42,6 +42,9 @@ declare global {
             /** Name of the adapter instance which set the value, e.g. "system.adapter.web.0" */
             from: string;
 
+            /** The user who set this value */
+            user?: string;
+
             /** Optional time in seconds after which the state is reset to null */
             expire?: number;
 
@@ -51,16 +54,22 @@ declare global {
             /** Optional comment */
             c?: string;
         }
+        type SettableState = Partial<Omit<State, "val">> & Pick<State, "val">;
 
         type Session = any; // TODO: implement
 
         type ObjectType = 'state' | 'channel' | 'device';
         type CommonType = 'number' | 'string' | 'boolean' | 'array' | 'object' | 'mixed' | 'file';
 
-        // Maybe this should extend Record<string, any>,
-        // but the extra properties aren't defined anywhere,
-        // so I'd rather force the user to explicitly state
-        // they know what they're doing by casting to any
+        // Objects are JSON-serializable
+        type ObjectField =
+            | string
+            | number
+            | boolean
+            | null
+            | ObjectField[]
+            | {[property: string]: ObjectField};
+
         interface ObjectCommon {
             /** name of this object */
             name: string;
@@ -93,6 +102,16 @@ declare global {
             write: boolean;
             /** role of the state (used in user interfaces to indicate which widget to choose) */
             role: string;
+
+            /** Configures this state as an alias for another state */
+            alias?: {
+                /** The target state id */
+                id: string;
+                /** An optional conversion function when reading, e.g. `"(val − 32) * 5/9"` */
+                read?: string;
+                /** An optional conversion function when reading, e.g. `"(val * 9/5) + 32"` */
+                write?: string;
+            };
 
             /**
              * Dictionary of possible values for this state in the form
@@ -130,7 +149,7 @@ declare global {
             // TODO: any other definition for device?
         }
         interface OtherCommon extends ObjectCommon {
-            [propName: string]: any;
+            [propName: string]: ObjectField | undefined;
 
             // Only states can have common.custom
             custom?: undefined;
@@ -139,11 +158,19 @@ declare global {
         interface BaseObject {
             /** The ID of this object */
             _id: string;
-            native: Record<string, any>;
+            // Be strict with what we allow here. Read objects overwrite this with any.
+            native: Record<string, ObjectField>;
+            /** An array of `native` properties which cannot be accessed from outside the defining adapter */
+            protectedNative?: string[];
+            /** Like protectedNative, but the properties are also encrypted and decrypted automatically */
+            encryptedNative?: string[];
             enums?: Record<string, string>;
             type: string; // specified in the derived interfaces
+            // Be strict with what we allow here. Read objects overwrite this with any.
             common: StateCommon | ChannelCommon | DeviceCommon | OtherCommon;
             acl?: ObjectACL;
+            from?: string;
+            ts?: number;
         }
 
         interface StateObject extends BaseObject {
@@ -151,7 +178,7 @@ declare global {
             common: StateCommon;
             acl?: StateACL;
         }
-        interface PartialStateObject extends Partial<Pick<StateObject, '_id' | 'native' | 'enums' | 'type'>> {
+        interface PartialStateObject extends Partial<Omit<StateObject, 'common' | 'acl'>> {
             common?: Partial<StateCommon>;
             acl?: Partial<StateACL>;
         }
@@ -161,7 +188,7 @@ declare global {
             common: ChannelCommon;
         }
         interface PartialChannelObject
-            extends Partial<Pick<ChannelObject, '_id' | 'native' | 'enums' | 'type' | 'acl'>> {
+            extends Partial<Omit<ChannelObject, 'common'>> {
             common?: Partial<ChannelCommon>;
         }
 
@@ -169,28 +196,50 @@ declare global {
             type: 'device';
             common: DeviceCommon;
         }
-        interface PartialDeviceObject extends Partial<Pick<DeviceObject, '_id' | 'native' | 'enums' | 'type' | 'acl'>> {
+        interface PartialDeviceObject extends Partial<Omit<DeviceObject, 'common'>> {
             common?: Partial<DeviceCommon>;
+        }
+
+        interface FolderObject extends BaseObject {
+            type: 'folder';
+            // Nothing is set in stone here, so start with allowing every property
+            common: OtherCommon;
+        }
+        interface PartialFolderObject extends Partial<Pick<FolderObject, '_id' | 'native' | 'enums' | 'type' | 'acl'>> {
+            common?: Partial<OtherCommon>;
         }
 
         interface OtherObject extends BaseObject {
             type: 'adapter' | 'config' | 'enum' | 'group' | 'host' | 'info' | 'instance' | 'meta' | 'script' | 'user';
             common: OtherCommon;
         }
-        interface PartialOtherObject extends Partial<Pick<OtherObject, '_id' | 'native' | 'enums' | 'type' | 'acl'>> {
+        interface PartialOtherObject extends Partial<Omit<OtherObject, 'common'>> {
             common?: Partial<ObjectCommon>;
         }
 
-        type Object = StateObject | ChannelObject | DeviceObject | OtherObject;
+        // Base type for Objects. Should not be used directly
+        type AnyObject = StateObject | ChannelObject | DeviceObject | FolderObject | OtherObject;
 
-        type SettableObjectWorker<T extends ioBroker.Object> = Pick<T, Exclude<keyof T, '_id' | 'acl'>> & {
+        // For all objects that are exposed to the user we need to tone the strictness down.
+        // Otherwise, every operation on objects becomes a pain to work with
+        type Object = AnyObject & {
+            common: Record<string, any>;
+            native: Record<string, any>;
+        };
+
+        type SettableObjectWorker<T extends ioBroker.AnyObject> = Pick<T, Exclude<keyof T, '_id' | 'acl'>> & {
             _id?: T['_id'];
             acl?: T['acl'];
         };
 
         // In set[Foreign]Object[NotExists] methods, the ID and acl of the object is optional
-        type SettableObject = SettableObjectWorker<ioBroker.Object>;
-        type PartialObject = PartialStateObject | PartialChannelObject | PartialDeviceObject | PartialOtherObject;
+        type SettableObject =
+            | SettableObjectWorker<StateObject>
+            | SettableObjectWorker<ChannelObject>
+            | SettableObjectWorker<DeviceObject>
+            | SettableObjectWorker<FolderObject>
+            | SettableObjectWorker<OtherObject>;
+        type PartialObject = PartialStateObject | PartialChannelObject | PartialDeviceObject | PartialFolderObject | PartialOtherObject;
 
         /** Defines access rights for a single file */
         interface FileACL {
@@ -324,16 +373,15 @@ declare global {
         /** Parameters for adapter.getObjectView */
         interface GetObjectViewParams {
             /** First id to include in the return list */
-            startkey: string;
+            startkey?: string;
             /** Last id to include in the return list */
-            endkey: string;
-        }
-
-        /** Parameters for @link{Objects.getObjectList} */
-        interface GetObjectListParams extends GetObjectViewParams {
+            endkey?: string;
             /** Whether docs should be included in the return list */ // TODO: What are docs?
             include_docs?: boolean;
         }
+
+        /** Parameters for adapter.getObjectList */
+        type GetObjectListParams = GetObjectViewParams;
 
         type LogLevel = 'silly' | 'debug' | 'info' | 'warn' | 'error';
         interface Logger {
@@ -395,6 +443,8 @@ declare global {
 
         type Enum = any; // TODO: implement this
 
+        type Plugin = Record<string, any>; // TODO: Add definition
+
         interface DirectoryEntry {
             file: string;
             stats: fs.Stats;
@@ -455,6 +505,12 @@ declare global {
 
             /** if true, stateChange will be called with an id that has no namespace, e.g. "state" instead of "adapter.0.state". Default: false */
             noNamespace?: boolean;
+
+            /** If true, the adapter will have a property `oObjects` that contains a live cache of the adapter's objects */
+            objects?: boolean;
+
+            /** If true, the adapter will have a property `oStates` that contains a live cache of the adapter's states */
+            states?: boolean;
         } // end interface AdapterOptions
 
         // tslint:disable-next-line:no-empty-interface
@@ -489,6 +545,19 @@ declare global {
             version: any;
             /** if the adapter is connected to the host */
             connected: boolean;
+
+            /**
+             * Contains a live cache of the adapter's objects.
+             *
+             * NOTE: This is only defined if the adapter was initialized with the option `objects: true`.
+             */
+            oObjects?: Record<string, ioBroker.Object | undefined>;
+            /**
+             * Contains a live cache of the adapter's states.
+             *
+             * NOTE: This is only defined if the adapter was initialized with the option `states: true`.
+             */
+            oStates?: Record<string, ioBroker.State | undefined>;
 
             /*	===============================
                 Functions defined in adapter.js
@@ -723,18 +792,18 @@ declare global {
             getForeignObjectsAsync(
                 pattern: string,
                 options?: unknown,
-            ): Promise<CallbackReturnTypeOf<GetObjectsCallback>>;
+            ): Promise<NonNullCallbackReturnTypeOf<GetObjectsCallback>>;
             getForeignObjectsAsync(
                 pattern: string,
                 type: ObjectType,
                 options?: unknown,
-            ): Promise<CallbackReturnTypeOf<GetObjectsCallback>>;
+            ): Promise<NonNullCallbackReturnTypeOf<GetObjectsCallback>>;
             getForeignObjectsAsync(
                 pattern: string,
                 type: ObjectType,
                 enums: EnumList,
                 options?: unknown,
-            ): Promise<CallbackReturnTypeOf<GetObjectsCallback>>;
+            ): Promise<NonNullCallbackReturnTypeOf<GetObjectsCallback>>;
             /** Creates or overwrites an object (which might not belong to this adapter) in the object db */
             setForeignObject(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setForeignObject(
@@ -845,8 +914,7 @@ declare global {
              * @param options If the returned list should be sorted. And some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
-            // TODO: options should be optional: https://github.com/ioBroker/ioBroker.js-controller/issues/574
-            // getObjectList(params: GetObjectListParams | null, callback: GetObjectListCallback): void;
+            getObjectList(params: GetObjectListParams | null, callback: GetObjectListCallback): void;
             getObjectList(
                 params: GetObjectListParams | null,
                 options: { sorted?: boolean } | Record<string, any>,
@@ -856,11 +924,10 @@ declare global {
              * Returns a list of objects with id between params.startkey and params.endkey
              * @param params Parameters determining the objects included in the return list. Null to include all objects
              * @param options If the returned list should be sorted. And some internal options.
-             * @param callback Is called when the operation has finished (successfully or not)
              */
             getObjectListAsync(
                 params: GetObjectListParams | null,
-                options: { sorted?: boolean } | Record<string, any>,
+                options?: { sorted?: boolean } | Record<string, any>,
             ): Promise<NonNullCallbackReturnTypeOf<GetObjectListCallback>>;
 
             // ==============================
@@ -871,24 +938,24 @@ declare global {
             // tslint:disable:unified-signatures
             setState(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 callback?: SetStateCallback,
             ): void;
             setState(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 callback?: SetStateCallback,
             ): void;
             setState(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 options: unknown,
                 callback?: SetStateCallback,
             ): void;
             setState(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
                 callback?: SetStateCallback,
@@ -896,41 +963,41 @@ declare global {
             /** Writes a value into the states DB. */
             setStateAsync(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack?: boolean,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             setStateAsync(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 options?: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             setStateAsync(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             /** Writes a value into the states DB only if it has changed. */
             setStateChanged(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 callback?: SetStateChangedCallback,
             ): void;
             setStateChanged(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 callback?: SetStateChangedCallback,
             ): void;
             setStateChanged(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 options: unknown,
                 callback?: SetStateChangedCallback,
             ): void;
             setStateChanged(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
                 callback?: SetStateChangedCallback,
@@ -938,41 +1005,41 @@ declare global {
             /** Writes a value into the states DB only if it has changed. */
             setStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack?: boolean,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             setStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 options?: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             setStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             /** Writes a value (which might not belong to this adapter) into the states DB. */
             setForeignState(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 callback?: SetStateCallback,
             ): void;
             setForeignState(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 callback?: SetStateCallback,
             ): void;
             setForeignState(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 options: unknown,
                 callback?: SetStateCallback,
             ): void;
             setForeignState(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
                 callback?: SetStateCallback,
@@ -980,41 +1047,41 @@ declare global {
             /** Writes a value (which might not belong to this adapter) into the states DB. */
             setForeignStateAsync(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack?: boolean,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             setForeignStateAsync(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 options?: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             setForeignStateAsync(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             /** Writes a value (which might not belong to this adapter) into the states DB only if it has changed. */
             setForeignStateChanged(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 callback?: SetStateChangedCallback,
             ): void;
             setForeignStateChanged(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 callback?: SetStateChangedCallback,
             ): void;
             setForeignStateChanged(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 options: unknown,
                 callback?: SetStateChangedCallback,
             ): void;
             setForeignStateChanged(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
                 callback?: SetStateChangedCallback,
@@ -1022,17 +1089,17 @@ declare global {
             /** Writes a value (which might not belong to this adapter) into the states DB only if it has changed. */
             setForeignStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack?: boolean,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             setForeignStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 options?: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             setForeignStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | Partial<State>,
+                state: string | number | boolean | State | SettableState | null,
                 ack: boolean,
                 options: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
@@ -1635,6 +1702,26 @@ declare global {
                 options: { mode: number | string } | Record<string, any>,
             ): Promise<{ entries: ChownFileResult[]; id: string }>;
 
+            /**
+             * Checks if a given feature is supported by the current installation
+             * @param featureName The name of the feature to test for
+             */
+            supportsFeature?: (featureName: string) => boolean;
+
+            /**
+             * Returns an instance of a loaded plugin
+             * @param name The name of the plugin
+             * @returns The plugin instance or null if it is not existent or not active
+             */
+            getPluginInstance(name: string): Plugin | null;
+
+            /**
+             * Returns the configuration for a loaded plugin
+             * @param name The name of the plugin
+             * @returns The plugin configuration or null if it is not existent or not active
+             */
+            getPluginConfig(name: string): Record<string, any> | null;
+
             // ==============================
             // formatting
 
@@ -1674,16 +1761,16 @@ declare global {
 
         type MessageCallback = (response?: Message) => void;
 
-        type SetObjectCallback = (err: string | null, obj: { id: string }) => void;
-        type GetObjectCallback = (err: string | null, obj: ioBroker.Object | null | undefined) => void;
-        type GetEnumCallback = (err: string | null, enums: Record<string, Enum>, requestedEnum: string) => void;
+        type SetObjectCallback = (err: string | null, obj?: { id: string }) => void;
+        type GetObjectCallback = (err: string | null, obj?: ioBroker.Object | null) => void;
+        type GetEnumCallback = (err: string | null, enums?: Record<string, Enum>, requestedEnum?: string) => void;
         type GetEnumsCallback = (
             err: string | null,
-            result: {
+            result?: {
                 [groupName: string]: Record<string, Enum>;
             },
         ) => void;
-        type GetObjectsCallback = (err: string | null, objects: Record<string, ioBroker.Object>) => void;
+        type GetObjectsCallback = (err: string | null, objects?: Record<string, ioBroker.Object>) => void;
 
         type FindObjectCallback = (
             /** If an error happened, this contains the message */
@@ -1740,11 +1827,11 @@ declare global {
             /** Whether this is a directory or a file */
             isDir: boolean;
             /** Access rights */
-            acl: EvaluatedFileACL;
+            acl?: EvaluatedFileACL;
             /** Date of last modification */
-            modifiedAt: number;
+            modifiedAt?: number;
             /** Date of creation */
-            createdAt: number;
+            createdAt?: number;
         }
         type ReadDirCallback = (err: string | null, entries?: ReadDirResult[]) => void;
         type ReadFileCallback = (err: string | null, file?: Buffer | string, mimeType?: string) => void;
@@ -1786,8 +1873,8 @@ declare global {
         interface GetObjectViewItem {
             /** The ID of this object */
             id: string;
-            /** A copy of the object from the DB or some aggregation result */
-            value: ioBroker.Object | unknown; // TODO: find out how the non-Object return result looks like
+            /** A copy of the object from the DB */
+            value: ioBroker.Object | null;
         }
         type GetObjectViewCallback = (err: string | null, result?: { rows: GetObjectViewItem[] }) => void;
 
