@@ -27,6 +27,7 @@ export default () => (
         animationStyle={() => ({
             transform: [{ translateX: 40 }],
         })}
+        onAnimationComplete={() => {}}
         bounceBackOnOverdraw={false}
         autoClosing={false}
     />
