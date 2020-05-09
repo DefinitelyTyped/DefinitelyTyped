@@ -4,9 +4,15 @@
 //                 Liau Jian Jie <https://github.com/liaujianjie/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module 'justified-layout' {
-    type LayoutItems = (number | { width: number; height: number })[];
+    /**
+     * Item to be layout.
+     */
+    type JustifiedLayoutItem = number | { width: number; height: number };
 
-    type LayoutOptions = {
+    /**
+     * Options for configuring the justified layout.
+     */
+    type JustifiedLayoutOptions = {
         /**
          * The width that boxes will be contained within irrelevant of padding.
          * @default 1060
@@ -71,7 +77,13 @@ declare module 'justified-layout' {
         widowLayoutStyle?: 'left' | 'justify' | 'center';
     };
 
+    /**
+     * Computed positional and sizing properties of a box in the layout.
+     */
     type LayoutBox = {
+        /**
+         * Aspect ratio of the box.
+         */
         aspectRatio: number;
         /**
          * Distance between the top side of the box and the top boundary of the justified layout.
@@ -91,7 +103,26 @@ declare module 'justified-layout' {
         left: number;
     };
 
-    type JustifiedLayoutResult = { containerHeight: number; widowCount: number; boxes: LayoutBox[] };
+    /**
+     * Results from calculating the justified layout.
+     */
+    type JustifiedLayoutResult = {
+        /**
+         * Height of the container containing the justified layout.
+         */
+        containerHeight: number;
+        /**
+         * Number of items that are in rows that aren't fully-packed.
+         */
+        widowCount: number;
+        /**
+         * Computed positional and sizing properties of a box in the justified layout.
+         */
+        boxes: LayoutBox[];
+    };
 
-    export default function createJustifiedLayout(items: LayoutItems, options?: LayoutOptions): JustifiedLayoutResult;
+    export default function createJustifiedLayout(
+        items: JustifiedLayoutItem[],
+        options?: JustifiedLayoutOptions,
+    ): JustifiedLayoutResult;
 }
