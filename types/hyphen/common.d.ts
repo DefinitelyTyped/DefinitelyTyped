@@ -18,15 +18,24 @@ export interface HyphenationOptions {
 
     /** The value of the hyphen character that is inserted into the text. Default is \u00AD. */
     hyphenChar?: string;
+
+    /** The minimum length for a word to get hyphenated. Can't be less than 5. Default is 5. */
+    minWordLength?: number;
 }
 
 /**
  * Synchronous hyphenation function returning the hyphenated text immediately.
+ * @param textToHyphenate The text to be hyphenated.
+ * @param options Options for the hyphenation process.
+ * @returns The hyphenated text.
  */
 export type HyphenationFunctionSync = (textToHyphenate: string, options?: Readonly<HyphenationOptions>) => string;
 
 /**
  * Asynchronous hyphenation function returning a promise for the hyphenated text.
+ * @param textToHyphenate The text to be hyphenated.
+ * @param options Options for the hyphenation process.
+ * @returns A promise of the hyphenated text.
  */
 export type HyphenationFunctionAsync = (
     textToHyphenate: string,

@@ -1,4 +1,4 @@
-// Type definitions for hyphen 1.5
+// Type definitions for hyphen 1.6
 // Project: https://github.com/ytiurin/hyphen
 // Definitions by: Krisztián Balla <https://github.com/krisztianb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,6 +19,9 @@ interface FactoryOptions {
 
     /** If true the hyphenation function is going to ignore HTML tags in the text. Default is false. */
     html?: boolean;
+
+    /** The minimum length for a word to get hyphenated. Can't be less than 5. Default is 5. */
+    minWordLength?: number;
 }
 
 /**
