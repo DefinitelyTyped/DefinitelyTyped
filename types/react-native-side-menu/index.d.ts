@@ -14,6 +14,7 @@ export interface ReactNativeSideMenuProps {
     menu: ReactNode;
     /**
      * Props driven control over menu open state
+     * @default false
      */
     isOpen?: boolean;
     /**
@@ -38,6 +39,7 @@ export interface ReactNativeSideMenuProps {
     toleranceY?: number;
     /**
      * Disable whether the menu can be opened with gestures or not
+     * @default false
      */
     disableGestures?: boolean;
     /**
@@ -57,15 +59,20 @@ export interface ReactNativeSideMenuProps {
      * Callback when menu is sliding. It returns a decimal from 0 to 1 which represents the percentage of menu offset between hiddenMenuOffset and openMenuOffset.
      */
     onSliding?: (fraction: number) => void;
+    /**
+     * @default left
+     */
     menuPosition?: 'left' | 'right';
     animationFunction?: (prop: Animated.Value, value: number) => Animated.CompositeAnimation;
     animationStyle?: (value: number) => ViewStyle;
     /**
      * When true, content view will bounce back to openMenuOffset when dragged further
+     * @default true
      */
     bounceBackOnOverdraw?: boolean;
     /**
      * When true, menu close automatically as soon as an event occurs
+     * @default true
      */
     autoClosing?: boolean;
 }
