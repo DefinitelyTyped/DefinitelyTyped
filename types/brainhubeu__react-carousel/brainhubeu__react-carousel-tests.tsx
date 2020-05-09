@@ -34,7 +34,9 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
                     animationSpeed={2000}
                     arrows
                     arrowLeft={<div>left</div>}
-                    arrowRight={<div>left</div>}
+                    arrowRight={<div>right</div>}
+                    arrowLeftDisabled={<div>left (disabled)</div>}
+                    arrowRightDisabled={<div>right (disabled)</div>}
                     autoPlay={1000}
                     clickToChange
                     centered

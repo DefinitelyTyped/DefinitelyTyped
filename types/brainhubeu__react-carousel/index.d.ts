@@ -31,6 +31,8 @@ export interface CarouselProps {
     arrows?: boolean;
     arrowLeft?: JSX.Element;
     arrowRight?: JSX.Element;
+    arrowLeftDisabled?: JSX.Element;
+    arrowRightDisabled?: JSX.Element;
     addArrowClickHandler?: boolean;
     autoPlay?: number;
     stopAutoPlayOnHover?: boolean;
