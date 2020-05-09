@@ -13,7 +13,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
-import { RCTooltip } from "rc-tooltip";
+import { TooltipProps } from 'rc-tooltip/es/Tooltip';
 
 export interface Marks {
     [number: number]:
@@ -231,7 +231,7 @@ export interface HandleProps extends CommonApiProps {
 
 export interface WithTooltipProps {
     tipFormatter?: (value: number) => React.ReactNode;
-    tipProps?: Partial<RCTooltip.Props>;
+    tipProps?: Partial<TooltipProps>;
 }
 
 export default class Slider extends React.Component<SliderProps> {}
