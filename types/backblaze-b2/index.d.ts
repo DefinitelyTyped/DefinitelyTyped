@@ -52,7 +52,11 @@ interface UploadFileOpts extends CommonArgs {
     uploadAuthToken: string;
     fileName: string;
     data: Buffer;
-    contentLength?: number; // optional data length, will default to data.byteLength or data.length if not provided
+    /**
+     * data length
+     * @default  data.byteLength or data.length
+     */
+    contentLength?: number;
     mime?: string; // optional mime type, will default to 'b2/x-auto' if not provided
     hash?: string; // optional data hash, will use sha1(data) if not provided
     // optional info headers, prepended with X-Bz-Info- when sent, throws error if more than 10 keys set
