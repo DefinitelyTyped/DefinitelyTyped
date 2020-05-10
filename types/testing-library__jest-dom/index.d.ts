@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/jest-dom 5.6.0
+// Type definitions for @testing-library/jest-dom 5.6
 // Project: https://github.com/testing-library/jest-dom
 // Definitions by: Ernesto García <https://github.com/gnapse>
 //                 John Gozde <https://github.com/jgoz>
