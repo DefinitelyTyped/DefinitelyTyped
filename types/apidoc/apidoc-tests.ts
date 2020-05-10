@@ -1,6 +1,6 @@
-import apidoc from 'apidoc';
+import { createDoc } from 'apidoc';
 
-const apidocOutput = apidoc({
+const apidocOutput = createDoc({
     dest: '',
     template: '',
     templateSingleFile: '',
