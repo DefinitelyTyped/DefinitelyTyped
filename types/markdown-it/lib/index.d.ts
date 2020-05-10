@@ -8,7 +8,6 @@ import ParserInline = require('./parser_inline');
 
 import LinkifyIt = require('linkify-it');
 import mdurl = require('mdurl');
-import punycode = require('punycode');
 
 import Token = require('./token');
 
