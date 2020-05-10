@@ -1,4 +1,4 @@
-// Type definitions for async-redis 1.0
+// Type definitions for async-redis 1.1
 // Project: https://github.com/moaxaca/async-redis
 // Definitions by: philipp-sapronov <https://github.com/philipp-sapronov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
