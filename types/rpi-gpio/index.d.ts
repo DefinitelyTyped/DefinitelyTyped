@@ -8,7 +8,7 @@
 import { EventEmitter } from 'events';
 
 type MODE = 'mode_rpi' | 'mode_bcm';
-type DIR = 'in' | 'out' | 'low' | 'high';
+type PinDirection = 'in' | 'out' | 'low' | 'high';
 type EDGE = 'none' | 'rising' | 'falling' | 'both';
 type ValueCallback<T> = (err?: Error | null, value?: T) => void;
 type ErrorCallback = (err?: Error | null) => void;
