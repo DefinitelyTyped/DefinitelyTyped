@@ -95,15 +95,23 @@ interface ListFileVersionsOpts extends CommonArgs {
 interface ListPartsOpts extends CommonArgs {
     fileId: string;
     startPartNumber?: number;
-    maxPartCount?: number; //  (max: 1000)
+    /**
+     * maximum part count
+     * max value 100
+     */
+    maxPartCount?: number;
 }
 
 interface GetDownloadAuthorizationOpts extends CommonArgs {
     bucketId: string;
     fileNamePrefix: string;
-    validDurationInSeconds: number; // a number from 0 to 604800
+    /**
+     * Authorization validity : 0 to 604800
+     */
+    validDurationInSeconds: number;
     b2ContentDisposition: string;
 }
+
 interface DownloadFileOpts extends CommonArgs {
     responseType: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text' | 'stream';
     onDownloadProgress?: UploadProgressFn | null;
@@ -115,7 +123,10 @@ interface DownlaodFileByNameOpts extends DownloadFileOpts {
 }
 
 interface UploadPartOpts extends CommonArgs {
-    partNumber: number; // A number from 1 to 10000
+    /**
+     * part number: 1 to 10000
+     */
+    partNumber: number;
     uploadUrl: string;
     uploadAuthToken: string;
     data: Buffer;
