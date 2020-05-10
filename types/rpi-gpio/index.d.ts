@@ -83,7 +83,7 @@ declare class Gpio extends EventEmitter {
      * Reset the state of the module
      */
     reset(): void;
-    
+
     readonly promise: {
         DIR_IN: PinDirection;
         DIR_OUT: PinDirection;
