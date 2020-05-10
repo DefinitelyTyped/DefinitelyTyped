@@ -1,7 +1,7 @@
 /**
  * Hyphenation patterns and exceptions for a language.
  */
-export interface PatternDefinitions {
+export interface PatternsDefinition {
     /** List of hyphenation patterns. */
     patterns: string[];
 

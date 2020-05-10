@@ -2,7 +2,7 @@
 // Project: https://github.com/ytiurin/hyphen
 // Definitions by: Krisztián Balla <https://github.com/krisztianb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { HyphenationFunctionAsync, HyphenationFunctionSync, PatternDefinitions } from './common';
+import { HyphenationFunctionAsync, HyphenationFunctionSync, PatternsDefinition } from './common';
 
 /**
  * Options for the hyphenation factory function.
@@ -41,12 +41,12 @@ interface FactoryOptions {
 
 /**
  * Creates a hyphenation function that can be used to hyphenate text.
- * @param patterns The hyphenation pattern definitions for a language.
+ * @param patternsDefinition The hyphenation patterns definition for a language.
  * @param options Settings for the hyphenation function.
  * @returns Depending on the options a synchronous or asynchronous hyphenation function.
  */
 declare function createHyphenator(
-    patterns: Readonly<PatternDefinitions>,
+    patternsDefinition: Readonly<PatternsDefinition>,
     options?: Readonly<FactoryOptions>,
 ): HyphenationFunctionAsync | HyphenationFunctionSync;
 
