@@ -1,4 +1,4 @@
-const asyncRedis = require("async-redis");
+import asyncRedis from "async-redis";
 
 // $ExpectType Promisified<RedisClient>
 const client = asyncRedis.createClient();
