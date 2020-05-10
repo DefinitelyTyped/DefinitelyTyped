@@ -154,7 +154,7 @@ export interface TestObject {
     babelOptions?: Babel.TransformOptions;
 }
 
-type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 export interface PluginTesterOptions extends TestObject, Omit<Babel.TransformOptions, 'code' | 'only'> {
     /**
@@ -289,5 +289,3 @@ export const unstringSnapshotSerializer: {
     test(value: unknown): value is string;
     print(value: string): string;
 };
-
-export {};
