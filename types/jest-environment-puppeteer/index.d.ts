@@ -64,9 +64,8 @@ interface Global extends GlobalType.Global {
 }
 
 /** Note: TestEnvironment is sandboxed. Each test suite will trigger setup/teardown in their own TestEnvironment. */
-declare class PuppeteerEnvironment implements JestEnvironment {
+declare class PuppeteerEnvironment extends JestEnvironment {
   context: Context | null;
-  fakeTimers: FakeTimers<Timer> | null;
   global: Global;
   moduleMocker: ModuleMocker | null;
   constructor(config: Config.ProjectConfig);
