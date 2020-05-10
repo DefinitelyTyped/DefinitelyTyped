@@ -36,3 +36,21 @@ export function getMemoryTotalTrunc(unit: string): number
  * @returns {number} Memory value total fixed
  */
 export function getMemoryTotalFixed(unit: string, value: number): number
+/**
+ * Writes the measurement to a file.
+ * @param {string} file Recording file
+ * @param {string} unit Return measurement unit. Support GB, MB or kB
+ */
+export function registerMemoryUsage(file: string, unit: string): void
+/**
+ * Writes the measurement to a file.
+ * @param {string} file Recording file
+ * @param {string} unit Return measurement unit. Support GB, MB or kB
+ */
+export function registerMemoryUsageTrunc(file: string, unit: string): void
+/**
+ * Writes the measurement to a file.
+ * @param {string} file Recording file
+ * @param {string} unit Return measurement unit. Support GB, MB or kB
+ */
+export function registerMemoryUsageFixed(file: string, unit: string): void 
