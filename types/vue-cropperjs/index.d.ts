@@ -1,6 +1,6 @@
-// Type definitions for vue-cropperjs 1.0
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: Dylan Kidd <https://github.com/DefinitelyTyped>
+// Type definitions for vue-cropperjs 4.1
+// Project: https://github.com/Agontuk/vue-cropperjs 
+// Definitions by: Dylan Kidd <https://github.com/Dylkid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { VueConstructor } from 'vue';
