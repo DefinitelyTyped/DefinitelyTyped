@@ -15,7 +15,9 @@ import { Script, Context } from 'vm';
 
 interface JestPuppeteer {
     /**
-     * Reset global.page
+     * Reset `global.page`
+     *
+     * @example
      *
      * ```ts
      * beforeEach(async () => {
@@ -26,7 +28,9 @@ interface JestPuppeteer {
     resetPage(): Promise<void>;
 
     /**
-     * Reset global.browser
+     * Reset `global.browser`
+     *
+     * @example
      *
      * ```ts
      * beforeEach(async () => {
@@ -37,9 +41,14 @@ interface JestPuppeteer {
     resetBrowser(): Promise<void>;
 
     /**
-     * Suspends test execution and gives you opportunity to see what's going on in the browser
+     * Suspends test execution and gives you opportunity to see what's going on
+     * in the browser.
+     *
      * - Jest is suspended (no timeout)
-     * - A debugger instruction to Chromium, if Puppeteer has been launched with { devtools: true } it will stop
+     * - A debugger instruction to Chromium, if Puppeteer has been launched with
+     *   `{ devtools: true }` it will stop
+     *
+     * @example
      *
      * ```ts
      * it('should put test in debug mode', async () => {
@@ -63,7 +72,10 @@ interface Global extends GlobalType.Global {
     jestPuppeteer: JestPuppeteer;
 }
 
-/** Note: TestEnvironment is sandboxed. Each test suite will trigger setup/teardown in their own TestEnvironment. */
+/**
+ * TestEnvironment is sandboxed. Each test suite will trigger setup/teardown in
+ * their own TestEnvironment.
+ */
 declare class PuppeteerEnvironment extends JestEnvironment {
   context: Context | null;
   global: Global;
@@ -71,14 +83,14 @@ declare class PuppeteerEnvironment extends JestEnvironment {
   constructor(config: Config.ProjectConfig);
 
   /**
-   * Setup runs when the environment is being spun up, generally before each test suite
-   * You should always call `await super.setup()` in here
+   * Setup runs when the environment is being spun up, generally before each
+   * test suite You should always call `await super.setup()` in here
    */
   setup(): Promise<void>;
 
   /**
-   * Teardowns runs as the environment is being torn down, generally after each test suite.
-   * You should always call `await super.tearDown()` in here
+   * `teardown` runs as the environment is being torn down, generally after each
+   * test suite. You should always call `await super.teardown()` in here
    */
   teardown(): Promise<void>;
   runScript(script: Script): any;
