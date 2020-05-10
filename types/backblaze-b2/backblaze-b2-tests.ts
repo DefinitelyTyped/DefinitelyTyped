@@ -1,4 +1,4 @@
-import BackBlazeB2 from 'backblaze-b2';
+import BackBlazeB2 =  require('backblaze-b2');
 
 const b2 = new BackBlazeB2({
     applicationKey: 'TEST',
