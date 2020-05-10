@@ -57,7 +57,11 @@ interface UploadFileOpts extends CommonArgs {
      * @default  data.byteLength or data.length
      */
     contentLength?: number;
-    mime?: string; // optional mime type, will default to 'b2/x-auto' if not provided
+    /**
+     * mime type
+     * @default 'b2/x-auto'
+     */
+    mime?: string;
     hash?: string; // optional data hash, will use sha1(data) if not provided
     // optional info headers, prepended with X-Bz-Info- when sent, throws error if more than 10 keys set
     // valid characters should be a-z, A-Z and '-', all other characters will cause an error to be thrown
