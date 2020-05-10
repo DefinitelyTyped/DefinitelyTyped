@@ -26,6 +26,10 @@ let adapterOptions: ioBroker.AdapterOptions = {
     objectChange: objectChangeHandler,
     message: messageHandler,
     unload: unloadHandler,
+    error: (err) => {
+        console.log(err);
+        return true;
+    },
 };
 
 function readyHandler() {}

@@ -502,6 +502,8 @@ declare global {
             ready?: ReadyHandler;
             /** Will be called on adapter termination */
             unload?: UnloadHandler;
+            /** Will be called when ioBroker detects an unhandled error in the adapter. Return `true` to signal that the error was handled and the adapter does not need to be restarted. */
+            error?: ErrorHandler;
 
             /** if true, stateChange will be called with an id that has no namespace, e.g. "state" instead of "adapter.0.state". Default: false */
             noNamespace?: boolean;
@@ -1748,6 +1750,7 @@ declare global {
             on(event: 'stateChange', handler: StateChangeHandler): this;
             on(event: 'objectChange', handler: ObjectChangeHandler): this;
             on(event: 'message', handler: MessageHandler): this;
+            // The error event handler can not be attached later
 
             removeListener(event: 'ready', handler: ReadyHandler): this;
             removeListener(event: 'unload', handler: UnloadHandler): this;
@@ -1763,6 +1766,7 @@ declare global {
         type StateChangeHandler = (id: string, obj: State | null | undefined) => void | Promise<void>;
         type MessageHandler = (obj: Message) => void | Promise<void>;
         type UnloadHandler = (callback: EmptyCallback) => void | Promise<void>;
+        type ErrorHandler = (err: Error) => boolean;
 
         type EmptyCallback = () => void;
         type ErrorCallback = (err?: string) => void;
