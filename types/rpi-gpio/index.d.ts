@@ -48,7 +48,7 @@ declare class Gpio extends EventEmitter {
      *
      * @param channel The channel to write to
      * @param value   If true, turns the channel on, else turns off
-     * @param cb      Optional callback
+     * @param [cb]      callback
      */
     write(channel: number, value: boolean, cb?: ErrorCallback): void;
     /**
