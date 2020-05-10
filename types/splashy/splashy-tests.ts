@@ -1,4 +1,4 @@
-import splashy from 'splashy';
+import splashy = require('splashy');
 
 const url = 'https://kikobeats.com/images/avatar.jpg';
 const image = new HTMLImageElement();
