@@ -76,7 +76,7 @@ declare class Gpio extends EventEmitter {
     /**
      * Unexport any pins setup by this module
      *
-     * @param cb Optional callback
+     * @param [cb] callback
      */
     destroy(cb: ErrorCallback): void;
     /**
