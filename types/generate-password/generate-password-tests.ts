@@ -1,4 +1,4 @@
-import * as generator from 'generate-password';
+import generator = require('generate-password');
 
 generator.generate(); // $ExpectType string
 generator.generateMultiple(1); // $ExpectType string[]
