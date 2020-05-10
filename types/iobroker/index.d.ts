@@ -624,6 +624,16 @@ declare global {
             // TODO: getCertificates cannot be represented with promises right now
 
             /**
+             * Encrypt the given cleartext, so it can be stored securely in adapter settings.
+             */
+            encrypt(cleartext: string): string;
+
+            /**
+             * Decrypt a value that has been encrypted with the `encrypt` method
+             */
+            decrypt(ciphertext: string): string;
+
+            /**
              * Terminates the adapter execution but does not disable the adapter
              * @param reason (optional) A message to print into the log prior to termination
              * @param exitCode (optional) The exit code to use for termination
