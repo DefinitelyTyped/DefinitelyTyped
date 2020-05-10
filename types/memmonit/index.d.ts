@@ -30,3 +30,9 @@ export function getMemoryTotal(unit: string): number
  * @returns {number} Memory value total truncated
  */
 export function getMemoryTotalTrunc(unit: string): number
+/**
+ * Returns the total memory used.
+ * @param {string} unit Return measurement unit. Support GB, MB or kB
+ * @returns {number} Memory value total fixed
+ */
+export function getMemoryTotalFixed(unit: string, value: number): number
