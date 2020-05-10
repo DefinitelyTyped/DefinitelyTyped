@@ -384,7 +384,7 @@ declare namespace jest {
          * @description
          * Check the accessible description for an element.
          * This allows you to check whether the given element has a description or not.
-
+         *
          * An element gets its description via the
          * [`aria-describedby` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute).
          * Set this to the `id` of one or more other elements. These elements may be nested
