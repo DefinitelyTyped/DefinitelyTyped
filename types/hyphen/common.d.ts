@@ -13,31 +13,37 @@ export interface PatternDefinitions {
  * Options for a hyphenation call.
  */
 export interface HyphenationOptions {
-    /** A boolean indicating, if the hyphenation function should output debug info to the console. Default is false. */
+    /**
+     * A boolean indicating, if the hyphenation function should output debug info to the console.
+     * @default false
+     */
     debug?: boolean;
 
-    /** The value of the hyphen character that is inserted into the text. Default is \u00AD. */
+    /**
+     * The value of the hyphen character that is inserted into the text.
+     * @default \u00AD
+     */
     hyphenChar?: string;
 
-    /** The minimum length for a word to get hyphenated. Can't be less than 5. Default is 5. */
+    /**
+     * The minimum length for a word to get hyphenated. Can't be less than 5.
+     * @default 5
+     */
     minWordLength?: number;
 }
 
 /**
  * Synchronous hyphenation function returning the hyphenated text immediately.
- * @param textToHyphenate The text to be hyphenated.
+ * @param text The text to be hyphenated.
  * @param options Options for the hyphenation process.
  * @returns The hyphenated text.
  */
-export type HyphenationFunctionSync = (textToHyphenate: string, options?: Readonly<HyphenationOptions>) => string;
+export type HyphenationFunctionSync = (text: string, options?: Readonly<HyphenationOptions>) => string;
 
 /**
  * Asynchronous hyphenation function returning a promise for the hyphenated text.
- * @param textToHyphenate The text to be hyphenated.
+ * @param text The text to be hyphenated.
  * @param options Options for the hyphenation process.
  * @returns A promise of the hyphenated text.
  */
-export type HyphenationFunctionAsync = (
-    textToHyphenate: string,
-    options?: Readonly<HyphenationOptions>,
-) => Promise<string>;
+export type HyphenationFunctionAsync = (text: string, options?: Readonly<HyphenationOptions>) => Promise<string>;

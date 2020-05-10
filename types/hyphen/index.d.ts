@@ -8,30 +8,45 @@ import { HyphenationFunctionAsync, HyphenationFunctionSync, PatternDefinitions }
  * Options for the hyphenation factory function.
  */
 interface FactoryOptions {
-    /** If true the factory returns an asynchronous hyphenation function. Default is false. */
+    /**
+     * If true the factory returns an asynchronous hyphenation function.
+     * @default false
+     */
     async?: boolean;
 
-    /** A boolean indicating, if the hyphenation function should output debug info to the console. Default is false. */
+    /**
+     * A boolean indicating, if the hyphenation function should output debug info to the console.
+     * @default false
+     */
     debug?: boolean;
 
-    /** The value of the hyphen character that is inserted into the text. Default is \u00AD. */
+    /**
+     * The value of the hyphen character that is inserted into the text.
+     * @default \u00AD
+     */
     hyphenChar?: string;
 
-    /** If true the hyphenation function is going to ignore HTML tags in the text. Default is false. */
+    /**
+     * If true the hyphenation function is going to ignore HTML tags in the text.
+     * @default false
+     */
     html?: boolean;
 
-    /** The minimum length for a word to get hyphenated. Can't be less than 5. Default is 5. */
+    /**
+     * The minimum length for a word to get hyphenated. Can't be less than 5.
+     * @default 5
+     */
     minWordLength?: number;
 }
 
 /**
  * Creates a hyphenation function that can be used to hyphenate text.
- * @param patternsDefinition The hyphenation pattern definitions for a language.
+ * @param patterns The hyphenation pattern definitions for a language.
  * @param options Settings for the hyphenation function.
  * @returns Depending on the options a synchronous or asynchronous hyphenation function.
  */
 declare function createHyphenator(
-    patternsDefinition: Readonly<PatternDefinitions>,
+    patterns: Readonly<PatternDefinitions>,
     options?: Readonly<FactoryOptions>,
 ): HyphenationFunctionAsync | HyphenationFunctionSync;
 
