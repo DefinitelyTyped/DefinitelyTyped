@@ -33,6 +33,10 @@ expect(element).toHaveValue(['str1', 'str2']);
 expect(element).toHaveValue(1);
 expect(element).toHaveValue(null);
 expect(element).toBeChecked();
+expect(element).toHaveDescription('some description');
+expect(element).toHaveDescription(/some description/);
+expect(element).toHaveDescription(expect.stringContaining('partial'));
+expect(element).toHaveDescription();
 
 expect(element).not.toBeInTheDOM();
 expect(element).not.toBeInTheDOM(document.body);
@@ -65,3 +69,5 @@ expect(element).not.toHaveValue('str');
 expect(element).not.toHaveValue(['str1', 'str2']);
 expect(element).not.toHaveValue(1);
 expect(element).not.toBeChecked();
+expect(element).not.toHaveDescription('some description');
+expect(element).not.toHaveDescription();
