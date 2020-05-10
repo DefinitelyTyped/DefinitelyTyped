@@ -83,16 +83,6 @@ declare class Gpio extends EventEmitter {
      * Reset the state of the module
      */
     reset(): void;
-    private setRaspberryVersion;
-    private getPinRpi;
-    private getPinBcm;
-    /**
-     * Listen for interrupts on a channel
-     *
-     * @param channel The channel to watch
-     * @param cb Callback which receives the channel's err
-     */
-    private listen;
     readonly promise: {
         DIR_IN: DIR;
         DIR_OUT: DIR;
