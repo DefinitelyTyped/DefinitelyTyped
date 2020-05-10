@@ -16,10 +16,10 @@ type ErrorCallback = (err?: Error | null) => void;
 declare class Gpio extends EventEmitter {
     constructor();
 
-    readonly DIR_IN: DIR;
-    readonly DIR_OUT: DIR;
-    readonly DIR_LOW: DIR;
-    readonly DIR_HIGH: DIR;
+    readonly DIR_IN: PinDirection;
+    readonly DIR_OUT: PinDirection;
+    readonly DIR_LOW: PinDirection;
+    readonly DIR_HIGH: PinDirection;
     readonly MODE_RPI: MODE;
     readonly MODE_BCM: MODE;
     readonly EDGE_NONE: EDGE;
@@ -35,20 +35,20 @@ declare class Gpio extends EventEmitter {
     /**
      * Setup a channel for use as an input or output
      *
-     * @param  channel   Reference to the pin in the current mode's schema
-     * @param _direction The pin direction, either 'in' or 'out'
-     * @param _edge       edge Informs the GPIO chip if it needs to generate interrupts. Either 'none', 'rising', 'falling' or 'both'. Defaults to 'none'
-     * @param _onSetup  callback
+     * @param channel   Reference to the pin in the current mode's schema
+     * @param direction The pin direction, either 'in' or 'out'
+     * @param edge       edge Informs the GPIO chip if it needs to generate interrupts. Either 'none', 'rising', 'falling' or 'both'. Defaults to 'none'
+     * @param onSetup  callback
      */
     setup(channel: number, onSetup?: ValueCallback<boolean>): void;
-    setup(channel: number, direction?: DIR, onSetup?: ValueCallback<boolean>): void;
-    setup(channel: number, direction?: DIR, edge?: EDGE, onSetup?: ValueCallback<boolean>): void;
+    setup(channel: number, direction?: PinDirection, onSetup?: ValueCallback<boolean>): void;
+    setup(channel: number, direction?: PinDirection, edge?: EDGE, onSetup?: ValueCallback<boolean>): void;
     /**
      * Write a value to a channel
      *
      * @param channel The channel to write to
      * @param value   If true, turns the channel on, else turns off
-     * @param [cb]      callback
+     * @param [cb]      Optional callback
      */
     write(channel: number, value: boolean, cb?: ErrorCallback): void;
     /**
@@ -56,7 +56,7 @@ declare class Gpio extends EventEmitter {
      *
      * @param channel The channel to write to
      * @param value   If true, turns the channel on, else turns off
-     * @param cb      Optional callback
+     * @param [cb]      Optional callback
      */
     output(channel: number, value: boolean, cb?: ErrorCallback): void;
     /**
@@ -83,11 +83,12 @@ declare class Gpio extends EventEmitter {
      * Reset the state of the module
      */
     reset(): void;
+    
     readonly promise: {
-        DIR_IN: DIR;
-        DIR_OUT: DIR;
-        DIR_LOW: DIR;
-        DIR_HIGH: DIR;
+        DIR_IN: PinDirection;
+        DIR_OUT: PinDirection;
+        DIR_LOW: PinDirection;
+        DIR_HIGH: PinDirection;
         MODE_RPI: MODE;
         MODE_BCM: MODE;
         EDGE_NONE: EDGE;
@@ -101,7 +102,7 @@ declare class Gpio extends EventEmitter {
          * @param edge
          * @returns Promise
          */
-        setup: (channel: number, direction: DIR, edge: EDGE) => Promise<unknown>;
+        setup: (channel: number, direction: PinDirection, edge: EDGE) => Promise<unknown>;
         /**
          * @see {@link Gpio.write}
          * @param channel
