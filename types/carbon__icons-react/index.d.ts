@@ -1,4 +1,4 @@
-// Type definitions for @carbon/icons-react 10.9
+// Type definitions for @carbon/icons-react 10.10
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -723,10 +723,6 @@ export const Compass16: CarbonIconType;
 export const Compass20: CarbonIconType;
 export const Compass24: CarbonIconType;
 export const Compass32: CarbonIconType;
-export const ComposerEdit16: CarbonIconType;
-export const ComposerEdit20: CarbonIconType;
-export const ComposerEdit24: CarbonIconType;
-export const ComposerEdit32: CarbonIconType;
 export const Concept16: CarbonIconType;
 export const Concept20: CarbonIconType;
 export const Concept24: CarbonIconType;
