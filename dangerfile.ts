@@ -25,7 +25,7 @@ if (fs.existsSync(suggestionsDir)) {
             }
         }
 
-        const topUnpkgURL = `https://unpkg.com/browse/${packageName}@latest`;
+        const topUnpkgURL = `https://unpkg.com/browse/${packageName}@latest/`;
         lines.push("## " + packageName + ` ([<kbd>unpkg</kbd>](${topUnpkgURL}))`)
         for (const fileName in missingProperties) {
             if (Object.keys(missingProperties).length > 1) {
