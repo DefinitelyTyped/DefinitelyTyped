@@ -25,16 +25,19 @@ if (fs.existsSync(suggestionsDir)) {
             }
         }
 
-        lines.push("## " + packageName)
+        const topUnpkgURL = "https://unpkg.com/browse/${packageName}@latest";
+        lines.push("## " + packageName + `([<kbd>unpkg</kbd>](${topUnpkgURL}))`)
         for (const fileName in missingProperties) {
-            const properties = missingProperties[fileName]
-            const originalJS = fileName.replace(".d.ts", ".js")
-            const unpkgURL = `https://unpkg.com/browse/${packageName}@latest/${originalJS}`
-            const dtsName = packageName.replace("@", "").replace("/", "__")
-            const dtsURL = `https://github.com/DefinitelyTyped/DefinitelyTyped/blob/${danger.github.pr.head.sha}/types/${dtsName}/${fileName}`
+            if (suggestions.length > 1) {
+                const originalJS = fileName.replace(".d.ts", ".js")
+                const unpkgURL = `https://unpkg.com/browse/${packageName}@latest/${originalJS}`
+                const dtsName = packageName.replace("@", "").replace("/", "__")
+                const dtsURL = `https://github.com/DefinitelyTyped/DefinitelyTyped/blob/${danger.github.pr.head.sha}/types/${dtsName}/${fileName}`
 
-            lines.push(`### ${fileName} ([<kbd>unpkg</kbd>](${unpkgURL}), [<kbd>d.ts</kbd>](${dtsURL}))
-was missing the following properties:
+                lines.push(`### ${fileName} ([<kbd>unpkg</kbd>](${unpkgURL}), [<kbd>d.ts</kbd>](${dtsURL}))`);
+            }
+            const properties = missingProperties[fileName]
+            lines.push(`was missing the following properties:
 1. ` + properties.slice(0,5).join('\n1. '))
             if (properties.length > 5) {
                 const extras = properties.slice(5)
