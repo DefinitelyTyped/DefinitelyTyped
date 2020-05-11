@@ -1,6 +1,6 @@
 // Type definitions for redux-subscriber 1.1
 // Project: https://github.com/ivantsov/redux-subscriber#readme
-// Definitions by: thisissami\n <https://github.com/thisissami>
+// Definitions by: thisissami <https://github.com/thisissami>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type Unsubscribe = () => void;
