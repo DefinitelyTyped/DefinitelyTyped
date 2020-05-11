@@ -175,7 +175,7 @@ function moment(a: any, b: any) {
     return '';
 }
 
-colDef.cellClick = (_e, cell) => {
+colDef.cellClick = (e: UIEvent, cell) => {
     console.log(cell.checkHeight);
 };
 
@@ -250,7 +250,7 @@ let autoComplete: Tabulator.AutoCompleteParams = {
         return 'Mr ' + title;
     },
     values: true, // create list of values from all values contained in this column,
-    sortValuesList:'asc', // sort the values by ascending order,
+    sortValuesList: 'asc', // sort the values by ascending order,
 };
 colDef.editorParams = autoComplete;
 
