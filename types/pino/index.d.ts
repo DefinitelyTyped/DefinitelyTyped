@@ -142,11 +142,24 @@ declare namespace P {
     };
 
     /**
+     * Equivalent of SonicBoom constructor options object
+     */
+    // TODO: use SonicBoom constructor options interface when available
+    interface DestinationObjectOptions {
+        fd?: string | number;
+        dest?: string;
+        minLength?: number;
+        sync?: boolean;
+    }
+
+    /**
      * Create a Pino Destination instance: a stream-like object with significantly more throughput (over 30%) than a standard Node.js stream.
-     * @param [fileDescriptor]: File path or numerical file descriptor, by default 1
+     * @param [dest]: The `destination` parameter, at a minimum must be an object with a `write` method. An ordinary Node.js
+     *                `stream` can be passed as the destination (such as the result of `fs.createWriteStream`) but for peak log
+     *                writing performance it is strongly recommended to use `pino.destination` to create the destination stream.
      * @returns A Sonic-Boom  stream to be used as destination for the pino function
      */
-    function destination(fileDescriptor?: string | number): SonicBoom;
+    function destination(dest?: string | number | DestinationObjectOptions | DestinationStream | NodeJS.WritableStream): SonicBoom;
 
     /**
      * Create an extreme mode destination. This yields an additional 60% performance boost.
