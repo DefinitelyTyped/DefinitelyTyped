@@ -19,7 +19,6 @@
 import FormData = require('form-data');
 import { Agent } from "http";
 import { URLSearchParams, URL } from "url";
-import { AbortSignal } from "./externals";
 
 export class Request extends Body {
     constructor(input: RequestInfo, init?: RequestInit);
