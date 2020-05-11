@@ -186,7 +186,30 @@ mixed.test({
     message: '${path} must be less than 5 characters',
     test: value => value == null || value.length <= 5,
 });
-mixed.test('with-promise', 'It contains invalid value', value => new Promise(resolve => true));
+// $ExpectType MixedSchema<Set<any>>
+mixed.test(
+    'is-function',
+    // tslint:disable-next-line:no-invalid-template-strings
+    "${path} is not a function",
+    (value): value is Set<any> => value instanceof Set,
+);
+// $ExpectType MixedSchema<Set<any>>
+mixed.test({
+    name: 'is-function',
+    exclusive: true,
+    // tslint:disable-next-line:no-invalid-template-strings
+    message: '${path} is not a function',
+    test: (value): value is Set<any> => value instanceof Set,
+});
+// Name is required for exclusive tests:
+// $ExpectError
+mixed.test({
+    exclusive: true,
+    // tslint:disable-next-line:no-invalid-template-strings
+    message: '${path} must be less than 5 characters',
+    test: value => value == null || value.length <= 5,
+});
+mixed.test('with-promise', 'It contains invalid value', value => new Promise<boolean>(resolve => resolve(true)));
 const testContext = function(this: TestContext) {
     // $ExpectType string
     this.path;
@@ -271,8 +294,8 @@ mixed = new ExtendsMixed2();
 /**
  * Creating new Types
  */
-class DateSchema extends yup.date {
-    isWednesday(message?: string): DateSchema {
+class CustomDateSchema extends yup.date {
+    isWednesday(message?: string): CustomDateSchema {
         return this.clone().test({
             name: 'Wednesday',
             // tslint:disable-next-line:no-invalid-template-strings
@@ -283,7 +306,7 @@ class DateSchema extends yup.date {
 }
 yup.object()
     .shape({
-        startDate: new DateSchema().isWednesday().required(),
+        startDate: new CustomDateSchema().isWednesday().required(),
     })
     .isValidSync({
         startDate: '2017-11-29',
@@ -773,6 +796,14 @@ const personSchema = yup.object({
         .nullable()
         .notRequired()
         .min(1),
+    friends: yup
+        .mixed()
+        .test(
+            "is-Set",
+            // tslint:disable-next-line:no-invalid-template-strings
+            "${path} must be a Set of strings",
+            (value): value is undefined | null | Set<string> =>
+                value === null || value === undefined || (value instanceof Set && Array.from(value.values()).every(el => typeof el === "string")))
 });
 
 type Person = yup.InferType<typeof personSchema>;
@@ -813,6 +844,7 @@ person.isAlive = true;
 person.isAlive = undefined;
 person.children = ['1', '2', '3'];
 person.children = undefined;
+person.friends = new Set(["Amy", "Beth"]);
 
 // $ExpectError
 person.gender = 1;
@@ -824,6 +856,10 @@ person.firstName = undefined;
 person.mustBeAString = null;
 // $ExpectError
 person.mustBeAString = undefined;
+// $ExpectError
+person.friends = new Set([1, 2, 3]);
+// $ExpectError
+person.friends = ["Amy", "Beth"];
 
 const castPerson = personSchema.cast({});
 castPerson.firstName = '';
