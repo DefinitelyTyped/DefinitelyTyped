@@ -1527,7 +1527,7 @@ export class Editor implements Controller {
     insertBlock(block: string | Block | BlockProperties | BlockJSON): Editor;
     insertFragment(fragment: Document): Editor;
     insertInline(inline: string | Inline | InlineProperties | InlineJSON): Editor;
-    insertText(text: string): Editor;
+    insertText(text: string, marks?: Immutable.Set<string | MarkProperties | MarkJSON | Mark> | Array<string | MarkProperties | MarkJSON | Mark>): Editor;
     setBlocks(properties: string | Block | BlockProperties | BlockJSON): Editor;
     setInlines(properties: string | Inline | InlineProperties): Editor;
     splitBlock(depth?: number): Editor;

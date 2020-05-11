@@ -88,7 +88,9 @@ export interface MixedSchema<T = any> extends Schema<T> {
     nullable(isNullable: false): MixedSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): MixedSchema<T>;
     required(message?: TestOptionsMessage): MixedSchema<Exclude<T, undefined>>;
+    defined(): MixedSchema<Exclude<T, undefined>>;
     notRequired(): MixedSchema<T | undefined>;
+    optional(): MixedSchema<T | undefined>;
     concat(schema: this): this;
     concat<U>(schema: MixedSchema<U>): MixedSchema<T | U>;
     test<U extends T = T>(
@@ -130,6 +132,7 @@ export interface StringSchema<T extends string | null | undefined = string> exte
     nullable(isNullable: false): StringSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): StringSchema<T>;
     required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>;
+    defined(): StringSchema<Exclude<T, undefined>>;
     notRequired(): StringSchema<T | undefined>;
     test<U extends T = T>(
         name: string,
@@ -143,6 +146,7 @@ export interface StringSchema<T extends string | null | undefined = string> exte
     ): this;
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>>): StringSchema<U>;
     test(options: TestOptions<Record<string, any>>): this;
+    optional(): StringSchema<T | undefined>;
 }
 
 export interface NumberSchemaConstructor {
@@ -164,6 +168,7 @@ export interface NumberSchema<T extends number | null | undefined = number> exte
     nullable(isNullable: false): NumberSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): NumberSchema<T>;
     required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined>>;
+    defined(): NumberSchema<Exclude<T, undefined>>;
     notRequired(): NumberSchema<T | undefined>;
     test<U extends T = T>(
         name: string,
@@ -177,6 +182,7 @@ export interface NumberSchema<T extends number | null | undefined = number> exte
     ): this;
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>>): NumberSchema<U>;
     test(options: TestOptions<Record<string, any>>): this;
+    optional(): NumberSchema<T | undefined>;
 }
 
 export interface BooleanSchemaConstructor {
@@ -189,6 +195,7 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean> e
     nullable(isNullable: false): BooleanSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): BooleanSchema<T>;
     required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, undefined>>;
+    defined(): BooleanSchema<Exclude<T, undefined>>;
     notRequired(): BooleanSchema<T | undefined>;
     test<U extends T = T>(
         name: string,
@@ -202,6 +209,7 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean> e
     ): this;
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>>): BooleanSchema<U>;
     test(options: TestOptions<Record<string, any>>): this;
+    optional(): BooleanSchema<T | undefined>;
 }
 
 export interface DateSchemaConstructor {
@@ -216,6 +224,7 @@ export interface DateSchema<T extends Date | null | undefined = Date> extends Sc
     nullable(isNullable: false): DateSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): DateSchema<T>;
     required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined>>;
+    defined(): DateSchema<Exclude<T, undefined>>;
     notRequired(): DateSchema<T | undefined>;
     test<U extends T = T>(
         name: string,
@@ -229,6 +238,7 @@ export interface DateSchema<T extends Date | null | undefined = Date> extends Sc
     ): this;
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>>): DateSchema<U>;
     test(options: TestOptions<Record<string, any>>): this;
+    optional(): DateSchema<T | undefined>;
 }
 
 export interface ArraySchemaConstructor {
@@ -236,7 +246,7 @@ export interface ArraySchemaConstructor {
     new (): ArraySchema<{}>;
 }
 
-interface BasicArraySchema<T extends any[] | null | undefined> extends Schema<T> {
+interface BasicArraySchema<E, T extends E[] | null | undefined> extends Schema<T> {
     min(limit: number | Ref, message?: ArrayLocale['min']): this;
     max(limit: number | Ref, message?: ArrayLocale['max']): this;
     ensure(): this;
@@ -245,42 +255,50 @@ interface BasicArraySchema<T extends any[] | null | undefined> extends Schema<T>
     ): this;
     test(name: string, message: TestOptionsMessage, test: TestFunction): this;
     test(options: TestOptions<Record<string, any>>): this;
+    innerType: Schema<E>;
 }
 
-export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T[] | null | undefined> {
+export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T, T[] | null | undefined> {
     of<U>(type: Schema<U>): NotRequiredNullableArraySchema<U>;
     nullable(isNullable?: true): NotRequiredNullableArraySchema<T>;
     nullable(isNullable: false): NotRequiredArraySchema<T>;
     nullable(isNullable?: boolean): ArraySchema<T>;
     required(message?: TestOptionsMessage): NullableArraySchema<T>;
+    defined(): NullableArraySchema<T>;
     notRequired(): NotRequiredNullableArraySchema<T>;
+    optional(): NotRequiredNullableArraySchema<T>;
 }
 
-export interface NullableArraySchema<T> extends BasicArraySchema<T[] | null> {
+export interface NullableArraySchema<T> extends BasicArraySchema<T, T[] | null> {
     of<U>(type: Schema<U>): NullableArraySchema<U>;
     nullable(isNullable?: true): NullableArraySchema<T>;
     nullable(isNullable: false): ArraySchema<T>;
     nullable(isNullable?: boolean): ArraySchema<T>;
     required(message?: TestOptionsMessage): NullableArraySchema<T>;
+    defined(): NullableArraySchema<T>;
     notRequired(): NotRequiredNullableArraySchema<T>;
+    optional(): NotRequiredNullableArraySchema<T>;
 }
 
-export interface NotRequiredArraySchema<T> extends BasicArraySchema<T[] | undefined> {
+export interface NotRequiredArraySchema<T> extends BasicArraySchema<T, T[] | undefined> {
     of<U>(type: Schema<U>): NotRequiredArraySchema<U>;
     nullable(isNullable?: true): NotRequiredNullableArraySchema<T>;
     nullable(isNullable: false): NotRequiredArraySchema<T>;
     nullable(isNullable: boolean): ArraySchema<T>;
     required(message?: TestOptionsMessage): ArraySchema<T>;
+    defined(): ArraySchema<T>;
     notRequired(): NotRequiredArraySchema<T>;
+    optional(): NotRequiredArraySchema<T>;
 }
 
-export interface ArraySchema<T> extends BasicArraySchema<T[]> {
-    innerType: Schema<T>;
+export interface ArraySchema<T> extends BasicArraySchema<T, T[]> {
     of<U>(type: Schema<U>): ArraySchema<U>;
     nullable(isNullable?: true): NullableArraySchema<T>;
     nullable(isNullable: false | boolean): ArraySchema<T>;
     required(message?: TestOptionsMessage): ArraySchema<T>;
+    defined(): ArraySchema<T>;
     notRequired(): NotRequiredArraySchema<T>;
+    optional(): NotRequiredArraySchema<T>;
 }
 
 export type ObjectSchemaDefinition<T extends object | null | undefined> = {
@@ -311,6 +329,7 @@ export interface ObjectSchema<T extends object | null | undefined = object> exte
     ): ObjectSchema<Shape<T, U>>;
     from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T>;
     noUnknown(onlyKnownKeys?: boolean, message?: ObjectLocale['noUnknown']): ObjectSchema<T>;
+    unknown(allow?: boolean, message?: ObjectLocale['noUnknown']): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
     snakeCase(): ObjectSchema<T>;
@@ -319,7 +338,9 @@ export interface ObjectSchema<T extends object | null | undefined = object> exte
     nullable(isNullable: false): ObjectSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): ObjectSchema<T>;
     required(message?: TestOptionsMessage): ObjectSchema<Exclude<T, undefined>>;
+    defined(): ObjectSchema<Exclude<T, undefined>>;
     notRequired(): ObjectSchema<T | undefined>;
+    optional(): ObjectSchema<T | undefined>;
     concat(schema: this): this;
     concat<U extends object>(schema: ObjectSchema<U>): ObjectSchema<T & U>;
     test<U extends T = T>(
