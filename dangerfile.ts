@@ -25,10 +25,10 @@ if (fs.existsSync(suggestionsDir)) {
             }
         }
 
-        const topUnpkgURL = "https://unpkg.com/browse/${packageName}@latest";
-        lines.push("## " + packageName + `([<kbd>unpkg</kbd>](${topUnpkgURL}))`)
+        const topUnpkgURL = `https://unpkg.com/browse/${packageName}@latest`;
+        lines.push("## " + packageName + ` ([<kbd>unpkg</kbd>](${topUnpkgURL}))`)
         for (const fileName in missingProperties) {
-            if (suggestions.length > 1) {
+            if (Object.keys(missingProperties).length > 1) {
                 const originalJS = fileName.replace(".d.ts", ".js")
                 const unpkgURL = `https://unpkg.com/browse/${packageName}@latest/${originalJS}`
                 const dtsName = packageName.replace("@", "").replace("/", "__")
