@@ -144,8 +144,8 @@ mixed.required();
 mixed.required('Foo');
 mixed.required(() => 'Foo');
 mixed.defined();
-mixed.notRequired(); // $ExpectType MixedSchema<string | number | boolean | symbol | object | null | undefined>
-mixed.optional(); // $ExpectType MixedSchema<string | number | boolean | symbol | object | null | undefined>
+mixed.notRequired(); // $ExpectType MixedSchema<any>
+mixed.optional(); // $ExpectType MixedSchema<any>
 mixed.typeError('type error');
 mixed.typeError(() => 'type error');
 mixed.oneOf(['hello', 'world'], 'message');
@@ -153,8 +153,8 @@ mixed.oneOf(['hello', 'world'], () => 'message');
 mixed.oneOf(['hello', 'world'], ({ values }) => `one of ${values}`);
 // $ExpectError
 mixed.oneOf(['hello', 'world'], ({ random }) => `one of ${random}`);
-mixed.oneOf(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1>
-mixed.equals(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1>
+mixed.oneOf(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined>
+mixed.equals(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined>
 mixed.notOneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], () => 'message');
 mixed.when('isBig', {
@@ -362,8 +362,8 @@ function strSchemaTests(strSchema: yup.StringSchema) {
 }
 
 const strSchema = yup.string(); // $ExpectType StringSchema<string | undefined>
-strSchema.oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world">
-strSchema.notRequired().oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world" | undefined>
+strSchema.oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world" | undefined>
+strSchema.required().oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world">
 strSchemaTests(strSchema);
 
 // $ExpectError
@@ -406,18 +406,18 @@ numSchema
     .validate(5, { strict: true })
     .then(value => value)
     .catch(err => err);
-numSchema.oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
-numSchema.equals([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
-numSchema.notRequired().oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined>
+numSchema.oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined>
+numSchema.equals([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined>
+numSchema.required().oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
 numSchema.defined();
 
 // Boolean Schema
 const boolSchema = yup.boolean(); // $ExpectType BooleanSchema<boolean | undefined>
 boolSchema.type;
 boolSchema.isValid(true); // => true
-boolSchema.oneOf([true] as const); // $ExpectType BooleanSchema<true>
-boolSchema.equals([true] as const); // $ExpectType BooleanSchema<true>
-boolSchema.notRequired().oneOf([true] as const); // $ExpectType BooleanSchema<true | undefined>
+boolSchema.oneOf([true] as const); // $ExpectType BooleanSchema<true | undefined>
+boolSchema.equals([true] as const); // $ExpectType BooleanSchema<true | undefined>
+boolSchema.required().oneOf([true] as const); // $ExpectType BooleanSchema<true>
 boolSchema.defined();
 
 // Date Schema
@@ -434,12 +434,12 @@ dateSchema.max('2017-11-12');
 dateSchema.max(new Date(), 'message');
 dateSchema.max('2017-11-12', 'message');
 dateSchema.max('2017-11-12', () => 'message');
-dateSchema.oneOf([new Date()] as const); // $ExpectType DateSchema<Date>
-dateSchema.equals([new Date()] as const); // $ExpectType DateSchema<Date>
-dateSchema.notRequired().oneOf([new Date()] as const); // $ExpectType DateSchema<Date | undefined>
+dateSchema.oneOf([new Date()] as const); // $ExpectType DateSchema<Date | undefined>
+dateSchema.equals([new Date()] as const); // $ExpectType DateSchema<Date | undefined>
+dateSchema.required().oneOf([new Date()] as const); // $ExpectType DateSchema<Date>
 
 // Array Schema
-const arrSchema = yup.array().of(yup.number().min(2));
+const arrSchema = yup.array().of(yup.number().defined().min(2));
 arrSchema.type;
 arrSchema.innerType;
 arrSchema.notRequired().innerType;
@@ -461,8 +461,8 @@ arrSchema.min(5);
 arrSchema.min(5, 'min');
 arrSchema.min(5, () => 'min');
 arrSchema.compact((value, index, array) => value === array[index]);
-arrSchema.oneOf([]); // $ExpectType ArraySchema<number>
-arrSchema.equals([]); // $ExpectType ArraySchema<number>
+arrSchema.oneOf([]); // $ExpectType NotRequiredArraySchema<number>
+arrSchema.equals([]); // $ExpectType NotRequiredArraySchema<number>
 arrSchema.defined();
 
 const arrOfObjSchema = yup.array().defined().of(
