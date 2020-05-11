@@ -213,6 +213,22 @@ puppeteer.launch().then(async browser => {
   browser.close();
 })();
 
+// `product` support
+(async () => {
+    await puppeteer.launch({
+        product: 'chrome',
+    });
+    await puppeteer.launch({
+        product: 'firefox',
+    });
+    const options: puppeteer.FetcherOptions = {
+        product: 'firefox',
+      };
+      const browserFetcher = puppeteer.createBrowserFetcher(options);
+      browserFetcher.product(); // $ExpectType Product
+      browserFetcher.revisionInfo('revision').product; // $ExpectType Product
+})();
+
 // Launching with default viewport disabled
 (async () => {
   await puppeteer.launch({
