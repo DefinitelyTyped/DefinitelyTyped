@@ -9,6 +9,7 @@
 //                 Dan Smith <https://github.com/dpsmith3>
 //                 Hunter Perrin <https://github.com/hperrin>
 //                 Jordan Harband <https://github.com/ljharb>
+//                 Paolo Scanferla <https://github.com/pscanf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = QueryString;
@@ -55,7 +56,9 @@ declare namespace QueryString {
         interpretNumericEntities?: boolean;
     }
 
-    interface ParsedQs { [key: string]: string | string[] | ParsedQs | ParsedQs[] }
+    interface ParsedQs {
+        [key: string]: string | string[] | ParsedQs | ParsedQs[] | undefined;
+    }
 
     // TODO: The value type here is a "poor man's `unknown`". When these types support TypeScript
     // 3.0+, we can replace this with `unknown`.
