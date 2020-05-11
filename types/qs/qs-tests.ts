@@ -335,3 +335,11 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 () => {
     assert.equal(qs.stringify({ a: { b: { c: 'd', e: 'f' } } }, { allowDots: true }), 'a.b.c=d&a.b.e=f');
 }
+
+declare const myQuery: { a: string; b?: string }
+const myQueryCopy: qs.ParsedQs = myQuery;
+
+interface MyQuery extends qs.ParsedQs {
+    a: string;
+    b?: string;
+}
