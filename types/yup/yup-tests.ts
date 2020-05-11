@@ -361,13 +361,10 @@ function strSchemaTests(strSchema: yup.StringSchema) {
     strSchema.defined();
 }
 
-const strSchema = yup.string(); // $ExpectType StringSchema<string | undefined> | StringSchema<string>
+const strSchema = yup.string(); // $ExpectType StringSchema<string | undefined>
 strSchema.oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world">
 strSchema.notRequired().oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world" | undefined>
 strSchemaTests(strSchema);
-
-const strLiteralSchema = yup.string<'foo' | 'bar'>(); // $ExpectType StringSchema<"foo"> | StringSchema<"bar">
-strSchemaTests(strLiteralSchema);
 
 // $ExpectError
 yup.string<123>();
