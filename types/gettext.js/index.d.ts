@@ -1,6 +1,7 @@
-// Type definitions for gettext.js 0.5
+// Type definitions for gettext.js 0.8
 // Project: https://github.com/guillaumepotier/gettext.js
 // Definitions by: Julien Crouzet <https://github.com/jucrouzet>
+//                 Florian Schwingenschlögl <https://github.com/FlorianSchwingenschloegl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type PluralForm = (n: number) => number;
@@ -15,7 +16,7 @@ export interface GettextOptions {
 }
 
 export interface JsonDataHeader {
-  locale: string;
+  language: string;
   "plural-forms": string;
 }
 

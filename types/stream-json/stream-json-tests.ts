@@ -134,6 +134,17 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
 
     parser
         .pipe(new Replace({ filter: 'total', replacement: [{ name: 'trueValue' }] }))
+        .pipe(
+            new Replace({
+                filter: 'sum',
+                replacement: [
+                    { name: 'startNumber' },
+                    { name: 'numberChunk', value: '0' },
+                    { name: 'endNumber' },
+                    { name: 'numberValue', value: '0' },
+                ]
+            })
+        )
         .pipe(Replace.make({ filter: /\b_\w*\b/i, allowEmptyReplacement: true }))
         .pipe(
             Replace.replace({

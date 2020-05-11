@@ -3,11 +3,29 @@
 // Definitions by: typicode <https://github.com/typicode>
 //                 Bazyli Brzóska <https://github.com/niieani>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.1
 
-/// <reference path="./_lodash.d.ts" />
-
-import { LoDashStatic } from "lodash";
+import { LoDashStatic, ObjectChain } from "lodash";
+declare module "lodash" {
+    interface ObjectChain<T> {
+        /**
+         * @description Be careful: This function overwrites the whole database.
+         */
+        write(): T & Promise<T>;
+    }
+    interface PrimitiveChain<T> {
+        write(): T & Promise<T>;
+    }
+    interface CollectionChain<T> {
+        write(): ArrayLike<T> & Promise<ArrayLike<T>>;
+    }
+    interface FunctionChain<T> {
+        write(): T & Promise<T>;
+    }
+    interface StringChain {
+        write(): string & Promise<string>;
+    }
+}
 
 declare let Lowdb: Lowdb.lowdb;
 export = Lowdb;
@@ -49,22 +67,22 @@ declare namespace Lowdb {
     setState: (state: SchemaT) => this;
   }
 
-  interface LowdbSync<SchemaT> extends LowdbBase<SchemaT>, LoDashExplicitSyncWrapper<SchemaT> {
+  interface LowdbSync<SchemaT> extends LowdbBase<SchemaT>, ObjectChain<SchemaT> {
     _: LoDashStatic;
     read: () => this;
     /**
      * @description Be careful: This function overwrites the whole database.
      */
-    write<T = void>(returnValue?: T): T;
+    write<T = void>(returnValue?: T): T & Promise<T>;
   }
 
-  interface LowdbAsync<SchemaT> extends LowdbBase<SchemaT>, LoDashExplicitAsyncWrapper<SchemaT> {
+  interface LowdbAsync<SchemaT> extends LowdbBase<SchemaT>, ObjectChain<SchemaT> {
     _: LoDashStatic;
     read: () => Promise<this>;
     /**
      * @description Be careful: This function overwrites the whole database.
      */
-    write<T = void>(returnValue?: T): Promise<T>;
+    write<T = void>(returnValue?: T): T & Promise<T>;
   }
 
   interface LowdbFpSync<SchemaT> extends LowdbBase<SchemaT> {
@@ -245,15 +263,6 @@ declare namespace Lowdb {
   interface lowdbFp {
     <AdapterT extends AdapterAsync>(adapter: AdapterT): Promise<LowdbFpAsync<AdapterT[ReferenceProperty]>>;
     <AdapterT extends AdapterSync>(adapter: AdapterT): LowdbFpSync<AdapterT[ReferenceProperty]>;
-  }
-
-  // Note: this interface is augmented in _lodash.d.ts
-  interface LoDashExplicitSyncWrapper<TValue> extends _.LoDashWrapper<TValue> {
-    write(): TValue;
-  }
-  // Note: this interface is augmented in _lodash.d.ts
-  interface LoDashExplicitAsyncWrapper<TValue> extends _.LoDashWrapper<TValue> {
-    write(): Promise<TValue>;
   }
 }
 

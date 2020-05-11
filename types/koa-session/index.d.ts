@@ -1,9 +1,10 @@
-// Type definitions for koa-session 5.7
+// Type definitions for koa-session 5.10
 // Project: https://github.com/koajs/session
 // Definitions by: Yu Hsin Lu <https://github.com/kerol2r20>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
+//                 Hiroshi Ioka <https://github.com/hirochachacha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /* =================== USAGE ===================
 
@@ -16,6 +17,9 @@
  =============================================== */
 
 import Koa = require("koa");
+import Cookies = require("cookies");
+
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 declare namespace session {
     /**
@@ -108,7 +112,7 @@ declare namespace session {
         hash(sess: any): string;
     }
 
-    interface opts {
+    interface opts extends Omit<Cookies.SetOption, 'maxAge'> {
         /**
          * cookie key (default is koa:sess)
          */
@@ -120,21 +124,6 @@ declare namespace session {
          * Warning: If a session cookie is stolen, this cookie will never expire
          */
         maxAge?: number | "session";
-
-        /**
-         * can overwrite or not (default true)
-         */
-        overwrite: boolean;
-
-        /**
-         * httpOnly or not (default true)
-         */
-        httpOnly: boolean;
-
-        /**
-         * signed or not (default true)
-         */
-        signed: boolean;
 
         /**
          * custom encode method
@@ -165,6 +154,12 @@ declare namespace session {
          * You can store the session content in external stores(redis, mongodb or other DBs)
          */
         store?: stores;
+
+        /**
+         * External key is used the cookie by default,
+         * but you can use options.externalKey to customize your own external key methods.
+         */
+        externalKey?: ExternalKeys;
 
         /**
          * If your session store requires data or utilities from context, opts.ContextStore is alse supported.
@@ -205,6 +200,18 @@ declare namespace session {
          */
         destroy(key: string): any;
     }
+
+    interface ExternalKeys {
+        /**
+         * get session object by key
+         */
+        get(ctx: Koa.Context): string;
+
+        /**
+         * set session object for key, with a maxAge (in ms)
+         */
+        set(ctx: Koa.Context, value: any): void;
+    }
 }
 
 declare function session(CONFIG: Partial<session.opts>, app: Koa): Koa.Middleware;
@@ -215,11 +222,6 @@ declare module "koa" {
     interface Context {
         session: session.Session | null;
         readonly sessionOptions: session.opts | undefined;
-    }
-
-    interface Application {
-        on(name: "session:missed" | "session:expired" | "session:invalid", data: { key?: string, value?: Partial<session.Session>, ctx: Context }): void;
-        once(name: "session:missed" | "session:expired" | "session:invalid", data: { key?: string, value?: Partial<session.Session>, ctx: Context }): void;
     }
 }
 

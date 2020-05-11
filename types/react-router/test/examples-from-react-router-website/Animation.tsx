@@ -67,9 +67,9 @@ const NavLink: React.SFC<LinkProps> = (props) => (
 );
 
 interface HSLParams {
-  h: number;
-  s: number;
-  l: number;
+  h: string;
+  s: string;
+  l: string;
 }
 
 const HSL: React.SFC<RouteComponentProps<HSLParams>> = ({ match: { params } }) => (

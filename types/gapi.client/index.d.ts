@@ -1,6 +1,6 @@
-// Type definitions for Google API client 1.0
+// Type definitions for non-npm package Google API client 1.0
 // Project: https://developers.google.com
-// Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,13 +18,13 @@ declare namespace gapi {
          * @param callback the function that is called once the API interface is loaded
          */
         function load(name: string, version: string, callback: () => any): void;
-        function load(name: string, version: string): PromiseLike<void>;
+        function load(name: string, version: string): Promise<void>;
 
         /**
          * Creates a HTTP request for making RESTful requests.
          * An object encapsulating the various arguments for this method.
          */
-        function request<T>(args: {
+        function request(args: {
             /**
              * The URL to handle the request
              */
@@ -49,7 +49,7 @@ declare namespace gapi {
             //  * If supplied, the request is executed immediately and no gapi.client.HttpRequest object is returned
             //  */
             // callback?: () => any;
-        }): Request<T>;
+        }): Request<any>;
 
         /**
          * Sets the API key for the application.
@@ -80,7 +80,7 @@ declare namespace gapi {
         /**
          * An object encapsulating an HTTP request. This object is not instantiated directly, rather it is returned by gapi.client.request.
          */
-        interface Request<T> extends PromiseLike<Response<T>> {
+        interface Request<T> extends Promise<Response<T>> {
             /**
              * Executes the request and runs the supplied callback on response.
              * @param callback The callback function which executes when the request succeeds or fails.
@@ -100,7 +100,7 @@ declare namespace gapi {
         /**
          * Represents an HTTP Batch operation. Individual HTTP requests are added with the add method and the batch is executed using execute.
          */
-        interface Batch<T> extends PromiseLike<Response<ResponseMap<T>>> {
+        interface Batch<T> extends Promise<Response<ResponseMap<T>>> {
             /**
              * Adds a gapi.client.Request to the batch.
              * @param request The HTTP request to add to this batch.
@@ -141,7 +141,7 @@ declare namespace gapi {
         /**
          * Creates a batch object for batching individual requests.
          */
-        function newBatch<T>(): Batch<T>;
+        function newBatch(): Batch<any>;
     }
 
     namespace auth {

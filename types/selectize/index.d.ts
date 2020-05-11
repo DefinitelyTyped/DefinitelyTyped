@@ -16,6 +16,12 @@ declare namespace Selectize {
          * An array of the initial selected values. By default this is populated from the original input element.
          */
         items?: T[];
+        
+        /**
+         * The placeholder of the control (displayed when nothing is selected / typed).
+         * Defaults to input element's placeholder, unless this one is specified.
+         */
+        placeholder?: string;
 
         /**
          * The string to separate items by. This option is only used when Selectize is instantiated from a

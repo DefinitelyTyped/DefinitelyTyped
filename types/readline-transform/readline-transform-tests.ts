@@ -5,7 +5,7 @@ const readStream = new PassThrough();
 const transform = new ReadlineTransform({
   breakMatcher: /\n/,
   ignoreEndOfBreak: false,
-  skipEmpty: true
+  skipEmpty: true,
 });
 const writeStream = new PassThrough({ objectMode: true });
 

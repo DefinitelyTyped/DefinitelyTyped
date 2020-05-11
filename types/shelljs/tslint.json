@@ -1,7 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "max-line-length": false,
+        "indent": [
+            true,
+            "tabs"
+        ],
         "unified-signatures": false
     }
 }

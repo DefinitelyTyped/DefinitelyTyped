@@ -212,6 +212,7 @@ v = v.reflectionIn(l);
 v = v.reflectionIn(p);
 v = v.rotate(n, v);
 v = v.rotate(n, l);
+v = v.rotate(m, l);
 v = v.round();
 v = v.setElements(v);
 v = v.setElements([n, n]);

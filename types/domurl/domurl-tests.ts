@@ -1,13 +1,15 @@
-interface UModel extends QueryString {
+import Url = require("domurl");
+
+interface UModel {
     a: any;
     b: string;
 }
 
-interface U2Model extends QueryString {
+interface U2Model {
     a: any;
 }
 
-interface U3Model extends QueryString {
+interface U3Model {
     foo: string;
 }
 

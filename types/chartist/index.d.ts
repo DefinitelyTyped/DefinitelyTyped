@@ -1,6 +1,6 @@
 // Type definitions for Chartist v0.9.81
 // Project: https://github.com/gionkunz/chartist-js
-// Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>, Cassey Lottman <https://github.com/clottman>, Anastasiia Antonova <https://github.com/affilnost>, Sunny Juneja <https://github.com/sunnyrjuneja>
+// Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>, Anastasiia Antonova <https://github.com/affilnost>, Sunny Juneja <https://github.com/sunnyrjuneja>, Sam Raudabaugh <https://github.com/raudabaugh>, Manuel Borrajo <https://github.com/borrajo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chartist {
@@ -93,13 +93,13 @@ declare namespace Chartist {
     // TODO: come in and tidy this up and make it fit better
     interface IChartistData {
         labels?: Array<string> | Array<number> | Array<Date>;
-        series: Array<IChartistSeriesData> | Array<Array<IChartistData>> | Array<number> | Array<Array<number>>;
+        series: Array<IChartistSeriesData> | Array<Array<IChartistSeriesData>> | Array<Array<IChartistData>> | Array<number> | Array<Array<number>>;
     }
 
     interface IChartistSeriesData {
         name?: string;
         value?: number;
-        data?: Array<number>;
+        data?: Array<number> | Array<{ x: number | Date, y: number }>;
         className?: string;
         meta?: any;
     }
@@ -278,11 +278,15 @@ declare namespace Chartist {
         onlyInteger?: boolean;
         chartPadding?: IChartPadding;
         seriesBarDistance?: number;
-
+        /**
+         * Override the class names that are used to generate the SVG structure of the chart
+         */
+        classNames?: IBarChartClasses;
         /**
          * If set to true this property will cause the series bars to be stacked and form a total for each series point. This will also influence the y-axis and the overall bounds of the chart. In stacked mode the seriesBarDistance property will have no effect.
          */
         stackBars?: boolean;
+        stackMode?: 'overlap' | 'accumulate';
 
         horizontalBars?: boolean;
         distributeSeries?: boolean;
@@ -530,6 +534,10 @@ declare namespace Chartist {
     }
 
     interface IChartistSvg {
+        /**
+         * The SVG DOM element wrapped by IChartistSvg
+         */
+        _node: HTMLElement;
 
         /**
          * Set attributes on the current SVG element of the wrapper you're currently working on.

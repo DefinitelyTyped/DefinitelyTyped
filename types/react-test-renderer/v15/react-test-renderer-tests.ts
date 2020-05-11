@@ -3,7 +3,7 @@ import { create } from "react-test-renderer";
 import { createRenderer } from 'react-test-renderer/shallow';
 
 const tree = create(React.createElement("div"), {
-    createNodeMock: (el: React.ReactElement<any>) => {
+    createNodeMock: (el: React.ReactElement) => {
         return {};
     }
 }).toJSON();

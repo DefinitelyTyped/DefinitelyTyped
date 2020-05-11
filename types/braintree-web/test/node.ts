@@ -6,7 +6,7 @@ let clientToken: string = "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiO
 
 braintree.client.create({
   authorization: clientToken
-}, function (error: braintree.BraintreeError, clientInstance: any) {
+}, function (error: braintree.BraintreeError, clientInstance: braintree.Client) {
 
   var form: HTMLFormElement = document.getElementById('my-form-id') as HTMLFormElement;
   var data: { creditCard: braintree.CreditCardInfo } = {
@@ -30,8 +30,24 @@ braintree.client.create({
     console.log('Got nonce:', response.creditCards[0].nonce);
   });
 
+  braintree.threeDSecure
+    .create({
+      version: 2,
+      client: clientInstance
+    })
+    .then((threeDSecureInstance) => {
+      let testBin = '123456';
+      threeDSecureInstance.prepareLookup({
+        nonce: existingNonce,
+        bin: testBin
+      })
+      .then(payload => {})
+      .catch((err: braintree.BraintreeError) => {});
+    });
+
   braintree.hostedFields.create({
     client: clientInstance,
+    authorization: clientToken,
     styles: {
       'input': {
         'font-size': '16pt',
@@ -394,9 +410,44 @@ braintree.client.create({
 let existingNonce = "fake-valid-nonce";
 let submitNonceToServer: (nonce: string) => void;
 
+braintree.client.create(
+    {
+        authorization: clientToken,
+    },
+    (error: braintree.BraintreeError, clientInstance: braintree.Client) => {
+        braintree.threeDSecure.create(
+            {
+                client: clientInstance,
+                version: '2',
+            },
+            (createError, threeDSecure) => {
+                // implementation
+            },
+        );
+        braintree.threeDSecure.create(
+            {
+                client: clientInstance,
+                version: 1,
+            },
+            (createError, threeDSecure) => {
+                // implementation
+            },
+        );
+        braintree.threeDSecure.create(
+            {
+                client: clientInstance,
+                version: '2-bootstrap3-modal',
+            },
+            (createError, threeDSecure) => {
+                // implementation
+            },
+        );
+    },
+);
+
 braintree.threeDSecure.verifyCard({
   nonce: existingNonce,
-  amount: 123.45,
+  amount: 123.45, // $ExpectType number
   addFrame: function (err, iframe) {
     // Set up your UI and add the iframe.
     let my3DSContainer = document.createElement('div');

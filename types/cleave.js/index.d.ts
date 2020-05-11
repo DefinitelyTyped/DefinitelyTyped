@@ -1,4 +1,4 @@
-// Type definitions for cleave.js 1.3
+// Type definitions for cleave.js 1.4
 // Project: https://github.com/nosir/cleave.js
 // Definitions by: C Lentfort <https://github.com/clentfort>,
 //                 J Giancono <https://github.com/jasongi-at-sportsbet>,

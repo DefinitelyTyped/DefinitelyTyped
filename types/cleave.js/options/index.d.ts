@@ -44,6 +44,7 @@ export interface CleaveOptions {
     copyDelimiter?: boolean;
     delimiter?: string;
     delimiters?: ReadonlyArray<string>;
+    delimiterLazyShow?: boolean;
     initValue?: any;
     lowercase?: boolean;
     numericOnly?: boolean;
@@ -51,4 +52,5 @@ export interface CleaveOptions {
     noImmediatePrefix?: boolean;
     rawValueTrimPrefix?: boolean;
     uppercase?: boolean;
+    onValueChanged?(event: any): void;
 }

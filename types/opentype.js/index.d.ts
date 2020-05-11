@@ -1,5 +1,5 @@
 // Type definitions for opentype.js 0.7
-// Project: https://github.com/nodebox/opentype.js
+// Project: https://github.com/opentypejs/opentype.js
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 //                 Edgar Simson <https://github.com/edzis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -367,8 +367,19 @@ export interface PathCommand {
  * UTIL CLASSES
  ******************************************/
 
-export type BoundingBox = () => any;
-// TODO add methods
+export class BoundingBox {
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+
+    isEmpty(): boolean;
+    addPoint(x: number, y: number): void;
+    addX(x: number): void;
+    addY(y: number): void;
+    addBezier(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, x: number, y: number): void;
+    addQuad(x0: number, y0: number, x1: number, y1: number, x: number, y: number): void;
+}
 
 export interface Encoding {
     charset: string;

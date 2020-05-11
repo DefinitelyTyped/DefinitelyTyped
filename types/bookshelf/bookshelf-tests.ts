@@ -701,17 +701,15 @@ qb.where({id: 1}).select().then(resp => {
 
 /* model.refresh(), see http://bookshelfjs.org/#Model-instance-refresh */
 
-/* model.related(), see http://bookshelfjs.org/#Model-instance-related */
+/* model.related(), see https://bookshelfjs.org/api.html#Model-instance-related */
 class Trip extends bookshelf.Model<Trip> {}
 class Trips extends bookshelf.Collection<Trip> {}
 new Photo({id: 1}).fetch({
 	withRelated: ['account']
 }).then(photo => {
-	if (photo) {
-		var account = <Account> photo.related('account');
-		if (account.id) {
-			return (<Trips> account.related('trips')).fetch();
-		}
+	var account = photo.related('account') as Account;
+	if (account.id) {
+		return (account.related('trips') as Trips).fetch();
 	}
 });
 
@@ -974,10 +972,12 @@ let tabs = new TabSet([tab1, tab2, tab3]);
 
 /* Collection.extend(), see http://bookshelfjs.org/#Collection-static-extend */
 
-/* Collection.forge(), see http://bookshelfjs.org/#Collection-static-forge */
+/* Collection.forge(), see https://bookshelfjs.org/api.html#Collection-static-forge */
 
 class Accounts extends bookshelf.Collection<Account> {
-	model: Account
+	get model() {
+		return Account
+	}
 }
 
 var accounts = Accounts.forge<Accounts>([
@@ -985,7 +985,7 @@ var accounts = Accounts.forge<Accounts>([
 	{name: 'Person2'}
 ]);
 
-Promise.all(accounts.invoke('save')).then(() => {
+Promise.all(accounts.invokeMap('save')).then(() => {
 	// collection models should now be saved...
 });
 
@@ -1219,63 +1219,26 @@ ships.trigger('fetched');
 	}
 }
 
-/* Lodash methods, see http://bookshelfjs.org/#Collection-subsection-lodash-methods */
+/* Lodash methods, see https://bookshelfjs.org/api.html#Collection-subsection-lodash-methods */
 
-/* all(), see http://lodash.com/docs/#all */
-
-/* any(), see http://lodash.com/docs/#any */
-
-/* chain(), see http://lodash.com/docs/#chain */
-
-/* collect(), see http://lodash.com/docs/#collect */
-
-/* contains(), see http://lodash.com/docs/#contains */
-
-/* countBy(), see http://lodash.com/docs/#countBy */
-
-/* detect(), see http://lodash.com/docs/#detect */
-
-/* difference(), see http://lodash.com/docs/#difference */
-
-/* drop(), see http://lodash.com/docs/#drop */
-
-/* each(), see http://lodash.com/docs/#each */
-
-/* every(), see http://lodash.com/docs/#every */
-
-/* filter(), see http://lodash.com/docs/#filter */
-
-/* find(), see http://lodash.com/docs/#find */
-
-/* first(), see http://lodash.com/docs/#first */
-
-/* foldl(), see http://lodash.com/docs/#foldl */
-
-/* foldr(), see http://lodash.com/docs/#foldr */
-
-/* forEach(), see http://lodash.com/docs/#forEach */
-
-/* groupBy(), see http://lodash.com/docs/#groupBy */
-
-/* head(), see http://lodash.com/docs/#head */
-
-/* include(), see http://lodash.com/docs/#include */
-
-/* indexOf(), see http://lodash.com/docs/#indexOf */
-
-/* initial(), see http://lodash.com/docs/#initial */
-
-/* inject(), see http://lodash.com/docs/#inject */
-
-/* invoke(), see http://lodash.com/docs/#invoke */
-
-/* isEmpty(), see http://lodash.com/docs/#isEmpty */
-
-/* last(), see http://lodash.com/docs/#last */
-
-/* lastIndexOf(), see http://lodash.com/docs/#lastIndexOf */
-
-/* map(), see http://lodash.com/docs/#map */
+/*
+- countBy()
+- every()
+- filter()
+- find()
+- forEach()
+- groupBy()
+- includes()
+- invokeMap()
+- isEmpty()
+- map()
+- reduce()
+- reduceRight()
+- reject()
+- some()
+- sortBy()
+- toArray()
+*/
 
 // TODO No example provided on Bookshelf website
 

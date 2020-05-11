@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from 'react';
-import { BlockProperties, ValueJSON, Value, Node, Mark, Leaf } from 'slate';
+import { BlockProperties, ValueJSON, Value, Node as SlateNode, Mark, Leaf } from 'slate';
 
 export interface Rule {
     deserialize?: (el: Element, next: (elements: Element[] | NodeList | Array<Node & ChildNode>) => any) => any;
@@ -30,11 +30,11 @@ export default class Html {
     protected defaultBlock: BlockProperties;
     protected parseHtml: (html: string) => HTMLElement;
 
-    protected deserializeElements: (elements: HTMLElement[]) => Node[];
+    protected deserializeElements: (elements: HTMLElement[]) => SlateNode[];
     protected deserializeElement: (element: HTMLElement) => any;
-    protected deserializeMark: (mark: Mark) => Node[];
+    protected deserializeMark: (mark: Mark) => SlateNode[];
 
-    protected serializeNode: (node: Node) => string;
+    protected serializeNode: (node: SlateNode) => string;
     protected serializeLeaf: (leaf: Leaf) => string;
     protected serializeString: (string: string) => string;
 }

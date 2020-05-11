@@ -1,8 +1,10 @@
-// Type definitions for tedious 2.6.2
+// Type definitions for tedious 4.0.0
 // Project: http://tediousjs.github.io/tedious/
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Chris Thompson <https://github.com/cjthompson>
 //                 Suraiya Hameed <https://github.com/v-suhame>
+//                 Guilherme Amorim <https://github.com/guiampm>
+//                 Simon Childs <https://github.com/csharpsi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
@@ -258,12 +260,12 @@ export interface ConnectionOptions {
     tdsVersion?: number;
 
     /**
-     * Application name used for identifying a specific application in profiling, logging or tracing tools of SQL Server. (default: Tedious) 
+     * Application name used for identifying a specific application in profiling, logging or tracing tools of SQL Server. (default: Tedious)
      */
     appName?: string;
 
     /**
-     * Number of milliseconds before retrying to establish connection, in case of transient failure. (default: 500) 
+     * Number of milliseconds before retrying to establish connection, in case of transient failure. (default: 500)
      */
     connectionRetryInterval?: number;
 
@@ -273,57 +275,57 @@ export interface ConnectionOptions {
     datefirst?: number;
 
     /**
-     * A string representing position of month, day and year in temporal datatypes. (default: mdy) 
+     * A string representing position of month, day and year in temporal datatypes. (default: mdy)
      */
     dateFormat?: string;
 
     /**
-     * A boolean, controls the way null values should be used during comparison operation. (default: true)  
+     * A boolean, controls the way null values should be used during comparison operation. (default: true)
      */
     enableAnsiNull?: boolean;
 
     /**
-     * If true, SET ANSI_NULL_DFLT_ON ON will be set in the initial sql. This means new columns will be nullable by default. See the T-SQL documentation for more details. (Default: true). 
+     * If true, SET ANSI_NULL_DFLT_ON ON will be set in the initial sql. This means new columns will be nullable by default. See the T-SQL documentation for more details. (Default: true).
      */
     enableAnsiNullDefault?: boolean;
 
     /**
-     * A boolean, controls if padding should be applied for values shorter than the size of defined column. (default: true) 
+     * A boolean, controls if padding should be applied for values shorter than the size of defined column. (default: true)
      */
     enableAnsiPadding?: boolean;
 
     /**
-     * If true, SQL Server will follow ISO standard behavior during various error conditions. For details, see documentation. (default: true) 
+     * If true, SQL Server will follow ISO standard behavior during various error conditions. For details, see documentation. (default: true)
      */
     enableAnsiWarnings?: boolean;
 
     /**
-     * A boolean, determines if query execution should be terminated during overflow or divide-by-zero error. (default: false)  
+     * A boolean, determines if query execution should be terminated during overflow or divide-by-zero error. (default: false)
      */
     enableArithAbort?: boolean;
 
     /**
-     * A boolean, determines if concatenation with NULL should result in NULL or empty string value, more details in documentation. (default: true) 
+     * A boolean, determines if concatenation with NULL should result in NULL or empty string value, more details in documentation. (default: true)
      */
     enableConcatNullYieldsNull?: boolean;
 
     /**
-     * A boolean, controls whether cursor should be closed, if the transaction opening it gets committed or rolled back. (default: false) 
+     * A boolean, controls whether cursor should be closed, if the transaction opening it gets committed or rolled back. (default: false)
      */
     enableCursorCloseOnCommit?: boolean;
 
     /**
-     * A boolean, sets the connection to either implicit or autocommit transaction mode. (default: false) 
+     * A boolean, sets the connection to either implicit or autocommit transaction mode. (default: false)
      */
     enableImplicitTransactions?: boolean;
 
     /**
-     * If false, error is not generated during loss of precession. (default: false) 
+     * If false, error is not generated during loss of precession. (default: false)
      */
     enableNumericRoundabort?: boolean;
 
     /**
-     * If true, characters enclosed in single quotes are treated as literals and those enclosed double quotes are treated as identifiers. (default: true) 
+     * If true, characters enclosed in single quotes are treated as literals and those enclosed double quotes are treated as identifiers. (default: true)
      */
     enableQuotedIdentifier?: boolean;
 
@@ -348,7 +350,12 @@ export interface ConnectionOptions {
     trustServerCertificate?: boolean;
 }
 
-export interface ConnectionConfig {
+export interface ConnectionAuthenticationOptions {
+    /**
+     * Once you set domain, driver will connect to SQL Server using domain login.
+     */
+    domain?: string;
+
     /**
      * User name to use for authentication.
      */
@@ -359,6 +366,25 @@ export interface ConnectionConfig {
      */
     password?: string;
 
+    /**
+     * Authentication token used when type is 'azure-active-directory-access-token'
+     */
+    token?: string;
+}
+
+export interface ConnectionAuthentication {
+    /**
+     * Authentication Type. Default value is 'default'.
+     */
+    type?: string;
+
+    /**
+     * Authentication Options
+     */
+    options: ConnectionAuthenticationOptions;
+}
+
+export interface ConnectionConfig {
     /**
      * Hostname to connect to.
      */
@@ -373,6 +399,11 @@ export interface ConnectionConfig {
      * Further options
      */
     options?: ConnectionOptions;
+
+    /**
+     * Authentication Options
+     */
+    authentication?: ConnectionAuthentication;
 }
 
 export interface ParameterOptions {
@@ -399,17 +430,17 @@ export interface Request {
     on(event: 'columnMetadata', listener: (columns: ColumnMetaData[]) => void ):this;
 
     /**
-     * The request has been prepared and can be used in subsequent calls to execute and unprepare. 
+     * The request has been prepared and can be used in subsequent calls to execute and unprepare.
      */
     on(event: 'prepared', listener: () => void):this;
 
     /**
-     * The request encountered an error and has not been prepared. 
+     * The request encountered an error and has not been prepared.
      */
     on(event: 'error', listener: (err: Error) => void):this;
-    
+
     /**
-     * This is the final event emitted by a request. This is emitted after the callback passed in a request is called. 
+     * This is the final event emitted by a request. This is emitted after the callback passed in a request is called.
      */
     on(event: 'requestCompleted', listener: () => void):this;
 
@@ -421,17 +452,17 @@ export interface Request {
     /**
      * All rows from a result set have been provided (through row events). This token is used to indicate the completion of a SQL statement. As multiple SQL statements can be sent to the server in a single SQL batch, multiple done events can be generated. An done event is emited for each SQL statement in the SQL batch except variable declarations. For execution of SQL statements within stored procedures, doneProc and doneInProc events are used in place of done events.
      */
-    on(event: 'done', listener: (error: Error, more: boolean, rows: any[]) => void):this;
+    on(event: 'done', listener: (rowCount: number, more: boolean, rows: any[]) => void):this;
 
     /**
      * Indicates the completion status of a SQL statement within a stored procedure. All rows from a statement in a stored procedure have been provided (through row events).
      */
-    on(event: 'doneInProc', listener: (error: Error, more: boolean, returnStatus: any, rows: any[]) => void):this;
+    on(event: 'doneInProc', listener: (rowCount: number, more: boolean, rows: any[]) => void):this;
 
     /**
      * Indicates the completion status of a stored procedure. This is also generated for stored procedures executed through SQL statements.
      */
-    on(event: 'doneProc', listener: (error: Error, more: boolean, rows: any[]) => void):this;
+    on(event: 'doneProc', listener: (rowCount: number, more: boolean, returnStatus: any, rows: any[]) => void):this;
 
     /**
      * A value for an output parameter (that was added to the request with addOutputParameter(...)). See also Using Parameters.
@@ -442,9 +473,9 @@ export interface Request {
 /**
  * A Request instance represents a request that can be executed on a connection
  * @event  'columnMetadata' This event, describing result set columns, will be emitted before row events are emitted. This event may be emited multiple times when more than one recordset is produced by the statement.
- * @event  'prepared' The request has been prepared and can be used in subsequent calls to execute and unprepare. 
- * @event  'error' The request encountered an error and has not been prepared. 
- * @event  'requestCompleted' This is the final event emitted by a request. This is emitted after the callback passed in a request is called. 
+ * @event  'prepared' The request has been prepared and can be used in subsequent calls to execute and unprepare.
+ * @event  'error' The request encountered an error and has not been prepared.
+ * @event  'requestCompleted' This is the final event emitted by a request. This is emitted after the callback passed in a request is called.
  * @event  'row' A row resulting from execution of the SQL statement
  * @event  'done' All rows from a result set have been provided (through row events). This token is used to indicate the completion of a SQL statement. As multiple SQL statements can be sent to the server in a single SQL batch, multiple done events can be generated. An done event is emited for each SQL statement in the SQL batch except variable declarations. For execution of SQL statements within stored procedures, doneProc and doneInProc events are used in place of done events.
  * @event  'doneInProc' Indicates the completion status of a SQL statement within a stored procedure. All rows from a statement in a stored procedure have been provided (through row events).
@@ -482,12 +513,12 @@ export class Request extends events.EventEmitter {
     addOutputParameter(name: string, type: TediousType, value?: any, options?: ParameterOptions): void;
 
     /**
-     * Temporarily suspends the flow of data from the database. No more 'row' events will be emitted until request.resume() is called. 
+     * Temporarily suspends the flow of data from the database. No more 'row' events will be emitted until request.resume() is called.
      */
     pause():void;
 
     /**
-     * Resumes the flow of data from the database. 
+     * Resumes the flow of data from the database.
      */
     resume():void;
 }
@@ -576,32 +607,32 @@ export interface Connection {
      * Internal error occurs.
      */
     on(event: 'error', listener: (err: Error) => void ):this;
-    
+
     /**
      * A debug message is available. It may be logged or ignored.
      */
     on(event: 'debug', listener: (messageText: string) => void ):this;
-    
+
     /**
      * The server has issued an information message.
      */
     on(event: 'infoMessage', listener: (info: InfoObject) => void ):this;
-    
+
     /**
      * The server has issued an error message.
      */
     on(event: 'errorMessage', listener: (err: Error) => void ):this;
-    
+
     /**
      * The server has reported that the active database has changed. This may be as a result of a successful login, or a use statement.
      */
     on(event: 'databaseChange', listener: (databaseName: string) => void ):this;
-    
+
     /**
      * The server has reported that the language has changed.
      */
     on(event: 'languageChange', listener: (languageName: string) => void ):this;
-    
+
     /**
      * The server has reported that the charset has changed.
      */

@@ -1,6 +1,8 @@
 Polymer({
   is: "my-element",
 
+  behaviors: [Polymer.Templatizer],
+
   properties: {
     prop1: String,
     prop2: {
@@ -24,6 +26,11 @@ Polymer({
   },
 
   ready: function () {
+    const template = Polymer.dom(this).querySelector('template');
+    if (template) {
+      this.templatize(template);
+      const instance = this.stamp({item: {}});
+    }
     this.textContent = 'My element!';
     this.$.name.textContent = this.name;
     this.serialize({});
@@ -44,14 +51,14 @@ Polymer({
   }
 });
 
-var MyElement = Polymer.Class(<polymer.Base>{
+var MyElement = Polymer.Class({
   is: 'my-element',
 
   created: function () {
     this.textContent = 'My element!';
   }
 
-});
+} as polymer.Base);
 
 document.registerElement('my-element', MyElement);
 

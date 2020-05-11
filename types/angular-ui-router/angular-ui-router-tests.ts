@@ -33,7 +33,7 @@ myApp.config((
   $urlMatcherFactory.type("fullType", {
     decode: (val) => parseInt(val, 10),
     encode: (val) => val && val.toString(),
-    equals: (a, b) => this.is(a) && a === b,
+    equals: function (a, b) { return this.is(a) && a === b },
     is: (val) => angular.isNumber(val) && isFinite(val) && val % 1 === 0,
     pattern: /\d+/
   });

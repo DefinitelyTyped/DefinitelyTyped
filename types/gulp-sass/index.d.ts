@@ -1,10 +1,13 @@
-// Type definitions for gulp-sass
+// Type definitions for gulp-sass 4.0.2
 // Project: https://github.com/dlmanning/gulp-sass
 // Definitions by: Asana <https://asana.com>
+//                 Yuma Hashimoto <https://github.com/yuma84>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 /// <reference types="node"/>
 
+import { Options } from 'node-sass';
 
 interface SassResults {
     css: string;
@@ -18,25 +21,13 @@ interface SassResults {
     }
 }
 
-interface SassOptions {
-    file?: string;
-    data?: string;
+interface SassOptions extends Options {
     success?: (results: SassResults) => any;
     error?: (err: Error) => any;
-    includePaths?: string[];
     imagePaths?: string[];
-    indentedSyntax?: boolean;
-    omitSourceMapUrl?: boolean;
-    outFile?: string;
-    outputStyle?: string;
-    precision?: number;
-    sourceComments?: boolean;
-    sourceMap?: boolean | string;
-    sourceMapEmbed?: boolean;
-    sourceMapContents?: boolean;
 }
 
-interface Options extends SassOptions {
+interface GulpSassOptions extends SassOptions {
     errLogToConsole?: boolean;
     onSuccess?: (css: string) => any;
     onError?: (err: Error) => any;
@@ -44,9 +35,9 @@ interface Options extends SassOptions {
 }
 
 interface Sass {
-    (opts?: Options): NodeJS.ReadWriteStream;
+    (opts?: GulpSassOptions): NodeJS.ReadWriteStream;
     logError(error?: string): void;
-    sync(options?: Options): NodeJS.ReadWriteStream;
+    sync(options?: GulpSassOptions): NodeJS.ReadWriteStream;
 }
 
 declare var _tmp: Sass;

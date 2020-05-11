@@ -15,10 +15,12 @@ declare namespace I18n {
     let locale: string;
     let defaultSeparator: string;
     let placeholder: RegExp;
-    let fallbacks: boolean;
+    let fallbacks: boolean | string | { [locale: string]: string | string[] };
     let missingBehaviour: "message" | "guess";
     let missingTranslationPrefix: string;
 
+    // tslint:disable-next-line prefer-declare-function
+    let getFullScope: (scope: string | ReadonlyArray<string>, options?: TranslateOptions) => string;
     // tslint:disable-next-line prefer-declare-function
     let missingTranslation: (scope: string, options?: TranslateOptions) => string | null | undefined;
     // tslint:disable-next-line prefer-declare-function
@@ -69,6 +71,8 @@ declare namespace I18n {
         sign_first?: boolean;
     }
     function toCurrency(num: number, options?: ToCurrencyOptions): string;
+
+    function toTime(scope: Scope, value: string | number | Date): string;
 
     interface ToHumanSizeOptions extends ToNumberOptions {
         format?: string;

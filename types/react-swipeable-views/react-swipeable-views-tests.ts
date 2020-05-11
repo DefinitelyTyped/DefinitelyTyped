@@ -44,7 +44,8 @@ React.createElement(SwipeableViews, {
     title: "Carousel",
     onTransitionEnd,
     axis: "x-reverse",
-    springConfig
+    springConfig,
+    disableLazyLoading: false
 });
 
 React.createElement(SwipeableViews, {});

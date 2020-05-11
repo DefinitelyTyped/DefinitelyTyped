@@ -16,16 +16,25 @@ import {
     MapProps,
     Marker,
     MarkerProps,
+    Path,
     Pane,
     Polygon,
+    PolygonProps,
     Polyline,
     Popup,
     PopupProps,
     Rectangle,
     TileLayer,
+    SVGOverlay,
     Tooltip,
     WMSTileLayer,
-    ZoomControl
+    ZoomControl,
+    LeafletProvider,
+    withLeaflet,
+    Viewport,
+    useLeaflet,
+    GeoJSON,
+    GeoJSONProps
 } from 'react-leaflet';
 const { BaseLayer, Overlay } = LayersControl;
 
@@ -207,7 +216,7 @@ export class CustomComponent extends Component<undefined, CustomComponentState> 
     }
 }
 
-// SOURCE ???
+// Similar to custom-icons.js
 export class MarkerWithDivIconExample extends Component<undefined, undefined> {
     render() {
         return (
@@ -499,6 +508,23 @@ export class SimpleExample extends Component<undefined, SimpleExampleState> {
     }
 }
 
+// svg-overlay.js
+export default class SVGOverlayExample extends Component {
+  render() {
+    return (
+      <Map center={[51.505, -0.09]} zoom={13}>
+        <SVGOverlay bounds={[[51.49, -0.08], [51.5, -0.06]]}>
+          <rect x="0" y="0" width="100%" height="100%" fill="blue" />
+          <circle r="5" cx="10" cy="10" fill="red" />
+          <text x="50%" y="50%" fill="white">
+            text
+          </text>
+        </SVGOverlay>
+      </Map>
+    );
+  }
+}
+
 // tooltip.js
 interface TooltipExampleState {
     clicked: number;
@@ -628,6 +654,44 @@ export class VectorLayersExample extends Component<undefined, undefined> {
     }
 }
 
+// viewport.js
+const DEFAULT_VIEWPORT: Viewport = {
+    center: [51.505, -0.09],
+    zoom: 13,
+};
+
+interface ViewportExampleState {
+    viewport: Viewport;
+}
+
+class ViewportExample extends Component<undefined, ViewportExampleState> {
+    state = {
+        viewport: DEFAULT_VIEWPORT,
+    };
+
+    onClickReset = () => {
+        this.setState({ viewport: DEFAULT_VIEWPORT });
+    }
+
+    onViewportChanged = (viewport: Viewport) => {
+        this.setState({ viewport });
+    }
+
+    render() {
+        return (
+            <Map
+                onClick={this.onClickReset}
+                onViewportChanged={this.onViewportChanged}
+                viewport={this.state.viewport}>
+                <TileLayer
+                    attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+            </Map>
+        );
+    }
+}
+
 // wms-tile-layer.js
 interface WMSTileLayerExampleState {
     lat: number;
@@ -729,6 +793,8 @@ class LegendControl extends MapControl<MapControlProps & { className?: string }>
     }
 }
 
+const legendControlComponent = withLeaflet<MapControlProps>(LegendControl);
+
 const LegendControlExample = () => (
     <Map className="map" center={mapControlCenter} zoom={13} style={{ height: "300px" }}>
         <TileLayer
@@ -745,3 +811,79 @@ const LegendControlExample = () => (
         </LegendControl>
     </Map>
 );
+
+class CustomPolygon extends Path<PolygonProps, L.Polygon> {
+    createLeafletElement(props: PolygonProps) {
+        const el = new L.Polygon(props.positions, this.getOptions(props));
+        this.contextValue = { ...props.leaflet, popupContainer: el };
+        return el;
+    }
+
+    updateLeafletElement(fromProps: PolygonProps, toProps: PolygonProps) {
+        if (toProps.positions !== fromProps.positions) {
+            this.leafletElement.setLatLngs(toProps.positions);
+        }
+        this.setStyleIfChanged(fromProps, toProps);
+    }
+
+    render() {
+        const { children } = this.props;
+        return children == null || this.contextValue == null ? null : (
+            <LeafletProvider value={this.contextValue}>{children}</LeafletProvider>
+        );
+    }
+}
+const leafletComponent = withLeaflet<PolygonProps>(CustomPolygon);
+
+// $ExpectType LeafletContext
+useLeaflet();
+
+const northDakota: GeoJSON.Feature = {
+    type: "Feature",
+    properties: {name: "North Dakota"},
+    geometry: {
+        type: "Polygon",
+        coordinates: [[
+            [-104.05, 48.99],
+            [-97.22,  48.98],
+            [-96.58,  45.94],
+            [-104.03, 45.94],
+            [-104.05, 48.99]
+        ]]
+    }
+};
+
+const colorado: GeoJSON.Feature = {
+    type: "Feature",
+    properties: {name: "Colorado"},
+    geometry: {
+        type: "Polygon",
+        coordinates: [[
+            [-109.05, 41.00],
+            [-102.06, 40.99],
+            [-102.03, 36.99],
+            [-109.04, 36.99],
+            [-109.05, 41.00]
+        ]]
+    }
+};
+
+// GeoJSON
+export class GeoJSONExample extends Component<undefined, undefined> {
+    polygons: GeoJSON.GeoJsonObject[] = [northDakota, colorado];
+
+    vp: Viewport = {
+        center: [-102, 40],
+        zoom: 10
+    };
+
+    render() {
+        return (<Map viewport={this.vp}>
+            <TileLayer
+                url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <GeoJSON data={this.polygons} />
+        </Map>);
+    }
+}

@@ -76,7 +76,7 @@ declare namespace Autocomplete {
          * and the width of the dropdown menu.
          */
         renderMenu?: (
-            items: any[],
+            items: ReactNode[],
             value: string,
             styles: CSSProperties,
         ) => ReactNode;

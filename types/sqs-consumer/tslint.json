@@ -1,9 +1,0 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // TODOs
-        "ban-types": false,
-        "dt-header": false,
-        "strict-export-declare-modifiers": false
-    }
-}

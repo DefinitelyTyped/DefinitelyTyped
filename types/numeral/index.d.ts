@@ -3,6 +3,7 @@
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Behind The Math <https://github.com/BehindTheMath>
 //                 Kenneth Luján <https://github.com/klujanrosas>
+//				   Carlos Quiroga <https://github.com/KarlosQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -22,6 +23,10 @@ interface NumeralJSLocale {
 	currency: {
 		symbol: string;
 	};
+}
+
+interface NumeralJSLocales {
+	[id: string]: NumeralJSLocale
 }
 
 interface NumeralJSOptions {
@@ -60,6 +65,11 @@ interface Numeral {
 	locale(key?: string): string;
 
 	/**
+	 * Object with all loaded locales
+	 */
+	locales: NumeralJSLocales;
+
+	/**
 	 * This function provides access to the loaded locale data.  If
 	 * no arguments are passed in, it will simply return the current
 	 * global locale object.
@@ -67,6 +77,11 @@ interface Numeral {
 	 * @param key Locale key, e.g 'es' for a spanish locale definition
 	 */
 	localeData(key?: string): NumeralJSLocale;
+
+	/**
+	 * This function resets the configuration to all the defaults
+	 */
+	reset(): void;
 
 	/**
 	 * Registers a language definition or a custom format definition.
@@ -85,7 +100,7 @@ interface Numeral {
 	unformat(inputString: string): number;
 	value(): number;
 	valueOf(): number;
-	set (value: any): Numeral;
+	set(value: any): Numeral;
 	add(value: any): Numeral;
 	subtract(value: any): Numeral;
 	multiply(value: any): Numeral;

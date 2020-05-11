@@ -29,6 +29,7 @@ declare module "rest" {
 			canceled?: boolean;
 			cancel?: () => void;
 			originator?: (request?: Request) => ResponsePromise;
+			mixin?: any;
 		}
 
 		export interface Status {

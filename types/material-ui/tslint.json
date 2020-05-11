@@ -1,13 +1,13 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
         "ban-types": false,
         "no-any-union": false,
         "no-declare-current-package": false,
         "no-duplicate-imports": false,
         "no-empty-interface": false,
         "no-mergeable-namespace": false,
+        "npm-naming": false,
         "strict-export-declare-modifiers": false
     }
 }

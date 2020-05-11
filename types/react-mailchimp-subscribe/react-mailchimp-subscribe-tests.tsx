@@ -25,9 +25,7 @@ const Example: React.StatelessComponent = () => (
       </>)}
       url="spam.biz/subscribe"
     />
-    { /* once Typescript 2.9 is out, generics in components will be allowed, at that point uncomment these. */ }
-    { /* https://github.com/Microsoft/TypeScript/pull/22415 */ }
-    {/* <MailchimpSubscribe<any>
+    <MailchimpSubscribe<any>
       render={(hooks) => (
         <form
           onSubmit={e => {
@@ -52,6 +50,6 @@ const Example: React.StatelessComponent = () => (
         />
       )}
       url="spam.biz/subscribe"
-    /> */}
+    />
   </>
 );

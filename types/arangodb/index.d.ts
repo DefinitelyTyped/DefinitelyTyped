@@ -1,8 +1,8 @@
-// Type definitions for ArangoDB 3.4
+// Type definitions for non-npm package ArangoDB 3.5
 // Project: https://github.com/arangodb/arangodb
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="node" />
 
@@ -89,7 +89,7 @@ declare namespace ArangoDB {
         | "network authentication required";
     type EdgeDirection = "any" | "inbound" | "outbound";
     type EngineType = "mmfiles" | "rocksdb";
-    type IndexType = "hash" | "skiplist" | "fulltext" | "geo";
+    type IndexType = "hash" | "skiplist" | "fulltext" | "geo" | "ttl";
     type ViewType = "arangosearch";
     type KeyGeneratorType = "traditional" | "autoincrement";
     type ErrorName =
@@ -510,15 +510,18 @@ declare namespace ArangoDB {
         sparse?: boolean;
         unique?: boolean;
         deduplicate?: boolean;
+        expireAfter?: number;
     }
 
     interface Index<T extends object = any> {
         id: string;
+        name: string;
         type: IndexType;
         fields: Array<keyof T | string>;
         sparse: boolean;
         unique: boolean;
         deduplicate: boolean;
+        expireAfter?: number;
         isNewlyCreated: boolean;
         selectivityEstimate: number;
         code: number;
@@ -619,11 +622,13 @@ declare namespace ArangoDB {
 
     interface Collection<T extends object = any> {
         // Collection
+        name(): string;
         checksum(
             withRevisions?: boolean,
             withData?: boolean
         ): CollectionChecksum;
         count(): number;
+        documentId(documentKey: string): string;
         drop(options?: { isSystem?: boolean }): void;
         figures(): CollectionFigures;
         load(): void;
@@ -654,6 +659,7 @@ declare namespace ArangoDB {
         ): Array<Document<T>>;
         exists(name: string): boolean;
         firstExample(example: Partial<Document<T>>): Document<T> | null;
+        getResponsibleShard(document: DocumentLike): string;
         insert(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
         insert(
             array: ReadonlyArray<DocumentData<T>>,
@@ -848,10 +854,11 @@ declare namespace ArangoDB {
         ): ArangoSearchViewProperties;
     }
 
-    interface ArangoSearchViewConsolidate {
-        threshold: number;
-        segmentThreshold: number;
-    }
+    type ArangoSearchViewConsolidationType =
+        | "bytes"
+        | "bytes_accum"
+        | "count"
+        | "fill";
 
     interface ArangoSearchViewCollectionLink {
         analyzers?: string[];
@@ -865,35 +872,26 @@ declare namespace ArangoDB {
         id: string;
         name: string;
         type: "arangosearch";
-        commit: {
-            cleanupIntervalStep: number;
-            commitIntervalMsec: number;
-            consolidate: {
-                bytes?: ArangoSearchViewConsolidate;
-                bytes_accum?: ArangoSearchViewConsolidate;
-                count?: ArangoSearchViewConsolidate;
-                fill?: ArangoSearchViewConsolidate;
-            };
+
+        cleanupIntervalStep: number;
+        consolidationIntervalMsec: number;
+        consolidationPolicy: {
+            type: ArangoSearchViewConsolidationType;
+            segmentThreshold: number;
+            threshold: number;
         };
-        locale: string;
         links: {
             [key: string]: ArangoSearchViewCollectionLink | undefined;
         };
     }
 
     interface ArangoSearchViewPropertiesOptions {
-        locale?: string;
-        commit?: {
-            consolidate?:
-                | "none"
-                | {
-                      count?: Partial<ArangoSearchViewConsolidate>;
-                      bytes?: Partial<ArangoSearchViewConsolidate>;
-                      bytes_accum?: Partial<ArangoSearchViewConsolidate>;
-                      fill?: Partial<ArangoSearchViewConsolidate>;
-                  };
-            commitIntervalMsec?: number;
-            cleanupIntervalStep?: number;
+        cleanupIntervalStep?: number;
+        consolidationIntervalMsec?: number;
+        consolidationPolicy?: {
+            type?: ArangoSearchViewConsolidationType;
+            segmentThreshold?: number;
+            threshold?: number;
         };
         links?: {
             [key: string]: ArangoSearchViewCollectionLink | undefined;
@@ -958,8 +956,9 @@ declare namespace ArangoDB {
 
         // AQL
         _createStatement(query: Query | string): Statement;
+        _query(query: Query, options?: QueryOptions): Cursor;
         _query(
-            query: Query | string,
+            query: string,
             bindVars?: object,
             options?: QueryOptions
         ): Cursor;
@@ -1032,7 +1031,7 @@ declare namespace Foxx {
         register: (endpoint: Endpoint) => SimpleMiddleware;
     }
     type Middleware = SimpleMiddleware | DelegateMiddleware;
-    type Handler = ((req: Request, res: Response) => void);
+    type Handler = (req: Request, res: Response) => void;
     type NextFunction = () => void;
 
     interface ValidationResult<T> {
@@ -1170,6 +1169,10 @@ declare namespace Foxx {
     interface Request {
         arangoUser: string | null;
         arangoVersion: number;
+        auth: null | {
+            bearer?: string;
+            basic?: { username?: string; password?: string };
+        };
         baseUrl: string;
         body: any;
         context: Context;
@@ -1448,10 +1451,97 @@ declare module "@arangodb/foxx/router" {
     export = createRouter;
 }
 
+declare module "@arangodb/foxx/queues" {
+    interface QueueItem {
+        name: string;
+        mount: string;
+        backOff?: ((failureCount: number) => number) | number;
+        maxFailures?: number;
+        schema?: Foxx.Schema;
+        preprocess?: (data: any) => any;
+    }
+
+    interface Script {
+        name: string;
+        mount: string;
+    }
+
+    type JobCallback = (
+        result: any,
+        jobData: any,
+        job: ArangoDB.Document<Job>
+    ) => void;
+
+    interface Job {
+        status: string;
+        queue: string;
+        type: Script;
+        failures: object[];
+        runs: number;
+        data: any;
+        created: number;
+        modified: number;
+        delayUntil: number;
+        maxFailures: number;
+        repeatDelay: number;
+        repeatTimes: number;
+        repeatUntil: number;
+        success?: string;
+        failure?: string;
+        runFailures: number;
+        abort(): void;
+    }
+
+    interface JobOptions {
+        success?: JobCallback;
+        failure?: JobCallback;
+        delayUntil?: number | Date;
+        backOff?: ((failureCount: number) => number) | number;
+        maxFailures?: number;
+        repeatTimes?: number;
+        repeatUntil?: number | Date;
+        repeatDelay?: number;
+    }
+
+    interface Queue {
+        push(item: QueueItem, data: any, opts?: JobOptions): void;
+        get(jobId: string): ArangoDB.Document<Job>;
+        delete(jobId: string): boolean;
+        pending(script?: Script): string[];
+        progress(script?: Script): string[];
+        complete(script?: Script): string[];
+        failed(script?: Script): string[];
+        all(script?: Script): string[];
+    }
+
+    function createQueue(name: string, maxWorkers?: number): Queue;
+    function deleteQueue(name: string): boolean;
+    function get(name: string): Queue;
+
+    export {
+        createQueue as create,
+        deleteQueue as delete,
+        get,
+        JobOptions,
+        Job,
+        Queue,
+        QueueItem,
+        Script
+    };
+}
+
 declare module "@arangodb/foxx/graphql" {
-    import { formatError, GraphQLSchema } from "graphql";
-    type GraphQLModule = object;
-    type GraphQLFormatErrorFunction = typeof formatError;
+    type GraphQLSchema = object;
+    type GraphQLFormatErrorFunction = (error: any) => any;
+    interface GraphQLModule {
+      formatError: GraphQLFormatErrorFunction;
+      Source: any;
+      parse: any;
+      validate: any;
+      specifiedRules: any;
+      getOperationAST: any;
+      execute: any;
+    }
     interface GraphQLOptions {
         schema: GraphQLSchema;
         context?: any;
@@ -1706,7 +1796,7 @@ declare module "@arangodb/crypto" {
         key: string | null,
         token: string,
         noVerify?: boolean
-    ): string | null;
+    ): object | null;
     function md5(message: string): string;
     function sha1(message: string): string;
     function sha224(message: string): string;
@@ -1938,6 +2028,12 @@ declare module "@arangodb/locals" {
 
 interface NodeModule {
     context: Foxx.Context;
+}
+
+declare namespace NodeJS {
+    interface Module {
+        context: Foxx.Context;
+    }
 }
 
 interface Console {

@@ -1,85 +1,168 @@
-import * as DMVAST from 'vast-client';
+import {
+    VASTClient,
+    VASTParser,
+    VASTTracker,
+    VastResponse,
+    VastAd,
+    VastCreativeLinear,
+    VASTClientCustomStorage,
+    VASTClientUrlHandler,
+    VastCreativeCompanion,
+} from 'vast-client';
 
 const VASTUrl = 'http://example.dailymotion.com/vast.xml';
-function cb(response: DMVAST.VastResponse, error: Error): void {
-    if (error) return;
+const VASTXml = new DOMParser().parseFromString('<vast></vast>', 'text/xml');
+
+function cbSuccess(response: VastResponse): void {
     // process the VAST response
-    const ads: DMVAST.VastAd[] = response.ads;
+    const ads: VastAd[] = response.ads;
     const linearCreative = response.ads[0].creatives.filter(creative => {
         return creative.type === 'linear';
     });
     if (linearCreative && linearCreative.length > 0) {
-        const creative = linearCreative[0] as DMVAST.VastCreativeLinear;
+        const creative = linearCreative[0] as VastCreativeLinear;
+        if (!!creative.videoCustomClickURLTemplates) {
+        }
         const mediaFiles = creative.mediaFiles;
     }
 }
 
+function cbError(error: Error): void {
+    // handle error
+    return;
+}
+
 // CLIENT
 
-// Ignore the first 2 calls
-DMVAST.client.cappingFreeLunch = 2;
+const customStorage: VASTClientCustomStorage = {
+    data: {},
+    getItem(key) {
+        return this.data[key];
+    },
+    setItem(key, value) {
+        this.data[key] = value;
+    },
+};
 
-// Those following DMVAST.client.get calls won't be done
-DMVAST.client.get(VASTUrl, cb);
-DMVAST.client.get(VASTUrl, cb);
+const client = new VASTClient(5, 60000, customStorage);
+
+// Ignore the first 2 calls
+client.cappingFreeLunch = 2;
+
+// Those following client.get calls won't be done
+client
+    .get(VASTUrl)
+    .then(cbSuccess)
+    .catch(cbError);
+client
+    .get(VASTUrl)
+    .then(cbSuccess)
+    .catch(cbError);
 
 // VASTUrl will be called
-DMVAST.client.get(VASTUrl, cb);
+client
+    .get(VASTUrl)
+    .then(cbSuccess)
+    .catch(cbError);
 
 // Ignore any call made 5 minutes or less after one.
-DMVAST.client.cappingMinimumTimeInterval = 5 * 60 * 1000;
-
-// Work
-DMVAST.client.get(VASTUrl, cb);
+client.cappingMinimumTimeInterval = 5 * 60 * 1000;
 
 // ...
 // 2 minutes later
 
 // Ignored
-DMVAST.client.get(VASTUrl, cb);
+client
+    .get(VASTUrl)
+    .then(cbSuccess)
+    .catch(cbError);
 
 // ...
 // 4 minutes later
 
 // Work
-DMVAST.client.get(VASTUrl, cb);
+client
+    .get(VASTUrl)
+    .then(cbSuccess)
+    .catch(cbError);
+
+// with options
+const urlHandler: VASTClientUrlHandler = {
+    get: (url, options, cb) => {
+        // get xml
+        cb(null, VASTXml);
+        // or call with error
+        cb(new Error('no vast'));
+    },
+};
+client
+    .get(VASTUrl, { urlHandler })
+    .then(cbSuccess)
+    .catch(cbError);
+
+if (client.hasRemainingAds()) {
+    client
+        .getNextAds()
+        .then(res => {
+            // Do something with the next Ads
+        })
+        .catch(err => {
+            // Deal with the error
+        });
+}
 
 // PARSER
 
-DMVAST.parser.addURLTemplateFilter((vastUrl: string): string => {
-    return vastUrl.replace('[DOMAIN]', 'mywebsite.com');
-});
-
-const count = DMVAST.parser.countURLTemplateFilters();
-
-DMVAST.parser.clearUrlTemplateFilters();
-
-const xml = 'some xml';
-const options = {
-    withCredentials: true,
-    wrapperLimit: 5
-};
-
-DMVAST.parser.load(xml, options, cb);
-
-const url = 'http://example.dailymotion.com/vast.xml';
-
-DMVAST.parser.parse(url, options, cb);
+const parser = new VASTParser();
 
 const replaceDomain = (url: string): string => {
     return url.replace('[DOMAIN]', 'mywebsite.com');
 };
 
-DMVAST.parser.addURLTemplateFilter(replaceDomain);
-DMVAST.parser.removeURLTemplateFilter(replaceDomain);
+parser.addURLTemplateFilter(replaceDomain);
+
+const count = parser.countURLTemplateFilters();
+
+parser.clearUrlTemplateFilters();
+
+parser.trackVastError(['http://errorUrlTemplate.com/'], { ERRORCODE: 301 }, { ERRORMESSAGE: 'error message' });
+
+parser
+    .fetchVAST(VASTUrl)
+    .then(xml => {
+        // do something with xml document
+        return xml.documentElement.nodeName === 'VAST';
+    })
+    .catch(error => {
+        // handle error
+    });
+
+const options = {
+    withCredentials: true,
+    wrapperLimit: 5,
+};
+parser
+    .getAndParseVAST(VASTUrl, options)
+    .then(cbSuccess)
+    .catch(cbError);
+
+parser
+    .parseVAST(VASTXml)
+    .then(cbSuccess)
+    .catch(cbError);
 
 // TRACKER
 
 // Create a VAST Tracker instance for a linear ad
-const vastTracker = new DMVAST.tracker({} as DMVAST.VastAd, {} as DMVAST.VastCreativeLinear);
+const vastTracker = new VASTTracker(client, {} as VastAd, {} as VastCreativeLinear);
 
 // Create a VAST Tracker instance for a companion ad
-// const vastTracker = new DMVAST.tracker({} as DMVAST.VastAd, {} as DMVAST.VastCreativeLinear, {} as DMVAST.VastCreativeCompanion);
+const vastTrackerCompanion = new VASTTracker(
+    client,
+    {} as VastAd,
+    {} as VastCreativeLinear,
+    {} as VastCreativeCompanion,
+);
 
 const onSkip = () => {
     console.log('Ad unit skipped');
@@ -90,11 +173,11 @@ vastTracker.on('skip', onSkip);
 // Stop logging message
 vastTracker.off('skip', onSkip);
 
-const player: HTMLVideoElement = <HTMLVideoElement> document.getElementById('playerId');
+const player = document.getElementById('playerId') as HTMLVideoElement;
 
 // Bind a timeupdate listener to the player
-player.addEventListener('timeupdate', (e) => {
-    vastTracker.setProgress((<HTMLVideoElement> e.target).currentTime);
+player.addEventListener('timeupdate', e => {
+    vastTracker.setProgress((e.target as HTMLVideoElement).currentTime);
 });
 
 vastTracker.on('firstQuartile', () => {
@@ -102,8 +185,8 @@ vastTracker.on('firstQuartile', () => {
 });
 
 // Bind a volumechange listener to the player
-player.addEventListener('volumechange', (e) => {
-    vastTracker.setMuted((<HTMLVideoElement> e.target).muted);
+player.addEventListener('volumechange', e => {
+    vastTracker.setMuted((e.target as HTMLVideoElement).muted);
 });
 
 vastTracker.on('mute', () => {
@@ -115,8 +198,12 @@ vastTracker.on('unmute', () => {
 });
 
 // Bind play/pause listeners to the player
-player.addEventListener('play', () => { vastTracker.setPaused(false); });
-player.addEventListener('pause', () => { vastTracker.setPaused(true); });
+player.addEventListener('play', () => {
+    vastTracker.setPaused(false);
+});
+player.addEventListener('pause', () => {
+    vastTracker.setPaused(true);
+});
 
 vastTracker.on('resume', () => {
     // resume tracking URLs have been called
@@ -128,8 +215,8 @@ vastTracker.on('pause', () => {
 
 // Bind fullscreenchange listener to the player
 // Note that the fullscreen API is still vendor-prefixed in browsers
-player.addEventListener('fullscreenchange', (e) => {
-    const isFullscreen = !!document.fullscreenElement;
+player.addEventListener('fullscreenchange', e => {
+    const isFullscreen = true;
     vastTracker.setFullscreen(isFullscreen);
 });
 
@@ -144,7 +231,7 @@ vastTracker.on('exitFullscreen', () => {
 // Sample function for a button that increase/decrease player size
 let playerExpanded = false;
 
-const expandButton = <HTMLButtonElement> document.getElementById('buttonId');
+const expandButton = document.getElementById('buttonId') as HTMLButtonElement;
 
 function increasePlayerSize(): void {
     // do nothing
@@ -154,7 +241,7 @@ function decreasePlayerSize(): void {
     // do nothing
 }
 
-expandButton.addEventListener('click', (e) => {
+expandButton.addEventListener('click', e => {
     playerExpanded = !playerExpanded;
     if (playerExpanded) {
         increasePlayerSize();
@@ -177,7 +264,7 @@ vastTracker.setSkipDelay(5);
 
 // Bind canplay listener to the player
 player.addEventListener('canplay', () => {
-    vastTracker.load();
+    vastTracker.trackImpression();
 });
 
 vastTracker.on('creativeView', () => {
@@ -216,7 +303,7 @@ vastTracker.on('close', () => {
 });
 
 // Bind click listener to the skip button
-const skipButton = <HTMLButtonElement> document.getElementById('buttonId');
+const skipButton = document.getElementById('buttonId') as HTMLButtonElement;
 
 skipButton.addEventListener('click', () => {
     vastTracker.skip();
@@ -234,4 +321,13 @@ player.addEventListener('click', () => {
 vastTracker.on('clickthrough', (url: string) => {
     // Open the resolved clickThrough url
     document.location.href = url;
+});
+
+// Bind acceptInvitation listener to the invitation button
+const invitationButton = document.getElementById('invitationButtonId') as HTMLButtonElement;
+
+// Bind click listener to the button
+invitationButton.addEventListener('click', () => {
+    vastTracker.track('acceptInvitation');
+    vastTracker.track('acceptInvitationLinear', false);
 });

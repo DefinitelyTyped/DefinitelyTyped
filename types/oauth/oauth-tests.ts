@@ -44,7 +44,7 @@ http.createServer((req, res) => {
     } else if (pLen === 2 && p[1].indexOf('code') === 0) {
         /** Github sends auth code so that access_token can be obtained */
         /** To obtain and parse code='...' from code?code='...' */
-        const qsObj = qs.parse<{[key: string]: string}>(p[1].split('?')[1]);
+        const qsObj = qs.parse(p[1].split('?')[1]) as { code: string };
 
         /** Obtaining access_token */
         oauth2.getOAuthAccessToken(

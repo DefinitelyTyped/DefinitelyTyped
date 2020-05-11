@@ -225,23 +225,10 @@ interface ToastrDisplayMethod {
 	 * Create a toast
 	 *
 	 * @param message Message to display in toast
-	 */
-	(message: string): JQuery;
-	/**
-	 * Create a toast
-	 *
-	 * @param message Message to display in toast
-	 * @param title Title to display on toast
-	 */
-	(message: string, title: string): JQuery;
-	/**
-	 * Create a toast
-	 *
-	 * @param message Message to display in toast
 	 * @param title Title to display on toast
 	 * @param overrides Option values for toast
 	 */
-	(message: string, title: string, overrides: ToastrOptions): JQuery;
+	(message: string, title?: string, overrides?: ToastrOptions): JQuery;
 }
 
 type ToastrType = 'error'|'info'|'success'|'warning';
@@ -302,28 +289,27 @@ interface Toastr {
 	 */
 	clear: {
 		/**
-		 * Clear all toasts
-		 */
-		(): void;
-		/**
-		 * Clear specific toast
-		 *
-		 * @param toast Toast to clear
-		 */
-		(toast: JQuery): void;
-		/**
 		 * Clear specific toast
 		 *
 		 * @param toast Toast to clear
 		 * @param clearOptions force clearing a toast, ignoring focus
 		 */
-		(toast: JQuery, clearOptions: {force: boolean}): void;
+		(toast?: JQuery, clearOptions?: {force: boolean}): void;
 	};
 	/**
-	 * Removes all toasts (without animation)
+	 * Removes toasts (without animation)
 	 */
 	remove: {
+		/**
+		 * Removes all toasts (without animation)
+	 	 */
 		(): void;
+		/**
+		 * Removes specific toast (without animation)
+		 *
+		 * @param toast Toast to remove
+	 	 */
+		(toast: JQuery): void;
 	};
 	/**
 	 * Create an error toast
@@ -373,9 +359,7 @@ interface Toastr {
 	 *
 	 * @param callback The function which will be passed the event details.
 	 */
-	subscribe: (callback: (response: ToastrResponse) => any) => void;
-
-	[key: string]: any;
+	subscribe: (callback: (response: ToastrResponse) => void) => void;
 }
 
 declare var toastr: Toastr;

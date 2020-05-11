@@ -1020,7 +1020,7 @@ declare namespace L {
 
         /**
           * Function that will be used for converting GeoJSON coordinates to LatLng points
-          * (if not specified, coords will be assumed to be WGS84 � standard[longitude, latitude]
+          * (if not specified, coords will be assumed to be WGS84 standard[longitude, latitude]
           * values in degrees).
           */
         coordsToLatLng?: (coords: any[]) => LatLng[];
@@ -2497,7 +2497,7 @@ declare namespace L.Map {
 
         /**
           * When this option is set, the map restricts the view to the given geographical
-          * bounds, bouncing the user back when he tries to pan outside the view, and also
+          * bounds, bouncing the user back when they try to pan outside the view, and also
           * not allowing to zoom out to a view that's larger than the given bounds (depending
           * on the map size). To set the restriction dynamically, use setMaxBounds method
           */
@@ -2563,7 +2563,7 @@ declare namespace L.Map {
         tap?: boolean;
 
         /**
-          * The max number of pixels a user can shift his finger during touch for it
+          * The max number of pixels a user can shift their finger during touch for it
           * to be considered a valid tap.
           *
           * Default value: 15.

@@ -63,7 +63,7 @@ export type TouchEventCallback<T extends TouchEventType = TouchEventType> = (
     payload: ArgmentedEvent<T>
 ) => any;
 
-export interface Subscrption {
+export interface Subscription {
     unsubscribe: () => void;
 }
 
@@ -71,13 +71,13 @@ export function subscribe<T extends UIEventType>(
     eventType: T,
     callback: UIEventCallback<T>,
     options?: SubscribeOptions
-): Subscrption;
+): Subscription;
 
 export function subscribe<T extends TouchEventType>(
     eventType: T,
     callback: TouchEventCallback<T>,
     options?: SubscribeOptions
-): Subscrption;
+): Subscription;
 
 export function unsubscribe<T extends UIEventType>(
     eventType: T,

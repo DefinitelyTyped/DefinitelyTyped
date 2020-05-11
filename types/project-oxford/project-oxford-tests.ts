@@ -12,7 +12,7 @@ const {describe, it, before, after, beforeEach, afterEach} = null as any as {
 var client = new oxford.Client(process.env.OXFORD_KEY);
 
 // Store variables, no point in calling the api too often
-var billFaces = <string[]>[];
+var billFaces = [] as string[];
 var personGroupId = "uuid.v4()";
 var personGroupId2 = "uuid.v4()";
 var billPersonId: string;
@@ -85,7 +85,7 @@ describe('Project Oxford Face API Test', function () {
 
     describe('#similar()', function () {
         it('detects similar faces', function (done) {
-            var detects = <any>[];
+            var detects = [];
 
             this.timeout(10000);
 
@@ -113,7 +113,7 @@ describe('Project Oxford Face API Test', function () {
 
     describe('#grouping()', function () {
         it('detects groups faces', function (done) {
-            var faceIds = <string[]>[];
+            var faceIds = [] as string[];
 
             this.timeout(10000);
 
@@ -157,7 +157,7 @@ describe('Project Oxford Face API Test', function () {
             // delete the group then. So we clean up before we run tests - and to wait
             // for cleanup to finish, we're just using done().
             client.face.personGroup.list().then(function (response) {
-                var promises = <any>[];
+                var promises: _Promise<void>[] = [];
 
                 response.forEach(function (personGroup) {
                     if (personGroup.name.indexOf('po-node-test-group') > -1) {

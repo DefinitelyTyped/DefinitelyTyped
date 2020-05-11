@@ -1,21 +1,49 @@
-const allowedPaymentMethods = new Array<google.payments.api.AllowedPaymentMethod>('CARD', 'TOKENIZED_CARD');
+const allowedCardNetworks = new Array<google.payments.api.CardNetwork>(
+    'AMEX',
+    'DISCOVER',
+    'JCB',
+    'MASTERCARD',
+    'VISA',
+    'INTERAC'
+);
 
-const allowedCardNetworks = new Array<google.payments.api.AllowedCardNetwork>('AMEX', 'DISCOVER', 'JCB', 'MASTERCARD', 'VISA');
-
-const tokenizationParameters: google.payments.api.PaymentMethodTokenizationParameters = {
-    tokenizationType: 'PAYMENT_GATEWAY',
+const allowedPaymentMethods = new Array<google.payments.api.PaymentMethodSpecification>({
+    type: 'CARD',
     parameters: {
-      gateway: 'example',
-      gatewayMerchantId: 'abc123'
+        allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+        allowedCardNetworks,
+        billingAddressRequired: true,
+        billingAddressParameters: {
+            format: 'MIN'
+        }
+    },
+    tokenizationSpecification: {
+        type: 'PAYMENT_GATEWAY',
+        parameters: {
+            gateway: 'example',
+            gatewayMerchantId: 'abc123'
+        }
     }
-};
+});
 
-const getGooglePaymentsClient = (env?: google.payments.api.EnvironmentType) => new google.payments.api.PaymentsClient({environment: env});
+const getGooglePaymentsClient = (env?: google.payments.api.Environment) => {
+    return new google.payments.api.PaymentsClient({
+        environment: env,
+        paymentDataCallbacks: {
+            onPaymentAuthorized: (paymentData) => ({ transactionState: 'SUCCESS' }),
+            onPaymentDataChanged: (paymentData) => ({})
+        }
+    });
+};
 
 function onGooglePayLoaded() {
     const client = getGooglePaymentsClient();
 
-    client.isReadyToPay({allowedPaymentMethods}).then(response => {
+    client.isReadyToPay({
+        apiVersion: 2,
+        apiVersionMinor: 0,
+        allowedPaymentMethods
+    }).then(response => {
         if (response.result) {
             addGooglePayButton();
             prefetchGooglePaymentData();
@@ -38,20 +66,31 @@ function addGooglePayButton() {
 
 function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataRequest {
     return {
-        merchantId: '01234567890123456789',
+        apiVersion: 2,
+        apiVersionMinor: 0,
+        merchantInfo: {
+            merchantId: '01234567890123456789'
+        },
         transactionInfo: {
             totalPriceStatus: 'FINAL',
             totalPrice: '123.45',
-            currencyCode: 'USD'
+            currencyCode: 'USD',
+            countryCode: 'US',
+            transactionId: '0123456789',
+            displayItems: [{
+                label: 'Subtotal',
+                type: 'SUBTOTAL',
+                price: '11.00'
+            }, {
+                label: 'Shipping',
+                type: 'LINE_ITEM',
+                price: '0',
+                status: 'PENDING'
+            }],
+            totalPriceLabel: 'Total',
+            checkoutOption: 'COMPLETE_IMMEDIATE_PURCHASE'
         },
-        paymentMethodTokenizationParameters: tokenizationParameters,
         allowedPaymentMethods,
-        cardRequirements: {
-            allowedCardNetworks,
-            billingAddressRequired: true,
-            billingAddressFormat: 'FULL'
-        },
-        phoneNumberRequired: false,
         shippingAddressRequired: true
     };
 }

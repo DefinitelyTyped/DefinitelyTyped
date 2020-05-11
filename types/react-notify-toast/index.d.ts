@@ -23,8 +23,17 @@ declare class reactNotifyToast {
     createShowQueue(): reactNotifyToast;
 }
 
+interface Options {
+    wrapperId?: string;
+    animationDuration?: number;
+    timeout?: number;
+    zIndex?: number;
+    top?: number | string;
+    colors?: any;
+}
+
 interface NotificationProps {
-    options: any;
+    options?: Options;
 }
 
 export class Notification extends React.Component<NotificationProps, any> {}

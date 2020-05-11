@@ -7,7 +7,6 @@ import {
     FormName,
     GenericForm,
     FormSection,
-    GenericFormSection,
     formValues,
     formValueSelector,
     Field,
@@ -24,11 +23,16 @@ import {
     FormAction,
     actionTypes,
     submit,
-    SubmissionError
-} from "redux-form";
+    SubmissionError,
+    FieldArrayFieldsProps,
+    DecoratedFormProps,
+} from 'redux-form';
+
 import {
     Field as ImmutableField,
-    reduxForm as immutableReduxForm
+    reduxForm as immutableReduxForm,
+    startSubmit as immutableStartSubmit,
+    stopSubmit as immutableStopSubmit
 } from "redux-form/immutable";
 
 import LibField, {
@@ -61,8 +65,9 @@ type InjectedProps = InjectedFormProps<TestFormData, TestFormComponentProps>;
 
 class TestFormComponent extends React.Component<TestFormComponentProps & InjectedProps> {
     render() {
-        const { form, initialValues } = this.props;
+        const { form, initialValues, error } = this.props;
         const foo = initialValues.foo;
+        const errorIsString = error + 'test';
         return null;
     }
 }
@@ -99,8 +104,8 @@ const ItemListObj = formValues({ fooBar : "foo" })(
 interface MyFormSectionProps {
     foo: string;
 }
-const MyFormSection: React.StatelessComponent<MyFormSectionProps> = ({ children }) => null;
-const FormSectionCustom = FormSection as new () => GenericFormSection<MyFormSectionProps>;
+
+const MyFormSection: React.StatelessComponent<MyFormSectionProps> = ({ children, foo }) => null;
 
 /* Custom Field */
 
@@ -156,7 +161,7 @@ const FieldsCustom = Fields as new () => GenericFields<MyFieldsCustomProps>;
 
 /* FieldArray */
 
-const MyArrayField: React.StatelessComponent = ({
+const MyArrayField: React.StatelessComponent<WrappedFieldArrayProps> = ({
     children
 }) => null;
 
@@ -165,20 +170,19 @@ const MyArrayField: React.StatelessComponent = ({
 interface MyFieldValue {
     num: number;
 }
+
 interface MyFieldArrayCustomProps {
     foo: string;
+    bar: number;
 }
 
-const MyCustomArrayField: React.StatelessComponent<MyFieldArrayCustomProps> = ({
+const MyCustomArrayField: React.StatelessComponent<MyFieldArrayCustomProps & WrappedFieldArrayProps<MyFieldValue>> = ({
     children,
-    foo
+    fields,
+    foo,
+    bar
 }) => null;
 
-type MyFieldArrayProps = MyFieldArrayCustomProps & WrappedFieldArrayProps<MyFieldValue>;
-const MyFieldArray: React.StatelessComponent<MyFieldArrayProps> = ({
-    children,
-    fields
-}) => null;
 const FieldArrayCustom = FieldArray as new () => GenericFieldArray<MyFieldValue, MyFieldArrayCustomProps>;
 
 /* Tests */
@@ -229,24 +233,42 @@ const testFormWithInitialValuesAndValidationDecorator = reduxForm<MultivalueForm
     }
 });
 
+const testFormWithChangeFunctionDecorator = reduxForm<TestFormData, TestFormComponentProps>({
+    form: 'testWithValidation',
+    onChange: (
+        values: Partial<TestFormData>,
+        dispatch: Dispatch<any>,
+        props: DecoratedFormProps<TestFormData, TestFormComponentProps>,
+        previousValues: Partial<TestFormData>) => {}
+});
+
 type TestProps = {} & InjectedFormProps<TestFormData>;
 const Test = reduxForm<TestFormData>({
-    form : "test"
+    form : "test",
+    shouldError: ({
+        values,
+        nextProps,
+        props,
+        initialRender,
+        lastFieldValidatorKeys,
+        fieldValidatorKeys,
+        structure
+    }) => true,
 })(
     class Test extends React.Component<TestProps> {
         handleSubmitForm = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
 
         render() {
             const { handleSubmit } = this.props;
-            const FormCustom = Form as new () => GenericForm<TestFormData, {}>;
+            const FormCustom = Form as new () => GenericForm<TestFormData, {}, string>;
 
             return (
                 <div>
                     <FormCustom onSubmit={ handleSubmit(this.handleSubmitForm) }>
-                        <FormSectionCustom
-                            name="test1"
-                            component={ MyFormSection }
-                            foo="bar"
+                        <FormSection<MyFormSectionProps>
+                            name="my-section"
+                            component={MyFormSection}
+                            foo="hello"
                         />
 
                         <FormSection name="test2">
@@ -269,13 +291,19 @@ const Test = reduxForm<TestFormData>({
                             <Field
                                 name="field4"
                                 component="input"
-                                onChange={(event, newValue, previousValue) => {}}
-                                onBlur={(event, newValue, previousValue) => {}}
+                                onChange={(event, newValue, previousValue, fieldName) => {}}
+                                onBlur={(event, newValue, previousValue, fieldName) => {}}
                             />
 
                             <ImmutableField
                                 name="field3im"
                                 component="select"
+                            />
+
+                            <Field
+                                name="field4"
+                                component={ MyField }
+                                foo="bar"
                             />
 
                             <FieldCustom
@@ -306,15 +334,27 @@ const Test = reduxForm<TestFormData>({
                                 foo="bar"
                             />
 
-                            <FieldArray
+                            <FieldArray<{}>
                                 name="field9"
                                 component={ MyArrayField }
                             />
 
+                            {/* Passing child props via explicit props arg (TS-preferable)*/}
+                            <FieldArrayCustom
+                                name="field10"
+                                component={ MyCustomArrayField }
+                                props={{
+                                    foo: 'bar',
+                                    bar: 123
+                                }}
+                            />
+
+                            {/* Passing child props via extra props passed to parent */}
                             <FieldArrayCustom
                                 name="field10"
                                 component={ MyCustomArrayField }
                                 foo="bar"
+                                bar={23}
                             />
                         </FormSection>
                     </FormCustom>
@@ -404,8 +444,47 @@ class FormNameTest extends React.Component {
     render() {
         return (
             <FormName>
-                {({ form }) => <span>Form Name is: {form}</span>}
+                {({ form, sectionPrefix }) => (
+                    <span>
+                        Form name is {form} and section prefix is {sectionPrefix}
+                    </span>
+                )}
             </FormName>
         );
+    }
+}
+
+// Test SubmissionError with custom error format
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26494
+// Note: explicit parameters not needed in TS 2.7
+new LibSubmissionError<{ myField: any }, string[]>({
+    _error: ["First form-level error", "Second form-level error"],
+    myField: ["Field-level error"]
+});
+
+new SubmissionError({
+    _error: ["First form-level error", "Second form-level error"]
+});
+
+// Test forms with custom error format.
+const HandleSubmitTestForm2 = reduxForm<TestFormData, {}, string[]>({ form : "test" })(
+    (props: InjectedFormProps<TestFormData, {}, string[]>) => <form onSubmit={ props.handleSubmit } />
+);
+
+class HandleSubmitTest2 extends React.Component {
+    handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
+    render() {
+        return <HandleSubmitTestForm2 onSubmit={this.handleSubmit} />;
+    }
+}
+
+type InjectedProps2 = InjectedFormProps<TestFormData, TestFormComponentProps, string[]>;
+class TestFormComponent2 extends React.Component<TestFormComponentProps & InjectedProps2> {
+    render() {
+        const { error, initialValues, handleSubmit } = this.props;
+        error.concat(['error is a string array']);
+
+        handleSubmit((values) => ({ foo: ['string'], _error: [] }));
+        return null;
     }
 }

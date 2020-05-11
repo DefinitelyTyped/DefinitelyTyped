@@ -1,9 +1,12 @@
-// Type definitions for node-http-proxy 1.16
+// Type definitions for node-http-proxy 1.17
 // Project: https://github.com/nodejitsu/node-http-proxy
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Daniel Schmidt <https://github.com/DanielMSchmidt>
+//                 Jordan Abreu <https://github.com/jabreu610>
+//                 Samuel Bodin <https://github.com/bodinsamuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -14,7 +17,24 @@ import * as events from "events";
 import * as url from "url";
 import * as stream from "stream";
 
-type ProxyTargetUrl = string | url.Url;
+type ProxyTarget = ProxyTargetUrl | ProxyTargetDetailed;
+
+type ProxyTargetUrl = string | Partial<url.Url>;
+
+interface ProxyTargetDetailed {
+  host: string;
+  port: number;
+  protocol?: string;
+  hostname?: string;
+  socketPath?: string;
+  key?: string;
+  passphrase?: string;
+  pfx?: Buffer | string;
+  cert?: string;
+  ca?: string;
+  ciphers?: string;
+  secureProtocol?: string;
+}
 
 type ErrorCallback = (
   err: Error,
@@ -54,7 +74,8 @@ declare class Server extends events.EventEmitter {
     req: http.IncomingMessage,
     socket: any,
     head: any,
-    options?: Server.ServerOptions
+    options?: Server.ServerOptions,
+    callback?: ErrorCallback
   ): void;
 
   /**
@@ -165,10 +186,8 @@ declare class Server extends events.EventEmitter {
 
 declare namespace Server {
   interface ServerOptions {
-    /** Buffer */
-    buffer?: stream.Stream;
     /** URL string to be parsed with the url module. */
-    target?: ProxyTargetUrl;
+    target?: ProxyTarget;
     /** URL string to be parsed with the url module. */
     forward?: ProxyTargetUrl;
     /** Object to be passed to http(s).request. */
@@ -188,7 +207,7 @@ declare namespace Server {
     /** Specify whether you want to ignore the proxy path of the incoming request. */
     ignorePath?: boolean;
     /** Local interface string to bind for outgoing connections. */
-    localAddress?: boolean;
+    localAddress?: string;
     /** Changes the origin of the host header to the target URL. */
     changeOrigin?: boolean;
     /** specify whether you want to keep letter case of response header key */
@@ -203,12 +222,20 @@ declare namespace Server {
     protocolRewrite?: string;
     /** rewrites domain of set-cookie headers. */
     cookieDomainRewrite?: false | string | {[oldDomain: string]: string};
+    /** rewrites path of set-cookie headers. Default: false */
+    cookiePathRewrite?: false | string | {[oldPath: string]: string};
     /** object with extra headers to be added to target requests. */
     headers?: {[header: string]: string};
     /** Timeout (in milliseconds) when proxy receives no response from target. Default: 120000 (2 minutes) */
     proxyTimeout?: number;
+    /** Timeout (in milliseconds) for incoming requests */
+    timeout?: number;
+    /** Specify whether you want to follow redirects. Default: false */
+    followRedirects?: boolean;
     /** If set to true, none of the webOutgoing passes are called and it's your responsibility to appropriately return the response by listening and acting on the proxyRes event */
     selfHandleResponse?: boolean;
+    /** Buffer */
+    buffer?: stream.Stream;
   }
 }
 

@@ -1,28 +1,25 @@
-// Type definitions for inline-style-prefixer 3.0
+// Type definitions for inline-style-prefixer 5.0
 // Project: https://github.com/rofrischmann/inline-style-prefixer
 // Definitions by: Andrej Hazucha <https://github.com/ahz>
 //                 dpetrezselyova <https://github.com/dpetrezselyova>
+//                 Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
-declare namespace InlineStylePrefixer {
-    interface Configuration {
-        userAgent?: string;
-        keepUnprefixed?: boolean;
-    }
+export type Plugin = <T>(
+  property: string,
+  value: number | string | number[] | string[] | T,
+  style: T,
+  prefixMap?: Record<string, string[]>
+) => number | string | number[] | string[] | T | undefined;
+
+export interface StaticData {
+  prefixMap: Record<string, string[]>;
+  plugins: Plugin[];
 }
 
-declare class InlineStylePrefixer {
-    constructor(cfg?: InlineStylePrefixer.Configuration);
+export type Prefix = <T>(style: T) => T;
 
-    prefix(style: CSSStyleDeclaration): CSSStyleDeclaration;
+export function createPrefixer(staticData: StaticData): Prefix;
 
-    // support for React.CSSProperties
-    prefix<T>(style: T): T;
-
-    static prefixAll(style: CSSStyleDeclaration): CSSStyleDeclaration;
-
-    // support for React.CSSProperties
-    static prefixAll<T>(style: T): T;
-}
-
-export = InlineStylePrefixer;
+export const prefix: Prefix;

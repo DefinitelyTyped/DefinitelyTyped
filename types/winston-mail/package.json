@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/winston": "^2.3.9"
+        "@types/winston": "2.3.9"
     }
 }

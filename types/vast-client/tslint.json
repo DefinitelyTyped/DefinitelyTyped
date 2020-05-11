@@ -1,7 +1,7 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    // TODO
-    "no-object-literal-type-assertion": false
-  }
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-any-union": false,
+        "no-object-literal-type-assertion": false
+    }
 }

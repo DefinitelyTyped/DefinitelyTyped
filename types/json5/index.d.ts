@@ -1,6 +1,7 @@
 // Type definitions for JSON5
 // Project: http://json5.org/
 // Definitions by: Jason Swearingen <https://jasonswearingen.github.io>
+//                 Kacper Wiszczuk <https://github.com/Esemesek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -40,5 +41,18 @@ Comments
 
 Both inline (single-line) and block (multi-line) comments are allowed.
   */
-declare var json5: JSON;
+
+type JSONReplacer = (key: string, value: any) => any | (number | string)[] | null;
+
+interface JSON5 {
+    // Old JSON methods
+    parse(text: string, reviver?: (key: any, value: any) => any): any;
+    stringify(value: any, replacer?: (key: string, value: any) => any, space?: string | number): string;
+    stringify(value: any, replacer?: (number | string)[] | null, space?: string | number): string;
+
+    // New JSON5 stringify function
+    stringify(value: any, options?: { space?: number | string, quote?: string, replacer?: JSONReplacer }): string;
+}
+
+declare var json5: JSON5;
 export = json5;

@@ -1,4 +1,4 @@
-// Type definitions for Ignite UI 18.1
+// Type definitions for Ignite UI 19.2
 // Project: https://github.com/IgniteUI/ignite-ui
 // Definitions by: Ignite UI <https://github.com/IgniteUI>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1044,6 +1044,7 @@ class TypeParser {
 	 * @param obj
 	 */
 	toDate(obj: Object): void;
+	toTime(obj: Object): void;
 	toNumber(obj: Object): void;
 	toBool(obj: Object): void;
 	isNullOrUndefined(obj: Object): void;
@@ -1063,8 +1064,12 @@ interface DataSchemaSchemaFields {
 	 * number
 	 * bool
 	 * date
+	 * time
 	 * object
 	 *
+	 *
+	 * Valid values:
+	 * "time"
 	 */
 	type?: string|number|boolean|Date|Object;
 
@@ -10892,6 +10897,12 @@ interface SeriesPointerUpEvent {
 
 interface SeriesPointerUpEventUIParam {}
 
+interface CalloutStyleUpdatingEvent {
+	(event: Event, ui: CalloutStyleUpdatingEventUIParam): void;
+}
+
+interface CalloutStyleUpdatingEventUIParam {}
+
 interface IgCategoryChart {
 	/**
 	 * Gets or sets the id of a template element to use for tooltips, or markup representing the tooltip template.
@@ -10902,6 +10913,13 @@ interface IgCategoryChart {
 	 * Gets or sets the names of tooltip templates
 	 */
 	tooltipTemplates?: any;
+
+	/**
+	 * Gets or sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	pixelScalingRatio?: number;
 
 	/**
 	 * Gets or sets the left margin of chart title
@@ -11055,6 +11073,12 @@ interface IgCategoryChart {
 	isVerticalZoomEnabled?: boolean;
 
 	/**
+	 * Gets or sets whether the chart can highlight series through user interactions.
+	 * This property applies to Category Chart and Financial Chart controls.
+	 */
+	isSeriesHighlightingEnabled?: boolean;
+
+	/**
 	 * Gets or sets the rectangle representing the current scroll and zoom state of the chart.
 	 * WindowRect is expressed as a Rectangle with coordinates and sizes between 0 and 1.
 	 * The provided object should have numeric properties called left, top, width and height.
@@ -11140,6 +11164,11 @@ interface IgCategoryChart {
 	markerMaxCount?: number;
 
 	/**
+	 * Gets or sets whether the series animations should be allowed when a range change has been detected on an axis.
+	 */
+	animateSeriesWhenAxisRangeChanges?: boolean;
+
+	/**
 	 * Gets or sets the palette of brushes to used for coloring trend lines in this chart.
 	 * The value provided should be an array of CSS color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection
 	 * The value provided should be an array of css color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection.
@@ -11179,6 +11208,79 @@ interface IgCategoryChart {
 	 */
 	alignsGridLinesToPixels?: boolean;
 	trendLinePeriod?: number;
+
+	/**
+	 * Gets or sets the style of tooltip to be displayed.
+	 *
+	 * Valid values:
+	 * "default" Display default tooltip for each series in the chart.
+	 * "item" Display individual tooltips for all series in the chart.
+	 * "category" Display combined tooltip for all series in the chart.
+	 * "none" Display no tooltips in the chart.
+	 */
+	toolTipType?: string;
+
+	/**
+	 * Gets or sets the crosshairs to be displayed.
+	 *
+	 * Valid values:
+	 * "default" Display default number of crosshair lines in the chart.
+	 * "none" Display no crosshair lines in the chart.
+	 * "horizontal" Display horizontal line of crosshairs in the chart.
+	 * "vertical" Display vertical line of crosshairs in the chart.
+	 * "both" Display both horizontal and vertical lines of crosshairs in the chart.
+	 */
+	crosshairsDisplayMode?: string;
+
+	/**
+	 * Gets or sets whether crosshairs will snap to the nearest data point.
+	 */
+	crosshairsSnapToData?: boolean;
+
+	/**
+	 * Gets or sets whether annotations are shown along the axis for crosshair values
+	 */
+	crosshairsAnnotationEnabled?: boolean;
+
+	/**
+	 * Gets or sets whether annotations for the final value of each series is displayed on the axis.
+	 */
+	finalValueAnnotationsVisible?: boolean;
+
+	/**
+	 * Gets or sets if callouts should be displayed.
+	 */
+	calloutsVisible?: boolean;
+
+	/**
+	 * Gets or sets if event annotations should be displayed.
+	 */
+	calloutStyleUpdatingEventEnabled?: boolean;
+
+	/**
+	 * Gets or sets the collection of callout data to be annotated.
+	 */
+	calloutsItemsSource?: any;
+
+	/**
+	 * Gets or sets the member path of the X data for the callouts.
+	 */
+	calloutsXMemberPath?: string;
+
+	/**
+	 * Gets or sets the member path of the Y data for the callouts.
+	 */
+	calloutsYMemberPath?: string;
+
+	/**
+	 * Gets or sets the member path of the label data for the callouts.
+	 */
+	calloutsLabelMemberPath?: string;
+
+	/**
+	 * Gets or sets the member path of the content data for the callouts.
+	 */
+	calloutsContentMemberPath?: string;
 
 	/**
 	 * Gets or sets function which takes an context object and returns a formatted label for the X-axis.
@@ -11326,7 +11428,7 @@ interface IgCategoryChart {
 	xAxisLabel?: any;
 
 	/**
-	 * Gets or sets the format for labels along the Y-axis.
+	 * Gets or sets the property or string from which the labels are derived.
 	 */
 	yAxisLabel?: any;
 
@@ -11729,14 +11831,19 @@ interface IgCategoryChart {
 	negativeOutlines?: any;
 
 	/**
-	 * Gets or sets whether the series animations should be allowed when a range change has been detected on an axis.
-	 */
-	animateSeriesWhenAxisRangeChanges?: boolean;
-
-	/**
 	 * Gets or sets whether the large numbers on the Y-axis labels are abbreviated.
 	 */
 	yAxisAbbreviateLargeNumbers?: boolean;
+
+	/**
+	 * Gets or sets whether the category should be highlighted when hovered
+	 */
+	isCategoryHighlightingEnabled?: boolean;
+
+	/**
+	 * Gets or sets whether the item should be highlighted when hovered
+	 */
+	isItemHighlightingEnabled?: boolean;
 
 	/**
 	 * The width of the chart.
@@ -11819,6 +11926,11 @@ interface IgCategoryChart {
 	 * Occurs when the pointer is released over a Series.
 	 */
 	seriesPointerUp?: SeriesPointerUpEvent;
+
+	/**
+	 * Occurs when the style of a callout is updated.
+	 */
+	calloutStyleUpdating?: CalloutStyleUpdatingEvent;
 
 	/**
 	 * Event which is raised before data binding.
@@ -12019,6 +12131,22 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "tooltipTemplates", optionValue: any): void;
+
+	/**
+	 * Gets  the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "pixelScalingRatio"): number;
+
+	/**
+	 * Sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
 
 	/**
 	 * Gets  the left margin of chart title
@@ -12379,6 +12507,20 @@ interface JQuery {
 	igCategoryChart(optionLiteral: 'option', optionName: "isVerticalZoomEnabled", optionValue: boolean): void;
 
 	/**
+	 * Gets  whether the chart can highlight series through user interactions.
+	 * This property applies to Category Chart and Financial Chart controls.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "isSeriesHighlightingEnabled"): boolean;
+
+	/**
+	 * Sets whether the chart can highlight series through user interactions.
+	 * This property applies to Category Chart and Financial Chart controls.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "isSeriesHighlightingEnabled", optionValue: boolean): void;
+
+	/**
 	 * Gets  the rectangle representing the current scroll and zoom state of the chart.
 	 * WindowRect is expressed as a Rectangle with coordinates and sizes between 0 and 1.
 	 * The provided object should have numeric properties called left, top, width and height.
@@ -12547,6 +12689,18 @@ interface JQuery {
 	igCategoryChart(optionLiteral: 'option', optionName: "markerMaxCount", optionValue: number): void;
 
 	/**
+	 * Gets  whether the series animations should be allowed when a range change has been detected on an axis.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges"): boolean;
+
+	/**
+	 * Sets whether the series animations should be allowed when a range change has been detected on an axis.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges", optionValue: boolean): void;
+
+	/**
 	 * Gets  the palette of brushes to used for coloring trend lines in this chart.
 	 * The value provided should be an array of CSS color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection
 	 * The value provided should be an array of css color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection.
@@ -12605,6 +12759,154 @@ interface JQuery {
 	igCategoryChart(optionLiteral: 'option', optionName: "alignsGridLinesToPixels", optionValue: boolean): void;
 	igCategoryChart(optionLiteral: 'option', optionName: "trendLinePeriod"): number;
 	igCategoryChart(optionLiteral: 'option', optionName: "trendLinePeriod", optionValue: number): void;
+
+	/**
+	 * Gets  the style of tooltip to be displayed.
+	 */
+
+	igCategoryChart(optionLiteral: 'option', optionName: "toolTipType"): string;
+
+	/**
+	 * Sets the style of tooltip to be displayed.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igCategoryChart(optionLiteral: 'option', optionName: "toolTipType", optionValue: string): void;
+
+	/**
+	 * Gets  the crosshairs to be displayed.
+	 */
+
+	igCategoryChart(optionLiteral: 'option', optionName: "crosshairsDisplayMode"): string;
+
+	/**
+	 * Sets the crosshairs to be displayed.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igCategoryChart(optionLiteral: 'option', optionName: "crosshairsDisplayMode", optionValue: string): void;
+
+	/**
+	 * Gets  whether crosshairs will snap to the nearest data point.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "crosshairsSnapToData"): boolean;
+
+	/**
+	 * Sets whether crosshairs will snap to the nearest data point.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "crosshairsSnapToData", optionValue: boolean): void;
+
+	/**
+	 * Gets  whether annotations are shown along the axis for crosshair values
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "crosshairsAnnotationEnabled"): boolean;
+
+	/**
+	 * Sets whether annotations are shown along the axis for crosshair values
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "crosshairsAnnotationEnabled", optionValue: boolean): void;
+
+	/**
+	 * Gets  whether annotations for the final value of each series is displayed on the axis.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "finalValueAnnotationsVisible"): boolean;
+
+	/**
+	 * Sets whether annotations for the final value of each series is displayed on the axis.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "finalValueAnnotationsVisible", optionValue: boolean): void;
+
+	/**
+	 * Gets  if callouts should be displayed.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutsVisible"): boolean;
+
+	/**
+	 * Sets if callouts should be displayed.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutsVisible", optionValue: boolean): void;
+
+	/**
+	 * Gets  if event annotations should be displayed.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutStyleUpdatingEventEnabled"): boolean;
+
+	/**
+	 * Sets if event annotations should be displayed.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutStyleUpdatingEventEnabled", optionValue: boolean): void;
+
+	/**
+	 * Gets  the collection of callout data to be annotated.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutsItemsSource"): any;
+
+	/**
+	 * Sets the collection of callout data to be annotated.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutsItemsSource", optionValue: any): void;
+
+	/**
+	 * Gets  the member path of the X data for the callouts.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutsXMemberPath"): string;
+
+	/**
+	 * Sets the member path of the X data for the callouts.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutsXMemberPath", optionValue: string): void;
+
+	/**
+	 * Gets  the member path of the Y data for the callouts.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutsYMemberPath"): string;
+
+	/**
+	 * Sets the member path of the Y data for the callouts.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutsYMemberPath", optionValue: string): void;
+
+	/**
+	 * Gets  the member path of the label data for the callouts.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutsLabelMemberPath"): string;
+
+	/**
+	 * Sets the member path of the label data for the callouts.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutsLabelMemberPath", optionValue: string): void;
+
+	/**
+	 * Gets  the member path of the content data for the callouts.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutsContentMemberPath"): string;
+
+	/**
+	 * Sets the member path of the content data for the callouts.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutsContentMemberPath", optionValue: string): void;
 
 	/**
 	 * Gets  function which takes an context object and returns a formatted label for the X-axis.
@@ -12955,12 +13257,12 @@ interface JQuery {
 	igCategoryChart(optionLiteral: 'option', optionName: "xAxisLabel", optionValue: any): void;
 
 	/**
-	 * Gets  the format for labels along the Y-axis.
+	 * Gets  the property or string from which the labels are derived.
 	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisLabel"): any;
 
 	/**
-	 * Sets the format for labels along the Y-axis.
+	 * Sets the property or string from which the labels are derived.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -13707,18 +14009,6 @@ interface JQuery {
 	igCategoryChart(optionLiteral: 'option', optionName: "negativeOutlines", optionValue: any): void;
 
 	/**
-	 * Gets  whether the series animations should be allowed when a range change has been detected on an axis.
-	 */
-	igCategoryChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges"): boolean;
-
-	/**
-	 * Sets whether the series animations should be allowed when a range change has been detected on an axis.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igCategoryChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges", optionValue: boolean): void;
-
-	/**
 	 * Gets  whether the large numbers on the Y-axis labels are abbreviated.
 	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisAbbreviateLargeNumbers"): boolean;
@@ -13729,6 +14019,30 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisAbbreviateLargeNumbers", optionValue: boolean): void;
+
+	/**
+	 * Gets  whether the category should be highlighted when hovered
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "isCategoryHighlightingEnabled"): boolean;
+
+	/**
+	 * Sets whether the category should be highlighted when hovered
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "isCategoryHighlightingEnabled", optionValue: boolean): void;
+
+	/**
+	 * Gets  whether the item should be highlighted when hovered
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "isItemHighlightingEnabled"): boolean;
+
+	/**
+	 * Sets whether the item should be highlighted when hovered
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "isItemHighlightingEnabled", optionValue: boolean): void;
 
 	/**
 	 * The width of the chart.
@@ -13925,6 +14239,18 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "seriesPointerUp", optionValue: SeriesPointerUpEvent): void;
+
+	/**
+	 * Occurs when the style of a callout is updated.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutStyleUpdating"): CalloutStyleUpdatingEvent;
+
+	/**
+	 * Occurs when the style of a callout is updated.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "calloutStyleUpdating", optionValue: CalloutStyleUpdatingEvent): void;
 
 	/**
 	 * Event which is raised before data binding.
@@ -15217,7 +15543,7 @@ interface IgDataChartSeries {
 	 * Valid values:
 	 * "maximum" Consolidated items will be positioned using their maximum value.
 	 * "minimum" Consolidated items will be positioned using their minimum value.
-	 * "median" Consolidated items will be positioned using their median value.
+	 * "median" Consolidated items will be positioned at the midpoint of the range.
 	 * "relativeMinimum" Consolidated items will be positioned using the value nearest to the reference value of the corresponding axis.
 	 * "relativeMaximum" Consolidated items will be positioned using the value farthest from the reference value of the corresponding axis.
 	 */
@@ -15290,6 +15616,273 @@ interface IgDataChartSeries {
 	 * "colorEncoded" use a color encoded off screen buffer for hit testing. This can have extremely rare false positives where the wrong series is hit (this is due to our inability to disable anti-aliasing in our color buffer), but should always be O(1) time for determining a hit series. This increases frame render time, however. Consider using this if hit testing time is degrading performance.
 	 */
 	hitTestMode?: string;
+
+	/**
+	 * Gets or sets the brush that specifies how the backgrounds for the callouts of the layer are painted.
+	 */
+	calloutBackground?: string;
+
+	/**
+	 * Gets or sets the strategy to use for avoiding collisions between the callouts in this layer. Leave unset for an automatic value.
+	 *
+	 * Valid values:
+	 * "auto" automatically decide the collision strategy.
+	 * "simulatedAnnealing" use a simulated annealing based collision strategy. This is higher quality, but takes longer, and is performed time-sliced in the background until an acceptable quality is reached.
+	 * "greedy" use a greedy algorithm to avoid collisions. This is cheap and predictable, but of comparatively low quality.
+	 * "greedyCenterOfMass" use a greedy algorithm with localized center of mass hints to avoid collisions. This is relatively cheap to perform, compared to the simulated annealing approach, but is of comparatively lower quality.
+	 */
+	calloutCollisionMode?: string;
+
+	/**
+	 * Gets or sets the brush that specifies how the leader lines for the callouts of the layer are painted.
+	 */
+	calloutLeaderBrush?: string;
+
+	/**
+	 * Gets or sets the brush that specifies how the outlines for the callouts of the layer are painted.
+	 */
+	calloutOutline?: string;
+
+	/**
+	 * Gets or sets the left padding to use withing the callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	calloutPaddingLeft?: number;
+
+	/**
+	 * Gets or sets the top padding to use withing the callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	calloutPaddingTop?: number;
+
+	/**
+	 * Gets or sets the right padding to use withing the callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	calloutPaddingRight?: number;
+
+	/**
+	 * Gets or sets the bottom padding to use withing the callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	calloutPaddingBottom?: number;
+
+	/**
+	 * Gets or sets the padding to add to the callout positioning. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	calloutPositionPadding?: number;
+
+	/**
+	 * Gets or sets the stroke thickness for the callout backing. Leave unset for an automatic value.
+	 */
+	calloutStrokeThickness?: number;
+
+	/**
+	 * Gets or sets the color to use for the callout text. Leave unset for an automatic value.
+	 */
+	calloutTextColor?: string;
+
+	/**
+	 * Gets or sets the content mapping property for the callouts.
+	 */
+	contentMemberPath?: string;
+
+	/**
+	 * Gets or sets whether to allow the callouts to be variable distances from the target points, for suppporting collision modes.
+	 */
+	isCalloutOffsettingEnabled?: boolean;
+
+	/**
+	 * Gets or sets the key mapping property for the callouts.
+	 */
+	keyMemberPath?: string;
+
+	/**
+	 * Gets or sets the color to use for the axis annotation backing. Leave unset for an automatic value.
+	 */
+	axisAnnotationBackground?: string;
+
+	/**
+	 * Gets or sets the color to use for the x axis annotation backing. Leave unset for an automatic value.
+	 */
+	xAxisAnnotationBackground?: string;
+
+	/**
+	 * Gets or sets the color to use for the y axis annotation backing. Leave unset for an automatic value.
+	 */
+	yAxisAnnotationBackground?: string;
+
+	/**
+	 * Gets or sets the color to use for the axis annotation outline. Leave unset for an automatic value.
+	 */
+	axisAnnotationOutline?: string;
+
+	/**
+	 * Gets or sets the color to use for the x axis annotation outline. Leave unset for an automatic value.
+	 */
+	xAxisAnnotationOutline?: string;
+
+	/**
+	 * Gets or sets the color to use for the y axis annotation outline. Leave unset for an automatic value.
+	 */
+	yAxisAnnotationOutline?: string;
+
+	/**
+	 * Gets or sets the color to use for the axis annotation text. Leave unset for an automatic value.
+	 */
+	axisAnnotationTextColor?: string;
+
+	/**
+	 * Gets or sets the color to use for the x axis annotation text. Leave unset for an automatic value.
+	 */
+	xAxisAnnotationTextColor?: string;
+
+	/**
+	 * Gets or sets the color to use for the y axis annotation text. Leave unset for an automatic value.
+	 */
+	yAxisAnnotationTextColor?: string;
+
+	/**
+	 * Gets or sets the left padding to use withing the axis annotation callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	axisAnnotationPaddingLeft?: number;
+
+	/**
+	 * Gets or sets the left padding to use withing the x axis annotation callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	xAxisAnnotationPaddingLeft?: number;
+
+	/**
+	 * Gets or sets the left padding to use withing the y axis annotation callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	yAxisAnnotationPaddingLeft?: number;
+
+	/**
+	 * Gets or sets the top padding to use withing the axis annotation callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	axisAnnotationPaddingTop?: number;
+
+	/**
+	 * Gets or sets the top padding to use withing the x axis annotation callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	xAxisAnnotationPaddingTop?: number;
+
+	/**
+	 * Gets or sets the top padding to use withing the y axis annotation callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	yAxisAnnotationPaddingTop?: number;
+
+	/**
+	 * Gets or sets the right padding to use withing the axis annotation callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	axisAnnotationPaddingRight?: number;
+
+	/**
+	 * Gets or sets the right padding to use withing the x axis annotation callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	xAxisAnnotationPaddingRight?: number;
+
+	/**
+	 * Gets or sets the right padding to use withing the y axis annotation callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	yAxisAnnotationPaddingRight?: number;
+
+	/**
+	 * Gets or sets the bottom padding to use withing the axis annotation callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	axisAnnotationPaddingBottom?: number;
+
+	/**
+	 * Gets or sets the bottom padding to use withing the x axis annotation callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	xAxisAnnotationPaddingBottom?: number;
+
+	/**
+	 * Gets or sets the bottom padding to use withing the y axis annotation callout. Leaving this NaN will use an automatic value related to the axis label margins.
+	 */
+	yAxisAnnotationPaddingBottom?: number;
+
+	/**
+	 * Gets or sets the stroke thickness for the axis annotation backing. Leave unset for an automatic value.
+	 */
+	axisAnnotationStrokeThickness?: number;
+
+	/**
+	 * Gets or sets the stroke thickness for the x axis annotation backing. Leave unset for an automatic value.
+	 */
+	xAxisAnnotationStrokeThickness?: number;
+
+	/**
+	 * Gets or sets the stroke thickness for the y axis annotation backing. Leave unset for an automatic value.
+	 */
+	yAxisAnnotationStrokeThickness?: number;
+
+	/**
+	 * Gets or sets the stroke thickness for the y axis annotation backing. Leave unset for an automatic value.
+	 *
+	 * Valid values:
+	 * "auto" a mode is selected automatically
+	 * "finalVisible" displays the last value visible.
+	 * "finalVisibleInterpolated" displays an interploated last value for when the series leaves view.
+	 * "final" displays the last value in the series, whether visible or not.
+	 */
+	finalValueSelectionMode?: string;
+
+	/**
+	 * Gets or sets the color to use for the horizontal line. Leave null for an automatic value.
+	 */
+	horizontalLineStroke?: string;
+
+	/**
+	 * Gets or sets the color to use for the vertical line. Leave null for an automatic value.
+	 */
+	verticalLineStroke?: string;
+
+	/**
+	 * Gets or sets whether to draw annotations over the axes where the crosshair meets with them.
+	 */
+	isAxisAnnotationEnabled?: boolean;
+
+	/**
+	 * Sets or gets a function which takes an object that produces a formatted label for displaying in the axis annotation.
+	 */
+	axisAnnoationFormatLabel?: any;
+
+	/**
+	 * Sets or gets a function which takes an object that produces a formatted label for displaying in the x axis annotation.
+	 */
+	xAxisAnnoationFormatLabel?: any;
+
+	/**
+	 * Sets or gets a function which takes an object that produces a formatted label for displaying in the y axis annotation.
+	 */
+	yAxisAnnoationFormatLabel?: any;
+
+	/**
+	 * Gets or sets the precision to use displaying values for interpolated crosshair positions.
+	 */
+	axisAnnotationInterpolatedValuePrecision?: number;
+
+	/**
+	 * Gets or sets the precision to use displaying values for interpolated crosshair positions.
+	 */
+	xAxisAnnotationInterpolatedValuePrecision?: number;
+
+	/**
+	 * Gets or sets the precision to use displaying values for interpolated crosshair positions.
+	 */
+	yAxisAnnotationInterpolatedValuePrecision?: number;
+
+	/**
+	 * Sets or gets a function which lets you modify or provide the content for an automatically created callout.
+	 */
+	calloutContentUpdating?: any;
+
+	/**
+	 * Sets or gets a function which lets you modify or provide the associated series for a data source provided callout.
+	 */
+	calloutSeriesSelecting?: any;
+
+	/**
+	 * Sets or gets a function which lets you modify or provide the label for an automatically created callout.
+	 */
+	calloutLabelUpdating?: any;
 
 	/**
 	 * Option for IgDataChartSeries
@@ -20511,150 +21104,6 @@ interface JQuery {
 	igPieChart(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igPieChart(methodName: string, ...methodParams: any[]): any;
 }
-interface LegendItemMouseLeftButtonDownEvent {
-	(event: Event, ui: LegendItemMouseLeftButtonDownEventUIParam): void;
-}
-
-interface LegendItemMouseLeftButtonDownEventUIParam {
-	/**
-	 * Used to get reference to current legend object.
-	 */
-	legend?: any;
-
-	/**
-	 * Used to get reference to chart owner object.
-	 */
-	chart?: any;
-
-	/**
-	 * Used to get reference to current series owner object.
-	 */
-	series?: any;
-
-	/**
-	 * Used to get legend item brush.
-	 */
-	actualItemBrush?: any;
-
-	/**
-	 * Used to get series owner brush.
-	 */
-	actualSeriesBrush?: any;
-
-	/**
-	 * Used to get reference to chart item related to event.
-	 */
-	item?: any;
-}
-
-interface LegendItemMouseLeftButtonUpEvent {
-	(event: Event, ui: LegendItemMouseLeftButtonUpEventUIParam): void;
-}
-
-interface LegendItemMouseLeftButtonUpEventUIParam {
-	/**
-	 * Used to get reference to current legend object.
-	 */
-	legend?: any;
-
-	/**
-	 * Used to get reference to chart owner object.
-	 */
-	chart?: any;
-
-	/**
-	 * Used to get reference to current series owner object.
-	 */
-	series?: any;
-
-	/**
-	 * Used to get legend item brush.
-	 */
-	actualItemBrush?: any;
-
-	/**
-	 * Used to get series owner brush.
-	 */
-	actualSeriesBrush?: any;
-
-	/**
-	 * Used to get reference to chart item related to event.
-	 */
-	item?: any;
-}
-
-interface LegendItemMouseEnterEvent {
-	(event: Event, ui: LegendItemMouseEnterEventUIParam): void;
-}
-
-interface LegendItemMouseEnterEventUIParam {
-	/**
-	 * Used to get reference to current legend object.
-	 */
-	legend?: any;
-
-	/**
-	 * Used to get reference to chart owner object.
-	 */
-	chart?: any;
-
-	/**
-	 * Used to get reference to current series owner object.
-	 */
-	series?: any;
-
-	/**
-	 * Used to get legend item brush.
-	 */
-	actualItemBrush?: any;
-
-	/**
-	 * Used to get series owner brush.
-	 */
-	actualSeriesBrush?: any;
-
-	/**
-	 * Used to get reference to chart item related to event.
-	 */
-	item?: any;
-}
-
-interface LegendItemMouseLeaveEvent {
-	(event: Event, ui: LegendItemMouseLeaveEventUIParam): void;
-}
-
-interface LegendItemMouseLeaveEventUIParam {
-	/**
-	 * Used to get reference to current legend object.
-	 */
-	legend?: any;
-
-	/**
-	 * Used to get reference to chart owner object.
-	 */
-	chart?: any;
-
-	/**
-	 * Used to get reference to current series owner object.
-	 */
-	series?: any;
-
-	/**
-	 * Used to get legend item brush.
-	 */
-	actualItemBrush?: any;
-
-	/**
-	 * Used to get series owner brush.
-	 */
-	actualSeriesBrush?: any;
-
-	/**
-	 * Used to get reference to chart item related to event.
-	 */
-	item?: any;
-}
-
 interface IgChartLegend {
 	/**
 	 * Type of the legend.
@@ -20662,90 +21111,18 @@ interface IgChartLegend {
 	 * Valid values:
 	 * "item" Specify the legend as item legend. It displays a legend item for each pie in the igPieChart control.
 	 * "legend" Specify the legend as legend. It is supported by all types of series in the igDataChart control.
-	 * "scale" Specify the legend as a scale legend. It displays a color/size scale for the bubble series.
 	 */
 	type?: string;
-
-	/**
-	 * The width of the legend. It can be set as a number in pixels, string (px) or percentage (%).
-	 */
 	width?: string|number;
 
 	/**
-	 * The height of the legend. It can be set as a number in pixels, string (px) or percentage (%).
+	 * This is the total height of the grid, including all UI elements - scroll container with data rows, header, footer, filter row -  (if any), etc.null will stretch vertically to fit data, no other height are defined
+	 *
+	 *
+	 * Valid values:
+	 * "null"
 	 */
 	height?: string|number;
-
-	/**
-	 * The swatch used to style this widget
-	 */
-	theme?: string;
-
-	/**
-	 * Set/Get the locale setting for the widget.
-	 *
-	 */
-	locale?: any;
-
-	/**
-	 * Set/Get the locale language setting for the widget.
-	 *
-	 */
-	language?: string;
-
-	/**
-	 * Set/Get the regional setting for the widget.
-	 *
-	 */
-	regional?: string|Object;
-
-	/**
-	 * Occurs when the left mouse button is pressed while the mouse pointer is over an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	legendItemMouseLeftButtonDown?: LegendItemMouseLeftButtonDownEvent;
-
-	/**
-	 * Occurs when the left mouse button is released while the mouse pointer is over an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	legendItemMouseLeftButtonUp?: LegendItemMouseLeftButtonUpEvent;
-
-	/**
-	 * Occurs when the left mouse pointer enters an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	legendItemMouseEnter?: LegendItemMouseEnterEvent;
-
-	/**
-	 * Occurs when the left mouse pointer leaves an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	legendItemMouseLeave?: LegendItemMouseLeaveEvent;
 
 	/**
 	 * Option for igChartLegend
@@ -20753,53 +21130,22 @@ interface IgChartLegend {
 	[optionName: string]: any;
 }
 interface IgChartLegendMethods {
-	exportVisualData(): void;
-
-	/**
-	 * Destroys the widget.
-	 */
+	getLegend(): void;
 	destroy(): void;
 
 	/**
-	 * Returns the element holding the legend.
-	 */
-	widget(): void;
-
-	/**
-	 * Returns the ID of the DOM element holding the legend.
+	 * Returns the ID of the parent div element bounding the ruler and the tooltip container
 	 */
 	id(): string;
-
-	/**
-	 * Changes the all locales contained into a specified container to the language specified in [options.language](ui.igwidget#options:language)
-	 * Note that this method is for rare scenarios, use [language](ui.igwidget#options:language) or [locale](ui.igwidget#options:locale) option setter
-	 *
-	 * @param $container Optional parameter - if not set it would use the element of the widget as $container
-	 */
-	changeLocale($container: Object): void;
-
-	/**
-	 * Changes the widget language to global language. Global language is the value in $.ig.util.language
-	 */
-	changeGlobalLanguage(): void;
-
-	/**
-	 * Changes the widget regional settins to global regional settings. Global regional settings are container in $.ig.util.regional
-	 */
-	changeGlobalRegional(): void;
 }
 interface JQuery {
 	data(propertyName: "igChartLegend"): IgChartLegendMethods;
 }
 
 interface JQuery {
-	igChartLegend(methodName: "exportVisualData"): void;
+	igChartLegend(methodName: "getLegend"): void;
 	igChartLegend(methodName: "destroy"): void;
-	igChartLegend(methodName: "widget"): void;
 	igChartLegend(methodName: "id"): string;
-	igChartLegend(methodName: "changeLocale", $container: Object): void;
-	igChartLegend(methodName: "changeGlobalLanguage"): void;
-	igChartLegend(methodName: "changeGlobalRegional"): void;
 
 	/**
 	 * Type of the legend.
@@ -20815,193 +21161,25 @@ interface JQuery {
 
 	igChartLegend(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
-	/**
-	 * The width of the legend. It can be set as a number in pixels, string (px) or percentage (%).
-	 */
-
 	igChartLegend(optionLiteral: 'option', optionName: "width"): string|number;
-
-	/**
-	 * The width of the legend. It can be set as a number in pixels, string (px) or percentage (%).
-	 *
-	 * @optionValue New value to be set.
-	 */
 
 	igChartLegend(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
-	 * The height of the legend. It can be set as a number in pixels, string (px) or percentage (%).
+	 * This is the total height of the grid, including all UI elements - scroll container with data rows, header, footer, filter row -  (if any), etc.null will stretch vertically to fit data, no other height are defined
+	 *
 	 */
 
 	igChartLegend(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
-	 * The height of the legend. It can be set as a number in pixels, string (px) or percentage (%).
+	 * This is the total height of the grid, including all UI elements - scroll container with data rows, header, footer, filter row -  (if any), etc.null will stretch vertically to fit data, no other height are defined
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
 
 	igChartLegend(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
-
-	/**
-	 * The swatch used to style this widget
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "theme"): string;
-
-	/**
-	 * The swatch used to style this widget
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "theme", optionValue: string): void;
-
-	/**
-	 * Set/Get the locale setting for the widget.
-	 *
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "locale"): any;
-
-	/**
-	 * Set/Get the locale setting for the widget.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
-
-	/**
-	 * Set/Get the locale language setting for the widget.
-	 *
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "language"): string;
-
-	/**
-	 * Set/Get the locale language setting for the widget.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "language", optionValue: string): void;
-
-	/**
-	 * Set/Get the regional setting for the widget.
-	 *
-	 */
-
-	igChartLegend(optionLiteral: 'option', optionName: "regional"): string|Object;
-
-	/**
-	 * Set/Get the regional setting for the widget.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-
-	igChartLegend(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
-
-	/**
-	 * Occurs when the left mouse button is pressed while the mouse pointer is over an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseLeftButtonDown"): LegendItemMouseLeftButtonDownEvent;
-
-	/**
-	 * Occurs when the left mouse button is pressed while the mouse pointer is over an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseLeftButtonDown", optionValue: LegendItemMouseLeftButtonDownEvent): void;
-
-	/**
-	 * Occurs when the left mouse button is released while the mouse pointer is over an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseLeftButtonUp"): LegendItemMouseLeftButtonUpEvent;
-
-	/**
-	 * Occurs when the left mouse button is released while the mouse pointer is over an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseLeftButtonUp", optionValue: LegendItemMouseLeftButtonUpEvent): void;
-
-	/**
-	 * Occurs when the left mouse pointer enters an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseEnter"): LegendItemMouseEnterEvent;
-
-	/**
-	 * Occurs when the left mouse pointer enters an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseEnter", optionValue: LegendItemMouseEnterEvent): void;
-
-	/**
-	 * Occurs when the left mouse pointer leaves an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseLeave"): LegendItemMouseLeaveEvent;
-
-	/**
-	 * Occurs when the left mouse pointer leaves an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseLeave", optionValue: LegendItemMouseLeaveEvent): void;
 	igChartLegend(options: IgChartLegend): JQuery;
 	igChartLegend(optionLiteral: 'option', optionName: string): any;
 	igChartLegend(optionLiteral: 'option', options: IgChartLegend): JQuery;
@@ -25419,44 +25597,6 @@ interface IgDoughnutChart {
 	pixelScalingRatio?: number;
 
 	/**
-	 * Gets sets template for tooltip associated with chart item.
-	 * Example: "Value: $(ValueMemberPathInDataSource)"
-	 */
-	tooltipTemplate?: string;
-
-	/**
-	 * Gets sets maximum number of displayed records in chart.
-	 */
-	maxRecCount?: number;
-
-	/**
-	 * Gets sets a valid data source.
-	 * That can be instance of array or primitives, array of objects, instance of $.ig.DataSource, or any other data accepted by $.ig.DataSource.
-	 * Note: if it is set to string and "dataSourceType" option is not set, then $.ig.JSONPDataSource is used.
-	 */
-	dataSource?: any;
-
-	/**
-	 * Gets sets data source type (such as "json", "xml", etc). Please refer to the documentation of $.ig.DataSource and its type property
-	 */
-	dataSourceType?: string;
-
-	/**
-	 * Gets sets url which is used for sending JSON on request for remote data.
-	 */
-	dataSourceUrl?: string;
-
-	/**
-	 * See $.ig.DataSource. property in the response specifying the total number of records on the server.
-	 */
-	responseTotalRecCountKey?: string;
-
-	/**
-	 * See $.ig.DataSource. This is basically the property in the responses where data records are held, if the response is wrapped.
-	 */
-	responseDataKey?: string;
-
-	/**
 	 * Event fired when the mouse has hovered on a series and the tooltip is about to show
 	 * Function takes arguments evt and ui.
 	 * Use ui.element to get reference to tooltip DOM element.
@@ -25520,47 +25660,6 @@ interface IgDoughnutChart {
 	holeDimensionsChanged?: HoleDimensionsChangedEvent;
 
 	/**
-	 * Event which is raised before data binding.
-	 * Return false in order to cancel data binding.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
-	 */
-	dataBinding?: DataBindingEvent;
-
-	/**
-	 * Event which is raised after data binding.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.data to obtain reference to array actual data which is displayed by chart.
-	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
-	 */
-	dataBound?: DataBoundEvent;
-
-	/**
-	 * Event which is raised before tooltip is updated.
-	 * Return false in order to cancel updating and hide tooltip.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.text to obtain html of tooltip. Value of that member can be modified. If modified value is null or empty string, then current content of tooltip keeps old value.
-	 * Use ui.item to obtain reference to item. Value of that member can be modified or replaced by custom item.
-	 * Use ui.x to obtain left position of tooltip in pixels relative to widget. Value of that member can be modified.
-	 * Use ui.y to obtain top position of tooltip in pixels relative to widget. Value of that member can be modified.
-	 * Use ui.element to obtain reference to jquery object which represents tooltip. Value of that member can be replaced by custom element.
-	 */
-	updateTooltip?: UpdateTooltipEvent;
-
-	/**
-	 * Event which is raised before tooltip is hidden.
-	 * Return false in order to cancel hiding and keep tooltip visible.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.item to obtain reference to item.
-	 * Use ui.element to obtain reference to jquery object which represents tooltip or value of ui.element from last updateTooltip event. Value of that member can be replaced by custom element.
-	 */
-	hideTooltip?: HideTooltipEvent;
-
-	/**
 	 * Option for igDoughnutChart
 	 */
 	[optionName: string]: any;
@@ -25618,98 +25717,6 @@ interface IgDoughnutChartMethods {
 	 * @param series Optional. The series name. If not provided an array of series data sources is returned.
 	 */
 	getData(series: string): Object;
-
-	/**
-	 * Find index of item within actual data used by chart.
-	 *
-	 * @param item The reference to item.
-	 */
-	findIndexOfItem(item: Object): number;
-
-	/**
-	 * Get item within actual data used by chart. That is similar to this.getData()[ index ].
-	 *
-	 * @param index Index of data item.
-	 */
-	getDataItem(index: Object): Object;
-
-	/**
-	 * Adds a new item to the data source and notifies the chart.
-	 *
-	 * @param item The item that we want to add to the data source.
-	 */
-	addItem(item: Object): Object;
-
-	/**
-	 * Inserts a new item to the data source and notifies the chart.
-	 *
-	 * @param item the new item that we want to insert in the data source.
-	 * @param index The index in the data source where the new item will be inserted.
-	 */
-	insertItem(item: Object, index: number): Object;
-
-	/**
-	 * Deletes an item from the data source and notifies the chart.
-	 *
-	 * @param index The index in the data source from where the item will be been removed.
-	 */
-	removeItem(index: number): Object;
-
-	/**
-	 * Updates an item in the data source and notifies the chart.
-	 *
-	 * @param index The index of the item in the data source that we want to change.
-	 * @param item The new item object that will be set in the data source.
-	 */
-	setItem(index: number, item: Object): Object;
-
-	/**
-	 * Notifies the chart that an item has been set in an associated data source.
-	 *
-	 * @param dataSource The data source in which the change happened.
-	 * @param index The index in the items source that has been changed.
-	 * @param newItem the new item that has been set in the collection.
-	 * @param oldItem the old item that has been overwritten in the collection.
-	 */
-	notifySetItem(dataSource: Object, index: number, newItem: Object, oldItem: Object): Object;
-
-	/**
-	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * It's not necessary to notify more than one target of a change if they share the same items source.
-	 *
-	 * @param dataSource The data source in which the change happened.
-	 */
-	notifyClearItems(dataSource: Object): Object;
-
-	/**
-	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * It's not necessary to notify more than one target of a change if they share the same items source.
-	 *
-	 * @param dataSource The data source in which the change happened.
-	 * @param index The index in the items source where the new item has been inserted.
-	 * @param newItem the new item that has been set in the collection.
-	 */
-	notifyInsertItem(dataSource: Object, index: number, newItem: Object): Object;
-
-	/**
-	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * It's not necessary to notify more than one target of a change if they share the same items source.
-	 *
-	 * @param dataSource The data source in which the change happened.
-	 * @param index The index in the items source from where the old item has been removed.
-	 * @param oldItem the old item that has been removed from the collection.
-	 */
-	notifyRemoveItem(dataSource: Object, index: number, oldItem: Object): Object;
-
-	/**
-	 * Get reference to chart object.
-	 */
-	chart(): Object;
-
-	/**
-	 * Binds data to the chart
-	 */
-	dataBind(): void;
 }
 interface JQuery {
 	data(propertyName: "igDoughnutChart"): IgDoughnutChartMethods;
@@ -25725,18 +25732,6 @@ interface JQuery {
 	igDoughnutChart(methodName: "flush"): void;
 	igDoughnutChart(methodName: "destroy"): void;
 	igDoughnutChart(methodName: "getData", series: string): Object;
-	igDoughnutChart(methodName: "findIndexOfItem", item: Object): number;
-	igDoughnutChart(methodName: "getDataItem", index: Object): Object;
-	igDoughnutChart(methodName: "addItem", item: Object): Object;
-	igDoughnutChart(methodName: "insertItem", item: Object, index: number): Object;
-	igDoughnutChart(methodName: "removeItem", index: number): Object;
-	igDoughnutChart(methodName: "setItem", index: number, item: Object): Object;
-	igDoughnutChart(methodName: "notifySetItem", dataSource: Object, index: number, newItem: Object, oldItem: Object): Object;
-	igDoughnutChart(methodName: "notifyClearItems", dataSource: Object): Object;
-	igDoughnutChart(methodName: "notifyInsertItem", dataSource: Object, index: number, newItem: Object): Object;
-	igDoughnutChart(methodName: "notifyRemoveItem", dataSource: Object, index: number, oldItem: Object): Object;
-	igDoughnutChart(methodName: "chart"): Object;
-	igDoughnutChart(methodName: "dataBind"): void;
 
 	/**
 	 * The width of the chart. It can be set as a number in pixels, string (px) or percentage (%).
@@ -25853,96 +25848,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igDoughnutChart(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
-
-	/**
-	 * Gets  template for tooltip associated with chart item.
-	 * Example: "Value: $(ValueMemberPathInDataSource)"
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipTemplate"): string;
-
-	/**
-	 * Sets template for tooltip associated with chart item.
-	 * Example: "Value: $(ValueMemberPathInDataSource)"
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipTemplate", optionValue: string): void;
-
-	/**
-	 * Gets  maximum number of displayed records in chart.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "maxRecCount"): number;
-
-	/**
-	 * Sets maximum number of displayed records in chart.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "maxRecCount", optionValue: number): void;
-
-	/**
-	 * Gets  a valid data source.
-	 * That can be instance of array or primitives, array of objects, instance of $.ig.DataSource, or any other data accepted by $.ig.DataSource.
-	 * Note: if it is set to string and "dataSourceType" option is not set, then $.ig.JSONPDataSource is used.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataSource"): any;
-
-	/**
-	 * Sets a valid data source.
-	 * That can be instance of array or primitives, array of objects, instance of $.ig.DataSource, or any other data accepted by $.ig.DataSource.
-	 * Note: if it is set to string and "dataSourceType" option is not set, then $.ig.JSONPDataSource is used.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataSource", optionValue: any): void;
-
-	/**
-	 * Gets  data source type (such as "json", "xml", etc). Please refer to the documentation of $.ig.DataSource and its type property
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataSourceType"): string;
-
-	/**
-	 * Sets data source type (such as "json", "xml", etc). Please refer to the documentation of $.ig.DataSource and its type property
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataSourceType", optionValue: string): void;
-
-	/**
-	 * Gets  url which is used for sending JSON on request for remote data.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataSourceUrl"): string;
-
-	/**
-	 * Sets url which is used for sending JSON on request for remote data.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataSourceUrl", optionValue: string): void;
-
-	/**
-	 * See $.ig.DataSource. property in the response specifying the total number of records on the server.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "responseTotalRecCountKey"): string;
-
-	/**
-	 * See $.ig.DataSource. property in the response specifying the total number of records on the server.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "responseTotalRecCountKey", optionValue: string): void;
-
-	/**
-	 * See $.ig.DataSource. This is basically the property in the responses where data records are held, if the response is wrapped.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "responseDataKey"): string;
-
-	/**
-	 * See $.ig.DataSource. This is basically the property in the responses where data records are held, if the response is wrapped.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "responseDataKey", optionValue: string): void;
 
 	/**
 	 * Event fired when the mouse has hovered on a series and the tooltip is about to show
@@ -26083,96 +25988,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igDoughnutChart(optionLiteral: 'option', optionName: "holeDimensionsChanged", optionValue: HoleDimensionsChangedEvent): void;
-
-	/**
-	 * Event which is raised before data binding.
-	 * Return false in order to cancel data binding.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataBinding"): DataBindingEvent;
-
-	/**
-	 * Event which is raised before data binding.
-	 * Return false in order to cancel data binding.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataBinding", optionValue: DataBindingEvent): void;
-
-	/**
-	 * Event which is raised after data binding.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.data to obtain reference to array actual data which is displayed by chart.
-	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataBound"): DataBoundEvent;
-
-	/**
-	 * Event which is raised after data binding.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.data to obtain reference to array actual data which is displayed by chart.
-	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataBound", optionValue: DataBoundEvent): void;
-
-	/**
-	 * Event which is raised before tooltip is updated.
-	 * Return false in order to cancel updating and hide tooltip.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.text to obtain html of tooltip. Value of that member can be modified. If modified value is null or empty string, then current content of tooltip keeps old value.
-	 * Use ui.item to obtain reference to item. Value of that member can be modified or replaced by custom item.
-	 * Use ui.x to obtain left position of tooltip in pixels relative to widget. Value of that member can be modified.
-	 * Use ui.y to obtain top position of tooltip in pixels relative to widget. Value of that member can be modified.
-	 * Use ui.element to obtain reference to jquery object which represents tooltip. Value of that member can be replaced by custom element.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "updateTooltip"): UpdateTooltipEvent;
-
-	/**
-	 * Event which is raised before tooltip is updated.
-	 * Return false in order to cancel updating and hide tooltip.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.text to obtain html of tooltip. Value of that member can be modified. If modified value is null or empty string, then current content of tooltip keeps old value.
-	 * Use ui.item to obtain reference to item. Value of that member can be modified or replaced by custom item.
-	 * Use ui.x to obtain left position of tooltip in pixels relative to widget. Value of that member can be modified.
-	 * Use ui.y to obtain top position of tooltip in pixels relative to widget. Value of that member can be modified.
-	 * Use ui.element to obtain reference to jquery object which represents tooltip. Value of that member can be replaced by custom element.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "updateTooltip", optionValue: UpdateTooltipEvent): void;
-
-	/**
-	 * Event which is raised before tooltip is hidden.
-	 * Return false in order to cancel hiding and keep tooltip visible.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.item to obtain reference to item.
-	 * Use ui.element to obtain reference to jquery object which represents tooltip or value of ui.element from last updateTooltip event. Value of that member can be replaced by custom element.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "hideTooltip"): HideTooltipEvent;
-
-	/**
-	 * Event which is raised before tooltip is hidden.
-	 * Return false in order to cancel hiding and keep tooltip visible.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.item to obtain reference to item.
-	 * Use ui.element to obtain reference to jquery object which represents tooltip or value of ui.element from last updateTooltip event. Value of that member can be replaced by custom element.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "hideTooltip", optionValue: HideTooltipEvent): void;
 	igDoughnutChart(options: IgDoughnutChart): JQuery;
 	igDoughnutChart(optionLiteral: 'option', optionName: string): any;
 	igDoughnutChart(optionLiteral: 'option', options: IgDoughnutChart): JQuery;
@@ -39306,6 +39121,13 @@ interface IgFinancialChart {
 	tooltipTemplates?: any;
 
 	/**
+	 * Gets or sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	pixelScalingRatio?: number;
+
+	/**
 	 * Gets or sets the left margin of chart title
 	 */
 	titleLeftMargin?: number;
@@ -39457,6 +39279,12 @@ interface IgFinancialChart {
 	isVerticalZoomEnabled?: boolean;
 
 	/**
+	 * Gets or sets whether the chart can highlight series through user interactions.
+	 * This property applies to Category Chart and Financial Chart controls.
+	 */
+	isSeriesHighlightingEnabled?: boolean;
+
+	/**
 	 * Gets or sets the rectangle representing the current scroll and zoom state of the chart.
 	 * WindowRect is expressed as a Rectangle with coordinates and sizes between 0 and 1.
 	 * The provided object should have numeric properties called left, top, width and height.
@@ -39542,6 +39370,11 @@ interface IgFinancialChart {
 	markerMaxCount?: number;
 
 	/**
+	 * Gets or sets whether the series animations should be allowed when a range change has been detected on an axis.
+	 */
+	animateSeriesWhenAxisRangeChanges?: boolean;
+
+	/**
 	 * Gets or sets the palette of brushes to used for coloring trend lines in this chart.
 	 * The value provided should be an array of CSS color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection
 	 * The value provided should be an array of css color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection.
@@ -39581,6 +39414,79 @@ interface IgFinancialChart {
 	 */
 	alignsGridLinesToPixels?: boolean;
 	trendLinePeriod?: number;
+
+	/**
+	 * Gets or sets the style of tooltip to be displayed.
+	 *
+	 * Valid values:
+	 * "default" Display default tooltip for each series in the chart.
+	 * "item" Display individual tooltips for all series in the chart.
+	 * "category" Display combined tooltip for all series in the chart.
+	 * "none" Display no tooltips in the chart.
+	 */
+	toolTipType?: string;
+
+	/**
+	 * Gets or sets the crosshairs to be displayed.
+	 *
+	 * Valid values:
+	 * "default" Display default number of crosshair lines in the chart.
+	 * "none" Display no crosshair lines in the chart.
+	 * "horizontal" Display horizontal line of crosshairs in the chart.
+	 * "vertical" Display vertical line of crosshairs in the chart.
+	 * "both" Display both horizontal and vertical lines of crosshairs in the chart.
+	 */
+	crosshairsDisplayMode?: string;
+
+	/**
+	 * Gets or sets whether crosshairs will snap to the nearest data point.
+	 */
+	crosshairsSnapToData?: boolean;
+
+	/**
+	 * Gets or sets whether annotations are shown along the axis for crosshair values
+	 */
+	crosshairsAnnotationEnabled?: boolean;
+
+	/**
+	 * Gets or sets whether annotations for the final value of each series is displayed on the axis.
+	 */
+	finalValueAnnotationsVisible?: boolean;
+
+	/**
+	 * Gets or sets if callouts should be displayed.
+	 */
+	calloutsVisible?: boolean;
+
+	/**
+	 * Gets or sets if event annotations should be displayed.
+	 */
+	calloutStyleUpdatingEventEnabled?: boolean;
+
+	/**
+	 * Gets or sets the collection of callout data to be annotated.
+	 */
+	calloutsItemsSource?: any;
+
+	/**
+	 * Gets or sets the member path of the X data for the callouts.
+	 */
+	calloutsXMemberPath?: string;
+
+	/**
+	 * Gets or sets the member path of the Y data for the callouts.
+	 */
+	calloutsYMemberPath?: string;
+
+	/**
+	 * Gets or sets the member path of the label data for the callouts.
+	 */
+	calloutsLabelMemberPath?: string;
+
+	/**
+	 * Gets or sets the member path of the content data for the callouts.
+	 */
+	calloutsContentMemberPath?: string;
 
 	/**
 	 * Gets or sets function which takes an context object and returns a formatted label for the X-axis.
@@ -39728,7 +39634,7 @@ interface IgFinancialChart {
 	xAxisLabel?: any;
 
 	/**
-	 * Gets or sets the format for labels along the Y-axis.
+	 * Gets or sets the property or string from which the labels are derived.
 	 */
 	yAxisLabel?: any;
 
@@ -39985,7 +39891,7 @@ interface IgFinancialChart {
 	chartTypePickerTemplate?: any;
 	trendLineTypePickerTemplate?: any;
 	volumeTypePickerTemplate?: any;
-	indicatorPickerTemplate?: any;
+	indicatorMenuTemplate?: any;
 	overlayPickerTemplate?: any;
 	toolbarHeight?: number;
 
@@ -40089,10 +39995,11 @@ interface IgFinancialChart {
 	yAxisAbbreviateLargeNumbers?: boolean;
 
 	/**
-	 * The type of series to display in the zoom slider pane.
+	 * Gets or sets type of series to display in the zoom slider pane.
 	 *
 	 * Valid values:
 	 * "none" Do not display the zoom slider pane.
+	 * "auto" In the zoom slider pane, match the series type in the price pane.
 	 * "bar" Display financial bar series in the zoom slider pane.
 	 * "candle" Display candle series in the zoom slider pane.
 	 * "column" Display column series in the zoom slider pane.
@@ -40217,6 +40124,36 @@ interface IgFinancialChart {
 	customIndicatorNames?: any;
 
 	/**
+	 * Gets or sets stroke brush of major gridlines on x-axis of the zoom slider pane
+	 */
+	zoomSliderXAxisMajorStroke?: string;
+
+	/**
+	 * Gets or sets thickness of major gridlines on x-axis of the zoom slider pane
+	 */
+	zoomSliderXAxisMajorStrokeThickness?: number;
+
+	/**
+	 * Gets or sets weather or not a legend is visible between toolbar and chart's plot area
+	 */
+	isLegendVisible?: boolean;
+
+	/**
+	 * Gets or sets a legend displayed between toolbar and chart's plot area
+	 */
+	financialChartLegend?: any;
+
+	/**
+	 * Gets or sets minimum value on x-axis
+	 */
+	xAxisMinimumValue?: any;
+
+	/**
+	 * Gets or sets maximum value on x-axis
+	 */
+	xAxisMaximumValue?: any;
+
+	/**
 	 * The width of the chart.
 	 */
 	width?: number;
@@ -40297,6 +40234,11 @@ interface IgFinancialChart {
 	 * Occurs when the pointer is released over a Series.
 	 */
 	seriesPointerUp?: SeriesPointerUpEvent;
+
+	/**
+	 * Occurs when the style of a callout is updated.
+	 */
+	calloutStyleUpdating?: CalloutStyleUpdatingEvent;
 
 	/**
 	 * Event raised by the chart when custom indicator data is needed from the application.
@@ -40503,6 +40445,22 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igFinancialChart(optionLiteral: 'option', optionName: "tooltipTemplates", optionValue: any): void;
+
+	/**
+	 * Gets  the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "pixelScalingRatio"): number;
+
+	/**
+	 * Sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
 
 	/**
 	 * Gets  the left margin of chart title
@@ -40863,6 +40821,20 @@ interface JQuery {
 	igFinancialChart(optionLiteral: 'option', optionName: "isVerticalZoomEnabled", optionValue: boolean): void;
 
 	/**
+	 * Gets  whether the chart can highlight series through user interactions.
+	 * This property applies to Category Chart and Financial Chart controls.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "isSeriesHighlightingEnabled"): boolean;
+
+	/**
+	 * Sets whether the chart can highlight series through user interactions.
+	 * This property applies to Category Chart and Financial Chart controls.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "isSeriesHighlightingEnabled", optionValue: boolean): void;
+
+	/**
 	 * Gets  the rectangle representing the current scroll and zoom state of the chart.
 	 * WindowRect is expressed as a Rectangle with coordinates and sizes between 0 and 1.
 	 * The provided object should have numeric properties called left, top, width and height.
@@ -41031,6 +41003,18 @@ interface JQuery {
 	igFinancialChart(optionLiteral: 'option', optionName: "markerMaxCount", optionValue: number): void;
 
 	/**
+	 * Gets  whether the series animations should be allowed when a range change has been detected on an axis.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges"): boolean;
+
+	/**
+	 * Sets whether the series animations should be allowed when a range change has been detected on an axis.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges", optionValue: boolean): void;
+
+	/**
 	 * Gets  the palette of brushes to used for coloring trend lines in this chart.
 	 * The value provided should be an array of CSS color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection
 	 * The value provided should be an array of css color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection.
@@ -41089,6 +41073,154 @@ interface JQuery {
 	igFinancialChart(optionLiteral: 'option', optionName: "alignsGridLinesToPixels", optionValue: boolean): void;
 	igFinancialChart(optionLiteral: 'option', optionName: "trendLinePeriod"): number;
 	igFinancialChart(optionLiteral: 'option', optionName: "trendLinePeriod", optionValue: number): void;
+
+	/**
+	 * Gets  the style of tooltip to be displayed.
+	 */
+
+	igFinancialChart(optionLiteral: 'option', optionName: "toolTipType"): string;
+
+	/**
+	 * Sets the style of tooltip to be displayed.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igFinancialChart(optionLiteral: 'option', optionName: "toolTipType", optionValue: string): void;
+
+	/**
+	 * Gets  the crosshairs to be displayed.
+	 */
+
+	igFinancialChart(optionLiteral: 'option', optionName: "crosshairsDisplayMode"): string;
+
+	/**
+	 * Sets the crosshairs to be displayed.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igFinancialChart(optionLiteral: 'option', optionName: "crosshairsDisplayMode", optionValue: string): void;
+
+	/**
+	 * Gets  whether crosshairs will snap to the nearest data point.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "crosshairsSnapToData"): boolean;
+
+	/**
+	 * Sets whether crosshairs will snap to the nearest data point.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "crosshairsSnapToData", optionValue: boolean): void;
+
+	/**
+	 * Gets  whether annotations are shown along the axis for crosshair values
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "crosshairsAnnotationEnabled"): boolean;
+
+	/**
+	 * Sets whether annotations are shown along the axis for crosshair values
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "crosshairsAnnotationEnabled", optionValue: boolean): void;
+
+	/**
+	 * Gets  whether annotations for the final value of each series is displayed on the axis.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "finalValueAnnotationsVisible"): boolean;
+
+	/**
+	 * Sets whether annotations for the final value of each series is displayed on the axis.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "finalValueAnnotationsVisible", optionValue: boolean): void;
+
+	/**
+	 * Gets  if callouts should be displayed.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutsVisible"): boolean;
+
+	/**
+	 * Sets if callouts should be displayed.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutsVisible", optionValue: boolean): void;
+
+	/**
+	 * Gets  if event annotations should be displayed.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutStyleUpdatingEventEnabled"): boolean;
+
+	/**
+	 * Sets if event annotations should be displayed.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutStyleUpdatingEventEnabled", optionValue: boolean): void;
+
+	/**
+	 * Gets  the collection of callout data to be annotated.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutsItemsSource"): any;
+
+	/**
+	 * Sets the collection of callout data to be annotated.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutsItemsSource", optionValue: any): void;
+
+	/**
+	 * Gets  the member path of the X data for the callouts.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutsXMemberPath"): string;
+
+	/**
+	 * Sets the member path of the X data for the callouts.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutsXMemberPath", optionValue: string): void;
+
+	/**
+	 * Gets  the member path of the Y data for the callouts.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutsYMemberPath"): string;
+
+	/**
+	 * Sets the member path of the Y data for the callouts.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutsYMemberPath", optionValue: string): void;
+
+	/**
+	 * Gets  the member path of the label data for the callouts.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutsLabelMemberPath"): string;
+
+	/**
+	 * Sets the member path of the label data for the callouts.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutsLabelMemberPath", optionValue: string): void;
+
+	/**
+	 * Gets  the member path of the content data for the callouts.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutsContentMemberPath"): string;
+
+	/**
+	 * Sets the member path of the content data for the callouts.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutsContentMemberPath", optionValue: string): void;
 
 	/**
 	 * Gets  function which takes an context object and returns a formatted label for the X-axis.
@@ -41439,12 +41571,12 @@ interface JQuery {
 	igFinancialChart(optionLiteral: 'option', optionName: "xAxisLabel", optionValue: any): void;
 
 	/**
-	 * Gets  the format for labels along the Y-axis.
+	 * Gets  the property or string from which the labels are derived.
 	 */
 	igFinancialChart(optionLiteral: 'option', optionName: "yAxisLabel"): any;
 
 	/**
-	 * Sets the format for labels along the Y-axis.
+	 * Sets the property or string from which the labels are derived.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41945,8 +42077,8 @@ interface JQuery {
 	igFinancialChart(optionLiteral: 'option', optionName: "trendLineTypePickerTemplate", optionValue: any): void;
 	igFinancialChart(optionLiteral: 'option', optionName: "volumeTypePickerTemplate"): any;
 	igFinancialChart(optionLiteral: 'option', optionName: "volumeTypePickerTemplate", optionValue: any): void;
-	igFinancialChart(optionLiteral: 'option', optionName: "indicatorPickerTemplate"): any;
-	igFinancialChart(optionLiteral: 'option', optionName: "indicatorPickerTemplate", optionValue: any): void;
+	igFinancialChart(optionLiteral: 'option', optionName: "indicatorMenuTemplate"): any;
+	igFinancialChart(optionLiteral: 'option', optionName: "indicatorMenuTemplate", optionValue: any): void;
 	igFinancialChart(optionLiteral: 'option', optionName: "overlayPickerTemplate"): any;
 	igFinancialChart(optionLiteral: 'option', optionName: "overlayPickerTemplate", optionValue: any): void;
 	igFinancialChart(optionLiteral: 'option', optionName: "toolbarHeight"): number;
@@ -42147,13 +42279,13 @@ interface JQuery {
 	igFinancialChart(optionLiteral: 'option', optionName: "yAxisAbbreviateLargeNumbers", optionValue: boolean): void;
 
 	/**
-	 * The type of series to display in the zoom slider pane.
+	 * Gets  type of series to display in the zoom slider pane.
 	 */
 
 	igFinancialChart(optionLiteral: 'option', optionName: "zoomSliderType"): string;
 
 	/**
-	 * The type of series to display in the zoom slider pane.
+	 * Sets type of series to display in the zoom slider pane.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -42433,6 +42565,78 @@ interface JQuery {
 	igFinancialChart(optionLiteral: 'option', optionName: "customIndicatorNames", optionValue: any): void;
 
 	/**
+	 * Gets  stroke brush of major gridlines on x-axis of the zoom slider pane
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "zoomSliderXAxisMajorStroke"): string;
+
+	/**
+	 * Sets stroke brush of major gridlines on x-axis of the zoom slider pane
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "zoomSliderXAxisMajorStroke", optionValue: string): void;
+
+	/**
+	 * Gets  thickness of major gridlines on x-axis of the zoom slider pane
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "zoomSliderXAxisMajorStrokeThickness"): number;
+
+	/**
+	 * Sets thickness of major gridlines on x-axis of the zoom slider pane
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "zoomSliderXAxisMajorStrokeThickness", optionValue: number): void;
+
+	/**
+	 * Gets  weather or not a legend is visible between toolbar and chart's plot area
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "isLegendVisible"): boolean;
+
+	/**
+	 * Sets weather or not a legend is visible between toolbar and chart's plot area
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "isLegendVisible", optionValue: boolean): void;
+
+	/**
+	 * Gets  a legend displayed between toolbar and chart's plot area
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "financialChartLegend"): any;
+
+	/**
+	 * Sets a legend displayed between toolbar and chart's plot area
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "financialChartLegend", optionValue: any): void;
+
+	/**
+	 * Gets  minimum value on x-axis
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "xAxisMinimumValue"): any;
+
+	/**
+	 * Sets minimum value on x-axis
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "xAxisMinimumValue", optionValue: any): void;
+
+	/**
+	 * Gets  maximum value on x-axis
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "xAxisMaximumValue"): any;
+
+	/**
+	 * Sets maximum value on x-axis
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "xAxisMaximumValue", optionValue: any): void;
+
+	/**
 	 * The width of the chart.
 	 */
 	igFinancialChart(optionLiteral: 'option', optionName: "width"): number;
@@ -42627,6 +42831,18 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igFinancialChart(optionLiteral: 'option', optionName: "seriesPointerUp", optionValue: SeriesPointerUpEvent): void;
+
+	/**
+	 * Occurs when the style of a callout is updated.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutStyleUpdating"): CalloutStyleUpdatingEvent;
+
+	/**
+	 * Occurs when the style of a callout is updated.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "calloutStyleUpdating", optionValue: CalloutStyleUpdatingEvent): void;
 
 	/**
 	 * Event raised by the chart when custom indicator data is needed from the application.
@@ -44383,6 +44599,22 @@ interface IgGridCellMerging {
 	mergeStrategy?: string|Function;
 
 	/**
+	 * Defines the rules merging is based on.
+	 *
+	 *
+	 * Valid values:
+	 * "duplicate" Duplicate values in the column will be merged together.
+	 * "null" Merging will be applied for each subsequent null value after a non-null value.
+	 */
+	rowMergeStrategy?: string|Function;
+
+	/**
+	 * Defines the whether the rows will be merged or not.
+	 *
+	 */
+	mergeRows?: any;
+
+	/**
 	 * A list of column settings that specifies hiding options on a per column basis.
 	 *
 	 */
@@ -44452,6 +44684,8 @@ interface IgGridCellMergingMethods {
 	 * @param column The column index or column key to get the state for.
 	 */
 	isMerged(column: Object): boolean;
+	mergeRow(id: Object, fireEvents: Object): void;
+	unmergeRow(id: Object, index: Object): void;
 
 	/**
 	 * Changes the all locales contained into a specified container to the language specified in [options.language](ui.igwidget#options:language)
@@ -44472,6 +44706,8 @@ interface JQuery {
 	igGridCellMerging(methodName: "mergeColumn", column: Object, raiseEvents: boolean): string;
 	igGridCellMerging(methodName: "unmergeColumn", column: Object): string;
 	igGridCellMerging(methodName: "isMerged", column: Object): boolean;
+	igGridCellMerging(methodName: "mergeRow", id: Object, fireEvents: Object): void;
+	igGridCellMerging(methodName: "unmergeRow", id: Object, index: Object): void;
 	igGridCellMerging(methodName: "changeLocale", $container: Object): void;
 
 	/**
@@ -44521,6 +44757,36 @@ interface JQuery {
 	 */
 
 	igGridCellMerging(optionLiteral: 'option', optionName: "mergeStrategy", optionValue: string|Function): void;
+
+	/**
+	 * Defines the rules merging is based on.
+	 *
+	 */
+
+	igGridCellMerging(optionLiteral: 'option', optionName: "rowMergeStrategy"): string|Function;
+
+	/**
+	 * Defines the rules merging is based on.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igGridCellMerging(optionLiteral: 'option', optionName: "rowMergeStrategy", optionValue: string|Function): void;
+
+	/**
+	 * Defines the whether the rows will be merged or not.
+	 *
+	 */
+	igGridCellMerging(optionLiteral: 'option', optionName: "mergeRows"): any;
+
+	/**
+	 * Defines the whether the rows will be merged or not.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridCellMerging(optionLiteral: 'option', optionName: "mergeRows", optionValue: any): void;
 
 	/**
 	 * A list of column settings that specifies hiding options on a per column basis.
@@ -47519,6 +47785,53 @@ interface IgGridFilteringColumnSetting {
 	columnKey?: string;
 
 	/**
+	 * Specifies the type of editor to use for the column.
+	 *
+	 *
+	 * Valid values:
+	 * "text" An igTextEditor will be created
+	 * "mask" An igMaskEditor will be created
+	 * "date" An igDateEditor will be created
+	 * "datepicker" An igDatePicker will be created
+	 * "timepicker" An igTimePikcer will be created
+	 * "numeric" An igNumericEditor will be created
+	 * "checkbox" An igCheckboxEditor will be created
+	 * "currency" An igCurrencyEditor will be created
+	 * "percent" An igPercentEditor will be created
+	 * "combo" An igCombo editor is created. Both the JS and CSS files used by ui.igCombo should be available.
+	 * "rating" An igRating editor is created. Both the JS and CSS files used by ui.igRating should be available.
+	 */
+	editorType?: string;
+
+	/**
+	 * Specifies а custom editor provider instance. More information about editor providers can be found [here](http://www.igniteui.com/help/implementing-custom-editor-provider) and [here](http://www.igniteui.com/help/working-with-combo-editor-provider).
+	 * It should either extend $.ig.EditorProvider or have definitions for the following methods:
+	 * $.ig.EditorProvider = $.ig.EditorProvider|| $.ig.EditorProvider.extend({
+	 * createEditor: function (callbacks, key, editorOptions, tabIndex, format, element) {},
+	 * attachErrorEvents: function (errorShowing, errorShown, errorHidden) {},
+	 * getEditor: function () {},
+	 * refreshValue: function () {},
+	 * getValue: function () {},
+	 * setValue: function (val) {},
+	 * setSize: function (width, height) {},
+	 * setFocus: function () {},
+	 * removeFromParent: function () {},
+	 * destroy: function () {},
+	 * validator: function () {},
+	 * validate: function (noLabel) {},
+	 * isValid: function () {}
+	 * });
+	 *
+	 */
+	editorProvider?: any;
+
+	/**
+	 * Specifies options to initialize the corresponding editor with.
+	 *
+	 */
+	editorOptions?: any;
+
+	/**
 	 * Identifies the grid column by index. Either key or index must be set in every column setting.
 	 *
 	 */
@@ -47563,6 +47876,10 @@ interface IgGridFilteringColumnSetting {
 	 * "thisYear"
 	 * "nextYear"
 	 * "lastYear"
+	 * "at"
+	 * "notAt"
+	 * "atBefore"
+	 * "atAfter"
 	 */
 	condition?: string|boolean;
 
@@ -47835,6 +48152,30 @@ interface IgGridFilteringLocale {
 	 *
 	 */
 	nextYearLabel?: string;
+
+	/**
+	 * 'At' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	atLabel?: string;
+
+	/**
+	 * 'Not at' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	notAtLabel?: string;
+
+	/**
+	 * 'At or before' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	atBeforeLabel?: string;
+
+	/**
+	 * 'At or after' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	atAfterLabel?: string;
 
 	/**
 	 * 'Clear' label that is used for the predefined filtering conditions in the filter dropdowns.
@@ -48322,8 +48663,8 @@ interface IgGridFiltering {
 	 *
 	 *
 	 * Valid values:
-	 * "string" The dialog window width in pixels (370px).
-	 * "number" The dialog window width in pixels as a number (370).
+	 * "string" The dialog window width in pixels (500px).
+	 * "number" The dialog window width in pixels as a number (500).
 	 */
 	filterDialogWidth?: string|number;
 
@@ -48421,13 +48762,14 @@ interface IgGridFiltering {
 	locale?: IgGridFilteringLocale;
 
 	/**
-	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><select></select></div><span>${label2}</span></div>".
+	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><input></input></div><span>${label2}</span></div>".
 	 *
 	 */
 	filterDialogAddConditionTemplate?: string;
 
 	/**
-	 * Custom template for options in dropdown in add condition area in the filter dialog. The default template is "<option value='${value}'>${text}</option>".
+	 * Custom template for options in dropdown in add condition area in the filter dialog. The default template is "<option value='${value}'>${text}</option>"
+	 * and it is used when [filterDialogAddConditionTemplate](ui.iggridfiltering#options:filterDialogAddConditionTemplate) is applied
 	 *
 	 */
 	filterDialogAddConditionDropDownTemplate?: string;
@@ -48437,13 +48779,14 @@ interface IgGridFiltering {
 	 * Each DOM element which is used for selecting filter conditions/columns/filter expressions has "data-*" attribute.
 	 * E.g.: DOM element used for selecting column has attribute "data-af-col", for selecting filter condition - "data-af-cond", for filter expression- "data-af-expr".
 	 * NOTE: The template is supported only with <tr />.
-	 * The default template is "<tr data-af-row><td><input data-af-col/></td><td><select data-af-cond></select></td><td><input data-af-expr /> </td><td><span data-af-rmv></span></td></tr>".
+	 * The default template is "<tr data-af-row><td><input data-af-col/></td><td><input data-af-cond/></td><td><input data-af-expr /> </td><td><span data-af-rmv></span></td></tr>".
 	 *
 	 */
 	filterDialogFilterTemplate?: string;
 
 	/**
-	 * Custom template for options in condition list in filter dialog. The default template is "<option value='${condition}'>${text}</option>".
+	 * Custom template for options in condition list in filter dialog. The default template is "<option value='${condition}'>${text}</option>"
+	 * and it is used for custimizing DOM elemenent with attribute "data-af-cond".
 	 *
 	 */
 	filterDialogFilterConditionTemplate?: string;
@@ -49121,13 +49464,13 @@ interface JQuery {
 	igGridFiltering(optionLiteral: 'option', optionName: "locale", optionValue: IgGridFilteringLocale): void;
 
 	/**
-	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><select></select></div><span>${label2}</span></div>".
+	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><input></input></div><span>${label2}</span></div>".
 	 *
 	 */
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogAddConditionTemplate"): string;
 
 	/**
-	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><select></select></div><span>${label2}</span></div>".
+	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><input></input></div><span>${label2}</span></div>".
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -49135,13 +49478,15 @@ interface JQuery {
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogAddConditionTemplate", optionValue: string): void;
 
 	/**
-	 * Custom template for options in dropdown in add condition area in the filter dialog. The default template is "<option value='${value}'>${text}</option>".
+	 * Custom template for options in dropdown in add condition area in the filter dialog. The default template is "<option value='${value}'>${text}</option>"
+	 * and it is used when [filterDialogAddConditionTemplate](ui.iggridfiltering#options:filterDialogAddConditionTemplate) is applied
 	 *
 	 */
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogAddConditionDropDownTemplate"): string;
 
 	/**
-	 * Custom template for options in dropdown in add condition area in the filter dialog. The default template is "<option value='${value}'>${text}</option>".
+	 * Custom template for options in dropdown in add condition area in the filter dialog. The default template is "<option value='${value}'>${text}</option>"
+	 * and it is used when [filterDialogAddConditionTemplate](ui.iggridfiltering#options:filterDialogAddConditionTemplate) is applied
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -49153,7 +49498,7 @@ interface JQuery {
 	 * Each DOM element which is used for selecting filter conditions/columns/filter expressions has "data-*" attribute.
 	 * E.g.: DOM element used for selecting column has attribute "data-af-col", for selecting filter condition - "data-af-cond", for filter expression- "data-af-expr".
 	 * NOTE: The template is supported only with <tr />.
-	 * The default template is "<tr data-af-row><td><input data-af-col/></td><td><select data-af-cond></select></td><td><input data-af-expr /> </td><td><span data-af-rmv></span></td></tr>".
+	 * The default template is "<tr data-af-row><td><input data-af-col/></td><td><input data-af-cond/></td><td><input data-af-expr /> </td><td><span data-af-rmv></span></td></tr>".
 	 *
 	 */
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterTemplate"): string;
@@ -49163,7 +49508,7 @@ interface JQuery {
 	 * Each DOM element which is used for selecting filter conditions/columns/filter expressions has "data-*" attribute.
 	 * E.g.: DOM element used for selecting column has attribute "data-af-col", for selecting filter condition - "data-af-cond", for filter expression- "data-af-expr".
 	 * NOTE: The template is supported only with <tr />.
-	 * The default template is "<tr data-af-row><td><input data-af-col/></td><td><select data-af-cond></select></td><td><input data-af-expr /> </td><td><span data-af-rmv></span></td></tr>".
+	 * The default template is "<tr data-af-row><td><input data-af-col/></td><td><input data-af-cond/></td><td><input data-af-expr /> </td><td><span data-af-rmv></span></td></tr>".
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -49171,13 +49516,15 @@ interface JQuery {
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterTemplate", optionValue: string): void;
 
 	/**
-	 * Custom template for options in condition list in filter dialog. The default template is "<option value='${condition}'>${text}</option>".
+	 * Custom template for options in condition list in filter dialog. The default template is "<option value='${condition}'>${text}</option>"
+	 * and it is used for custimizing DOM elemenent with attribute "data-af-cond".
 	 *
 	 */
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterConditionTemplate"): string;
 
 	/**
-	 * Custom template for options in condition list in filter dialog. The default template is "<option value='${condition}'>${text}</option>".
+	 * Custom template for options in condition list in filter dialog. The default template is "<option value='${condition}'>${text}</option>"
+	 * and it is used for custimizing DOM elemenent with attribute "data-af-cond".
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -49592,7 +49939,7 @@ interface IgGridColumnGroupOptions {
 
 interface IgGridColumn {
 	/**
-	 * Header text for the specified column.
+	 * Header text for the specified column. HTML and special characters should not be included as part of the header text content, because the browsers can interpret it and break the grid UI.
 	 *
 	 */
 	headerText?: string;
@@ -49617,6 +49964,7 @@ interface IgGridColumn {
 	 * Gets/Sets the type of formatting for cells of the column. Default value is null. Checkout [Formatting Dates, Numbers and Strings](http://www.igniteui.com/help/formatting-dates-numbers-and-strings) for details on the valid formatting specifiers.
 	 *
 	 * If dataType is "date", then supported formats are following: "date", "dateLong", "dateTime", "time", "timeLong", "MM/dd/yyyy", "MMM-d, yy, h:mm:ss tt", "dddd d MMM", etc.
+	 * If dataType is "time", then supported formats are following: "date", "dateLong", "dateTime", "time", "timeLong", "MMM-d, yy, h:mm:ss tt", etc.
 	 * If dataType is "number", then supported numeric formats are following: "number", "currency", "percent", "int", "double", "0.00", "#.0####", "0", "#.#######", etc.
 	 * The value of "double" will be similar to "number", but with unlimited maximum number of decimal places.
 	 * The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object.
@@ -49626,7 +49974,7 @@ interface IgGridColumn {
 	format?: string;
 
 	/**
-	 * Data type of the column cell values: string, number, bool, date, object.
+	 * Data type of the column cell values: string, number, bool, date, time, object.
 	 *
 	 *
 	 * Valid values:
@@ -49634,6 +49982,7 @@ interface IgGridColumn {
 	 * "number" Used when the data for the column is of type number
 	 * "boolean" Used when the data for the column is of type boolean
 	 * "date" Used when the data for the column is of type date
+	 * "time" Used when the data for the column is of type date and but only the time portion is important
 	 * "object" Used when the data for the column is of type object
 	 */
 	dataType?: string;
@@ -50504,11 +50853,12 @@ interface IgGrid {
 	aggregateTransactions?: boolean;
 
 	/**
-	 * Sets gets ability to automatically format text in cells for numeric and date columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
+	 * Sets gets ability to automatically format text in cells for numeric, date and time columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
 	 *
 	 *
 	 * Valid values:
 	 * "date" formats only Date columns
+	 * "time" formats only Time columns
 	 * "number" formats only number columns
 	 * "dateandnumber" formats both Date and number columns
 	 * "true" formats Date and number columns
@@ -51833,14 +52183,14 @@ interface JQuery {
 	igGrid(optionLiteral: 'option', optionName: "aggregateTransactions", optionValue: boolean): void;
 
 	/**
-	 * Sets gets ability to automatically format text in cells for numeric and date columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
+	 * Sets gets ability to automatically format text in cells for numeric, date and time columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
 	 *
 	 */
 
 	igGrid(optionLiteral: 'option', optionName: "autoFormat"): string|boolean;
 
 	/**
-	 * Sets gets ability to automatically format text in cells for numeric and date columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
+	 * Sets gets ability to automatically format text in cells for numeric, date and time columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -55049,19 +55399,19 @@ interface IgGridHidingMethods {
 
 	/**
 	 * Shows a hidden column. If the column is not hidden the method does nothing.
-	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous, which means that it returns immediately, and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param callback Specifies a custom function to be called when the column(s) is shown(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index; else if a string is provided, it will be used as a column key.
+	 * @param callback Specifies a custom function to be called after the column gets shown(optional)
 	 */
 	showColumn(column: Object, callback?: Function): void;
 
 	/**
 	 * Hides a visible column. If the column is hidden the method does nothing.
-	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous, which means that it returns immediately, and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param callback Specifies a custom function to be called when the column is hidden(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index; else if a string is provided, it will be used as a column key.
+	 * @param callback Specifies a custom function to be called after the column gets hidden(optional)
 	 */
 	hideColumn(column: Object, callback?: Function): void;
 
@@ -60916,6 +61266,7 @@ interface IgGridRowSelectors {
 }
 interface IgGridRowSelectorsMethods {
 	destroy(): void;
+	rsRenderColgroup(): void;
 
 	/**
 	 * Changes the all locales into the widget element to the language specified in [options.language](ui.iggridrowselectors#options:language)
@@ -60929,6 +61280,7 @@ interface JQuery {
 
 interface JQuery {
 	igGridRowSelectors(methodName: "destroy"): void;
+	igGridRowSelectors(methodName: "rsRenderColgroup"): void;
 	igGridRowSelectors(methodName: "changeLocale"): void;
 
 	/**
@@ -62012,9 +62364,6 @@ interface IgGridModalDialog {
 
 	/**
 	 * Event fired before the modal dialog is closed.
-	 * The handler function takes arguments evt and ui.
-	 * Use ui.owner to get the reference to the igGridModalDialog widget.
-	 * Use ui.modalDialog to get the reference to the igGridModalDialog element
 	 */
 	modalDialogClosing?: ModalDialogClosingEvent;
 
@@ -62258,8 +62607,24 @@ class EditorProviderDatePicker {
 }
 
 declare namespace Infragistics {
+class EditorProviderTimePicker {
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object, offset: Object): void;
+	setValue(value: Object, fe: Object, newOffset: Object): void;
+	textChanged(evt: Object, ui: Object): void;
+	setSize(width: Object, height: Object): void;
+	setFocus(): void;
+	removeFromParent(): void;
+	destroy(): void;
+	refreshValue(): void;
+	validator(): void;
+	isValid(): void;
+}
+}
+
+declare namespace Infragistics {
 class EditorProviderBoolean {
 	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+	keyDown(evt: Object, ui: Object): void;
 	valueChanged(evt: Object, ui: Object): void;
 	refreshValue(): void;
 	getValue(): void;
@@ -62500,17 +62865,11 @@ interface JQuery {
 
 	/**
 	 * Event fired before the modal dialog is closed.
-	 * The handler function takes arguments evt and ui.
-	 * Use ui.owner to get the reference to the igGridModalDialog widget.
-	 * Use ui.modalDialog to get the reference to the igGridModalDialog element
 	 */
 	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogClosing"): ModalDialogClosingEvent;
 
 	/**
 	 * Event fired before the modal dialog is closed.
-	 * The handler function takes arguments evt and ui.
-	 * Use ui.owner to get the reference to the igGridModalDialog widget.
-	 * Use ui.modalDialog to get the reference to the igGridModalDialog element
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -62599,7 +62958,7 @@ interface IgGridSortingLocale {
 	 * Custom sorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
 	 *
 	 */
-	sortedColumnTooltipFormat?: string;
+	sortedColumnTooltip?: string;
 
 	/**
 	 * Unsorted column tooltip.
@@ -64479,7 +64838,7 @@ interface IgGridSummariesMethods {
 	selectCheckBox($checkbox: Object, isToSelect: boolean): void;
 
 	/**
-	 * Summary calculate the whole data for the specified column key, columnMethods and dataType (used when datasource is remote and dataType is date)
+	 * Summary calculate the whole data for the specified column key, columnMethods and dataType (used when datasource is remote and dataType is date or time)
 	 *
 	 * @param ck ColumnKey
 	 * @param columnMethods Array of column methods objects
@@ -65373,6 +65732,7 @@ interface IgGridUpdatingColumnSetting {
 	 * "mask" An igMaskEditor will be created
 	 * "date" An igDateEditor will be created
 	 * "datepicker" An igDatePicker will be created
+	 * "timepicker" An igTimePikcer will be created
 	 * "numeric" An igNumericEditor will be created
 	 * "checkbox" An igCheckboxEditor will be created
 	 * "currency" An igCurrencyEditor will be created
@@ -65611,6 +65971,11 @@ interface EditRowStartingEvent {
 
 interface EditRowStartingEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the row's PK value.
 	 */
 	rowID?: any;
@@ -65627,6 +65992,11 @@ interface EditRowStartedEvent {
 
 interface EditRowStartedEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the row's PK value.
 	 */
 	rowID?: any;
@@ -65642,6 +66012,11 @@ interface EditRowEndingEvent {
 }
 
 interface EditRowEndingEventUIParam {
+	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
 	/**
 	 * Check if any of the values is changed which will cause update in the data source. Can be manually set to false to prevent this update.
 	 */
@@ -65668,6 +66043,11 @@ interface EditRowEndedEvent {
 }
 
 interface EditRowEndedEventUIParam {
+	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
 	/**
 	 * Gets the row's PK value.
 	 */
@@ -65700,6 +66080,11 @@ interface EditCellStartingEvent {
 
 interface EditCellStartingEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the row's PK value.
 	 */
 	rowID?: any;
@@ -65717,7 +66102,7 @@ interface EditCellStartingEventUIParam {
 	/**
 	 * Gets a reference to the editor used for editing the column.
 	 */
-	editor?: string;
+	editor?: any;
 
 	/**
 	 * Gets or set the value of the editor.
@@ -65736,6 +66121,11 @@ interface EditCellStartedEvent {
 
 interface EditCellStartedEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the row's PK value.
 	 */
 	rowID?: any;
@@ -65753,7 +66143,7 @@ interface EditCellStartedEventUIParam {
 	/**
 	 * Gets a reference to the editor used for editing the column.
 	 */
-	editor?: string;
+	editor?: any;
 
 	/**
 	 * Gets or set the value of the editor.
@@ -65772,6 +66162,11 @@ interface EditCellEndingEvent {
 
 interface EditCellEndingEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the row's PK value.
 	 */
 	rowID?: any;
@@ -65789,7 +66184,7 @@ interface EditCellEndingEventUIParam {
 	/**
 	 * Gets a reference to the editor used for editing the column.
 	 */
-	editor?: string;
+	editor?: any;
 
 	/**
 	 * Gets or set the value of the editor.
@@ -65818,6 +66213,11 @@ interface EditCellEndedEvent {
 
 interface EditCellEndedEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the row's PK value.
 	 */
 	rowID?: any;
@@ -65835,7 +66235,7 @@ interface EditCellEndedEventUIParam {
 	/**
 	 * Gets a reference to the editor used for editing the column.
 	 */
-	editor?: string;
+	editor?: any;
 
 	/**
 	 * Gets the new value.
@@ -65864,6 +66264,11 @@ interface RowAddingEvent {
 
 interface RowAddingEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the value for the column with the specified key.
 	 */
 	values?: any;
@@ -65879,6 +66284,11 @@ interface RowAddedEvent {
 }
 
 interface RowAddedEventUIParam {
+	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
 	/**
 	 * Gets the value for the column with the specified key.
 	 */
@@ -65896,9 +66306,14 @@ interface RowDeletingEvent {
 
 interface RowDeletingEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a jQuery object containing the TR element of the row to delete.
 	 */
-	element?: string;
+	element?: any;
 
 	/**
 	 * Gets the row's PK value.
@@ -65912,9 +66327,14 @@ interface RowDeletedEvent {
 
 interface RowDeletedEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a jQuery object containing the TR element of the deleted row.
 	 */
-	element?: string;
+	element?: any;
 
 	/**
 	 * Gets the row's PK value.
@@ -65926,13 +66346,23 @@ interface DataDirtyEvent {
 	(event: Event, ui: DataDirtyEventUIParam): void;
 }
 
-interface DataDirtyEventUIParam {}
+interface DataDirtyEventUIParam {
+	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+}
 
 interface GeneratePrimaryKeyValueEvent {
 	(event: Event, ui: GeneratePrimaryKeyValueEventUIParam): void;
 }
 
 interface GeneratePrimaryKeyValueEventUIParam {
+	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
 	/**
 	 * Gets the auto-generated primary key (the number of records in the data source + 1) or set a custom unique primary key for the new row.
 	 */
@@ -65945,9 +66375,14 @@ interface RowEditDialogBeforeOpenEvent {
 
 interface RowEditDialogBeforeOpenEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a reference to row edit dialog DOM element.
 	 */
-	dialogElement?: string;
+	dialogElement?: any;
 }
 
 interface RowEditDialogAfterOpenEvent {
@@ -65956,9 +66391,14 @@ interface RowEditDialogAfterOpenEvent {
 
 interface RowEditDialogAfterOpenEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a reference to row edit dialog DOM element.
 	 */
-	dialogElement?: string;
+	dialogElement?: any;
 }
 
 interface RowEditDialogBeforeCloseEvent {
@@ -65967,9 +66407,14 @@ interface RowEditDialogBeforeCloseEvent {
 
 interface RowEditDialogBeforeCloseEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a reference to row edit dialog DOM element.
 	 */
-	dialogElement?: string;
+	dialogElement?: any;
 }
 
 interface RowEditDialogAfterCloseEvent {
@@ -65978,9 +66423,14 @@ interface RowEditDialogAfterCloseEvent {
 
 interface RowEditDialogAfterCloseEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a reference to row edit dialog DOM element.
 	 */
-	dialogElement?: string;
+	dialogElement?: any;
 }
 
 interface RowEditDialogContentsRenderedEvent {
@@ -65989,9 +66439,14 @@ interface RowEditDialogContentsRenderedEvent {
 
 interface RowEditDialogContentsRenderedEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a reference to row edit dialog DOM element.
 	 */
-	dialogElement?: string;
+	dialogElement?: any;
 }
 
 interface IgGridUpdating {
@@ -69327,7 +69782,7 @@ interface IgLinearGaugeMethods {
 	 * @param x The x coordinate of the point.
 	 * @param y The y coordinate of the point.
 	 */
-	needleContainsPoint(x: number, y: number): void;
+	needleContainsPoint(x: number, y: number): boolean;
 
 	/**
 	 * Returns information about how the linear gauge is rendered.
@@ -69377,7 +69832,7 @@ interface JQuery {
 	igLinearGauge(methodName: "removeRange", value: Object): void;
 	igLinearGauge(methodName: "updateRange", value: Object): void;
 	igLinearGauge(methodName: "getValueForPoint", x: Object, y: Object): number;
-	igLinearGauge(methodName: "needleContainsPoint", x: number, y: number): void;
+	igLinearGauge(methodName: "needleContainsPoint", x: number, y: number): boolean;
 	igLinearGauge(methodName: "exportVisualData"): Object;
 	igLinearGauge(methodName: "flush"): void;
 	igLinearGauge(methodName: "destroy"): void;
@@ -72843,7 +73298,7 @@ interface IgNotifierMethods {
 	/**
 	 * Returns true if the notification is currently visible
 	 */
-	isVisible(): void;
+	isVisible(): boolean;
 
 	/**
 	 * Destroys the widget.
@@ -72909,7 +73364,7 @@ interface JQuery {
 interface JQuery {
 	igNotifier(methodName: "changeLocale"): void;
 	igNotifier(methodName: "notify", state: Object, message?: string): void;
-	igNotifier(methodName: "isVisible"): void;
+	igNotifier(methodName: "isVisible"): boolean;
 	igNotifier(methodName: "destroy"): void;
 	igNotifier(methodName: "id"): string;
 	igNotifier(methodName: "container"): Object;
@@ -79614,7 +80069,7 @@ interface IgRadialGaugeMethods {
 	 * @param x
 	 * @param y
 	 */
-	needleContainsPoint(x: Object, y: Object): void;
+	needleContainsPoint(x: Object, y: Object): boolean;
 
 	/**
 	 * Exports the visual data for the radial gauge.
@@ -79668,7 +80123,7 @@ interface JQuery {
 	igRadialGauge(methodName: "unscaleValue", value: Object): void;
 	igRadialGauge(methodName: "getValueForPoint", x: Object, y: Object): number;
 	igRadialGauge(methodName: "getPointForValue", value: Object, extent: Object): void;
-	igRadialGauge(methodName: "needleContainsPoint", x: Object, y: Object): void;
+	igRadialGauge(methodName: "needleContainsPoint", x: Object, y: Object): boolean;
 	igRadialGauge(methodName: "exportVisualData"): void;
 	igRadialGauge(methodName: "flush"): void;
 	igRadialGauge(methodName: "destroy"): void;
@@ -82258,19 +82713,19 @@ interface IgSchedulerWeekViewSettings {
 	 * Gets/Sets the week view display mode (whether to show all days or just working days).
 	 *
 	 */
-	weekViewDisplayMode?: number;
+	weekViewDisplayMode?: string;
 
 	/**
 	 * Gets/Sets whether to display all hours or just working hours.
 	 *
 	 */
-	workingHoursDisplayMode?: number;
+	workingHoursDisplayMode?: string;
 
 	/**
 	 * Gets/Sets the time slots duration. 5, 6, 10, 15, 30 and 60 minutes are supported.
 	 *
 	 */
-	timeSlotInterval?: number;
+	timeSlotInterval?: string;
 
 	/**
 	 * Option for IgSchedulerWeekViewSettings
@@ -82283,7 +82738,7 @@ interface IgSchedulerDayViewSettings {
 	 * Gets/Sets the time slots duration. 5, 6, 10, 15, 30 and 60 minutes are supported.
 	 *
 	 */
-	timeSlotInterval?: number;
+	timeSlotInterval?: string;
 
 	/**
 	 * Gets/Sets the number of days are visible at a time in the day view. 1 to 7 days are supported.
@@ -82295,7 +82750,7 @@ interface IgSchedulerDayViewSettings {
 	 * Gets/Sets whether to display all hours or just working hours.
 	 *
 	 */
-	workingHoursDisplayMode?: number;
+	workingHoursDisplayMode?: string;
 
 	/**
 	 * Option for IgSchedulerDayViewSettings
@@ -84621,6 +85076,13 @@ interface IgShapeChart {
 	tooltipTemplates?: any;
 
 	/**
+	 * Gets or sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	pixelScalingRatio?: number;
+
+	/**
 	 * Gets or sets the left margin of chart title
 	 */
 	titleLeftMargin?: number;
@@ -84772,6 +85234,12 @@ interface IgShapeChart {
 	isVerticalZoomEnabled?: boolean;
 
 	/**
+	 * Gets or sets whether the chart can highlight series through user interactions.
+	 * This property applies to Category Chart and Financial Chart controls.
+	 */
+	isSeriesHighlightingEnabled?: boolean;
+
+	/**
 	 * Gets or sets the rectangle representing the current scroll and zoom state of the chart.
 	 * WindowRect is expressed as a Rectangle with coordinates and sizes between 0 and 1.
 	 * The provided object should have numeric properties called left, top, width and height.
@@ -84857,6 +85325,11 @@ interface IgShapeChart {
 	markerMaxCount?: number;
 
 	/**
+	 * Gets or sets whether the series animations should be allowed when a range change has been detected on an axis.
+	 */
+	animateSeriesWhenAxisRangeChanges?: boolean;
+
+	/**
 	 * Gets or sets the palette of brushes to used for coloring trend lines in this chart.
 	 * The value provided should be an array of CSS color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection
 	 * The value provided should be an array of css color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection.
@@ -84896,6 +85369,79 @@ interface IgShapeChart {
 	 */
 	alignsGridLinesToPixels?: boolean;
 	trendLinePeriod?: number;
+
+	/**
+	 * Gets or sets the style of tooltip to be displayed.
+	 *
+	 * Valid values:
+	 * "default" Display default tooltip for each series in the chart.
+	 * "item" Display individual tooltips for all series in the chart.
+	 * "category" Display combined tooltip for all series in the chart.
+	 * "none" Display no tooltips in the chart.
+	 */
+	toolTipType?: string;
+
+	/**
+	 * Gets or sets the crosshairs to be displayed.
+	 *
+	 * Valid values:
+	 * "default" Display default number of crosshair lines in the chart.
+	 * "none" Display no crosshair lines in the chart.
+	 * "horizontal" Display horizontal line of crosshairs in the chart.
+	 * "vertical" Display vertical line of crosshairs in the chart.
+	 * "both" Display both horizontal and vertical lines of crosshairs in the chart.
+	 */
+	crosshairsDisplayMode?: string;
+
+	/**
+	 * Gets or sets whether crosshairs will snap to the nearest data point.
+	 */
+	crosshairsSnapToData?: boolean;
+
+	/**
+	 * Gets or sets whether annotations are shown along the axis for crosshair values
+	 */
+	crosshairsAnnotationEnabled?: boolean;
+
+	/**
+	 * Gets or sets whether annotations for the final value of each series is displayed on the axis.
+	 */
+	finalValueAnnotationsVisible?: boolean;
+
+	/**
+	 * Gets or sets if callouts should be displayed.
+	 */
+	calloutsVisible?: boolean;
+
+	/**
+	 * Gets or sets if event annotations should be displayed.
+	 */
+	calloutStyleUpdatingEventEnabled?: boolean;
+
+	/**
+	 * Gets or sets the collection of callout data to be annotated.
+	 */
+	calloutsItemsSource?: any;
+
+	/**
+	 * Gets or sets the member path of the X data for the callouts.
+	 */
+	calloutsXMemberPath?: string;
+
+	/**
+	 * Gets or sets the member path of the Y data for the callouts.
+	 */
+	calloutsYMemberPath?: string;
+
+	/**
+	 * Gets or sets the member path of the label data for the callouts.
+	 */
+	calloutsLabelMemberPath?: string;
+
+	/**
+	 * Gets or sets the member path of the content data for the callouts.
+	 */
+	calloutsContentMemberPath?: string;
 
 	/**
 	 * Gets or sets function which takes an context object and returns a formatted label for the X-axis.
@@ -85043,7 +85589,7 @@ interface IgShapeChart {
 	xAxisLabel?: any;
 
 	/**
-	 * Gets or sets the format for labels along the Y-axis.
+	 * Gets or sets the property or string from which the labels are derived.
 	 */
 	yAxisLabel?: any;
 
@@ -85484,6 +86030,11 @@ interface IgShapeChart {
 	seriesPointerUp?: SeriesPointerUpEvent;
 
 	/**
+	 * Occurs when the style of a callout is updated.
+	 */
+	calloutStyleUpdating?: CalloutStyleUpdatingEvent;
+
+	/**
 	 * Event which is raised before data binding.
 	 * Return false in order to cancel data binding.
 	 * Function takes first argument null and second argument ui.
@@ -85718,6 +86269,22 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igShapeChart(optionLiteral: 'option', optionName: "tooltipTemplates", optionValue: any): void;
+
+	/**
+	 * Gets  the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "pixelScalingRatio"): number;
+
+	/**
+	 * Sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
 
 	/**
 	 * Gets  the left margin of chart title
@@ -86078,6 +86645,20 @@ interface JQuery {
 	igShapeChart(optionLiteral: 'option', optionName: "isVerticalZoomEnabled", optionValue: boolean): void;
 
 	/**
+	 * Gets  whether the chart can highlight series through user interactions.
+	 * This property applies to Category Chart and Financial Chart controls.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "isSeriesHighlightingEnabled"): boolean;
+
+	/**
+	 * Sets whether the chart can highlight series through user interactions.
+	 * This property applies to Category Chart and Financial Chart controls.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "isSeriesHighlightingEnabled", optionValue: boolean): void;
+
+	/**
 	 * Gets  the rectangle representing the current scroll and zoom state of the chart.
 	 * WindowRect is expressed as a Rectangle with coordinates and sizes between 0 and 1.
 	 * The provided object should have numeric properties called left, top, width and height.
@@ -86246,6 +86827,18 @@ interface JQuery {
 	igShapeChart(optionLiteral: 'option', optionName: "markerMaxCount", optionValue: number): void;
 
 	/**
+	 * Gets  whether the series animations should be allowed when a range change has been detected on an axis.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges"): boolean;
+
+	/**
+	 * Sets whether the series animations should be allowed when a range change has been detected on an axis.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges", optionValue: boolean): void;
+
+	/**
 	 * Gets  the palette of brushes to used for coloring trend lines in this chart.
 	 * The value provided should be an array of CSS color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection
 	 * The value provided should be an array of css color strings or JavaScript objects defining gradients. Optionally the first element can be a string reading "RGB" or "HSV" to specify the interpolation mode of the collection.
@@ -86304,6 +86897,154 @@ interface JQuery {
 	igShapeChart(optionLiteral: 'option', optionName: "alignsGridLinesToPixels", optionValue: boolean): void;
 	igShapeChart(optionLiteral: 'option', optionName: "trendLinePeriod"): number;
 	igShapeChart(optionLiteral: 'option', optionName: "trendLinePeriod", optionValue: number): void;
+
+	/**
+	 * Gets  the style of tooltip to be displayed.
+	 */
+
+	igShapeChart(optionLiteral: 'option', optionName: "toolTipType"): string;
+
+	/**
+	 * Sets the style of tooltip to be displayed.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igShapeChart(optionLiteral: 'option', optionName: "toolTipType", optionValue: string): void;
+
+	/**
+	 * Gets  the crosshairs to be displayed.
+	 */
+
+	igShapeChart(optionLiteral: 'option', optionName: "crosshairsDisplayMode"): string;
+
+	/**
+	 * Sets the crosshairs to be displayed.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igShapeChart(optionLiteral: 'option', optionName: "crosshairsDisplayMode", optionValue: string): void;
+
+	/**
+	 * Gets  whether crosshairs will snap to the nearest data point.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "crosshairsSnapToData"): boolean;
+
+	/**
+	 * Sets whether crosshairs will snap to the nearest data point.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "crosshairsSnapToData", optionValue: boolean): void;
+
+	/**
+	 * Gets  whether annotations are shown along the axis for crosshair values
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "crosshairsAnnotationEnabled"): boolean;
+
+	/**
+	 * Sets whether annotations are shown along the axis for crosshair values
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "crosshairsAnnotationEnabled", optionValue: boolean): void;
+
+	/**
+	 * Gets  whether annotations for the final value of each series is displayed on the axis.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "finalValueAnnotationsVisible"): boolean;
+
+	/**
+	 * Sets whether annotations for the final value of each series is displayed on the axis.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "finalValueAnnotationsVisible", optionValue: boolean): void;
+
+	/**
+	 * Gets  if callouts should be displayed.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutsVisible"): boolean;
+
+	/**
+	 * Sets if callouts should be displayed.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutsVisible", optionValue: boolean): void;
+
+	/**
+	 * Gets  if event annotations should be displayed.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutStyleUpdatingEventEnabled"): boolean;
+
+	/**
+	 * Sets if event annotations should be displayed.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutStyleUpdatingEventEnabled", optionValue: boolean): void;
+
+	/**
+	 * Gets  the collection of callout data to be annotated.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutsItemsSource"): any;
+
+	/**
+	 * Sets the collection of callout data to be annotated.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutsItemsSource", optionValue: any): void;
+
+	/**
+	 * Gets  the member path of the X data for the callouts.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutsXMemberPath"): string;
+
+	/**
+	 * Sets the member path of the X data for the callouts.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutsXMemberPath", optionValue: string): void;
+
+	/**
+	 * Gets  the member path of the Y data for the callouts.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutsYMemberPath"): string;
+
+	/**
+	 * Sets the member path of the Y data for the callouts.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutsYMemberPath", optionValue: string): void;
+
+	/**
+	 * Gets  the member path of the label data for the callouts.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutsLabelMemberPath"): string;
+
+	/**
+	 * Sets the member path of the label data for the callouts.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutsLabelMemberPath", optionValue: string): void;
+
+	/**
+	 * Gets  the member path of the content data for the callouts.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutsContentMemberPath"): string;
+
+	/**
+	 * Sets the member path of the content data for the callouts.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutsContentMemberPath", optionValue: string): void;
 
 	/**
 	 * Gets  function which takes an context object and returns a formatted label for the X-axis.
@@ -86654,12 +87395,12 @@ interface JQuery {
 	igShapeChart(optionLiteral: 'option', optionName: "xAxisLabel", optionValue: any): void;
 
 	/**
-	 * Gets  the format for labels along the Y-axis.
+	 * Gets  the property or string from which the labels are derived.
 	 */
 	igShapeChart(optionLiteral: 'option', optionName: "yAxisLabel"): any;
 
 	/**
-	 * Sets the format for labels along the Y-axis.
+	 * Sets the property or string from which the labels are derived.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -87554,6 +88295,18 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igShapeChart(optionLiteral: 'option', optionName: "seriesPointerUp", optionValue: SeriesPointerUpEvent): void;
+
+	/**
+	 * Occurs when the style of a callout is updated.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutStyleUpdating"): CalloutStyleUpdatingEvent;
+
+	/**
+	 * Occurs when the style of a callout is updated.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "calloutStyleUpdating", optionValue: CalloutStyleUpdatingEvent): void;
 
 	/**
 	 * Event which is raised before data binding.
@@ -90419,6 +91172,29 @@ interface JQuery {
 	igSplitter(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igSplitter(methodName: string, ...methodParams: any[]): any;
 }
+interface IgSpreadsheetBrushes {
+	/**
+	 * Option for IgSpreadsheetBrushes
+	 */
+	[optionName: string]: any;
+}
+
+interface ContextMenuOpeningEvent {
+	(event: Event, ui: ContextMenuOpeningEventUIParam): void;
+}
+
+interface ContextMenuOpeningEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get the [area](ig.spreadsheet.SpreadsheetContextMenuArea) for which the menu is being displayed.
+	 */
+	menuArea?: string;
+}
+
 interface ActivePaneChangedEvent {
 	(event: Event, ui: ActivePaneChangedEventUIParam): void;
 }
@@ -90526,6 +91302,11 @@ interface EditModeExitingEventUIParam {
 	 * Gets the cell for which the control is exiting edit mode.
 	 */
 	cell?: string;
+
+	/**
+	 * Gets the edit text that will be used to update the cell(s).
+	 */
+	editText?: string;
 }
 
 interface EditModeExitedEvent {
@@ -90735,6 +91516,12 @@ interface IgSpreadsheet {
 	activeCell?: string;
 
 	/**
+	 * Returns or sets an object with brushes for areas of the spreadsheet. The property name should be an item in the [SpreadsheetResourceId enumeration](ig.spreadsheet.SpreadsheetResourceId) and the property value a string representing a brush. These brushes override any css styling for the associated object.
+	 *
+	 */
+	brushes?: IgSpreadsheetBrushes;
+
+	/**
 	 * Returns or sets a boolean indicating whether the scroll lock key is toggled.
 	 * This property is used when certain keys are pressed while the control has focus. For example
 	 * if an arrow key is pressed while the scroll lock is enabled the cell area will be scrolled rather than changing
@@ -90775,15 +91562,14 @@ interface IgSpreadsheet {
 	areHeadersVisible?: boolean;
 
 	/**
-	 * Returns or sets an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
+	 * Returns or sets an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.
+	 * This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
 	 * navigated when Shift + Enter are pressed.
+	 * down  The cell below should be activated.
+	 * right  The cell to the right should be activated
+	 * up  The cell above should be activated.
+	 * left  The cell to the left should be activated
 	 *
-	 *
-	 * Valid values:
-	 * "down" The cell below should be activated.
-	 * "right" The cell to the right should be activated
-	 * "up" The cell above should be activated.
-	 * "left" The cell to the left should be activated
 	 */
 	enterKeyNavigationDirection?: string;
 
@@ -90835,12 +91621,10 @@ interface IgSpreadsheet {
 
 	/**
 	 * Returns or sets a value indicating how the selection is updated when interacting with the cells via the mouse or keyboard.
+	 * normal  The selection is replaced when dragging the mouse to select a cell or range of cells. Similarly when navigating via the keyboard a new selection is created. One may add a new range by holding the Ctrl key and using the mouse and one may alter the selection range containing the active cell by holding the Shift key down while clicking with the mouse or navigating with the keyboard such as with the arrow keys.
+	 * extendSelection  The selection range in the cellRanges representing the active cell is updated as one uses the mouse to select a cell or navigating via the keyboard.
+	 * addToSelection  New cell ranges are added to the cellRanges without needing to hold down the ctrl key when dragging via the mouse and a range is added with the first arrow key navigation after entering the mode. One can enter the mode by pressing Shift+F8.
 	 *
-	 *
-	 * Valid values:
-	 * "normal" The selection is replaced when dragging the mouse to select a cell or range of cells. Similarly when navigating via the keyboard a new selection is created. One may add a new range by holding the Ctrl key and using the mouse and one may alter the selection range containing the active cell by holding the Shift key down while clicking with the mouse or navigating with the keyboard such as with the arrow keys.
-	 * "extendSelection" The selection range in the cellRanges representing the active cell is updated as one uses the mouse to select a cell or navigating via the keyboard.
-	 * "addToSelection" New cell ranges are added to the cellRanges without needing to hold down the ctrl key when dragging via the mouse and a range is added with the first arrow key navigation after entering the mode. One can enter the mode by pressing Shift+F8.
 	 */
 	selectionMode?: string;
 
@@ -90886,6 +91670,11 @@ interface IgSpreadsheet {
 	 *
 	 */
 	regional?: string|Object;
+
+	/**
+	 * Invoked when a contextmenu is being opened for the Spreadsheet.
+	 */
+	contextMenuOpening?: ContextMenuOpeningEvent;
 
 	/**
 	 * Invoked when an action is executed on the Spreadsheet.
@@ -91035,6 +91824,11 @@ interface IgSpreadsheetMethods {
 	executeAction(action: Object): boolean;
 
 	/**
+	 * Exports visual data from the spreadsheet to aid in unit testing
+	 */
+	exportVisualData(): void;
+
+	/**
 	 * Shows the filter dialog for the specified relative column of the [filterSettings](ig.excel.worksheet#methods:filterSettings) of the [activeWorksheet](ui.igspreadsheet#options:activeWorksheet).
 	 *
 	 * @param relativeColumnIndex A zero based column index relative to the [region](ig.excel.worksheetFilterSettings#methods:region) of the active worksheet.
@@ -91049,6 +91843,20 @@ interface IgSpreadsheetMethods {
 	 * @param spreadsheetFilterDialogOption Optional enumeration that specifies the initial display of the filter dialog.
 	 */
 	showFilterDialogForTable(worksheetTableColumn: Object, spreadsheetFilterDialogOption: Object): void;
+
+	/**
+	 * Shows the top or bottom dialog for the specified relative column of the [filterSettings](ig.excel.worksheet#methods:filterSettings) of the [activeWorksheet](ui.igspreadsheet#options:activeWorksheet).
+	 *
+	 * @param relativeColumnIndex A zero based column index relative to the [region](ig.excel.worksheetFilterSettings#methods:region) of the active worksheet.
+	 */
+	showTopOrBottomDialogForWorksheet(relativeColumnIndex: number): void;
+
+	/**
+	 * Shows the top or bottom dialog for the specified relative column of the [filterSettings](ig.excel.Worksheet#methods:filterSettings) of the [activeWorksheet](ui.igspreadsheet#options:activeWorksheet).
+	 *
+	 * @param worksheetTableColumn A [region](ig.excel.WorksheetTableColumn) whose filter is to be viewed or changed.
+	 */
+	showTopOrBottomDialogForTable(worksheetTableColumn: Object): void;
 
 	/**
 	 * Forces any pending deferred work to render on the spreadsheet before continuing
@@ -91090,8 +91898,11 @@ interface JQuery {
 	igSpreadsheet(methodName: "getIsRenamingWorksheet"): boolean;
 	igSpreadsheet(methodName: "getPanes"): void;
 	igSpreadsheet(methodName: "executeAction", action: Object): boolean;
+	igSpreadsheet(methodName: "exportVisualData"): void;
 	igSpreadsheet(methodName: "showFilterDialogForWorksheet", relativeColumnIndex: number, spreadsheetFilterDialogOption: Object): void;
 	igSpreadsheet(methodName: "showFilterDialogForTable", worksheetTableColumn: Object, spreadsheetFilterDialogOption: Object): void;
+	igSpreadsheet(methodName: "showTopOrBottomDialogForWorksheet", relativeColumnIndex: number): void;
+	igSpreadsheet(methodName: "showTopOrBottomDialogForTable", worksheetTableColumn: Object): void;
 	igSpreadsheet(methodName: "flush"): void;
 	igSpreadsheet(methodName: "destroy"): void;
 	igSpreadsheet(methodName: "changeLocale", $container: Object): void;
@@ -91144,6 +91955,20 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igSpreadsheet(optionLiteral: 'option', optionName: "activeCell", optionValue: string): void;
+
+	/**
+	 * Returns  an object with brushes for areas of the spreadsheet. The property name should be an item in the [SpreadsheetResourceId enumeration](ig.spreadsheet.SpreadsheetResourceId) and the property value a string representing a brush. These brushes override any css styling for the associated object.
+	 *
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "brushes"): IgSpreadsheetBrushes;
+
+	/**
+	 * Returns or sets an object with brushes for areas of the spreadsheet. The property name should be an item in the [SpreadsheetResourceId enumeration](ig.spreadsheet.SpreadsheetResourceId) and the property value a string representing a brush. These brushes override any css styling for the associated object.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "brushes", optionValue: IgSpreadsheetBrushes): void;
 
 	/**
 	 * Returns  a boolean indicating whether the scroll lock key is toggled.
@@ -91238,21 +92063,29 @@ interface JQuery {
 	igSpreadsheet(optionLiteral: 'option', optionName: "areHeadersVisible", optionValue: boolean): void;
 
 	/**
-	 * Returns  an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
+	 * Returns  an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.
+	 * This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
 	 * navigated when Shift + Enter are pressed.
+	 * down  The cell below should be activated.
+	 * right  The cell to the right should be activated
+	 * up  The cell above should be activated.
+	 * left  The cell to the left should be activated
 	 *
 	 */
-
 	igSpreadsheet(optionLiteral: 'option', optionName: "enterKeyNavigationDirection"): string;
 
 	/**
-	 * Returns or sets an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
+	 * Returns or sets an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.
+	 * This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
 	 * navigated when Shift + Enter are pressed.
+	 * down  The cell below should be activated.
+	 * right  The cell to the right should be activated
+	 * up  The cell above should be activated.
+	 * left  The cell to the left should be activated
 	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
-
 	igSpreadsheet(optionLiteral: 'option', optionName: "enterKeyNavigationDirection", optionValue: string): void;
 
 	/**
@@ -91363,18 +92196,22 @@ interface JQuery {
 
 	/**
 	 * Returns  a value indicating how the selection is updated when interacting with the cells via the mouse or keyboard.
+	 * normal  The selection is replaced when dragging the mouse to select a cell or range of cells. Similarly when navigating via the keyboard a new selection is created. One may add a new range by holding the Ctrl key and using the mouse and one may alter the selection range containing the active cell by holding the Shift key down while clicking with the mouse or navigating with the keyboard such as with the arrow keys.
+	 * extendSelection  The selection range in the cellRanges representing the active cell is updated as one uses the mouse to select a cell or navigating via the keyboard.
+	 * addToSelection  New cell ranges are added to the cellRanges without needing to hold down the ctrl key when dragging via the mouse and a range is added with the first arrow key navigation after entering the mode. One can enter the mode by pressing Shift+F8.
 	 *
 	 */
-
 	igSpreadsheet(optionLiteral: 'option', optionName: "selectionMode"): string;
 
 	/**
 	 * Returns or sets a value indicating how the selection is updated when interacting with the cells via the mouse or keyboard.
+	 * normal  The selection is replaced when dragging the mouse to select a cell or range of cells. Similarly when navigating via the keyboard a new selection is created. One may add a new range by holding the Ctrl key and using the mouse and one may alter the selection range containing the active cell by holding the Shift key down while clicking with the mouse or navigating with the keyboard such as with the arrow keys.
+	 * extendSelection  The selection range in the cellRanges representing the active cell is updated as one uses the mouse to select a cell or navigating via the keyboard.
+	 * addToSelection  New cell ranges are added to the cellRanges without needing to hold down the ctrl key when dragging via the mouse and a range is added with the first arrow key navigation after entering the mode. One can enter the mode by pressing Shift+F8.
 	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
-
 	igSpreadsheet(optionLiteral: 'option', optionName: "selectionMode", optionValue: string): void;
 
 	/**
@@ -91478,6 +92315,18 @@ interface JQuery {
 	 */
 
 	igSpreadsheet(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
+
+	/**
+	 * Invoked when a contextmenu is being opened for the Spreadsheet.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "contextMenuOpening"): ContextMenuOpeningEvent;
+
+	/**
+	 * Invoked when a contextmenu is being opened for the Spreadsheet.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "contextMenuOpening", optionValue: ContextMenuOpeningEvent): void;
 
 	/**
 	 * Invoked when an action is executed on the Spreadsheet.
@@ -94333,6 +95182,11 @@ interface NodeDroppingEvent {
 
 interface NodeDroppingEventUIParam {
 	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the target node data-path attribute.
 	 */
 	path?: string;
@@ -94371,6 +95225,11 @@ interface NodeDroppingEventUIParam {
 	 * Gets a reference to the draggable element (the node).
 	 */
 	draggable?: string;
+
+	/**
+	 * Gets a reference to the source node object about to be dropped.
+	 */
+	sourceNode?: any;
 }
 
 interface NodeDroppedEvent {
@@ -94379,6 +95238,11 @@ interface NodeDroppedEvent {
 
 interface NodeDroppedEventUIParam {
 	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the target node data-path attribute.
 	 */
 	path?: string;
@@ -94417,6 +95281,11 @@ interface NodeDroppedEventUIParam {
 	 * Gets a reference to the draggable element (the node).
 	 */
 	draggable?: string;
+
+	/**
+	 * Gets a reference to the dropped source node object.
+	 */
+	sourceNode?: any;
 }
 
 interface IgTree {
@@ -97380,8 +98249,8 @@ interface IgTreeGridFiltering {
 	 *
 	 *
 	 * Valid values:
-	 * "string" The dialog window width in pixels (370px).
-	 * "number" The dialog window width in pixels as a number (370).
+	 * "string" The dialog window width in pixels (500px).
+	 * "number" The dialog window width in pixels as a number (500).
 	 */
 	filterDialogWidth?: string|number;
 
@@ -97478,13 +98347,14 @@ interface IgTreeGridFiltering {
 	featureChooserTextAdvancedFilter?: string;
 
 	/**
-	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><select></select></div><span>${label2}</span></div>".
+	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><input></input></div><span>${label2}</span></div>".
 	 *
 	 */
 	filterDialogAddConditionTemplate?: string;
 
 	/**
-	 * Custom template for options in dropdown in add condition area in the filter dialog. The default template is "<option value='${value}'>${text}</option>".
+	 * Custom template for options in dropdown in add condition area in the filter dialog. The default template is "<option value='${value}'>${text}</option>"
+	 * and it is used when [filterDialogAddConditionTemplate](ui.iggridfiltering#options:filterDialogAddConditionTemplate) is applied
 	 *
 	 */
 	filterDialogAddConditionDropDownTemplate?: string;
@@ -97494,13 +98364,14 @@ interface IgTreeGridFiltering {
 	 * Each DOM element which is used for selecting filter conditions/columns/filter expressions has "data-*" attribute.
 	 * E.g.: DOM element used for selecting column has attribute "data-af-col", for selecting filter condition - "data-af-cond", for filter expression- "data-af-expr".
 	 * NOTE: The template is supported only with <tr />.
-	 * The default template is "<tr data-af-row><td><input data-af-col/></td><td><select data-af-cond></select></td><td><input data-af-expr /> </td><td><span data-af-rmv></span></td></tr>".
+	 * The default template is "<tr data-af-row><td><input data-af-col/></td><td><input data-af-cond/></td><td><input data-af-expr /> </td><td><span data-af-rmv></span></td></tr>".
 	 *
 	 */
 	filterDialogFilterTemplate?: string;
 
 	/**
-	 * Custom template for options in condition list in filter dialog. The default template is "<option value='${condition}'>${text}</option>".
+	 * Custom template for options in condition list in filter dialog. The default template is "<option value='${condition}'>${text}</option>"
+	 * and it is used for custimizing DOM elemenent with attribute "data-af-cond".
 	 *
 	 */
 	filterDialogFilterConditionTemplate?: string;
@@ -98269,13 +99140,13 @@ interface JQuery {
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextAdvancedFilter", optionValue: string): void;
 
 	/**
-	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><select></select></div><span>${label2}</span></div>".
+	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><input></input></div><span>${label2}</span></div>".
 	 *
 	 */
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogAddConditionTemplate"): string;
 
 	/**
-	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><select></select></div><span>${label2}</span></div>".
+	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><input></input></div><span>${label2}</span></div>".
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -98283,13 +99154,15 @@ interface JQuery {
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogAddConditionTemplate", optionValue: string): void;
 
 	/**
-	 * Custom template for options in dropdown in add condition area in the filter dialog. The default template is "<option value='${value}'>${text}</option>".
+	 * Custom template for options in dropdown in add condition area in the filter dialog. The default template is "<option value='${value}'>${text}</option>"
+	 * and it is used when [filterDialogAddConditionTemplate](ui.iggridfiltering#options:filterDialogAddConditionTemplate) is applied
 	 *
 	 */
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogAddConditionDropDownTemplate"): string;
 
 	/**
-	 * Custom template for options in dropdown in add condition area in the filter dialog. The default template is "<option value='${value}'>${text}</option>".
+	 * Custom template for options in dropdown in add condition area in the filter dialog. The default template is "<option value='${value}'>${text}</option>"
+	 * and it is used when [filterDialogAddConditionTemplate](ui.iggridfiltering#options:filterDialogAddConditionTemplate) is applied
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -98301,7 +99174,7 @@ interface JQuery {
 	 * Each DOM element which is used for selecting filter conditions/columns/filter expressions has "data-*" attribute.
 	 * E.g.: DOM element used for selecting column has attribute "data-af-col", for selecting filter condition - "data-af-cond", for filter expression- "data-af-expr".
 	 * NOTE: The template is supported only with <tr />.
-	 * The default template is "<tr data-af-row><td><input data-af-col/></td><td><select data-af-cond></select></td><td><input data-af-expr /> </td><td><span data-af-rmv></span></td></tr>".
+	 * The default template is "<tr data-af-row><td><input data-af-col/></td><td><input data-af-cond/></td><td><input data-af-expr /> </td><td><span data-af-rmv></span></td></tr>".
 	 *
 	 */
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterTemplate"): string;
@@ -98311,7 +99184,7 @@ interface JQuery {
 	 * Each DOM element which is used for selecting filter conditions/columns/filter expressions has "data-*" attribute.
 	 * E.g.: DOM element used for selecting column has attribute "data-af-col", for selecting filter condition - "data-af-cond", for filter expression- "data-af-expr".
 	 * NOTE: The template is supported only with <tr />.
-	 * The default template is "<tr data-af-row><td><input data-af-col/></td><td><select data-af-cond></select></td><td><input data-af-expr /> </td><td><span data-af-rmv></span></td></tr>".
+	 * The default template is "<tr data-af-row><td><input data-af-col/></td><td><input data-af-cond/></td><td><input data-af-expr /> </td><td><span data-af-rmv></span></td></tr>".
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -98319,13 +99192,15 @@ interface JQuery {
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterTemplate", optionValue: string): void;
 
 	/**
-	 * Custom template for options in condition list in filter dialog. The default template is "<option value='${condition}'>${text}</option>".
+	 * Custom template for options in condition list in filter dialog. The default template is "<option value='${condition}'>${text}</option>"
+	 * and it is used for custimizing DOM elemenent with attribute "data-af-cond".
 	 *
 	 */
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterConditionTemplate"): string;
 
 	/**
-	 * Custom template for options in condition list in filter dialog. The default template is "<option value='${condition}'>${text}</option>".
+	 * Custom template for options in condition list in filter dialog. The default template is "<option value='${condition}'>${text}</option>"
+	 * and it is used for custimizing DOM elemenent with attribute "data-af-cond".
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -98888,19 +99763,19 @@ interface IgTreeGridHidingMethods {
 
 	/**
 	 * Shows a hidden column. If the column is not hidden the method does nothing.
-	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous, which means that it returns immediately, and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param callback Specifies a custom function to be called when the column(s) is shown(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index; else if a string is provided, it will be used as a column key.
+	 * @param callback Specifies a custom function to be called after the column gets shown(optional)
 	 */
 	showColumn(column: Object, callback?: Function): void;
 
 	/**
 	 * Hides a visible column. If the column is hidden the method does nothing.
-	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous, which means that it returns immediately, and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param callback Specifies a custom function to be called when the column is hidden(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index; else if a string is provided, it will be used as a column key.
+	 * @param callback Specifies a custom function to be called after the column gets hidden(optional)
 	 */
 	hideColumn(column: Object, callback?: Function): void;
 
@@ -99597,7 +100472,7 @@ interface IgTreeGrid {
 	/**
 	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
 	 */
-	avgRowHeight?: any;
+	avgRowHeight?: number;
 
 	/**
 	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
@@ -99818,11 +100693,12 @@ interface IgTreeGrid {
 	aggregateTransactions?: boolean;
 
 	/**
-	 * Sets gets ability to automatically format text in cells for numeric and date columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
+	 * Sets gets ability to automatically format text in cells for numeric, date and time columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
 	 *
 	 *
 	 * Valid values:
 	 * "date" formats only Date columns
+	 * "time" formats only Time columns
 	 * "number" formats only number columns
 	 * "dateandnumber" formats both Date and number columns
 	 * "true" formats Date and number columns
@@ -100879,14 +101755,14 @@ interface JQuery {
 	/**
 	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
 	 */
-	igTreeGrid(optionLiteral: 'option', optionName: "avgRowHeight"): any;
+	igTreeGrid(optionLiteral: 'option', optionName: "avgRowHeight"): number;
 
 	/**
 	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igTreeGrid(optionLiteral: 'option', optionName: "avgRowHeight", optionValue: any): void;
+	igTreeGrid(optionLiteral: 'option', optionName: "avgRowHeight", optionValue: number): void;
 
 	/**
 	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
@@ -101353,14 +102229,14 @@ interface JQuery {
 	igTreeGrid(optionLiteral: 'option', optionName: "aggregateTransactions", optionValue: boolean): void;
 
 	/**
-	 * Sets gets ability to automatically format text in cells for numeric and date columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
+	 * Sets gets ability to automatically format text in cells for numeric, date and time columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
 	 *
 	 */
 
 	igTreeGrid(optionLiteral: 'option', optionName: "autoFormat"): string|boolean;
 
 	/**
-	 * Sets gets ability to automatically format text in cells for numeric and date columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
+	 * Sets gets ability to automatically format text in cells for numeric, date and time columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -103558,6 +104434,7 @@ interface IgTreeGridRowSelectorsMethods {
 	 * @param rowId
 	 */
 	checkStateById(rowId: Object): string;
+	rsRenderColgroup(): void;
 }
 interface JQuery {
 	data(propertyName: "igTreeGridRowSelectors"): IgTreeGridRowSelectorsMethods;
@@ -103574,6 +104451,7 @@ interface JQuery {
 	igTreeGridRowSelectors(methodName: "partiallyCheckedRows"): any[];
 	igTreeGridRowSelectors(methodName: "uncheckedRows"): any[];
 	igTreeGridRowSelectors(methodName: "checkStateById", rowId: Object): string;
+	igTreeGridRowSelectors(methodName: "rsRenderColgroup"): void;
 
 	/**
 	 * Determines row numbering format.
@@ -113080,6 +113958,12 @@ interface IgZoomSlider {
 	height?: string|number;
 	panTransitionDuration?: number;
 	maxZoomWidth?: number;
+
+	/**
+	 * Gets or sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
 	pixelScalingRatio?: number;
 	actualPixelScalingRatio?: number;
 	windowRect?: any;
@@ -113127,6 +114011,10 @@ interface IgZoomSlider {
 	thumbCalloutTextStyle?: any;
 	propertyChanged?: PropertyChangedEvent;
 	resolvingAxisValue?: ResolvingAxisValueEvent;
+
+	/**
+	 * Occurs just after the current ZoomSlider's window rectangle is changed.
+	 */
 	windowRectChanged?: WindowRectChangedEvent;
 
 	/**
@@ -113187,7 +114075,21 @@ interface JQuery {
 	igZoomSlider(optionLiteral: 'option', optionName: "panTransitionDuration", optionValue: number): void;
 	igZoomSlider(optionLiteral: 'option', optionName: "maxZoomWidth"): number;
 	igZoomSlider(optionLiteral: 'option', optionName: "maxZoomWidth", optionValue: number): void;
+
+	/**
+	 * Gets  the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
 	igZoomSlider(optionLiteral: 'option', optionName: "pixelScalingRatio"): number;
+
+	/**
+	 * Sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 *
+	 * @optionValue New value to be set.
+	 */
 	igZoomSlider(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
 	igZoomSlider(optionLiteral: 'option', optionName: "actualPixelScalingRatio"): number;
 	igZoomSlider(optionLiteral: 'option', optionName: "actualPixelScalingRatio", optionValue: number): void;
@@ -113281,7 +114183,17 @@ interface JQuery {
 	igZoomSlider(optionLiteral: 'option', optionName: "propertyChanged", optionValue: PropertyChangedEvent): void;
 	igZoomSlider(optionLiteral: 'option', optionName: "resolvingAxisValue"): ResolvingAxisValueEvent;
 	igZoomSlider(optionLiteral: 'option', optionName: "resolvingAxisValue", optionValue: ResolvingAxisValueEvent): void;
+
+	/**
+	 * Occurs just after the current ZoomSlider's window rectangle is changed.
+	 */
 	igZoomSlider(optionLiteral: 'option', optionName: "windowRectChanged"): WindowRectChangedEvent;
+
+	/**
+	 * Occurs just after the current ZoomSlider's window rectangle is changed.
+	 *
+	 * @optionValue New value to be set.
+	 */
 	igZoomSlider(optionLiteral: 'option', optionName: "windowRectChanged", optionValue: WindowRectChangedEvent): void;
 	igZoomSlider(options: IgZoomSlider): JQuery;
 	igZoomSlider(optionLiteral: 'option', optionName: string): any;
@@ -113318,6 +114230,7 @@ interface IgniteUIStatic {
     loader(resources: string, callback: Function): IgLoader;
     loader(): IgLoader;
     OlapUtilities: any;
+    formatter(val: number|string|Date, type: string, format: string, notTemplate?: boolean, enableUTCDates?: boolean, dateOffset?: any, displayStyle?: string, labelText?: string, tabIndex?: string|number, reg?: any): string;
 }
 
 interface JQueryStatic {

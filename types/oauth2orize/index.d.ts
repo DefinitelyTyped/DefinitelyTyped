@@ -2,12 +2,20 @@
 // Project: https://github.com/jaredhanson/oauth2orize/
 // Definitions by: Wonshik Kim <https://github.com/wokim>, Kei Son <https://github.com/heycalmdown>, Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="express" />
 
-import { ServerRequest, ServerResponse } from "http";
+import { IncomingMessage, ServerResponse } from "http";
+
+declare global {
+  namespace Express {
+    interface Request {
+      oauth2?: OAuth2;
+    }
+  }
+}
 
 export interface OAuth2 {
   client: any;
@@ -31,7 +39,7 @@ export interface OAuth2Info {
   scope: string;
 }
 
-export interface MiddlewareRequest extends ServerRequest {
+export interface MiddlewareRequest extends IncomingMessage {
   oauth2?: OAuth2;
   user?: any;
 }
@@ -56,6 +64,62 @@ export interface DecisionOptions {
 
 export interface ErrorHandlerOptions {
   mode?: string;
+}
+
+export class OAuth2Error extends Error {
+    code: string;
+    status: number;
+    uri?: string;
+
+    /**
+     * @param code Defaults to *server_error*.
+     * @param status Defaults to 500.
+     */
+    constructor(message?: string, code?: string, uri?: string, status?: number);
+}
+
+export type AuthorizationErrorCode = 'invalid_request'
+    | 'unauthorized_client'
+    | 'access_denied'
+    | 'unsupported_response_type'
+    | 'invalid_scope'
+    | 'temporarily_unavailable';
+
+export class AuthorizationError extends OAuth2Error {
+    /**
+     * @param code The code sets the status unless status is present. Mapping:
+     * invalid_request = 400
+     * unauthorized_client = 403
+     * access_denied = 403
+     * unsupported_response_type = 501
+     * invalid_scope = 400
+     * temporarily_unavailable = 503
+     * Defaults to *server_error*.
+     * @param status Defaults to 500 if code is not specified.
+     */
+    constructor(message?: string, code?: AuthorizationErrorCode | string, uri?: string, status?: number);
+}
+
+export type TokenErrorCode = 'invalid_request'
+    | 'invalid_client'
+    | 'invalid_grant'
+    | 'unauthorized_client'
+    | 'unsupported_grant_type'
+    | 'invalid_scope';
+
+export class TokenError extends OAuth2Error {
+    /**
+     * @param code The code sets the status unless status is present. Mapping:
+     * invalid_request = 400
+     * invalid_client = 401
+     * invalid_grant = 403
+     * unauthorized_client = 403
+     * unsupported_grant_type = 501
+     * invalid_scope = 400
+     * Defaults to server_error.
+     * @param status Defaults to 500 if code is not specified.
+     */
+    constructor(message?: string, code?: TokenErrorCode | string, uri?: string, status?: number);
 }
 
 export type MiddlewareFunction = (req: MiddlewareRequest, res: ServerResponse, next: MiddlewareNextFunction) => void;
@@ -99,6 +163,7 @@ export class OAuth2Server {
 
   decision(options: DecisionOptions, parse: DecisionParseFunction): MiddlewareFunction;
   decision(parse: DecisionParseFunction): MiddlewareFunction;
+  decision(): MiddlewareFunction;
 
   token(options?: any): MiddlewareFunction;
 

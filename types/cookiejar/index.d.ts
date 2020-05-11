@@ -112,5 +112,5 @@ export class CookieJar {
      * grab all cookies matching this access_info
      * @param accessInfo CookieAccessInfo
      */
-    getCookies(accessInfo: CookieAccessInfo): ReadonlyArray<Cookie>;
+    getCookies(accessInfo: CookieAccessInfo): ReadonlyArray<Cookie> & { toValueString(): string };
 }

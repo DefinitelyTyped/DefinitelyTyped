@@ -48,16 +48,16 @@ interface NotifySettings {
 		enter?: string;
 		exit?: string;
 	};
-	onShow?: () => void;
-	onShown?: () => void;
-	onClose?: () => void;
-	onClosed?: () => void;
+	onShow?: ($ele: JQuery) => void;
+	onShown?: ($ele: JQuery) => void;
+	onClose?: ($ele: JQuery) => void;
+	onClosed?: ($ele: JQuery) => void;
 	icon_type?: string;
 	template?: string;
 }
 
 interface NotifyReturn {
-	$ele: JQueryStatic;
+	$ele: JQuery;
 	close: () => void;
 	update: (command: string, update: any) => void;
 }

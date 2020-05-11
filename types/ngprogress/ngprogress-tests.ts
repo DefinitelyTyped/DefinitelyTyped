@@ -1,7 +1,7 @@
 
 
 
-var ngProgress: NgProgress.INgProgress = <any> {};
+declare const ngProgress: NgProgress.INgProgress;
 
 ngProgress.start();
 ngProgress.height('10px');

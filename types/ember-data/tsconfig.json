@@ -8,15 +8,102 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@ember/application": [
+                "ember__application"
+            ],
+            "@ember/application/*": [
+                "ember__application/*"
+            ],
+            "@ember/array": [
+                "ember__array"
+            ],
+            "@ember/array/*": [
+                "ember__array/*"
+            ],
+            "@ember/component": [
+                "ember__component"
+            ],
+            "@ember/component/*": [
+                "ember__component/*"
+            ],
+            "@ember/controller": [
+                "ember__controller"
+            ],
+            "@ember/debug": [
+                "ember__debug"
+            ],
+            "@ember/debug/*": [
+                "ember__debug/*"
+            ],
+            "@ember/engine": [
+                "ember__engine"
+            ],
+            "@ember/engine/*": [
+                "ember__engine/*"
+            ],
+            "@ember/error": [
+                "ember__error"
+            ],
+            "@ember/object": [
+                "ember__object"
+            ],
+            "@ember/object/*": [
+                "ember__object/*"
+            ],
+            "@ember/polyfills": [
+                "ember__polyfills"
+            ],
+            "@ember/routing": [
+                "ember__routing"
+            ],
+            "@ember/routing/*": [
+                "ember__routing/*"
+            ],
+            "@ember/runloop": [
+                "ember__runloop"
+            ],
+            "@ember/runloop/*": [
+                "ember__runloop/*"
+            ],
+            "@ember/service": [
+                "ember__service"
+            ],
+            "@ember/string": [
+                "ember__string"
+            ],
+            "@ember/string/*": [
+                "ember__string/*"
+            ],
+            "@ember/template": [
+                "ember__template"
+            ],
+            "@ember/template/*": [
+                "ember__template/*"
+            ],
+            "@ember/test": [
+                "ember__test"
+            ],
+            "@ember/test/*": [
+                "ember__test/*"
+            ],
+            "@ember/utils": [
+                "ember__utils"
+            ],
+            "@ember/utils/*": [
+                "ember__utils/*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "experimentalDecorators": true
     },
     "files": [
         "index.d.ts",
@@ -32,6 +119,7 @@
         "test/belongs-to.ts",
         "test/record-reference.ts",
         "test/injections.ts",
-        "test/error.ts"
+        "test/error.ts",
+        "test/promises.ts"
     ]
 }

@@ -4,11 +4,13 @@
 //                  Maxim Balaganskiy <https://github.com/MaximBalaganskiy>
 //                  David Moniz <https://github.com/MonizDave>
 //                  Daniel Hoenes <https://github.com/broccoliarchy>
+//                  Rick Lucassen <https://github.com/SnowyLeopard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="jquery" />
 /// <reference path="./autocomplete.d.ts" />
+/// <reference path="./autoinit.d.ts" />
 /// <reference path="./carousel.d.ts" />
 /// <reference path="./character-counter.d.ts" />
 /// <reference path="./chips.d.ts" />

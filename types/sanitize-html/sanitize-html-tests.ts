@@ -23,15 +23,24 @@ let options: sanitize.IOptions = {
       return img;
     }
   },
+  textFilter: text => text,
+  allowIframeRelativeUrls: false,
   exclusiveFilter: function(frame: sanitize.IFrame) {
     return frame.tag === 'a' && !frame.text.trim();
   },
   allowedSchemesByTag: {
     'a': ['http', 'https']
   },
-  allowProtocolRelative: false
+  allowProtocolRelative: false,
+  disallowedTagsMode: 'escape'
 };
 
 let unsafe = '<div><script>alert("hello");</script></div>';
 
 let safe = sanitize(unsafe, options);
+
+options.parser = {
+    decodeEntities: true
+};
+
+safe = sanitize(unsafe, options);

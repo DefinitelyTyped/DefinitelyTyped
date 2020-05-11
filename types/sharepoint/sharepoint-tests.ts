@@ -1134,7 +1134,7 @@ namespace CSR {
                 }
 
                 if (!vm.value) {
-                    vm.value = ko.observable<any>();
+                    vm.value = ko.observable();
                 }
 
                 vm.value.subscribe(v => { _myData.updateControlValue(fieldName, v); });
@@ -1882,7 +1882,7 @@ namespace MySP {
     export class ClientContextPromise extends SP.ClientContext {
         /** To use this function, you must ensure that jQuery and CSOMPromise js files are loaded to the page */
         executeQueryPromise(): JQueryPromise<any> {
-            const deferred = jQuery.Deferred<any>();
+            const deferred = jQuery.Deferred();
             this.executeQueryAsync(function done(sender, args) {
                 deferred.resolve(sender, args);
             },
@@ -2038,7 +2038,7 @@ namespace _ {
     // do is retrieve a reference to the term set with the same ID as the div, and
     // then add the term  that belong to that term set under the div that was clicked.
 
-    function showTerms(event: JQuery.Event, groupID: SP.Guid, termSetID: SP.Guid) {
+    function showTerms(event: JQuery.ClickEvent, groupID: SP.Guid, termSetID: SP.Guid) {
         // First, cancel the bubble so that the group div click handler does not also fire
         // because that removes all term set divs and we don't want that here.
         event.originalEvent.cancelBubble = true;

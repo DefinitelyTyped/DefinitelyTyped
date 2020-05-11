@@ -1,4 +1,4 @@
-
+import * as crossfilter from 'crossfilter';
 
 
 interface Payment {
@@ -62,9 +62,7 @@ var paymentGroupsByTotal = paymentsByTotal.group(total => Math.floor(total / 100
 
 paymentGroupsByTotal.size();
 
-// bug of TS 0.9.5 https://typescript.codeplex.com/discussions/471751
-//paymentGroupsByTotal.reduce((p, v) => p + 1, (p, v) => p - 1, () => 0);
-paymentGroupsByTotal.reduce<number>((p, v) => p + 1, (p, v) => p - 1, () => 0);
+paymentGroupsByTotal.reduce((p, v) => p + 1, (p, v) => p - 1, () => 0);
 
 paymentGroupsByTotal.reduceCount();
 
@@ -114,6 +112,12 @@ topTypes[0].key;   // the top payment type (e.g., "tab")
 topTypes[0].value; // the count of payments of that type (e.g., 8)
 
 var types = paymentCountByType.all();
+
+// $ExpectError
+types.sort();
+
+types[0].key;
+types[0].value;
 
 paymentsByTotal.dispose();
 

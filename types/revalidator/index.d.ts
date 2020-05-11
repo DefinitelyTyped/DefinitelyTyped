@@ -36,7 +36,9 @@ declare module Revalidator {
     }
 
     interface JSONSchema<T> {
+        type?: 'object';
         properties?: ISchemas<T>;
+        patternProperties?: ISchemas<T>;
     }
 
     interface ISchemas<T> {
@@ -88,6 +90,8 @@ declare module Revalidator {
         conform?: (value: any, data?: T) => boolean;
         /**Value is valid only if the dependent value is valid */
         dependencies?: string;
+        /**Property to describe items for type: 'array' */
+        items?: ISchema<T>|JSONSchema<T>
     }
 }
 

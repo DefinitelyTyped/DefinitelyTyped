@@ -1,7 +1,7 @@
-// Type definitions for mailparser v2.0.0
-// Project: https://www.npmjs.com/package/mailparser
+// Type definitions for mailparser 2.7
+// Project: https://github.com/nodemailer/mailparser
 // Definitions by: Peter Snider <https://github.com/psnider>
-//                 Andrey Volynkin <https://github.com/Avol-V/>
+//                 Andrey Volynkin <https://github.com/Avol-V>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -42,7 +42,13 @@ export type HeaderValue = string | string[] | AddressObject | Date | StructuredH
  * A Map object with lowercase header keys.
  */
 export type Headers = Map<string, HeaderValue>;
-
+/**
+ * An array of raw header lines
+ */
+export type HeaderLines = ReadonlyArray<{
+    key: string;
+    line: string;
+}>;
 /**
  * Address details.
  */
@@ -108,6 +114,10 @@ interface AttachmentCommon {
 	 * A Map value that holds MIME headers for the attachment node.
 	 */
 	headers: Headers;
+    /**
+	 * An array of raw header lines for the attachment node.
+	 */
+	headerLines: HeaderLines;
 	/**
 	 * A MD5 hash of the message content.
 	 */
@@ -167,7 +177,7 @@ interface ParsedMail {
 	/**
 	 * An array of attachments.
 	 */
-	attachments?: Attachment[];
+	attachments: Attachment[];
 	/**
 	 * A Map object with lowercase header keys.
 	 *
@@ -177,6 +187,10 @@ interface ParsedMail {
 	 * - `date` value is a Date object.
 	 */
 	headers: Headers;
+    /**
+	 * An array of raw header lines
+	 */
+	headerLines: HeaderLines;
 	/**
 	 * The HTML body of the message.
 	 *
@@ -185,19 +199,19 @@ interface ParsedMail {
 	 * If the message included embedded images as cid: urls then these are all
 	 * replaced with base64 formatted data: URIs.
 	 */
-	html: string | boolean;
+	html: string | false;
 	/**
 	 * The plaintext body of the message.
 	 */
-	text: string;
+	text?: string;
 	/**
 	 * The plaintext body of the message formatted as HTML.
 	 */
-	textAsHtml: string;
+	textAsHtml?: string;
 	/**
 	 * The subject line.
 	 */
-	subject: string;
+	subject?: string;
 	/**
 	 * An array of referenced Message-ID values.
 	 *
@@ -211,11 +225,11 @@ interface ParsedMail {
 	/**
 	 * An address object for the `To:` header.
 	 */
-	to: AddressObject;
+	to?: AddressObject;
 	/**
 	 * An address object for the `From:` header.
 	 */
-	from: AddressObject;
+	from?: AddressObject;
 	/**
 	 * An address object for the `Cc:` header.
 	 */
@@ -290,6 +304,13 @@ export class MailParser extends StreamModule.Transform {
 export type Source = Buffer | Stream | string;
 
 /**
+ * Options object for simpleParser.
+ */
+export interface SimpleParserOptions extends StreamModule.TransformOptions {
+	keepCidLinks?: boolean;
+}
+
+/**
  * Parse email message to structure object.
  *
  * @param source A message source.
@@ -301,5 +322,16 @@ export function simpleParser(source: Source, callback: (err: any, mail: ParsedMa
  * Parse email message to structure object.
  *
  * @param source A message source.
+ * @param options Transform options passed to MailParser's constructor
+ * @param callback Function to get a structured email object.
  */
-export function simpleParser(source: Source): Promise<ParsedMail>;
+export function simpleParser(source: Source, options: SimpleParserOptions, callback: (err: any, mail: ParsedMail) => void): void;
+
+
+/**
+ * Parse email message to structure object.
+ *
+ * @param source A message source.
+ * @param options Transform options passed to MailParser's constructor
+ */
+export function simpleParser(source: Source, options?: SimpleParserOptions): Promise<ParsedMail>;

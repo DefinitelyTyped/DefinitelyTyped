@@ -1,7 +1,8 @@
 // Type definitions for PEM 1.9
-// Project: https://github.com/andris9/pem
+// Project: https://github.com/dexus/pem
 // Definitions by: Anthony Trinh <https://github.com/tony19>, Ruslan Arkhipau <https://github.com/DethAriel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
 export interface ModuleConfiguration {
     /**
@@ -135,6 +136,12 @@ export interface CertificateSubjectReadResult {
     emailAddress: string;
 }
 
+export interface Pkcs12ReadResult {
+    key: string;
+    cert: string;
+    ca: string[];
+}
+
 export type Callback<T> = (error: any, result: T) => any;
 
 /**
@@ -244,8 +251,8 @@ export function createPkcs12(key: string, certificate: string, password: string,
  * @param callback Callback function with an error object and {pkcs12}
  * @returns the result of the callback
  */
-export function readPkcs12(bufferOrPath: string, options: Pkcs12ReadOptions, callback: Callback<{ pkcs12: any }>): any;
-export function readPkcs12(bufferOrPath: string, callback: Callback<{ pkcs12: any }>): any;
+export function readPkcs12(bufferOrPath: Buffer | string, options: Pkcs12ReadOptions, callback: Callback<Pkcs12ReadResult>): any;
+export function readPkcs12(bufferOrPath: Buffer | string, callback: Callback<Pkcs12ReadResult>): any;
 
 /**
  * Verifies the signing chain of the passed certificate

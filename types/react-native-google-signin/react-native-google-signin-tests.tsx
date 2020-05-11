@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { GoogleSignin, GoogleSigninButton, User } from 'react-native-google-signin';
-import { StyleSheet, ViewStyle, View, Text, TouchableHighlight } from 'react-native';
+import { GoogleSignin, GoogleSigninButton, User, statusCodes } from 'react-native-google-signin';
+import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 
 interface State {
     user?: User;
@@ -9,15 +9,25 @@ interface State {
 export default class Signin extends React.Component<{}, State> {
     state: State = {};
 
-    componentDidMount() {
+    async componentDidMount() {
         GoogleSignin.configure({
             scopes: ['https://www.googleapis.com/auth/drive.readonly']
-        }).then(() => GoogleSignin.hasPlayServices({ autoResolve: true }));
+        });
+        await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
     }
 
     async handleSigninPress(): Promise<void> {
-        const user = await GoogleSignin.signIn();
-        this.setState({ user });
+        let user;
+        try {
+            user = await GoogleSignin.signInSilently();
+        } catch (error) {
+            if (error.code === statusCodes.SIGN_IN_REQUIRED) {
+                user = await GoogleSignin.signIn();
+            }
+        }
+        if (user) {
+            this.setState({ user });
+        }
     }
 
     handleSignoutPress(): Promise<void> {
@@ -28,7 +38,7 @@ export default class Signin extends React.Component<{}, State> {
         if (this.state.user) {
             return (
                 <View>
-                    <Text>{this.state.user.name}</Text>
+                    <Text>{this.state.user.user.name}</Text>
                     <TouchableHighlight onPress={() => this.handleSignoutPress()}>
                         <Text>Sign Out</Text>
                     </TouchableHighlight>

@@ -1,8 +1,9 @@
-// Type definitions for jasmine-ajax 3.1
+// Type definitions for jasmine-ajax 3.3
 // Project: https://github.com/jasmine/jasmine-ajax
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 interface JasmineAjaxResponse {
 	status?: number;
@@ -21,11 +22,11 @@ interface JasmineAjaxRequest extends XMLHttpRequest {
 	password: string;
 	requestHeaders: { [key: string]: string };
 	overriddenMimeType: string;
-	data(): string;
+	data(): string | object;
 
 	respondWith(response: JasmineAjaxResponse): void;
 	responseTimeout(): void;
-	responseError(): void;
+	responseError(options?: JasmineAjaxRequestStubErrorOptions): void;
 }
 
 interface JasmineAjaxRequestTracker {
@@ -36,7 +37,7 @@ interface JasmineAjaxRequestTracker {
 	mostRecent(): JasmineAjaxRequest;
 	at(index: number): JasmineAjaxRequest;
 	filter(urlToMatch: RegExp): JasmineAjaxRequest[];
-	filter(urlToMatch: Function): JasmineAjaxRequest[];
+	filter(urlToMatch: (request: JasmineAjaxRequest) => boolean): JasmineAjaxRequest[];
 	filter(urlToMatch: string): JasmineAjaxRequest[];
 }
 
@@ -48,10 +49,20 @@ interface JasmineAjaxRequestStubReturnOptions {
 	responseHeaders?: { [key: string]: string };
 }
 
+interface JasmineAjaxRequestStubErrorOptions {
+	status?: number;
+	statusText?: string;
+}
+
 interface JasmineAjaxRequestStub {
-	data?: string;
-	method?: string;
+	url: RegExp | string;
+	query: string;
+	data: string;
+	method: string;
 	andReturn(options: JasmineAjaxRequestStubReturnOptions): void;
+	andError(options: JasmineAjaxRequestStubErrorOptions): void;
+	andTimeout(): void;
+	andCallFunction(functionToCall: (request: JasmineAjaxRequest) => void): void;
 	matches(fullUrl: string, data: string, method: string): boolean;
 }
 

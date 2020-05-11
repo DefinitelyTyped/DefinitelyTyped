@@ -1,15 +1,12 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // All are TODOs
         "array-type": false,
-        "dt-header": false,
         "ban-types": false,
         "callable-types": false,
-        "no-empty-interface": false,
-        "unified-signatures": false,
         "max-line-length": false,
+        "no-empty-interface": false,
         "no-mergeable-namespace": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

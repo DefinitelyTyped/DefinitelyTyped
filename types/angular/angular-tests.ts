@@ -294,6 +294,14 @@ foo.then((x) => {
     x.toFixed();
 });
 
+namespace TestPromiseInterop {
+    declare const promiseInterop: ng.IPromise<number>;
+    const ngStringPromise: ng.IPromise<string> =
+        promiseInterop.then((num) => Promise.resolve(String(num)));
+    const caughtStringPromise: ng.IPromise<string|number> =
+        promiseInterop.catch((reason) => Promise.resolve('oh noes'));
+}
+
 // $q signature tests
 namespace TestQ {
     interface AbcObject {
@@ -311,8 +319,10 @@ namespace TestQ {
     }
     const abcObject: AbcObject = null;
     const abcObjectPromise: angular.IPromise<AbcObject> = null;
+    const abcObjectPromiseLike: PromiseLike<AbcObject> = null;
     const efObject: EfObject = null;
     const efObjectPromise: angular.IPromise<EfObject> = null;
+    const efObjectPromiseLike: PromiseLike<EfObject> = null;
     const ghObject: GhObject = null;
     const ghObjectPromise: angular.IPromise<GhObject> = null;
 
@@ -404,6 +414,7 @@ namespace TestQ {
 
         result = $q.when<AbcObject>(abcObject);
         result = $q.when<AbcObject>(abcObjectPromise);
+        result = $q.when<AbcObject>(abcObjectPromiseLike);
 
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObject);
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObject, (any) => any);
@@ -416,9 +427,20 @@ namespace TestQ {
         resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObject, (any) => ghObjectPromise);
         resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObject, (any) => ghObjectPromise, (any) => any);
 
+        result = $q.when<AbcObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObject);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObject);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObject, (any) => any);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObjectPromise);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObjectPromise, (any) => any);
+
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromise);
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromise, (any) => any);
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromise, (any) => any, (any) => any);
+
+        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromiseLike);
+        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromiseLike, (any) => any);
+        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromiseLike, (any) => any, (any) => any);
 
         result = $q.when<AbcObject, EfObject>(efObjectPromise, (result: EfObject) => abcObjectPromise);
         resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObjectPromise, (any) => ghObject);
@@ -763,6 +785,9 @@ let elementArray = angular.element(document.querySelectorAll('div'));
 let elementReadyFn = angular.element(() => {
     console.log('ready');
 });
+angular.element(window);
+declare let windowService: angular.IWindowService;
+angular.element(windowService);
 
 // $timeout signature tests
 namespace TestTimeout {
@@ -987,7 +1012,7 @@ angular.module('docsTimeDirective', [])
         return {
             link(scope: ng.IScope, element: JQLite, attrs: ng.IAttributes) {
                 let format: any;
-                let timeoutId: any;
+                let timeoutId: angular.IPromise<any>;
 
                 function updateTime() {
                     element.text(dateFilter(new Date(), format));
@@ -1488,16 +1513,35 @@ interface MyScope extends ng.IScope {
     foo: string;
 }
 
-const directiveCompileFnWithGeneric: ng.IDirectiveCompileFn<MyScope> = (
-        templateElement: JQLite,
-        templateAttributes: ng.IAttributes,
-        transclude: ng.ITranscludeFunction
-    ): ng.IDirectiveLinkFn<MyScope> => {
-    return (
-        scope: MyScope,
-        instanceElement: JQLite,
-        instanceAttributes: ng.IAttributes
-    ) => {
-        return null;
-    };
-};
+interface MyElement extends JQLite {
+    foo: string;
+}
+
+interface MyAttributes extends ng.IAttributes {
+    foo: string;
+}
+interface MyController extends ng.INgModelController {
+    foo: string;
+}
+
+angular.module('WithGenerics', [])
+    .directive('directiveUsingGenerics', () => {
+        return {
+            restrict: 'E',
+            link(scope: MyScope, element: MyElement, templateAttributes: MyAttributes, controller: MyController) {
+                scope['name'] = 'Jeff';
+            }
+        };
+    })
+    .directive('linkFunctionUsingGenerics', () => {
+        return (scope: MyScope, element: MyElement, templateAttributes: MyAttributes, controller: MyController) => {
+            scope['name'] = 'Jeff';
+        };
+    });
+
+angular.errorHandlingConfig(); // $ExpectType IErrorHandlingConfig
+// $ExpectType void
+angular.errorHandlingConfig({
+    objectMaxDepth: 5,
+    urlErrorParamsEnabled: true,
+});

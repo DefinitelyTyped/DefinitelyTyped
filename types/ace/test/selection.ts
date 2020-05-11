@@ -123,7 +123,7 @@ const aceSelectionTests = {
     },
 
     "test: moveCursor word left with umlauts": function () {
-        var session = new AceAjax.EditSession(" Fu� F��e");
+        var session = new AceAjax.EditSession(" Fu¢ F¢¢e");
 
         var selection = session.getSelection();
         selection.moveCursorTo(0, 9)

@@ -2,10 +2,12 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "adjacent-overload-signatures": false,
+        "ban-types": false,
         "callable-types": false,
-        "no-empty-interface": false,
+        "jsdoc-format": false,
         "no-object-literal-type-assertion": false,
         "no-unnecessary-generics": false,
+        "semicolon": false,
         "strict-export-declare-modifiers": false
     }
 }

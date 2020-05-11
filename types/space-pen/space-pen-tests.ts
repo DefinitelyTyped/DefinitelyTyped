@@ -5,12 +5,12 @@ import View = SpacePen.View;
 
 class Spacecraft extends View {
 	static content() {
-		this.div(()=> {
-			this.h1("Spacecraft");
-			this.ol(()=> {
-				this.li("Apollo");
-				this.li("Soyuz");
-				this.li("Space Shuttle");
+		Spacecraft.div(()=> {
+			Spacecraft.h1("Spacecraft");
+			Spacecraft.ol(()=> {
+				Spacecraft.li("Apollo");
+				Spacecraft.li("Soyuz");
+				Spacecraft.li("Space Shuttle");
 			});
 		});
 	}

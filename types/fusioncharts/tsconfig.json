@@ -19,20 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "fusioncharts.charts.d.ts",
-        "fusioncharts.powercharts.d.ts",
-        "fusioncharts.widgets.d.ts",
-        "fusioncharts.maps.d.ts",
-        "fusioncharts.zoomscatter.d.ts",
-        "fusioncharts.ssgrid.d.ts",
-        "fusioncharts.gantt.d.ts",
-        "fusioncharts.treemap.d.ts",
-        "maps/fusioncharts.usa.d.ts",
-        "maps/fusioncharts.world.d.ts",
-        "themes/fusioncharts.theme.carbon.d.ts",
-        "themes/fusioncharts.theme.fint.d.ts",
-        "themes/fusioncharts.theme.ocean.d.ts",
-        "themes/fusioncharts.theme.zune.d.ts",
         "fusioncharts-tests.ts"
     ]
 }

@@ -8,7 +8,7 @@ What this does is:
 For example, to bump `inspector.d.ts` to what's exposed in v8.4:
 ```sh
 # cwd = types/node
-ts-node scripts/generate-inspector v8.4.0
+ts-node -P scripts/generate-inspector/tsconfig.json scripts/generate-inspector v8.4.0
 ```
 
 Inspector type definitions should be updated every time the V8 version is bumped in a Node.js release.

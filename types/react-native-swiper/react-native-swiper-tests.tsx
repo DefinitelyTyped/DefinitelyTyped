@@ -20,7 +20,7 @@ class SwiperTest extends React.Component {
   ) => {
     console.log(this.callback.name, event, state, context);
   }
-  render(): React.ReactElement<any> {
+  render(): React.ReactElement {
     return (
       <Swiper
         horizontal

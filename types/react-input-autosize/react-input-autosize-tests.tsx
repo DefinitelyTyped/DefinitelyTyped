@@ -1,11 +1,11 @@
 import * as React from 'react';
-import AutosizeInput from 'react-input-autosize';
+import AutosizeInput, { AutosizeInputProps } from 'react-input-autosize';
 
-class Test extends React.Component<AutosizeInput.AutosizeInputProps> {
-    input: HTMLInputElement;
+class Test extends React.Component<AutosizeInputProps> {
+    input: HTMLInputElement | null = null;
     auto: AutosizeInput;
 
-    inputRef = (ref: HTMLInputElement) => {
+    inputRef = (ref: HTMLInputElement | null) => {
         this.input = ref;
     }
 

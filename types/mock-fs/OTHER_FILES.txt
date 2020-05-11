@@ -1,0 +1,1 @@
+lib/index.d.ts

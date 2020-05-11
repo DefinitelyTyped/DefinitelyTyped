@@ -1,9 +1,12 @@
-// Type definitions for D3JS d3-force module 1.1
-// Project: https://github.com/d3/d3-force/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Type definitions for D3JS d3-force module 1.2
+// Project: https://github.com/d3/d3-force/, https://d3js.org/d3-force
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 1.2.0
 
 // -----------------------------------------------------------------------
 // Force Simulation
@@ -108,13 +111,16 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
     stop(): this;
 
     /**
-     * Increments the current alpha by (alphaTarget - alpha) × alphaDecay; then invokes each registered force, passing the new alpha;
+     * Manually steps the simulation by the specified number of *iterations*, and returns the simulation. If *iterations* is not specified, it defaults to 1 (single step).
+     *
+     * For each iteration, it increments the current alpha by (alphaTarget - alpha) × alphaDecay; then invokes each registered force, passing the new alpha;
      * then decrements each node’s velocity by velocity × velocityDecay; lastly increments each node’s position by velocity.
+     *
      * This method does not dispatch events; events are only dispatched by the internal timer when the simulation is started automatically upon
      * creation or by calling simulation.restart. The natural number of ticks when the simulation is started is
      * ⌈log(alphaMin) / log(1 - alphaDecay)⌉; by default, this is 300.
      */
-    tick(): void;
+    tick(iterations?: number): void;
 
     /**
      * Returns the simulation’s array of nodes as specified to the constructor.

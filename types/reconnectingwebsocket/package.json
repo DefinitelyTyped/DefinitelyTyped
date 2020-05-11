@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "types": "index",
+    "typesVersions": {
+        ">=3.4.0-0": { "*": ["ts3.4/*"] }
+    }
+}

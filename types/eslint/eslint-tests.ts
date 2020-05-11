@@ -62,7 +62,9 @@ sourceCode.getNodeByRangeIndex(0);
 
 sourceCode.isSpaceBetweenTokens(TOKEN, TOKEN);
 
-sourceCode.getLocFromIndex(0);
+const loc = sourceCode.getLocFromIndex(0);
+loc.line; // $ExpectType number
+loc.column; // $ExpectType number
 
 sourceCode.getIndexFromLoc({ line: 0, column: 0 });
 
@@ -281,6 +283,12 @@ rule = { create(context) { return {}; }, meta: { fixable: 'whitespace' }};
 rule = { create(context) { return {}; }, meta: { fixable: 'code' }};
 rule = { create(context) { return {}; }, meta: { schema: [{ enum: ['always', 'never'] }] }};
 rule = { create(context) { return {}; }, meta: { deprecated: true }};
+rule = {
+    create(context) {
+        return {};
+    },
+    meta: { type: 'layout' },
+};
 
 rule = {
     create(context) {
@@ -330,6 +338,42 @@ rule = {
             }
         });
 
+        context.report({
+            message: 'foo',
+            node: AST,
+            fix: ruleFixer => {
+                return [
+                    ruleFixer.insertTextAfter(AST, 'foo'),
+                    ruleFixer.insertTextAfter(TOKEN, 'foo')
+                ];
+            }
+        });
+
+        context.report({
+            message: 'foo',
+            node: AST,
+            suggest: [
+                {
+                    desc: 'foo',
+                    fix: ruleFixer => {
+                        return [
+                            ruleFixer.insertTextAfter(AST, 'foo'),
+                            ruleFixer.insertTextAfter(TOKEN, 'foo')
+                        ];
+                    },
+                },
+                {
+                    messageId: 'foo',
+                    fix: ruleFixer => {
+                        return [
+                            ruleFixer.insertTextAfter(AST, 'foo'),
+                            ruleFixer.insertTextAfter(TOKEN, 'foo')
+                        ];
+                    },
+                },
+            ],
+        });
+
         return {
             onCodePathStart(codePath, node) {},
             onCodePathEnd(codePath, node) {},
@@ -368,6 +412,11 @@ linter.verify(SOURCE, { env: { node: true } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: true } }, 'test.js');
 linter.verify(SOURCE, { parser: 'custom-parser' }, 'test.js');
 linter.verify(SOURCE, { settings: { info: 'foo' } }, 'test.js');
+linter.verify(SOURCE, { processor: 'a-plugin/a-processor' }, 'test.js');
+linter.verify(SOURCE, { plugins: ['a-plugin'] }, 'test.js');
+linter.verify(SOURCE, { root: true }, 'test.js');
+linter.verify(SOURCE, { extends: 'eslint-config-bad-guy' }, 'test.js');
+linter.verify(SOURCE, { extends: ['eslint-config-bad-guy', 'eslint-config-roblox'] }, 'test.js');
 
 linter.verify(SOURCE, { rules: {} }, 'test.js');
 linter.verify(SOURCE, { rules: { quotes: 2 } }, 'test.js');
@@ -376,6 +425,23 @@ linter.verify(SOURCE, { rules: { 'no-unused-vars': [2, { vars: 'all' }] } }, 'te
 linter.verify(SOURCE, { rules: { 'no-console': 1 } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 0 } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'error' } }, 'test.js');
+linter.verify(
+    SOURCE,
+    {
+        rules: { 'no-console': 'error' },
+        overrides: [
+            {
+                extends: ['eslint-config-bad-guy'],
+                excludedFiles: ['*-test.js', '*.spec.js'],
+                files: ['*-test.js', '*.spec.js'],
+                rules: {
+                    'no-unused-expressions': 'off',
+                },
+            },
+        ],
+    },
+    'test.js',
+);
 linter.verify(SOURCE, { rules: { 'no-console': 'warn' } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'off' } }, 'test.js');
 
@@ -389,6 +455,9 @@ for (const msg of lintingResult) {
 
     msg.fatal = true;
 
+    msg.message = 'foo';
+    msg.messageId = 'foo';
+
     msg.line = 0;
     msg.endLine = 0;
     msg.column = 0;
@@ -399,6 +468,15 @@ for (const msg of lintingResult) {
     if (msg.fix) {
         msg.fix.text = 'foo';
         msg.fix.range = [0, 0];
+    }
+
+    if (msg.suggestions) {
+        for (const suggestion of msg.suggestions) {
+            suggestion.desc = 'foo';
+            suggestion.messageId = 'foo';
+            suggestion.fix.text = 'foo';
+            suggestion.fix.range = [0, 0];
+        }
     }
 }
 
@@ -462,9 +540,11 @@ cli = new CLIEngine({ ignorePattern: ['foo', 'bar'] });
 cli = new CLIEngine({ useEslintrc: false });
 cli = new CLIEngine({ parserOptions: {} });
 cli = new CLIEngine({ plugins: ['foo'] });
+cli = new CLIEngine({ resolvePluginsRelativeTo: 'test' });
 cli = new CLIEngine({ rules: { 'test/example-rule': 1 } });
 cli = new CLIEngine({ rulePaths: ['foo'] });
 cli = new CLIEngine({ reportUnusedDisableDirectives: true });
+cli = new CLIEngine({ errorOnUnmatchedPattern: false });
 
 let cliReport = cli.executeOnFiles(['myfile.js', 'lib/']);
 
@@ -478,11 +558,38 @@ cli.addPlugin('my-fancy-plugin', {});
 
 cli.isPathIgnored('./dist/index.js');
 
-const formatter = cli.getFormatter('codeframe');
+let formatter: CLIEngine.Formatter;
+
+formatter = cli.getFormatter('codeframe');
+formatter = cli.getFormatter();
+
+let data: CLIEngine.LintResultData;
+const meta: Rule.RuleMetaData = {
+    type: "suggestion",
+    docs: {
+        description: "disallow unnecessary semicolons",
+        category: "Possible Errors",
+        recommended: true,
+        url: "https://eslint.org/docs/rules/no-extra-semi"
+    },
+    fixable: "code",
+    schema: [],
+    messages: {
+        unexpected: "Unnecessary semicolon."
+    }
+};
+
+data = {rulesMeta: {"no-extra-semi": meta}};
 
 formatter(cliReport.results);
+formatter(cliReport.results, data);
+
+const version: string = CLIEngine.version;
 
 CLIEngine.getErrorResults(cliReport.results);
+
+formatter = CLIEngine.getFormatter();
+formatter = CLIEngine.getFormatter('codeframe');
 
 CLIEngine.outputFixes(cliReport);
 
@@ -526,11 +633,33 @@ ruleTester.run('my-rule', rule, {
 
     invalid: [
         { code: 'foo', errors: 1 },
+        { code: 'foo', errors: 1, output: 'foo' },
         { code: 'foo', errors: ['foo'] },
         { code: 'foo', errors: [{ message: 'foo' }] },
         { code: 'foo', errors: [{ message: 'foo', type: 'foo' }] },
         { code: 'foo', errors: [{ message: 'foo', data: { foo: true } }] },
         { code: 'foo', errors: [{ message: 'foo', line: 0 }] },
+        { code: 'foo', errors: [{
+            message: 'foo',
+            suggestions: [
+                {
+                    desc: 'foo',
+                    output: 'foo',
+                },
+                {
+                    messageId: 'foo',
+                    output: 'foo',
+                },
+            ],
+        }] },
+    ]
+});
+
+ruleTester.run('simple-valid-test', rule, {
+    valid: [
+        'foo',
+        'bar',
+        { code: 'foo', options: [{ allowFoo: true }] },
     ]
 });
 

@@ -1,9 +1,10 @@
-// Type definitions for VexFlow v1.2.85
+// Type definitions for VexFlow v1.2.88
 // Project: http://vexflow.com
 // Definitions by: Roman Quiring <https://github.com/rquiring>
 //                 Sebastian Haas <https://github.com/sebastianhaas>
 //                 Basti Hoffmann <https://github.com/bohoffi>
 //                 Simon Schmid <https://github.com/sschmidTU>
+//                 Benjamin Giesinger <https://github.com/bneumann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //inconsistent namespace: this is a helper funtion from tables.js and should not pollute the global namespace!
@@ -54,8 +55,8 @@ declare namespace Vex {
         beginPath() : IRenderContext;
         moveTo(x : number, y : number) : IRenderContext;
         lineTo(x : number, y : number) : IRenderContext;
-        bezierCurveToTo(x1 : number, y1 : number, x2 : number, y2 : number, x : number, y : number) : IRenderContext;
-        quadraticCurveToTo(x1 : number, y1 : number, x2 : number, y2 : number) : IRenderContext;
+        bezierCurveTo(x1 : number, y1 : number, x2 : number, y2 : number, x : number, y : number) : IRenderContext;
+        quadraticCurveTo(x1 : number, y1 : number, x2 : number, y2 : number) : IRenderContext;
         arc(x : number, y : number, radius : number, startAngle : number, endAngle : number, antiClockwise : boolean) : IRenderContext;
         glow() : IRenderContext;
         fill() : IRenderContext;
@@ -64,6 +65,8 @@ declare namespace Vex {
         fillText(text : string, x : number, y : number) : IRenderContext;
         save() : IRenderContext;
         restore() : IRenderContext;
+        openGroup() : Node | undefined;
+        closeGroup() : void;
 
         /**
          * canvas returns TextMetrics, SVG returns SVGRect, Raphael returns {width : number, height : number}. Only width is used throughout VexFlow.
@@ -103,6 +106,7 @@ declare namespace Vex {
         const STAVE_LINE_THICKNESS : number;
         const TIME4_4 : {num_beats : number, beat_value : number, resolution : number};
         const unicode : {[name : string] : string}; //inconsistent API: this should be private and have a wrapper function like the other tables
+        const DEFAULT_NOTATION_FONT_SCALE: number;
         function clefProperties(clef : string) : {line_shift : number};
         function keyProperties(key : string, clef : string, params : {octave_shift? : number}) : {key : string, octave : number, line : number, int_value : number, accidental : string, code : number, stroke : number, shift_right : number, displaced : boolean};
         function integerToNote(integer : number) : string;
@@ -170,8 +174,8 @@ declare namespace Vex {
         }
 
         namespace Annotation {
-            const enum Justify {LEFT = 1, CENTER, RIGHT, CENTER_STEM}
-            const enum VerticalJustify {TOP = 1, CENTER, BOTTOM, CENTER_STEM}
+            enum Justify {LEFT = 1, CENTER, RIGHT, CENTER_STEM}
+            enum VerticalJustify {TOP = 1, CENTER, BOTTOM, CENTER_STEM}
             const CATEGORY : string;
         }
 
@@ -198,7 +202,7 @@ declare namespace Vex {
         }
 
         namespace Barline {
-            const enum type {SINGLE = 1, DOUBLE, END, REPEAT_BEGIN, REPEAT_END, REPEAT_BOTH, NONE}
+            enum type {SINGLE = 1, DOUBLE, END, REPEAT_BEGIN, REPEAT_END, REPEAT_BOTH, NONE}
         }
 
         class Barline extends StaveModifier {
@@ -211,8 +215,9 @@ declare namespace Vex {
             drawRepeatBar(stave : Stave, x : number, begin : boolean) : void;
         }
 
-        class Beam {
+        class Beam  {
             constructor(notes : StemmableNote[], auto_stem? : boolean);
+            setStyle(style : {shadowColor? : string, shadowBlur? : string, fillStyle? : string, strokeStyle? : string}) : Beam;
             setContext(context : IRenderContext) : Beam;
             getNotes() : StemmableNote[];
             getBeamCount() : number;
@@ -275,8 +280,8 @@ declare namespace Vex {
             beginPath() : CanvasContext;
             moveTo(x : number, y : number) : CanvasContext;
             lineTo(x : number, y : number) : CanvasContext;
-            bezierCurveToTo(x1 : number, y1 : number, x2 : number, y2 : number, x : number, y : number) : CanvasContext;
-            quadraticCurveToTo(x1 : number, y1 : number, x2 : number, y2 : number) : CanvasContext;
+            bezierCurveTo(x1 : number, y1 : number, x2 : number, y2 : number, x : number, y : number) : CanvasContext;
+            quadraticCurveTo(x1 : number, y1 : number, x2 : number, y2 : number) : CanvasContext;
             arc(x : number, y : number, radius : number, startAngle : number, endAngle : number, antiClockwise : boolean) : CanvasContext;
             glow() : CanvasContext;
             fill() : CanvasContext;
@@ -320,6 +325,8 @@ declare namespace Vex {
             fillText(text : string, x : number, y : number) : void;
             save() : void;
             restore() : void;
+            openGroup() : undefined;
+            closeGroup() : void;
         }
 
         class Clef extends StaveModifier {
@@ -369,7 +376,7 @@ declare namespace Vex {
         }
 
         namespace Curve {
-            const enum Position {NEAR_HEAD = 1, NEAR_TOP}
+            enum Position {NEAR_HEAD = 1, NEAR_TOP}
         }
 
         class Dot extends Modifier {
@@ -438,8 +445,9 @@ declare namespace Vex {
         }
 
         class FretHandFinger extends Modifier {
-            constructor(number : number);
+            constructor(number : number|string);
             static format(nums : FretHandFinger[], state : {left_shift : number, right_shift : number, text_line : number}) : void;
+            finger: number|string;
             getNote() : Note;
             setNote(note : Note) : FretHandFinger;
             getIndex() : number;
@@ -488,9 +496,14 @@ declare namespace Vex {
 
         class GraceNote extends StaveNote {
             constructor(note_struct : {slash? : boolean, type? : string, dots? : number, duration : string, clef? : string, keys : string[], octave_shift? : number, auto_stem? : boolean, stem_direction? : number});
+            static LEDGER_LINE_OFFSET : number;
             getStemExtension() : number;
             getCategory() : string;
             draw() : void;
+        }
+
+        namespace GraceNote {
+            const SCALE : number;
         }
 
         class GraceNoteGroup extends Modifier {
@@ -558,7 +571,7 @@ declare namespace Vex {
         }
 
         namespace Modifier {
-            const enum Position {LEFT = 1, RIGHT, ABOVE, BELOW}
+            enum Position {LEFT = 1, RIGHT, ABOVE, BELOW}
             const CATEGORY : string
         }
 
@@ -621,7 +634,8 @@ declare namespace Vex {
             getTickMultiplier() : Fraction;
             applyTickMultiplier(numerator : number, denominator : number) : void;
             setDuration(duration : Fraction) : void;
-	    
+            preFormatted : boolean;
+
             constructor(note_struct : {type? : string, dots? : number, duration : string});
             getPlayNote() : any;
             setPlayNote(note : any) : Note;
@@ -727,7 +741,7 @@ declare namespace Vex {
         }
 
         namespace PedalMarking {
-            const enum Styles {TEXT = 1, BRACKET, MIXED}
+            enum Styles {TEXT = 1, BRACKET, MIXED}
             const GLYPHS : {[name : string] : {code : string, x_shift : number, y_shift : number}};
         }
 
@@ -757,8 +771,8 @@ declare namespace Vex {
             beginPath() : RaphaelContext;
             moveTo(x : number, y : number) : RaphaelContext;
             lineTo(x : number, y : number) : RaphaelContext;
-            bezierCurveToTo(x1 : number, y1 : number, x2 : number, y2 : number, x : number, y : number) : RaphaelContext;
-            quadraticCurveToTo(x1 : number, y1 : number, x : number, y : number) : RaphaelContext; //inconsistent name: x, y -> x2, y2
+            bezierCurveTo(x1 : number, y1 : number, x2 : number, y2 : number, x : number, y : number) : RaphaelContext;
+            quadraticCurveTo(x1 : number, y1 : number, x : number, y : number) : RaphaelContext; //inconsistent name: x, y -> x2, y2
             arc(x : number, y : number, radius : number, startAngle : number, endAngle : number, antiClockwise : boolean) : RaphaelContext;
             glow() : {width : number, fill : boolean, opacity : number, offsetx : number, offsety : number, color : string}; //inconsistent type : Object -> RaphaelContext
             fill() : RaphaelContext;
@@ -768,6 +782,8 @@ declare namespace Vex {
             fillText(text : string, x : number, y : number) : RaphaelContext;
             save() : RaphaelContext;
             restore() : RaphaelContext;
+            openGroup() : undefined;
+            closeGroup() : void;
         }
 
         class Renderer {
@@ -784,8 +800,8 @@ declare namespace Vex {
         }
 
         namespace Renderer {
-            const enum Backends {CANVAS = 1, RAPHAEL, SVG, VML}
-            const enum LineEndType {NONE = 1, UP, DOWN}
+            enum Backends {CANVAS = 1, RAPHAEL, SVG, VML}
+            enum LineEndType {NONE = 1, UP, DOWN}
         }
 
         class Repetition extends StaveModifier {
@@ -800,11 +816,12 @@ declare namespace Vex {
         }
 
         namespace Repetition {
-            const enum type { NONE = 1, CODA_LEFT, CODA_RIGHT, SEGNO_LEFT, SEGNO_RIGHT, DC, DC_AL_CODA, DC_AL_FINE, DS, DS_AL_CODA, DS_AL_FINE, FINE }
+            enum type { NONE = 1, CODA_LEFT, CODA_RIGHT, SEGNO_LEFT, SEGNO_RIGHT, DC, DC_AL_CODA, DC_AL_FINE, DS, DS_AL_CODA, DS_AL_FINE, FINE }
         }
 
         class Stave {
             constructor(x : number, y : number, width : number, options? : {vertical_bar_width? : number, glyph_spacing_px? : number, num_lines? : number, fill_style? : string, spacing_between_lines_px? : number, space_above_staff_ln? : number, space_below_staff_ln? : number, top_text_position? : number});
+            options: {vertical_bar_width? : number, glyph_spacing_px? : number, num_lines? : number, fill_style? : string, left_bar? : boolean, right_bar? : boolean,  spacing_between_lines_px? : number, space_above_staff_ln? : number, space_below_staff_ln? : number, top_text_position? : number};
             resetLines() : void;
             setNoteStartX(x : number) : Stave;
             getNoteStartX() : number;
@@ -827,7 +844,7 @@ declare namespace Vex {
             setRepetitionTypeRight(type : Repetition.type, y : number) : Stave;
             setVoltaType(type : Volta.type, number_t : number, y : number) : Stave;
             setSection(section : string, y : number) : Stave;
-            setTempo(tempo : {name? : string, duration : string, dots : number, bpm : number}, y : number) : Stave;
+            setTempo(tempo : {name? : string, duration : string, dots : boolean, bpm : number}, y : number) : Stave;
             setText(text : string, position : Modifier.Position, options? : {shift_x? : number, shift_y? : number, justification? : TextNote.Justification}) : Stave;
             getHeight() : number;
             getSpacingBetweenLines() : number;
@@ -858,10 +875,15 @@ declare namespace Vex {
             getConfigForLines() : {visible : boolean}[];
             setConfigForLine(line_number : number, line_config : {visible : boolean}) : Stave;
             setConfigForLines(lines_configuration : {visible : boolean}[]) : Stave;
+            getModifiers(position? : number, category? : string) : StaveModifier[];
         }
 
         class StaveConnector {
             constructor(top_stave : Stave, bottom_stave : Stave);
+            top_stave : Stave;
+            bottom_stave : Stave;
+            thickness : number;
+            x_shift : number;
             setContext(ctx : IRenderContext) : StaveConnector;
             setType(type : StaveConnector.type) : StaveConnector;
             setText(text : string, text_options? : {shift_x? : number, shift_y? : number}) : StaveConnector;
@@ -872,7 +894,7 @@ declare namespace Vex {
         }
 
         namespace StaveConnector {
-            const enum type { SINGLE_RIGHT = 0, SINGLE_LEFT = 1, SINGLE = 1, DOUBLE = 2, BRACE = 3, BRACKET = 4, BOLD_DOUBLE_LEFT = 5, BOLD_DOUBLE_RIGHT = 6, THIN_DOUBLE = 7, NONE = 8 }
+            enum type { SINGLE_RIGHT = 0, SINGLE_LEFT = 1, SINGLE = 1, DOUBLE = 2, BRACE = 3, BRACKET = 4, BOLD_DOUBLE_LEFT = 5, BOLD_DOUBLE_RIGHT = 6, THIN_DOUBLE = 7, NONE = 8 }
         }
 
         class StaveHairpin {
@@ -887,7 +909,7 @@ declare namespace Vex {
         }
 
         namespace StaveHairpin {
-            const enum type { CRESC = 1, DECRESC }
+            enum type { CRESC = 1, DECRESC }
         }
 
         class StaveLine {
@@ -905,8 +927,8 @@ declare namespace Vex {
         }
 
         namespace StaveLine {
-            const enum TextVerticalPosition { TOP = 1, BOTTOM }
-            const enum TextJustification { LEFT = 1, CENTER, RIGHT }
+            enum TextVerticalPosition { TOP = 1, BOTTOM }
+            enum TextJustification { LEFT = 1, CENTER, RIGHT }
         }
 
         class StaveModifier {
@@ -918,20 +940,26 @@ declare namespace Vex {
             addToStaveEnd(stave : Stave, firstGlyph : boolean) : StaveModifier;
             addModifier() : void;
             addEndModifier() : void;
+            getPosition() : number;
+            getWidth() : number;
+            getPadding(index: number) : number;
         }
 
         namespace StaveModifier {
           // @see https://github.com/0xfe/vexflow/blob/master/src/stavemodifier.js#L9
-          const enum Position { LEFT = 1, RIGHT = 2, ABOVE = 3, BELOW = 4, BEGIN = 5, END = 6 }
+          enum Position { LEFT = 1, RIGHT = 2, ABOVE = 3, BELOW = 4, BEGIN = 5, END = 6 }
         }
 
         class StaveNote extends StemmableNote {
             //TODO remove the following lines once TypeScript allows subclass overrides with type changes and/or inconsistencies mentioned below are fixed
             buildStem() : StemmableNote;
             setStave(stave : Stave) : Note;
-            addModifier(modifier : Modifier, index? : number) : Note;
+            //TODO: vexflow actualy managed to have Note use modifier, index and stavenote index,modifier. To use the function in
+            // Typescript we need to allow both. The name is the correct type :(
+            addModifier(index : any, modifier? : any) : Note;
             getModifierStartXY() : {x : number, y : number};
             getDots() : number;
+            x_shift: number;
 
             constructor(note_struct : {type? : string, dots? : number, duration : string, clef? : string, keys : string[], octave_shift? : number, auto_stem? : boolean, stem_direction? : number});
             static DEBUG : boolean;
@@ -959,11 +987,11 @@ declare namespace Vex {
             getLineForRest() : number;
             getModifierStartXY(position : Modifier.Position, index : number) : {x : number, y : number};
             setStyle(style : {shadowColor? : string, shadowBlur? : string, fillStyle? : string, strokeStyle? : string}) : void; // inconsistent type: void -> StaveNote
+            setStemStyle(style : {shadowColor? : string, shadowBlur? : string, fillStyle? : string, strokeStyle? : string}) : void;
             setKeyStyle(index : number, style : {shadowColor? : string, shadowBlur? : string, fillStyle? : string, strokeStyle? : string}) : StaveNote;
             setKeyLine(index : number, line : number) : StaveNote;
             getKeyLine(index : number) : number;
             addToModifierContext(mContext : ModifierContext) : StaveNote;
-            addModifier(index : number, modifier : Modifier) : StaveNote;
             addAccidental(index : number, accidental : Accidental) : StaveNote;
             addArticulation(index : number, articulation : Articulation) : StaveNote;
             addAnnotation(index : number, annotation : Annotation) : StaveNote;
@@ -1084,6 +1112,9 @@ declare namespace Vex {
 
             constructor(note_struct : {type? : string, dots? : number, duration : string});
             static DEBUG : boolean;
+            flag: Glyph;
+            getAttribute(attr : string) : any;
+            setFlagStyle(style_struct : {shadowColor? : string, shadowBlur? : string, fillStyle? : string, strokeStyle? : string}) : void;
             getStem() : Stem;
             setStem(stem : Stem) : StemmableNote;
             buildStem() : StemmableNote;
@@ -1108,8 +1139,11 @@ declare namespace Vex {
             //TODO remove the following lines once TypeScript allows subclass overrides with type changes
             setNote(note : Note) : StringNumber;
 
-            constructor(number : number);
+            // actually this is not really consistent in the vexflow code "ctx.measureText(this.string_number).width" looks
+            // like it is a string. But from the use of it it might be a number ?!
+            constructor(number : number|string);
             static format(nums : StringNumber[], state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
+            string_number : number|string;
             getNote()  : Note;
             setNote(note : StemmableNote) : StringNumber;
             getIndex() : number;
@@ -1130,7 +1164,7 @@ declare namespace Vex {
         }
 
         class Stroke extends Modifier {
-            constructor(type : Stroke.Type, options : {all_voices? : boolean});
+            constructor(type : Stroke.Type, options? : {all_voices? : boolean});
             static format(strokes : Stroke[], state : {left_shift : number, right_shift : number, text_line : number}) : boolean;
             getPosition() : Modifier.Position;
             addEndNote(note : Note) : Stroke;
@@ -1138,14 +1172,18 @@ declare namespace Vex {
         }
 
         namespace Stroke {
-            const enum Type {BRUSH_DOWN = 1, BRUSH_UP, ROLL_DOWN, ROLL_UP, RASQUEDO_DOWN, RASQUEDO_UP}
+            enum Type {BRUSH_DOWN = 1, BRUSH_UP, ROLL_DOWN, ROLL_UP, RASQUEDO_DOWN, RASQUEDO_UP, ARPEGGIO_DIRECTIONLESS}
             const CATEGORY : string;
         }
 
         class SVGContext implements IRenderContext {
             constructor(element : HTMLElement);
+            svg: SVGElement;
+            state: any;
+            attributes: any;
+            lineWidth: number;
             iePolyfill() : boolean;
-            setFont(family : string, size : number, weight? : number) : SVGContext;
+            setFont(family : string, size : number, weight? : number|string) : SVGContext;
             setRawFont(font : string) : SVGContext;
             setFillStyle(style : string) : SVGContext;
             setBackgroundFillStyle(style : string) : SVGContext;
@@ -1165,8 +1203,8 @@ declare namespace Vex {
             beginPath() : SVGContext;
             moveTo(x : number, y : number) : SVGContext;
             lineTo(x : number, y : number) : SVGContext;
-            bezierCurveToTo(x1 : number, y1 : number, x2 : number, y2 : number, x : number, y : number) : SVGContext;
-            quadraticCurveToTo(x1 : number, y1 : number, x : number, y : number) : SVGContext; //inconsistent: x, y -> x2, y2
+            bezierCurveTo(x1 : number, y1 : number, x2 : number, y2 : number, x : number, y : number) : SVGContext;
+            quadraticCurveTo(x1 : number, y1 : number, x : number, y : number) : SVGContext; //inconsistent: x, y -> x2, y2
             arc(x : number, y : number, radius : number, startAngle : number, endAngle : number, antiClockwise : boolean) : SVGContext;
             closePath() : SVGContext;
             glow() : SVGContext;
@@ -1177,6 +1215,8 @@ declare namespace Vex {
             fillText(text : string, x : number, y : number) : SVGContext;
             save() : SVGContext;
             restore() : SVGContext;
+            openGroup() : Node;
+            closeGroup() : void;
         }
 
         class TabNote extends StemmableNote {
@@ -1236,6 +1276,9 @@ declare namespace Vex {
         class TextBracket {
             constructor(bracket_data : {start : Note, stop : Note, text? : string, superscript? : string, position? : TextBracket.Positions});
             static DEBUG : boolean;
+            start : Note;
+            stop : Note;
+            position : TextBracket.Positions;
             applyStyle(context : IRenderContext) : TextBracket;
             setDashed(dashed : boolean, dash? : number[]) : TextBracket;
             setFont(font : {family : string, size : number, weight : string}) : TextBracket;
@@ -1245,7 +1288,7 @@ declare namespace Vex {
         }
 
         namespace TextBracket {
-            const enum Positions {TOP = 1, BOTTOM = -1}
+            enum Positions {TOP = 1, BOTTOM = -1}
         }
 
         class TextDynamics extends Note {
@@ -1265,7 +1308,7 @@ declare namespace Vex {
         }
 
         namespace TextNote {
-            const enum Justification {LEFT = 1, CENTER, RIGHT}
+            enum Justification {LEFT = 1, CENTER, RIGHT}
             const GLYPHS : {[name : string] : {code : string, point : number, x_shift : number, y_shift : number}}
         }
 
@@ -1372,7 +1415,7 @@ declare namespace Vex {
         }
 
         class Tuplet {
-            constructor(notes : StaveNote[], options? : {num_notes? : number, beats_occupied? : number});
+            constructor(notes : StaveNote[], options? : {location? : number, bracketed? : boolean, ratioed : boolean, num_notes? : number, notes_occupied? : number, y_offset? : number});
             attach() : void;
             detach() : void;
             setContext(context : IRenderContext) : Tuplet;
@@ -1410,8 +1453,8 @@ declare namespace Vex {
             getLargestTickWidth() : number;
             getSmallestTickCount() : Fraction;
             getTickables() : Tickable[];
-            getMode() : number;
-            setMode(mode : number) : Voice;
+            getMode() : Voice.Mode;
+            setMode(mode : Voice.Mode) : Voice;
             getResolutionMultiplier() : number;
             getActualResolution() : number;
             setStave(stave : Stave) : Voice;
@@ -1427,7 +1470,7 @@ declare namespace Vex {
         }
 
         namespace Voice {
-            const enum Mode {STRICT = 1, SOFT, FULL}
+            enum Mode {STRICT = 1, SOFT, FULL}
         }
 
         class VoiceGroup {
@@ -1444,7 +1487,7 @@ declare namespace Vex {
         }
 
         namespace Volta {
-            const enum type {NONE = 1, BEGIN, MID, END, BEGIN_END}
+            enum type {NONE = 1, BEGIN, MID, END, BEGIN_END}
         }
     }
 }

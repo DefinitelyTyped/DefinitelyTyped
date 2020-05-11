@@ -1,6 +1,11 @@
 // Type definitions for blessed 0.1
 // Project: https://github.com/chjj/blessed
-// Definitions by: Bryn Austin Bellomy <https://github.com/brynbellomy>, Steve Kellock <https://github.com/skellock>
+// Definitions by: Bryn Austin Bellomy <https://github.com/brynbellomy>
+//                 Steve Kellock <https://github.com/skellock>
+//                 Max Brauer <https://github.com/mamachanko>
+//                 Nathan Rajlich <https://github.com/TooTallNate>
+//                 Daniel Berlanga <https://github.com/danikaze>
+//                 Jeff Huijsmans <https://github.com/jeffhuys>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -8,7 +13,6 @@
 
 import { EventEmitter } from "events";
 import { Writable, Readable } from "stream";
-import * as stream from "stream";
 import * as child_process from "child_process";
 
 export interface IBlessedProgramOptions {
@@ -593,7 +597,9 @@ export namespace Widgets {
         destroy(): void;
     }
 
-    interface IOptions {}
+    interface IOptions {
+        [name: string]: any;
+    }
 
     interface IHasOptions<T extends IOptions> {
         options: T;
@@ -925,12 +931,12 @@ export namespace Widgets {
         /**
          * Create a log file. See log method.
          */
-        log?(...msg: any[]): void;
+        log?: string;
 
         /**
          * Dump all output and input to desired file. Can be used together with log option if set as a boolean.
          */
-        dump?: string;
+        dump?: string | boolean;
 
         /**
          * Debug mode. Enables usage of the debug method. Also creates a debug console which will display when
@@ -942,7 +948,7 @@ export namespace Widgets {
          * Array of keys in their full format (e.g. C-c) to ignore when keys are locked or grabbed. Useful
          * for creating a key that will always exit no matter whether the keys are locked.
          */
-        ignoreLocked?: boolean;
+        ignoreLocked?: string[];
 
         /**
          * Automatically "dock" borders with other elements instead of overlapping, depending on position
@@ -986,13 +992,13 @@ export namespace Widgets {
          * Input and output streams. process.stdin/process.stdout by default, however, it could be a
          * net.Socket if you want to make a program that runs over telnet or something of that nature.
          */
-        input?: stream.Writable;
+        input?: Writable;
 
         /**
          * Input and output streams. process.stdin/process.stdout by default, however, it could be a
          * net.Socket if you want to make a program that runs over telnet or something of that nature.
          */
-        output?: stream.Readable;
+        output?: Readable;
 
         /**
          * The blessed Tput object (only available if you passed tput: true to the Program constructor.)
@@ -1067,7 +1073,7 @@ export namespace Widgets {
         /**
          * Whether the focused element grabs all keypresses.
          */
-        grabKeys?: any;
+        grabKeys?: boolean;
 
         /**
          * Prevent keypresses from being received by any element.
@@ -1092,8 +1098,6 @@ export namespace Widgets {
 
     class Screen extends NodeWithEvents implements IHasOptions<IScreenOptions> {
         constructor(opts: IScreenOptions);
-
-        cleanSides: any;
 
         /**
          * Original options object.
@@ -1197,13 +1201,13 @@ export namespace Widgets {
          * Input and output streams. process.stdin/process.stdout by default, however, it could be a
          * net.Socket if you want to make a program that runs over telnet or something of that nature.
          */
-        input: stream.Writable;
+        input: Writable;
 
         /**
          * Input and output streams. process.stdin/process.stdout by default, however, it could be a
          * net.Socket if you want to make a program that runs over telnet or something of that nature.
          */
-        output: stream.Readable;
+        output: Readable;
 
         /**
          * The blessed Tput object (only available if you passed tput: true to the Program constructor.)
@@ -1278,7 +1282,7 @@ export namespace Widgets {
         /**
          * Whether the focused element grabs all keypresses.
          */
-        grabKeys: any;
+        grabKeys: boolean;
 
         /**
          * Prevent keypresses from being received by any element.
@@ -1288,7 +1292,7 @@ export namespace Widgets {
         /**
          * The currently hovered element. Only set if mouse events are bound.
          */
-        hover: any;
+        hover: Widgets.BlessedElement;
 
         /**
          * Set or get terminal name. Set calls screen.setTerminal() internally.
@@ -1299,6 +1303,22 @@ export namespace Widgets {
          * Set or get window title.
          */
         title: string;
+
+        /**
+         * Array of `Element` instances that may receive click/mouse events.
+         */
+        clickable: Widgets.BlessedElement[];
+
+        /**
+         * Array of `Element` instances that may receive key events.
+         */
+        keyable: Widgets.BlessedElement[];
+
+        /**
+         * Parse the sides of an element to determine whether an element has uniform cells on both sides.
+         * If it does, we can use CSR to optimize scrolling on a scrollable element.
+         */
+        cleanSides(el: Widgets.BlessedElement): boolean;
 
         /**
          * Write string to the log file if one was created.
@@ -1343,7 +1363,7 @@ export namespace Widgets {
         /**
          * Focus element by offset of focusable elements.
          */
-        focusOffset(offset: number): any;
+        focusOffset(offset: number): void;
 
         /**
          * Focus previous element in the index.
@@ -1404,7 +1424,7 @@ export namespace Widgets {
         /**
          * Set effects based on two events and attributes.
          */
-        setEffects(el: BlessedElement, fel: BlessedElement, over: any, out: any, effects: any, temp: any): void;
+        setEffects(el: BlessedElement, fel: BlessedElement, over: string, out: string, effects: any, temp: any): void;
 
         /**
          * Insert a line into the screen (using csr: this bypasses the output buffer).
@@ -1890,7 +1910,7 @@ export namespace Widgets {
         enableKeys(): void;
 
         /**
-         * Enable key and mouse events. Calls bot enableMouse and enableKeys.
+         * Enable key and mouse events. Calls both `enableMouse()` and `enableKeys()`.
          */
         enableInput(): void;
 
@@ -2316,7 +2336,7 @@ export namespace Widgets {
         /**
          * Removes an item from the list. Child can be an element, index, or string.
          */
-        removeItem(child: BlessedElement): BlessedElement;
+        removeItem(child: BlessedElement | number | string): BlessedElement;
 
         /**
          * Push an item onto the list.
@@ -2341,12 +2361,12 @@ export namespace Widgets {
         /**
          * Inserts an item to the list. Child can be an element, index, or string.
          */
-        insertItem(i: number, child: BlessedElement): void;
+        insertItem(i: number, child: BlessedElement | number | string): void;
 
         /**
          * Returns the item element. Child can be an element, index, or string.
          */
-        getItem(child: BlessedElement): BlessedElement;
+        getItem(child: BlessedElement | number | string): BlessedElement;
 
         /**
          * Set item to content.
@@ -2371,7 +2391,7 @@ export namespace Widgets {
         /**
          * Returns the item index from the list. Child can be an element, index, or string.
          */
-        getItemIndex(child: BlessedElement): number;
+        getItemIndex(child: BlessedElement | number | string): number;
 
         /**
          * Select an index of an item.
@@ -2969,32 +2989,32 @@ export namespace Widgets {
         /**
          * can be `horizontal` or `vertical`.
          */
-        orientation: string;
+        orientation?: string;
 
         /**
          * the character to fill the bar with (default is space).
          */
-        pch: string;
+        pch?: string;
 
         /**
          * the amount filled (0 - 100).
          */
-        filled: number;
+        filled?: number;
 
         /**
          * same as `filled`.
          */
-        value: number;
+        value?: number;
 
         /**
          * enable key support.
          */
-        keys: boolean;
+        keys?: boolean;
 
         /**
          * enable mouse support.
          */
-        mouse: boolean;
+        mouse?: boolean;
     }
 
     /**
@@ -3447,7 +3467,11 @@ export function progressbar(options?: Widgets.ProgressBarOptions): Widgets.Progr
 export function program(options?: Widgets.IScreenOptions): BlessedProgram;
 export function terminal(options?: Widgets.TerminalOptions): Widgets.TerminalElement;
 export function layout(options?: Widgets.LayoutOptions): Widgets.LayoutElement;
-export function escape(item: any): any;
+export function escape(text: string): string;
+export function stripTags(text: string): string;
+export function cleanTags(text: string): string;
+export function generateTags(style: any, text: string): string;
+export function parseTags(text: string, screen?: Widgets.Screen): string;
 
 export const colors: {
     match(hexColor: string): string;

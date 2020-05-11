@@ -13,13 +13,17 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "d3": [
+                "d3/v3"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "lib/core.d.ts",
         "test/index-tests.ts",
         "test/core-tests.ts"
     ]

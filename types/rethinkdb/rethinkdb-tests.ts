@@ -22,6 +22,13 @@ r.connect({ host: "localhost", port: 28015 }, function(err: Error, conn: r.Conne
     )
     .run(conn, errorAndCursorCallback);
 
+    r.table("players").merge((player: r.Expression<Object>) => {
+      return {
+        teams: r.table("games").getAll(player('teamIds')).coerceTo('array'),
+      }
+    })
+    .run(conn, errorAndCursorCallback);
+  
     const center = r.point(123, 456);
     r.table("geo")
       .getIntersecting(r.circle(center, 1000, { unit: "m" }), { index: "location" })

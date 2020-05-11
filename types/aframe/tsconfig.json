@@ -21,6 +21,7 @@
     },
     "files": [
         "index.d.ts",
-        "aframe-tests.ts"
+        "test/aframe-tests.ts",
+        "test/aframe-io-tests.ts"
     ]
 }

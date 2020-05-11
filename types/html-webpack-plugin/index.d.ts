@@ -6,14 +6,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Plugin, compilation } from 'webpack';
+import { Plugin, compilation, Compiler } from 'webpack';
 import { AsyncSeriesWaterfallHook } from 'tapable';
 import { Options as HtmlMinifierOptions } from 'html-minifier';
 
 export = HtmlWebpackPlugin;
 
+type TemplateFunction = (param: object) => string;
+
 declare class HtmlWebpackPlugin extends Plugin {
-	constructor(options?: HtmlWebpackPlugin.Options);
+    constructor(options?: HtmlWebpackPlugin.Options);
+
+		apply(compiler: Compiler): void;
+
+		evaluateCompilationResult(compilation: compilation.Compilation, content: string): Promise<string | TemplateFunction>;
+
+		executeTemplate(templateFunction: TemplateFunction, chunks: any, assets: any, compilation: compilation.Compilation): Promise<string>;
+
+    postProcessHtml(html: string, assets: any, assetTags: any): Promise<string>;
 }
 
 declare namespace HtmlWebpackPlugin {

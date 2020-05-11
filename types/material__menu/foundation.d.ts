@@ -40,7 +40,7 @@ export default class MDCMenuFoundation extends MDCFoundation<MDCMenuFoundation> 
     /**
      * @param corner Default anchor corner alignment of top-left menu corner.
      */
-    setAnchorCorner(corner: Corner): void;
+    setAnchorCorner(corner: number): void;
 
     /**
      * @param margin 4-plet of margins from anchor.

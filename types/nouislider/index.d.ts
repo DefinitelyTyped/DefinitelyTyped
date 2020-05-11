@@ -1,4 +1,4 @@
-// Type definitions for nouislider v9.0.0
+// Type definitions for nouislider v9.0.1
 // Project: https://github.com/leongersen/noUiSlider
 // Definitions by: Patrick Davies <https://github.com/bleuarg>, Guust Nieuwenhuis <https://github.com/lagaffe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,7 @@ declare namespace noUiSlider {
 	/**
      * To create a slider, call noUiSlider.create() with an element and your options.
      */
-	function create(target: HTMLElement, options: Options): void;
+	function create(target: HTMLElement, options: Options): noUiSlider.noUiSlider;
 
 	interface Options {
 		/**
@@ -24,12 +24,13 @@ declare namespace noUiSlider {
          */
 		range: { [key: string]: number | number[] };
 		/**
-         * The connect setting can be used to control the (green) bar between the handles, or the edges of the slider.
-         * Pass an array with a boolean for every connecting element, including the edges of the slider.
-         * The length of this array must match the handle count + 1.
-         * Setting true sets the bars between the handles, but not between the handles and the sliders edges.
+         * The connect option can be used to control the bar between the handles or the edges of the slider.
+         * If you are using one handle, set the value to either `upper` or `lower`.
+         * For sliders with 2 or more handles, pass an array with a boolean for every connecting element,
+         * including the edges of the slider. The length of this array must match the handle `count + 1`.
+         * Setting `true` sets the bars between the handles, but not between the handles and the sliders edges.
          */
-		connect?: boolean | boolean[];
+		connect?: 'lower' | 'upper' | boolean | boolean[];
 		/**
          * When using two handles, the minimum distance between the handles can be set using the margin option.
          * The margin value is relative to the value set in 'range'.
@@ -101,6 +102,12 @@ declare namespace noUiSlider {
          */
 		pips?: PipsOptions;
 	}
+
+    /**
+     * Update options that can not be updated will be ignored without errors.
+     * The value null can be used to unset a previously set value.
+     */
+    type UpdateOptions = Partial<Options>;
 
 	interface PipsOptions {
 		/**
@@ -197,10 +204,18 @@ declare namespace noUiSlider {
          */
 		options: Options;
 		/**
-         * method that can change the 'margin',  'limit', 'step', 'range', 'animate' and  'snap' options.
+         * `noUiSlider` has an update method that can change the `margin`,
+         * `padding`, `limit`, `step`, `range`, `pips`, `tooltips`, `animate` and `snap` options.
          * All other options require changes to the slider's HTML or event bindings.
+         * Options that can not be updated will be ignored without errors.
+         * The value null can be used to unset a previously set value.
+         * The `set` event fires when the slider values are restored.
+         * If this is unwanted, you can pass false as the second parameter, `fireSetEvent`.
+         * Note that if you initiate multiple sliders using the same options object
+         * and update a subset of them later, this will move the options property out of sync
+         * with the actual slider options.
          */
-		updateOptions(newOptions: Options, fireSetEvent?: boolean): void;
+		updateOptions(newOptions: UpdateOptions, fireSetEvent?: boolean): void;
 	}
 
 	interface Instance extends HTMLElement {

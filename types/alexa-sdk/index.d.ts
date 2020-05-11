@@ -1,5 +1,5 @@
 // Type definitions for Alexa SDK for Node.js 1.1
-// Project: https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs
+// Project: https://github.com/alexa/alexa-skill-sdk-for-nodejs
 // Definitions by:  Pete Beegle <https://github.com/petebeegle>
 //                  Huw <https://github.com/hoo29>
 //                  pascalwhoop <https://github.com/pascalwhoop>

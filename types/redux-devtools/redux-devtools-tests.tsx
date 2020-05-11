@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { compose, createStore, Reducer, Store, GenericStoreEnhancer } from 'redux'
+import { compose, createStore, Reducer, Store, StoreEnhancer } from 'redux'
 import { Provider } from 'react-redux'
 import { createDevTools, persistState } from 'redux-devtools'
 
-declare var reducer: Reducer<any>
+declare var reducer: Reducer
 
 class DevToolsMonitor extends React.Component {
 }
@@ -15,7 +15,7 @@ const DevTools = createDevTools(
 const storeEnhancer = compose(
   DevTools.instrument(),
   persistState('test-session')
-) as GenericStoreEnhancer
+) as StoreEnhancer
 
 const finalCreateStore = storeEnhancer(createStore)
 

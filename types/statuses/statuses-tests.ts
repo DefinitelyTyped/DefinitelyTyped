@@ -1,5 +1,7 @@
 import status = require('statuses');
 
+status.STATUS_CODES[404]; // $ExpectType string
+
 let code: number | undefined;
 
 code = status(403); // => 403

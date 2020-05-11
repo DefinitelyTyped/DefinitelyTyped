@@ -1,5 +1,5 @@
 // Type definitions for xml 1.0
-// Project: https://github.com/dylang/node-xml
+// Project: http://github.com/dylang/node-xml
 // Definitions by: Jianrong Yu <https://github.com/YuJianrong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -24,7 +24,7 @@ interface Option {
 }
 
 interface XmlAttrs {
-  [attr: string]: string;
+  [attr: string]: XmlAtom;
 }
 interface XmlDescArray {
   [index: number]: { _attr: XmlAttrs } | XmlObject;
@@ -34,7 +34,7 @@ interface ElementObject {
   close(xmlObject?: XmlObject): void;
 }
 
-type XmlAtom = string | number | boolean;
+type XmlAtom = string | number | boolean | null;
 type XmlDesc = { _attr: XmlAttrs } | { _cdata: string } | { _attr: XmlAttrs, _cdata: string } | XmlAtom | XmlAtom[] | XmlDescArray;
 type XmlObject = { [tag: string]: ElementObject | XmlDesc } | XmlDesc;
 

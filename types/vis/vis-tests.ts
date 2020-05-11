@@ -1,3 +1,6 @@
+import { NodeOptions } from 'vis';
+import vis = require('vis');
+
 // Test DataSet constructor
 new vis.DataSet();
 new vis.DataSet({});
@@ -34,7 +37,7 @@ data.add([
 ]);
 
 // subscribe to any change in the DataSet
-data.on('*', (event, properties, senderId) => {
+data.on('*', (event: any, properties: any, senderId: any) => {
   console.log('event', event, properties);
 });
 
@@ -54,7 +57,7 @@ console.log('item1', item1);
 
 // retrieve a filtered subset of the data
 let items = data.get({
-  filter: (item) => {
+  filter: (item: any) => {
     return item.group === 1;
   }
 });
@@ -77,7 +80,7 @@ console.log('formatted items', items);
 data = new vis.DataSet<TestData>();
 
 // subscribe to any change in the DataSet
-data.on('*', (event, properties, senderId) => {
+data.on('*', (event: any, properties: any, senderId: any) => {
   console.log('event:', event, 'properties:', properties, 'senderId:', senderId);
 });
 
@@ -132,17 +135,27 @@ const dataset = new vis.DataSet<TestData>();
 
 // retrieve all items having a property group with value 2
 const group2 = dataset.get({
-  filter: (item) => {
+  filter: (item: any) => {
     return (item.group === 2);
   }
 });
 
 // retrieve all items having a property balance with a value above zero
 const positiveBalance = dataset.get({
-  filter: (item) => {
+  filter: (item: any) => {
     return item.balance !== undefined && item.balance > 0;
   }
 });
+
+// DataGroup test
+const groups = [
+  {id: "1", content: "group 1", visible: true},
+  {id: "2", content: "group 2", visible: false},
+  {id: "3", content: "parent group", nestedGroups: [ "1", "2" ],  visible: false, showNested: true}
+];
+
+const timelineContainer = <HTMLElement> document.getElementById('timeline');
+const timeline = new vis.Timeline(timelineContainer, [], groups);
 
 //
 // Test code sample from Getting Started http://visjs.org/docs/network/
@@ -217,3 +230,29 @@ options = {
 };
 
 network.setOptions(options);
+
+//
+// should accept different formats of widthConstraint for NodeOptions
+//
+let nodeWidthConstraintOptions: NodeOptions = {
+    widthConstraint: {
+        maximum: 100
+    }
+};
+nodeWidthConstraintOptions = {
+    widthConstraint: false
+};
+nodeWidthConstraintOptions = {
+    widthConstraint: {
+        minimum: 1,
+        maximum: 5
+    }
+};
+nodeWidthConstraintOptions = {
+    widthConstraint: {
+        minimum: 1
+    }
+};
+nodeWidthConstraintOptions = {
+    widthConstraint: 150
+};

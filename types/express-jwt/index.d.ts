@@ -37,7 +37,6 @@ declare namespace jwt {
     export interface Options {
         secret: secretType | SecretCallback | SecretCallbackLong;
         userProperty?: string;
-        skip?: string[];
         credentialsRequired?: boolean;
         isRevoked?: IsRevokedCallback;
         requestProperty?: string;
@@ -56,12 +55,5 @@ declare namespace jwt {
         inner: { message: string };
 
         constructor(code: ErrorCode, error: { message: string });
-    }
-}
-declare global {
-    namespace Express {
-        export interface Request {
-            user?: any
-        }
     }
 }

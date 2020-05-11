@@ -1,14 +1,21 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
         "adjacent-overload-signatures": false,
         "ban-types": false,
         "interface-name": false,
+        "jsdoc-format": false,
+        "no-angle-bracket-type-assertion": false,
         "no-any-union": false,
         "no-empty-interface": false,
+        "no-padding": false,
+        "no-unnecessary-class": false,
+        "one-line": false,
+        "semicolon": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
-        "unified-signatures": false
+        "typedef-whitespace": false,
+        "unified-signatures": false,
+        "whitespace": false
     }
 }

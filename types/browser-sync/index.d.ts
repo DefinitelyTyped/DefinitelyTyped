@@ -1,13 +1,13 @@
-// Type definitions for browser-sync
+// Type definitions for browser-sync 2.26
 // Project: http://www.browsersync.io/
 // Definitions by: Asana <https://asana.com>,
 //                 Joe Skeen <https://github.com/joeskeen>
 //                 Thomas "Thasmo" Deinhamer <https://thasmo.com/>
 //                 Kiyotoshi Ichikawa <https://github.com/aznnomness>
+//                 Yuma Hashimoto <https://github.com/yuma84>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
-/// <reference types="chokidar"/>
 /// <reference types="node" />
 /// <reference types="serve-static" />
 
@@ -368,7 +368,7 @@ declare namespace browserSync {
         ws?: boolean;
         reqHeaders?: (config: object) => Hash<object>;
         proxyRes?: ProxyResponseMiddleware | ProxyResponseMiddleware[];
-        proxyReq?: ((res: http.ServerRequest) => void)[] | ((res: http.ServerRequest) => void);
+        proxyReq?: ((res: http.IncomingMessage) => void)[] | ((res: http.IncomingMessage) => void);
         error?: (err: NodeJS.ErrnoException, req: http.IncomingMessage, res: http.ServerResponse) => void;
     }
 
@@ -455,9 +455,9 @@ declare namespace browserSync {
          * Start the Browsersync service. This will launch a server, proxy or start the snippet mode
          * depending on your use-case.
          */
-        (config?: Options, callback?: (err: Error, bs: object) => any): BrowserSyncInstance;
+        (config?: Options, callback?: (err: Error, bs: BrowserSyncInstance) => any): BrowserSyncInstance;
         /**
-         * 
+         *
          */
         instances: Array<BrowserSyncInstance>;
         /**
@@ -489,7 +489,7 @@ declare namespace browserSync {
          * Start the Browsersync service. This will launch a server, proxy or start the snippet mode
          * depending on your use-case.
          */
-        init(config?: Options, callback?: (err: Error, bs: object) => any): BrowserSyncInstance;
+        init(config?: Options, callback?: (err: Error, bs: BrowserSyncInstance) => any): BrowserSyncInstance;
         /**
          * This method will close any running server, stop file watching & exit the current process.
          */
@@ -547,7 +547,7 @@ declare namespace browserSync {
          *
          * @method use
          * @param {object} module The object to be `required`.
-         * @param {object} options The 
+         * @param {object} options The
          * @param {any} cb A callback function that will return any errors.
          */
         use(module: { "plugin:name"?: string, plugin: (opts: object, bs: BrowserSyncInstance) => any }, options?: object, cb?: any): void;

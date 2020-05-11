@@ -3,7 +3,7 @@
 // Definitions by: Meir Gottlieb <https://github.com/meirgottlieb>
 //                 Jeff Principe <https://github.com/princjef>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="node" />
 
@@ -64,7 +64,7 @@ declare class Agenda extends EventEmitter {
     defaultConcurrency(value: number): this;
 
     /**
-     * Takes a number shich specifies the max number jobs that can be locked at any given moment. By default it is
+     * Takes a number which specifies the max number jobs that can be locked at any given moment. By default it is
      * 0 for no max.
      * @param value The value to set.
      */
@@ -189,7 +189,7 @@ declare namespace Agenda {
         defaultLockLimit?: number;
 
         /**
-         * Takes a number shich specifies the max number jobs that can be locked at any given moment. By default it is
+         * Takes a number which specifies the max number jobs that can be locked at any given moment. By default it is
          * 0 for no max.
          */
         lockLimit?: number;
@@ -203,17 +203,7 @@ declare namespace Agenda {
         /**
          * Specifies that Agenda should be initialized using and existing MongoDB connection.
          */
-        mongo?: {
-            /**
-             * The MongoDB database connection to use.
-             */
-            db: Db;
-
-            /**
-             * The name of the collection to use.
-             */
-            collection?: string;
-        }
+        mongo?: Db;
 
         /**
          * Specifies that Agenda should connect to MongoDB.
@@ -221,8 +211,10 @@ declare namespace Agenda {
         db?: {
             /**
              * The connection URL.
+             * Required when using `db` option to connect.
+             * Not required when an existing connection is passed as `mongo` property.
              */
-            address: string;
+            address?: string;
 
             /**
              * The name of the collection to use.
@@ -231,6 +223,7 @@ declare namespace Agenda {
 
             /**
              * Connection options to pass to MongoDB.
+             * Not required when an existing connection is passed as `mongo` property.
              */
             options?: any;
         }
@@ -343,10 +336,11 @@ declare namespace Agenda {
         /**
          * Specifies an interval on which the job should repeat.
          * @param interval A human-readable format String, a cron format String, or a Number.
-         * @param options An optional argument that can include a timezone field. The timezone should be a string as
-         * accepted by moment-timezone and is considered when using an interval in the cron string format.
+         * @param options An optional argument that can include a timezone field or skipImmediate field.
+         * The timezone should be a string as accepted by moment-timezone and is considered when using an interval in the cron string format.
+         * Setting skipImmediate as true will skip the immediate run. The first run will occur only in configured interval.
          */
-        repeatEvery(interval: string | number, options?: { timezone?: string }): this
+        repeatEvery(interval: string | number, options?: { timezone?: string, skipImmediate?: boolean }): this
 
         /**
          * Specifies a time when the job should repeat. [Possible values](https://github.com/matthewmueller/date#examples).

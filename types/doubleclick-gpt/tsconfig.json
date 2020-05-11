@@ -1,5 +1,4 @@
 {
-    "compileOnSave": false,
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
@@ -9,7 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

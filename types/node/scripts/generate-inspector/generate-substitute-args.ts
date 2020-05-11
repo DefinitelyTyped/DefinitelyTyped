@@ -1,24 +1,28 @@
 import * as schema from "./devtools-protocol-schema";
 import { createListeners } from "./event-emitter";
-import { capitalize, createDocs, flattenArgs, hasElements, isObjectReference, resolveReference } from "./utils";
+import { capitalize, createDocs, flattenArgs, hasElements, isObjectReference, filterNull } from "./utils";
 
 const INDENT = "    ";
 
+// Turns a type into a type representing an array of that type
+const arrify = (typeString: string) => {
+  return typeString === '{}' ? `Array<${typeString}>` : `${typeString}[]`;
+}
+
 // Converts DevTools type to TS type
 const createTypeString = (type: schema.Field, domain?: string): string => {
-    return isObjectReference(type) ? resolveReference(type.$ref, domain) :
-        type.type === "any"                    ? "any" :
+    return isObjectReference(type) ? type.$ref :
+        type.type === "any"                ? "any" :
         type.type === "integer"            ? "number" :
         type.type === "number"             ? "number" :
         type.type === "boolean"            ? "boolean" :
         type.type === "string"             ? "string" :
-        type.type === "array"                ? `${createTypeString(type.items, domain)}[]` :
-        type.type === "object"             ? "{}" // this code path is likely never exercised
-                                                                 : "never";
+        type.type === "array"              ? arrify(createTypeString(type.items, domain)) :
+        type.type === "object"             ? "{}" : "never"; // "never" has yet to be observed
 };
 
 // Helper for createInterface -- constructs a list of interface fields
-const createFieldsForInterface = (fields: schema.Parameter[] | null, domain: string): string[] => {
+const createFieldsForInterface = (fields: schema.Parameter[], domain: string): string[] => {
     return fields ? [
         ...fields
             .map(prop => [
@@ -34,11 +38,11 @@ const createTypeDefinition = (type: schema.Type, domain: string): string[] => {
     return [
         ...createDocs(type),
         ...(type.type === "object" ? [
-            `export interface ${type.id} {`,
-            ...createFieldsForInterface(type.properties, domain)
+            `interface ${type.id} {`,
+            ...createFieldsForInterface(type.properties || [], domain)
                 .map(line => `${INDENT}${line}`),
             "}",
-        ] : [`export type ${type.id} = ${createTypeString(type)};`]),
+        ] : [`type ${type.id} = ${createTypeString(type)};`]),
     ];
 };
 
@@ -52,16 +56,25 @@ const createCallbackString = (commandName: string, returns: schema.Parameter[], 
 // Create declarations for overloads of Session#post
 const createPostFunctions = (command: schema.Command, domain: string): string[] => {
     const fnName = "post";
-    const callbackStr = createCallbackString(command.name, command.returns, domain);
+    const callbackStr = createCallbackString(command.name, command.returns || [], domain);
     const result = createDocs(command);
-    if (hasElements(command.parameters)) {
-        result.push([
+    if (hasElements(command.parameters || [])) {
+        const parts = [
             `${fnName}(`,
             `method: "${domain}.${command.name}", `,
             `params?: ${domain}.${capitalize(command.name)}ParameterType, `,
             `callback?: ${callbackStr}`,
             "): void;",
-        ].join(""));
+        ];
+        const joined = parts.join('');
+        if ((joined.length + 8) > 200) {
+            parts[1] = INDENT + parts[1];
+            parts[2] = INDENT + parts[2];
+            parts[3] = INDENT + parts[3];
+            result.push(...parts);
+        } else {
+            result.push(joined);
+        }
     }
     result.push([
         `${fnName}(`,
@@ -77,12 +90,12 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
  * substituted into ./inspector.d.ts.template.
  * @param protocol The parsed contents of the JSON file from which the DevTools Protocol docs are generated.
  */
-export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: string]: string[] } => {
+export const generateSubstituteArgs = (protocol: schema.Schema): NodeJS.Dict<string[]> => {
     const interfaceDefinitions: string[] = protocol.domains
         .map(item => {
-            const typePool = (item.types || []).concat([
+            const typePool = (item.types || []).concat(filterNull([
                 ...(item.commands || []).map(command => {
-                    let result: schema.Type = null;
+                    let result: schema.Type | null = null;
                     if (hasElements(command.parameters)) {
                         result = {
                             id: `${capitalize(command.name)}ParameterType`,
@@ -93,7 +106,7 @@ export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: st
                     return result;
                 }),
                 ...(item.commands || []).map(command => {
-                    let result: schema.Type = null;
+                    let result: schema.Type | null = null;
                     if (hasElements(command.returns)) {
                         result = {
                             id: `${capitalize(command.name)}ReturnType`,
@@ -104,7 +117,7 @@ export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: st
                     return result;
                 }),
                 ...(item.events || []).map(event => {
-                    let result: schema.Type = null;
+                    let result: schema.Type | null = null;
                     if (hasElements(event.parameters)) {
                         result = {
                             id: `${capitalize(event.name)}EventDataType`,
@@ -114,9 +127,9 @@ export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: st
                     }
                     return result;
                 }),
-            ].filter(x => x));
+            ]));
             return typePool.length > 0 ? [
-                `export namespace ${item.domain} {`,
+                `namespace ${item.domain} {`,
                 ...typePool
                     .map(type => createTypeDefinition(type, item.domain))
                     .reduce(flattenArgs(""))
@@ -126,10 +139,10 @@ export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: st
         }).reduce(flattenArgs(""), []);
 
     const postOverloads: string[] = protocol.domains
-        .map(item => item.commands
+        .map(item => (item.commands || [])
             .map(command => createPostFunctions(command, item.domain))
             .reduce(flattenArgs(""), []))
-        .reduce(flattenArgs(), []);
+        .reduce(flattenArgs(""), []);
 
     const eventOverloads: string[] = createListeners(protocol.domains
         .map(item => {

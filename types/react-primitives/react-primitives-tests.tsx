@@ -47,8 +47,12 @@ export default class Component extends React.Component<{}, State> {
         Animated.timing(this.state.opacity, {
             toValue: 1,
             duration: 10000,
-            easing: Easing.cubic
+            easing: Easing.cubic,
+            useNativeDriver: false,
         }).start();
+        if (Platform.OS === 'sketch') {
+            console.log('The Platform is sketch');
+        }
     }
 
     render() {

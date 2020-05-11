@@ -38,6 +38,14 @@ interface Options {
     attributeName: string;
 }
 
-export declare function getClientIp(req: Request): string;
+export declare function getClientIp(req: Request): string | null;
 
 export function mw(options?: Options): (req: Request, res: any, next: any) => any;
+
+declare global {
+  namespace Express {
+    interface Request {
+      clientIp?: string;
+    }
+  }
+}

@@ -1,43 +1,85 @@
-// Type definitions for multer-gridfs-storage 2.0
+// Type definitions for multer-gridfs-storage 4.0
 // Project: https://github.com/devconcept/multer-gridfs-storage
 // Definitions by: devconcept <https://github.com/devconcept>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 3.2
 
 import { EventEmitter } from 'events';
 import { Express } from 'express';
 import * as Multer from 'multer';
-import { Db } from 'mongodb';
+import { Db, MongoClient } from 'mongodb';
+import { Connection, Mongoose } from 'mongoose';
+
+declare class Cache {
+    initialize(opts: object): object;
+    findUri(cacheName: string, url: string): string;
+    has(cacheIndex: object): boolean;
+    get(cacheIndex: object): object;
+    set(cacheIndex: object, value: object): void;
+    isPending(cacheIndex: object): boolean;
+    isOpening(cacheIndex: object): boolean;
+    resolve(cacheIndex: object, db: Db, client: MongoClient): void;
+    reject(cacheIndex: object, err: Error): void;
+    waitFor(cacheIndex: object): Promise<object>;
+    connections(): number;
+    remove(cacheIndex: object): void;
+    clear(): void;
+}
 
 interface MulterGfsOptions {
     file?(req: Express.Request, file: Express.Multer.File): any;
 }
 
 declare class MulterGridfsStorage extends EventEmitter implements Multer.StorageEngine {
-    constructor(settings: MulterGridfsStorage.UrlStorageOptions | MulterGridfsStorage.DbStorageOptions);
+    db: Db;
+    client: MongoClient;
+    connected: boolean;
+    connecting: boolean;
+    configuration: MulterGridfsStorage.UrlStorageOptions | MulterGridfsStorage.DbStorageOptions;
+    error: Error;
+    caching: boolean;
+    cacheName: string;
+    cacheIndex: object;
+
+    constructor(configuration: MulterGridfsStorage.UrlStorageOptions | MulterGridfsStorage.DbStorageOptions);
 
     _handleFile(req: Express.Request, file: Express.Multer.File, callback: (error?: any, info?: Express.Multer.File) => void): void;
 
     _removeFile(req: Express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
+
+    ready(): Promise<MulterGridfsStorage.ConnectionResult>;
+
+    static cache: Cache;
+
+    static generateBytes(): Promise<{filename: string}>;
 }
 
 declare namespace MulterGridfsStorage {
+    interface ConnectionResult {
+        db: Db;
+        client?: MongoClient;
+    }
+
     interface UrlStorageOptions extends MulterGfsOptions {
         url: string;
-        connectionOpts?: any;
+        options?: any;
+        cache?: boolean | string;
     }
 
     interface DbStorageOptions extends MulterGfsOptions {
-        db: Promise<Db> | Db;
+        db: Mongoose | Connection | Db | Promise<Mongoose | Connection | Db>;
+        client?: MongoClient | Promise<MongoClient>;
     }
 
     interface FileConfig {
         filename?: string;
         id?: any;
-        metadata?: any;
+        metadata?: object;
         chunkSize?: number;
         bucketName?: string;
         contentType?: string;
+        aliases?: string[];
+        disableMD5?: boolean;
     }
 }
 

@@ -1,4 +1,4 @@
-// Type definitions for Google Google Analytics API v3 3.0
+// Type definitions for non-npm package Google Google Analytics API v3 3.0
 // Project: https://developers.google.com/analytics/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

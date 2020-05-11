@@ -19,6 +19,9 @@
     },
     "files": [
         "index.d.ts",
-        "detox-tests.ts"
+        "test/detox-global-tests.ts",
+        "test/detox-module-tests.ts",
+        "test/detox-jest-setup-tests.ts",
+        "test/detox-mocha-setup-tests.ts"
     ]
 }

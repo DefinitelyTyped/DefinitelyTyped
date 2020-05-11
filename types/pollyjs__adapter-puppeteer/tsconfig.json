@@ -1,0 +1,41 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"lib": [
+			"es6"
+		],
+		"esModuleInterop": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"baseUrl": "../",
+		"typeRoots": [
+			"../"
+		],
+		"types": [],
+		"noEmit": true,
+		"forceConsistentCasingInFileNames": true,
+		"paths": {
+			"@pollyjs/core": [
+				"pollyjs__core"
+			],
+			"@pollyjs/adapter": [
+				"pollyjs__adapter"
+			],
+			"@pollyjs/adapter-puppeteer": [
+				"pollyjs__adapter-puppeteer"
+			],
+			"@pollyjs/persister": [
+				"pollyjs__persister"
+			],
+			"@pollyjs/utils": [
+				"pollyjs__utils"
+			]
+		}
+	},
+	"files": [
+		"index.d.ts",
+		"pollyjs__adapter-puppeteer-tests.ts"
+	]
+}

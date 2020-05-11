@@ -1,6 +1,8 @@
-// Type definitions for nconf
+// Type definitions for nconf 0.10
 // Project: https://github.com/flatiron/nconf
-// Definitions by: Jeff Goddard <https://github.com/jedigo>, Jean-Martin Thibault <https://github.com/jmthibault>
+// Definitions by: Jeff Goddard <https://github.com/jedigo>, 
+//                 Jean-Martin Thibault <https://github.com/jmthibault>
+//                 Dave Houston <https://github.com/ew73>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/nconf.d.ts
@@ -57,6 +59,11 @@ export interface IOptions {
     [index: string]: any;
 }
 
+export interface ISecureFileOptions {
+    secret: string;
+    alg?: string;
+}
+
 export interface IFileOptions {
     type?: string;
     file?: string;
@@ -64,6 +71,7 @@ export interface IFileOptions {
     search?: boolean;
     format?: IFormat;
     json_spacing?: number;
+    secure?: ISecureFileOptions;
 }
 
 export interface ICallbackFunction {

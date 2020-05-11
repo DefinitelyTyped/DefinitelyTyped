@@ -1,5 +1,5 @@
 // Type definitions for com.wikitude.phonegap.wikitudeplugin 7.2
-// Project: https://github.com/Wikitude/wikitude-cordova-plugin
+// Project: https://github.com/Wikitude/wikitude-cordova-plugin, https://github.com/wikitude/wikitude-phonegap
 // Definitions by: zbarbuto <https://github.com/zbarbuto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2

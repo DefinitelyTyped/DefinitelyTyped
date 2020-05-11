@@ -1,8 +1,10 @@
-// Type definitions for eslint 4.16
+// Type definitions for eslint 6.8
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
 //                 Saad Quadri <https://github.com/saadq>
+//                 Jason Kwok <https://github.com/JasonHK>
+//                 Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -136,7 +138,7 @@ export class SourceCode {
 
     isSpaceBetweenTokens(first: AST.Token, second: AST.Token): boolean;
 
-    getLocFromIndex(index: number): ESTree.SourceLocation;
+    getLocFromIndex(index: number): ESTree.Position;
 
     getIndexFromLoc(location: ESTree.Position): number;
 
@@ -292,6 +294,7 @@ export namespace Rule {
         fixable?: 'code' | 'whitespace';
         schema?: JSONSchema4 | JSONSchema4[];
         deprecated?: boolean;
+        type?: 'problem' | 'suggestion' | 'layout';
     }
 
     interface RuleContext {
@@ -317,14 +320,24 @@ export namespace Rule {
         report(descriptor: ReportDescriptor): void;
     }
 
-    type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
-    type ReportDescriptorMessage = { message: string } | { messageId: string };
-    type ReportDescriptorLocation = { node: ESTree.Node } | { loc: AST.SourceLocation | { line: number, column: number } };
-    interface ReportDescriptorOptions {
+    interface ReportDescriptorOptionsBase {
         data?: { [key: string]: string };
 
-        fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix>;
+        fix?: null | ((fixer: RuleFixer) => null | Fix | IterableIterator<Fix> | Fix[]);
     }
+
+    type SuggestionDescriptorMessage = { desc: string } | { messageId: string };
+    type SuggestionReportDescriptor = SuggestionDescriptorMessage & ReportDescriptorOptionsBase;
+
+    interface ReportDescriptorOptions extends ReportDescriptorOptionsBase {
+        suggest?: SuggestionReportDescriptor[] | null;
+    }
+
+    type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
+    type ReportDescriptorMessage = { message: string } | { messageId: string };
+    type ReportDescriptorLocation =
+        | { node: ESTree.Node }
+        | { loc: AST.SourceLocation | { line: number; column: number } };
 
     interface RuleFixer {
         insertTextAfter(nodeOrToken: ESTree.Node | AST.Token, text: string): Fix;
@@ -374,25 +387,50 @@ export class Linter {
 
 export namespace Linter {
     type Severity = 0 | 1 | 2;
-    type RuleLevel = Severity | 'off' | 'warn' | 'error';
 
+    type RuleLevel = Severity | 'off' | 'warn' | 'error';
     interface RuleLevelAndOptions extends Array<any> {
         0: RuleLevel;
     }
 
-    interface Config {
-        rules?: {
-            [name: string]: RuleLevel | RuleLevelAndOptions
-        };
+    type RuleEntry = RuleLevel | RuleLevelAndOptions;
+
+    interface RulesRecord {
+        [rule: string]: RuleEntry;
+    }
+
+    interface HasRules {
+        rules?: Partial<RulesRecord>;
+    }
+
+    interface BaseConfig extends HasRules {
+        $schema?: string;
+        env?: { [name: string]: boolean };
+        extends?: string | string[];
+        globals?: { [name: string]: boolean };
+        noInlineConfig?: boolean;
+        overrides?: ConfigOverride[];
         parser?: string;
         parserOptions?: ParserOptions;
+        plugins?: string[];
+        processor?: string;
+        reportUnusedDisableDirectives?: boolean;
         settings?: { [name: string]: any };
-        env?: { [name: string]: boolean };
-        globals?: { [name: string]: boolean };
+    }
+
+    interface ConfigOverride extends BaseConfig {
+        excludedFiles?: string | string[];
+        files: string | string[];
+    }
+
+    // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
+    interface Config extends BaseConfig {
+        ignorePatterns?: string | string[];
+        root?: boolean;
     }
 
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 2015 | 2016 | 2017 | 2018;
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020;
         sourceType?: 'script' | 'module';
         ecmaFeatures?: {
             globalReturn?: boolean;
@@ -412,6 +450,12 @@ export namespace Linter {
         reportUnusedDisableDirectives?: boolean;
     }
 
+    interface LintSuggestion {
+        desc: string;
+        fix: Rule.Fix;
+        messageId?: string;
+    }
+
     interface LintMessage {
         column: number;
         line: number;
@@ -419,11 +463,13 @@ export namespace Linter {
         endLine?: number;
         ruleId: string | null;
         message: string;
+        messageId?: string;
         nodeType: string;
         fatal?: true;
         severity: Severity;
         fix?: Rule.Fix;
         source: string | null;
+        suggestions?: LintSuggestion[];
     }
 
     interface FixOptions extends LintOptions {
@@ -436,11 +482,13 @@ export namespace Linter {
         messages: LintMessage[];
     }
 
-    type ParserModule = {
-        parse(text: string, options?: any): AST.Program;
-    } | {
-        parseForESLint(text: string, options?: any): ESLintParseResult;
-    };
+    type ParserModule =
+        | {
+              parse(text: string, options?: any): AST.Program;
+          }
+        | {
+              parseForESLint(text: string, options?: any): ESLintParseResult;
+          };
 
     interface ESLintParseResult {
         ast: AST.Program;
@@ -455,7 +503,7 @@ export namespace Linter {
 //#region CLIEngine
 
 export class CLIEngine {
-    version: string;
+    static version: string;
 
     constructor(options: CLIEngine.Options);
 
@@ -471,11 +519,13 @@ export class CLIEngine {
 
     isPathIgnored(filePath: string): boolean;
 
-    getFormatter(format: string): CLIEngine.Formatter;
+    getFormatter(format?: string): CLIEngine.Formatter;
 
     getRules(): Map<string, Rule.RuleModule>;
 
     static getErrorResults(results: CLIEngine.LintResult[]): CLIEngine.LintResult[];
+
+    static getFormatter(format?: string): CLIEngine.Formatter;
 
     static outputFixes(report: CLIEngine.LintReport): void;
 }
@@ -490,6 +540,7 @@ export namespace CLIEngine {
         configFile?: string;
         cwd?: string;
         envs?: string[];
+        errorOnUnmatchedPattern?: boolean;
         extensions?: string[];
         fix?: boolean;
         globals?: string[];
@@ -500,6 +551,7 @@ export namespace CLIEngine {
         parser?: string;
         parserOptions?: Linter.ParserOptions;
         plugins?: string[];
+        resolvePluginsRelativeTo?: string;
         rules?: {
             [name: string]: Linter.RuleLevel | Linter.RuleLevelAndOptions;
         };
@@ -518,15 +570,27 @@ export namespace CLIEngine {
         source?: string;
     }
 
+    interface LintResultData {
+        rulesMeta: {
+            [ruleId: string]: Rule.RuleMetaData;
+        };
+    }
+
     interface LintReport {
         results: LintResult[];
         errorCount: number;
         warningCount: number;
         fixableErrorCount: number;
         fixableWarningCount: number;
+        usedDeprecatedRules: DeprecatedRuleUse[];
     }
 
-    type Formatter = (results: LintResult[]) => string;
+    interface DeprecatedRuleUse {
+      ruleId: string;
+      replacedBy: string[];
+    }
+
+    type Formatter = (results: LintResult[], data?: LintResultData) => string;
 }
 
 //#endregion
@@ -540,7 +604,7 @@ export class RuleTester {
         name: string,
         rule: Rule.RuleModule,
         tests: {
-            valid?: RuleTester.ValidTestCase[];
+            valid?: Array<string | RuleTester.ValidTestCase>;
             invalid?: RuleTester.InvalidTestCase[];
         },
     ): void;
@@ -557,6 +621,13 @@ export namespace RuleTester {
         globals?: { [name: string]: boolean };
     }
 
+    interface SuggestionOutput {
+        messageId?: string;
+        desc?: string;
+        data?: Record<string, any>;
+        output: string;
+    }
+
     interface InvalidTestCase extends ValidTestCase {
         errors: number | Array<TestCaseError | string>;
         output?: string | null;
@@ -571,6 +642,7 @@ export namespace RuleTester {
         column?: number;
         endLine?: number;
         endColumn?: number;
+        suggestions?: SuggestionOutput[];
     }
 }
 

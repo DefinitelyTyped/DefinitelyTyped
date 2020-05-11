@@ -1,12 +1,10 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    // TODOs
-    "no-any-union": false,
-    "no-unnecessary-generics": false,
-    "no-unnecessary-type-assertion": false,
-    "prefer-declare-function": false,
-    "strict-export-declare-modifiers": false,
-    "unified-signatures": false
-  }
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-angle-bracket-type-assertion": false,
+        "no-any-union": false,
+        "no-unnecessary-generics": false,
+        "prefer-declare-function": false,
+        "unified-signatures": false
+    }
 }

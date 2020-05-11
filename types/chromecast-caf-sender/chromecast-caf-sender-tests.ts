@@ -1,5 +1,9 @@
+/// <reference lib="dom" />
+
 cast.framework.VERSION === "1.0.06";
 cast.framework.setLoggerLevel(cast.framework.LoggerLevel.DEBUG);
+
+window.__onGCastApiAvailable = (available: boolean) => {};
 
 const context = cast.framework.CastContext.getInstance();
 context.getCastState() === cast.framework.CastState.CONNECTED;
@@ -43,7 +47,7 @@ context.requestSession().then(err => {
 
   session.getSessionObj().sessionId === session.getSessionId();
   session.getSessionState() === cast.framework.SessionState.SESSION_STARTED;
-  session.getCastDevice().name;
+  session.getCastDevice().friendlyName;
   session.getApplicationMetadata().applicationId;
   session.getApplicationStatus() === "";
   session.getActiveInputState() ===

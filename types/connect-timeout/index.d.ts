@@ -14,10 +14,9 @@ declare namespace Express {
         clearTimeout(): void;
 
         /**
-         *
-         * @return {boolean} true if timeout fired; false otherwise.
+         * @summary true if timeout fired; false otherwise.
          */
-        timedout(event: string, message: string): boolean;
+        timedout: boolean;
     }
 }
 

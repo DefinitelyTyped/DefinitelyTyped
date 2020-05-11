@@ -1,5 +1,5 @@
 // Type definitions for wu.js 2.1
-// Project: https://fitzgen.github.io/wu.js/
+// Project: https://fitzgen.github.io/wu.js/, https://github.com/fitzgen/wu.js
 // Definitions by: phiresky <https://github.com/phiresky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -11,6 +11,7 @@ export as namespace wu;
 declare namespace wu {
 	type Consumer<T> = (t: T) => void;
 	type Filter<T> = (t: T) => boolean;
+	type TypeGuardFilter<T, S extends T> = (t: T) => t is S;
 
 	// only static
 	function chain<T>(...iters: Array<Iterable<T>>): WuIterable<T>;
@@ -24,13 +25,15 @@ declare namespace wu {
 	function asyncEach(fn: Consumer<any>, maxBlock?: number, timeout?: number): void;
 	function drop<T>(n: number, iter: Iterable<T>): WuIterable<T>;
 	function dropWhile<T>(fn: Filter<T>, iter: Iterable<T>): WuIterable<T>;
-	function cycle<T>(iter: Iterable<T>): Iterable<T>;
+	function cycle<T>(iter: Iterable<T>): WuIterable<T>;
 	function chunk<T>(n: number, iter: Iterable<T>): WuIterable<T[]>;
 	function concatMap<T, U>(fn: (t: T) => Iterable<U>, iter: Iterable<T>): WuIterable<U>;
-	function enumerate<T>(iter: Iterable<T>): Iterable<[number, T]>;
+	function enumerate<T>(iter: Iterable<T>): WuIterable<[T, number]>;
 	function every<T>(fn: Filter<T>, iter: Iterable<T>): boolean;
+	function filter<T, S extends T>(fn: TypeGuardFilter<T, S>, iter: Iterable<T>): WuIterable<S>;
 	function filter<T>(fn: Filter<T>, iter: Iterable<T>): WuIterable<T>;
-	function find<T>(fn: Filter<T>, iter: Iterable<T>): T;
+	function find<T, S extends T>(fn: TypeGuardFilter<T, S>, iter: Iterable<T>): S | undefined;
+	function find<T>(fn: Filter<T>, iter: Iterable<T>): T | undefined;
 	function flatten(iter: Iterable<any>): WuIterable<any>;
 	function flatten(shallow: boolean, iter: Iterable<any>): WuIterable<any>;
 	function forEach<T>(fn: Consumer<T>, iter: Iterable<T>): void;
@@ -57,6 +60,7 @@ declare namespace wu {
 	function take<T>(n: number, iter: Iterable<T>): WuIterable<T>;
 	function takeWhile<T>(fn: Filter<T>, iter: Iterable<T>): WuIterable<T>;
 	function tap<T>(fn: Consumer<T>, iter: Iterable<T>): WuIterable<T>;
+	function toArray<T>(iter: Iterable<T>): T[];
 	function unique<T>(iter: Iterable<T>): WuIterable<T>;
 	function zip<T, U>(iter2: Iterable<T>, iter: Iterable<U>): WuIterable<[T, U]>;
 	function zipLongest<T, U>(iter2: Iterable<T>, iter: Iterable<U>): WuIterable<[T, U]>;
@@ -73,13 +77,15 @@ declare namespace wu {
 		asyncEach(fn: Consumer<any>, maxBlock?: number, timeout?: number): any;
 		drop(n: number): WuIterable<T>;
 		dropWhile(fn: Filter<T>): WuIterable<T>;
-		cycle(): Iterable<T>;
+		cycle(): WuIterable<T>;
 		chunk(n: number): WuIterable<T[]>;
 		concatMap<U>(fn: (t: T) => Iterable<U>): WuIterable<U>;
-		enumerate(): Iterable<[number, T]>;
+		enumerate(): WuIterable<[T, number]>;
 		every(fn: Filter<T>): boolean;
+		filter<S extends T>(fn: TypeGuardFilter<T, S>): WuIterable<S>;
 		filter(fn: Filter<T>): WuIterable<T>;
-		find(fn: Filter<T>): T;
+		find<S extends T>(fn: TypeGuardFilter<T, S>): S | undefined;
+		find(fn: Filter<T>): T | undefined;
 		flatten(shallow?: boolean): WuIterable<any>;
 		forEach(fn: Consumer<T>): void;
 		has(t: T): boolean;
@@ -99,12 +105,10 @@ declare namespace wu {
 		take(n: number): WuIterable<T>;
 		takeWhile(fn: Filter<T>): WuIterable<T>;
 		tap(fn: Consumer<T>): WuIterable<T>;
+		toArray(): T[];
 		unique(): WuIterable<T>;
-		// TODO: this makes no sense, where did the second entry come from?
-		// tslint:disable-next-line no-unnecessary-generics
-		zip<U>(iter2: Iterable<T>): WuIterable<[T, U]>;
-		// tslint:disable-next-line no-unnecessary-generics
-		zipLongest<U>(iter2: Iterable<T>): WuIterable<[T, U]>;
+		zip<U>(iter2: Iterable<U>): WuIterable<[T, U]>;
+		zipLongest<U>(iter2: Iterable<U>): WuIterable<[T, U]>;
 		zipWith: any;
 		unzip: any;
 		tee(n?: number): Array<WuIterable<T>>;

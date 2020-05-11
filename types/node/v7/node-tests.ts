@@ -28,7 +28,7 @@ import * as v8 from "v8";
 import * as dns from "dns";
 
 // Specifically test buffer module regression.
-import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, TranscodeEncoding } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -447,6 +447,15 @@ function bufferTests() {
     {
       let buffer = new Buffer('123');
       let octets = new Uint8Array(buffer.buffer);
+    }
+
+    // Buffer module, transcode function
+    {
+        transcode(Buffer.from('€'), 'utf8', 'ascii'); // $ExpectType Buffer
+
+        const source: TranscodeEncoding = 'utf8';
+        const target: TranscodeEncoding = 'ascii';
+        transcode(Buffer.from('€'), source, target); // $ExpectType Buffer
     }
 }
 

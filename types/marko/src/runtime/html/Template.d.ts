@@ -29,7 +29,7 @@ export interface Renderable {
 
   render(data?: any): Promise<RenderResult>;
 
-  render(data: any, out: AsyncStream | AsyncWriter | AsyncVDOMBuilder | stream.Writable |
+  render(data: any, out: AsyncStream | AsyncWriter | AsyncVDOMBuilder | NodeJS.WritableStream |
     ((err: any, result: RenderResult) => void)): void;
 }
 

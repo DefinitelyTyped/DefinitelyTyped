@@ -5,7 +5,7 @@ class AuthService extends Ember.Service {
 }
 
 class ApplicationController extends Ember.Controller {
-    model: {};
+    model = {};
     string: string;
     transitionToLogin() {}
 }
@@ -33,7 +33,8 @@ class LoginRoute extends Ember.Route {
     }
 
     anyOldMethod() {
-        this.controllerFor('application').set('string', 'must be a string');
+        this.get('application').set('string', 'must be a string');
+        this.controllerFor('application'); // $ExpectType Controller
     }
 }
 

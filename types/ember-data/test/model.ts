@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import DS, { ChangedAttributes } from 'ember-data';
 import { assertType } from "./lib/assert";
+import RSVP from 'rsvp';
 
 const Person = DS.Model.extend({
     firstName: DS.attr(),
@@ -33,5 +34,26 @@ user.serialize();
 user.serialize({ includeId: true });
 user.serialize({ includeId: true });
 
-const attributes = user.changedAttributes();
-assertType<ChangedAttributes>(attributes);
+const attributes: ChangedAttributes = user.changedAttributes();
+
+user.rollbackAttributes(); // $ExpectType void
+
+let destroyResult: RSVP.Promise<typeof user>;
+destroyResult = user.destroyRecord();
+destroyResult = user.destroyRecord({});
+destroyResult = user.destroyRecord({ adapterOptions: {}});
+destroyResult = user.destroyRecord({ adapterOptions: { waffles: 'are yummy' }});
+
+user.deleteRecord(); // $ExpectType void
+
+user.unloadRecord(); // $ExpectType void
+
+let jsonified: object;
+jsonified = user.toJSON();
+jsonified = user.toJSON({ includeId: true });
+
+let reloaded: RSVP.Promise<typeof user>;
+reloaded = user.reload();
+reloaded = user.reload({});
+reloaded = user.reload({ adapterOptions: {} });
+reloaded = user.reload({ adapterOptions: { fastAsCanBe: 'yessirree' } });

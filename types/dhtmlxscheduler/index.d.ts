@@ -243,6 +243,12 @@ interface SchedulerTemplates {
 	quick_info_title(start: Date, end: Date, event: any): string;
 
 	/**
+     * specifies the date string before events parse and load methods
+     * @param start the date string before assigned to event
+    */
+	parse_date(date: string): string;
+
+	/**
 	 * specifies the drop-down time selector in the lightbox
 	*/
 	time_picker(): string;
@@ -755,7 +761,7 @@ interface SchedulerConfigOptions {
 	map_resolve_event_location: boolean;
 
 	/**
-	 * enables/disables prompts asking the user to share his location for displaying on the map
+	 * enables/disables prompts asking the user to share their location for displaying on the map
 	*/
 	map_resolve_user_location: boolean;
 
@@ -1212,7 +1218,7 @@ interface SchedulerStatic {
 	 * @param config the configuration object of the timespan to mark/block
 	*/
 	addMarkedTimespan(config: any): number;
-	
+
 	/**
 	 * adds a new keyboard shortcut
 	 * @param shortcut the key name or the name of keys combination for a shortcut (shortcut syntax)
@@ -1566,7 +1572,7 @@ interface SchedulerStatic {
 	 * @param type (<i>'json', 'xml', 'ical'</i>) the data type. The default value - <i>'xml'</i>
 	*/
 	parse(data: any, type?: string): void;
-	
+
 	/**
 	 * removes a keyboard shortcut
 	 * @param shortcut the key name or the name of keys combination for a shortcut (shortcut syntax)

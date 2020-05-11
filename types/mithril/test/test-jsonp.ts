@@ -16,12 +16,13 @@ class User {
 }
 
 jsonp<User>({
-	url: '/user',
-	data: {test: 'abc'},
-	type: User,
-	callbackName: 'getuser',
-	callbackKey: 'key',
-	background: true
+    url: '/user',
+    params: { test: 'abc' },
+    body: { abc: 'test' },
+    type: User,
+    callbackName: 'getuser',
+    callbackKey: 'key',
+    background: true,
 }).then(user => {
-	console.log(user.id);
+    console.log(user.id);
 });

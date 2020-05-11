@@ -2,7 +2,7 @@
 // Project: https://github.com/kcbanner/connect-mongodb-session
 // Definitions by: Nattapong Sirilappanich <https://github.com/NattapongSiri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="express-session" />
 

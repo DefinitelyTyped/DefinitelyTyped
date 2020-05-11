@@ -1,5 +1,5 @@
 // Type definitions for Material Components Web 0.35
-// Project: https://material.io/components/
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
 // Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
@@ -39,7 +39,7 @@ export class MDCMenu extends MDCComponent<MDCMenuAdapter, MDCMenuFoundation> {
     /**
      * @param corner Default anchor corner alignment of top-left menu corner.
      */
-    setAnchorCorner(corner: Corner): void;
+    setAnchorCorner(corner: number): void;
 
     setAnchorMargin(margin: AnchorMargin): void;
 

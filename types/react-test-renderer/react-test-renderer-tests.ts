@@ -1,11 +1,11 @@
-import * as React from "react";
-import { create, ReactTestInstance } from "react-test-renderer";
+import React = require("react");
+import { act, create, ReactTestInstance } from "react-test-renderer";
 import { createRenderer } from 'react-test-renderer/shallow';
 
 class TestComponent extends React.Component { }
 
 const renderer = create(React.createElement("div"), {
-    createNodeMock: (el: React.ReactElement<any>) => {
+    createNodeMock: (el: React.ReactElement) => {
         return {};
     }
 });
@@ -43,14 +43,14 @@ function testInstance(inst: ReactTestInstance) {
     inst.props = {
         prop1: "p",
     };
-    inst.type = "t";
-    testInstance(inst.find(n => n.type === "t"));
+    inst.type = "a";
+    testInstance(inst.find(n => n.type === "a"));
     testInstance(inst.findByProps({ prop1: "p" }));
-    testInstance(inst.findByType("t"));
+    testInstance(inst.findByType("a"));
     testInstance(inst.findByType(TestComponent));
-    inst.findAll(n => n.type === "t", { deep: true }).map(testInstance);
+    inst.findAll(n => n.type === "div", { deep: true }).map(testInstance);
     inst.findAllByProps({ prop1: "p" }, { deep: true }).map(testInstance);
-    inst.findAllByType("t", { deep: true }).map(testInstance);
+    inst.findAllByType("a", { deep: true }).map(testInstance);
     inst.findAllByType(TestComponent, { deep: true }).map(testInstance);
 }
 
@@ -66,3 +66,23 @@ const shallowRenderer = createRenderer();
 shallowRenderer.render(component);
 shallowRenderer.getRenderOutput();
 shallowRenderer.getMountedInstance();
+
+// Only synchronous, void callbacks are acceptable for act()
+act(() => {});
+// $ExpectError
+act(() => null);
+// $ExpectError
+Promise.resolve(act(() => {}));
+
+// async act is now acceptable in React 16.9,
+// but the result must be void or undefined
+Promise.resolve(act(async () => {}));
+
+void (async () => {
+    act(() => {});
+
+    await act(async () => {});
+    await act(async () => undefined);
+    // $ExpectError
+    await act(async () => null);
+})();

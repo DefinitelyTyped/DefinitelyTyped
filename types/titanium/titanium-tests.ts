@@ -5,7 +5,7 @@ function test_window() {
 		borderRadius: 10
 	});
 
-	window.setBackgroundColor('blue');
+	window.backgroundColor = 'blue';
 	window.opacity = 0.92;
 
 	const matrix = Ti.UI.create2DMatrix().scale(1.1, 1);
@@ -17,8 +17,8 @@ function test_window() {
 		text: 'Simple label'
 	});
 	label.textAlign = Ti.UI.TEXT_ALIGNMENT_LEFT;
-	label.setWidth(Ti.UI.SIZE);
-	label.setHeight(Ti.UI.SIZE);
+	label.width = Ti.UI.SIZE;
+	label.height = Ti.UI.SIZE;
 	window.add(label);
 	window.open();
 }
@@ -32,7 +32,7 @@ function test_tableview() {
 			text: 'Row ' + (i + 1)
 		});
 		const image = Ti.UI.createImageView({
-			url: 'KS_nav_ui.png'
+			image: 'KS_nav_ui.png'
 		});
 		const button = Ti.UI.createButton({
 			right: 10,
@@ -68,7 +68,7 @@ function test_fs() {
 }
 
 function test_network() {
-	const url = "http://www.appcelerator.com";
+	const url = 'https://www.appcelerator.com';
 	const client = Ti.Network.createHTTPClient({
 		// function called when the response data is available
 		onload: (e: SuccessResponse) => {
@@ -86,35 +86,59 @@ function test_network() {
 	client.send();
 }
 
-function test_map() {
-	const win = Ti.UI.createWindow();
-	const mountainView = Ti.Map.createAnnotation({
-		animate: true,
-		leftButton: '../images/appcelerator_small.png',
-		myid: 1
-	});
-	mountainView.setLatitude(37.390749);
-	mountainView.setLongitude(-122.081651);
-	mountainView.setTitle('Appcelerator');
-	mountainView.setSubtitle('Mountain View, CA');
-	mountainView.setPincolor(Ti.Map.ANNOTATION_RED);
+function test_android_r() {
+	const systemAcon = Ti.Android.R.drawable.icon;
+	const appIcon = Ti.App.Android.R.drawable.icon;
+}
 
-	const mapview = Ti.Map.createView({
-		mapType: Ti.Map.STANDARD_TYPE,
-		region: {
-			latitude: 37.390749, longitude: -122.081651,
-			latitudeDelta: 0.01, longitudeDelta: 0.01
-		},
-		animate: true,
+function test_events() {
+	const view = Ti.UI.createView();
+	view.addEventListener('click', e => {
+		console.log(e.x, e.y);
 	});
-	mapview.regionFit = true;
-	mapview.userLocation = true;
-	mapview.annotations = [mountainView];
-	mapview.addEventListener('click', event => {
-		if (event.clicksource === 'leftButton' || event.clicksource === 'leftPane') {
-			alert(event.title + ' left button clicked');
+	view.fireEvent('click');
+}
+
+function test_listdataitem() {
+	const items1: ListDataItem[] = [
+		{
+			properties: {
+				itemId: 'test',
+				title: 'Jon Doe'
+			}
 		}
+	];
+	const section1 = Ti.UI.createListSection({
+		items: items1
 	});
-	win.add(mapview);
-	win.open();
+
+	const template = {
+		childTemplates: [
+			{
+				type: 'Ti.UI.Label',
+				bindId: 'title',
+				properties: {
+					color: 'black'
+				}
+			}
+		]
+	};
+	const items2: ListDataItem[] = [
+		{
+			template: 'custom',
+			title: { text: 'Jane Doe' },
+			properties: {
+				accessoryType: Ti.UI.LIST_ACCESSORY_TYPE_NONE
+			}
+		}
+	];
+	const section2 = Ti.UI.createListSection({
+		items: items2,
+	});
+
+	const list = Ti.UI.createListView({
+		templates: { custom: template },
+		sections: [section1]
+	});
+	list.replaceSectionAt(0, section2);
 }

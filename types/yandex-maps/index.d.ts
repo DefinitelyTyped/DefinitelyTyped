@@ -1,144 +1,145 @@
-// Type definitions for yandex-maps 2.1
+// Type definitions for non-npm package yandex-maps 2.1
 // Project: https://github.com/Delagen/typings-yandex-maps
 // Definitions by: Delagen <https://github.com/Delagen>
+//                 gastwork13 <https://github.com/gastwork13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 declare namespace ymaps {
-	interface IClassConstructor<T> {
-		new (): T;
-	}
+    interface IClassConstructor<T> {
+        new(): T;
+    }
 
-	type ControlSingleKey = "fullscreenControl" | "geolocationControl" | "routeEditor" | "rulerControl" | "searchControl" | "trafficControl" | "typeSelector" | "zoomControl";
-	type ControlSetKey = "smallMapDefaultSet" | "mediumMapDefaultSet" | "largeMapDefaultSet" | "default";
-	type ControlKey = ControlSingleKey | ControlSetKey;
+    type ControlSingleKey = "fullscreenControl" | "geolocationControl" | "routeEditor" | "rulerControl" | "searchControl" | "trafficControl" | "typeSelector" | "zoomControl";
+    type ControlSetKey = "smallMapDefaultSet" | "mediumMapDefaultSet" | "largeMapDefaultSet" | "default";
+    type ControlKey = ControlSingleKey | ControlSetKey;
 
-	type OverlayKey =
-		"default#placemark" | "default#pin" | "default#circle" | "default#rectangle" | "default#polyline" | "default#polygon" |
-		"hotspot#placemark" | "hotspot#circle" | "hotspot#rectangle" | "hotspot#polyline" | "hotspot#polygon" | "html#balloon" | "html#hint" |
-		"html#placemark" | "html#rectangle" |
-		string | IClassConstructor<IOverlay> | ((geometry: IPixelLineStringGeometry,
-												 data: IDataManager | object,
-												 options: object) => Promise<string | IClassConstructor<IOverlay>>);
-	type InteractivityModelKey = "default#opaque" | "default#geoObject" | "default#layer" | "default#transparent" | "default#silent" | string;
+    type OverlayKey =
+        "default#placemark" | "default#pin" | "default#circle" | "default#rectangle" | "default#polyline" | "default#polygon" |
+        "hotspot#placemark" | "hotspot#circle" | "hotspot#rectangle" | "hotspot#polyline" | "hotspot#polygon" | "html#balloon" | "html#hint" |
+        "html#placemark" | "html#rectangle" |
+        string | IClassConstructor<IOverlay> | ((geometry: IPixelLineStringGeometry,
+            data: IDataManager | object,
+            options: object) => Promise<string | IClassConstructor<IOverlay>>);
+    type InteractivityModelKey = "default#opaque" | "default#geoObject" | "default#layer" | "default#transparent" | "default#silent" | string;
 
-	type PresetKey = string; //option.presetStorage
-	//[number, number]
-	//[[number, number], [number, number]]
+    type PresetKey = string; //option.presetStorage
+    //[number, number]
+    //[[number, number], [number, number]]
 
-	namespace behavior {
-		class DblClickZoom implements IBehavior {
-			constructor(options?: IDblClickZoomOptions);
+    namespace behavior {
+        class DblClickZoom implements IBehavior {
+            constructor(options?: IDblClickZoomOptions);
 
-			events: IEventManager;
-			options: IOptionManager;
+            events: IEventManager;
+            options: IOptionManager;
 
-			disable(): void;
+            disable(): void;
 
-			enable(): void;
+            enable(): void;
 
-			isEnabled(): boolean;
+            isEnabled(): boolean;
 
-			getParent(): IControlParent | null;
+            getParent(): IControlParent | null;
 
-			setParent(parent: IControlParent): this;
-		}
+            setParent(parent: IControlParent): this;
+        }
 
-		interface IDblClickZoomOptions extends IMapMarginOptions {
-			centering?: boolean;
-			duration?: number;
-		}
+        interface IDblClickZoomOptions extends IMapMarginOptions {
+            centering?: boolean;
+            duration?: number;
+        }
 
-		class Drag implements IBehavior {
-			constructor(options?: IDragOptions)
+        class Drag implements IBehavior {
+            constructor(options?: IDragOptions)
 
-			events: IEventManager;
-			options: IOptionManager;
+            events: IEventManager;
+            options: IOptionManager;
 
-			disable(): void;
+            disable(): void;
 
-			enable(): void;
+            enable(): void;
 
-			isEnabled(): boolean;
+            isEnabled(): boolean;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
-		}
+            setParent(parent: IControlParent): this;
+        }
 
-		interface IDragOptions {
-			actionCursor?: string;
-			cursor?: string;
-			inertia?: boolean;
-			inertiaDuration?: number;
-			tremor?: number;
-		}
+        interface IDragOptions {
+            actionCursor?: string;
+            cursor?: string;
+            inertia?: boolean;
+            inertiaDuration?: number;
+            tremor?: number;
+        }
 
-		class LeftMouseButtonMagnifier implements IBehavior {
-			constructor(options?: ILeftMouseButtonMagnifierOptions)
+        class LeftMouseButtonMagnifier implements IBehavior {
+            constructor(options?: ILeftMouseButtonMagnifierOptions)
 
-			events: IEventManager;
-			options: IOptionManager;
+            events: IEventManager;
+            options: IOptionManager;
 
-			disable(): void;
+            disable(): void;
 
-			enable(): void;
+            enable(): void;
 
-			isEnabled(): boolean;
+            isEnabled(): boolean;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
-		}
+            setParent(parent: IControlParent): this;
+        }
 
-		interface ILeftMouseButtonMagnifierOptions {
-			actionCursor?: string;
-			cursor?: string;
-			duration?: number;
-		}
+        interface ILeftMouseButtonMagnifierOptions {
+            actionCursor?: string;
+            cursor?: string;
+            duration?: number;
+        }
 
-		class MultiTouch implements IBehavior {
-			constructor(options?: IMultiTouchOptions)
+        class MultiTouch implements IBehavior {
+            constructor(options?: IMultiTouchOptions)
 
-			events: IEventManager;
-			options: IOptionManager;
+            events: IEventManager;
+            options: IOptionManager;
 
-			disable(): void;
+            disable(): void;
 
-			enable(): void;
+            enable(): void;
 
-			isEnabled(): boolean;
+            isEnabled(): boolean;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
-		}
+            setParent(parent: IControlParent): this;
+        }
 
-		interface IMultiTouchOptions {
-			tremor?: number;
-		}
+        interface IMultiTouchOptions {
+            tremor?: number;
+        }
 
-		class RightMouseButtonMagnifier implements IBehavior {
-			constructor(options?: IRightMouseButtonMagnifierOptions)
+        class RightMouseButtonMagnifier implements IBehavior {
+            constructor(options?: IRightMouseButtonMagnifierOptions)
 
-			events: IEventManager;
-			options: IOptionManager;
+            events: IEventManager;
+            options: IOptionManager;
 
-			disable(): void;
+            disable(): void;
 
-			enable(): void;
+            enable(): void;
 
-			isEnabled(): boolean;
+            isEnabled(): boolean;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
-		}
+            setParent(parent: IControlParent): this;
+        }
 
-		interface IRightMouseButtonMagnifierOptions {
-			actionCursor?: string;
-			duration?: number;
-		}
+        interface IRightMouseButtonMagnifierOptions {
+            actionCursor?: string;
+            duration?: number;
+        }
 
 		class RouteEditor implements IBehavior {
 			events: IEventManager;
@@ -465,7 +466,7 @@ declare namespace ymaps {
 
 			add(control: IControl | ControlKey, options?: IManagerControlOptions): this;
 
-			each(callback: (control: IControl) => void, context: object): this;
+			each(callback: (control: IControl) => void, context?: object): this;
 
 			get(index: number | string): IControl | null;
 
@@ -703,11 +704,11 @@ declare namespace ymaps {
 	namespace geometry {
 		namespace base {
 			class LineString implements IBaseLineStringGeometry { //tslint:disable-line no-shadowed-variable
+                events: IEventManager;
+
 				static fromEncodedCoordinates(encodedCoordinates: string): geometry.LineString; //tslint:disable-line function-name
 
 				static toEncodedCoordinates(geometry: geometry.LineString): string; //tslint:disable-line function-name
-
-				events: IEventManager;
 
 				getBounds(): number[][] | null;
 
@@ -763,6 +764,51 @@ declare namespace ymaps {
 
 				setCoordinates(coordinates: number[] | null): this;
 			}
+
+            class Polygon implements IBasePointGeometry {
+                constructor(coordinates?: number[][][], fillRule?: 'evenOdd' | 'nonZero');
+
+                events: IEventManager;
+
+                static fromEncodedCoordinates(encodedCoordinates: string): Polygon; //tslint:disable-line function-name
+                static toEncodedCoordinates(geometry: Polygon): string; //tslint:disable-line function-name
+
+                contains(position: number[]): boolean;
+
+                freeze(): IFreezable;
+
+                get(index: number): number[][];
+
+                getBounds(): number[][] | null;
+
+                getChildGeometry(index: number): ILinearRingGeometryAccess;
+
+                getClosest(anchorPosition: number[]): object;
+
+                getCoordinates(): number[] | null;
+
+                getFillRule(): string;
+
+                getLength(): number;
+
+                getType(): string;
+
+                insert(index: number, path: number[][]): IPolygonGeometryAccess;
+
+                isFrozen(): boolean;
+
+                remove(index: number): ILinearRingGeometryAccess;
+
+                set(index: number, path: number[][]): IPolygonGeometryAccess;
+
+                setCoordinates(coordinates: number[] | null): this;
+
+                setFillRule(fillRule: string): IPolygonGeometryAccess;
+
+                splice(index: number, number: number): ILinearRingGeometryAccess[];
+
+                unfreeze(): IFreezable;
+            }
 		}
 
 		class LineString implements ILineStringGeometry {
@@ -774,12 +820,11 @@ declare namespace ymaps {
 				simplification?: boolean;
 			});
 
+            events: IEventManager;
+            options: IOptionManager;
+
 			static fromEncodedCoordinates(encodedCoordinates: string): LineString; //tslint:disable-line function-name
-
-			static toEncodedCoordinates(geometry: LineString): string; //tslint:disable-line function-name
-
-			events: IEventManager;
-			options: IOptionManager;
+            static toEncodedCoordinates(geometry: LineString): string; //tslint:disable-line function-name
 
 			getMap(): Map | null;
 
@@ -848,9 +893,310 @@ declare namespace ymaps {
 
 			getCoordinates(): number[] | null;
 
-			setCoordinates(coordinates: number[] | null): this;
-		}
-	}
+            setCoordinates(coordinates: number[] | null): this;
+        }
+
+        class Polygon implements IPolygonGeometry {
+            constructor(coordinates?: number[][][], fillRule?: 'evenOdd' | 'nonZero', options?: object);
+
+            events: IEventManager;
+            options: IOptionManager;
+
+            static fromEncodedCoordinates(encodedCoordinates: string): Polygon; //tslint:disable-line function-name
+            static toEncodedCoordinates(geometry: Polygon): string; //tslint:disable-line function-name
+
+            add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+
+            contains(position: number[]): boolean;
+
+            fire(type: string, eventobject: object | IEvent): this;
+
+            freeze(): IFreezable;
+
+            get(index: number): number[][];
+
+            getBounds(): number[][] | null;
+
+            getChildGeometry(index: number): ILinearRingGeometryAccess;
+
+            getClosest(anchorPosition: number[]): object;
+
+            getCoordinates(): number[][][];
+
+            getFillRule(): string;
+
+            getLength(): number;
+
+            getMap(): Map | null;
+
+            getParent(): object | null;
+
+            getPixelGeometry(options?: object): IPixelGeometry;
+
+            getType(): string;
+
+            group(): IEventGroup;
+
+            insert(index: number, path: number[][]): IPolygonGeometryAccess;
+
+            isFrozen(): boolean;
+
+            remove(index: number): ILinearRingGeometryAccess;
+
+            set(index: number, path: number[][]): IPolygonGeometryAccess;
+
+            setCoordinates(coordinates: number[][][]): IPolygonGeometryAccess;
+
+            setFillRule(fillRule: string): IPolygonGeometryAccess;
+
+            setMap(map: Map): void;
+
+            setParent(parent: object | null): this;
+
+            splice(index: number, number: number): ILinearRingGeometryAccess[];
+
+            unfreeze(): IFreezable;
+        }
+    }
+
+	namespace geometryEditor {
+        class Circle implements IGeometryEditor {
+	        constructor(geometry: ICircleGeometry, options?: object);
+
+            events: IEventManager;
+            geometry: IGeometry;
+            options: IOptionManager;
+            state: IDataManager;
+
+            startDrawing(): vow.Promise;
+
+            startEditing(): void;
+
+            stopDrawing(): vow.Promise;
+
+            stopEditing(): void;
+        }
+
+        class LineString implements IGeometryEditor {
+            constructor(geometry: ILineStringGeometry, options?: object);
+
+            events: IEventManager;
+            geometry: IGeometry;
+            options: IOptionManager;
+            state: IDataManager;
+
+            getModel(): vow.Promise;
+
+            getModelSync(): model.RootLineString | null;
+
+            getView(): vow.Promise;
+
+            getViewSync(): view.Path | null;
+
+            startDrawing(): vow.Promise;
+
+            startEditing(): vow.Promise;
+
+            startFraming(): vow.Promise;
+
+            stopDrawing(): void;
+
+            stopEditing(): void;
+
+            stopFraming(): void;
+        }
+
+        namespace model {
+            class ChildLinearRing extends ChildLineString {}
+
+            class ChildLineString implements IGeometryEditorChildModel {
+                editor: IGeometryEditor;
+                events: IEventManager;
+                geometry: IBaseGeometry;
+
+                destroy(): void;
+
+                getAllVerticesNumber(): number;
+
+                getEdgeModels(): Edge[];
+
+                getIndex(): number;
+
+                getParent(): IGeometryEditorModel;
+
+                getPixels(): number[];
+
+                getVertexModels(): ChildVertex[];
+
+                setIndex(index: number): void;
+
+                setPixels(pixels: number[]): void;
+
+                spliceVertices(start: number, deleteCount: number): number[][];
+            }
+
+            class ChildVertex implements IGeometryEditorChildModel {
+                editor: IGeometryEditor;
+                events: IEventManager;
+                geometry: IBaseGeometry;
+
+                destroy(): void;
+
+                getAllVerticesNumber(): number;
+
+                getIndex(): number;
+
+                getNextVertex(): ChildVertex | null;
+
+                getParent(): IGeometryEditorModel;
+
+                getPixels(): number[];
+
+                getPrevVertex(): ChildVertex | null;
+
+                setGlobalPixels(pixels: number[]): void;
+
+                setIndex(index: number): void;
+
+                setNextVertex(nextVertex: ChildVertex): void;
+
+                setPixels(pixels: number[]): void;
+
+                setPrevVertex(prevVertex: ChildVertex): void;
+            }
+
+            class Edge implements IGeometryEditorRootModel {
+                events: IEventManager;
+
+                destroy(): void;
+
+                getNextVertex(): ChildVertex | null;
+
+                getPixels(): number[];
+
+                getPrevVertex(): ChildVertex | null;
+
+                setNextVertex(nextVertex: ChildVertex): void;
+
+                setPrevVertex(prevVertex: ChildVertex): void;
+            }
+
+            class EdgeGeometry implements IGeometry {
+                events: IEventManager;
+                options: IOptionManager;
+
+                getBounds(): number[][] | null;
+
+                getMap(): Map | null;
+
+                getPixelGeometry(options?: object): IPixelGeometry;
+
+                getType(): string;
+
+                setMap(map: Map): void;
+            }
+
+            class RootLineString implements IGeometryEditorRootModel {
+                events: IEventManager;
+
+                destroy(): void;
+
+                getAllVerticesNumber(): number;
+
+                getPixels(): number[];
+
+                getVertexModels(): ChildVertex[];
+
+                spliceVertices(start: number, deleteCount: number): number[][];
+            }
+
+            class RootPolygon implements IGeometryEditorRootModel {
+                events: IEventManager;
+
+                destroy(): void;
+
+                getAllVerticesNumber(): number;
+
+                getPathModels(): ChildLinearRing[];
+
+                getPixels(): number[];
+
+                splicePaths(start: number, deleteCount: number): number[][];
+            }
+        }
+
+        class Point implements IGeometryEditor {
+            events: IEventManager;
+            geometry: IGeometry;
+            options: IOptionManager;
+            state: IDataManager;
+
+            startDrawing(): vow.Promise;
+
+            startEditing(): void;
+
+            stopDrawing(): vow.Promise;
+
+            stopEditing(): void;
+        }
+
+        class Polygon implements IGeometryEditor {
+            constructor(geometry: IPolygonGeometry, options: object)
+
+            events: IEventManager;
+            geometry: IGeometry;
+            options: IOptionManager;
+            state: IDataManager;
+
+            getModel(): vow.Promise;
+
+            getModelSync(): model.RootPolygon | null;
+
+            getView(): vow.Promise;
+
+            getViewSync(): view.MultiPath | null;
+
+            startDrawing(): vow.Promise;
+
+            startEditing(): vow.Promise;
+
+            startFraming(): vow.Promise;
+
+            stopDrawing(): void;
+
+            stopEditing(): void;
+
+            stopFraming(): void;
+        }
+
+        namespace view {
+            class Edge {
+                getPlacemark(): GeoObject;
+            }
+
+            class MultiPath {
+                getEdgePlacemarks(): GeoObjectCollection;
+
+                getPathViews(): Path[];
+
+                getVertexPlacemarks(): GeoObjectCollection;
+            }
+
+            class Path {
+                getEdgePlacemarks(): GeoObjectCollection;
+
+                getEdgeViews(): Edge[];
+
+                getVertexPlacemarks(): GeoObjectCollection;
+
+                getVertexViews(): Vertex[];
+            }
+
+            class Vertex {
+                getPlacemark(): GeoObject;
+            }
+        }
+    }
 
 	namespace geoObject {
 		class Balloon implements IBalloonManager<GeoObject> { //tslint:disable-line no-shadowed-variable
@@ -1003,7 +1349,7 @@ declare namespace ymaps {
 			}
 		}
 
-		namespace behavior { // tslint:disable-line no-shadowed-variable
+		namespace behavior { //tslint:disable-line no-shadowed-variable
 			class Manager implements ICustomizable, IEventEmitter, IParentOnMap {
 				constructor(map: Map, behaviors?: string[][] | string[], options?: object);
 
@@ -1038,6 +1384,8 @@ declare namespace ymaps {
 				setParent(parent: IControlParent): this;
 
 				add(object: object): this;
+
+				each(callback: (layer: ILayer) => void, context?: object): void;
 
 				getIterator(): IIterator;
 
@@ -1177,7 +1525,7 @@ declare namespace ymaps {
 
 			add(child: IGeoObject, index?: number): this;
 
-			each(callback: (object: IGeoObject) => void, context: object): void;
+			each(callback: (object: IGeoObject) => void, context?: object): void;
 
 			get(index: number): IGeoObject;
 
@@ -2186,7 +2534,7 @@ declare namespace ymaps {
 
 		add(child: IGeoObject, index?: number): this;
 
-		each(callback: (object: IGeoObject) => void, context: object): void;
+		each(callback: (object: IGeoObject) => void, context?: object): void;
 
 		get(index: number): IGeoObject;
 
@@ -2343,9 +2691,95 @@ declare namespace ymaps {
 	interface IPlacemarkOptions {
 		cursor?: string;
 		draggable?: boolean;
-
-		[index: string]: any;
+        hasBalloon?: boolean;
+        hasHint?: boolean;
+        hideIconOnBalloonOpen?: boolean;
+        iconOffset?: number[];
+        iconShape?: IGeometryJson | null;
+        interactiveZIndex?: boolean;
+        interactivityModel?: string;
+        openBalloonOnClick?: boolean;
+        openEmptyBalloon?: boolean;
+        openEmptyHint?: boolean;
+        openHintOnHover?: boolean;
+        pane?: string;
+        pointOverlay?: string;
+        syncOverlayInit?: boolean;
+        useMapMarginInDragging?: boolean;
+        visible?: boolean;
+        zIndex?: number;
+        zIndexActive?: number;
+        zIndexDrag?: number;
+        zIndexHover?: number;
 	}
+
+	class Polygon extends GeoObject {
+	    constructor(geometry: number[][][] | object| IPolygonGeometry, properties?: object | IDataManager, options?: IPolygonOptions)
+    }
+
+    interface IPolygonOptions {
+        cursor?: string;
+        draggable?: boolean;
+        fill?: boolean;
+        fillColor?: string;
+        fillImageHref?: string;
+        fillMethod?: 'stretch' | 'tile';
+        fillOpacity?: number;
+        hasBalloon?: boolean;
+        hasHint?: boolean;
+        interactiveZIndex?: boolean;
+        interactivityModel?: string;
+        opacity?: number;
+        openBalloonOnClick?: boolean;
+        openEmptyBalloon?: boolean;
+        openEmptyHint?: boolean;
+        openHintOnHover?: boolean;
+        outline?: boolean;
+        pane?: string;
+        polygonOverlay?: string;
+        strokeColor?: string | string[];
+        strokeOpacity?: number | number[];
+        strokeStyle?: string | string[] | object | object[];
+        strokeWidth?: number | number[];
+        syncOverlayInit?: boolean;
+        useMapMarginInDragging?: boolean;
+        visible?: boolean;
+        zIndex?: number;
+        zIndexActive?: number;
+        zIndexDrag?: number;
+        zIndexHover?: number;
+    }
+
+    class Polyline extends GeoObject {
+        constructor(geometry: number[][]| object | ILineStringGeometry, properties?: object | IDataManager, options?: IPolylineOptions)
+    }
+
+    interface IPolylineOptions {
+        cursor?: string;
+        draggable?: boolean;
+        hasBalloon?: boolean;
+        hasHint?: boolean;
+        interactiveZIndex?: boolean;
+        interactivityModel?: string;
+        lineStringOverlay?: () => object | string;
+        opacity?: number;
+        openBalloonOnClick?: boolean;
+        openEmptyBalloon?: boolean;
+        openEmptyHint?: boolean;
+        openHintOnHover?: boolean;
+        pane?: string;
+        strokeColor?: string | string[];
+        strokeOpacity?: number | number[];
+        strokeStyle?: string | string[] | object | object[];
+        strokeWidth?: number | number[];
+        syncOverlayInit?: boolean;
+        useMapMarginInDragging?: boolean;
+        visible?: boolean;
+        zIndex?: number;
+        zIndexActive?: number;
+        zIndexDrag?: number;
+        zIndexHover?: number;
+    }
 
 	class Popup<T> implements IPopup<T> {
 		constructor(map: Map, options?: IPopupOptions);
@@ -2424,6 +2858,28 @@ declare namespace ymaps {
 		}
 	}
 
+    namespace vow {
+        class Deferred {
+            promise(): Promise;
+
+            reject(reason: object): void;
+
+            resolve(value: object): void;
+        }
+
+        class Promise {
+            constructor(resolver?: () => void);
+
+            done(onFulfilled?: () => void, onRejected?: () => void, onProgress?: () => void, ctx?: object): void;
+
+            spread(onFulfilled?: () => void, onRejected?: () => void, ctx?: object): Promise;
+
+            then(onFulfilled?: () => void, onRejected?: () => void, onProgress?: () => void, ctx?: object): Promise;
+
+            valueOf(): object;
+        }
+    }
+
 	/*Interfaces*/
 
 	interface IBaloon<T> extends IPopup<T>, ICustomizable, IChild<T>, IFreezable {
@@ -2445,6 +2901,9 @@ declare namespace ymaps {
 
 	interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
 	}
+
+    interface IBasePolygonGeometry extends IBaseGeometry, IPolygonGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
 	interface IBehavior extends IChildOnMap, ICustomizable {
 		disable(): void;
@@ -2575,13 +3034,13 @@ declare namespace ymaps {
 
 		group(): IEventGroup;
 
-		//remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
+		remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
 
 		setParent(parent: object | null): this;
 	}
 
 	interface IEventTrigger {
-		fire(type: string, eventobject: object | IEvent): this;
+		fire(type: string, eventobject?: object | IEvent): this;
 	}
 
 	interface IEventWorkflowController extends IEventController {
@@ -2593,7 +3052,9 @@ declare namespace ymaps {
 	interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
 	}
 
-	interface IFreezable extends IEventManager {
+	interface IFreezable {
+        events: IEventManager;
+
 		freeze(): IFreezable;
 
 		isFrozen(): boolean;
@@ -2616,10 +3077,31 @@ declare namespace ymaps {
 	}
 
 	interface IGeometryEditor extends ICustomizable, IEventEmitter {
+        geometry: IGeometry;
+        state: IDataManager;
+
 		startEditing(): void;
 
 		stopEditing(): void;
 	}
+
+    interface IGeometryEditorChildModel extends IGeometryEditorModel {
+        editor: IGeometryEditor;
+        geometry: IBaseGeometry;
+
+        getParent(): IGeometryEditorModel;
+
+        setPixels(pixels: number[]): void;
+    }
+
+    interface IGeometryEditorModel extends IEventEmitter {
+        destroy(): void;
+
+        getPixels(): number[];
+    }
+
+    interface IGeometryEditorRootModel extends IGeometryEditorModel { //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
 	interface IGeometryJson {
 		type: string;
@@ -2638,7 +3120,7 @@ declare namespace ymaps {
 	interface IGeoObjectCollection extends ICustomizable, IEventEmitter, IParentOnMap {
 		add(child: IGeoObject, index?: number): this;
 
-		each(callback: (object: IGeoObject) => void, context: object): void;
+		each(callback: (object: IGeoObject) => void, context?: object): void;
 
 		get(index: number): IGeoObject;
 
@@ -2708,6 +3190,40 @@ declare namespace ymaps {
 
 		setParentElement(parent: HTMLElement | null): void;
 	}
+
+    interface ILinearRingGeometryAccess extends IFreezable {
+        contain(position: number): boolean;
+
+        freeze(): IFreezable;
+
+        get(index: number): number[];
+
+        getChildGeometry(index: number): IPointGeometryAccess;
+
+        getClosest(anchorPosition: number[]): object;
+
+        getCoordinates(): number[][];
+
+        getFillRule(): string;
+
+        getLength(): number;
+
+        insert(index: number, coordinates: number[]): ILinearRingGeometryAccess;
+
+        isFrozen(): boolean;
+
+        remove(index: number): number[];
+
+        set(index: number, coordinates: number[]): ILinearRingGeometryAccess;
+
+        setCoordinates(coordinates: number[][]): ILinearRingGeometryAccess;
+
+        setFillRule(fillRule: string): ILinearRingGeometryAccess;
+
+        splice(index: number, number: number): number[][];
+
+        unfreeze(): IFreezable;
+    }
 
 	interface ILineStringGeometry extends IGeometry, ILineStringGeometryAccess {  //tslint:disable-line no-empty-interface no-empty-interfaces
 	}
@@ -2928,6 +3444,37 @@ declare namespace ymaps {
 		setCoordinates(coordinates: number[] | null): this;
 	}
 
+    interface IPolygonGeometry extends IGeometry, IPolygonGeometryAccess { //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
+
+    interface IPolygonGeometryAccess extends IFreezable {
+        contains(position: number[]): boolean;
+
+        get(index: number): number[][];
+
+        getChildGeometry(index: number): ILinearRingGeometryAccess;
+
+        getClosest(anchorPosition: number[]): object;
+
+        getCoordinates(): number[][][];
+
+        getFillRule(): string;
+
+        getLength(): number;
+
+        insert(index: number, path: number[][]): IPolygonGeometryAccess;
+
+        remove(index: number): ILinearRingGeometryAccess;
+
+        set(index: number, path: number[][]): IPolygonGeometryAccess;
+
+        setCoordinates(coordinates: number[][][]): IPolygonGeometryAccess;
+
+        setFillRule(fillRule: string): IPolygonGeometryAccess;
+
+        splice(index: number, number: number): ILinearRingGeometryAccess[];
+    }
+
 	interface IPopup<T> extends ICustomizable, IEventEmitter {
 		close(force?: boolean): Promise<T>;
 
@@ -3045,3 +3592,6 @@ declare namespace ymaps {
     	removeAll(): Monitor;
 	}
 }
+
+export = ymaps;
+export as namespace ymaps;

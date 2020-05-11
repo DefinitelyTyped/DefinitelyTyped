@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button } from '../AtlaskitDummy';
 
 import Select from 'react-select';
-import { colors } from 'react-select/lib/theme';
+import { colors } from 'react-select/src/theme';
 import { stateOptions } from '../data';
 
 const selectStyles = {

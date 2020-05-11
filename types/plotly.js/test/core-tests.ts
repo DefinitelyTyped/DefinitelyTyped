@@ -1,5 +1,5 @@
 import * as Plotly from 'plotly.js/lib/core';
-import { ScatterData, Layout, PlotlyHTMLElement, newPlot } from 'plotly.js/lib/core';
+import { Datum, ScatterData, Layout, PlotlyHTMLElement, newPlot, PlotData } from 'plotly.js/lib/core';
 
 const graphDiv = '#test';
 
@@ -41,6 +41,23 @@ const graphDiv = '#test';
 	} as ScatterData];
 	const layout2 = { title: 'Revenue' };
 	Plotly.newPlot(graphDiv, data2, layout2);
+})();
+
+// Plotly.newPlot (bar)
+(() => {
+	const data: Array<Partial<PlotData>> = [
+		{
+			values: [19, 26, 55],
+			labels: ['Residential', 'Non-Residential', 'Utility'],
+			type: 'pie',
+			direction: 'counterclockwise',
+		},
+	];
+	const layout = {
+		height: 400,
+		width: 500
+	};
+	Plotly.newPlot('myDiv', data, layout);
 })();
 
 //////////////////////////////////////////////////////////////////////
@@ -124,11 +141,11 @@ const graphDiv = '#test';
 // Plotly.relayout
 // update only values within nested objects
 (() => {
-	const update = {
+	const update: Partial<Layout> = {
 		title: 'some new title', // updates the title
 		'xaxis.range': [0, 5],   // updates the xaxis range
 		'yaxis.range[1]': 15	 // updates the end of the yaxis range
-	} as Layout;
+	};
 	Plotly.relayout(graphDiv, update);
 })();
 
@@ -146,11 +163,16 @@ const graphDiv = '#test';
 //////////////////////////////////////////////////////////////////////
 // Plotly.update
 (() => {
-	const data_update = {
-		marker: { color: 'red' }
+	const data_update: Partial<PlotData> = {
+		marker: { color: 'red' },
+		type: 'bar'
 	};
-	const layout_update = {
+	const layout_update: Partial<Layout> = {
 		title: 'some new title', // updates the title
+		barmode: 'stack',
+		barnorm: 'fraction',
+		bargap: 0,
+		bargroupgap: 0,
 	};
 	Plotly.update(graphDiv, data_update, layout_update);
 })();
@@ -238,6 +260,17 @@ function rand() {
 	// Plotly.toImage will turn the plot in the given div into a data URL string
 	// toImage takes the div as the first argument and an object specifying image properties as the other
 	Plotly.toImage(graphDiv, { format: 'png', width: 800, height: 600 }).then((dataUrl) => {
+		// use the dataUrl
+	});
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.toImage + scale parameter
+(() => {
+	// Plotly.toImage will turn the plot in the given div into a data URL string
+	// toImage takes the div as the first argument and an object specifying image properties as the other
+	Plotly.toImage(graphDiv, { format: 'png', width: 800, height: 600, scale: 2 }).then((dataUrl) => {
 		// use the dataUrl
 	});
 })();
@@ -336,8 +369,8 @@ function rand() {
 	});
 
 	myPlot.on('plotly_selected', (data) => {
-		const x = [] as number[];
-		const y = [] as number[];
+		const x = [] as Datum[];
+		const y = [] as Datum[];
 		const N = 1000;
 		const color1 = '#7b3294';
 		const color1Light = '#c2a5cf';

@@ -5,7 +5,7 @@
 
 declare var _: _.LoDashStatic;
 
-declare module _ {
+declare namespace _ {
     interface LoDashStatic {
         /**
         * Creates a lodash object which wraps the given value to enable intuitive method chaining.
@@ -15912,6 +15912,5 @@ declare module _ {
     }
 }
 
-declare module "lodash" {
-    export = _;
-}
+export = _;
+export as namespace _;

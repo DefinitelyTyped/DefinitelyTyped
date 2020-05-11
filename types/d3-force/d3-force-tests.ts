@@ -685,6 +685,7 @@ nodeLinkSimulation = nodeLinkSimulation.stop();
 // tick() -----------------------------------------------------------------------------
 
 nodeLinkSimulation.tick();
+nodeLinkSimulation.tick(10);
 
 // find() -----------------------------------------------------------------------------
 

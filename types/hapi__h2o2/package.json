@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "@hapi/boom": "^9.0.0",
+        "@hapi/wreck": "^17.0.0"
+    }
+}

@@ -1,8 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODO
         "ban-types": false,
+        "no-angle-bracket-type-assertion": false,
         "no-boolean-literal-compare": false,
         "no-declare-current-package": false,
         "no-single-declare-module": false,

@@ -11,6 +11,10 @@ import BaseStore = require('fluxible/addons/BaseStore');
 export class NavLink extends React.Component<NavLinkProps, any> { }
 
 export class RouteStore extends BaseStore {
+    dehydrate(context?: FluxibleContext): any;
+
+    rehydrate(state: any): void;
+
     static withStaticRoutes(routes: object): typeof RouteStore;
 }
 

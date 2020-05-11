@@ -416,7 +416,7 @@ declare module "profiler" {
 		 * 
 		 * 
 		 */
-		export function diff(test: Function): Object;
+		export function diff(test: Function): object;
 	
 		/**
 		 * 

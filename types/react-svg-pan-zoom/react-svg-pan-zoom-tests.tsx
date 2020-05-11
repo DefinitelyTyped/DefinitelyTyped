@@ -4,14 +4,47 @@ import {
   ReactSVGPanZoom,
   Props,
   fitToViewer,
-  ViewerMouseEvent
+  ViewerMouseEvent,
+  Value,
+  Tool,
+  MODE_PANNING,
+  TOOL_NONE,
+  UncontrolledReactSVGPanZoom
 } from 'react-svg-pan-zoom';
 
-class Example1 extends React.Component {
+interface State {
+  value: Value;
+  tool: Tool;
+}
+
+class Example1 extends React.Component<{}, State> {
   Viewer: ReactSVGPanZoom | null;
 
   constructor(props: Props) {
     super(props);
+    this.state = {
+      value: {
+        version: 2,
+        mode: MODE_PANNING,
+        focus: true,
+        a: 1,
+        b: 0,
+        c: 0,
+        d: 1,
+        e: 0,
+        f: 0,
+        viewerWidth: 500,
+        viewerHeight: 500,
+        SVGWidth: 500,
+        SVGHeight: 500,
+        startX: null,
+        startY: null,
+        endX: null,
+        endY: null,
+        miniatureOpen: true
+      },
+      tool: TOOL_NONE
+    };
   }
 
   componentDidMount() {
@@ -21,6 +54,17 @@ class Example1 extends React.Component {
   }
 
   render() {
+    const miniatureProps = {
+      position: 'left' as 'left',
+      background: '#fff',
+      width: 100,
+      height: 80
+    };
+
+    const toolbarProps = {
+      position: 'right' as 'right'
+    };
+
     return (
       <div>
         <button onClick={event => { if (this.Viewer) this.Viewer.zoomOnViewerCenter(1.1); }}>
@@ -36,7 +80,13 @@ class Example1 extends React.Component {
         <hr/>
 
         <ReactSVGPanZoom
+          toolbarProps={toolbarProps}
+          miniatureProps={miniatureProps}
           style={{border: "1px solid black"}}
+          tool={this.state.tool}
+          value={this.state.value}
+          onChangeTool={(tool: Tool) => this.setState({tool})}
+          onChangeValue={(value: Value) => this.setState({value})}
           width={500} height={500} ref={Viewer => this.Viewer = Viewer}
           onClick={(event: ViewerMouseEvent<any>)  => console.log('click', event.x, event.y, event.originalEvent)}
           onMouseUp={(event: ViewerMouseEvent<any>) => console.log('up', event.x, event.y)}
@@ -55,6 +105,16 @@ class Example1 extends React.Component {
           </svg>
         </ReactSVGPanZoom>
       </div>
+    );
+  }
+}
+class MyViewer extends React.Component {
+  render() {
+    return (
+      <UncontrolledReactSVGPanZoom
+        width={200} height={400}
+      >
+      </UncontrolledReactSVGPanZoom>
     );
   }
 }

@@ -2,7 +2,7 @@
 // Project: https://github.com/realtymaps/promise-sftp
 // Definitions by: coolreader18 <https://github.com/coolreader18>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 
@@ -234,10 +234,10 @@ declare class PromiseSftp {
      * Retrieves a directory listing.
      * @param path - The path of the directory to get the listing of.
      */
-    list(path?: string): Promise<PromiseSftp.DirectoryListing>;
+    list(path?: string): Promise<PromiseSftp.DirectoryListing[]>;
 
     /** Alias to `#list()` */
-    listSafe(path: string): Promise<PromiseSftp.DirectoryListing>;
+    listSafe(path: string): Promise<PromiseSftp.DirectoryListing[]>;
 
     /**
      * Retrieve a file from the server.

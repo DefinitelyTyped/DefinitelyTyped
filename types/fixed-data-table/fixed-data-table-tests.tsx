@@ -3,7 +3,7 @@ import { Table, Cell, Column, CellProps } from "fixed-data-table";
 
 // create your Table
 class MyTable1 extends React.Component {
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <Table
                 rowsCount={100}
@@ -18,7 +18,7 @@ class MyTable1 extends React.Component {
 
 // create your Columns
 class MyTable2 extends React.Component {
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <Table
                 rowsCount={100}
@@ -51,7 +51,7 @@ class MyTable3 extends React.Component<{}, MyTable3State> {
         ]
     };
 
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <Table
                 rowsCount={this.state.myTableData.length}
@@ -85,7 +85,7 @@ interface MyCellProps extends CellProps {
 }
 
 class MyTextCell extends React.Component<MyCellProps> {
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         const {rowIndex, field, myData} = this.props;
 
         return (
@@ -101,7 +101,7 @@ class MyTextCell extends React.Component<MyCellProps> {
 }
 
 class MyLinkCell extends React.Component<MyCellProps> {
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         const {rowIndex, field, myData} = this.props;
         const link: string = myData[rowIndex][field];
 
@@ -133,7 +133,7 @@ class MyTable4 extends React.Component<{}, MyTable4State> {
         ]
     };
 
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <Table
                 rowsCount={this.state.tableData.length}
@@ -162,7 +162,7 @@ class MyTable4 extends React.Component<{}, MyTable4State> {
 
 // Listen for events
 class MyTable5 extends React.Component {
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <Table
                 rowsCount={100}

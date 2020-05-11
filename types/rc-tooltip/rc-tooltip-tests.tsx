@@ -28,12 +28,14 @@ ReactDOM.render(
         prefixCls="my-"
         transitionName="cool-transition"
         onVisibleChange={() => console.log('visible changed')}
+        afterVisibleChange={() => console.log('after visible changed')}
         visible
         defaultVisible
         onPopupAlign={(popup, align) => console.log('aligned:', popup, align)}
         arrowContent={<div className="arrow"/>}
-        getTooltipContainer={() => document.querySelector('.foo')}
+        getTooltipContainer={() => document.querySelector('.foo')!}
         destroyTooltipOnHide
+        id="tooltip-id"
     >
         <a href='#'>hover</a>
     </Tooltip>,
@@ -56,3 +58,7 @@ const props: RCTooltip.Props = {
     trigger: ['click', 'focus'],
     overlay: () => <span>tooltip</span>,
 };
+
+// It should be a single-line definition because TS 2.9 and other TS versions throw an error on different lines
+// $ExpectError
+const falseProps: RCTooltip.Props = {overlay: undefined};
