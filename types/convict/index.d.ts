@@ -5,6 +5,7 @@
 //                 Eli Young <https://github.com/elyscape>
 //                 Suntharesan Mohan <https://github.com/vanthiyathevan>
 //                 Igor Strebezhev <https://github.com/xamgore>
+//                 Peter Somogyvari <https://github.com/petermetz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -199,7 +200,7 @@ interface convict {
     addFormat(format: convict.Format): void;
     addFormats(formats: { [name: string]: convict.Format }): void;
     addParser(parsers: convict.Parser | convict.Parser[]): void;
-    <T>(config: convict.Schema<T> | string): convict.Config<T>;
+    <T>(config: convict.Schema<T> | string, options?: { env?: any, args?: string[] }): convict.Config<T>;
 }
 declare var convict: convict;
 export = convict;
