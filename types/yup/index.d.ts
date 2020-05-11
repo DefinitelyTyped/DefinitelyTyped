@@ -90,7 +90,7 @@ export interface MixedSchemaConstructor {
     new <T = any>(options?: { type?: string; [key: string]: any }): MixedSchema<T>;
 }
 
-export interface MixedSchema<T = any> extends Schema<T> {
+export interface MixedSchema<T extends any = NotUndefined> extends Schema<T> {
     nullable(isNullable?: true): MixedSchema<T | null>;
     nullable(isNullable: false): MixedSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): MixedSchema<T>;
@@ -565,3 +565,4 @@ type InnerInferType<T> =
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;
 /** If `T` is optional, returns optional `U`. */
 type MaintainOptionality<T, U> = T extends undefined ? U | undefined : U;
+type NotUndefined = string | number | boolean | symbol | object | null;

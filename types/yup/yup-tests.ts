@@ -144,8 +144,8 @@ mixed.required();
 mixed.required('Foo');
 mixed.required(() => 'Foo');
 mixed.defined();
-mixed.notRequired(); // $ExpectType MixedSchema<any>
-mixed.optional(); // $ExpectType MixedSchema<any>
+mixed.notRequired(); // $ExpectType MixedSchema<string | number | boolean | symbol | object | null | undefined>
+mixed.optional(); // $ExpectType MixedSchema<string | number | boolean | symbol | object | null | undefined>
 mixed.typeError('type error');
 mixed.typeError(() => 'type error');
 mixed.oneOf(['hello', 'world'], 'message');
@@ -153,8 +153,8 @@ mixed.oneOf(['hello', 'world'], () => 'message');
 mixed.oneOf(['hello', 'world'], ({ values }) => `one of ${values}`);
 // $ExpectError
 mixed.oneOf(['hello', 'world'], ({ random }) => `one of ${random}`);
-mixed.oneOf(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined>
-mixed.equals(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined>
+mixed.oneOf(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1>
+mixed.equals(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1>
 mixed.notOneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], () => 'message');
 mixed.when('isBig', {
