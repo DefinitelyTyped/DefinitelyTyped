@@ -295,6 +295,11 @@ declare namespace P {
          */
         prettyPrint?: boolean | PrettyOptions;
         /**
+         * Allows to optionally define which prettifier module to use.
+         */
+        // TODO: use type definitions from 'pino-pretty' when available.
+        prettifier?: any;
+        /**
          * This function will be invoked during process shutdown when `extreme` is set to `true`. If you do not specify
          * a function, Pino will invoke `process.exit(0)` when no error has occurred, and `process.exit(1)` otherwise.
          * If you do specify a function, it is up to you to terminate the process; you must perform only synchronous
