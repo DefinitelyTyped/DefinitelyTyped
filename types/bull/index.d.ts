@@ -577,6 +577,13 @@ declare namespace Bull {
     add(name: string, data: T, opts?: JobOptions): Promise<Job<T>>;
 
     /**
+     * Adds an array of jobs to the queue.
+     * If the queue is empty the jobs will be executed directly,
+     * otherwise they will be placed in the queue and executed as soon as possible.
+     */
+    addBulk(jobs: Array<{name?: string, data: T, opts?: JobOptions}>): Promise<Array<Job<T>>>;
+
+    /**
      * Returns a promise that resolves when the queue is paused.
      *
      * A paused queue will not process new jobs until resumed, but current jobs being processed will continue until

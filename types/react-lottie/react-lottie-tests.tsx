@@ -12,4 +12,13 @@ const LoadingIndicator = () => (
   />
 );
 
+const LoadingIndicatorStyled = () => (
+  <Lottie
+    options={{
+      animationData
+    }}
+    style={{margin: '0 0 30px'}}
+  />
+);
+
 export default LoadingIndicator;
