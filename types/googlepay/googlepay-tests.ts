@@ -69,7 +69,11 @@ function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataReq
         apiVersion: 2,
         apiVersionMinor: 0,
         merchantInfo: {
-            merchantId: '01234567890123456789'
+            merchantId: '01234567890123456789',
+            softwareInfo: {
+                id: 'my.softwareInfo.test',
+                version: '1.0.0'
+            }
         },
         transactionInfo: {
             totalPriceStatus: 'FINAL',

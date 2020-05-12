@@ -819,6 +819,38 @@ declare namespace google.payments.api {
          * Pay Developer Profile will be used.
          */
         merchantName?: string;
+
+        /**
+         * The info of the software used by merchants to integrate with GPay.
+         *
+         * This field is optional and its values may be set by software
+         * providers to identify the software the merchant is using.
+         */
+        softwareInfo?: SoftwareInfo;
+    }
+
+    /**
+     * The info of the software used by merchants to integrate with GPay.
+     */
+    interface SoftwareInfo {
+        /**
+         * The identifier of the software used by merchants to integrate with
+         * GPay.
+         *
+         * Partner's domain name can be used as the identifier.
+         *
+         * This field is optional.
+         */
+        id?: string;
+
+        /**
+         * The version of the software.
+         *
+         * GPay metrics are provided per version.
+         *
+         * This field is optional.
+         */
+        version?: string;
     }
 
     /**
