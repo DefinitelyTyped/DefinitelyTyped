@@ -176,7 +176,7 @@ const conf2 = convict(
     },
     {
         env: {
-            PORT: 12345
+            PORT: '12345'
         },
         args: []
     }
