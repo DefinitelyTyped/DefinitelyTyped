@@ -244,7 +244,7 @@ mongoModel.constructor.modelName;
 mongoModel.constructor.modelName.toLowerCase();
 MongoModel = mongoModel.constructor.base.model('new', mongoModel.schema);
 
-/* inherited properties */
+/* model inherited properties */
 MongoModel.collection;
 mongoModel.collection;
 mongoModel._id;
