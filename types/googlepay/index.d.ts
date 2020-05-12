@@ -6,6 +6,7 @@
 //                 Alexandre Couret <https://github.com/ozotek>
 //                 Sergi Ferriz <https://github.com/mumpo>
 //                 Soc Sieng <https://github.com/socsieng>
+//                 Vlad Diachenko <https://github.com/vdiachenko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google.payments.api {
@@ -1227,7 +1228,7 @@ declare namespace google.payments.api {
      * - `PAYPAL`:
      *   PAYPAL payment method.
      */
-    type PaymentMethodType = "CARD" | "PAYPAL";
+    type PaymentMethodType = 'CARD' | 'PAYPAL';
 
     /**
      * Payment method tokenization type enum string.
@@ -1241,7 +1242,7 @@ declare namespace google.payments.api {
      * - `DIRECT`:
      *   Tokenize to be consumed/charged directly by the merchant.
      */
-    type PaymentMethodTokenizationType = "PAYMENT_GATEWAY" | "DIRECT";
+    type PaymentMethodTokenizationType = 'PAYMENT_GATEWAY' | 'DIRECT';
 
     /**
      * Card network enum string.
@@ -1310,7 +1311,17 @@ declare namespace google.payments.api {
      * - `VISA`:
      *   Visa card network.
      */
-    type CardNetwork = "AMEX" | "DISCOVER" | "ELECTRON" | "ELO" | "ELO_DEBIT" | "INTERAC" | "JCB" | "MAESTRO" | "MASTERCARD" | "VISA";
+    type CardNetwork =
+        | 'AMEX'
+        | 'DISCOVER'
+        | 'ELECTRON'
+        | 'ELO'
+        | 'ELO_DEBIT'
+        | 'INTERAC'
+        | 'JCB'
+        | 'MAESTRO'
+        | 'MASTERCARD'
+        | 'VISA';
 
     /**
      * Card authentication method enum string.
@@ -1349,7 +1360,7 @@ declare namespace google.payments.api {
      *   transactions may fail if you reuse the credential across unrelated
      *   transactions.
      */
-    type CardAuthMethod = "PAN_ONLY" | "CRYPTOGRAM_3DS";
+    type CardAuthMethod = 'PAN_ONLY' | 'CRYPTOGRAM_3DS';
 
     /**
      * Billing address format enum string.
@@ -1386,7 +1397,7 @@ declare namespace google.payments.api {
      *   Additional form entry or customer data requests can increase friction
      *   during the checkout process and can lead to a lower conversion rate.
      */
-    type BillingAddressFormat = "MIN" | "FULL";
+    type BillingAddressFormat = 'MIN' | 'FULL';
 
     /**
      * The status of the total price used.
@@ -1405,7 +1416,7 @@ declare namespace google.payments.api {
      *   The total price is the final total price of the transaction, and will
      *   not change based on selections made by the buyer.
      */
-    type TotalPriceStatus = "NOT_CURRENTLY_KNOWN" | "ESTIMATED" | "FINAL";
+    type TotalPriceStatus = 'NOT_CURRENTLY_KNOWN' | 'ESTIMATED' | 'FINAL';
 
     /**
      * The options for checkout.
@@ -1427,7 +1438,7 @@ declare namespace google.payments.api {
      *   is set to [[TotalPriceStatus|`FINAL`]]. Otherwise,
      *   a payment data request will fail.
      */
-    type CheckoutOption = "DEFAULT" | "COMPLETE_IMMEDIATE_PURCHASE";
+    type CheckoutOption = 'DEFAULT' | 'COMPLETE_IMMEDIATE_PURCHASE';
 
     /**
      * Enum string of a display item.
@@ -1449,7 +1460,7 @@ declare namespace google.payments.api {
      * - `SHIPPING_OPTION`:
      *   Item for shipping option.
      */
-    type DisplayItemType = "LINE_ITEM" | "SUBTOTAL" | "TAX" | "DISCOUNT" | "SHIPPING_OPTION";
+    type DisplayItemType = 'LINE_ITEM' | 'SUBTOTAL' | 'TAX' | 'DISCOUNT' | 'SHIPPING_OPTION';
 
     /**
      * Enum string of a display item status.
@@ -1463,7 +1474,7 @@ declare namespace google.payments.api {
      *   DisplayItem does not display value in price but instead display as
      *   "pending".
      */
-    type DisplayItemStatus = "FINAL" | "PENDING";
+    type DisplayItemStatus = 'FINAL' | 'PENDING';
 
     /**
      * Enum string for the callback intents.
@@ -1503,7 +1514,7 @@ declare namespace google.payments.api {
      *   Developer will receive callback data in
      *   [[IntermediatePaymentData.paymentMethodData|`IntermediatePaymentData.paymentMethodData`]]
      */
-    type CallbackIntent = "SHIPPING_ADDRESS" | "SHIPPING_OPTION" | "PAYMENT_AUTHORIZATION" | "PAYMENT_METHOD";
+    type CallbackIntent = 'SHIPPING_ADDRESS' | 'SHIPPING_OPTION' | 'PAYMENT_AUTHORIZATION' | 'PAYMENT_METHOD';
 
     /**
      * Enum string for the callback trigger.
@@ -1530,7 +1541,7 @@ declare namespace google.payments.api {
      *   accounts, we will call initialize again with data from the new
      *   account.
      */
-    type CallbackTrigger = "OFFER_INFO" | "SHIPPING_ADDRESS" | "SHIPPING_OPTION" | "INITIALIZE";
+    type CallbackTrigger = 'OFFER_INFO' | 'SHIPPING_ADDRESS' | 'SHIPPING_OPTION' | 'INITIALIZE';
 
     /**
      * Enum string for error reason.
@@ -1556,7 +1567,12 @@ declare namespace google.payments.api {
      * - `OTHER_ERROR`:
      *   A catch all for error not fitting anywhere else.
      */
-    type ErrorReason = "SHIPPING_ADDRESS_INVALID" | "SHIPPING_ADDRESS_UNSERVICEABLE" | "SHIPPING_OPTION_INVALID" | "PAYMENT_DATA_INVALID" | "OTHER_ERROR";
+    type ErrorReason =
+        | 'SHIPPING_ADDRESS_INVALID'
+        | 'SHIPPING_ADDRESS_UNSERVICEABLE'
+        | 'SHIPPING_OPTION_INVALID'
+        | 'PAYMENT_DATA_INVALID'
+        | 'OTHER_ERROR';
 
     /**
      * Enum strings for the state of the transaction.
@@ -1573,7 +1589,7 @@ declare namespace google.payments.api {
      *   The Google Pay UI will show the merchant error message and allow user
      *   to retry.
      */
-    type TransactionState = "SUCCESS" | "ERROR";
+    type TransactionState = 'SUCCESS' | 'ERROR';
 
     /**
      * This object allows you to configure a Google Pay payment button. For
@@ -1837,7 +1853,7 @@ declare namespace google.payments.api {
      * - `white`:
      *   A white button suitable for use on colorful backgrounds.
      */
-    type ButtonColor = "default" | "black" | "white";
+    type ButtonColor = 'default' | 'black' | 'white';
 
     /**
      * Supported methods for presenting the Google Pay button.
@@ -1853,7 +1869,7 @@ declare namespace google.payments.api {
      * - `short`:
      *   Google Pay payment button without the "Buy with" text.
      */
-    type ButtonType = "long" | "short";
+    type ButtonType = 'long' | 'short';
 
     /**
      * Supported environment names to run Google Pay.
@@ -1867,7 +1883,7 @@ declare namespace google.payments.api {
      * - `TEST`:
      *   Dummy payment methods that are suitable for testing (default).
      */
-    type Environment = "PRODUCTION" | "TEST";
+    type Environment = 'PRODUCTION' | 'TEST';
 
     /**
      * This handler is used when a payment is authorized in the payment sheet.
@@ -1915,7 +1931,9 @@ declare namespace google.payments.api {
          * shipping options and transaction info. Don't intentionally return
          * reject if possible.*
          */
-        (intermediatePaymentData: IntermediatePaymentData) => Promise<PaymentDataRequestUpdate> | PaymentDataRequestUpdate;
+        (
+            intermediatePaymentData: IntermediatePaymentData,
+        ) => Promise<PaymentDataRequestUpdate> | PaymentDataRequestUpdate;
 
     /**
      * This object contains details about errors returned by client JavaScript
@@ -1943,5 +1961,9 @@ declare namespace google.payments.api {
      * - `INTERNAL_ERROR`:
      *   General server error.
      */
-    type PaymentsErrorStatusCode = "BUYER_ACCOUNT_ERROR" | "DEVELOPER_ERROR" | "MERCHANT_ACCOUNT_ERROR" | "INTERNAL_ERROR";
+    type PaymentsErrorStatusCode =
+        | 'BUYER_ACCOUNT_ERROR'
+        | 'DEVELOPER_ERROR'
+        | 'MERCHANT_ACCOUNT_ERROR'
+        | 'INTERNAL_ERROR';
 }
