@@ -5269,6 +5269,11 @@ export interface Endpoint extends Resource {
      */
     sendMessageToEndpoint(params: { from: string; body?: string; variables?: Containers }): Promise<void>;
 }
+/* This interface is kept for compatibility */
+export interface TextMessageVariable {
+    key: string;
+    value: string;
+}
 export interface TextMessage {
     /**
      * A technology specific URI specifying the source of the message. For sip and pjsip technologies, any SIP URI can be specified. For xmpp, the URI must correspond to the client connection
