@@ -18,6 +18,7 @@ declare module "child_process" {
             Readable | Writable | null | undefined, // extra
             Readable | Writable | null | undefined // extra
         ];
+        readonly exitCode: number | null;
         readonly killed: boolean;
         readonly pid: number;
         readonly connected: boolean;
