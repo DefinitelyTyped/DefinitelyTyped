@@ -46,7 +46,7 @@ declare namespace Aws {
         alb?: Alb;
         httpApi?: HttpApi;
         usagePlan?: UsagePlan;
-        stackTags?: StackTags;
+        stackTags?: Tags;
         iamManagedPolicies?: string[];
         iamRoleStatements?: IamRoleStatement[];
         stackPolicy?: ResourcePolicy[];
@@ -164,14 +164,6 @@ declare namespace Aws {
     interface UsagePlan {
         quota?: Quota;
         throttle?: Throttle;
-    }
-
-    interface StackTags {
-        [key: string]: string;
-    }
-
-    interface Resource {
-        'Fn::Join': any[];
     }
 
     interface IamRoleStatement {
