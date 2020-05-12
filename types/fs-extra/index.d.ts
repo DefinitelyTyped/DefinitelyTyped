@@ -305,7 +305,7 @@ export interface ReadOptions {
 }
 
 export interface WriteFileOptions {
-    encoding?: string;
+    encoding?: string | null;
     flag?: string;
     mode?: number;
 }
