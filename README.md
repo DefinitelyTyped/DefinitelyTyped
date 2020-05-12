@@ -156,21 +156,6 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 * Make changes. Remember to edit tests.
   If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
 
-* DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
-  - Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
-  - Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
-  - The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
-
- To Add yourself as a Definition Owner:
-
-  - Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-  - Or if there are more people, it can be multiline
-  ```typescript
-  // Definitions by: Alice <https://github.com/alice>
-  //                 Bob <https://github.com/bob>
-  //                 Steve <https://github.com/steve>
-  //                 John <https://github.com/john>
-  ```
 * If there is a `tslint.json`, run `npm run lint package-name`. Otherwise, run `tsc` in the package directory.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
@@ -238,6 +223,23 @@ Definitely Typed members routinely monitor for new PRs, though keep in mind that
 
 For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
+## Definition Owners
+
+* DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
+  - Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
+  - Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
+  - The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
+
+ To Add yourself as a Definition Owner:
+
+  - Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+  - Or if there are more people, it can be multiline
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
 
 #### Common mistakes
 
@@ -368,7 +370,7 @@ Be sure to explain this when adding to the list of allowed packages so that the 
 
 #### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 
-Then they are wrong. You can help by submitting a pull request to fix them.
+Then they are wrong, and we've not noticed yet. You can help by submitting a pull request to fix them.
 
 #### Can I request a definition?
 
