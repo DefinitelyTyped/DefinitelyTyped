@@ -13,7 +13,7 @@ interface CaseProps {
     value: any;
 }
 
-declare class Swtich extends React.Component<SwitchProps> {}
+declare class Switch extends React.Component<SwitchProps> {}
 export class Case extends React.Component<CaseProps> {}
 export class Default extends React.Component {}
 
