@@ -23,7 +23,7 @@ declare namespace TWEEN {
         isPaused(): boolean;
         to(properties: any, duration: number): Tween;
         duration(d: number): Tween;
-        start(time?: number): Tween;
+        start(time?: number | string): Tween;
         stop(): Tween;
         end(): Tween;
         pause(time?: number): Tween;
