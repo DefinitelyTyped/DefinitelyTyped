@@ -5503,6 +5503,12 @@
             "asOfVersion": "2.9.0"
         },
         {
+            "libraryName": "@wordpress/autop",
+            "typingsPackageName": "wordpress__autop",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
+        },
+        {
             "libraryName": "@wordpress/is-shallow-equal",
             "typingsPackageName": "wordpress__is-shallow-equal",
             "sourceRepoURL": "https://github.com/WordPress/gutenberg",
