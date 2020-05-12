@@ -4579,6 +4579,12 @@
             "asOfVersion": "13.0.0"
         },
         {
+            "libraryName": "@simonwep/selection-js",
+            "typingsPackageName": "simonwep__selection-js",
+            "sourceRepoURL": "https://github.com/Simonwep/selection.git",
+            "asOfVersion": "1.7.0"
+        },
+        {
             "libraryName": "SimpleSignal",
             "typingsPackageName": "simplesignal",
             "sourceRepoURL": "https://github.com/zeh/simplesignal",
