@@ -587,10 +587,16 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
 
     _.intersection(list, list); // $ExpectType AbcObject[]
     _.intersection(list, list, list); // $ExpectType AbcObject[]
+    _.intersection(undefined, list); // $ExpectType AbcObject[]
+    _.intersection(null, list); // $ExpectType AbcObject[]
     _(list).intersection(list); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _(list).intersection(list, list); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _(list).intersection(undefined); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _(list).intersection(null); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _.chain(list).intersection(list); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).intersection(list, list); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain(list).intersection(undefined); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain(list).intersection(null); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     fp.intersection(list, list); // $ExpectType AbcObject[]
     fp.intersection(list)(list); // $ExpectType AbcObject[]
 }
