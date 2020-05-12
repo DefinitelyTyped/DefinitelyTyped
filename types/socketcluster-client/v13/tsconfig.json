@@ -14,20 +14,17 @@
         ],
         "types": [],
         "paths": {
-            "scc-broker-client": [
-                "scc-broker-client/v6"
-            ],
-            "scc-broker-client/*": [
-                "scc-broker-client/v6/*"
-            ],
-            "sc-broker-cluster": [
-                "sc-broker-cluster/v6"
-            ],
             "socketcluster-client": [
                 "socketcluster-client/v13"
             ],
+            "socketcluster-client/*": [
+                "socketcluster-client/v13/*"
+            ],
             "socketcluster-server": [
                 "socketcluster-server/v14"
+            ],
+            "sc-broker-cluster": [
+                "sc-broker-cluster/v6"
             ],
             "sc-channel": [
                 "sc-channel/v1"
@@ -38,6 +35,6 @@
     },
     "files": [
         "index.d.ts",
-        "scc-broker-client-tests.ts"
+        "socketcluster-client-tests.ts"
     ]
 }
