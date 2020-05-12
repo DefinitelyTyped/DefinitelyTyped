@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Helmet, HelmetData } from "react-helmet";
-import HelmetDefaultExport from "react-helmet";
 
 const Application = () =>
     <div className="application">
@@ -103,10 +102,6 @@ function HTML() {
         }
     `}</style>
 </Helmet>;
-
-<HelmetDefaultExport>
-    <html lang="en" />
-</HelmetDefaultExport>;
 
 // undefined value
 <Helmet htmlAttributes={{ id: undefined }} />;

@@ -41,6 +41,7 @@
 //                 Richard Simko <https://github.com/richardsimko>
 //                 Marek Tuchalski <https://github.com/ith>
 //                 Jeremy Bensimon <https://github.com/jeremyben>
+//                 The Half Blood Prince <https://github.com/tHBp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -1076,6 +1077,8 @@ declare module "mongoose" {
 
     /** defaults to null */
     shardKey?: object;
+    /** no default */
+    strictQuery?: boolean;
     /** defaults to true */
     strict?: boolean | 'throw';
     /** no default */
