@@ -93,13 +93,13 @@ export interface MixedSchema<T extends any = any> extends Schema<T> {
     optional(): MixedSchema<T | undefined>;
     concat(schema: this): this;
     concat<U>(schema: Schema<U>): MixedSchema<T | U>;
-    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): MixedSchema<MaintainOptionality<T, U>>;
-    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): MixedSchema<MaintainOptionality<T, U>>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): MixedSchema<MaintainOptionality<T, U>>;
+    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): MixedSchema<MaintainOptionality<T, U>>;
     test<U extends T = T>(
         name: string,
         message: TestOptionsMessage,
         test: AssertingTestFunction<U>
-        ): MixedSchema<U>;
+    ): MixedSchema<U>;
     test(
         name: string,
         message: TestOptionsMessage,
@@ -136,8 +136,8 @@ export interface StringSchema<T extends string | null | undefined = string | und
     required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>;
     defined(): StringSchema<Exclude<T, undefined>>;
     notRequired(): StringSchema<T | undefined>;
-    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): StringSchema<MaintainOptionality<T, U>>;
-    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): StringSchema<MaintainOptionality<T, U>>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): StringSchema<MaintainOptionality<T, U>>;
+    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): StringSchema<MaintainOptionality<T, U>>;
     test<U extends T = T>(
         name: string,
         message: TestOptionsMessage,
@@ -174,8 +174,8 @@ export interface NumberSchema<T extends number | null | undefined = number| unde
     required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined>>;
     defined(): NumberSchema<Exclude<T, undefined>>;
     notRequired(): NumberSchema<T | undefined>;
-    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): NumberSchema<MaintainOptionality<T, U>>;
-    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): NumberSchema<MaintainOptionality<T, U>>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): NumberSchema<MaintainOptionality<T, U>>;
+    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): NumberSchema<MaintainOptionality<T, U>>;
     test<U extends T = T>(
         name: string,
         message: TestOptionsMessage,
@@ -203,8 +203,8 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean | 
     required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, undefined>>;
     defined(): BooleanSchema<Exclude<T, undefined>>;
     notRequired(): BooleanSchema<T | undefined>;
-    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): BooleanSchema<MaintainOptionality<T, U>>;
-    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): BooleanSchema<MaintainOptionality<T, U>>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): BooleanSchema<MaintainOptionality<T, U>>;
+    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): BooleanSchema<MaintainOptionality<T, U>>;
     test<U extends T = T>(
         name: string,
         message: TestOptionsMessage,
@@ -234,8 +234,8 @@ export interface DateSchema<T extends Date | null | undefined = Date | undefined
     required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined>>;
     defined(): DateSchema<Exclude<T, undefined>>;
     notRequired(): DateSchema<T | undefined>;
-    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): DateSchema<MaintainOptionality<T, U>>;
-    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): DateSchema<MaintainOptionality<T, U>>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): DateSchema<MaintainOptionality<T, U>>;
+    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): DateSchema<MaintainOptionality<T, U>>;
     test<U extends T = T>(
         name: string,
         message: TestOptionsMessage,
@@ -364,8 +364,8 @@ export interface ObjectSchema<T extends object | null | undefined = object | und
     optional(): ObjectSchema<T | undefined>;
     concat(schema: this): this;
     concat<U extends object>(schema: ObjectSchema<U>): ObjectSchema<T & U>;
-    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): ObjectSchema<U>;
-    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref | null>, message?: MixedLocale['oneOf']): ObjectSchema<U>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): ObjectSchema<U>;
+    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): ObjectSchema<U>;
     test<U extends T = T>(
         name: string,
         message: TestOptionsMessage,

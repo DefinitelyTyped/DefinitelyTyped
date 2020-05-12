@@ -244,6 +244,10 @@ mixed.test({
     test: value => !!value,
 });
 
+ 
+yup.mixed().oneOf(['hello', 1, null] as const).nullable(); // $ExpectType MixedSchema<"hello" | 1 | null | undefined>
+yup.mixed().nullable().oneOf(['hello', 1, null] as const); // $ExpectType MixedSchema<"hello" | 1 | null | undefined>
+
 // mixed with concat
 yup.object({ name: yup.string().defined() }).defined().concat(yup.object({ when: yup.date().defined() }).defined()); // $ExpectType ObjectSchema<{ name: string; } & { when: Date; }>
 yup.mixed<string>().defined().concat(yup.date().defined()); // $ExpectType MixedSchema<string | Date>
