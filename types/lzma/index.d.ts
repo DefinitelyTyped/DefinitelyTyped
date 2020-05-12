@@ -1,5 +1,5 @@
 // Type definitions for lzma 2.3
-// Project: http://nmrugg.github.com/LZMA-JS/
+// Project: https://github.com/LZMA-JS/LZMA-JS
 // Definitions by: janKir <https://github.com/janKir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
