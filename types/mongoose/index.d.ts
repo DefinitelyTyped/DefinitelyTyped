@@ -41,6 +41,7 @@
 //                 Richard Simko <https://github.com/richardsimko>
 //                 Marek Tuchalski <https://github.com/ith>
 //                 Jeremy Bensimon <https://github.com/jeremyben>
+//                 Andrei Alecu <https://github.com/andreialecu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -84,8 +85,53 @@ declare module "mongoose" {
   // We can use TypeScript Omit once minimum required TypeScript Version is above 3.5
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
+  type NonFunctionPropertyNames<T> = {
+    [K in keyof T]: T[K] extends Function ? never : K;
+  }[keyof T];
+  
+  type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
+
+  // used to exclude functions from all levels of the schema
+  type DeepNonFunctionProperties<T> =
+    T extends Map<infer KM, infer KV> 
+      // handle map values
+      // NOTE: functions are not extracted from the Map<KM, KV> unless:
+      //! the line below is replaced with this: 
+      // ? Map<KM, DeepNonFunctionProperties<KV>> but it only works on TS3.7+
+      ? { [key: string]: DeepNonFunctionProperties<KV> } | [KM, KV][] | Map<KM, KV>
+      : 
+    T extends Array<infer U>
+      ? U extends object | undefined
+        ? { [V in keyof NonFunctionProperties<U>]: U[V] extends object | undefined
+          ? DeepNonFunctionProperties<NonNullable<U[V]>> 
+          : U[V] }[]
+        : NonNullable<T>
+      : 
+    T extends object | undefined 
+      ? { [V in keyof NonFunctionProperties<T>]: T[V] extends object | undefined
+        ?  DeepNonFunctionProperties<NonNullable<T[V]>> 
+        : T[V] }
+      :
+    T;
+
+  // mongoose allows Map<K, V> to be specified either as a Map or a Record<K, V>
+  type DeepMapAsObject<T> = T extends object | undefined
+    ? {
+      [K in keyof T]: T[K] extends Map<infer KM, infer KV> | undefined
+        // if it's a map, transform it into Map | Record
+        // only string keys allowed
+        ? KM extends string ? Map<KM, DeepMapAsObject<KV>> | Record<KM, DeepMapAsObject<KV>> | [KM, DeepMapAsObject<KV>][] : never
+        // otherwise if it's an object or undefined (for optional props), recursively go again
+        : T[K] extends object | undefined
+          ? DeepMapAsObject<T[K]>
+          : T[K]
+      }
+    : T;
+
   /* Helper type to extract a definition type from a Document type */
   type DocumentDefinition<T> = Omit<T, Exclude<keyof Document, '_id'>>;
+
+  type CreateDocumentDefinition<T> = DeepMapAsObject<DeepNonFunctionProperties<DocumentDefinition<T>>>;
 
   /**
    * Patched version of FilterQuery to also allow:
@@ -122,6 +168,17 @@ declare module "mongoose" {
   export type MongooseUpdateQuery<S> = mongodb.UpdateQuery<S> & mongodb.MatchKeysAndValues<S>;
 
   export type UpdateQuery<D> = MongooseUpdateQuery<DocumentDefinition<D>>;
+
+  // check whether a type consists just of {_id: T} and no other properties
+  type HasJustId<T> = keyof Omit<T, "_id"> extends never ? true : false;
+
+  // ensure that if an empty document type is passed, we allow any properties
+  // for backwards compatibility
+  export type CreateQuery<D> = HasJustId<CreateDocumentDefinition<D>> extends true 
+    ? { _id?: any } & Record<string, any> 
+    : D extends { _id: infer TId } 
+      ? mongodb.OptionalId<CreateDocumentDefinition<D> & { _id: TId }>
+      : CreateDocumentDefinition<D>
 
   /**
    * Gets and optionally overwrites the function used to pluralize collection names
@@ -3135,11 +3192,11 @@ declare module "mongoose" {
      * does new MyModel(doc).save() for every doc in docs.
      * Triggers the save() hook.
      */
-    create(docs: any[], callback?: (err: any, res: T[]) => void): Promise<T[]>;
-    create(docs: any[], options?: SaveOptions, callback?: (err: any, res: T[]) => void): Promise<T[]>;
-    create(...docs: any[]): Promise<T>;
-    create(...docsWithCallback: any[]): Promise<T>;
-
+    create<TCreate = T>(doc: CreateQuery<TCreate>, options?: SaveOptions): Promise<T>;
+    create<TCreate = T>(doc: CreateQuery<TCreate>, callback?: (err: any, res: T[]) => void): Promise<T>;
+    create<TCreate = T>(docs: CreateQuery<TCreate>[], callback?: (err: any, res: T[]) => void): Promise<T[]>;
+    create<TCreate = T>(docs: CreateQuery<TCreate>[], options?: SaveOptions, callback?: (err: any, res: T[]) => void): Promise<T[]>;
+    create<TCreate = T>(...docs: CreateQuery<TCreate>[]): Promise<T>;
     /**
      * Create the collection for this model. By default, if no indexes are specified, mongoose will not create the
      * collection for the model until any documents are created. Use this method to create the collection explicitly.
