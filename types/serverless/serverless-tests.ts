@@ -36,7 +36,7 @@ class CustomPlugin implements Plugin {
             'command:start': () => {},
         };
         this.variableResolvers = {
-            echo: async (source) => source.slice(5)
+            echo: async source => source.slice(5),
         };
     }
 }
