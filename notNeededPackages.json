@@ -5515,6 +5515,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "@wordpress/url",
+            "typingsPackageName": "wordpress__url",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.14.0"
+        },
+        {
             "libraryName": "wouter",
             "typingsPackageName": "wouter",
             "sourceRepoURL": "https://github.com/molefrog/wouter#readme",
