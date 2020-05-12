@@ -24,11 +24,18 @@ export function connect(
 export interface Client extends Resource {
     /**
      *  Creates the WebSocket connection, subscribing to the given apps.
+     *
+     *  @param apps - Name or array of names of the applications to be started.
+     *  @param subscribeAll - Subscribe to all Asterisk events (true/false).
+     *  @param callback - (optional) The callback to be called after applications have started.
      */
     start(apps: string | string[], subscribeAll: boolean, callback?: (err: Error, ...args: any[]) => void): void;
 
     /**
      *  Creates the WebSocket connection, subscribing to the given apps.
+     *
+     *  @param apps - Name or array of names of the applications to be started.
+     *  @param callback - (optional) The callback to be called after applications have started.
      */
     start(apps: string | string[], callback?: (err: Error, ...args: any[]) => void): void;
 
@@ -254,8 +261,10 @@ export type AnyEventType =
 export interface Events {
     /**
      * WebSocket connection for events.
+     *
      * @param params.app - Applications to subscribe to.
-     * @param params.subscribeAll - (optional) Subscribe to all Asterisk events. If provided, the applications listed will be subscribed to all events, effectively disabling the application specific subscriptions. Default is false.
+     * @param params.subscribeAll - (optional) Subscribe to all Asterisk events. If provided, the applications listed will be subscribed to all events, effectively disabling the application
+     * specific subscriptions. Default is false.
      */
     eventWebsocket(
         params: { app: string | string[]; subscribeAll?: boolean },
@@ -264,13 +273,16 @@ export interface Events {
 
     /**
      * WebSocket connection for events.
+     *
      * @param params.app - Applications to subscribe to.
-     * @param params.subscribeAll - (optional) Subscribe to all Asterisk events. If provided, the applications listed will be subscribed to all events, effectively disabling the application specific subscriptions. Default is false.
+     * @param params.subscribeAll - (optional) Subscribe to all Asterisk events. If provided, the applications listed will be subscribed to all events, effectively disabling the application
+     * specific subscriptions. Default is false.
      */
     eventWebsocket(params: { app: string | string[]; subscribeAll?: boolean }): Promise<Message>;
 
     /**
      * Generate a user event.
+     *
      * @param params.eventName - Event name.
      * @param params.application - The name of the application that will receive this event.
      * @param params.source - (optional) URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}/{resource}, deviceState:{deviceName}.
@@ -283,6 +295,7 @@ export interface Events {
 
     /**
      * Generate a user event.
+     *
      * @param params.eventName - Event name.
      * @param params.application - The name of the application that will receive this event.
      * @param params.source - (optional) URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}/{resource}, deviceState:{deviceName}.
@@ -948,7 +961,8 @@ export interface Resource {
     on(event: ApplicationMoveFailedEventType, callback: (event: ApplicationMoveFailed, channel: Channel) => void): void;
 
     /**
-     * Notification that another WebSocket has taken over for an application. An application may only be subscribed to by a single WebSocket at a time. If multiple WebSockets attempt to subscribe to the same application, the newer WebSocket wins, and the older one receives this event.
+     * Notification that another WebSocket has taken over for an application. An application may only be subscribed to by a single WebSocket at a time. If multiple WebSockets attempt to subscribe
+     * to the same application, the newer WebSocket wins, and the older one receives this event.
      */
     on(event: ApplicationReplacedEventType, callback: (event: Event) => void): void;
 
@@ -1199,7 +1213,8 @@ export interface Resource {
     ): void;
 
     /**
-     * Notification that another WebSocket has taken over for an application. An application may only be subscribed to by a single WebSocket at a time. If multiple WebSockets attempt to subscribe to the same application, the newer WebSocket wins, and the older one receives this event.
+     * Notification that another WebSocket has taken over for an application. An application may only be subscribed to by a single WebSocket at a time. If multiple WebSockets attempt to subscribe
+     * to the same application, the newer WebSocket wins, and the older one receives this event.
      */
     once(event: ApplicationReplacedEventType, callback: (event: Event) => void): void;
 
@@ -1462,7 +1477,8 @@ export interface Resource {
     ): void;
 
     /**
-     * Notification that another WebSocket has taken over for an application. An application may only be subscribed to by a single WebSocket at a time. If multiple WebSockets attempt to subscribe to the same application, the newer WebSocket wins, and the older one receives this event.
+     * Notification that another WebSocket has taken over for an application. An application may only be subscribed to by a single WebSocket at a time. If multiple WebSockets attempt to subscribe
+     * to the same application, the newer WebSocket wins, and the older one receives this event.
      */
     addListener(event: ApplicationReplacedEventType, callback: (event: Event) => void): void;
 
@@ -1685,12 +1701,14 @@ export interface Applications {
 
     /**
      * Get details of an application.
+     *
      * @param params.applicationName - Applications name.
      */
     get(params: { applicationName: string }, callback: (err: Error, application: Application) => void): void;
 
     /**
      * Get details of an application.
+     *
      * @param params.applicationName - Applications name.
      */
     get(params: { applicationName: string }): Promise<Application>;
@@ -1698,6 +1716,7 @@ export interface Applications {
     /**
      * Subscribe an application to a event source.
      * Returns the state of the application after the subscriptions have changed.
+     *
      * @param params.applicationName - Applications name.
      * @param params.eventSource - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}[/{resource}], deviceState:{deviceName}.
      */
@@ -1709,6 +1728,7 @@ export interface Applications {
     /**
      * Subscribe an application to a event source.
      * Returns the state of the application after the subscriptions have changed.
+     *
      * @param params.applicationName - Applications name.
      * @param params.eventSource - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}[/{resource}], deviceState:{deviceName}.
      */
@@ -1717,6 +1737,7 @@ export interface Applications {
     /**
      * Unsubscribe an application from an event source.
      * Returns the state of the application after the subscriptions have changed.
+     *
      * @param params.applicationName - Applications name.
      * @param params.eventSource - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}[/{resource}], deviceState:{deviceName}.
      */
@@ -1728,6 +1749,7 @@ export interface Applications {
     /**
      * Unsubscribe an application from an event source.
      * Returns the state of the application after the subscriptions have changed.
+     *
      * @param params.applicationName - Applications name.
      * @param params.eventSource - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}[/{resource}], deviceState:{deviceName}.
      */
@@ -1735,7 +1757,16 @@ export interface Applications {
 
     /**
      * Filter application events types.
-     * Allowed and/or disallowed event type filtering can be done. The body (parameter) should specify a JSON key/value object that describes the type of event filtering needed. One, or both of the following keys can be designated: "allowed" - Specifies an allowed list of event types "disallowed" - Specifies a disallowed list of event types Further, each of those keys value should be a JSON array that holds zero, or more JSON key/value objects. Each of these objects must contain the following key with an associated value: "type" - The type name of the event to filter The value must be the string name (case sensitive) of the event type that needs filtering. For example: { "allowed": [ { "type": "StasisStart" }, { "type": "StasisEnd" } ] } As this specifies only an allowed list, then only those two event type messages are sent to the application. No other event messages are sent. The following rules apply: * If the body is empty, both the allowed and disallowed filters are set empty. * If both list types are given then both are set to their respective values (note, specifying an empty array for a given type sets that type to empty). * If only one list type is given then only that type is set. The other type is not updated. * An empty "allowed" list means all events are allowed. * An empty "disallowed" list means no events are disallowed. * Disallowed events take precedence over allowed events if the event type is specified in both lists.
+     * Allowed and/or disallowed event type filtering can be done. The body (parameter) should specify a JSON key/value object that describes the type of event filtering needed. One, or
+     * both of the following keys can be designated: "allowed" - Specifies an allowed list of event types "disallowed" - Specifies a disallowed list of event types Further, each of those
+     * keys value should be a JSON array that holds zero, or more JSON key/value objects. Each of these objects must contain the following key with an associated value: "type" - The
+     * type name of the event to filter The value must be the string name (case sensitive) of the event type that needs filtering. For example: { "allowed": [ { "type": "StasisStart" },
+     * { "type": "StasisEnd" } ] } As this specifies only an allowed list, then only those two event type messages are sent to the application. No other event messages are sent. The following
+     * rules apply: * If the body is empty, both the allowed and disallowed filters are set empty. * If both list types are given then both are set to their respective values (note,
+     * specifying an empty array for a given type sets that type to empty). * If only one list type is given then only that type is set. The other type is not updated. * An empty "allowed"
+     * list means all events are allowed. * An empty "disallowed" list means no events are disallowed. * Disallowed events take precedence over allowed events if the event type
+     * is specified in both lists.
+     *
      * @param params.applicationName - Applications name.
      * @param params.filter - (optional) Specify which event types to allow/disallow.
      */
@@ -1746,7 +1777,16 @@ export interface Applications {
 
     /**
      * Filter application events types.
-     * Allowed and/or disallowed event type filtering can be done. The body (parameter) should specify a JSON key/value object that describes the type of event filtering needed. One, or both of the following keys can be designated: "allowed" - Specifies an allowed list of event types "disallowed" - Specifies a disallowed list of event types Further, each of those keys value should be a JSON array that holds zero, or more JSON key/value objects. Each of these objects must contain the following key with an associated value: "type" - The type name of the event to filter The value must be the string name (case sensitive) of the event type that needs filtering. For example: { "allowed": [ { "type": "StasisStart" }, { "type": "StasisEnd" } ] } As this specifies only an allowed list, then only those two event type messages are sent to the application. No other event messages are sent. The following rules apply: * If the body is empty, both the allowed and disallowed filters are set empty. * If both list types are given then both are set to their respective values (note, specifying an empty array for a given type sets that type to empty). * If only one list type is given then only that type is set. The other type is not updated. * An empty "allowed" list means all events are allowed. * An empty "disallowed" list means no events are disallowed. * Disallowed events take precedence over allowed events if the event type is specified in both lists.
+     * Allowed and/or disallowed event type filtering can be done. The body (parameter) should specify a JSON key/value object that describes the type of event filtering needed. One, or
+     * both of the following keys can be designated: "allowed" - Specifies an allowed list of event types "disallowed" - Specifies a disallowed list of event types Further, each of those
+     * keys value should be a JSON array that holds zero, or more JSON key/value objects. Each of these objects must contain the following key with an associated value: "type" - The
+     * type name of the event to filter The value must be the string name (case sensitive) of the event type that needs filtering. For example: { "allowed": [ { "type": "StasisStart" },
+     * { "type": "StasisEnd" } ] } As this specifies only an allowed list, then only those two event type messages are sent to the application. No other event messages are sent. The following
+     * rules apply: * If the body is empty, both the allowed and disallowed filters are set empty. * If both list types are given then both are set to their respective values (note,
+     * specifying an empty array for a given type sets that type to empty). * If only one list type is given then only that type is set. The other type is not updated. * An empty "allowed"
+     * list means all events are allowed. * An empty "disallowed" list means no events are disallowed. * Disallowed events take precedence over allowed events if the event type
+     * is specified in both lists.
+     *
      * @param params.applicationName - Applications name.
      * @param params.filter - (optional) Specify which event types to allow/disallow.
      */
@@ -1811,6 +1851,7 @@ export interface Application extends Resource {
     /**
      * Subscribe an application to a event source.
      * Returns the state of the application after the subscriptions have changed.
+     *
      * @param params.eventSource - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}[/{resource}], deviceState:{deviceName}.
      */
     subscribe(
@@ -1821,6 +1862,7 @@ export interface Application extends Resource {
     /**
      * Subscribe an application to a event source.
      * Returns the state of the application after the subscriptions have changed.
+     *
      * @param params.eventSource - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}[/{resource}], deviceState:{deviceName}.
      */
     subscribe(params: { eventSource: string | string[] }): Promise<Application>;
@@ -1828,6 +1870,7 @@ export interface Application extends Resource {
     /**
      * Unsubscribe an application from an event source.
      * Returns the state of the application after the subscriptions have changed.
+     *
      * @param params.eventSource - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}[/{resource}], deviceState:{deviceName}.
      */
     unsubscribe(
@@ -1838,26 +1881,53 @@ export interface Application extends Resource {
     /**
      * Unsubscribe an application from an event source.
      * Returns the state of the application after the subscriptions have changed.
+     *
      * @param params.eventSource - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}[/{resource}], deviceState:{deviceName}.
      */
     unsubscribe(params: { eventSource: string | string[] }): Promise<Application>;
 
     /**
      * Filter application events types.
-     * Allowed and/or disallowed event type filtering can be done. The body (parameter) should specify a JSON key/value object that describes the type of event filtering needed. One, or both of the following keys can be designated: "allowed" - Specifies an allowed list of event types "disallowed" - Specifies a disallowed list of event types Further, each of those keys value should be a JSON array that holds zero, or more JSON key/value objects. Each of these objects must contain the following key with an associated value: "type" - The type name of the event to filter The value must be the string name (case sensitive) of the event type that needs filtering. For example: { "allowed": [ { "type": "StasisStart" }, { "type": "StasisEnd" } ] } As this specifies only an allowed list, then only those two event type messages are sent to the application. No other event messages are sent. The following rules apply: * If the body is empty, both the allowed and disallowed filters are set empty. * If both list types are given then both are set to their respective values (note, specifying an empty array for a given type sets that type to empty). * If only one list type is given then only that type is set. The other type is not updated. * An empty "allowed" list means all events are allowed. * An empty "disallowed" list means no events are disallowed. * Disallowed events take precedence over allowed events if the event type is specified in both lists.
+     * Allowed and/or disallowed event type filtering can be done. The body (parameter) should specify a JSON key/value object that describes the type of event filtering needed. One, or
+     * both of the following keys can be designated: "allowed" - Specifies an allowed list of event types "disallowed" - Specifies a disallowed list of event types Further, each of those
+     * keys value should be a JSON array that holds zero, or more JSON key/value objects. Each of these objects must contain the following key with an associated value: "type" - The
+     * type name of the event to filter The value must be the string name (case sensitive) of the event type that needs filtering. For example: { "allowed": [ { "type": "StasisStart" },
+     * { "type": "StasisEnd" } ] } As this specifies only an allowed list, then only those two event type messages are sent to the application. No other event messages are sent. The following
+     * rules apply: * If the body is empty, both the allowed and disallowed filters are set empty. * If both list types are given then both are set to their respective values (note,
+     * specifying an empty array for a given type sets that type to empty). * If only one list type is given then only that type is set. The other type is not updated. * An empty "allowed"
+     * list means all events are allowed. * An empty "disallowed" list means no events are disallowed. * Disallowed events take precedence over allowed events if the event type
+     * is specified in both lists.
+     *
      * @param params.filter - (optional) Specify which event types to allow/disallow.
      */
     filter(params: { filter?: IndexableObject }, callback: (err: Error, application: Application) => void): void;
 
     /**
      * Filter application events types.
-     * Allowed and/or disallowed event type filtering can be done. The body (parameter) should specify a JSON key/value object that describes the type of event filtering needed. One, or both of the following keys can be designated: "allowed" - Specifies an allowed list of event types "disallowed" - Specifies a disallowed list of event types Further, each of those keys value should be a JSON array that holds zero, or more JSON key/value objects. Each of these objects must contain the following key with an associated value: "type" - The type name of the event to filter The value must be the string name (case sensitive) of the event type that needs filtering. For example: { "allowed": [ { "type": "StasisStart" }, { "type": "StasisEnd" } ] } As this specifies only an allowed list, then only those two event type messages are sent to the application. No other event messages are sent. The following rules apply: * If the body is empty, both the allowed and disallowed filters are set empty. * If both list types are given then both are set to their respective values (note, specifying an empty array for a given type sets that type to empty). * If only one list type is given then only that type is set. The other type is not updated. * An empty "allowed" list means all events are allowed. * An empty "disallowed" list means no events are disallowed. * Disallowed events take precedence over allowed events if the event type is specified in both lists.
+     * Allowed and/or disallowed event type filtering can be done. The body (parameter) should specify a JSON key/value object that describes the type of event filtering needed. One, or
+     * both of the following keys can be designated: "allowed" - Specifies an allowed list of event types "disallowed" - Specifies a disallowed list of event types Further, each of those
+     * keys value should be a JSON array that holds zero, or more JSON key/value objects. Each of these objects must contain the following key with an associated value: "type" - The
+     * type name of the event to filter The value must be the string name (case sensitive) of the event type that needs filtering. For example: { "allowed": [ { "type": "StasisStart" },
+     * { "type": "StasisEnd" } ] } As this specifies only an allowed list, then only those two event type messages are sent to the application. No other event messages are sent. The following
+     * rules apply: * If the body is empty, both the allowed and disallowed filters are set empty. * If both list types are given then both are set to their respective values (note,
+     * specifying an empty array for a given type sets that type to empty). * If only one list type is given then only that type is set. The other type is not updated. * An empty "allowed"
+     * list means all events are allowed. * An empty "disallowed" list means no events are disallowed. * Disallowed events take precedence over allowed events if the event type
+     * is specified in both lists.
      */
     filter(callback: (err: Error, application: Application) => void): void;
 
     /**
      * Filter application events types.
-     * Allowed and/or disallowed event type filtering can be done. The body (parameter) should specify a JSON key/value object that describes the type of event filtering needed. One, or both of the following keys can be designated: "allowed" - Specifies an allowed list of event types "disallowed" - Specifies a disallowed list of event types Further, each of those keys value should be a JSON array that holds zero, or more JSON key/value objects. Each of these objects must contain the following key with an associated value: "type" - The type name of the event to filter The value must be the string name (case sensitive) of the event type that needs filtering. For example: { "allowed": [ { "type": "StasisStart" }, { "type": "StasisEnd" } ] } As this specifies only an allowed list, then only those two event type messages are sent to the application. No other event messages are sent. The following rules apply: * If the body is empty, both the allowed and disallowed filters are set empty. * If both list types are given then both are set to their respective values (note, specifying an empty array for a given type sets that type to empty). * If only one list type is given then only that type is set. The other type is not updated. * An empty "allowed" list means all events are allowed. * An empty "disallowed" list means no events are disallowed. * Disallowed events take precedence over allowed events if the event type is specified in both lists.
+     * Allowed and/or disallowed event type filtering can be done. The body (parameter) should specify a JSON key/value object that describes the type of event filtering needed. One, or
+     * both of the following keys can be designated: "allowed" - Specifies an allowed list of event types "disallowed" - Specifies a disallowed list of event types Further, each of those
+     * keys value should be a JSON array that holds zero, or more JSON key/value objects. Each of these objects must contain the following key with an associated value: "type" - The
+     * type name of the event to filter The value must be the string name (case sensitive) of the event type that needs filtering. For example: { "allowed": [ { "type": "StasisStart" },
+     * { "type": "StasisEnd" } ] } As this specifies only an allowed list, then only those two event type messages are sent to the application. No other event messages are sent. The following
+     * rules apply: * If the body is empty, both the allowed and disallowed filters are set empty. * If both list types are given then both are set to their respective values (note,
+     * specifying an empty array for a given type sets that type to empty). * If only one list type is given then only that type is set. The other type is not updated. * An empty "allowed"
+     * list means all events are allowed. * An empty "disallowed" list means no events are disallowed. * Disallowed events take precedence over allowed events if the event type
+     * is specified in both lists.
+     *
      * @param params.filter - (optional) Specify which event types to allow/disallow.
      */
     filter(params?: { filter?: IndexableObject }): Promise<Application>;
@@ -1865,6 +1935,7 @@ export interface Application extends Resource {
 export interface Asterisk {
     /**
      * Retrieve a dynamic configuration object.
+     *
      * @param params.configClass - The configuration class containing dynamic configuration objects.
      * @param params.objectType - The type of configuration object to retrieve.
      * @param params.id - The unique identifier of the object to retrieve.
@@ -1876,6 +1947,7 @@ export interface Asterisk {
 
     /**
      * Retrieve a dynamic configuration object.
+     *
      * @param params.configClass - The configuration class containing dynamic configuration objects.
      * @param params.objectType - The type of configuration object to retrieve.
      * @param params.id - The unique identifier of the object to retrieve.
@@ -1884,10 +1956,12 @@ export interface Asterisk {
 
     /**
      * Create or update a dynamic configuration object.
+     *
      * @param params.configClass - The configuration class containing dynamic configuration objects.
      * @param params.objectType - The type of configuration object to create or update.
      * @param params.id - The unique identifier of the object to create or update.
-     * @param params.fields - (optional) The body object should have a value that is a list of ConfigTuples, which provide the fields to update. Ex. [ { "attribute": "directmedia", "value": "false" } ].
+     * @param params.fields - (optional) The body object should have a value that is a list of ConfigTuples, which provide the fields to update. Ex. [ { "attribute": "directmedia", "value":
+     * "false" } ].
      */
     updateObject(
         params: { configClass: string; objectType: string; id: string; fields?: Containers },
@@ -1896,10 +1970,12 @@ export interface Asterisk {
 
     /**
      * Create or update a dynamic configuration object.
+     *
      * @param params.configClass - The configuration class containing dynamic configuration objects.
      * @param params.objectType - The type of configuration object to create or update.
      * @param params.id - The unique identifier of the object to create or update.
-     * @param params.fields - (optional) The body object should have a value that is a list of ConfigTuples, which provide the fields to update. Ex. [ { "attribute": "directmedia", "value": "false" } ].
+     * @param params.fields - (optional) The body object should have a value that is a list of ConfigTuples, which provide the fields to update. Ex. [ { "attribute": "directmedia", "value":
+     * "false" } ].
      */
     updateObject(params: {
         configClass: string;
@@ -1910,6 +1986,7 @@ export interface Asterisk {
 
     /**
      * Delete a dynamic configuration object.
+     *
      * @param params.configClass - The configuration class containing dynamic configuration objects.
      * @param params.objectType - The type of configuration object to delete.
      * @param params.id - The unique identifier of the object to delete.
@@ -1918,6 +1995,7 @@ export interface Asterisk {
 
     /**
      * Delete a dynamic configuration object.
+     *
      * @param params.configClass - The configuration class containing dynamic configuration objects.
      * @param params.objectType - The type of configuration object to delete.
      * @param params.id - The unique identifier of the object to delete.
@@ -1926,6 +2004,7 @@ export interface Asterisk {
 
     /**
      * Gets Asterisk system information.
+     *
      * @param params.only - (optional) Filter information returned.
      */
     getInfo(params: { only?: string | string[] }, callback: (err: Error, asteriskinfo: AsteriskInfo) => void): void;
@@ -1937,6 +2016,7 @@ export interface Asterisk {
 
     /**
      * Gets Asterisk system information.
+     *
      * @param params.only - (optional) Filter information returned.
      */
     getInfo(params?: { only?: string | string[] }): Promise<AsteriskInfo>;
@@ -1963,48 +2043,56 @@ export interface Asterisk {
 
     /**
      * Get Asterisk module information.
+     *
      * @param params.moduleName - Modules name.
      */
     getModule(params: { moduleName: string }, callback: (err: Error, module: Module) => void): void;
 
     /**
      * Get Asterisk module information.
+     *
      * @param params.moduleName - Modules name.
      */
     getModule(params: { moduleName: string }): Promise<Module>;
 
     /**
      * Load an Asterisk module.
+     *
      * @param params.moduleName - Modules name.
      */
     loadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
 
     /**
      * Load an Asterisk module.
+     *
      * @param params.moduleName - Modules name.
      */
     loadModule(params: { moduleName: string }): Promise<void>;
 
     /**
      * Unload an Asterisk module.
+     *
      * @param params.moduleName - Modules name.
      */
     unloadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
 
     /**
      * Unload an Asterisk module.
+     *
      * @param params.moduleName - Modules name.
      */
     unloadModule(params: { moduleName: string }): Promise<void>;
 
     /**
      * Reload an Asterisk module.
+     *
      * @param params.moduleName - Modules name.
      */
     reloadModule(params: { moduleName: string }, callback: (err: Error) => void): void;
 
     /**
      * Reload an Asterisk module.
+     *
      * @param params.moduleName - Modules name.
      */
     reloadModule(params: { moduleName: string }): Promise<void>;
@@ -2021,6 +2109,7 @@ export interface Asterisk {
 
     /**
      * Adds a log channel.
+     *
      * @param params.logChannelName - The log channel to add.
      * @param params.configuration - levels of the log channel.
      */
@@ -2028,6 +2117,7 @@ export interface Asterisk {
 
     /**
      * Adds a log channel.
+     *
      * @param params.logChannelName - The log channel to add.
      * @param params.configuration - levels of the log channel.
      */
@@ -2035,42 +2125,49 @@ export interface Asterisk {
 
     /**
      * Deletes a log channel.
+     *
      * @param params.logChannelName - Log channels name.
      */
     deleteLog(params: { logChannelName: string }, callback: (err: Error) => void): void;
 
     /**
      * Deletes a log channel.
+     *
      * @param params.logChannelName - Log channels name.
      */
     deleteLog(params: { logChannelName: string }): Promise<void>;
 
     /**
      * Rotates a log channel.
+     *
      * @param params.logChannelName - Log channels name.
      */
     rotateLog(params: { logChannelName: string }, callback: (err: Error) => void): void;
 
     /**
      * Rotates a log channel.
+     *
      * @param params.logChannelName - Log channels name.
      */
     rotateLog(params: { logChannelName: string }): Promise<void>;
 
     /**
      * Get the value of a global variable.
+     *
      * @param params.variable - The variable to get.
      */
     getGlobalVar(params: { variable: string }, callback: (err: Error, variable: Variable) => void): void;
 
     /**
      * Get the value of a global variable.
+     *
      * @param params.variable - The variable to get.
      */
     getGlobalVar(params: { variable: string }): Promise<Variable>;
 
     /**
      * Set the value of a global variable.
+     *
      * @param params.variable - The variable to set.
      * @param params.value - (optional) The value to set the variable to.
      */
@@ -2078,6 +2175,7 @@ export interface Asterisk {
 
     /**
      * Set the value of a global variable.
+     *
      * @param params.variable - The variable to set.
      * @param params.value - (optional) The value to set the variable to.
      */
@@ -2293,6 +2391,7 @@ export interface Bridges {
     /**
      * Create a new bridge.
      * This bridge persists until it has been shut down, or Asterisk has been shut down.
+     *
      * @param params.type - (optional) Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu).
      * @param params.bridgeId - (optional) Unique ID to give to the bridge being created.
      * @param params.name - (optional) Name to give to the bridge being created.
@@ -2311,6 +2410,7 @@ export interface Bridges {
     /**
      * Create a new bridge.
      * This bridge persists until it has been shut down, or Asterisk has been shut down.
+     *
      * @param params.type - (optional) Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu).
      * @param params.bridgeId - (optional) Unique ID to give to the bridge being created.
      * @param params.name - (optional) Name to give to the bridge being created.
@@ -2320,6 +2420,7 @@ export interface Bridges {
     /**
      * Create a new bridge or updates an existing one.
      * This bridge persists until it has been shut down, or Asterisk has been shut down.
+     *
      * @param params.type - (optional) Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu) to set.
      * @param params.bridgeId - Unique ID to give to the bridge being created.
      * @param params.name - (optional) Set the name of the bridge.
@@ -2332,6 +2433,7 @@ export interface Bridges {
     /**
      * Create a new bridge or updates an existing one.
      * This bridge persists until it has been shut down, or Asterisk has been shut down.
+     *
      * @param params.type - (optional) Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu) to set.
      * @param params.bridgeId - Unique ID to give to the bridge being created.
      * @param params.name - (optional) Set the name of the bridge.
@@ -2340,12 +2442,14 @@ export interface Bridges {
 
     /**
      * Get bridge details.
+     *
      * @param params.bridgeId - Bridges id.
      */
     get(params: { bridgeId: string }, callback: (err: Error, bridge: Bridge) => void): void;
 
     /**
      * Get bridge details.
+     *
      * @param params.bridgeId - Bridges id.
      */
     get(params: { bridgeId: string }): Promise<Bridge>;
@@ -2353,6 +2457,7 @@ export interface Bridges {
     /**
      * Shut down a bridge.
      * If any channels are in this bridge, they will be removed and resume whatever they were doing beforehand.
+     *
      * @param params.bridgeId - Bridges id.
      */
     destroy(params: { bridgeId: string }, callback: (err: Error) => void): void;
@@ -2360,12 +2465,14 @@ export interface Bridges {
     /**
      * Shut down a bridge.
      * If any channels are in this bridge, they will be removed and resume whatever they were doing beforehand.
+     *
      * @param params.bridgeId - Bridges id.
      */
     destroy(params: { bridgeId: string }): Promise<void>;
 
     /**
      * Add a channel to a bridge.
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.channel - Ids of channels to add to bridge.
      * @param params.role - (optional) Channels role in the bridge.
@@ -2379,6 +2486,7 @@ export interface Bridges {
 
     /**
      * Add a channel to a bridge.
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.channel - Ids of channels to add to bridge.
      * @param params.role - (optional) Channels role in the bridge.
@@ -2395,6 +2503,7 @@ export interface Bridges {
 
     /**
      * Remove a channel from a bridge.
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.channel - Ids of channels to remove from bridge.
      */
@@ -2402,6 +2511,7 @@ export interface Bridges {
 
     /**
      * Remove a channel from a bridge.
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.channel - Ids of channels to remove from bridge.
      */
@@ -2409,6 +2519,7 @@ export interface Bridges {
 
     /**
      * Set a channel as the video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants.
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.channelId - Channels id.
      */
@@ -2416,25 +2527,31 @@ export interface Bridges {
 
     /**
      * Set a channel as the video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants.
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.channelId - Channels id.
      */
     setVideoSource(params: { bridgeId: string; channelId: string }): Promise<void>;
 
     /**
-     * Removes any explicit video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants. When no explicit video source is set, talk detection will be used to determine the active video stream.
+     * Removes any explicit video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants. When no explicit video source is set, talk
+     * detection will be used to determine the active video stream.
+     *
      * @param params.bridgeId - Bridges id.
      */
     clearVideoSource(params: { bridgeId: string }, callback: (err: Error) => void): void;
 
     /**
-     * Removes any explicit video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants. When no explicit video source is set, talk detection will be used to determine the active video stream.
+     * Removes any explicit video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants. When no explicit video source is set, talk
+     * detection will be used to determine the active video stream.
+     *
      * @param params.bridgeId - Bridges id.
      */
     clearVideoSource(params: { bridgeId: string }): Promise<void>;
 
     /**
      * Play music on hold to a bridge or change the MOH class that is playing.
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.mohClass - (optional) Channels id.
      */
@@ -2442,6 +2559,7 @@ export interface Bridges {
 
     /**
      * Play music on hold to a bridge or change the MOH class that is playing.
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.mohClass - (optional) Channels id.
      */
@@ -2450,6 +2568,7 @@ export interface Bridges {
     /**
      * Stop playing music on hold to a bridge.
      * This will only stop music on hold being played via POST bridges/{bridgeId}/moh.
+     *
      * @param params.bridgeId - Bridges id.
      */
     stopMoh(params: { bridgeId: string }, callback: (err: Error) => void): void;
@@ -2457,13 +2576,16 @@ export interface Bridges {
     /**
      * Stop playing music on hold to a bridge.
      * This will only stop music on hold being played via POST bridges/{bridgeId}/moh.
+     *
      * @param params.bridgeId - Bridges id.
      */
     stopMoh(params: { bridgeId: string }): Promise<void>;
 
     /**
      * Start playback of media on a bridge.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.media - Media URIs to play.
      * @param params.lang - (optional) For sounds, selects language for sound.
@@ -2485,7 +2607,9 @@ export interface Bridges {
 
     /**
      * Start playback of media on a bridge.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.media - Media URIs to play.
      * @param params.lang - (optional) For sounds, selects language for sound.
@@ -2504,7 +2628,9 @@ export interface Bridges {
 
     /**
      * Start playback of media on a bridge.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.playbackId - Playback ID.
      * @param params.media - Media URIs to play.
@@ -2526,7 +2652,9 @@ export interface Bridges {
 
     /**
      * Start playback of media on a bridge.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.playbackId - Playback ID.
      * @param params.media - Media URIs to play.
@@ -2546,6 +2674,7 @@ export interface Bridges {
     /**
      * Start a recording.
      * This records the mixed audio from all channels participating in this bridge.
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.name - Recordings filename.
      * @param params.format - Format to encode audio in.
@@ -2572,6 +2701,7 @@ export interface Bridges {
     /**
      * Start a recording.
      * This records the mixed audio from all channels participating in this bridge.
+     *
      * @param params.bridgeId - Bridges id.
      * @param params.name - Recordings filename.
      * @param params.format - Format to encode audio in.
@@ -2656,6 +2786,7 @@ export interface Bridge extends Resource {
     /**
      * Create a new bridge.
      * This bridge persists until it has been shut down, or Asterisk has been shut down.
+     *
      * @param params.type - (optional) Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu).
      * @param params.name - (optional) Name to give to the bridge being created.
      */
@@ -2670,6 +2801,7 @@ export interface Bridge extends Resource {
     /**
      * Create a new bridge.
      * This bridge persists until it has been shut down, or Asterisk has been shut down.
+     *
      * @param params.type - (optional) Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu).
      * @param params.name - (optional) Name to give to the bridge being created.
      */
@@ -2678,6 +2810,7 @@ export interface Bridge extends Resource {
     /**
      * Create a new bridge or updates an existing one.
      * This bridge persists until it has been shut down, or Asterisk has been shut down.
+     *
      * @param params.type - (optional) Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu) to set.
      * @param params.name - (optional) Set the name of the bridge.
      */
@@ -2692,6 +2825,7 @@ export interface Bridge extends Resource {
     /**
      * Create a new bridge or updates an existing one.
      * This bridge persists until it has been shut down, or Asterisk has been shut down.
+     *
      * @param params.type - (optional) Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu) to set.
      * @param params.name - (optional) Set the name of the bridge.
      */
@@ -2721,6 +2855,7 @@ export interface Bridge extends Resource {
 
     /**
      * Add a channel to a bridge.
+     *
      * @param params.channel - Ids of channels to add to bridge.
      * @param params.role - (optional) Channels role in the bridge.
      * @param params.absorbDTMF - (optional) Absorb DTMF coming from this channel, preventing it to pass through to the bridge.
@@ -2733,6 +2868,7 @@ export interface Bridge extends Resource {
 
     /**
      * Add a channel to a bridge.
+     *
      * @param params.channel - Ids of channels to add to bridge.
      * @param params.role - (optional) Channels role in the bridge.
      * @param params.absorbDTMF - (optional) Absorb DTMF coming from this channel, preventing it to pass through to the bridge.
@@ -2747,40 +2883,47 @@ export interface Bridge extends Resource {
 
     /**
      * Remove a channel from a bridge.
+     *
      * @param params.channel - Ids of channels to remove from bridge.
      */
     removeChannel(params: { channel: string | string[] }, callback: (err: Error) => void): void;
 
     /**
      * Remove a channel from a bridge.
+     *
      * @param params.channel - Ids of channels to remove from bridge.
      */
     removeChannel(params: { channel: string | string[] }): Promise<void>;
 
     /**
      * Set a channel as the video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants.
+     *
      * @param params.channelId - Channels id.
      */
     setVideoSource(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Set a channel as the video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants.
+     *
      * @param params.channelId - Channels id.
      */
     setVideoSource(params: { channelId: string }): Promise<void>;
 
     /**
-     * Removes any explicit video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants. When no explicit video source is set, talk detection will be used to determine the active video stream.
+     * Removes any explicit video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants. When no explicit video source is set, talk
+     * detection will be used to determine the active video stream.
      */
     clearVideoSource(callback: (err: Error) => void): void;
 
     /**
-     * Removes any explicit video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants. When no explicit video source is set, talk detection will be used to determine the active video stream.
+     * Removes any explicit video source in a multi-party mixing bridge. This operation has no effect on bridges with two or fewer participants. When no explicit video source is set, talk
+     * detection will be used to determine the active video stream.
      */
     clearVideoSource(): Promise<void>;
 
     /**
      * Play music on hold to a bridge or change the MOH class that is playing.
+     *
      * @param params.mohClass - (optional) Channels id.
      */
     startMoh(params: { mohClass?: string }, callback: (err: Error) => void): void;
@@ -2792,6 +2935,7 @@ export interface Bridge extends Resource {
 
     /**
      * Play music on hold to a bridge or change the MOH class that is playing.
+     *
      * @param params.mohClass - (optional) Channels id.
      */
     startMoh(params?: { mohClass?: string }): Promise<void>;
@@ -2810,7 +2954,9 @@ export interface Bridge extends Resource {
 
     /**
      * Start playback of media on a bridge.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.media - Media URIs to play.
      * @param params.lang - (optional) For sounds, selects language for sound.
      * @param params.offsetms - (optional) Number of milliseconds to skip before playing. Only applies to the first URI if multiple media URIs are specified.
@@ -2824,7 +2970,9 @@ export interface Bridge extends Resource {
 
     /**
      * Start playback of media on a bridge.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.media - Media URIs to play.
      * @param params.lang - (optional) For sounds, selects language for sound.
      * @param params.offsetms - (optional) Number of milliseconds to skip before playing. Only applies to the first URI if multiple media URIs are specified.
@@ -2841,7 +2989,9 @@ export interface Bridge extends Resource {
 
     /**
      * Start playback of media on a bridge.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.playbackId - Playback ID.
      * @param params.media - Media URIs to play.
      * @param params.lang - (optional) For sounds, selects language for sound.
@@ -2855,7 +3005,9 @@ export interface Bridge extends Resource {
 
     /**
      * Start playback of media on a bridge.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.playbackId - Playback ID.
      * @param params.media - Media URIs to play.
      * @param params.lang - (optional) For sounds, selects language for sound.
@@ -2873,6 +3025,7 @@ export interface Bridge extends Resource {
     /**
      * Start a recording.
      * This records the mixed audio from all channels participating in this bridge.
+     *
      * @param params.name - Recordings filename.
      * @param params.format - Format to encode audio in.
      * @param params.maxDurationSeconds - (optional) Maximum duration of the recording, in seconds. 0 for no limit.
@@ -2898,6 +3051,7 @@ export interface Bridge extends Resource {
     /**
      * Start a recording.
      * This records the mixed audio from all channels participating in this bridge.
+     *
      * @param params.name - Recordings filename.
      * @param params.format - Format to encode audio in.
      * @param params.maxDurationSeconds - (optional) Maximum duration of the recording, in seconds. 0 for no limit.
@@ -2932,17 +3086,21 @@ export interface Channels {
 
     /**
      * Create a new channel (originate).
-     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further events and updates.
+     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further
+     * events and updates.
+     *
      * @param params.endpoint - Endpoint to call.
      * @param params.extension - (optional) The extension to dial after the endpoint answers. Mutually exclusive with app.
      * @param params.context - (optional) The context to dial after the endpoint answers. If omitted, uses default. Mutually exclusive with app.
      * @param params.priority - (optional) The priority to dial after the endpoint answers. If omitted, uses 1. Mutually exclusive with app.
      * @param params.label - (optional) The label to dial after the endpoint answers. Will supersede priority if provided. Mutually exclusive with app.
-     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually exclusive with context, extension, priority, and label.
+     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually
+     * exclusive with context, extension, priority, and label.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app. Mutually exclusive with context, extension, priority, and label.
      * @param params.callerId - (optional) CallerID to use when dialing the endpoint or extension.
      * @param params.timeout - (optional) Timeout (in seconds) before giving up dialing, or -1 for no timeout.
-     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
+     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted
+     * as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
      * @param params.channelId - (optional) The unique id to assign the channel on creation.
      * @param params.otherChannelId - (optional) The unique id to assign the second channel when using local channels.
      * @param params.originator - (optional) The unique id of the channel which is originating this one.
@@ -2970,17 +3128,21 @@ export interface Channels {
 
     /**
      * Create a new channel (originate).
-     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further events and updates.
+     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further
+     * events and updates.
+     *
      * @param params.endpoint - Endpoint to call.
      * @param params.extension - (optional) The extension to dial after the endpoint answers. Mutually exclusive with app.
      * @param params.context - (optional) The context to dial after the endpoint answers. If omitted, uses default. Mutually exclusive with app.
      * @param params.priority - (optional) The priority to dial after the endpoint answers. If omitted, uses 1. Mutually exclusive with app.
      * @param params.label - (optional) The label to dial after the endpoint answers. Will supersede priority if provided. Mutually exclusive with app.
-     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually exclusive with context, extension, priority, and label.
+     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually
+     * exclusive with context, extension, priority, and label.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app. Mutually exclusive with context, extension, priority, and label.
      * @param params.callerId - (optional) CallerID to use when dialing the endpoint or extension.
      * @param params.timeout - (optional) Timeout (in seconds) before giving up dialing, or -1 for no timeout.
-     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
+     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted
+     * as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
      * @param params.channelId - (optional) The unique id to assign the channel on creation.
      * @param params.otherChannelId - (optional) The unique id to assign the second channel when using local channels.
      * @param params.originator - (optional) The unique id of the channel which is originating this one.
@@ -3005,6 +3167,7 @@ export interface Channels {
 
     /**
      * Create channel.
+     *
      * @param params.endpoint - Endpoint for channel communication.
      * @param params.app - Stasis Application to place channel into.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app. Mutually exclusive with context, extension, priority, and label.
@@ -3028,6 +3191,7 @@ export interface Channels {
 
     /**
      * Create channel.
+     *
      * @param params.endpoint - Endpoint for channel communication.
      * @param params.app - Stasis Application to place channel into.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app. Mutually exclusive with context, extension, priority, and label.
@@ -3048,30 +3212,36 @@ export interface Channels {
 
     /**
      * Channel details.
+     *
      * @param params.channelId - Channels id.
      */
     get(params: { channelId: string }, callback: (err: Error, channel: Channel) => void): void;
 
     /**
      * Channel details.
+     *
      * @param params.channelId - Channels id.
      */
     get(params: { channelId: string }): Promise<Channel>;
 
     /**
      * Create a new channel (originate with id).
-     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further events and updates.
+     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further
+     * events and updates.
+     *
      * @param params.channelId - The unique id to assign the channel on creation.
      * @param params.endpoint - Endpoint to call.
      * @param params.extension - (optional) The extension to dial after the endpoint answers. Mutually exclusive with app.
      * @param params.context - (optional) The context to dial after the endpoint answers. If omitted, uses default. Mutually exclusive with app.
      * @param params.priority - (optional) The priority to dial after the endpoint answers. If omitted, uses 1. Mutually exclusive with app.
      * @param params.label - (optional) The label to dial after the endpoint answers. Will supersede priority if provided. Mutually exclusive with app.
-     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually exclusive with context, extension, priority, and label.
+     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually
+     * exclusive with context, extension, priority, and label.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app. Mutually exclusive with context, extension, priority, and label.
      * @param params.callerId - (optional) CallerID to use when dialing the endpoint or extension.
      * @param params.timeout - (optional) Timeout (in seconds) before giving up dialing, or -1 for no timeout.
-     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
+     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted
+     * as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
      * @param params.otherChannelId - (optional) The unique id to assign the second channel when using local channels.
      * @param params.originator - (optional) The unique id of the channel which is originating this one.
      * @param params.formats - (optional) The format name capability list to use if originator is not specified. Ex. "ulaw,slin16". Format names can be found with "core show codecs".
@@ -3098,18 +3268,22 @@ export interface Channels {
 
     /**
      * Create a new channel (originate with id).
-     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further events and updates.
+     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further
+     * events and updates.
+     *
      * @param params.channelId - The unique id to assign the channel on creation.
      * @param params.endpoint - Endpoint to call.
      * @param params.extension - (optional) The extension to dial after the endpoint answers. Mutually exclusive with app.
      * @param params.context - (optional) The context to dial after the endpoint answers. If omitted, uses default. Mutually exclusive with app.
      * @param params.priority - (optional) The priority to dial after the endpoint answers. If omitted, uses 1. Mutually exclusive with app.
      * @param params.label - (optional) The label to dial after the endpoint answers. Will supersede priority if provided. Mutually exclusive with app.
-     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually exclusive with context, extension, priority, and label.
+     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually
+     * exclusive with context, extension, priority, and label.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app. Mutually exclusive with context, extension, priority, and label.
      * @param params.callerId - (optional) CallerID to use when dialing the endpoint or extension.
      * @param params.timeout - (optional) Timeout (in seconds) before giving up dialing, or -1 for no timeout.
-     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
+     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted
+     * as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
      * @param params.otherChannelId - (optional) The unique id to assign the second channel when using local channels.
      * @param params.originator - (optional) The unique id of the channel which is originating this one.
      * @param params.formats - (optional) The format name capability list to use if originator is not specified. Ex. "ulaw,slin16". Format names can be found with "core show codecs".
@@ -3133,6 +3307,7 @@ export interface Channels {
 
     /**
      * Delete (i.e. hangup) a channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.reason - (optional) Reason for hanging up the channel.
      */
@@ -3140,6 +3315,7 @@ export interface Channels {
 
     /**
      * Delete (i.e. hangup) a channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.reason - (optional) Reason for hanging up the channel.
      */
@@ -3147,6 +3323,7 @@ export interface Channels {
 
     /**
      * Exit application; continue execution in the dialplan.
+     *
      * @param params.channelId - Channels id.
      * @param params.context - (optional) The context to continue to.
      * @param params.extension - (optional) The extension to continue to.
@@ -3160,6 +3337,7 @@ export interface Channels {
 
     /**
      * Exit application; continue execution in the dialplan.
+     *
      * @param params.channelId - Channels id.
      * @param params.context - (optional) The context to continue to.
      * @param params.extension - (optional) The extension to continue to.
@@ -3176,6 +3354,7 @@ export interface Channels {
 
     /**
      * Move the channel from one Stasis application to another.
+     *
      * @param params.channelId - Channels id.
      * @param params.app - The channel will be passed to this Stasis application.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app.
@@ -3184,6 +3363,7 @@ export interface Channels {
 
     /**
      * Move the channel from one Stasis application to another.
+     *
      * @param params.channelId - Channels id.
      * @param params.app - The channel will be passed to this Stasis application.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app.
@@ -3192,6 +3372,7 @@ export interface Channels {
 
     /**
      * Redirect the channel to a different location.
+     *
      * @param params.channelId - Channels id.
      * @param params.endpoint - The endpoint to redirect the channel to.
      */
@@ -3199,6 +3380,7 @@ export interface Channels {
 
     /**
      * Redirect the channel to a different location.
+     *
      * @param params.channelId - Channels id.
      * @param params.endpoint - The endpoint to redirect the channel to.
      */
@@ -3206,42 +3388,49 @@ export interface Channels {
 
     /**
      * Answer a channel.
+     *
      * @param params.channelId - Channels id.
      */
     answer(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Answer a channel.
+     *
      * @param params.channelId - Channels id.
      */
     answer(params: { channelId: string }): Promise<void>;
 
     /**
      * Indicate ringing to a channel.
+     *
      * @param params.channelId - Channels id.
      */
     ring(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Indicate ringing to a channel.
+     *
      * @param params.channelId - Channels id.
      */
     ring(params: { channelId: string }): Promise<void>;
 
     /**
      * Stop ringing indication on a channel if locally generated.
+     *
      * @param params.channelId - Channels id.
      */
     ringStop(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop ringing indication on a channel if locally generated.
+     *
      * @param params.channelId - Channels id.
      */
     ringStop(params: { channelId: string }): Promise<void>;
 
     /**
      * Send provided DTMF to a given channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.dtmf - (optional) DTMF To send.
      * @param params.before - (optional) Amount of time to wait before DTMF digits (specified in milliseconds) start.
@@ -3263,6 +3452,7 @@ export interface Channels {
 
     /**
      * Send provided DTMF to a given channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.dtmf - (optional) DTMF To send.
      * @param params.before - (optional) Amount of time to wait before DTMF digits (specified in milliseconds) start.
@@ -3281,6 +3471,7 @@ export interface Channels {
 
     /**
      * Mute a channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.direction - (optional) Direction in which to mute audio.
      */
@@ -3288,6 +3479,7 @@ export interface Channels {
 
     /**
      * Mute a channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.direction - (optional) Direction in which to mute audio.
      */
@@ -3295,6 +3487,7 @@ export interface Channels {
 
     /**
      * Unmute a channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.direction - (optional) Direction in which to unmute audio.
      */
@@ -3302,6 +3495,7 @@ export interface Channels {
 
     /**
      * Unmute a channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.direction - (optional) Direction in which to unmute audio.
      */
@@ -3309,31 +3503,37 @@ export interface Channels {
 
     /**
      * Hold a channel.
+     *
      * @param params.channelId - Channels id.
      */
     hold(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Hold a channel.
+     *
      * @param params.channelId - Channels id.
      */
     hold(params: { channelId: string }): Promise<void>;
 
     /**
      * Remove a channel from hold.
+     *
      * @param params.channelId - Channels id.
      */
     unhold(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Remove a channel from hold.
+     *
      * @param params.channelId - Channels id.
      */
     unhold(params: { channelId: string }): Promise<void>;
 
     /**
      * Play music on hold to a channel.
-     * Using media operations such as /play on a channel playing MOH in this manner will suspend MOH without resuming automatically. If continuing music on hold is desired, the stasis application must reinitiate music on hold.
+     * Using media operations such as /play on a channel playing MOH in this manner will suspend MOH without resuming automatically. If continuing music on hold is desired, the stasis application
+     * must reinitiate music on hold.
+     *
      * @param params.channelId - Channels id.
      * @param params.mohClass - (optional) Music on hold class to use.
      */
@@ -3341,7 +3541,9 @@ export interface Channels {
 
     /**
      * Play music on hold to a channel.
-     * Using media operations such as /play on a channel playing MOH in this manner will suspend MOH without resuming automatically. If continuing music on hold is desired, the stasis application must reinitiate music on hold.
+     * Using media operations such as /play on a channel playing MOH in this manner will suspend MOH without resuming automatically. If continuing music on hold is desired, the stasis application
+     * must reinitiate music on hold.
+     *
      * @param params.channelId - Channels id.
      * @param params.mohClass - (optional) Music on hold class to use.
      */
@@ -3349,12 +3551,14 @@ export interface Channels {
 
     /**
      * Stop playing music on hold to a channel.
+     *
      * @param params.channelId - Channels id.
      */
     stopMoh(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop playing music on hold to a channel.
+     *
      * @param params.channelId - Channels id.
      */
     stopMoh(params: { channelId: string }): Promise<void>;
@@ -3362,6 +3566,7 @@ export interface Channels {
     /**
      * Play silence to a channel.
      * Using media operations such as /play on a channel playing silence in this manner will suspend silence without resuming automatically.
+     *
      * @param params.channelId - Channels id.
      */
     startSilence(params: { channelId: string }, callback: (err: Error) => void): void;
@@ -3369,25 +3574,30 @@ export interface Channels {
     /**
      * Play silence to a channel.
      * Using media operations such as /play on a channel playing silence in this manner will suspend silence without resuming automatically.
+     *
      * @param params.channelId - Channels id.
      */
     startSilence(params: { channelId: string }): Promise<void>;
 
     /**
      * Stop playing silence to a channel.
+     *
      * @param params.channelId - Channels id.
      */
     stopSilence(params: { channelId: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop playing silence to a channel.
+     *
      * @param params.channelId - Channels id.
      */
     stopSilence(params: { channelId: string }): Promise<void>;
 
     /**
      * Start playback of media.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.channelId - Channels id.
      * @param params.media - Media URIs to play.
      * @param params.lang - (optional) For sounds, selects language for sound.
@@ -3409,7 +3619,9 @@ export interface Channels {
 
     /**
      * Start playback of media.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.channelId - Channels id.
      * @param params.media - Media URIs to play.
      * @param params.lang - (optional) For sounds, selects language for sound.
@@ -3428,7 +3640,9 @@ export interface Channels {
 
     /**
      * Start playback of media and specify the playbackId.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.channelId - Channels id.
      * @param params.playbackId - Playback ID.
      * @param params.media - Media URIs to play.
@@ -3450,7 +3664,9 @@ export interface Channels {
 
     /**
      * Start playback of media and specify the playbackId.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.channelId - Channels id.
      * @param params.playbackId - Playback ID.
      * @param params.media - Media URIs to play.
@@ -3470,6 +3686,7 @@ export interface Channels {
     /**
      * Start a recording.
      * Record audio from a channel. Note that this will not capture audio sent to the channel. The bridge itself has a record feature if thats what you want.
+     *
      * @param params.channelId - Channels id.
      * @param params.name - Recordings filename.
      * @param params.format - Format to encode audio in.
@@ -3496,6 +3713,7 @@ export interface Channels {
     /**
      * Start a recording.
      * Record audio from a channel. Note that this will not capture audio sent to the channel. The bridge itself has a record feature if thats what you want.
+     *
      * @param params.channelId - Channels id.
      * @param params.name - Recordings filename.
      * @param params.format - Format to encode audio in.
@@ -3518,6 +3736,7 @@ export interface Channels {
 
     /**
      * Get the value of a channel variable or function.
+     *
      * @param params.channelId - Channels id.
      * @param params.variable - The channel variable or function to get.
      */
@@ -3528,6 +3747,7 @@ export interface Channels {
 
     /**
      * Get the value of a channel variable or function.
+     *
      * @param params.channelId - Channels id.
      * @param params.variable - The channel variable or function to get.
      */
@@ -3535,6 +3755,7 @@ export interface Channels {
 
     /**
      * Set the value of a channel variable or function.
+     *
      * @param params.channelId - Channels id.
      * @param params.variable - The channel variable or function to set.
      * @param params.value - (optional) The value to set the variable to.
@@ -3546,6 +3767,7 @@ export interface Channels {
 
     /**
      * Set the value of a channel variable or function.
+     *
      * @param params.channelId - Channels id.
      * @param params.variable - The channel variable or function to set.
      * @param params.value - (optional) The value to set the variable to.
@@ -3555,6 +3777,7 @@ export interface Channels {
     /**
      * Start snooping.
      * Snoop (spy/whisper) on a specific channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.spy - (optional) Direction of audio to spy on.
      * @param params.whisper - (optional) Direction of audio to whisper into.
@@ -3570,6 +3793,7 @@ export interface Channels {
     /**
      * Start snooping.
      * Snoop (spy/whisper) on a specific channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.spy - (optional) Direction of audio to spy on.
      * @param params.whisper - (optional) Direction of audio to whisper into.
@@ -3589,6 +3813,7 @@ export interface Channels {
     /**
      * Start snooping.
      * Snoop (spy/whisper) on a specific channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.snoopId - Unique ID to assign to snooping channel.
      * @param params.spy - (optional) Direction of audio to spy on.
@@ -3604,6 +3829,7 @@ export interface Channels {
     /**
      * Start snooping.
      * Snoop (spy/whisper) on a specific channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.snoopId - Unique ID to assign to snooping channel.
      * @param params.spy - (optional) Direction of audio to spy on.
@@ -3622,6 +3848,7 @@ export interface Channels {
 
     /**
      * Dial a created channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.caller - (optional) Channel ID of caller.
      * @param params.timeout - (optional) Dial timeout.
@@ -3630,6 +3857,7 @@ export interface Channels {
 
     /**
      * Dial a created channel.
+     *
      * @param params.channelId - Channels id.
      * @param params.caller - (optional) Channel ID of caller.
      * @param params.timeout - (optional) Dial timeout.
@@ -3638,12 +3866,14 @@ export interface Channels {
 
     /**
      * RTP stats on a channel.
+     *
      * @param params.channelId - Channels id.
      */
     rtpstatistics(params: { channelId: string }, callback: (err: Error, rtpstat: RTPstat) => void): void;
 
     /**
      * RTP stats on a channel.
+     *
      * @param params.channelId - Channels id.
      */
     rtpstatistics(params: { channelId: string }): Promise<RTPstat>;
@@ -3651,9 +3881,11 @@ export interface Channels {
     /**
      * Start an External Media session.
      * Create a channel to an External Media source/sink.
+     *
      * @param params.channelId - (optional) The unique id to assign the channel on creation.
      * @param params.app - Stasis Application to place channel into.
-     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
+     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted
+     * as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
      * @param params.external_host - Hostname/ip:port of external host.
      * @param params.encapsulation - (optional) Payload encapsulation protocol.
      * @param params.transport - (optional) Transport protocol.
@@ -3679,9 +3911,11 @@ export interface Channels {
     /**
      * Start an External Media session.
      * Create a channel to an External Media source/sink.
+     *
      * @param params.channelId - (optional) The unique id to assign the channel on creation.
      * @param params.app - Stasis Application to place channel into.
-     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
+     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted
+     * as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
      * @param params.external_host - Hostname/ip:port of external host.
      * @param params.encapsulation - (optional) Payload encapsulation protocol.
      * @param params.transport - (optional) Transport protocol.
@@ -3962,17 +4196,21 @@ export interface Channel extends Resource {
 
     /**
      * Create a new channel (originate).
-     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further events and updates.
+     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further
+     * events and updates.
+     *
      * @param params.endpoint - Endpoint to call.
      * @param params.extension - (optional) The extension to dial after the endpoint answers. Mutually exclusive with app.
      * @param params.context - (optional) The context to dial after the endpoint answers. If omitted, uses default. Mutually exclusive with app.
      * @param params.priority - (optional) The priority to dial after the endpoint answers. If omitted, uses 1. Mutually exclusive with app.
      * @param params.label - (optional) The label to dial after the endpoint answers. Will supersede priority if provided. Mutually exclusive with app.
-     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually exclusive with context, extension, priority, and label.
+     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually
+     * exclusive with context, extension, priority, and label.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app. Mutually exclusive with context, extension, priority, and label.
      * @param params.callerId - (optional) CallerID to use when dialing the endpoint or extension.
      * @param params.timeout - (optional) Timeout (in seconds) before giving up dialing, or -1 for no timeout.
-     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
+     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted
+     * as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
      * @param params.otherChannelId - (optional) The unique id to assign the second channel when using local channels.
      * @param params.originator - (optional) The unique id of the channel which is originating this one.
      * @param params.formats - (optional) The format name capability list to use if originator is not specified. Ex. "ulaw,slin16". Format names can be found with "core show codecs".
@@ -3998,17 +4236,21 @@ export interface Channel extends Resource {
 
     /**
      * Create a new channel (originate).
-     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further events and updates.
+     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further
+     * events and updates.
+     *
      * @param params.endpoint - Endpoint to call.
      * @param params.extension - (optional) The extension to dial after the endpoint answers. Mutually exclusive with app.
      * @param params.context - (optional) The context to dial after the endpoint answers. If omitted, uses default. Mutually exclusive with app.
      * @param params.priority - (optional) The priority to dial after the endpoint answers. If omitted, uses 1. Mutually exclusive with app.
      * @param params.label - (optional) The label to dial after the endpoint answers. Will supersede priority if provided. Mutually exclusive with app.
-     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually exclusive with context, extension, priority, and label.
+     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually
+     * exclusive with context, extension, priority, and label.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app. Mutually exclusive with context, extension, priority, and label.
      * @param params.callerId - (optional) CallerID to use when dialing the endpoint or extension.
      * @param params.timeout - (optional) Timeout (in seconds) before giving up dialing, or -1 for no timeout.
-     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
+     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted
+     * as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
      * @param params.otherChannelId - (optional) The unique id to assign the second channel when using local channels.
      * @param params.originator - (optional) The unique id of the channel which is originating this one.
      * @param params.formats - (optional) The format name capability list to use if originator is not specified. Ex. "ulaw,slin16". Format names can be found with "core show codecs".
@@ -4031,6 +4273,7 @@ export interface Channel extends Resource {
 
     /**
      * Create channel.
+     *
      * @param params.endpoint - Endpoint for channel communication.
      * @param params.app - Stasis Application to place channel into.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app. Mutually exclusive with context, extension, priority, and label.
@@ -4052,6 +4295,7 @@ export interface Channel extends Resource {
 
     /**
      * Create channel.
+     *
      * @param params.endpoint - Endpoint for channel communication.
      * @param params.app - Stasis Application to place channel into.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app. Mutually exclusive with context, extension, priority, and label.
@@ -4080,17 +4324,21 @@ export interface Channel extends Resource {
 
     /**
      * Create a new channel (originate with id).
-     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further events and updates.
+     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further
+     * events and updates.
+     *
      * @param params.endpoint - Endpoint to call.
      * @param params.extension - (optional) The extension to dial after the endpoint answers. Mutually exclusive with app.
      * @param params.context - (optional) The context to dial after the endpoint answers. If omitted, uses default. Mutually exclusive with app.
      * @param params.priority - (optional) The priority to dial after the endpoint answers. If omitted, uses 1. Mutually exclusive with app.
      * @param params.label - (optional) The label to dial after the endpoint answers. Will supersede priority if provided. Mutually exclusive with app.
-     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually exclusive with context, extension, priority, and label.
+     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually
+     * exclusive with context, extension, priority, and label.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app. Mutually exclusive with context, extension, priority, and label.
      * @param params.callerId - (optional) CallerID to use when dialing the endpoint or extension.
      * @param params.timeout - (optional) Timeout (in seconds) before giving up dialing, or -1 for no timeout.
-     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
+     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted
+     * as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
      * @param params.otherChannelId - (optional) The unique id to assign the second channel when using local channels.
      * @param params.originator - (optional) The unique id of the channel which is originating this one.
      * @param params.formats - (optional) The format name capability list to use if originator is not specified. Ex. "ulaw,slin16". Format names can be found with "core show codecs".
@@ -4116,17 +4364,21 @@ export interface Channel extends Resource {
 
     /**
      * Create a new channel (originate with id).
-     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further events and updates.
+     * The new channel is created immediately and a snapshot of it returned. If a Stasis application is provided it will be automatically subscribed to the originated channel for further
+     * events and updates.
+     *
      * @param params.endpoint - Endpoint to call.
      * @param params.extension - (optional) The extension to dial after the endpoint answers. Mutually exclusive with app.
      * @param params.context - (optional) The context to dial after the endpoint answers. If omitted, uses default. Mutually exclusive with app.
      * @param params.priority - (optional) The priority to dial after the endpoint answers. If omitted, uses 1. Mutually exclusive with app.
      * @param params.label - (optional) The label to dial after the endpoint answers. Will supersede priority if provided. Mutually exclusive with app.
-     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually exclusive with context, extension, priority, and label.
+     * @param params.app - (optional) The application that is subscribed to the originated channel. When the channel is answered, it will be passed to this Stasis application. Mutually
+     * exclusive with context, extension, priority, and label.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app. Mutually exclusive with context, extension, priority, and label.
      * @param params.callerId - (optional) CallerID to use when dialing the endpoint or extension.
      * @param params.timeout - (optional) Timeout (in seconds) before giving up dialing, or -1 for no timeout.
-     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
+     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted
+     * as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
      * @param params.otherChannelId - (optional) The unique id to assign the second channel when using local channels.
      * @param params.originator - (optional) The unique id of the channel which is originating this one.
      * @param params.formats - (optional) The format name capability list to use if originator is not specified. Ex. "ulaw,slin16". Format names can be found with "core show codecs".
@@ -4149,6 +4401,7 @@ export interface Channel extends Resource {
 
     /**
      * Delete (i.e. hangup) a channel.
+     *
      * @param params.reason - (optional) Reason for hanging up the channel.
      */
     hangup(params: { reason?: string }, callback: (err: Error) => void): void;
@@ -4160,12 +4413,14 @@ export interface Channel extends Resource {
 
     /**
      * Delete (i.e. hangup) a channel.
+     *
      * @param params.reason - (optional) Reason for hanging up the channel.
      */
     hangup(params?: { reason?: string }): Promise<void>;
 
     /**
      * Exit application; continue execution in the dialplan.
+     *
      * @param params.context - (optional) The context to continue to.
      * @param params.extension - (optional) The extension to continue to.
      * @param params.priority - (optional) The priority to continue to.
@@ -4183,6 +4438,7 @@ export interface Channel extends Resource {
 
     /**
      * Exit application; continue execution in the dialplan.
+     *
      * @param params.context - (optional) The context to continue to.
      * @param params.extension - (optional) The extension to continue to.
      * @param params.priority - (optional) The priority to continue to.
@@ -4197,6 +4453,7 @@ export interface Channel extends Resource {
 
     /**
      * Move the channel from one Stasis application to another.
+     *
      * @param params.app - The channel will be passed to this Stasis application.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app.
      */
@@ -4204,6 +4461,7 @@ export interface Channel extends Resource {
 
     /**
      * Move the channel from one Stasis application to another.
+     *
      * @param params.app - The channel will be passed to this Stasis application.
      * @param params.appArgs - (optional) The application arguments to pass to the Stasis application provided by app.
      */
@@ -4211,12 +4469,14 @@ export interface Channel extends Resource {
 
     /**
      * Redirect the channel to a different location.
+     *
      * @param params.endpoint - The endpoint to redirect the channel to.
      */
     redirect(params: { endpoint: string }, callback: (err: Error) => void): void;
 
     /**
      * Redirect the channel to a different location.
+     *
      * @param params.endpoint - The endpoint to redirect the channel to.
      */
     redirect(params: { endpoint: string }): Promise<void>;
@@ -4253,6 +4513,7 @@ export interface Channel extends Resource {
 
     /**
      * Send provided DTMF to a given channel.
+     *
      * @param params.dtmf - (optional) DTMF To send.
      * @param params.before - (optional) Amount of time to wait before DTMF digits (specified in milliseconds) start.
      * @param params.between - (optional) Amount of time in between DTMF digits (specified in milliseconds).
@@ -4271,6 +4532,7 @@ export interface Channel extends Resource {
 
     /**
      * Send provided DTMF to a given channel.
+     *
      * @param params.dtmf - (optional) DTMF To send.
      * @param params.before - (optional) Amount of time to wait before DTMF digits (specified in milliseconds) start.
      * @param params.between - (optional) Amount of time in between DTMF digits (specified in milliseconds).
@@ -4287,6 +4549,7 @@ export interface Channel extends Resource {
 
     /**
      * Mute a channel.
+     *
      * @param params.direction - (optional) Direction in which to mute audio.
      */
     mute(params: { direction?: string }, callback: (err: Error) => void): void;
@@ -4298,12 +4561,14 @@ export interface Channel extends Resource {
 
     /**
      * Mute a channel.
+     *
      * @param params.direction - (optional) Direction in which to mute audio.
      */
     mute(params?: { direction?: string }): Promise<void>;
 
     /**
      * Unmute a channel.
+     *
      * @param params.direction - (optional) Direction in which to unmute audio.
      */
     unmute(params: { direction?: string }, callback: (err: Error) => void): void;
@@ -4315,6 +4580,7 @@ export interface Channel extends Resource {
 
     /**
      * Unmute a channel.
+     *
      * @param params.direction - (optional) Direction in which to unmute audio.
      */
     unmute(params?: { direction?: string }): Promise<void>;
@@ -4341,20 +4607,25 @@ export interface Channel extends Resource {
 
     /**
      * Play music on hold to a channel.
-     * Using media operations such as /play on a channel playing MOH in this manner will suspend MOH without resuming automatically. If continuing music on hold is desired, the stasis application must reinitiate music on hold.
+     * Using media operations such as /play on a channel playing MOH in this manner will suspend MOH without resuming automatically. If continuing music on hold is desired, the stasis application
+     * must reinitiate music on hold.
+     *
      * @param params.mohClass - (optional) Music on hold class to use.
      */
     startMoh(params: { mohClass?: string }, callback: (err: Error) => void): void;
 
     /**
      * Play music on hold to a channel.
-     * Using media operations such as /play on a channel playing MOH in this manner will suspend MOH without resuming automatically. If continuing music on hold is desired, the stasis application must reinitiate music on hold.
+     * Using media operations such as /play on a channel playing MOH in this manner will suspend MOH without resuming automatically. If continuing music on hold is desired, the stasis application
+     * must reinitiate music on hold.
      */
     startMoh(callback: (err: Error) => void): void;
 
     /**
      * Play music on hold to a channel.
-     * Using media operations such as /play on a channel playing MOH in this manner will suspend MOH without resuming automatically. If continuing music on hold is desired, the stasis application must reinitiate music on hold.
+     * Using media operations such as /play on a channel playing MOH in this manner will suspend MOH without resuming automatically. If continuing music on hold is desired, the stasis application
+     * must reinitiate music on hold.
+     *
      * @param params.mohClass - (optional) Music on hold class to use.
      */
     startMoh(params?: { mohClass?: string }): Promise<void>;
@@ -4393,7 +4664,9 @@ export interface Channel extends Resource {
 
     /**
      * Start playback of media.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.media - Media URIs to play.
      * @param params.lang - (optional) For sounds, selects language for sound.
      * @param params.offsetms - (optional) Number of milliseconds to skip before playing. Only applies to the first URI if multiple media URIs are specified.
@@ -4408,7 +4681,9 @@ export interface Channel extends Resource {
 
     /**
      * Start playback of media.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.media - Media URIs to play.
      * @param params.lang - (optional) For sounds, selects language for sound.
      * @param params.offsetms - (optional) Number of milliseconds to skip before playing. Only applies to the first URI if multiple media URIs are specified.
@@ -4422,7 +4697,9 @@ export interface Channel extends Resource {
 
     /**
      * Start playback of media and specify the playbackId.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.playbackId - Playback ID.
      * @param params.media - Media URIs to play.
      * @param params.lang - (optional) For sounds, selects language for sound.
@@ -4436,7 +4713,9 @@ export interface Channel extends Resource {
 
     /**
      * Start playback of media and specify the playbackId.
-     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     * The media URI may be any of a number of URIs. Currently sound:, recording:, number:, digits:, characters:, and tone: URIs are supported. This operation creates a playback resource
+     * that can be used to control the playback of media (pause, rewind, fast forward, etc.).
+     *
      * @param params.playbackId - Playback ID.
      * @param params.media - Media URIs to play.
      * @param params.lang - (optional) For sounds, selects language for sound.
@@ -4454,6 +4733,7 @@ export interface Channel extends Resource {
     /**
      * Start a recording.
      * Record audio from a channel. Note that this will not capture audio sent to the channel. The bridge itself has a record feature if thats what you want.
+     *
      * @param params.name - Recordings filename.
      * @param params.format - Format to encode audio in.
      * @param params.maxDurationSeconds - (optional) Maximum duration of the recording, in seconds. 0 for no limit.
@@ -4479,6 +4759,7 @@ export interface Channel extends Resource {
     /**
      * Start a recording.
      * Record audio from a channel. Note that this will not capture audio sent to the channel. The bridge itself has a record feature if thats what you want.
+     *
      * @param params.name - Recordings filename.
      * @param params.format - Format to encode audio in.
      * @param params.maxDurationSeconds - (optional) Maximum duration of the recording, in seconds. 0 for no limit.
@@ -4502,18 +4783,21 @@ export interface Channel extends Resource {
 
     /**
      * Get the value of a channel variable or function.
+     *
      * @param params.variable - The channel variable or function to get.
      */
     getChannelVar(params: { variable: string }, callback: (err: Error, variable: Variable) => void): void;
 
     /**
      * Get the value of a channel variable or function.
+     *
      * @param params.variable - The channel variable or function to get.
      */
     getChannelVar(params: { variable: string }): Promise<Variable>;
 
     /**
      * Set the value of a channel variable or function.
+     *
      * @param params.variable - The channel variable or function to set.
      * @param params.value - (optional) The value to set the variable to.
      */
@@ -4521,6 +4805,7 @@ export interface Channel extends Resource {
 
     /**
      * Set the value of a channel variable or function.
+     *
      * @param params.variable - The channel variable or function to set.
      * @param params.value - (optional) The value to set the variable to.
      */
@@ -4529,6 +4814,7 @@ export interface Channel extends Resource {
     /**
      * Start snooping.
      * Snoop (spy/whisper) on a specific channel.
+     *
      * @param params.spy - (optional) Direction of audio to spy on.
      * @param params.whisper - (optional) Direction of audio to whisper into.
      * @param params.app - Application the snooping channel is placed into.
@@ -4544,6 +4830,7 @@ export interface Channel extends Resource {
     /**
      * Start snooping.
      * Snoop (spy/whisper) on a specific channel.
+     *
      * @param params.spy - (optional) Direction of audio to spy on.
      * @param params.whisper - (optional) Direction of audio to whisper into.
      * @param params.app - Application the snooping channel is placed into.
@@ -4558,6 +4845,7 @@ export interface Channel extends Resource {
     /**
      * Start snooping.
      * Snoop (spy/whisper) on a specific channel.
+     *
      * @param params.snoopId - Unique ID to assign to snooping channel.
      * @param params.spy - (optional) Direction of audio to spy on.
      * @param params.whisper - (optional) Direction of audio to whisper into.
@@ -4572,6 +4860,7 @@ export interface Channel extends Resource {
     /**
      * Start snooping.
      * Snoop (spy/whisper) on a specific channel.
+     *
      * @param params.snoopId - Unique ID to assign to snooping channel.
      * @param params.spy - (optional) Direction of audio to spy on.
      * @param params.whisper - (optional) Direction of audio to whisper into.
@@ -4588,6 +4877,7 @@ export interface Channel extends Resource {
 
     /**
      * Dial a created channel.
+     *
      * @param params.caller - (optional) Channel ID of caller.
      * @param params.timeout - (optional) Dial timeout.
      */
@@ -4600,6 +4890,7 @@ export interface Channel extends Resource {
 
     /**
      * Dial a created channel.
+     *
      * @param params.caller - (optional) Channel ID of caller.
      * @param params.timeout - (optional) Dial timeout.
      */
@@ -4618,8 +4909,10 @@ export interface Channel extends Resource {
     /**
      * Start an External Media session.
      * Create a channel to an External Media source/sink.
+     *
      * @param params.app - Stasis Application to place channel into.
-     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
+     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted
+     * as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
      * @param params.external_host - Hostname/ip:port of external host.
      * @param params.encapsulation - (optional) Payload encapsulation protocol.
      * @param params.transport - (optional) Transport protocol.
@@ -4644,8 +4937,10 @@ export interface Channel extends Resource {
     /**
      * Start an External Media session.
      * Create a channel to an External Media source/sink.
+     *
      * @param params.app - Stasis Application to place channel into.
-     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
+     * @param params.variables - (optional) The "variables" key in the body object holds variable key/value pairs to set on the channel on creation. Other keys in the body object are interpreted
+     * as query parameters. Ex. { "endpoint": "SIP/Alice", "variables": { "CALLERID(name)": "Alice" } }.
      * @param params.external_host - Hostname/ip:port of external host.
      * @param params.encapsulation - (optional) Payload encapsulation protocol.
      * @param params.transport - (optional) Transport protocol.
@@ -4677,18 +4972,21 @@ export interface DeviceStates {
 
     /**
      * Retrieve the current state of a device.
+     *
      * @param params.deviceName - Name of the device.
      */
     get(params: { deviceName: string }, callback: (err: Error, devicestate: DeviceState) => void): void;
 
     /**
      * Retrieve the current state of a device.
+     *
      * @param params.deviceName - Name of the device.
      */
     get(params: { deviceName: string }): Promise<DeviceState>;
 
     /**
      * Change the state of a device controlled by ARI. (Note - implicitly creates the device state).
+     *
      * @param params.deviceName - Name of the device.
      * @param params.deviceState - Device state value.
      */
@@ -4696,6 +4994,7 @@ export interface DeviceStates {
 
     /**
      * Change the state of a device controlled by ARI. (Note - implicitly creates the device state).
+     *
      * @param params.deviceName - Name of the device.
      * @param params.deviceState - Device state value.
      */
@@ -4703,12 +5002,14 @@ export interface DeviceStates {
 
     /**
      * Destroy a device-state controlled by ARI.
+     *
      * @param params.deviceName - Name of the device.
      */
     delete(params: { deviceName: string }, callback: (err: Error) => void): void;
 
     /**
      * Destroy a device-state controlled by ARI.
+     *
      * @param params.deviceName - Name of the device.
      */
     delete(params: { deviceName: string }): Promise<void>;
@@ -4746,12 +5047,14 @@ export interface DeviceState extends Resource {
 
     /**
      * Change the state of a device controlled by ARI. (Note - implicitly creates the device state).
+     *
      * @param params.deviceState - Device state value.
      */
     update(params: { deviceState: string }, callback: (err: Error) => void): void;
 
     /**
      * Change the state of a device controlled by ARI. (Note - implicitly creates the device state).
+     *
      * @param params.deviceState - Device state value.
      */
     update(params: { deviceState: string }): Promise<void>;
@@ -4779,10 +5082,11 @@ export interface Endpoints {
 
     /**
      * Send a message to some technology URI or endpoint.
+     *
      * @param params.to - The endpoint resource or technology specific URI to send the message to. Valid resources are sip, pjsip, and xmpp.
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional) .
+     * @param params.variables - (optional)
      */
     sendMessage(
         params: { to: string; from: string; body?: string; variables?: Containers },
@@ -4791,15 +5095,17 @@ export interface Endpoints {
 
     /**
      * Send a message to some technology URI or endpoint.
+     *
      * @param params.to - The endpoint resource or technology specific URI to send the message to. Valid resources are sip, pjsip, and xmpp.
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional) .
+     * @param params.variables - (optional)
      */
     sendMessage(params: { to: string; from: string; body?: string; variables?: Containers }): Promise<void>;
 
     /**
      * List available endoints for a given endpoint technology.
+     *
      * @param params.tech - (optional) Technology of the endpoints (sip,iax2,...).
      */
     listByTech(params: { tech: string }, callback: (err: Error, endpoints: Endpoint[]) => void): void;
@@ -4811,12 +5117,14 @@ export interface Endpoints {
 
     /**
      * List available endoints for a given endpoint technology.
+     *
      * @param params.tech - (optional) Technology of the endpoints (sip,iax2,...).
      */
     listByTech(params?: { tech: string }): Promise<Endpoint[]>;
 
     /**
      * Details for an endpoint.
+     *
      * @param params.tech - (optional) Technology of the endpoint.
      * @param params.resource - (optional) ID of the endpoint.
      */
@@ -4829,6 +5137,7 @@ export interface Endpoints {
 
     /**
      * Details for an endpoint.
+     *
      * @param params.tech - (optional) Technology of the endpoint.
      * @param params.resource - (optional) ID of the endpoint.
      */
@@ -4836,11 +5145,12 @@ export interface Endpoints {
 
     /**
      * Send a message to some endpoint in a technology.
+     *
      * @param params.tech - (optional) Technology of the endpoint.
      * @param params.resource - (optional) ID of the endpoint.
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional) .
+     * @param params.variables - (optional)
      */
     sendMessageToEndpoint(
         params: { tech: string; resource: string; from: string; body?: string; variables?: Containers },
@@ -4849,11 +5159,12 @@ export interface Endpoints {
 
     /**
      * Send a message to some endpoint in a technology.
+     *
      * @param params.tech - (optional) Technology of the endpoint.
      * @param params.resource - (optional) ID of the endpoint.
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional) .
+     * @param params.variables - (optional)
      */
     sendMessageToEndpoint(params: {
         tech: string;
@@ -4896,10 +5207,11 @@ export interface Endpoint extends Resource {
 
     /**
      * Send a message to some technology URI or endpoint.
+     *
      * @param params.to - The endpoint resource or technology specific URI to send the message to. Valid resources are sip, pjsip, and xmpp.
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional) .
+     * @param params.variables - (optional)
      */
     sendMessage(
         params: { to: string; from: string; body?: string; variables?: Containers },
@@ -4908,10 +5220,11 @@ export interface Endpoint extends Resource {
 
     /**
      * Send a message to some technology URI or endpoint.
+     *
      * @param params.to - The endpoint resource or technology specific URI to send the message to. Valid resources are sip, pjsip, and xmpp.
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional) .
+     * @param params.variables - (optional)
      */
     sendMessage(params: { to: string; from: string; body?: string; variables?: Containers }): Promise<void>;
 
@@ -4937,9 +5250,10 @@ export interface Endpoint extends Resource {
 
     /**
      * Send a message to some endpoint in a technology.
+     *
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional) .
+     * @param params.variables - (optional)
      */
     sendMessageToEndpoint(
         params: { from: string; body?: string; variables?: Containers },
@@ -4948,15 +5262,17 @@ export interface Endpoint extends Resource {
 
     /**
      * Send a message to some endpoint in a technology.
+     *
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional) .
+     * @param params.variables - (optional)
      */
     sendMessageToEndpoint(params: { from: string; body?: string; variables?: Containers }): Promise<void>;
 }
 export interface TextMessage {
     /**
-     * A technology specific URI specifying the source of the message. For sip and pjsip technologies, any SIP URI can be specified. For xmpp, the URI must correspond to the client connection being used to send the message.
+     * A technology specific URI specifying the source of the message. For sip and pjsip technologies, any SIP URI can be specified. For xmpp, the URI must correspond to the client connection
+     * being used to send the message.
      */
     from: string;
 
@@ -4988,18 +5304,21 @@ export interface Mailboxes {
 
     /**
      * Retrieve the current state of a mailbox.
+     *
      * @param params.mailboxName - Name of the mailbox.
      */
     get(params: { mailboxName: string }, callback: (err: Error, mailbox: Mailbox) => void): void;
 
     /**
      * Retrieve the current state of a mailbox.
+     *
      * @param params.mailboxName - Name of the mailbox.
      */
     get(params: { mailboxName: string }): Promise<Mailbox>;
 
     /**
      * Change the state of a mailbox. (Note - implicitly creates the mailbox).
+     *
      * @param params.mailboxName - Name of the mailbox.
      * @param params.oldMessages - Count of old messages in the mailbox.
      * @param params.newMessages - Count of new messages in the mailbox.
@@ -5011,6 +5330,7 @@ export interface Mailboxes {
 
     /**
      * Change the state of a mailbox. (Note - implicitly creates the mailbox).
+     *
      * @param params.mailboxName - Name of the mailbox.
      * @param params.oldMessages - Count of old messages in the mailbox.
      * @param params.newMessages - Count of new messages in the mailbox.
@@ -5019,12 +5339,14 @@ export interface Mailboxes {
 
     /**
      * Destroy a mailbox.
+     *
      * @param params.mailboxName - Name of the mailbox.
      */
     delete(params: { mailboxName: string }, callback: (err: Error) => void): void;
 
     /**
      * Destroy a mailbox.
+     *
      * @param params.mailboxName - Name of the mailbox.
      */
     delete(params: { mailboxName: string }): Promise<void>;
@@ -5067,6 +5389,7 @@ export interface Mailbox extends Resource {
 
     /**
      * Change the state of a mailbox. (Note - implicitly creates the mailbox).
+     *
      * @param params.oldMessages - Count of old messages in the mailbox.
      * @param params.newMessages - Count of new messages in the mailbox.
      */
@@ -5074,6 +5397,7 @@ export interface Mailbox extends Resource {
 
     /**
      * Change the state of a mailbox. (Note - implicitly creates the mailbox).
+     *
      * @param params.oldMessages - Count of old messages in the mailbox.
      * @param params.newMessages - Count of new messages in the mailbox.
      */
@@ -5092,30 +5416,35 @@ export interface Mailbox extends Resource {
 export interface Playbacks {
     /**
      * Get a playbacks details.
+     *
      * @param params.playbackId - Playbacks id.
      */
     get(params: { playbackId: string }, callback: (err: Error, playback: Playback) => void): void;
 
     /**
      * Get a playbacks details.
+     *
      * @param params.playbackId - Playbacks id.
      */
     get(params: { playbackId: string }): Promise<Playback>;
 
     /**
      * Stop a playback.
+     *
      * @param params.playbackId - Playbacks id.
      */
     stop(params: { playbackId: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop a playback.
+     *
      * @param params.playbackId - Playbacks id.
      */
     stop(params: { playbackId: string }): Promise<void>;
 
     /**
      * Control a playback.
+     *
      * @param params.playbackId - Playbacks id.
      * @param params.operation - Operation to perform on the playback.
      */
@@ -5123,6 +5452,7 @@ export interface Playbacks {
 
     /**
      * Control a playback.
+     *
      * @param params.playbackId - Playbacks id.
      * @param params.operation - Operation to perform on the playback.
      */
@@ -5181,12 +5511,14 @@ export interface Playback extends Resource {
 
     /**
      * Control a playback.
+     *
      * @param params.operation - Operation to perform on the playback.
      */
     control(params: { operation: string }, callback: (err: Error) => void): void;
 
     /**
      * Control a playback.
+     *
      * @param params.operation - Operation to perform on the playback.
      */
     control(params: { operation: string }): Promise<void>;
@@ -5204,6 +5536,7 @@ export interface Recordings {
 
     /**
      * Get a stored recordings details.
+     *
      * @param params.recordingName - The name of the recording.
      */
     getStored(
@@ -5213,36 +5546,42 @@ export interface Recordings {
 
     /**
      * Get a stored recordings details.
+     *
      * @param params.recordingName - The name of the recording.
      */
     getStored(params: { recordingName: string }): Promise<StoredRecording>;
 
     /**
      * Delete a stored recording.
+     *
      * @param params.recordingName - The name of the recording.
      */
     deleteStored(params: { recordingName: string }, callback: (err: Error) => void): void;
 
     /**
      * Delete a stored recording.
+     *
      * @param params.recordingName - The name of the recording.
      */
     deleteStored(params: { recordingName: string }): Promise<void>;
 
     /**
      * Get the file associated with the stored recording.
+     *
      * @param params.recordingName - The name of the recording.
      */
     getStoredFile(params: { recordingName: string }, callback: (err: Error, binary: Buffer) => void): void;
 
     /**
      * Get the file associated with the stored recording.
+     *
      * @param params.recordingName - The name of the recording.
      */
     getStoredFile(params: { recordingName: string }): Promise<Buffer>;
 
     /**
      * Copy a stored recording.
+     *
      * @param params.recordingName - The name of the recording to copy.
      * @param params.destinationRecordingName - The destination name of the recording.
      */
@@ -5253,6 +5592,7 @@ export interface Recordings {
 
     /**
      * Copy a stored recording.
+     *
      * @param params.recordingName - The name of the recording to copy.
      * @param params.destinationRecordingName - The destination name of the recording.
      */
@@ -5260,36 +5600,42 @@ export interface Recordings {
 
     /**
      * List live recordings.
+     *
      * @param params.recordingName - The name of the recording.
      */
     getLive(params: { recordingName: string }, callback: (err: Error, liverecording: LiveRecording) => void): void;
 
     /**
      * List live recordings.
+     *
      * @param params.recordingName - The name of the recording.
      */
     getLive(params: { recordingName: string }): Promise<LiveRecording>;
 
     /**
      * Stop a live recording and discard it.
+     *
      * @param params.recordingName - The name of the recording.
      */
     cancel(params: { recordingName: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop a live recording and discard it.
+     *
      * @param params.recordingName - The name of the recording.
      */
     cancel(params: { recordingName: string }): Promise<void>;
 
     /**
      * Stop a live recording and store it.
+     *
      * @param params.recordingName - The name of the recording.
      */
     stop(params: { recordingName: string }, callback: (err: Error) => void): void;
 
     /**
      * Stop a live recording and store it.
+     *
      * @param params.recordingName - The name of the recording.
      */
     stop(params: { recordingName: string }): Promise<void>;
@@ -5297,6 +5643,7 @@ export interface Recordings {
     /**
      * Pause a live recording.
      * Pausing a recording suspends silence detection, which will be restarted when the recording is unpaused. Paused time is not included in the accounting for maxDurationSeconds.
+     *
      * @param params.recordingName - The name of the recording.
      */
     pause(params: { recordingName: string }, callback: (err: Error) => void): void;
@@ -5304,18 +5651,21 @@ export interface Recordings {
     /**
      * Pause a live recording.
      * Pausing a recording suspends silence detection, which will be restarted when the recording is unpaused. Paused time is not included in the accounting for maxDurationSeconds.
+     *
      * @param params.recordingName - The name of the recording.
      */
     pause(params: { recordingName: string }): Promise<void>;
 
     /**
      * Unpause a live recording.
+     *
      * @param params.recordingName - The name of the recording.
      */
     unpause(params: { recordingName: string }, callback: (err: Error) => void): void;
 
     /**
      * Unpause a live recording.
+     *
      * @param params.recordingName - The name of the recording.
      */
     unpause(params: { recordingName: string }): Promise<void>;
@@ -5323,6 +5673,7 @@ export interface Recordings {
     /**
      * Mute a live recording.
      * Muting a recording suspends silence detection, which will be restarted when the recording is unmuted.
+     *
      * @param params.recordingName - The name of the recording.
      */
     mute(params: { recordingName: string }, callback: (err: Error) => void): void;
@@ -5330,18 +5681,21 @@ export interface Recordings {
     /**
      * Mute a live recording.
      * Muting a recording suspends silence detection, which will be restarted when the recording is unmuted.
+     *
      * @param params.recordingName - The name of the recording.
      */
     mute(params: { recordingName: string }): Promise<void>;
 
     /**
      * Unmute a live recording.
+     *
      * @param params.recordingName - The name of the recording.
      */
     unmute(params: { recordingName: string }, callback: (err: Error) => void): void;
 
     /**
      * Unmute a live recording.
+     *
      * @param params.recordingName - The name of the recording.
      */
     unmute(params: { recordingName: string }): Promise<void>;
@@ -5399,6 +5753,7 @@ export interface StoredRecording extends Resource {
 
     /**
      * Copy a stored recording.
+     *
      * @param params.destinationRecordingName - The destination name of the recording.
      */
     copyStored(
@@ -5408,6 +5763,7 @@ export interface StoredRecording extends Resource {
 
     /**
      * Copy a stored recording.
+     *
      * @param params.destinationRecordingName - The destination name of the recording.
      */
     copyStored(params: { destinationRecordingName: string }): Promise<StoredRecording>;
@@ -5569,6 +5925,7 @@ export interface LiveRecording extends Resource {
 
     /**
      * Copy a stored recording.
+     *
      * @param params.destinationRecordingName - The destination name of the recording.
      */
     copyStored(
@@ -5578,6 +5935,7 @@ export interface LiveRecording extends Resource {
 
     /**
      * Copy a stored recording.
+     *
      * @param params.destinationRecordingName - The destination name of the recording.
      */
     copyStored(params: { destinationRecordingName: string }): Promise<StoredRecording>;
@@ -5659,6 +6017,7 @@ export interface LiveRecording extends Resource {
 export interface Sounds {
     /**
      * List all sounds.
+     *
      * @param params.lang - (optional) Lookup sound for a specific language.
      * @param params.format - (optional) Lookup sound in a specific format.
      */
@@ -5671,6 +6030,7 @@ export interface Sounds {
 
     /**
      * List all sounds.
+     *
      * @param params.lang - (optional) Lookup sound for a specific language.
      * @param params.format - (optional) Lookup sound in a specific format.
      */
@@ -5678,12 +6038,14 @@ export interface Sounds {
 
     /**
      * Get a sounds details.
+     *
      * @param params.soundId - Sounds id.
      */
     get(params: { soundId: string }, callback: (err: Error, sound: Sound) => void): void;
 
     /**
      * Get a sounds details.
+     *
      * @param params.soundId - Sounds id.
      */
     get(params: { soundId: string }): Promise<Sound>;
@@ -5717,6 +6079,7 @@ export interface Sound extends Resource {
 
     /**
      * List all sounds.
+     *
      * @param params.lang - (optional) Lookup sound for a specific language.
      * @param params.format - (optional) Lookup sound in a specific format.
      */
@@ -5729,6 +6092,7 @@ export interface Sound extends Resource {
 
     /**
      * List all sounds.
+     *
      * @param params.lang - (optional) Lookup sound for a specific language.
      * @param params.format - (optional) Lookup sound in a specific format.
      */
