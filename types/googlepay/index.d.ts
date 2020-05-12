@@ -8,6 +8,7 @@
 //                 Soc Sieng <https://github.com/socsieng>
 //                 Vlad Diachenko <https://github.com/vdiachenko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.5
 
 declare namespace google.payments.api {
     /**
@@ -181,7 +182,9 @@ declare namespace google.payments.api {
          * parameters field to see if the properties within are applicable for
          * IsReadyToPayRequest.
          */
-        allowedPaymentMethods: PaymentMethodSpecification[];
+        allowedPaymentMethods:
+            | Array<Omit<PaymentMethodSpecification, 'tokenizationSpecification'>>
+            | PaymentMethodSpecification[];
 
         /**
          * If set to `true` then the

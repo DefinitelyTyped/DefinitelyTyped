@@ -7,10 +7,12 @@ const allowedCardNetworks = new Array<google.payments.api.CardNetwork>(
     'INTERAC',
 );
 
+const allowedAuthMethods = new Array<google.payments.api.CardAuthMethod>('PAN_ONLY', 'CRYPTOGRAM_3DS');
+
 const allowedPaymentMethods = new Array<google.payments.api.PaymentMethodSpecification>({
     type: 'CARD',
     parameters: {
-        allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+        allowedAuthMethods,
         allowedCardNetworks,
         billingAddressRequired: true,
         billingAddressParameters: {
@@ -43,7 +45,15 @@ function onGooglePayLoaded() {
         .isReadyToPay({
             apiVersion: 2,
             apiVersionMinor: 0,
-            allowedPaymentMethods,
+            allowedPaymentMethods: [
+                {
+                    type: 'CARD',
+                    parameters: {
+                        allowedAuthMethods,
+                        allowedCardNetworks,
+                    },
+                },
+            ],
         })
         .then(response => {
             if (response.result) {
