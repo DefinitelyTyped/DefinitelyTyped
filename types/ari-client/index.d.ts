@@ -21,6 +21,12 @@ export function connect(
     callback?: (err: Error, client: Client) => void,
 ): Promise<Client>;
 
+/* This interface is kept for compatibility */
+export interface TextMessageVariable {
+    key: string;
+    value: string;
+}
+
 export interface Client extends Resource {
     /**
      *  Creates the WebSocket connection, subscribing to the given apps.
@@ -5086,7 +5092,8 @@ export interface Endpoints {
      * @param params.to - The endpoint resource or technology specific URI to send the message to. Valid resources are sip, pjsip, and xmpp.
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional)
+     * @param params.variables - (optional) The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used
+     * by the various resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
     sendMessage(
         params: { to: string; from: string; body?: string; variables?: Containers },
@@ -5099,7 +5106,8 @@ export interface Endpoints {
      * @param params.to - The endpoint resource or technology specific URI to send the message to. Valid resources are sip, pjsip, and xmpp.
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional)
+     * @param params.variables - (optional) The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used
+     * by the various resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
     sendMessage(params: { to: string; from: string; body?: string; variables?: Containers }): Promise<void>;
 
@@ -5150,7 +5158,8 @@ export interface Endpoints {
      * @param params.resource - (optional) ID of the endpoint.
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional)
+     * @param params.variables - (optional) The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used
+     * by the various resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
     sendMessageToEndpoint(
         params: { tech: string; resource: string; from: string; body?: string; variables?: Containers },
@@ -5164,7 +5173,8 @@ export interface Endpoints {
      * @param params.resource - (optional) ID of the endpoint.
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional)
+     * @param params.variables - (optional) The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used
+     * by the various resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
     sendMessageToEndpoint(params: {
         tech: string;
@@ -5211,7 +5221,8 @@ export interface Endpoint extends Resource {
      * @param params.to - The endpoint resource or technology specific URI to send the message to. Valid resources are sip, pjsip, and xmpp.
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional)
+     * @param params.variables - (optional) The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used
+     * by the various resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
     sendMessage(
         params: { to: string; from: string; body?: string; variables?: Containers },
@@ -5224,7 +5235,8 @@ export interface Endpoint extends Resource {
      * @param params.to - The endpoint resource or technology specific URI to send the message to. Valid resources are sip, pjsip, and xmpp.
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional)
+     * @param params.variables - (optional) The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used
+     * by the various resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
     sendMessage(params: { to: string; from: string; body?: string; variables?: Containers }): Promise<void>;
 
@@ -5253,7 +5265,8 @@ export interface Endpoint extends Resource {
      *
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional)
+     * @param params.variables - (optional) The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used
+     * by the various resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
     sendMessageToEndpoint(
         params: { from: string; body?: string; variables?: Containers },
@@ -5265,14 +5278,10 @@ export interface Endpoint extends Resource {
      *
      * @param params.from - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
      * @param params.body - (optional) The body of the message.
-     * @param params.variables - (optional)
+     * @param params.variables - (optional) The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used
+     * by the various resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
     sendMessageToEndpoint(params: { from: string; body?: string; variables?: Containers }): Promise<void>;
-}
-/* This interface is kept for compatibility */
-export interface TextMessageVariable {
-    key: string;
-    value: string;
 }
 export interface TextMessage {
     /**
