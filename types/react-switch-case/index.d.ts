@@ -17,4 +17,4 @@ declare class Switch extends React.Component<SwitchProps> {}
 export class Case extends React.Component<CaseProps> {}
 export class Default extends React.Component {}
 
-export default Swtich;
+export default Switch;
