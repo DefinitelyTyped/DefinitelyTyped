@@ -205,3 +205,23 @@ const mappedHttpResponse: { res: pino.SerializedResponse } = pino.stdSerializers
 const serializedErr: pino.SerializedError = pino.stdSerializers.err(new Error());
 const serializedReq: pino.SerializedRequest = pino.stdSerializers.req(incomingMessage);
 const serializedRes: pino.SerializedResponse = pino.stdSerializers.res(serverResponse);
+
+/**
+ * Destination static method
+ */
+const destinationViaDefaultArgs = pino.destination();
+const destinationViaStrFileDescriptor = pino.destination('/log/path');
+const destinationViaNumFileDescriptor = pino.destination(2);
+const destinationViaStream = pino.destination(process.stdout);
+const destinationViaOptionsObject = pino.destination({ dest: '/log/path', sync: false });
+
+pino(destinationViaDefaultArgs);
+pino({ name: 'my-logger' }, destinationViaDefaultArgs);
+pino(destinationViaStrFileDescriptor);
+pino({ name: 'my-logger' }, destinationViaStrFileDescriptor);
+pino(destinationViaNumFileDescriptor);
+pino({ name: 'my-logger' }, destinationViaNumFileDescriptor);
+pino(destinationViaStream);
+pino({ name: 'my-logger' }, destinationViaStream);
+pino(destinationViaOptionsObject);
+pino({ name: 'my-logger' }, destinationViaOptionsObject);

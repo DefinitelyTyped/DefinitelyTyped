@@ -1,21 +1,6 @@
 import * as yup from 'yup';
-
 // tslint:disable-next-line:no-duplicate-imports
-import {
-    reach,
-    isSchema,
-    date,
-    Schema,
-    ObjectSchema,
-    ValidationError,
-    MixedSchema,
-    SchemaDescription,
-    TestOptions,
-    ValidateOptions,
-    NumberSchema,
-    TestContext,
-    LocaleObject,
-} from 'yup';
+import { isSchema, LocaleObject, MixedSchema, NumberSchema, ObjectSchema, reach, Schema, SchemaDescription, TestContext, TestOptions, ValidateOptions, ValidationError } from 'yup';
 
 // reach function
 const schema1 = yup.object().shape({
@@ -158,7 +143,9 @@ mixed.nullable();
 mixed.required();
 mixed.required('Foo');
 mixed.required(() => 'Foo');
-mixed.notRequired(); // $ExpectType MixedSchema<any>
+mixed.defined();
+mixed.notRequired(); // $ExpectType MixedSchema<string | number | boolean | symbol | object | null | undefined>
+mixed.optional(); // $ExpectType MixedSchema<string | number | boolean | symbol | object | null | undefined>
 mixed.typeError('type error');
 mixed.typeError(() => 'type error');
 mixed.oneOf(['hello', 'world'], 'message');
@@ -166,6 +153,8 @@ mixed.oneOf(['hello', 'world'], () => 'message');
 mixed.oneOf(['hello', 'world'], ({ values }) => `one of ${values}`);
 // $ExpectError
 mixed.oneOf(['hello', 'world'], ({ random }) => `one of ${random}`);
+mixed.oneOf(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1>
+mixed.equals(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1>
 mixed.notOneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], () => 'message');
 mixed.when('isBig', {
@@ -199,7 +188,30 @@ mixed.test({
     message: '${path} must be less than 5 characters',
     test: value => value == null || value.length <= 5,
 });
-mixed.test('with-promise', 'It contains invalid value', value => new Promise(resolve => true));
+// $ExpectType MixedSchema<Set<any>>
+mixed.test(
+    'is-function',
+    // tslint:disable-next-line:no-invalid-template-strings
+    "${path} is not a function",
+    (value): value is Set<any> => value instanceof Set,
+);
+// $ExpectType MixedSchema<Set<any>>
+mixed.test({
+    name: 'is-function',
+    exclusive: true,
+    // tslint:disable-next-line:no-invalid-template-strings
+    message: '${path} is not a function',
+    test: (value): value is Set<any> => value instanceof Set,
+});
+// Name is required for exclusive tests:
+// $ExpectError
+mixed.test({
+    exclusive: true,
+    // tslint:disable-next-line:no-invalid-template-strings
+    message: '${path} must be less than 5 characters',
+    test: value => value == null || value.length <= 5,
+});
+mixed.test('with-promise', 'It contains invalid value', value => new Promise<boolean>(resolve => resolve(true)));
 const testContext = function(this: TestContext) {
     // $ExpectType string
     this.path;
@@ -284,8 +296,8 @@ mixed = new ExtendsMixed2();
 /**
  * Creating new Types
  */
-class DateSchema extends yup.date {
-    isWednesday(message?: string): DateSchema {
+class CustomDateSchema extends yup.date {
+    isWednesday(message?: string): CustomDateSchema {
         return this.clone().test({
             name: 'Wednesday',
             // tslint:disable-next-line:no-invalid-template-strings
@@ -296,7 +308,7 @@ class DateSchema extends yup.date {
 }
 yup.object()
     .shape({
-        startDate: new DateSchema().isWednesday().required(),
+        startDate: new CustomDateSchema().isWednesday().required(),
     })
     .isValidSync({
         startDate: '2017-11-29',
@@ -346,9 +358,12 @@ function strSchemaTests(strSchema: yup.StringSchema) {
     strSchema.uppercase();
     strSchema.uppercase('upper');
     strSchema.uppercase(() => 'upper');
+    strSchema.defined();
 }
 
 const strSchema = yup.string(); // $ExpectType StringSchema<string>
+strSchema.oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world">
+strSchema.notRequired().oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world" | undefined>
 strSchemaTests(strSchema);
 
 const strLiteralSchema = yup.string<'foo' | 'bar'>(); // $ExpectType StringSchema<"foo"> | StringSchema<"bar">
@@ -394,11 +409,19 @@ numSchema
     .validate(5, { strict: true })
     .then(value => value)
     .catch(err => err);
+numSchema.oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
+numSchema.equals([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
+numSchema.notRequired().oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined>
+numSchema.defined();
 
 // Boolean Schema
 const boolSchema = yup.boolean();
 boolSchema.type;
 boolSchema.isValid(true); // => true
+boolSchema.oneOf([true] as const); // $ExpectType BooleanSchema<true>
+boolSchema.equals([true] as const); // $ExpectType BooleanSchema<true>
+boolSchema.notRequired().oneOf([true] as const); // $ExpectType BooleanSchema<true | undefined>
+boolSchema.defined();
 
 // Date Schema
 const dateSchema = yup.date();
@@ -414,11 +437,19 @@ dateSchema.max('2017-11-12');
 dateSchema.max(new Date(), 'message');
 dateSchema.max('2017-11-12', 'message');
 dateSchema.max('2017-11-12', () => 'message');
+dateSchema.oneOf([new Date()] as const); // $ExpectType DateSchema<Date>
+dateSchema.equals([new Date()] as const); // $ExpectType DateSchema<Date>
+dateSchema.notRequired().oneOf([new Date()] as const); // $ExpectType DateSchema<Date | undefined>
 
 // Array Schema
 const arrSchema = yup.array().of(yup.number().min(2));
 arrSchema.type;
 arrSchema.innerType;
+arrSchema.notRequired().innerType;
+arrSchema.optional().innerType;
+arrSchema.nullable().innerType;
+arrSchema.notRequired().nullable().innerType;
+arrSchema.optional().nullable().innerType;
 arrSchema.innerType.type;
 arrSchema.isValid([2, 3]); // => true
 arrSchema.isValid([1, -24]); // => false
@@ -433,6 +464,9 @@ arrSchema.min(5);
 arrSchema.min(5, 'min');
 arrSchema.min(5, () => 'min');
 arrSchema.compact((value, index, array) => value === array[index]);
+arrSchema.oneOf([]); // $ExpectType ArraySchema<number>
+arrSchema.equals([]); // $ExpectType ArraySchema<number>
+arrSchema.defined();
 
 const arrOfObjSchema = yup.array().of(
     yup.object().shape({
@@ -474,10 +508,19 @@ objSchema.noUnknown();
 objSchema.noUnknown(true);
 objSchema.noUnknown(true, 'message');
 objSchema.noUnknown(true, () => 'message');
+objSchema.unknown();
 objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
 objSchema.snakeCase();
 objSchema.constantCase();
+interface LiteralExampleObject {
+    name: "John Doe";
+    age: 35;
+    email: "john@example.com";
+    website: "example.com";
+}
+objSchema.oneOf([{name: "John Doe", age: 35, email: "john@example.com", website: "example.com"}] as LiteralExampleObject[]); // $ExpectType ObjectSchema<LiteralExampleObject>
+objSchema.defined();
 
 const description: SchemaDescription = {
     type: 'type',
@@ -775,6 +818,14 @@ const personSchema = yup.object({
         .nullable()
         .notRequired()
         .min(1),
+    friends: yup
+        .mixed()
+        .test(
+            "is-Set",
+            // tslint:disable-next-line:no-invalid-template-strings
+            "${path} must be a Set of strings",
+            (value): value is undefined | null | Set<string> =>
+                value === null || value === undefined || (value instanceof Set && Array.from(value.values()).every(el => typeof el === "string")))
 });
 
 type Person = yup.InferType<typeof personSchema>;
@@ -815,6 +866,7 @@ person.isAlive = true;
 person.isAlive = undefined;
 person.children = ['1', '2', '3'];
 person.children = undefined;
+person.friends = new Set(["Amy", "Beth"]);
 
 // $ExpectError
 person.gender = 1;
@@ -826,6 +878,10 @@ person.firstName = undefined;
 person.mustBeAString = null;
 // $ExpectError
 person.mustBeAString = undefined;
+// $ExpectError
+person.friends = new Set([1, 2, 3]);
+// $ExpectError
+person.friends = ["Amy", "Beth"];
 
 const castPerson = personSchema.cast({});
 castPerson.firstName = '';
@@ -861,8 +917,8 @@ function wrapper<T>(b: boolean, msx: MixedSchema<T>): MixedSchema<T> {
     return msx.nullable(b);
 }
 
-const resultingSchema1 = wrapper<string | number>(false, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number>
-const resultingSchema2 = wrapper<string | number>(true, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | null>
+const resultingSchema1 = wrapper<string | number | undefined>(false, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | undefined>
+const resultingSchema2 = wrapper<string | number | undefined>(true, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | null | undefined>
 
 const arrayOfStringsSchema = yup.array().of(yup.string());
 type ArrayOfStrings = yup.InferType<typeof arrayOfStringsSchema>;
@@ -880,7 +936,7 @@ const topLevelArrayNullable = yup.array().nullable();
 const topLevelArrayNullableExample: yup.InferType<typeof topLevelArrayNullable> = null;
 
 const nestedNullableShape = yup.object().shape({
-    foo: yup.object().nullable().shape({})
+    foo: yup.object().nullable().shape<{}>({})
 });
 const nestedNullableShapeExample: yup.InferType<typeof nestedNullableShape> = {
     foo: null

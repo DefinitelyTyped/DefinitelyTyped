@@ -5,9 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_match-highlighter
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
+declare module 'codemirror' {
     interface HighlightSelectionMatches {
         /**
          * Minimum amount of selected characters that triggers a highlight (default 2).
@@ -38,7 +38,7 @@ declare module "codemirror" {
          * If wordsOnly is enabled, the matches will be highlighted only if the selected text is a word.
          */
         wordsOnly?: boolean;
-        
+
         /**
          * If annotateScrollbar is enabled, the occurences will be highlighted on the scrollbar via the matchesonscrollbar addon.
          */
