@@ -227,18 +227,24 @@ MongoModel.update({ age: { $gt: 18 } }, { oldEnough: true }, cb);
 MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true,  arrayFilters: [{ element: { $gte: 100 } }] }, cb);
 MongoModel.where('age').gte(21).lte(65).exec(cb);
 MongoModel.where('age').gte(21).lte(65).where('name', /^b/i);
-new (mongoModel.base.model(''))();
-mongoModel.baseModelName && mongoModel.baseModelName.toLowerCase();
+new (mongoModel.constructor.base.model(''))();
+// $ExpectError
+mongoModel.baseModelName;
+mongoModel.constructor.baseModelName && mongoModel.constructor.baseModelName.toLowerCase();
 mongoModel.collection.$format(99);
 mongoModel.collection.initializeOrderedBulkOp;
 mongoModel.collection.findOne;
 mongoModel.db.openUri('');
+// $ExpectError
 mongoModel.discriminators;
-mongoModel.modelName.toLowerCase();
-MongoModel = mongoModel.base.model('new', mongoModel.schema);
-/* inherited properties */
-MongoModel.modelName;
+mongoModel.constructor.discriminators;
+// $ExpectError
 mongoModel.modelName;
+mongoModel.constructor.modelName;
+mongoModel.constructor.modelName.toLowerCase();
+MongoModel = mongoModel.constructor.base.model('new', mongoModel.schema);
+
+/* model inherited properties */
 MongoModel.collection;
 mongoModel.collection;
 mongoModel._id;

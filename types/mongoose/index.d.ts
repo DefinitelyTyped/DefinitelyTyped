@@ -40,6 +40,7 @@
 //                 Cl3dson <https://github.com/cl3dson>
 //                 Richard Simko <https://github.com/richardsimko>
 //                 Marek Tuchalski <https://github.com/ith>
+//                 Jeremy Bensimon <https://github.com/jeremyben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -3004,6 +3005,21 @@ declare module "mongoose" {
    */
   export var Model: Model<any>;
   interface Model<T extends Document, QueryHelpers = {}> extends NodeJS.EventEmitter, ModelProperties {
+    /** Base Mongoose instance the model uses. */
+    base: typeof mongoose;
+
+    /**
+     * If this is a discriminator model, baseModelName is the
+     * name of the base model.
+     */
+    baseModelName: string | undefined;
+
+    /** Registered discriminators for this model. */
+    discriminators: { [name: string]: Model<any> } | undefined;
+
+    /** The name of the model */
+    modelName: string;
+
     /**
      * Model constructor
      * Provides the interface to MongoDB collections as well as creates document instances.
@@ -3458,6 +3474,8 @@ declare module "mongoose" {
 
   class Document {}
   interface Document extends MongooseDocument, NodeJS.EventEmitter, ModelProperties {
+    constructor: Model<this>;
+
     /** Signal that we desire an increment of this documents version. */
     increment(): this;
 
@@ -3512,26 +3530,11 @@ declare module "mongoose" {
   }
 
   interface ModelProperties {
-    /** Base Mongoose instance the model uses. */
-    base: typeof mongoose;
-
-    /**
-     * If this is a discriminator model, baseModelName is the
-     * name of the base model.
-     */
-    baseModelName: string | undefined;
-
     /** Collection the model uses. */
     collection: Collection;
 
     /** Connection the model uses. */
     db: Connection;
-
-    /** Registered discriminators for this model. */
-    discriminators: any;
-
-    /** The name of the model */
-    modelName: string;
 
     /** Schema the model uses. */
     schema: Schema;
