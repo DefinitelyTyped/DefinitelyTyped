@@ -244,7 +244,6 @@ mixed.test({
     test: value => !!value,
 });
 
- 
 yup.mixed().oneOf(['hello', 1, null] as const).nullable(); // $ExpectType MixedSchema<"hello" | 1 | null | undefined>
 yup.mixed().nullable().oneOf(['hello', 1, null] as const); // $ExpectType MixedSchema<"hello" | 1 | null | undefined>
 
