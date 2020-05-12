@@ -89,8 +89,8 @@ export interface LottieProps {
      * Array of objects containing eventName and a callback function that will be registered as eventListeners on the animation object.
      * Refer to Lottie documentation for a list of available events.
      */
-    eventListeners?: EventListener[];
-    segments?: number[];
+    eventListeners?: ReadonlyArray<EventListener>;
+    segments?: ReadonlyArray<number>;
     speed?: number;
     direction?: number;
     ariaRole?: string | 'button';
