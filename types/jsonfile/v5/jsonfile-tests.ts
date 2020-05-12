@@ -1,5 +1,4 @@
-import jsonfile = require('jsonfile');
-import { stringify, stripBom } from 'jsonfile/utils';
+import * as jsonfile from 'jsonfile';
 
 const file = '/tmp/data.json';
 const obj = { name: 'JP' };
@@ -66,8 +65,3 @@ jsonfile.writeFileSync(file, obj);
 jsonfile.writeFileSync(file, obj, { spaces: 2 });
 jsonfile.writeFileSync(file, obj, { spaces: 2, EOL: '\r\n' });
 jsonfile.writeFileSync(file, obj, { flag: 'a' });
-
-// $ExpectType string
-stripBom('content');
-// $ExpectType string
-stringify(obj, { flag: 'a' });
