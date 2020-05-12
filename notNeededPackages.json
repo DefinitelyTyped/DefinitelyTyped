@@ -5497,6 +5497,12 @@
             "asOfVersion": "1.2.1"
         },
         {
+            "libraryName": "@wordpress/a11y",
+            "typingsPackageName": "wordpress__a11y",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.9.0"
+        },
+        {
             "libraryName": "@wordpress/is-shallow-equal",
             "typingsPackageName": "wordpress__is-shallow-equal",
             "sourceRepoURL": "https://github.com/WordPress/gutenberg",
