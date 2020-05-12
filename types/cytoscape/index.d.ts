@@ -1277,7 +1277,7 @@ declare namespace cytoscape {
          * Effectively move nodes to different parent node. The modified (actually new) elements are returned.
          * http://js.cytoscape.org/#eles.move
          */
-        move(location: { parent: string }): NodeCollection;
+        move(location: { parent: string | null }): NodeCollection;
     }
 
     /**
