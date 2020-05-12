@@ -3037,16 +3037,16 @@
             "asOfVersion": "1.1.0"
         },
         {
-            "libraryName": "node-waves",
-            "typingsPackageName": "node-waves",
-            "sourceRepoURL": "http://fian.my.id/Waves",
-            "asOfVersion": "0.7.6"
-        },
-        {
             "libraryName": "node-vault",
             "typingsPackageName": "node-vault",
             "sourceRepoURL": "https://github.com/kr1sp1n/node-vault",
             "asOfVersion": "0.9.13"
+        },
+        {
+            "libraryName": "node-waves",
+            "typingsPackageName": "node-waves",
+            "sourceRepoURL": "http://fian.my.id/Waves",
+            "asOfVersion": "0.7.6"
         },
         {
             "libraryName": "nookies",
@@ -5495,6 +5495,12 @@
             "typingsPackageName": "word-wrap",
             "sourceRepoURL": "https://github.com/jonschlinkert/word-wrap",
             "asOfVersion": "1.2.1"
+        },
+        {
+            "libraryName": "@wordpress/is-shallow-equal",
+            "typingsPackageName": "wordpress__is-shallow-equal",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "wouter",
