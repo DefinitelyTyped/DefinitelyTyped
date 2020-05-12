@@ -652,7 +652,7 @@ declare module "http2" {
         addTrailers(trailers: OutgoingHttpHeaders): void;
         end(callback?: () => void): void;
         end(data: string | Uint8Array, callback?: () => void): void;
-        end(data: string | Uint8Array, encoding: string, callback?: () => void): void;
+        end(data: string | Uint8Array, encoding: BufferEncoding, callback?: () => void): void;
         getHeader(name: string): string;
         getHeaderNames(): string[];
         getHeaders(): OutgoingHttpHeaders;
@@ -661,7 +661,7 @@ declare module "http2" {
         setHeader(name: string, value: number | string | string[]): void;
         setTimeout(msecs: number, callback?: () => void): void;
         write(chunk: string | Uint8Array, callback?: (err: Error) => void): boolean;
-        write(chunk: string | Uint8Array, encoding: string, callback?: (err: Error) => void): boolean;
+        write(chunk: string | Uint8Array, encoding: BufferEncoding, callback?: (err: Error) => void): boolean;
         writeContinue(): void;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
         writeHead(statusCode: number, statusMessage: string, headers?: OutgoingHttpHeaders): this;

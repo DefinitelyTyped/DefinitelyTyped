@@ -24,8 +24,7 @@ rws = through2(function (entry: any, enc: string, callback: () => void) {
 });
 
 rws = through2(function (entry, enc, callback) {
-    var str: string = enc;
-    this.push(entry, str);
+    this.push(entry, enc);
     callback(null, 'continue');
 }, () => {
 
