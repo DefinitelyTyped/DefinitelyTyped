@@ -2134,7 +2134,7 @@ declare namespace Cesium {
         height?: Property;
         scaleByDistance?: Property;
         translucencyByDistance?: Property;
-        disableDepthTestDistance?: Property | number;
+        disableDepthTestDistance?: Property;
         pixelOffsetScaleByDistance?: Property;
         heightReference?: Property;
         constructor(options?: { image?: Property;
@@ -2424,8 +2424,8 @@ declare namespace Cesium {
 
     class EllipseGraphics {
         definitionChanged: Event;
-        semiMajorAxis: Property | number;
-        semiMinorAxis: Property | number;
+        semiMajorAxis: Property;
+        semiMinorAxis: Property;
         rotation: Property;
         show: Property;
         material: MaterialProperty | Color;
@@ -2702,7 +2702,7 @@ declare namespace Cesium {
 
     class LabelGraphics {
         definitionChanged: Event;
-        text: Property | string;
+        text: Property;
         font: string;
         style: Property;
         fillColor: Color;
@@ -2877,8 +2877,8 @@ declare namespace Cesium {
         definitionChanged: Event;
         distanceDisplayCondition: Property;
         show: Property;
-        material: MaterialProperty | Color;
-        hierarchy: Property | Cartesian3[] | PolygonHierarchy;
+        material: MaterialProperty;
+        hierarchy: Property;
         height: Property;
         heightReference: Property;
         extrudedHeight: Property;
@@ -2954,8 +2954,8 @@ declare namespace Cesium {
         granularity: Property;
         shadows: Property;
         show: Property;
-        material: MaterialProperty | Color;
-        positions: Property | Cartesian3[];
+        material: MaterialProperty;
+        positions: Property;
         width: Property | number;
         zIndex: ConstantProperty;
         constructor(options?: {

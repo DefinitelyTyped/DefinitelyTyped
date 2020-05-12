@@ -3835,6 +3835,12 @@
             "asOfVersion": "2.4.0"
         },
         {
+            "libraryName": "rdflib",
+            "typingsPackageName": "rdflib",
+            "sourceRepoURL": "https://github.com/linkeddata/rdflib.js",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "re2",
             "typingsPackageName": "re2",
             "sourceRepoURL": "https://github.com/uhop/node-re2",

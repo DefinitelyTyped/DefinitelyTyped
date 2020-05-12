@@ -35,6 +35,7 @@
         "test/addon/search/match-highlighter.ts",
         "test/addon/search/searchcursor.ts",
         "test/addon/selection/active-line.ts",
-        "test/addon/tern/tern.ts"
+        "test/addon/tern/tern.ts",
+        "codemirror-tests.ts"
     ]
 }
