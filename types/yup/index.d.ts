@@ -12,6 +12,7 @@
 //                 Maurice de Beijer <https://github.com/mauricedb>
 //                 Kalley Powell <https://github.com/kalley>
 //                 Elías García <https://github.com/elias-garcia>
+//                 Ian Sanders <https://github.com/iansan5653>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
