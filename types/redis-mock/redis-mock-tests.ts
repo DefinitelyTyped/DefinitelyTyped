@@ -4,6 +4,7 @@ declare const value: any;
 let valueArr: any[];
 declare const commandArr: any[][];
 let num = 1;
+let num_or_error: number | Error = 1;
 const str = "hi";
 let bool = false;
 const err: Error = new Error();
@@ -52,7 +53,7 @@ client = redis.createClient({
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 bool = client.connected;
-num = client.retry_delay;
+num_or_error = client.retry_delay;
 num = client.retry_backoff;
 valueArr = client.command_queue;
 valueArr = client.offline_queue;

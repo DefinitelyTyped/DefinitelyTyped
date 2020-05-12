@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.7.12
+// Type definitions for Mongoose 5.7.13
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -37,10 +37,12 @@
 //                 Dongjun Lee <https://github.com/ChazEpps>
 //                 Valentin Agachi <https://github.com/avaly>
 //                 Jan Nemcik <https://github.com/JanNemcik>
-//                 Cl3dson <https://github.com/cl3dson> 
+//                 Cl3dson <https://github.com/cl3dson>
 //                 Richard Simko <https://github.com/richardsimko>
+//                 Marek Tuchalski <https://github.com/ith>
+//                 Jeremy Bensimon <https://github.com/jeremyben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -107,7 +109,7 @@ declare module "mongoose" {
       ? mongodb.Condition<T[P]>
       : mongodb.Condition<T[P] | string>;
   } &
-    mongodb.RootQuerySelector<T>;  
+    mongodb.RootQuerySelector<T>;
 
   /* FilterQuery alias type for using as type for filter/conditions parameters */
   export type FilterQuery<T> = MongooseFilterQuery<DocumentDefinition<T>>;
@@ -363,7 +365,7 @@ declare module "mongoose" {
      * Each state change emits its associated event name.
      */
     readyState: number;
-      
+
     /** Connected database name */
     name: string
 
@@ -1043,6 +1045,11 @@ declare module "mongoose" {
   interface SchemaOptions {
     /** defaults to false (which means use the connection's autoIndex option) */
     autoIndex?: boolean;
+    /**
+     * When false, use the connection's autoCreate option
+     * @default false
+     */
+    autoCreate?: boolean;
     /** defaults to true */
     bufferCommands?: boolean;
     /** defaults to false */
@@ -2206,7 +2213,7 @@ declare module "mongoose" {
      *
      * @param err optional error to throw if no docs match `filter`
      */
-    orFail(err?: Error | (() => Error)): this;
+    orFail(err?: Error | (() => Error)): DocumentQuery<NonNullable<T>, DocType, QueryHelpers>;
 
     /** Specifies a $polygon condition */
     polygon(...coordinatePairs: number[][]): this;
@@ -2789,6 +2796,12 @@ declare module "mongoose" {
     group(arg: any): this;
 
     /**
+     * Sets the hint option for the aggregation query (ignored for < 3.6.0)
+     * @param value a hint object or the index name
+     */
+    hint(value: object | string): this;
+
+    /**
      * Appends a new $limit operator to this aggregate pipeline.
      * @param num maximum number of records to pass to the next stage
      */
@@ -2992,6 +3005,21 @@ declare module "mongoose" {
    */
   export var Model: Model<any>;
   interface Model<T extends Document, QueryHelpers = {}> extends NodeJS.EventEmitter, ModelProperties {
+    /** Base Mongoose instance the model uses. */
+    base: typeof mongoose;
+
+    /**
+     * If this is a discriminator model, baseModelName is the
+     * name of the base model.
+     */
+    baseModelName: string | undefined;
+
+    /** Registered discriminators for this model. */
+    discriminators: { [name: string]: Model<any> } | undefined;
+
+    /** The name of the model */
+    modelName: string;
+
     /**
      * Model constructor
      * Provides the interface to MongoDB collections as well as creates document instances.
@@ -3446,6 +3474,8 @@ declare module "mongoose" {
 
   class Document {}
   interface Document extends MongooseDocument, NodeJS.EventEmitter, ModelProperties {
+    constructor: Model<this>;
+
     /** Signal that we desire an increment of this documents version. */
     increment(): this;
 
@@ -3500,26 +3530,11 @@ declare module "mongoose" {
   }
 
   interface ModelProperties {
-    /** Base Mongoose instance the model uses. */
-    base: typeof mongoose;
-
-    /**
-     * If this is a discriminator model, baseModelName is the
-     * name of the base model.
-     */
-    baseModelName: string | undefined;
-
     /** Collection the model uses. */
     collection: Collection;
 
     /** Connection the model uses. */
     db: Connection;
-
-    /** Registered discriminators for this model. */
-    discriminators: any;
-
-    /** The name of the model */
-    modelName: string;
 
     /** Schema the model uses. */
     schema: Schema;

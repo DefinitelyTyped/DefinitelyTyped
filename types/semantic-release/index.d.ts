@@ -1,4 +1,4 @@
-// Type definitions for semantic-release 15.13
+// Type definitions for semantic-release 17.0
 // Project: https://github.com/semantic-release/semantic-release#readme
 // Definitions by: Leonardo Gatica <https://github.com/lgaticaq>
 //                 Daniel Cassidy <https://github.com/djcsdy>
@@ -16,29 +16,91 @@ declare namespace SemanticRelease {
 	 */
 	interface Options {
 		/**
-		 * The branch on which releases should happen.
+		 * List of modules or file paths containing a
+		 * [shareable configuration](https://semantic-release.gitbook.io/semantic-release/usage/shareable-configurations).
+		 * If multiple shareable configurations are set, they will be imported
+		 * in the order defined with each configuration option taking
+		 * precedence over the options defined in a previous shareable
+		 * configuration.
+		 *
+		 * **Note**: Options defined via CLI arguments or in the configuration
+		 * file will take precedence over the ones defined in any shareable
+		 * configuration.
 		 */
-		branch?: string;
+		extends?: ReadonlyArray<string> | string;
 
 		/**
-		 * The Git repository URL, in any supported format.
+		 * The branches on which releases should happen. By default
+		 * **semantic-release** will release:
+		 *
+		 *  * regular releases to the default distribution channel from the
+		 *    branch `master`
+		 *  * regular releases to a distribution channel matching the branch
+		 *    name from any existing branch with a name matching a maintenance
+		 *    release range (`N.N.x` or `N.x.x` or `N.x` with `N` being a
+		 *    number)
+		 *  * regular releases to the `next` distribution channel from the
+		 *    branch `next` if it exists
+		 *  * regular releases to the `next-major` distribution channel from
+		 *    the branch `next-major` if it exists.
+		 *  * prereleases to the `beta` distribution channel from the branch
+		 *    `beta` if it exists
+		 *  * prereleases to the `alpha` distribution channel from the branch
+		 *    `alpha` if it exists
+		 *
+		 * **Note**: If your repository does not have a release branch, then
+		 * **semantic-release** will fail with an `ERELEASEBRANCHES` error
+		 * message. If you are using the default configuration, you can fix
+		 * this error by pushing a `master` branch.
+		 *
+		 * **Note**: Once **semantic-release** is configured, any user with the
+		 * permission to push commits on one of those branches will be able to
+		 * publish a release. It is recommended to protect those branches, for
+		 * example with [GitHub protected branches](https://help.github.com/articles/about-protected-branches).
+		 *
+		 * See [Workflow configuration](https://semantic-release.gitbook.io/semantic-release/usage/workflow-configuration#workflow-configuration)
+		 * for more details.
+		 */
+		branches?: ReadonlyArray<BranchSpec> | BranchSpec;
+
+		/**
+		 * The git repository URL.
+		 *
+		 * Any valid git url format is supported (see
+		 * [git protocols](https://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols))
+		 *
+		 * Default: `repository` property in `package.json`, or git origin url.
 		 */
 		repositoryUrl?: string;
 
 		/**
-		 * The Git tag format used by semantic-release to identify releases.
+		 * The git tag format used by **semantic-release** to identify
+		 * releases. The tag name is generated with [Lodash template](https://lodash.com/docs#template)
+		 * and will be compiled with the `version` variable.
+		 *
+		 * **Note**: The `tagFormat` must contain the `version` variable
+		 * exactly once and compile to a
+		 * [valid git reference](https://git-scm.com/docs/git-check-ref-format#_description).
 		 */
 		tagFormat?: string;
 
 		/**
-		 * Specifies the list of plugins to use. Plugins will run in series, in
-		 * the order specified.
+		 * Define the list of plugins to use. Plugins will run in series, in
+		 * the order defined, for each [step](https://semantic-release.gitbook.io/semantic-release/#release-steps)
+		 * if they implement it.
 		 *
-		 * If this option is not specified, then semantic-release will use a
-		 * default list of plugins.
+		 * Plugins configuration can be defined by wrapping the name and an
+		 * options object in an array.
 		 *
-		 * Configuration options for each plugin can be defined by wrapping the
-		 * name and an options object in an array.
+		 * See [Plugins configuration](https://semantic-release.gitbook.io/semantic-release/usage/plugins#plugins)
+		 * for more details.
+		 *
+		 * Default: `[
+		 *     "@semantic-release/commit-analyzer",
+		 *     "@semantic-release/release-notes-generator",
+		 *     "@semantic-release/npm",
+		 *     "@semantic-release/github"
+		 * ]`
 		 */
 		plugins?: ReadonlyArray<PluginSpec>;
 
@@ -65,32 +127,165 @@ declare namespace SemanticRelease {
 	 */
 	interface GlobalConfig extends Options {
 		/**
-		 * The branch on which releases should happen.
+		 * The branches on which releases should happen. By default
+		 * **semantic-release** will release:
+		 *
+		 *  * regular releases to the default distribution channel from the
+		 *    branch `master`
+		 *  * regular releases to a distribution channel matching the branch
+		 *    name from any existing branch with a name matching a maintenance
+		 *    release range (`N.N.x` or `N.x.x` or `N.x` with `N` being a
+		 *    number)
+		 *  * regular releases to the `next` distribution channel from the
+		 *    branch `next` if it exists
+		 *  * regular releases to the `next-major` distribution channel from
+		 *    the branch `next-major` if it exists.
+		 *  * prereleases to the `beta` distribution channel from the branch
+		 *    `beta` if it exists
+		 *  * prereleases to the `alpha` distribution channel from the branch
+		 *    `alpha` if it exists
+		 *
+		 * **Note**: If your repository does not have a release branch, then
+		 * **semantic-release** will fail with an `ERELEASEBRANCHES` error
+		 * message. If you are using the default configuration, you can fix
+		 * this error by pushing a `master` branch.
+		 *
+		 * **Note**: Once **semantic-release** is configured, any user with the
+		 * permission to push commits on one of those branches will be able to
+		 * publish a release. It is recommended to protect those branches, for
+		 * example with [GitHub protected branches](https://help.github.com/articles/about-protected-branches).
+		 *
+		 * See [Workflow configuration](https://semantic-release.gitbook.io/semantic-release/usage/workflow-configuration#workflow-configuration)
+		 * for more details.
 		 */
-		branch: string;
+		branches: ReadonlyArray<BranchSpec> | BranchSpec;
 
 		/**
-		 * The Git repository URL, in any supported format.
+		 * The git repository URL.
+		 *
+		 * Any valid git url format is supported (see
+		 * [git protocols](https://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols))
+		 *
+		 * Default: `repository` property in `package.json`, or git origin url.
 		 */
 		repositoryUrl: string;
 
 		/**
-		 * The Git tag format used by semantic-release to identify releases.
+		 * The git tag format used by **semantic-release** to identify
+		 * releases. The tag name is generated with [Lodash template](https://lodash.com/docs#template)
+		 * and will be compiled with the `version` variable.
+		 *
+		 * **Note**: The `tagFormat` must contain the `version` variable
+		 * exactly once and compile to a
+		 * [valid git reference](https://git-scm.com/docs/git-check-ref-format#_description).
 		 */
 		tagFormat: string;
 
 		/**
-		 * Specifies the list of plugins to use. Plugins will run in series, in
-		 * the order specified.
+		 * Define the list of plugins to use. Plugins will run in series, in
+		 * the order defined, for each [step](https://semantic-release.gitbook.io/semantic-release/#release-steps)
+		 * if they implement it.
 		 *
-		 * If this option is not specified, then semantic-release will use a
-		 * default list of plugins.
+		 * Plugins configuration can be defined by wrapping the name and an
+		 * options object in an array.
 		 *
-		 * Configuration options for each plugin can be defined by wrapping the
-		 * name and an options object in an array.
+		 * See [Plugins configuration](https://semantic-release.gitbook.io/semantic-release/usage/plugins#plugins)
+		 * for more details.
+		 *
+		 * Default: `[
+		 *     "@semantic-release/commit-analyzer",
+		 *     "@semantic-release/release-notes-generator",
+		 *     "@semantic-release/npm",
+		 *     "@semantic-release/github"
+		 * ]`
 		 */
 		plugins: ReadonlyArray<PluginSpec>;
 	}
+
+	/**
+	 * Specifies a git branch holding commits to analyze and code to release.
+	 *
+	 * Each branch may be defined either by a string or an object. Specifying
+	 * a string is a shortcut for specifying that string as the `name` field,
+	 * for example `"master"` expands to `{name: "master"}`.
+	 */
+	type BranchSpec = string | {
+		/**
+		 * The name of git branch.
+		 *
+		 * A `name` is required for all types of branch. It can be defined as a
+		 * [glob](https://github.com/micromatch/micromatch#matching-features)
+		 * in which case the definition will be expanded to one per matching
+		 * branch existing in the repository.
+		 *
+		 * If `name` doesn't match any branch existing in the repository, the
+		 * definition will be ignored. For example, the default configuration
+		 * includes the definition `next` and `next-major` which will become
+		 * active only  when the branches `next` and/or `next-major` are
+		 * created in the repository.
+		 */
+		name: string;
+
+		/**
+		 * The distribution channel on which to publish releases from this
+		 * branch.
+		 *
+		 * If this field is set to `false`, then the branch will be released
+		 * on the default distribution channel (for example the `@latest`
+		 * [dist-tag](https://docs.npmjs.com/cli/dist-tag) for npm). This is
+		 * also the default behavior for the first
+		 * [release branch](https://semantic-release.gitbook.io/semantic-release/usage/workflow-configuration#release-branches)
+		 * if the channel property is not set.
+		 *
+		 * For all other branches, if the channel property is not set, then the
+		 * channel name will be the same as the branch name.
+		 *
+		 * The value of `channel`, if defined as a string, is generated with
+		 * [Lodash template](https://lodash.com/docs#template) with the
+		 * variable `name` set to the branch name.
+		 *
+		 * For example `{name: 'next', channel: 'channel-${name}'}` will be
+		 * expanded to `{name: 'next', channel: 'channel-next'}`.
+		 */
+		channel?: string | false;
+
+		/**
+		 * The range of [semantic versions](https://semver.org/) to support on
+		 * this branch.
+		 *
+		 * A `range` only applies to maintenance branches and must be formatted
+		 * like `N.N.x` or `N.x` (`N` is a number). If no range is specified
+		 * but the `name` is formatted as a range, then the branch will be
+		 * considered a maintenance branch and the `name` value will be used
+		 * for the `range`.
+		 *
+		 * Required for maintenance branches, unless `name` is formatted like
+		 * `N.N.x` or `N.x` (`N` is a number).
+		 */
+		range?: string;
+
+		/**
+		 * The pre-release identifier to append to [semantic versions](https://semver.org/)
+		 * released from this branch.
+		 *
+		 * A `prerelease` property applies only to pre-release branches and
+		 * the `prerelease` value must be valid per the [Semantic Versioning
+		 * Specification](https://semver.org/#spec-item-9). It will determine
+		 * the name of versions. For example if `prerelease` is set to
+		 * `"beta"`, the version will be formatted like `2.0.0-beta.1`,
+		 * `2.0.0-beta.2`, etc.
+		 *
+		 * The value of `prerelease`, if defined as a string, is generated with
+		 * [Lodash template](https://lodash.com/docs#template) with the
+		 * variable `name` set to the name of the branch.
+		 *
+		 * If the `prerelease property is set to `true` then the name of the
+		 * branch is used as the pre-release identifier.
+		 *
+		 * Required for pre-release branches.
+		 */
+		prerelease?: string;
+	};
 
 	/**
 	 * Specifies a plugin to use.

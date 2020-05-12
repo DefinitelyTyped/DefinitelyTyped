@@ -12,6 +12,8 @@ export interface SwitcherItemPropsBase extends InheritedProps {
 
 export type SwitcherItemProps<E extends object = ReactAnchorAttr> = Omit<LinkProps<E>, "tabIndex"> & SwitcherItemPropsBase;
 
-declare function SwitcherItem<E extends object = ReactAnchorAttr>(props: React.PropsWithChildren<SwitcherItemProps<E>>, ref: React.Ref<HTMLElement>): React.ReactElement | null;
+declare function SwitcherItem<E extends object = ReactAnchorAttr, R extends HTMLElement = HTMLElement>(
+    props: React.PropsWithChildren<SwitcherItemProps<E>>, ref: React.Ref<R>
+): React.ReactElement | null;
 
 export default SwitcherItem;

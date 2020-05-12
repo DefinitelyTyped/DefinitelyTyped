@@ -905,11 +905,12 @@ declare namespace JQueryUI {
         content?: any; // () or string
         disabled?: boolean;
         hide?: any; // boolean, number, string or object
-        items?: string;
+        items?: string|JQuery;
         position?: any; // TODO
         show?: any; // boolean, number, string or object
-        tooltipClass?: string;
+        tooltipClass?: string; // deprecated in jQuery UI 1.12
         track?: boolean;
+        classes?: {[key: string]: string};
     }
 
     interface TooltipUIParams {

@@ -59,6 +59,9 @@
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
 
+// We can't include assert.d.ts in base.d.ts, as it'll cause duplication errors in +ts3.7
+/// <reference path="assert.d.ts" />
+
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
 // Empty interfaces are used here which merge fine with the real declarations in the lib XXX files
 // just to ensure the names are known and node typings can be used without importing these libs.

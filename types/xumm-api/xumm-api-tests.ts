@@ -14,6 +14,8 @@ const payloadBodyToPostWithJsonTx: XummPostPayloadBodyJson = {
         submit: true,
         multisign: false,
         expire: 100,
+        immutable: true,
+        forceAccount: false,
         return_url: {
             app: "https://app.app/?payload={id}&customIdent={cid}&txid={txid}&hex={txblob}",
             web: "https://web.web/?payload={id}&customIdent={cid}&txid={txid}&hex={txblob}"
@@ -79,6 +81,8 @@ const payloadToGet_One: XummGetPayloadResponse = {
         expired: true,
         pushed: true,
         app_opened: false,
+        immutable: true,
+        forceAccount: true,
         return_url_app: null,
         return_url_web: null
     },
@@ -108,7 +112,8 @@ const payloadToGet_One: XummGetPayloadResponse = {
         dispatched_to: null,
         dispatched_result: null,
         multisign_account: null,
-        account: null
+        account: null,
+        approved_with: 'PIN'
     },
     custom_meta: {
         identifier: null,
@@ -191,6 +196,8 @@ const payloadDeleteBodyToBeReturned: XummDeletePayloadResponse = {
         expired: true,
         pushed: true,
         app_opened: false,
+        immutable: false,
+        forceAccount: false,
         return_url_app: "https://wietse.com/xrpl?payload=37a56620-3293-4aff-a2fd-cda71b76b1b8",
         return_url_web: null
     },

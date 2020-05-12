@@ -30,20 +30,23 @@ export interface Client extends Resource {
     sounds: Sounds;
     events: Events;
     /* Create Methods */
-    Application(id?: string, objValues?: object): Application;
-    Asterisk(id?: string, objValues?: object): Asterisk;
-    Channel(id?: string, objValues?: object): Channel;
-    Bridge(id?: string, objValues?: object): Bridge;
-    DeviceState(id?: string, objValues?: object): DeviceState;
-    Endpoint(id?: string, objValues?: object): Endpoint;
-    LiveRecording(id?: string, objValues?: object): LiveRecording;
-    Mailbox(id?: string, objValues?: object): Mailbox;
-    Playback(id?: string, objValues?: object): Playback;
-    Sound(id?: string, objValues?: object): Sound;
-    StoredRecording(id?: string, objValues?: object): StoredRecording;
+    Application(id?: string, objValues?: IndexableObject): Application;
+    Asterisk(id?: string, objValues?: IndexableObject): Asterisk;
+    Channel(id?: string, objValues?: IndexableObject): Channel;
+    Bridge(id?: string, objValues?: IndexableObject): Bridge;
+    DeviceState(id?: string, objValues?: IndexableObject): DeviceState;
+    Endpoint(id?: string, objValues?: IndexableObject): Endpoint;
+    LiveRecording(id?: string, objValues?: IndexableObject): LiveRecording;
+    Mailbox(id?: string, objValues?: IndexableObject): Mailbox;
+    Playback(id?: string, objValues?: IndexableObject): Playback;
+    Sound(id?: string, objValues?: IndexableObject): Sound;
+    StoredRecording(id?: string, objValues?: IndexableObject): StoredRecording;
 }
 
 export interface Containers {
+    [key: string]: any;
+}
+export interface IndexableObject {
     [key: string]: any;
 }
 /* Event Types */
@@ -315,7 +318,7 @@ export interface ChannelUserevent extends Event {
     channel?: Channel;
     bridge?: Bridge;
     endpoint?: Endpoint;
-    userevent: object;
+    userevent: IndexableObject;
 }
 export interface ChannelHangupRequest extends Event {
     /* Properties */
@@ -680,10 +683,10 @@ export interface Applications {
     ): void;
     unsubscribe(params: { applicationName: string; eventSource: string | string[] }): Promise<Application>;
     filter(
-        params: { applicationName: string; filter?: object },
+        params: { applicationName: string; filter?: IndexableObject },
         callback: (err: Error, application: Application) => void,
     ): void;
-    filter(params: { applicationName: string; filter?: object }): Promise<Application>;
+    filter(params: { applicationName: string; filter?: IndexableObject }): Promise<Application>;
 }
 export interface Application extends Resource {
     /* Properties */
@@ -692,8 +695,8 @@ export interface Application extends Resource {
     bridge_ids: string | string[];
     endpoint_ids: string | string[];
     device_names: string | string[];
-    events_allowed: object | object[];
-    events_disallowed: object | object[];
+    events_allowed: IndexableObject | IndexableObject[];
+    events_disallowed: IndexableObject | IndexableObject[];
     /* Methods */
     list(callback: (err: Error, applications: Application[]) => void): void;
     list(): Promise<Application[]>;
@@ -709,9 +712,9 @@ export interface Application extends Resource {
         callback: (err: Error, application: Application) => void,
     ): void;
     unsubscribe(params: { eventSource: string | string[] }): Promise<Application>;
-    filter(params: { filter?: object }, callback: (err: Error, application: Application) => void): void;
+    filter(params: { filter?: IndexableObject }, callback: (err: Error, application: Application) => void): void;
     filter(callback: (err: Error, application: Application) => void): void;
-    filter(params?: { filter?: object }): Promise<Application>;
+    filter(params?: { filter?: IndexableObject }): Promise<Application>;
 }
 export interface Asterisk {
     /* Methods */
@@ -1280,6 +1283,31 @@ export interface Channels {
     dial(params: { channelId: string; caller?: string; timeout?: number }): Promise<void>;
     rtpstatistics(params: { channelId: string }, callback: (err: Error, rtpstat: RTPstat) => void): void;
     rtpstatistics(params: { channelId: string }): Promise<RTPstat>;
+    externalMedia(
+        params: {
+            channelId?: string;
+            app: string;
+            variables?: Containers;
+            external_host: string;
+            encapsulation?: string;
+            transport?: string;
+            connection_type?: string;
+            format: string;
+            direction?: string;
+        },
+        callback: (err: Error, channel: Channel) => void,
+    ): void;
+    externalMedia(params: {
+        channelId?: string;
+        app: string;
+        variables?: Containers;
+        external_host: string;
+        encapsulation?: string;
+        transport?: string;
+        connection_type?: string;
+        format: string;
+        direction?: string;
+    }): Promise<Channel>;
 }
 export interface DialplanCEP {
     /* Properties */
@@ -1340,7 +1368,7 @@ export interface Channel extends Resource {
     dialplan: DialplanCEP;
     creationtime: Date;
     language: string;
-    channelvars?: object;
+    channelvars?: IndexableObject;
     /* Methods */
     list(callback: (err: Error, channels: Channel[]) => void): void;
     list(): Promise<Channel[]>;
@@ -1560,6 +1588,29 @@ export interface Channel extends Resource {
     dial(params?: { caller?: string; timeout?: number }): Promise<void>;
     rtpstatistics(callback: (err: Error, rtpstat: RTPstat) => void): void;
     rtpstatistics(): Promise<RTPstat>;
+    externalMedia(
+        params: {
+            app: string;
+            variables?: Containers;
+            external_host: string;
+            encapsulation?: string;
+            transport?: string;
+            connection_type?: string;
+            format: string;
+            direction?: string;
+        },
+        callback: (err: Error, channel: Channel) => void,
+    ): void;
+    externalMedia(params: {
+        app: string;
+        variables?: Containers;
+        external_host: string;
+        encapsulation?: string;
+        transport?: string;
+        connection_type?: string;
+        format: string;
+        direction?: string;
+    }): Promise<Channel>;
 }
 export interface DeviceStates {
     /* Methods */
@@ -1647,7 +1698,7 @@ export interface TextMessage {
     from: string;
     to: string;
     body: string;
-    variables?: TextMessageVariable | TextMessageVariable[];
+    variables?: IndexableObject;
 }
 export interface Mailboxes {
     /* Methods */
