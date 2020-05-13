@@ -168,19 +168,13 @@ declare namespace google.payments.api {
          * List of allowed payment methods.
          *
          * This field is required and must contain at least one
-         * [[PaymentMethodSpecification|`PaymentMethodSpecification`]].
+         * allowed payment method.
          *
-         * Note that when
-         * [[PaymentMethodSpecification|`PaymentMethodSpecification`]] is used
-         * within an IsReadyToPayRequest not all fields are required. For
-         * example,
-         * [[PaymentMethodSpecification.tokenizationSpecification|`PaymentMethodSpecification.tokenizationSpecification`]]
-         * is ignored by the `isReadyToPay` client method so you may leave it
-         * unset. Check each filtering criteria within the payment method's
+         * Check each filtering criteria within the payment method's
          * parameters field to see if the properties within are applicable for
-         * IsReadyToPayRequest.
+         * `IsReadyToPayRequest`.
          */
-        allowedPaymentMethods: PaymentMethodSpecification[];
+        allowedPaymentMethods: IsReadyToPayPaymentMethodSpecification[];
 
         /**
          * If set to `true` then the
@@ -505,7 +499,36 @@ declare namespace google.payments.api {
     }
 
     /**
-     * Specification of accepted payment method.
+     * Specification of accepted payment method for use in `isReadyToPay`.
+     */
+    interface IsReadyToPayPaymentMethodSpecification {
+        /**
+         * Type of payment method.
+         *
+         * This field is required.
+         */
+        type: PaymentMethodType;
+
+        /**
+         * Payment method parameters.
+         *
+         * The parameters set here affect which payment methods will be
+         * available for the user to choose from.
+         */
+        parameters: CardParameters;
+
+        /**
+         * Tokenization parameters.
+         *
+         * These parameters will be used to tokenize/transmit the
+         * payment method returned to you in a format you can charge or
+         * reference.
+         */
+        tokenizationSpecification?: PaymentMethodTokenizationSpecification;
+    }
+
+    /**
+     * Specification of accepted payment method for use in `loadPaymentData`.
      */
     interface PaymentMethodSpecification {
         /**

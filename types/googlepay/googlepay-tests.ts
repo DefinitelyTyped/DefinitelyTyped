@@ -42,7 +42,13 @@ function onGooglePayLoaded() {
     client.isReadyToPay({
         apiVersion: 2,
         apiVersionMinor: 0,
-        allowedPaymentMethods
+        allowedPaymentMethods: [{
+            type: 'CARD',
+            parameters: {
+                allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                allowedCardNetworks,
+            },
+        }]
     }).then(response => {
         if (response.result) {
             addGooglePayButton();
