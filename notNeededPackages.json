@@ -5539,6 +5539,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "@wordpress/priority-queue",
+            "typingsPackageName": "wordpress__priority-queue",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "1.6.0"
+        },
+        {
             "libraryName": "@wordpress/token-list",
             "typingsPackageName": "wordpress__token-list",
             "sourceRepoURL": "https://github.com/WordPress/gutenberg",
