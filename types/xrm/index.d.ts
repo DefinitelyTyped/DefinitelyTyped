@@ -3041,6 +3041,12 @@ declare namespace Xrm {
             refresh(): void;
 
             /**
+             * Refreshes the sub grid ribbon.
+             * @see {@link https://docs.microsoft.com/it-it/powerapps/developer/model-driven-apps/clientapi/reference/grids/gridcontrol/refreshribbon External Link: refreshRibbon (Client API reference)}
+             */
+            refreshRibbon(): void;
+
+            /**
              * Use this method to remove event handlers from the GridControl's OnLoad event.
              * @param handler The handler.
              */
@@ -4240,7 +4246,7 @@ declare namespace Xrm {
              */
             text: string;
             /**
-             * (Optional) String. The title of the alert dialog.
+             * (Optional) The title of the alert dialog.
              */
             title?: string;
         }
