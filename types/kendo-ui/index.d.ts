@@ -8394,7 +8394,7 @@ declare namespace kendo.ui {
 
         constructor(element: Element, options?: StepperOptions);
 
-        setOptions(options?: StepperOptions): void;
+        setOptions(options: any): void;
 
         enable(value: boolean): void;
         insertAt(index: number, step: kendo.stepper.StepOptions): void;
