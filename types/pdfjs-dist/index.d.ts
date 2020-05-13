@@ -14,7 +14,7 @@ interface GlobalWorkerOptions {
   workerSrc: string;
 }
 
-interface PDFPromise<T> {
+interface PDFPromise<T> extends Promise<T> {
     isResolved(): boolean;
     isRejected(): boolean;
     resolve(value: T): void;
