@@ -81,20 +81,40 @@ export interface Backends {
     backends: BackendDeclaration[];
 }
 
+export interface PreviewGeneratorArg<T = any> {
+    /**
+     * The type of the item (monitor.getItemType())
+     */
+    itemType: string;
+
+    /**
+     * The item being dragged (monitor.getItem())
+     */
+    item: T;
+
+    /**
+     * An object representing the style to use for the item, it should be passed to
+     * your component's style property and is used for positioning
+     */
+    style: CSSProperties;
+}
+
+export type PreviewGenerator<T = any> = (arg: PreviewGeneratorArg<T>) => JSX.Element;
+
 /**
  * Properties for the Preview class
  */
-export interface PreviewProps {
+export interface PreviewProps<T = any> {
     /**
      * Callback function to generate a preview object when dragging. This preview will only be used
      * with backends that have the 'preview' flag set to true.
-     * @param type: the type of the item (monitor.getItemType())
-     * @param item: the item being dragged (monitor.getItem())
-     * @param style: an object representing the style to use for the item, it should be passed to
+     * @param arg.itemType: the type of the item (monitor.getItemType())
+     * @param arg.item: the item being dragged (monitor.getItem())
+     * @param arg.style: an object representing the style to use for the item, it should be passed to
      *               your component's style property and is used for positioning.
      * @returns The JSX element to display for the drag preview.
      */
-    generator(type: string, item: any, style: CSSProperties): JSX.Element;
+    generator: PreviewGenerator<T>;
 }
 
 /**
