@@ -5515,6 +5515,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "@wordpress/dom-ready",
+            "typingsPackageName": "wordpress__dom-ready",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.9.0"
+        },
+        {
             "libraryName": "@wordpress/is-shallow-equal",
             "typingsPackageName": "wordpress__is-shallow-equal",
             "sourceRepoURL": "https://github.com/WordPress/gutenberg",
