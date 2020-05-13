@@ -219,6 +219,11 @@ declare namespace Sinon {
          */
         returnValues: any[];
 
+        /**
+         * Holds a reference to the original method/function this stub has wrapped.
+         */
+        wrappedMethod: (...args: any[]) => any;
+
         // Methods
         (...args: any[]): any;
         /**
