@@ -3975,7 +3975,7 @@ declare namespace chrome.input.ime {
         /** Text to set */
         text: string;
         /** Optional. List of segments and their associated types. */
-        segments: CompositionParameterSegment[];
+        segments?: CompositionParameterSegment[];
         /** Position in the text of the cursor. */
         cursor: number;
         /** Optional. Position in the text that the selection starts at. */
