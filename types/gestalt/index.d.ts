@@ -166,6 +166,7 @@ export interface ButtonProps {
     size?: 'sm' | 'md' | 'lg';
     textColor?: 'blue' | 'red' | 'darkGray' | 'white';
     type?: 'submit' | 'button';
+    iconEnd?: Icons;
 }
 
 /*
