@@ -5527,6 +5527,12 @@
             "asOfVersion": "1.8.0"
         },
         {
+            "libraryName": "@wordpress/html-entities",
+            "typingsPackageName": "wordpress__html-entities",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
+        },
+        {
             "libraryName": "@wordpress/i18n",
             "typingsPackageName": "wordpress__i18n",
             "sourceRepoURL": "https://github.com/WordPress/gutenberg",
