@@ -10,4 +10,3 @@
 
 // tslint:disable-next-line:no-bad-reference
 /// <reference path="../globals.global.d.ts" />
-
