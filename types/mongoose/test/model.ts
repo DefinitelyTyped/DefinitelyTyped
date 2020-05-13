@@ -306,6 +306,7 @@ LocModel.findById(999)
             facility.toLowerCase();
         });
     });
+
 LocModel.find()
     .select('-reviews -rating')
     .exec(function (err, locations) {
@@ -341,6 +342,68 @@ LocModel.find({ _id: { foo: 'bar' } });
 LocModel.find({ name: 123 });
 // $ExpectError
 LocModel.find({ rating: 'foo' });
+LocModel.find({ name: 'foo' }).then(function(doc) {
+    if (doc && doc.length > 0) {
+        // $ExpectType ObjectId
+        doc[0]._id;
+        // $ExpectType string
+        doc[0].name;
+        // $ExpectError
+        doc[0].unknown;
+        doc[0].save();
+    }
+});
+LocModel.find({ name: 'foo' }, null, { lean: true }).then(function(doc) {
+    if (doc && doc.length > 0) {
+        // $ExpectType string
+        doc[0].name;
+        // $ExpectError
+        doc[0].unknown;
+        // $ExpectError
+        doc[0].save();
+    }
+});
+
+LocModel.findById('test-id').then(function(doc) {
+    if (doc) {
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        doc.save();
+    }
+});
+LocModel.findById('test-id', null, { lean: true }).then(function(doc) {
+    if (doc) {
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        // $ExpectError
+        doc.save();
+    }
+});
+
+LocModel.findByIdAndUpdate('test-id', { $set: { name: "bb" } }).then((doc) => {
+    if (doc) {
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        doc.save();
+    }
+});
+LocModel.findByIdAndUpdate('test-id', { $set: { name: "bb" } }, { lean: true }).then((doc) => {
+    if (doc) {
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        // $ExpectError
+        doc.save();
+    }
+});
+
 LocModel.count({ name: 'foo'})
     .exec(function (err, count) {
         count.toFixed();
@@ -376,7 +439,26 @@ LocModel.findByIdAndUpdate()
     });
 LocModel.findOne({}, function (err, doc) {
     if (doc) {
+        // $ExpectType ObjectId
+        doc._id;
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        doc.save();
         doc.openingTimes;
+    }
+});
+LocModel.findOne({ name: 'foo', rating: 10 }, 'name', { lean: true }).then(function(doc) {
+    if (doc) {
+        // $ExpectType ObjectId
+        doc._id;
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        // $ExpectError
+        doc.save();
     }
 });
 LocModel
@@ -391,6 +473,8 @@ LocModel
             doc.name;
             // $ExpectError
             doc.unknown;
+            // $ExpectError
+            doc.save();
         }
     });
 LocModel.findOneAndRemove()
@@ -401,9 +485,14 @@ LocModel.findOneAndRemove()
     });
 LocModel.findOneAndRemove({ name: 'foo', rating: 10 });
 LocModel.findOneAndDelete({ name: 'foo', rating: 10 });
-LocModel.findOneAndUpdate({ name: 'foo' }, { rating: 20 }).exec().then(function (arg) {
-    if (arg) {
-        arg.openingTimes;
+LocModel.findOneAndUpdate({ name: 'foo' }, { rating: 20 }).exec().then(function (doc) {
+    if (doc) {
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        doc.save();
+        doc.openingTimes;
     }
 });
 LocModel.findOneAndUpdate(
@@ -412,8 +501,24 @@ LocModel.findOneAndUpdate(
     // document to insert when nothing was found
     { $set: { name: "bb" } },
     // options
-    {upsert: true, new: true, runValidators: true,
-        rawResult: true, multipleCastError: true });
+    {
+        upsert: true,
+        new: true,
+        runValidators: true,
+        rawResult: true,
+        multipleCastError: true
+    }
+);
+LocModel.findOneAndUpdate({ name: "aa" }, { $set: { name: "bb" } }, { lean: true }).then((doc) => {
+    if (doc) {
+        // $ExpectType string
+        doc.name;
+        // $ExpectError
+        doc.unknown;
+        // $ExpectError
+        doc.save();
+    }
+});
 LocModel.geoSearch({}, {
     near: [1, 2],
     maxDistance: 22
