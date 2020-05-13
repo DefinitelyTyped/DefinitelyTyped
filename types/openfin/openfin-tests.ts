@@ -951,7 +951,7 @@ async function testPlatform() {
     const snapshop = await platform.getSnapshot();
     platform.applySnapshot(snapshop);
     // create, reparent & close Views
-    const newViewIdentity = await platform.createView({url: 'some url', name: 'some name', target: {uuid: 'uuid', name: 'window name'}});
+    const {identity: newViewIdentity} = await platform.createView({url: 'some url', name: 'some name', target: {uuid: 'uuid', name: 'window name'}});
     platform.reparentView({uuid: 'uuid', name: 'view_name'}, {uuid: 'uuid', name: 'target_name'});
     platform.closeView(newViewIdentity);
     // createWindow
@@ -983,7 +983,6 @@ async function testView() {
     // ** Instance Methods ** //
     // attach
     view.attach({uuid: 'uuid', name: 'target window name'});
-
     // show and hide
     view.show().then(() => view.hide());
     // setBounds
@@ -998,4 +997,62 @@ async function testView() {
     view.setCustomWindowHandler(['url1.html, url2.html'], () => null);
     // destroy
     view.destroy();
+}
+
+async function testLayout() {
+    // ** Class Methods ** //
+
+    const layout = fin.desktop.Platform.Layout.getCurrentSync();
+    const sameLayout = await fin.desktop.Platform.Layout.getCurrent();
+
+    const config = await layout.getConfig();
+
+    fin.desktop.Platform.Layout.init({layout: config});
+
+    const wrappedLayout = await fin.desktop.Platform.Layout.wrap(layout.identity);
+    const anotherWrappedLayout = fin.desktop.Platform.Layout.wrapSync(layout.identity);
+
+    // ** Instance Methods ** //
+    layout.replace(config);
+    layout.applyPreset({presetType: "columns"});
+    layout.getConfig().then(config => config.settings && config.settings.hasHeaders);
+    layout.identity.uuid;
+}
+
+async function testFDC3() {
+    const contextListener: fdc3.ContextListener = fdc3.addContextListener((context: fdc3.Context) => {});
+    contextListener.unsubscribe();
+
+    fdc3.addEventListener('channel-changed', (event: fdc3.ChannelChangedEvent) => {});
+
+    const intentListener: fdc3.IntentListener = fdc3.addIntentListener('test-intent', (context: fdc3.Context) => {});
+    intentListener.unsubscribe();
+
+    await fdc3.broadcast({type: 'test-context'});
+
+    const appIntent: fdc3.AppIntent = await fdc3.findIntent('test-intent');
+
+    const appIntents: fdc3.AppIntent[] = await fdc3.findIntentsByContext({type: 'test-context'});
+
+    const channelById: fdc3.Channel = await fdc3.getChannelById('test-channel-id');
+    await channelById.join();
+
+    const currentChannel: fdc3.Channel = await fdc3.getCurrentChannel();
+    await currentChannel.join();
+
+    const appChannel: fdc3.Channel = await fdc3.getOrCreateAppChannel('test-app-channel-name');
+    await appChannel.join();
+
+    const systemChannels: fdc3.Channel[] = await fdc3.getSystemChannels();
+
+    await fdc3.open('test-app');
+    await fdc3.open('test-app', {type: 'test-context'});
+
+    await fdc3.raiseIntent('test-intent', {type: 'test-context'});
+    await fdc3.raiseIntent('test-intent', {type: 'test-context'}, 'test-target');
+
+    fdc3.removeEventListener('channel-changed', (event: fdc3.ChannelChangedEvent) => {});
+
+    await fdc3.defaultChannel.join();
+    await fdc3.defaultChannel.broadcast({type: 'test-context'});
 }
