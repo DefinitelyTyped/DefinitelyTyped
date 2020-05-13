@@ -49,6 +49,18 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "algoliasearch",
+            "typingsPackageName": "algoliasearch",
+            "sourceRepoURL": "https://github.com/algolia/algoliasearch-client-javascript",
+            "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "algoliasearch-helper",
+            "typingsPackageName": "algoliasearch-helper",
+            "sourceRepoURL": "https://github.com/algolia/algoliasearch-helper-js/",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "all-keys",
             "typingsPackageName": "all-keys",
             "sourceRepoURL": "https://github.com/sindresorhus/all-keys",
