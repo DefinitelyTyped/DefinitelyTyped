@@ -76,14 +76,19 @@ export interface Schema<T> {
     transform(fn: TransformFunction<this>): this;
 }
 
+
+// Note: Using `{} | null | undefined` allows excluding `null` & `undefined`
+// whereas using `any` as the default type would mean that `nullable(false)`,
+// `defined`, and `required` would all have no effect.
+
 export interface MixedSchemaConstructor {
     // tslint:disable-next-line:no-unnecessary-generics
-    <T = any>(): MixedSchema<T>;
+    <T = {} | null | undefined>(): MixedSchema<T>;
     // tslint:disable-next-line:no-unnecessary-generics
-    new <T = any>(options?: { type?: string; [key: string]: any }): MixedSchema<T>;
+    new <T = {} | null | undefined>(options?: { type?: string; [key: string]: any }): MixedSchema<T>;
 }
 
-export interface MixedSchema<T extends any = any> extends Schema<T> {
+export interface MixedSchema<T extends any = {} | null | undefined> extends Schema<T> {
     nullable(isNullable?: true): MixedSchema<T | null>;
     nullable(isNullable: false): MixedSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): MixedSchema<T>;

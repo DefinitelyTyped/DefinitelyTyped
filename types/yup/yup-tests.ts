@@ -112,8 +112,9 @@ error.type = [];
 error.errors = ['error'];
 
 // mixed
-let mixed: MixedSchema = yup.mixed(); // $ExpectType MixedSchema<any>
+let mixed: MixedSchema = yup.mixed(); // $ExpectType MixedSchema<{} | null | undefined>
 mixed.type;
+mixed.defined(); // $ExpectType MixedSchema<{} | null>
 mixed.clone();
 mixed.label('label');
 mixed.meta({ meta: 'value' });
@@ -144,8 +145,9 @@ mixed.required();
 mixed.required('Foo');
 mixed.required(() => 'Foo');
 mixed.defined();
-mixed.notRequired(); // $ExpectType MixedSchema<any>
-mixed.optional(); // $ExpectType MixedSchema<any>
+mixed.notRequired(); // $ExpectType MixedSchema<{} | null | undefined>
+mixed.optional(); // $ExpectType MixedSchema<{} | null | undefined>
+mixed.required().optional(); // $ExpectType MixedSchema<{} | null | undefined>
 mixed.typeError('type error');
 mixed.typeError(() => 'type error');
 mixed.oneOf(['hello', 'world'], 'message');
