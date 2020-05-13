@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { CSSProperties, FC, PureComponent } from "react";
+import { CSSProperties, FC, PureComponent, ReactNode } from "react";
 import { BackendFactory } from "dnd-core";
 
 /**
@@ -99,7 +99,7 @@ export interface PreviewGeneratorArg<T = any> {
     style: CSSProperties;
 }
 
-export type PreviewGenerator<T = any> = (arg: PreviewGeneratorArg<T>) => JSX.Element;
+export type PreviewGenerator<T = any> = (arg: PreviewGeneratorArg<T>) => ReactNode;
 
 /**
  * Properties for the Preview class
