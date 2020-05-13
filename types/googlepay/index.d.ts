@@ -1231,7 +1231,8 @@ declare namespace google.payments.api {
      * - `PAYPAL`:
      *   PAYPAL payment method.
      */
-    type PaymentMethodType = 'CARD' | 'PAYPAL';
+    // prettier-ignore
+    type PaymentMethodType = "CARD" | "PAYPAL";
 
     /**
      * Payment method tokenization type enum string.
@@ -1314,17 +1315,8 @@ declare namespace google.payments.api {
      * - `VISA`:
      *   Visa card network.
      */
-    type CardNetwork =
-        | 'AMEX'
-        | 'DISCOVER'
-        | 'ELECTRON'
-        | 'ELO'
-        | 'ELO_DEBIT'
-        | 'INTERAC'
-        | 'JCB'
-        | 'MAESTRO'
-        | 'MASTERCARD'
-        | 'VISA';
+    // prettier-ignore
+    type CardNetwork = "AMEX" | "DISCOVER" | "ELECTRON" | "ELO" | "ELO_DEBIT" | "INTERAC" | "JCB" | "MAESTRO" | "MASTERCARD" | "VISA";
 
     /**
      * Card authentication method enum string.
@@ -1570,12 +1562,8 @@ declare namespace google.payments.api {
      * - `OTHER_ERROR`:
      *   A catch all for error not fitting anywhere else.
      */
-    type ErrorReason =
-        | 'SHIPPING_ADDRESS_INVALID'
-        | 'SHIPPING_ADDRESS_UNSERVICEABLE'
-        | 'SHIPPING_OPTION_INVALID'
-        | 'PAYMENT_DATA_INVALID'
-        | 'OTHER_ERROR';
+    // prettier-ignore
+    type ErrorReason = "SHIPPING_ADDRESS_INVALID" | "SHIPPING_ADDRESS_UNSERVICEABLE" | "SHIPPING_OPTION_INVALID" | "PAYMENT_DATA_INVALID" | "OTHER_ERROR";
 
     /**
      * Enum strings for the state of the transaction.
@@ -1934,9 +1922,8 @@ declare namespace google.payments.api {
          * shipping options and transaction info. Don't intentionally return
          * reject if possible.*
          */
-        (
-            intermediatePaymentData: IntermediatePaymentData,
-        ) => Promise<PaymentDataRequestUpdate> | PaymentDataRequestUpdate;
+        // prettier-ignore
+        (intermediatePaymentData: IntermediatePaymentData) => Promise<PaymentDataRequestUpdate> | PaymentDataRequestUpdate;
 
     /**
      * This object contains details about errors returned by client JavaScript
@@ -1964,9 +1951,6 @@ declare namespace google.payments.api {
      * - `INTERNAL_ERROR`:
      *   General server error.
      */
-    type PaymentsErrorStatusCode =
-        | 'BUYER_ACCOUNT_ERROR'
-        | 'DEVELOPER_ERROR'
-        | 'MERCHANT_ACCOUNT_ERROR'
-        | 'INTERNAL_ERROR';
+    // prettier-ignore
+    type PaymentsErrorStatusCode = "BUYER_ACCOUNT_ERROR" | "DEVELOPER_ERROR" | "MERCHANT_ACCOUNT_ERROR" | "INTERNAL_ERROR";
 }
