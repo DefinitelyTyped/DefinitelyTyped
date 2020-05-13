@@ -5509,6 +5509,12 @@
             "asOfVersion": "2.7.0"
         },
         {
+            "libraryName": "@wordpress/blob",
+            "typingsPackageName": "wordpress__blob",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.8.0"
+        },
+        {
             "libraryName": "@wordpress/is-shallow-equal",
             "typingsPackageName": "wordpress__is-shallow-equal",
             "sourceRepoURL": "https://github.com/WordPress/gutenberg",
