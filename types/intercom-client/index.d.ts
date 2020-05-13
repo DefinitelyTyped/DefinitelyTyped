@@ -9,7 +9,14 @@
 // TypeScript Version: 2.2
 /// <reference types="node" />
 
-import { List as UserList, User, UserIdentifier, CreateUpdateUser } from './User';
+import {
+    List as UserList,
+    User,
+    UserIdIdentifier,
+    UserEmailIdentifier,
+    UserIdentifier,
+    CreateUpdateUser,
+} from './User';
 import { List as LeadList, Lead, LeadIdentifier } from './Lead';
 import { Visitor, VisitorIdentifier } from './Visitor';
 import { CompanyIdentifier, List as CompanyList, Company } from './Company';
@@ -59,8 +66,12 @@ export class Users {
     update(user: UserIdentifier & Partial<CreateUpdateUser>): Promise<ApiResponse<User>>;
     update(user: UserIdentifier & Partial<CreateUpdateUser>, cb: callback<ApiResponse<User>>): void;
 
-    find(identifier: UserIdentifier): Promise<ApiResponse<User>>;
-    find(identifier: UserIdentifier, cb: callback<ApiResponse<User>>): void;
+    find(identifier: UserIdIdentifier): Promise<ApiResponse<User>>;
+    find(identifier: UserIdIdentifier, cb: callback<ApiResponse<User>>): void;
+    find(identifier: UserEmailIdentifier): Promise<ApiResponse<UserList>>;
+    find(identifier: UserEmailIdentifier, cb: callback<ApiResponse<UserList>>): void;
+    find(identifier: UserIdentifier): Promise<ApiResponse<User | UserList>>;
+    find(identifier: UserIdentifier, cb: callback<ApiResponse<User | UserList>>): void;
 
     list(): Promise<ApiResponse<UserList>>;
     list(cb: callback<ApiResponse<UserList>>): void;
