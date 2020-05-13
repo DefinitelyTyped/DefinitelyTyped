@@ -185,6 +185,8 @@ async function testPromisify() {
             const _err: Error | null = error;
         });
 
+    const _exitCode: number | null = cp.exitCode;
+
     const stdin: Writable | null = cp.stdio[0];
     const stdout: Readable | null = cp.stdio[1];
     const stderr: Readable | null = cp.stdio[2];
