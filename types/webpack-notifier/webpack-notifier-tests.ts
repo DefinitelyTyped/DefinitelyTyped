@@ -8,6 +8,7 @@ const optionsArray: WebpackNotifierPlugin.Options[] = [
 		excludeWarnings: true,
 		alwaysNotify: true,
 		skipFirstNotification: true,
+		emoji: true,
 	},
 ];
 
