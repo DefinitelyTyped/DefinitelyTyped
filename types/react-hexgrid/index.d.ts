@@ -69,7 +69,6 @@ export class HexUtils {
     static getId(hex: Hex): string;
 }
 
-// tslint:disable-next-line [no-unnecessary-class]
 export class GridGenerator {
     static getGenerator(name: string): (...args: any[]) => any;
     static ring(center: Hex, mapRadius: number): Hex[];
