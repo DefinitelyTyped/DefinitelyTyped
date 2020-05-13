@@ -922,6 +922,20 @@ if (Meteor.isServer) {
     }
 }
 
+// Accounts.onLogout
+
+if (Meteor.isServer) {
+    Accounts.onLogout(({ user, connection }) => {
+
+    });
+}
+
+if (Meteor.isClient) {
+    Accounts.onLogout(() => {
+
+    });
+}
+
 // Covers https://github.com/meteor-typings/meteor/issues/8
 const publicSetting = Meteor.settings.public['somePublicSetting'];
 const deeperPublicSetting = Meteor.settings.public['somePublicSetting']['deeperSetting'];
