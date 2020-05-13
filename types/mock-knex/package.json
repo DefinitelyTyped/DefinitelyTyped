@@ -1,6 +1,3 @@
 {
-    "private": true,
-    "dependencies": {
-        "knex": "> 0.8 < 1.0"
-    }
+    "private": true
 }
