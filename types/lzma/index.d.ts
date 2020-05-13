@@ -3,8 +3,9 @@
 // Definitions by: janKir <https://github.com/janKir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module has methods, declare them as functions like so.
- */
+
+export type LzmaMode = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
 export function compress(
     input: string | Uint8Array,
     mode: LzmaMode
@@ -12,16 +13,35 @@ export function compress(
 export function compress(
     input: string | Uint8Array,
     mode: LzmaMode,
-    onFinish: (result: Uint8Array | null, error: Error | null) => any,
-    onProgress: (percent: number) => any
+    onFinish: (result: Uint8Array | null, error: Error | null) => void,
+    onProgress: (percent: number) => void
 ): void;
 
 export function decompress(input: Uint8Array): string | Uint8Array;
 export function decompress(
     input: Uint8Array,
-    onFinish: (result: string | Uint8Array | null, error: Error | null) => any,
-    onProgress: (percent: number) => any
+    onFinish: (result: string | Uint8Array | null, error: Error | null) => void,
+    onProgress: (percent: number) => void
 ): void;
 
-/*~ You can declare types that are available via importing the module */
-export type LzmaMode = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+interface LZMA {
+    compress(
+        input: string | Uint8Array,
+        mode: LzmaMode
+    ): Uint8Array;
+    compress(
+        input: string | Uint8Array,
+        mode: LzmaMode,
+        onFinish: (result: Uint8Array | null, error: Error | null) => void,
+        onProgress: (percent: number) => void
+    ): void;
+    decompress(input: Uint8Array): string | Uint8Array;
+    decompress(
+        input: Uint8Array,
+        onFinish: (result: string | Uint8Array | null, error: Error | null) => void,
+        onProgress: (percent: number) => void
+    ): void;
+}
+
+export const LZMA: LZMA;
