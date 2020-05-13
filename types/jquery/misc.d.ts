@@ -1160,29 +1160,6 @@ callbacks.fire( "world" );
      */
     interface Thenable<T> extends PromiseLike<T> { }
 
-    // NOTE: This is a private copy of the global Promise interface. It is used by JQuery.PromiseBase to indicate compatibility with other Promise implementations.
-    //       The global Promise interface cannot be used directly as it may be modified, as in the case of @types/bluebird-global.
-    /**
-     * Represents the completion of an asynchronous operation
-     */
-    interface _Promise<T> {
-        readonly [Symbol.toStringTag]: "Promise";
-        /**
-         * Attaches callbacks for the resolution and/or rejection of the Promise.
-         * @param onfulfilled The callback to execute when the Promise is resolved.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of which ever callback is executed.
-         */
-        then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
-                                             onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null): _Promise<TResult1 | TResult2>;
-        /**
-         * Attaches a callback for only the rejection of the Promise.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of the callback.
-         */
-        catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null): _Promise<T | TResult>;
-    }
-
     // Type parameter guide
     // --------------------
     // Each type parameter represents a parameter in one of the three possible callbacks.
@@ -1205,7 +1182,7 @@ callbacks.fire( "world" );
     interface PromiseBase<TR, TJ, TN,
         UR, UJ, UN,
         VR, VJ, VN,
-        SR, SJ, SN> extends _Promise<TR>, PromiseLike<TR> {
+        SR, SJ, SN> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.

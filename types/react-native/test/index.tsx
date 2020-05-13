@@ -96,6 +96,9 @@ import {
     HostComponent,
     Appearance,
     useColorScheme,
+    DevSettings,
+    VirtualizedList,
+    ListRenderItemInfo,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -1085,3 +1088,34 @@ const DarkMode = () => {
 
     return <Text>Is dark mode enabled? {isDarkMode}</Text>;
 };
+
+// VirtualizedList
+// Test inspired by: https://reactnative.dev/docs/virtualizedlist
+const VirtualizedListTest = () => {
+    const DATA = [1, 2, 3];
+
+    const getItem = (data: number[], index: number) => {
+        return  {
+            title: `Item ${data[index]}`
+        };
+    }
+
+    const getItemCount = (data: number[]) => data.length;
+
+    return (
+        <VirtualizedList
+            data={DATA}
+            initialNumToRender={4}
+            renderItem={({ item }: ListRenderItemInfo<ReturnType<typeof getItem>>) => <Text>{item.title}</Text>}
+            getItemCount={getItemCount}
+            getItem={getItem}
+        />
+    );
+}
+
+// DevSettings
+DevSettings.addMenuItem('alert', () => {
+    Alert.alert('alert');
+});
+DevSettings.reload();
+DevSettings.reload('reload with reason');

@@ -2,6 +2,7 @@
 // Project: https://github.com/googleapis/nodejs-kms
 // Definitions by: Ben Talbot <https://github.com/ben-tbotlabs>
 //                 Caian Ertl <https://github.com/caiertl>
+//                 Steven Collins <https://github.com/carboncollins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
@@ -107,6 +108,12 @@ export namespace v1 {
         // Cavium HSM attestation compressed with gzip. Note that this format is
         // defined by Cavium and subject to change at any time.
         CAVIUM_V1_COMPRESSED = 3,
+    }
+
+    interface Digest {
+        sha256?: Buffer;
+        sha384?: Buffer;
+        sha512?: Buffer;
     }
 
     interface KeyOperationAttestation {
@@ -230,6 +237,15 @@ export namespace v1 {
             page_token?: string;
         }
         type ListCryptoKeysCallback = (err: Error | null, apiResponse: [CryptoKey[], any, any]) => void;
+
+        interface AsymmetricSignRequest {
+            name: string;
+            digest: Digest;
+        }
+        interface AsymmetricSignResponse {
+            signature: Buffer;
+        }
+        type AsymmetricSignCallback = (err: Error | null, apiResponse: [AsymmetricSignResponse, any, any]) => void;
     }
 
     class KeyManagementServiceClient {
@@ -266,6 +282,10 @@ export namespace v1 {
         listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, gaxOpts?: GAX.CallOptions): Promise<[CryptoKey[], any, any]>;
         listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, callback: KeyManagementServiceClient.ListCryptoKeysCallback): void;
         listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.ListCryptoKeysCallback): void;
+
+        asymmetricSign(request: KeyManagementServiceClient.AsymmetricSignRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyManagementServiceClient.AsymmetricSignResponse, any, any]>;
+        asymmetricSign(request: KeyManagementServiceClient.AsymmetricSignRequest, callback: KeyManagementServiceClient.AsymmetricSignCallback): void;
+        asymmetricSign(request: KeyManagementServiceClient.AsymmetricSignRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.AsymmetricSignCallback): void;
     }
 }
 

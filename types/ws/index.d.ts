@@ -264,7 +264,7 @@ declare namespace WebSocket {
     }
 
     // WebSocket stream
-    function createWebSocketStream(websocket: WebSocket, options: stream.DuplexOptions): stream.Duplex;
+    function createWebSocketStream(websocket: WebSocket, options?: stream.DuplexOptions): stream.Duplex;
 }
 
 export = WebSocket;

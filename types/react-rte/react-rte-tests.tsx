@@ -2,7 +2,7 @@ import * as React from "react";
 import RichTextEditor, { EditorValue } from "react-rte";
 
 interface Props {
-    onChange: (val: string) => void;
+    onChange?: (val: string) => void;
 }
 
 class MyStatefulEditor extends React.Component<Props, any> {

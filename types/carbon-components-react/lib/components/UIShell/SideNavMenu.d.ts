@@ -1,5 +1,11 @@
 import * as React from "react";
-import { ReactAttr, RenderIconProps, SideNavSharedProps, SideNavSizingProps } from '../../../typings/shared';
+import {
+    ReactAttr,
+    RenderIconProps,
+    SideNavSharedProps,
+    SideNavSizingProps,
+    ForwardRefReturn
+} from "../../../typings/shared";
 
 interface InheritedProps extends RenderIconProps, SideNavSharedProps, SideNavSizingProps {
     children?: ReactAttr["children"],
@@ -14,6 +20,6 @@ export interface SideNavMenuProps extends InheritedProps {
 
 export declare class SideNavMenu extends React.Component<SideNavMenuProps> { }
 
-declare const SideNavMenuFC: React.RefForwardingComponent<HTMLButtonElement, SideNavMenuProps>;
+declare const SideNavMenuForwardRef: ForwardRefReturn<HTMLButtonElement, SideNavMenuProps>;
 
-export default SideNavMenuFC;
+export default SideNavMenuForwardRef;

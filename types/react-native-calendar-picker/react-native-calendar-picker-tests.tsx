@@ -6,6 +6,7 @@ import CalendarPicker, {
     CustomDateStyle,
     DisabledDatesFunc,
 } from 'react-native-calendar-picker';
+import { View, TextInput } from 'react-native';
 
 const TestSimpleProps = () => (
     <CalendarPicker
@@ -25,7 +26,9 @@ const TestSimpleProps = () => (
             'Dezembro',
         ]}
         startFromMonday
+        showDayStragglers
         allowRangeSelection
+        allowBackwardRangeSelect
         previousTitle="string"
         nextTitle="string"
         selectedDayColor="string"
@@ -43,6 +46,7 @@ const TestSimpleProps = () => (
         todayBackgroundColor="string"
         todayTextStyle={{ fontSize: 10 }}
         textStyle={{ fontSize: 10 }}
+        customDatesStylesPriority="dayOfWeek"
         scaleFactor={3}
         minDate={new Date()}
         maxDate={new Date()}
@@ -96,7 +100,7 @@ const TestCustomDateStyle = () => {
         },
     ];
 
-    return <CalendarPicker customDatesStyles={customStyles} />;
+    return <CalendarPicker customDatesStyles={customStyles} customDatesStylesPriority="customDates" />;
 };
 
 const TestCallbacks = () => {
@@ -153,4 +157,8 @@ const TestSwipe = () => {
             onSwipe={onSwipe}
         />
     );
+};
+
+const TestCustomComponents = () => {
+    return (<CalendarPicker nextComponent={<View></View>} previousComponent={[<TextInput />]} />);
 };

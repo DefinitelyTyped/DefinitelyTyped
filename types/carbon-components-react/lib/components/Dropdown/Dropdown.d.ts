@@ -19,6 +19,7 @@ interface InheritedProps<ItemType> extends
 {
     ariaLabel: React.AriaAttributes["aria-label"],
     disabled?: ReactInputAttr["disabled"],
+    size?: ListBoxProps["size"],
     type?: ListBoxProps["type"],
 }
 
@@ -27,6 +28,8 @@ export interface OnChangeData<ItemType = string> {
 }
 
 export interface DropdownProps<ItemType = string> extends InheritedProps<ItemType> {
+    direction?: "bottom" | "top",
+    downshiftProps?: any; // TODO
     initialSelectedItem?: ItemType,
     inline?: boolean,
     helperText?: React.ReactNode,

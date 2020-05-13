@@ -1,4 +1,4 @@
-// Type definitions for tar-fs 1.16
+// Type definitions for tar-fs 2.0
 // Project: https://github.com/mafintosh/tar-fs
 // Definitions by: Umoxfo <https://github.com/Umoxfo>
 //                 Chris Wiggins <https://github.com/chriswiggins>
@@ -40,6 +40,7 @@ export interface PackOptions extends Options {
 export interface ExtractOptions extends Options {
     ignore?: (name: string, header?: Headers) => boolean;
     filter?: (name: string, header?: Headers) => boolean;
+    strip?: number;
 }
 
 export interface Headers {

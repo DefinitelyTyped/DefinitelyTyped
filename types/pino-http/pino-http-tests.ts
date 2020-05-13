@@ -20,9 +20,13 @@ pinoHttp({ useLevel: 'error' });
 pinoHttp({ prettyPrint: true });
 pinoHttp({ autoLogging: false });
 pinoHttp({ autoLogging: { ignorePaths: ['/health'] } });
+pinoHttp({ autoLogging: { ignorePaths: ['/health'], getPath: (req) => req.url } });
+pinoHttp({ customSuccessMessage: req => 'Success' });
+pinoHttp({ customErrorMessage: req => 'Error' });
+pinoHttp({ customAttributeKeys: { req: 'req' } });
+pinoHttp({ customAttributeKeys: { res: 'res' } });
+pinoHttp({ customAttributeKeys: { err: 'err' } });
+pinoHttp({ customAttributeKeys: { responseTime: 'responseTime' } });
+pinoHttp({ customAttributeKeys: { req: 'req', res: 'res', err: 'err', responseTime: 'responseTime' } });
+pinoHttp({ customLogLevel: (req, res) => 'info' });
 pinoHttp(new Writable());
-pinoHttp({
-    customLogLevel(req, res) {
-        return 'info';
-    },
-});

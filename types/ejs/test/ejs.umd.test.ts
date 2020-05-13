@@ -15,6 +15,9 @@ ejs.clearCache;
 // $ExpectType Cache
 ejs.cache;
 
+// $ExpectType string | undefined
+ejs.delimiter;
+
 expectType<{
 	(template: string, opts: ejs.Options & { async: true; client?: false }): ejs.AsyncTemplateFunction;
 	(template: string, opts: ejs.Options & { async: true; client: true }): ejs.AsyncClientFunction;
@@ -36,3 +39,9 @@ expectType<{
 	<T>(path: string, data: ejs.Data, opts: ejs.Options, cb: ejs.RenderFileCallback<T>): T;
 	(path: string, data?: ejs.Data, opts?: ejs.Options): Promise<string>;
 }>(ejs.renderFile);
+
+// https://github.com/mde/ejs#options
+const renderOptions: ejs.Options = {
+	beautify: true,
+	filename: './index.ejs',
+};
