@@ -37,6 +37,12 @@ expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
  */
 expectType<void>(mapboxgl.setRTLTextPlugin('http://github.com', e => {}, false));
 
+// $ExpectType void
+mapboxgl.prewarm();
+
+// $ExpectType void
+mapboxgl.clearPrewarmedResources();
+
 /**
  * Display a Map
  */
@@ -96,6 +102,11 @@ expectType<mapboxgl.MapboxOptions>({
 expectType<mapboxgl.MapboxOptions>({
     container: 'map',
     bounds: [-100, -90, 100, 90],
+});
+
+expectType<mapboxgl.MapboxOptions>({
+    container: 'map',
+    touchPitch: true
 });
 
 /**
@@ -1171,6 +1182,18 @@ const expression = expectType<mapboxgl.Expression>(['coalesce', ['get', 'propert
  */
 expectType<void>(new mapboxgl.Map().scrollZoom.setZoomRate(1));
 expectType<void>(new mapboxgl.Map().scrollZoom.setWheelZoomRate(1));
+
+const touchPitchHandler = new mapboxgl.TouchPitchHandler(map);
+// $ExpectType void
+touchPitchHandler.enable();
+// $ExpectType boolean
+touchPitchHandler.isActive();
+// $ExpectType boolean
+touchPitchHandler.isEnabled();
+// $ExpectType void
+touchPitchHandler.disable();
+
+new mapboxgl.Map().touchPitch = touchPitchHandler;
 
 /*
  * Visibility
