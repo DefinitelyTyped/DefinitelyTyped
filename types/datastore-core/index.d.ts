@@ -1,6 +1,6 @@
 // Type definitions for datastore-core 0.7
 // Project: https://github.com/ipfs/js-datastore-core#readme
-// Definitions by: Carson Farmer <https://github.com/me>
+// Definitions by: Carson Farmer <https://github.com/carsonfarmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
