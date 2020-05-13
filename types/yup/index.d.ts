@@ -76,7 +76,6 @@ export interface Schema<T> {
     transform(fn: TransformFunction<this>): this;
 }
 
-
 // Note: Using `{} | null | undefined` allows excluding `null` & `undefined`
 // whereas using `any` as the default type would mean that `nullable(false)`,
 // `defined`, and `required` would all have no effect.
