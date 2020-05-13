@@ -7882,16 +7882,17 @@ declare namespace chrome.tts {
         /**
          * Optional. This voice's gender.
          * One of: "male", or "female"
+         * @deprecated since Chrome 70. Gender is deprecated and will be ignored.
          */
         gender?: string;
         /** Optional. The name of the voice. */
         voiceName?: string;
-        /** The ID of the extension providing this voice. */
-        extensionsId?: string;
-        /** All of the callback event types that this voice is capable of sending. */
+        /** Optional. The ID of the extension providing this voice. */
+        extensionId?: string;
+        /** Optional. All of the callback event types that this voice is capable of sending. */
         eventTypes?: string[];
         /**
-         * If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
+         * Optional. If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
          * @since Chrome 33.
          */
         remote?: boolean;

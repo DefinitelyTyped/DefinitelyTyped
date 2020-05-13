@@ -440,6 +440,17 @@ function testStorage() {
     });
 }
 
+// https://developer.chrome.com/apps/tts#type-TtsVoice
+function testTtsVoice() {
+    chrome.tts.getVoices(voices => voices.forEach(voice => {
+        console.log(voice.voiceName);
+        console.log("\tlang: " + voice.lang);
+        console.log("\tremote: " + voice.remote);
+        console.log("\textensionId: " + voice.extensionId);
+        console.log("\teventTypes: " + voice.eventTypes);
+    }));
+}
+
 chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
     request; // $ExpectType Request
     console.log('request: ', request);
