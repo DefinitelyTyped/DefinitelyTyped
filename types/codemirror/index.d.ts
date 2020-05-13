@@ -460,6 +460,9 @@ declare namespace CodeMirror {
         /** Tells you whether the editor's content can be edited by the user. */
         isReadOnly(): boolean;
 
+        /** Returns the preferred line separator string for this document, as per the option by the same name. When that option is null, the string "\n" is returned. */
+        lineSeparator(): string;
+
         /** Switches between overwrite and normal insert mode (when not given an argument),
         or sets the overwrite mode to a specific state (when given an argument). */
         toggleOverwrite(value?: boolean): void;
@@ -1106,11 +1109,20 @@ declare namespace CodeMirror {
         /** boolean|string. This disables editing of the editor content by the user. If the special value "nocursor" is given (instead of simply true), focusing of the editor is also disallowed. */
         readOnly?: any;
 
+        /** This label is read by the screenreaders when CodeMirror text area is focused. This is helpful for accessibility. */
+        screenReaderLabel?: string;
+
         /**Whether the cursor should be drawn when a selection is active. Defaults to false. */
         showCursorWhenSelecting?: boolean;
 
         /** When enabled, which is the default, doing copy or cut when there is no selection will copy or cut the whole lines that have cursors on them. */
         lineWiseCopyCut?: boolean;
+
+        /** When pasting something from an external source (not from the editor itself), if the number of lines matches the number of selection, CodeMirror will by default insert one line per selection. You can set this to false to disable that behavior. */
+        pasteLinesPerSelection?: boolean;
+
+        /** Determines whether multiple selections are joined as soon as they touch (the default) or only when they overlap (true). */
+        selectionsMayTouch?: boolean;
 
         /** The maximum number of undo levels that the editor stores. Defaults to 40. */
         undoDepth?: number;
