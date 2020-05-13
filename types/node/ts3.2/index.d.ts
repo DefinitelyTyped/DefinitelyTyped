@@ -1,7 +1,16 @@
 // NOTE: These definitions support NodeJS and TypeScript 3.2.
 
-// Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
-/// <reference path="base.d.ts" />
+// Reference required types from the default lib:
+/// <reference lib="es2018" />
+/// <reference lib="esnext.asynciterable" />
+/// <reference lib="esnext.intl" />
+/// <reference lib="esnext.bigint" />
 
-// This needs to be in ~/ts3.2/index.d.ts to avoid TS2403
-declare var global: NodeJS.Global;
+// Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
+// tslint:disable-next-line:no-bad-reference
+/// <reference path="../base.d.ts" />
+
+// TypeScript 3.2-specific augmentations:
+/// <reference path="fs.d.ts" />
+/// <reference path="util.d.ts" />
+/// <reference path="globals.d.ts" />

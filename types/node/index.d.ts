@@ -43,7 +43,6 @@
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Surasak Chaisurin <https://github.com/Ryan-Willpower>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.5.
@@ -51,8 +50,6 @@
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
 //          - ~/index.d.ts        - Definitions specific to TypeScript 2.8
-//          - ~/ts3.2/index.d.ts  - Definitions specific to TypeScript 3.2
-//          - ~/ts3.4/index.d.ts  - Definitions specific to TypeScript 3.4
 //          - ~/ts3.5/index.d.ts  - Definitions specific to TypeScript 3.5
 
 // NOTE: Augmentations for TypeScript 3.5 and later should use individual files for overrides
@@ -61,9 +58,6 @@
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
-
-// This needs to be in ~/index.d.ts to avoid TS2403
-declare var global: NodeJS.Global;
 
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
 // Empty interfaces are used here which merge fine with the real declarations in the lib XXX files

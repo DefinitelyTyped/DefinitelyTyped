@@ -42,7 +42,6 @@
 //                 Junxiao Shi <https://github.com/yoursunny>
 //                 Ilia Baryshnikov <https://github.com/qwelias>
 //                 ExE Boss <https://github.com/ExE-Boss>
-//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.2.
@@ -60,9 +59,6 @@
 /// <reference path="base.d.ts" />
 
 // TypeScript 2.1-specific augmentations:
-
-// This needs to be in ~/index.d.ts to avoid TS2403
-declare var global: NodeJS.Global;
 
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
 // Empty interfaces are used here which merge fine with the real declarations in the lib XXX files

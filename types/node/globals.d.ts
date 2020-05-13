@@ -141,6 +141,7 @@ interface RequireResolve extends NodeJS.RequireResolve {}
 interface NodeModule extends NodeJS.Module {}
 
 declare var process: NodeJS.Process;
+declare var global: NodeJS.Global;
 declare var console: Console;
 
 declare var __filename: string;
