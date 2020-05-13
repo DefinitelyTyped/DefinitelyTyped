@@ -162,8 +162,14 @@ declare namespace webpack {
         args: CliConfigOptions,
     ) => Configuration[] | Promise<Configuration[]>);
 
+    interface EntryDescriptor {
+        import: string | string[];
+        dependOn?: string | string[];
+        filename?: string;
+    }
+
     interface Entry {
-        [name: string]: string | string[];
+        [name: string]: string | string[] | EntryDescriptor;
     }
 
     type EntryFunc = () => (string | string[] | Entry | Promise<string | string[] | Entry>);

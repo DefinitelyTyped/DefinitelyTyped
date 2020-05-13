@@ -44,6 +44,57 @@ rule = {
 };
 
 //
+// https://webpack.js.org/configuration/entry-context/#entry-descriptor
+//
+
+configuration = {
+    entry: {
+        home: './home.js',
+        shared: ['react', 'react-dom', 'redux', 'react-redux'],
+        catalog: {
+            import: './catalog.js',
+            filename: 'pages/catalog.js',
+            dependOn: 'shared'
+        },
+        personal: {
+            import: './personal.js',
+            filename: 'pages/personal.js',
+            dependOn: 'shared'
+        }
+    }
+};
+
+//
+// https://webpack.js.org/configuration/entry-context/#output-filename
+//
+
+configuration = {
+    entry: {
+        app: './app.js',
+        home: { import: './contact.js', filename: 'pages/[name][ext]' },
+        about: { import: './about.js', filename: 'pages/[name][ext]' }
+    }
+};
+
+//
+// https://webpack.js.org/configuration/entry-context/#dependencies
+//
+
+configuration = {
+    entry: {
+        app: { import: './app.js', dependOn: 'react-vendors' },
+        'react-vendors': ['react', 'react-dom', 'prop-types']
+    }
+};
+
+configuration = {
+    entry: {
+        app: { import: ['./app.js', './app2.js'], dependOn: 'react-vendors' },
+        'react-vendors': ['react', 'react-dom', 'prop-types']
+    }
+};
+
+//
 // https://webpack.js.org/configuration/entry-context/#dynamic-entry
 //
 
