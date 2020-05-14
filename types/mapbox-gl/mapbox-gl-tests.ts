@@ -802,7 +802,7 @@ map.showPadding;
 map.showPadding = false;
 
 expectType<mapboxgl.Map>(map.setFilter('layerId', true));
-expectType<mapboxgl.Map>(map.setFilter('layerId', true));
+expectType<mapboxgl.Map>(map.setFilter('layerId', false));
 
 /*
  * Map Events
