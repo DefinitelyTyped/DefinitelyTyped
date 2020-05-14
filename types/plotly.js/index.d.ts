@@ -893,8 +893,13 @@ export interface Font {
 	 * These include *Arial*, *Balto*, *Courier New*, *Droid Sans*, *Droid Serif*,
 	 * *Droid Sans Mono*, *Gravitas One*, *Old Standard TT*, *Open Sans*, *Overpass*,
 	 * *PT Sans Narrow*, *Raleway*, *Times New Roman*.
+	 * @default "Arial, sans-serif"
 	 */
 	family: string;
+	/**
+	 * number greater than or equal to 1
+	 * @default 13
+	 */
 	size: number;
 	color: Color;
 }
@@ -1095,13 +1100,17 @@ export interface Label {
 }
 
 export interface HoverLabel extends Label {
-	/** Sets the horizontal alignment of the text content within hover label box. */
+	/**
+	 * Sets the horizontal alignment of the text content within hover label box.
+	 * @default "auto"
+	 */
 	align: "left" | "right" | "auto";
 
 	/**
-	 * Sets the default length (in number of characters) (default 15) of the trace name
+	 * Sets the default length (in number of characters) of the trace name
 	 * in the hover labels for all traces.
 	 * -1 shows the whole name regardless of length.
+	 * @default 15
 	 */
 	namelength: number;
 }
