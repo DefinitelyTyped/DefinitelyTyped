@@ -2066,11 +2066,6 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
     accessibilityRole?: AccessibilityRole;
     /**
      * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
-     * @deprecated: accessibilityState available in 0.60+
-     */
-    accessibilityStates?: AccessibilityStates[];
-    /**
-     * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
      */
     accessibilityState?: AccessibilityState;
     /**
@@ -2100,11 +2095,11 @@ export type AccessibilityActionName =
      */
     | 'activate'
     /**
-     * Gererated when a screen reader user increments an adjustable component.
+     * Generated when a screen reader user increments an adjustable component.
      */
     | 'increment'
     /**
-     * Gererated when a screen reader user decrements an adjustable component.
+     * Generated when a screen reader user decrements an adjustable component.
      */
     | 'decrement'
     /**
@@ -2128,17 +2123,6 @@ export type AccessibilityActionEvent = NativeSyntheticEvent<
         actionName: string;
     }>
 >;
-
-// @deprecated: use AccessibilityState available in 0.60+
-export type AccessibilityStates =
-    | 'disabled'
-    | 'selected'
-    | 'checked'
-    | 'unchecked'
-    | 'busy'
-    | 'expanded'
-    | 'collapsed'
-    | 'hasPopup';
 
 export interface AccessibilityState {
     /**
