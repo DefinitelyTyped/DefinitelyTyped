@@ -3,7 +3,7 @@
 //          https://github.com/gitana/gitana-node-js
 // Definitions by: Juan E. Tenorio Arzola <https://github.com/tenoriojuann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7.4
+// TypeScript Version: 3.7
 
 import { AppHelper } from './index';
 
@@ -13,7 +13,6 @@ interface connectionObject {
     username: string;
     password: string;
 }
-
 
 type eachCB<T> = (docId: string, node: T) => any;
 type regularCB = (error: Error) => any;
@@ -43,7 +42,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class AbstractClusterObject extends AbstractObject {
         constructor(cluster: any, object: any);
 
@@ -98,7 +96,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class AbstractMap extends AbstractPersistable {
         constructor(driver: any, object: any);
 
@@ -153,7 +150,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class AbstractNode extends AbstractRepositoryObject {
         constructor(branch: any, object: any);
 
@@ -220,7 +216,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class AbstractObject extends AbstractPersistable {
         constructor(driver: any, object: any);
 
@@ -267,7 +262,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class AbstractPersistable extends Chainable {
         constructor(driver: any, object: any);
 
@@ -314,7 +308,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class AbstractPlatformObject extends AbstractSelfableACLObject {
         constructor(platform: any, object: any);
 
@@ -343,7 +336,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class AbstractPlatformObjectMap extends AbstractMap {
         constructor(platform: any, object: any);
 
@@ -378,7 +370,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class AbstractRepositoryObject extends AbstractPlatformObject {
         constructor(repository: any, object: any);
 
@@ -399,7 +390,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class AbstractSelfableACLObject extends AbstractSelfableObject {
         constructor(driver: any, object: any);
 
@@ -432,7 +422,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class AbstractSelfableObject extends AbstractObject {
         constructor(driver: any, object: any);
 
@@ -1065,7 +1054,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class BinaryAttachment extends AbstractPersistable {
         constructor(persistable: any, attachment: any);
 
@@ -1124,7 +1112,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class Branch extends AbstractRepositoryObject {
         constructor(repository: any, object: any);
 
@@ -1228,7 +1215,7 @@ declare namespace Gitana {
 
         startChangesetHistory(options: any, callback: any): any;
 
-        startValidation(repair: boolean, callback: Function): any;
+        startValidation(repair: boolean, callback: regularCB): any;
 
         traverse(node: any, config: any): any;
 
@@ -2233,10 +2220,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    class Error {
-        constructor();
-    }
-
     class Form {
         constructor(branch: any, object: any);
 
@@ -2385,7 +2368,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class Job extends AbstractClusterObject {
         constructor(cluster: any, object: any);
 
@@ -2706,7 +2688,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class Node extends AbstractNode {
         _type: string;
 
@@ -2805,7 +2786,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class NodeAttachment extends BinaryAttachment {
         constructor(persistable: any, attachment: any);
 
@@ -2844,7 +2824,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class NodeMap extends AbstractPlatformObjectMap {
         constructor(branch: any, object: any);
 
@@ -4065,7 +4044,6 @@ declare namespace Gitana {
         static valueOf(type: any): any;
     }
 
-    // @ts-ignore
     class Repository extends AbstractRepositoryObject {
         constructor(platform: any, object: any);
 
