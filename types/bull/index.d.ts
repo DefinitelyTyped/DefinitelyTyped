@@ -1,4 +1,4 @@
-// Type definitions for bull 3.12
+// Type definitions for bull 3.13
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -170,6 +170,8 @@ declare namespace Bull {
     stacktrace: string[];
 
     returnvalue: any;
+
+    failedReason?: string;
 
     /**
      * Get progress on a job
@@ -575,6 +577,13 @@ declare namespace Bull {
      * otherwise it will be placed in the queue and executed as soon as possible.
      */
     add(name: string, data: T, opts?: JobOptions): Promise<Job<T>>;
+
+    /**
+     * Adds an array of jobs to the queue.
+     * If the queue is empty the jobs will be executed directly,
+     * otherwise they will be placed in the queue and executed as soon as possible.
+     */
+    addBulk(jobs: Array<{name?: string, data: T, opts?: JobOptions}>): Promise<Array<Job<T>>>;
 
     /**
      * Returns a promise that resolves when the queue is paused.

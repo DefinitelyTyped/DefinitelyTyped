@@ -3835,6 +3835,12 @@
             "asOfVersion": "2.4.0"
         },
         {
+            "libraryName": "rdflib",
+            "typingsPackageName": "rdflib",
+            "sourceRepoURL": "https://github.com/linkeddata/rdflib.js",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "re2",
             "typingsPackageName": "re2",
             "sourceRepoURL": "https://github.com/uhop/node-re2",
@@ -4571,6 +4577,12 @@
             "typingsPackageName": "should",
             "sourceRepoURL": "https://github.com/shouldjs/should.js",
             "asOfVersion": "13.0.0"
+        },
+        {
+            "libraryName": "@simonwep/selection-js",
+            "typingsPackageName": "simonwep__selection-js",
+            "sourceRepoURL": "https://github.com/Simonwep/selection.git",
+            "asOfVersion": "1.7.0"
         },
         {
             "libraryName": "SimpleSignal",

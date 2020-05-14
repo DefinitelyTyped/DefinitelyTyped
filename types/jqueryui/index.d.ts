@@ -668,10 +668,22 @@ declare namespace JQueryUI {
 
     interface SelectMenuOptions extends SelectMenuEvents {
         appendTo?: string;
+        classes?: SelectMenuClasses;
         disabled?: boolean;
         icons?: any;
         position?: JQueryPositionOptions;
         width?: number;
+    }
+
+    interface SelectMenuClasses {
+        "ui-selectmenu-button"?: string;
+        "ui-selectmenu-button-closed"?: string;
+        "ui-selectmenu-button-open"?: string;
+        "ui-selectmenu-text"?: string;
+        "ui-selectmenu-icon"?: string;
+        "ui-selectmenu-menu"?: string;
+        "ui-selectmenu-open"?: string;
+        "ui-selectmenu-optgroup"?: string;
     }
 
     interface SelectMenuUIParams {
@@ -905,11 +917,12 @@ declare namespace JQueryUI {
         content?: any; // () or string
         disabled?: boolean;
         hide?: any; // boolean, number, string or object
-        items?: string;
+        items?: string|JQuery;
         position?: any; // TODO
         show?: any; // boolean, number, string or object
-        tooltipClass?: string;
+        tooltipClass?: string; // deprecated in jQuery UI 1.12
         track?: boolean;
+        classes?: {[key: string]: string};
     }
 
     interface TooltipUIParams {

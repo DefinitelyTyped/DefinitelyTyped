@@ -3,8 +3,9 @@
 // Definitions by: Benjamin Arthur Lupton <https://github.com/balupton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Colors extends String {
+interface Colors {
 	(value: string): string
+	[key: string]: this
 	white: this
 	black: this
 	blue: this

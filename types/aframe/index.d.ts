@@ -1,4 +1,4 @@
-// Type definitions for AFRAME 0.8
+// Type definitions for AFRAME 1.0
 // Project: https://aframe.io/
 // Definitions by: Paul Shannon <https://github.com/devpaul>
 //                 Roberto Ritger <https://github.com/bertoritger>
@@ -66,16 +66,19 @@ export interface Component<T extends object = any, S extends System = System> {
 	dependencies?: string[];
 	el: Entity;
 	id: string;
+	initialized: boolean;
 	multiple?: boolean;
 	name: string;
 	schema: Schema<T>;
 	system: S | undefined;
+	events?: any;
 
 	init(data?: T): void;
 	pause(): void;
 	play(): void;
 	remove(): void;
 	tick?(time: number, timeDelta: number): void;
+	tock?(time: number, timeDelta: number, camera: THREE.Camera): void;
 	update(oldData: T): void;
 	updateSchema?(): void;
 
@@ -120,11 +123,13 @@ export interface DefaultComponents {
 
 export interface Entity<C = ObjectMap<Component>> extends ANode {
 	components: C & DefaultComponents;
+	hasLoaded: boolean;
 	isPlaying: boolean;
 	object3D: THREE.Object3D;
 	object3DMap: ObjectMap<THREE.Object3D>;
 	sceneEl?: Scene;
 
+	destroy(): void;
 	addState(name: string): void;
 	flushToDOM(recursive?: boolean): void;
 	/**
@@ -175,6 +180,11 @@ export interface EntityEventMap {
 	componentchanged: DetailEvent<{
 		name: string;
 		id: string;
+	}>;
+	componentinitialized: DetailEvent<{
+		name: string;
+		id: string;
+		data: any;
 	}>;
 	componentremoved: DetailEvent<{
 		name: string;
@@ -239,6 +249,7 @@ export interface Scene extends Entity {
 	object3D: THREE.Scene;
 	renderer: THREE.WebGLRenderer;
 	renderStarted: boolean;
+	effect?: any; // THREE.VREffect
 	systems: ObjectMap<System>;
 	time: number;
 
@@ -293,6 +304,7 @@ export interface SinglePropertySchema<T> {
 export interface System<T extends object = any> {
 	data: T;
 	schema: Schema<T>;
+	el: Entity;
 	init(): void;
 	pause(): void;
 	play(): void;

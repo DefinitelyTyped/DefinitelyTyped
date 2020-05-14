@@ -1,7 +1,8 @@
-// Type definitions for webidl2js 15.1
+// Type definitions for webidl2js 16.0
 // Project: https://github.com/jsdom/webidl2js#readme
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript 3.0
 
 import { AttributeMemberType } from 'webidl2';
 

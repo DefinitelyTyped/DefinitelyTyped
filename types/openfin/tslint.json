@@ -12,6 +12,7 @@
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "void-return": false,
-        "whitespace": false
+        "whitespace": false,
+        "prefer-declare-function": false
     }
 }

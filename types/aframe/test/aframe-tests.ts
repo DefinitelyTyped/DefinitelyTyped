@@ -6,7 +6,8 @@ import {
 	SystemDefinition,
 	THREE,
 	Geometry,
-	registerComponent
+	registerComponent,
+	Scene
 } from 'aframe';
 
 // Global
@@ -75,11 +76,17 @@ const Component = registerComponent('test-component', {
 	},
 	init() {
 		this.data.num = 0;
-		this.el.setAttribute('custom-attribute', 'custom-value');
+		if (this.initialized && this.el.hasLoaded) {
+			this.el.setAttribute('custom-attribute', 'custom-value');
+		}
 	},
 	update() {},
 	tick() {},
-	remove() {},
+	tock() {},
+	remove() {
+		this.el.remove();
+		this.el.destroy();
+	},
 	pause() {},
 	play() {},
 
@@ -102,6 +109,7 @@ const testSystem: SystemDefinition = {
 
 	init() {
 		this.data.counter = 1;
+		((this.el as Entity).sceneEl as Scene).addEventListener('enter-vr', (e) => { });
 	}
 };
 

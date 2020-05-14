@@ -1,5 +1,16 @@
-import knex = require("knex");
 import * as mockDb from "mock-knex";
+
+interface Knex {
+    client: any;
+}
+
+interface KnexOptions {
+    client: string;
+}
+
+function knex(opt: KnexOptions): Knex {
+    return { client: {} };
+}
 
 const db = knex({
 	client: 'sqlite'

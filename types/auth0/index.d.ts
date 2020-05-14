@@ -7,6 +7,7 @@
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
 //                 Johannes Schneider <https://github.com/neshanjo>
+//                 Meng Bernie Sung <https://github.com/MengRS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -573,6 +574,7 @@ export interface ResetPasswordEmailOptions {
 
 export interface ClientCredentialsGrantOptions {
   audience: string;
+  scope: string;
 }
 
 export interface PasswordGrantOptions {

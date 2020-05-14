@@ -728,7 +728,7 @@ new mongoose.Schema({
   }
 }, {index: true});
 
-new mongoose.Schema({foo: String}, {strict: 'throw'});
+new mongoose.Schema({foo: String}, {strict: 'throw', strictQuery: true});
 
 export default function(schema: mongoose.Schema) {
   schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void): void {

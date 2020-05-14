@@ -13,12 +13,14 @@ export interface TrayIconClickReply extends Point, Reply<'application', 'tray-ic
     monitorInfo: MonitorInfo;
 }
 export interface ApplicationInfo {
-    initialOptions: object;
+    initialOptions: ApplicationOption;
     launchMode: string;
     manifest: object;
     manifestUrl: string;
     parentUuid?: string;
-    runtime: object;
+    runtime: {
+        version: string;
+    };
 }
 export interface LogInfo {
     logId: string;

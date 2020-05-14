@@ -49,7 +49,7 @@ declare module "os" {
     function networkInterfaces(): NodeJS.Dict<NetworkInterfaceInfo[]>;
     function homedir(): string;
     function userInfo(options: { encoding: 'buffer' }): UserInfo<Buffer>;
-    function userInfo(options?: { encoding: string }): UserInfo<string>;
+    function userInfo(options?: { encoding: BufferEncoding }): UserInfo<string>;
 
     type SignalConstants = {
         [key in NodeJS.Signals]: number;

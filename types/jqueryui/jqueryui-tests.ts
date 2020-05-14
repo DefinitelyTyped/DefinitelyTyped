@@ -1495,6 +1495,7 @@ function test_selectmenu() {
     // Events and options
     $("#selectmenu").selectmenu({
         appendTo: ".selector",
+        classes: { "ui-selectmenu-button": "custom-button", "ui-selectmenu-menu": "custom-menu" },
         disabled: true,
         icons: { submenu: "ui-icon-circle-triangle-e" },
         position: { my: "left top", at: "right-5 top+5" },
