@@ -1434,7 +1434,7 @@ declare module "@arangodb" {
     function aql(strings: TemplateStringsArray, ...args: any[]): ArangoDB.Query;
     namespace aql {
         function literal(value: any): ArangoDB.AqlLiteral;
-        function join(values: ArangoDB.Query[], sep?: string): ArangoDB.Query;
+        function join(values: any[], sep?: string): ArangoDB.Query;
     }
     function query(
         strings: TemplateStringsArray,
