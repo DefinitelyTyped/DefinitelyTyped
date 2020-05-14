@@ -286,7 +286,7 @@ jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
-// $ExpectType any
+// $ExpectType {}
 jest.requireActual('./thisReturnsTheActualModule');
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
@@ -294,7 +294,7 @@ jest.requireActual('./thisReturnsTheActualModule');
 jest.requireActual<string>('./thisReturnsTheActualModule');
 
 // https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
-// $ExpectType any
+// $ExpectType {}
 jest.requireMock('./thisAlwaysReturnsTheMock');
 
 // https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
