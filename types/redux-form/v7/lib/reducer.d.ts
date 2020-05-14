@@ -21,6 +21,7 @@ export interface FormState {
     registeredFields: RegisteredFieldState[];
     fields?: {[name: string]: FieldState};
     values?: { [fieldName: string]: any };
+    initial?: { [fieldName: string]: any };
     active?: string;
     anyTouched?: boolean;
     submitting?: boolean;
