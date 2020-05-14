@@ -1,6 +1,6 @@
 // Type definitions for callback-to-async-iterator 1.1
 // Project: https://github.com/withspectrum/callback-to-async-iterator#readme
-// Definitions by: Zachary Svoboda <https://github.com/me>
+// Definitions by: Zachary Svoboda <https://github.com/zacnomore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
