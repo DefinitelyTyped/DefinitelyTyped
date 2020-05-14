@@ -866,7 +866,6 @@ class AccessibilityTest extends React.Component {
                 accessibilityTraits={'none'}
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
-                accessibilityStates={['selected']}
                 accessibilityState={{ checked: true }}
                 accessibilityHint="Very importent header"
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
@@ -1095,10 +1094,10 @@ const VirtualizedListTest = () => {
     const DATA = [1, 2, 3];
 
     const getItem = (data: number[], index: number) => {
-        return  {
-            title: `Item ${data[index]}`
+        return {
+            title: `Item ${data[index]}`,
         };
-    }
+    };
 
     const getItemCount = (data: number[]) => data.length;
 
@@ -1111,7 +1110,7 @@ const VirtualizedListTest = () => {
             getItem={getItem}
         />
     );
-}
+};
 
 // DevSettings
 DevSettings.addMenuItem('alert', () => {
