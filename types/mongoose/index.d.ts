@@ -91,24 +91,33 @@ declare module "mongoose" {
   
   type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 
+  type IfEquals<X, Y, A, B> =
+    (<T>() => T extends X ? 1 : 2) extends
+    (<T>() => T extends Y ? 1 : 2) ? A : B;
+
+  type ReadonlyKeysOf<T> = {
+    [P in keyof T]: IfEquals<{ [Q in P]: T[P] }, { -readonly [Q in P]: T[P] }, never, P>
+  }[keyof T];
+
+  type OmitReadonly<T> = Omit<T, ReadonlyKeysOf<T>>;
+
   // used to exclude functions from all levels of the schema
   type DeepNonFunctionProperties<T> =
     T extends Map<infer KM, infer KV> 
       // handle map values
-      // NOTE: functions are not extracted from the Map<KM, KV> unless:
-      //! the line below is replaced with this: 
-      // ? Map<KM, DeepNonFunctionProperties<KV>> but it only works on TS3.7+
+      // Maps are not scrubbed, replace below line with this once minimum TS version is 3.7:
+      // ? Map<KM, DeepNonFunctionProperties<KV>>
       ? { [key: string]: DeepNonFunctionProperties<KV> } | [KM, KV][] | Map<KM, KV>
       : 
     T extends Array<infer U>
       ? U extends object | undefined
-        ? { [V in keyof NonFunctionProperties<U>]: U[V] extends object | undefined
+        ? { [V in keyof NonFunctionProperties<OmitReadonly<U>>]: U[V] extends object | undefined
           ? DeepNonFunctionProperties<NonNullable<U[V]>> 
           : U[V] }[]
-        : NonNullable<T>
+        : T
       : 
     T extends object | undefined 
-      ? { [V in keyof NonFunctionProperties<T>]: T[V] extends object | undefined
+      ? { [V in keyof NonFunctionProperties<OmitReadonly<T>>]: T[V] extends object | undefined
         ?  DeepNonFunctionProperties<NonNullable<T[V]>> 
         : T[V] }
       :
@@ -131,7 +140,9 @@ declare module "mongoose" {
   /* Helper type to extract a definition type from a Document type */
   type DocumentDefinition<T> = Omit<T, Exclude<keyof Document, '_id'>>;
 
-  type CreateDocumentDefinition<T> = DeepMapAsObject<DeepNonFunctionProperties<DocumentDefinition<T>>>;
+  type ScrubCreateDefinition<T> = DeepMapAsObject<DeepNonFunctionProperties<T>>
+
+  type CreateDocumentDefinition<T> = ScrubCreateDefinition<DocumentDefinition<T>>;
 
   /**
    * Patched version of FilterQuery to also allow:

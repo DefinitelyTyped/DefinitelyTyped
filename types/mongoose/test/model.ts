@@ -515,6 +515,7 @@ interface ModelWithFunction extends mongoose.Document {
                 innerMap: Map<string, {
                     title: string, 
                     func: () => {} // should be excluded in CreateQuery<T>
+                    readonly readonly: unknown; // should be excluded in CreateQuery<T>
                 }> 
             }>;
         }>
@@ -528,14 +529,19 @@ interface ModelWithFunction extends mongoose.Document {
         innerMap: Map<string, {
             title: string, 
             func: () => {} // should be excluded in CreateQuery<T>
+            readonly readonly: unknown; // should be excluded in CreateQuery<T>
         }> 
     }>;
 
 
-    jobs: Array<{ title: string }>;
+    jobs: Array<{ 
+        title: string, 
+        readonly readonly: unknown // should be excluded in CreateQuery<T>
+    }>;
 
     titles?: Array<{ title: string }>;
 
+    readonly readonly: unknown; // should be excluded in CreateQuery<T>
 }
 
 // we are only testing the types, not the functionality, so no mongoose.Schema needed
