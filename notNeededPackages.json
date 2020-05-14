@@ -2431,6 +2431,12 @@
             "asOfVersion": "10.0.0"
         },
         {
+            "libraryName": "jszip",
+            "typingsPackageName": "jszip",
+            "sourceRepoURL": "https://github.com/Stuk/jszip",
+            "asOfVersion": "3.4.0"
+        },
+        {
             "libraryName": "junk",
             "typingsPackageName": "junk",
             "sourceRepoURL": "https://github.com/sindresorhus/junk",
