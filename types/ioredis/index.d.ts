@@ -17,7 +17,7 @@
 //                 Andrew Lavers <https://github.com/alavers>
 //                 Claudiu Ceia <https://github.com/ClaudiuCeia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.4
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";
@@ -94,8 +94,8 @@ declare namespace IORedis {
         (arg1: T, arg2: T, cb: Callback<U>): void;
         (arg1: T | T[], cb: Callback<U>): void;
         (cb: Callback<U>): void;
-        (...args: T[]): Promise<U>;
-        (arg1: T[]): Promise<U>;
+        (...args: readonly T[]): Promise<U>;
+        (arg1: readonly T[]): Promise<U>;
     }
 
     interface OverloadedListCommand<T, U> {
@@ -104,9 +104,9 @@ declare namespace IORedis {
         (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, cb: Callback<U>): void;
-        (arg1: T | T[], cb: Callback<U>): void;
-        (...args: T[]): Promise<U>;
-        (arg1: T[]): Promise<U>;
+        (arg1: T | readonly T[], cb: Callback<U>): void;
+        (...args: readonly T[]): Promise<U>;
+        (arg1: readonly T[]): Promise<U>;
     }
 
     interface OverloadedBlockingListCommand<T, U> {
@@ -116,9 +116,9 @@ declare namespace IORedis {
         (arg1: T, arg2: T, arg3: T, timeout: number, cb: Callback<U>): void;
         (arg1: T, arg2: T, timeout: number, cb: Callback<U>): void;
         (arg1: T, timeout: number, cb: Callback<U>): void;
-        (arg1: Array<T | number>, cb: Callback<U>): void;
-        (...args: Array<T | number>): Promise<U>;
-        (arg1: Array<T | number>): Promise<U>;
+        (arg1: readonly (T | number)[], cb: Callback<U>): void;
+        (...args: readonly (T | number)[]): Promise<U>;
+        (arg1: readonly (T | number)[]): Promise<U>;
     }
 
     interface OverloadedSubCommand<T, U> {
@@ -126,10 +126,10 @@ declare namespace IORedis {
         (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
-        (arg1: T, arg2: T | T[], cb: Callback<U>): void;
-        (arg1: T | T[], cb: Callback<U>): void;
-        (...args: T[]): Promise<U>;
-        (arg1: T[]): Promise<U>;
+        (arg1: T, arg2: T | readonly T[], cb: Callback<U>): void;
+        (arg1: T | readonly T[], cb: Callback<U>): void;
+        (...args: readonly T[]): Promise<U>;
+        (arg1: readonly T[]): Promise<U>;
     }
 
     interface OverloadedKeyCommand<T, U> {
@@ -138,27 +138,27 @@ declare namespace IORedis {
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, cb: Callback<U>): void;
-        (key: KeyType, arg1: T | T[], cb: Callback<U>): void;
-        (key: KeyType, ...args: T[]): Promise<U>;
-        (key: KeyType, arg1: T[]): Promise<U>;
+        (key: KeyType, arg1: T | readonly T[], cb: Callback<U>): void;
+        (key: KeyType, ...args: readonly T[]): Promise<U>;
+        (key: KeyType, arg1: readonly T[]): Promise<U>;
     }
 
     interface OverloadedHashCommand<T, U> {
         (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, cb: Callback<U>): void;
-        (data: T[] | { [key: string]: T }, cb: Callback<U>): void;
-        (data: T[] | { [key: string]: T }): Promise<U>;
-        (...args: T[]): Promise<U>;
+        (data: readonly T[] | { [key: string]: T }, cb: Callback<U>): void;
+        (data: readonly T[] | { [key: string]: T }): Promise<U>;
+        (...args: readonly T[]): Promise<U>;
     }
 
     interface OverloadedKeyedHashCommand<T, U> {
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, cb: Callback<U>): void;
-        (key: KeyType, data: T[] | { [key: string]: T }, cb: Callback<U>): void;
-        (key: KeyType, data: T[] | { [key: string]: T }): Promise<U>;
-        (key: KeyType, ...args: T[]): Promise<U>;
+        (key: KeyType, data: readonly T[] | { [key: string]: T }, cb: Callback<U>): void;
+        (key: KeyType, data: readonly T[] | { [key: string]: T }): Promise<U>;
+        (key: KeyType, ...args: readonly T[]): Promise<U>;
     }
 
     interface OverloadedEvalCommand<T, U> {
@@ -167,9 +167,9 @@ declare namespace IORedis {
         (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
         (script: string, numKeys: number, arg1: T, arg2: T, cb: Callback<U>): void;
-        (script: string, numKeys: number, arg1: T | T[], cb: Callback<U>): void;
-        (script: string, numKeys: number, ...args: T[]): Promise<U>;
-        (script: string, numKeys: number, arg1: T[]): Promise<U>;
+        (script: string, numKeys: number, arg1: T | readonly T[], cb: Callback<U>): void;
+        (script: string, numKeys: number, ...args: readonly T[]): Promise<U>;
+        (script: string, numKeys: number, arg1: readonly T[]): Promise<U>;
         // This overload exists specifically to retain compatibility to `redlock`
         // All arguments are by default flattened, declaring all possible permuatations
         // would be unreasonable (and probably impossible)
@@ -182,10 +182,10 @@ declare namespace IORedis {
         (key: string, cursor: number, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (key: string, cursor: number, arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
         (key: string, cursor: number, arg1: T, arg2: T, cb: Callback<U>): void;
-        (key: string, cursor: number, arg1: T | T[], cb: Callback<U>): void;
+        (key: string, cursor: number, arg1: T | readonly T[], cb: Callback<U>): void;
         (key: string, cursor: number, cb: Callback<U>): void;
-        (key: string, cursor: number, ...args: T[]): Promise<U>;
-        (key: string, cursor: number, arg1: T[]): Promise<U>;
+        (key: string, cursor: number, ...args: readonly T[]): Promise<U>;
+        (key: string, cursor: number, arg1: readonly T[]): Promise<U>;
     }
 
     type Command = _Command;
@@ -205,13 +205,13 @@ declare namespace IORedis {
         set(
             key: KeyType,
             value: ValueType,
-            expiryMode?: string | any[],
+            expiryMode?: string | readonly any[],
             time?: number | string,
             setMode?: number | string,
         ): Promise<Ok>;
 
         set(key: KeyType, value: ValueType, callback: Callback<Ok>): void;
-        set(key: KeyType, value: ValueType, setMode: string | any[], callback: Callback<Ok>): void;
+        set(key: KeyType, value: ValueType, setMode: string | readonly any[], callback: Callback<Ok>): void;
         set(key: KeyType, value: ValueType, expiryMode: string, time: number | string, callback: Callback<Ok>): void;
         set(
             key: KeyType,
@@ -225,7 +225,7 @@ declare namespace IORedis {
         setBuffer(
             key: KeyType,
             value: ValueType,
-            expiryMode?: string | any[],
+            expiryMode?: string | readonly any[],
             time?: number | string,
             setMode?: number | string,
         ): Promise<Buffer>;
@@ -261,7 +261,7 @@ declare namespace IORedis {
 
         unlink: OverloadedListCommand<KeyType, number>;
 
-        exists(...keys: KeyType[]): Promise<number>;
+        exists(...keys: readonly KeyType[]): Promise<number>;
         exists(key: KeyType, callback: Callback<number>): void;
 
         setbit(key: KeyType, offset: number, value: ValueType, callback: Callback<number>): void;
@@ -411,17 +411,8 @@ declare namespace IORedis {
         zremrangebyrank(key: KeyType, start: number, stop: number, callback: Callback<number>): void;
         zremrangebyrank(key: KeyType, start: number, stop: number): Promise<number>;
 
-        zremrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-        ): Promise<number>;
-        zremrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback: Callback<number>
-        ): void;
+        zremrangebylex(key: KeyType, min: string, max: string): Promise<number>;
+        zremrangebylex(key: KeyType, min: string, max: string, callback: Callback<number>): void;
 
         zunionstore: OverloadedKeyCommand<KeyType | number, number>;
 
@@ -543,11 +534,7 @@ declare namespace IORedis {
             callback: Callback<string[]>,
         ): void;
 
-        zrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-        ): Promise<string[]>;
+        zrangebylex(key: KeyType, min: string, max: string): Promise<string[]>;
         zrangebylex(
             key: KeyType,
             min: string,
@@ -556,12 +543,7 @@ declare namespace IORedis {
             offset: number,
             count: number,
         ): Promise<string[]>;
-        zrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback: Callback<string[]>,
-        ): void;
+        zrangebylex(key: KeyType, min: string, max: string, callback: Callback<string[]>): void;
         zrangebylex(
             key: KeyType,
             min: string,
@@ -572,11 +554,7 @@ declare namespace IORedis {
             callback: Callback<string[]>,
         ): void;
 
-        zrevrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-        ): Promise<string[]>;
+        zrevrangebylex(key: KeyType, min: string, max: string): Promise<string[]>;
         zrevrangebylex(
             key: KeyType,
             min: string,
@@ -585,12 +563,7 @@ declare namespace IORedis {
             offset: number,
             count: number,
         ): Promise<string[]>;
-        zrevrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback: Callback<string[]>,
-        ): void;
+        zrevrangebylex(key: KeyType, min: string, max: string, callback: Callback<string[]>): void;
         zrevrangebylex(
             key: KeyType,
             min: string,
@@ -732,7 +705,7 @@ declare namespace IORedis {
         type(key: KeyType, callback: Callback<string>): void;
         type(key: KeyType): Promise<string>;
 
-        multi(commands?: string[][], options?: MultiOptions): Pipeline;
+        multi(commands?: readonly (readonly string[])[], options?: MultiOptions): Pipeline;
         multi(options: { pipeline: false }): Promise<Ok>;
 
         exec(callback: Callback<Array<[Error | null, string]>>): void;
@@ -881,7 +854,7 @@ declare namespace IORedis {
 
         pfcount: OverloadedListCommand<KeyType, number>;
 
-        pipeline(commands?: string[][]): Pipeline;
+        pipeline(commands?: readonly (readonly string[])[]): Pipeline;
 
         scanStream(options?: ScanStreamOption): Readable;
         sscanStream(key: KeyType, options?: ScanStreamOption): Readable;
@@ -923,7 +896,7 @@ declare namespace IORedis {
         disconnect(): void;
         duplicate(): Redis;
 
-        send_command(command: string, ...args: ValueType[]): Promise<any>;
+        send_command(command: string, ...args: readonly ValueType[]): Promise<any>;
     }
 
     interface Pipeline {
@@ -978,11 +951,11 @@ declare namespace IORedis {
 
         strlen(key: KeyType, callback?: Callback<number>): Pipeline;
 
-        del(...keys: KeyType[]): Pipeline;
+        del(...keys: readonly KeyType[]): Pipeline;
 
-        unlink(...keys: KeyType[]): Pipeline;
+        unlink(...keys: readonly KeyType[]): Pipeline;
 
-        exists(...keys: KeyType[]): Pipeline;
+        exists(...keys: readonly KeyType[]): Pipeline;
 
         setbit(key: KeyType, offset: number, value: ValueType, callback?: Callback<number>): Pipeline;
 
@@ -998,13 +971,13 @@ declare namespace IORedis {
 
         decr(key: KeyType, callback?: Callback<number>): Pipeline;
 
-        mget(...keys: KeyType[]): Pipeline;
+        mget(...keys: readonly KeyType[]): Pipeline;
 
-        rpush(key: KeyType, ...values: ValueType[]): Pipeline;
+        rpush(key: KeyType, ...values: readonly ValueType[]): Pipeline;
 
-        rpushBuffer(key: string, ...values: Buffer[]): Pipeline;
+        rpushBuffer(key: string, ...values: readonly Buffer[]): Pipeline;
 
-        lpush(key: KeyType, ...values: ValueType[]): Pipeline;
+        lpush(key: KeyType, ...values: readonly ValueType[]): Pipeline;
 
         rpushx(key: KeyType, value: ValueType, callback?: Callback<number>): Pipeline;
 
@@ -1024,9 +997,9 @@ declare namespace IORedis {
 
         lpopBuffer(key: KeyType, callback?: Callback<Buffer>): Pipeline;
 
-        brpop(...keys: KeyType[]): Pipeline;
+        brpop(...keys: readonly KeyType[]): Pipeline;
 
-        blpop(...keys: KeyType[]): Pipeline;
+        blpop(...keys: readonly KeyType[]): Pipeline;
 
         brpoplpush(source: string, destination: string, timeout: number, callback?: Callback<string>): Pipeline;
 
@@ -1046,9 +1019,9 @@ declare namespace IORedis {
 
         rpoplpush(source: string, destination: string, callback?: Callback<string>): Pipeline;
 
-        sadd(key: KeyType, ...members: ValueType[]): Pipeline;
+        sadd(key: KeyType, ...members: readonly ValueType[]): Pipeline;
 
-        srem(key: KeyType, ...members: ValueType[]): Pipeline;
+        srem(key: KeyType, ...members: readonly ValueType[]): Pipeline;
 
         smove(source: string, destination: string, member: string, callback?: Callback<string>): Pipeline;
 
@@ -1062,25 +1035,25 @@ declare namespace IORedis {
         srandmember(key: KeyType, callback?: Callback<string | null>): Pipeline;
         srandmember(key: KeyType, count: number, callback?: Callback<string[]>): Pipeline;
 
-        sinter(...keys: KeyType[]): Pipeline;
+        sinter(...keys: readonly KeyType[]): Pipeline;
 
-        sinterstore(destination: string, ...keys: KeyType[]): Pipeline;
+        sinterstore(destination: string, ...keys: readonly KeyType[]): Pipeline;
 
-        sunion(...keys: KeyType[]): Pipeline;
+        sunion(...keys: readonly KeyType[]): Pipeline;
 
-        sunionstore(destination: string, ...keys: KeyType[]): Pipeline;
+        sunionstore(destination: string, ...keys: readonly KeyType[]): Pipeline;
 
-        sdiff(...keys: KeyType[]): Pipeline;
+        sdiff(...keys: readonly KeyType[]): Pipeline;
 
-        sdiffstore(destination: string, ...keys: KeyType[]): Pipeline;
+        sdiffstore(destination: string, ...keys: readonly KeyType[]): Pipeline;
 
         smembers(key: KeyType, callback?: Callback<string[]>): Pipeline;
 
-        zadd(key: KeyType, ...args: string[]): Pipeline;
+        zadd(key: KeyType, ...args: readonly string[]): Pipeline;
 
         zincrby(key: KeyType, increment: number, member: string, callback?: Callback<string>): Pipeline;
 
-        zrem(key: KeyType, ...members: ValueType[]): Pipeline;
+        zrem(key: KeyType, ...members: readonly ValueType[]): Pipeline;
 
         zremrangebyscore(
             key: KeyType,
@@ -1091,16 +1064,11 @@ declare namespace IORedis {
 
         zremrangebyrank(key: KeyType, start: number, stop: number, callback?: Callback<number>): Pipeline;
 
-        zremrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback?: Callback<number>,
-        ): Pipeline;
+        zremrangebylex(key: KeyType, min: string, max: string, callback?: Callback<number>): Pipeline;
 
-        zunionstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): Pipeline;
+        zunionstore(destination: string, numkeys: number, key: KeyType, ...args: readonly string[]): Pipeline;
 
-        zinterstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): Pipeline;
+        zinterstore(destination: string, numkeys: number, key: KeyType, ...args: readonly string[]): Pipeline;
 
         zrange(key: KeyType, start: number, stop: number, callback?: Callback<string[]>): Pipeline;
         zrange(
@@ -1124,12 +1092,7 @@ declare namespace IORedis {
 
         zrevrangebyscore(key: KeyType, max: number | string, min: number | string, ...args: string[]): Pipeline;
 
-        zrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback?: Callback<string[]>,
-        ): Pipeline;
+        zrangebylex(key: KeyType, min: string, max: string, callback?: Callback<string[]>): Pipeline;
         zrangebylex(
             key: KeyType,
             min: string,
@@ -1139,12 +1102,7 @@ declare namespace IORedis {
             count: number,
             callback?: Callback<string[]>,
         ): Pipeline;
-        zrevrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback?: Callback<string[]>,
-        ): Pipeline;
+        zrevrangebylex(key: KeyType, min: string, max: string, callback?: Callback<string[]>): Pipeline;
         zrevrangebylex(
             key: KeyType,
             min: string,
@@ -1173,16 +1131,16 @@ declare namespace IORedis {
         hget(key: KeyType, field: string, callback?: Callback<string | string>): Pipeline;
         hgetBuffer(key: KeyType, field: string, callback?: Callback<Buffer>): Pipeline;
 
-        hmset(key: KeyType, ...args: ValueType[]): Pipeline;
+        hmset(key: KeyType, ...args: readonly ValueType[]): Pipeline;
         hmset(key: KeyType, data: object | Map<string, any>, callback?: Callback<BooleanResponse>): Pipeline;
 
-        hmget(key: KeyType, ...fields: string[]): Pipeline;
+        hmget(key: KeyType, ...fields: readonly string[]): Pipeline;
 
         hincrby(key: KeyType, field: string, increment: number, callback?: Callback<number>): Pipeline;
 
         hincrbyfloat(key: KeyType, field: string, increment: number, callback?: Callback<number>): Pipeline;
 
-        hdel(key: KeyType, ...fields: string[]): Pipeline;
+        hdel(key: KeyType, ...fields: readonly string[]): Pipeline;
 
         hlen(key: KeyType, callback?: Callback<number>): Pipeline;
 
@@ -1202,10 +1160,10 @@ declare namespace IORedis {
 
         getset(key: KeyType, value: ValueType, callback?: Callback<string>): Pipeline;
 
-        mset(...args: ValueType[]): Pipeline;
+        mset(...args: readonly ValueType[]): Pipeline;
         mset(data: object | Map<string, any>, callback?: Callback<string>): Pipeline;
 
-        msetnx(...args: ValueType[]): Pipeline;
+        msetnx(...args: readonly ValueType[]): Pipeline;
         msetnx(data: object | Map<string, any>, callback?: Callback<BooleanResponse>): Pipeline;
 
         randomkey(callback?: Callback<string>): Pipeline;
@@ -1261,7 +1219,7 @@ declare namespace IORedis {
 
         flushall(callback?: Callback<string>): Pipeline;
 
-        sort(key: KeyType, ...args: string[]): Pipeline;
+        sort(key: KeyType, ...args: readonly string[]): Pipeline;
 
         info(callback?: Callback<string>): Pipeline;
         info(section: string, callback?: Callback<string>): Pipeline;
@@ -1278,41 +1236,41 @@ declare namespace IORedis {
 
         slaveof(host: string, port: number, callback?: Callback<string>): Pipeline;
 
-        debug(...args: ValueType[]): Pipeline;
+        debug(...args: readonly ValueType[]): Pipeline;
 
-        config(...args: ValueType[]): Pipeline;
+        config(...args: readonly ValueType[]): Pipeline;
 
-        subscribe(...channels: ValueType[]): Pipeline;
+        subscribe(...channels: readonly ValueType[]): Pipeline;
 
-        unsubscribe(...channels: string[]): Pipeline;
+        unsubscribe(...channels: readonly string[]): Pipeline;
 
-        psubscribe(...patterns: string[]): Pipeline;
+        psubscribe(...patterns: readonly string[]): Pipeline;
 
-        punsubscribe(...patterns: string[]): Pipeline;
+        punsubscribe(...patterns: readonly string[]): Pipeline;
 
         publish(channel: string, message: string, callback?: Callback<number>): Pipeline;
 
-        watch(...keys: KeyType[]): Pipeline;
+        watch(...keys: readonly KeyType[]): Pipeline;
 
         unwatch(callback?: Callback<string>): Pipeline;
 
-        cluster(...args: ValueType[]): Pipeline;
+        cluster(...args: readonly ValueType[]): Pipeline;
 
-        restore(...args: ValueType[]): Pipeline;
+        restore(...args: readonly ValueType[]): Pipeline;
 
-        migrate(...args: ValueType[]): Pipeline;
+        migrate(...args: readonly ValueType[]): Pipeline;
 
         dump(key: KeyType, callback?: Callback<string>): Pipeline;
 
-        object(subcommand: string, ...args: ValueType[]): Pipeline;
+        object(subcommand: string, ...args: readonly ValueType[]): Pipeline;
 
-        client(...args: ValueType[]): Pipeline;
+        client(...args: readonly ValueType[]): Pipeline;
 
-        eval(script: string, numKeys: number, ...args: ValueType[]): Pipeline;
+        eval(script: string, numKeys: number, ...args: readonly ValueType[]): Pipeline;
 
-        evalsha(scriptSha: string, numKeys: string, ...args: ValueType[]): Pipeline;
+        evalsha(scriptSha: string, numKeys: string, ...args: readonly ValueType[]): Pipeline;
 
-        script(...args: ValueType[]): Pipeline;
+        script(...args: readonly ValueType[]): Pipeline;
 
         quit(callback?: Callback<string>): Pipeline;
 
@@ -1335,21 +1293,21 @@ declare namespace IORedis {
             matchOption: 'match' | 'MATCH',
             pattern: string,
         ): Pipeline;
-        sscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        sscan(key: KeyType, cursor: number, ...args: readonly ValueType[]): Pipeline;
 
-        hscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        hscan(key: KeyType, cursor: number, ...args: readonly ValueType[]): Pipeline;
 
-        zscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        zscan(key: KeyType, cursor: number, ...args: readonly ValueType[]): Pipeline;
 
-        pfmerge(destkey: KeyType, ...sourcekeys: KeyType[]): Pipeline;
+        pfmerge(destkey: KeyType, ...sourcekeys: readonly KeyType[]): Pipeline;
 
-        pfadd(key: KeyType, ...elements: string[]): Pipeline;
+        pfadd(key: KeyType, ...elements: readonly string[]): Pipeline;
 
-        pfcount(...keys: KeyType[]): Pipeline;
+        pfcount(...keys: readonly KeyType[]): Pipeline;
 
-        xack(key: KeyType, group: string, ...ids: string[]): Pipeline;
+        xack(key: KeyType, group: string, ...ids: readonly string[]): Pipeline;
 
-        xadd(key: KeyType, id: string, ...args: string[]): Pipeline;
+        xadd(key: KeyType, id: string, ...args: readonly string[]): Pipeline;
 
         xclaim(
             key: KeyType,
@@ -1357,28 +1315,33 @@ declare namespace IORedis {
             consumer: string,
             minIdleTime: number,
             id: string,
-            ...args: ValueType[]
+            ...args: readonly ValueType[]
         ): Pipeline;
 
-        xdel(key: KeyType, ...ids: string[]): Pipeline;
+        xdel(key: KeyType, ...ids: readonly string[]): Pipeline;
 
-        xgroup(...args: ValueType[]): Pipeline;
+        xgroup(...args: readonly ValueType[]): Pipeline;
 
-        xinfo(...args: ValueType[]): Pipeline;
+        xinfo(...args: readonly ValueType[]): Pipeline;
 
         xlen(key: KeyType): Pipeline;
 
-        xpending(key: KeyType, group: string, ...args: ValueType[]): Pipeline;
+        xpending(key: KeyType, group: string, ...args: readonly ValueType[]): Pipeline;
 
-        xrange(key: KeyType, start: string, end: string, ...args: ValueType[]): Pipeline;
+        xrange(key: KeyType, start: string, end: string, ...args: readonly ValueType[]): Pipeline;
 
-        xread(...args: ValueType[]): Pipeline;
+        xread(...args: readonly ValueType[]): Pipeline;
 
-        xreadgroup(command: 'GROUP' | 'group', group: string, consumer: string, ...args: ValueType[]): Pipeline;
+        xreadgroup(
+            command: 'GROUP' | 'group',
+            group: string,
+            consumer: string,
+            ...args: readonly ValueType[]
+        ): Pipeline;
 
-        xrevrange(key: KeyType, end: string, start: string, ...args: ValueType[]): Pipeline;
+        xrevrange(key: KeyType, end: string, start: string, ...args: readonly ValueType[]): Pipeline;
 
-        xtrim(key: KeyType, strategy: 'MAXLEN' | 'maxlen', ...args: ValueType[]): Pipeline;
+        xtrim(key: KeyType, strategy: 'MAXLEN' | 'maxlen', ...args: readonly ValueType[]): Pipeline;
     }
 
     interface NodeConfiguration {

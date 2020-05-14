@@ -195,6 +195,10 @@ redis.get('foo').then((result: string | null) => {
 redis.sadd('set', 1, 3, 5, 7);
 redis.sadd('set', [1, 3, 5, 7]);
 
+// Readonly arrays are allowed, as arguments aren't modified
+const keysToDelete = <const>['a','b','c'];
+redis.hdel('hash_key', keysToDelete);
+
 // All arguments are passed directly to the redis server:
 redis.set('key', '100');
 redis.set('key', '100', 'XX');
