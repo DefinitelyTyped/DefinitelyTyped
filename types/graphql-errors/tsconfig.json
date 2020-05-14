@@ -4,6 +4,7 @@
         "lib": ["es6", "esnext.asynciterable"],
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "noUnusedLocals": true,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": ["../"],

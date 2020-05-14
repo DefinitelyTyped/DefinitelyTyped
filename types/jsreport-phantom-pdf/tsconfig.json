@@ -7,6 +7,7 @@
         "strictFunctionTypes": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "noUnusedLocals": true,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [

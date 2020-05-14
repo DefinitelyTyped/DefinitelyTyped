@@ -8,6 +8,7 @@
         "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "noUnusedLocals": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",

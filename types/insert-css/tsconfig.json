@@ -11,6 +11,7 @@
         "noImplicitAny": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "noUnusedLocals": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictFunctionTypes": true,

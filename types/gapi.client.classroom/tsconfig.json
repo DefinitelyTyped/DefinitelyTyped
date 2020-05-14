@@ -4,6 +4,7 @@
     "lib": ["es6", "dom"],
     "noImplicitAny": true,
     "noImplicitThis": true,
+    "noUnusedLocals": true,
     "strictNullChecks": true,
     "baseUrl": "../",
     "typeRoots": [

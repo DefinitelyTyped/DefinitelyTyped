@@ -3,6 +3,7 @@
         "module": "commonjs",
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "noUnusedLocals": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",

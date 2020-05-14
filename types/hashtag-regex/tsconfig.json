@@ -5,6 +5,7 @@
         "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "noUnusedLocals": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
