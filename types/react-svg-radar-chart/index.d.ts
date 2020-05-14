@@ -23,7 +23,7 @@ export interface ChartOptionsProps {
     dots: false; // show dots?
     zoomDistance: 1.2; // where on the axes are the captions?
     setViewBox: (options: ChartOptionsProps) => number; // custom viewBox ?
-    smoothing: (points: Array<[]>) => string; // shape smoothing function
+    smoothing: (points: ReadonlyArray<[]>) => string; // shape smoothing function
     axisProps: () => { className: string };
     scaleProps: () => {
         className: string;
