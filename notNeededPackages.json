@@ -1651,6 +1651,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "google-maps-react",
+            "typingsPackageName": "google-maps-react",
+            "sourceRepoURL": "https://github.com/fullstackreact/google-maps-react",
+            "asOfVersion": "2.0.5"
+        },
+        {
             "libraryName": "graphene-pk11",
             "typingsPackageName": "graphene-pk11",
             "sourceRepoURL": "https://github.com/PeculiarVentures/graphene",
