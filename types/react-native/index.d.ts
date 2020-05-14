@@ -6860,24 +6860,28 @@ export interface ShareStatic {
     dismissedAction: 'dismissedAction';
 }
 
-type AccessibilityEventName =
+type AccessibilityChangeEventName =
     | 'change' // deprecated, maps to screenReaderChanged
     | 'boldTextChanged' // iOS-only Event
     | 'grayscaleChanged' // iOS-only Event
     | 'invertColorsChanged' // iOS-only Event
     | 'reduceMotionChanged'
     | 'screenReaderChanged'
-    | 'reduceTransparencyChanged' // iOS-only Event
-    | 'announcementFinished'; // iOS-only Event
+    | 'reduceTransparencyChanged'; // iOS-only Event
 
 type AccessibilityChangeEvent = boolean;
 
-type AccessibilityAnnoucementFinishedEvent = {
+type AccessibilityChangeEventHandler = (event: AccessibilityChangeEvent) => void;
+
+type AccessibilityAnnouncementEventName =
+    | 'announcementFinished'; // iOS-only Event
+
+type AccessibilityAnnouncementFinishedEvent = {
     announcement: string;
     success: boolean;
 };
 
-type AccessibilityEvent = AccessibilityChangeEvent | AccessibilityAnnoucementFinishedEvent;
+type AccessibilityAnnouncementFinishedEventHandler = (event: AccessibilityAnnouncementFinishedEvent) => void;
 
 /**
  * @see https://facebook.github.io/react-native/docs/accessibilityinfo.html
@@ -6939,24 +6943,22 @@ export interface AccessibilityInfoStatic {
      *            The boolean is true when the related event's feature is enabled and false otherwise.
      *
      */
-    addEventListener: (eventName: AccessibilityEventName, handler: (event: AccessibilityEvent) => void) => void;
+    addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
+    addEventListener(eventName: AccessibilityAnnouncementEventName, handler: AccessibilityAnnouncementFinishedEventHandler): void;
 
     /**
      * Remove an event handler.
      */
-    removeEventListener: (eventName: AccessibilityEventName, handler: (event: AccessibilityEvent) => void) => void;
+    removeEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
+    removeEventListener(eventName: AccessibilityAnnouncementEventName, handler: AccessibilityAnnouncementFinishedEventHandler): void;
 
     /**
-     * Set acessibility focus to a react component.
-     *
-     * @platform ios
+     * Set accessibility focus to a react component.
      */
     setAccessibilityFocus: (reactTag: number) => void;
 
     /**
      * Post a string to be announced by the screen reader.
-     *
-     * @platform ios
      */
     announceForAccessibility: (announcement: string) => void;
 }
