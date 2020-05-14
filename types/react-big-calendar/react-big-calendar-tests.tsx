@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {
     Calendar,
     CalendarProps,
@@ -19,7 +19,7 @@ import {
     NavigateAction,
     Culture, DayLayoutAlgorithm, DayLayoutFunction,
 } from 'react-big-calendar';
-import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const globalize: any;
