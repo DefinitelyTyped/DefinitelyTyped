@@ -13,7 +13,7 @@ export interface ComponentTransitionGroupProps<T extends ReactType> extends Tran
 export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = 'div', V extends ReactType = any> =
     | (IntrinsicTransitionGroupProps<T> & JSX.IntrinsicElements[T])
     | (ComponentTransitionGroupProps<V>) & {
-          children?: ReactElement<TransitionProps> | Array<ReactElement<TransitionProps>>;
+          children?: ReactElement<TransitionProps<any>> | Array<ReactElement<TransitionProps<any>>>;
           childFactory?(child: ReactElement): ReactElement;
           [prop: string]: any;
       };
