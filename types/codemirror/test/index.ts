@@ -122,3 +122,15 @@ let stringStream = new CodeMirror.StringStream('var myEditor;');
 
 // Call a method from the CodeMirror.Doc interface to confirm a CodeMirror.Editor extends it
 myCodeMirror.getCursor();
+
+// Ensure marks come back with option values
+myCodeMirror.markText(from, to, {
+  readOnly: true,
+  inclusiveLeft: true,
+  inclusiveRight: false,
+});
+
+const marks = myCodeMirror.getAllMarks();
+
+// $ExpectType TextMarker
+const mark = marks[0];
