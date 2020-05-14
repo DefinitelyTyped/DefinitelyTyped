@@ -94,3 +94,6 @@ const gridFSBucketTests = (bucket: mongodb.GridFSBucket) => {
     });
     openUploadStream.abort();
 };
+
+// Compression
+const compressedClient = new mongodb.MongoClient(url, { compression: { compressors: ['zlib', 'snappy']}});
