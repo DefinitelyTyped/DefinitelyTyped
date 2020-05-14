@@ -2718,7 +2718,7 @@ declare namespace Cesium {
         show: Property;
         translucencyByDistance: Property;
         pixelOffsetScaleByDistance: Property;
-        disableDepthTestDistance?: DistanceDisplayCondition | Property | number;
+        distanceDisplayCondition?: DistanceDisplayCondition | Property;
         constructor(options?: {
             text?: Property | string;
             font?: string;
@@ -2739,8 +2739,8 @@ declare namespace Cesium {
             pixelOffsetScaleByDistance?: Property;
             heightReference?: Property;
             scaleByDistance?: Property;
-            distanceDisplayCondition?: Property;
-            disableDepthTestDistance?: DistanceDisplayCondition | Property | number;
+            distanceDisplayCondition?: DistanceDisplayCondition | Property;
+            disableDepthTestDistance?: Property | number;
         });
         clone(result?: LabelGraphics): LabelGraphics;
         merge(source: LabelGraphics): LabelGraphics;
