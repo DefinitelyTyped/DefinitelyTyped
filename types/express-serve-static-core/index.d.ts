@@ -19,16 +19,16 @@ declare global {
     namespace Express {
         // These open interfaces may be extended in an application-specific manner via declaration merging.
         // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/method-override/index.d.ts)
-        interface Request { }
-        interface Response { }
-        interface Application { }
+        interface Request {}
+        interface Response {}
+        interface Application {}
     }
 }
 
-import * as http from "http";
-import { EventEmitter } from "events";
-import { Options as RangeParserOptions, Result as RangeParserResult, Ranges as RangeParserRanges } from "range-parser";
-import { ParsedQs } from "qs";
+import * as http from 'http';
+import { EventEmitter } from 'events';
+import { Options as RangeParserOptions, Result as RangeParserResult, Ranges as RangeParserRanges } from 'range-parser';
+import { ParsedQs } from 'qs';
 
 export type Query = ParsedQs;
 
@@ -38,36 +38,62 @@ export interface NextFunction {
      * "Break-out" of a router by calling {next('router')};
      * @see {https://expressjs.com/en/guide/using-middleware.html#middleware.router}
      */
-    (deferToNext: "router"): void;
+    (deferToNext: 'router'): void;
 }
 
-export interface Dictionary<T> { [key: string]: T; }
+export interface Dictionary<T> {
+    [key: string]: T;
+}
 
-export interface ParamsDictionary { [key: string]: string; }
+export interface ParamsDictionary {
+    [key: string]: string;
+}
 export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
 
-export interface RequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> {
+export interface RequestHandler<
+    P extends Params = ParamsDictionary,
+    ResBody = any,
+    ReqBody = any,
+    ReqQuery = ParsedQs
+> {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2
     (req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction): any;
 }
 
-export type ErrorRequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> =
-    (err: any, req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction) => any;
+export type ErrorRequestHandler<
+    P extends Params = ParamsDictionary,
+    ResBody = any,
+    ReqBody = any,
+    ReqQuery = ParsedQs
+> = (err: any, req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction) => any;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
-export type RequestHandlerParams<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>
-    = RequestHandler<P, ResBody, ReqBody, ReqQuery>
+export type RequestHandlerParams<
+    P extends Params = ParamsDictionary,
+    ResBody = any,
+    ReqBody = any,
+    ReqQuery = ParsedQs
+> =
+    | RequestHandler<P, ResBody, ReqBody, ReqQuery>
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery>
-    | Array<RequestHandler<P>
-    | ErrorRequestHandler<P>>;
+    | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
-export interface IRouterMatcher<T, Method extends 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' = any> {
+export interface IRouterMatcher<
+    T,
+    Method extends 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' = any
+> {
     // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(path: PathParams, ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery>>): T;
+    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(
+        path: PathParams,
+        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery>>
+    ): T;
     // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(path: PathParams, ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery>>): T;
+    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(
+        path: PathParams,
+        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery>>
+    ): T;
     (path: PathParams, subApplication: Application): T;
 }
 
@@ -133,7 +159,7 @@ export interface IRouter extends RequestHandler {
     mkactivity: IRouterMatcher<this>;
     mkcol: IRouterMatcher<this>;
     move: IRouterMatcher<this>;
-    "m-search": IRouterMatcher<this>;
+    'm-search': IRouterMatcher<this>;
     notify: IRouterMatcher<this>;
     propfind: IRouterMatcher<this>;
     proppatch: IRouterMatcher<this>;
@@ -173,7 +199,7 @@ export interface IRoute {
     mkactivity: IRouterHandler<this>;
     mkcol: IRouterHandler<this>;
     move: IRouterHandler<this>;
-    "m-search": IRouterHandler<this>;
+    'm-search': IRouterHandler<this>;
     notify: IRouterHandler<this>;
     purge: IRouterHandler<this>;
     report: IRouterHandler<this>;
@@ -184,7 +210,7 @@ export interface IRoute {
     unsubscribe: IRouterHandler<this>;
 }
 
-export interface Router extends IRouter { }
+export interface Router extends IRouter {}
 
 export interface CookieOptions {
     maxAge?: number;
@@ -198,9 +224,12 @@ export interface CookieOptions {
     sameSite?: boolean | 'lax' | 'strict' | 'none';
 }
 
-export interface ByteRange { start: number; end: number; }
+export interface ByteRange {
+    start: number;
+    end: number;
+}
 
-export interface RequestRanges extends RangeParserRanges { }
+export interface RequestRanges extends RangeParserRanges {}
 
 export type Errback = (err: Error) => void;
 
@@ -217,7 +246,9 @@ export type Errback = (err: Error) => void;
  *     app.get<ParamsArray>(/user\/(.*)/, (req, res) => res.send(req.params[0]));
  *     app.get<ParamsArray>('/user/*', (req, res) => res.send(req.params[0]));
  */
-export interface Request<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> extends http.IncomingMessage, Express.Request {
+export interface Request<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>
+    extends http.IncomingMessage,
+        Express.Request {
     /**
      * Return request header.
      *
@@ -237,10 +268,10 @@ export interface Request<P extends Params = ParamsDictionary, ResBody = any, Req
      *
      * Aliased as `req.header()`.
      */
-    get(name: "set-cookie"): string[] | undefined;
+    get(name: 'set-cookie'): string[] | undefined;
     get(name: string): string | undefined;
 
-    header(name: "set-cookie"): string[] | undefined;
+    header(name: 'set-cookie'): string[] | undefined;
     header(name: string): string | undefined;
 
     /**
@@ -462,7 +493,7 @@ export interface Request<P extends Params = ParamsDictionary, ResBody = any, Req
     xhr: boolean;
 
     //body: { username: string; password: string; remember: boolean; title: string; };
-    body: ReqBody;
+    body?: { [key: string]: any };
 
     //cookies: { string; remember: boolean; };
     cookies: any;
@@ -875,11 +906,13 @@ export interface Response<ResBody = any> extends http.ServerResponse, Express.Re
     req?: Request;
 }
 
-export interface Handler extends RequestHandler { }
+export interface Handler extends RequestHandler {}
 
 export type RequestParamHandler = (req: Request, res: Response, next: NextFunction, value: any, name: string) => any;
 
-export type ApplicationRequestHandler<T> = IRouterHandler<T> & IRouterMatcher<T> & ((...handlers: RequestHandlerParams[]) => T);
+export type ApplicationRequestHandler<T> = IRouterHandler<T> &
+    IRouterMatcher<T> &
+    ((...handlers: RequestHandlerParams[]) => T);
 
 export interface Application extends EventEmitter, IRouter, Express.Application {
     /**
@@ -930,7 +963,10 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      * engines to follow this convention, thus allowing them to
      * work seamlessly within Express.
      */
-    engine(ext: string, fn: (path: string, options: object, callback: (e: any, rendered: string) => void) => void): this;
+    engine(
+        ext: string,
+        fn: (path: string, options: object, callback: (e: any, rendered: string) => void) => void,
+    ): this;
 
     /**
      * Assign `setting` to `val`, or return `setting`'s value.
