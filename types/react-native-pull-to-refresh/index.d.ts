@@ -6,7 +6,7 @@
 import * as React from 'react';
 
 export interface PTRViewProps {
-    onRefresh?: (params?: any) => Promise<any>;
+    onRefresh?: () => any;
     delay?: number; // default O
     style?: object;
 
