@@ -677,6 +677,30 @@ Bluebird.all([fooProm, barProm, fooProm]).then(result => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+Bluebird.allSettled([fooProm, barProm]).then(result => {
+	foo = result[0].value();
+	bar = result[1].value();
+});
+
+Bluebird.allSettled([fooProm, fooProm]).then(result => {
+	foo = result[0].value();
+	foo = result[1].value();
+});
+
+Bluebird.allSettled([fooProm, barProm, bazProm]).then(result => {
+	foo = result[0].value();
+	bar = result[1].value();
+	baz = result[2].value();
+});
+
+Bluebird.allSettled([fooProm, barProm, fooProm]).then(result => {
+	foo = result[0].value();
+	bar = result[1].value();
+	foo = result[2].value();
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 barArrProm = fooArrProm.map((item: Foo, index: number, arrayLength: number) => {
 	return bar;
 });
