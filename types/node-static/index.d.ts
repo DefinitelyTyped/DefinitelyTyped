@@ -44,7 +44,17 @@ export class Server {
     resolve: (pathname: string) => string;
     serve: (req: http.IncomingMessage, res: http.ServerResponse, callback?: Callback) => events.EventEmitter;
     gzipOk: (req: http.IncomingMessage, contentType: string) => boolean;
-    respondGzip: (pathname: string, status: number, contentType: string, _headers: Headers, files: string[], stat: fs.Stats, req: http.IncomingMessage, res: http.ServerResponse, finish: Finish) => void;
+    respondGzip: (
+        pathname: string,
+        status: number,
+        contentType: string,
+        _headers: Headers,
+        files: string[],
+        stat: fs.Stats,
+        req: http.IncomingMessage,
+        res: http.ServerResponse,
+        finish: Finish
+    ) => void;
     parseByteRange: (req: http.IncomingMessage, stat: fs.Stats) => ByteRange;
     // tslint:disable-next-line max-line-length
     respondNoGzip: (pathname: string, status: number, contentType: string, _headers: Headers, files: string[], stat: fs.Stats, req: http.IncomingMessage, res: http.ServerResponse, finish: Finish) => void;
