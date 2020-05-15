@@ -5,14 +5,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
- * Item to be layout.
+ * An item to be layout.
  */
-export type JustifiedLayoutItem = number | { width: number; height: number };
+type JustifiedLayoutItem = number | { width: number; height: number };
 
 /**
  * Options for configuring the justified layout.
  */
-export interface JustifiedLayoutOptions {
+interface JustifiedLayoutOptions {
     /**
      * The width that boxes will be contained within irrelevant of padding.
      * @default 1060
@@ -80,7 +80,7 @@ export interface JustifiedLayoutOptions {
 /**
  * Computed positional and sizing properties of a box in the layout.
  */
-export interface LayoutBox {
+interface LayoutBox {
     /**
      * Aspect ratio of the box.
      */
@@ -106,7 +106,7 @@ export interface LayoutBox {
 /**
  * Results from calculating the justified layout.
  */
-export interface JustifiedLayoutResult {
+interface JustifiedLayoutResult {
     /**
      * Height of the container containing the justified layout.
      */
@@ -121,7 +121,9 @@ export interface JustifiedLayoutResult {
     boxes: LayoutBox[];
 }
 
-export default function createJustifiedLayout(
+declare function createJustifiedLayout(
     items: ReadonlyArray<JustifiedLayoutItem>,
     options?: JustifiedLayoutOptions,
 ): JustifiedLayoutResult;
+
+export = createJustifiedLayout;

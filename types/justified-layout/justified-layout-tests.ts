@@ -1,4 +1,4 @@
-import createJustifiedLayout from 'justified-layout';
+import createJustifiedLayout = require('justified-layout');
 
 // $ExpectType JustifiedLayoutResult
 createJustifiedLayout(
