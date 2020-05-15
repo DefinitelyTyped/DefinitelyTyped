@@ -65,7 +65,7 @@ export class Observable<T, S> {
     setName(source: Observable<any, any>, selfName: string): this;
     setName(selfName: string): this;
 
-    thru<R>(cb: (obs: Observable<T, S>) => Observable<R, S>): Observable<R, S>;
+    thru<R>(cb: (obs: Observable<T, S>) => R): R;
     // Modify an stream
     map<U>(fn: (value: T) => U): Observable<U, S>;
     filter<U extends T>(fn: (value: T) => value is U): Observable<U, S>

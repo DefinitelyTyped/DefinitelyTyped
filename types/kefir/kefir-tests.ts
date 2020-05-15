@@ -144,6 +144,9 @@ import { Observable, Pool, Stream, Property, Event, Emitter } from 'kefir';
     type First = 'first';
     type Second = 'second';
     let observable32: Stream<First, void> = Kefir.sequentially<First | Second>(100, ['first', 'second']).filter((value): value is First => value === 'first');
+
+    const thru = (a: Observable<string, never>) => 1;
+    let observable33: number = Kefir.constant('hello').thru(thru);
 }
 
 // Combine observables
