@@ -38,11 +38,13 @@ authClientTwoLegged.isAuthorized();
 // $ExpectType AuthClientThreeLegged
 const authClientThreeLegged = new AuthClientThreeLegged('', '', '', [], true);
 // $ExpectType string
-authClientThreeLegged.generateAuthUrl();
+authClientThreeLegged.generateAuthUrl('');
 // $ExpectType Promise<AuthToken>
 authClientThreeLegged.getToken('');
 // $ExpectType Promise<AuthToken>
-authClientThreeLegged.refreshToken(authToken);
+authClientThreeLegged.refreshToken({
+    refresh_token: ''
+});
 
 // $ExpectType ActivitiesApi
 const activitiesApi = new ActivitiesApi();
