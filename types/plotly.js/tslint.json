@@ -1,11 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "indent": [
-            true,
-            "tabs",
-            1
-        ],
         "no-duplicate-imports": false,
         "no-object-literal-type-assertion": false
     }
