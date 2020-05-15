@@ -133,6 +133,51 @@ export interface LegendClickEvent {
     fullLayout: Partial<Layout>;
 }
 
+export interface MapboxCenter {
+    lon: number;
+    lat: number;
+}
+
+export interface MapboxSymbol {
+    icon: string;
+    iconsize: number;
+    text: string;
+    placement: 'point' | 'line' | 'line-center';
+    textfont: Partial<Font>;
+    textposition: "top left" | "top center" | "top right" | "middle center" | "bottom left" | "bottom center" | "bottom right";
+}
+export interface MapboxLayers {
+    visible: true;
+    sourcetype: 'geojson' | 'vecotr' | 'raster' | 'image';
+    source: number | string;
+    sourcelayer: string;
+    sourceattribution: string;
+    type: 'circle' | 'line' | 'fill' | 'symbol' | 'raster';
+    coordinates: number | string;
+    below: string;
+    color: Color;
+    opacity: number;
+    minzoom: number;
+    maxzoom: number;
+    circle: {radius: number};
+    line: Partial<ShapeLine>;
+    fill: {outlinecolor: Color};
+    symbol: Partial<MapboxSymbol>;
+    name: string;
+    templateitemname: string;
+}
+export interface Mapbox {
+    domain: Partial<Domain>;
+    accesstoken: string;
+    style: number | string;
+    center: Partial<MapboxCenter>;
+    zoom: number;
+    bearing: number;
+    pitch: number;
+    layers: Array<Partial<MapboxLayers>>;
+    uirevision: number | string;
+}
+
 export interface SliderChangeEvent {
     slider: Slider;
     step: SliderStep;
@@ -280,7 +325,8 @@ export interface Layout {
     'yaxis.title': string;
     ternary: {}; // TODO
     geo: {}; // TODO
-    mapbox: {}; // TODO
+    mapbox: Partial<Mapbox>;
+    subplot: string;
     radialaxis: Partial<Axis>;
     angularaxis: {}; // TODO
     dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable' | false;
@@ -628,7 +674,7 @@ export type ErrorBar = Partial<ErrorOptions> & ({
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 export type PlotType = 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
     'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-    'scatterpolar' | 'scatterternary' | 'sunburst' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea';
+    'scatterpolar' | 'scatterternary' | 'sunburst' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea' | 'scattermapbox';
 
 export type Data = Partial<PlotData>;
 export type Color = string | number | Array<string | number | undefined | null> | Array<Array<string | number | undefined | null>>;
@@ -648,6 +694,8 @@ export interface PlotData {
     xaxis: string;
     yaxis: string;
     text: string | string[];
+    lat: Datum[];
+    lon: Datum[];
     line: Partial<ScatterLine>;
     'line.color': Color;
     'line.width': number;
@@ -742,6 +790,7 @@ export interface PlotData {
         y: number[];
     }>;
     title: Partial<DataTitle>;
+    branchvalues: 'total' | 'remainder';
 }
 
 /**
