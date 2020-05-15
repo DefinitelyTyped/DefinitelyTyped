@@ -198,7 +198,18 @@ import { Observable, Pool, Stream, Property, Event, Emitter } from 'kefir';
     let observable08: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3]).flatMapConcat(x => Kefir.interval(40, x).take(4));
     let observable09: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3]).flatMapConcurLimit(x => Kefir.interval(40, x).take(6), 2);
     let observable10: Stream<number, void> = Kefir.sequentially(100, [1, 2]).valuesToErrors().flatMapErrors(x => Kefir.interval(40, x).take(2));
+
+    let observable11 = createObs()
+        .flatMap(num => num > 2 ? Kefir.constant(num) : Kefir.constantError('num too big'))
+        .flatMapErrors(err => {
+            if (err instanceof Error) {
+                return Kefir.constant(0);
+            }
+
+            return Kefir.constant(-1);
+        });
 }
+declare function createObs(): Stream<number, Error>;
 
 // Combine two observables
 {

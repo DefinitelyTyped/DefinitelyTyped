@@ -104,16 +104,16 @@ export class Observable<T, S> {
     zip<U, V, W>(otherObs: Observable<U, V>, combinator?: (value: T, ...values: U[]) => W): Observable<W, S | V>;
     merge<U, V>(otherObs: Observable<U, V>): Observable<T | U, S | V>;
     concat<U, V>(otherObs: Observable<U, V>): Observable<T | U, S | V>;
-    flatMap<U, V>(transform: (value: T) => Observable<U, V>): Observable<U, V>;
+    flatMap<U, V>(transform: (value: T) => Observable<U, V>): Observable<U, V | S>;
     flatMap<X extends T & Property<T, any>>(): Observable<ValueOfAnObservable<X>, any>;
-    flatMapLatest<U, V>(fn: (value: T) => Observable<U, V>): Observable<U, V>;
+    flatMapLatest<U, V>(fn: (value: T) => Observable<U, V>): Observable<U, V | S>;
     flatMapLatest<X extends T & Property<T, any>>(): Observable<ValueOfAnObservable<X>, any>;
-    flatMapFirst<U, V>(fn: (value: T) => Observable<U, V>): Observable<U, V>;
+    flatMapFirst<U, V>(fn: (value: T) => Observable<U, V>): Observable<U, V | S>;
     flatMapFirst<X extends T & Property<T, any>>(): Observable<ValueOfAnObservable<X>, any>;
-    flatMapConcat<U, V>(fn: (value: T) => Observable<U, V>): Observable<U, V>;
+    flatMapConcat<U, V>(fn: (value: T) => Observable<U, V>): Observable<U, V | S>;
     flatMapConcat<X extends T & Property<T, any>>(): Observable<ValueOfAnObservable<X>, any>;
-    flatMapConcurLimit<U, V>(fn: (value: T) => Observable<U, V>, limit: number): Observable<U, V>;
-    flatMapErrors<U, V>(transform: (error: S) => Observable<U, V>): Observable<U, V>;
+    flatMapConcurLimit<U, V>(fn: (value: T) => Observable<U, V>, limit: number): Observable<U, V | S>;
+    flatMapErrors<U, V>(transform: (error: S) => Observable<U, V>): Observable<U | T, V>;
     // Combine two streams
     filterBy<U>(otherObs: Observable<boolean, U>): Observable<T, S>;
     sampledBy(otherObs: Observable<any, any>): Observable<T, S>;
