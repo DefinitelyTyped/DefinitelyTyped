@@ -14,10 +14,10 @@ URLSearchParams.create(global, ['?foo=bar&baz=biz'], { doNotStripQMark: true });
 
 // $ExpectType URLSearchParams
 URLSearchParams.create(global, [
-	[
-		['foo', 'bar'],
-		['baz', 'biz'],
-	],
+    [
+        ['foo', 'bar'],
+        ['baz', 'biz'],
+    ],
 ]);
 
 URL.createImpl(global, ['foo']); // $ExpectType URLImpl
@@ -28,32 +28,32 @@ URLSearchParams.createImpl(global, ['?foo=bar&baz=biz'], { doNotStripQMark: true
 
 // $ExpectType URLSearchParamsImpl
 URLSearchParams.createImpl(global, [
-	[
-		['foo', 'bar'],
-		['baz', 'biz'],
-	],
+    [
+        ['foo', 'bar'],
+        ['baz', 'biz'],
+    ],
 ]);
 
 if (URL.is(any)) {
-	any; // $ExpectType URL
-	const impl = URL.convert(any);
+    any; // $ExpectType URL
+    const impl = URL.convert(any);
 
-	impl; // $ExpectType URLImpl
+    impl; // $ExpectType URLImpl
 }
 
 if (URLSearchParams.is(any)) {
-	any; // $ExpectType URLSearchParams
-	const impl = URLSearchParams.convert(any);
+    any; // $ExpectType URLSearchParams
+    const impl = URLSearchParams.convert(any);
 
-	impl; // $ExpectType URLSearchParamsImpl
+    impl; // $ExpectType URLSearchParamsImpl
 }
 
 if (URL.isImpl(any)) {
-	any; // $ExpectType URLImpl
+    any; // $ExpectType URLImpl
 }
 
 if (URLSearchParams.isImpl(any)) {
-	any; // $ExpectType URLSearchParamsImpl
+    any; // $ExpectType URLSearchParamsImpl
 }
 
 URL.setup<URL>(Object.create(global.URL.prototype), global, ['https://example.org']); // $ExpectType URL
@@ -63,8 +63,8 @@ URLSearchParams.setup<URLSearchParams>(Object.create(global.URLSearchParams.prot
 
 // $ExpectType URLSearchParams
 URLSearchParams.setup<URLSearchParams>(Object.create(global.URLSearchParams.prototype), global, [
-	[
-		['foo', 'bar'],
-		['baz', 'biz'],
-	],
+    [
+        ['foo', 'bar'],
+        ['baz', 'biz'],
+    ],
 ]);

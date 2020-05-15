@@ -28,9 +28,9 @@ export function convert(obj: unknown, options?: WebIDLConversionOptions): URLImp
  *         in the WebIDL2JS constructor registry.
  */
 export function create(
-	globalObject: object,
-	[url, base]?: [string, string?],
-	privateData?: {},
+    globalObject: object,
+    [url, base]?: [string, string?],
+    privateData?: {},
 ): URL;
 
 /**
@@ -41,9 +41,9 @@ export function create(
  *         in the WebIDL2JS constructor registry.
  */
 export function createImpl(
-	globalObject: object,
-	[url, base]?: [string, string?],
-	privateData?: {},
+    globalObject: object,
+    [url, base]?: [string, string?],
+    privateData?: {},
 ): URLImpl;
 
 /**
@@ -52,10 +52,10 @@ export function createImpl(
  * Useful when manually sub-classing a non-constructable wrapper object.
  */
 export function setup<T extends URL>(
-	obj: T,
-	globalObject: object,
-	[url, base]?: [string, string?],
-	privateData?: {},
+    obj: T,
+    globalObject: object,
+    [url, base]?: [string, string?],
+    privateData?: {},
 ): T;
 
 /**

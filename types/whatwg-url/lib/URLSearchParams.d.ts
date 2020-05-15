@@ -28,9 +28,9 @@ export function convert(obj: unknown, options?: WebIDLConversionOptions): URLSea
  *         in the WebIDL2JS constructor registry.
  */
 export function create(
-	globalObject: object,
-	[init]: [Array<[string, string]> | { [name: string]: string } | string],
-	privateData?: { doNotStripQMark?: boolean },
+    globalObject: object,
+    [init]: [Array<[string, string]> | { [name: string]: string } | string],
+    privateData?: { doNotStripQMark?: boolean },
 ): URLSearchParams;
 
 /**
@@ -41,9 +41,9 @@ export function create(
  *         in the WebIDL2JS constructor registry.
  */
 export function createImpl(
-	globalObject: object,
-	[init]: [Array<[string, string]> | { [name: string]: string } | string],
-	privateData?: { doNotStripQMark?: boolean },
+    globalObject: object,
+    [init]: [Array<[string, string]> | { [name: string]: string } | string],
+    privateData?: { doNotStripQMark?: boolean },
 ): URLSearchParamsImpl;
 
 /**
@@ -52,10 +52,10 @@ export function createImpl(
  * Useful when manually sub-classing a non-constructable wrapper object.
  */
 export function setup<T extends URLSearchParams>(
-	obj: T,
-	globalObject: object,
-	[init]: [Array<[string, string]> | { [name: string]: string } | string],
-	privateData?: { doNotStripQMark?: boolean },
+    obj: T,
+    globalObject: object,
+    [init]: [Array<[string, string]> | { [name: string]: string } | string],
+    privateData?: { doNotStripQMark?: boolean },
 ): T;
 
 /**
