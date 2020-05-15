@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {FC} from 'react';
 import { RecoilState } from './recoilValue';
 
 export interface RecoilRootProps {
@@ -8,4 +8,4 @@ export interface RecoilRootProps {
     }) => void;
 }
 
-export const RecoilRoot: React.FC<RecoilRootProps>;
+export const RecoilRoot: FC<RecoilRootProps>;
