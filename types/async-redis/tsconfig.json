@@ -7,11 +7,7 @@
     "strictFunctionTypes": true,
     "strictNullChecks": true,
     "baseUrl": "../",
-    "typeRoots": ["../"],
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true
+    "typeRoots": ["../"]
   },
   "files": ["index.d.ts", "async-redis-tests.ts"]
 }
