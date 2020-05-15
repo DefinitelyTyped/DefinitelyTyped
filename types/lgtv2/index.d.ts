@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
-import { connection } from '../websocket';
+import { connection } from 'websocket';
 
 declare namespace LGTV {
     class SpecializedSocket {
