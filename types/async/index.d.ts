@@ -89,7 +89,8 @@ export interface AsyncPriorityQueue<T> {
     push<R, E = Error>(task: T | T[], priority: number, callback?: AsyncResultArrayCallback<R, E>): void;
     saturated: () => any;
     empty: () => any;
-    drain: () => any;
+    drain(): Promise<void>;
+    drain(handler: () => void): void;
     running(): number;
     idle(): boolean;
     pause(): void;
@@ -209,12 +210,12 @@ export function parallelLimit<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E
 export function parallelLimit<T, R, E = Error>(tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>, limit: number): Promise<R>;
 export function whilst<E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
 export function whilst<R, E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>): Promise<R>;
-export function doWhilst<T, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean, callback: ErrorCallback<E>): void;
-export function doWhilst<T, R, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean): Promise<R>;
+export function doWhilst<T, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => Promise<boolean>, callback: ErrorCallback<E>): void;
+export function doWhilst<T, R, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => Promise<boolean>): Promise<R>;
 export function until<E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
 export function until<R, E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>): Promise<R>;
-export function doUntil<T, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean, callback: ErrorCallback<E>): void;
-export function doUntil<T, R, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean): Promise<R>;
+export function doUntil<T, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => Promise<boolean>, callback: ErrorCallback<E>): void;
+export function doUntil<T, R, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => Promise<boolean>): Promise<R>;
 export function during<E = Error>(test: (testCallback: AsyncBooleanResultCallback<E>) => void, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
 export function doDuring<E = Error>(fn: AsyncVoidFunction<E>, test: (testCallback: AsyncBooleanResultCallback<E>) => void, callback: ErrorCallback<E>): void;
 export function forever<E = Error>(next: (next: ErrorCallback<E>) => void, errBack: ErrorCallback<E>): void;
