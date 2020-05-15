@@ -122,8 +122,8 @@ export interface Connection extends EscapeFunctions {
      * there are any fatal errors, the connection will be immediately closed.
      * @param callback Handler for any fatal error
      */
-    end(callback?: (err: MysqlError | undefined, ...args: any[]) => void): void;
-    end(options: any, callback: (err: MysqlError | undefined, ...args: any[]) => void): void;
+    end(callback?: (err: MysqlError | undefined) => void): void;
+    end(options: any, callback: (err: MysqlError | undefined) => void): void;
 
     /**
      * Close the connection immediately, without waiting for any queued data (eg
