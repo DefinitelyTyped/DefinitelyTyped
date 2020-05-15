@@ -1,4 +1,4 @@
-// Type definitions for bull 3.12
+// Type definitions for bull 3.13
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -170,6 +170,8 @@ declare namespace Bull {
     stacktrace: string[];
 
     returnvalue: any;
+
+    failedReason?: string;
 
     /**
      * Get progress on a job

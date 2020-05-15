@@ -327,7 +327,7 @@ declare class Buffer extends Uint8Array {
     write(string: string, encoding?: BufferEncoding): number;
     write(string: string, offset: number, encoding?: BufferEncoding): number;
     write(string: string, offset: number, length: number, encoding?: BufferEncoding): number;
-    toString(encoding?: string, start?: number, end?: number): string;
+    toString(encoding?: BufferEncoding, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer'; data: number[] };
     equals(otherBuffer: Uint8Array): boolean;
     compare(
@@ -572,7 +572,7 @@ declare namespace NodeJS {
     interface ReadableStream extends EventEmitter {
         readable: boolean;
         read(size?: number): string | Buffer;
-        setEncoding(encoding: string): this;
+        setEncoding(encoding: BufferEncoding): this;
         pause(): this;
         resume(): this;
         isPaused(): boolean;
@@ -586,10 +586,10 @@ declare namespace NodeJS {
     interface WritableStream extends EventEmitter {
         writable: boolean;
         write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
-        write(str: string, encoding?: string, cb?: (err?: Error | null) => void): boolean;
+        write(str: string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
         end(cb?: () => void): void;
         end(data: string | Uint8Array, cb?: () => void): void;
-        end(str: string, encoding?: string, cb?: () => void): void;
+        end(str: string, encoding?: BufferEncoding, cb?: () => void): void;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
@@ -836,7 +836,6 @@ declare namespace NodeJS {
         title: string;
         arch: string;
         platform: Platform;
-        mainModule?: Module;
         memoryUsage(): MemoryUsage;
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
@@ -854,7 +853,7 @@ declare namespace NodeJS {
         /**
          * Can only be set if not in worker thread.
          */
-        umask(mask?: number): number;
+        umask(mask: number): number;
         uptime(): number;
         hrtime: HRTime;
         domain: Domain;
@@ -990,7 +989,6 @@ declare namespace NodeJS {
         Float32Array: typeof Float32Array;
         Float64Array: typeof Float64Array;
         Function: typeof Function;
-        GLOBAL: Global;
         Infinity: typeof Infinity;
         Int16Array: typeof Int16Array;
         Int32Array: typeof Int32Array;
@@ -1034,10 +1032,6 @@ declare namespace NodeJS {
         parseFloat: typeof parseFloat;
         parseInt: typeof parseInt;
         process: Process;
-        /**
-         * @deprecated Use `global`.
-         */
-        root: Global;
         setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => Immediate;
         setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
         setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;

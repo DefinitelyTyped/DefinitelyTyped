@@ -2,10 +2,10 @@ import ES2018 = require('es-abstract/es2018');
 
 declare const any: unknown;
 const FakePromise: new <T>(
-	executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void,
+    executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void,
 ) => FakePromise<T> = null!;
 interface FakePromise<T> extends PromiseLike<T> {
-	doStuff(): void;
+    doStuff(): void;
 }
 
 // $ExpectType FakePromise<unknown>

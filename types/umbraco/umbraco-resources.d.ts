@@ -46,7 +46,7 @@ declare namespace umbraco.resources{
  */
 interface IAuthResource{
 
-	    /**
+        /**
          * @ngdoc method
          * @name umbraco.resources.authResource#performLogin
          * @methodOf umbraco.resources.authResource
@@ -68,7 +68,7 @@ interface IAuthResource{
          */
         performLogin(username: string, password: string): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.authResource#performLogout
          * @methodOf umbraco.resources.authResource
@@ -88,7 +88,7 @@ interface IAuthResource{
          */
         performLogout(): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.authResource#getCurrentUser
          * @methodOf umbraco.resources.authResource
@@ -108,7 +108,7 @@ interface IAuthResource{
          */
         getCurrentUser(): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.authResource#isAuthenticated
          * @methodOf umbraco.resources.authResource
@@ -128,7 +128,7 @@ interface IAuthResource{
          */
         isAuthenticated(): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.authResource#getRemainingTimeoutSeconds
          * @methodOf umbraco.resources.authResource
@@ -174,7 +174,7 @@ interface IAuthResource{
   * </pre>
   **/
 interface IContentResource{
-	/**
+    /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#sort
          * @methodOf umbraco.resources.contentResource
@@ -198,7 +198,7 @@ interface IContentResource{
          */
     sort(...args: any[]): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#move
          * @methodOf umbraco.resources.contentResource
@@ -223,7 +223,7 @@ interface IContentResource{
          */
     move(...args: any[]): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#copy
          * @methodOf umbraco.resources.contentResource
@@ -250,7 +250,7 @@ interface IContentResource{
     copy(...args: any[]): ng.IPromise<IResourcePromise>;
 
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#unPublish
          * @methodOf umbraco.resources.contentResource
@@ -273,7 +273,7 @@ interface IContentResource{
          */
         unPublish(id: number): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#emptyRecycleBin
          * @methodOf umbraco.resources.contentResource
@@ -294,7 +294,7 @@ interface IContentResource{
          */
         emptyRecycleBin(): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#deleteById
          * @methodOf umbraco.resources.contentResource
@@ -316,7 +316,7 @@ interface IContentResource{
          */
         deleteById(id: number): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#getById
          * @methodOf umbraco.resources.contentResource
@@ -339,7 +339,7 @@ interface IContentResource{
          */
         getById(id: number): ng.IPromise<IResourcePromise>;
 
-		 /**
+         /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#getByIds
          * @methodOf umbraco.resources.contentResource
@@ -362,7 +362,7 @@ interface IContentResource{
          */
         getByIds(ids: number[]): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#getScaffold
          * @methodOf umbraco.resources.contentResource
@@ -396,7 +396,7 @@ interface IContentResource{
          */
         getScaffold(parentId: number, alias: string): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#getNiceUrl
          * @methodOf umbraco.resources.contentResource
@@ -418,7 +418,7 @@ interface IContentResource{
          */
         getNiceUrl(id: number): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#getChildren
          * @methodOf umbraco.resources.contentResource
@@ -447,7 +447,7 @@ interface IContentResource{
          */
         getChildren(parentId: number, options?: { pageSize: number; pageNumber: number; filter: string; orderDirection: Direction; orderBy: OrderItemsBy }): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#hasPermission
          * @methodOf umbraco.resources.contentResource
@@ -471,7 +471,7 @@ interface IContentResource{
          */
         checkPermission(permission: string, id: number): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#save
          * @methodOf umbraco.resources.contentResource
@@ -501,7 +501,7 @@ interface IContentResource{
          */
         save(content: IContentResource, isNew: boolean, files: any[]): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#publish
          * @methodOf umbraco.resources.contentResource
@@ -531,7 +531,7 @@ interface IContentResource{
          */
         publish(content: IContentResource, isNew: boolean, files: any[]): ng.IPromise<IResourcePromise>;
 
-		/**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#sendToPublish
          * @methodOf umbraco.resources.contentResource
