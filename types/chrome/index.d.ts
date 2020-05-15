@@ -1593,7 +1593,14 @@ declare namespace chrome.declarativeContent {
     }
 
     /** Declarative event action that shows the extension's page action while the corresponding conditions are met. */
-    export class ShowPageAction { }
+	export class ShowPageAction { }
+	
+	/** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
+	export class SetIcon {
+		constructor (options: {
+			imageData?: ImageData | {[size: string]: ImageData}
+		})
+	}
 
     /** Provides the Declarative Event API consisting of addRules, removeRules, and getRules. */
     export interface PageChangedEvent extends chrome.events.Event<() => void> { }
