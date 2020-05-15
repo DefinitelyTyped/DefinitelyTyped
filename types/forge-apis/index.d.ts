@@ -88,7 +88,7 @@ export class AuthClientThreeLegged {
 
     generateAuthUrl(state: string): string;
     getToken(code: string): Promise<AuthToken>;
-    refreshToken({ refresh_token: any }): Promise<AuthToken>;
+    refreshToken(credentials: { refresh_token?: string }, scope?: Scope[]): Promise<AuthToken>;
 }
 
 export type AuthClient = AuthClientTwoLegged | AuthClientThreeLegged;

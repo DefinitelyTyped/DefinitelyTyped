@@ -42,9 +42,7 @@ authClientThreeLegged.generateAuthUrl('');
 // $ExpectType Promise<AuthToken>
 authClientThreeLegged.getToken('');
 // $ExpectType Promise<AuthToken>
-authClientThreeLegged.refreshToken({
-    refresh_token: ''
-});
+authClientThreeLegged.refreshToken(authToken);
 
 // $ExpectType ActivitiesApi
 const activitiesApi = new ActivitiesApi();
