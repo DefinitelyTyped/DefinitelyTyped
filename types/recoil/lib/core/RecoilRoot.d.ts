@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import { FC } from 'react';
 import { RecoilState } from './recoilValue';
 
 export interface RecoilRootProps {
