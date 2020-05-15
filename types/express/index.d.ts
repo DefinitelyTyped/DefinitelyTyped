@@ -10,7 +10,7 @@
 /* =================== USAGE ===================
 
     import * as express from "express";
-    var app = express();
+    var app = express.default();
 
  =============================================== */
 
