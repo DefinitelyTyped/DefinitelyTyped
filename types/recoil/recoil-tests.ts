@@ -12,10 +12,10 @@ import {
     useRecoilCallback,
     isRecoilValue,
 } from 'recoil';
-import { atomFamily } from 'recoil/utils';
+// import { atomFamily } from 'recoil/utils';
 
 // DefaultValue
-new DefaultValue() instanceof DefaultValue;
+new DefaultValue();
 
 // atom
 const myAtom = atom({
@@ -32,20 +32,24 @@ const mySelector1 = selector({
 const readOnlySelector = selector({
     key: 'asdfasf',
     get: ({ get }) => {
-        get(myAtom);
+        get(myAtom) + 10;
         get(mySelector1);
+        get(5); // $ExpectError
     },
 });
 
 const writeableSelector = selector({
     key: 'asdfsadfs',
-    get: () => 5,
-    // FIXME (options are implicitly any for some reason)
-    // $ExpectError
+    get: ({ get }) => {
+        get(mySelector1) + 10;
+    },
     set: ({ get, set, reset }) => {
         get(myAtom);
         set(myAtom, 5);
         reset(myAtom);
+
+        set(readOnlySelector, 2); // $ExpectError
+        reset(readOnlySelector); // $ExpectError
     },
 });
 
@@ -55,6 +59,9 @@ RecoilRoot({
     initializeState: ({ set, setUnvalidatedAtomValues }) => {
         set(myAtom, 5);
         setUnvalidatedAtomValues(new Map());
+
+        set(readOnlySelector, 2); // $ExpectError
+        setUnvalidatedAtomValues({}); // $ExpectError
     },
 });
 
@@ -63,26 +70,41 @@ useRecoilValue(myAtom);
 useRecoilValue(mySelector1);
 useRecoilValue(readOnlySelector);
 useRecoilValue(writeableSelector);
+useRecoilValue({}); // $ExpectError
 
 useRecoilValueLoadable(myAtom);
 useRecoilValueLoadable(readOnlySelector);
 useRecoilValueLoadable(writeableSelector);
+useRecoilValueLoadable({}); // $ExpectError
 
 useRecoilState(myAtom);
 useRecoilState(writeableSelector);
+useRecoilState(readOnlySelector); // $ExpectError
+useRecoilState({}); // $ExpectError
 
 useRecoilStateLoadable(myAtom);
 useRecoilStateLoadable(writeableSelector);
+useRecoilStateLoadable(readOnlySelector); // $ExpectError
+useRecoilStateLoadable({}); // $ExpectError
 
 useSetRecoilState(myAtom);
 useSetRecoilState(writeableSelector);
+useSetRecoilState(readOnlySelector); // $ExpectError
+useSetRecoilState({}); // $ExpectError
 
 useResetRecoilState(myAtom);
 useResetRecoilState(writeableSelector);
+useResetRecoilState(readOnlySelector); // $ExpectError
+useResetRecoilState({}); // $ExpectError
 
 useRecoilCallback(async ({ getPromise, getLoadable, set, reset }) => {
-    const val = await getPromise(writeableSelector);
-    const loadable = getLoadable(readOnlySelector);
+    const val: number = await getPromise(mySelector1);
+    const loadable = getLoadable(mySelector1);
+
+    loadable.getValue();
+    loadable.toPromise();
+    loadable.state;
+
     set(myAtom, 5);
     reset(myAtom);
 });
@@ -96,7 +118,7 @@ isRecoilValue(mySelector1);
 // UTILS
 
 // atomFamily
-atomFamily({
-    key: 'asdfs',
-    default: (param: number) => param + 1 /* FIXME (any) */,
-});
+// atomFamily({
+//     key: 'asdfs',
+//     default: (a) => {return ''},
+// });
