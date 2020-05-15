@@ -1440,12 +1440,12 @@ You can pass an optional additional property with sorter, sorterParams that shou
     type ValueBooleanCallback = (value: any) => boolean;
     type ValueVoidCallback = (value: any) => void;
     type EmptyCallback = (callback: () => void) => void;
-    type CellEventCallback = (e: any, cell: CellComponent) => void;
+    type CellEventCallback = (e: UIEvent, cell: CellComponent) => void;
     type CellEditEventCallback = (cell: CellComponent) => void;
-    type ColumnEventCallback = (e: any, column: ColumnComponent) => void;
-    type RowEventCallback = (e: any, row: RowComponent) => void;
+    type ColumnEventCallback = (e: UIEvent, column: ColumnComponent) => void;
+    type RowEventCallback = (e: UIEvent, row: RowComponent) => void;
     type RowChangedCallback = (row: RowComponent) => void;
-    type GroupEventCallback = (e: any, group: GroupComponent) => void;
+    type GroupEventCallback = (e: UIEvent, group: GroupComponent) => void;
 
     type SortDirection = 'asc' | 'desc';
     type FilterType = '=' | '!=' | 'like' | '<' | '>' | '<=' | '>=' | 'in' | 'regex';

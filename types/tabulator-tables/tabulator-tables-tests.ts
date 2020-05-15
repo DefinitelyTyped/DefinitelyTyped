@@ -175,7 +175,7 @@ function moment(a: any, b: any) {
     return '';
 }
 
-colDef.cellClick = (_e, cell) => {
+colDef.cellClick = (_e: UIEvent, cell) => {
     console.log(cell.checkHeight);
 };
 
