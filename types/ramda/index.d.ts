@@ -1232,7 +1232,7 @@ export function nth(n: number): <T>(list: readonly T[]) => T | undefined;
 /**
  * Returns a function which returns its nth argument.
  */
-export function nthArg(n: number): (...a: readonly any[]) => any;
+export function nthArg<T>(n: number): (...a: readonly any[]) => T;
 
 /**
  * o is a curried composition function that returns a unary function. Like compose, o performs right-to-left function composition.
