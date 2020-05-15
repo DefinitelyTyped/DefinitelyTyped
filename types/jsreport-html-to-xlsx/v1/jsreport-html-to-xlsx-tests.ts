@@ -7,13 +7,13 @@ jsreport.use(JsreportXlsx());
 jsreport.use(JsreportHtml2Xlsx());
 
 (async () => {
-	const content = `<table><tr><td>test</td></tr></table>`;
-	await jsreport.init();
-	const resp = await jsreport.render({
-		template: {
-			content,
-			engine: 'none',
-			recipe: 'xlsx'
-		}
-	});
+    const content = `<table><tr><td>test</td></tr></table>`;
+    await jsreport.init();
+    const resp = await jsreport.render({
+        template: {
+            content,
+            engine: 'none',
+            recipe: 'xlsx'
+        }
+    });
 })();

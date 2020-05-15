@@ -866,7 +866,6 @@ class AccessibilityTest extends React.Component {
                 accessibilityTraits={'none'}
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
-                accessibilityStates={['selected']}
                 accessibilityState={{ checked: true }}
                 accessibilityHint="Very importent header"
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
@@ -885,6 +884,21 @@ class AccessibilityTest extends React.Component {
 const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then(isEnabled => {
     console.log(isEnabled);
 });
+
+AccessibilityInfo.isBoldTextEnabled().then(isEnabled => console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`));
+AccessibilityInfo.isGrayscaleEnabled().then(isEnabled => console.log(`AccessibilityInfo.isGrayscaleEnabled => ${isEnabled}`));
+AccessibilityInfo.isInvertColorsEnabled().then(isEnabled => console.log(`AccessibilityInfo.isInvertColorsEnabled => ${isEnabled}`));
+AccessibilityInfo.isReduceMotionEnabled().then(isEnabled => console.log(`AccessibilityInfo.isReduceMotionEnabled => ${isEnabled}`));
+AccessibilityInfo.isReduceTransparencyEnabled().then(isEnabled => console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`));
+AccessibilityInfo.isScreenReaderEnabled().then(isEnabled => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`));
+
+AccessibilityInfo.addEventListener('announcementFinished', ({ announcement, success }) => console.log(`A11y Event: announcementFinished: ${announcement}, ${success}`))
+AccessibilityInfo.addEventListener('boldTextChanged', isEnabled => console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`))
+AccessibilityInfo.addEventListener('grayscaleChanged', isEnabled => console.log(`AccessibilityInfo.isGrayscaleEnabled => ${isEnabled}`));
+AccessibilityInfo.addEventListener('invertColorsChanged', isEnabled => console.log(`AccessibilityInfo.isInvertColorsEnabled => ${isEnabled}`));
+AccessibilityInfo.addEventListener('reduceMotionChanged', isEnabled => console.log(`AccessibilityInfo.isReduceMotionEnabled => ${isEnabled}`));
+AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled => console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`));
+AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`));
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
@@ -1095,10 +1109,10 @@ const VirtualizedListTest = () => {
     const DATA = [1, 2, 3];
 
     const getItem = (data: number[], index: number) => {
-        return  {
-            title: `Item ${data[index]}`
+        return {
+            title: `Item ${data[index]}`,
         };
-    }
+    };
 
     const getItemCount = (data: number[]) => data.length;
 
@@ -1111,7 +1125,7 @@ const VirtualizedListTest = () => {
             getItem={getItem}
         />
     );
-}
+};
 
 // DevSettings
 DevSettings.addMenuItem('alert', () => {

@@ -63,8 +63,8 @@ declare namespace GoldenLayout {
         constructor(configuration: Config, container?: Element | HTMLElement | JQuery);
 
         /*
-         * @param name 	The name of the component, as referred to by componentName in the component configuration.
-         * @param component 	A constructor or factory function. Will be invoked with new and two arguments, a
+         * @param name     The name of the component, as referred to by componentName in the component configuration.
+         * @param component     A constructor or factory function. Will be invoked with new and two arguments, a
          *                      containerobject and a component state
          */
         registerComponent(name: String, component: any): void;

@@ -4,5 +4,5 @@ import isPropertyDescriptor = require('es-abstract/helpers/isPropertyDescriptor'
 declare const any: unknown;
 
 if (isPropertyDescriptor(ES5, any)) {
-	any; // $ExpectType PropertyDescriptor
+    any; // $ExpectType PropertyDescriptor
 }

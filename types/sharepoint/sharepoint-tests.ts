@@ -2301,11 +2301,11 @@ namespace SampleReputation {
         for (const row of  rows) {
             const item = new MyItem(row);
             result += '\
-			    <li>' + item.title + '\
-					<a style="cursor: pointer;" onclick="SampleReputation.setLike(' + item.id + ', \'' + ctx.listId + '\')" >\
-						<span id="likesCountText' + item.id + '">' + getLikeText(item.isLikedByCurrentUser) + '</span><span id="likesCount' + item.id + '">' + item.likesCount + '</span>\
-					</a>\
-			    </li>';
+                <li>' + item.title + '\
+                    <a style="cursor: pointer;" onclick="SampleReputation.setLike(' + item.id + ', \'' + ctx.listId + '\')" >\
+                        <span id="likesCountText' + item.id + '">' + getLikeText(item.isLikedByCurrentUser) + '</span><span id="likesCount' + item.id + '">' + item.likesCount + '</span>\
+                    </a>\
+                </li>';
         }
         return result;
     }

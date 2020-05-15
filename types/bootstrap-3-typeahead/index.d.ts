@@ -89,10 +89,10 @@ declare namespace Bootstrap3Typeahead {
         addItem?: object;
     }
 
-	interface Typeahead {
-		$element: JQuery;
-		options: Options;
-	}
+    interface Typeahead {
+        $element: JQuery;
+        options: Options;
+    }
 }
 
 interface JQuery {

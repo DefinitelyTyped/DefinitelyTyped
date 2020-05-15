@@ -1181,7 +1181,7 @@ expectType<mapboxgl.Expression>([
 const expression = expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
 
 /*
- *	ScrollZoomHandler
+ *    ScrollZoomHandler
  */
 expectType<void>(new mapboxgl.Map().scrollZoom.setZoomRate(1));
 expectType<void>(new mapboxgl.Map().scrollZoom.setWheelZoomRate(1));

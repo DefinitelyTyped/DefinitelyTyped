@@ -38,26 +38,26 @@ const signMetadata: string = samlStrategy.generateServiceProviderMetadata(null, 
 const metadata: string = samlStrategy.generateServiceProviderMetadata("decryptionCert", "signingCert");
 
 const multiSamlStrategy = new MultiSamlStrategy(
-	{
-		name: 'samlCustomName',
-		path: '/login/callback',
-		entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
-		issuer: 'passport-saml',
+    {
+        name: 'samlCustomName',
+        path: '/login/callback',
+        entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
+        issuer: 'passport-saml',
         getSamlOptions(req: express.Request, callback: MultiSamlStrategy.SamlOptionsCallback) {
             callback(null, {
                 name: 'samlCustomName',
                 path: '/login/callback2',
                 entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
                 issuer: 'passport-saml',
-			});
-			callback(new Error("SAML Options Error"));
+            });
+            callback(new Error("SAML Options Error"));
         }
-	},
-	(profile: {}, done: (err: Error | null, user?: {}, info?: {}) => void) => {
-		const user = {};
-		done(null, user);
-		done(new Error("Verify Request Error"));
-	}
+    },
+    (profile: {}, done: (err: Error | null, user?: {}, info?: {}) => void) => {
+        const user = {};
+        done(null, user);
+        done(new Error("Verify Request Error"));
+    }
 );
 
 const req: express.Request = {} as any as express.Request;

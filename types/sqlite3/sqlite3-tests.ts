@@ -5,8 +5,8 @@ let db: sqlite.Database = new sqlite3.Database('chain.sqlite3', () => {});
 
 function createDb() {
     console.log("createDb chain");
-	db = new sqlite3.Database('chain.sqlite3', createTable);
-	db.configure("busyTimeout", 1000);
+    db = new sqlite3.Database('chain.sqlite3', createTable);
+    db.configure("busyTimeout", 1000);
 }
 
 function createTable() {
