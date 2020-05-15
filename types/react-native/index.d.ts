@@ -38,6 +38,7 @@
 //                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
+//                 ConnectDotz <https://github.com/connectdotz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -4592,6 +4593,8 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      * chance that fast scrolling may reveal momentary blank areas of unrendered content.
      */
     windowSize?: number;
+
+    CellRendererComponent?: React.ComponentType<any>;
 }
 
 /**
@@ -6873,8 +6876,7 @@ type AccessibilityChangeEvent = boolean;
 
 type AccessibilityChangeEventHandler = (event: AccessibilityChangeEvent) => void;
 
-type AccessibilityAnnouncementEventName =
-    | 'announcementFinished'; // iOS-only Event
+type AccessibilityAnnouncementEventName = 'announcementFinished'; // iOS-only Event
 
 type AccessibilityAnnouncementFinishedEvent = {
     announcement: string;
@@ -6944,13 +6946,19 @@ export interface AccessibilityInfoStatic {
      *
      */
     addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
-    addEventListener(eventName: AccessibilityAnnouncementEventName, handler: AccessibilityAnnouncementFinishedEventHandler): void;
+    addEventListener(
+        eventName: AccessibilityAnnouncementEventName,
+        handler: AccessibilityAnnouncementFinishedEventHandler,
+    ): void;
 
     /**
      * Remove an event handler.
      */
     removeEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
-    removeEventListener(eventName: AccessibilityAnnouncementEventName, handler: AccessibilityAnnouncementFinishedEventHandler): void;
+    removeEventListener(
+        eventName: AccessibilityAnnouncementEventName,
+        handler: AccessibilityAnnouncementFinishedEventHandler,
+    ): void;
 
     /**
      * Set accessibility focus to a react component.
