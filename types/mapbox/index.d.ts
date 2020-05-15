@@ -90,7 +90,8 @@ declare global {
             onRemove(): any;
 
             /**
-             * Bind an event handler to a given event on this L.mapbox.gridLayer instance. GridLayers expose a number of useful events that give you access to UTFGrid data as the user interacts with the map.
+             * Bind an event handler to a given event on this L.mapbox.gridLayer instance.
+             * GridLayers expose a number of useful events that give you access to UTFGrid data as the user interacts with the map.
              */
             on(event: string, handler: Function, context?: any): any;
 
