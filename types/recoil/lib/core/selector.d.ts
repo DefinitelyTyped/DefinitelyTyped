@@ -7,15 +7,15 @@ export type SetRecoilState = <T>(
     newVal: T | DefaultValue | ((prevValue: T) => T | DefaultValue),
 ) => void;
 
-export type ResetRecoilState = <T>(recoilVal: RecoilState<T>) => void;
+export type ResetRecoilState = (recoilVal: RecoilState<any>) => void;
 
-export type ReadOnlySelectorOptions<T> = {
+export interface ReadOnlySelectorOptions<T> {
     key: string;
     get: (opts: { get: GetRecoilValue }) => Promise<T> | RecoilValue<T> | T;
 
     // cacheImplementation_UNSTABLE?: CacheImplementation<Loadable<T>>,
     dangerouslyAllowMutability?: boolean;
-};
+}
 
 export type ReadWriteSelectorOptions<T> = ReadOnlySelectorOptions<T> & {
     set: (

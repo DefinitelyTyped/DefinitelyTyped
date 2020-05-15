@@ -23,7 +23,7 @@ export type Accessors<T> = Readonly<{
     promiseMaybe: () => Promise<T> | void;
     promiseOrThrow: () => Promise<T>;
 
-    map: <T, S>(map: (val: T) => Promise<S> | S) => Loadable<S>;
+    map: <S>(map: (val: any) => Promise<S> | S) => Loadable<S>;
 }>;
 
 export type Loadable<T> =
