@@ -1,4 +1,4 @@
-// Type definitions for fs-extra 9.0
+// Type definitions for fs-extra 8.1
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: Alan Agius <https://github.com/alan-agius4>,
 //                 midknight41 <https://github.com/midknight41>,
@@ -9,6 +9,7 @@
 //                 Florian Keller <https://github.com/ffflorian>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -94,11 +95,7 @@ export function ensureFileSync(path: string): void;
 
 export function ensureLink(src: string, dest: string): Promise<void>;
 export function ensureLink(src: string, dest: string, callback: (err: Error) => void): void;
-// alias for ensureLink
-export const createLink: typeof ensureLink;
 export function ensureLinkSync(src: string, dest: string): void;
-// aliased as
-export const createLinkSync: typeof ensureLinkSync;
 
 export function ensureSymlink(src: string, dest: string, type?: SymlinkType): Promise<void>;
 export function ensureSymlink(src: string, dest: string, type: SymlinkType, callback: (err: Error) => void): void;
@@ -185,14 +182,6 @@ export function open(path: string | Buffer, flags: string | number, callback: (e
 export function open(path: string | Buffer, flags: string | number, mode: number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
 export function open(path: string | Buffer, flags: string | number, mode?: number): Promise<number>;
 
-export function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: fs.Dir) => void): void;
-export function opendir(
-    path: string,
-    options: fs.OpenDirOptions,
-    cb: (err: NodeJS.ErrnoException | null, dir: fs.Dir) => void,
-): void;
-export function opendir(path: string, options?: fs.OpenDirOptions): Promise<fs.Dir>;
-
 export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null,
     callback: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
 export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): Promise<ReadResult>;
@@ -261,10 +250,6 @@ export function write(fd: number, data: any, offset?: number, encoding?: string)
 export function writeFile(file: string | Buffer | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 export function writeFile(file: string | Buffer | number, data: any, options?: WriteFileOptions | string): Promise<void>;
 export function writeFile(file: string | Buffer | number, data: any, options: WriteFileOptions | string, callback: (err: NodeJS.ErrnoException) => void): void;
-
-export function writev(fd: number, buffers: NodeJS.ArrayBufferView[], position: number, cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void): void;
-export function writev(fd: number, buffers: NodeJS.ArrayBufferView[], cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void): void;
-export function writev(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WritevResult>;
 
 /**
  * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
@@ -340,9 +325,4 @@ export interface ReadResult {
 export interface WriteResult {
     bytesWritten: number;
     buffer: Buffer;
-}
-
-export interface WritevResult {
-    bytesWritten: number;
-    buffers: ArrayBufferView[];
 }
