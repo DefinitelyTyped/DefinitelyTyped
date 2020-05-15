@@ -11,12 +11,12 @@ export const SPLAT: string;
 export const configs: Configs;
 
 export interface Config {
-	readonly levels: {[k: string]: number};
-	readonly colors: {[k: string]: string};
-	}
+    readonly levels: {[k: string]: number};
+    readonly colors: {[k: string]: string};
+    }
 
 export interface Configs {
-	readonly cli: Config;
-	readonly npm: Config;
-	readonly syslog: Config;
+    readonly cli: Config;
+    readonly npm: Config;
+    readonly syslog: Config;
 }

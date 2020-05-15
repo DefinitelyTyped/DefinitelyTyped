@@ -561,7 +561,7 @@ declare global {
              */
             oStates?: Record<string, ioBroker.State | undefined>;
 
-            /*	===============================
+            /*    ===============================
                 Functions defined in adapter.js
                 =============================== */
 

@@ -95,7 +95,7 @@ declare namespace Vivus {
          */
         start?: 'inViewport' | 'manual' | 'autostart';
         /**
-         * 	Time between the drawing of first and last path, in frames (only for `delayed` animations).
+         *     Time between the drawing of first and last path, in frames (only for `delayed` animations).
          */
         delay?: number;
         /**

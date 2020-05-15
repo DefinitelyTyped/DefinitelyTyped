@@ -364,38 +364,38 @@ function testTabCaptureOptions() {
 
 // https://developer.chrome.com/extensions/debugger
 function testDebugger() {
-	chrome.debugger.attach({tabId: 123}, '1.23', () => {
-		console.log('This is a callback!');
-	});
+    chrome.debugger.attach({tabId: 123}, '1.23', () => {
+        console.log('This is a callback!');
+    });
 
-	chrome.debugger.detach({tabId: 123}, () => {
-		console.log('This is a callback!');
-	});
+    chrome.debugger.detach({tabId: 123}, () => {
+        console.log('This is a callback!');
+    });
 
-	chrome.debugger.sendCommand(
-		{targetId: 'abc'}, 'Debugger.Cmd', {param1: 'x'}, (result) => {
-			console.log('Do something with the result.' + result);
-	});
+    chrome.debugger.sendCommand(
+        {targetId: 'abc'}, 'Debugger.Cmd', {param1: 'x'}, (result) => {
+            console.log('Do something with the result.' + result);
+    });
 
-	chrome.debugger.getTargets((results) => {
-		for (let result of results) {
-			if (result.tabId == 123) {
-			// Do Something.
-			}
-		}
-	});
+    chrome.debugger.getTargets((results) => {
+        for (let result of results) {
+            if (result.tabId == 123) {
+            // Do Something.
+            }
+        }
+    });
 
-	chrome.debugger.onEvent.addListener((source, methodName, params) => {
-		if (source.tabId == 123) {
-			console.log('Hello World.');
-		}
-	});
+    chrome.debugger.onEvent.addListener((source, methodName, params) => {
+        if (source.tabId == 123) {
+            console.log('Hello World.');
+        }
+    });
 
-	chrome.debugger.onDetach.addListener((source, reason) => {
-		if (source.tabId == 123) {
-			console.log('Hello World.');
-		}
-	});
+    chrome.debugger.onDetach.addListener((source, reason) => {
+        if (source.tabId == 123) {
+            console.log('Hello World.');
+        }
+    });
 }
 
 // https://developer.chrome.com/extensions/storage#type-StorageArea

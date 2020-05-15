@@ -5456,8 +5456,8 @@ declare namespace chrome.serial {
   * @export
   * @param connectionId The id of the connection.
   * @param signals The set of signal changes to send to the device:
-  * boolean:	(optional) dtr - DTR (Data Terminal Ready).
-  * boolean:	(optional) rts - RTS (Request To Send).
+  * boolean:    (optional) dtr - DTR (Data Terminal Ready).
+  * boolean:    (optional) rts - RTS (Request To Send).
   * @param callback Called once the control signals have been set.
   * The callback parameter should be a function that looks like this:
   * function(boolean result) {...};

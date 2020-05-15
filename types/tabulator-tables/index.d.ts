@@ -38,9 +38,9 @@ declare namespace Tabulator {
         dataTree?: boolean;
         /**  By default the toggle element will be inserted into the first column on the table. If you want the toggle element to be inserted in a different column you can pass the feild name of the column to the dataTreeElementColumn setup option*/
         dataTreeElementColumn?: boolean | string;
-        /** Show tree branch icon	 */
+        /** Show tree branch icon     */
         dataTreeBranchElement?: boolean | string;
-        /** Tree level indent in pixels	 */
+        /** Tree level indent in pixels     */
         dataTreeChildIndent?: number;
         /** By default Tabulator will look for child rows in the _children field of a row data object. You can change this to look in a different field using the dataTreeChildField property in your table constructor: */
         dataTreeChildField?: string;
@@ -106,15 +106,15 @@ declare namespace Tabulator {
     }
 
     interface OptionsPersistentConfiguration {
-        /** ID tag used to identify persistent storage information	 */
+        /** ID tag used to identify persistent storage information     */
         persistenceID?: string;
         /**  Persistence information can either be stored in a cookie or in the localSotrage object, you can use the persistenceMode to choose which. It can take three possible values:
 
       local - (string) Store the persistence information in the localStorage object
       cookie - (string) Store the persistence information in a cookie
-      true - (boolean) check if localStorage is available and store persistence information, otherwise store in cookie (Default option)	*/
+      true - (boolean) check if localStorage is available and store persistence information, otherwise store in cookie (Default option)    */
         persistenceMode?: 'local' | 'cookie' | true;
-        /** Enable persistsnt storage of column layout information	 */
+        /** Enable persistsnt storage of column layout information     */
         persistentLayout?: boolean;
         /** You can ensure the data sorting is stored for the next page load by setting the persistentSort option to true */
         persistentSort?: boolean;
@@ -147,17 +147,17 @@ declare namespace Tabulator {
     }
 
     interface OptionsPagination {
-        /** Choose pagination method, "local" or "remote"	 */
+        /** Choose pagination method, "local" or "remote"     */
         pagination?: 'remote' | 'local';
-        /** Set the number of rows in each page	 */
+        /** Set the number of rows in each page     */
         paginationSize?: number;
         /**  Setting this option to true will cause Tabulator to create a list of page size options, that are multiples of the current page size. In the example below, the list will have the values of 5, 10, 15 and 20.
 
-    When using the page size selector like this, if you use the setPageSize function to set the page size to a value not in the list, the list will be regenerated using the new page size as the starting valuer	*/
+    When using the page size selector like this, if you use the setPageSize function to set the page size to a value not in the list, the list will be regenerated using the new page size as the starting valuer    */
         paginationSizeSelector?: true | number[];
         /**  By default the pagination controls are added to the footer of the table. If you wish the controls to be created in another element pass a DOM node or a CSS selector for that element to the paginationElement option.*/
         paginationElement?: HTMLElement | string;
-        /** Lookup list to link expected data feilds from the server to their function	* default* {
+        /** Lookup list to link expected data feilds from the server to their function    * default* {
         "current_page":"current_page",
         "last_page":"last_page",
         "data":"data",
@@ -170,7 +170,7 @@ declare namespace Tabulator {
         "sorters":"sorters",
         "filters":"filters",
         }
-    	 */
+         */
         paginationDataSent?: Record<string, string>;
         /** When using the addRow function on a paginated table, rows will be added relative to the current page (ie to the top or bottom of the current page), with overflowing rows being shifted onto the next page.
 
@@ -186,14 +186,14 @@ declare namespace Tabulator {
     }
 
     interface OptionsRowGrouping {
-        /** String/function to select field to group rows by	 */
+        /** String/function to select field to group rows by     */
         groupBy?: string | ((data: any) => any);
         /** By default Tabulator will create groups for rows based on the values contained in the row data. if you want to explicitly define which field values groups should be created for at each level, you can use the groupValues option.
 
-    This option takes an array of value arrays, each item in the first array should be a list of acceptable field values for groups at that level	 */
+    This option takes an array of value arrays, each item in the first array should be a list of acceptable field values for groups at that level     */
         groupValues?: any[][];
 
-        /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option.	 */
+        /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option.     */
         groupHeader?:
             | ((value: any, count: number, data: any, group: GroupComponent) => string)
             | Array<(value: any, count: number, data: any) => string>;
@@ -215,7 +215,7 @@ declare namespace Tabulator {
      */
         groupToggleElement?: 'arrow' | 'header' | false;
 
-        /** show/hide column calculations when group is closed	 */
+        /** show/hide column calculations when group is closed     */
         groupClosedShowCalcs?: boolean;
 
         /** The dataGrouping callback is triggered whenever a data grouping event occurs, before grouping happens. */
@@ -250,10 +250,10 @@ declare namespace Tabulator {
     type FilterFunction = (field: string, type: FilterType, value: any) => void;
 
     interface OptionsFiltering {
-        /** Array of filters to be applied on load.	 */
+        /** Array of filters to be applied on load.     */
         initialFilter?: Filter[];
 
-        /** array of initial values for header filters.	 */
+        /** array of initial values for header filters.     */
         initialHeaderFilter?: Array<Pick<Filter, 'field' | 'value'>>;
 
         /** The dataFiltering callback is triggered whenever a filter event occurs, before the filter happens. */
@@ -265,10 +265,10 @@ declare namespace Tabulator {
         headerFilterLiveFilterDelay?: number;
     }
     interface OptionsSorting {
-        /** Array of sorters to be applied on load.	 */
+        /** Array of sorters to be applied on load.     */
         initialSort?: Sorter[];
 
-        /** reverse the order that multiple sorters are applied to the table.	 */
+        /** reverse the order that multiple sorters are applied to the table.     */
         sortOrderReverse?: boolean;
     }
 
@@ -279,16 +279,16 @@ declare namespace Tabulator {
     interface OptionsData {
         /** A unique index value should be present for each row of data if you want to be able to programatically alter that data at a later point, this should be either numeric or a string. By default Tabulator will look for this value in the id field for the data. If you wish to use a different field as the index, set this using the index option parameter. */
         index?: number | string;
-        /** Array to hold data that should be loaded on table creation	 */
+        /** Array to hold data that should be loaded on table creation     */
         data?: any[];
 
         /** If you wish to retrieve your data from a remote source you can set the URL for the request in the ajaxURL option. */
         ajaxURL?: string;
 
-        /** Parameters to be passed to remote Ajax data loading request	 */
+        /** Parameters to be passed to remote Ajax data loading request     */
         ajaxParams?: {};
 
-        /** The HTTP request type for Ajax requests or config object for the request	 */
+        /** The HTTP request type for Ajax requests or config object for the request     */
         ajaxConfig?: HttpMethod | AjaxConfig;
 
         /** When using a request method other than "GET" Tabulator will send any parameters with a content type of form data. You can change the content type with the ajaxContentType option. This will ensure parameters are sent in the format you expect, with the correct headers. * * The ajaxContentType option can take one of two values:
@@ -304,13 +304,13 @@ declare namespace Tabulator {
     The callback should return a string representing the URL to be requested. */
         ajaxURLGenerator?: (url: string, config: any, params: any) => string;
 
-        /** callback function to replace inbuilt ajax request functionality	 */
+        /** callback function to replace inbuilt ajax request functionality     */
         ajaxRequestFunc?: (url: string, config: any, params: any) => Promise<any>;
 
-        /** Send filter config to server instead of processing locally	 */
+        /** Send filter config to server instead of processing locally     */
         ajaxFiltering?: boolean;
 
-        /** Send sorter config to server instead of processing locally	 */
+        /** Send sorter config to server instead of processing locally     */
         ajaxSorting?: boolean;
 
         /** If you are loading a lot of data from a remote source into your table in one go, it can sometimes take a long time for the server to return the request, which can slow down the user experience.
@@ -319,19 +319,19 @@ declare namespace Tabulator {
 
       With this mode enabled, all of the settings outlined in the Ajax Documentation are still available
 
-      There are two different progressive loading modes, to give you a choice of how data is loaded into the table.	 */
+      There are two different progressive loading modes, to give you a choice of how data is loaded into the table.     */
         ajaxProgressiveLoad?: 'load' | 'scroll';
         /** By default tabulator will make the requests to fill the table as quickly as possible. On some servers these repeates requests from the same client may trigger rate limiting or security systems. In this case you can use the ajaxProgressiveLoadDelay option to add a delay in milliseconds between each page request. */
         ajaxProgressiveLoadDelay?: number;
         /** The ajaxProgressiveLoadScrollMargin property determines how close to the bottom of the table in pixels, the scroll bar must be before the next page worth of data is loaded, by default it is set to twice the height of the table. */
         ajaxProgressiveLoadScrollMargin?: number;
 
-        /** Show loader while data is loading, can also take a function that must return a boolean	 */
+        /** Show loader while data is loading, can also take a function that must return a boolean     */
         ajaxLoader?: boolean | (() => boolean);
 
-        /** html for loader element	 */
+        /** html for loader element     */
         ajaxLoaderLoading?: string;
-        /** html for the loader element in the event of an error	 */
+        /** html for the loader element in the event of an error     */
         ajaxLoaderError?: string;
 
         /** The ajaxRequesting callback is triggered when ever an ajax request is made. */
@@ -666,30 +666,30 @@ declare namespace Tabulator {
     }
 
     interface OptionsGeneral {
-        /** Sets the height of the containing element, can be set to any valid height css value. If set to false (the default), the height of the table will resize to fit the table data.	 */
+        /** Sets the height of the containing element, can be set to any valid height css value. If set to false (the default), the height of the table will resize to fit the table data.     */
         height?: string | number | false;
         /** Can be set to any valid CSS value. By setting this you can allow your table to expand to fit the data, but not overflow its parent element. Whene there are too many rows to fit in the available space, the vertical scroll bar will be shown. This has the added benefit of improving load times on larger tables */
         maxHeight?: string | number;
         /** With a variable table height you can set the minimum height of the table either defined in the min-height CSS property for the element or set it using the minHeight option in the table constructor, this can be set to any valid CSS value  */
         minHeight?: string | number;
 
-        /** Enable rendering using the Virtual DOM engine	 */
+        /** Enable rendering using the Virtual DOM engine     */
         virtualDom?: boolean;
 
-        /** Manually set the size of the virtual DOM buffer	 */
+        /** Manually set the size of the virtual DOM buffer     */
         virtualDomBuffer?: boolean | number;
-        /** placeholder element to display on empty table	 */
+        /** placeholder element to display on empty table     */
         placeholder?: string | HTMLElement;
 
-        /** Footer  element to display for the table	 */
+        /** Footer  element to display for the table     */
         footerElement?: string | HTMLElement;
 
-        /** Function to generate tooltips for cells	 */
+        /** Function to generate tooltips for cells     */
         tooltips?: GlobalTooltipOption;
-        /** When to regenerate cell tooltip value	 */
+        /** When to regenerate cell tooltip value     */
         tooltipGenerationMode?: 'load' | 'hover';
 
-        /** Keybinding configuration object	 */
+        /** Keybinding configuration object     */
         keybindings?: false | KeyBinding;
 
         /** * The reactivity systems allow Tabulator to watch arrays and objects passed into the table for changes and then automatically update the table.
@@ -893,7 +893,7 @@ declare namespace Tabulator {
 
     type HistoryAction = 'cellEdit' | 'rowAdd' | 'rowDelete' | 'rowMoved';
     interface OptionsHistory {
-        /** Enable user interaction history functionality	 */
+        /** Enable user interaction history functionality     */
         history?: boolean;
 
         /** The historyUndo event is triggered when the undo action is triggered. */

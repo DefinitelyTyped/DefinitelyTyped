@@ -24,12 +24,12 @@ Globalize.loadTimeZone({});
 let dateOutput: Date;
 
 let dateFormatter = en.dateFormatter({
-	skeleton: "",
-	date: "full",
-	time: "full",
-	datetime: "full",
-	raw: "",
-	timeZone: ""
+    skeleton: "",
+    date: "full",
+    time: "full",
+    datetime: "full",
+    raw: "",
+    timeZone: ""
 });
 strOutput = dateFormatter(new Date());
 
@@ -37,12 +37,12 @@ dateFormatter = Globalize.dateFormatter({});
 strOutput = dateFormatter(new Date());
 
 let dateParser = en.dateParser({
-	skeleton: "",
-	date: "full",
-	time: "full",
-	datetime: "full",
-	raw: "",
-	timeZone: ""
+    skeleton: "",
+    date: "full",
+    time: "full",
+    datetime: "full",
+    raw: "",
+    timeZone: ""
 });
 dateOutput = dateParser("");
 
