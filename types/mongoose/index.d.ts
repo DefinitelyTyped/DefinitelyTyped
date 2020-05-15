@@ -3524,8 +3524,6 @@ declare module "mongoose" {
 
   class Document {}
   interface Document extends MongooseDocument, NodeJS.EventEmitter, ModelProperties {
-    constructor: Model<this>;
-
     /** Signal that we desire an increment of this documents version. */
     increment(): this;
 
