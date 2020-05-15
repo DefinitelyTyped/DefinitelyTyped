@@ -37,9 +37,9 @@ declare class LGTV extends EventEmitter {
 
     private register(): void;
 
-    private connect(host: string): void;
+    connect(host: string): void;
 
-    private disconnect(): void;
+    disconnect(): void;
 
     private send(type: string, uri: string, callback: (error: Error | null, result: any) => void): void;
     private send(type: string, uri: string, payload?: any, callback?: (error: Error | null, result: any) => void): void;
