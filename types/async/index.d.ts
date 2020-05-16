@@ -9,8 +9,9 @@
 //                 Etienne Rossignon <https://github.com/erossignon>
 //                 Lifeng Zhu <https://github.com/Juliiii>
 //                 Tümay Çeber <https://github.com/brendtumi>
+//                 jun-sheaf <https://github.com/jun-sheaf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 export as namespace async;
 
@@ -23,16 +24,16 @@ export interface AsyncResultCallback<T, E = Error> { (err?: E | null, result?: T
 export interface AsyncResultArrayCallback<T, E = Error> { (err?: E | null, results?: Array<T | undefined>): void; }
 export interface AsyncResultObjectCallback<T, E = Error> { (err: E | undefined, results: Dictionary<T | undefined>): void; }
 
-export interface AsyncFunction<T, E = Error> { (callback: (err?: E | null, result?: T) => void): void; }
-export interface AsyncFunctionEx<T, E = Error> { (callback: (err?: E | null, ...results: T[]) => void): void; }
-export interface AsyncIterator<T, E = Error> { (item: T, callback: ErrorCallback<E>): void; }
-export interface AsyncForEachOfIterator<T, E = Error> { (item: T, key: number|string, callback: ErrorCallback<E>): void; }
-export interface AsyncResultIterator<T, R, E = Error> { (item: T, callback: AsyncResultCallback<R, E>): void; }
-export interface AsyncMemoIterator<T, R, E = Error> { (memo: R | undefined, item: T, callback: AsyncResultCallback<R, E>): void; }
-export interface AsyncBooleanIterator<T, E = Error> { (item: T, callback: AsyncBooleanResultCallback<E>): void; }
+export type AsyncFunction<T, E = Error> = ((callback: AsyncResultCallback<T, E>) => void) | (() => Promise<T>);
+export type AsyncVoidFunction<E = Error> = ((callback: ErrorCallback<E>) => void) | (() => Promise<void>);
+export type AsyncFunctionEx<T, E = Error> = (callback: (err?: E | null, ...results: T[]) => void) => void;
+export type AsyncIterator<T, E = Error> = ((item: T, callback: ErrorCallback<E>) => void) | ((item: T) => Promise<void>);
+export type AsyncForEachOfIterator<T, E = Error> = ((item: T, key: number|string, callback: ErrorCallback<E>) => void) | ((item: T, key: number|string) => Promise<void>);
+export type AsyncResultIterator<T, R, E = Error> = ((item: T) => Promise<R>) | ((item: T, callback: AsyncResultCallback<R, E>) => void )
+export type AsyncMemoIterator<T, R, E = Error> =( (memo: R | undefined, item: T, callback: AsyncResultCallback<R, E>) => void) | ((memo: R | undefined, item: T) => Promise<R>);
+export type AsyncBooleanIterator<T, E = Error> = ((item: T, callback: AsyncBooleanResultCallback<E>) => void)|  ((item: T) => Promise<boolean>);
 
-export interface AsyncWorker<T, E = Error> { (task: T, callback: ErrorCallback<E>): void; }
-export interface AsyncVoidFunction<E = Error> { (callback: ErrorCallback<E>): void; }
+export type AsyncWorker<T, E = Error> = ((task: T, callback: ErrorCallback<E>) => void) | ((task: T) => Promise<void>);
 
 export type AsyncAutoTasks<R extends Dictionary<any>, E> = { [K in keyof R]: AsyncAutoTask<R[K], R, E> };
 export type AsyncAutoTask<R1, R extends Dictionary<any>, E> = AsyncAutoTaskFunctionWithoutDependencies<R1, E> | Array<keyof R | AsyncAutoTaskFunction<R1, R, E>>;
@@ -120,6 +121,14 @@ export interface AsyncCargo {
 }
 
 // Collections
+export function concat<T, R, E = Error>(arr: IterableCollection<T>, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function concat<T, R, E = Error>(arr: IterableCollection<T>, iterator: AsyncResultIterator<T, R[], E>): Promise<(R | undefined)[] | undefined>;
+export const concatSeries: typeof concat;
+export function concatLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function concatLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R[], E>): Promise<(R | undefined)[] | undefined>;
+export const flatMap: typeof concat;
+export const flatMapSeries: typeof concat;
+export const flatMapLimit: typeof concatLimit;
 export function each<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncIterator<T, E>, callback: ErrorCallback<E>): void;
 export function each<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncIterator<T, E>): Promise<void>;
 export const eachSeries: typeof each;
@@ -192,10 +201,6 @@ export function everyLimit<T, E = Error>(arr: IterableCollection<T>, limit: numb
 export const all: typeof every;
 export const allSeries: typeof every;
 export const allLimit: typeof everyLimit;
-
-export function concat<T, R, E = Error>(arr: IterableCollection<T>, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
-export function concatLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R[], E>, callback?: AsyncResultArrayCallback<R, E>): void;
-export const concatSeries: typeof concat;
 
 // Control Flow
 export function series<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback?: AsyncResultArrayCallback<T, E>): void;
