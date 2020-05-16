@@ -134,6 +134,11 @@ declare namespace asana {
        */
       tasks: resources.Tasks;
       /**
+       * An instance of the UserTaskLists resource.
+       * @type {UserTaskLists}
+       */
+      userTaskLists: resources.UserTaskLists;
+      /**
        * An instance of the Teams resource.
        * @type {Teams}
        */
@@ -148,6 +153,11 @@ declare namespace asana {
        * @type {Workspaces}
        */
       workspaces: resources.Workspaces;
+      /**
+       * An instance of the Webhooks resource.
+       * @type {Webhooks}
+       */
+      webhooks: resources.Webhooks;
       /**
        * Store off Oauth info.
        */
@@ -960,7 +970,7 @@ declare namespace asana {
           name?: string;
           team?: number;
           public?: boolean;
-          due_date: string;
+          due_date?: string;
           notes?: string;
           color?: string;
         }
@@ -1559,7 +1569,8 @@ declare namespace asana {
           name: string;
           completed?: boolean;
           hearted?: boolean;
-          notes?: string;
+					notes?: string;
+					custom_fields?: Object;
         }
 
         interface FollowersParams {
@@ -1582,7 +1593,8 @@ declare namespace asana {
         }
 
         interface CommentParams {
-          text: string;
+          text?: string;
+          html_text?: string;
         }
 
         interface FindAllParams extends PaginationParams {
@@ -1639,7 +1651,7 @@ declare namespace asana {
          * @param dispatchOptions?
          * @return
          */
-        createInWorkspace(workspace: number, data: Tasks.CreateParams, dispatchOptions?: any): Promise<Tasks.Type>;
+        createInWorkspace(workspace: number | string, data: Tasks.CreateParams, dispatchOptions?: any): Promise<Tasks.Type>;
 
         /**
          * * Returns the complete task record for a single task.
@@ -1655,6 +1667,20 @@ declare namespace asana {
         findById(task: string | number, params?: Params, dispatchOptions?: any): Promise<Tasks.Type>;
 
         /**
+         * * The search endpoint allows you to build complex queries to find and fetch exactly the data you need from Asana. 
+				 * * For a more comprehensive description of all the query parameters and limitations of this endpoint, see our [long-form documentation](/developers/documentation/getting-started/search-api) for this feature.
+         *   * @param {Number} workspace The workspace to search in for tasks.
+         *   * @param {Object} [params] Parameters for the request
+         *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+         *   * @return {Promise} The response from the API
+         * @param task
+         * @param params?
+         * @param dispatchOptions?
+         * @return
+         */
+        searchInWorkspace(workspace: number | string, params?: Params, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
+
+				/**
          * * A specific, existing task can be updated by making a PUT request on the
          * * URL for that task. Only the fields provided in the `data` block will be
          * * updated; any unspecified fields will remain unchanged.
@@ -2163,7 +2189,7 @@ declare namespace asana {
          * @param dispatchOptions?
          * @return
          */
-        findByWorkspace(workspace: number, params?: Params, dispatchOptions?: any): Promise<ResourceList<Users.Type>>;
+        findByWorkspace(workspace: number | string, params?: Params, dispatchOptions?: any): Promise<ResourceList<Users.Type>>;
 
         /**
          * * Returns the user records for all users in all workspaces and organizations
@@ -2180,6 +2206,34 @@ declare namespace asana {
         findAll(params: Users.FindAllParams, dispatchOptions?: any): Promise<SimpleResourceList>;
       }
 
+      interface WebhooksStatic {
+        /**
+         * @param dispatcher
+         */
+        new (dispatcher: Dispatcher): Webhooks;
+      }
+
+      namespace Webhooks {
+				interface Filter {
+					action: string;
+					fields: string[];
+					resource_subtype: string;
+					resource_type: string;
+				}
+
+        interface Type extends Resource {
+					active: boolean;
+					resource: Resource;
+					target: string;
+					created_at: string;
+					last_failure_at: string;
+					last_failure_content: string;
+					last_success_at:string;
+					filters: Filter[];
+        }
+      }
+
+      var Webhooks: WebhooksStatic;
       /**
        * **Webhooks are currently in BETA - The information here may change.**
        *
@@ -2230,12 +2284,7 @@ declare namespace asana {
        * @class
        * @param {Dispatcher} dispatcher The API dispatcher
        */
-      class Webhooks extends Resource {
-        /**
-         * @param dispatcher
-         */
-        constructor(dispatcher: Dispatcher);
-
+      interface Webhooks extends Resource {
         /**
          * * Establishing a webhook is a two-part process. First, a simple HTTP POST
          * * similar to any other resource creation. Since you could have multiple
@@ -2263,7 +2312,7 @@ declare namespace asana {
          * @param dispatchOptions?
          * @return
          */
-        create(resource: number, target: string, data: any, dispatchOptions?: any): Promise<any>;
+        create(resource: number | string, target: string, data: any, dispatchOptions?: any): Promise<Webhooks.Type>;
 
         /**
          * * Returns the compact representation of all webhooks your app has
@@ -2278,7 +2327,7 @@ declare namespace asana {
          * @param dispatchOptions?
          * @return
          */
-        getAll(workspace: number, params?: any, dispatchOptions?: any): Promise<any>;
+        getAll(workspace: number | string, params?: any, dispatchOptions?: any): Promise<any>;
 
         /**
          * * Returns the full record for the given webhook.
@@ -2458,6 +2507,84 @@ declare namespace asana {
          * @return
          */
         removeUser(workspace: number, data: UserParams, dispatchOptions?: any): Promise<any>;
+      }
+
+      interface UserTaskListsStatic {
+        /**
+         * @param dispatcher
+         */
+        new (dispatcher: Dispatcher): UserTaskLists;
+      }
+
+      namespace UserTaskLists {
+        interface Type extends Resource {
+          owner: Resource;
+          workspace: Resource;
+        }
+      }
+
+      var UserTaskLists: UserTaskListsStatic;
+
+      /**
+       	* A user task list represents the tasks assigned to a particular user.
+				*
+				* A user’s “My Tasks” represent all of the tasks assigned to that user. It is visually divided 
+				* into regions based on the task’s assignee_status for Asana users to triage their tasks based on 
+				* when they can address them. When building an integration it’s worth noting that tasks with due dates 
+				* will automatically move through assignee_status states as their due dates approach; read up on task 
+				* auto-promotion, https://asana.com/guide/help/fundamentals/my-tasks#gl-auto-promote, for more information
+       	* @class
+       	* @param {Dispatcher} dispatcher The API dispatcher
+      */
+      interface UserTaskLists extends Resource {
+
+				/**
+					* Returns the full record for the user task list for the given user
+					* @param {String} user An identifier for the user. Can be one of an email address,
+					* the globally unique identifier for the user, or the keyword `me`
+					* to indicate the current user making the request.
+					* @param {Object} [params] Parameters for the request
+					* @param {String} params.workspace Globally unique identifier for the workspace or organization.
+					* @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+					* @return {Promise} The requested resource
+				*/
+      	findByUser(user: number | string, params?: Params, dispatchOptions?: any): Promise<UserTaskLists.Type>;
+
+				/**
+					* Returns the full record for a user task list.
+					* @param {String} userTaskList Globally unique identifier for the user task list.
+					* @param {Object} [params] Parameters for the request
+					* @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+					* @return {Promise} The requested resource
+				*/
+				findById(userTaskList: number | string, params?: Params, dispatchOptions?: any): Promise<UserTaskLists.Type>;
+
+				/**
+				 * Returns the compact list of tasks in a user's My Tasks list. The returned
+				 * tasks will be in order within each assignee status group of `Inbox`,
+				 * `Today`, and `Upcoming`.
+				 *
+				 * **Note:** tasks in `Later` have a different ordering in the Asana web app
+				 * than the other assignee status groups; this endpoint will still return
+				 * them in list order in `Later` (differently than they show up in Asana,
+				 * but the same order as in Asana's mobile apps).
+				 *
+				 * **Note:** Access control is enforced for this endpoint as with all Asana
+				 * API endpoints, meaning a user's private tasks will be filtered out if the
+				 * API-authenticated user does not have access to them.
+				 *
+				 * **Note:** Both complete and incomplete tasks are returned by default
+				 * unless they are filtered out (for example, setting `completed_since=now`
+				 * will return only incomplete tasks, which is the default view for "My
+				 * Tasks" in Asana.)
+				 * @param {String} userTaskList The user task list in which to search for tasks.
+				 * @param {Object} [params] Parameters for the request
+				 * @param {String} [params.completed_since] Only return tasks that are either incomplete or that have been
+				 * completed since this time.
+				 * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+				 * @return {Promise} The response from the API
+				*/
+				tasks(userTaskList: number | string, params?: Params, dispatchOptions?: any): Promise<SimpleResourceList>
       }
 
       interface ResourceStatic {
