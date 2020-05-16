@@ -11,7 +11,7 @@
 //                 Tümay Çeber <https://github.com/brendtumi>
 //                 jun-sheaf <https://github.com/jun-sheaf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.3
 
 export as namespace async;
 
