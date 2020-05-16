@@ -3,8 +3,6 @@
 // Definitions by: Meir Keller <https://github.com/meirkl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
-
 import * as React from 'react';
 
 export interface GaugeChartProps {
