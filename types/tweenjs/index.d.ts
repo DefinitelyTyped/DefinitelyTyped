@@ -90,27 +90,27 @@ declare namespace createjs {
     export class TweenStep {
         constructor(prev:TweenStep, t:number, d:number, props:TweenProps, ease:Function, passive:boolean);
 
-		next:TweenStep;
-		prev:TweenStep;
-		t:number;
-		d:number;
-		props:TweenProps;
-		ease:Function;
-		passive:boolean;
-		index:number;
-	}
-	
-	export class TweenAction {
+        next:TweenStep;
+        prev:TweenStep;
+        t:number;
+        d:number;
+        props:TweenProps;
+        ease:Function;
+        passive:boolean;
+        index:number;
+    }
+    
+    export class TweenAction {
         constructor(prev:TweenAction, t:number, scope:any, funct:Function, params:any[]);
 
-		next:TweenAction;
-		prev:TweenAction;
-		t:number;
-		d:number;
-		scope:any;
-		funct:Function;
-		params:any[];
-	}
+        next:TweenAction;
+        prev:TweenAction;
+        t:number;
+        d:number;
+        scope:any;
+        funct:Function;
+        params:any[];
+    }
 
     export class MotionGuidePlugin {
 
@@ -145,7 +145,7 @@ declare namespace createjs {
         ignoreGlobalPause:boolean;
         loop:number;
         useTicks:boolean;
-		reversed:boolean;
+        reversed:boolean;
         bounce:boolean;
         timeScale:number;
         duration:number;

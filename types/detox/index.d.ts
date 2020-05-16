@@ -1,10 +1,11 @@
-// Type definitions for detox 14.5
+// Type definitions for detox 16.4
 // Project: https://github.com/wix/detox
 // Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>
 //                 Steve Chun <https://github.com/stevechun>
 //                 Hammad Jutt <https://github.com/hammadj>
 //                 pera <https://github.com/santiagofm>
 //                 Max Komarychev <https://github.com/maxkomarychev>
+//                 Dor Ben Baruch <https://github.com/Dor256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare global {
     const device: Detox.Device;
@@ -13,6 +14,7 @@ declare global {
     const waitFor: Detox.WaitFor;
     const expect: Detox.Expect<Detox.Expect<Promise<void>>>;
     const by: Detox.Matchers;
+    const detoxCircus: Detox.DetoxCircus;
 
     namespace Detox {
         interface Detox {
@@ -583,6 +585,26 @@ declare global {
              * Launch config for specifying the native language and locale
              */
             languageAndLocale?: LanguageAndLocale;
+        }
+
+        interface CircusTestEventListenerBase {
+            handleTestEvent(event: any, state: any): Promise<void>;
+        }
+
+        interface DetoxCircus {
+            /**
+             * A get function that Enables access to this instance (single in each worker's scope)
+             */
+            getEnv(): {
+                /**
+                 * Registers a listener such as an adapter or reporter
+                 * @param listener
+                 * @example
+                 * detoxCircus.getEnv().addEventsListener(adapter)
+                 * detoxCircus.getEnv().addEventsListener(assignReporter)
+                 */
+                addEventsListener(listener: CircusTestEventListenerBase): void
+            };
         }
     }
 }

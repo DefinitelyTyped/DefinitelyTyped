@@ -9,13 +9,14 @@ it('should be able to use toMatchImageSnapshot in a test', () => {
 
 it('should be able to use configureToMatchImageSnapshot in a test', () => {
     const matchFn = configureToMatchImageSnapshot({
+        allowSizeMismatch: true,
         noColors: true,
         customDiffConfig: {
             threshold: 5,
-            includeAA: false
+            includeAA: false,
         },
         failureThreshold: 10,
-        failureThresholdType: 'percent'
+        failureThresholdType: 'percent',
     });
     expect.extend({ toMatchImageSnapshot: matchFn });
 
@@ -26,16 +27,17 @@ it('Should be able to use configuration directly in toMatchImageSnapshot', () =>
     expect.extend({ toMatchImageSnapshot });
 
     const options: MatchImageSnapshotOptions = {
+        allowSizeMismatch: false,
         noColors: true,
         customDiffConfig: {
             threshold: 5,
-            includeAA: false
+            includeAA: false,
         },
         customDiffDir: './diffs',
         diffDirection: 'vertical',
         updatePassedSnapshot: true,
         failureThreshold: 10,
-        failureThresholdType: 'percent'
+        failureThresholdType: 'percent',
     };
 
     expect('Me').toMatchImageSnapshot(options);

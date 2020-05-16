@@ -36,21 +36,21 @@ const hmac6: ArrayBuffer = shaObj1.getHMAC("ARRAYBUFFER", { shakeLen: 128 });
 
 // examples from the readme.md (https://github.com/Caligatio/jsSHA/blob/v2.0.2/README.md)
 {
-	const shaObj = new imported("SHA-512", "TEXT");
-	shaObj.update("This is a test");
-	const hash = shaObj.getHash("HEX");
+    const shaObj = new imported("SHA-512", "TEXT");
+    shaObj.update("This is a test");
+    const hash = shaObj.getHash("HEX");
 }
 
 {
-	const shaObj = new imported("SHA-256", "TEXT");
-	shaObj.setHMACKey("abc", "TEXT");
-	shaObj.update("This is a test");
-	const hmac = shaObj.getHMAC("HEX");
+    const shaObj = new imported("SHA-256", "TEXT");
+    shaObj.setHMACKey("abc", "TEXT");
+    shaObj.update("This is a test");
+    const hmac = shaObj.getHMAC("HEX");
 }
 
 // Browser global test
 {
-	const shaObj = new imported("SHA-512", "TEXT");
-	shaObj.update("This is a test");
-	const hash = shaObj.getHash("HEX");
+    const shaObj = new imported("SHA-512", "TEXT");
+    shaObj.update("This is a test");
+    const hash = shaObj.getHash("HEX");
 }

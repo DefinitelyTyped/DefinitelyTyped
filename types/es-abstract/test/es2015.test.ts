@@ -14,24 +14,24 @@ ES2015.Type([]); // $ExpectType "Object"
 
 // Can't use '$ExpectType' due to union type ordering weirdness:
 expectType<
-	| 'String'
-	| 'Number'
-	| 'Boolean'
-	| 'Symbol' // New in ES2015
-	| 'Null'
-	| 'Undefined'
-	| 'Object'
-	| undefined
+    | 'String'
+    | 'Number'
+    | 'Boolean'
+    | 'Symbol' // New in ES2015
+    | 'Null'
+    | 'Undefined'
+    | 'Object'
+    | undefined
 >(ES2015.Type(any));
 expectType<
-	| 'String'
-	| 'Number'
-	| 'Boolean'
-	| 'Symbol' // New in ES2015
-	| 'Null'
-	| 'Undefined'
-	| 'Object'
-	| undefined
+    | 'String'
+    | 'Number'
+    | 'Boolean'
+    | 'Symbol' // New in ES2015
+    | 'Null'
+    | 'Undefined'
+    | 'Object'
+    | undefined
 >(ES2015.Type<any>(any));
 
 ES2015.ToPrimitive(any); // $ExpectType string | number | boolean | symbol | null | undefined
@@ -47,13 +47,13 @@ ES2015.Call(Object.prototype.toString, BigInt(Number.MAX_SAFE_INTEGER)); // $Exp
 ES2015.GetIterator([1, 2, 3]);
 
 function* generable() {
-	const foo: string = yield 1;
-	return Boolean(foo);
+    const foo: string = yield 1;
+    return Boolean(foo);
 }
 
 declare function iterNext<T, TReturn = any, TNext = unknown>(
-	this: Iterator<T, TReturn, TNext>,
-	...args: [] | [TNext]
+    this: Iterator<T, TReturn, TNext>,
+    ...args: [] | [TNext]
 ): IteratorResult<T, TReturn>;
 
 // $ExpectType IteratorResult<number, boolean>
@@ -78,8 +78,8 @@ ES2015.IteratorNext(any as AsyncGenerator<number, void>); // $ExpectType Promise
 
 // $ExpectType IteratorYieldResult<number> | IteratorReturnResult<void> | Promise<IteratorResult<number, void>>
 expectType<IteratorResult<number, void> | Promise<IteratorResult<number, void>>>(
-	// tslint:disable-next-line: invalid-void
-	ES2015.IteratorNext<number, void>(any as Generator<number, void> | AsyncGenerator<number, void>),
+    // tslint:disable-next-line: invalid-void
+    ES2015.IteratorNext<number, void>(any as Generator<number, void> | AsyncGenerator<number, void>),
 );
 
 const iteratorYieldResult: IteratorYieldResult<number> = null!;
@@ -93,9 +93,9 @@ ES2015.IteratorValue(iteratorResult); // $ExpectType string | number
 ES2015.IteratorValue(iteratorNeverUnknownResult); // $ExpectType unknown
 
 if (ES2015.IteratorComplete(iteratorResult)) {
-	iteratorResult; // $ExpectType IteratorReturnResult<string>
+    iteratorResult; // $ExpectType IteratorReturnResult<string>
 } else {
-	iteratorResult; // $ExpectType IteratorYieldResult<number>
+    iteratorResult; // $ExpectType IteratorYieldResult<number>
 }
 
 const anyIterator = any as Iterator<unknown, unknown, unknown>;

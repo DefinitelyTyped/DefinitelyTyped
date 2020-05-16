@@ -89,7 +89,7 @@ export interface CustomDateStyle {
     textStyle?: TextStyle;
 }
 
-export type DateChangedCallback = (date: Moment) => void;
+export type DateChangedCallback = (date: Moment, type?: 'START_DATE' | 'END_DATE') => void;
 
 export interface SwipeConfig {
     velocityThreshold?: number;

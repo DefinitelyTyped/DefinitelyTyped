@@ -144,7 +144,7 @@ declare module Accounts {
 }
 
 declare module Accounts {
-    function onLogout(func: (user: Meteor.User, connection: Meteor.Connection) => void): void;
+    function onLogout(func: (options: { user: Meteor.User, connection: Meteor.Connection; }) => void): void;
 }
 
 declare module Accounts {
