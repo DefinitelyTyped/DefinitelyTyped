@@ -1,4 +1,4 @@
-// Type definitions for copy-webpack-plugin 5.0
+// Type definitions for copy-webpack-plugin 6.0
 // Project: https://github.com/webpack-contrib/copy-webpack-plugin
 // Definitions by:     flying-sheep <https://github.com/flying-sheep>
 //                     avin-kavish  <https://github.com/avin-kavish>
@@ -7,87 +7,64 @@
 
 /// <reference types="node"/>
 
-import { Plugin, compiler } from 'webpack'
-import { IOptions } from 'minimatch'
+import { GlobbyOptions } from 'globby';
+import { Plugin } from 'webpack';
 
-interface MiniMatchGlob extends IOptions {
-    glob: string
+type Keys = (defaultCacheKeys: {}, absoluteFrom: string) => {};
+
+interface CacheTransform {
+    directory?: string;
+    keys: { key: string; } | Keys | Promise<Keys>;
 }
 
-interface MiniMatchOptions extends IOptions {
-    cwd?: string
-}
+type Temp = 'dir' | 'file' | 'template';
 
-interface CopyPattern {
-    /** File source path or glob */
-    from: string | MiniMatchGlob
+interface Pattern {
+    /** Glob or path from where we сopy files. */
+    from: string;
+    /** Output path. */
+    to?: string;
+    /** A path that determines how to interpret the from path. */
+    context?: string;
+    /** Options passed to the glob pattern matching library including ignore option. */
+    globOptions?: GlobbyOptions;
     /**
-     * Path or webpack file-loader patterns. defaults:
-     * output root if `from` is file or dir.
-     * resolved glob path if `from` is glob.
-     */
-    to?: string
-    /** A path that determines how to interpret the `from` path. 
-     * 
-     * (default: `options.context | compiler.options.context`) 
-     * */
-    context?: string
-    /**
-     * How to interpret `to`. default: undefined
-     * 
-     * `file` - if 'to' has extension or 'from' is file.
-     * `dir` - if 'from' is directory, 'to' has no extension or ends in '/'.
-     * `template` - if 'to' contains a template pattern.
-     */
-    toType?: 'file' | 'dir' | 'template'
-    /** 
-     * Pattern for extracting elements to be used in `to` templates. 
-     * 
-     * Defines a `RegExp` to match some parts of the file path. These capture groups can be reused in the name property using [N] 
-     * placeholder. Note that [0] will be replaced by the entire path of the file, whereas [1] will contain the first capturing 
-     * parenthesis of your RegExp and so on...
-     * 
-     * */
-    test?: RegExp
-    /** Overwrites files already in `compilation.assets` (usually added by other plugins; default: `false`) */
-    force?: boolean
-    /** Additional globs to ignore for this pattern. (default: `[]`) */
-    ignore?: Array<string | MiniMatchGlob>
-    /**
-     * Removes all directory references and only copies file names. (default: `false`)
+     * Determinate what is to option - directory, file or template.
      *
-     * If files have the same name, the result is non-deterministic. 
-     */
-    flatten?: boolean
-    /** Function that modifies file contents before writing to webpack. (default: `(content, path) => content`) */
-    transform?: (content: Buffer, path: string) => string | Buffer | Promise<string | Buffer>
-    /** 
-     * Enable transform caching.  (default: `false`)
-     * 
-     * You can use `{ key: 'my-cache-key' }` to invalidate the cache.  
+     * - `dir`: If to has no extension or ends on '/'
+     * - `file`: If to is not a directory and is not a template
+     * - `template`: If to contains a template pattern
      * */
-    cache?: boolean | { key: string }
-    /** 
+    toType?: Temp;
+    /** Overwrites files already in compilation.assets (usually added by other plugins/loaders). */
+    force?: boolean;
+    /** Removes all directory references and only copies file names. */
+    flatten?: boolean;
+    /** Allows to modify the file contents. */
+    transform?: (content: Buffer, absoluteFrom: string) => string | Buffer | Promise<string | Buffer>;
+    /** Enable transform caching. You can use { cache: { key: 'my-cache-key' } } to invalidate the cache. */
+    cacheTransform?: boolean | string | CacheTransform;
+    /**
      * Allows to modify the writing path.
-     * 
-     *  Returns the new path or a promise that resolves into the new path
+     *
+     * Returns the new path or a promise that resolves into the new path
      */
-    transformPath?: (targetPath: string, absolutePath: string) => string | Promise<string>
+    transformPath?: (targetPath: string, absolutePath: string) => string | Promise<string>;
+    /** Doesn't generate an error on missing file(s). */
+    noErrorOnMissing?: boolean;
 }
 
-interface CopyWebpackPluginConfiguration {
-    /** Level of messages that the module will log. (default: `'warn'`) */
-    logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent'
-    /** Array of globs to ignore. (applied to `from`; default: `[]`) */
-    ignore?: Array<string | MiniMatchGlob>
-    /** A path that determines how to interpret the from path, shared for all patterns. default: `'compiler.options.context'` */
-    context?: string
-    /** Copies files, regardless of modification when using `watch` or `webpack-dev-server`. All files are copied on first build, regardless of this option. (default: `false`) */
-    copyUnmodified?: boolean
+interface Options {
+    concurrency?: number;
+}
+
+interface CopyWebpackPluginOptions {
+    patterns: (string | Pattern)[];
+    options?: Options;
 }
 
 interface CopyWebpackPlugin {
-    new (patterns?: (string | CopyPattern)[], options?: CopyWebpackPluginConfiguration): Plugin
+    new (options?: CopyWebpackPluginOptions): Plugin
 }
 
 declare const copyWebpackPlugin: CopyWebpackPlugin
