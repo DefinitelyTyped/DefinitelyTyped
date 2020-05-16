@@ -11,7 +11,7 @@
 //                 Tümay Çeber <https://github.com/brendtumi>
 //                 jun-sheaf <https://github.com/jun-sheaf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export as namespace async;
 
@@ -297,7 +297,7 @@ export function memoize(fn: Function, hasher?: Function): Function;
 export function unmemoize(fn: Function): Function;
 export function ensureAsync(fn: (... argsAndCallback: any[]) => void): Function;
 export function constant(...values: any[]): AsyncFunction<any>;
-export function asyncify(fn: Function): (...args: any[]) => any;
+export function asyncify<T extends (...args: any[]) => any>(fn: T): (...args: Parameters<T>) => ReturnType<T> extends Promise<any> ? ReturnType<T> : Promise<ReturnType<T>>;
 export function wrapSync(fn: Function): Function;
 export function log(fn: Function, ...args: any[]): void;
 export function dir(fn: Function, ...args: any[]): void;
