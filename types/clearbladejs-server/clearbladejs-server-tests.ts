@@ -176,10 +176,10 @@ ClearBlade.Trigger.Create(
     "triggername",
     {
         system_key: "key",
-	    name: "triggername",
-	    def_module: CbServer.TriggerModule.DEVICE,
-	    def_name: "someName",
-	    key_value_pairs: [],
+        name: "triggername",
+        def_module: CbServer.TriggerModule.DEVICE,
+        def_name: "someName",
+        key_value_pairs: [],
         service_name: "ServiceName"
     },
     genericCallback);
@@ -190,3 +190,5 @@ ClearBlade.Trigger.Fetch("triggername", genericCallback);
 ///////////////////////////////////////
 ClearBlade.Timer.Create("timername", {}, genericCallback);
 ClearBlade.Timer.Fetch("timername", genericCallback);
+
+declare var ClearBlade: CbServer.ClearBladeGlobal;

@@ -8,7 +8,7 @@ const err: Error = new Error();
 const args: any[] = [];
 const resCallback: (err: Error | null, res: any) => void = () => {};
 const numCallback: (err: Error | null, res: number) => void = () => {};
-const strCallback: (err: Error | null, res: string) => void = () => {};
+const strCallback: (err: Error | null, res: string | null) => void = () => {};
 const okCallback: (err: Error | null, res: 'OK') => void = () => {};
 const messageHandler: (channel: string, message: any) => void = () => {};
 
@@ -39,16 +39,22 @@ function retryStrategyNumber(options: redis.RetryStrategyOptions): number {
 function retryStrategyError(options: redis.RetryStrategyOptions): Error {
   return new Error('Foo');
 }
+function retryStrategyUndefined(options: redis.RetryStrategyOptions): undefined {
+  return undefined;
+}
 client = redis.createClient({
   retry_strategy: retryStrategyNumber
 });
 client = redis.createClient({
   retry_strategy: retryStrategyError
 });
+client = redis.createClient({
+  retry_strategy: retryStrategyUndefined
+});
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 const connected: boolean = client.connected;
-const retry_delay: number = client.retry_delay;
+const retry_delay: number | Error = client.retry_delay;
 const retry_backoff: number = client.retry_backoff;
 const command_queue: any[] = client.command_queue;
 const offline_queue: any[] = client.offline_queue;

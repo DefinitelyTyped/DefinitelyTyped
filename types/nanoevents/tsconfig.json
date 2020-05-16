@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "nanoevents-tests.ts",
-        "unbind-all.d.ts"
+        "nanoevents-tests.ts"
     ]
 }

@@ -3,6 +3,8 @@
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
+//                 James C. Davis <https://github.com/jamescdavis>
+//                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -35,11 +37,18 @@ interface AttributeMeta<Model extends DS.Model> {
     parentType: Model;
     isAttribute: true;
 }
+
+interface RelationshipMetaOptions {
+    async?: boolean;
+    inverse?: string;
+    polymorphic?: boolean;
+    [k: string]: any;
+}
 interface RelationshipMeta<Model extends DS.Model> {
     key: RelationshipsFor<Model>;
     kind: 'belongsTo' | 'hasMany';
     type: keyof ModelRegistry;
-    options: object;
+    options: RelationshipMetaOptions;
     name: string;
     parentType: Model;
     isRelationship: true;
@@ -957,7 +966,7 @@ export namespace DS {
          */
         snapshots(): Snapshot[];
     }
-    class Snapshot<K extends keyof ModelRegistry = any> {
+    class Snapshot<K extends keyof ModelRegistry = keyof ModelRegistry> {
         /**
          * The underlying record for this snapshot. Can be used to access methods and
          * properties defined on the record.

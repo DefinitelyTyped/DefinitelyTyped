@@ -1,7 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "unified-signatures": false,
-        "no-unnecessary-generics": false
+        "no-unnecessary-generics": false,
+        "unified-signatures": false
     }
 }

@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // All are TODOs
         "array-type": false,
         "interface-over-type-literal": false,
         "no-redundant-undefined": false,

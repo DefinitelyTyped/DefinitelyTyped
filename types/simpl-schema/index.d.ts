@@ -107,15 +107,17 @@ interface SimpleSchemaValidationError {
   [key: string]: number | string;
 }
 
+export type SimpleSchemaDefinition = {
+    [key: string]: SchemaDefinition
+      | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor
+      | ArrayConstructor
+      | string | RegExp
+      | SimpleSchema
+  } | any[];
+
 interface SimpleSchemaStatic {
   new(
-    schema: {
-      [key: string]: SchemaDefinition
-        | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor
-        | ArrayConstructor
-        | string | RegExp
-        | SimpleSchema
-    } | any[],
+    schema: SimpleSchemaDefinition,
     options?: SimpleSchemaOptions
   ): SimpleSchema;
   namedContext(name?: string): SimpleSchemaValidationContextStatic;

@@ -431,7 +431,7 @@ declare namespace fin {
     /**
      * Notification
      * Notification represents a window on OpenFin Runtime which is shown briefly to the user on the bottom-right corner of the primary monitor.
-     * A notification is typically used to alert the user of some important event which requires his or her attention.
+     * A notification is typically used to alert the user of some important event which requires their attention.
      * Notifications are a child or your application that are controlled by the runtime.
      */
     interface OpenFinNotification {
@@ -778,13 +778,13 @@ declare namespace fin {
         addEventListener(
             type: OpenFinWindowEventType,
             listener: (event: WindowBaseEvent
-					   | WindowAuthRequestedEvent
-					   | WindowBoundsEvent
-					   | WindowExternalProcessStartedEvent
-					   | WindowExternalProcessExited
-					   | WindowGroupChangedEvent
-					   | WindowHiddenEvent
-					   | Window_NavigationRejectedEvent) => void,
+                       | WindowAuthRequestedEvent
+                       | WindowBoundsEvent
+                       | WindowExternalProcessStartedEvent
+                       | WindowExternalProcessExited
+                       | WindowGroupChangedEvent
+                       | WindowHiddenEvent
+                       | Window_NavigationRejectedEvent) => void,
             callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Performs the specified window transitions
@@ -898,13 +898,13 @@ declare namespace fin {
         removeEventListener(
             type: OpenFinWindowEventType,
             listener: (event: WindowBaseEvent
-					   | WindowAuthRequestedEvent
-					   | WindowBoundsEvent
-					   | WindowExternalProcessStartedEvent
-					   | WindowExternalProcessExited
-					   | WindowGroupChangedEvent
-					   | WindowHiddenEvent
-					   | Window_NavigationRejectedEvent) => void,
+                       | WindowAuthRequestedEvent
+                       | WindowBoundsEvent
+                       | WindowExternalProcessStartedEvent
+                       | WindowExternalProcessExited
+                       | WindowGroupChangedEvent
+                       | WindowHiddenEvent
+                       | Window_NavigationRejectedEvent) => void,
             callback?: () => void,
             errorCallback?: (reason: string) => void): void;
         /**

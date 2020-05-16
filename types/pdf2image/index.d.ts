@@ -25,29 +25,29 @@
 export type OutputFormat = ((pageNum: number, pageIndex: number, totalPagesProcessed: number, totalPDFPages: number, name: string, path: string, vm: typeof import ('vm')) => string) | string;
 
 export interface Options {
-	density: number;
-	height: number;
-	width: number;
-	outputType: 'jpg' | 'png' | '.jpg' | '.png';
-	quality: number;
-	pages: '*' | string;	// * | even | odd | '/1,/3,5-6,-8, 9-'
-	singleProcess: boolean;
-	backgroundColor: string;	// #ffffff
-	outputFormat: OutputFormat;
+    density: number;
+    height: number;
+    width: number;
+    outputType: 'jpg' | 'png' | '.jpg' | '.png';
+    quality: number;
+    pages: '*' | string;    // * | even | odd | '/1,/3,5-6,-8, 9-'
+    singleProcess: boolean;
+    backgroundColor: string;    // #ffffff
+    outputFormat: OutputFormat;
 }
 
 export interface ConvertedFile {
-	page: number;
-	index: number;
-	name: string;
-	path: string;
+    page: number;
+    index: number;
+    name: string;
+    path: string;
 }
 
 export function convertPDF(pdfFilePath: string, options?: Partial<Options>): Promise<ConvertedFile[]>;
 
 export interface Converter {
-	convertPDF(pdfFilePath: string): Promise<ConvertedFile[]>;
-	convertPDFList(pdfList: string[]): Promise<ConvertedFile[]>;
+    convertPDF(pdfFilePath: string): Promise<ConvertedFile[]>;
+    convertPDFList(pdfList: string[]): Promise<ConvertedFile[]>;
 }
 
 export function compileConverter(options?: Partial<Options>): Converter;

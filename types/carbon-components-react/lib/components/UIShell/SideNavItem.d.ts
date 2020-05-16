@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ReactAttr, RequiresChildrenProps } from "../../../typings/shared";
+import { ReactAttr, RequiresChildrenProps, SideNavSizingProps } from '../../../typings/shared';
 
-interface InheritedProps extends RequiresChildrenProps {
+interface InheritedProps extends RequiresChildrenProps, SideNavSizingProps {
     className?: ReactAttr["className"],
 }
 

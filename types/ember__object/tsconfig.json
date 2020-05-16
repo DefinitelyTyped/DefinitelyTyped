@@ -16,28 +16,19 @@
             "../"
         ],
         "paths": {
-            "@ember/object": ["ember__object"],
-            "@ember/object/*": ["ember__object/*"]
+            "@ember/object": [
+                "ember__object"
+            ],
+            "@ember/object/*": [
+                "ember__object/*"
+            ]
         },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "computed.d.ts",
-        "core.d.ts",
-        "evented.d.ts",
-        "events.d.ts",
         "index.d.ts",
-        "internals.d.ts",
-        "mixin.d.ts",
-        "observable.d.ts",
-        "observers.d.ts",
-        "promise-proxy-mixin.d.ts",
-        "proxy.d.ts",
-        "-private/types.d.ts",
-        "-private/copyable.d.ts",
-        "-private/action-handler.d.ts",
         "test/lib/assert.ts",
         "test/access-modifier.ts",
         "test/core.ts",

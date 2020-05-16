@@ -5,7 +5,7 @@
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 //                 Jessica Franco <https://github.com/Jessidhia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// Minimum TypeScript Version: 3.4
 
 import { GeneratorOptions } from "@babel/generator";
 import traverse, { Visitor, NodePath } from "@babel/traverse";
@@ -71,7 +71,7 @@ export interface TransformOptions {
      *
      * Default: `undefined`
      */
-    configFile?: string | false | null;
+    configFile?: string | boolean | null;
 
     /**
      * Specify whether or not to use .babelrc and
@@ -87,7 +87,7 @@ export interface TransformOptions {
      *
      * Default: `(root)`
      */
-    babelrcRoots?: true | string | string[] | null;
+    babelrcRoots?: boolean | MatchPattern | MatchPattern[] | null;
 
     /**
      * Defaults to environment variable `BABEL_ENV` if set, or else `NODE_ENV` if set, or else it defaults to `"development"`
@@ -95,6 +95,11 @@ export interface TransformOptions {
      * Default: env vars
      */
     envName?: string;
+
+    /**
+     * If any of patterns match, the current configuration object is considered inactive and is ignored during config processing.
+     */
+    exclude?: MatchPattern | MatchPattern[];
 
     /**
      * Enable code generation
@@ -187,7 +192,12 @@ export interface TransformOptions {
      *
      * Default: `null`
      */
-    ignore?: string[] | null;
+    ignore?: MatchPattern[] | null;
+
+    /**
+     * This option is a synonym for "test"
+     */
+    include?: MatchPattern | MatchPattern[];
 
     /**
      * A source map object that the output source map will be based on
@@ -230,7 +240,13 @@ export interface TransformOptions {
      *
      * Default: `null`
      */
-    only?: string | RegExp | Array<string | RegExp> | null;
+    only?: MatchPattern[] | null;
+
+    /**
+     * Allows users to provide an array of options that will be merged into the current configuration one at a time.
+     * This feature is best used alongside the "test"/"include"/"exclude" options to provide conditions for which an override should apply
+     */
+    overrides?: TransformOptions[];
 
     /**
      * An object containing the options to be passed down to the babel parser, @babel/parser
@@ -298,6 +314,11 @@ export interface TransformOptions {
     sourceType?: "script" | "module" | "unambiguous" | null;
 
     /**
+     * If all patterns fail to match, the current configuration object is considered inactive and is ignored during config processing.
+     */
+    test?: MatchPattern | MatchPattern[];
+
+    /**
      * An optional callback that can be used to wrap visitor methods. **NOTE**: This is useful for things like introspection, and not really needed for implementing anything. Called as
      * `wrapPluginVisitorMethod(pluginAlias, visitorType, callback)`.
      */
@@ -309,10 +330,18 @@ export interface TransformCaller {
     name: string;
     // e.g. set to true by `babel-loader` and false by `babel-jest`
     supportsStaticESM?: boolean;
+    supportsDynamicImport?: boolean;
     // augment this with a "declare module '@babel/core' { ... }" if you need more keys
 }
 
 export type FileResultCallback = (err: Error | null, result: BabelFileResult | null) => any;
+
+export interface MatchPatternContext {
+    envName: string;
+    dirname: string;
+    caller: TransformCaller | undefined;
+}
+export type MatchPattern = string | RegExp | ((filename: string | undefined, context: MatchPatternContext) => boolean);
 
 /**
  * Transforms the passed in code. Calling a callback with an object with the generated code, source map, and AST.

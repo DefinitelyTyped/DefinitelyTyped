@@ -18,6 +18,16 @@ function helmetTest() {
         action: 'deny'
       }
     }));
+    app.use(helmet({
+      featurePolicy: {
+        features: {
+          fullscreen: ["'self'"],
+          vibrate: ["'none'"],
+          payment: ['example.com'],
+          syncXhr: ["'none'"]
+        }
+      }
+    }))
 }
 
 /**
@@ -60,9 +70,10 @@ function contentSecurityPolicyTest() {
 
     function reportUriCb(req: express.Request, res: express.Response) { return '/some-uri'; }
     function reportOnlyCb(req: express.Request, res: express.Response) { return false; }
-
-    app.use(helmet.contentSecurityPolicy());
-    app.use(helmet.contentSecurityPolicy({}));
+    app.use(helmet.contentSecurityPolicy({})); // $ExpectError
+    app.use(helmet.contentSecurityPolicy({ directives: {
+        imgSrc: ['self']
+    } }));
     app.use(helmet.contentSecurityPolicy(config));
     app.use(helmet.contentSecurityPolicy({
         directives: {
@@ -223,7 +234,8 @@ function noSniffTest() {
  * @summary Test for {@see helmet#referrerPolicy} function.
  */
 function referrerPolicyTest() {
-    app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
+    app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
+    app.use(helmet.referrerPolicy({ policy: ['no-referrer', 'origin', 'strict-origin', 'strict-origin-when-cross-origin'] }));
 }
 
 /**
@@ -244,3 +256,18 @@ function permittedCrossDomainPoliciesTest() {
     app.use(helmet.permittedCrossDomainPolicies({}));
     app.use(helmet.permittedCrossDomainPolicies({ permittedPolicies: 'none' }));
 }
+
+/**
+ * @summary Test for {@see helmet#featurePolicy} function.
+ */
+function featurePolicyTest() {
+  app.use(helmet.featurePolicy({
+    features: {
+      fullscreen: ["'self'"],
+      vibrate: ["'none'"],
+      payment: ['example.com'],
+      syncXhr: ["'none'"]
+    }
+  }));
+}
+

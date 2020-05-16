@@ -1,3 +1,3 @@
-import * as validator from "validator";
-declare const isInt: typeof validator.isInt;
-export = isInt;
+import validator from '../';
+export type IsIntOptions = validator.IsIntOptions;
+export default validator.isInt;

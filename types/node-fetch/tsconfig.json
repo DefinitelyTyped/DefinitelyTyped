@@ -1,14 +1,11 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "ES6",
         "lib": [
-            "es5",
             "es6"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "strict": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,7 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "externals.d.ts",
         "node-fetch-tests.ts"
     ]
 }

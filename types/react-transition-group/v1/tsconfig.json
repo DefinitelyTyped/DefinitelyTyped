@@ -27,8 +27,6 @@
     },
     "files": [
         "index.d.ts",
-        "CSSTransitionGroup.d.ts",
-        "TransitionGroup.d.ts",
         "react-transition-group-tests.tsx"
     ]
 }

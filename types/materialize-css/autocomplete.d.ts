@@ -1,7 +1,7 @@
 /// <reference path="./common.d.ts" />
 
 declare namespace M {
-    class Autocomplete extends Component<AutocompleteOptions> {
+    class Autocomplete extends Component<AutocompleteOptions> implements Openable {
         /**
          * Get Instance
          */
@@ -16,6 +16,16 @@ declare namespace M {
          * Init autocompletes
          */
         static init(els: MElements, options?: Partial<AutocompleteOptions>): Autocomplete[];
+
+        /**
+         * Show autocomplete.
+         */
+        open(): void;
+
+        /**
+         * Hide autocomplete.
+         */
+        close(): void;
 
         /**
          * Select a specific autocomplete options.
@@ -81,7 +91,7 @@ declare namespace M {
 
 interface JQuery {
     // Pick<T,K> to check methods exist.
-    autocomplete(method: keyof Pick<M.Autocomplete, "destroy">): JQuery;
+    autocomplete(method: keyof Pick<M.Autocomplete, "open" | "close" | "destroy">): JQuery;
     autocomplete(method: keyof Pick<M.Autocomplete, "selectOption">, el: Element): JQuery;
     autocomplete(method: keyof Pick<M.Autocomplete, "updateData">, data: M.AutocompleteData): JQuery;
     autocomplete(options?: Partial<M.AutocompleteOptions>): JQuery;

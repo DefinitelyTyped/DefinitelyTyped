@@ -3,8 +3,9 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Mike Doughty <https://github.com/miso440>
 //                 Gabriel Lorquet <https://github.com/gablorquet>
+//                 Alexey Gerasimov <https://github.com/fan-tom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.9
 
 declare namespace LazyJS {
     interface LazyStatic {
@@ -13,121 +14,132 @@ declare namespace LazyJS {
       (value: any[]): ArrayLikeSequence<any>;
       <T>(value: any): ObjectLikeSequence<T>;
       (value: any): ObjectLikeSequence<any>;
-  
+
       strict(): LazyStatic;
-  
+
       generate<T>(
         generatorFn: GeneratorCallback<T>,
         length?: number
       ): GeneratedSequence<T>;
-  
+
       range(to: number): GeneratedSequence<number>;
       range(from: number, to: number, step?: number): GeneratedSequence<number>;
-  
+
       repeat<T>(value: T, count?: number): GeneratedSequence<T>;
-  
+
       on<T>(eventType: string): Sequence<T>;
-  
+
       readFile(path: string): StringLikeSequence;
       makeHttpRequest(path: string): StringLikeSequence;
     }
-  
+
     interface ArrayLike<T> {
       length: number;
       [index: number]: T;
     }
-  
+
     interface Callback {
       (): void;
     }
-  
+
     interface ErrorCallback {
       (error: any): void;
     }
-  
+
     interface ValueCallback<T> {
       (value: T): void;
     }
-  
+
     interface GetKeyCallback<T> {
       (value: T): string;
     }
-  
+
     interface TestCallback<T, U> {
       (value: T, index: U): boolean;
     }
-  
+
     interface MapCallback<T, U> {
       (value: T): U;
     }
-  
+
     interface MapStringCallback {
       (value: string): string;
     }
-  
+
     interface NumberCallback<T> {
       (value: T): number;
     }
-  
+
     interface MemoCallback<T, U> {
       (memo: U, value: T): U;
     }
-  
+
     interface GeneratorCallback<T> {
       (index: number): T;
     }
-  
+
     interface CompareCallback {
       (x: any, y: any): number;
     }
-  
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  
+
     interface Iterator<T> {
       new (sequence: Sequence<T>): Iterator<T>;
       current(): T;
       moveNext(): boolean;
     }
-  
+
     interface GeneratedSequence<T> extends Sequence<T> {
       new (generatorFn: GeneratorCallback<T>, length: number): GeneratedSequence<
         T
       >;
       length(): number;
     }
-  
+
     interface AsyncSequence<T> extends SequenceBase<T> {
       each(callback: ValueCallback<T>): AsyncHandle<T>;
     }
-  
+
     interface AsyncHandle<T> {
       cancel(): void;
       onComplete(callback: Callback): void;
       onError(callback: ErrorCallback): void;
     }
-  
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  
+
     namespace Sequence {
       function define(methodName: string[], overrides: any): Function;
     }
-  
+
     interface Sequence<T> extends SequenceBase<T> {
       each(eachFn: ValueCallback<T>): Sequence<T>;
     }
-  
+
     interface SequenceBase<T> extends SequenceBaser<T> {
       first(): any;
       first(count: number): Sequence<T>;
       indexOf(value: any, startIndex?: number): number;
-  
+
       last(): any;
       last(count: number): Sequence<T>;
       lastIndexOf(value: any): number;
-  
+
       reverse(): Sequence<T>;
     }
-  
+
+    type Flatten<T, Shallow extends boolean> =
+        Shallow extends true
+            ? T extends Sequence<infer U>
+              ? U
+              : T
+            // workaround for https://github.com/microsoft/TypeScript/issues/26980
+            : {
+                0: T extends Sequence<infer U> ? Flatten<U, Shallow> : never;
+                1: T;
+            } [T extends Sequence<any> ? 0 : 1];
+
     interface SequenceBaser<T> {
       // TODO improve define() (needs ugly overload)
       async(interval: number): AsyncSequence<T>;
@@ -143,7 +155,8 @@ declare namespace LazyJS {
       filter(predicateFn: TestCallback<T, string | number>): Sequence<T>;
       find(predicateFn: TestCallback<T, string | number>): T;
       findWhere(properties: any): T;
-      flatten(): Sequence<T>;
+      flatten(shallow: true): Sequence<Flatten<T, true>>;
+      flatten(shallow?: false): Sequence<Flatten<T, false>>;
       groupBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T>;
       initial(count?: number): Sequence<T>;
       intersection(var_args: T[]): Sequence<T>;
@@ -177,13 +190,13 @@ declare namespace LazyJS {
       without(var_args: T[]): Sequence<T>;
       zip(var_args: T[]): Sequence<T>;
     }
-  
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  
+
     namespace ArrayLikeSequence {
       function define(methodName: string[], overrides: any): Function;
     }
-  
+
     interface ArrayLikeSequence<T> extends Sequence<T> {
       // define()X;
       concat(var_args: T[]): ArrayLikeSequence<T>;
@@ -199,7 +212,7 @@ declare namespace LazyJS {
       shift(): ArrayLikeSequence<T>;
       slice(begin: number, end?: number): ArrayLikeSequence<T>;
       unshift(value: T): ArrayLikeSequence<T>;
-      
+
       dropWhile(predicateFn: TestCallback<T, number>): Sequence<T>;
       every(predicateFn: TestCallback<T, number>): boolean;
       filter(predicateFn: TestCallback<T, number>): Sequence<T>;
@@ -209,13 +222,13 @@ declare namespace LazyJS {
       some(predicateFn?: TestCallback<T, number>): boolean;
       takeWhile(predicateFn: TestCallback<T, number>): Sequence<T>;
     }
-  
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  
+
     namespace ObjectLikeSequence {
       function define(methodName: string[], overrides: any): Function;
     }
-  
+
     interface ObjectLikeSequence<T> extends Sequence<T> {
       assign(other: any): ObjectLikeSequence<T>;
       // throws error
@@ -233,7 +246,7 @@ declare namespace LazyJS {
       toObject(): any;
       values(): Sequence<T>;
       watch(propertyNames: string | string[]): Sequence<{property: string; value: any;}>;
-      
+
       dropWhile(predicateFn: TestCallback<T, string>): Sequence<T>;
       every(predicateFn: TestCallback<T, string>): boolean;
       filter(predicateFn: TestCallback<T, string>): Sequence<T>;
@@ -243,13 +256,13 @@ declare namespace LazyJS {
       some(predicateFn?: TestCallback<T, string>): boolean;
       takeWhile(predicateFn: TestCallback<T, string>): Sequence<T>;
     }
-  
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  
+
     namespace StringLikeSequence {
       function define(methodName: string[], overrides: any): Function;
     }
-  
+
     interface StringLikeSequence extends SequenceBaser<string> {
       charAt(index: number): string;
       charCodeAt(index: number): number;
@@ -281,10 +294,10 @@ declare namespace LazyJS {
       takeWhile(predicateFn: TestCallback<string, number>): Sequence<string>;
     }
   }
-  
+
   declare var Lazy: LazyJS.LazyStatic;
-  
+
   declare module 'lazy.js' {
     export = Lazy;
   }
-  
+

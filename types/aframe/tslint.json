@@ -1,5 +1,18 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "no-unnecessary-type-assertion": false,
+        "npm-naming": [
+            true,
+            {
+                "mode": "code",
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ]
+            }
+        ]
     }
 }

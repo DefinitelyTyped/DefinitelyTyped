@@ -1,4 +1,4 @@
-// Type definitions for bull 3.10
+// Type definitions for bull 3.13
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -17,6 +17,7 @@
 //                 DoYoung Ha <https://github.com/hados99>
 //                 Borys Kupar <https://github.com/borys-kupar>
 //                 Remko Klein <https://github.com/remko79>
+//                 Levi Bostian <https://github.com/levibostian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -51,7 +52,7 @@ declare namespace Bull {
     /**
      * Options passed directly to the `ioredis` constructor
      */
-    redis?: Redis.RedisOptions;
+    redis?: Redis.RedisOptions | string;
 
     /**
      * When specified, the `Queue` will use this function to create new `ioredis` client connections.
@@ -170,6 +171,13 @@ declare namespace Bull {
 
     returnvalue: any;
 
+    failedReason?: string;
+
+    /**
+     * Get progress on a job
+     */
+    progress(): any;
+
     /**
      * Report progress on a job
      */
@@ -258,7 +266,7 @@ declare namespace Bull {
      * Moves a job to the `completed` queue. Pulls a job from 'waiting' to 'active'
      * and returns a tuple containing the next jobs data and id. If no job is in the `waiting` queue, returns null.
      */
-    moveToCompleted(returnValue?: string, ignoreLock?: boolean): Promise<[any, JobId] | null>;
+    moveToCompleted(returnValue?: string, ignoreLock?: boolean, notFetch?: boolean): Promise<[any, JobId] | null>;
 
     /**
      * Moves a job to the `failed` queue. Pulls a job from 'waiting' to 'active'
@@ -571,6 +579,13 @@ declare namespace Bull {
     add(name: string, data: T, opts?: JobOptions): Promise<Job<T>>;
 
     /**
+     * Adds an array of jobs to the queue.
+     * If the queue is empty the jobs will be executed directly,
+     * otherwise they will be placed in the queue and executed as soon as possible.
+     */
+    addBulk(jobs: Array<{name?: string, data: T, opts?: JobOptions}>): Promise<Array<Job<T>>>;
+
+    /**
      * Returns a promise that resolves when the queue is paused.
      *
      * A paused queue will not process new jobs until resumed, but current jobs being processed will continue until
@@ -611,7 +626,7 @@ declare namespace Bull {
      * `close` can be called from anywhere, with one caveat:
      * if called from within a job handler the queue won't close until after the job has been processed
      */
-    close(): Promise<void>;
+    close(doNotWaitJobs?: boolean): Promise<void>;
 
     /**
      * Returns a promise that will return the job instance associated with the jobId parameter.
@@ -675,10 +690,10 @@ declare namespace Bull {
     removeRepeatableByKey(key: string): Promise<void>;
 
     /**
-     * Returns a promise that will return an array of job instances of the given types.
+     * Returns a promise that will return an array of job instances of the given job statuses.
      * Optional parameters for range and ordering are provided.
      */
-    getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
+    getJobs(types: JobStatus[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
 
     /**
      * Returns a object with the logs according to the start and end arguments. The returned count
@@ -692,9 +707,9 @@ declare namespace Bull {
     getJobCounts(): Promise<JobCounts>;
 
     /**
-     * Returns a promise that resolves with the job counts for the given queue of the given types.
+     * Returns a promise that resolves with the job counts for the given queue of the given job statuses.
      */
-    getJobCountByTypes(types: string[] | string): Promise<JobCounts>;
+    getJobCountByTypes(types: JobStatus[] | JobStatus): Promise<JobCounts>;
 
     /**
      * Returns a promise that resolves with the quantity of completed jobs.
@@ -739,6 +754,16 @@ declare namespace Bull {
      * @param limit Maximum amount of jobs to clean per call. If not provided will clean all matching jobs.
      */
     clean(grace: number, status?: JobStatusClean, limit?: number): Promise<Array<Job<T>>>;
+
+    /**
+     * Returns a promise that marks the start of a transaction block.
+     */
+    multi(): Redis.Pipeline;
+
+    /**
+     * Returns the queue specific key.
+     */
+    toKey(queueType: string): string;
 
     /**
      * Listens to queue events
@@ -841,6 +866,11 @@ declare namespace Bull {
      * @param list String with all redis clients
      */
     parseClientList(list: string): Redis.Redis[];
+
+    /**
+     * Returns a promise that resolves when active jobs are finished
+     */
+    whenCurrentJobsFinished(): Promise<void>;
   }
 
   type EventCallback = () => void;

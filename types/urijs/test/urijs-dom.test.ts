@@ -1,4 +1,6 @@
 /// <reference lib="DOM" />
+import URI = require('urijs');
+import * as URITemplate from 'urijs/src/URITemplate';
 declare var $: (arg?: any) => JQuery;
 
 // Scope it so doesn't name conflict with other tests.
@@ -31,6 +33,8 @@ new URI({
 });
 new URI(document.createElement('a'));
 
+URI.preventInvalidHostname = false;
+
 URI('').setQuery('foo', 'bar');
 URI('').setQuery({ foo: 'bar' });
 URI('').setSearch('foo', 'bar');
@@ -42,7 +46,7 @@ URI('http://example.org/foo/hello.html').addSearch('foo');
 URI('http://example.org/foo/hello.html').addSearch('foo', 'bar');
 URI('http://example.org/foo/hello.html').addSearch({ foo: 'bar' });
 
-let uri: uri.URI = $('a').uri();
+let uri: URI = $('a').uri();
 
 URI('http://example.org/foo/hello.html').segment('bar');
 URI('http://example.org/foo/hello.html').segment(0, 'bar');

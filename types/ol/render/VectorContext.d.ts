@@ -1,4 +1,4 @@
-import Feature from '../Feature';
+import Feature, { FeatureLike } from '../Feature';
 import Circle from '../geom/Circle';
 import Geometry from '../geom/Geometry';
 import GeometryCollection from '../geom/GeometryCollection';
@@ -14,25 +14,25 @@ import ImageStyle from '../style/Image';
 import Stroke from '../style/Stroke';
 import Style from '../style/Style';
 import Text from '../style/Text';
-import { DeclutterGroup } from './canvas';
+import { DeclutterGroup, DeclutterGroups } from './canvas';
 import RenderFeature from './Feature';
 
 export default class VectorContext {
     constructor();
-    drawCircle(circleGeometry: Circle, feature: Feature): void;
-    drawCustom(geometry: SimpleGeometry, feature: Feature | RenderFeature, renderer: () => void): void;
-    drawFeature(feature: Feature, style: Style): void;
+    drawCircle(circleGeometry: Circle, feature: Feature<Geometry>): void;
+    drawCustom(geometry: SimpleGeometry, feature: FeatureLike, renderer: () => void): void;
+    drawFeature(feature: Feature<Geometry>, style: Style): void;
     drawGeometry(geometry: Geometry): void;
-    drawGeometryCollection(geometryCollectionGeometry: GeometryCollection, feature: Feature): void;
-    drawLineString(lineStringGeometry: LineString | RenderFeature, feature: Feature | RenderFeature): void;
-    drawMultiLineString(multiLineStringGeometry: MultiLineString | RenderFeature, feature: Feature | RenderFeature): void;
-    drawMultiPoint(multiPointGeometry: MultiPoint | RenderFeature, feature: Feature | RenderFeature): void;
-    drawMultiPolygon(multiPolygonGeometry: MultiPolygon, feature: Feature | RenderFeature): void;
-    drawPoint(pointGeometry: Point | RenderFeature, feature: Feature | RenderFeature): void;
-    drawPolygon(polygonGeometry: Polygon | RenderFeature, feature: Feature | RenderFeature): void;
-    drawText(geometry: Geometry | RenderFeature, feature: Feature | RenderFeature): void;
+    drawGeometryCollection(geometryCollectionGeometry: GeometryCollection, feature: Feature<Geometry>): void;
+    drawLineString(lineStringGeometry: LineString | RenderFeature, feature: FeatureLike): void;
+    drawMultiLineString(multiLineStringGeometry: MultiLineString | RenderFeature, feature: FeatureLike): void;
+    drawMultiPoint(multiPointGeometry: MultiPoint | RenderFeature, feature: FeatureLike): void;
+    drawMultiPolygon(multiPolygonGeometry: MultiPolygon, feature: FeatureLike): void;
+    drawPoint(pointGeometry: Point | RenderFeature, feature: FeatureLike): void;
+    drawPolygon(polygonGeometry: Polygon | RenderFeature, feature: FeatureLike): void;
+    drawText(geometry: Geometry | RenderFeature, feature: FeatureLike): void;
     setFillStrokeStyle(fillStyle: Fill, strokeStyle: Stroke): void;
     setImageStyle(imageStyle: ImageStyle, opt_declutterGroup?: DeclutterGroup): void;
     setStyle(style: Style): void;
-    setTextStyle(textStyle: Text, opt_declutterGroup?: DeclutterGroup): void;
+    setTextStyle(textStyle: Text, opt_declutterGroups?: DeclutterGroups): void;
 }

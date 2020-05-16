@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "vue": ">=2.6.10"
+    "vue": "^2.5.0"
   }
 }

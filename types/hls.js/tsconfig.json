@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "dist/hls.light.d.ts",
         "hls.js-tests.ts"
     ]
 }

@@ -10,11 +10,14 @@ export interface ReactLIAttr<T = HTMLLIElement> extends React.LiHTMLAttributes<T
 export type ReactCreateElementParam = Parameters<typeof React.createElement>[0];
 
 export type ShapeOf<B extends object, E extends object = { [key: string]: any }> = (E extends never ? {} : E) & B;
+export type Overwrite<T, U> = [T] extends [never] ? U : Omit<T, keyof U> & U;
 
 export type Direction = "bottom" | "left" | "right" | "top";
 export type ListBoxBaseItemType = object | string;
 export type TooltipAlignment = "center" | "end" | "start";
 export type TooltipPosition = Direction;
+export type CarbonSize = "lg" | "sm" | "xs";
+export type CarbonInputSize = "sm" | "lg" | "xl";
 
 export interface DownshiftTypedProps<ItemType> {
     itemToString?(item: ItemType): string,
@@ -62,3 +65,17 @@ export interface ValidityProps {
     invalid?: boolean,
     invalidText?: string,
 }
+
+export interface SideNavSharedProps {
+    isSideNavExpanded?: boolean;
+}
+
+export interface SideNavSizingProps {
+    large?: boolean;
+}
+
+export interface RefForwardingProps<T = HTMLElement> {
+    ref?: React.RefObject<T>;
+}
+
+export type ForwardRefReturn<T, P = {}> = React.FC<P & React.ClassAttributes<T>>;

@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "steps/index.d.ts",
         "cypress-cucumber-preprocessor-tests.ts"
     ]
 }

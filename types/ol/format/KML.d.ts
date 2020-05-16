@@ -17,6 +17,7 @@ import ImageStyle from '../style/Image';
 import Stroke from '../style/Stroke';
 import Style, { StyleFunction } from '../style/Style';
 import Text from '../style/Text';
+import { ReadOptions } from './Feature';
 import XMLFeature from './XMLFeature';
 
 export interface GxTrackObject {
@@ -28,6 +29,7 @@ export interface Options {
     showPointNames?: boolean;
     defaultStyle?: Style[];
     writeStyles?: boolean;
+    crossOrigin?: string;
 }
 export interface Vec2 {
     x: number;
@@ -38,9 +40,10 @@ export interface Vec2 {
 }
 export default class KML extends XMLFeature {
     constructor(opt_options?: Options);
-    readName(source: Document | Element | string): string | undefined;
-    readNameFromDocument(doc: Document): string | undefined;
-    readNameFromNode(node: Element): string | undefined;
+    protected readFeaturesFromNode(node: Node, opt_options?: ReadOptions): Feature<Geometry>[];
+    readName(source: Document | Element | string): string;
+    readNameFromDocument(doc: Document): string;
+    readNameFromNode(node: Element): string;
     readNetworkLinks(source: Document | Element | string): object[];
     readNetworkLinksFromDocument(doc: Document): object[];
     readNetworkLinksFromNode(node: Element): object[];
@@ -54,4 +57,4 @@ export function getDefaultStrokeStyle(): Stroke;
 export function getDefaultStyle(): Style;
 export function getDefaultStyleArray(): Style[];
 export function getDefaultTextStyle(): Text;
-export function readFlatCoordinates(node: Node): number[] | undefined;
+export function readFlatCoordinates(node: Node): number[];

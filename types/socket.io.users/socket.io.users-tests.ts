@@ -22,7 +22,7 @@ var userDisconnected = (user: ioUsers.User) => {
 }
 
 var setUsername = (user: ioUsers.User, data: any) => {
-  console.log(user.ip + ' is for first time visiting our site. He/she wants ' + data.username + ' for username');
+  console.log(user.ip + ' is for first time visiting our site. They want ' + data.username + ' for username');
   user.set("username", data.username);
 }
 

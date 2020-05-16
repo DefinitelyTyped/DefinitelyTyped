@@ -12,6 +12,9 @@
         "paths": {
             "yargs": [
                 "yargs/v12"
+            ],
+            "yargs/*": [
+                "yargs/v12/*"
             ]
         },
         "typeRoots": [
@@ -23,7 +26,6 @@
     },
     "files": [
         "index.d.ts",
-        "yargs.d.ts",
         "yargs-tests.ts"
     ]
 }

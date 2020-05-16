@@ -1,4 +1,4 @@
-// Type definitions for webscopeio__react-textarea-autocomplete 2.3
+// Type definitions for webscopeio__react-textarea-autocomplete 4.6
 // Project: https://github.com/webscopeio/react-textarea-autocomplete
 // Definitions by: Michal Zochowski <https://github.com/michauzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -53,7 +53,7 @@ export interface SettingType<TItem> {
      * which will be placed into textarea after the user makes a selection.
      *
      * You can also specify the behavior of caret if you return object {text: "item", caretPosition: "start"} the caret
-     * will be before the word once the user confirms his selection. Other possible value are "next", "end" and number,
+     * will be before the word once the user confirms their selection. Other possible value are "next", "end" and number,
      * which is absolute number in contex of textarea (0 is equal position before the first char). Defaults to "next"
      * which is space after the injected word.
      *
@@ -68,9 +68,7 @@ export interface TriggerType<TItem> {
     [key: string]: SettingType<TItem>;
 }
 
-type PickedAttributes = "onChange" | "onSelect" | "onBlur" | "value";
-
-export interface TextareaProps<TItem> extends Pick<React.InputHTMLAttributes<HTMLTextAreaElement>, PickedAttributes> {
+export interface TextareaProps<TItem> extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     /**
      * Define triggers and their corresponding behavior.
      */
@@ -93,7 +91,7 @@ export interface TextareaProps<TItem> extends Pick<React.InputHTMLAttributes<HTM
      */
     scrollToItem?: boolean | ((container: HTMLDivElement, item: HTMLDivElement) => void);
     /**
-     * 	When it's true autocomplete will close when use click outside.
+     *     When it's true autocomplete will close when use click outside.
      * @default false
      */
     closeOnClickOutside?: boolean;
@@ -140,7 +138,7 @@ export interface TextareaProps<TItem> extends Pick<React.InputHTMLAttributes<HTM
      */
     containerClassName?: string;
     /**
-     * 	ClassNames of list's wrapper.
+     *     ClassNames of list's wrapper.
      */
     listClassName?: string;
     /**
@@ -152,7 +150,7 @@ export interface TextareaProps<TItem> extends Pick<React.InputHTMLAttributes<HTM
      */
     loaderClassName?: string;
     /**
-     * 	ClassNames of dropdown's wrapper.
+     *     ClassNames of dropdown's wrapper.
      */
     dropdownClassName?: string;
 }
@@ -185,7 +183,7 @@ declare class ReactTextareaAutocomplete<TItem extends string | object> extends R
      */
     getSelectionPosition(): { selectionStart: number, selectionEnd: number };
     /**
-     * 	Returns currently selected word.
+     *     Returns currently selected word.
      */
     getSelectedText(): string | undefined;
 }

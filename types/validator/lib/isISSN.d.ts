@@ -1,3 +1,3 @@
-import * as validator from "validator";
-declare const isISSN: typeof validator.isISSN;
-export = isISSN;
+import validator from '../';
+export type IsISSNOptions = validator.IsISSNOptions;
+export default validator.isISSN;

@@ -235,7 +235,7 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     /* DEPRECATED: Invoked when the menu is shown. */
     onMenuShow?: () => void;
 
-    /* 	Invoked when menu visibility changes. */
+    /*     Invoked when menu visibility changes. */
     onMenuToggle?: (show: boolean) => void;
 
     /* Invoked when the pagination menu item is clicked. */
@@ -284,7 +284,7 @@ export class Typeahead<T extends TypeaheadModel> extends React.Component<Typeahe
                        AsyncTypeahead Props and Component
 --------------------------------------------------------------------------- */
 export interface AsyncTypeaheadProps<T extends TypeaheadModel> extends TypeaheadProps<T> {
-    /* 	Delay, in milliseconds, before performing search. */
+    /*     Delay, in milliseconds, before performing search. */
     delay?: number;
 
     /* Whether or not a request is currently pending. Necessary for the component to know when new results are available. */

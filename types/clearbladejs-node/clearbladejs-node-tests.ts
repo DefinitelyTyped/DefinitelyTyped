@@ -3,7 +3,7 @@
 // Definitions by: Jim Bouquet <https://github.com/ClearBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ClearBlade, Resp, QuerySortDirections, QueryConditions } from ".";
+import { ClearBlade, Resp, QuerySortDirections, QueryConditions } from "clearbladejs-node";
 
 // Sample code for clearbladejs Node SDK v1.0.0 used to test typescript definitions
 
@@ -13,20 +13,20 @@ const genericCallback = (error: boolean, response: Resp) => {};
 // ClearBlade object API invocations
 ///////////////////////////////////////
 ClearBlade.init({
-	email: "a@a.com",
-	password: "a",
-	systemKey: "testkey",
-	systemSecret: "testsecret",
-	URI: "https://mycbplatform.com",
-	messagingURI: "mycbplatform.com",
-	callback: genericCallback
+    email: "a@a.com",
+    password: "a",
+    systemKey: "testkey",
+    systemSecret: "testsecret",
+    URI: "https://mycbplatform.com",
+    messagingURI: "mycbplatform.com",
+    callback: genericCallback
 });
 
 ClearBlade.setUser("test@test.com", "password");
 ClearBlade.registerUser("test@test.com", "password", genericCallback);
 ClearBlade.isCurrentUserAuthenticated(genericCallback);
 if (!ClearBlade.isObjectEmpty({prop: "test"})) {
-	ClearBlade.logger("Object is not empty");
+    ClearBlade.logger("Object is not empty");
 }
 
 ClearBlade.validateEmailPassword("test@test.com", "password");
@@ -120,5 +120,5 @@ messaging.publish("topic: string", {});
 messaging.subscribe("my/topic", {}, messageReceivedCb);
 
 function messageReceivedCb(message: string) {
-	messaging.unsubscribe("my/topic");
+    messaging.unsubscribe("my/topic");
 }

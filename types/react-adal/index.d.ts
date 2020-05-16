@@ -6,16 +6,9 @@
 
 import * as React from 'react';
 
-export type TokenCallback = (
-    errorDesc: string | null,
-    token: string | null,
-    error: any
-) => void;
+export type TokenCallback = (errorDesc: string | null, token: string | null, error: any) => void;
 
-export type UserCallback = (
-    errorDesc: string | null,
-    user: UserInfo | null
-) => void;
+export type UserCallback = (errorDesc: string | null, user: UserInfo | null) => void;
 
 export interface AdalConfig {
     /**
@@ -73,7 +66,7 @@ export interface AdalConfig {
     /**
      * Sets browser storage to either 'localStorage' or sessionStorage'. Defaults to `sessionStorage`.
      */
-    cacheLocation?: "localStorage" | "sessionStorage";
+    cacheLocation?: 'localStorage' | 'sessionStorage';
     /**
      * Array of keywords or URIs. Adal will attach a token to outgoing requests that have these keywords or URIs.
      */
@@ -121,9 +114,9 @@ export interface RequestInfo {
     valid: boolean;
 }
 
-export type RequestType = "LOGIN" | "RENEW_TOKEN" | "UNKNOWN";
+export type RequestType = 'LOGIN' | 'RENEW_TOKEN' | 'UNKNOWN';
 
-export type ResponseType = "id_token token" | "token";
+export type ResponseType = 'id_token token' | 'token';
 
 export interface UserInfo {
     /**
@@ -206,7 +199,7 @@ export class AuthenticationContext {
      * Gets token for the specified resource from the cache.
      * @param resource A URI that identifies the resource for which the token is requested.
      */
-    getCachedToken(resource: string): string;
+    getCachedToken(resource: string): string | null;
     /**
      * If user object exists, returns it. Else creates a new user object by decoding `id_token` from the cache.
      */
@@ -217,11 +210,7 @@ export class AuthenticationContext {
      * @param expectedState A unique identifier (guid).
      * @param callback The callback provided by the caller. It will be called with token or error.
      */
-    registerCallback(
-        expectedState: string,
-        resource: string,
-        callback: TokenCallback
-    ): void;
+    registerCallback(expectedState: string, resource: string, callback: TokenCallback): void;
     /**
      * Acquires token from the cache if it is not expired. Otherwise sends request to AAD to obtain a new token.
      * @param resource Resource URI identifying the target resource.
@@ -239,7 +228,7 @@ export class AuthenticationContext {
         resource: string,
         extraQueryParameters: string | null | undefined,
         claims: string | null | undefined,
-        callback: TokenCallback
+        callback: TokenCallback,
     ): void;
     /**
      * Acquires token (interactive flow using a redirect) by sending request to AAD to obtain a new token. In this case the callback passed in the authentication request constructor will be called.
@@ -247,11 +236,7 @@ export class AuthenticationContext {
      * @param extraQueryParameters Query parameters to add to the authentication request.
      * @param claims Claims to add to the authentication request.
      */
-    acquireTokenRedirect(
-        resource: string,
-        extraQueryParameters?: string | null,
-        claims?: string | null
-    ): void;
+    acquireTokenRedirect(resource: string, extraQueryParameters?: string | null, claims?: string | null): void;
     /**
      * Redirects the browser to Azure AD authorization endpoint.
      * @param urlNavigate URL of the authorization endpoint.
@@ -363,10 +348,7 @@ export class AuthenticationContext {
  * @param authContext Authentication context
  * @param resource Resource GUID ot URI identifying the target resource.
  */
-export function adalGetToken(
-    authContext: AuthenticationContext,
-    resourceUrl: string
-): Promise<string | null>;
+export function adalGetToken(authContext: AuthenticationContext, resourceUrl: string): Promise<string | null>;
 
 /**
  * Allows to make requests with adal token
@@ -381,7 +363,7 @@ export function adalFetch(
     resource: string,
     fetch: (input: string, init: any) => Promise<any>,
     url: string,
-    options: any
+    options: any,
 ): Promise<any>;
 
 /**
@@ -390,11 +372,7 @@ export function adalFetch(
  * @param app Render app callback
  * @param doNotLogin Don`t need to login?
  */
-export function runWithAdal(
-    authContext: AuthenticationContext,
-    app: () => void,
-    doNotLogin: boolean
-): void;
+export function runWithAdal(authContext: AuthenticationContext, app: () => void, doNotLogin: boolean): void;
 
 /**
  * Creates a HOC that can be used to manage authentication for the certain components
@@ -403,9 +381,9 @@ export function runWithAdal(
  */
 export function withAdalLogin(
     authContext: AuthenticationContext,
-    resource: string
+    resource: string,
 ): (
     wrappedComponent: React.ComponentClass | React.StatelessComponent,
     renderLoading: () => JSX.Element | null,
-    renderError: (error: any) => JSX.Element | null
+    renderError: (error: any) => JSX.Element | null,
 ) => React.ComponentClass;

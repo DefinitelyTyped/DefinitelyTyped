@@ -6,12 +6,12 @@
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
 *
-* Copyright 2019, Dynamsoft Corporation
+* Copyright 2020, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
 */
 
 interface DynamsoftStatic<TElement extends Node = HTMLElement> {
-	Lib: DynamsoftLib;
+    Lib: DynamsoftLib;
     WebTwainEnv: dwtEnv;
 }
 
@@ -50,7 +50,7 @@ interface dwtEnv {
     JSVersion: string;
     PluginVersion: string;
     ServerVersionInfo: string;
-	
+
     RemoveAllAuthorizations(): void;
     ShowDialog(_dialogWidth: number, _dialogHeight: number, _strDialogMessageWithHtmlFormat: string, _bChangeImage: boolean, bHideCloseButton: boolean): void;
     CloseDialog(): void;
@@ -107,6 +107,7 @@ interface DynamsoftLib {
     */
     hideMask(): void;
     showMask(): void;
+    getScript(url: string, bAsync: boolean, callback: () => void): void;
 }
 
 /**
@@ -2653,18 +2654,6 @@ interface WebTwain {
     FTPDownload(FTPServer: string, FTPRemoteFile: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
 
     /**
-     * Directly download a file from the FTP server to local disk without loading it into Dynamic Web TWAIN.
-     * @method WebTwain#FTPDownloadDirectly
-     * @param {string} FTPServer the name of the FTP server.
-     * @param {string} FTPRemoteFile the name of the file to be downloaded. It should be the relative path of the file on the FTP server.
-     * @param {string} localFile specify a full path to store the file.
-     * @param {function} optionalAsyncSuccessFunc optional. The function to call when the download succeeds. Please refer to the function prototype OnSuccess.
-     * @param {function} optionalAsyncFailureFunc optional. The function to call when the download fails. Please refer to the function prototype OnFailure.
-     * @return {boolean}
-     */
-    FTPDownloadDirectly(FTPServer: string, FTPRemoteFile: string, localFile: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
-
-    /**
      * Downloads an image from the FTP server.
      * @method WebTwain#FTPDownloadEx
      * @param {string} FTPServer the name of the FTP server.
@@ -2687,18 +2676,6 @@ interface WebTwain {
      * @return {boolean}
      */
     FTPUpload(FTPServer: string, sImageIndex: number, FTPRemoteFile: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
-
-    /**
-     * Directly upload a specific file to the FTP server without loading it into Dynamic Web TWAIN.
-     * @method WebTwain#FTPUploadDirectly
-     * @param {string} FTPServer the name of the FTP server.
-     * @param {string} localFile specify the the full path of a local file.
-     * @param {string} FTPRemoteFile the name of the file to be created on the FTP server. It should be a relative path on the FTP server.
-     * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
-     * @param {function} optionalAsyncFailureFunc optional. The function to call when the upload fails. Please refer to the function prototype OnFailure.
-     * @return {boolean}
-     */
-    FTPUploadDirectly(FTPServer: string, localFile: string, FTPRemoteFile: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
 
     /**
      * Uploads the image of a specified index in the buffer to the FTP server as a specified image format.
@@ -2763,14 +2740,6 @@ interface WebTwain {
      * @return {boolean}
      */
     FeedPage(): boolean;
-
-    /**
-     * Check whether a certain file exists on the local disk.
-     * @method WebTwain#FileExists
-     * @param {string} localFile specifies the absolute path of the local file.
-     * @return {boolean}
-     */
-    FileExists(localFile: string): boolean;
 
     /**
      * Flips the image of a specified index in buffer.
@@ -3029,6 +2998,19 @@ interface WebTwain {
      * @return {boolean}
      */
     HTTPUpload(url: string, indices: number[], enumImageType: EnumDWT_ImageType, dataFormat: EnumDWT_UploadDataFormat, asyncSuccessFunc: (httppostresponsestring: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httppostresponsestring: string) => void): boolean;
+
+    /**
+     * Uploads the images specified by the indices to the HTTP server.
+     * @method WebTwain#HTTPUpload
+     * @param {string} url the url where the images are sent in a POST request.
+     * @param {Array} indices indices specifies which images are to be uploaded.
+     * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be uploaded.
+     * @param {EnumDWT_UploadDataFormat} dataFormat whether to upload the images as binary or a base64-based string.
+     * @param {string} fileName the name of the image to be uploaded.
+     * @param {function} asyncSuccessFunc the function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
+     * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
+     */
+    HTTPUpload(url: string, indices: number[], enumImageType: EnumDWT_ImageType, dataFormat: EnumDWT_UploadDataFormat, fileName: string, asyncSuccessFunc: (httpPostResponseString: string) => void, asyncFailureFunc: (errorCode: number, errorString: string, httpPostResponseString: string) => void): boolean;
 
     /**
      * Uploads all images in the buffer to the HTTP server through the HTTP Post method as a Multi-Page TIFF.
@@ -3552,7 +3534,7 @@ interface WebTwain {
      * @method WebTwain#SelectSource
      * @return {boolean}
      */
-    SelectSource(): boolean;
+    SelectSource(optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): boolean;
 
     /**
      * Selects the index-the source in SourceNameItems property as the current source.
@@ -3785,7 +3767,7 @@ interface WebTwain {
     /*ingored    
     SourceNameItems
     */
-    
+
     /**
      * Shows the GUI of Image Editor.
      * @method WebTwain#startScan
@@ -3812,14 +3794,61 @@ interface WebTwain {
      */
     UnregisterEvent(name: string, evt: object): boolean;
 
-	TagImages(aryImageIndices: number[], tagName: string): boolean;
-	
+    /**
+     * Tag specified images
+     * @method WebTwain#TagImages
+     * @param {number[]} aryImageIndices The indices of the images to tag
+     * @param {string} tagName specifies a tag
+     * @return {boolean}
+     */
+    TagImages(aryImageIndices: number[], tagName: string): boolean;
+
+    /**
+     * Sets a default tag that's applied to newly acquired images
+     * @method WebTwain#SetDefaultTag
+     * @param {string} tagName specifies a tag
+     * @return {boolean}
+     */
     SetDefaultTag(tagName: string): boolean;
-	
+
+    /**
+     * Clear the tags from the specified image
+     * @method WebTwain#ClearImageTags
+     * @param {number} sImageIndex specified a image
+     */
     ClearImageTags(sImageIndex: number): boolean;
-	
+
+    /**
+     * Specifies a tag and use it to filter images
+     * @method WebTwain#FilterImagesByTag     
+     * @param {string} tagName specifies a tag
+     * @return {boolean}
+     */
     FilterImagesByTag(tagName: string): boolean;
-	
+    
+    /**
+     * Selects all images
+     * @method WebTwain#SelectAllImages
+     * @return {boolean}
+     */
+    SelectAllImages(): boolean;
+    
+    /**
+     * Inverts the color of the pixels of the specified image
+     * @method WebTwain#Invert
+     * @param {number} sImageIndex specifies an image
+     * @return {boolean}
+     */
+    Invert(sImageIndex: number): boolean;
+    
+    /**
+     * Converts the specified image to black & white
+     * @method WebTwain#ConvertToBW
+     * @param {number} sImageIndex specifies an image
+     * @return {boolean}
+     */
+    ConvertToBW(sImageIndex: number): boolean;
+
     /*ignored
     checkErrorString
     first
@@ -3832,5 +3861,5 @@ interface WebTwain {
 
     ...other internal ones
     */
-	Addon: DynamsoftWebTwainAddon;
+    Addon: DynamsoftWebTwainAddon;
 }

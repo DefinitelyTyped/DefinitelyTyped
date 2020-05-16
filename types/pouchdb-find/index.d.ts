@@ -102,6 +102,7 @@ declare namespace PouchDB {
 
         interface FindResponse<Content extends {}> {
             docs: Array<Core.ExistingDocument<Content>>;
+            warning?: string;
         }
 
         interface CreateIndexOptions {

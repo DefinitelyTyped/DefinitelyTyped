@@ -1,3 +1,4 @@
+/// <reference types="./addon.pdf" />
 function dwtOnReady() {
     const DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');    // Get the Dynamic Web TWAIN object that is embeded in the div with id 'dwtcontrolContainer'
     if (DWObject) {
@@ -103,8 +104,8 @@ function downloadImage() {
 function loadPDF() {
     const DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
     if (DWObject) {
-		DWObject.Addon.PDF.SetResolution(200);
-		DWObject.Addon.PDF.SetConvertMode(1);
+        DWObject.Addon.PDF.SetResolution(200);
+        DWObject.Addon.PDF.SetConvertMode(1);
         DWObject.IfShowFileDialog = true;
         DWObject.LoadImageEx(" ", 5);
     }

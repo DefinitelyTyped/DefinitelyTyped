@@ -21,10 +21,10 @@ const upload = new Tus.Upload(file, {
     },
     onChunkComplete: (chunkSize: number, bytesAccepted: number) => {},
     onSuccess: () => {
-    	console.log("Download from %s complete", upload.url);
+        console.log("Download from %s complete", upload.url);
     },
     onError: (error: Error) => {
-    	console.log("Failed because: " + error);
+        console.log("Failed because: " + error);
     },
     headers: {TestHeader: 'TestValue'},
     chunkSize: 100,
@@ -39,7 +39,23 @@ const upload = new Tus.Upload(file, {
 upload.start();
 
 upload.abort();
+upload.abort(true);
+upload.abort(true, (err?: Error) => {
+    console.log("Failed because: " + err);
+});
 
 const upload2 = new Tus.Upload(file, {
-	endpoint: ""
+    endpoint: ""
+});
+
+const reader = {
+    read: () => Promise.resolve({ done: true, value: '' }),
+};
+const upload3 = new Tus.Upload(reader, {
+    endpoint: '',
+    uploadLengthDeferred: true,
+});
+
+Tus.Upload.terminate('https://myurl.com', {
+    endpoint: ""
 });

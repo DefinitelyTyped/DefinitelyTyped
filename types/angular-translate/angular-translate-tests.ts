@@ -36,15 +36,19 @@ interface Scope extends ng.IScope {
 
 app.controller('Ctrl', ($scope: Scope, $translate: angular.translate.ITranslateService) => {
     $scope['changeLanguage'] = function (key: any) {
-		$translate.onReady().then(() => {
-			if($translate.isReady()) {
-				$translate.use(key);
-			}
-		});
+        $translate.onReady().then(() => {
+            if($translate.isReady()) {
+                $translate.use(key);
+            }
+        });
     };
 }).run(($filter: ng.IFilterService) => {
     var x: string;
     x = $filter('translate')('something');
     x = $filter('translate')('something', {});
     x = $filter('translate')('something', {}, '');
+    var o = $filter('translate')(['a', 'b', 'c']);
+    o.a;
+    o.b;
+    o.c;
 });

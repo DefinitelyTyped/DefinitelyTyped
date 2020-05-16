@@ -1,4 +1,4 @@
-import { ComponentType, MouseEventHandler, ReactNode } from '@wordpress/element';
+import { ComponentType, MouseEventHandler, ReactNode } from 'react';
 import { Status } from '@wordpress/notices';
 
 declare namespace Notice {

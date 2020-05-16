@@ -1,4 +1,4 @@
-/// <reference types="qunit/v1" />
+/// <reference types="qunit" />
 import * as ShareDB from 'sharedb';
 import * as http from 'http';
 import * as WebSocket from 'ws';
@@ -19,8 +19,8 @@ class WebSocketJSONStream extends Duplex {
             this.emit('close');
             this.emit('end');
         });
-	this.on('error', () => { ws.close(); });
-	this.on('end',   () => { ws.close(); });
+    this.on('error', () => { ws.close(); });
+    this.on('end',   () => { ws.close(); });
     }
     _read(): void {}
     _write(msg: any, encoding: string, next: () => void): void {
@@ -40,6 +40,11 @@ const backend = new ShareDB({
     extraDbs: {myDb: new CustomExtraDb()}
 });
 console.log(backend.db);
+
+// getOps allows for `from` and `to` to both be `null`:
+// https://github.com/share/sharedb/blob/960f5d152f6a8051ed2dcb00a57681a3ebbd7dc2/README.md#getops
+backend.db.getOps('someCollection', 'someId', null, null, {}, () => {});
+
 console.log(backend.pubsub);
 console.log(backend.extraDbs);
 

@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "currencies.d.ts",
         "currency-formatter-tests.ts"
     ]
 }

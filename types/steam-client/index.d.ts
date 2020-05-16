@@ -7,7 +7,9 @@
 /// <reference types="node" />
 /// <reference types="bytebuffer" />
 
-export class CMClient extends NodeJS.EventEmitter {
+import { EventEmitter } from 'events';
+
+export class CMClient extends EventEmitter {
     /**
      * A boolean that indicates whether you are currently connected and the encryption handshake is complete.
      * 'connected' is emitted when it changes to true, and 'error' is emitted when it changes to false unless you called disconnect.
@@ -227,27 +229,27 @@ export interface CMsgClientLogonResponse {
 }
 
 export interface CMsgProtoBufHeader {
-	steamid?: string;
-	client_sessionid?: number;
-	routing_appid?: number;
-	jobid_source?: string;
-	jobid_target?: string;
-	target_job_name?: string;
-	seq_num?: number;
-	eresult?: number;
-	error_message?: string;
-	ip?: number;
-	auth_account_flags?: number;
-	token_source?: number;
-	admin_spoofing_user?: boolean;
-	transport_error?: number;
-	messageid?: string;
-	publisher_group_id?: number;
-	sysid?: number;
-	trace_tag?: string;
-	webapi_key_id?: number;
-	is_from_external_source?: boolean;
-	forward_to_sysid?: number[];
+    steamid?: string;
+    client_sessionid?: number;
+    routing_appid?: number;
+    jobid_source?: string;
+    jobid_target?: string;
+    target_job_name?: string;
+    seq_num?: number;
+    eresult?: number;
+    error_message?: string;
+    ip?: number;
+    auth_account_flags?: number;
+    token_source?: number;
+    admin_spoofing_user?: boolean;
+    transport_error?: number;
+    messageid?: string;
+    publisher_group_id?: number;
+    sysid?: number;
+    trace_tag?: string;
+    webapi_key_id?: number;
+    is_from_external_source?: boolean;
+    forward_to_sysid?: number[];
 }
 
 // Enums

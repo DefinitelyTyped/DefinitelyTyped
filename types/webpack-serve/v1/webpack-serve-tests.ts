@@ -6,7 +6,7 @@ const config: webpack.Configuration = {
   entry: ['index.js'], // when use compiler entry must be array or object
 };
 
-const serveConfig = {
+const serveConfig: serve.Options = {
   http2: true,
   dev: {
     publicPath: '/',

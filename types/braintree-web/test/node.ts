@@ -47,6 +47,7 @@ braintree.client.create({
 
   braintree.hostedFields.create({
     client: clientInstance,
+    authorization: clientToken,
     styles: {
       'input': {
         'font-size': '16pt',
@@ -408,6 +409,41 @@ braintree.client.create({
 
 let existingNonce = "fake-valid-nonce";
 let submitNonceToServer: (nonce: string) => void;
+
+braintree.client.create(
+    {
+        authorization: clientToken,
+    },
+    (error: braintree.BraintreeError, clientInstance: braintree.Client) => {
+        braintree.threeDSecure.create(
+            {
+                client: clientInstance,
+                version: '2',
+            },
+            (createError, threeDSecure) => {
+                // implementation
+            },
+        );
+        braintree.threeDSecure.create(
+            {
+                client: clientInstance,
+                version: 1,
+            },
+            (createError, threeDSecure) => {
+                // implementation
+            },
+        );
+        braintree.threeDSecure.create(
+            {
+                client: clientInstance,
+                version: '2-bootstrap3-modal',
+            },
+            (createError, threeDSecure) => {
+                // implementation
+            },
+        );
+    },
+);
 
 braintree.threeDSecure.verifyCard({
   nonce: existingNonce,

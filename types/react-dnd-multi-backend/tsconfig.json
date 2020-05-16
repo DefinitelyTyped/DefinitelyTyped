@@ -20,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/HTML5toTouch.d.ts",
         "react-dnd-multi-backend-tests.tsx"
     ]
 }

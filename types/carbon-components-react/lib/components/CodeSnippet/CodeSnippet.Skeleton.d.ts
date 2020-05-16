@@ -7,6 +7,6 @@ export interface CodeSnippetSkeletonProps extends InheritedProps {
     type?: "multi" | "single",
 }
 
-declare class CodeSnippetSkeleton extends React.Component<CodeSnippetSkeletonProps> { }
+declare const CodeSnippetSkeleton: React.FC<CodeSnippetSkeletonProps>;
 
 export default CodeSnippetSkeleton;

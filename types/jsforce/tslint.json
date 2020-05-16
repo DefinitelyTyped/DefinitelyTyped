@@ -1,12 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
         "array-type": false,
-        "await-promise": [true, "Request"],
+        "await-promise": false,
         "ban-types": false,
         "eofline": false,
-        "max-line-length": false,
         "no-any-union": false,
         "no-empty-interface": false,
         "no-redundant-undefined": false,

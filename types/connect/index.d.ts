@@ -18,11 +18,15 @@ declare function createServer(): createServer.Server;
 declare namespace createServer {
     export type ServerHandle = HandleFunction | http.Server;
 
+    export class IncomingMessage extends http.IncomingMessage {
+        originalUrl?: http.IncomingMessage["url"];
+    }
+
     type NextFunction = (err?: any) => void;
 
-    export type SimpleHandleFunction = (req: http.IncomingMessage, res: http.ServerResponse) => void;
-    export type NextHandleFunction = (req: http.IncomingMessage, res: http.ServerResponse, next: NextFunction) => void;
-    export type ErrorHandleFunction = (err: any, req: http.IncomingMessage, res: http.ServerResponse, next: NextFunction) => void;
+    export type SimpleHandleFunction = (req: IncomingMessage, res: http.ServerResponse) => void;
+    export type NextHandleFunction = (req: IncomingMessage, res: http.ServerResponse, next: NextFunction) => void;
+    export type ErrorHandleFunction = (err: any, req: IncomingMessage, res: http.ServerResponse, next: NextFunction) => void;
     export type HandleFunction = SimpleHandleFunction | NextHandleFunction | ErrorHandleFunction;
 
     export interface ServerStackItem {

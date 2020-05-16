@@ -46,3 +46,13 @@ async function testFireEvent() {
     const { container } = render(<button />);
     fireEvent.click(container);
 }
+
+async function testDebug() {
+    const { debug, getAllByTestId } = render(
+        <>
+            <h2 data-testid="testid">Hello World</h2>
+            <h2 data-testid="testid">Hello World</h2>
+        </>,
+    );
+    debug(getAllByTestId('testid'));
+}

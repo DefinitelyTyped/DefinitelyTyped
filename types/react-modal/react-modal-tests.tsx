@@ -11,10 +11,15 @@ class ExampleOfUsingReactModal extends React.Component {
   contentRef: HTMLDivElement;
   overlayRef: HTMLDivElement;
   render() {
-    const onAfterOpenFn = () => { };
+    const reactModalRef = React.useRef<ReactModal>();
+    // typed params of `OnAfterOpen` callback
+    const onAfterOpenFn: ReactModal.OnAfterOpenCallback = ({ contentEl, overlayEl }) => {
+        console.assert(contentEl === reactModalRef.current.portal.content);
+        console.assert(overlayEl === reactModalRef.current.portal.overlay);
+    };
     const onAfterCloseFn = () => { };
     const onRequestCloseFn = (event: React.MouseEvent | React.KeyboardEvent) => { };
-    const customStyle = {
+    const customStyle: ReactModal.Styles = {
       overlay: {
         position: 'fixed',
         top: 0,
@@ -59,6 +64,7 @@ class ExampleOfUsingReactModal extends React.Component {
     };
     return (
       <ReactModal
+        id="modal-id"
         isOpen={true}
         onAfterOpen={onAfterOpenFn}
         onAfterClose={onAfterCloseFn}
@@ -82,3 +88,22 @@ class ExampleOfUsingReactModal extends React.Component {
     );
   }
 }
+
+const MyWrapperComponent: React.FC = () => {
+    const reactModaRef = React.useRef<ReactModal>();
+    // typed params of `OnAfterOpen` are optional for backward compatible types
+    const onAfterOpenOptionalObjFn = () => {};
+
+    React.useLayoutEffect(() => {
+        reactModaRef.current.portal.overlay.getAttribute('foo');
+        reactModaRef.current.portal.content.focus();
+    });
+
+    return (
+        <ReactModal isOpen
+            onAfterOpen={onAfterOpenOptionalObjFn}
+            ref={reactModaRef}>
+            Hello, World!
+        </ReactModal>
+    );
+};

@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // All are TODOs
         "array-type": false,
         "ban-types": false,
         "callable-types": false,

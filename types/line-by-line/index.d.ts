@@ -5,12 +5,12 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from "events";
-import { Readable } from "stream";
+import { EventEmitter } from 'events';
+import { Readable } from 'stream';
 
 interface LineByLineReaderOptions {
     /** The encoding to use. */
-    encoding?: "ascii" | "base64" | "utf8";
+    encoding?: 'ascii' | 'utf8' | 'utf16le' | 'ucs2' | 'base64' | 'latin1' | 'binary' | 'hex';
     /** If set to true, empty lines do not emit the "line" event. */
     skipEmptyLines?: boolean;
 }
@@ -46,19 +46,19 @@ declare class LineByLineReader extends EventEmitter {
      * @param event
      * @param listener
      */
-    on(event: "end", listener: () => void): this;
+    on(event: 'end', listener: () => void): this;
     /**
      * Emitted if an error occured.
      * @param event
      * @param listener A listener that receives the error object.
      */
-    on(event: "error", listener: (err: any) => void): this;
+    on(event: 'error', listener: (err: any) => void): this;
     /**
      * Emitted on every line read.
      * @param event
      * @param listener A listener that receives the line without the line terminator.
      */
-    on(event: "line", listener: (line: string) => void): this;
+    on(event: 'line', listener: (line: string) => void): this;
 
     /**
      * Call this method to stop emitting "line" events.

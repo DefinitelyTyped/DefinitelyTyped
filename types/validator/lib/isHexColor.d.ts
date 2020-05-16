@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isHexColor: typeof validator.isHexColor;
-export = isHexColor;
+import validator from '../';
+export default validator.isHexColor;

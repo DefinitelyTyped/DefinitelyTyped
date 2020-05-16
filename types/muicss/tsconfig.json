@@ -1,26 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "react.d.ts",
-        "muicss-tests.tsx",
-        "lib/react/appbar.d.ts",
-        "lib/react/button.d.ts",
-        "lib/react/checkbox.d.ts",
-        "lib/react/col.d.ts",
-        "lib/react/container.d.ts",
-        "lib/react/divider.d.ts",
-        "lib/react/dropdown.d.ts",
-        "lib/react/dropdown-item.d.ts",
-        "lib/react/form.d.ts",
-        "lib/react/input.d.ts",
-        "lib/react/option.d.ts",
-        "lib/react/panel.d.ts",
-        "lib/react/radio.d.ts",
-        "lib/react/row.d.ts",
-        "lib/react/select.d.ts",
-        "lib/react/tab.d.ts",
-        "lib/react/tabs.d.ts",
-        "lib/react/textarea.d.ts"
+        "muicss-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",

@@ -11,8 +11,9 @@ import ExternalApplication from './external-application/external-application';
 import ExternalWindow from './external-window/external-window';
 import _FrameModule from './frame/frame';
 import GlobalHotkey from './global-hotkey';
-import { Identity } from '../identity';
-import { BrowserViewModule } from './browserview/browserview';
+import ViewModule, { View } from './view/view';
+import PlatformModule from './platform/platform';
+import { Frame } from '../main';
 export default class Fin extends EventEmitter {
     private wire;
     System: System;
@@ -25,7 +26,8 @@ export default class Fin extends EventEmitter {
     ExternalWindow: ExternalWindow;
     Frame: _FrameModule;
     GlobalHotkey: GlobalHotkey;
-    BrowserView: BrowserViewModule;
-    readonly me: Identity;
+    View: ViewModule;
+    Platform: PlatformModule;
+    readonly me: (View | Window | Frame | {}) & Transport['me'];
     constructor(wire: Transport);
 }

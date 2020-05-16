@@ -1,5 +1,9 @@
+import { Collection as MongoCollection, Db as MongoDb } from 'mongodb';
 import { Meteor } from 'meteor/meteor';
 declare module "meteor/mongo" {
+    // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
+    type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
+
     module Mongo {
 
         type BsonType = 1 | "double" |
@@ -117,6 +121,7 @@ declare module "meteor/mongo" {
             $pop?: PartialMapTo<T, 1 | -1> & Dictionary<1 | -1>,
         }
 
+        type OptionalId<TSchema> = UnionOmit<TSchema, '_id'> & { _id?: any };
 
         interface SortSpecifier { }
         interface FieldSpecifier {
@@ -125,7 +130,7 @@ declare module "meteor/mongo" {
 
         var Collection: CollectionStatic;
         interface CollectionStatic {
-            new <T>(name: string, options?: {
+            new <T>(name: string | null, options?: {
                 connection?: Object | null;
                 idGeneration?: string;
                 transform?: Function | null;
@@ -161,13 +166,14 @@ declare module "meteor/mongo" {
                 reactive?: boolean;
                 transform?: Function | null;
             }): T | undefined;
-            insert(doc: T, callback?: Function): string;
-            rawCollection(): any;
-            rawDatabase(): any;
+            insert(doc: OptionalId<T>, callback?: Function): string;
+            rawCollection(): MongoCollection<T>;
+            rawDatabase(): MongoDb;
             remove(selector: Selector<T> | ObjectID | string, callback?: Function): number;
             update(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
                 multi?: boolean;
                 upsert?: boolean;
+                arrayFilters? : { [identifier: string]: any }[];
             }, callback?: Function): number;
             upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
                 multi?: boolean;
@@ -188,20 +194,20 @@ declare module "meteor/mongo" {
         interface CursorStatic {
             new <T>(): Cursor<T>;
         }
-        interface ObserveCallbacks {
-            added?(document: Object): void;
-            addedAt?(document: Object, atIndex: number, before: Object): void;
-            changed?(newDocument: Object, oldDocument: Object): void;
-            changedAt?(newDocument: Object, oldDocument: Object, indexAt: number): void;
-            removed?(oldDocument: Object): void;
-            removedAt?(oldDocument: Object, atIndex: number): void;
-            movedTo?(document: Object, fromIndex: number, toIndex: number, before: Object): void;
+        interface ObserveCallbacks<T> {
+            added?(document: T): void;
+            addedAt?(document: T, atIndex: number, before: T | null): void;
+            changed?(newDocument: T, oldDocument: T): void;
+            changedAt?(newDocument: T, oldDocument: T, indexAt: number): void;
+            removed?(oldDocument: T): void;
+            removedAt?(oldDocument: T, atIndex: number): void;
+            movedTo?(document: T, fromIndex: number, toIndex: number, before: T | null): void;
         }
-        interface ObserveChangesCallbacks {
-            added?(id: string, fields: Object): void;
-            addedBefore?(id: string, fields: Object, before: Object): void;
-            changed?(id: string, fields: Object): void;
-            movedBefore?(id: string, before: Object): void;
+        interface ObserveChangesCallbacks<T> {
+            added?(id: string, fields: Partial<T>): void;
+            addedBefore?(id: string, fields: Partial<T>, before: T | null): void;
+            changed?(id: string, fields: Partial<T>): void;
+            movedBefore?(id: string, before: T | null): void;
             removed?(id: string): void;
         }
         interface Cursor<T> {
@@ -209,8 +215,8 @@ declare module "meteor/mongo" {
             fetch(): Array<T>;
             forEach(callback: (doc: T, index: number, cursor: Cursor<T>) => void, thisArg?: any): void;
             map<U>(callback: (doc: T, index: number, cursor: Cursor<T>) => U, thisArg?: any): Array<U>;
-            observe(callbacks: ObserveCallbacks): Meteor.LiveQueryHandle;
-            observeChanges(callbacks: ObserveChangesCallbacks): Meteor.LiveQueryHandle;
+            observe(callbacks: ObserveCallbacks<T>): Meteor.LiveQueryHandle;
+            observeChanges(callbacks: ObserveChangesCallbacks<T>): Meteor.LiveQueryHandle;
         }
 
         var ObjectID: ObjectIDStatic;

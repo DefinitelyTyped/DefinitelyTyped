@@ -1,8 +1,7 @@
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// TODO
-		"no-void-expression": false,
-		"prefer-template": false
-	}
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-void-expression": false,
+        "prefer-template": false
+    }
 }

@@ -25,3 +25,4 @@ const s5 = new LineToLineMappedSource('a', 'v', 'c');
 const s6 = new PrefixSource(s4, s5);
 const s7 = new ReplaceSource(s3, 'ha');
 const s8 = new SourceMapSource('va', 'vb', a, 'vc', b);
+const s9 = new SourceMapSource('va', 'vb', a, 'vc', b, true);

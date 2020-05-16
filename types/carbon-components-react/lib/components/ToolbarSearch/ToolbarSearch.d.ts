@@ -1,16 +1,23 @@
 import * as React from "react";
-import { ReactInputAttr, SizingProps } from "../../../typings/shared";
+import { ReactAttr, ReactInputAttr, SizingProps } from '../../../typings/shared';
 
 interface InheritedProps extends
     Omit<ReactInputAttr, "placeholder">,
     SizingProps
 { }
 
+/**
+ * @deprecated
+ */
 export interface ToolbarSearchProps extends InheritedProps {
-    labelText?: React.ReactNode,
-    placeHolderText?: string,
+    labelId?: ReactAttr['id'];
+    labelText?: React.ReactNode;
+    placeHolderText?: string;
 }
 
+/**
+ * @deprecated
+ */
 declare class ToolbarSearch extends React.Component<ToolbarSearchProps> { }
 
 export default ToolbarSearch;

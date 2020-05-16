@@ -1,18 +1,6 @@
 {
     "files": [
-        "tab-bar/constants.d.ts",
-        "tab-bar/adapter.d.ts",
-        "tab-bar/index.d.ts",
-        "tab-bar/foundation.d.ts",
-        "tab/constants.d.ts",
-        "tab/adapter.d.ts",
-        "tab/index.d.ts",
-        "tab/foundation.d.ts",
-        "index.d.ts",
-        "tab-bar-scroller/constants.d.ts",
-        "tab-bar-scroller/adapter.d.ts",
-        "tab-bar-scroller/index.d.ts",
-        "tab-bar-scroller/foundation.d.ts"
+        "index.d.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
