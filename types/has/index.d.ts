@@ -1,12 +1,14 @@
 // Type definitions for has 1.0
 // Project: https://github.com/tarruda/has
-// Definitions by: ExE Boss <https://github.com/me>
+// Definitions by: Jordan Harband <https://github.com/ljharb>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
- * Determines whether an object has a property with the specified name.
- * @param object The object to check. Must not be `null` or `undefined`.
+ * Determines whether an object has an own property with the specified name.
+ *
+ * @param target The object that contains the property.
  * @param property A property name.
  */
-declare function hasOwnProperty(object: any, property: PropertyKey): boolean;
+declare function hasOwnProperty(target: object, property: PropertyKey): boolean;
 export = hasOwnProperty;

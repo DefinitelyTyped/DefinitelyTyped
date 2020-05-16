@@ -1,19 +1,19 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"lib": ["es5"],
-		"noImplicitAny": true,
-		"noImplicitThis": true,
-		"strictFunctionTypes": true,
-		"strictNullChecks": true,
-		"baseUrl": "../",
-		"typeRoots": ["../"],
-		"types": [],
-		"noEmit": true,
-		"forceConsistentCasingInFileNames": true
-	},
-	"files": [
-		"index.d.ts",
-		"has-tests.ts"
-	]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["ES5"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "has-tests.ts",
+        "index.d.ts"
+    ]
 }
