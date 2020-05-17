@@ -601,7 +601,7 @@ declare module _ {
         * @return The list of elements within `list` that have the property `propertyName`.
         **/
         pluck<T extends {}, K extends keyof T>(
-            list: _.List<T>,
+            list: _.List<T> | _.Dictionary<T>,
             propertyName: K): T[K][];
 
         pluck(
