@@ -3536,10 +3536,11 @@ declare namespace cytoscape {
          * 'polygon' is a custom polygon specified via shape-polygon-points.
          */
         type NodeShape = 'rectangle' | 'roundrectangle' | 'ellipse' | 'triangle'
-            | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star"
-            | "diamond" | "vee" | "rhomboid" | "polygon" | "round-rectangle"
+            | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star" | "barrel"
+            | "diamond" | "vee" | "rhomboid" | "polygon" | "tag" | "round-rectangle"
             | "round-triangle" | "round-diamond" | "round-pentagon" | "round-hexagon"
-            | "round-heptagon" | "round-octagon" | "round-tag";
+            | "round-heptagon" | "round-octagon" | "round-tag"
+            | "cut-rectangle"| "bottom-round-rectangle" | "concave-hexagon";
 
         /**
          * A space-separated list of numbers ranging on [-1, 1],
