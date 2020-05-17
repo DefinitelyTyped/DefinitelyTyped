@@ -2241,6 +2241,64 @@ namespace TestInvoke {
     }
 }
 
+namespace TestPluck {
+    // as a breaking change, ideally update Underscore and Chain types to also figure out the correct resulting type instead of any[] or any
+
+    {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
+        let result: string[];
+
+        result = _.pluck<{ a: string }, 'a'>(array, property);
+        result = _.pluck(array, property);
+
+        result = _<{ a: string }>(array).pluck(property);
+        result = _(array).pluck(property);
+
+        result = _.chain<{ a: string }>(array).pluck(property).value();
+        result = _.chain(array).pluck(property).value();
+
+        result = _<{ a: string }>(array).chain().pluck(property).value();
+        result = _(array).chain().pluck(property).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
+        let result: string[];
+
+        result = _.pluck<{ a: string }, 'a'>(list, property);
+        result = _.pluck(list, property);
+
+        result = _<{ a: string }>(list).pluck(property);
+        result = _(list).pluck(property);
+
+        result = _.chain<{ a: string }>(list).pluck(property).value();
+        result = _.chain(list).pluck(property).value();
+
+        result = _<{ a: string }>(list).chain().pluck(property).value();
+        result = _(list).chain().pluck(property).value();
+    }
+
+    {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const property = 'a';
+        let result: string[];
+
+        result = _.pluck<{ a: string }, 'a'>(dict, property);
+        result = _.pluck(dict, property);
+
+        result = _<{ a: string }>(dict).pluck(property);
+        result = _(dict).pluck(property);
+
+        result = _.chain<{ a: string }>(dict).pluck(property).value();
+        result = _.chain(dict).pluck(property).value();
+
+        result = _<{ a: string }>(dict).chain().pluck(property).value();
+        result = _(dict).chain().pluck(property).value();
+    }
+}
+
 namespace TestShuffle {
     {
         let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
