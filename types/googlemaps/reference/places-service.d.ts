@@ -201,8 +201,8 @@ declare namespace google.maps.places {
         language: string;
         profile_photo_url: string;
         // TODO rating is documented in the HTTP API (https://developers.google.com/places/web-service/details#PlaceDetailsResults) but not in the Javascript API.
-        rating: number; 
-        relative_time_description: string;        
+        rating: number;
+        relative_time_description: string;
         text: string;
         time: number;
     }
