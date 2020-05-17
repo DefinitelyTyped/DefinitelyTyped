@@ -1,14 +1,14 @@
-import * as React from "react";
-import { ReactAttr, ReactDivAttr, ForwardRefReturn } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactAttr, ReactDivAttr, ForwardRefReturn } from '../../../typings/shared';
 
 // Toolbar
 
-interface ToolbarInheritedProps extends ReactDivAttr { }
+interface ToolbarInheritedProps extends ReactDivAttr {}
 
 /**
  * @deprecated
  */
-export interface ToolbarProps extends ToolbarInheritedProps { }
+export interface ToolbarProps extends ToolbarInheritedProps {}
 
 /**
  * @deprecated
@@ -18,15 +18,15 @@ declare const Toolbar: React.FC<ToolbarProps>;
 // ToolbarItem
 
 interface ToolbarItemInheritedProps {
-    children?: ReactAttr["children"],
+    children?: ReactAttr['children'];
 }
 
 /**
  * @deprecated
  */
 export interface ToolbarItemProps extends ToolbarItemInheritedProps {
-    placeholderText?: string,
-    type?: string,
+    placeholderText?: string;
+    type?: string;
 }
 
 /**
@@ -40,7 +40,7 @@ export declare const ToolbarItem: React.FC<ToolbarItemProps>;
  * @deprecated
  */
 export interface ToolbarTitleProps {
-    title?: string,
+    title?: string;
 }
 
 /**
@@ -51,13 +51,13 @@ export declare const ToolbarTitle: ForwardRefReturn<HTMLLIElement, ToolbarTitleP
 // ToolbarOption
 
 interface ToolbarOptionInheritedProps {
-    children?: ReactAttr["children"],
+    children?: ReactAttr['children'];
 }
 
 /**
  * @deprecated
  */
-export interface ToolbarOptionProps extends ToolbarOptionInheritedProps { }
+export interface ToolbarOptionProps extends ToolbarOptionInheritedProps {}
 
 /**
  * @deprecated

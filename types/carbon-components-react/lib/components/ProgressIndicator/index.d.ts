@@ -1,2 +1,2 @@
-export * from "./ProgressIndicator";
-export * from "./ProgressIndicator.Skeleton";
+export * from './ProgressIndicator';
+export * from './ProgressIndicator.Skeleton';

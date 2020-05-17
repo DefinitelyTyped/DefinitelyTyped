@@ -1,8 +1,8 @@
-import * as React from "react";
-import { ReactDivAttr, ReactInputAttr, ThemeProps } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactDivAttr, ReactInputAttr, ThemeProps } from '../../../typings/shared';
 
-interface InheritedProps extends Omit<ReactDivAttr, "onChange">, ThemeProps {
-    name?: ReactInputAttr["name"],
+interface InheritedProps extends Omit<ReactDivAttr, 'onChange'>, ThemeProps {
+    name?: ReactInputAttr['name'];
 }
 
 export interface SliderOnChangeArg {
@@ -10,22 +10,22 @@ export interface SliderOnChangeArg {
 }
 
 export interface SliderProps extends InheritedProps {
-    ariaLabelInput?: string,
-    formatLabel?(value: SliderProps["value"], label: string): string,
-    hideTextInput?: boolean,
-    inputType?: ReactInputAttr["type"],
-    labelText?: React.ReactNode,
-    max: number,
-    maxLabel?: string,
-    min: number,
-    minLabel?: string,
-    onRelease?(data: { value: SliderProps["value"] }): void,
-    step?: number,
-    stepMultiplier?: number,
-    value: number,
-    onChange: (value: SliderOnChangeArg) => void
+    ariaLabelInput?: string;
+    formatLabel?(value: SliderProps['value'], label: string): string;
+    hideTextInput?: boolean;
+    inputType?: ReactInputAttr['type'];
+    labelText?: React.ReactNode;
+    max: number;
+    maxLabel?: string;
+    min: number;
+    minLabel?: string;
+    onRelease?(data: { value: SliderProps['value'] }): void;
+    step?: number;
+    stepMultiplier?: number;
+    value: number;
+    onChange: (value: SliderOnChangeArg) => void;
 }
 
-declare class Slider extends React.PureComponent<SliderProps> { }
+declare class Slider extends React.PureComponent<SliderProps> {}
 
 export default Slider;

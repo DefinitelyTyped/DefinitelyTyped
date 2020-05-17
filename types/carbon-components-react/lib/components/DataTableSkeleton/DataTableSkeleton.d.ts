@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-interface InheritedProps extends React.TableHTMLAttributes<HTMLTableElement> { }
+interface InheritedProps extends React.TableHTMLAttributes<HTMLTableElement> {}
 
 // export interface HeaderType {
 //     key?: string;

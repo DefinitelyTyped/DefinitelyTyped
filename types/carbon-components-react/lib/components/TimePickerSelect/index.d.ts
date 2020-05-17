@@ -1,2 +1,2 @@
-export * from "./TimePickerSelect";
-export { default } from "./TimePickerSelect";
+export * from './TimePickerSelect';
+export { default } from './TimePickerSelect';

@@ -8,10 +8,10 @@ import { ListBoxMenuIconTranslationKey } from '../lib/components/ListBox/ListBox
 import { ListBoxSelectionTranslationKey } from '../lib/components/ListBox/ListBoxSelection';
 import { NumberInputTranslationKey } from '../lib/components/NumberInput';
 import { SideNavTranslationKey } from '../lib/components/UIShell/SideNav';
-import { ProgressStepTranslationKey } from "../lib/components/ProgressIndicator";
+import { ProgressStepTranslationKey } from '../lib/components/ProgressIndicator';
 
 export type CarbonTranslationKey =
-    DataTableTranslationKey
+    | DataTableTranslationKey
     | ListBoxMenuIconTranslationKey
     | ListBoxSelectionTranslationKey
     | NumberInputTranslationKey

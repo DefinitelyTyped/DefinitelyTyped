@@ -1,2 +1,2 @@
-export * from "./InlineLoading";
+export * from './InlineLoading';
 export { default } from './InlineLoading';

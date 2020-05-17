@@ -1,8 +1,7 @@
-import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactAttr } from '../../../typings/shared';
 
-interface FileUploaderDropContainerInheritedProps extends ReactAttr<HTMLLabelElement> {
-}
+interface FileUploaderDropContainerInheritedProps extends ReactAttr<HTMLLabelElement> {}
 
 export interface FileUploaderDropContainerProps extends FileUploaderDropContainerInheritedProps {
     /**

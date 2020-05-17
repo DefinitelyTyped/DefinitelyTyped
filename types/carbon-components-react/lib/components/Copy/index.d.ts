@@ -1,2 +1,2 @@
-export * from "./Copy";
+export * from './Copy';
 export { default } from './Copy';

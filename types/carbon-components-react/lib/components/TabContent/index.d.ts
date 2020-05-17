@@ -1,2 +1,2 @@
-export * from "./TabContent";
-export { default } from "./TabContent";
+export * from './TabContent';
+export { default } from './TabContent';

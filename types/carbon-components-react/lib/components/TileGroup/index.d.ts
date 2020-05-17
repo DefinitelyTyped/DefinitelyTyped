@@ -1,2 +1,2 @@
-export * from "./TileGroup";
-export { default } from "./TileGroup";
+export * from './TileGroup';
+export { default } from './TileGroup';

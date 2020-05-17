@@ -1,2 +1,2 @@
-export * from "./SkeletonPlaceholder";
-export { default } from "./SkeletonPlaceholder";
+export * from './SkeletonPlaceholder';
+export { default } from './SkeletonPlaceholder';

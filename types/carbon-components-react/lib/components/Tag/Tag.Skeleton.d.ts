@@ -1,9 +1,9 @@
-import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactAttr } from '../../../typings/shared';
 
-interface InheritedProps extends ReactAttr<HTMLSpanElement> { }
+interface InheritedProps extends ReactAttr<HTMLSpanElement> {}
 
-export interface TagSkeletonProps extends InheritedProps { }
+export interface TagSkeletonProps extends InheritedProps {}
 
 declare const TagSkeleton: React.FC<TagSkeletonProps>;
 

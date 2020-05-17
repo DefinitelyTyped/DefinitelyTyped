@@ -2,16 +2,12 @@
  * @author admin
  */
 
-import * as React from "react";
-import {ReactAttr} from "carbon-components-react/typings/shared";
+import * as React from 'react';
+import { ReactAttr } from 'carbon-components-react/typings/shared';
 
-interface InheritedProps extends ReactAttr<HTMLDivElement>{
+interface InheritedProps extends ReactAttr<HTMLDivElement> {}
 
-}
-
-export interface GridProps extends InheritedProps{
-
-}
+export interface GridProps extends InheritedProps {}
 
 declare const Grid: React.FC<GridProps>;
 

@@ -1,2 +1,2 @@
-export type ListBoxSize = "sm" | "xl";
-export type ListBoxType = "default" | "inline";
+export type ListBoxSize = 'sm' | 'xl';
+export type ListBoxType = 'default' | 'inline';

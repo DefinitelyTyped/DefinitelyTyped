@@ -1,11 +1,11 @@
-import * as React from "react";
-import { InternationalProps, ReactAttr, ForwardRefReturn } from "../../../typings/shared";
+import * as React from 'react';
+import { InternationalProps, ReactAttr, ForwardRefReturn } from '../../../typings/shared';
 
-export type SideNavTranslationKey = "carbon.sidenav.state.closed" | "carbon.sidenav.state.open";
+export type SideNavTranslationKey = 'carbon.sidenav.state.closed' | 'carbon.sidenav.state.open';
 interface InheritedProps extends InternationalProps<SideNavTranslationKey> {
-    "aria-label"?: ReactAttr["aria-label"],
-    "aria-labelledby"?: ReactAttr["aria-labelledby"],
-    className?: ReactAttr["className"],
+    'aria-label'?: ReactAttr['aria-label'];
+    'aria-labelledby'?: ReactAttr['aria-labelledby'];
+    className?: ReactAttr['className'];
 }
 
 export interface SideNavProps extends InheritedProps {

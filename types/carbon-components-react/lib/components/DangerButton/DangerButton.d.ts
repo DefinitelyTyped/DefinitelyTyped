@@ -1,9 +1,9 @@
-import * as React from "react";
-import { ButtonProps } from "../Button";
+import * as React from 'react';
+import { ButtonProps } from '../Button';
 
-interface InheritedProps extends Omit<ButtonProps, "kind"> { }
+interface InheritedProps extends Omit<ButtonProps, 'kind'> {}
 
-export interface DangerButtonProps extends InheritedProps { }
+export interface DangerButtonProps extends InheritedProps {}
 
 declare const DangerButton: React.FC<DangerButtonProps>;
 

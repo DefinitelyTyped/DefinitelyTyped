@@ -1,2 +1,2 @@
-export * from "./StructuredList";
-export * from "./StructuredList.Skeleton";
+export * from './StructuredList';
+export * from './StructuredList.Skeleton';

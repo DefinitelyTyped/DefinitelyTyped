@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 
-interface InheritedProps extends React.OlHTMLAttributes<HTMLOListElement> { }
+interface InheritedProps extends React.OlHTMLAttributes<HTMLOListElement> {}
 
 export interface OrderedListProps extends InheritedProps {
-    nested?: boolean,
+    nested?: boolean;
 }
 
 declare const OrderedList: React.FC<OrderedListProps>;

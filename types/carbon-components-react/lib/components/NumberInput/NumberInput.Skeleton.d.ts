@@ -1,10 +1,10 @@
-import * as React from "react";
-import { ReactDivAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { ReactDivAttr } from '../../../typings/shared';
 
-interface InheritedProps extends ReactDivAttr { }
+interface InheritedProps extends ReactDivAttr {}
 
 export interface NumberInputSkeletonProps extends InheritedProps {
-    hideLabel?: boolean,
+    hideLabel?: boolean;
 }
 
 declare const NumberInputSkeleton: React.FC<NumberInputSkeletonProps>;

@@ -1,10 +1,10 @@
-import * as React from "react";
-import { EmbeddedIconProps, ReactButtonAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { EmbeddedIconProps, ReactButtonAttr } from '../../../typings/shared';
 
-interface InheritedProps extends ReactButtonAttr, EmbeddedIconProps { }
+interface InheritedProps extends ReactButtonAttr, EmbeddedIconProps {}
 
 export interface SearchFilterButtonProps extends InheritedProps {
-    labelText?: string,
+    labelText?: string;
 }
 
 declare const SearchFilterButton: React.FC<SearchFilterButtonProps>;
