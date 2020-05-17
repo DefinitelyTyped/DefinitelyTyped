@@ -2087,6 +2087,156 @@ namespace TestContains {
     }
 }
 
+namespace TestInvoke {
+    // as a small breaking change, consider updating invoke to result in any[]
+    // as a larger breaking change, consider updating invoke to be the following:
+    // invoke<TItem extends {}, TMethod extends { [KItem in keyof TItem]: TItem[KItem] extends Function ? KItem : never }[keyof TItem]>(list: _.List<TItem>, methodName: TMethod, ...args: Parameters<TItem[TMethod]>): ReturnType<TItem[TMethod]>[];
+
+    // without parameters
+    {
+        const functionName = 'func';
+        let array: { func: () => number }[] = [{ [functionName]: Math.random }, { [functionName]: Math.random }];
+        let result: number[];
+
+        result = _.invoke<{ func: () => number }>(array, functionName);
+        result = _.invoke(array, functionName);
+
+        result = _<{ func: () => number }>(array).invoke(functionName);
+        result = _(array).invoke(functionName);
+
+        result = _.chain<{ func: () => number }>(array).invoke(functionName).value();
+        result = _.chain(array).invoke(functionName).value();
+
+        result = _<{ func: () => number }>(array).chain().invoke(functionName).value();
+        result = _(array).chain().invoke(functionName).value();
+    }
+
+    {
+        const functionName = 'func';
+        let list: _.List<{ func: () => number }> = { 0: { [functionName]: Math.random }, 1: { [functionName]: Math.random }, length: 2 };
+        let result: number[];
+
+        result = _.invoke<{ func: () => number }>(list, functionName);
+        result = _.invoke(list, functionName);
+
+        result = _<{ func: () => number }>(list).invoke(functionName);
+        result = _(list).invoke(functionName);
+
+        result = _.chain<{ func: () => number }>(list).invoke(functionName).value();
+        result = _.chain(list).invoke(functionName).value();
+
+        result = _<{ func: () => number }>(list).chain().invoke(functionName).value();
+        result = _(list).chain().invoke(functionName).value();
+    }
+
+    {
+        const functionName = 'func';
+        let dict: _.Dictionary<{ func: () => number }> = { a: { [functionName]: Math.random }, b: { [functionName]: Math.random } };
+        let result: { a: string }[];
+
+        result = _.invoke<{ func: () => number }>(dict, functionName);
+        result = _.invoke(dict, functionName);
+
+        result = _<{ func: () => number }>(dict).invoke(functionName);
+        result = _(dict).invoke(functionName);
+
+        result = _.chain<{ func: () => number }>(dict).invoke(functionName).value();
+        result = _.chain(dict).invoke(functionName).value();
+
+        result = _<{ func: () => number }>(dict).chain().invoke(functionName).value();
+        result = _(dict).chain().invoke(functionName).value();
+    }
+
+    {
+        const functionName = 'trim';
+        let str: string = 'abc';
+        let result: string[];
+
+        result = _.invoke<string>(str, functionName);
+        result = _.invoke(str, functionName);
+
+        result = _<string>(str).invoke(functionName);
+        result = _(str).invoke(functionName);
+
+        result = _<string>(str).chain().invoke(functionName).value();
+        result = _(str).chain().invoke(functionName).value();
+    }
+
+    // with parameters
+    {
+        const functionName = 'func';
+        let array: { func: (input: number) => number }[] = [{ [functionName]: Math.abs }, { [functionName]: Math.abs }];
+        let arg = -1;
+        let result: number[];
+
+        result = _.invoke<{ func: (input: number) => number }>(array, functionName, arg);
+        result = _.invoke(array, functionName, arg);
+
+        result = _<{ func: (input: number) => number }>(array).invoke(functionName, arg);
+        result = _(array).invoke(functionName, arg);
+
+        result = _.chain<{ func: (input: number) => number }>(array).invoke(functionName, arg).value();
+        result = _.chain(array).invoke(functionName, arg).value();
+
+        result = _<{ func: (input: number) => number }>(array).chain().invoke(functionName, arg).value();
+        result = _(array).chain().invoke(functionName, arg).value();
+    }
+
+    {
+        const functionName = 'func';
+        let list: _.List<{ func: (input: number) => number }> = { 0: { [functionName]: Math.abs }, 1: { [functionName]: Math.abs }, length: 2 };
+        let arg = -1;
+        let result: number[];
+
+        result = _.invoke<{ func: (input: number) => number }>(list, functionName, arg);
+        result = _.invoke(list, functionName, arg);
+
+        result = _<{ func: (input: number) => number }>(list).invoke(functionName, arg);
+        result = _(list).invoke(functionName, arg);
+
+        result = _.chain<{ func: (input: number) => number }>(list).invoke(functionName, arg).value();
+        result = _.chain(list).invoke(functionName, arg).value();
+
+        result = _<{ func: (input: number) => number }>(list).chain().invoke(functionName, arg).value();
+        result = _(list).chain().invoke(functionName, arg).value();
+    }
+
+    {
+        const functionName = 'func';
+        let dict: _.Dictionary<{ func: (input: number) => number }> = { a: { [functionName]: Math.abs }, b: { [functionName]: Math.abs } };
+        let arg = -1;
+        let result: { a: string }[];
+
+        result = _.invoke<{ func: (input: number) => number }>(dict, functionName, arg);
+        result = _.invoke(dict, functionName, arg);
+
+        result = _<{ func: (input: number) => number }>(dict).invoke(functionName, arg);
+        result = _(dict).invoke(functionName, arg);
+
+        result = _.chain<{ func: (input: number) => number }>(dict).invoke(functionName, arg).value();
+        result = _.chain(dict).invoke(functionName, arg).value();
+
+        result = _<{ func: (input: number) => number }>(dict).chain().invoke(functionName, arg).value();
+        result = _(dict).chain().invoke(functionName, arg).value();
+    }
+
+    {
+        const functionName = 'substring';
+        let str: string = 'abc';
+        let arg = 1;
+        let result: string[];
+
+        result = _.invoke<string>(str, functionName, arg);
+        result = _.invoke(str, functionName, arg);
+
+        result = _<string>(str).invoke(functionName, arg);
+        result = _(str).invoke(functionName, arg);
+
+        result = _<string>(str).chain().invoke(functionName, arg).value();
+        result = _(str).chain().invoke(functionName, arg).value();
+    }
+}
+
 namespace TestShuffle {
     {
         let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
