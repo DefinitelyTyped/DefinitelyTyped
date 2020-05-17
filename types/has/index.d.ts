@@ -12,5 +12,5 @@
  *
  * @throws {TypeError} If `target` is nullish.
  */
-declare function hasOwnProperty(target: any, property: PropertyKey): boolean;
+declare function hasOwnProperty(target: {}, property: PropertyKey): boolean;
 export = hasOwnProperty;
