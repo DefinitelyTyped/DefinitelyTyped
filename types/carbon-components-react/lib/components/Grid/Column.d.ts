@@ -8,7 +8,7 @@ interface InheritedProps extends ReactAttr<HTMLDivElement>{
 
 }
 
-type ColumnSizing = number | {span: number, size: number}
+type ColumnSizing = number | {span: number, offset: number}
 
 export interface ColumnProps extends InheritedProps{
     sm?: ColumnSizing;
