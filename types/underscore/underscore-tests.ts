@@ -308,7 +308,7 @@ namespace TestMap {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let iterator = (value: string, index: number, list: _.List<string>) => value + 'b';
         let result: string[];
 
@@ -549,7 +549,7 @@ namespace TestReduce {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let iterator = (prev: _.Dictionary<number>, value: string, index: number, list: _.List<string>) => {
             prev[value] = index;
             return prev;
@@ -749,7 +749,7 @@ namespace TestReduceRight {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let iterator = (prev: _.Dictionary<number>, value: string, index: number, list: _.List<string>) => {
             prev[value] = index;
             return prev;
@@ -1071,7 +1071,7 @@ namespace TestFind {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: string | undefined;
 
@@ -1249,7 +1249,7 @@ namespace TestFilter {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: string[];
 
@@ -1481,7 +1481,7 @@ namespace TestReject {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: string[];
 
@@ -1644,7 +1644,7 @@ namespace TestEvery {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: boolean;
 
@@ -1822,7 +1822,7 @@ namespace TestSome {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: boolean;
 
@@ -2040,7 +2040,7 @@ namespace TestContains {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let value = str[0];
         let result: boolean;
 
@@ -2153,7 +2153,7 @@ namespace TestInvoke {
 
     {
         const functionName = 'trim';
-        let str: string = 'abc';
+        let str = 'abc';
         let result: string[];
 
         result = _.invoke<string>(str, functionName);
@@ -2226,7 +2226,7 @@ namespace TestInvoke {
 
     {
         const functionName = 'substring';
-        let str: string = 'abc';
+        let str = 'abc';
         let arg = 1;
         let result: string[];
 
@@ -2294,7 +2294,7 @@ namespace TestShuffle {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let result: string[];
 
         result = _.shuffle<string>(str);
@@ -2365,7 +2365,7 @@ namespace TestSample {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let result: string | undefined;
 
         result = _.sample<string>(str);
@@ -2434,7 +2434,7 @@ namespace TestSample {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let result: string[];
         let n = 2;
 
@@ -2502,7 +2502,7 @@ namespace TestToArray {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let result: string[];
 
         result = _.toArray<string>(str);
@@ -2574,7 +2574,7 @@ namespace TestPartition {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: string[][];
 
@@ -2677,7 +2677,7 @@ namespace TestFirst {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let result: string | undefined;
 
         result = _.first<string>(str);
@@ -2794,7 +2794,7 @@ namespace TestFirst {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let n = 2;
         let result: string[];
 
@@ -2864,7 +2864,7 @@ namespace TestInitial {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let result: string[];
 
         result = _.initial<string>(str);
@@ -2915,7 +2915,7 @@ namespace TestInitial {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let result: string[];
         let n = 2;
 
@@ -2967,7 +2967,7 @@ namespace TestLast {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let result: string | undefined;
 
         result = _.last<string>(str);
@@ -3018,7 +3018,7 @@ namespace TestLast {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let n = 2;
         let result: string[];
 
@@ -3118,7 +3118,7 @@ namespace TestRest {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let result: string[];
 
         result = _.rest<string>(str);
@@ -3235,7 +3235,7 @@ namespace TestRest {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let n = 2;
         let result: string[];
 
@@ -3431,7 +3431,7 @@ namespace TestWithout {
     }
 
     {
-        let str: string = 'abc';
+        let str = 'abc';
         let item = str[0];
         let result: string[];
 
