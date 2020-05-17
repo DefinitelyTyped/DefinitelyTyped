@@ -4282,25 +4282,25 @@ declare module _ {
 
         /**
         * Wrapped type `any[]`.
-        * @see _.all
-        **/
-        all(iterator?: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): boolean;
-
-        /**
-        * @see _.all
+        * @see _.every
         **/
         every(iterator?: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): boolean;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.any
+        * @see _.every
         **/
-        any(iterator?: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): boolean;
+        all(iterator?: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): boolean;
 
         /**
-        * @see _.any
+        * Wrapped type `any[]`.
+        * @see _.some
         **/
         some(iterator?: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): boolean;
+
+        /**
+        * @see _.some
+        **/
+        any(iterator?: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): boolean;
 
         /**
         * Wrapped type `any[]`.
@@ -5242,25 +5242,25 @@ declare module _ {
 
         /**
         * Wrapped type `any[]`.
-        * @see _.all
+        * @see _.every
         **/
-        all(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+        every(iterator?: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
         /**
-        * @see _.all
+        * @see _.every
         **/
-        every(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+        all(iterator?: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
         /**
         * Wrapped type `any[]`.
-        * @see _.any
+        * @see _.some
         **/
-        any(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+        some(iterator?: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
         /**
-        * @see _.any
+        * @see _.some
         **/
-        some(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+        any(iterator?: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
         /**
         * Wrapped type `any[]`.
