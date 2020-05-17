@@ -117,7 +117,7 @@ declare namespace Mailgun {
 
         type SendTemplateData = SendData & {
             template: string;
-            [templateVariable: string]: string;
+            [templateVariable: string]: any;
         };
 
         interface BatchSendRecipientVars {
