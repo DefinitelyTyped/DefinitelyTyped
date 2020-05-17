@@ -4151,7 +4151,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.each
         **/
-        each(iterator: _.ListIterator<T, void>, context?: any): _.List<T>;
+        each(iterator: _.ListIterator<T, void>, context?: any): V;
 
         /**
         * @see _.each
@@ -4161,7 +4161,7 @@ declare module _ {
         /**
         * @see _.each
         **/
-        forEach(iterator: _.ListIterator<T, void>, context?: any): _.List<T>;
+        forEach(iterator: _.ListIterator<T, void>, context?: any): V;
 
         /**
         * @see _.each
@@ -5088,7 +5088,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.each
         **/
-        each(iterator: _.ListIterator<T, void>, context?: any): _Chain<T, T[]>;
+        each(iterator: _.ListIterator<T, void>, context?: any): _Chain<T, V>;
 
         /**
         * @see _.each
@@ -5098,7 +5098,7 @@ declare module _ {
         /**
         * @see _.each
         **/
-        forEach(iterator: _.ListIterator<T, void>, context?: any): _Chain<T, T[]>;
+        forEach(iterator: _.ListIterator<T, void>, context?: any): _Chain<T, V>;
 
         /**
         * @see _.each
