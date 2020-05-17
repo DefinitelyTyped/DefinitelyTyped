@@ -344,6 +344,451 @@ namespace TestMap {
     }
 }
 
+namespace TestReduce {
+    let context = {};
+
+    {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
+        let memo = '';
+        let result: string;
+
+        result = _.reduce<{ a: string }, string>(array, iterator, memo);
+        result = _.reduce<{ a: string }, string>(array, iterator, memo, context);
+        result = _.reduce(array, iterator, memo);
+        result = _.reduce(array, iterator, memo, context);
+
+        result = _<{ a: string }>(array).reduce<string>(iterator, memo);
+        result = _<{ a: string }>(array).reduce<string>(iterator, memo, context);
+        result = _(array).reduce(iterator, memo);
+        result = _(array).reduce(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(array).reduce<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(array).reduce<string>(iterator, memo, context).value();
+        result = _.chain(array).reduce(iterator, memo).value();
+        result = _.chain(array).reduce(iterator, memo, context).value();
+
+        result = _<{ a: string }>(array).chain().reduce<string>(iterator, memo).value();
+        result = _<{ a: string }>(array).chain().reduce<string>(iterator, memo, context).value();
+        result = _(array).chain().reduce(iterator, memo).value();
+        result = _(array).chain().reduce(iterator, memo, context).value();
+
+        result = _.foldl<{ a: string }, string>(array, iterator, memo);
+        result = _.foldl<{ a: string }, string>(array, iterator, memo, context);
+        result = _.foldl(array, iterator, memo);
+        result = _.foldl(array, iterator, memo, context);
+
+        result = _<{ a: string }>(array).foldl<string>(iterator, memo);
+        result = _<{ a: string }>(array).foldl<string>(iterator, memo, context);
+        result = _(array).foldl(iterator, memo);
+        result = _(array).foldl(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(array).foldl<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(array).foldl<string>(iterator, memo, context).value();
+        result = _.chain(array).foldl(iterator, memo).value();
+        result = _.chain(array).foldl(iterator, memo, context).value();
+
+        result = _<{ a: string }>(array).chain().foldl<string>(iterator, memo).value();
+        result = _<{ a: string }>(array).chain().foldl<string>(iterator, memo, context).value();
+        result = _(array).chain().foldl(iterator, memo).value();
+        result = _(array).chain().foldl(iterator, memo, context).value();
+
+        result = _.inject<{ a: string }, string>(array, iterator, memo);
+        result = _.inject<{ a: string }, string>(array, iterator, memo, context);
+        result = _.inject(array, iterator, memo);
+        result = _.inject(array, iterator, memo, context);
+
+        result = _<{ a: string }>(array).inject<string>(iterator, memo);
+        result = _<{ a: string }>(array).inject<string>(iterator, memo, context);
+        result = _(array).inject(iterator, memo);
+        result = _(array).inject(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(array).inject<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(array).inject<string>(iterator, memo, context).value();
+        result = _.chain(array).inject(iterator, memo).value();
+        result = _.chain(array).inject(iterator, memo, context).value();
+
+        result = _<{ a: string }>(array).chain().inject<string>(iterator, memo).value();
+        result = _<{ a: string }>(array).chain().inject<string>(iterator, memo, context).value();
+        result = _(array).chain().inject(iterator, memo).value();
+        result = _(array).chain().inject(iterator, memo, context).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
+        let memo = '';
+        let result: string;
+
+        result = _.reduce<{ a: string }, string>(list, iterator, memo);
+        result = _.reduce<{ a: string }, string>(list, iterator, memo, context);
+        result = _.reduce(list, iterator, memo);
+        result = _.reduce(list, iterator, memo, context);
+
+        result = _<{ a: string }>(list).reduce<string>(iterator, memo);
+        result = _<{ a: string }>(list).reduce<string>(iterator, memo, context);
+        result = _(list).reduce(iterator, memo);
+        result = _(list).reduce(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(list).reduce<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(list).reduce<string>(iterator, memo, context).value();
+        result = _.chain(list).reduce(iterator, memo).value();
+        result = _.chain(list).reduce(iterator, memo, context).value();
+
+        result = _<{ a: string }>(list).chain().reduce<string>(iterator, memo).value();
+        result = _<{ a: string }>(list).chain().reduce<string>(iterator, memo, context).value();
+        result = _(list).chain().reduce(iterator, memo).value();
+        result = _(list).chain().reduce(iterator, memo, context).value();
+
+        result = _.foldl<{ a: string }, string>(list, iterator, memo);
+        result = _.foldl<{ a: string }, string>(list, iterator, memo, context);
+        result = _.foldl(list, iterator, memo);
+        result = _.foldl(list, iterator, memo, context);
+
+        result = _<{ a: string }>(list).foldl<string>(iterator, memo);
+        result = _<{ a: string }>(list).foldl<string>(iterator, memo, context);
+        result = _(list).foldl(iterator, memo);
+        result = _(list).foldl(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(list).foldl<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(list).foldl<string>(iterator, memo, context).value();
+        result = _.chain(list).foldl(iterator, memo).value();
+        result = _.chain(list).foldl(iterator, memo, context).value();
+
+        result = _<{ a: string }>(list).chain().foldl<string>(iterator, memo).value();
+        result = _<{ a: string }>(list).chain().foldl<string>(iterator, memo, context).value();
+        result = _(list).chain().foldl(iterator, memo).value();
+        result = _(list).chain().foldl(iterator, memo, context).value();
+
+        result = _.inject<{ a: string }, string>(list, iterator, memo);
+        result = _.inject<{ a: string }, string>(list, iterator, memo, context);
+        result = _.inject(list, iterator, memo);
+        result = _.inject(list, iterator, memo, context);
+
+        result = _<{ a: string }>(list).inject<string>(iterator, memo);
+        result = _<{ a: string }>(list).inject<string>(iterator, memo, context);
+        result = _(list).inject(iterator, memo);
+        result = _(list).inject(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(list).inject<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(list).inject<string>(iterator, memo, context).value();
+        result = _.chain(list).inject(iterator, memo).value();
+        result = _.chain(list).inject(iterator, memo, context).value();
+
+        result = _<{ a: string }>(list).chain().inject<string>(iterator, memo).value();
+        result = _<{ a: string }>(list).chain().inject<string>(iterator, memo, context).value();
+        result = _(list).chain().inject(iterator, memo).value();
+        result = _(list).chain().inject(iterator, memo, context).value();
+    }
+
+    {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let iterator = (prev: string, element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => prev + element.a;
+        let memo = '';
+        let result: string;
+
+        result = _.reduce<{ a: string }, string>(dict, iterator, memo);
+        result = _.reduce<{ a: string }, string>(dict, iterator, memo, context);
+        result = _.reduce(dict, iterator, memo);
+        result = _.reduce(dict, iterator, memo, context);
+
+        result = _<{ a: string }>(dict).reduce<string>(iterator, memo);
+        result = _<{ a: string }>(dict).reduce<string>(iterator, memo, context);
+        result = _(dict).reduce(iterator, memo);
+        result = _(dict).reduce(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(dict).reduce<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(dict).reduce<string>(iterator, memo, context).value();
+        result = _.chain(dict).reduce(iterator, memo).value();
+        result = _.chain(dict).reduce(iterator, memo, context).value();
+
+        result = _<{ a: string }>(dict).chain().reduce<string>(iterator, memo).value();
+        result = _<{ a: string }>(dict).chain().reduce<string>(iterator, memo, context).value();
+        result = _(dict).chain().reduce(iterator, memo).value();
+        result = _(dict).chain().reduce(iterator, memo, context).value();
+
+        result = _.foldl<{ a: string }, string>(dict, iterator, memo);
+        result = _.foldl<{ a: string }, string>(dict, iterator, memo, context);
+        result = _.foldl(dict, iterator, memo);
+        result = _.foldl(dict, iterator, memo, context);
+
+        result = _<{ a: string }>(dict).foldl<string>(iterator, memo);
+        result = _<{ a: string }>(dict).foldl<string>(iterator, memo, context);
+        result = _(dict).foldl(iterator, memo);
+        result = _(dict).foldl(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(dict).foldl<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(dict).foldl<string>(iterator, memo, context).value();
+        result = _.chain(dict).foldl(iterator, memo).value();
+        result = _.chain(dict).foldl(iterator, memo, context).value();
+
+        result = _<{ a: string }>(dict).chain().foldl<string>(iterator, memo).value();
+        result = _<{ a: string }>(dict).chain().foldl<string>(iterator, memo, context).value();
+        result = _(dict).chain().foldl(iterator, memo).value();
+        result = _(dict).chain().foldl(iterator, memo, context).value();
+
+        result = _.inject<{ a: string }, string>(dict, iterator, memo);
+        result = _.inject<{ a: string }, string>(dict, iterator, memo, context);
+        result = _.inject(dict, iterator, memo);
+        result = _.inject(dict, iterator, memo, context);
+
+        result = _<{ a: string }>(dict).inject<string>(iterator, memo);
+        result = _<{ a: string }>(dict).inject<string>(iterator, memo, context);
+        result = _(dict).inject(iterator, memo);
+        result = _(dict).inject(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(dict).inject<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(dict).inject<string>(iterator, memo, context).value();
+        result = _.chain(dict).inject(iterator, memo).value();
+        result = _.chain(dict).inject(iterator, memo, context).value();
+
+        result = _<{ a: string }>(dict).chain().inject<string>(iterator, memo).value();
+        result = _<{ a: string }>(dict).chain().inject<string>(iterator, memo, context).value();
+        result = _(dict).chain().inject(iterator, memo).value();
+        result = _(dict).chain().inject(iterator, memo, context).value();
+    }
+
+    {
+        let str: string = 'abc';
+        let iterator = (prev: _.Dictionary<number>, value: string, index: number, list: _.List<string>) => {
+            prev[value] = index;
+            return prev;
+        };
+        let memo: _.Dictionary<number> = {};
+        let result: _.Dictionary<number>;
+
+        result = _.reduce<string, _.Dictionary<number>>(str, iterator, memo);
+        result = _.reduce<string, _.Dictionary<number>>(str, iterator, memo, context);
+        result = _.reduce(str, iterator, memo);
+        result = _.reduce(str, iterator, memo, context);
+
+        result = _<string>(str).reduce<_.Dictionary<number>>(iterator, memo);
+        result = _<string>(str).reduce<_.Dictionary<number>>(iterator, memo, context);
+        result = _(str).reduce(iterator, memo);
+        result = _(str).reduce(iterator, memo, context);
+
+        result = _<string>(str).chain().reduce<_.Dictionary<number>>(iterator, memo).value();
+        result = _<string>(str).chain().reduce<_.Dictionary<number>>(iterator, memo, context).value();
+        result = _(str).chain().reduce(iterator, memo).value();
+        result = _(str).chain().reduce(iterator, memo, context).value();
+
+        result = _.foldl<string, _.Dictionary<number>>(str, iterator, memo);
+        result = _.foldl<string, _.Dictionary<number>>(str, iterator, memo, context);
+        result = _.foldl(str, iterator, memo);
+        result = _.foldl(str, iterator, memo, context);
+
+        result = _<string>(str).foldl<_.Dictionary<number>>(iterator, memo);
+        result = _<string>(str).foldl<_.Dictionary<number>>(iterator, memo, context);
+        result = _(str).foldl(iterator, memo);
+        result = _(str).foldl(iterator, memo, context);
+
+        result = _<string>(str).chain().foldl<_.Dictionary<number>>(iterator, memo).value();
+        result = _<string>(str).chain().foldl<_.Dictionary<number>>(iterator, memo, context).value();
+        result = _(str).chain().foldl(iterator, memo).value();
+        result = _(str).chain().foldl(iterator, memo, context).value();
+
+        result = _.inject<string, _.Dictionary<number>>(str, iterator, memo);
+        result = _.inject<string, _.Dictionary<number>>(str, iterator, memo, context);
+        result = _.inject(str, iterator, memo);
+        result = _.inject(str, iterator, memo, context);
+
+        result = _<string>(str).inject<_.Dictionary<number>>(iterator, memo);
+        result = _<string>(str).inject<_.Dictionary<number>>(iterator, memo, context);
+        result = _(str).inject(iterator, memo);
+        result = _(str).inject(iterator, memo, context);
+
+        result = _<string>(str).chain().inject<_.Dictionary<number>>(iterator, memo).value();
+        result = _<string>(str).chain().inject<_.Dictionary<number>>(iterator, memo, context).value();
+        result = _(str).chain().inject(iterator, memo).value();
+        result = _(str).chain().inject(iterator, memo, context).value();
+    }
+}
+
+namespace TestReduceRight {
+    let context = {};
+
+    {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
+        let memo = '';
+        let result: string;
+
+        result = _.reduceRight<{ a: string }, string>(array, iterator, memo);
+        result = _.reduceRight<{ a: string }, string>(array, iterator, memo, context);
+        result = _.reduceRight(array, iterator, memo);
+        result = _.reduceRight(array, iterator, memo, context);
+
+        result = _<{ a: string }>(array).reduceRight<string>(iterator, memo);
+        result = _<{ a: string }>(array).reduceRight<string>(iterator, memo, context);
+        result = _(array).reduceRight(iterator, memo);
+        result = _(array).reduceRight(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(array).reduceRight<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(array).reduceRight<string>(iterator, memo, context).value();
+        result = _.chain(array).reduceRight(iterator, memo).value();
+        result = _.chain(array).reduceRight(iterator, memo, context).value();
+
+        result = _<{ a: string }>(array).chain().reduceRight<string>(iterator, memo).value();
+        result = _<{ a: string }>(array).chain().reduceRight<string>(iterator, memo, context).value();
+        result = _(array).chain().reduceRight(iterator, memo).value();
+        result = _(array).chain().reduceRight(iterator, memo, context).value();
+
+        result = _.foldr<{ a: string }, string>(array, iterator, memo);
+        result = _.foldr<{ a: string }, string>(array, iterator, memo, context);
+        result = _.foldr(array, iterator, memo);
+        result = _.foldr(array, iterator, memo, context);
+
+        result = _<{ a: string }>(array).foldr<string>(iterator, memo);
+        result = _<{ a: string }>(array).foldr<string>(iterator, memo, context);
+        result = _(array).foldr(iterator, memo);
+        result = _(array).foldr(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(array).foldr<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(array).foldr<string>(iterator, memo, context).value();
+        result = _.chain(array).foldr(iterator, memo).value();
+        result = _.chain(array).foldr(iterator, memo, context).value();
+
+        result = _<{ a: string }>(array).chain().foldr<string>(iterator, memo).value();
+        result = _<{ a: string }>(array).chain().foldr<string>(iterator, memo, context).value();
+        result = _(array).chain().foldr(iterator, memo).value();
+        result = _(array).chain().foldr(iterator, memo, context).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
+        let memo = '';
+        let result: string;
+
+        result = _.reduceRight<{ a: string }, string>(list, iterator, memo);
+        result = _.reduceRight<{ a: string }, string>(list, iterator, memo, context);
+        result = _.reduceRight(list, iterator, memo);
+        result = _.reduceRight(list, iterator, memo, context);
+
+        result = _<{ a: string }>(list).reduceRight<string>(iterator, memo);
+        result = _<{ a: string }>(list).reduceRight<string>(iterator, memo, context);
+        result = _(list).reduceRight(iterator, memo);
+        result = _(list).reduceRight(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(list).reduceRight<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(list).reduceRight<string>(iterator, memo, context).value();
+        result = _.chain(list).reduceRight(iterator, memo).value();
+        result = _.chain(list).reduceRight(iterator, memo, context).value();
+
+        result = _<{ a: string }>(list).chain().reduceRight<string>(iterator, memo).value();
+        result = _<{ a: string }>(list).chain().reduceRight<string>(iterator, memo, context).value();
+        result = _(list).chain().reduceRight(iterator, memo).value();
+        result = _(list).chain().reduceRight(iterator, memo, context).value();
+
+        result = _.foldr<{ a: string }, string>(list, iterator, memo);
+        result = _.foldr<{ a: string }, string>(list, iterator, memo, context);
+        result = _.foldr(list, iterator, memo);
+        result = _.foldr(list, iterator, memo, context);
+
+        result = _<{ a: string }>(list).foldr<string>(iterator, memo);
+        result = _<{ a: string }>(list).foldr<string>(iterator, memo, context);
+        result = _(list).foldr(iterator, memo);
+        result = _(list).foldr(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(list).foldr<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(list).foldr<string>(iterator, memo, context).value();
+        result = _.chain(list).foldr(iterator, memo).value();
+        result = _.chain(list).foldr(iterator, memo, context).value();
+
+        result = _<{ a: string }>(list).chain().foldr<string>(iterator, memo).value();
+        result = _<{ a: string }>(list).chain().foldr<string>(iterator, memo, context).value();
+        result = _(list).chain().foldr(iterator, memo).value();
+        result = _(list).chain().foldr(iterator, memo, context).value();
+    }
+
+    {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let iterator = (prev: string, element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => prev + element.a;
+        let memo = '';
+        let result: string;
+
+        result = _.reduceRight<{ a: string }, string>(dict, iterator, memo);
+        result = _.reduceRight<{ a: string }, string>(dict, iterator, memo, context);
+        result = _.reduceRight(dict, iterator, memo);
+        result = _.reduceRight(dict, iterator, memo, context);
+
+        result = _<{ a: string }>(dict).reduceRight<string>(iterator, memo);
+        result = _<{ a: string }>(dict).reduceRight<string>(iterator, memo, context);
+        result = _(dict).reduceRight(iterator, memo);
+        result = _(dict).reduceRight(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(dict).reduceRight<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(dict).reduceRight<string>(iterator, memo, context).value();
+        result = _.chain(dict).reduceRight(iterator, memo).value();
+        result = _.chain(dict).reduceRight(iterator, memo, context).value();
+
+        result = _<{ a: string }>(dict).chain().reduceRight<string>(iterator, memo).value();
+        result = _<{ a: string }>(dict).chain().reduceRight<string>(iterator, memo, context).value();
+        result = _(dict).chain().reduceRight(iterator, memo).value();
+        result = _(dict).chain().reduceRight(iterator, memo, context).value();
+
+        result = _.foldr<{ a: string }, string>(dict, iterator, memo);
+        result = _.foldr<{ a: string }, string>(dict, iterator, memo, context);
+        result = _.foldr(dict, iterator, memo);
+        result = _.foldr(dict, iterator, memo, context);
+
+        result = _<{ a: string }>(dict).foldr<string>(iterator, memo);
+        result = _<{ a: string }>(dict).foldr<string>(iterator, memo, context);
+        result = _(dict).foldr(iterator, memo);
+        result = _(dict).foldr(iterator, memo, context);
+
+        result = _.chain<{ a: string }>(dict).foldr<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(dict).foldr<string>(iterator, memo, context).value();
+        result = _.chain(dict).foldr(iterator, memo).value();
+        result = _.chain(dict).foldr(iterator, memo, context).value();
+
+        result = _<{ a: string }>(dict).chain().foldr<string>(iterator, memo).value();
+        result = _<{ a: string }>(dict).chain().foldr<string>(iterator, memo, context).value();
+        result = _(dict).chain().foldr(iterator, memo).value();
+        result = _(dict).chain().foldr(iterator, memo, context).value();
+    }
+
+    {
+        let str: string = 'abc';
+        let iterator = (prev: _.Dictionary<number>, value: string, index: number, list: _.List<string>) => {
+            prev[value] = index;
+            return prev;
+        };
+        let memo: _.Dictionary<number> = {};
+        let result: _.Dictionary<number>;
+
+        result = _.reduceRight<string, _.Dictionary<number>>(str, iterator, memo);
+        result = _.reduceRight<string, _.Dictionary<number>>(str, iterator, memo, context);
+        result = _.reduceRight(str, iterator, memo);
+        result = _.reduceRight(str, iterator, memo, context);
+
+        result = _<string>(str).reduceRight<_.Dictionary<number>>(iterator, memo);
+        result = _<string>(str).reduceRight<_.Dictionary<number>>(iterator, memo, context);
+        result = _(str).reduceRight(iterator, memo);
+        result = _(str).reduceRight(iterator, memo, context);
+
+        result = _<string>(str).chain().reduceRight<_.Dictionary<number>>(iterator, memo).value();
+        result = _<string>(str).chain().reduceRight<_.Dictionary<number>>(iterator, memo, context).value();
+        result = _(str).chain().reduceRight(iterator, memo).value();
+        result = _(str).chain().reduceRight(iterator, memo, context).value();
+
+        result = _.foldr<string, _.Dictionary<number>>(str, iterator, memo);
+        result = _.foldr<string, _.Dictionary<number>>(str, iterator, memo, context);
+        result = _.foldr(str, iterator, memo);
+        result = _.foldr(str, iterator, memo, context);
+
+        result = _<string>(str).foldr<_.Dictionary<number>>(iterator, memo);
+        result = _<string>(str).foldr<_.Dictionary<number>>(iterator, memo, context);
+        result = _(str).foldr(iterator, memo);
+        result = _(str).foldr(iterator, memo, context);
+
+        result = _<string>(str).chain().foldr<_.Dictionary<number>>(iterator, memo).value();
+        result = _<string>(str).chain().foldr<_.Dictionary<number>>(iterator, memo, context).value();
+        result = _(str).chain().foldr(iterator, memo).value();
+        result = _(str).chain().foldr(iterator, memo, context).value();
+    }
+}
+
 namespace TestFind {
     let context = {};
 
@@ -477,10 +922,6 @@ namespace TestFind {
 
         result = _(str).chain().detect<string>(iterator).value();
         result = _(str).chain().detect<string>(iterator, context).value();
-    }
-
-    {
-        _(list).map(x => x.a);
     }
 }
 
