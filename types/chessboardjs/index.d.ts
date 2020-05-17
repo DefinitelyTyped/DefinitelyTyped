@@ -34,7 +34,7 @@ export type DropOffBoardType = 'snapback' | 'trash';
 export type Callback = () => void;
 
 export interface BoardConfig {
-    onDrop?: Callback;
+    onDrop?: Callback | () => 'snapback' | 'trash' | 'drop';
     draggable?: boolean;
     onChange?: Callback;
     onMoveEnd?: Callback;
