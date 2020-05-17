@@ -47,6 +47,12 @@ function testUsingWithExpress() {
     });
 }
 
+function testUsingWithOptions() {
+    var app = require('express')();
+    var server = require('http').Server(app);
+    var io = socketIO(server, {wsEngine: 'ws'});
+}
+
 function testUsingWithTheExpressFramework() {
     var app = require('express').createServer();
     var io = socketIO(app);

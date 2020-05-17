@@ -82,7 +82,7 @@ declare namespace engine {
          * conform to the ws interface (see ws module api docs). Default value is ws.
          * An alternative c++ addon is also available by installing uws module.
          */
-        wsEngine?: "ws"|"uws";
+        wsEngine?: "ws"|"uws"|string;
         /**
          * an optional packet which will be concatenated to the handshake packet emitted by Engine.IO.
          */
