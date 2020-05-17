@@ -789,7 +789,7 @@ declare module _ {
         size<T>(list: _.Collection<T>): number;
 
         /**
-        * Split array into two arrays:
+        * Split list into two arrays:
         * one whose elements all satisfy predicate and one whose elements all do not satisfy predicate.
         * @param array Array to split in two.
         * @param iterator Filter iterator function for each element in `array`.
@@ -797,8 +797,16 @@ declare module _ {
         * @return Array where Array[0] are the elements in `array` that satisfies the predicate, and Array[1] the elements that did not.
         **/
         partition<T>(
-            array: Array<T>,
+            array: _.List<T>,
             iterator: _.ListIterator<T, boolean>,
+            context?: any): T[][];
+
+        /**
+        * @see _.partition.
+        **/
+        partition<T>(
+            array: _.Dictionary<T>,
+            iterator: _.ObjectIterator<T, boolean>,
             context?: any): T[][];
 
         /*********
@@ -4523,7 +4531,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.partition
         **/
-        partition(iterator: _.ListIterator<T, boolean>, context?: any): T[][];
+        partition(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): T[][];
 
         /**
         * Wrapped type `any[][]`.
@@ -5483,7 +5491,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.partition
         **/
-        partition(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T[], [T[], T[]]>;
+        partition(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _Chain<T[], [T[], T[]]>;
 
         /**
         * Wrapped type `any[][]`.
