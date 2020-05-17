@@ -5284,7 +5284,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.invoke
         **/
-        invoke(methodName: string, ...args: any[]): _Chain<T, T[]>;
+        invoke(methodName: string, ...args: any[]): _Chain<T, any>;
 
         /**
         * Wrapped type `any[]`.
