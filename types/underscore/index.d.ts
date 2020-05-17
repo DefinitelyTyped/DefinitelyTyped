@@ -136,6 +136,20 @@ declare module _ {
         * @param context 'this' object in `iterator`, optional.
         **/
         each<T>(
+            list: T[],
+            iterator: _.ListIterator<T, void>,
+            context?: any): T[];
+
+        /**
+        * Iterates over a list of elements, yielding each in turn to an iterator function. The iterator is
+        * bound to the context object, if one is passed. Each invocation of iterator is called with three
+        * arguments: (element, index, list). If list is a JavaScript object, iterator's arguments will be
+        * (value, key, object). Delegates to the native forEach function if it exists.
+        * @param list Iterates over this list of elements.
+        * @param iterator Iterator function for each element `list`.
+        * @param context 'this' object in `iterator`, optional.
+        **/
+        each<T>(
             list: _.List<T>,
             iterator: _.ListIterator<T, void>,
             context?: any): _.List<T>;
@@ -150,6 +164,14 @@ declare module _ {
             object: _.Dictionary<T>,
             iterator: _.ObjectIterator<T, void>,
             context?: any): _.Dictionary<T>;
+
+        /**
+        * @see _.each
+        **/
+        forEach<T>(
+            list: T[],
+            iterator: _.ListIterator<T, void>,
+            context?: any): T[];
 
         /**
         * @see _.each
