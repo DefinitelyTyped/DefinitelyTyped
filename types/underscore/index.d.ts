@@ -589,7 +589,7 @@ declare module _ {
         * @param arguments Additional arguments to pass to the method `methodName`.
         **/
         invoke<T extends {}>(
-            list: _.List<T>,
+            list: _.List<T> | _.Dictionary<T>,
             methodName: string,
             ...args: any[]): any;
 
