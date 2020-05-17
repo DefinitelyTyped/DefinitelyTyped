@@ -413,7 +413,7 @@ declare module _ {
         * @return The elements within `list` that contain the required `properties`.
         **/
         where<T, U extends {}>(
-            list: _.List<T>,
+            list: _.List<T> | _.Dictionary<T>,
             properties: U): T[];
 
         /**
@@ -423,7 +423,7 @@ declare module _ {
         * @return The first element in `list` that has all `properties`.
         **/
         findWhere<T, U extends {}>(
-            list: _.List<T>,
+            list: _.List<T> | _.Dictionary<T>,
             properties: U): T | undefined;
 
         /**
