@@ -1502,6 +1502,591 @@ namespace TestReject {
     }
 }
 
+namespace TestEvery {
+    let context = {};
+
+    {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: boolean;
+
+        result = _.every<{ a: string }>(array, iterator);
+        result = _.every<{ a: string }>(array, iterator, context);
+        result = _.every(array, iterator);
+        result = _.every(array, iterator, context);
+
+        result = _<{ a: string }>(array).every(iterator);
+        result = _<{ a: string }>(array).every(iterator, context);
+        result = _(array).every(iterator);
+        result = _(array).every(iterator, context);
+
+        result = _.chain<{ a: string }>(array).every(iterator).value();
+        result = _.chain<{ a: string }>(array).every(iterator, context).value();
+        result = _.chain(array).every(iterator).value();
+        result = _.chain(array).every(iterator, context).value();
+
+        result = _<{ a: string }>(array).chain().every(iterator).value();
+        result = _<{ a: string }>(array).chain().every(iterator, context).value();
+        result = _(array).chain().every(iterator).value();
+        result = _(array).chain().every(iterator, context).value();
+
+        result = _.all<{ a: string }>(array, iterator);
+        result = _.all<{ a: string }>(array, iterator, context);
+        result = _.all(array, iterator);
+        result = _.all(array, iterator, context);
+
+        result = _<{ a: string }>(array).all(iterator);
+        result = _<{ a: string }>(array).all(iterator, context);
+        result = _(array).all(iterator);
+        result = _(array).all(iterator, context);
+
+        result = _.chain<{ a: string }>(array).all(iterator).value();
+        result = _.chain<{ a: string }>(array).all(iterator, context).value();
+        result = _.chain(array).all(iterator).value();
+        result = _.chain(array).all(iterator, context).value();
+
+        result = _<{ a: string }>(array).chain().all(iterator).value();
+        result = _<{ a: string }>(array).chain().all(iterator, context).value();
+        result = _(array).chain().all(iterator).value();
+        result = _(array).chain().all(iterator, context).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: boolean;
+
+        result = _.every<{ a: string }>(list, iterator);
+        result = _.every<{ a: string }>(list, iterator, context);
+        result = _.every(list, iterator);
+        result = _.every(list, iterator, context);
+
+        result = _<{ a: string }>(list).every(iterator);
+        result = _<{ a: string }>(list).every(iterator, context);
+        result = _(list).every(iterator);
+        result = _(list).every(iterator, context);
+
+        result = _.chain<{ a: string }>(list).every(iterator).value();
+        result = _.chain<{ a: string }>(list).every(iterator, context).value();
+        result = _.chain(list).every(iterator).value();
+        result = _.chain(list).every(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().every(iterator).value();
+        result = _<{ a: string }>(list).chain().every(iterator, context).value();
+        result = _(list).chain().every(iterator).value();
+        result = _(list).chain().every(iterator, context).value();
+
+        result = _.all<{ a: string }>(list, iterator);
+        result = _.all<{ a: string }>(list, iterator, context);
+        result = _.all(list, iterator);
+        result = _.all(list, iterator, context);
+
+        result = _<{ a: string }>(list).all(iterator);
+        result = _<{ a: string }>(list).all(iterator, context);
+        result = _(list).all(iterator);
+        result = _(list).all(iterator, context);
+
+        result = _.chain<{ a: string }>(list).all(iterator).value();
+        result = _.chain<{ a: string }>(list).all(iterator, context).value();
+        result = _.chain(list).all(iterator).value();
+        result = _.chain(list).all(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().all(iterator).value();
+        result = _<{ a: string }>(list).chain().all(iterator, context).value();
+        result = _(list).chain().all(iterator).value();
+        result = _(list).chain().all(iterator, context).value();
+    }
+
+    {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
+        let result: boolean;
+
+        result = _.every<{ a: string }>(dict, iterator);
+        result = _.every<{ a: string }>(dict, iterator, context);
+        result = _.every(dict, iterator);
+        result = _.every(dict, iterator, context);
+
+        result = _<{ a: string }>(dict).every(iterator);
+        result = _<{ a: string }>(dict).every(iterator, context);
+        result = _(dict).every(iterator);
+        result = _(dict).every(iterator, context);
+
+        result = _.chain<{ a: string }>(dict).every(iterator).value();
+        result = _.chain<{ a: string }>(dict).every(iterator, context).value();
+        result = _.chain(dict).every(iterator).value();
+        result = _.chain(dict).every(iterator, context).value();
+
+        result = _<{ a: string }>(dict).chain().every(iterator).value();
+        result = _<{ a: string }>(dict).chain().every(iterator, context).value();
+        result = _(dict).chain().every(iterator).value();
+        result = _(dict).chain().every(iterator, context).value();
+
+        result = _.all<{ a: string }>(dict, iterator);
+        result = _.all<{ a: string }>(dict, iterator, context);
+        result = _.all(dict, iterator);
+        result = _.all(dict, iterator, context);
+
+        result = _<{ a: string }>(dict).all(iterator);
+        result = _<{ a: string }>(dict).all(iterator, context);
+        result = _(dict).all(iterator);
+        result = _(dict).all(iterator, context);
+
+        result = _.chain<{ a: string }>(dict).all(iterator).value();
+        result = _.chain<{ a: string }>(dict).all(iterator, context).value();
+        result = _.chain(dict).all(iterator).value();
+        result = _.chain(dict).all(iterator, context).value();
+
+        result = _<{ a: string }>(dict).chain().all(iterator).value();
+        result = _<{ a: string }>(dict).chain().all(iterator, context).value();
+        result = _(dict).chain().all(iterator).value();
+        result = _(dict).chain().all(iterator, context).value();
+    }
+
+    {
+        let str: string = 'abc';
+        let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        let result: boolean;
+
+        result = _.every<string>(str, iterator);
+        result = _.every<string>(str, iterator, context);
+        result = _.every(str, iterator);
+        result = _.every(str, iterator, context);
+
+        result = _<string>(str).every(iterator);
+        result = _<string>(str).every(iterator, context);
+        result = _(str).every(iterator);
+        result = _(str).every(iterator, context);
+
+        result = _<string>(str).chain().every(iterator).value();
+        result = _<string>(str).chain().every(iterator, context).value();
+        result = _(str).chain().every(iterator).value();
+        result = _(str).chain().every(iterator, context).value();
+
+        result = _.all<string>(str, iterator);
+        result = _.all<string>(str, iterator, context);
+        result = _.all(str, iterator);
+        result = _.all(str, iterator, context);
+
+        result = _<string>(str).all(iterator);
+        result = _<string>(str).all(iterator, context);
+        result = _(str).all(iterator);
+        result = _(str).all(iterator, context);
+
+        result = _<string>(str).chain().all(iterator).value();
+        result = _<string>(str).chain().all(iterator, context).value();
+        result = _(str).chain().all(iterator).value();
+        result = _(str).chain().all(iterator, context).value();
+    }
+}
+
+namespace TestSome {
+    let context = {};
+
+    {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: boolean;
+
+        result = _.some<{ a: string }>(array, iterator);
+        result = _.some<{ a: string }>(array, iterator, context);
+        result = _.some(array, iterator);
+        result = _.some(array, iterator, context);
+
+        result = _<{ a: string }>(array).some(iterator);
+        result = _<{ a: string }>(array).some(iterator, context);
+        result = _(array).some(iterator);
+        result = _(array).some(iterator, context);
+
+        result = _.chain<{ a: string }>(array).some(iterator).value();
+        result = _.chain<{ a: string }>(array).some(iterator, context).value();
+        result = _.chain(array).some(iterator).value();
+        result = _.chain(array).some(iterator, context).value();
+
+        result = _<{ a: string }>(array).chain().some(iterator).value();
+        result = _<{ a: string }>(array).chain().some(iterator, context).value();
+        result = _(array).chain().some(iterator).value();
+        result = _(array).chain().some(iterator, context).value();
+
+        result = _.any<{ a: string }>(array, iterator);
+        result = _.any<{ a: string }>(array, iterator, context);
+        result = _.any(array, iterator);
+        result = _.any(array, iterator, context);
+
+        result = _<{ a: string }>(array).any(iterator);
+        result = _<{ a: string }>(array).any(iterator, context);
+        result = _(array).any(iterator);
+        result = _(array).any(iterator, context);
+
+        result = _.chain<{ a: string }>(array).any(iterator).value();
+        result = _.chain<{ a: string }>(array).any(iterator, context).value();
+        result = _.chain(array).any(iterator).value();
+        result = _.chain(array).any(iterator, context).value();
+
+        result = _<{ a: string }>(array).chain().any(iterator).value();
+        result = _<{ a: string }>(array).chain().any(iterator, context).value();
+        result = _(array).chain().any(iterator).value();
+        result = _(array).chain().any(iterator, context).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: boolean;
+
+        result = _.some<{ a: string }>(list, iterator);
+        result = _.some<{ a: string }>(list, iterator, context);
+        result = _.some(list, iterator);
+        result = _.some(list, iterator, context);
+
+        result = _<{ a: string }>(list).some(iterator);
+        result = _<{ a: string }>(list).some(iterator, context);
+        result = _(list).some(iterator);
+        result = _(list).some(iterator, context);
+
+        result = _.chain<{ a: string }>(list).some(iterator).value();
+        result = _.chain<{ a: string }>(list).some(iterator, context).value();
+        result = _.chain(list).some(iterator).value();
+        result = _.chain(list).some(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().some(iterator).value();
+        result = _<{ a: string }>(list).chain().some(iterator, context).value();
+        result = _(list).chain().some(iterator).value();
+        result = _(list).chain().some(iterator, context).value();
+
+        result = _.any<{ a: string }>(list, iterator);
+        result = _.any<{ a: string }>(list, iterator, context);
+        result = _.any(list, iterator);
+        result = _.any(list, iterator, context);
+
+        result = _<{ a: string }>(list).any(iterator);
+        result = _<{ a: string }>(list).any(iterator, context);
+        result = _(list).any(iterator);
+        result = _(list).any(iterator, context);
+
+        result = _.chain<{ a: string }>(list).any(iterator).value();
+        result = _.chain<{ a: string }>(list).any(iterator, context).value();
+        result = _.chain(list).any(iterator).value();
+        result = _.chain(list).any(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().any(iterator).value();
+        result = _<{ a: string }>(list).chain().any(iterator, context).value();
+        result = _(list).chain().any(iterator).value();
+        result = _(list).chain().any(iterator, context).value();
+    }
+
+    {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
+        let result: boolean;
+
+        result = _.some<{ a: string }>(dict, iterator);
+        result = _.some<{ a: string }>(dict, iterator, context);
+        result = _.some(dict, iterator);
+        result = _.some(dict, iterator, context);
+
+        result = _<{ a: string }>(dict).some(iterator);
+        result = _<{ a: string }>(dict).some(iterator, context);
+        result = _(dict).some(iterator);
+        result = _(dict).some(iterator, context);
+
+        result = _.chain<{ a: string }>(dict).some(iterator).value();
+        result = _.chain<{ a: string }>(dict).some(iterator, context).value();
+        result = _.chain(dict).some(iterator).value();
+        result = _.chain(dict).some(iterator, context).value();
+
+        result = _<{ a: string }>(dict).chain().some(iterator).value();
+        result = _<{ a: string }>(dict).chain().some(iterator, context).value();
+        result = _(dict).chain().some(iterator).value();
+        result = _(dict).chain().some(iterator, context).value();
+
+        result = _.any<{ a: string }>(dict, iterator);
+        result = _.any<{ a: string }>(dict, iterator, context);
+        result = _.any(dict, iterator);
+        result = _.any(dict, iterator, context);
+
+        result = _<{ a: string }>(dict).any(iterator);
+        result = _<{ a: string }>(dict).any(iterator, context);
+        result = _(dict).any(iterator);
+        result = _(dict).any(iterator, context);
+
+        result = _.chain<{ a: string }>(dict).any(iterator).value();
+        result = _.chain<{ a: string }>(dict).any(iterator, context).value();
+        result = _.chain(dict).any(iterator).value();
+        result = _.chain(dict).any(iterator, context).value();
+
+        result = _<{ a: string }>(dict).chain().any(iterator).value();
+        result = _<{ a: string }>(dict).chain().any(iterator, context).value();
+        result = _(dict).chain().any(iterator).value();
+        result = _(dict).chain().any(iterator, context).value();
+    }
+
+    {
+        let str: string = 'abc';
+        let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        let result: boolean;
+
+        result = _.some<string>(str, iterator);
+        result = _.some<string>(str, iterator, context);
+        result = _.some(str, iterator);
+        result = _.some(str, iterator, context);
+
+        result = _<string>(str).some(iterator);
+        result = _<string>(str).some(iterator, context);
+        result = _(str).some(iterator);
+        result = _(str).some(iterator, context);
+
+        result = _<string>(str).chain().some(iterator).value();
+        result = _<string>(str).chain().some(iterator, context).value();
+        result = _(str).chain().some(iterator).value();
+        result = _(str).chain().some(iterator, context).value();
+
+        result = _.any<string>(str, iterator);
+        result = _.any<string>(str, iterator, context);
+        result = _.any(str, iterator);
+        result = _.any(str, iterator, context);
+
+        result = _<string>(str).any(iterator);
+        result = _<string>(str).any(iterator, context);
+        result = _(str).any(iterator);
+        result = _(str).any(iterator, context);
+
+        result = _<string>(str).chain().any(iterator).value();
+        result = _<string>(str).chain().any(iterator, context).value();
+        result = _(str).chain().any(iterator).value();
+        result = _(str).chain().any(iterator, context).value();
+    }
+}
+
+namespace TestContains {
+    let fromIndex = 1;
+
+    {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let value = array[0];
+        let result: boolean;
+
+        result = _.contains<{ a: string }>(array, value);
+        result = _.contains<{ a: string }>(array, value, fromIndex);
+        result = _.contains(array, value);
+        result = _.contains(array, value, fromIndex);
+
+        result = _<{ a: string }>(array).contains(value);
+        result = _<{ a: string }>(array).contains(value, fromIndex);
+        result = _(array).contains(value);
+        result = _(array).contains(value, fromIndex);
+
+        result = _.chain<{ a: string }>(array).contains(value).value();
+        result = _.chain<{ a: string }>(array).contains(value, fromIndex).value();
+        result = _.chain(array).contains(value).value();
+        result = _.chain(array).contains(value, fromIndex).value();
+
+        result = _<{ a: string }>(array).chain().contains(value).value();
+        result = _<{ a: string }>(array).chain().contains(value, fromIndex).value();
+        result = _(array).chain().contains(value).value();
+        result = _(array).chain().contains(value, fromIndex).value();
+
+        result = _.include<{ a: string }>(array, value);
+        result = _.include<{ a: string }>(array, value, fromIndex);
+        result = _.include(array, value);
+        result = _.include(array, value, fromIndex);
+
+        result = _<{ a: string }>(array).include(value);
+        result = _<{ a: string }>(array).include(value, fromIndex);
+        result = _(array).include(value);
+        result = _(array).include(value, fromIndex);
+
+        result = _.chain<{ a: string }>(array).include(value).value();
+        result = _.chain<{ a: string }>(array).include(value, fromIndex).value();
+        result = _.chain(array).include(value).value();
+        result = _.chain(array).include(value, fromIndex).value();
+
+        result = _<{ a: string }>(array).chain().include(value).value();
+        result = _<{ a: string }>(array).chain().include(value, fromIndex).value();
+        result = _(array).chain().include(value).value();
+        result = _(array).chain().include(value, fromIndex).value();
+
+        result = _.includes<{ a: string }>(array, value);
+        result = _.includes<{ a: string }>(array, value, fromIndex);
+        result = _.includes(array, value);
+        result = _.includes(array, value, fromIndex);
+
+        result = _<{ a: string }>(array).includes(value);
+        result = _<{ a: string }>(array).includes(value, fromIndex);
+        result = _(array).includes(value);
+        result = _(array).includes(value, fromIndex);
+
+        result = _.chain<{ a: string }>(array).includes(value).value();
+        result = _.chain<{ a: string }>(array).includes(value, fromIndex).value();
+        result = _.chain(array).includes(value).value();
+        result = _.chain(array).includes(value, fromIndex).value();
+
+        result = _<{ a: string }>(array).chain().includes(value).value();
+        result = _<{ a: string }>(array).chain().includes(value, fromIndex).value();
+        result = _(array).chain().includes(value).value();
+        result = _(array).chain().includes(value, fromIndex).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let value = list[0];
+        let result: boolean;
+
+        result = _.contains<{ a: string }>(list, value);
+        result = _.contains<{ a: string }>(list, value, fromIndex);
+        result = _.contains(list, value);
+        result = _.contains(list, value, fromIndex);
+
+        result = _<{ a: string }>(list).contains(value);
+        result = _<{ a: string }>(list).contains(value, fromIndex);
+        result = _(list).contains(value);
+        result = _(list).contains(value, fromIndex);
+
+        result = _.chain<{ a: string }>(list).contains(value).value();
+        result = _.chain<{ a: string }>(list).contains(value, fromIndex).value();
+        result = _.chain(list).contains(value).value();
+        result = _.chain(list).contains(value, fromIndex).value();
+
+        result = _<{ a: string }>(list).chain().contains(value).value();
+        result = _<{ a: string }>(list).chain().contains(value, fromIndex).value();
+        result = _(list).chain().contains(value).value();
+        result = _(list).chain().contains(value, fromIndex).value();
+
+        result = _.include<{ a: string }>(list, value);
+        result = _.include<{ a: string }>(list, value, fromIndex);
+        result = _.include(list, value);
+        result = _.include(list, value, fromIndex);
+
+        result = _<{ a: string }>(list).include(value);
+        result = _<{ a: string }>(list).include(value, fromIndex);
+        result = _(list).include(value);
+        result = _(list).include(value, fromIndex);
+
+        result = _.chain<{ a: string }>(list).include(value).value();
+        result = _.chain<{ a: string }>(list).include(value, fromIndex).value();
+        result = _.chain(list).include(value).value();
+        result = _.chain(list).include(value, fromIndex).value();
+
+        result = _<{ a: string }>(list).chain().include(value).value();
+        result = _<{ a: string }>(list).chain().include(value, fromIndex).value();
+        result = _(list).chain().include(value).value();
+        result = _(list).chain().include(value, fromIndex).value();
+
+        result = _.includes<{ a: string }>(list, value);
+        result = _.includes<{ a: string }>(list, value, fromIndex);
+        result = _.includes(list, value);
+        result = _.includes(list, value, fromIndex);
+
+        result = _<{ a: string }>(list).includes(value);
+        result = _<{ a: string }>(list).includes(value, fromIndex);
+        result = _(list).includes(value);
+        result = _(list).includes(value, fromIndex);
+
+        result = _.chain<{ a: string }>(list).includes(value).value();
+        result = _.chain<{ a: string }>(list).includes(value, fromIndex).value();
+        result = _.chain(list).includes(value).value();
+        result = _.chain(list).includes(value, fromIndex).value();
+
+        result = _<{ a: string }>(list).chain().includes(value).value();
+        result = _<{ a: string }>(list).chain().includes(value, fromIndex).value();
+        result = _(list).chain().includes(value).value();
+        result = _(list).chain().includes(value, fromIndex).value();
+    }
+
+    {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let value = dict['a'];
+        let result: boolean;
+
+        result = _.contains<{ a: string }>(dict, value);
+        result = _.contains(dict, value);
+
+        result = _<{ a: string }>(dict).contains(value);
+        result = _(dict).contains(value);
+
+        result = _.chain<{ a: string }>(dict).contains(value).value();
+        result = _.chain(dict).contains(value).value();
+
+        result = _<{ a: string }>(dict).chain().contains(value).value();
+        result = _(dict).chain().contains(value).value();
+
+        result = _.include<{ a: string }>(dict, value);
+        result = _.include(dict, value);
+
+        result = _<{ a: string }>(dict).include(value);
+        result = _(dict).include(value);
+
+        result = _.chain<{ a: string }>(dict).include(value).value();
+        result = _.chain(dict).include(value).value();
+
+        result = _<{ a: string }>(dict).chain().include(value).value();
+        result = _(dict).chain().include(value).value();
+
+        result = _.includes<{ a: string }>(dict, value);
+        result = _.includes(dict, value);
+
+        result = _<{ a: string }>(dict).includes(value);
+        result = _(dict).includes(value);
+
+        result = _.chain<{ a: string }>(dict).includes(value).value();
+        result = _.chain(dict).includes(value).value();
+
+        result = _<{ a: string }>(dict).chain().includes(value).value();
+        result = _(dict).chain().includes(value).value();
+    }
+
+    {
+        let str: string = 'abc';
+        let value = str[0];
+        let result: boolean;
+
+        result = _.contains<string>(str, value);
+        result = _.contains<string>(str, value, fromIndex);
+        result = _.contains(str, value);
+        result = _.contains(str, value, fromIndex);
+
+        result = _<string>(str).contains(value);
+        result = _<string>(str).contains(value, fromIndex);
+        result = _(str).contains(value);
+        result = _(str).contains(value, fromIndex);
+
+        result = _<string>(str).chain().contains(value).value();
+        result = _<string>(str).chain().contains(value, fromIndex).value();
+        result = _(str).chain().contains(value).value();
+        result = _(str).chain().contains(value, fromIndex).value();
+
+        result = _.include<string>(str, value);
+        result = _.include<string>(str, value, fromIndex);
+        result = _.include(str, value);
+        result = _.include(str, value, fromIndex);
+
+        result = _<string>(str).include(value);
+        result = _<string>(str).include(value, fromIndex);
+        result = _(str).include(value);
+        result = _(str).include(value, fromIndex);
+
+        result = _<string>(str).chain().include(value).value();
+        result = _<string>(str).chain().include(value, fromIndex).value();
+        result = _(str).chain().include(value).value();
+        result = _(str).chain().include(value, fromIndex).value();
+
+        result = _.includes<string>(str, value);
+        result = _.includes<string>(str, value, fromIndex);
+        result = _.includes(str, value);
+        result = _.includes(str, value, fromIndex);
+
+        result = _<string>(str).includes(value);
+        result = _<string>(str).includes(value, fromIndex);
+        result = _(str).includes(value);
+        result = _(str).includes(value, fromIndex);
+
+        result = _<string>(str).chain().includes(value).value();
+        result = _<string>(str).chain().includes(value, fromIndex).value();
+        result = _(str).chain().includes(value).value();
+        result = _(str).chain().includes(value, fromIndex).value();
+    }
+}
+
 namespace TestShuffle {
     {
         let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
@@ -2548,7 +3133,7 @@ namespace TestCompact {
         result = _.compact(list);
     }
 
-    // consider updating the result of these compact calls to be "(T extends undefined | null | false | '' | 0 ? never : T)[]"
+    // as a breaking change, consider updating the result of these compact calls to be "(T extends undefined | null | false | '' | 0 ? never : T)[]"
     // and updating this result to be { a: string }[]
     // it would also be nice to change how the calls above work to use the same logic to be consistent
     {
