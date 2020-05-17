@@ -5117,7 +5117,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TArray>(iterator: _.ListIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
+        map<TArrayItem>(iterator: _.ListIterator<T, TArrayItem[]>, context?: any): _ChainOfArrays<TArrayItem>;
 
         /**
         * Wrapped type `any[]`.
@@ -5129,7 +5129,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TArray>(iterator: _.ObjectIterator<T, TArray[]>, context?: any): _ChainOfArrays<TArray>;
+        map<TArrayItem>(iterator: _.ObjectIterator<T, TArrayItem[]>, context?: any): _ChainOfArrays<TArrayItem>;
 
         /**
         * Wrapped type `any[]`.
