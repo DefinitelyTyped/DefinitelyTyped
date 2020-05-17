@@ -295,5 +295,6 @@ export { _ToggleSkeleton as ToggleSkeleton };
 export { _ToggleSmallSkeleton as ToggleSmallSkeleton };
 export { _IconSkeleton as IconSkeleton };
 export { _DatePickerSkeleton as DatePickerSkeleton };
+export {default as Grid, Row, Column} from "./lib/components/Grid";
 
 export * from "./typings/translation";
