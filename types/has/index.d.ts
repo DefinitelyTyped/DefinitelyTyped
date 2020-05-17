@@ -9,6 +9,8 @@
  *
  * @param target The object that contains the property.
  * @param property A property name.
+ *
+ * @throws {TypeError} If `target` is nullish.
  */
-declare function hasOwnProperty(target: object, property: PropertyKey): boolean;
+declare function hasOwnProperty(target: any, property: PropertyKey): boolean;
 export = hasOwnProperty;

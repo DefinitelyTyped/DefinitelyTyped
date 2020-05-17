@@ -1,4 +1,6 @@
-import has = require('has');
+/// <reference types="node"/>
+import assert = require('assert');
+import hasOwnProperty = require('has');
 
-// $ExpectType boolean
-has(Object.prototype, 'hasOwnProperty');
+assert.strictEqual(hasOwnProperty(Object.prototype, 'hasOwnProperty'), true);
+assert.strictEqual(hasOwnProperty({}, 'hasOwnProperty'), false);
