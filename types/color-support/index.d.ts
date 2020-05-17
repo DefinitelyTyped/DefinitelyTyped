@@ -6,6 +6,8 @@
 
 /// <reference types="node" />
 
+import { WriteStream } from 'tty';
+
 type ColorSupportLevel = 0 | 1 | 2 | 3;
 
 interface ColorSupportOptions {
@@ -15,7 +17,7 @@ interface ColorSupportOptions {
     ignoreDumb?: boolean;
     ignoreTTY?: boolean;
     level?: ColorSupportLevel;
-    stream?: NodeJS.WriteStream;
+    stream?: WriteStream;
     term?: string;
 }
 

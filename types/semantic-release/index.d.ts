@@ -6,6 +6,8 @@
 
 /// <reference types="node" />
 
+import { WriteStream, ReadStream } from 'tty';
+
 declare namespace SemanticRelease {
     /**
      * semantic-release options.
@@ -328,7 +330,7 @@ declare namespace SemanticRelease {
          *
          * @default process.stdout
          */
-        stdout?: NodeJS.WriteStream;
+        stdout?: WriteStream;
 
         /**
          * The writable stream used to log errors.
@@ -338,7 +340,7 @@ declare namespace SemanticRelease {
          *
          * @default process.stderr
          */
-        stderr?: NodeJS.WriteStream;
+        stderr?: WriteStream;
     }
 
     interface LastRelease {

@@ -20,3 +20,4 @@
 /// <reference path="fs.d.ts" />
 /// <reference path="util.d.ts" />
 /// <reference path="globals.d.ts" />
+/// <reference path="process.d.ts" />

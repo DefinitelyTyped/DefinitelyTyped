@@ -58,7 +58,7 @@ declare namespace XRay {
         abort(arg: AbortHandler): this;
         paginate(selector: Selector): this;
         limit(n: number): this;
-        stream(): NodeJS.ReadStream;
+        stream(): NodeJS.ReadableStream;
         then<U>(fn?: (value: any) => U | PromiseLike<U>): Bluebird<U>;
         write(path?: string): (err: NodeJS.ErrnoException) => void;
     }

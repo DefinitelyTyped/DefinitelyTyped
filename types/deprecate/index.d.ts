@@ -6,6 +6,8 @@
 
 /// <reference types="node" />
 
+import { WriteStream } from 'tty';
+
 declare namespace deprecate {
     /**
      * Set to false to not output a color. Defaults to '\x1b[31;1m' which is red.
@@ -20,7 +22,7 @@ declare namespace deprecate {
     /**
      * The stream to which output is written. Defaults to process.stderr
      */
-    let stream: NodeJS.WriteStream;
+    let stream: WriteStream;
 }
 
 /**

@@ -9,6 +9,8 @@
 
 /// <reference types="node" />
 
+import { WriteStream } from 'tty';
+
 declare namespace signale {
     type DefaultMethods =
         | 'await'
@@ -39,7 +41,7 @@ declare namespace signale {
         /** The label used to identify the type of the logger. */
         label: string;
         logLevel?: string;
-        stream?: NodeJS.WriteStream | NodeJS.WriteStream[];
+        stream?: WriteStream | WriteStream[];
     }
 
     interface SignaleConfig {
@@ -83,7 +85,7 @@ declare namespace signale {
          * Destination to which the data is written, can be any valid
          * [Writable stream](https://nodejs.org/api/stream.html#stream_writable_streams).
          */
-        stream?: NodeJS.WriteStream | NodeJS.WriteStream[];
+        stream?: WriteStream | WriteStream[];
         secrets?: Array<string | number>;
     }
 

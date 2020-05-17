@@ -130,8 +130,8 @@ export namespace storage {
             containerName: string,
             callback: (err: ClientError, container: Container) => any,
         ): void;
-        upload(options: StorageUploadOptions): NodeJS.WriteStream;
-        download(options: StorageDownloadOptions): NodeJS.ReadStream;
+        upload(options: StorageUploadOptions): NodeJS.WritableStream;
+        download(options: StorageDownloadOptions): NodeJS.ReadableStream;
         getFiles(
             containerName: string,
             callback: (err: ClientError, files: File[]) => any,

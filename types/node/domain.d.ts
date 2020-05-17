@@ -1,7 +1,7 @@
 declare module "domain" {
     import { EventEmitter } from "events";
 
-    class Domain extends EventEmitter implements NodeJS.Domain {
+    class Domain extends EventEmitter {
         run<T>(fn: (...args: any[]) => T, ...args: any[]): T;
         add(emitter: EventEmitter | NodeJS.Timer): void;
         remove(emitter: EventEmitter | NodeJS.Timer): void;

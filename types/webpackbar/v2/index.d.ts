@@ -7,6 +7,7 @@
 /// <reference types="node" />
 
 import { Plugin } from 'webpack';
+import { WriteStream } from 'tty';
 
 export = WebpackBar;
 
@@ -50,7 +51,7 @@ declare namespace WebpackBar {
     /** Enable the profiler for files and loaders */
     profile?: boolean;
     /** Stream to rwite to */
-    stream?: NodeJS.WriteStream;
+    stream?: WriteStream;
     /** Minimal output */
     minimal?: boolean;
     /** Show compiled in time */

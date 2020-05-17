@@ -9,6 +9,8 @@
 
 /// <reference types='node' />
 
+import { WriteStream } from 'tty';
+
 import * as pino from 'pino';
 
 import { Plugin, Request } from '@hapi/hapi';
@@ -33,7 +35,7 @@ declare namespace HapiPino {
         logRouteTags?: boolean;
         logRequestStart?: boolean | ((req: Request) => boolean);
         logRequestComplete?: boolean | ((req: Request) => boolean);
-        stream?: NodeJS.WriteStream;
+        stream?: WriteStream;
         prettyPrint?: boolean | pino.PrettyOptions;
         tags?: { [key in pino.Level]?: string };
         allTags?: pino.Level;

@@ -1,5 +1,4 @@
 declare module "http" {
-    import * as events from "events";
     import * as stream from "stream";
     import { URL } from "url";
     import { Socket, Server as NetServer } from "net";

@@ -6,7 +6,7 @@ import { EventEmitter } from "events";
     let eventEmitter: EventEmitter;
     eventEmitter = process;                // Test that process implements EventEmitter...
 
-    let _p: NodeJS.Process = process;
+    let _p: p.Process = process;
     _p = p;
 }
 {
@@ -26,7 +26,7 @@ import { EventEmitter } from "events";
     process.prependOnceListener("SIGBREAK", () => { });
     process.on("newListener", (event: string | symbol, listener: Function) => { });
     process.once("removeListener", (event: string | symbol, listener: Function) => { });
-    process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
+    process.on("multipleResolves", (type: p.MultipleResolveType, prom: Promise<any>, value: any) => {});
     process.on("customEvent", () => { });
 
     const listeners = process.listeners('uncaughtException');
@@ -64,11 +64,11 @@ import { EventEmitter } from "events";
 }
 
 {
-    const usage: NodeJS.ResourceUsage = process.resourceUsage();
+    const usage: p.ResourceUsage = process.resourceUsage();
 }
 
 {
-    const usage: NodeJS.MemoryUsage = process.memoryUsage();
+    const usage: p.MemoryUsage = process.memoryUsage();
     const rss: number = usage.rss;
     const heapTotal: number = usage.heapTotal;
     const heapUsed: number = usage.heapUsed;
