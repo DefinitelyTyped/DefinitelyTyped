@@ -5479,7 +5479,7 @@ declare module _ {
         * Wrapped type `any`.
         * @see _.flatten
         **/
-        flatten(shallow?: boolean): _Chain<any>;
+        flatten(shallow?: boolean): _Chain<any, any[]>;
 
         /**
         * Wrapped type `any[]`.
