@@ -1859,6 +1859,10 @@ namespace TestSome {
 }
 
 namespace TestContains {
+    // as a smaller breaking change, consider changing the _.Collection<T> argument for include and includes to match the _.List<T> argument for contains
+    // as a larger breaking change, consider getting rid of _.Collection<T> or defining _.Collection<T> as
+    // type Collection<T> =  List<T> | Dictionary<T>
+    // since in its current form as an empty interface it does not provide any type safety
     let fromIndex = 1;
 
     {
