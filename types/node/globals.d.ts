@@ -549,25 +549,26 @@ declare namespace NodeJS {
         stack?: string;
     }
 
-    type Events = Record<string | symbol, (...args: any[]) => void>
+    type Events = Record<string | symbol, (...args: any[]) => void>;
+    type Arguments<T> = [T] extends [(...args: infer U) => any] ? U : [T] extends [] ? [] : [T];
 
-    interface EventEmitter<E extends Events> {
+    interface EventEmitter<E extends Events = Events> {
         addListener<K extends keyof E>(event: K, listener: E[K]): this;
         on<K extends keyof E>(event: K, listener: E[K]): this;
         once<K extends keyof E>(event: K, listener: E[K]): this;
         removeListener<K extends keyof E>(event: K, listener: E[K]): this;
         off<K extends keyof E>(event: K, listener: E[K]): this;
-        removeAllListeners<K extends keyof E>(event?: K): this;
+        removeAllListeners(event?: keyof E): this;
         setMaxListeners(maxListeners: number): this;
         getMaxListeners(): number;
-        listeners<K extends keyof E>(event: K): E[K][];
-        rawListeners<K extends keyof E>(event: K): E[K][];
-        emit<K extends keyof E>(event: K, ...args: Parameters<E[K]>): boolean;
-        listenerCount<K extends keyof E>(event: K): number;
+        listeners<K extends keyof E>(event: K): Array<E[K]>;
+        rawListeners<K extends keyof E>(event: K): Array<E[K]>;
+        emit<K extends keyof E>(event: K, ...args: Arguments<E[K]>): boolean;
+        listenerCount(event: keyof E): number;
         // Added in Node 6...
         prependListener<K extends keyof E>(event: K, listener: E[K]): this;
         prependOnceListener<K extends keyof E>(event: K, listener: E[K]): this;
-        eventNames<K extends keyof E>(): K[];
+        eventNames(): Array<keyof E>;
     }
 
     interface ReadableStream extends EventEmitter {
@@ -763,19 +764,19 @@ declare namespace NodeJS {
     }
 
     type ProcessEvents = {
-        "beforeExit": BeforeExitListener,
-        "disconnect": DisconnectListener,
-        "exit": ExitListener,
-        "rejectionHandled": RejectionHandledListener,
-        "uncaughtException": UncaughtExceptionListener,
-        "uncaughtExceptionMonitor": UncaughtExceptionListener,
-        "unhandledRejection": UnhandledRejectionListener,
-        "warning": WarningListener,
-        "message": MessageListener,
-        "newListener": NewListenerListener,
-        "removeListener": RemoveListenerListener,
-        "multipleResolves": MultipleResolveListener,
-    } & Record<Signals, SignalsListener>
+        beforeExit: BeforeExitListener;
+        disconnect: DisconnectListener;
+        exit: ExitListener;
+        rejectionHandled: RejectionHandledListener;
+        uncaughtException: UncaughtExceptionListener;
+        uncaughtExceptionMonitor: UncaughtExceptionListener;
+        unhandledRejection: UnhandledRejectionListener;
+        warning: WarningListener;
+        message: MessageListener;
+        newListener: NewListenerListener;
+        removeListener: RemoveListenerListener;
+        multipleResolves: MultipleResolveListener;
+    } & Record<Signals, SignalsListener>;
 
     interface Process extends EventEmitter<ProcessEvents> {
         /**
