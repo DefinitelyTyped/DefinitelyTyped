@@ -72,6 +72,19 @@ const exampleSendDataWithTemplate: mailgunFactory.messages.SendTemplateData = {
     "v:template-variable": "foo",
   };
 
+const exampleSendDataWithTemplate2: mailgunFactory.messages.SendTemplateData = {
+    to: "someone@email.com",
+    template: "my-template",
+    "v:number": 123,
+    "v:boolean": true,
+    "v:string": "",
+    "v:undefined": undefined,
+    "v:complexObject": {
+        whatever: 123,
+        test: true
+    },
+  };
+
 const exampleSendDataTemplateResponse: Promise<mailgunFactory.messages.SendResponse> = mailgun.messages().send(exampleSendDataWithTemplate);
 
 let validationResultPromise: Promise<mailgunFactory.validation.ValidateResponse>;
