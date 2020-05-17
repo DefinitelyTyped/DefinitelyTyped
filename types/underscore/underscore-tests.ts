@@ -19,15 +19,18 @@ var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
+// Collection Functions
 namespace TestEach {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-    let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+    // as a breaking change, consider either adding an overload for strings or changing function definitions to things like
+    // _.each<TItem, TList extends _.List<TItem>>(list: TList, iterator: _.ListIterator<TItem, void>, context ?: any): TList;
+    // to better reflect that _.each and its variations always return the original object
+    // if that happens, also add tests for strings and array-like objects with extra properties as inputs
     let context = {};
 
     {
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
-        let result: _.List<{ a: string }>;
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a += 'b';
+        let result: { a: string }[];
 
         result = _.each<{ a: string }>(array, iterator);
         result = _.each<{ a: string }>(array, iterator, context);
@@ -49,26 +52,6 @@ namespace TestEach {
         result = _(array).chain().each(iterator).value();
         result = _(array).chain().each(iterator, context).value();
 
-        result = _.each<{ a: string }>(list, iterator);
-        result = _.each<{ a: string }>(list, iterator, context);
-        result = _.each(list, iterator);
-        result = _.each(list, iterator, context);
-
-        result = _<{ a: string }>(list).each(iterator);
-        result = _<{ a: string }>(list).each(iterator, context);
-        result = _(list).each(iterator);
-        result = _(list).each(iterator, context);
-
-        result = _.chain<{ a: string }>(list).each(iterator).value();
-        result = _.chain<{ a: string }>(list).each(iterator, context).value();
-        result = _.chain(list).each(iterator).value();
-        result = _.chain(list).each(iterator, context).value();
-
-        result = _<{ a: string }>(list).chain().each(iterator).value();
-        result = _<{ a: string }>(list).chain().each(iterator, context).value();
-        result = _(list).chain().each(iterator).value();
-        result = _(list).chain().each(iterator, context).value();
-
         result = _.forEach<{ a: string }>(array, iterator);
         result = _.forEach<{ a: string }>(array, iterator, context);
         result = _.forEach(array, iterator);
@@ -88,6 +71,32 @@ namespace TestEach {
         result = _<{ a: string }>(array).chain().forEach(iterator, context).value();
         result = _(array).chain().forEach(iterator).value();
         result = _(array).chain().forEach(iterator, context).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a += 'b';
+        let result: _.List<{ a: string }>;
+
+        result = _.each<{ a: string }>(list, iterator);
+        result = _.each<{ a: string }>(list, iterator, context);
+        result = _.each(list, iterator);
+        result = _.each(list, iterator, context);
+
+        result = _<{ a: string }>(list).each(iterator);
+        result = _<{ a: string }>(list).each(iterator, context);
+        result = _(list).each(iterator);
+        result = _(list).each(iterator, context);
+
+        result = _.chain<{ a: string }>(list).each(iterator).value();
+        result = _.chain<{ a: string }>(list).each(iterator, context).value();
+        result = _.chain(list).each(iterator).value();
+        result = _.chain(list).each(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().each(iterator).value();
+        result = _<{ a: string }>(list).chain().each(iterator, context).value();
+        result = _(list).chain().each(iterator).value();
+        result = _(list).chain().each(iterator, context).value();
 
         result = _.forEach<{ a: string }>(list, iterator);
         result = _.forEach<{ a: string }>(list, iterator, context);
@@ -111,7 +120,8 @@ namespace TestEach {
     }
 
     {
-        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a += 'b';
         let result: _.Dictionary<{ a: string }>;
 
         result = _.each<{ a: string }>(dict, iterator);
@@ -154,20 +164,15 @@ namespace TestEach {
         result = _(dict).chain().forEach(iterator).value();
         result = _(dict).chain().forEach(iterator, context).value();
     }
-
-    // consider adding overlaods for a single string as an argument and test those separately since _.each('abc', () => {})
-    // returns the original string rather than a set of strings
 }
 
 namespace TestMap {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-    let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
     let context = {};
 
     {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
-        let result: _.List<string>;
+        let result: string[];
 
         result = _.map<{ a: string }, string>(array, iterator);
         result = _.map<{ a: string }, string>(array, iterator, context);
@@ -189,26 +194,6 @@ namespace TestMap {
         result = _(array).chain().map(iterator).value();
         result = _(array).chain().map(iterator, context).value();
 
-        result = _.map<{ a: string }, string>(list, iterator);
-        result = _.map<{ a: string }, string>(list, iterator, context);
-        result = _.map(list, iterator);
-        result = _.map(list, iterator, context);
-
-        result = _<{ a: string }>(list).map<string>(iterator);
-        result = _<{ a: string }>(list).map<string>(iterator, context);
-        result = _(list).map(iterator);
-        result = _(list).map(iterator, context);
-
-        result = _.chain<{ a: string }>(list).map<string>(iterator).value();
-        result = _.chain<{ a: string }>(list).map<string>(iterator, context).value();
-        result = _.chain(list).map(iterator).value();
-        result = _.chain(list).map(iterator, context).value();
-
-        result = _<{ a: string }>(list).chain().map<string>(iterator).value();
-        result = _<{ a: string }>(list).chain().map<string>(iterator, context).value();
-        result = _(list).chain().map(iterator).value();
-        result = _(list).chain().map(iterator, context).value();
-
         result = _.collect<{ a: string }, string>(array, iterator);
         result = _.collect<{ a: string }, string>(array, iterator, context);
         result = _.collect(array, iterator);
@@ -228,6 +213,32 @@ namespace TestMap {
         result = _<{ a: string }>(array).chain().collect<string>(iterator, context).value();
         result = _(array).chain().collect(iterator).value();
         result = _(array).chain().collect(iterator, context).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: string[];
+
+        result = _.map<{ a: string }, string>(list, iterator);
+        result = _.map<{ a: string }, string>(list, iterator, context);
+        result = _.map(list, iterator);
+        result = _.map(list, iterator, context);
+
+        result = _<{ a: string }>(list).map<string>(iterator);
+        result = _<{ a: string }>(list).map<string>(iterator, context);
+        result = _(list).map(iterator);
+        result = _(list).map(iterator, context);
+
+        result = _.chain<{ a: string }>(list).map<string>(iterator).value();
+        result = _.chain<{ a: string }>(list).map<string>(iterator, context).value();
+        result = _.chain(list).map(iterator).value();
+        result = _.chain(list).map(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().map<string>(iterator).value();
+        result = _<{ a: string }>(list).chain().map<string>(iterator, context).value();
+        result = _(list).chain().map(iterator).value();
+        result = _(list).chain().map(iterator, context).value();
 
         result = _.collect<{ a: string }, string>(list, iterator);
         result = _.collect<{ a: string }, string>(list, iterator, context);
@@ -251,8 +262,9 @@ namespace TestMap {
     }
 
     {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
-        let result: _.List<string>;
+        let result: string[];
 
         result = _.map<{ a: string }, string>(dict, iterator);
         result = _.map<{ a: string }, string>(dict, iterator, context);
@@ -296,48 +308,47 @@ namespace TestMap {
     }
 
     {
+        let str: string = 'abc';
         let iterator = (value: string, index: number, list: _.List<string>) => value + 'b';
-        let result: _.List<string>;
+        let result: string[];
 
-        result = _.map<string, string>('abc', iterator);
-        result = _.map<string, string>('abc', iterator, context);
-        result = _.map('abc', iterator);
-        result = _.map('abc', iterator, context);
+        result = _.map<string, string>(str, iterator);
+        result = _.map<string, string>(str, iterator, context);
+        result = _.map(str, iterator);
+        result = _.map(str, iterator, context);
 
-        result = _<string>('abc').map<string>(iterator);
-        result = _<string>('abc').map<string>(iterator, context);
-        result = _('abc').map(iterator);
-        result = _('abc').map(iterator, context);
+        result = _<string>(str).map<string>(iterator);
+        result = _<string>(str).map<string>(iterator, context);
+        result = _(str).map(iterator);
+        result = _(str).map(iterator, context);
 
-        result = _<string>('abc').chain().map<string>(iterator).value();
-        result = _<string>('abc').chain().map<string>(iterator, context).value();
-        result = _('abc').chain().map(iterator).value();
-        result = _('abc').chain().map(iterator, context).value();
+        result = _<string>(str).chain().map<string>(iterator).value();
+        result = _<string>(str).chain().map<string>(iterator, context).value();
+        result = _(str).chain().map(iterator).value();
+        result = _(str).chain().map(iterator, context).value();
 
-        result = _.collect<string, string>('abc', iterator);
-        result = _.collect<string, string>('abc', iterator, context);
-        result = _.collect('abc', iterator);
-        result = _.collect('abc', iterator, context);
+        result = _.collect<string, string>(str, iterator);
+        result = _.collect<string, string>(str, iterator, context);
+        result = _.collect(str, iterator);
+        result = _.collect(str, iterator, context);
 
-        result = _<string>('abc').collect<string>(iterator);
-        result = _<string>('abc').collect<string>(iterator, context);
-        result = _('abc').collect(iterator);
-        result = _('abc').collect(iterator, context);
+        result = _<string>(str).collect<string>(iterator);
+        result = _<string>(str).collect<string>(iterator, context);
+        result = _(str).collect(iterator);
+        result = _(str).collect(iterator, context);
 
-        result = _<string>('abc').chain().collect<string>(iterator).value();
-        result = _<string>('abc').chain().collect<string>(iterator, context).value();
-        result = _('abc').chain().collect(iterator).value();
-        result = _('abc').chain().collect(iterator, context).value();
+        result = _<string>(str).chain().collect<string>(iterator).value();
+        result = _<string>(str).chain().collect<string>(iterator, context).value();
+        result = _(str).chain().collect(iterator).value();
+        result = _(str).chain().collect(iterator, context).value();
     }
 }
 
 namespace TestFind {
-    let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
-    let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
-    let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};
     let context = {};
 
     {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
         let result: {a: string} | undefined;
 
@@ -356,21 +367,6 @@ namespace TestFind {
         result = _(array).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
         result = _(array).chain().find<{a: string}>('a').value();
 
-        result = _.find<{a: string}>(list, iterator);
-        result = _.find<{a: string}>(list, iterator, context);
-        result = _.find<{a: string}, {a: string}>(list, {a: 'b'});
-        result = _.find<{a: string}>(list, 'a');
-
-        result = _(list).find<{a: string}>(iterator);
-        result = _(list).find<{a: string}>(iterator, context);
-        result = _(list).find<{a: string}, {a: string}>({a: 'b'});
-        result = _(list).find<{a: string}>('a');
-
-        result = _(list).chain().find<{a: string}>(iterator).value();
-        result = _(list).chain().find<{a: string}>(iterator, context).value();
-        result = _(list).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
-        result = _(list).chain().find<{a: string}>('a').value();
-
         result = _.detect<{a: string}>(array, iterator);
         result = _.detect<{a: string}>(array, iterator, context);
         result = _.detect<{a: string}, {a: string}>(array, {a: 'b'});
@@ -385,24 +381,46 @@ namespace TestFind {
         result = _(array).chain().detect<{a: string}>(iterator, context).value();
         result = _(array).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
         result = _(array).chain().detect<{a: string}>('a').value();
-
-        result = _.detect<{a: string}>(list, iterator);
-        result = _.detect<{a: string}>(list, iterator, context);
-        result = _.detect<{a: string}, {a: string}>(list, {a: 'b'});
-        result = _.detect<{a: string}>(list, 'a');
-
-        result = _(list).detect<{a: string}>(iterator);
-        result = _(list).detect<{a: string}>(iterator, context);
-        result = _(list).detect<{a: string}, {a: string}>({a: 'b'});
-        result = _(list).detect<{a: string}>('a');
-
-        result = _(list).chain().detect<{a: string}>(iterator).value();
-        result = _(list).chain().detect<{a: string}>(iterator, context).value();
-        result = _(list).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
-        result = _(list).chain().detect<{a: string}>('a').value();
     }
 
     {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: { a: string } | undefined;
+
+        result = _.find<{ a: string }>(list, iterator);
+        result = _.find<{ a: string }>(list, iterator, context);
+        result = _.find<{ a: string }, { a: string }>(list, { a: 'b' });
+        result = _.find<{ a: string }>(list, 'a');
+
+        result = _(list).find<{ a: string }>(iterator);
+        result = _(list).find<{ a: string }>(iterator, context);
+        result = _(list).find<{ a: string }, { a: string }>({ a: 'b' });
+        result = _(list).find<{ a: string }>('a');
+
+        result = _(list).chain().find<{ a: string }>(iterator).value();
+        result = _(list).chain().find<{ a: string }>(iterator, context).value();
+        result = _(list).chain().find<{ a: string }, { a: string }>({ a: 'b' }).value();
+        result = _(list).chain().find<{ a: string }>('a').value();
+
+        result = _.detect<{ a: string }>(list, iterator);
+        result = _.detect<{ a: string }>(list, iterator, context);
+        result = _.detect<{ a: string }, { a: string }>(list, { a: 'b' });
+        result = _.detect<{ a: string }>(list, 'a');
+
+        result = _(list).detect<{ a: string }>(iterator);
+        result = _(list).detect<{ a: string }>(iterator, context);
+        result = _(list).detect<{ a: string }, { a: string }>({ a: 'b' });
+        result = _(list).detect<{ a: string }>('a');
+
+        result = _(list).chain().detect<{ a: string }>(iterator).value();
+        result = _(list).chain().detect<{ a: string }>(iterator, context).value();
+        result = _(list).chain().detect<{ a: string }, { a: string }>({ a: 'b' }).value();
+        result = _(list).chain().detect<{ a: string }>('a').value();
+    }
+
+    {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         let iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
         let result: {a: string} | undefined;
 
@@ -438,26 +456,27 @@ namespace TestFind {
     }
 
     {
+        let str: string = 'abc';
         let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: string | undefined;
 
-        result = _.find<string>('abc', iterator);
-        result = _.find<string>('abc', iterator, context);
+        result = _.find<string>(str, iterator);
+        result = _.find<string>(str, iterator, context);
 
-        result = _('abc').find<string>(iterator);
-        result = _('abc').find<string>(iterator, context);
+        result = _(str).find<string>(iterator);
+        result = _(str).find<string>(iterator, context);
 
-        result = _('abc').chain().find<string>(iterator).value();
-        result = _('abc').chain().find<string>(iterator, context).value();
+        result = _(str).chain().find<string>(iterator).value();
+        result = _(str).chain().find<string>(iterator, context).value();
 
-        result = _.detect<string>('abc', iterator);
-        result = _.detect<string>('abc', iterator, context);
+        result = _.detect<string>(str, iterator);
+        result = _.detect<string>(str, iterator, context);
 
-        result = _('abc').detect<string>(iterator);
-        result = _('abc').detect<string>(iterator, context);
+        result = _(str).detect<string>(iterator);
+        result = _(str).detect<string>(iterator, context);
 
-        result = _('abc').chain().detect<string>(iterator).value();
-        result = _('abc').chain().detect<string>(iterator, context).value();
+        result = _(str).chain().detect<string>(iterator).value();
+        result = _(str).chain().detect<string>(iterator, context).value();
     }
 
     {
@@ -466,14 +485,12 @@ namespace TestFind {
 }
 
 namespace TestFilter {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-    let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
     let context = {};
 
     {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
-        let result: _.List<{ a: string }>;
+        let result: { a: string }[];
 
         result = _.filter<{ a: string }>(array, iterator);
         result = _.filter<{ a: string }>(array, iterator, context);
@@ -495,26 +512,6 @@ namespace TestFilter {
         result = _(array).chain().filter(iterator).value();
         result = _(array).chain().filter(iterator, context).value();
 
-        result = _.filter<{ a: string }>(list, iterator);
-        result = _.filter<{ a: string }>(list, iterator, context);
-        result = _.filter(list, iterator);
-        result = _.filter(list, iterator, context);
-
-        result = _<{ a: string }>(list).filter(iterator);
-        result = _<{ a: string }>(list).filter(iterator, context);
-        result = _(list).filter(iterator);
-        result = _(list).filter(iterator, context);
-
-        result = _.chain<{ a: string }>(list).filter(iterator).value();
-        result = _.chain<{ a: string }>(list).filter(iterator, context).value();
-        result = _.chain(list).filter(iterator).value();
-        result = _.chain(list).filter(iterator, context).value();
-
-        result = _<{ a: string }>(list).chain().filter(iterator).value();
-        result = _<{ a: string }>(list).chain().filter(iterator, context).value();
-        result = _(list).chain().filter(iterator).value();
-        result = _(list).chain().filter(iterator, context).value();
-
         result = _.select<{ a: string }>(array, iterator);
         result = _.select<{ a: string }>(array, iterator, context);
         result = _.select(array, iterator);
@@ -534,6 +531,32 @@ namespace TestFilter {
         result = _<{ a: string }>(array).chain().select(iterator, context).value();
         result = _(array).chain().select(iterator).value();
         result = _(array).chain().select(iterator, context).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: { a: string }[];
+
+        result = _.filter<{ a: string }>(list, iterator);
+        result = _.filter<{ a: string }>(list, iterator, context);
+        result = _.filter(list, iterator);
+        result = _.filter(list, iterator, context);
+
+        result = _<{ a: string }>(list).filter(iterator);
+        result = _<{ a: string }>(list).filter(iterator, context);
+        result = _(list).filter(iterator);
+        result = _(list).filter(iterator, context);
+
+        result = _.chain<{ a: string }>(list).filter(iterator).value();
+        result = _.chain<{ a: string }>(list).filter(iterator, context).value();
+        result = _.chain(list).filter(iterator).value();
+        result = _.chain(list).filter(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().filter(iterator).value();
+        result = _<{ a: string }>(list).chain().filter(iterator, context).value();
+        result = _(list).chain().filter(iterator).value();
+        result = _(list).chain().filter(iterator, context).value();
 
         result = _.select<{ a: string }>(list, iterator);
         result = _.select<{ a: string }>(list, iterator, context);
@@ -557,8 +580,9 @@ namespace TestFilter {
     }
 
     {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
-        let result: _.List<{ a: string }>;
+        let result: { a: string }[];
 
         result = _.filter<{ a: string }>(dict, iterator);
         result = _.filter<{ a: string }>(dict, iterator, context);
@@ -602,48 +626,47 @@ namespace TestFilter {
     }
 
     {
+        let str: string = 'abc';
         let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
-        let result: _.List<string>;
+        let result: string[];
 
-        result = _.filter<string>('abc', iterator);
-        result = _.filter<string>('abc', iterator, context);
-        result = _.filter('abc', iterator);
-        result = _.filter('abc', iterator, context);
+        result = _.filter<string>(str, iterator);
+        result = _.filter<string>(str, iterator, context);
+        result = _.filter(str, iterator);
+        result = _.filter(str, iterator, context);
 
-        result = _<string>('abc').filter(iterator);
-        result = _<string>('abc').filter(iterator, context);
-        result = _('abc').filter(iterator);
-        result = _('abc').filter(iterator, context);
+        result = _<string>(str).filter(iterator);
+        result = _<string>(str).filter(iterator, context);
+        result = _(str).filter(iterator);
+        result = _(str).filter(iterator, context);
 
-        result = _<string>('abc').chain().filter(iterator).value();
-        result = _<string>('abc').chain().filter(iterator, context).value();
-        result = _('abc').chain().filter(iterator).value();
-        result = _('abc').chain().filter(iterator, context).value();
+        result = _<string>(str).chain().filter(iterator).value();
+        result = _<string>(str).chain().filter(iterator, context).value();
+        result = _(str).chain().filter(iterator).value();
+        result = _(str).chain().filter(iterator, context).value();
 
-        result = _.select<string>('abc', iterator);
-        result = _.select<string>('abc', iterator, context);
-        result = _.select('abc', iterator);
-        result = _.select('abc', iterator, context);
+        result = _.select<string>(str, iterator);
+        result = _.select<string>(str, iterator, context);
+        result = _.select(str, iterator);
+        result = _.select(str, iterator, context);
 
-        result = _<string>('abc').select(iterator);
-        result = _<string>('abc').select(iterator, context);
-        result = _('abc').select(iterator);
-        result = _('abc').select(iterator, context);
+        result = _<string>(str).select(iterator);
+        result = _<string>(str).select(iterator, context);
+        result = _(str).select(iterator);
+        result = _(str).select(iterator, context);
 
-        result = _<string>('abc').chain().select(iterator).value();
-        result = _<string>('abc').chain().select(iterator, context).value();
-        result = _('abc').chain().select(iterator).value();
-        result = _('abc').chain().select(iterator, context).value();
+        result = _<string>(str).chain().select(iterator).value();
+        result = _<string>(str).chain().select(iterator, context).value();
+        result = _(str).chain().select(iterator).value();
+        result = _(str).chain().select(iterator, context).value();
     }
 }
 
 namespace TestWhere {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-
     {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let properties = { a: 'b' };
-        let result: _.List<{ a: string }>;
+        let result: { a: string }[];
 
         result = _.where<{ a: string }, { a: string }>(array, properties);
         result = _.where(array, properties);
@@ -656,6 +679,12 @@ namespace TestWhere {
 
         result = _<{ a: string }>(array).chain().where<{ a: string }>(properties).value();
         result = _(array).chain().where(properties).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let properties = { a: 'b' };
+        let result: { a: string }[];
 
         result = _.where<{ a: string }, { a: string }>(list, properties);
         result = _.where(list, properties);
@@ -669,15 +698,31 @@ namespace TestWhere {
         result = _<{ a: string }>(list).chain().where<{ a: string }>(properties).value();
         result = _(list).chain().where(properties).value();
     }
+
+    {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let properties = { a: 'b' };
+        let result: { a: string }[];
+
+        result = _.where<{ a: string }, { a: string }>(dict, properties);
+        result = _.where(dict, properties);
+
+        result = _<{ a: string }>(dict).where<{ a: string }>(properties);
+        result = _(dict).where(properties);
+
+        result = _.chain<{ a: string }>(dict).where<{ a: string }>(properties).value();
+        result = _.chain(dict).where(properties).value();
+
+        result = _<{ a: string }>(dict).chain().where<{ a: string }>(properties).value();
+        result = _(dict).chain().where(properties).value();
+    }
 }
 
 namespace TestFindWhere {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-
-    // ideally the return value for these functions should be updated to include undefined
+    // as a breaking change, ideally the return value for these functions should be updated to include undefined
 
     {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let properties = { a: 'b' };
         let result: { a: string } | undefined;
 
@@ -692,6 +737,12 @@ namespace TestFindWhere {
 
         result = _<{ a: string }>(array).chain().findWhere<{ a: string }>(properties).value();
         result = _(array).chain().findWhere(properties).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let properties = { a: 'b' };
+        let result: { a: string } | undefined;
 
         result = _.findWhere<{ a: string }, { a: string }>(list, properties);
         result = _.findWhere(list, properties);
@@ -705,17 +756,33 @@ namespace TestFindWhere {
         result = _<{ a: string }>(list).chain().findWhere<{ a: string }>(properties).value();
         result = _(list).chain().findWhere(properties).value();
     }
+
+    {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let properties = { a: 'b' };
+        let result: { a: string } | undefined;
+
+        result = _.findWhere<{ a: string }, { a: string }>(dict, properties);
+        result = _.findWhere(dict, properties);
+
+        result = _<{ a: string }>(dict).findWhere<{ a: string }>(properties);
+        result = _(dict).findWhere(properties);
+
+        result = _.chain<{ a: string }>(dict).findWhere<{ a: string }>(properties).value();
+        result = _.chain(dict).findWhere(properties).value();
+
+        result = _<{ a: string }>(dict).chain().findWhere<{ a: string }>(properties).value();
+        result = _(dict).chain().findWhere(properties).value();
+    }
 }
 
 namespace TestReject {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-    let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
     let context = {};
 
     {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
-        let result: _.List<{ a: string }>;
+        let result: { a: string }[];
 
         result = _.reject<{ a: string }>(array, iterator);
         result = _.reject<{ a: string }>(array, iterator, context);
@@ -736,6 +803,12 @@ namespace TestReject {
         result = _<{ a: string }>(array).chain().reject(iterator, context).value();
         result = _(array).chain().reject(iterator).value();
         result = _(array).chain().reject(iterator, context).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: { a: string }[];
 
         result = _.reject<{ a: string }>(list, iterator);
         result = _.reject<{ a: string }>(list, iterator, context);
@@ -759,8 +832,9 @@ namespace TestReject {
     }
 
     {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
-        let result: _.List<{ a: string }>;
+        let result: { a: string }[];
 
         result = _.reject<{ a: string }>(dict, iterator);
         result = _.reject<{ a: string }>(dict, iterator, context);
@@ -784,33 +858,31 @@ namespace TestReject {
     }
 
     {
+        let str: string = 'abc';
         let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
-        let result: _.List<string>;
+        let result: string[];
 
-        result = _.reject<string>('abc', iterator);
-        result = _.reject<string>('abc', iterator, context);
-        result = _.reject('abc', iterator);
-        result = _.reject('abc', iterator, context);
+        result = _.reject<string>(str, iterator);
+        result = _.reject<string>(str, iterator, context);
+        result = _.reject(str, iterator);
+        result = _.reject(str, iterator, context);
 
-        result = _<string>('abc').reject(iterator);
-        result = _<string>('abc').reject(iterator, context);
-        result = _('abc').reject(iterator);
-        result = _('abc').reject(iterator, context);
+        result = _<string>(str).reject(iterator);
+        result = _<string>(str).reject(iterator, context);
+        result = _(str).reject(iterator);
+        result = _(str).reject(iterator, context);
 
-        result = _<string>('abc').chain().reject(iterator).value();
-        result = _<string>('abc').chain().reject(iterator, context).value();
-        result = _('abc').chain().reject(iterator).value();
-        result = _('abc').chain().reject(iterator, context).value();
+        result = _<string>(str).chain().reject(iterator).value();
+        result = _<string>(str).chain().reject(iterator, context).value();
+        result = _(str).chain().reject(iterator).value();
+        result = _(str).chain().reject(iterator, context).value();
     }
 }
 
 namespace TestShuffle {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-    let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-
     {
-        let result: _.List<{ a: string }>;
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let result: { a: string }[];
 
         result = _.shuffle<{ a: string }>(array);
         result = _.shuffle(array);
@@ -823,6 +895,11 @@ namespace TestShuffle {
 
         result = _<{ a: string }>(array).chain().shuffle().value();
         result = _(array).chain().shuffle().value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: { a: string }[];
 
         result = _.shuffle<{ a: string }>(list);
         result = _.shuffle(list);
@@ -838,7 +915,8 @@ namespace TestShuffle {
     }
 
     {
-        let result: _.List<{ a: string }>;
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let result: { a: string }[];
 
         result = _.shuffle<{ a: string }>(dict);
         result = _.shuffle(dict);
@@ -854,29 +932,27 @@ namespace TestShuffle {
     }
 
     {
-        let result: _.List<string>;
+        let str: string = 'abc';
+        let result: string[];
 
-        result = _.shuffle<string>('abc');
-        result = _.shuffle('abc');
+        result = _.shuffle<string>(str);
+        result = _.shuffle(str);
 
-        result = _<string>('abc').shuffle();
-        result = _('abc').shuffle();
+        result = _<string>(str).shuffle();
+        result = _(str).shuffle();
 
-        result = _<string>('abc').chain().shuffle().value();
-        result = _('abc').chain().shuffle().value();
+        result = _<string>(str).chain().shuffle().value();
+        result = _(str).chain().shuffle().value();
     }
 }
 
 namespace TestSample {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-    let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-
-    // ideally all versions of sample without n should include undefined as a possible result since _.sample([]) yields undefined
+    // as a breaking change, ideally all versions of sample without n should include undefined as a possible result since _.sample([]) yields undefined
     // also, ideally _Chain.sample should be updated to return _ChainSingle<T | undefined>
 
     // without n
     {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string } | undefined;
 
         result = _.sample<{ a: string }>(array);
@@ -890,6 +966,11 @@ namespace TestSample {
 
         result = _<{ a: string }>(array).chain().sample<{ a: string }>().value();
         result = _(array).chain().sample<{ a: string }>().value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: { a: string } | undefined;
 
         result = _.sample<{ a: string }>(list);
         result = _.sample(list);
@@ -905,6 +986,7 @@ namespace TestSample {
     }
 
     {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         let result: { a: string } | undefined;
 
         result = _.sample<{ a: string }>(dict);
@@ -921,21 +1003,23 @@ namespace TestSample {
     }
 
     {
+        let str: string = 'abc';
         let result: string | undefined;
 
-        result = _.sample<string>('abc');
-        result = _.sample('abc');
+        result = _.sample<string>(str);
+        result = _.sample(str);
 
-        result = _<string>('abc').sample<string>();
-        result = _('abc').sample<string>();
+        result = _<string>(str).sample<string>();
+        result = _(str).sample<string>();
 
-        result = _<string>('abc').chain().sample<string>().value();
-        result = _('abc').chain().sample<string>().value();
+        result = _<string>(str).chain().sample<string>().value();
+        result = _(str).chain().sample<string>().value();
     }
 
     // with n
     {
-        let result: _.List<{ a: string }>;
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let result: { a: string }[];
         let n = 2;
 
         result = _.sample<{ a: string }>(array, n);
@@ -949,6 +1033,12 @@ namespace TestSample {
 
         result = _<{ a: string }>(array).chain().sample<{ a: string }>(n).value();
         result = _(array).chain().sample<{ a: string }>(n).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: { a: string }[];
+        let n = 2;
 
         result = _.sample<{ a: string }>(list, n);
         result = _.sample(list, n);
@@ -964,7 +1054,8 @@ namespace TestSample {
     }
 
     {
-        let result: _.List<{ a: string }>;
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let result: { a: string }[];
         let n = 2;
 
         result = _.sample<{ a: string }>(dict, n);
@@ -981,26 +1072,24 @@ namespace TestSample {
     }
 
     {
-        let result: _.List<string>;
+        let str: string = 'abc';
+        let result: string[];
         let n = 2;
 
-        result = _.sample<string>('abc', n);
-        result = _.sample('abc', n);
+        result = _.sample<string>(str, n);
+        result = _.sample(str, n);
 
-        result = _<string>('abc').sample<string>(n);
-        result = _('abc').sample<string>(n);
+        result = _<string>(str).sample<string>(n);
+        result = _(str).sample<string>(n);
 
-        result = _<string>('abc').chain().sample<string>(n).value();
-        result = _('abc').chain().sample<string>(n).value();
+        result = _<string>(str).chain().sample<string>(n).value();
+        result = _(str).chain().sample<string>(n).value();
     }
 }
 
 namespace TestToArray {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-    let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-
     {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string }[];
 
         result = _.toArray<{ a: string }>(array);
@@ -1014,6 +1103,11 @@ namespace TestToArray {
 
         result = _<{ a: string }>(array).chain().toArray().value();
         result = _(array).chain().toArray().value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: { a: string }[];
 
         result = _.toArray<{ a: string }>(list);
         result = _.toArray(list);
@@ -1029,6 +1123,7 @@ namespace TestToArray {
     }
 
     {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         let result: { a: string }[];
 
         result = _.toArray<{ a: string }>(dict);
@@ -1045,28 +1140,100 @@ namespace TestToArray {
     }
 
     {
+        let str: string = 'abc';
         let result: string[];
 
-        result = _.toArray<string>('abc');
-        result = _.toArray('abc');
+        result = _.toArray<string>(str);
+        result = _.toArray(str);
 
-        result = _<string>('abc').toArray();
-        result = _('abc').toArray();
+        result = _<string>(str).toArray();
+        result = _(str).toArray();
 
-        result = _<string>('abc').chain().toArray().value();
-        result = _('abc').chain().toArray().value();
+        result = _<string>(str).chain().toArray().value();
+        result = _(str).chain().toArray().value();
     }
 }
 
-namespace TestFirst {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-    let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+namespace TestPartition {
+    // as a breaking change, consider updating the return type of partition to be [T[], T[]]
 
-    // ideally _Chain.head and _Chain.take should be updated to return _ChainSingle<T | undefined> like _Chain.first correctly does
+    {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: { a: string }[][];
+
+        result = _.partition<{ a: string }>(array, iterator);
+        result = _.partition(array, iterator);
+
+        result = _<{ a: string }>(array).partition(iterator);
+        result = _(array).partition(iterator);
+
+        result = _.chain<{ a: string }>(array).partition(iterator).value();
+        result = _.chain(array).partition(iterator).value();
+
+        result = _<{ a: string }>(array).chain().partition(iterator).value();
+        result = _(array).chain().partition(iterator).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: { a: string }[][];
+
+        result = _.partition<{ a: string }>(list, iterator);
+        result = _.partition(list, iterator);
+
+        result = _<{ a: string }>(list).partition(iterator);
+        result = _(list).partition(iterator);
+
+        result = _.chain<{ a: string }>(list).partition(iterator).value();
+        result = _.chain(list).partition(iterator).value();
+
+        result = _<{ a: string }>(list).chain().partition(iterator).value();
+        result = _(list).chain().partition(iterator).value();
+    }
+
+    {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
+        let result: { a: string }[][];
+
+        result = _.partition<{ a: string }>(dict, iterator);
+        result = _.partition(dict, iterator);
+
+        result = _<{ a: string }>(dict).partition(iterator);
+        result = _(dict).partition(iterator);
+
+        result = _.chain<{ a: string }>(dict).partition(iterator).value();
+        result = _.chain(dict).partition(iterator).value();
+
+        result = _<{ a: string }>(dict).chain().partition(iterator).value();
+        result = _(dict).chain().partition(iterator).value();
+    }
+
+    {
+        let str: string = 'abc';
+        let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        let result: string[][];
+
+        result = _.partition<string>(str, iterator);
+        result = _.partition(str, iterator);
+
+        result = _<string>(str).partition(iterator);
+        result = _(str).partition(iterator);
+
+        result = _<string>(str).chain().partition(iterator).value();
+        result = _(str).chain().partition(iterator).value();
+    }
+}
+
+// Array Functions
+namespace TestFirst {
+    // as a breaking change, ideally _Chain.head and _Chain.take should be updated to return _ChainSingle<T | undefined> like _Chain.first correctly does
 
     // without n
     {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string } | undefined;
 
         result = _.first<{ a: string }>(array);
@@ -1081,18 +1248,6 @@ namespace TestFirst {
         result = _<{ a: string }>(array).chain().first().value();
         result = _(array).chain().first().value();
 
-        result = _.first<{ a: string }>(list);
-        result = _.first(list);
-
-        result = _<{ a: string }>(list).first();
-        result = _(list).first();
-
-        result = _.chain<{ a: string }>(list).first().value();
-        result = _.chain(list).first().value();
-
-        result = _<{ a: string }>(list).chain().first().value();
-        result = _(list).chain().first().value();
-
         result = _.head<{ a: string }>(array);
         result = _.head(array);
 
@@ -1105,18 +1260,6 @@ namespace TestFirst {
         result = _<{ a: string }>(array).chain().head().value();
         result = _(array).chain().head().value();
 
-        result = _.head<{ a: string }>(list);
-        result = _.head(list);
-
-        result = _<{ a: string }>(list).head();
-        result = _(list).head();
-
-        result = _.chain<{ a: string }>(list).head().value();
-        result = _.chain(list).head().value();
-
-        result = _<{ a: string }>(list).chain().head().value();
-        result = _(list).chain().head().value();
-
         result = _.take<{ a: string }>(array);
         result = _.take(array);
 
@@ -1128,6 +1271,35 @@ namespace TestFirst {
 
         result = _<{ a: string }>(array).chain().take().value();
         result = _(array).chain().take().value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: { a: string } | undefined;
+
+        result = _.first<{ a: string }>(list);
+        result = _.first(list);
+
+        result = _<{ a: string }>(list).first();
+        result = _(list).first();
+
+        result = _.chain<{ a: string }>(list).first().value();
+        result = _.chain(list).first().value();
+
+        result = _<{ a: string }>(list).chain().first().value();
+        result = _(list).chain().first().value();
+
+        result = _.head<{ a: string }>(list);
+        result = _.head(list);
+
+        result = _<{ a: string }>(list).head();
+        result = _(list).head();
+
+        result = _.chain<{ a: string }>(list).head().value();
+        result = _.chain(list).head().value();
+
+        result = _<{ a: string }>(list).chain().head().value();
+        result = _(list).chain().head().value();
 
         result = _.take<{ a: string }>(list);
         result = _.take(list);
@@ -1143,40 +1315,42 @@ namespace TestFirst {
     }
 
     {
+        let str: string = 'abc';
         let result: string | undefined;
 
-        result = _.first<string>('abc');
-        result = _.first('abc');
+        result = _.first<string>(str);
+        result = _.first(str);
 
-        result = _<string>('abc').first();
-        result = _('abc').first();
+        result = _<string>(str).first();
+        result = _(str).first();
 
-        result = _<string>('abc').chain().first().value();
-        result = _('abc').chain().first().value();
+        result = _<string>(str).chain().first().value();
+        result = _(str).chain().first().value();
 
-        result = _.head<string>('abc');
-        result = _.head('abc');
+        result = _.head<string>(str);
+        result = _.head(str);
 
-        result = _<string>('abc').head();
-        result = _('abc').head();
+        result = _<string>(str).head();
+        result = _(str).head();
 
-        result = _<string>('abc').chain().head().value();
-        result = _('abc').chain().head().value();
+        result = _<string>(str).chain().head().value();
+        result = _(str).chain().head().value();
 
-        result = _.take<string>('abc');
-        result = _.take('abc');
+        result = _.take<string>(str);
+        result = _.take(str);
 
-        result = _<string>('abc').take();
-        result = _('abc').take();
+        result = _<string>(str).take();
+        result = _(str).take();
 
-        result = _<string>('abc').chain().take().value();
-        result = _('abc').chain().take().value();
+        result = _<string>(str).chain().take().value();
+        result = _(str).chain().take().value();
     }
 
     // with n
     {
-        let result: _.List<{ a: string }>;
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let n = 2;
+        let result: { a: string }[];
 
         result = _.first<{ a: string }>(array, n);
         result = _.first(array, n);
@@ -1190,18 +1364,6 @@ namespace TestFirst {
         result = _<{ a: string }>(array).chain().first(n).value();
         result = _(array).chain().first(n).value();
 
-        result = _.first<{ a: string }>(list, n);
-        result = _.first(list, n);
-
-        result = _<{ a: string }>(list).first(n);
-        result = _(list).first(n);
-
-        result = _.chain<{ a: string }>(list).first(n).value();
-        result = _.chain(list).first(n).value();
-
-        result = _<{ a: string }>(list).chain().first(n).value();
-        result = _(list).chain().first(n).value();
-
         result = _.head<{ a: string }>(array, n);
         result = _.head(array, n);
 
@@ -1214,18 +1376,6 @@ namespace TestFirst {
         result = _<{ a: string }>(array).chain().head(n).value();
         result = _(array).chain().head(n).value();
 
-        result = _.head<{ a: string }>(list, n);
-        result = _.head(list, n);
-
-        result = _<{ a: string }>(list).head(n);
-        result = _(list).head(n);
-
-        result = _.chain<{ a: string }>(list).head(n).value();
-        result = _.chain(list).head(n).value();
-
-        result = _<{ a: string }>(list).chain().head(n).value();
-        result = _(list).chain().head(n).value();
-
         result = _.take<{ a: string }>(array, n);
         result = _.take(array, n);
 
@@ -1237,6 +1387,36 @@ namespace TestFirst {
 
         result = _<{ a: string }>(array).chain().take(n).value();
         result = _(array).chain().take(n).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let n = 2;
+        let result: { a: string }[];
+
+        result = _.first<{ a: string }>(list, n);
+        result = _.first(list, n);
+
+        result = _<{ a: string }>(list).first(n);
+        result = _(list).first(n);
+
+        result = _.chain<{ a: string }>(list).first(n).value();
+        result = _.chain(list).first(n).value();
+
+        result = _<{ a: string }>(list).chain().first(n).value();
+        result = _(list).chain().first(n).value();
+
+        result = _.head<{ a: string }>(list, n);
+        result = _.head(list, n);
+
+        result = _<{ a: string }>(list).head(n);
+        result = _(list).head(n);
+
+        result = _.chain<{ a: string }>(list).head(n).value();
+        result = _.chain(list).head(n).value();
+
+        result = _<{ a: string }>(list).chain().head(n).value();
+        result = _(list).chain().head(n).value();
 
         result = _.take<{ a: string }>(list, n);
         result = _.take(list, n);
@@ -1252,46 +1432,44 @@ namespace TestFirst {
     }
 
     {
-        let result: _.List<string>;
+        let str: string = 'abc';
         let n = 2;
+        let result: string[];
 
-        result = _.first<string>('abc', n);
-        result = _.first('abc', n);
+        result = _.first<string>(str, n);
+        result = _.first(str, n);
 
-        result = _<string>('abc').first(n);
-        result = _('abc').first(n);
+        result = _<string>(str).first(n);
+        result = _(str).first(n);
 
-        result = _<string>('abc').chain().first(n).value();
-        result = _('abc').chain().first(n).value();
+        result = _<string>(str).chain().first(n).value();
+        result = _(str).chain().first(n).value();
 
-        result = _.head<string>('abc', n);
-        result = _.head('abc', n);
+        result = _.head<string>(str, n);
+        result = _.head(str, n);
 
-        result = _<string>('abc').head(n);
-        result = _('abc').head(n);
+        result = _<string>(str).head(n);
+        result = _(str).head(n);
 
-        result = _<string>('abc').chain().head(n).value();
-        result = _('abc').chain().head(n).value();
+        result = _<string>(str).chain().head(n).value();
+        result = _(str).chain().head(n).value();
 
-        result = _.take<string>('abc', n);
-        result = _.take('abc', n);
+        result = _.take<string>(str, n);
+        result = _.take(str, n);
 
-        result = _<string>('abc').take(n);
-        result = _('abc').take(n);
+        result = _<string>(str).take(n);
+        result = _(str).take(n);
 
-        result = _<string>('abc').chain().take(n).value();
-        result = _('abc').chain().take(n).value();
+        result = _<string>(str).chain().take(n).value();
+        result = _(str).chain().take(n).value();
     }
 }
 
 namespace TestInitial {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-    let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-
     // without n
     {
-        let result: _.List<{ a: string }>;
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let result: { a: string }[];
 
         result = _.initial<{ a: string }>(array);
         result = _.initial(array);
@@ -1304,6 +1482,11 @@ namespace TestInitial {
 
         result = _<{ a: string }>(array).chain().initial().value();
         result = _(array).chain().initial().value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: { a: string }[];
 
         result = _.initial<{ a: string }>(list);
         result = _.initial(list);
@@ -1319,21 +1502,23 @@ namespace TestInitial {
     }
 
     {
-        let result: _.List<string>;
+        let str: string = 'abc';
+        let result: string[];
 
-        result = _.initial<string>('abc');
-        result = _.initial('abc');
+        result = _.initial<string>(str);
+        result = _.initial(str);
 
-        result = _<string>('abc').initial();
-        result = _('abc').initial();
+        result = _<string>(str).initial();
+        result = _(str).initial();
 
-        result = _<string>('abc').chain().initial().value();
-        result = _('abc').chain().initial().value();
+        result = _<string>(str).chain().initial().value();
+        result = _(str).chain().initial().value();
     }
 
     // with n
     {
-        let result: _.List<{ a: string }>;
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let result: { a: string }[];
         let n = 2;
 
         result = _.initial<{ a: string }>(array, n);
@@ -1347,6 +1532,12 @@ namespace TestInitial {
 
         result = _<{ a: string }>(array).chain().initial(n).value();
         result = _(array).chain().initial(n).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: { a: string }[];
+        let n = 2;
 
         result = _.initial<{ a: string }>(list, n);
         result = _.initial(list, n);
@@ -1362,27 +1553,25 @@ namespace TestInitial {
     }
 
     {
-        let result: _.List<string>;
+        let str: string = 'abc';
+        let result: string[];
         let n = 2;
 
-        result = _.initial<string>('abc', n);
-        result = _.initial('abc', n);
+        result = _.initial<string>(str, n);
+        result = _.initial(str, n);
 
-        result = _<string>('abc').initial(n);
-        result = _('abc').initial(n);
+        result = _<string>(str).initial(n);
+        result = _(str).initial(n);
 
-        result = _<string>('abc').chain().initial(n).value();
-        result = _('abc').chain().initial(n).value();
+        result = _<string>(str).chain().initial(n).value();
+        result = _(str).chain().initial(n).value();
     }
 }
 
 namespace TestLast {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-    let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-
     // without n
     {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string } | undefined;
 
         result = _.last<{ a: string }>(array);
@@ -1396,6 +1585,11 @@ namespace TestLast {
 
         result = _<{ a: string }>(array).chain().last().value();
         result = _(array).chain().last().value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: { a: string } | undefined;
 
         result = _.last<{ a: string }>(list);
         result = _.last(list);
@@ -1411,22 +1605,24 @@ namespace TestLast {
     }
 
     {
+        let str: string = 'abc';
         let result: string | undefined;
 
-        result = _.last<string>('abc');
-        result = _.last('abc');
+        result = _.last<string>(str);
+        result = _.last(str);
 
-        result = _<string>('abc').last();
-        result = _('abc').last();
+        result = _<string>(str).last();
+        result = _(str).last();
 
-        result = _<string>('abc').chain().last().value();
-        result = _('abc').chain().last().value();
+        result = _<string>(str).chain().last().value();
+        result = _(str).chain().last().value();
     }
 
     // with n
     {
-        let result: _.List<{ a: string }>;
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let n = 2;
+        let result: { a: string }[];
 
         result = _.last<{ a: string }>(array, n);
         result = _.last(array, n);
@@ -1439,6 +1635,12 @@ namespace TestLast {
 
         result = _<{ a: string }>(array).chain().last(n).value();
         result = _(array).chain().last(n).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let n = 2;
+        let result: { a: string }[];
 
         result = _.last<{ a: string }>(list, n);
         result = _.last(list, n);
@@ -1454,27 +1656,25 @@ namespace TestLast {
     }
 
     {
-        let result: _.List<string>;
+        let str: string = 'abc';
         let n = 2;
+        let result: string[];
 
-        result = _.last<string>('abc', n);
-        result = _.last('abc', n);
+        result = _.last<string>(str, n);
+        result = _.last(str, n);
 
-        result = _<string>('abc').last(n);
-        result = _('abc').last(n);
+        result = _<string>(str).last(n);
+        result = _(str).last(n);
 
-        result = _<string>('abc').chain().last(n).value();
-        result = _('abc').chain().last(n).value();
+        result = _<string>(str).chain().last(n).value();
+        result = _(str).chain().last(n).value();
     }
 }
 
 namespace TestRest {
-    let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-    let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-    let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-
     // without n
     {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string }[];
 
         result = _.rest<{ a: string }>(array);
@@ -1489,18 +1689,6 @@ namespace TestRest {
         result = _<{ a: string }>(array).chain().rest().value();
         result = _(array).chain().rest().value();
 
-        result = _.rest<{ a: string }>(list);
-        result = _.rest(list);
-
-        result = _<{ a: string }>(list).rest();
-        result = _(list).rest();
-
-        result = _.chain<{ a: string }>(list).rest().value();
-        result = _.chain(list).rest().value();
-
-        result = _<{ a: string }>(list).chain().rest().value();
-        result = _(list).chain().rest().value();
-
         result = _.tail<{ a: string }>(array);
         result = _.tail(array);
 
@@ -1513,18 +1701,6 @@ namespace TestRest {
         result = _<{ a: string }>(array).chain().tail().value();
         result = _(array).chain().tail().value();
 
-        result = _.tail<{ a: string }>(list);
-        result = _.tail(list);
-
-        result = _<{ a: string }>(list).tail();
-        result = _(list).tail();
-
-        result = _.chain<{ a: string }>(list).tail().value();
-        result = _.chain(list).tail().value();
-
-        result = _<{ a: string }>(list).chain().tail().value();
-        result = _(list).chain().tail().value();
-
         result = _.drop<{ a: string }>(array);
         result = _.drop(array);
 
@@ -1536,6 +1712,35 @@ namespace TestRest {
 
         result = _<{ a: string }>(array).chain().drop().value();
         result = _(array).chain().drop().value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: { a: string }[];
+
+        result = _.rest<{ a: string }>(list);
+        result = _.rest(list);
+
+        result = _<{ a: string }>(list).rest();
+        result = _(list).rest();
+
+        result = _.chain<{ a: string }>(list).rest().value();
+        result = _.chain(list).rest().value();
+
+        result = _<{ a: string }>(list).chain().rest().value();
+        result = _(list).chain().rest().value();
+
+        result = _.tail<{ a: string }>(list);
+        result = _.tail(list);
+
+        result = _<{ a: string }>(list).tail();
+        result = _(list).tail();
+
+        result = _.chain<{ a: string }>(list).tail().value();
+        result = _.chain(list).tail().value();
+
+        result = _<{ a: string }>(list).chain().tail().value();
+        result = _(list).chain().tail().value();
 
         result = _.drop<{ a: string }>(list);
         result = _.drop(list);
@@ -1551,40 +1756,42 @@ namespace TestRest {
     }
 
     {
+        let str: string = 'abc';
         let result: string[];
 
-        result = _.rest<string>('abc');
-        result = _.rest('abc');
+        result = _.rest<string>(str);
+        result = _.rest(str);
 
-        result = _<string>('abc').rest();
-        result = _('abc').rest();
+        result = _<string>(str).rest();
+        result = _(str).rest();
 
-        result = _<string>('abc').chain().rest().value();
-        result = _('abc').chain().rest().value();
+        result = _<string>(str).chain().rest().value();
+        result = _(str).chain().rest().value();
 
-        result = _.tail<string>('abc');
-        result = _.tail('abc');
+        result = _.tail<string>(str);
+        result = _.tail(str);
 
-        result = _<string>('abc').tail();
-        result = _('abc').tail();
+        result = _<string>(str).tail();
+        result = _(str).tail();
 
-        result = _<string>('abc').chain().tail().value();
-        result = _('abc').chain().tail().value();
+        result = _<string>(str).chain().tail().value();
+        result = _(str).chain().tail().value();
 
-        result = _.drop<string>('abc');
-        result = _.drop('abc');
+        result = _.drop<string>(str);
+        result = _.drop(str);
 
-        result = _<string>('abc').drop();
-        result = _('abc').drop();
+        result = _<string>(str).drop();
+        result = _(str).drop();
 
-        result = _<string>('abc').chain().drop().value();
-        result = _('abc').chain().drop().value();
+        result = _<string>(str).chain().drop().value();
+        result = _(str).chain().drop().value();
     }
 
     // with n
     {
-        let result: _.List<{ a: string }>;
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let n = 2;
+        let result: { a: string }[];
 
         result = _.rest<{ a: string }>(array, n);
         result = _.rest(array, n);
@@ -1598,18 +1805,6 @@ namespace TestRest {
         result = _<{ a: string }>(array).chain().rest(n).value();
         result = _(array).chain().rest(n).value();
 
-        result = _.rest<{ a: string }>(list, n);
-        result = _.rest(list, n);
-
-        result = _<{ a: string }>(list).rest(n);
-        result = _(list).rest(n);
-
-        result = _.chain<{ a: string }>(list).rest(n).value();
-        result = _.chain(list).rest(n).value();
-
-        result = _<{ a: string }>(list).chain().rest(n).value();
-        result = _(list).chain().rest(n).value();
-
         result = _.tail<{ a: string }>(array, n);
         result = _.tail(array, n);
 
@@ -1622,18 +1817,6 @@ namespace TestRest {
         result = _<{ a: string }>(array).chain().tail(n).value();
         result = _(array).chain().tail(n).value();
 
-        result = _.tail<{ a: string }>(list, n);
-        result = _.tail(list, n);
-
-        result = _<{ a: string }>(list).tail(n);
-        result = _(list).tail(n);
-
-        result = _.chain<{ a: string }>(list).tail(n).value();
-        result = _.chain(list).tail(n).value();
-
-        result = _<{ a: string }>(list).chain().tail(n).value();
-        result = _(list).chain().tail(n).value();
-
         result = _.drop<{ a: string }>(array, n);
         result = _.drop(array, n);
 
@@ -1645,6 +1828,36 @@ namespace TestRest {
 
         result = _<{ a: string }>(array).chain().drop(n).value();
         result = _(array).chain().drop(n).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let n = 2;
+        let result: { a: string }[];
+
+        result = _.rest<{ a: string }>(list, n);
+        result = _.rest(list, n);
+
+        result = _<{ a: string }>(list).rest(n);
+        result = _(list).rest(n);
+
+        result = _.chain<{ a: string }>(list).rest(n).value();
+        result = _.chain(list).rest(n).value();
+
+        result = _<{ a: string }>(list).chain().rest(n).value();
+        result = _(list).chain().rest(n).value();
+
+        result = _.tail<{ a: string }>(list, n);
+        result = _.tail(list, n);
+
+        result = _<{ a: string }>(list).tail(n);
+        result = _(list).tail(n);
+
+        result = _.chain<{ a: string }>(list).tail(n).value();
+        result = _.chain(list).tail(n).value();
+
+        result = _<{ a: string }>(list).chain().tail(n).value();
+        result = _(list).chain().tail(n).value();
 
         result = _.drop<{ a: string }>(list, n);
         result = _.drop(list, n);
@@ -1660,35 +1873,214 @@ namespace TestRest {
     }
 
     {
-        let result: _.List<string>;
+        let str: string = 'abc';
         let n = 2;
+        let result: string[];
 
-        result = _.rest<string>('abc', n);
-        result = _.rest('abc', n);
+        result = _.rest<string>(str, n);
+        result = _.rest(str, n);
 
-        result = _<string>('abc').rest(n);
-        result = _('abc').rest(n);
+        result = _<string>(str).rest(n);
+        result = _(str).rest(n);
 
-        result = _<string>('abc').chain().rest(n).value();
-        result = _('abc').chain().rest(n).value();
+        result = _<string>(str).chain().rest(n).value();
+        result = _(str).chain().rest(n).value();
 
-        result = _.tail<string>('abc', n);
-        result = _.tail('abc', n);
+        result = _.tail<string>(str, n);
+        result = _.tail(str, n);
 
-        result = _<string>('abc').tail(n);
-        result = _('abc').tail(n);
+        result = _<string>(str).tail(n);
+        result = _(str).tail(n);
 
-        result = _<string>('abc').chain().tail(n).value();
-        result = _('abc').chain().tail(n).value();
+        result = _<string>(str).chain().tail(n).value();
+        result = _(str).chain().tail(n).value();
 
-        result = _.drop<string>('abc', n);
-        result = _.drop('abc', n);
+        result = _.drop<string>(str, n);
+        result = _.drop(str, n);
 
-        result = _<string>('abc').drop(n);
-        result = _('abc').drop(n);
+        result = _<string>(str).drop(n);
+        result = _(str).drop(n);
 
-        result = _<string>('abc').chain().drop(n).value();
-        result = _('abc').chain().drop(n).value();
+        result = _<string>(str).chain().drop(n).value();
+        result = _(str).chain().drop(n).value();
+    }
+}
+
+namespace TestCompact {
+    // the unwrapped methods use a type argument that includes falsy values, so they can be used to correctly end up
+    // with a result that has falsy values removed
+    {
+        let array: ({ a: string } | undefined)[] = [{ a: 'a' }, { a: 'b' }];
+        let result: { a: string }[];
+
+        result = _.compact<{ a: string }>(array);
+        result = _.compact(array);
+    }
+
+    {
+        let list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: { a: string }[];
+
+        result = _.compact<{ a: string }>(list);
+        result = _.compact(list);
+    }
+
+    // consider updating the result of these compact calls to be "(T extends undefined | null | false | '' | 0 ? never : T)[]"
+    // and updating this result to be { a: string }[]
+    // it would also be nice to change how the calls above work to use the same logic to be consistent
+    {
+        let array: ({ a: string } | undefined)[] = [{ a: 'a' }, { a: 'b' }];
+        let result: ({ a: string } | undefined)[];
+
+        result = _<{ a: string } | undefined>(array).compact();
+        result = _(array).compact();
+
+        result = _.chain<{ a: string } | undefined>(array).compact().value();
+        result = _.chain(array).compact().value();
+
+        result = _<{ a: string } | undefined>(array).chain().compact().value();
+        result = _(array).chain().compact().value();
+    }
+
+    {
+        let list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: ({ a: string } | undefined)[];
+
+        result = _<{ a: string } | undefined>(list).compact();
+        result = _(list).compact();
+
+        result = _.chain<{ a: string } | undefined>(list).compact().value();
+        result = _.chain(list).compact().value();
+
+        result = _<{ a: string } | undefined>(list).chain().compact().value();
+        result = _(list).chain().compact().value();
+    }
+}
+
+interface ArrayWrapper<T> {
+    items: T[];
+}
+
+namespace TestFlatten {
+    // as a breaking change, since shallow flattening is likely the most common type of flattening consider adding the following type:
+    // type ListItemType<T> = T extends _.List<infer TItem> ? TItem : T;
+    // and updating the flatten functions to have the following two overloads:
+    // flatten<T>(array: _.List<T>, shallow: true): ListItemType<T>[];
+    // flatten<T>(array: _.List<T>, shallow?: false): T extends _.List<_.List<any>> ? any[] : ListItemType<T>[];
+    // and dropping the ChainOfArrays type
+    // unfortunately it's not possible to recursively collapse something like T[][][][] to T[] at this time
+
+    // standard cases - the return value of all of these calls need to be manually checked and should be any[]
+    {
+        let array: { a: string }[][] = [[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]];
+        let result: { a: string }[];
+
+        result = _.flatten(array);
+
+        result = _<{ a: string }[]>(array).flatten();
+        result = _(array).flatten();
+
+        result = _.chain<{ a: string }[]>(array).flatten().value();
+        result = _.chain(array).flatten().value();
+
+        result = _<{ a: string }[]>(array).chain().flatten().value();
+        result = _(array).chain().flatten().value();
+    }
+
+    {
+        let list: _.List<_.List<{ a: string }>> = { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 };
+        let result: { a: string }[];
+
+        result = _.flatten(list);
+
+        result = _<_.List<{ a: string }>>(list).flatten();
+        result = _(list).flatten();
+
+        result = _.chain<_.List<{ a: string }>>(list).flatten().value();
+        result = _.chain(list).flatten().value();
+
+        result = _<_.List<{ a: string }>>(list).chain().flatten().value();
+        result = _(list).chain().flatten().value();
+    }
+
+    // special case: ChainOfArrays<T> - the return value of all of these calls needs to be manually checked and should be { a: string }[]
+    // this interface is technically incorrect since it doesn't distinguish between shallow and not shallow, but a shallow flatten is probably the most common
+    // kind of flatten
+    {
+        let array: ArrayWrapper<{ a: string }>[] = [{ items: [{ a: 'a' }, { a: 'b' }] }, { items: [{ a: 'a' }, { a: 'b' }] }];
+        let result: { a: string }[];
+
+        result = _.chain<ArrayWrapper<{ a: string }>>(array).map(a => a.items).flatten().value();
+        result = _.chain(array).map(a => a.items).flatten().value();
+
+        result = _<ArrayWrapper<{ a: string }>>(array).chain().map(a => a.items).flatten().value();
+        result = _(array).chain().map(a => a.items).flatten().value();
+    }
+
+    {
+        let list: _.List<ArrayWrapper<{ a: string }>> = { 0: { items: [{ a: 'a' }, { a: 'b' }] }, 1: { items: [{ a: 'a' }, { a: 'b' }] }, length: 2 };
+        let result: { a: string }[];
+
+        result = _.chain<ArrayWrapper<{ a: string }>>(list).map(a => a.items).flatten().value();
+        result = _.chain(list).map(a => a.items).flatten().value();
+
+        result = _<ArrayWrapper<{ a: string }>>(list).chain().map(a => a.items).flatten().value();
+        result = _(list).chain().map(a => a.items).flatten().value();
+    }
+}
+
+namespace TestWithout {
+    // as a breaking change, ideally the return value for these functions should be updated to include undefined
+
+    {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let item = array[0];
+        let result: { a: string }[];
+
+        result = _.without<{ a: string }>(array, item);
+        result = _.without(array, item);
+
+        result = _<{ a: string }>(array).without(item);
+        result = _(array).without(item);
+
+        result = _.chain<{ a: string }>(array).without(item).value();
+        result = _.chain(array).without(item).value();
+
+        result = _<{ a: string }>(array).chain().without(item).value();
+        result = _(array).chain().without(item).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let item = list[0];
+        let result: { a: string }[];
+
+        result = _.without<{ a: string }>(list, item);
+        result = _.without(list, item);
+
+        result = _<{ a: string }>(list).without(item);
+        result = _(list).without(item);
+
+        result = _.chain<{ a: string }>(list).without(item).value();
+        result = _.chain(list).without(item).value();
+
+        result = _<{ a: string }>(list).chain().without(item).value();
+        result = _(list).chain().without(item).value();
+    }
+
+    {
+        let str: string = 'abc';
+        let item = str[0];
+        let result: string[];
+
+        result = _.without<string>(str, item);
+        result = _.without(str, item);;
+
+        result = _<string>(str).without(item);
+        result = _(str).without(item);
+
+        result = _<string>(str).chain().without(item).value();
+        result = _(str).chain().without(item).value();
     }
 }
 
