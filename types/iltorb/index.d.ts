@@ -16,6 +16,7 @@ export interface BrotliEncodeParams {
     disable_literal_context_modeling?: boolean;
     lgblock?: number;
     lgwin?: number;
+    /** @default 0 */
     mode?: BrotliMode;
     quality?: BrotliCompressionQuality;
     size_hint?: number;
