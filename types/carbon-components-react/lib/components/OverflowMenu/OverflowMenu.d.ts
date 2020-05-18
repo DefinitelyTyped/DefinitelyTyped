@@ -5,7 +5,7 @@ import {
     MenuOffsetData,
     ReactAttr,
     RenderIconProps,
-    ReactButtonAttr, ThemeProps, ForwardRefReturn
+    ReactButtonAttr, ThemeProps, ForwardRefReturn, VerticalDirection
 } from "../../../typings/shared";
 
 type GetMenuOffsetFn = ((menuBody: HTMLElement, direction: Direction, trigger?: HTMLElement, flip?: boolean) => (MenuOffsetData | undefined));
@@ -25,7 +25,7 @@ interface InheritedProps extends
 export type MenuOffsetValue = MenuOffsetData | GetMenuOffsetFn;
 
 export interface OverflowMenuProps extends InheritedProps {
-    direction?: Extract<Direction, "bottom" | "top">,
+    direction?: VerticalDirection,
     iconClass?: ReactAttr["className"],
     flipped?: boolean,
     menuOffset?: MenuOffsetValue,

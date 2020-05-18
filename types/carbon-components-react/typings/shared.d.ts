@@ -12,12 +12,20 @@ export type ReactCreateElementParam = Parameters<typeof React.createElement>[0];
 export type ShapeOf<B extends object, E extends object = { [key: string]: any }> = (E extends never ? {} : E) & B;
 export type Overwrite<T, U> = [T] extends [never] ? U : Omit<T, keyof U> & U;
 
-export type Direction = "bottom" | "left" | "right" | "top";
+export type VerticalDirection = "bottom" | "top";
+export type HorizontalDirection = "left" | "right";
+export type Direction = HorizontalDirection | VerticalDirection;
 export type ListBoxBaseItemType = object | string;
 export type TooltipAlignment = "center" | "end" | "start";
 export type TooltipPosition = Direction;
 export type CarbonSize = "lg" | "sm" | "xs";
 export type CarbonInputSize = "sm" | "lg" | "xl";
+
+//
+// In retrospect, it may not always be a good idea to lump shared props into a common reused interface.
+// There's no real relation between components that share these types and they could diverge causing painful refactors.
+// This approach should probably be left for more complicated types such as those that involve generics.
+//
 
 export interface DownshiftTypedProps<ItemType> {
     itemToString?(item: ItemType): string,
