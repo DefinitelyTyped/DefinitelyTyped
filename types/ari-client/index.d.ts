@@ -33,7 +33,7 @@ export interface Client extends Resource {
      *
      *  @param apps - Name or array of names of the applications to be started.
      *  @param subscribeAll - Subscribe to all Asterisk events (true/false).
-     *  @param callback - (optional) The callback to be called after applications have started.
+     *  @param [callback] - The callback to be called after applications have started.
      */
     start(apps: string | string[], subscribeAll: boolean, callback?: (err: Error, ...args: any[]) => void): void;
 
