@@ -2011,7 +2011,7 @@ export interface Asterisk {
     /**
      * Gets Asterisk system information.
      *
-     * @param params.only - (optional) Filter information returned.
+     * @param [params.only] - Filter information returned.
      */
     getInfo(params: { only?: string | string[] }, callback: (err: Error, asteriskinfo: AsteriskInfo) => void): void;
 
