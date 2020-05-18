@@ -1,4 +1,4 @@
-// Type definitions for @pollyjs/node-server 4.3.0
+// Type definitions for @pollyjs/node-server 4.3
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/node-server
 // Definitions by: Offir Golan <https://github.com/offirgolan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,6 +1,7 @@
 // Type definitions for @pollyjs/adapter 4.3
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/adapter
 // Definitions by: feinoujc <https://github.com/feinoujc>
+//                 Offir Golan <https://github.com/offirgolan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Headers, Request } from '@pollyjs/core';
