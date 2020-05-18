@@ -1,13 +1,14 @@
-// Type definitions for rascal 8.0
+// Type definitions for rascal 10.0
 // Project: https://guidesmiths.github.io/rascal/
 // Definitions by: ethan <https://github.com/zijin-m>
+//                 MartinTechy <https://github.com/MartinTechy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
 /// <reference types="node" />
 
-import { EventEmitter } from "events";
-import { Message, Options } from "amqplib";
+import { EventEmitter } from 'events';
+import { Message, Options, Connection, Channel } from 'amqplib';
 
 interface BindingConfig {
     source?: string;
@@ -49,7 +50,7 @@ interface ConnectionAttributes {
         timeout?: number;
         channelMax?: number;
         connection_timeout?: number;
-        [key: string]: any
+        [key: string]: any;
     };
     socketOptions?: {
         timeout?: number;
@@ -89,15 +90,21 @@ interface VhostConfig {
     connection?: ConnectionConfig;
     connections?: ConnectionConfig[];
     connectionStrategy?: 'random' | 'fixed';
-    exchanges?: {
-        [key: string]: ExchangeConfig;
-    } | string[];
-    queues?: {
-        [key: string]: QueueConfig;
-    } | string[];
-    bindings?: {
-        [key: string]: BindingConfig;
-    } | string[];
+    exchanges?:
+        | {
+              [key: string]: ExchangeConfig;
+          }
+        | string[];
+    queues?:
+        | {
+              [key: string]: QueueConfig;
+          }
+        | string[];
+    bindings?:
+        | {
+              [key: string]: BindingConfig;
+          }
+        | string[];
     publications?: {
         [key: string]: PublicationConfig;
     };
@@ -129,12 +136,12 @@ interface Redelivery {
         [key: string]: {
             type: 'stub' | 'inMemory' | 'inMemoryCluster';
             size?: number;
-        }
+        };
     };
 }
 
 interface Recovery {
-    strategy: "ack" | "nack" | "republish" | "forward";
+    strategy: 'ack' | 'nack' | 'republish' | 'forward';
     defer?: number;
     attempts?: number;
     requeue?: boolean;
@@ -164,7 +171,7 @@ interface SubscriptionConfig {
     };
 }
 
-export interface BrokerConfig {
+interface BrokerConfig {
     vhosts?: {
         [key: string]: VhostConfig;
     };
@@ -178,13 +185,13 @@ export interface BrokerConfig {
     recovery?: {
         [key: string]: Recovery | Recovery[];
     };
-    defaults?: BrokerConfig;
+    defaults?: VhostConfig;
     encryption?: {
         [key: string]: Encryption;
     };
 }
 
-export const defaultConfig: {
+declare const defaultConfig: {
     defaults: {
         publications: {
             confirm: boolean;
@@ -199,8 +206,7 @@ export const defaultConfig: {
                 inMemory: {
                     size: number;
                 };
-                stub: {
-                };
+                stub: {};
             };
         };
         subscriptions: {
@@ -284,7 +290,7 @@ export const defaultConfig: {
     };
 };
 
-export const testConfig: {
+declare const testConfig: {
     defaults: {
         publications: {
             confirm: boolean;
@@ -299,8 +305,7 @@ export const testConfig: {
                 inMemory: {
                     size: number;
                 };
-                stub: {
-                };
+                stub: {};
             };
         };
         subscriptions: {
@@ -395,60 +400,111 @@ export const testConfig: {
             inMemory: {
                 size: number;
             };
-            stub: {
-            };
+            stub: {};
         };
     };
 };
 
-export type AckOrNackFn = (err?: Error, recovery?: Recovery | Recovery[]) => void;
+type AckOrNack = (err?: Error, recovery?: Recovery | Recovery[]) => void;
 
 declare class SubscriptionSession extends EventEmitter {
     name: string;
     isCancelled(): boolean;
     cancel(): Promise<void>;
-    on(event: 'message', listener: (message: Message, content: any, ackOrNackFn: any) => void): this;
+    on(event: 'message', listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
     on(event: 'error' | 'cancelled', listener: (err: Error) => void): this;
-    on(event: 'invalid_content' | 'redeliveries_exceeded' | 'redeliveries_error' | 'redeliveries_error', listener: (err: Error, message: Message, ackOrNackFn: any) => void): this;
+    on(
+        event: 'invalid_content' | 'redeliveries_exceeded' | 'redeliveries_error' | 'redeliveries_error',
+        listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => void,
+    ): this;
 }
 
-declare class PublishEventemitter extends EventEmitter {
-    on(event: 'success', listener: (messageId: string) => void): this;
-    on(event: 'error', listener: (err: Error, messageId: string) => void): this;
-    on(event: 'return', listener: (message: Message) => void): this;
-}
-
-declare class BrokerAsPromisedClass extends EventEmitter {
+declare class BrokerAsPromised extends EventEmitter {
     readonly config: BrokerConfig;
-    constructor(config: BrokerConfig, compoents: any)
-    connect(name: string): Promise<any>;
+    static create(config: BrokerConfig, components?: any): Promise<BrokerAsPromised>;
+    constructor(broker: Broker);
+    connect(name: string): Promise<Connection>;
     nuke(): Promise<void>;
     purge(): Promise<void>;
     shutdown(): Promise<void>;
     bounce(): Promise<void>;
+    publish(name: string, message: any, overrides?: PublicationConfig | string): Promise<PublicationSession>;
+    forward(name: string, message: any, overrides?: PublicationConfig | string): Promise<PublicationSession>;
     unsubscribeAll(): Promise<void>;
-    publish(name: string, message: any, overrides?: PublicationConfig | string): Promise<PublishEventemitter>;
-    forward(name: string, message: any, overrides?: PublicationConfig | string): Promise<PublishEventemitter>;
     subscribe(name: string, overrides?: SubscriptionConfig): Promise<SubscriptionSession>;
+    subscribeAll(filter?: string): Promise<SubscriptionSession[]>;
 }
 
-export function createBroker(config: BrokerConfig, components: any, next: any, ...args: any[]): any;
-
-export function createBrokerAsPromised(config: BrokerConfig, components: any): Promise<BrokerAsPromisedClass>;
-
-export function withDefaultConfig(config: BrokerConfig): BrokerConfig;
-
-export function withTestConfig(config: BrokerConfig): BrokerConfig;
-
-export namespace Broker {
-    function create(config: any, next: any, ...args: any[]): any;
-    function create(config: any, components: any, next: any, ...args: any[]): any;
+declare class Broker extends EventEmitter {
+    readonly config: BrokerConfig;
+    static create(config: BrokerConfig, next: (err: Error, broker: Broker) => void): any;
+    static create(config: BrokerConfig, components: any, next: (err?: Error, broker?: Broker) => void): any;
+    connect(name: string, next: (err?: Error, connection?: Connection) => void): void;
+    nuke(next: (err?: Error) => void): void;
+    purge(next: (err?: Error) => void): void;
+    shutdown(next: (err?: Error) => void): void;
+    bounce(next: (err?: Error) => void): void;
+    publish(name: string, message: any, next: (err: Error, publication: PublicationSession) => void): void;
+    publish(
+        name: string,
+        message: any,
+        overrides: PublicationConfig | string,
+        next: (err: Error, publication: PublicationSession) => void,
+    ): void;
+    forward(name: string, message: any, next: (err: Error, publication: PublicationSession) => void): void;
+    forward(
+        name: string,
+        message: any,
+        overrides: PublicationConfig | string,
+        next: (err: Error, publication: PublicationSession) => void,
+    ): void;
+    subscribe(name: string, next: (err: Error, subscription: SubscriptionSession) => void): void;
+    subscribe(
+        name: string,
+        overrides: SubscriptionConfig | string,
+        next: (err: Error, subscription: SubscriptionSession) => void,
+    ): void;
+    subscribeAll(next: (err: Error, results: SubscriptionSession[]) => void): void;
+    subscribeAll(filter: string, next?: (err: Error, results: SubscriptionSession[]) => void): void;
+    unsubscribeAll(next: (err?: Error) => void): void;
 }
 
-export namespace BrokerAsPromised {
-    function create(config: BrokerConfig, components?: any): Promise<BrokerAsPromisedClass>;
+export class PublicationSession extends EventEmitter {
+    constructor(vhost: Vhost, messageId: string);
+    abort(): void;
+    isAborted(): boolean;
+    emitPaused(): void;
 }
-export namespace counters {
+
+export class Vhost extends EventEmitter {
+    static create(config: VhostConfig, next: (err?: Error, vhost?: Vhost) => void): void;
+    init(next: (err?: Error, vhost?: Vhost) => void): Vhost;
+    shutdown(next: (err?: Error) => void): void;
+    nuke(next: (err?: Error) => void): void;
+    purge(next: (err?: Error) => void): void;
+    bounce(next: (err?: Error, result?: any) => void): void;
+    connect(next: (err?: Error, connection?: Connection) => void): void;
+    disconnect(next: (err?: Error, connection?: Connection) => void): void;
+    getChannel(next: (err?: Error, channel?: Channel) => void): void;
+    getConfirmChannel(next: (err?: Error, channel?: Channel) => void): void;
+    borrowChannel(next: (err?: Error, channel?: Channel) => void): void;
+    returnChannel(channel: Channel): void;
+    destroyChannel(channel: Channel): void;
+    borrowConfirmChannel(next: (err?: Error, channel?: Channel) => void): void;
+    returnConfirmChannel(channel: Channel): void;
+    destroyConfirmChannel(channel: Channel): void;
+    isPaused(): boolean;
+}
+
+declare function createBroker(config: BrokerConfig, components: any, next: any, ...args: any[]): any;
+
+declare function createBrokerAsPromised(config: BrokerConfig, components: any): Promise<BrokerAsPromised>;
+
+declare function withDefaultConfig(config: BrokerConfig): BrokerConfig;
+
+declare function withTestConfig(config: BrokerConfig): BrokerConfig;
+
+declare namespace counters {
     function inMemory(options: any): any;
     function stub(options: any): any;
     namespace inMemoryCluster {
@@ -457,4 +513,16 @@ export namespace counters {
     }
 }
 
-export {};
+export {
+    Broker,
+    BrokerAsPromised,
+    createBroker,
+    createBrokerAsPromised,
+    defaultConfig,
+    testConfig,
+    withDefaultConfig,
+    withTestConfig,
+    counters,
+    BrokerConfig,
+    AckOrNack,
+};
