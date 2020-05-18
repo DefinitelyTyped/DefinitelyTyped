@@ -1,4 +1,4 @@
-import moment = require("moment-timezone");
+import moment = require("moment");
 import strftime2 = require("moment-strftime2");
 strftime2.installTo(moment);
 
