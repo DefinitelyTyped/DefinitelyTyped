@@ -50,6 +50,17 @@ export interface RawOp {
     d: string;
 }
 export type OTType = 'ot-text' | 'ot-json0' | 'ot-text-tp2' | 'rich-text';
+
+export interface Type {
+  name?: string;
+  uri?: string;
+  [key: string]: any;
+}
+export interface Types {
+  register: (type: Type) => void;
+  map: { [key: string]: Type };
+}
+
 export interface Error {
     code: number;
     message: string;

@@ -198,6 +198,15 @@ function startServer() {
     });
 }
 
+ShareDBClient.types.register({
+  name: 'rich-text',
+  uri: 'http://sharejs.org/types/rich-text/v1'
+});
+
+console.log(ShareDBClient.types.map);
+console.log(ShareDBClient.types.map['rich-text'].name);
+console.log(ShareDBClient.types.map['rich-text'].uri);
+
 function startClient(callback) {
     const socket = new WebSocket('ws://localhost:8080');
     const connection = new ShareDBClient.Connection(socket);
