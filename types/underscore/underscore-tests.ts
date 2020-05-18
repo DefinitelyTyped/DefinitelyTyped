@@ -2581,6 +2581,172 @@ namespace TestMin {
     }
 }
 
+namespace TestSortBy {
+    // as a breaking change, consider dropping TSort from UnderscoreStatic.sortBy and using any instead like Underscore and Chain do since TSort doesn't really add much
+    let context = {};
+
+    // with iterators
+    {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: { a: string }[];
+
+        result = _.sortBy<{ a: string }, string>(array, iterator);
+        result = _.sortBy<{ a: string }, string>(array, iterator, context);
+        result = _.sortBy(array, iterator);
+        result = _.sortBy(array, iterator, context);
+
+        result = _<{ a: string }>(array).sortBy(iterator);
+        result = _<{ a: string }>(array).sortBy(iterator, context);
+        result = _(array).sortBy(iterator);
+        result = _(array).sortBy(iterator, context);
+
+        result = _.chain<{ a: string }>(array).sortBy(iterator).value();
+        result = _.chain<{ a: string }>(array).sortBy(iterator, context).value();
+        result = _.chain(array).sortBy(iterator).value();
+        result = _.chain(array).sortBy(iterator, context).value();
+
+        result = _<{ a: string }>(array).chain().sortBy(iterator).value();
+        result = _<{ a: string }>(array).chain().sortBy(iterator, context).value();
+        result = _(array).chain().sortBy(iterator).value();
+        result = _(array).chain().sortBy(iterator, context).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: { a: string }[];
+
+        result = _.sortBy<{ a: string }, string>(list, iterator);
+        result = _.sortBy<{ a: string }, string>(list, iterator, context);
+        result = _.sortBy(list, iterator);
+        result = _.sortBy(list, iterator, context);
+
+        result = _<{ a: string }>(list).sortBy(iterator);
+        result = _<{ a: string }>(list).sortBy(iterator, context);
+        result = _(list).sortBy(iterator);
+        result = _(list).sortBy(iterator, context);
+
+        result = _.chain<{ a: string }>(list).sortBy(iterator).value();
+        result = _.chain<{ a: string }>(list).sortBy(iterator, context).value();
+        result = _.chain(list).sortBy(iterator).value();
+        result = _.chain(list).sortBy(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().sortBy(iterator).value();
+        result = _<{ a: string }>(list).chain().sortBy(iterator, context).value();
+        result = _(list).chain().sortBy(iterator).value();
+        result = _(list).chain().sortBy(iterator, context).value();
+    }
+
+    {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
+        let result: { a: string }[];
+
+        result = _.sortBy<{ a: string }, string>(dict, iterator);
+        result = _.sortBy<{ a: string }, string>(dict, iterator, context);
+        result = _.sortBy(dict, iterator);
+        result = _.sortBy(dict, iterator, context);
+
+        result = _<{ a: string }>(dict).sortBy(iterator);
+        result = _<{ a: string }>(dict).sortBy(iterator, context);
+        result = _(dict).sortBy(iterator);
+        result = _(dict).sortBy(iterator, context);
+
+        result = _.chain<{ a: string }>(dict).sortBy(iterator).value();
+        result = _.chain<{ a: string }>(dict).sortBy(iterator, context).value();
+        result = _.chain(dict).sortBy(iterator).value();
+        result = _.chain(dict).sortBy(iterator, context).value();
+
+        result = _<{ a: string }>(dict).chain().sortBy(iterator).value();
+        result = _<{ a: string }>(dict).chain().sortBy(iterator, context).value();
+        result = _(dict).chain().sortBy(iterator).value();
+        result = _(dict).chain().sortBy(iterator, context).value();
+    }
+
+    // with property names
+    // as a breaking change, consider dropping the context property from overloads that take a property name since it's not useful
+    // as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to property names
+    // on the type being sorted
+    {
+        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
+        let result: { a: string }[];
+
+        result = _.sortBy<{ a: string }>(array, property);
+        result = _.sortBy<{ a: string }>(array, property, context);
+        result = _.sortBy(array, property);
+        result = _.sortBy(array, property, context);
+
+        result = _<{ a: string }>(array).sortBy(property);
+        result = _<{ a: string }>(array).sortBy(property, context);
+        result = _(array).sortBy(property);
+        result = _(array).sortBy(property, context);
+
+        result = _.chain<{ a: string }>(array).sortBy(property).value();
+        result = _.chain<{ a: string }>(array).sortBy(property, context).value();
+        result = _.chain(array).sortBy(property).value();
+        result = _.chain(array).sortBy(property, context).value();
+
+        result = _<{ a: string }>(array).chain().sortBy(property).value();
+        result = _<{ a: string }>(array).chain().sortBy(property, context).value();
+        result = _(array).chain().sortBy(property).value();
+        result = _(array).chain().sortBy(property, context).value();
+    }
+
+    {
+        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let property = 'a';
+        let result: { a: string }[];
+
+        result = _.sortBy<{ a: string }>(list, property);
+        result = _.sortBy<{ a: string }>(list, property, context);
+        result = _.sortBy(list, property);
+        result = _.sortBy(list, property, context);
+
+        result = _<{ a: string }>(list).sortBy(property);
+        result = _<{ a: string }>(list).sortBy(property, context);
+        result = _(list).sortBy(property);
+        result = _(list).sortBy(property, context);
+
+        result = _.chain<{ a: string }>(list).sortBy(property).value();
+        result = _.chain<{ a: string }>(list).sortBy(property, context).value();
+        result = _.chain(list).sortBy(property).value();
+        result = _.chain(list).sortBy(property, context).value();
+
+        result = _<{ a: string }>(list).chain().sortBy(property).value();
+        result = _<{ a: string }>(list).chain().sortBy(property, context).value();
+        result = _(list).chain().sortBy(property).value();
+        result = _(list).chain().sortBy(property, context).value();
+    }
+
+    {
+        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let property = 'a';
+        let result: { a: string }[];
+
+        result = _.sortBy<{ a: string }>(dict, property);
+        result = _.sortBy<{ a: string }>(dict, property, context);
+        result = _.sortBy(dict, property);
+        result = _.sortBy(dict, property, context);
+
+        result = _<{ a: string }>(dict).sortBy(property);
+        result = _<{ a: string }>(dict).sortBy(property, context);
+        result = _(dict).sortBy(property);
+        result = _(dict).sortBy(property, context);
+
+        result = _.chain<{ a: string }>(dict).sortBy(property).value();
+        result = _.chain<{ a: string }>(dict).sortBy(property, context).value();
+        result = _.chain(dict).sortBy(property).value();
+        result = _.chain(dict).sortBy(property, context).value();
+
+        result = _<{ a: string }>(dict).chain().sortBy(property).value();
+        result = _<{ a: string }>(dict).chain().sortBy(property, context).value();
+        result = _(dict).chain().sortBy(property).value();
+        result = _(dict).chain().sortBy(property, context).value();
+    }
+}
+
 namespace TestShuffle {
     {
         let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
