@@ -20,6 +20,8 @@ var list = [[0, 1], [2, 3], [4, 5]];
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 // Collection Functions
+// as a breaking change, consider creating separate UnderscoreObject and ChainObject interfaces for dictionaries instead of taking both ListIterators and ObjectIterators
+
 namespace TestEach {
     // as a breaking change, consider either adding an overload for strings or changing function definitions to things like
     // _.each<TItem, TList extends _.List<TItem>>(list: TList, iterator: _.ListIterator<TItem, void>, context ?: any): TList;
@@ -2296,6 +2298,286 @@ namespace TestPluck {
 
         result = _<{ a: string }>(dict).chain().pluck(property).value();
         result = _(dict).chain().pluck(property).value();
+    }
+}
+
+namespace TestMax {
+    // without iterator
+    {
+        let array: number[] = [0, 1];
+        let result: number;
+
+        result = _.max<number>(array);
+        result = _.max(array);
+
+        result = _<number>(array).max();
+        result = _(array).max();
+
+        result = _.chain<number>(array).max().value();
+        result = _.chain(array).max().value();
+
+        result = _<number>(array).chain().max().value();
+        result = _(array).chain().max().value();
+    }
+
+    {
+        let list: _.List<number> = { 0: 0, 1: 1, length: 2 };
+        let result: number;
+
+        result = _.max<number>(list);
+        result = _.max(list);
+
+        result = _<number>(list).max();
+        result = _(list).max();
+
+        result = _.chain<number>(list).max().value();
+        result = _.chain(list).max().value();
+
+        result = _<number>(list).chain().max().value();
+        result = _(list).chain().max().value();
+    }
+
+    {
+        let dict: _.Dictionary<number> = { a: 0, b: 1 };
+        let result: number;
+
+        result = _.max<number>(dict);
+        result = _.max(dict);
+
+        result = _<number>(dict).max();
+        result = _(dict).max();
+
+        result = _.chain<number>(dict).max().value();
+        result = _.chain(dict).max().value();
+
+        result = _<number>(dict).chain().max().value();
+        result = _(dict).chain().max().value();
+    }
+
+    // as a breaking change, consider making the return type for the version of max that takes an iterator T | number
+    // since an empty collection will result in -Infinity
+    // as a breaking change, consider updating Underscore.max and Chain.max to take iterators with number results instead of any
+    // since the only other type that doesn't yield -Infinity is booleans, which isn't a terribly interesting case
+
+    // with iterator
+    let context = {};
+
+    {
+        let array: { a: number }[] = [{ a: 0 }, { a: 1 }];
+        let iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
+        let result: { a: number };
+
+        result = _.max<{ a: number }>(array, iterator);
+        result = _.max<{ a: number }>(array, iterator, context);
+        result = _.max(array, iterator);
+        result = _.max(array, iterator, context);
+
+        result = _<{ a: number }>(array).max(iterator);
+        result = _<{ a: number }>(array).max(iterator, context);
+        result = _(array).max(iterator);
+        result = _(array).max(iterator, context);
+
+        result = _.chain<{ a: number }>(array).max(iterator).value();
+        result = _.chain<{ a: number }>(array).max(iterator, context).value();
+        result = _.chain(array).max(iterator).value();
+        result = _.chain(array).max(iterator, context).value();
+
+        result = _<{ a: number }>(array).chain().max(iterator).value();
+        result = _<{ a: number }>(array).chain().max(iterator, context).value();
+        result = _(array).chain().max(iterator).value();
+        result = _(array).chain().max(iterator, context).value();
+    }
+
+    {
+        let list: _.List<{ a: number }> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
+        let iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
+        let result: { a: number };
+
+        result = _.max<{ a: number }>(list, iterator);
+        result = _.max<{ a: number }>(list, iterator, context);
+        result = _.max(list, iterator);
+        result = _.max(list, iterator, context);
+
+        result = _<{ a: number }>(list).max(iterator);
+        result = _<{ a: number }>(list).max(iterator, context);
+        result = _(list).max(iterator);
+        result = _(list).max(iterator, context);
+
+        result = _.chain<{ a: number }>(list).max(iterator).value();
+        result = _.chain<{ a: number }>(list).max(iterator, context).value();
+        result = _.chain(list).max(iterator).value();
+        result = _.chain(list).max(iterator, context).value();
+
+        result = _<{ a: number }>(list).chain().max(iterator).value();
+        result = _<{ a: number }>(list).chain().max(iterator, context).value();
+        result = _(list).chain().max(iterator).value();
+        result = _(list).chain().max(iterator, context).value();
+    }
+
+    {
+        let dict: _.Dictionary<{ a: number }> = { a: { a: 0 }, b: { a: 1 } };
+        let iterator = (element: { a: number }, key: string, list: _.Dictionary<{ a: number }>) => element.a;
+        let result: { a: number };
+
+        result = _.max<{ a: number }>(dict, iterator);
+        result = _.max<{ a: number }>(dict, iterator, context);
+        result = _.max(dict, iterator);
+        result = _.max(dict, iterator, context);
+
+        result = _<{ a: number }>(dict).max(iterator);
+        result = _<{ a: number }>(dict).max(iterator, context);
+        result = _(dict).max(iterator);
+        result = _(dict).max(iterator, context);
+
+        result = _.chain<{ a: number }>(dict).max(iterator).value();
+        result = _.chain<{ a: number }>(dict).max(iterator, context).value();
+        result = _.chain(dict).max(iterator).value();
+        result = _.chain(dict).max(iterator, context).value();
+
+        result = _<{ a: number }>(dict).chain().max(iterator).value();
+        result = _<{ a: number }>(dict).chain().max(iterator, context).value();
+        result = _(dict).chain().max(iterator).value();
+        result = _(dict).chain().max(iterator, context).value();
+    }
+}
+
+namespace TestMin {
+    // without iterator
+    {
+        let array: number[] = [0, 1];
+        let result: number;
+
+        result = _.min<number>(array);
+        result = _.min(array);
+
+        result = _<number>(array).min();
+        result = _(array).min();
+
+        result = _.chain<number>(array).min().value();
+        result = _.chain(array).min().value();
+
+        result = _<number>(array).chain().min().value();
+        result = _(array).chain().min().value();
+    }
+
+    {
+        let list: _.List<number> = { 0: 0, 1: 1, length: 2 };
+        let result: number;
+
+        result = _.min<number>(list);
+        result = _.min(list);
+
+        result = _<number>(list).min();
+        result = _(list).min();
+
+        result = _.chain<number>(list).min().value();
+        result = _.chain(list).min().value();
+
+        result = _<number>(list).chain().min().value();
+        result = _(list).chain().min().value();
+    }
+
+    {
+        let dict: _.Dictionary<number> = { a: 0, b: 1 };
+        let result: number;
+
+        result = _.min<number>(dict);
+        result = _.min(dict);
+
+        result = _<number>(dict).min();
+        result = _(dict).min();
+
+        result = _.chain<number>(dict).min().value();
+        result = _.chain(dict).min().value();
+
+        result = _<number>(dict).chain().min().value();
+        result = _(dict).chain().min().value();
+    }
+
+    // as a breaking change, consider making the return type for the version of min that takes an iterator T | number
+    // since an empty collection will result in -Infinity
+    // as a breaking change, consider updating Underscore.min and Chain.min to take iterators with number results instead of any
+    // since the only other type that doesn't yield -Infinity is booleans, which isn't a terribly interesting case
+
+    // with iterator
+    let context = {};
+
+    {
+        let array: { a: number }[] = [{ a: 0 }, { a: 1 }];
+        let iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
+        let result: { a: number };
+
+        result = _.min<{ a: number }>(array, iterator);
+        result = _.min<{ a: number }>(array, iterator, context);
+        result = _.min(array, iterator);
+        result = _.min(array, iterator, context);
+
+        result = _<{ a: number }>(array).min(iterator);
+        result = _<{ a: number }>(array).min(iterator, context);
+        result = _(array).min(iterator);
+        result = _(array).min(iterator, context);
+
+        result = _.chain<{ a: number }>(array).min(iterator).value();
+        result = _.chain<{ a: number }>(array).min(iterator, context).value();
+        result = _.chain(array).min(iterator).value();
+        result = _.chain(array).min(iterator, context).value();
+
+        result = _<{ a: number }>(array).chain().min(iterator).value();
+        result = _<{ a: number }>(array).chain().min(iterator, context).value();
+        result = _(array).chain().min(iterator).value();
+        result = _(array).chain().min(iterator, context).value();
+    }
+
+    {
+        let list: _.List<{ a: number }> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
+        let iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
+        let result: { a: number };
+
+        result = _.min<{ a: number }>(list, iterator);
+        result = _.min<{ a: number }>(list, iterator, context);
+        result = _.min(list, iterator);
+        result = _.min(list, iterator, context);
+
+        result = _<{ a: number }>(list).min(iterator);
+        result = _<{ a: number }>(list).min(iterator, context);
+        result = _(list).min(iterator);
+        result = _(list).min(iterator, context);
+
+        result = _.chain<{ a: number }>(list).min(iterator).value();
+        result = _.chain<{ a: number }>(list).min(iterator, context).value();
+        result = _.chain(list).min(iterator).value();
+        result = _.chain(list).min(iterator, context).value();
+
+        result = _<{ a: number }>(list).chain().min(iterator).value();
+        result = _<{ a: number }>(list).chain().min(iterator, context).value();
+        result = _(list).chain().min(iterator).value();
+        result = _(list).chain().min(iterator, context).value();
+    }
+
+    {
+        let dict: _.Dictionary<{ a: number }> = { a: { a: 0 }, b: { a: 1 } };
+        let iterator = (element: { a: number }, key: string, list: _.Dictionary<{ a: number }>) => element.a;
+        let result: { a: number };
+
+        result = _.min<{ a: number }>(dict, iterator);
+        result = _.min<{ a: number }>(dict, iterator, context);
+        result = _.min(dict, iterator);
+        result = _.min(dict, iterator, context);
+
+        result = _<{ a: number }>(dict).min(iterator);
+        result = _<{ a: number }>(dict).min(iterator, context);
+        result = _(dict).min(iterator);
+        result = _(dict).min(iterator, context);
+
+        result = _.chain<{ a: number }>(dict).min(iterator).value();
+        result = _.chain<{ a: number }>(dict).min(iterator, context).value();
+        result = _.chain(dict).min(iterator).value();
+        result = _.chain(dict).min(iterator, context).value();
+
+        result = _<{ a: number }>(dict).chain().min(iterator).value();
+        result = _<{ a: number }>(dict).chain().min(iterator, context).value();
+        result = _(dict).chain().min(iterator).value();
+        result = _(dict).chain().min(iterator, context).value();
     }
 }
 
