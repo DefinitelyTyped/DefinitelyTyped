@@ -119,7 +119,7 @@ async function main() {
         "declare namespace _ {",
         // Add LodashConvertible to allow `.convert` method on each lodash/fp function
         "    interface LodashConvertible {",
-        "        convert: (options: _.ConvertOptions) => (...args: any[]) => any",
+        "        convert: (options: lodash.ConvertOptions) => (...args: any[]) => any;",
         "    }",
         interfaceStrings,
         "",
