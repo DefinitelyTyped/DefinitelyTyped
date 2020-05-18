@@ -11,6 +11,7 @@
 // TypeScript Version: 2.8
 
 import { ComponentClass, ClassAttributes, StatelessComponent, ReactNode } from "react";
+import { Classes } from "reactcss";
 
 export interface HSLColor {
     a?: number;
@@ -45,6 +46,8 @@ export interface ColorPickerProps<A> extends ClassAttributes<A> {
 export interface CustomPickerProps<A> extends ClassAttributes<A> {
     color?: Color;
     pointer?: ReactNode;
+    className?: string;
+    styles?: Classes<any>;
     onChange: ColorChangeHandler;
 }
 
