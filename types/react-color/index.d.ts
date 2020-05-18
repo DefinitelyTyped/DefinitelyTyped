@@ -39,6 +39,8 @@ export type ColorChangeHandler = (color: ColorResult) => void;
 
 export interface ColorPickerProps<A> extends ClassAttributes<A> {
     color?: Color;
+    className?: string;
+    styles?: Classes<any>;
     onChange?: ColorChangeHandler;
     onChangeComplete?: ColorChangeHandler;
 }
