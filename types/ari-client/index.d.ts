@@ -269,7 +269,7 @@ export interface Events {
      * WebSocket connection for events.
      *
      * @param params.app - Applications to subscribe to.
-     * @param params.subscribeAll - (optional) Subscribe to all Asterisk events. If provided, the applications listed will be subscribed to all events, effectively disabling the application
+     * @param [params.subscribeAll] - Subscribe to all Asterisk events. If provided, the applications listed will be subscribed to all events, effectively disabling the application
      * specific subscriptions. Default is false.
      */
     eventWebsocket(
