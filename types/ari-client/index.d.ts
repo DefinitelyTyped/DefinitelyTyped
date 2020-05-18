@@ -12,7 +12,7 @@
  *  @param baseUrl - The URL to the ARI instance.
  *  @param user - The username for the ARI instance.
  *  @param pass - The password for the ARI instance.
- *  @param callback - (optional) The callback to be called upon connection.
+ *  @param [callback] - The callback to be called upon connection.
  */
 export function connect(
     baseUrl: string,
