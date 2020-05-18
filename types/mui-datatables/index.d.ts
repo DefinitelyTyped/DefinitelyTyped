@@ -44,7 +44,7 @@ export interface MUIDataTableState {
 }
 
 export interface MUIDataTableMeta {
-    columnData: MUIDataTableColumnOptions[];
+    columnData: MUIDataTableColumnState;
     columnIndex: number;
     rowData: any[];
     rowIndex: number;
