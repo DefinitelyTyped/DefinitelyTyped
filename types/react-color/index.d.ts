@@ -10,7 +10,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, ClassAttributes, StatelessComponent, ReactNode } from "react";
+import { ClassAttributes, ReactNode } from "react";
 import { Classes } from "reactcss";
 
 export interface HSLColor {
