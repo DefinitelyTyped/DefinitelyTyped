@@ -739,3 +739,10 @@ declare function clearTimeout(handle?: number): void;
 
 declare function setInterval(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare function clearInterval(handle?: number): void;
+
+/// https://library.panic.com/releasenotes/nova/#1-0b11
+// This is not yet documented officially in the docs website
+
+declare class IssueParser {
+    constructor(arg: string | string[]);
+}
