@@ -14,25 +14,40 @@ declare module "tty" {
      *  1 - to the right from cursor
      */
     type Direction = -1 | 0 | 1;
+
+    interface WriteStreamEventMap extends net.SocketEventMap {
+        "resize": () => void;
+    }
+
     class WriteStream extends net.Socket {
         constructor(fd: number);
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "resize", listener: () => void): this;
 
+        addListener<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        emit<K extends keyof WriteStreamEventMap>(event: K, ...args: WriteStreamEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "resize"): boolean;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "resize", listener: () => void): this;
+        on<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "resize", listener: () => void): this;
+        once<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "resize", listener: () => void): this;
+        prependListener<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "resize", listener: () => void): this;
+        prependOnceListener<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof WriteStreamEventMap>(event: K): Array<WriteStreamEventMap[K]>;
+        listeners(event: string | symbol): Function[];
 
         /**
          * Clears the current line of this WriteStream in a direction identified by `dir`.

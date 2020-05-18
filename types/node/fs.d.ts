@@ -108,38 +108,52 @@ declare module "fs" {
         readSync(): Dirent;
     }
 
+    interface FSWatcherEventMap {
+        "change": (eventType: string, filename: string | Buffer) => void;
+        "error": (error: Error) => void;
+        "close": () => void;
+    }
+
     export interface FSWatcher extends events.EventEmitter {
         close(): void;
 
-        /**
+        /*
          * events.EventEmitter
          *   1. change
          *   2. error
+         *   3. close
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        addListener(event: "error", listener: (error: Error) => void): this;
-        addListener(event: "close", listener: () => void): this;
+        addListener<K extends keyof FSWatcherEventMap>(event: K, listener: FSWatcherEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        on(event: "error", listener: (error: Error) => void): this;
-        on(event: "close", listener: () => void): this;
+        emit<K extends keyof FSWatcherEventMap>(event: K, ...args: FSWatcherEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        once(event: "error", listener: (error: Error) => void): this;
-        once(event: "close", listener: () => void): this;
+        on<K extends keyof FSWatcherEventMap>(event: K, listener: FSWatcherEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        prependListener(event: "error", listener: (error: Error) => void): this;
-        prependListener(event: "close", listener: () => void): this;
+        once<K extends keyof FSWatcherEventMap>(event: K, listener: FSWatcherEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        prependOnceListener(event: "error", listener: (error: Error) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
+        prependListener<K extends keyof FSWatcherEventMap>(event: K, listener: FSWatcherEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener<K extends keyof FSWatcherEventMap>(event: K, listener: FSWatcherEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof FSWatcherEventMap>(event: K, listener: FSWatcherEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof FSWatcherEventMap>(event: K, listener: FSWatcherEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof FSWatcherEventMap>(event: K): Array<FSWatcherEventMap[K]>;
+        listeners(event: string | symbol): Function[];
+    }
+
+    interface ReadStreamEventMap extends stream.ReadableEventMap {
+        "open": (fd: number) => void;
+        "ready": () => void;
     }
 
     export class ReadStream extends stream.Readable {
@@ -148,66 +162,43 @@ declare module "fs" {
         path: string | Buffer;
         pending: boolean;
 
-        /**
+        /*
          * events.EventEmitter
          *   1. open
          *   2. close
          *   3. ready
          */
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
-        addListener(event: "end", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "open", listener: (fd: number) => void): this;
-        addListener(event: "pause", listener: () => void): this;
-        addListener(event: "readable", listener: () => void): this;
-        addListener(event: "ready", listener: () => void): this;
-        addListener(event: "resume", listener: () => void): this;
+        addListener<K extends keyof ReadStreamEventMap>(event: K, listener: ReadStreamEventMap[K]): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        on(event: "close", listener: () => void): this;
-        on(event: "data", listener: (chunk: Buffer | string) => void): this;
-        on(event: "end", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "open", listener: (fd: number) => void): this;
-        on(event: "pause", listener: () => void): this;
-        on(event: "readable", listener: () => void): this;
-        on(event: "ready", listener: () => void): this;
-        on(event: "resume", listener: () => void): this;
+        emit<K extends keyof ReadStreamEventMap>(event: K, ...args: ReadStreamEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
+
+        on<K extends keyof ReadStreamEventMap>(event: K, listener: ReadStreamEventMap[K]): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: "close", listener: () => void): this;
-        once(event: "data", listener: (chunk: Buffer | string) => void): this;
-        once(event: "end", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "open", listener: (fd: number) => void): this;
-        once(event: "pause", listener: () => void): this;
-        once(event: "readable", listener: () => void): this;
-        once(event: "ready", listener: () => void): this;
-        once(event: "resume", listener: () => void): this;
+        once<K extends keyof ReadStreamEventMap>(event: K, listener: ReadStreamEventMap[K]): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "data", listener: (chunk: Buffer | string) => void): this;
-        prependListener(event: "end", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "open", listener: (fd: number) => void): this;
-        prependListener(event: "pause", listener: () => void): this;
-        prependListener(event: "readable", listener: () => void): this;
-        prependListener(event: "ready", listener: () => void): this;
-        prependListener(event: "resume", listener: () => void): this;
+        prependListener<K extends keyof ReadStreamEventMap>(event: K, listener: ReadStreamEventMap[K]): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "data", listener: (chunk: Buffer | string) => void): this;
-        prependOnceListener(event: "end", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "open", listener: (fd: number) => void): this;
-        prependOnceListener(event: "pause", listener: () => void): this;
-        prependOnceListener(event: "readable", listener: () => void): this;
-        prependOnceListener(event: "ready", listener: () => void): this;
-        prependOnceListener(event: "resume", listener: () => void): this;
+        prependOnceListener<K extends keyof ReadStreamEventMap>(event: K, listener: ReadStreamEventMap[K]): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof ReadStreamEventMap>(event: K, listener: ReadStreamEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof ReadStreamEventMap>(event: K, listener: ReadStreamEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof ReadStreamEventMap>(event: K): Array<ReadStreamEventMap[K]>;
+        listeners(event: string | symbol): Function[];
+    }
+
+    interface WriteStreamEventMap extends stream.WritableEventMap {
+        "open": (fd: number) => void;
+        "ready": () => void;
     }
 
     export class WriteStream extends stream.Writable {
@@ -216,61 +207,38 @@ declare module "fs" {
         path: string | Buffer;
         pending: boolean;
 
-        /**
+        /*
          * events.EventEmitter
          *   1. open
          *   2. close
          *   3. ready
          */
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "drain", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "finish", listener: () => void): this;
-        addListener(event: "open", listener: (fd: number) => void): this;
-        addListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        addListener(event: "ready", listener: () => void): this;
-        addListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        addListener<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        on(event: "close", listener: () => void): this;
-        on(event: "drain", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "finish", listener: () => void): this;
-        on(event: "open", listener: (fd: number) => void): this;
-        on(event: "pipe", listener: (src: stream.Readable) => void): this;
-        on(event: "ready", listener: () => void): this;
-        on(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        emit<K extends keyof WriteStreamEventMap>(event: K, ...args: WriteStreamEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
+
+        on<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: "close", listener: () => void): this;
-        once(event: "drain", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "finish", listener: () => void): this;
-        once(event: "open", listener: (fd: number) => void): this;
-        once(event: "pipe", listener: (src: stream.Readable) => void): this;
-        once(event: "ready", listener: () => void): this;
-        once(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        once<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "drain", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "finish", listener: () => void): this;
-        prependListener(event: "open", listener: (fd: number) => void): this;
-        prependListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        prependListener(event: "ready", listener: () => void): this;
-        prependListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        prependListener<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "drain", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "finish", listener: () => void): this;
-        prependOnceListener(event: "open", listener: (fd: number) => void): this;
-        prependOnceListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        prependOnceListener(event: "ready", listener: () => void): this;
-        prependOnceListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        prependOnceListener<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof WriteStreamEventMap>(event: K, listener: WriteStreamEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof WriteStreamEventMap>(event: K): Array<WriteStreamEventMap[K]>;
+        listeners(event: string | symbol): Function[];
     }
 
     /**

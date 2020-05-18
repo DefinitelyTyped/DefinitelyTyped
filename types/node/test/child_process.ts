@@ -216,19 +216,19 @@ async function testPromisify() {
     const fd4: Readable | Writable | null = cp.stdio[3]!;
     const fd5: Readable | Writable | null = cp.stdio[4]!;
 
-    cp = cp.addListener("close", (code, signal) => {
+    cp = cp.addListener("close", (code: number, signal: NodeJS.Signals) => {
         const _code: number = code;
         const _signal: NodeJS.Signals = signal;
     });
     cp = cp.addListener("disconnect", () => { });
-    cp = cp.addListener("error", (err) => {
+    cp = cp.addListener("error", (err: Error) => {
         const _err: Error = err;
     });
-    cp = cp.addListener("exit", (code, signal) => {
+    cp = cp.addListener("exit", (code: number | null, signal: NodeJS.Signals | null) => {
         const _code: number | null = code;
         const _signal: NodeJS.Signals | null  = signal;
     });
-    cp = cp.addListener("message", (message, sendHandle) => {
+    cp = cp.addListener("message", (message: childProcess.Serializable, sendHandle: childProcess.SendHandle) => {
         const _message: any = message;
         const _sendHandle: net.Socket | net.Server = sendHandle;
     });
@@ -239,70 +239,70 @@ async function testPromisify() {
     _boolean = cp.emit("exit", () => { });
     _boolean = cp.emit("message", () => { });
 
-    cp = cp.on("close", (code, signal) => {
+    cp = cp.on("close", (code: number, signal: NodeJS.Signals) => {
         const _code: number = code;
         const _signal: NodeJS.Signals = signal;
     });
     cp = cp.on("disconnect", () => { });
-    cp = cp.on("error", (err) => {
+    cp = cp.on("error", (err: Error) => {
         const _err: Error = err;
     });
-    cp = cp.on("exit", (code, signal) => {
+    cp = cp.on("exit", (code: number | null, signal: NodeJS.Signals | null) => {
         const _code: number | null  = code;
         const _signal: NodeJS.Signals | null  = signal;
     });
-    cp = cp.on("message", (message, sendHandle) => {
+    cp = cp.on("message", (message: childProcess.Serializable, sendHandle: childProcess.SendHandle) => {
         const _message: any = message;
         const _sendHandle: net.Socket | net.Server = sendHandle;
     });
 
-    cp = cp.once("close", (code, signal) => {
+    cp = cp.once("close", (code: number, signal: NodeJS.Signals) => {
         const _code: number = code;
         const _signal: NodeJS.Signals = signal;
     });
     cp = cp.once("disconnect", () => { });
-    cp = cp.once("error", (err) => {
+    cp = cp.once("error", (err: Error) => {
         const _err: Error = err;
     });
-    cp = cp.once("exit", (code, signal) => {
+    cp = cp.once("exit", (code: number | null, signal: NodeJS.Signals | null) => {
         const _code: number | null  = code;
         const _signal: NodeJS.Signals | null  = signal;
     });
-    cp = cp.once("message", (message, sendHandle) => {
+    cp = cp.once("message", (message: childProcess.Serializable, sendHandle: childProcess.SendHandle) => {
         const _message: any = message;
         const _sendHandle: net.Socket | net.Server = sendHandle;
     });
 
-    cp = cp.prependListener("close", (code, signal) => {
+    cp = cp.prependListener("close", (code: number, signal: NodeJS.Signals) => {
         const _code: number = code;
         const _signal: NodeJS.Signals = signal;
     });
     cp = cp.prependListener("disconnect", () => { });
-    cp = cp.prependListener("error", (err) => {
+    cp = cp.prependListener("error", (err: Error) => {
         const _err: Error = err;
     });
-    cp = cp.prependListener("exit", (code, signal) => {
+    cp = cp.prependListener("exit", (code: number | null, signal: NodeJS.Signals | null) => {
         const _code: number | null  = code;
         const _signal: NodeJS.Signals | null  = signal;
     });
-    cp = cp.prependListener("message", (message, sendHandle) => {
+    cp = cp.prependListener("message", (message: childProcess.Serializable, sendHandle: childProcess.SendHandle) => {
         const _message: any = message;
         const _sendHandle: net.Socket | net.Server = sendHandle;
     });
 
-    cp = cp.prependOnceListener("close", (code, signal) => {
+    cp = cp.prependOnceListener("close", (code: number, signal: NodeJS.Signals) => {
         const _code: number = code;
         const _signal: NodeJS.Signals = signal;
     });
     cp = cp.prependOnceListener("disconnect", () => { });
-    cp = cp.prependOnceListener("error", (err) => {
+    cp = cp.prependOnceListener("error", (err: Error) => {
         const _err: Error = err;
     });
-    cp = cp.prependOnceListener("exit", (code, signal) => {
+    cp = cp.prependOnceListener("exit", (code: number | null, signal: NodeJS.Signals | null) => {
         const _code: number | null  = code;
         const _signal: NodeJS.Signals | null  = signal;
     });
-    cp = cp.prependOnceListener("message", (message, sendHandle) => {
+    cp = cp.prependOnceListener("message", (message: childProcess.Serializable, sendHandle: childProcess.SendHandle) => {
         const _message: any = message;
         const _sendHandle: net.Socket | net.Server = sendHandle;
     });

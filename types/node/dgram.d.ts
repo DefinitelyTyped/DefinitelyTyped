@@ -34,6 +34,14 @@ declare module "dgram" {
     function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
+    interface SocketEventMap {
+        "close": () => void;
+        "connect": () => void;
+        "error": (err: Error) => void;
+        "listening": () => void;
+        "message": (msg: Buffer, rinfo: RemoteInfo) => void;
+    }
+
     class Socket extends events.EventEmitter {
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         address(): AddressInfo;
@@ -88,7 +96,7 @@ declare module "dgram" {
          */
         dropSourceSpecificMembership(sourceAddress: string, groupAddress: string, multicastInterface?: string): void;
 
-        /**
+        /*
          * events.EventEmitter
          * 1. close
          * 2. connect
@@ -96,46 +104,31 @@ declare module "dgram" {
          * 4. listening
          * 5. message
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "connect", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "listening", listener: () => void): this;
-        addListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        addListener<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
+        emit<K extends keyof SocketEventMap>(event: K, ...args: SocketEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "close"): boolean;
-        emit(event: "connect"): boolean;
-        emit(event: "error", err: Error): boolean;
-        emit(event: "listening"): boolean;
-        emit(event: "message", msg: Buffer, rinfo: RemoteInfo): boolean;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "connect", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "listening", listener: () => void): this;
-        on(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        on<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "connect", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "listening", listener: () => void): this;
-        once(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        once<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "connect", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "listening", listener: () => void): this;
-        prependListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        prependListener<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "connect", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "listening", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        prependOnceListener<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof SocketEventMap>(event: K): Array<SocketEventMap[K]>;
+        listeners(event: string | symbol): Function[];
     }
 }

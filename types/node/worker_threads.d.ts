@@ -19,6 +19,12 @@ declare module "worker_threads" {
 
     type TransferListItem = ArrayBuffer | MessagePort | FileHandle;
 
+    interface MessagePortEventMap {
+        "close": () => void;
+        "message": (value: any) => void;
+        "messageerror": (error: Error) => void;
+    }
+
     class MessagePort extends EventEmitter {
         close(): void;
         postMessage(value: any, transferList?: ReadonlyArray<TransferListItem>): void;
@@ -26,45 +32,32 @@ declare module "worker_threads" {
         unref(): void;
         start(): void;
 
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "message", listener: (value: any) => void): this;
-        addListener(event: "messageerror", listener: (error: Error) => void): this;
+        addListener<K extends keyof MessagePortEventMap>(event: K, listener: MessagePortEventMap[K]): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        emit(event: "close"): boolean;
-        emit(event: "message", value: any): boolean;
-        emit(event: "messageerror", error: Error): boolean;
+        emit<K extends keyof MessagePortEventMap>(event: K, ...args: MessagePortEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
 
-        on(event: "close", listener: () => void): this;
-        on(event: "message", listener: (value: any) => void): this;
-        on(event: "messageerror", listener: (error: Error) => void): this;
+        on<K extends keyof MessagePortEventMap>(event: K, listener: MessagePortEventMap[K]): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: "close", listener: () => void): this;
-        once(event: "message", listener: (value: any) => void): this;
-        once(event: "messageerror", listener: (error: Error) => void): this;
+        once<K extends keyof MessagePortEventMap>(event: K, listener: MessagePortEventMap[K]): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "message", listener: (value: any) => void): this;
-        prependListener(event: "messageerror", listener: (error: Error) => void): this;
+        prependListener<K extends keyof MessagePortEventMap>(event: K, listener: MessagePortEventMap[K]): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (value: any) => void): this;
-        prependOnceListener(event: "messageerror", listener: (error: Error) => void): this;
+        prependOnceListener<K extends keyof MessagePortEventMap>(event: K, listener: MessagePortEventMap[K]): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        removeListener(event: "close", listener: () => void): this;
-        removeListener(event: "message", listener: (value: any) => void): this;
-        removeListener(event: "messageerror", listener: (error: Error) => void): this;
+        removeListener<K extends keyof MessagePortEventMap>(event: K, listener: MessagePortEventMap[K]): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        off(event: "close", listener: () => void): this;
-        off(event: "message", listener: (value: any) => void): this;
-        off(event: "messageerror", listener: (error: Error) => void): this;
+        off<K extends keyof MessagePortEventMap>(event: K, listener: MessagePortEventMap[K]): this;
         off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof MessagePortEventMap>(event: K): Array<MessagePortEventMap[K]>;
+        listeners(event: string | symbol): Function[];
     }
 
     interface WorkerOptions {
@@ -110,6 +103,14 @@ declare module "worker_threads" {
         stackSizeMb?: number;
     }
 
+    interface WorkerEventMap {
+        "error": (err: Error) => void;
+        "exit": (exitCode: number) => void;
+        "message": (value: any) => void;
+        "messageerror": (error: Error) => void;
+        "online": () => void;
+    }
+
     class Worker extends EventEmitter {
         readonly stdin: Writable | null;
         readonly stdout: Readable;
@@ -143,61 +144,32 @@ declare module "worker_threads" {
          */
         getHeapSnapshot(): Promise<Readable>;
 
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "exit", listener: (exitCode: number) => void): this;
-        addListener(event: "message", listener: (value: any) => void): this;
-        addListener(event: "messageerror", listener: (error: Error) => void): this;
-        addListener(event: "online", listener: () => void): this;
+        addListener<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        emit(event: "error", err: Error): boolean;
-        emit(event: "exit", exitCode: number): boolean;
-        emit(event: "message", value: any): boolean;
-        emit(event: "messageerror", error: Error): boolean;
-        emit(event: "online"): boolean;
+        emit<K extends keyof WorkerEventMap>(event: K, ...args: WorkerEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
 
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "exit", listener: (exitCode: number) => void): this;
-        on(event: "message", listener: (value: any) => void): this;
-        on(event: "messageerror", listener: (error: Error) => void): this;
-        on(event: "online", listener: () => void): this;
+        on<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "exit", listener: (exitCode: number) => void): this;
-        once(event: "message", listener: (value: any) => void): this;
-        once(event: "messageerror", listener: (error: Error) => void): this;
-        once(event: "online", listener: () => void): this;
+        once<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "exit", listener: (exitCode: number) => void): this;
-        prependListener(event: "message", listener: (value: any) => void): this;
-        prependListener(event: "messageerror", listener: (error: Error) => void): this;
-        prependListener(event: "online", listener: () => void): this;
+        prependListener<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "exit", listener: (exitCode: number) => void): this;
-        prependOnceListener(event: "message", listener: (value: any) => void): this;
-        prependOnceListener(event: "messageerror", listener: (error: Error) => void): this;
-        prependOnceListener(event: "online", listener: () => void): this;
+        prependOnceListener<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        removeListener(event: "error", listener: (err: Error) => void): this;
-        removeListener(event: "exit", listener: (exitCode: number) => void): this;
-        removeListener(event: "message", listener: (value: any) => void): this;
-        removeListener(event: "messageerror", listener: (error: Error) => void): this;
-        removeListener(event: "online", listener: () => void): this;
+        removeListener<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        off(event: "error", listener: (err: Error) => void): this;
-        off(event: "exit", listener: (exitCode: number) => void): this;
-        off(event: "message", listener: (value: any) => void): this;
-        off(event: "messageerror", listener: (error: Error) => void): this;
-        off(event: "online", listener: () => void): this;
+        off<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
         off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof WorkerEventMap>(event: K): Array<WorkerEventMap[K]>;
+        listeners(event: string | symbol): Function[];
     }
 
     /**

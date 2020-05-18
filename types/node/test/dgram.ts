@@ -38,11 +38,11 @@ import * as dns from 'dns';
      */
 
     _socket = _socket.addListener("close", () => { });
-    _socket = _socket.addListener("error", (err) => {
+    _socket = _socket.addListener("error", (err: Error) => {
         const _err: Error = err;
     });
     _socket = _socket.addListener("listening", () => { });
-    _socket = _socket.addListener("message", (msg, rinfo) => {
+    _socket = _socket.addListener("message", (msg: Buffer, rinfo: dgram.RemoteInfo) => {
         const _msg: Buffer = msg;
         const _rinfo: net.AddressInfo = rinfo;
     });
@@ -53,41 +53,41 @@ import * as dns from 'dns';
     _boolean = _socket.emit("message", _str, _rinfo);
 
     _socket = _socket.on("close", () => { });
-    _socket = _socket.on("error", (err) => {
+    _socket = _socket.on("error", (err: Error) => {
         const _err: Error = err;
     });
     _socket = _socket.on("listening", () => { });
-    _socket = _socket.on("message", (msg, rinfo) => {
+    _socket = _socket.on("message", (msg: Buffer, rinfo: dgram.RemoteInfo) => {
         const _msg: Buffer = msg;
         const _rinfo: net.AddressInfo = rinfo;
     });
 
     _socket = _socket.once("close", () => { });
-    _socket = _socket.once("error", (err) => {
+    _socket = _socket.once("error", (err: Error) => {
         const _err: Error = err;
     });
     _socket = _socket.once("listening", () => { });
-    _socket = _socket.once("message", (msg, rinfo) => {
+    _socket = _socket.once("message", (msg: Buffer, rinfo: dgram.RemoteInfo) => {
         const _msg: Buffer = msg;
         const _rinfo: net.AddressInfo = rinfo;
     });
 
     _socket = _socket.prependListener("close", () => { });
-    _socket = _socket.prependListener("error", (err) => {
+    _socket = _socket.prependListener("error", (err: Error) => {
         const _err: Error = err;
     });
     _socket = _socket.prependListener("listening", () => { });
-    _socket = _socket.prependListener("message", (msg, rinfo) => {
+    _socket = _socket.prependListener("message", (msg: Buffer, rinfo: dgram.RemoteInfo) => {
         const _msg: Buffer = msg;
         const _rinfo: net.AddressInfo = rinfo;
     });
 
     _socket = _socket.prependOnceListener("close", () => { });
-    _socket = _socket.prependOnceListener("error", (err) => {
+    _socket = _socket.prependOnceListener("error", (err: Error) => {
         const _err: Error = err;
     });
     _socket = _socket.prependOnceListener("listening", () => { });
-    _socket = _socket.prependOnceListener("message", (msg, rinfo) => {
+    _socket = _socket.prependOnceListener("message", (msg: Buffer, rinfo: dgram.RemoteInfo) => {
         const _msg: Buffer = msg;
         const _rinfo: net.AddressInfo = rinfo;
     });
@@ -125,7 +125,7 @@ sock = dgram.createSocket({
     sendBufferSize: 4096,
     lookup: dns.lookup,
 });
-sock = dgram.createSocket("udp6", (msg, rinfo) => {
+sock = dgram.createSocket("udp6", (msg: Buffer, rinfo: dgram.RemoteInfo) => {
     msg; // $ExpectType Buffer
     rinfo; // $ExpectType RemoteInfo
 });
@@ -180,11 +180,11 @@ sock = sock.unref();
 
 sock.on("close", () => undefined);
 sock.on("connect", () => undefined);
-sock.on("error", (exception) => {
+sock.on("error", (exception: Error) => {
     exception; // $ExpectType Error
 });
 sock.on("listening", () => undefined);
-sock.on("message", (msg, rinfo) => {
+sock.on("message", (msg: Buffer, rinfo: dgram.RemoteInfo) => {
     msg; // $ExpectType Buffer
     rinfo.address; // $ExpectType string
     rinfo.family; // $ExpectType "IPv4" | "IPv6"

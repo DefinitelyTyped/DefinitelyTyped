@@ -91,19 +91,19 @@ import { LookupOneOptions } from 'dns';
 
     /// addListener
 
-    _socket = _socket.addListener("close", had_error => {
+    _socket = _socket.addListener("close", (had_error: boolean) => {
         bool = had_error;
     });
     _socket = _socket.addListener("connect", () => { });
-    _socket = _socket.addListener("data", data => {
+    _socket = _socket.addListener("data", (data: Buffer) => {
         buffer = data;
     });
     _socket = _socket.addListener("drain", () => { });
     _socket = _socket.addListener("end", () => { });
-    _socket = _socket.addListener("error", err => {
+    _socket = _socket.addListener("error", (err: Error) => {
         error = err;
     });
-    _socket = _socket.addListener("lookup", (err, address, family, host) => {
+    _socket = _socket.addListener("lookup", (err: Error, address: string, family: string | number, host: string) => {
         error = err;
 
         if (typeof family === 'string') {
@@ -128,19 +128,19 @@ import { LookupOneOptions } from 'dns';
     bool = _socket.emit("timeout");
 
     /// on
-    _socket = _socket.on("close", had_error => {
+    _socket = _socket.on("close", (had_error: boolean) => {
         bool = had_error;
     });
     _socket = _socket.on("connect", () => { });
-    _socket = _socket.on("data", data => {
+    _socket = _socket.on("data", (data: Buffer) => {
         buffer = data;
     });
     _socket = _socket.on("drain", () => { });
     _socket = _socket.on("end", () => { });
-    _socket = _socket.on("error", err => {
+    _socket = _socket.on("error", (err: Error) => {
         error = err;
     });
-    _socket = _socket.on("lookup", (err, address, family, host) => {
+    _socket = _socket.on("lookup", (err: Error, address: string, family: string | number, host: string) => {
         error = err;
 
         if (typeof family === 'string') {
@@ -154,19 +154,19 @@ import { LookupOneOptions } from 'dns';
     _socket = _socket.on("timeout", () => { });
 
     /// once
-    _socket = _socket.once("close", had_error => {
+    _socket = _socket.once("close", (had_error: boolean) => {
         bool = had_error;
     });
     _socket = _socket.once("connect", () => { });
-    _socket = _socket.once("data", data => {
+    _socket = _socket.once("data", (data: Buffer) => {
         buffer = data;
     });
     _socket = _socket.once("drain", () => { });
     _socket = _socket.once("end", () => { });
-    _socket = _socket.once("error", err => {
+    _socket = _socket.once("error", (err: Error) => {
         error = err;
     });
-    _socket = _socket.once("lookup", (err, address, family, host) => {
+    _socket = _socket.once("lookup", (err: Error, address: string, family: string | number, host: string) => {
         error = err;
 
         if (typeof family === 'string') {
@@ -180,19 +180,19 @@ import { LookupOneOptions } from 'dns';
     _socket = _socket.once("timeout", () => { });
 
     /// prependListener
-    _socket = _socket.prependListener("close", had_error => {
+    _socket = _socket.prependListener("close", (had_error: boolean) => {
         bool = had_error;
     });
     _socket = _socket.prependListener("connect", () => { });
-    _socket = _socket.prependListener("data", data => {
+    _socket = _socket.prependListener("data", (data: Buffer) => {
         buffer = data;
     });
     _socket = _socket.prependListener("drain", () => { });
     _socket = _socket.prependListener("end", () => { });
-    _socket = _socket.prependListener("error", err => {
+    _socket = _socket.prependListener("error", (err: Error) => {
         error = err;
     });
-    _socket = _socket.prependListener("lookup", (err, address, family, host) => {
+    _socket = _socket.prependListener("lookup", (err: Error, address: string, family: string | number, host: string) => {
         error = err;
 
         if (typeof family === 'string') {
@@ -206,19 +206,19 @@ import { LookupOneOptions } from 'dns';
     _socket = _socket.prependListener("timeout", () => { });
 
     /// prependOnceListener
-    _socket = _socket.prependOnceListener("close", had_error => {
+    _socket = _socket.prependOnceListener("close", (had_error: boolean) => {
         bool = had_error;
     });
     _socket = _socket.prependOnceListener("connect", () => { });
-    _socket = _socket.prependOnceListener("data", data => {
+    _socket = _socket.prependOnceListener("data", (data: Buffer) => {
         buffer = data;
     });
     _socket = _socket.prependOnceListener("drain", () => { });
     _socket = _socket.prependOnceListener("end", () => { });
-    _socket = _socket.prependOnceListener("error", err => {
+    _socket = _socket.prependOnceListener("error", (err: Error) => {
         error = err;
     });
-    _socket = _socket.prependOnceListener("lookup", (err, address, family, host) => {
+    _socket = _socket.prependOnceListener("lookup", (err: Error, address: string, family: string | number, host: string) => {
         error = err;
 
         if (typeof family === 'string') {
@@ -252,10 +252,10 @@ import { LookupOneOptions } from 'dns';
 
     /// addListener
     _server = _server.addListener("close", () => { });
-    _server = _server.addListener("connection", socket => {
+    _server = _server.addListener("connection", (socket: net.Socket) => {
         _socket = socket;
     });
-    _server = _server.addListener("error", err => {
+    _server = _server.addListener("error", (err: Error) => {
         error = err;
     });
     _server = _server.addListener("listening", () => { });
@@ -268,30 +268,30 @@ import { LookupOneOptions } from 'dns';
 
     /// once
     _server = _server.once("close", () => { });
-    _server = _server.once("connection", socket => {
+    _server = _server.once("connection", (socket: net.Socket) => {
         _socket = socket;
     });
-    _server = _server.once("error", err => {
+    _server = _server.once("error", (err: Error) => {
         error = err;
     });
     _server = _server.once("listening", () => { });
 
     /// prependListener
     _server = _server.prependListener("close", () => { });
-    _server = _server.prependListener("connection", socket => {
+    _server = _server.prependListener("connection", (socket: net.Socket) => {
         _socket = socket;
     });
-    _server = _server.prependListener("error", err => {
+    _server = _server.prependListener("error", (err: Error) => {
         error = err;
     });
     _server = _server.prependListener("listening", () => { });
 
     /// prependOnceListener
     _server = _server.prependOnceListener("close", () => { });
-    _server = _server.prependOnceListener("connection", socket => {
+    _server = _server.prependOnceListener("connection", (socket: net.Socket) => {
         _socket = socket;
     });
-    _server = _server.prependOnceListener("error", err => {
+    _server = _server.prependOnceListener("error", (err: Error) => {
         error = err;
     });
     _server = _server.prependOnceListener("listening", () => { });

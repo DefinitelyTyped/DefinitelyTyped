@@ -1,5 +1,5 @@
 declare module "repl" {
-    import { Interface, Completer, AsyncCompleter } from "readline";
+    import { Interface, InterfaceEventMap, Completer, AsyncCompleter } from "readline";
     import { Context } from "vm";
     import { InspectOptions } from "util";
 
@@ -111,6 +111,11 @@ declare module "repl" {
          * The function to execute, optionally accepting a single string argument.
          */
         action: REPLCommandAction;
+    }
+
+    interface REPLServerEventMap extends InterfaceEventMap {
+        "exit": () => void;
+        "reset": (context: Context) => void;
     }
 
     /**
@@ -275,7 +280,7 @@ declare module "repl" {
          */
         setupHistory(path: string, cb: (err: Error | null, repl: this) => void): void;
 
-        /**
+        /*
          * events.EventEmitter
          * 1. close - inherited from `readline.Interface`
          * 2. line - inherited from `readline.Interface`
@@ -288,71 +293,32 @@ declare module "repl" {
          * 9. reset
          */
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "line", listener: (input: string) => void): this;
-        addListener(event: "pause", listener: () => void): this;
-        addListener(event: "resume", listener: () => void): this;
-        addListener(event: "SIGCONT", listener: () => void): this;
-        addListener(event: "SIGINT", listener: () => void): this;
-        addListener(event: "SIGTSTP", listener: () => void): this;
-        addListener(event: "exit", listener: () => void): this;
-        addListener(event: "reset", listener: (context: Context) => void): this;
+        addListener<K extends keyof REPLServerEventMap>(event: K, listener: REPLServerEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
+        emit<K extends keyof REPLServerEventMap>(event: K, ...args: REPLServerEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "close"): boolean;
-        emit(event: "line", input: string): boolean;
-        emit(event: "pause"): boolean;
-        emit(event: "resume"): boolean;
-        emit(event: "SIGCONT"): boolean;
-        emit(event: "SIGINT"): boolean;
-        emit(event: "SIGTSTP"): boolean;
-        emit(event: "exit"): boolean;
-        emit(event: "reset", context: Context): boolean;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "line", listener: (input: string) => void): this;
-        on(event: "pause", listener: () => void): this;
-        on(event: "resume", listener: () => void): this;
-        on(event: "SIGCONT", listener: () => void): this;
-        on(event: "SIGINT", listener: () => void): this;
-        on(event: "SIGTSTP", listener: () => void): this;
-        on(event: "exit", listener: () => void): this;
-        on(event: "reset", listener: (context: Context) => void): this;
+        on<K extends keyof REPLServerEventMap>(event: K, listener: REPLServerEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "line", listener: (input: string) => void): this;
-        once(event: "pause", listener: () => void): this;
-        once(event: "resume", listener: () => void): this;
-        once(event: "SIGCONT", listener: () => void): this;
-        once(event: "SIGINT", listener: () => void): this;
-        once(event: "SIGTSTP", listener: () => void): this;
-        once(event: "exit", listener: () => void): this;
-        once(event: "reset", listener: (context: Context) => void): this;
+        once<K extends keyof REPLServerEventMap>(event: K, listener: REPLServerEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "line", listener: (input: string) => void): this;
-        prependListener(event: "pause", listener: () => void): this;
-        prependListener(event: "resume", listener: () => void): this;
-        prependListener(event: "SIGCONT", listener: () => void): this;
-        prependListener(event: "SIGINT", listener: () => void): this;
-        prependListener(event: "SIGTSTP", listener: () => void): this;
-        prependListener(event: "exit", listener: () => void): this;
-        prependListener(event: "reset", listener: (context: Context) => void): this;
+        prependListener<K extends keyof REPLServerEventMap>(event: K, listener: REPLServerEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "line", listener: (input: string) => void): this;
-        prependOnceListener(event: "pause", listener: () => void): this;
-        prependOnceListener(event: "resume", listener: () => void): this;
-        prependOnceListener(event: "SIGCONT", listener: () => void): this;
-        prependOnceListener(event: "SIGINT", listener: () => void): this;
-        prependOnceListener(event: "SIGTSTP", listener: () => void): this;
-        prependOnceListener(event: "exit", listener: () => void): this;
-        prependOnceListener(event: "reset", listener: (context: Context) => void): this;
+        prependOnceListener<K extends keyof REPLServerEventMap>(event: K, listener: REPLServerEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof REPLServerEventMap>(event: K, listener: REPLServerEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof REPLServerEventMap>(event: K, listener: REPLServerEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof REPLServerEventMap>(event: K): Array<REPLServerEventMap[K]>;
+        listeners(event: string | symbol): Function[];
     }
 
     /**

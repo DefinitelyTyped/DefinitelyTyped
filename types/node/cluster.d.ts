@@ -21,6 +21,17 @@ declare module "cluster" {
         addressType: number | "udp4" | "udp6";  // 4, 6, -1, "udp4", "udp6"
     }
 
+    interface WorkerEventMap {
+        "disconnect": () => void;
+        "error": (error: Error) => void;
+        "exit": (code: number, signal: string) => void;
+        "listening": (address: Address) => void;
+
+        /** the handle is a net.Socket or net.Server object, or undefined. */
+        "message": (message: any, handle: net.Socket | net.Server) => void;
+        "online": () => void;
+    }
+
     class Worker extends events.EventEmitter {
         id: number;
         process: child.ChildProcess;
@@ -32,7 +43,7 @@ declare module "cluster" {
         isDead(): boolean;
         exitedAfterDisconnect: boolean;
 
-        /**
+        /*
          * events.EventEmitter
          *   1. disconnect
          *   2. error
@@ -41,53 +52,44 @@ declare module "cluster" {
          *   5. message
          *   6. online
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "disconnect", listener: () => void): this;
-        addListener(event: "error", listener: (error: Error) => void): this;
-        addListener(event: "exit", listener: (code: number, signal: string) => void): this;
-        addListener(event: "listening", listener: (address: Address) => void): this;
-        addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        addListener(event: "online", listener: () => void): this;
+        addListener<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
+        emit<K extends keyof WorkerEventMap>(event: K, ...args: WorkerEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "disconnect"): boolean;
-        emit(event: "error", error: Error): boolean;
-        emit(event: "exit", code: number, signal: string): boolean;
-        emit(event: "listening", address: Address): boolean;
-        emit(event: "message", message: any, handle: net.Socket | net.Server): boolean;
-        emit(event: "online"): boolean;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "disconnect", listener: () => void): this;
-        on(event: "error", listener: (error: Error) => void): this;
-        on(event: "exit", listener: (code: number, signal: string) => void): this;
-        on(event: "listening", listener: (address: Address) => void): this;
-        on(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        on(event: "online", listener: () => void): this;
+        on<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "disconnect", listener: () => void): this;
-        once(event: "error", listener: (error: Error) => void): this;
-        once(event: "exit", listener: (code: number, signal: string) => void): this;
-        once(event: "listening", listener: (address: Address) => void): this;
-        once(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        once(event: "online", listener: () => void): this;
+        once<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "disconnect", listener: () => void): this;
-        prependListener(event: "error", listener: (error: Error) => void): this;
-        prependListener(event: "exit", listener: (code: number, signal: string) => void): this;
-        prependListener(event: "listening", listener: (address: Address) => void): this;
-        prependListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        prependListener(event: "online", listener: () => void): this;
+        prependListener<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "disconnect", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (error: Error) => void): this;
-        prependOnceListener(event: "exit", listener: (code: number, signal: string) => void): this;
-        prependOnceListener(event: "listening", listener: (address: Address) => void): this;
-        prependOnceListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        prependOnceListener(event: "online", listener: () => void): this;
+        prependOnceListener<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof WorkerEventMap>(event: K, listener: WorkerEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof WorkerEventMap>(event: K): Array<WorkerEventMap[K]>;
+        listeners(event: string | symbol): Function[];
+    }
+
+    interface ClusterEventMap {
+        "disconnect": (worker: Worker) => void;
+        "exit": (worker: Worker, code: number, signal: string) => void;
+        "fork": (worker: Worker) => void;
+        "listening": (worker: Worker, address: Address) => void;
+
+        /** the handle is a net.Socket or net.Server object, or undefined. */
+        "message": (worker: Worker, message: any, handle: net.Socket | net.Server) => void;
+        "online": (worker: Worker) => void;
+        "setup": (settings: ClusterSettings) => void;
     }
 
     interface Cluster extends events.EventEmitter {
@@ -105,7 +107,7 @@ declare module "cluster" {
         readonly SCHED_NONE: number;
         readonly SCHED_RR: number;
 
-        /**
+        /*
          * events.EventEmitter
          *   1. disconnect
          *   2. exit
@@ -115,60 +117,32 @@ declare module "cluster" {
          *   6. online
          *   7. setup
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "disconnect", listener: (worker: Worker) => void): this;
-        addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        addListener(event: "fork", listener: (worker: Worker) => void): this;
-        addListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        addListener(event: "online", listener: (worker: Worker) => void): this;
-        addListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
+        addListener<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
+        emit<K extends keyof ClusterEventMap>(event: K, ...args: ClusterEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "disconnect", worker: Worker): boolean;
-        emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
-        emit(event: "fork", worker: Worker): boolean;
-        emit(event: "listening", worker: Worker, address: Address): boolean;
-        emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
-        emit(event: "online", worker: Worker): boolean;
-        emit(event: "setup", settings: ClusterSettings): boolean;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "disconnect", listener: (worker: Worker) => void): this;
-        on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        on(event: "fork", listener: (worker: Worker) => void): this;
-        on(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        on(event: "online", listener: (worker: Worker) => void): this;
-        on(event: "setup", listener: (settings: ClusterSettings) => void): this;
+        on<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "disconnect", listener: (worker: Worker) => void): this;
-        once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        once(event: "fork", listener: (worker: Worker) => void): this;
-        once(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        once(event: "online", listener: (worker: Worker) => void): this;
-        once(event: "setup", listener: (settings: ClusterSettings) => void): this;
+        once<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "disconnect", listener: (worker: Worker) => void): this;
-        prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        prependListener(event: "fork", listener: (worker: Worker) => void): this;
-        prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        prependListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        prependListener(event: "online", listener: (worker: Worker) => void): this;
-        prependListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
+        prependListener<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): this;
-        prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        prependOnceListener(event: "fork", listener: (worker: Worker) => void): this;
-        prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        // the handle is a net.Socket or net.Server object, or undefined.
-        prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;
-        prependOnceListener(event: "online", listener: (worker: Worker) => void): this;
-        prependOnceListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
+        prependOnceListener<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof ClusterEventMap>(event: K): Array<ClusterEventMap[K]>;
+        listeners(event: string | symbol): Function[];
     }
 
     const SCHED_NONE: number;
@@ -184,7 +158,7 @@ declare module "cluster" {
     const worker: Worker;
     const workers: NodeJS.Dict<Worker>;
 
-    /**
+    /*
      * events.EventEmitter
      *   1. disconnect
      *   2. exit
@@ -194,69 +168,38 @@ declare module "cluster" {
      *   6. online
      *   7. setup
      */
-    function addListener(event: string, listener: (...args: any[]) => void): Cluster;
-    function addListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-    function addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-    function addListener(event: "fork", listener: (worker: Worker) => void): Cluster;
-    function addListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-     // the handle is a net.Socket or net.Server object, or undefined.
-    function addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
-    function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
-    function addListener(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
+    function addListener<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): Cluster;
+    function addListener(event: string | symbol, listener: (...args: any[]) => void): Cluster;
 
+    function emit<K extends keyof ClusterEventMap>(event: K, ...args: ClusterEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
     function emit(event: string | symbol, ...args: any[]): boolean;
-    function emit(event: "disconnect", worker: Worker): boolean;
-    function emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
-    function emit(event: "fork", worker: Worker): boolean;
-    function emit(event: "listening", worker: Worker, address: Address): boolean;
-    function emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
-    function emit(event: "online", worker: Worker): boolean;
-    function emit(event: "setup", settings: ClusterSettings): boolean;
 
-    function on(event: string, listener: (...args: any[]) => void): Cluster;
-    function on(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-    function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-    function on(event: "fork", listener: (worker: Worker) => void): Cluster;
-    function on(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-    function on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
-    function on(event: "online", listener: (worker: Worker) => void): Cluster;
-    function on(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
+    function on<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): Cluster;
+    function on(event: string | symbol, listener: (...args: any[]) => void): Cluster;
 
-    function once(event: string, listener: (...args: any[]) => void): Cluster;
-    function once(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-    function once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-    function once(event: "fork", listener: (worker: Worker) => void): Cluster;
-    function once(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-    function once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
-    function once(event: "online", listener: (worker: Worker) => void): Cluster;
-    function once(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
+    function once<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): Cluster;
+    function once(event: string | symbol, listener: (...args: any[]) => void): Cluster;
 
-    function removeListener(event: string, listener: (...args: any[]) => void): Cluster;
-    function removeAllListeners(event?: string): Cluster;
+    function prependListener<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): Cluster;
+    function prependListener(event: string | symbol, listener: (...args: any[]) => void): Cluster;
+
+    function prependOnceListener<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): Cluster;
+    function prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): Cluster;
+
+    function removeListener<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): Cluster;
+    function removeListener(event: string | symbol, listener: (...args: any[]) => void): Cluster;
+
+    function off<K extends keyof ClusterEventMap>(event: K, listener: ClusterEventMap[K]): Cluster;
+    function off(event: string | symbol, listener: (...args: any[]) => void): Cluster;
+
+    function listeners<K extends keyof ClusterEventMap>(event: K): Array<ClusterEventMap[K]>;
+    function listeners(event: string | symbol): Function[];
+
+    function removeAllListeners(event?: string | symbol): Cluster;
     function setMaxListeners(n: number): Cluster;
     function getMaxListeners(): number;
-    function listeners(event: string): Function[];
-    function listenerCount(type: string): number;
+    function rawListeners(event: string | symbol): Function[];
+    function listenerCount(type: string | symbol): number;
 
-    function prependListener(event: string, listener: (...args: any[]) => void): Cluster;
-    function prependListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-    function prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-    function prependListener(event: "fork", listener: (worker: Worker) => void): Cluster;
-    function prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-     // the handle is a net.Socket or net.Server object, or undefined.
-    function prependListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
-    function prependListener(event: "online", listener: (worker: Worker) => void): Cluster;
-    function prependListener(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
-
-    function prependOnceListener(event: string, listener: (...args: any[]) => void): Cluster;
-    function prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-    function prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-    function prependOnceListener(event: "fork", listener: (worker: Worker) => void): Cluster;
-    function prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-     // the handle is a net.Socket or net.Server object, or undefined.
-    function prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
-    function prependOnceListener(event: "online", listener: (worker: Worker) => void): Cluster;
-    function prependOnceListener(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
-
-    function eventNames(): string[];
+    function eventNames(): Array<string | symbol>;
 }

@@ -7,6 +7,14 @@ declare module "child_process" {
     type Serializable = string | object | number | boolean;
     type SendHandle = net.Socket | net.Server;
 
+    interface ChildProcessEventMap {
+        "close": (code: number, signal: NodeJS.Signals) => void;
+        "disconnect": () => void;
+        "error": (err: Error) => void;
+        "exit": (code: number | null, signal: NodeJS.Signals | null) => void;
+        "message": (message: Serializable, sendHandle: SendHandle) => void;
+    }
+
     interface ChildProcess extends events.EventEmitter {
         stdin: Writable | null;
         stdout: Readable | null;
@@ -34,7 +42,7 @@ declare module "child_process" {
         unref(): void;
         ref(): void;
 
-        /**
+        /*
          * events.EventEmitter
          * 1. close
          * 2. disconnect
@@ -43,47 +51,32 @@ declare module "child_process" {
          * 5. message
          */
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: (code: number, signal: NodeJS.Signals) => void): this;
-        addListener(event: "disconnect", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
-        addListener(event: "message", listener: (message: Serializable, sendHandle: SendHandle) => void): this;
+        addListener<K extends keyof ChildProcessEventMap>(event: K, listener: ChildProcessEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
+        emit<K extends keyof ChildProcessEventMap>(event: K, ...args: ChildProcessEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "close", code: number, signal: NodeJS.Signals): boolean;
-        emit(event: "disconnect"): boolean;
-        emit(event: "error", err: Error): boolean;
-        emit(event: "exit", code: number | null, signal: NodeJS.Signals | null): boolean;
-        emit(event: "message", message: Serializable, sendHandle: SendHandle): boolean;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: (code: number, signal: NodeJS.Signals) => void): this;
-        on(event: "disconnect", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
-        on(event: "message", listener: (message: Serializable, sendHandle: SendHandle) => void): this;
+        on<K extends keyof ChildProcessEventMap>(event: K, listener: ChildProcessEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: (code: number, signal: NodeJS.Signals) => void): this;
-        once(event: "disconnect", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
-        once(event: "message", listener: (message: Serializable, sendHandle: SendHandle) => void): this;
+        once<K extends keyof ChildProcessEventMap>(event: K, listener: ChildProcessEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: (code: number, signal: NodeJS.Signals) => void): this;
-        prependListener(event: "disconnect", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
-        prependListener(event: "message", listener: (message: Serializable, sendHandle: SendHandle) => void): this;
+        prependListener<K extends keyof ChildProcessEventMap>(event: K, listener: ChildProcessEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: (code: number, signal: NodeJS.Signals) => void): this;
-        prependOnceListener(event: "disconnect", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "exit", listener: (code: number | null, signal: NodeJS.Signals | null) => void): this;
-        prependOnceListener(event: "message", listener: (message: Serializable, sendHandle: SendHandle) => void): this;
+        prependOnceListener<K extends keyof ChildProcessEventMap>(event: K, listener: ChildProcessEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof ChildProcessEventMap>(event: K, listener: ChildProcessEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof ChildProcessEventMap>(event: K, listener: ChildProcessEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof ChildProcessEventMap>(event: K): Array<ChildProcessEventMap[K]>;
+        listeners(event: string | symbol): Function[];
     }
 
     // return this object when stdio option is undefined or not specified

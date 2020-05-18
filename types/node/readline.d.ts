@@ -10,6 +10,16 @@ declare module "readline" {
         shift?: boolean;
     }
 
+    interface InterfaceEventMap {
+        "close": () => void;
+        "line": (input: string) => void;
+        "pause": () => void;
+        "resume": () => void;
+        "SIGCONT": () => void;
+        "SIGINT": () => void;
+        "SIGTSTP": () => void;
+    }
+
     class Interface extends events.EventEmitter {
         readonly terminal: boolean;
 
@@ -54,7 +64,7 @@ declare module "readline" {
          */
         getCursorPos(): CursorPos;
 
-        /**
+        /*
          * events.EventEmitter
          * 1. close
          * 2. line
@@ -65,59 +75,33 @@ declare module "readline" {
          * 7. SIGTSTP
          */
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "line", listener: (input: string) => void): this;
-        addListener(event: "pause", listener: () => void): this;
-        addListener(event: "resume", listener: () => void): this;
-        addListener(event: "SIGCONT", listener: () => void): this;
-        addListener(event: "SIGINT", listener: () => void): this;
-        addListener(event: "SIGTSTP", listener: () => void): this;
+        addListener<K extends keyof InterfaceEventMap>(event: K, listener: InterfaceEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
+        emit<K extends keyof InterfaceEventMap>(event: K, ...args: InterfaceEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "close"): boolean;
-        emit(event: "line", input: string): boolean;
-        emit(event: "pause"): boolean;
-        emit(event: "resume"): boolean;
-        emit(event: "SIGCONT"): boolean;
-        emit(event: "SIGINT"): boolean;
-        emit(event: "SIGTSTP"): boolean;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "line", listener: (input: string) => void): this;
-        on(event: "pause", listener: () => void): this;
-        on(event: "resume", listener: () => void): this;
-        on(event: "SIGCONT", listener: () => void): this;
-        on(event: "SIGINT", listener: () => void): this;
-        on(event: "SIGTSTP", listener: () => void): this;
+        on<K extends keyof InterfaceEventMap>(event: K, listener: InterfaceEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "line", listener: (input: string) => void): this;
-        once(event: "pause", listener: () => void): this;
-        once(event: "resume", listener: () => void): this;
-        once(event: "SIGCONT", listener: () => void): this;
-        once(event: "SIGINT", listener: () => void): this;
-        once(event: "SIGTSTP", listener: () => void): this;
+        once<K extends keyof InterfaceEventMap>(event: K, listener: InterfaceEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "line", listener: (input: string) => void): this;
-        prependListener(event: "pause", listener: () => void): this;
-        prependListener(event: "resume", listener: () => void): this;
-        prependListener(event: "SIGCONT", listener: () => void): this;
-        prependListener(event: "SIGINT", listener: () => void): this;
-        prependListener(event: "SIGTSTP", listener: () => void): this;
+        prependListener<K extends keyof InterfaceEventMap>(event: K, listener: InterfaceEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "line", listener: (input: string) => void): this;
-        prependOnceListener(event: "pause", listener: () => void): this;
-        prependOnceListener(event: "resume", listener: () => void): this;
-        prependOnceListener(event: "SIGCONT", listener: () => void): this;
-        prependOnceListener(event: "SIGINT", listener: () => void): this;
-        prependOnceListener(event: "SIGTSTP", listener: () => void): this;
+        prependOnceListener<K extends keyof InterfaceEventMap>(event: K, listener: InterfaceEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof InterfaceEventMap>(event: K, listener: InterfaceEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof InterfaceEventMap>(event: K, listener: InterfaceEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof InterfaceEventMap>(event: K): Array<InterfaceEventMap[K]>;
+        listeners(event: string | symbol): Function[];
+
         [Symbol.asyncIterator](): AsyncIterableIterator<string>;
     }
 

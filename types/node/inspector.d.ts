@@ -2346,8 +2346,6 @@ declare module "inspector" {
 
         // Events
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
@@ -2472,8 +2470,8 @@ declare module "inspector" {
          * waiting for all frontends to disconnect.
          */
         addListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "inspectorNotification", message: InspectorNotification<{}>): boolean;
         emit(event: "Runtime.executionContextCreated", message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
         emit(event: "Runtime.executionContextDestroyed", message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>): boolean;
@@ -2501,8 +2499,7 @@ declare module "inspector" {
         emit(event: "NodeWorker.detachedFromWorker", message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>): boolean;
         emit(event: "NodeWorker.receivedMessageFromWorker", message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
         emit(event: "NodeRuntime.waitingForDisconnect"): boolean;
-
-        on(event: string, listener: (...args: any[]) => void): this;
+        emit(event: string | symbol, ...args: any[]): boolean;
 
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2628,8 +2625,7 @@ declare module "inspector" {
          * waiting for all frontends to disconnect.
          */
         on(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
-
-        once(event: string, listener: (...args: any[]) => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2755,8 +2751,7 @@ declare module "inspector" {
          * waiting for all frontends to disconnect.
          */
         once(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
-
-        prependListener(event: string, listener: (...args: any[]) => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2882,8 +2877,7 @@ declare module "inspector" {
          * waiting for all frontends to disconnect.
          */
         prependListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
-
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3009,6 +3003,259 @@ declare module "inspector" {
          * waiting for all frontends to disconnect.
          */
         prependOnceListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        /**
+         * Emitted when any notification from the V8 Inspector is received.
+         */
+        removeListener(event: "inspectorNotification", listener: (message: InspectorNotification<{}>) => void): this;
+
+        /**
+         * Issued when new execution context is created.
+         */
+        removeListener(event: "Runtime.executionContextCreated", listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
+
+        /**
+         * Issued when execution context is destroyed.
+         */
+        removeListener(event: "Runtime.executionContextDestroyed", listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
+
+        /**
+         * Issued when all executionContexts were cleared in browser
+         */
+        removeListener(event: "Runtime.executionContextsCleared", listener: () => void): this;
+
+        /**
+         * Issued when exception was thrown and unhandled.
+         */
+        removeListener(event: "Runtime.exceptionThrown", listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
+
+        /**
+         * Issued when unhandled exception was revoked.
+         */
+        removeListener(event: "Runtime.exceptionRevoked", listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
+
+        /**
+         * Issued when console API was called.
+         */
+        removeListener(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
+
+        /**
+         * Issued when object should be inspected (for example, as a result of inspect() command line API call).
+         */
+        removeListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+
+        /**
+         * Fired when virtual machine parses script. This event is also fired for all known and uncollected scripts upon enabling debugger.
+         */
+        removeListener(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
+
+        /**
+         * Fired when virtual machine fails to parse the script.
+         */
+        removeListener(event: "Debugger.scriptFailedToParse", listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
+
+        /**
+         * Fired when breakpoint is resolved to an actual script and location.
+         */
+        removeListener(event: "Debugger.breakpointResolved", listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
+
+        /**
+         * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
+         */
+        removeListener(event: "Debugger.paused", listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
+
+        /**
+         * Fired when the virtual machine resumed execution.
+         */
+        removeListener(event: "Debugger.resumed", listener: () => void): this;
+
+        /**
+         * Issued when new console message is added.
+         */
+        removeListener(event: "Console.messageAdded", listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
+
+        /**
+         * Sent when new profile recording is started using console.profile() call.
+         */
+        removeListener(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+
+        removeListener(event: "Profiler.consoleProfileFinished", listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
+        removeListener(event: "HeapProfiler.addHeapSnapshotChunk", listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
+        removeListener(event: "HeapProfiler.resetProfiles", listener: () => void): this;
+        removeListener(event: "HeapProfiler.reportHeapSnapshotProgress", listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
+
+        /**
+         * If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
+         */
+        removeListener(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
+
+        /**
+         * If heap objects tracking has been started then backend may send update for one or more fragments
+         */
+        removeListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
+
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        removeListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        removeListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
+
+        /**
+         * Issued when attached to a worker.
+         */
+        removeListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+
+        /**
+         * Issued when detached from the worker.
+         */
+        removeListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        removeListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+
+        /**
+         * This event is fired instead of `Runtime.executionContextDestroyed` when
+         * enabled.
+         * It is fired when the Node process finished all code execution and is
+         * waiting for all frontends to disconnect.
+         */
+        removeListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        /**
+         * Emitted when any notification from the V8 Inspector is received.
+         */
+        off(event: "inspectorNotification", listener: (message: InspectorNotification<{}>) => void): this;
+
+        /**
+         * Issued when new execution context is created.
+         */
+        off(event: "Runtime.executionContextCreated", listener: (message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>) => void): this;
+
+        /**
+         * Issued when execution context is destroyed.
+         */
+        off(event: "Runtime.executionContextDestroyed", listener: (message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>) => void): this;
+
+        /**
+         * Issued when all executionContexts were cleared in browser
+         */
+        off(event: "Runtime.executionContextsCleared", listener: () => void): this;
+
+        /**
+         * Issued when exception was thrown and unhandled.
+         */
+        off(event: "Runtime.exceptionThrown", listener: (message: InspectorNotification<Runtime.ExceptionThrownEventDataType>) => void): this;
+
+        /**
+         * Issued when unhandled exception was revoked.
+         */
+        off(event: "Runtime.exceptionRevoked", listener: (message: InspectorNotification<Runtime.ExceptionRevokedEventDataType>) => void): this;
+
+        /**
+         * Issued when console API was called.
+         */
+        off(event: "Runtime.consoleAPICalled", listener: (message: InspectorNotification<Runtime.ConsoleAPICalledEventDataType>) => void): this;
+
+        /**
+         * Issued when object should be inspected (for example, as a result of inspect() command line API call).
+         */
+        off(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
+
+        /**
+         * Fired when virtual machine parses script. This event is also fired for all known and uncollected scripts upon enabling debugger.
+         */
+        off(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
+
+        /**
+         * Fired when virtual machine fails to parse the script.
+         */
+        off(event: "Debugger.scriptFailedToParse", listener: (message: InspectorNotification<Debugger.ScriptFailedToParseEventDataType>) => void): this;
+
+        /**
+         * Fired when breakpoint is resolved to an actual script and location.
+         */
+        off(event: "Debugger.breakpointResolved", listener: (message: InspectorNotification<Debugger.BreakpointResolvedEventDataType>) => void): this;
+
+        /**
+         * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
+         */
+        off(event: "Debugger.paused", listener: (message: InspectorNotification<Debugger.PausedEventDataType>) => void): this;
+
+        /**
+         * Fired when the virtual machine resumed execution.
+         */
+        off(event: "Debugger.resumed", listener: () => void): this;
+
+        /**
+         * Issued when new console message is added.
+         */
+        off(event: "Console.messageAdded", listener: (message: InspectorNotification<Console.MessageAddedEventDataType>) => void): this;
+
+        /**
+         * Sent when new profile recording is started using console.profile() call.
+         */
+        off(event: "Profiler.consoleProfileStarted", listener: (message: InspectorNotification<Profiler.ConsoleProfileStartedEventDataType>) => void): this;
+
+        off(event: "Profiler.consoleProfileFinished", listener: (message: InspectorNotification<Profiler.ConsoleProfileFinishedEventDataType>) => void): this;
+        off(event: "HeapProfiler.addHeapSnapshotChunk", listener: (message: InspectorNotification<HeapProfiler.AddHeapSnapshotChunkEventDataType>) => void): this;
+        off(event: "HeapProfiler.resetProfiles", listener: () => void): this;
+        off(event: "HeapProfiler.reportHeapSnapshotProgress", listener: (message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>) => void): this;
+
+        /**
+         * If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
+         */
+        off(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
+
+        /**
+         * If heap objects tracking has been started then backend may send update for one or more fragments
+         */
+        off(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
+
+        /**
+         * Contains an bucket of collected trace events.
+         */
+        off(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
+
+        /**
+         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
+         * delivered via dataCollected events.
+         */
+        off(event: "NodeTracing.tracingComplete", listener: () => void): this;
+
+        /**
+         * Issued when attached to a worker.
+         */
+        off(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
+
+        /**
+         * Issued when detached from the worker.
+         */
+        off(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
+
+        /**
+         * Notifies about a new protocol message received from the session
+         * (session ID is provided in attachedToWorker notification).
+         */
+        off(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
+
+        /**
+         * This event is fired instead of `Runtime.executionContextDestroyed` when
+         * enabled.
+         * It is fired when the Node process finished all code execution and is
+         * waiting for all frontends to disconnect.
+         */
+        off(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     // Top Level API

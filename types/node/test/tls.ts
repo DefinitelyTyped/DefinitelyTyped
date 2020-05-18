@@ -107,25 +107,25 @@ import * as fs from "fs";
      * 5. secureConnection
      */
 
-    _server = _server.addListener("tlsClientError", (err, tlsSocket) => {
+    _server = _server.addListener("tlsClientError", (err: Error, tlsSocket: TLSSocket) => {
         const _err: Error = err;
         const _tlsSocket: TLSSocket = tlsSocket;
     });
-    _server = _server.addListener("newSession", (sessionId, sessionData, callback) => {
+    _server = _server.addListener("newSession", (sessionId: Buffer, sessionData: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _sessionId: Buffer = sessionId;
         const _sessionData: Buffer = sessionData;
         const _func1 = callback;
     });
-    _server = _server.addListener("OCSPRequest", (certificate, issuer, callback) => {
+    _server = _server.addListener("OCSPRequest", (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _certificate: Buffer = certificate;
         const _issuer: Buffer = issuer;
         const _callback: Function = callback;
     });
-    _server = _server.addListener("resumeSession", (sessionId, callback) => {
+    _server = _server.addListener("resumeSession", (sessionId: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _sessionId: Buffer = sessionId;
         const _func2 = callback;
     });
-    _server = _server.addListener("secureConnection", (tlsSocket) => {
+    _server = _server.addListener("secureConnection", (tlsSocket: TLSSocket) => {
         const _tlsSocket: TLSSocket = tlsSocket;
     });
 
@@ -140,96 +140,96 @@ import * as fs from "fs";
     _boolean = _server.emit("resumeSession", _any, _func2);
     _boolean = _server.emit("secureConnection", _tlsSocket);
 
-    _server = _server.on("tlsClientError", (err, tlsSocket) => {
+    _server = _server.on("tlsClientError", (err: Error, tlsSocket: TLSSocket) => {
         const _err: Error = err;
         const _tlsSocket: TLSSocket = tlsSocket;
     });
-    _server = _server.on("newSession", (sessionId, sessionData, callback) => {
+    _server = _server.on("newSession", (sessionId: Buffer, sessionData: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _sessionId: Buffer = sessionId;
         const _sessionData: Buffer = sessionData;
         const _func1 = callback;
     });
-    _server = _server.on("OCSPRequest", (certificate, issuer, callback) => {
+    _server = _server.on("OCSPRequest", (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _certificate: Buffer = certificate;
         const _issuer: Buffer = issuer;
         const _callback: Function = callback;
     });
-    _server = _server.on("resumeSession", (sessionId, callback) => {
+    _server = _server.on("resumeSession", (sessionId: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _sessionId: Buffer = sessionId;
         const _func2 = callback;
     });
-    _server = _server.on("secureConnection", (tlsSocket) => {
+    _server = _server.on("secureConnection", (tlsSocket: TLSSocket) => {
         const _tlsSocket: TLSSocket = tlsSocket;
     });
 
-    _server = _server.on("keylog", (ln, sock) => {
+    _server = _server.on("keylog", (ln: Buffer, sock: TLSSocket) => {
         const line: Buffer = ln;
         const socket: TLSSocket = sock;
     });
 
-    _server = _server.once("tlsClientError", (err, tlsSocket) => {
+    _server = _server.once("tlsClientError", (err: Error, tlsSocket: TLSSocket) => {
         const _err: Error = err;
         const _tlsSocket: TLSSocket = tlsSocket;
     });
-    _server = _server.once("newSession", (sessionId, sessionData, callback) => {
+    _server = _server.once("newSession", (sessionId: Buffer, sessionData: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _sessionId: Buffer = sessionId;
         const _sessionData: Buffer = sessionData;
         const _func1 = callback;
     });
-    _server = _server.once("OCSPRequest", (certificate, issuer, callback) => {
+    _server = _server.once("OCSPRequest", (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _certificate: Buffer = certificate;
         const _issuer: Buffer = issuer;
         const _callback: Function = callback;
     });
-    _server = _server.once("resumeSession", (sessionId, callback) => {
+    _server = _server.once("resumeSession", (sessionId: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _sessionId: Buffer = sessionId;
         const _func2 = callback;
     });
-    _server = _server.once("secureConnection", (tlsSocket) => {
+    _server = _server.once("secureConnection", (tlsSocket: TLSSocket) => {
         const _tlsSocket: TLSSocket = tlsSocket;
     });
 
-    _server = _server.prependListener("tlsClientError", (err, tlsSocket) => {
+    _server = _server.prependListener("tlsClientError", (err: Error, tlsSocket: TLSSocket) => {
         const _err: Error = err;
         const _tlsSocket: TLSSocket = tlsSocket;
     });
-    _server = _server.prependListener("newSession", (sessionId, sessionData, callback) => {
+    _server = _server.prependListener("newSession", (sessionId: Buffer, sessionData: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _sessionId: Buffer = sessionId;
         const _sessionData: Buffer = sessionData;
         const _func1 = callback;
     });
-    _server = _server.prependListener("OCSPRequest", (certificate, issuer, callback) => {
+    _server = _server.prependListener("OCSPRequest", (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _certificate: Buffer = certificate;
         const _issuer: Buffer = issuer;
         const _callback: Function = callback;
     });
-    _server = _server.prependListener("resumeSession", (sessionId, callback) => {
+    _server = _server.prependListener("resumeSession", (sessionId: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _sessionId: Buffer = sessionId;
         const _func2 = callback;
     });
-    _server = _server.prependListener("secureConnection", (tlsSocket) => {
+    _server = _server.prependListener("secureConnection", (tlsSocket: TLSSocket) => {
         const _tlsSocket: TLSSocket = tlsSocket;
     });
 
-    _server = _server.prependOnceListener("tlsClientError", (err, tlsSocket) => {
+    _server = _server.prependOnceListener("tlsClientError", (err: Error, tlsSocket: TLSSocket) => {
         const _err: Error = err;
         const _tlsSocket: TLSSocket = tlsSocket;
     });
-    _server = _server.prependOnceListener("newSession", (sessionId, sessionData, callback) => {
+    _server = _server.prependOnceListener("newSession", (sessionId: Buffer, sessionData: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _sessionId: Buffer = sessionId;
         const _sessionData: Buffer = sessionData;
         const _func1 = callback;
     });
-    _server = _server.prependOnceListener("OCSPRequest", (certificate, issuer, callback) => {
+    _server = _server.prependOnceListener("OCSPRequest", (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _certificate: Buffer = certificate;
         const _issuer: Buffer = issuer;
         const _callback: Function = callback;
     });
-    _server = _server.prependOnceListener("resumeSession", (sessionId, callback) => {
+    _server = _server.prependOnceListener("resumeSession", (sessionId: Buffer, callback: (err: Error | null, resp: Buffer) => void) => {
         const _sessionId: Buffer = sessionId;
         const _func2 = callback;
     });
-    _server = _server.prependOnceListener("secureConnection", (tlsSocket) => {
+    _server = _server.prependOnceListener("secureConnection", (tlsSocket: TLSSocket) => {
         const _tlsSocket: TLSSocket = tlsSocket;
     });
 
@@ -254,7 +254,7 @@ import * as fs from "fs";
      * 4. message
      */
 
-    socket = socket.addListener("OCSPResponse", (response) => {
+    socket = socket.addListener("OCSPResponse", (response: Buffer) => {
         const _response: Buffer = response;
     });
     socket = socket.addListener("secureConnect", () => { });
@@ -263,22 +263,22 @@ import * as fs from "fs";
     _boolean = socket.emit("OCSPResponse", _buffer);
     _boolean = socket.emit("secureConnect");
 
-    socket = socket.on("OCSPResponse", (response) => {
+    socket = socket.on("OCSPResponse", (response: Buffer) => {
         const _response: Buffer = response;
     });
     socket = socket.on("secureConnect", () => { });
 
-    socket = socket.once("OCSPResponse", (response) => {
+    socket = socket.once("OCSPResponse", (response: Buffer) => {
         const _response: Buffer = response;
     });
     socket = socket.once("secureConnect", () => { });
 
-    socket = socket.prependListener("OCSPResponse", (response) => {
+    socket = socket.prependListener("OCSPResponse", (response: Buffer) => {
         const _response: Buffer = response;
     });
     socket = socket.prependListener("secureConnect", () => { });
 
-    socket = socket.prependOnceListener("OCSPResponse", (response) => {
+    socket = socket.prependOnceListener("OCSPResponse", (response: Buffer) => {
         const _response: Buffer = response;
     });
     socket = socket.prependOnceListener("secureConnect", () => { });

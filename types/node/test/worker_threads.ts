@@ -19,7 +19,7 @@ import * as fs from "fs";
                 });
                 worker.on('message', resolve);
                 worker.on('error', reject);
-                worker.on('exit', (code) => {
+                worker.on('exit', (code: number) => {
                     if (code !== 0)
                         reject(new Error(`Worker stopped with exit code ${code}`));
                 });

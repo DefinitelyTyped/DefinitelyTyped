@@ -53,6 +53,14 @@ declare module "net" {
 
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
 
+    interface SocketEventMap extends Pick<stream.DuplexEventMap, Exclude<keyof stream.DuplexEventMap, "close">> {
+        "close": (had_error: boolean) => void;
+        "connect": () => void;
+        "data": (data: Buffer) => void;
+        "lookup": (err: Error, address: string, family: string | number, host: string) => void;
+        "timeout": () => void;
+    }
+
     class Socket extends stream.Duplex {
         constructor(options?: SocketConstructorOpts);
 
@@ -91,7 +99,7 @@ declare module "net" {
         end(buffer: Uint8Array | string, cb?: () => void): void;
         end(str: Uint8Array | string, encoding?: BufferEncoding, cb?: () => void): void;
 
-        /**
+        /*
          * events.EventEmitter
          *   1. close
          *   2. connect
@@ -102,65 +110,32 @@ declare module "net" {
          *   7. lookup
          *   8. timeout
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: (had_error: boolean) => void): this;
-        addListener(event: "connect", listener: () => void): this;
-        addListener(event: "data", listener: (data: Buffer) => void): this;
-        addListener(event: "drain", listener: () => void): this;
-        addListener(event: "end", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        addListener(event: "timeout", listener: () => void): this;
+        addListener<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
+        emit<K extends keyof SocketEventMap>(event: K, ...args: SocketEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "close", had_error: boolean): boolean;
-        emit(event: "connect"): boolean;
-        emit(event: "data", data: Buffer): boolean;
-        emit(event: "drain"): boolean;
-        emit(event: "end"): boolean;
-        emit(event: "error", err: Error): boolean;
-        emit(event: "lookup", err: Error, address: string, family: string | number, host: string): boolean;
-        emit(event: "timeout"): boolean;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: (had_error: boolean) => void): this;
-        on(event: "connect", listener: () => void): this;
-        on(event: "data", listener: (data: Buffer) => void): this;
-        on(event: "drain", listener: () => void): this;
-        on(event: "end", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        on(event: "timeout", listener: () => void): this;
+        on<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: (had_error: boolean) => void): this;
-        once(event: "connect", listener: () => void): this;
-        once(event: "data", listener: (data: Buffer) => void): this;
-        once(event: "drain", listener: () => void): this;
-        once(event: "end", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        once(event: "timeout", listener: () => void): this;
+        once<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: (had_error: boolean) => void): this;
-        prependListener(event: "connect", listener: () => void): this;
-        prependListener(event: "data", listener: (data: Buffer) => void): this;
-        prependListener(event: "drain", listener: () => void): this;
-        prependListener(event: "end", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        prependListener(event: "timeout", listener: () => void): this;
+        prependListener<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: (had_error: boolean) => void): this;
-        prependOnceListener(event: "connect", listener: () => void): this;
-        prependOnceListener(event: "data", listener: (data: Buffer) => void): this;
-        prependOnceListener(event: "drain", listener: () => void): this;
-        prependOnceListener(event: "end", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        prependOnceListener(event: "timeout", listener: () => void): this;
+        prependOnceListener<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof SocketEventMap>(event: K, listener: SocketEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof SocketEventMap>(event: K): Array<SocketEventMap[K]>;
+        listeners(event: string | symbol): Function[];
     }
 
     interface ListenOptions {
@@ -175,6 +150,13 @@ declare module "net" {
          * @default false
          */
         ipv6Only?: boolean;
+    }
+
+    interface ServerEventMap {
+        "close": () => void;
+        "connection": (socket: Socket) => void;
+        "error": (err: Error) => void;
+        "listening": () => void;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/net.js
@@ -200,48 +182,39 @@ declare module "net" {
         connections: number;
         listening: boolean;
 
-        /**
+        /*
          * events.EventEmitter
          *   1. close
          *   2. connection
          *   3. error
          *   4. listening
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "connection", listener: (socket: Socket) => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "listening", listener: () => void): this;
+        addListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
+        emit<K extends keyof ServerEventMap>(event: K, ...args: ServerEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "close"): boolean;
-        emit(event: "connection", socket: Socket): boolean;
-        emit(event: "error", err: Error): boolean;
-        emit(event: "listening"): boolean;
 
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "connection", listener: (socket: Socket) => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "listening", listener: () => void): this;
+        on<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "connection", listener: (socket: Socket) => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "listening", listener: () => void): this;
+        once<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "listening", listener: () => void): this;
+        prependListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "listening", listener: () => void): this;
+        prependOnceListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof ServerEventMap>(event: K, listener: ServerEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof ServerEventMap>(event: K): Array<ServerEventMap[K]>;
+        listeners(event: string | symbol): Function[];
     }
 
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {

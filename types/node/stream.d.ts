@@ -19,6 +19,16 @@ declare module "stream" {
             autoDestroy?: boolean;
         }
 
+        interface ReadableEventMap {
+            "close": () => void;
+            "data": (chunk: any) => void;
+            "end": () => void;
+            "error": (err: Error) => void;
+            "pause": () => void;
+            "readable": () => void;
+            "resume": () => void;
+        }
+
         class Readable extends Stream implements NodeJS.ReadableStream {
             /**
              * A utility method for creating Readable Streams out of iterators.
@@ -58,68 +68,32 @@ declare module "stream" {
              * 6. readable
              * 7. resume
              */
-            addListener(event: "close", listener: () => void): this;
-            addListener(event: "data", listener: (chunk: any) => void): this;
-            addListener(event: "end", listener: () => void): this;
-            addListener(event: "error", listener: (err: Error) => void): this;
-            addListener(event: "pause", listener: () => void): this;
-            addListener(event: "readable", listener: () => void): this;
-            addListener(event: "resume", listener: () => void): this;
+            addListener<K extends keyof ReadableEventMap>(event: K, listener: ReadableEventMap[K]): this;
             addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            emit(event: "close"): boolean;
-            emit(event: "data", chunk: any): boolean;
-            emit(event: "end"): boolean;
-            emit(event: "error", err: Error): boolean;
-            emit(event: "pause"): boolean;
-            emit(event: "readable"): boolean;
-            emit(event: "resume"): boolean;
+            emit<K extends keyof ReadableEventMap>(event: K, ...args: ReadableEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
             emit(event: string | symbol, ...args: any[]): boolean;
 
-            on(event: "close", listener: () => void): this;
-            on(event: "data", listener: (chunk: any) => void): this;
-            on(event: "end", listener: () => void): this;
-            on(event: "error", listener: (err: Error) => void): this;
-            on(event: "pause", listener: () => void): this;
-            on(event: "readable", listener: () => void): this;
-            on(event: "resume", listener: () => void): this;
+            on<K extends keyof ReadableEventMap>(event: K, listener: ReadableEventMap[K]): this;
             on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            once(event: "close", listener: () => void): this;
-            once(event: "data", listener: (chunk: any) => void): this;
-            once(event: "end", listener: () => void): this;
-            once(event: "error", listener: (err: Error) => void): this;
-            once(event: "pause", listener: () => void): this;
-            once(event: "readable", listener: () => void): this;
-            once(event: "resume", listener: () => void): this;
+            once<K extends keyof ReadableEventMap>(event: K, listener: ReadableEventMap[K]): this;
             once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            prependListener(event: "close", listener: () => void): this;
-            prependListener(event: "data", listener: (chunk: any) => void): this;
-            prependListener(event: "end", listener: () => void): this;
-            prependListener(event: "error", listener: (err: Error) => void): this;
-            prependListener(event: "pause", listener: () => void): this;
-            prependListener(event: "readable", listener: () => void): this;
-            prependListener(event: "resume", listener: () => void): this;
+            prependListener<K extends keyof ReadableEventMap>(event: K, listener: ReadableEventMap[K]): this;
             prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            prependOnceListener(event: "close", listener: () => void): this;
-            prependOnceListener(event: "data", listener: (chunk: any) => void): this;
-            prependOnceListener(event: "end", listener: () => void): this;
-            prependOnceListener(event: "error", listener: (err: Error) => void): this;
-            prependOnceListener(event: "pause", listener: () => void): this;
-            prependOnceListener(event: "readable", listener: () => void): this;
-            prependOnceListener(event: "resume", listener: () => void): this;
+            prependOnceListener<K extends keyof ReadableEventMap>(event: K, listener: ReadableEventMap[K]): this;
             prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            removeListener(event: "close", listener: () => void): this;
-            removeListener(event: "data", listener: (chunk: any) => void): this;
-            removeListener(event: "end", listener: () => void): this;
-            removeListener(event: "error", listener: (err: Error) => void): this;
-            removeListener(event: "pause", listener: () => void): this;
-            removeListener(event: "readable", listener: () => void): this;
-            removeListener(event: "resume", listener: () => void): this;
+            removeListener<K extends keyof ReadableEventMap>(event: K, listener: ReadableEventMap[K]): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+            off<K extends keyof ReadableEventMap>(event: K, listener: ReadableEventMap[K]): this;
+            off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+            listeners<K extends keyof ReadableEventMap>(event: K): Array<ReadableEventMap[K]>;
+            listeners(event: string | symbol): Function[];
 
             [Symbol.asyncIterator](): AsyncIterableIterator<any>;
         }
@@ -135,6 +109,15 @@ declare module "stream" {
             destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
             final?(this: Writable, callback: (error?: Error | null) => void): void;
             autoDestroy?: boolean;
+        }
+
+        interface WritableEventMap {
+            "close": () => void;
+            "drain": () => void;
+            "error": (err: Error) => void;
+            "finish": () => void;
+            "pipe": (src: Readable) => void;
+            "unpipe": (src: Readable) => void;
         }
 
         class Writable extends Stream implements NodeJS.WritableStream {
@@ -161,7 +144,7 @@ declare module "stream" {
             uncork(): void;
             destroy(error?: Error): void;
 
-            /**
+            /*
              * Event emitter
              * The defined events on documents including:
              * 1. close
@@ -171,61 +154,32 @@ declare module "stream" {
              * 5. pipe
              * 6. unpipe
              */
-            addListener(event: "close", listener: () => void): this;
-            addListener(event: "drain", listener: () => void): this;
-            addListener(event: "error", listener: (err: Error) => void): this;
-            addListener(event: "finish", listener: () => void): this;
-            addListener(event: "pipe", listener: (src: Readable) => void): this;
-            addListener(event: "unpipe", listener: (src: Readable) => void): this;
+            addListener<K extends keyof WritableEventMap>(event: K, listener: WritableEventMap[K]): this;
             addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            emit(event: "close"): boolean;
-            emit(event: "drain"): boolean;
-            emit(event: "error", err: Error): boolean;
-            emit(event: "finish"): boolean;
-            emit(event: "pipe", src: Readable): boolean;
-            emit(event: "unpipe", src: Readable): boolean;
+            emit<K extends keyof WritableEventMap>(event: K, ...args: WritableEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
             emit(event: string | symbol, ...args: any[]): boolean;
 
-            on(event: "close", listener: () => void): this;
-            on(event: "drain", listener: () => void): this;
-            on(event: "error", listener: (err: Error) => void): this;
-            on(event: "finish", listener: () => void): this;
-            on(event: "pipe", listener: (src: Readable) => void): this;
-            on(event: "unpipe", listener: (src: Readable) => void): this;
+            on<K extends keyof WritableEventMap>(event: K, listener: WritableEventMap[K]): this;
             on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            once(event: "close", listener: () => void): this;
-            once(event: "drain", listener: () => void): this;
-            once(event: "error", listener: (err: Error) => void): this;
-            once(event: "finish", listener: () => void): this;
-            once(event: "pipe", listener: (src: Readable) => void): this;
-            once(event: "unpipe", listener: (src: Readable) => void): this;
+            once<K extends keyof WritableEventMap>(event: K, listener: WritableEventMap[K]): this;
             once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            prependListener(event: "close", listener: () => void): this;
-            prependListener(event: "drain", listener: () => void): this;
-            prependListener(event: "error", listener: (err: Error) => void): this;
-            prependListener(event: "finish", listener: () => void): this;
-            prependListener(event: "pipe", listener: (src: Readable) => void): this;
-            prependListener(event: "unpipe", listener: (src: Readable) => void): this;
+            prependListener<K extends keyof WritableEventMap>(event: K, listener: WritableEventMap[K]): this;
             prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            prependOnceListener(event: "close", listener: () => void): this;
-            prependOnceListener(event: "drain", listener: () => void): this;
-            prependOnceListener(event: "error", listener: (err: Error) => void): this;
-            prependOnceListener(event: "finish", listener: () => void): this;
-            prependOnceListener(event: "pipe", listener: (src: Readable) => void): this;
-            prependOnceListener(event: "unpipe", listener: (src: Readable) => void): this;
+            prependOnceListener<K extends keyof WritableEventMap>(event: K, listener: WritableEventMap[K]): this;
             prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            removeListener(event: "close", listener: () => void): this;
-            removeListener(event: "drain", listener: () => void): this;
-            removeListener(event: "error", listener: (err: Error) => void): this;
-            removeListener(event: "finish", listener: () => void): this;
-            removeListener(event: "pipe", listener: (src: Readable) => void): this;
-            removeListener(event: "unpipe", listener: (src: Readable) => void): this;
+            removeListener<K extends keyof WritableEventMap>(event: K, listener: WritableEventMap[K]): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+            off<K extends keyof WritableEventMap>(event: K, listener: WritableEventMap[K]): this;
+            off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+            listeners<K extends keyof WritableEventMap>(event: K): Array<WritableEventMap[K]>;
+            listeners(event: string | symbol): Function[];
         }
 
         interface DuplexOptions extends ReadableOptions, WritableOptions {
@@ -241,6 +195,8 @@ declare module "stream" {
             final?(this: Duplex, callback: (error?: Error | null) => void): void;
             destroy?(this: Duplex, error: Error | null, callback: (error: Error | null) => void): void;
         }
+
+        interface DuplexEventMap extends ReadableEventMap, WritableEventMap {}
 
         // Note: Duplex extends both Readable and Writable.
         class Duplex extends Readable implements Writable {
@@ -264,6 +220,33 @@ declare module "stream" {
             end(chunk: any, encoding?: BufferEncoding, cb?: () => void): void;
             cork(): void;
             uncork(): void;
+
+            addListener<K extends keyof DuplexEventMap>(event: K, listener: DuplexEventMap[K]): this;
+            addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+            emit<K extends keyof DuplexEventMap>(event: K, ...args: DuplexEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
+            emit(event: string | symbol, ...args: any[]): boolean;
+
+            on<K extends keyof DuplexEventMap>(event: K, listener: DuplexEventMap[K]): this;
+            on(event: string | symbol, listener: (...args: any[]) => void): this;
+
+            once<K extends keyof DuplexEventMap>(event: K, listener: DuplexEventMap[K]): this;
+            once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+            prependListener<K extends keyof DuplexEventMap>(event: K, listener: DuplexEventMap[K]): this;
+            prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+            prependOnceListener<K extends keyof DuplexEventMap>(event: K, listener: DuplexEventMap[K]): this;
+            prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+            removeListener<K extends keyof DuplexEventMap>(event: K, listener: DuplexEventMap[K]): this;
+            removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+            off<K extends keyof DuplexEventMap>(event: K, listener: DuplexEventMap[K]): this;
+            off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+            listeners<K extends keyof DuplexEventMap>(event: K): Array<DuplexEventMap[K]>;
+            listeners(event: string | symbol): Function[];
         }
 
         type TransformCallback = (error?: Error | null, data?: any) => void;

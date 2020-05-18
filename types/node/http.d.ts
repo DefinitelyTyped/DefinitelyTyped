@@ -203,6 +203,23 @@ declare module "http" {
         rawHeaders: string[];
     }
 
+    interface ClientRequestEventMap extends stream.WritableEventMap {
+        'abort': () => void;
+        'connect': (response: IncomingMessage, socket: Socket, head: Buffer) => void;
+        'continue': () => void;
+        'information': (info: InformationEvent) => void;
+        'response': (response: IncomingMessage) => void;
+        'socket': (socket: Socket) => void;
+        'timeout': () => void;
+        'upgrade': (response: IncomingMessage, socket: Socket, head: Buffer) => void;
+        'close': () => void;
+        'drain': () => void;
+        'error': (err: Error) => void;
+        'finish': () => void;
+        'pipe': (src: stream.Readable) => void;
+        'unpipe': (src: stream.Readable) => void;
+    }
+
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
     class ClientRequest extends OutgoingMessage {
         aborted: number;
@@ -217,85 +234,32 @@ declare module "http" {
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
 
-        addListener(event: 'abort', listener: () => void): this;
-        addListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        addListener(event: 'continue', listener: () => void): this;
-        addListener(event: 'information', listener: (info: InformationEvent) => void): this;
-        addListener(event: 'response', listener: (response: IncomingMessage) => void): this;
-        addListener(event: 'socket', listener: (socket: Socket) => void): this;
-        addListener(event: 'timeout', listener: () => void): this;
-        addListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        addListener(event: 'close', listener: () => void): this;
-        addListener(event: 'drain', listener: () => void): this;
-        addListener(event: 'error', listener: (err: Error) => void): this;
-        addListener(event: 'finish', listener: () => void): this;
-        addListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
-        addListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        addListener<K extends keyof ClientRequestEventMap>(event: K, listener: ClientRequestEventMap[K]): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        on(event: 'abort', listener: () => void): this;
-        on(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        on(event: 'continue', listener: () => void): this;
-        on(event: 'information', listener: (info: InformationEvent) => void): this;
-        on(event: 'response', listener: (response: IncomingMessage) => void): this;
-        on(event: 'socket', listener: (socket: Socket) => void): this;
-        on(event: 'timeout', listener: () => void): this;
-        on(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        on(event: 'close', listener: () => void): this;
-        on(event: 'drain', listener: () => void): this;
-        on(event: 'error', listener: (err: Error) => void): this;
-        on(event: 'finish', listener: () => void): this;
-        on(event: 'pipe', listener: (src: stream.Readable) => void): this;
-        on(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        emit<K extends keyof ClientRequestEventMap>(event: K, ...args: ClientRequestEventMap[K] extends (...args: infer P) => any ? P : never): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
+
+        on<K extends keyof ClientRequestEventMap>(event: K, listener: ClientRequestEventMap[K]): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: 'abort', listener: () => void): this;
-        once(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        once(event: 'continue', listener: () => void): this;
-        once(event: 'information', listener: (info: InformationEvent) => void): this;
-        once(event: 'response', listener: (response: IncomingMessage) => void): this;
-        once(event: 'socket', listener: (socket: Socket) => void): this;
-        once(event: 'timeout', listener: () => void): this;
-        once(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        once(event: 'close', listener: () => void): this;
-        once(event: 'drain', listener: () => void): this;
-        once(event: 'error', listener: (err: Error) => void): this;
-        once(event: 'finish', listener: () => void): this;
-        once(event: 'pipe', listener: (src: stream.Readable) => void): this;
-        once(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        once<K extends keyof ClientRequestEventMap>(event: K, listener: ClientRequestEventMap[K]): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: 'abort', listener: () => void): this;
-        prependListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        prependListener(event: 'continue', listener: () => void): this;
-        prependListener(event: 'information', listener: (info: InformationEvent) => void): this;
-        prependListener(event: 'response', listener: (response: IncomingMessage) => void): this;
-        prependListener(event: 'socket', listener: (socket: Socket) => void): this;
-        prependListener(event: 'timeout', listener: () => void): this;
-        prependListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        prependListener(event: 'close', listener: () => void): this;
-        prependListener(event: 'drain', listener: () => void): this;
-        prependListener(event: 'error', listener: (err: Error) => void): this;
-        prependListener(event: 'finish', listener: () => void): this;
-        prependListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
-        prependListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        prependListener<K extends keyof ClientRequestEventMap>(event: K, listener: ClientRequestEventMap[K]): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: 'abort', listener: () => void): this;
-        prependOnceListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        prependOnceListener(event: 'continue', listener: () => void): this;
-        prependOnceListener(event: 'information', listener: (info: InformationEvent) => void): this;
-        prependOnceListener(event: 'response', listener: (response: IncomingMessage) => void): this;
-        prependOnceListener(event: 'socket', listener: (socket: Socket) => void): this;
-        prependOnceListener(event: 'timeout', listener: () => void): this;
-        prependOnceListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        prependOnceListener(event: 'close', listener: () => void): this;
-        prependOnceListener(event: 'drain', listener: () => void): this;
-        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-        prependOnceListener(event: 'finish', listener: () => void): this;
-        prependOnceListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
-        prependOnceListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        prependOnceListener<K extends keyof ClientRequestEventMap>(event: K, listener: ClientRequestEventMap[K]): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener<K extends keyof ClientRequestEventMap>(event: K, listener: ClientRequestEventMap[K]): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        off<K extends keyof ClientRequestEventMap>(event: K, listener: ClientRequestEventMap[K]): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        listeners<K extends keyof ClientRequestEventMap>(event: K): Array<ClientRequestEventMap[K]>;
+        listeners(event: string | symbol): Function[];
     }
 
     class IncomingMessage extends stream.Readable {
