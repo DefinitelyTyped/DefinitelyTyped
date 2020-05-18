@@ -1934,7 +1934,7 @@ export interface Application extends Resource {
      * list means all events are allowed. * An empty "disallowed" list means no events are disallowed. * Disallowed events take precedence over allowed events if the event type
      * is specified in both lists.
      *
-     * @param params.filter - (optional) Specify which event types to allow/disallow.
+     * @param [params.filter] - Specify which event types to allow/disallow.
      */
     filter(params?: { filter?: IndexableObject }): Promise<Application>;
 }
