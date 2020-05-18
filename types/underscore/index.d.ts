@@ -4342,13 +4342,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.max
         **/
-        max(iterator: _.ListIterator<T, number> | _.ObjectIterator<T, boolean>, context?: any): T;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.max
-        **/
-        max(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, boolean>, context?: any): T;
+        max(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): T;
 
         /**
         * Wrapped type `number[]`.
@@ -4360,13 +4354,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.min
         **/
-        min(iterator: _.ListIterator<T, number> | _.ObjectIterator<T, boolean>, context?: any): T;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.min
-        **/
-        min(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, boolean>, context?: any): T;
+        min(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): T;
 
         /**
         * Wrapped type `any[]`.
@@ -5302,13 +5290,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.max
         **/
-        max(iterator: _.ListIterator<T, number>, context?: any): _ChainSingle<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.max
-        **/
-        max(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
+        max(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _ChainSingle<T>;
 
         /**
         * Wrapped type `number[]`.
@@ -5320,13 +5302,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.min
         **/
-        min(iterator: _.ListIterator<T, number>, context?: any): _ChainSingle<T>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.min
-        **/
-        min(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
+        min(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _ChainSingle<T>;
 
         /**
         * Wrapped type `any[]`.
