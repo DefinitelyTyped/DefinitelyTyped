@@ -75,7 +75,7 @@ export type Callback = (err: Error) => any;
 export type DocEvent = 'load' | 'create' | 'before op' | 'op' | 'del' | 'error' | 'no write pending' | 'nothing pending';
 
 export class Doc extends EventEmitter {
-    type: string;
+    type: Type | null;
     id: string;
     data: any;
     fetch: (callback: (err: Error) => void) => void;

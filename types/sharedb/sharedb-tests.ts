@@ -223,4 +223,8 @@ function startClient(callback) {
     connection.createSubscribeQuery('examples', 'numClicks >= 5', null, (err, results) => {
         console.log(err, results);
     });
+
+    if (doc.type !== null) {
+      console.log(doc.type.name);
+    }
 }
