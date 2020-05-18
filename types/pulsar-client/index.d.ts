@@ -384,6 +384,18 @@ export class Consumer {
     acknowledgeId(messageId: MessageId): void;
 
     /**
+     * Negatively acknowledges a message to the Pulsar broker by message object.
+     * @param message Message to acknowledge.
+     */
+    negativeAcknowledge(message: Message): void;
+
+    /**
+     * Negatively acknowledges a message to the Pulsar broker by message ID object.
+     * @param messageId Message ID to acknowledge.
+     */
+    negativeAcknowledgeId(messageId: MessageId): void;
+
+    /**
      * Acknowledges all the messages in the stream, up to and including the specified message.
      * The acknowledgeCumulative method will return void, and send the ack to the broker asynchronously.
      * After that, the messages will not be redelivered to the consumer. Cumulative acking can not be used with a shared subscription type.
