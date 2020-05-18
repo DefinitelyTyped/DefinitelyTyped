@@ -13,7 +13,7 @@ export interface SwatchesPickerProps extends ColorPickerProps<SwatchesPicker> {
     colors?: string[][];
     height?: number;
     width?: number;
-    styles?: Classes<SwatchesPickerStylesProps>;
+    styles?: Partial<Classes<SwatchesPickerStylesProps>>;
     onSwatchHover?(color: ColorResult, event: MouseEvent): void;
 }
 

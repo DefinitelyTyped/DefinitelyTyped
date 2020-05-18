@@ -16,7 +16,7 @@ export interface PhotoshopPickerStylesProps {
 
 export interface PhotoshopPickerProps extends ColorPickerProps<PhotoshopPicker> {
     header?: string;
-    styles?: Classes<PhotoshopPickerStylesProps>;
+    styles?: Partial<Classes<PhotoshopPickerStylesProps>>;
     onAccept?: ColorChangeHandler;
     onCancel?: ColorChangeHandler;
 }

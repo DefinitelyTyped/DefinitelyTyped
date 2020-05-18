@@ -10,7 +10,7 @@ export interface HuePickerStylesProps {
 export interface HuePickerProps extends ColorPickerProps<HuePicker> {
     height?: string;
     width?: string;
-    styles?: Classes<HuePickerStylesProps>;
+    styles?: Partial<Classes<HuePickerStylesProps>>;
 }
 
 export default class HuePicker extends Component<HuePickerProps> { }

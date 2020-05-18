@@ -40,7 +40,7 @@ export type ColorChangeHandler = (color: ColorResult) => void;
 export interface ColorPickerProps<A> extends ClassAttributes<A> {
     color?: Color;
     className?: string;
-    styles?: Classes<any>;
+    styles?: Partial<Classes<any>>;
     onChange?: ColorChangeHandler;
     onChangeComplete?: ColorChangeHandler;
 }
@@ -49,7 +49,7 @@ export interface CustomPickerProps<A> extends ClassAttributes<A> {
     color?: Color;
     pointer?: ReactNode;
     className?: string;
-    styles?: Classes<any>;
+    styles?: Partial<Classes<any>>;
     onChange: ColorChangeHandler;
 }
 

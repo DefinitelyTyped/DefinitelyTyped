@@ -10,7 +10,7 @@ export interface AlphaPickerStylesProps {
 export interface AlphaPickerProps extends ColorPickerProps<AlphaPicker> {
     height?: string;
     width?: string;
-    styles?: Classes<AlphaPickerStylesProps>;
+    styles?: Partial<Classes<AlphaPickerStylesProps>>;
 }
 
 export default class AlphaPicker extends Component<AlphaPickerProps> { }

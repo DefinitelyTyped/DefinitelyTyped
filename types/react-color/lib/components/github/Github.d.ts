@@ -12,7 +12,7 @@ export interface GithubPickerProps extends ColorPickerProps<GithubPicker> {
     colors?: string[];
     width?: string;
     triangle?: 'hide' | 'top-left' | 'top-right';
-    styles?: Classes<GithubPickerStylesProps>;
+    styles?: Partial<Classes<GithubPickerStylesProps>>;
     onSwatchHover?(color: ColorResult, event: MouseEvent): void;
 }
 

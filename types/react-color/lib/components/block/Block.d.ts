@@ -15,7 +15,7 @@ export interface BlockPickerProps extends ColorPickerProps<BlockPicker> {
     colors?: string[];
     width?: string;
     triangle?: 'hide' | 'top';
-    styles?: Classes<BlockPickerStylesProps>;
+    styles?: Partial<Classes<BlockPickerStylesProps>>;
     onSwatchHover?(color: ColorResult, event: MouseEvent): void;
 }
 
