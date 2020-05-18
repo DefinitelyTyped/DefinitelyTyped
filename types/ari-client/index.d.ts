@@ -1980,7 +1980,7 @@ export interface Asterisk {
      * @param params.configClass - The configuration class containing dynamic configuration objects.
      * @param params.objectType - The type of configuration object to create or update.
      * @param params.id - The unique identifier of the object to create or update.
-     * @param params.fields - (optional) The body object should have a value that is a list of ConfigTuples, which provide the fields to update. Ex. [ { "attribute": "directmedia", "value":
+     * @param [params.fields] - The body object should have a value that is a list of ConfigTuples, which provide the fields to update. Ex. [ { "attribute": "directmedia", "value":
      * "false" } ].
      */
     updateObject(params: {
