@@ -1,7 +1,8 @@
 import { Component, CSSProperties } from "react";
 import { ColorPickerProps } from "../../..";
+import { Classes } from "reactcss";
 
-export interface ChromePickerDefaultStyles {
+export interface ChromePickerStylesProps {
     picker?: CSSProperties;
     saturation?: CSSProperties;
     Saturation?: CSSProperties;
@@ -17,21 +18,9 @@ export interface ChromePickerDefaultStyles {
     Alpha?: CSSProperties;
 }
 
-export interface ChromePickerDisableAlphaStyles {
-    color?: CSSProperties;
-    alpha?: CSSProperties;
-    hue?: CSSProperties;
-    swatch?: CSSProperties;
-}
-
-export interface ChromePickerStyles {
-    default?: ChromePickerDefaultStyles;
-    disableAlpha?: ChromePickerDisableAlphaStyles;
-}
-
 export interface ChromePickerProps extends ColorPickerProps<ChromePicker> {
     disableAlpha?: boolean;
-    styles?: ChromePickerStyles;
+    styles?: Classes<ChromePickerStylesProps>;
 }
 
-export default class ChromePicker extends Component<ChromePickerProps> {}
+export default class ChromePicker extends Component<ChromePickerProps> { }
