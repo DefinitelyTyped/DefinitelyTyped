@@ -9,7 +9,7 @@ export = _;
 declare const _: _.LoDashFp;
 declare namespace _ {
     interface LodashConvertible {
-        convert: (options: _.ConvertOptions) => (...args: any[]) => any
+        convert: (options: lodash.ConvertOptions) => (...args: any[]) => any;
     }
     interface LodashAdd extends LodashConvertible {
         (augend: number): LodashAdd1x1;
