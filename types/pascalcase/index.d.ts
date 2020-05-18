@@ -3,4 +3,6 @@
 // Definitions by: IdeFFiX <https://github.com/ideffix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function(value: string): string;
+export = pascalcase;
+
+declare function pascalcase(value: string): string;
