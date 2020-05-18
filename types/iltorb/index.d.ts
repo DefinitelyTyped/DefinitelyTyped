@@ -18,6 +18,7 @@ export interface BrotliEncodeParams {
     lgwin?: number;
     /** @default 0 */
     mode?: BrotliMode;
+    /** @default 11 */
     quality?: BrotliCompressionQuality;
     size_hint?: number;
 }
