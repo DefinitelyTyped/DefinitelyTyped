@@ -749,6 +749,15 @@ function resources(o: GenericStore): ResourceConstant[] {
     creep.withdraw(tombstone, RESOURCE_ENERGY);
 }
 
+// Ruin
+
+{
+    const ruin = room.find(FIND_RUINS)[0];
+
+    creep.withdraw(ruin, RESOURCE_ENERGY);
+    powerCreep.withdraw(ruin, RESOURCE_ENERGY);
+}
+
 {
     if (Game.cpu.hasOwnProperty("getHeapStatistics")) {
         const heap = Game.cpu.getHeapStatistics!();
@@ -853,4 +862,25 @@ function atackPower(creep: Creep) {
             return 0;
         })
         .reduce((a, b) => a + b);
+}
+
+// Facotries and Commodities
+
+{
+    const factory = new StructureFactory("" as Id<StructureFactory>);
+
+    creep.transfer(factory, RESOURCE_CELL, 20);
+    creep.transfer(factory, RESOURCE_OXIDANT, 36);
+    creep.transfer(factory, RESOURCE_LEMERGIUM_BAR, 16);
+    creep.transfer(factory, RESOURCE_ENERGY, 8);
+
+    factory.produce(RESOURCE_PHLEGM);
+
+    factory.produce(RESOURCE_BATTERY);
+    factory.produce(RESOURCE_ENERGY);
+
+    factory.produce(RESOURCE_GHODIUM);
+    factory.produce(RESOURCE_GHODIUM_MELT);
+
+    creep.withdraw(factory, RESOURCE_PHLEGM);
 }

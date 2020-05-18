@@ -4,7 +4,7 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Jason Mong <https://github.com/jfm710>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
 
 /// <reference types="jest" />
 

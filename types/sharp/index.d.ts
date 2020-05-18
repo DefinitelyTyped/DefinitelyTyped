@@ -1,4 +1,4 @@
-// Type definitions for sharp 0.24
+// Type definitions for sharp 0.25
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
@@ -247,27 +247,6 @@ declare namespace sharp {
          * @returns A promise that resolves with a stats object
          */
         stats(): Promise<Stats>;
-
-        /**
-         * Do not process input images where the number of pixels (width _ height) exceeds this limit.
-         * Assumes image dimensions contained in the input metadata can be trusted.
-         * The default limit is 268402689 (0x3FFF _ 0x3FFF) pixels.
-         * @param limit An integral Number of pixels, zero or false to remove limit, true to use default limit.
-         * @throws {Error} Invalid limit
-         * @returns A sharp instance that can be used to chain operations
-         * @deprecated since version 0.24.0 - moved to @see sharp.SharpOptions
-         */
-        limitInputPixels(limit: number | boolean): Sharp;
-
-        /**
-         * An advanced setting that switches the libvips access method to VIPS_ACCESS_SEQUENTIAL.
-         * This will reduce memory usage and can improve performance on some systems.
-         * The default behaviour before function call is false, meaning the libvips access method is not sequential.
-         * @param sequentialRead true to enable and false to disable (defaults to true)
-         * @returns A sharp instance that can be used to chain operations
-         * @deprecated since version 0.24.0 - moved to @see sharp.SharpOptions
-         */
-        sequentialRead(sequentialRead?: boolean): Sharp;
 
         //#endregion
 
@@ -968,7 +947,7 @@ declare namespace sharp {
         skipBlanks?: number;
         /** Tile container, with value fs (filesystem) or zip (compressed file). (optional, default 'fs') */
         container?: string;
-        /** Filesystem layout, possible values are dz, zoomify or google. (optional, default 'dz') */
+        /** Filesystem layout, possible values are dz, iiif, zoomify or google. (optional, default 'dz') */
         layout?: TileLayout;
     }
 
@@ -1022,7 +1001,7 @@ declare namespace sharp {
         srgb: string;
     }
 
-    type TileLayout = 'dz' | 'zoomify' | 'google';
+    type TileLayout = 'dz' | 'iiif' | 'zoomify' | 'google';
 
     type Blend = 'clear' | 'source' | 'over' | 'in' | 'out' | 'atop' | 'dest' | 'dest-over' | 'dest-in' | 'dest-out' | 'dest-atop'  | 'xor' | 'add' | 'saturate' | 'multiply' | 'screen' | 'overlay'
                  | 'darken' | 'lighten' | 'colour-dodge' | 'colour-dodge' | 'colour-burn' | 'colour-burn' | 'hard-light' | 'soft-light' | 'difference' | 'exclusion';

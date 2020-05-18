@@ -7,6 +7,7 @@
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
 //                 Johannes Schneider <https://github.com/neshanjo>
+//                 Meng Bernie Sung <https://github.com/MengRS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -180,6 +181,15 @@ export interface PermissionsData {
 export interface PermissionData {
     resource_server_identifier: string;
     permission_name: string;
+}
+
+export interface GetRolePermissionsData extends ObjectWithId {
+    per_page?: number;
+    page?: number;
+}
+
+export interface GetRolePermissionsDataPaged extends GetRolePermissionsData {
+    include_totals: boolean;
 }
 
 export interface GetRoleUsersData extends ObjectWithId {
@@ -564,6 +574,7 @@ export interface ResetPasswordEmailOptions {
 
 export interface ClientCredentialsGrantOptions {
   audience: string;
+  scope: string;
 }
 
 export interface PasswordGrantOptions {
@@ -576,6 +587,12 @@ export interface PasswordGrantOptions {
 export interface AuthorizationCodeGrantOptions {
   code: string;
   redirect_uri: string;
+}
+
+export interface TokenResponse {
+    access_token: string;
+    token_type: string;
+    expires_in: number;
 }
 
 export interface ObjectWithId {
@@ -859,11 +876,11 @@ export class AuthenticationClient {
   getProfile(accessToken: string): Promise<any>;
   getProfile(accessToken: string, cb: (err: Error, message: string) => void): void;
 
-  clientCredentialsGrant(options: ClientCredentialsGrantOptions): Promise<any>;
-  clientCredentialsGrant(options: ClientCredentialsGrantOptions, cb: (err: Error, response: any) => void): void;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions): Promise<TokenResponse>;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
-  passwordGrant(options: PasswordGrantOptions): Promise<any>;
-  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: any) => void): void;
+  passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
+  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
 }
 
@@ -954,6 +971,10 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   getPermissionsInRole(params: ObjectWithId): Promise<Permission[]>;
   getPermissionsInRole(params: ObjectWithId, cb: (err: Error, permissions: Permission[]) => void): void;
+  getPermissionsInRole(params: GetRolePermissionsData): Promise<Permission[]>;
+  getPermissionsInRole(params: GetRolePermissionsData, cb: (err: Error, permissions: Permission[]) => void): void;
+  getPermissionsInRole(params: GetRolePermissionsDataPaged): Promise<PermissionPage>;
+  getPermissionsInRole(params: GetRolePermissionsDataPaged, cb: (err: Error, permissionPage: PermissionPage) => void): void;
 
   removePermissionsFromRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
   removePermissionsFromRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;

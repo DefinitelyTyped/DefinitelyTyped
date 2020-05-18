@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "strict": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@babel/preset-env": [
+                "babel__preset-env"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "babel__preset-env-tests.ts"
+    ]
+}

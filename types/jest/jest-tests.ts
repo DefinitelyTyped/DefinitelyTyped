@@ -286,10 +286,20 @@ jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+// $ExpectType any
 jest.requireActual('./thisReturnsTheActualModule');
 
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+// $ExpectType string
+jest.requireActual<string>('./thisReturnsTheActualModule');
+
 // https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
+// $ExpectType any
 jest.requireMock('./thisAlwaysReturnsTheMock');
+
+// https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
+// $ExpectType string
+jest.requireMock<string>('./thisAlwaysReturnsTheMock');
 
 /* Mocks and spies */
 
@@ -493,6 +503,8 @@ class TestMocked {
 
 const mocked: jest.Mocked<TestMocked> = new TestMocked() as any;
 mocked.test1.mockImplementation(() => Promise.resolve({ a: 1 }));
+// $ExpectType (x: Type1) => Promise<Type1> | undefined
+mocked.test1.getMockImplementation();
 mocked.test1.mockReturnValue(Promise.resolve({ a: 1 }));
 // $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>)
 mocked.test1.mockResolvedValue({ a: 1 });
@@ -633,12 +645,12 @@ const snapshotSerializerPlugin: jest.SnapshotSerializerPlugin = {
 expect.addSnapshotSerializer(snapshotSerializerPlugin);
 
 expect.addSnapshotSerializer({
-    print: (value: {}) => '',
+    print: (value: unknown) => '',
     test: (value: {}) => value === value,
 });
 
 expect.addSnapshotSerializer({
-    print: (value: {}, serialize: (val: {}) => string, indent: (str: string) => string, opts: {}) => '',
+    print: (value: unknown, serialize: (val: {}) => string, indent: (str: string) => string, opts: {}) => '',
     test: (value: {}) => value === value,
 });
 

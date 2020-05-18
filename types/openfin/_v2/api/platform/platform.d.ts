@@ -1,3 +1,5 @@
+import { View } from './../view/view';
+import { Base, EmitterBase } from '../base';
 import { Channel } from '../interappbus/channel/index';
 import { ChannelClient } from '../interappbus/channel/client';
 import { Identity } from '../../identity';
@@ -5,6 +7,10 @@ import { ApplicationOption } from '../application/applicationOption';
 import { WindowOption } from '../window/windowOption';
 import { ViewCreationOptions } from '../view/view';
 import { RvmLaunchOptions } from '../application/application';
+import Transport from '../../transport/transport';
+import LayoutModule from './layout';
+import { PlatformEvents } from '../events/platform';
+import { _Window } from '../window/window';
 export interface Snapshot {
     windows: WindowOption[];
 }
@@ -12,22 +18,42 @@ export interface ApplySnapshotOptions {
     closeExistingWindows: boolean;
 }
 export interface PlatformOptions extends ApplicationOption {
-    defaultWindowOptions?: WindowOption;
+    defaultWindowOptions?: DefaultWindowOptions;
     defaultViewOptions?: ViewCreationOptions;
+    disableDefaultCommands?: boolean;
+}
+interface DefaultWindowOptions extends WindowOption {
+    stylesheetUrl: string;
+}
+declare type PlatformProvider = any;
+export declare type OverrideCallback<T extends PlatformProvider> = (arg: PlatformProvider) => T;
+export interface InitPlatformOptions {
+    overrideCallback: OverrideCallback<any>;
 }
 /**
  * @lends Platform
  */
-export default class PlatformModule {
+export default class PlatformModule extends Base {
     private _channel;
-    constructor(channel: Channel);
+    Layout: LayoutModule;
+    private _initializer;
+    constructor(wire: Transport, channel: Channel);
+    /**
+     * Initializes a Platform. Must be called from the Provider when using a custom provider.
+     * @param { InitPlatformOptions } [options] - platform options including a callback function that can be used to extend or replace
+     * default Provider behavior.
+     * @return {Promise.<void>}
+     * @tutorial Platform.init
+     * @experimental
+     * @static
+     */
+    init(options?: InitPlatformOptions): Promise<any>;
     /**
      * Asynchronously returns a Platform object that represents an existing platform.
      * @param { Identity } identity
      * @return {Promise.<Platform>}
      * @tutorial Platform.wrap
      * @static
-     * @experimental
      */
     wrap(identity: Identity): Promise<Platform>;
     /**
@@ -36,7 +62,6 @@ export default class PlatformModule {
      * @return {Platform}
      * @tutorial Platform.wrapSync
      * @static
-     * @experimental
      */
     wrapSync(identity: Identity): Platform;
     /**
@@ -51,17 +76,15 @@ export default class PlatformModule {
      * @return {Platform}
      * @tutorial Platform.getCurrentSync
      * @static
-     * @experimental
      */
     getCurrentSync(): Platform;
     /**
-    * Creates and starts a Platform and returns a wrapped and running Platform.  The wrapped Platform methods can
+    * Creates and starts a Platform and returns a wrapped and running Platform instance. The wrapped Platform methods can
     * be used to launch content into the platform.  Promise will reject if the platform is already running.
     * @param { PlatformOptions } platformOptions
     * @return {Promise.<Platform>}
     * @tutorial Platform.start
     * @static
-    * @experimental
     */
     start(platformOptions: PlatformOptions): Promise<Platform>;
     /**
@@ -72,42 +95,41 @@ export default class PlatformModule {
      * @return {Promise.<Platform>}
      * @tutorial Platform.startFromManifest
      * @static
-     * @experimental
      */
     startFromManifest(manifestUrl: string, opts?: RvmLaunchOptions): Promise<Platform>;
 }
 /** Manages the life cycle of windows and views in the application.
  *
- * Enables taking snapshots of itself and applying them to restore a previous configuration.
+ * Enables taking snapshots of itself and applying them to restore a previous configuration
+ * as well as listen to <a href="tutorial-Platform.EventEmitter.html">platform events</a>.
  * @namespace
  */
-export declare class Platform {
+export declare class Platform extends EmitterBase<PlatformEvents> {
+    Layout: LayoutModule;
     private _channel;
-    private identity;
+    identity: Identity;
+    onWindowContextUpdate: Platform['onWindowContextUpdated'];
     constructor(identity: Identity, channel: Channel);
     getClient(identity?: Identity): Promise<ChannelClient>;
     /**
      * Creates a new view and attaches it to a specified target window.
      * @param { View~options } viewOptions View creation options
      * @param { Identity } [target] The window to which the new view is to be attached. If no target, create a view in a new window.
-     * @return { Promise<Identity> }
+     * @return { Promise<View> }
      * @tutorial Platform.createView
-     * @experimental
      */
-    createView(viewOptions: ViewCreationOptions, target?: Identity): Promise<Identity>;
+    createView(viewOptions: ViewCreationOptions, target?: Identity): Promise<View>;
     /**
      * Creates a new Window.
      * @param { Window~options } options Window creation options
-     * @return { Promise<Identity> }
+     * @return { Promise<_Window> }
      * @tutorial Platform.createWindow
-     * @experimental
      */
-    createWindow(options: WindowOption): Promise<Identity>;
+    createWindow(options: WindowOption): Promise<_Window & Identity>;
     /**
      * Closes current platform, all its windows, and their views.
      * @return { Promise<void> }
      * @tutorial Platform.quit
-     * @experimental
      */
     quit(): Promise<void>;
     /**
@@ -115,25 +137,22 @@ export declare class Platform {
      * @param { Identity } viewIdentity View identity
      * @return { Promise<void> }
      * @tutorial Platform.closeView
-     * @experimental
      */
     closeView(viewIdentity: Identity): Promise<void>;
     /**
      * Reparents a specified view in a new target window.
      * @param { Identity } viewIdentity View identity
      * @param { Identity } target new owner window identity
-     * @return { Promise<Identity> }
+     * @return { Promise<View> }
      * @tutorial Platform.reparentView
-     * @experimental
      */
-    reparentView(viewIdentity: Identity, target: Identity): Promise<Identity>;
+    reparentView(viewIdentity: Identity, target: Identity): Promise<View>;
     /**
      * Returns a snapshot of the platform in its current state.
      *
      * Can be used to restore an application to a previous state.
      * @return { Promise<Snapshot> }
-     * @tutorial Platform.applySnapshot
-     * @experimental
+     * @tutorial Platform.getSnapshot
      */
     getSnapshot(): Promise<Snapshot>;
     /**
@@ -147,7 +166,6 @@ export declare class Platform {
      * @param { ApplySnapshotOptions } [options] Optional parameters to specify whether existing windows should be closed.
      * @return { Promise<Platform> }
      * @tutorial Platform.applySnapshot
-     * @experimental
      */
     applySnapshot(requestedSnapshot: Snapshot | string, options?: ApplySnapshotOptions): Promise<Platform>;
     /**
@@ -182,11 +200,12 @@ export declare class Platform {
      * has wrapped it's current platform. The listener receives the new context as its first argument and the previously context as the
      * second argument.  If the listener returns a truthy value, the View's context will be updated with the new context as if
      * {@link Platform#setContext setContext} was called.  This can only be set once per javascript environment (once per View), and any
-     * subsequent calls to onWindowContextUpdate will error out.  If the listener is successfully set, returns a promise that resolves to
+     * subsequent calls to onWindowContextUpdated will error out.  If the listener is successfully set, returns a promise that resolves to
      * true.
      * @return {Promise.<boolean>}
-     * @tutorial Platform.onWindowContextUpdate
+     * @tutorial Platform.onWindowContextUpdated
      * @experimental
      */
-    onWindowContextUpdate(listener: (newContext: any, oldContext?: any) => any): Promise<boolean>;
+    onWindowContextUpdated(listener: (newContext: any, oldContext?: any) => any): Promise<boolean>;
 }
+export {};

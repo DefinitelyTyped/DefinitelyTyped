@@ -1,4 +1,4 @@
-// Type definitions for the RDFJS specification 2.0
+// Type definitions for the RDFJS specification 3.0
 // Project: https://github.com/rdfjs/representation-task-force
 // Definitions by: Ruben Taelman <https://github.com/rubensworks>
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
@@ -200,7 +200,7 @@ export interface BaseQuad {
    * @param other The term to compare with.
    * @return True if and only if the argument is a) of the same type b) has all components equal.
    */
-  equals(other: BaseQuad): boolean;
+  equals(other: BaseQuad | null | undefined): boolean;
 }
 
 /**
@@ -232,21 +232,13 @@ export interface Quad extends BaseQuad {
      * @param other The term to compare with.
      * @return True if and only if the argument is a) of the same type b) has all components equal.
      */
-    equals(other: BaseQuad): boolean;
+    equals(other: BaseQuad | null | undefined): boolean;
 }
 
 /**
- * An RDF triple, containing the subject, predicate, object terms.
- *
- * Triple is an alias of Quad.
+ * A factory for instantiating RDF terms and quads.
  */
-// tslint:disable-next-line no-empty-interface
-export interface Triple extends Quad {}
-
-/**
- * A factory for instantiating RDF terms, triples and quads.
- */
-export interface DataFactory<Q extends BaseQuad = Quad> {
+export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> {
     /**
      * @param value The IRI for the named node.
      * @return A new instance of NamedNode.
@@ -289,17 +281,6 @@ export interface DataFactory<Q extends BaseQuad = Quad> {
     defaultGraph(): DefaultGraph;
 
     /**
-     * @param subject   The triple subject term.
-     * @param predicate The triple predicate term.
-     * @param object    The triple object term.
-     * @return A new instance of Quad with `Quad.graph` set to DefaultGraph.
-     * @see Quad
-     * @see Triple
-     * @see DefaultGraph
-     */
-    triple(subject: Q['subject'], predicate: Q['predicate'], object: Q['object']): Q;
-
-    /**
      * @param subject   The quad subject term.
      * @param predicate The quad predicate term.
      * @param object    The quad object term.
@@ -307,7 +288,7 @@ export interface DataFactory<Q extends BaseQuad = Quad> {
      * @return A new instance of Quad.
      * @see Quad
      */
-    quad(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'], graph?: Q['graph']): Q;
+    quad(subject: InQuad['subject'], predicate: InQuad['predicate'], object: InQuad['object'], graph?: InQuad['graph']): OutQuad;
 }
 
 /* Stream Interfaces */

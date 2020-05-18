@@ -10,6 +10,7 @@
         "test/cluster.ts",
         "test/crypto.ts",
         "test/dgram.ts",
+        "test/dns.ts",
         "test/events.ts",
         "test/fs.ts",
         "test/global.ts",

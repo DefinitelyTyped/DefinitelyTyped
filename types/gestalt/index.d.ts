@@ -4,6 +4,8 @@
 //                 Josh Gachnang <https://github.com/joshgachnang>
 //                 Calvin Chhour <https://github.com/calvinchhour>
 //                 Muhammed Hafiz <https://github.com/zifahm>
+//                 Kyle Hensel <https://github.com/k-yle>
+//                 Francisco Jimenez <https://github.com/jimenezff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -164,6 +166,7 @@ export interface ButtonProps {
     size?: 'sm' | 'md' | 'lg';
     textColor?: 'blue' | 'red' | 'darkGray' | 'white';
     type?: 'submit' | 'button';
+    iconEnd?: Icons;
 }
 
 /*
@@ -238,7 +241,7 @@ https://pinterest.github.io/gestalt/#/Flyout
 */
 
 export interface FlyoutProps {
-    anchor: React.RefObject<any>;
+    anchor: any; // ideally a HTMLAnchorElement
     onDismiss: () => void;
     children?: React.ReactNode;
     color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray';
@@ -730,7 +733,7 @@ https://pinterest.github.io/gestalt/#/Sticky
 export interface StickyProps {
     bottom?: number | string;
     children?: React.ReactNode;
-    dangerouslySetZIndex?: { __zIndex: string };
+    dangerouslySetZIndex?: { __zIndex: number };
     left?: number | string;
     right?: number | string;
     top?: number | string;

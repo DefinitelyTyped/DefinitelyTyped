@@ -3,6 +3,7 @@ export function waitForElementToBeRemoved<T>(
     options?: {
         container?: HTMLElement;
         timeout?: number;
+        interval?: number;
         mutationObserverOptions?: MutationObserverInit;
     },
 ): Promise<T>;

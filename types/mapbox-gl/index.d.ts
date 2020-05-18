@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.8
+// Type definitions for Mapbox GL JS 1.10
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -43,6 +43,33 @@ declare namespace mapboxgl {
 
     export function setRTLTextPlugin(pluginURL: string, callback: (error: Error) => void, deferred?: boolean): void;
     export function getRTLTextPluginStatus(): PluginStatus;
+
+    /**
+     * Initializes resources like WebWorkers that can be shared across maps to lower load
+     * times in some situations. `mapboxgl.workerUrl` and `mapboxgl.workerCount`, if being
+     * used, must be set before `prewarm()` is called to have an effect.
+     *
+     * By default, the lifecycle of these resources is managed automatically, and they are
+     * lazily initialized when a Map is first created. By invoking `prewarm()`, these
+     * resources will be created ahead of time, and will not be cleared when the last Map
+     * is removed from the page. This allows them to be re-used by new Map instances that
+     * are created later. They can be manually cleared by calling
+     * `mapboxgl.clearPrewarmedResources()`. This is only necessary if your web page remains
+     * active but stops using maps altogether.
+     *
+     * This is primarily useful when using GL-JS maps in a single page app, wherein a user
+     * would navigate between various views that can cause Map instances to constantly be
+     * created and destroyed.
+     */
+    export function prewarm(): void;
+
+    /**
+     * Clears up resources that have previously been created by `mapboxgl.prewarm()`.
+     * Note that this is typically not necessary. You should only call this function
+     * if you expect the user of your app to not return to a Map view at any point
+     * in your application.
+     */
+    export function clearPrewarmedResources(): void;
 
     type PluginStatus = 'unavailable' | 'loading' | 'loaded' | 'error';
 
@@ -280,7 +307,7 @@ declare namespace mapboxgl {
 
         getLayer(id: string): mapboxgl.Layer;
 
-        setFilter(layer: string, filter?: any[] | null): this;
+        setFilter(layer: string, filter?: any[] | boolean | null): this;
 
         setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
@@ -323,6 +350,17 @@ declare namespace mapboxgl {
 
         showCollisionBoxes: boolean;
 
+        /**
+         * Gets and sets a Boolean indicating whether the map will visualize
+         * the padding offsets.
+         *
+         * @name showPadding
+         * @type {boolean}
+         * @instance
+         * @memberof Map
+         */
+        showPadding: boolean;
+
         repaint: boolean;
 
         getCenter(): mapboxgl.LngLat;
@@ -346,6 +384,31 @@ declare namespace mapboxgl {
         getBearing(): number;
 
         setBearing(bearing: number, eventData?: mapboxgl.EventData): this;
+
+        /**
+         * Returns the current padding applied around the map viewport.
+         *
+         * @memberof Map#
+         * @returns The current padding around the map viewport.
+         */
+        getPadding(): PaddingOptions;
+
+        /**
+         * Sets the padding in pixels around the viewport.
+         *
+         * Equivalent to `jumpTo({padding: padding})`.
+         *
+         * @memberof Map#
+         * @param padding The desired padding. Format: { left: number, right: number, top: number, bottom: number }
+         * @param eventData Additional properties to be added to event objects of events triggered by this method.
+         * @fires movestart
+         * @fires moveend
+         * @returns {Map} `this`
+         * @example
+         * // Sets a left padding of 300px, and a top padding of 50px
+         * map.setPadding({ left: 300, top: 50 });
+         */
+        setPadding(padding: PaddingOptions, eventData?: EventData): this;
 
         rotateTo(bearing: number, options?: mapboxgl.AnimationOptions, eventData?: EventData): this;
 
@@ -416,6 +479,8 @@ declare namespace mapboxgl {
         doubleClickZoom: DoubleClickZoomHandler;
 
         touchZoomRotate: TouchZoomRotateHandler;
+
+        touchPitch: TouchPitchHandler;
     }
 
     export interface MapboxOptions {
@@ -606,6 +671,9 @@ declare namespace mapboxgl {
         /** If true, enable the "pinch to rotate and zoom" interaction (see TouchZoomRotateHandler). */
         touchZoomRotate?: boolean;
 
+        /** If true, the "drag to pitch" interaction is enabled */
+        touchPitch?: boolean;
+
         /** Initial zoom level */
         zoom?: number;
 
@@ -775,6 +843,18 @@ declare namespace mapboxgl {
 
         enableRotation(): void;
     }
+
+     export class TouchPitchHandler {
+         constructor(map: mapboxgl.Map);
+
+         enable(): void;
+
+         isActive(): boolean;
+
+         isEnabled(): boolean;
+
+         disable(): void;
+     }
 
     export interface IControl {
         onAdd(map: Map): HTMLElement;
@@ -1213,7 +1293,7 @@ declare namespace mapboxgl {
         contains(lnglat: LngLatLike): boolean;
 
         /** Extend the bounds to include a given LngLat or LngLatBounds. */
-        extend(obj: mapboxgl.LngLat | mapboxgl.LngLatBounds): this;
+        extend(obj: mapboxgl.LngLatLike | mapboxgl.LngLatBoundsLike): this;
 
         /** Get the point equidistant from this box's corners */
         getCenter(): mapboxgl.LngLat;
@@ -1955,7 +2035,7 @@ declare namespace mapboxgl {
         'text-radial-offset'?: number | Expression;
         'text-variable-anchor'?: Anchor[];
         'text-writing-mode'?: ('horizontal' | 'vertical')[];
-        'symbol-sort-key'?: number;
+        'symbol-sort-key'?: number | Expression;
     }
 
     export interface SymbolPaint {

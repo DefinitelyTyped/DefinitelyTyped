@@ -991,6 +991,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "docx-templates",
+            "typingsPackageName": "docx-templates",
+            "sourceRepoURL": "https://github.com/guigrpa/docx-templates",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "dom-helpers",
             "typingsPackageName": "dom-helpers",
             "sourceRepoURL": "https://github.com/react-bootstrap/dom-helpers",
@@ -1643,6 +1649,12 @@
             "typingsPackageName": "google-cloud__storage",
             "sourceRepoURL": "https://github.com/googleapis/nodejs-storage",
             "asOfVersion": "2.3.0"
+        },
+        {
+            "libraryName": "google-maps-react",
+            "typingsPackageName": "google-maps-react",
+            "sourceRepoURL": "https://github.com/fullstackreact/google-maps-react",
+            "asOfVersion": "2.0.5"
         },
         {
             "libraryName": "graphene-pk11",
@@ -2419,6 +2431,12 @@
             "asOfVersion": "10.0.0"
         },
         {
+            "libraryName": "jszip",
+            "typingsPackageName": "jszip",
+            "sourceRepoURL": "https://github.com/Stuk/jszip",
+            "asOfVersion": "3.4.0"
+        },
+        {
             "libraryName": "junk",
             "typingsPackageName": "junk",
             "sourceRepoURL": "https://github.com/sindresorhus/junk",
@@ -3037,6 +3055,12 @@
             "asOfVersion": "0.7.6"
         },
         {
+            "libraryName": "node-vault",
+            "typingsPackageName": "node-vault",
+            "sourceRepoURL": "https://github.com/kr1sp1n/node-vault",
+            "asOfVersion": "0.9.13"
+        },
+        {
             "libraryName": "nookies",
             "typingsPackageName": "nookies",
             "sourceRepoURL": "https://github.com/maticzav/nookies#readme",
@@ -3475,6 +3499,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "parse-duration",
+            "typingsPackageName": "parse-duration",
+            "sourceRepoURL": "https://github.com/jkroso/parse-duration",
+            "asOfVersion": "0.3.0"
+        },
+        {
             "libraryName": "parse-ms",
             "typingsPackageName": "parse-ms",
             "sourceRepoURL": "https://github.com/sindresorhus/parse-ms",
@@ -3643,6 +3673,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "postcss-nested",
+            "typingsPackageName": "postcss-nested",
+            "sourceRepoURL": "https://github.com/postcss/postcss-nested",
+            "asOfVersion": "4.2.1"
+        },
+        {
             "libraryName": "postmark",
             "typingsPackageName": "postmark",
             "sourceRepoURL": "http://wildbit.github.io/postmark.js",
@@ -3809,6 +3845,12 @@
             "typingsPackageName": "rc-progress",
             "sourceRepoURL": "http://github.com/react-component/progress",
             "asOfVersion": "2.4.0"
+        },
+        {
+            "libraryName": "rdflib",
+            "typingsPackageName": "rdflib",
+            "sourceRepoURL": "https://github.com/linkeddata/rdflib.js",
+            "asOfVersion": "1.2.0"
         },
         {
             "libraryName": "re2",
@@ -4039,6 +4081,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-native-responsive-dimensions",
+            "typingsPackageName": "react-native-responsive-dimensions",
+            "sourceRepoURL": "https://github.com/DaniAkash/react-native-responsive-dimensions",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "react-native-safe-area",
             "typingsPackageName": "react-native-safe-area",
             "sourceRepoURL": "https://github.com/miyabi/react-native-safe-area#readme",
@@ -4127,6 +4175,12 @@
             "typingsPackageName": "react-toastify",
             "sourceRepoURL": "https://github.com/fkhadra/react-toastify#readme",
             "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "react-tooltip",
+            "typingsPackageName": "react-tooltip",
+            "sourceRepoURL": "https://github.com/wwayne/react-tooltip",
+            "asOfVersion": "4.2.4"
         },
         {
             "libraryName": "react-webcam",
@@ -4535,6 +4589,12 @@
             "typingsPackageName": "should",
             "sourceRepoURL": "https://github.com/shouldjs/should.js",
             "asOfVersion": "13.0.0"
+        },
+        {
+            "libraryName": "@simonwep/selection-js",
+            "typingsPackageName": "simonwep__selection-js",
+            "sourceRepoURL": "https://github.com/Simonwep/selection.git",
+            "asOfVersion": "1.7.0"
         },
         {
             "libraryName": "SimpleSignal",
@@ -5513,6 +5573,12 @@
             "typingsPackageName": "xterm",
             "sourceRepoURL": "https://github.com/sourcelair/xterm.js/",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "yaml",
+            "typingsPackageName": "yaml",
+            "sourceRepoURL": "https://github.com/eemeli/yaml",
+            "asOfVersion": "1.9.0"
         },
         {
             "libraryName": "year-days",

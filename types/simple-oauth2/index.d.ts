@@ -101,24 +101,24 @@ export interface ClientCredentialTokenConfig {
 }
 
 export interface WreckHttpOptions {
-	baseUrl?: string;
-	socketPath?: string;
-	payload?: any;
-	headers?: { [key: string]: any };
-	redirects?: number;
-	redirect303?: boolean;
-	beforeRedirect?: (redirectMethod: string, statusCode: number, location: string, resHeaders: { [key: string]: any }, redirectOptions: any, next: () => {}) => void;
-	redirected?: (statusCode: number, location: string, req: any) => void;
-	timeout?: number;
-	maxBytes?: number;
-	rejectUnauthorized?: boolean;
-	downstreamRes?: any;
-	agent?: any;
-	secureProtocol?: string;
-	ciphers?: string;
-	events?: boolean;
-	json?: true | "strict" | "force";
-	gunzip?: boolean | "force";
+    baseUrl?: string;
+    socketPath?: string;
+    payload?: any;
+    headers?: { [key: string]: any };
+    redirects?: number;
+    redirect303?: boolean;
+    beforeRedirect?: (redirectMethod: string, statusCode: number, location: string, resHeaders: { [key: string]: any }, redirectOptions: any, next: () => {}) => void;
+    redirected?: (statusCode: number, location: string, req: any) => void;
+    timeout?: number;
+    maxBytes?: number;
+    rejectUnauthorized?: boolean;
+    downstreamRes?: any;
+    agent?: any;
+    secureProtocol?: string;
+    ciphers?: string;
+    events?: boolean;
+    json?: true | "strict" | "force";
+    gunzip?: boolean | "force";
 }
 
 export interface OAuthClient<ClientIdName extends string = 'client_id'> {

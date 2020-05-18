@@ -11,9 +11,9 @@ webAuth.authorize({
     scope: 'read:order write:order',
     responseType: 'token',
     redirectUri: 'https://example.com/auth/callback',
-	language: 'en',
+    language: 'en',
     login_hint: "email@email.com",
-	prompt: 'login',
+    prompt: 'login',
 });
 
 webAuth.parseHash((err, authResult) => {
@@ -49,7 +49,7 @@ webAuth.parseHash((err, authResult) => {
 });
 
 webAuth.parseHash(
-	{
+    {
         nonce: 'asfd',
         hash: "#access_token=VjubIMBmpgQ2W2& \
             id_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6RTROMFpCTTBWRFF6RTJSVVUwTnpJMVF6WTFNelE0UVRrMU16QXdNRUk0UkRneE56RTRSZyJ9. \
@@ -78,7 +78,7 @@ webAuth.parseHash(
 });
 
 webAuth.parseHash(
-	{
+    {
         nonce: 'asfd'
     },
     (err, authResult) => {
@@ -103,7 +103,7 @@ webAuth.renewAuth({
 });
 
 webAuth.renewAuth({
-	nonce: '123',
+    nonce: '123',
     state: '456'
 }, (err, authResult)  => {
       // Renewed tokens or error
@@ -112,7 +112,7 @@ webAuth.renewAuth({
 webAuth.renewAuth({}, (err, authResult) => {});
 
 webAuth.renewAuth({
-	nonce: '123',
+    nonce: '123',
     state: '456',
     postMessageDataType: 'auth0:silent-authentication',
     usePostMessage: true,

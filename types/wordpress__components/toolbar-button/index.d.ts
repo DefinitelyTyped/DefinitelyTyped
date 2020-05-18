@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from '@wordpress/element';
+import { ComponentType, ReactNode } from 'react';
 
 import DropdownMenu from '../dropdown-menu';
 import IconButton from '../icon-button';

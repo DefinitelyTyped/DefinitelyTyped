@@ -193,6 +193,40 @@ bench.off();
 // register a listener for an event type
 bench.on('cycle', listener);
 
+// ensure target is correct type
+bench.on('cycle', (event: Benchmark.Event) => {
+  const target = event.target;
+  target.options;
+  target.async;
+  target.defer;
+  target.delay;
+  target.initCount;
+  target.maxTime;
+  target.minSamples;
+  target.minTime;
+  target.name;
+  target.fn;
+  target.id;
+  target.stats;
+  target.stats.moe;
+  target.stats.rme;
+  target.stats.sem;
+  target.stats.deviation;
+  target.stats.mean;
+  target.stats.sample;
+  target.stats.variance;
+  target.times;
+  target.times.cycle;
+  target.times.elapsed;
+  target.times.period;
+  target.times.timeStamp;
+  target.running;
+  target.count;
+  target.compiled;
+  target.cycles;
+  target.hz;
+});
+
 // register a listener for multiple event types
 bench.on('start cycle', listener);
 

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package mobile-messaging-cordova-plugin 1.2
+// Type definitions for non-npm package mobile-messaging-cordova-plugin 1.3
 // Project: https://github.com/infobip/mobile-messaging-cordova-plugin
 // Definitions by: kostap13 <https://github.com/kostap13>,
 //                 tjuric <https://github.com/tjuric>
@@ -165,6 +165,43 @@ declare namespace MobileMessagingCordova {
         unregister(event: Event, handler: (message: Message) => void): void;
 
         off(event: Event, handler: (message: Message) => void): void;
+
+        /**
+         * Sends an event to the server eventually, handles possible errors and do retries for you.
+         *
+         * @param eventData. An object containing event data
+         * {
+         *   definitionId: "eventDefinitionId"
+         *   properties: {
+         *     "stringAttribute": "string",
+         *     "numberAttribute": 1,
+         *     "dateAttribute": "2020-02-26T09:41:57Z",
+         *     "booleanAttribute": true
+         *   }
+         * }
+         */
+        submitEvent(eventData: CustomEvent): void;
+
+        /**
+         * Sends an event to the server immediately.
+         * You have to handle possible connection or server errors, do retries yourself.
+         *
+         * @param eventData. An object containing event data
+         * {
+         *   definitionId: "eventDefinitionId"
+         *   properties: {
+         *     "stringAttribute": "string",
+         *     "numberAttribute": 1,
+         *     "dateAttribute": "2020-02-26T09:41:57Z",
+         *     "booleanAttribute": true
+         *   }
+         * }
+         * @param callback will be called on result
+         * @param errorCallback will be called on error, you have to handle error and do retries yourself
+         */
+        submitEventImmediately(eventData: CustomEvent,
+                               callback: () => void,
+                               errorCallback: () => void): void;
 
         /**
          * Saves user data to the server.

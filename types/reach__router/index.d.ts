@@ -10,8 +10,8 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { Location as HLocation } from 'history';
-export type WindowLocation = Window['location'] & HLocation;
+import { Location as HLocation, LocationState } from 'history';
+export type WindowLocation<S = LocationState> = Window['location'] & HLocation<S>;
 
 export type HistoryActionType = 'PUSH' | 'POP';
 export type HistoryLocation = WindowLocation & { state?: any };
@@ -69,7 +69,14 @@ export interface LinkGetProps {
     location: WindowLocation;
 }
 
-export class Link<TState> extends React.Component<LinkProps<TState>> {}
+export function Link<TState>(
+    // TODO: Define this as ...params: Parameters<Link<TState>> when only TypeScript >= 3.1 support is needed.
+    props: React.PropsWithoutRef<LinkProps<TState>> & React.RefAttributes<HTMLAnchorElement>,
+): ReturnType<Link<TState>>;
+export interface Link<TState>
+    extends React.ForwardRefExoticComponent<
+        React.PropsWithoutRef<LinkProps<TState>> & React.RefAttributes<HTMLAnchorElement>
+    > {}
 
 export interface RedirectProps<TState> {
     from?: string;

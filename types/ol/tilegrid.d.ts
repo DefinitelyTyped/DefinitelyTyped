@@ -8,6 +8,7 @@ import TileGrid from './tilegrid/TileGrid';
 
 export interface XYZOptions {
     extent?: Extent;
+    maxResolution?: number;
     maxZoom?: number;
     minZoom?: number;
     tileSize?: number | Size;
