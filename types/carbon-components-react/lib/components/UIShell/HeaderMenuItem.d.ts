@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactAnchorAttr, RequiresChildrenProps } from "../../../typings/shared";
+import { ReactAnchorAttr, RequiresChildrenProps, FCReturn } from "../../../typings/shared";
 import { LinkProps } from "./Link";
 
 type ExcludedAttributes = "children" | "ref" | "tabIndex";
@@ -13,6 +13,6 @@ export type HeaderMenuItemProps<E extends object = ReactAnchorAttr> = Omit<LinkP
 
 declare function HeaderMenuItem<E extends object = ReactAnchorAttr, R extends HTMLElement = HTMLElement>(
     props: React.PropsWithChildren<HeaderMenuItemProps<E>>, ref: React.Ref<R>
-): React.ReactElement | null;
+): FCReturn;
 
 export default HeaderMenuItem;

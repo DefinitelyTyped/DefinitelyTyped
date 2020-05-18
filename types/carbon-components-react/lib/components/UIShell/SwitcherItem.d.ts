@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactAttr, ReactAnchorAttr, RequiresChildrenProps } from "../../../typings/shared";
+import { ReactAttr, ReactAnchorAttr, RequiresChildrenProps, FCReturn } from "../../../typings/shared";
 import { LinkProps } from "./Link";
 
 interface InheritedProps extends RequiresChildrenProps {
@@ -14,6 +14,6 @@ export type SwitcherItemProps<E extends object = ReactAnchorAttr> = Omit<LinkPro
 
 declare function SwitcherItem<E extends object = ReactAnchorAttr, R extends HTMLElement = HTMLElement>(
     props: React.PropsWithChildren<SwitcherItemProps<E>>, ref: React.Ref<R>
-): React.ReactElement | null;
+): FCReturn;
 
 export default SwitcherItem;
