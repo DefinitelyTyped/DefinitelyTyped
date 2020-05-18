@@ -2,7 +2,7 @@
  * @author admin
  */
 import * as React from 'react';
-import { ReactAttr } from 'carbon-components-react/typings/shared';
+import { ReactAttr } from '../../../typings/shared';
 
 interface InheritedProps extends ReactAttr<HTMLDivElement> {}
 
