@@ -1,5 +1,7 @@
 import { EventEmitter } from 'events';
 
+import { Connection } from './client';
+
 export type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
 export interface JSONObject {
   [name: string]: JSONValue;
@@ -75,9 +77,13 @@ export type Callback = (err: Error) => any;
 export type DocEvent = 'load' | 'create' | 'before op' | 'op' | 'del' | 'error' | 'no write pending' | 'nothing pending';
 
 export class Doc extends EventEmitter {
+    connection: Connection;
     type: Type | null;
     id: string;
+    collection: string;
     data: any;
+    version: number | null;
+
     fetch: (callback: (err: Error) => void) => void;
     subscribe: (callback: (err: Error) => void) => void;
 

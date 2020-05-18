@@ -224,7 +224,12 @@ function startClient(callback) {
         console.log(err, results);
     });
 
-    if (doc.type !== null) {
-      console.log(doc.type.name);
+    const anotherDoc = doc.connection.get('examples', 'another-counter');
+    console.log(anotherDoc.collection);
+    if (anotherDoc.type !== null) {
+      console.log(anotherDoc.type.name);
+    }
+    if (anotherDoc.version !== null) {
+      Math.round(anotherDoc.version);
     }
 }
