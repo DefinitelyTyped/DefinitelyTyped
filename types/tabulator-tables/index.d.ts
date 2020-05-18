@@ -759,18 +759,14 @@ declare namespace Tabulator {
 
     interface OptionsMenu {
         rowContextMenu?:
-            | MenuObject[]
-            | MenuSeparator[]
-            | ((component: RowComponent | CellComponent | ColumnComponent) => MenuObject | false | any[]);
+            | Array<MenuObject<RowComponent> | MenuSeparator>
+            | ((component: RowComponent) => MenuObject<RowComponent> | false | any[]);
     }
 
-    interface MenuObject extends MenuSeparator {
-        label:
-            | string
-            | HTMLElement
-            | ((component: RowComponent | CellComponent | ColumnComponent) => string | HTMLElement);
-        action: (e: any, component: RowComponent | CellComponent | ColumnComponent) => any;
-        disabled?: boolean | ((component: RowComponent | CellComponent | ColumnComponent) => boolean);
+    interface MenuObject<T extends RowComponent | CellComponent | ColumnComponent> {
+        label: string | HTMLElement | ((component: T) => string | HTMLElement);
+        action: (e: any, component: T) => any;
+        disabled?: boolean | ((component: T) => boolean);
     }
     interface MenuSeparator {
         separator?: boolean;
@@ -1131,11 +1127,11 @@ You can pass an optional additional property with sorter, sorterParams that shou
         columns?: ColumnDefinition[];
 
         /**You can add a menu to any column by passing an array of menu items to the headerMenu option in that columns definition. */
-        headerMenu?: MenuObject[] | MenuSeparator[];
+        headerMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator>;
         /**You can add a right click context menu to any column by passing an array of menu items to the headerContextMenu option in that columns definition. */
-        headerContextMenu?: MenuObject[] | MenuSeparator[];
+        headerContextMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator>;
         /**You can add a right click context menu to any columns cells by passing an array of menu items to the contextMenu option in that columns definition. */
-        contextMenu?: MenuObject[] | MenuSeparator[];
+        contextMenu?: Array<MenuObject<CellComponent> | MenuSeparator>;
         /**When copying to the clipboard you may want to apply a different formatter from the one usualy used to format the cell, you can do this using the formatterClipboard column definition option. You can use the formatterClipboardParams to pass in any additional params to the formatter */
         formatterClipboard?: Formatter | false;
         formatterClipboardParams?: FormatterParams;
@@ -1444,12 +1440,12 @@ You can pass an optional additional property with sorter, sorterParams that shou
     type ValueBooleanCallback = (value: any) => boolean;
     type ValueVoidCallback = (value: any) => void;
     type EmptyCallback = (callback: () => void) => void;
-    type CellEventCallback = (e: any, cell: CellComponent) => void;
+    type CellEventCallback = (e: UIEvent, cell: CellComponent) => void;
     type CellEditEventCallback = (cell: CellComponent) => void;
-    type ColumnEventCallback = (e: any, column: ColumnComponent) => void;
-    type RowEventCallback = (e: any, row: RowComponent) => void;
+    type ColumnEventCallback = (e: UIEvent, column: ColumnComponent) => void;
+    type RowEventCallback = (e: UIEvent, row: RowComponent) => void;
     type RowChangedCallback = (row: RowComponent) => void;
-    type GroupEventCallback = (e: any, group: GroupComponent) => void;
+    type GroupEventCallback = (e: UIEvent, group: GroupComponent) => void;
 
     type SortDirection = 'asc' | 'desc';
     type FilterType = '=' | '!=' | 'like' | '<' | '>' | '<=' | '>=' | 'in' | 'regex';
