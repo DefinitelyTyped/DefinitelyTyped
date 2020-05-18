@@ -1774,7 +1774,7 @@ export interface Applications {
      * is specified in both lists.
      *
      * @param params.applicationName - Applications name.
-     * @param params.filter - (optional) Specify which event types to allow/disallow.
+     * @param [params.filter] - Specify which event types to allow/disallow.
      */
     filter(
         params: { applicationName: string; filter?: IndexableObject },
