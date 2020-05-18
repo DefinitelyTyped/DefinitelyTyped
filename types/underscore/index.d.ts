@@ -689,10 +689,18 @@ declare module _ {
 
         /**
         * @see _.sortBy
+        */
+        sortBy<T, TSort>(
+            list: _.Dictionary<T>,
+            iterator?: _.ObjectIterator<T, TSort>,
+            context?: any): T[];
+
+        /**
+        * @see _.sortBy
         * @param iterator Sort iterator for each element within `list`.
         **/
         sortBy<T>(
-            list: _.List<T>,
+            list: _.List<T> | _.Dictionary<T>,
             iterator: string,
             context?: any): T[];
 
@@ -4360,7 +4368,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sortBy
         **/
-        sortBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, boolean>, context?: any): T[];
+        sortBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): T[];
 
         /**
         * Wrapped type `any[]`.
@@ -4372,7 +4380,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.groupBy
         **/
-        groupBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, boolean>, context?: any): _.Dictionary<_.List<T>>;
+        groupBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _.Dictionary<_.List<T>>;
 
         /**
         * Wrapped type `any[]`.
@@ -4384,7 +4392,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.indexBy
         **/
-        indexBy(iterator: _.ListIterator<T, any> | _.ObjectIterator<T, boolean>, context?: any): _.Dictionary<T>;
+        indexBy(iterator: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _.Dictionary<T>;
 
         /**
         * Wrapped type `any[]`.
@@ -4396,7 +4404,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.countBy
         **/
-        countBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, boolean>, context?: any): _.Dictionary<number>;
+        countBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _.Dictionary<number>;
 
         /**
         * Wrapped type `any[]`.
@@ -5308,7 +5316,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sortBy
         **/
-        sortBy(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T, T[]>;
+        sortBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5320,7 +5328,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.groupBy
         **/
-        groupBy(iterator?: _.ListIterator<T, any>, context?: any): _ChainOfArrays<T>;
+        groupBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _ChainOfArrays<T>;
 
         /**
         * Wrapped type `any[]`.
@@ -5332,7 +5340,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.indexBy
         **/
-        indexBy(iterator: _.ListIterator<T, any>, context?: any): _Chain<T>;
+        indexBy(iterator: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _Chain<T>;
 
         /**
         * Wrapped type `any[]`.
@@ -5344,7 +5352,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.countBy
         **/
-        countBy(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T>;
+        countBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _Chain<T>;
 
         /**
         * Wrapped type `any[]`.
