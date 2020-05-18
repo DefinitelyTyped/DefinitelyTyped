@@ -3049,16 +3049,16 @@
             "asOfVersion": "1.1.0"
         },
         {
-            "libraryName": "node-waves",
-            "typingsPackageName": "node-waves",
-            "sourceRepoURL": "http://fian.my.id/Waves",
-            "asOfVersion": "0.7.6"
-        },
-        {
             "libraryName": "node-vault",
             "typingsPackageName": "node-vault",
             "sourceRepoURL": "https://github.com/kr1sp1n/node-vault",
             "asOfVersion": "0.9.13"
+        },
+        {
+            "libraryName": "node-waves",
+            "typingsPackageName": "node-waves",
+            "sourceRepoURL": "http://fian.my.id/Waves",
+            "asOfVersion": "0.7.6"
         },
         {
             "libraryName": "nookies",
@@ -5165,6 +5165,12 @@
             "typingsPackageName": "tstl",
             "sourceRepoURL": "https://github.com/samchon/tstl",
             "asOfVersion": "1.5.7"
+        },
+        {
+            "libraryName": "tus-js-client",
+            "typingsPackageName": "tus-js-client",
+            "sourceRepoURL": "https://github.com/tus/tus-js-client",
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "typed.js",
