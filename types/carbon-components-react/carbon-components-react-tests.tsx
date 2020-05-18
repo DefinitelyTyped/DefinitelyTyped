@@ -7,6 +7,7 @@ import {
     DataTableRow,
     DatePickerInput,
     Dropdown,
+    HeaderContainer,
     FileUploader,
     NumberInput,
     Slider,
@@ -253,6 +254,27 @@ const uisLinkT4 = (
     <Link<TestCompProps> element={TestComp2} someProp={2}>
         ASDF
     </Link>
+);
+
+// UI Shell - HeaderContainer
+const uisHeaderContainerAnonRender = (
+    <HeaderContainer
+        render={({ isSideNavExpanded, onClickSideNavExpand }) => (
+            <button disabled={isSideNavExpanded} onClick={onClickSideNavExpand}>
+                Expand
+            </button>
+        )}
+    />
+);
+
+class HeaderContainerRender1 extends React.Component<{ someProp: number }> {
+    render() {
+        return <div/>;
+    }
+}
+
+const uisHeaderContainerCompRenderNotMatchingProps = (
+    <HeaderContainer render={HeaderContainerRender1} />
 );
 
 interface TestCompPropsOverwrite {

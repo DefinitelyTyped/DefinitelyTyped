@@ -1,4 +1,5 @@
 import * as React from "react";
+import { FCReturn } from "../../../typings/shared";
 
 /**
  * Convenience interface for the custom render prop.
@@ -8,11 +9,11 @@ export interface HeaderContainerRenderProps {
     onClickSideNavExpand(): void;
 }
 
-export interface HeaderContainerProps {
+export interface HeaderContainerProps<RP = HeaderContainerRenderProps> {
     isSideNavExpanded?: boolean,
-    render: React.ComponentType,
+    render: React.ComponentType<RP>,
 }
 
-declare const HeaderContainer: React.FC<HeaderContainerProps>;
+declare function HeaderContainer<RP = HeaderContainerRenderProps>(props: React.PropsWithChildren<HeaderContainerProps<RP>>): FCReturn;
 
 export default HeaderContainer;
