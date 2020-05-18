@@ -292,7 +292,7 @@ export interface Events {
      * @param params.eventName - Event name.
      * @param params.application - The name of the application that will receive this event.
      * @param [params.source] - URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}/{resource}, deviceState:{deviceName}.
-     * @param params.variables - (optional) The "variables" key in the body object holds custom key/value pairs to add to the user event. Ex. { "variables": { "key": "value" } }.
+     * @param [params.variables] - The "variables" key in the body object holds custom key/value pairs to add to the user event. Ex. { "variables": { "key": "value" } }.
      */
     userEvent(
         params: { eventName: string; application: string; source?: string | string[]; variables?: Containers },
