@@ -2,6 +2,7 @@
 // Project: https://github.com/evanvosberg/crypto-js
 // Definitions by: Michael Zabka <https://github.com/misak113>
 //                 Max Lysenko <https://github.com/maximlysenko>
+//                 Brendan Early <https://github.com/mymindstorm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = CryptoJS;
@@ -30,7 +31,7 @@ declare namespace CryptoJS {
     interface StreamCipher extends Cipher {}
 
     interface CipherHelper {
-        encrypt(message: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
+        encrypt(message: string | LibWordArray, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
         decrypt(encryptedMessage: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): DecryptedMessage;
     }
     interface Encryptor {
@@ -57,7 +58,7 @@ declare namespace CryptoJS {
         toString(encoder?: Encoder): string;
     };
     interface CipherOption {
-        iv?: string | WordArray;
+        iv?: string | LibWordArray;
         mode?: Mode;
         padding?: Padding;
         [option: string]: any;
@@ -147,7 +148,7 @@ declare namespace CryptoJS {
         lib: {
             WordArray: {
                 create: (v: any) => LibWordArray;
-                random: (v: number) => WordArray;
+                random: (v: number) => LibWordArray;
             };
         };
         mode: {
