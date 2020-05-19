@@ -1,6 +1,6 @@
-import * as puppeteer from "puppeteer";
-import { TimeoutError } from "puppeteer/Errors";
-import * as Devices from "puppeteer/DeviceDescriptors";
+import * as puppeteer from "puppeteer/v2";
+import { TimeoutError } from "puppeteer/v2/Errors";
+import * as Devices from "puppeteer/v2/DeviceDescriptors";
 
 // Accessibility
 
@@ -120,10 +120,8 @@ puppeteer.launch().then(async browser => {
     console.log(content);
   });
 
-  Object.keys(Devices).forEach(name => console.log(name));
-  Object.keys(puppeteer.devices).forEach(name => console.log(name));
-  Object.values(Devices).forEach(device => console.log(device.name));
-  Object.values(puppeteer.devices).forEach(device => console.log(device.name));
+  Devices.forEach(device => console.log(device.name));
+  puppeteer.devices.forEach(device => console.log(device.name));
 
   await page.emulateMediaType("screen");
   await page.emulate(Devices['test']);
