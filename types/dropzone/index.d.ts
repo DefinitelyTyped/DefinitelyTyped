@@ -9,6 +9,7 @@
 //                 Daniel Waxweiler <https://github.com/dwaxweiler>
 //                 PikachuEXE <https://github.com/PikachuEXE>
 //                 Arne Deruwe <https://github.com/arnederuwe>
+//                 Chris Macklin <https://github.com/macklin-10x>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
