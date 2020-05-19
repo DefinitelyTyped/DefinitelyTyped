@@ -401,7 +401,7 @@ declare namespace Agenda {
         /**
          * Removes the job from the database and cancels the job.
          */
-        remove(): Promise<void>;
+        remove(): Promise<number>;
 
         /**
          * Resets the lock on the job. Useful to indicate that the job hasn't timed out when you have very long running
