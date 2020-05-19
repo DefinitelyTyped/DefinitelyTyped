@@ -20,7 +20,7 @@ export interface RandomPasswordCharactersSet {
 
 export interface RandomPasswordOptions {
     avoidAmbiguous?: boolean;
-    characters?: string | (RandomPasswordCharactersSet | string)[];
+    characters?: string | Array<(RandomPasswordCharactersSet | string)>;
     length?: number;
     predicate?: (result: string) => boolean;
 }

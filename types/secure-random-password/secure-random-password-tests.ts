@@ -15,7 +15,7 @@ import * as srp from "secure-random-password";
     srp.randomPassword({ characters: srp.lower, predicate: (x: string) => !x.includes('secure') });
 
     srp.randomString();
-    srp.randomString({ length: 8 })
+    srp.randomString({ length: 8 });
     srp.randomString({
         length: 5,
         characters: [
@@ -29,5 +29,4 @@ import * as srp from "secure-random-password";
             srp.copyableSymbols
         ]
     });
-
 }
