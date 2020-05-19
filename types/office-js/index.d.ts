@@ -7666,7 +7666,11 @@ declare namespace Office {
              */
             Item = "item",
             /**
-             * The attachment is stored in a cloud location, such as OneDrive. The `id` property of the attachment contains a URL to the file.
+             * The attachment is stored in a cloud location, such as OneDrive.
+             *
+             * **Important**: In requirement set 1.7 and earlier, the `id` property of the attachment's
+             * {@link Office.AttachmentDetails | AttachmentDetails} object contains a URL to the file.
+             * In requirement set 1.8, the `url` property was added to the attachment details object to contain a URL to the file instead.
              */
             Cloud = "cloud"
         }
