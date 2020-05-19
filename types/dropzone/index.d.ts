@@ -173,6 +173,7 @@ declare class Dropzone {
     files: Dropzone.DropzoneFile[];
     defaultOptions: Dropzone.DropzoneOptions;
     options: Dropzone.DropzoneOptions;
+    previewsContainer: HTMLElement;
 
     enable(): void;
 
