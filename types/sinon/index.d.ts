@@ -314,7 +314,7 @@ declare namespace Sinon {
         /**
          * Returns the nth call.
          * Accessing individual calls helps with more detailed behavior verification when the spy is called more than once.
-         * @param n
+         * @param n Zero based index of the spy call.
          */
         getCall(n: number): SinonSpyCall;
         /**
