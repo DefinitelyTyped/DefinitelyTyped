@@ -2,6 +2,7 @@ import prompt = require('electron-prompt');
 import { BrowserWindow } from 'electron';
 
 prompt({
+    type: 'input',
     inputAttrs: {
         type: 'url',
     },
