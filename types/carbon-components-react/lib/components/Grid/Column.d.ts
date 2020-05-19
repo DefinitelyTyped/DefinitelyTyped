@@ -1,4 +1,4 @@
-import * as React from '../../../../react/index';
+import * as React from 'react';
 import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from '../../../typings/shared';
 
 export interface ColumnSpanDetailed {
