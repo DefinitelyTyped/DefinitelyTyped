@@ -177,6 +177,16 @@ const dropzone = new Dropzone('.test');
 dropzone.element;
 dropzone.previewsContainer;
 
+dropzone.listeners;
+dropzone.listeners[0].element;
+dropzone.listeners[0].events;
+dropzone.listeners[0].events.dragstart;
+dropzone.listeners[0].events.dragenter;
+dropzone.listeners[0].events.dragover;
+dropzone.listeners[0].events.dragleave;
+dropzone.listeners[0].events.drop;
+dropzone.listeners[0].events.dragend;
+
 dropzone.options.clickable = true;
 if (!dropzone.options.headers) {
     dropzone.options.headers = {};

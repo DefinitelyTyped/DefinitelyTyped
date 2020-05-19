@@ -148,6 +148,18 @@ declare namespace Dropzone {
 
         previewTemplate?: string;
     }
+
+    export interface DropzoneListeners {
+        element: HTMLElement;
+        events: {
+            dragstart: (e: DragEvent) => Dropzone;
+            dragenter: (e: DragEvent) => Dropzone;
+            dragover: (e: DragEvent) => Dropzone;
+            dragleave: (e: DragEvent) => Dropzone;
+            drop: (e: DragEvent) => Dropzone;
+            dragend: (e: DragEvent) => Dropzone;
+        };
+    }
 }
 
 declare class Dropzone {
@@ -171,6 +183,7 @@ declare class Dropzone {
 
     element: string | HTMLElement;
     files: Dropzone.DropzoneFile[];
+    listeners: Dropzone.DropzoneListeners[];
     defaultOptions: Dropzone.DropzoneOptions;
     options: Dropzone.DropzoneOptions;
     previewsContainer: HTMLElement;
