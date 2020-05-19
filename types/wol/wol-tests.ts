@@ -1,5 +1,11 @@
 import * as wol from "wol";
 
+//
+
+wol.createMagicPacket('20:DE:20:DE:20:DE'); // $ExpectType Buffer
+
+//
+
 wol.wake('20:DE:20:DE:20:DE'); // $ExpectType Promise<boolean>
 wol.wake('20:DE:20:DE:20:DE', (err, res) => { }); // $ExpectType void
 

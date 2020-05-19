@@ -3,6 +3,10 @@
 // Definitions by: ulrichb <https://github.com/ulrichb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
+export function createMagicPacket(mac: string): Buffer;
+
 export interface WakeOptions {
     readonly address?: string;
     readonly port?: number;
