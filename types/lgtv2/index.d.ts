@@ -7,12 +7,9 @@
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
-import { connection } from 'websocket';
 
 declare namespace LGTV {
-    class SpecializedSocket {
-        constructor(ws: connection);
-
+    interface SpecializedSocket {
         send(type: string, payload: any): void;
 
         close(): void;
