@@ -419,7 +419,7 @@ function testSpy() {
     const methodSpy = sinon.spy(instance, 'foo'); // $ExpectType SinonSpy<[], void>
     methodSpy.wrappedMethod; // $ExpectType () => void
 
-    const methodSpy2 = sinon.spy(instance, 'foobar'); // $ExpectType SinonSpy<[(string | undefined)?], string | undefined>
+    const methodSpy2 = sinon.spy(instance, 'foobar'); // $ExpectType SinonSpy<[(string | undefined)?], string | undefined> || SinonSpy<[p1?: string | undefined], string | undefined>
     methodSpy2.wrappedMethod; // $ExpectType (p1?: string | undefined) => string | undefined
 
     methodSpy.calledBefore(methodSpy2);
@@ -443,10 +443,10 @@ function testSpy() {
     arr = spy.exceptions;
     arr = spy.returnValues;
 
-    const fnSpy = sinon.spy(fn); // $ExpectType SinonSpy<[string, number], boolean>
+    const fnSpy = sinon.spy(fn); // $ExpectType SinonSpy<[string, number], boolean> || SinonSpy<[arg: string, arg2: number], boolean>
     fn = fnSpy; // Should be assignable to original function
     fnSpy('a', 1); // $ExpectType boolean
-    fnSpy.args; // $ExpectType [string, number][]
+    fnSpy.args; // $ExpectType [string, number][] || [arg: string, arg2: number][]
     fnSpy.returnValues; // $ExpectType boolean[]
 
     spy(1, 2);
