@@ -10,6 +10,7 @@
 //                 Morgan Snyder <https://github.com/morgansierrasnyder>
 //                 Federico Giacomini <https://github.com/crocsx>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 George Melissourgos <https://github.com/DrMerfy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -5956,11 +5957,16 @@ declare namespace Cesium {
     }
 
     enum BingMapsStyle {
-        AERIAL,
-        AERIAL_WITH_LABELS,
-        ROAD,
-        ORDNANCE_SURVEY,
-        COLLINS_BART,
+        AERIAL = "Aerial",
+        AERIAL_WITH_LABELS = "AerialWithLabels",
+        AERIAL_WITH_LABELS_ON_DEMAND = "AerialWithLabelsOnDemand",
+        ROAD= "Road",
+        ROAD_ON_DEMAND= "RoadOnDemand",
+        CANVAS_DARK= "CanvasDark",
+        CANVAS_LIGHT= "CanvasLight",
+        CANVAS_GRAY= "CanvasGray",
+        ORDNANCE_SURVEY= "OrdnanceSurvey",
+        COLLINS_BART= "CollinsBart",
     }
 
     enum BlendEquation {
