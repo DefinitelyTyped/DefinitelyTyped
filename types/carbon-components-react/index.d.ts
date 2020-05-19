@@ -223,7 +223,7 @@ export { _Form as Form };
 export { _FormGroup as FormGroup };
 export { _FormItem as FormItem };
 export { _FormLabel as FormLabel };
-export { Row } from "./lib/components/Grid";
+export { Column, Row } from "./lib/components/Grid";
 export { _Icon as Icon };
 export { _InlineLoading as InlineLoading };
 export { _Link as Link };

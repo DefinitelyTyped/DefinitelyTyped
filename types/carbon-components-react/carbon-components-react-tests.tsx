@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
     AccordionItem,
+    Column,
     DataTable,
     DataTableCustomRenderProps,
     DataTableHeader,
@@ -495,4 +496,29 @@ const rowCustomComp1 = (
     <Row as={GridCustomRenderComp1} someProp={5} condensed>
         Content
     </Row>
+);
+
+// Grid: Column
+const columnDefaultT1 = (
+    <Column onClick={(event: React.MouseEvent<HTMLDivElement>) => {}} lg={{ offset: 4 }}>
+        Contents
+    </Column>
+);
+
+const columnDefaultT2 = (
+    <Column as={undefined} onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
+        Contents
+    </Column>
+);
+
+const columnCustomIntrinsic = (
+    <Column as="li" onClick={(event: React.MouseEvent<HTMLLIElement>) => {}}>
+        Contents
+    </Column>
+);
+
+const columnCustomComp1 = (
+    <Column as={GridCustomRenderComp1} someProp={5} xlg={5} sm={2}>
+        Content
+    </Column>
 );
