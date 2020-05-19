@@ -17,7 +17,7 @@ declare module 'leaflet' {
         touchExtend?: boolean;
     }
 
-    class DrawMap extends Map {
+    class DrawMap extends L.Map {
         mergeOptions(options?: MapOptions): void;
         addInitHook(): void;
     }
