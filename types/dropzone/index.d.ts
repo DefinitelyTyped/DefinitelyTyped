@@ -187,6 +187,7 @@ declare class Dropzone {
     defaultOptions: Dropzone.DropzoneOptions;
     options: Dropzone.DropzoneOptions;
     previewsContainer: HTMLElement;
+    version: string;
 
     enable(): void;
 

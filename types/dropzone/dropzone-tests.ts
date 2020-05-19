@@ -176,6 +176,7 @@ const dropzone = new Dropzone('.test');
 
 dropzone.element;
 dropzone.previewsContainer;
+dropzone.version;
 
 dropzone.listeners;
 dropzone.listeners[0].element;
