@@ -21,11 +21,13 @@ interface AsyncRedisConstructor {
   new (unix_socket: string, options?: ClientOpts): Promisified;
   new (redis_url: string, options?: ClientOpts): Promisified;
   new (options?: ClientOpts): Promisified;
-  decorate: (client: RedisClient) => Promisified;
+  
   createClient(port: number, host?: string, options?: ClientOpts): Promisified;
   createClient(unix_socket: string, options?: ClientOpts): Promisified;
   createClient(redis_url: string, options?: ClientOpts): Promisified;
   createClient(options?: ClientOpts): Promisified;
+
+  decorate: (client: RedisClient) => Promisified;
 }
 
 declare const AsyncRedis: AsyncRedisConstructor;
