@@ -1341,7 +1341,7 @@ declare module "../index" {
          */
         intersectionWith<T>(
             array?: List<T> | null,
-            ...values: Array<List<T>>
+            ...values: Array<List<T> | Comparator2<T, never>>
         ): T[];
     }
 
