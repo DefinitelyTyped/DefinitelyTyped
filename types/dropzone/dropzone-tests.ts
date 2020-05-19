@@ -198,6 +198,9 @@ dropzone.files.forEach(f => {
         console.log(f.upload.bytesSent);
         console.log(f.upload.total);
         console.log(f.upload.uuid);
+        if (f.upload.totalChunkCount) {
+            console.log(f.upload.totalChunkCount);
+        }
     }
 });
 
