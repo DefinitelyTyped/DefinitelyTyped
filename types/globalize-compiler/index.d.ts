@@ -42,7 +42,7 @@ interface CompileExtractsAttributes extends CompileOptions {
   /**
    * an Array of extracts obtained by @see{GlobalizeCompilerStatic.extract}
    */
-  extracts: ExtractFunction;
+  extracts: ExtractFunction | ExtractFunction[];
 
   /**
    * a locale to be used as Globalize.locale(defaultLocale) when generating the extracted formatters and parsers.
