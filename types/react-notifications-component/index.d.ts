@@ -1,5 +1,5 @@
 // Type definitions for react-notifications-component 2.4
-// Project: https://www.npmjs.com/package/react-notifications-component
+// Project: https://github.com/teodosii/react-notifications-component
 // Definitions by: Sarhad Salam <https://github.com/SarhadSalam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
