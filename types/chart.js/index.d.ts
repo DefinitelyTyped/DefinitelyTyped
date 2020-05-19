@@ -165,7 +165,7 @@ declare namespace Chart {
         'single': 'single';
         'label': 'label';
         'index': 'index';
-        'xaxis': 'xaxis';
+        'x-axis': 'x-axis';
         'dataset': 'dataset';
         'x': 'x';
         'y': 'y';
