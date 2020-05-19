@@ -290,7 +290,6 @@ const awsServerless: Aws.Serverless = {
             MonitoringTimeInMinutes: 1,
             RollbackTriggers: [
                 {
-
                     Arn: 'testArn',
                     Type: 'testType',
                 }
@@ -387,7 +386,7 @@ const awsServerless: Aws.Serverless = {
                     httpApi: {
                         method: 'testmethod',
                         path: 'testpath',
-                        authorizer?: {
+                        authorizer: {
                             name: 'testname',
                             scopes: ['testscopes']
                         }
@@ -543,7 +542,7 @@ const awsServerless: Aws.Serverless = {
             path: 'testpath',
             name: 'testname',
             description: 'testdescription',
-            compatibleRuntimes?: ['testcompatibleruntimes'],
+            compatibleRuntimes: ['testcompatibleruntimes'],
             licenseInfo: 'testlicenseInfo',
             allowedAccounts: ['testallowedaccounts'],
             retain: false,
