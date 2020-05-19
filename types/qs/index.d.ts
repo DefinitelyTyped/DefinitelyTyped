@@ -55,7 +55,7 @@ declare namespace QueryString {
         interpretNumericEntities?: boolean;
     }
 
-    interface ParsedQs { [key: string]: string | string[] | ParsedQs | ParsedQs[] }
+    interface ParsedQs { [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[] }
 
     // TODO: The value type here is a "poor man's `unknown`". When these types support TypeScript
     // 3.0+, we can replace this with `unknown`.
