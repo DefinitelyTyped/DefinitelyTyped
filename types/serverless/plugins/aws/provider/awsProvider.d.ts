@@ -322,10 +322,6 @@ declare namespace Aws {
         inputTransformer?: InputTransformer;
     }
 
-    interface FilterPolicy {
-        pet: string[];
-    }
-
     interface DeadLetterTargetImport {
         arn: string;
         url: string;
@@ -354,7 +350,7 @@ declare namespace Aws {
     interface Stream {
         arn: string;
         batchSize?: number | string;
-        startingPosition?: string;
+        startingPosition?: number | string;
         enabled?: boolean;
     }
 
@@ -451,23 +447,23 @@ declare namespace Aws {
     }
 
     interface Event {
-        http: Http;
-        httpApi: HttpApiEvent;
-        websocket: Websocket;
-        s3: S3;
-        schedule: string | Schedule;
-        sns: Sns;
-        sqs: Sqs;
-        stream: Stream;
-        alexaSkill: AlexaSkill;
-        alexaSmartHome: AlexaSmartHome;
-        iot: Iot;
-        cloudwatchEvent: CloudwatchEvent;
-        cloudwatchLog: CloudwatchLog;
-        cognitoUserPool: CognitoUserPool;
-        alb: AlbEvent;
-        eventBridge: EventBridge;
-        cloudFront: CloudFront;
+        http?: Http;
+        httpApi?: HttpApiEvent;
+        websocket?: Websocket;
+        s3?: S3;
+        schedule?: string | Schedule;
+        sns?: Sns;
+        sqs?: Sqs;
+        stream?: Stream;
+        alexaSkill?: AlexaSkill;
+        alexaSmartHome?: AlexaSmartHome;
+        iot?: Iot;
+        cloudwatchEvent?: CloudwatchEvent;
+        cloudwatchLog?: CloudwatchLog;
+        cognitoUserPool?: CognitoUserPool;
+        alb?: AlbEvent;
+        eventBridge?: EventBridge;
+        cloudFront?: CloudFront;
     }
 
     interface AwsFunction {
