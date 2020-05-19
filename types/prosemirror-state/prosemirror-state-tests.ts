@@ -52,3 +52,6 @@ const res2_2: state.Plugin = res2_1.get({} as state.EditorState)!;
 
 const res3_1 = new state.Selection({} as any, {} as any);
 const res3_2: state.Selection = state.Selection.findFrom({} as model.ResolvedPos, 0)!;
+
+const res4_1 = new state.PluginKey<string>();
+const res4_2: string = res4_1.getState({} as state.EditorState)!;

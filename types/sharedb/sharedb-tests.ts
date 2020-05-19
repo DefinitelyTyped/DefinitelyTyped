@@ -19,8 +19,8 @@ class WebSocketJSONStream extends Duplex {
             this.emit('close');
             this.emit('end');
         });
-	this.on('error', () => { ws.close(); });
-	this.on('end',   () => { ws.close(); });
+    this.on('error', () => { ws.close(); });
+    this.on('end',   () => { ws.close(); });
     }
     _read(): void {}
     _write(msg: any, encoding: string, next: () => void): void {

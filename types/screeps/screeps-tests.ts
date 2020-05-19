@@ -863,3 +863,24 @@ function atackPower(creep: Creep) {
         })
         .reduce((a, b) => a + b);
 }
+
+// Facotries and Commodities
+
+{
+    const factory = new StructureFactory("" as Id<StructureFactory>);
+
+    creep.transfer(factory, RESOURCE_CELL, 20);
+    creep.transfer(factory, RESOURCE_OXIDANT, 36);
+    creep.transfer(factory, RESOURCE_LEMERGIUM_BAR, 16);
+    creep.transfer(factory, RESOURCE_ENERGY, 8);
+
+    factory.produce(RESOURCE_PHLEGM);
+
+    factory.produce(RESOURCE_BATTERY);
+    factory.produce(RESOURCE_ENERGY);
+
+    factory.produce(RESOURCE_GHODIUM);
+    factory.produce(RESOURCE_GHODIUM_MELT);
+
+    creep.withdraw(factory, RESOURCE_PHLEGM);
+}

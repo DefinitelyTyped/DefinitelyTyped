@@ -1,4 +1,4 @@
-// Type definitions for react-vertical-timeline-component 2.5
+// Type definitions for react-vertical-timeline-component 2.6
 // Project: https://github.com/stephane-monnot/react-vertical-timeline, https://stephane-monnot.github.io/react-vertical-timeline
 // Definitions by: Stéphane Monnot <https://github.com/stephane-monnot>
 //                 Lukas Elmer <https://github.com/lukaselmer>
@@ -17,11 +17,15 @@ export interface VerticalTimelineElementProps {
     id?: string;
     className?: string;
     date?: string;
+    dateClassName?: string;
+    iconClassName?: string;
     iconOnClick?: () => void;
     iconStyle?: React.CSSProperties;
     icon?: React.ReactNode;
+    onTimelineElementClick?: () => void;
     position?: string;
     style?: React.CSSProperties;
+    textClassName?: string;
     visibilitySensorProps?: any;
     contentStyle?: React.CSSProperties;
     contentArrowStyle?: React.CSSProperties;

@@ -944,9 +944,9 @@ export interface AuthorizeOptions {
     nonce?: string;
     scope?: string;
     audience?: string;
-	language?: string;
+    language?: string;
     login_hint?: string;
-	prompt?: string;
+    prompt?: string;
     mode?: "login" | "signUp";
     accessType?: string;
     approvalPrompt?: string;
@@ -955,8 +955,8 @@ export interface AuthorizeOptions {
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {
-	/**
-	 * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
-	 */
-	usePostMessage?: boolean;
+    /**
+     * optional parameter for auth0 to use postMessage to communicate between the silent callback and the SPA.
+     */
+    usePostMessage?: boolean;
 }
