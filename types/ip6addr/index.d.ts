@@ -1,5 +1,5 @@
 // Type definitions for ip6addr 0.2
-// Project: git@github.com:kryptoslogic/DefinitelyTyped.git
+// Project: https://github.com/joyent/node-ip6addr
 // Definitions by: Vít Stanislav <https://github.com/slaweet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
