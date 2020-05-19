@@ -37,12 +37,12 @@ export interface CIDR {
   toString: (opts?: ToStringOpts) => string;
 }
 
-export function parse(cidr: string): Addr;
-
-export function createCIDR(cidr: string, plen?: number): CIDR;
-
-export function createAddrRange(first: string, last: string): AddrRange;
-
 export function compare(addr1: string, addr2: string): number;
 
 export function compareCIDR(cidr1: string, cidr2: string): number;
+
+export function createAddrRange(begin: string, end: string): AddrRange;
+
+export function createCIDR(addr: string, len?: number): CIDR;
+
+export function parse(input: string): Addr;
