@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "esnext.asynciterable"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -14,11 +13,6 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "sc-channel": [
-                "sc-channel/v1"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
