@@ -223,7 +223,7 @@ export interface ScrollspyOption {
      *
      * @default ""
      */
-    target?: string | JQuery | Element;
+    target?: string | JQuery<Element> | Element;
 }
 
 export interface ToastOption {
