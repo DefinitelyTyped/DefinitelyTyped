@@ -4,6 +4,7 @@
 //                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
 //                 Alex Pavlenko <https://github.com/a-pavlenko>
 //                 Frédéric Barthelet <https://github.com/fredericbarthelet>
+//                 Bryan Hunter <https://github.com/bryan-hunter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require('./classes/Service');
