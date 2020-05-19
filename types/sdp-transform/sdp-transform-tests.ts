@@ -1,7 +1,7 @@
 import {
-	SessionDescription,
-	parse,
-	write,
+    SessionDescription,
+    parse,
+    write,
 } from 'sdp-transform';
 
 const session: SessionDescription = parse('');

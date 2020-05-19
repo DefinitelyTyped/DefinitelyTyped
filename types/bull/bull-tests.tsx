@@ -99,6 +99,10 @@ imageQueue.process((job, done) => {
 videoQueue.add({video: 'http://example.com/video1.mov'});
 audioQueue.add({audio: 'http://example.com/audio1.mp3'});
 imageQueue.add({image: 'http://example.com/image1.tiff'});
+videoQueue.addBulk([
+    { name: 'frame1', data: { video: 'http://example.com/video1.mov'}, opts: { attempts: 6 }},
+    {  data: { audio: 'http://example.com/video1.mov'}},
+]);
 
 //////////////////////////////////////////////////////////////////////////////////
 //

@@ -5,9 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_placeholder
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
+declare module 'codemirror' {
     interface EditorConfiguration {
         /**
          * Adds a placeholder option that can be used to make content appear in the editor when it is empty and not focused.

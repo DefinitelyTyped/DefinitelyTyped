@@ -306,6 +306,14 @@ export interface FindInPageOptions {
  *
  * @hidden-property {boolean} [hideOnClose=false] - A flag to allow a window to be hidden when the close button is clicked.
  *
+ * @property {object[]} [hotkeys=[]] - _Updatable._
+ * Defines the list of hotkeys that will be emitted as a `hotkey` event on the window. For usage example see [example]{@tutorial hotkeys}.
+ * Within Platform, OpenFin also implements a set of pre-defined actions called
+ * [keyboard commands]{@link https://developers.openfin.co/docs/platform-api#section-5-3-using-keyboard-commands}
+ * that can be assigned to a specific hotkey in the platform manifest.
+ * @property {string} hotkeys.keys The key combination of the hotkey, i.e. "Ctrl+T"
+ * @property {boolean} [hotkeys.preventDefault=false] Whether or not to prevent default key handling before emitting the event
+ *
  * @property {string} [icon] - _Updatable. Inheritable._
  * A URL for the icon to be shown in the window title bar and the taskbar.
  * _When omitted, inherits from the parent application._
@@ -353,6 +361,7 @@ export interface FindInPageOptions {
  *
  * @property {boolean} [saveWindowState=true]
  * A flag to cache the location of the window.
+ * ** note ** - This option is ignored in Platforms as it would cause inconsistent {@link Platform#applySnapshot applySnapshot} behavior.
  *
  * @property {boolean} [shadow=false]
  * A flag to display a shadow on frameless windows.
@@ -548,6 +557,25 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.EventEmitter
      */
     /**
+     * Executes Javascript on the window, restricted to windows you own or windows owned by
+     * applications you have created.
+     * @param { string } code JavaScript code to be executed on the window.
+     * @function executeJavaScript
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.executeJavaScript
+     */
+    /**
+     * Gives focus to the window.
+     * @return {Promise.<void>}
+     * @function focus
+     * @emits focused
+     * @memberOf Window
+     * @instance
+     * @tutorial Window.focus
+     */
+    /**
     * Returns the zoom level of the window.
     * @function getZoomLevel
     * @memberOf Window
@@ -661,13 +689,6 @@ export declare class _Window extends WebContents<WindowEvents> {
     */
     getBounds(): Promise<Bounds>;
     /**
-     * Gives focus to the window.
-     * @return {Promise.<void>}
-     * @emits _Window#focused
-     * @tutorial Window.focus
-     */
-    focus(): Promise<void>;
-    /**
      * Centers the window on its current screen.
      * @return {Promise.<void>}
      * @tutorial Window.center
@@ -735,16 +756,6 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.enableUserMovement
      */
     enableUserMovement(): Promise<void>;
-    /**
-     * Executes Javascript on the window, restricted to windows you own or windows owned by
-     * applications you have created.
-     * @param { string } code JavaScript code to be executed on the window.
-     * @function executeJavaScript
-     * @memberOf Window
-     * @instance
-     * @return {Promise.<void>}
-     * @tutorial Window.executeJavaScript
-     */
     /**
      * Flashes the window’s frame and taskbar icon until stopFlashing is called or until a focus event is fired.
      * @return {Promise.<void>}
@@ -942,7 +953,6 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @return {Promise.<void>}
      * @tutorial Window.showDeveloperTools
      */
-    showDeveloperTools(): Promise<void>;
     /**
      * Updates the window using the passed options.
      * Values that are objects are deep-merged, overwriting only the values that are provided.

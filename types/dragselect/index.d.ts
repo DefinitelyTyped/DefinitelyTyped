@@ -1,6 +1,6 @@
 // Type definitions for DragSelect 1.13
 // Project: https://ThibaultJanBeyer.com/
-// Definitions by: IceCreamYou <https://github.com/me>
+// Definitions by: IceCreamYou <https://github.com/IceCreamYou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class DragSelect {

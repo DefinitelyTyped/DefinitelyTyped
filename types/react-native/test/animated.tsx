@@ -2,10 +2,57 @@ import * as React from 'react';
 
 import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 
+interface CompProps {
+    width: number;
+}
+
+class Comp extends React.Component<CompProps> {
+    f1: () => boolean = () => true;
+
+    render() {
+        const { width } = this.props;
+        return <View style={{ width }} />;
+    }
+}
+
+const ForwardComp = React.forwardRef<View, CompProps>(({ width }, ref) => {
+    function f1(): boolean {
+        return true;
+    }
+
+    return <View ref={ref} style={{ width }} />;
+});
+
+type X = React.PropsWithoutRef<React.ComponentProps<typeof ForwardComp>>;
+
 function TestAnimatedAPI() {
     // Value
     const v1 = new Animated.Value(0);
     const v2 = new Animated.Value(0);
+
+    // Ref
+    const AnimatedViewRef = React.useRef<View>(null);
+
+    AnimatedViewRef.current &&
+        AnimatedViewRef.current.measure(() => {
+            return;
+        });
+
+    const AnimatedComp = Animated.createAnimatedComponent(Comp);
+
+    const AnimatedCompRef = React.useRef<Comp>(null);
+
+    AnimatedCompRef.current && AnimatedCompRef.current.f1();
+
+    const AnimatedForwardComp = Animated.createAnimatedComponent(ForwardComp);
+
+    const AnimatedForwardCompRef = React.useRef<React.ElementRef<typeof ForwardComp>>(null);
+    const ForwardCompRef = React.useRef<View>(null);
+
+    AnimatedForwardCompRef.current &&
+        AnimatedForwardCompRef.current.measure(() => {
+            return;
+        });
 
     v1.setValue(0.1);
 
@@ -88,9 +135,14 @@ function TestAnimatedAPI() {
 
     Animated.event([{ nativeEvent: { contentOffset: { y: v1 } } }], { useNativeDriver: true, listener });
 
+    const AnimatedView = Animated.createAnimatedComponent(View);
+    const ref = React.useRef<View>(null);
+    const legacyRef = React.useRef<Animated.LegacyRef<View>>(null);
+
     return (
-        <View>
+        <View ref={ref}>
             <Animated.View
+                ref={ref}
                 style={[
                     position.getLayout(),
                     {
@@ -99,6 +151,17 @@ function TestAnimatedAPI() {
                 ]}
             />
 
+            <AnimatedView ref={ref} style={{ top: 3 }}>
+                i has children
+            </AnimatedView>
+
+            <Animated.View ref={legacyRef} />
+
+            <AnimatedView ref={legacyRef} />
+
+            <AnimatedComp ref={AnimatedCompRef} width={v1} />
+            <ForwardComp ref={ForwardCompRef} width={1} />
+            <AnimatedForwardComp ref={AnimatedForwardCompRef} width={10} />
             <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
         </View>
     );

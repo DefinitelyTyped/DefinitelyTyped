@@ -1,6 +1,6 @@
 // Type definitions for combine-reducers 1.0
 // Project: https://github.com/wesleytodd/combine-reducers#readme
-// Definitions by: Paul Marbach <https://github.com/me>
+// Definitions by: Paul Marbach <https://github.com/fastfrwrd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

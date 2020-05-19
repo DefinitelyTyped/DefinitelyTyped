@@ -9460,7 +9460,7 @@ declare namespace chrome {
              * If set, updates the display's logical bounds origin along y-axis.
              * @see[See documentation for boundsOriginX parameter.]
              */
-            boundsOriginY: integer;
+            boundsOriginY?: integer;
 
             /**
              * If set, updates the display mode to the mode matching this value.

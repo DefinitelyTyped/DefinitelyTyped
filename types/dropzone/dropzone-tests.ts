@@ -176,7 +176,7 @@ const dropzone = new Dropzone('.test');
 
 dropzone.options.clickable = true;
 if (!dropzone.options.headers) {
-	dropzone.options.headers = {};
+    dropzone.options.headers = {};
 }
 dropzone.options.headers.test = 'test';
 dropzone.enable();

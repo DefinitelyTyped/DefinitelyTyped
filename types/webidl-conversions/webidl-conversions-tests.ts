@@ -4,20 +4,20 @@ const any: any = void 0;
 const unknown: unknown = void 0;
 // $ExpectType Options
 const options: conversions.Options = ((): conversions.Options => {
-	return {};
+    return {};
 })();
 
 options.context; // $ExpectType string | undefined
 
 const {
-	globals, // $ExpectType Globals | undefined
+    globals, // $ExpectType Globals | undefined
 } = options;
 
 if (globals) {
-	globals; // $ExpectType Globals
-	globals.Number; // $ExpectType (value?: any) => number
-	globals.String; // $ExpectType (value?: any) => string
-	globals.TypeError; // $ExpectType new (message?: string | undefined) => TypeError
+    globals; // $ExpectType Globals
+    globals.Number; // $ExpectType (value?: any) => number
+    globals.String; // $ExpectType (value?: any) => string
+    globals.TypeError; // $ExpectType new (message?: string | undefined) => TypeError
 }
 
 /**

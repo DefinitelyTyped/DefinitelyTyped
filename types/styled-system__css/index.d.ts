@@ -446,7 +446,7 @@ export interface ScaleThemeProperties {
     /**
      * | Prop              | CSS Property                   | Theme Field |
      * | :---------------- | :----------------------------- | :---------- |
-     * | m, margin	       | margin                         | space       |
+     * | m, margin           | margin                         | space       |
      * | mt, marginTop     | margin-top                     | space       |
      * | mr, marginRight   | margin-right                   | space       |
      * | mb, marginBottom  | margin-bottom                  | space       |

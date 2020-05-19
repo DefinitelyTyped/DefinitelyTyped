@@ -2,7 +2,8 @@ import { CrashedEvent } from './application';
 import { WindowEvent, BaseEventMap } from './base';
 import { WindowOptionDiff, WindowOption } from '../window/windowOption';
 import { WebContentsEventMapping, WindowResourceLoadFailedEvent, WindowResourceResponseReceivedEvent } from './webcontents';
-import { PropagatedViewEventMapping } from './view';
+import { PropagatedViewEventMapping, InputEvent } from './view';
+import { Identity } from '../../main';
 export declare type SpecificWindowEvent<Type> = WindowEvent<'window', Type>;
 export interface WindowAlertRequestedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     message: string;
@@ -113,6 +114,11 @@ export interface WindowPerformanceReport<Topic, Type> extends WindowEvent<Topic,
     timeOrigin: typeof window.performance.timeOrigin;
     navigation: typeof window.performance.navigation;
 }
+export interface ViewDetached<Topic, Type> extends WindowEvent<Topic, Type> {
+    previousTarget: Identity;
+    target: Identity;
+    viewIdentity: Identity;
+}
 export interface WindowEventMapping<Topic = string, Type = string> extends WebContentsEventMapping {
     'auth-requested': WindowAuthRequestedEvent<Topic, Type>;
     'begin-user-bounds-changing': WindowBeginBoundsChangingEvent<Topic, Type>;
@@ -131,7 +137,10 @@ export interface WindowEventMapping<Topic = string, Type = string> extends WebCo
     'focused': WindowEvent<Topic, Type>;
     'group-changed': WindowGroupChanged<Topic, Type>;
     'hidden': WindowHiddenEvent<Topic, Type>;
+    'hotkey': InputEvent & WindowEvent<Topic, Type>;
     'initialized': WindowEvent<Topic, Type>;
+    'layout-initialized': WindowEvent<Topic, Type>;
+    'layout-ready': WindowEvent<Topic, Type>;
     'maximized': WindowEvent<Topic, Type>;
     'minimized': WindowEvent<Topic, Type>;
     'options-changed': WindowOptionsChangedEvent<Topic, Type>;
@@ -145,7 +154,7 @@ export interface WindowEventMapping<Topic = string, Type = string> extends WebCo
     'user-movement-disabled': WindowEvent<Topic, Type>;
     'user-movement-enabled': WindowEvent<Topic, Type>;
     'view-attached': WindowEvent<Topic, Type>;
-    'view-detached': WindowEvent<Topic, Type>;
+    'view-detached': ViewDetached<Topic, Type>;
     'will-move': WillMoveOrResize<Topic, Type>;
     'will-resize': WillMoveOrResize<Topic, Type>;
 }
@@ -166,7 +175,10 @@ export interface PropagatedWindowEventMapping<Topic = string, Type = string> ext
     'window-focused': WindowEvent<Topic, Type>;
     'window-group-changed': WindowGroupChanged<Topic, Type>;
     'window-hidden': WindowHiddenEvent<Topic, Type>;
+    'window-hotkey': InputEvent & WindowEvent<Topic, Type>;
     'window-initialized': WindowEvent<Topic, Type>;
+    'window-layout-initialized': WindowEvent<Topic, Type>;
+    'window-layout-ready': WindowEvent<Topic, Type>;
     'window-maximized': WindowEvent<Topic, Type>;
     'window-minimized': WindowEvent<Topic, Type>;
     'window-navigation-rejected': WindowNavigationRejectedEvent<Topic, Type>;

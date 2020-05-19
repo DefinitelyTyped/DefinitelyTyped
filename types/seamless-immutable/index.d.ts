@@ -175,6 +175,14 @@ declare namespace SeamlessImmutable {
     function ImmutableError(message: string): Error;
 
     function replace<T, S>(obj: Immutable<T>, valueObj: S, options?: ReplaceConfig): Immutable<S>;
+
+    function asMutable<T>(obj: T[] | ImmutableArray<T>, opts?: AsMutableOptions<false>): T[];
+    function asMutable<T>(obj: T[] | ImmutableArray<T>, opts: AsMutableOptions<true>): T[];
+    function asMutable<T>(obj: T[] | ImmutableArray<T>, opts: AsMutableOptions): T[] | Array<Immutable<T>>;
+
+    function asMutable<T>(obj: T | ImmutableObject<T>, opts?: AsMutableOptions<false>): { [K in keyof T]: Immutable<T[K]> };
+    function asMutable<T>(obj: T | ImmutableObject<T>, opts: AsMutableOptions<true>): T;
+    function asMutable<T>(obj: T | ImmutableObject<T>, opts: AsMutableOptions): T | { [K in keyof T]: Immutable<T[K]> };
 }
 
 declare function SeamlessImmutable<T>(obj: T, options?: SeamlessImmutable.Options): SeamlessImmutable.Immutable<T>;

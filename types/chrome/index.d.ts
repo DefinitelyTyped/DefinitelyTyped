@@ -3820,8 +3820,18 @@ declare namespace chrome.input.ime {
          * Whether or not the ALT key is pressed.
          */
         altKey?: boolean;
-        /** The ID of the request. */
-        requestId: string;
+        /**
+         * Optional.
+         * Whether or not the ALTGR key is pressed.
+         * @since Chrome 79.
+         */
+        altgrKey?: boolean;
+        /**
+         * Optional.
+         * The ID of the request.
+         * @deprecated since Chrome 79.
+         */
+        requestId?: string;
         /** Value of the key being pressed */
         key: string;
         /**
@@ -3969,7 +3979,7 @@ declare namespace chrome.input.ime {
         /** Text to set */
         text: string;
         /** Optional. List of segments and their associated types. */
-        segments: CompositionParameterSegment[];
+        segments?: CompositionParameterSegment[];
         /** Position in the text of the cursor. */
         cursor: number;
         /** Optional. Position in the text that the selection starts at. */
@@ -5446,8 +5456,8 @@ declare namespace chrome.serial {
   * @export
   * @param connectionId The id of the connection.
   * @param signals The set of signal changes to send to the device:
-  * boolean:	(optional) dtr - DTR (Data Terminal Ready).
-  * boolean:	(optional) rts - RTS (Request To Send).
+  * boolean:    (optional) dtr - DTR (Data Terminal Ready).
+  * boolean:    (optional) rts - RTS (Request To Send).
   * @param callback Called once the control signals have been set.
   * The callback parameter should be a function that looks like this:
   * function(boolean result) {...};
@@ -7876,16 +7886,17 @@ declare namespace chrome.tts {
         /**
          * Optional. This voice's gender.
          * One of: "male", or "female"
+         * @deprecated since Chrome 70. Gender is deprecated and will be ignored.
          */
         gender?: string;
         /** Optional. The name of the voice. */
         voiceName?: string;
-        /** The ID of the extension providing this voice. */
-        extensionsId?: string;
-        /** All of the callback event types that this voice is capable of sending. */
+        /** Optional. The ID of the extension providing this voice. */
+        extensionId?: string;
+        /** Optional. All of the callback event types that this voice is capable of sending. */
         eventTypes?: string[];
         /**
-         * If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
+         * Optional. If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
          * @since Chrome 33.
          */
         remote?: boolean;

@@ -1,3 +1,5 @@
+import { Identity } from "./identity";
+
 export declare type AnchorType = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 export interface TransitionOptions {
     interrupt: boolean;
@@ -41,4 +43,27 @@ export interface ContextMenuSettings {
     enable: boolean;
     devtools?: boolean;
     reload?: boolean;
+}
+export interface Hotkey {
+    keys: string;
+    preventDefault?: boolean;
+}
+export interface ShortcutOverride extends Hotkey {
+    command: string;
+}
+export interface ProviderIdentity extends Identity {
+    channelId?: string;
+    channelName?: string;
+    isExternal?: boolean;
+    runtimeUuid?: string;
+}
+
+export interface ClientIdentity extends Identity {
+    endpointId?: string;
+}
+
+export interface PreloadScript {
+    mandatory?: boolean;
+    state?: 'load-started' | 'load-failed' | 'load-succeeded' | 'failed' | 'succeeded';
+    url: string;
 }

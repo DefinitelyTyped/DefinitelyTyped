@@ -65,11 +65,11 @@ NPM 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 이 경우 주로 `package.json` 파일의 `"types"` 나 `"typings"` 필드(Field)를 통해 제공되지만,
 `/// <reference path="" />` 같은 주석을 사용하여 패키지 안의 ".d.ts" 파일들을 직접 가져와야 할 수도 있습니다.
 
-#### 이전 버전 TypeScript (2.7 또는 그 이전)
+#### 이전 버전 TypeScript (2.8 또는 그 이전)
 
 Definitely Typed는 2년이 지나지 않은 TypeScript 버전만을 대상으로 패키지를 테스트합니다.
-현재 버전 2.8 및 그 이상만을 테스트하고 있습니다.
-TypeScript 2.0에서 2.7 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
+현재 버전 2.9 및 그 이상만을 테스트하고 있습니다.
+TypeScript 2.0에서 2.8 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
 그러나 작동 여부를 보장하지는 못합니다.
 지원 기간은 다음과 같습니다:
 
@@ -86,6 +86,7 @@ TypeScript 2.0에서 2.7 버전을 사용하는 경우, 그래도 `@types` 패�
 3.6 | 2019년 8월 | 2021년 8월
 3.7 | 2019년 11월 | 2021년 11월
 3.8 | 2020년 2월 | 2022년 2월
+3.9 | 2020년 5월 | 2022년 5월
 
 `@types` 패키지 안에는 패키지가 확실하게 지원하는 TypeScript 버전이 태그로 쓰여 있으므로, 2년 지원 기간이 지난 오래된 패키지도 보통 찾아보실 수 있습니다.
 예를 들어, `npm dist-tags @types/react` 명령어를 입력하면 TypeScript 2.5는 react@16.0용 타입을, TypeScript 2.6 및 2.7은 react@16.4용 타입을 사용할 수 있는 것을 확인하실 수 있습니다:
@@ -277,7 +278,7 @@ f("one");
 
 #### 풀 리퀘스트(Pull request)를 제출했습니다. 이게 합쳐질 때까지 얼마나 걸리나요?
 
-상황에 따라 다르지만, 대부분의 풀 리퀘스트(Pull request)들은 일주일 안에 합쳐집니다. 머릿주석에 있는 저자 중 한명에 의해 승인된 풀 리퀘스트(Pull request)는 보통 더 빨리 합쳐집니다. 새로운 패키지에 대한 풀 리퀘스트(Pull request)는 관리자의 세세한 코드 리뷰를 필요로 하기 때문에 더 오래 걸리는 경우가 많습니다. 각 PR 들은 합쳐지기 전에 TypeScript or DefinitelyTyped 팀 구성원의 코드 리뷰를 받아야 하며, 이는 사람이 하는 일이기 때문에 느려질 수도 있으니 양해를 바랍니다. [풀 리퀘스트 번다운 보드(PR Burndown Board)](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/3?card_filter_query=is%3Aopen)에서 열린 풀 리퀘스트에 대한 관리자들의 진행도를 확인하실 수 있습니다.
+상황에 따라 다르지만, 대부분의 풀 리퀘스트(Pull request)들은 일주일 안에 합쳐집니다. 머릿주석에 있는 저자 중 한명에 의해 승인된 풀 리퀘스트(Pull request)는 보통 더 빨리 합쳐집니다. 새로운 패키지에 대한 풀 리퀘스트(Pull request)는 관리자의 세세한 코드 리뷰를 필요로 하기 때문에 더 오래 걸리는 경우가 많습니다. 각 PR 들은 합쳐지기 전에 TypeScript or DefinitelyTyped 팀 구성원의 코드 리뷰를 받아야 하며, 이는 사람이 하는 일이기 때문에 느려질 수도 있으니 양해를 바랍니다. [풀 리퀘스트 번다운 보드(New Pull Request Status Board)](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5)에서 열린 풀 리퀘스트에 대한 관리자들의 진행도를 확인하실 수 있습니다.
 
 #### 내 풀 리퀘스트(Pull request)는 합쳐졌습니다. 언제 NPM 에 `@types` 패키지가 갱신되나요?
 

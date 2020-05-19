@@ -28,5 +28,5 @@ interface ObloUtilStatic {
 declare var util: ObloUtilStatic;
 
 declare module "oblo-util" {
-	export = util;
+    export = util;
 }

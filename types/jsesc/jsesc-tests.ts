@@ -18,40 +18,40 @@ str = jsesc.version;
 // ---- ---- ---- ---- ---- ---- ----
 
 opts = {
-	quotes: quotes
+    quotes: quotes
 };
 opts = {
-	numbers: numbers
+    numbers: numbers
 }
 opts = {
-	wrap: bool
+    wrap: bool
 };
 opts = {
-	es6: bool
+    es6: bool
 };
 opts = {
-	escapeEverything: bool
+    escapeEverything: bool
 };
 opts = {
-	minimal: bool
+    minimal: bool
 };
 opts = {
-	isScriptContext: bool
+    isScriptContext: bool
 };
 opts = {
-	compact: bool
+    compact: bool
 };
 opts = {
-	indent: str
+    indent: str
 };
 opts = {
-	indentLevel: num
+    indentLevel: num
 };
 opts = {
-	json: bool
+    json: bool
 };
 opts = {
-	lowercaseHex: bool
+    lowercaseHex: bool
 };
 // ---- ---- ---- ---- ---- ---- ----
 

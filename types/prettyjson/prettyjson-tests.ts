@@ -2,9 +2,9 @@
 import prettyjson = require("prettyjson");
 
 var options: prettyjson.RendererOptions,
-	input: string,
-	output: string,
-	version: string;
+    input: string,
+    output: string,
+    version: string;
 
 
 console.log("using prettyjson v" + prettyjson.version)

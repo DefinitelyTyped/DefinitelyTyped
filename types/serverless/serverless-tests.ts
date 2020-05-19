@@ -29,10 +29,14 @@ class CustomPlugin implements Plugin {
     customProp = {};
 
     hooks: Plugin.Hooks;
+    variableResolvers: Plugin.VariableResolvers;
 
     constructor(serverless: Serverless, options: Serverless.Options) {
         this.hooks = {
             'command:start': () => {},
+        };
+        this.variableResolvers = {
+            echo: async (source) => source.slice(5)
         };
     }
 }
@@ -49,6 +53,24 @@ manager.addPlugin(CustomPlugin);
 // Test adding a plugin with an incorrect constructor
 // prettier-ignore
 manager.addPlugin(BadPlugin); // $ExpectError
+
+// Test a plugin with bad arguments for a variable resolver
+class BadVariablePlugin1 implements Plugin {
+    hooks: Plugin.Hooks;
+    // $ExpectError
+    variableResolvers = {
+        badEchoArgs: async (badArg: number) => {},
+    };
+}
+
+// Test a plugin with non-async variable resolver
+class BadVariablePlugin implements Plugin {
+    hooks: Plugin.Hooks;
+    // $ExpectError
+    variableResolvers = {
+        badEchoNotAsync: (source: string) => {},
+    };
+}
 
 // Test provider's 'request' method
 const provider = serverless.getProvider('aws');

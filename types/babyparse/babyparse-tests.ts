@@ -329,32 +329,32 @@ var CORE_PARSER_TESTS: ParserTest[] = [
         }
     },
     // {
-    // 	description: "Comment with non-default character",
-    // 	input: 'a,b,c\n!Comment goes here\nd,e,f',
-    // 	config: { comments: '!' },
-    // 	expected: {
-    // 		data: [['a', 'b', 'c'], ['d', 'e', 'f']],
-    // 		errors: []
-    // 	}
+    //     description: "Comment with non-default character",
+    //     input: 'a,b,c\n!Comment goes here\nd,e,f',
+    //     config: { comments: '!' },
+    //     expected: {
+    //         data: [['a', 'b', 'c'], ['d', 'e', 'f']],
+    //         errors: []
+    //     }
     // },
     // {
-    // 	description: "Bad comments value specified",
-    // 	notes: "Should silently disable comment parsing",
-    // 	input: 'a,b,c\n5comment\nd,e,f',
-    // 	config: { comments: 5 },
-    // 	expected: {
-    // 		data: [['a', 'b', 'c'], ['5comment'], ['d', 'e', 'f']],
-    // 		errors: []
-    // 	}
+    //     description: "Bad comments value specified",
+    //     notes: "Should silently disable comment parsing",
+    //     input: 'a,b,c\n5comment\nd,e,f',
+    //     config: { comments: 5 },
+    //     expected: {
+    //         data: [['a', 'b', 'c'], ['5comment'], ['d', 'e', 'f']],
+    //         errors: []
+    //     }
     // },
     // {
-    // 	description: "Multi-character comment string",
-    // 	input: 'a,b,c\n=N(Comment)\nd,e,f',
-    // 	config: { comments: "=N(" },
-    // 	expected: {
-    // 		data: [['a', 'b', 'c'], ['d', 'e', 'f']],
-    // 		errors: []
-    // 	}
+    //     description: "Multi-character comment string",
+    //     input: 'a,b,c\n=N(Comment)\nd,e,f',
+    //     config: { comments: "=N(" },
+    //     expected: {
+    //         data: [['a', 'b', 'c'], ['d', 'e', 'f']],
+    //         errors: []
+    //     }
     // },
     {
         description: "Input with only a commented line",
@@ -419,13 +419,13 @@ var CORE_PARSER_TESTS: ParserTest[] = [
         }
     },
     // {
-    // 	description: "Fast mode with comments",
-    // 	input: '// Commented line\na,b,c',
-    // 	config: { fastMode: true, comments: "//" },
-    // 	expected: {
-    // 		data: [['a', 'b', 'c']],
-    // 		errors: []
-    // 	}
+    //     description: "Fast mode with comments",
+    //     input: '// Commented line\na,b,c',
+    //     config: { fastMode: true, comments: "//" },
+    //     expected: {
+    //         data: [['a', 'b', 'c']],
+    //         errors: []
+    //     }
     // },
     {
         description: "Fast mode with preview",
@@ -1091,7 +1091,7 @@ function compare(actualData: any[], actualErrors: any[], expected: ParserTestExp
             }
         }
 
-        if (passed)	// final check will catch any other differences
+        if (passed)    // final check will catch any other differences
             passed = JSON.stringify(actual) == JSON.stringify(expected);
 
         // We pass back an object right now, even though it only contains

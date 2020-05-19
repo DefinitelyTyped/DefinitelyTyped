@@ -31,7 +31,7 @@ export interface ChromePerfLoggingPrefs {
 
 export interface ChromeOptions {
     /**
-     * 	List of command-line arguments to use when starting Chrome. Arguments with an associated value should be separated by a '=' sign
+     *     List of command-line arguments to use when starting Chrome. Arguments with an associated value should be separated by a '=' sign
      * (e.g., ['start-maximized', 'user-data-dir=/tmp/temp_profile']).
      */
     args?: string[];

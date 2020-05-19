@@ -40,6 +40,8 @@
 //                 Cl3dson <https://github.com/cl3dson>
 //                 Richard Simko <https://github.com/richardsimko>
 //                 Marek Tuchalski <https://github.com/ith>
+//                 Jeremy Bensimon <https://github.com/jeremyben>
+//                 The Half Blood Prince <https://github.com/tHBp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -1044,6 +1046,11 @@ declare module "mongoose" {
   interface SchemaOptions {
     /** defaults to false (which means use the connection's autoIndex option) */
     autoIndex?: boolean;
+    /**
+     * When false, use the connection's autoCreate option
+     * @default false
+     */
+    autoCreate?: boolean;
     /** defaults to true */
     bufferCommands?: boolean;
     /** defaults to false */
@@ -1070,6 +1077,8 @@ declare module "mongoose" {
 
     /** defaults to null */
     shardKey?: object;
+    /** no default */
+    strictQuery?: boolean;
     /** defaults to true */
     strict?: boolean | 'throw';
     /** no default */
@@ -1992,6 +2001,12 @@ declare module "mongoose" {
     findOne(callback?: (err: any, res: DocType | null) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
     findOne(criteria: FilterQuery<DocType>,
       callback?: (err: any, res: DocType | null) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
+    findOne(criteria: FilterQuery<DocType>, projection: any,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
+    findOne(criteria: FilterQuery<DocType>, projection: any, options: { lean: true } & Omit<QueryFindBaseOptions, 'lean'>,
+      callback?: (err: any, res: T | null) => void): Query<DocumentDefinition<DocType>> & QueryHelpers;
+    findOne(criteria: FilterQuery<DocType>, projection: any, options: QueryFindBaseOptions,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
 
     /**
      * Issues a mongodb findAndModify remove command.
@@ -2033,6 +2048,10 @@ declare module "mongoose" {
     findOneAndUpdate(query: FilterQuery<DocType>, update: UpdateQuery<DocType>, options: { rawResult: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType | null>, res: any) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<DocType | null>> & QueryHelpers;
+    findOneAndUpdate(query: FilterQuery<DocType>, update: UpdateQuery<DocType>,
+      options: { lean: true } & Omit<QueryFindOneAndUpdateOptions, 'lean'>,
+      callback?: (err: any, doc: DocumentDefinition<DocType>, res: any) => void)
+        : Query<DocumentDefinition<DocType>> & QueryHelpers;
     findOneAndUpdate(query: FilterQuery<DocType>, update: UpdateQuery<DocType>, options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
 
@@ -2207,7 +2226,7 @@ declare module "mongoose" {
      *
      * @param err optional error to throw if no docs match `filter`
      */
-    orFail(err?: Error | (() => Error)): this;
+    orFail(err?: Error | (() => Error)): DocumentQuery<NonNullable<T>, DocType, QueryHelpers>;
 
     /** Specifies a $polygon condition */
     polygon(...coordinatePairs: number[][]): this;
@@ -2365,6 +2384,32 @@ declare module "mongoose" {
   // mquery currently does not have a type definition please
   //   replace it if one is ever created
   class mquery { }
+
+  // https://mongoosejs.com/docs/api.html#query_Query-setOptions
+  interface QueryFindBaseOptions {
+    /** Sets a default collation for every query and aggregation. */
+    collation?: CollationOptions;
+    explain?: any;
+    lean?: boolean;
+    populate?: string | ModelPopulateOptions;
+    /** like select, it determines which fields to return */
+    projection?: any;
+    /** use client session for transaction */
+    session?: ClientSession;
+  }
+
+  interface QueryFindOptions extends QueryFindBaseOptions {
+    batchSize?: number;
+    comment?: any;
+    hint?: any;
+    limit?: number;
+    maxscan?: number;
+    readPreference?: mongodb.ReadPreferenceMode;
+    skip?: number;
+    snapshot?: any;
+    sort?: any;
+    tailable?: any;
+  }
 
   interface QueryFindOneAndRemoveOptions {
     /**
@@ -2999,6 +3044,21 @@ declare module "mongoose" {
    */
   export var Model: Model<any>;
   interface Model<T extends Document, QueryHelpers = {}> extends NodeJS.EventEmitter, ModelProperties {
+    /** Base Mongoose instance the model uses. */
+    base: typeof mongoose;
+
+    /**
+     * If this is a discriminator model, baseModelName is the
+     * name of the base model.
+     */
+    baseModelName: string | undefined;
+
+    /** Registered discriminators for this model. */
+    discriminators: { [name: string]: Model<any> } | undefined;
+
+    /** The name of the model */
+    modelName: string;
+
     /**
      * Model constructor
      * Provides the interface to MongoDB collections as well as creates document instances.
@@ -3047,19 +3107,6 @@ declare module "mongoose" {
     bulkWrite(writes: any[], cb?: (err: any, res: mongodb.BulkWriteOpResultObject) => void): Promise<mongodb.BulkWriteOpResultObject>;
     bulkWrite(writes: any[], options?: mongodb.CollectionBulkWriteOptions): Promise<mongodb.BulkWriteOpResultObject>;
     bulkWrite(writes: any[], options: mongodb.CollectionBulkWriteOptions, cb: (err: any, res: mongodb.BulkWriteOpResultObject) => void): void;
-
-    /**
-     * Finds a single document by its _id field. findById(id) is almost*
-     * equivalent to findOne({ _id: id }). findById() triggers findOne hooks.
-     * @param id value of _id to query by
-     * @param projection optional fields to return
-     */
-    findById(id: any | string | number,
-      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
-    findById(id: any | string | number, projection: any,
-      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
-    findById(id: any | string | number, projection: any, options: any,
-      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
     model<U extends Document>(name: string): Model<U>;
 
@@ -3197,10 +3244,25 @@ declare module "mongoose" {
     find(conditions: FilterQuery<T>, callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T, QueryHelpers> & QueryHelpers;
     find(conditions: FilterQuery<T>, projection?: any | null,
       callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T, QueryHelpers> & QueryHelpers;
-    find(conditions: FilterQuery<T>, projection?: any | null, options?: any | null,
+    find(conditions: FilterQuery<T>, projection?: any | null, options?: { lean: true } & Omit<QueryFindOptions, 'lean'>,
+      callback?: (err: any, res: T[]) => void): Query<DocumentDefinition<T>[]> & QueryHelpers;
+    find(conditions: FilterQuery<T>, projection?: any | null, options?: QueryFindOptions,
       callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T, QueryHelpers> & QueryHelpers;
 
-
+    /**
+     * Finds a single document by its _id field. findById(id) is almost*
+     * equivalent to findOne({ _id: id }). findById() triggers findOne hooks.
+     * @param id value of _id to query by
+     * @param projection optional fields to return
+     */
+    findById(id: any | string | number,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
+    findById(id: any | string | number, projection: any,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
+    findById(id: any | string | number, projection: any, options: { lean: true } & Omit<QueryFindBaseOptions, 'lean'>,
+      callback?: (err: any, res: T | null) => void): Query<DocumentDefinition<T>> & QueryHelpers;
+    findById(id: any | string | number, projection: any, options: QueryFindBaseOptions,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
     /**
      * Issue a mongodb findAndModify remove command by a document's _id field.
@@ -3266,6 +3328,10 @@ declare module "mongoose" {
       callback?: (err: any, res: mongodb.FindAndModifyWriteOpResultObject<T | null>) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
     findByIdAndUpdate(id: any | number | string, update: UpdateQuery<T>,
+      options: { lean: true } & Omit<QueryFindOneAndUpdateOptions, 'lean'>,
+      callback?: (err: any, res: DocumentDefinition<T>) => void)
+        : Query<DocumentDefinition<T>> & QueryHelpers;
+    findByIdAndUpdate(id: any | number | string, update: UpdateQuery<T>,
       options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
@@ -3278,7 +3344,9 @@ declare module "mongoose" {
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
     findOne(conditions: FilterQuery<T>, projection: any,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
-    findOne(conditions: FilterQuery<T>, projection: any, options: any,
+    findOne(conditions: FilterQuery<T>, projection: any, options: { lean: true } & Omit<QueryFindBaseOptions, 'lean'>,
+      callback?: (err: any, res: T | null) => void): Query<DocumentDefinition<T>> & QueryHelpers;
+    findOne(conditions: FilterQuery<T>, projection: any, options: QueryFindBaseOptions,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
     /**
@@ -3322,8 +3390,8 @@ declare module "mongoose" {
      * and returns the found document (if any) to the callback. The query executes immediately
      * if callback is passed else a Query object is returned.
      *
-+    * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than the deprecated findAndModify().
-+    * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
+     * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than the deprecated findAndModify().
+     * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
      */
     findOneAndUpdate(): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
     findOneAndUpdate(conditions: FilterQuery<T>, update: UpdateQuery<T>,
@@ -3339,6 +3407,9 @@ declare module "mongoose" {
       options: { rawResult: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<T | null>, res: any) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
+    findOneAndUpdate(conditions: FilterQuery<T>, update: UpdateQuery<T>,
+      options: { lean: true } & Omit<QueryFindOneAndUpdateOptions, 'lean'>,
+      callback?: (err: any, doc: DocumentDefinition<T>, res: any) => void): Query<DocumentDefinition<T>> & QueryHelpers;
     findOneAndUpdate(conditions: FilterQuery<T>, update: UpdateQuery<T>,
       options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
@@ -3507,26 +3578,11 @@ declare module "mongoose" {
   }
 
   interface ModelProperties {
-    /** Base Mongoose instance the model uses. */
-    base: typeof mongoose;
-
-    /**
-     * If this is a discriminator model, baseModelName is the
-     * name of the base model.
-     */
-    baseModelName: string | undefined;
-
     /** Collection the model uses. */
     collection: Collection;
 
     /** Connection the model uses. */
     db: Connection;
-
-    /** Registered discriminators for this model. */
-    discriminators: any;
-
-    /** The name of the model */
-    modelName: string;
 
     /** Schema the model uses. */
     schema: Schema;

@@ -837,5 +837,11 @@ export default class System extends EmitterBase<SystemEvents> {
      * @tutorial System.getServiceConfiguration
      */
     getServiceConfiguration(serviceIdentifier: ServiceIdentifier): Promise<ServiceConfiguration>;
+    /**
+     * Signals the RVM to perform a health check and returns the results as json.
+     * @return {Promise.<string[]>}
+     * @tutorial System.runRvmHealthCheck
+     */
+    runRvmHealthCheck(): Promise<string[]>;
 }
 export {};

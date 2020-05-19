@@ -103,7 +103,7 @@ declare namespace CrossFilter {
         top(k: number): T[];
         bottom(k: number): T[];
         dispose(): void;
-		group(): Group<T, TDimension, TDimension>;
+        group(): Group<T, TDimension, TDimension>;
         group<TGroup>(groupValue: (data: TDimension) => TGroup): Group<T, TDimension, TGroup>;
         groupAll(): GroupAll<T, T>;
         groupAll<TValue>(): GroupAll<T, TValue>;
@@ -112,6 +112,6 @@ declare namespace CrossFilter {
 
 declare module "crossfilter" {
     var crossfilter: CrossFilter.CrossFilterStatic;
-    export = crossfilter;    	
+    export = crossfilter;        
 }
 

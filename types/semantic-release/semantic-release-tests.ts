@@ -13,7 +13,7 @@ function publish(pluginConfig: any, context: lib.Context) {
 }
 
 const options: lib.GlobalConfig = {
-    branch: "master",
+    branches: "master",
     repositoryUrl: "https://github.com/semantic-release/semantic-release.git",
     // Lint check disabled for the following line because this is the actual
     // format used by semantic-release. This is not a broken template string.
@@ -32,6 +32,21 @@ const options: lib.GlobalConfig = {
     assets: [
         {
             path: "app.zip"
+        }
+    ]
+};
+
+const options2: lib.Options = {
+    branches: [
+        "master",
+        {
+            name: "next",
+            channel: "next",
+            prerelease: "beta"
+        },
+        {
+            name: "legacy",
+            range: "1.x"
         }
     ]
 };
@@ -67,7 +82,9 @@ const config: lib.Config = {
 
 const result: Promise<lib.Result> = semanticRelease(options, config);
 
-const result2: lib.Result = {
+const result2: Promise<lib.Result> = semanticRelease(options2);
+
+const result3: lib.Result = {
     lastRelease: {
         version: "1.1.0",
         gitTag: "v1.1.0",

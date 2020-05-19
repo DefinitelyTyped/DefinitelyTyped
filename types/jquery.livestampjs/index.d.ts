@@ -16,22 +16,22 @@ export as namespace LivestampGlobal;
 export = LivestampGlobal;
 
 interface LivestampGlobal {
-	update(): void;
-	pause(): void;
-	resume(): void;
-	interval(): number;
-	interval(interval: number): void;
+    update(): void;
+    pause(): void;
+    resume(): void;
+    interval(): number;
+    interval(interval: number): void;
 }
 
 declare global {
-	interface JQueryStatic {
-		livestamp: LivestampGlobal;
-	}
+    interface JQueryStatic {
+        livestamp: LivestampGlobal;
+    }
 
-	interface JQuery {
-		livestamp(date: Date): JQuery;
-		livestamp(moment: moment.Moment): JQuery;
-		livestamp(timestamp: number): JQuery;
-		livestamp(timestamp: string): JQuery;
-	}
+    interface JQuery {
+        livestamp(date: Date): JQuery;
+        livestamp(moment: moment.Moment): JQuery;
+        livestamp(timestamp: number): JQuery;
+        livestamp(timestamp: string): JQuery;
+    }
 }

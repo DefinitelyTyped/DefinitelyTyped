@@ -47,6 +47,12 @@ function testUsingWithExpress() {
     });
 }
 
+function testUsingWithOptions() {
+    var app = require('express')();
+    var server = require('http').Server(app);
+    var io = socketIO(server, {wsEngine: 'ws'});
+}
+
 function testUsingWithTheExpressFramework() {
     var app = require('express').createServer();
     var io = socketIO(app);
@@ -157,15 +163,15 @@ function testSocketConnection() {
     var io = socketIO.listen(80);
 
     io.sockets.on('connection', function (socket) {
-		console.log(socket.client.conn === socket.conn);
-		console.log(socket.client.request.httpVersion);
-		console.log(socket.conn.id);
-		console.log(socket.conn.upgraded);
-		console.log(socket.conn.readyState);
+        console.log(socket.client.conn === socket.conn);
+        console.log(socket.client.request.httpVersion);
+        console.log(socket.conn.id);
+        console.log(socket.conn.upgraded);
+        console.log(socket.conn.readyState);
 
-		socket.on('packet', function(message :string, ping :string){
-			console.log(message, ping);
-		});;
+        socket.on('packet', function(message :string, ping :string){
+            console.log(message, ping);
+        });;
     });
 }
 

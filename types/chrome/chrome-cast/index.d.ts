@@ -966,7 +966,7 @@ declare namespace chrome.cast.media {
         contentId: string;
         streamType: chrome.cast.media.StreamType;
         contentType: string;
-        metadata: Object;
+        metadata: any;
         duration: number;
         tracks: Array<chrome.cast.media.Track>;
         textTrackStyle: chrome.cast.media.TextTrackStyle;
@@ -1262,7 +1262,7 @@ declare namespace chrome.cast.media {
         fontStyle: chrome.cast.media.TextTrackFontStyle;
         customData: Object;
     }
-    
+
     export class LiveSeekableRange {
         /**
          * @constructor
@@ -1274,7 +1274,7 @@ declare namespace chrome.cast.media {
             isMovingWindow?: boolean,
             isLiveDone?: boolean
         );
-        
+
         start?: number;
         end?: number;
         isMovingWindow?: boolean;

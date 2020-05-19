@@ -2627,7 +2627,7 @@ declare global {
             MetadataId: string;
             ObjectTypeCode: number;
             OneToManyRelationships: OneToManyRelationshipMetadata;
-            OwnershipType: "BusinessOwned" | "BusinessParented" | "None	OrganizationOwned" | "TeamOwned	UserOwned";
+            OwnershipType: "BusinessOwned" | "BusinessParented" | "None    OrganizationOwned" | "TeamOwned    UserOwned";
             PrimaryIdAttribute: string;
             PrimaryImageAttribute: string;
             PrimaryNameAttribute: string;
@@ -2720,7 +2720,7 @@ declare global {
         export interface IAttributeMetadata {
             AttributeOf: string;
             AttributeType: "Customer" | "DateTime" | "Decimal" | "Double" | "EntityName" | "Integer" | "Lookup" | "ManagedProperty" | "Memo" | "Money" | "Owner" | "PartyList" | "Picklist" | "State" | "Status" | "Uniqueidentifier" | "Virtual"
-            AttributeTypeName: "BigIntType" | "BooleanType" | "CalendarRulesType" | "CustomerType" | "DateTimeType" | "DecimalType" | "DoubleType" | "EntityNameType" | "ImageType" | "IntegerType" | "LookupType" | "ManagedPropertyType" | "MemoType" | "MoneyType" | "OwnerType" | "PartyListType" | "PicklistType" | "StateType	StatusType" | "StringType" | "UniqueidentifierType" | "VirtualType";
+            AttributeTypeName: "BigIntType" | "BooleanType" | "CalendarRulesType" | "CustomerType" | "DateTimeType" | "DecimalType" | "DoubleType" | "EntityNameType" | "ImageType" | "IntegerType" | "LookupType" | "ManagedPropertyType" | "MemoType" | "MoneyType" | "OwnerType" | "PartyListType" | "PicklistType" | "StateType    StatusType" | "StringType" | "UniqueidentifierType" | "VirtualType";
             CalculationOf: any;
             CanBeSecuredForCreate: boolean;
             CanBeSecuredForRead: boolean;
