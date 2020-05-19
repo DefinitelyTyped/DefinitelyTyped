@@ -8,6 +8,7 @@ import {
     DatePickerInput,
     Dropdown,
     HeaderContainer,
+    HeaderMenu,
     FileUploader,
     NumberInput,
     Slider,
@@ -267,14 +268,38 @@ const uisHeaderContainerAnonRender = (
     />
 );
 
-class HeaderContainerRender1 extends React.Component<{ someProp: number }> {
-    render() {
-        return <div/>;
-    }
-}
+const HeaderCompRender1: React.FC<{ someProp: number }> = () => <div/>;
+const HeaderCompRender2: React.FC<{ someProp?: number }> = () => <div/>;
 
-const uisHeaderContainerCompRenderNotMatchingProps = (
-    <HeaderContainer render={HeaderContainerRender1} />
+/*
+ * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
+ *  will be used.
+ */
+const uisHeaderContainerCompRenderNotMatchingRequiredProps = (
+    <HeaderContainer render={HeaderCompRender1} />
+);
+
+const uisHeaderContainerCompRenderNotMatchingOptionalProps = (
+    <HeaderContainer render={HeaderCompRender2} />
+);
+
+// UI Shell - HeaderMenu
+const uisHeaderMenuAnonRender = (
+    <HeaderMenu menuLinkName="test" renderMenuContent={() => <div/>}>
+        <div/>
+    </HeaderMenu>
+);
+
+/*
+ * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
+ *  will be used.
+ */
+const uisHeaderMenuCompRenderNotMatchingRequiredProps = (
+    <HeaderMenu menuLinkName="test" renderMenuContent={HeaderCompRender1} />
+);
+
+const uisHeaderMenuCompRenderNotMatchingOptionalProps = (
+    <HeaderMenu menuLinkName="test" renderMenuContent={HeaderCompRender2} />
 );
 
 interface TestCompPropsOverwrite {
