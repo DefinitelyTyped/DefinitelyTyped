@@ -3,9 +3,11 @@ import * as lowfp from "lowdb/lib/fp";
 import * as Base from "lowdb/adapters/Base";
 import * as FileSync from "lowdb/adapters/FileSync";
 import * as FileAsync from "lowdb/adapters/FileAsync";
+import * as Memory from "lowdb/adapaters/Memory";
 import * as LocalStorage from "lowdb/adapters/LocalStorage";
 import { find, filter, random, concat, sortBy, take, set } from "lodash/fp";
 
+const adapterMemory = new Memory();
 const adapterSync = new FileSync<DbSchema>("db.json");
 const adapterAsync = new FileAsync<DbSchema>("db.json");
 const db = low(adapterSync);

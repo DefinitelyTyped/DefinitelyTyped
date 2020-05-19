@@ -2,6 +2,7 @@
 // Project: https://github.com/typicode/lowdb
 // Definitions by: typicode <https://github.com/typicode>
 //                 Bazyli Brzóska <https://github.com/niieani>
+//                 Austin Cawley-Edwards <https://github.com/austince>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -48,7 +49,7 @@ declare namespace Lowdb {
 
   interface AdapterSync<SchemaT = any> extends BaseAdapter<SchemaT> {
     new <SchemaT = any>(
-      source: string,
+      source?: string,
       options?: AdapterOptions<SchemaT>
     ): AdapterSync<SchemaT>;
     write(state: object): void;
