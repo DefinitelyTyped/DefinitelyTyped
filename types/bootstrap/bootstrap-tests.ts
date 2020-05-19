@@ -245,7 +245,7 @@ $("#scrollspy").scrollspy({
 });
 
 $("#scrollspy").scrollspy({
-    target: $("navbar-example2"),
+    target: $("#navbar-example2"),
 });
 
 $("#scrollspy").scrollspy({
