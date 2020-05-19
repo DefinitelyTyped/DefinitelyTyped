@@ -24,6 +24,7 @@ export interface GaugeChartProps {
     animate?: boolean;
     animDelay?: number;
     formatTextValue?: (value: string) => string;
+    fontSize?: string;
 }
 
 export default function GaugeChart(props: GaugeChartProps): React.ReactElement;
