@@ -3049,16 +3049,16 @@
             "asOfVersion": "1.1.0"
         },
         {
-            "libraryName": "node-waves",
-            "typingsPackageName": "node-waves",
-            "sourceRepoURL": "http://fian.my.id/Waves",
-            "asOfVersion": "0.7.6"
-        },
-        {
             "libraryName": "node-vault",
             "typingsPackageName": "node-vault",
             "sourceRepoURL": "https://github.com/kr1sp1n/node-vault",
             "asOfVersion": "0.9.13"
+        },
+        {
+            "libraryName": "node-waves",
+            "typingsPackageName": "node-waves",
+            "sourceRepoURL": "http://fian.my.id/Waves",
+            "asOfVersion": "0.7.6"
         },
         {
             "libraryName": "nookies",
@@ -5507,6 +5507,72 @@
             "typingsPackageName": "word-wrap",
             "sourceRepoURL": "https://github.com/jonschlinkert/word-wrap",
             "asOfVersion": "1.2.1"
+        },
+        {
+            "libraryName": "@wordpress/a11y",
+            "typingsPackageName": "wordpress__a11y",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.9.0"
+        },
+        {
+            "libraryName": "@wordpress/autop",
+            "typingsPackageName": "wordpress__autop",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
+        },
+        {
+            "libraryName": "@wordpress/blob",
+            "typingsPackageName": "wordpress__blob",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.8.0"
+        },
+        {
+            "libraryName": "@wordpress/dom-ready",
+            "typingsPackageName": "wordpress__dom-ready",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.9.0"
+        },
+        {
+            "libraryName": "@wordpress/escape-html",
+            "typingsPackageName": "wordpress__escape-html",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "1.8.0"
+        },
+        {
+            "libraryName": "@wordpress/html-entities",
+            "typingsPackageName": "wordpress__html-entities",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
+        },
+        {
+            "libraryName": "@wordpress/i18n",
+            "typingsPackageName": "wordpress__i18n",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "3.11.0"
+        },
+        {
+            "libraryName": "@wordpress/is-shallow-equal",
+            "typingsPackageName": "wordpress__is-shallow-equal",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "@wordpress/priority-queue",
+            "typingsPackageName": "wordpress__priority-queue",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "1.6.0"
+        },
+        {
+            "libraryName": "@wordpress/token-list",
+            "typingsPackageName": "wordpress__token-list",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "1.10.0"
+        },
+        {
+            "libraryName": "@wordpress/url",
+            "typingsPackageName": "wordpress__url",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.14.0"
         },
         {
             "libraryName": "wouter",
