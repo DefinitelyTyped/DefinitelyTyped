@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { PropsWithoutRef, RefAttributes, JSXElementConstructor } from '../../react/index';
-import { JSX } from '../../babel-types';
 
 export interface ReactAttr<T = HTMLElement> extends React.HTMLAttributes<T> {}
 export interface ReactAnchorAttr<T = HTMLAnchorElement> extends React.AnchorHTMLAttributes<T> {}
@@ -91,7 +89,9 @@ export interface RefForwardingProps<T = HTMLElement> {
 // aliases for some React types that it doesn't export directly. They are needed to make sure we match the signatures
 // as close as possible
 export type FCReturn = ReturnType<React.FC>;
-export type ForwardRefReturn<T, P = {}> = React.ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+export type ForwardRefReturn<T, P = {}> = React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<P> & React.RefAttributes<T>
+>;
 export type FCProps<P = {}> = Parameters<React.FC<P>>[0];
 export type ForwardRefRefType<T> = Parameters<React.ForwardRefRenderFunction<T, unknown>>[1];
 
