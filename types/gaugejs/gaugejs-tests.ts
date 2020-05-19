@@ -1,4 +1,4 @@
-import { Gauge, GaugeOptions } from "gaugeJS";
+import { Gauge, GaugeOptions } from "gaugejs";
 
 const opts: GaugeOptions = {
     angle: 0.15, // The span of the gauge arc
