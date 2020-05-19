@@ -9,8 +9,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-export = SingleSpaReact;
-declare function SingleSpaReact(
+export default function SingleSpaReact(
     opts: SingleSpaReact.Options
 ): SingleSpaReact.Lifecycles;
 
