@@ -60,24 +60,6 @@ describe('ReactDOM', () => {
 
         ReactDOM.render(<ClassComponent />, rootElement);
     });
-
-    it('unstable_ APIs are untyped', () => {
-        // $ExpectError
-        ReactDOM.unstable_batchedUpdates(() => {});
-        class Component extends React.Component {
-            componentDidMount() {
-                // $ExpectError
-                ReactDOM.unstable_renderSubtreeIntoContainer(
-                    this,
-                    React.createElement('div'),
-                    document.createElement('div')
-                );
-            }
-            render() {
-                return null;
-            }
-        }
-    });
 });
 
 describe('ReactDOMServer', () => {
