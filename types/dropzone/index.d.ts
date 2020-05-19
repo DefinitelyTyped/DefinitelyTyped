@@ -31,6 +31,7 @@ declare namespace Dropzone {
         progress: number;
         total: number;
         bytesSent: number;
+        uuid: string;
     }
 
     export interface DropzoneFile extends File {
