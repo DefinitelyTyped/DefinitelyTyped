@@ -376,8 +376,8 @@ export interface SelectRowProps<T> {
     nonSelectableClasses?: ((row: T, rowIndex: number) => string | undefined) | string;
     bgColor?: string;
     hideSelectColumn?: boolean;
-    selectionRenderer?: ReactElement<{ mode: string; checked: boolean; disabled: boolean }>;
-    selectionHeaderRenderer?: ReactElement<{ mode: string; checked: boolean; indeterminate: boolean }>;
+    selectionRenderer?: (options: { checked: boolean; disabled: boolean, mode: string; rowIndex: number }) => JSX.Element;
+    selectionHeaderRenderer?: (options: { mode: string, checked: boolean, indeterminate: boolean }) => JSX.Element;
     headerColumnStyle?: ((status: TableCheckboxStatus) => CSSProperties | undefined) | CSSProperties;
     selectColumnStyle?:
         | ((props: {
