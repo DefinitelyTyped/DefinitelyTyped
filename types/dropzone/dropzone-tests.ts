@@ -193,6 +193,11 @@ dropzone.files.forEach(f => {
     } else {
         console.log(f.status.toUpperCase());
     }
+    if (f.upload) {
+        console.log(f.upload.progress);
+        console.log(f.upload.bytesSent);
+        console.log(f.upload.total);
+    }
 });
 
 const firstFile = dropzone.files[0];
