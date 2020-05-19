@@ -979,6 +979,14 @@ export interface Commands<R> {
     TYPE(key: string, cb?: Callback<string>): R;
 
     /**
+     * Deletes a key in a non-blocking manner.
+     * Very similar to DEL, but actual memory reclamation
+     * happens in a different thread, making this non-blocking.
+     */
+    unlink: OverloadedCommand<string, number, R>;
+    UNLINK: OverloadedCommand<string, number, R>;
+
+    /**
      * Forget about all watched keys.
      */
     unwatch(cb?: Callback<'OK'>): R;
