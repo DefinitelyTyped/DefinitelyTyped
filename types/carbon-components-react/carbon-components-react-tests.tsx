@@ -11,6 +11,7 @@ import {
     HeaderMenu,
     FileUploader,
     NumberInput,
+    Row,
     Slider,
     Tab,
     Table,
@@ -465,4 +466,33 @@ const multiSelectFilterable = (
         itemToString={item => item}
         onChange={({ selectedItems }) => {}}
     />
+);
+
+// Grid
+
+const GridCustomRenderComp1: React.FC<{ someProp: number }> = () => <div/>;
+
+// Grid: Row
+const rowDefaultT1 = (
+    <Row onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
+        Contents
+    </Row>
+);
+
+const rowDefaultT2 = (
+    <Row as={undefined} onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
+        Contents
+    </Row>
+);
+
+const rowCustomIntrinsic = (
+    <Row as="li" onClick={(event: React.MouseEvent<HTMLLIElement>) => {}}>
+        Contents
+    </Row>
+);
+
+const rowCustomComp1 = (
+    <Row as={GridCustomRenderComp1} someProp={5} condensed>
+        Content
+    </Row>
 );
