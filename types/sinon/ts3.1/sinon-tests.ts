@@ -417,7 +417,10 @@ function testSpy() {
     const spyTwo = sinon.spy().named('spyTwo');
 
     const methodSpy = sinon.spy(instance, 'foo'); // $ExpectType SinonSpy<[], void>
+    methodSpy.wrappedMethod; // $ExpectType () => void
+
     const methodSpy2 = sinon.spy(instance, 'foobar'); // $ExpectType SinonSpy<[(string | undefined)?], string | undefined>
+    methodSpy2.wrappedMethod; // $ExpectType (p1?: string | undefined) => string | undefined
 
     methodSpy.calledBefore(methodSpy2);
     methodSpy.calledAfter(methodSpy2);

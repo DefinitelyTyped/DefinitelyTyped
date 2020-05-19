@@ -215,6 +215,11 @@ declare namespace Sinon {
          */
         returnValues: TReturnValue[];
 
+        /**
+         * Holds a reference to the original method/function this stub has wrapped.
+         */
+        wrappedMethod: (...args: TArgs) => TReturnValue;
+
         // Methods
         (...args: TArgs): TReturnValue;
 
