@@ -145,6 +145,16 @@ zoomPanOptions = {
 	noMoveStart: true
 };
 
+let invalidateSizeOptions: L.InvalidateSizeOptions = {};
+invalidateSizeOptions = {
+	animate: false,
+	debounceMoveend: true,
+	duration: 0.5,
+	easeLinearity: 0.6,
+	noMoveStart: true,
+	pan: false
+};
+
 const zoomOptions: L.ZoomOptions = {};
 
 const panOptions: L.PanOptions = {};
@@ -411,8 +421,9 @@ map = map
 	.panInsideBounds(latLngBounds, panOptions)
 	.panInsideBounds(latLngBoundsLiteral)
 	.panInsideBounds(latLngBoundsLiteral, panOptions)
-	.invalidateSize(zoomPanOptions)
+	.invalidateSize(invalidateSizeOptions)
 	.invalidateSize(false)
+	.invalidateSize({ debounceMoveend: true, pan: false })
 	.stop()
 	.flyTo(latLng)
 	.flyTo(latLng, 12)
