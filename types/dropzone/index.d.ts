@@ -169,6 +169,7 @@ declare class Dropzone {
     static ERROR: string;
     static SUCCESS: string;
 
+    element: string | HTMLElement;
     files: Dropzone.DropzoneFile[];
     defaultOptions: Dropzone.DropzoneOptions;
     options: Dropzone.DropzoneOptions;

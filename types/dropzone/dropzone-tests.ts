@@ -174,6 +174,8 @@ dropzoneWithOptionsVariations = new Dropzone('.test', {
 
 const dropzone = new Dropzone('.test');
 
+dropzone.element;
+
 dropzone.options.clickable = true;
 if (!dropzone.options.headers) {
     dropzone.options.headers = {};
