@@ -26,6 +26,12 @@ declare namespace Dropzone {
         trgHeight?: number;
     }
 
+    export interface DropzoneFileUpload {
+        progress: number;
+        total: number;
+        bytesSent: number;
+    }
+
     export interface DropzoneFile extends File {
         previewElement: HTMLElement;
         previewTemplate: HTMLElement;
@@ -33,6 +39,7 @@ declare namespace Dropzone {
         status: string;
         accepted: boolean;
         xhr?: XMLHttpRequest;
+        upload?: DropzoneFileUpload;
     }
 
     export interface DropzoneDictFileSizeUnits {
