@@ -208,6 +208,10 @@ declare namespace Waterline {
         sum(attribute: string): QueryBuilder<T>;
         average(attribute: string): QueryBuilder<T>;
     }
+    type CRUDBuilder<T> = WaterlinePromise<T> & {
+        fetch(): CRUDBuilder<T>;
+    }
+
     interface ModelInstance {
         id?: number | string;
         createdAt?: Date;
@@ -219,8 +223,9 @@ declare namespace Waterline {
         (err: any, result: T): any;
     }
     export interface Model extends ModelInstance {
-        create(params: any, cb?: Callback<any>): WaterlinePromise<any>;
-        create(params: any[], cb?: Callback<any>): WaterlinePromise<any[]>;
+        create(params: any, cb?: Callback<any>): CRUDBuilder<any>;
+        create(params: any[], cb?: Callback<any>): CRUDBuilder<any[]>;
+        createEach(params: any[], cb?: Callback<any>): CRUDBuilder<any[]>;
 
         find(criteria?: any, cb?: Callback<any[]>): QueryBuilder<any[]>;
 
@@ -228,11 +233,11 @@ declare namespace Waterline {
 
         findOrCreate(criteria?: any, values?: any, cb?: Callback<any>): QueryBuilder<any>;
 
-        update(criteria: any, changes: any, cb?: Callback<any>): WaterlinePromise<any[]>;
-        update(criteria: any, changes: any[], cb?: Callback<any[]>): WaterlinePromise<any[]>;
+        update(criteria: any, changes: any, cb?: Callback<any>): CRUDBuilder<any[]>;
+        update(criteria: any, changes: any[], cb?: Callback<any[]>): CRUDBuilder<any[]>;
 
-        destroy(criteria: any, cb?: Callback<any>): WaterlinePromise<any[]>;
-        destroy(criteria: any[], cb?: Callback<any[]>): WaterlinePromise<any[]>;
+        destroy(criteria: any, cb?: Callback<any>): CRUDBuilder<any[]>;
+        destroy(criteria: any[], cb?: Callback<any[]>): CRUDBuilder<any[]>;
 
         count(criteria: any): WaterlinePromise<number>;
         count(criteria: any[]): WaterlinePromise<number>;
