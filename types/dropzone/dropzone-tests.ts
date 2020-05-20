@@ -210,6 +210,8 @@ dropzone.files.forEach(f => {
 });
 
 const firstFile = dropzone.files[0];
+firstFile.dataURL;
+
 dropzone.removeFile(firstFile);
 dropzone.addFile(firstFile);
 dropzone.enqueueFile(firstFile);

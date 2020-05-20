@@ -27,6 +27,7 @@ declare namespace Dropzone {
     }
 
     export interface DropzoneFile extends File {
+        dataURL?: string;
         previewElement: HTMLElement;
         previewTemplate: HTMLElement;
         previewsContainer: HTMLElement;
