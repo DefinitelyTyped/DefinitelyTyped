@@ -948,6 +948,7 @@ export interface AuthorizeOptions {
     login_hint?: string;
     prompt?: string;
     mode?: "login" | "signUp";
+    screen_hint?: "signup";
     accessType?: string;
     approvalPrompt?: string;
     appState?: any;
