@@ -961,3 +961,7 @@ export interface CheckSessionOptions extends AuthorizeOptions {
      */
     usePostMessage?: boolean;
 }
+
+export const version: {
+    raw: string;
+};
