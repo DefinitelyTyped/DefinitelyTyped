@@ -68,7 +68,7 @@ export type SupportOptionName =
     | 'tabWidth'
     | 'trailingComma'
     | 'useTabs'
-    | 'vueIndentScriptAndStyle'
+    | 'vueIndentScriptAndStyle';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
