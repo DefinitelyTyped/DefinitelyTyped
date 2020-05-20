@@ -177,6 +177,7 @@ declare namespace Waterline {
         min(attribute: string): QueryBuilder<T>;
         sum(attribute: string): QueryBuilder<T>;
         average(attribute: string): QueryBuilder<T>;
+        meta(options: any): QueryBuilder<T>;
     }
     type CRUDBuilder<T> = WaterlinePromise<T> & {
         fetch(): CRUDBuilder<T>;
