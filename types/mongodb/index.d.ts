@@ -30,6 +30,7 @@
 //                 Igor Strebezhev <https://github.com/xamgore>
 //                 Valentin Agachi <https://github.com/avaly>
 //                 HitkoDev <https://github.com/HitkoDev>
+//                 Julien TASSIN <https://github.com/jtassin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -283,7 +284,6 @@ export class MongoParseError extends MongoError {
     constructor(message: string);
 }
 
-
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#.connect */
 export interface MongoClientOptions extends
     DbCreateOptions,
@@ -360,6 +360,12 @@ export interface MongoClientOptions extends
      * Mechanism for authentication: DEFAULT, GSSAPI, PLAIN, MONGODB-X509, 'MONGODB-CR', SCRAM-SHA-1 or SCRAM-SHA-256
      */
     authMechanism?: 'DEFAULT' | 'GSSAPI' | 'PLAIN' | 'MONGODB-X509' | 'MONGODB-CR' | 'SCRAM-SHA-1' | 'SCRAM-SHA-256' | string;
+
+    /** Type of compression to use */
+    compression?: {
+        /** The selected compressors in preference order */
+        compressors?: Array<('snappy' | 'zlib')>;
+    };
 }
 
 export interface SSLOptions {
@@ -2433,10 +2439,8 @@ export interface GridFSBucketOptions {
     readPreference?: ReadPreferenceOrMode;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#~errorCallback */
-export interface GridFSBucketErrorCallback {
-    (err?: MongoError): void;
-}
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#~errorCallback */
+export interface GridFSBucketErrorCallback extends MongoCallback<void> {}
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#find */
 export interface GridFSBucketFindOptions {
@@ -2481,7 +2485,7 @@ export class GridFSBucketWriteStream extends Writable {
      * @param [callback] called when chunks are successfully removed or error occurred
      * @see {@link https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketWriteStream.html#abort}
      */
-    abort(callback?: () => void): void;
+    abort(callback?: GridFSBucketErrorCallback): void;
 }
 
 /** https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucketWriteStream.html */

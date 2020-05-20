@@ -1,9 +1,10 @@
-// Type definitions for mui-datatables 2.13
+// Type definitions for mui-datatables 2.14
 // Project: https://github.com/gregnb/mui-datatables
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
 //                 Ankith Konda <https://github.com/ankithkonda>
 //                 Herman "Von" Waters IV <https://github.com/hwatersiv>
 //                 souppower <https://github.com/souppower>
+//                 Byron "Byrekt" Mitchell <https://github.com/byrekt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -44,7 +45,7 @@ export interface MUIDataTableState {
 }
 
 export interface MUIDataTableMeta {
-    columnData: MUIDataTableColumnOptions[];
+    columnData: MUIDataTableColumnState;
     columnIndex: number;
     rowData: any[];
     rowIndex: number;
@@ -120,7 +121,7 @@ export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
 }
 
 export interface MUIDataTableColumnOptions {
-    customBodyRender?: (value: any, tableMeta: MUIDataTableMeta, updateValue: (s: any, c: any, p: any) => any) => string | React.ReactNode;
+    customBodyRender?: (value: any, tableMeta: MUIDataTableMeta, updateValue: (value: string) => void) => string | React.ReactNode;
     customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string | React.ReactNode;
     customFilterListRender?: (value: any) => string;
     display?: 'true' | 'false' | 'excluded';

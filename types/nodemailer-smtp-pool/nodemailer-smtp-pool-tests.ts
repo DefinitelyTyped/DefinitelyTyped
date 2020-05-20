@@ -3,8 +3,8 @@ import smtpPool = require('nodemailer-smtp-pool');
 import nodemailer = require('nodemailer');
 
 var opts: smtpPool.SmtpPoolOptions = {
-	maxConnections: 5,
-	maxMessages: 10
+    maxConnections: 5,
+    maxMessages: 10
 };
 
 var transport: nodemailer.Transport = smtpPool(opts);
@@ -18,6 +18,6 @@ var mailOptions: nodemailer.SendMailOptions = {
     html: '<b>Hello world ✔</b>' // html body
 };
 transport.send(mailOptions, (error: Error, info: nodemailer.SentMessageInfo): void => {
-	// nothing
+    // nothing
 });
 

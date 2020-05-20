@@ -42,7 +42,13 @@ function onGooglePayLoaded() {
     client.isReadyToPay({
         apiVersion: 2,
         apiVersionMinor: 0,
-        allowedPaymentMethods
+        allowedPaymentMethods: [{
+            type: 'CARD',
+            parameters: {
+                allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                allowedCardNetworks,
+            },
+        }]
     }).then(response => {
         if (response.result) {
             addGooglePayButton();
@@ -69,7 +75,11 @@ function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataReq
         apiVersion: 2,
         apiVersionMinor: 0,
         merchantInfo: {
-            merchantId: '01234567890123456789'
+            merchantId: '01234567890123456789',
+            softwareInfo: {
+                id: 'my.softwareInfo.test',
+                version: '1.0.0'
+            }
         },
         transactionInfo: {
             totalPriceStatus: 'FINAL',

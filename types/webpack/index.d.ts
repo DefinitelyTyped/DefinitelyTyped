@@ -7,7 +7,6 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
 //                 Alan Agius <https://github.com/alan-agius4>
-//                 Spencer Elliott <https://github.com/elliottsj>
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>

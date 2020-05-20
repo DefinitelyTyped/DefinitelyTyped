@@ -3,6 +3,7 @@
     "rules": {
         "no-angle-bracket-type-assertion": false,
         "no-any-union": false,
-        "no-outside-dependencies": false
+        "no-outside-dependencies": false,
+        "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
     }
 }

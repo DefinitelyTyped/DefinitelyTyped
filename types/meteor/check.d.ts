@@ -34,7 +34,7 @@ declare module "meteor/check" {
 
         function ObjectIncluding<T extends {[key: string]: Pattern}>(dico: T): Matcher<PatternMatch<T>>;
 
-        function OneOf<T extends Pattern>(...patterns: T[]): Matcher<PatternMatch<T>>;
+        function OneOf<T extends Pattern[]>(...patterns: T): Matcher<PatternMatch<T[number]>>;
 
         function Where(condition: (val: any) => boolean): Matcher<any>;
 

@@ -4,6 +4,7 @@
 //                 Qkramer <https://github.com/Qkramer>
 //                 Deskoh <https://github.com/deskoh>
 //                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
+//                 Rafa Horo <https://github.com/rafahoro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ValidationContext extends SimpleSchemaValidationContextStatic {
@@ -139,7 +140,7 @@ interface SimpleSchemaStatic {
   newContext(): ValidationContext;
   objectKeys(keyPrefix: any): any[];
   validate(obj: any, options?: ValidationOption): void;
-  validator(options?: ValidationOption): () => boolean;
+  validator(options?: ValidationOption): (obj: any) => boolean;
   extend(otherSchema: SimpleSchemaStatic): SimpleSchemaStatic;
   extendOptions(options: string[]): void;
   RegEx: {

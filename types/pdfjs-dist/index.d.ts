@@ -35,7 +35,7 @@ interface PDFInfo {
     PDFFormatVersion: string;
     IsAcroFormPresent: boolean;
     IsXFAPresent: boolean;
-    [key: string]: any;	// return type is string, typescript chokes
+    [key: string]: any;    // return type is string, typescript chokes
 }
 
 interface PDFMetadata {

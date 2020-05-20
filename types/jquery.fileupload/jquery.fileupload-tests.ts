@@ -27,15 +27,15 @@ var options: JQueryFileInputOptions = {
 
 class TestFileInput {
 
-	// The whole body will be the container for this test
-	$el = $('body');
+    // The whole body will be the container for this test
+    $el = $('body');
 
-	// Reference to the whole jQueryFileUpload object of the class
-	fileInput:JQueryFileUpload;
+    // Reference to the whole jQueryFileUpload object of the class
+    fileInput:JQueryFileUpload;
 
-	constructor() {
+    constructor() {
 
-		// The file upload object receives a fileInputOptions configuration object
-		this.fileInput = <JQueryFileUpload>this.$el.fileupload(options);
+        // The file upload object receives a fileInputOptions configuration object
+        this.fileInput = <JQueryFileUpload>this.$el.fileupload(options);
     }
 }

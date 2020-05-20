@@ -52,7 +52,7 @@ Constraints which you should consider:
   
   ```ts
   // Cannot have `export default` in the dts
-  modele.exports = {
+  module.exports = {
     thing: () => "hello world"
   }
   ```
@@ -61,7 +61,7 @@ Constraints which you should consider:
 
   ```ts
   // Can import via `export default`
-  modele.exports.default = {
+  module.exports.default = {
     thing: () => "hello world"
   }
   ```

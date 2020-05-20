@@ -223,7 +223,7 @@ declare namespace FHIR {
                  */
                 _format?: string;
                 /**
-                 * Type: dateTime	Only include resource versions that were current at some point during the time period specified
+                 * Type: dateTime    Only include resource versions that were current at some point during the time period specified
                  * in the date time value (may be more than one)
                  */
                 _at?: string;
