@@ -1,4 +1,4 @@
-// Type definitions for Auth0.js 9.12
+// Type definitions for Auth0.js 9.13.2
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
