@@ -1,10 +1,10 @@
-// NOTE: These definitions support NodeJS and TypeScript 3.5.
+// NOTE: These definitions support NodeJS and TypeScript 3.4.
 
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
 //          - ~/index.d.ts        - Definitions specific to TypeScript 2.1
-//          - ~/ts3.5/base.d.ts   - Definitions specific to TypeScript 3.5
-//          - ~/ts3.5/index.d.ts  - Definitions specific to TypeScript 3.5 with assert pulled in
+//          - ~/ts3.4/base.d.ts   - Definitions specific to TypeScript 3.4
+//          - ~/ts3.4/index.d.ts  - Definitions specific to TypeScript 3.4 with assert pulled in
 
 // Reference required types from the default lib:
 /// <reference lib="es2018" />
