@@ -107,46 +107,46 @@ assertIsNumber(node_calendar.timegm(timegmt));
 
 // FUNCTIONS ------------------------------------------------------------------
 function assertIsDate(d: Date) {
-	assert(d instanceof Date, 'Should be a date');
+    assert(d instanceof Date, 'Should be a date');
 }
 
 function assertIsNumber(n: number) {
-	assert(typeof n == 'number', 'Should be a number');
+    assert(typeof n == 'number', 'Should be a number');
 }
 
 function assertIsBoolean(b: boolean) {
-	assert(typeof b == 'boolean', 'Should be a boolean');
+    assert(typeof b == 'boolean', 'Should be a boolean');
 }
 
 function assertDayOfWeekMonth(d: [number, number]) {
-	assert(d instanceof Array, 'Day of weak/month should be an array');
-	assert(d.length == 2, 'Day of weak/month array should contain 2 items');
-	assert(typeof d[0] == 'number', 'Day of month should be a number');
-	assert(typeof d[1] == 'number', 'Day of week should be a number');
+    assert(d instanceof Array, 'Day of weak/month should be an array');
+    assert(d.length == 2, 'Day of weak/month array should contain 2 items');
+    assert(typeof d[0] == 'number', 'Day of month should be a number');
+    assert(typeof d[1] == 'number', 'Day of week should be a number');
 }
 
 function assertWeekRow<T>(row: IWeekRow<T>, assertItemType: (item: T) => void) {
-	row.forEach(assertItemType);
+    row.forEach(assertItemType);
 }
 
 function assertMonthGrid<T>(grid: IMonthGrid<T>, assertItemType: (item: T) => void) {
-	grid.forEach(wr => assertWeekRow(wr, assertItemType));
+    grid.forEach(wr => assertWeekRow(wr, assertItemType));
 }
 
 function assertMonthRow<T>(row: IMonthRow<T>, assertItemType: (item: T) => void) {
-	row.forEach(mg => assertMonthGrid(mg, assertItemType));
+    row.forEach(mg => assertMonthGrid(mg, assertItemType));
 }
 
 function assertYearGrid<T>(grid: IYearGrid<T>, assertItemType: (item: T) => void) {
-	grid.forEach(mr => assertMonthRow(mr, assertItemType));
+    grid.forEach(mr => assertMonthRow(mr, assertItemType));
 }
 
 function assert(condition: boolean, msg?: string): void {
-	if (condition) return;
-	throw new Error(msg);
+    if (condition) return;
+    throw new Error(msg);
 }
 
 function assertIsError(error: Error) {
-	assert(typeof error.name == 'string', 'Error name should exist and be a string');
-	assert(typeof error.message == 'string', 'Error message should exist and be a string');
+    assert(typeof error.name == 'string', 'Error name should exist and be a string');
+    assert(typeof error.message == 'string', 'Error message should exist and be a string');
 }

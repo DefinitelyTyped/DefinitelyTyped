@@ -1,4 +1,4 @@
-import JsonStreamStringify from 'json-stream-stringify';
+import JsonStreamStringify = require('json-stream-stringify');
 import { Readable } from 'stream';
 
 function ReadableStream(...args: any[]) {

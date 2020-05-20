@@ -771,7 +771,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T>(array?: List<T> | null, ...values: Array<List<T>>): T[];
+        intersectionWith<T>(array?: List<T> | null, ...values: Array<List<T> | Comparator2<T, never>>): T[];
     }
     interface Collection<T> {
         /**

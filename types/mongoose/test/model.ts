@@ -227,22 +227,22 @@ MongoModel.update({ age: { $gt: 18 } }, { oldEnough: true }, cb);
 MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true,  arrayFilters: [{ element: { $gte: 100 } }] }, cb);
 MongoModel.where('age').gte(21).lte(65).exec(cb);
 MongoModel.where('age').gte(21).lte(65).where('name', /^b/i);
-new (mongoModel.constructor.base.model(''))();
+new (MongoModel.base.model(''))();
 // $ExpectError
 mongoModel.baseModelName;
-mongoModel.constructor.baseModelName && mongoModel.constructor.baseModelName.toLowerCase();
+MongoModel.baseModelName && MongoModel.baseModelName.toLowerCase();
 mongoModel.collection.$format(99);
 mongoModel.collection.initializeOrderedBulkOp;
 mongoModel.collection.findOne;
 mongoModel.db.openUri('');
 // $ExpectError
 mongoModel.discriminators;
-mongoModel.constructor.discriminators;
+MongoModel.discriminators;
 // $ExpectError
 mongoModel.modelName;
-mongoModel.constructor.modelName;
-mongoModel.constructor.modelName.toLowerCase();
-MongoModel = mongoModel.constructor.base.model('new', mongoModel.schema);
+MongoModel.modelName;
+MongoModel.modelName.toLowerCase();
+MongoModel = MongoModel.base.model('new', mongoModel.schema);
 
 /* model inherited properties */
 MongoModel.collection;
@@ -270,6 +270,10 @@ MongoModel.find({
 .exec();
 
 /* practical example */
+interface Note extends mongoose.Document {
+    text: string
+}
+const noteSchema = new mongoose.Schema({ text: String })
 
 interface Location extends mongoose.Document {
   _id: mongodb.ObjectId;
@@ -280,6 +284,7 @@ interface Location extends mongoose.Document {
   coords: number[];
   openingTimes: any[];
   reviews: any[];
+  notes: Note[]
 };
 const locationSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -288,7 +293,8 @@ const locationSchema = new mongoose.Schema({
   facilities: [String],
   coords: { type: [Number], index: "2dsphere" },
   openingTimes: [mongoose.Schema.Types.Mixed],
-  reviews: [mongoose.SchemaTypes.Mixed]
+  reviews: [mongoose.SchemaTypes.Mixed],
+  notes: [noteSchema]
 });
 
 var locDocument = <Location>{};
@@ -587,3 +593,10 @@ LocModel.updateMany({ name: 'foo' }, { name: 123 });
 LocModel.updateMany({ name: 'foo' }, { $pull: { facilities: 123 } });
 // $ExpectError
 LocModel.updateMany({ name: 'foo' }, { $push: { coords: 'bar' } });
+
+LocModel.findByIdAndUpdate('someId',
+  { $pull: { notes: { _id: ['someId'] } } }
+);
+LocModel.findByIdAndUpdate('someId',
+  { $pull: { notes: { _id: { $in: ['someId', 'someId'] } } } }
+)

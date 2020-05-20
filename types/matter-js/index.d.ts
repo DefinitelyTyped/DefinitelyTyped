@@ -536,10 +536,10 @@ declare namespace Matter {
         strokeStyle?: string;
 
 
-		/*
-		 * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
-		 */
-		opacity?: number;
+        /*
+         * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
+         */
+        opacity?: number;
     }
 
     export interface IBodyRenderOptionsSprite {

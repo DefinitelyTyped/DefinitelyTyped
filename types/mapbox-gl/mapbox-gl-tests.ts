@@ -801,6 +801,9 @@ map.setPadding({ top: 10, bottom: 20, left: 30, right: 40 }, { myData: 'MY DATA'
 map.showPadding;
 map.showPadding = false;
 
+expectType<mapboxgl.Map>(map.setFilter('layerId', true));
+expectType<mapboxgl.Map>(map.setFilter('layerId', false));
+
 /*
  * Map Events
  */
@@ -1178,7 +1181,7 @@ expectType<mapboxgl.Expression>([
 const expression = expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
 
 /*
- *	ScrollZoomHandler
+ *    ScrollZoomHandler
  */
 expectType<void>(new mapboxgl.Map().scrollZoom.setZoomRate(1));
 expectType<void>(new mapboxgl.Map().scrollZoom.setWheelZoomRate(1));

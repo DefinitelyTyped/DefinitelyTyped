@@ -2,7 +2,6 @@
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
-//                 Alorel <https://github.com/Alorel>
 //                 jendrikw <https://github.com/jendrikw>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 vologa <https://github.com/vologab>
@@ -3524,8 +3523,6 @@ declare module "mongoose" {
 
   class Document {}
   interface Document extends MongooseDocument, NodeJS.EventEmitter, ModelProperties {
-    constructor: Model<this>;
-
     /** Signal that we desire an increment of this documents version. */
     increment(): this;
 

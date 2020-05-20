@@ -41,7 +41,7 @@ export interface FlagIconProps {
     rotate?: FlagIconRotate;
     Component?: string;
     /**
-     * 	Uses the 1x1 image if true.
+     *     Uses the 1x1 image if true.
      */
     squared?: boolean;
     /**

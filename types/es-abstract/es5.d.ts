@@ -2,86 +2,86 @@ import toPrimitive = require('es-to-primitive/es5');
 import isCallable = require('is-callable');
 
 import {
-	GenericDescriptor as ESGenericDescriptor,
-	AccessorDescriptor as ESAccessorDescriptor,
-	DataDescriptor as ESDataDescriptor,
-	PropertyDescriptor as ESPropertyDescriptor,
+    GenericDescriptor as ESGenericDescriptor,
+    AccessorDescriptor as ESAccessorDescriptor,
+    DataDescriptor as ESDataDescriptor,
+    PropertyDescriptor as ESPropertyDescriptor,
 } from './index';
 
 type TSPropertyDescriptor = PropertyDescriptor;
 
 interface ES5 {
-	readonly ToPrimitive: typeof toPrimitive;
-	ToBoolean(value: unknown): boolean;
-	ToNumber(value: unknown): number;
-	ToInteger(value: unknown): number;
-	ToInt32(value: unknown): number;
-	ToUint32(value: unknown): number;
-	ToUint16(value: unknown): number;
-	ToString(value: unknown): string;
-	// tslint:disable: ban-types
-	ToObject<T>(value: T): T extends object ? T
-		: T extends null | undefined ? never
-		: T extends string ? String
-		: T extends number ? Number
-		: T extends boolean ? Boolean
-		: T extends symbol ? Symbol
-		: T extends bigint ? BigInt
-		: object;
-	// tslint:enable: ban-types
-	CheckObjectCoercible<T>(value: T, errorMessage?: string): NonNullable<T>;
+    readonly ToPrimitive: typeof toPrimitive;
+    ToBoolean(value: unknown): boolean;
+    ToNumber(value: unknown): number;
+    ToInteger(value: unknown): number;
+    ToInt32(value: unknown): number;
+    ToUint32(value: unknown): number;
+    ToUint16(value: unknown): number;
+    ToString(value: unknown): string;
+    // tslint:disable: ban-types
+    ToObject<T>(value: T): T extends object ? T
+        : T extends null | undefined ? never
+        : T extends string ? String
+        : T extends number ? Number
+        : T extends boolean ? Boolean
+        : T extends symbol ? Symbol
+        : T extends bigint ? BigInt
+        : object;
+    // tslint:enable: ban-types
+    CheckObjectCoercible<T>(value: T, errorMessage?: string): NonNullable<T>;
 
-	readonly IsCallable: typeof isCallable;
-	SameValue(x: unknown, y: unknown): boolean;
+    readonly IsCallable: typeof isCallable;
+    SameValue(x: unknown, y: unknown): boolean;
 
-	Type<T>(x: T): T extends string ? 'String'
-		: T extends number ? 'Number'
-		: T extends boolean ? 'Boolean'
-		: T extends null ? 'Null'
-		: T extends undefined ? 'Undefined'
-		: T extends object ? 'Object'
-		: 'String' | 'Number' | 'Boolean' | 'Null' | 'Undefined' | 'Object' | undefined;
+    Type<T>(x: T): T extends string ? 'String'
+        : T extends number ? 'Number'
+        : T extends boolean ? 'Boolean'
+        : T extends null ? 'Null'
+        : T extends undefined ? 'Undefined'
+        : T extends object ? 'Object'
+        : 'String' | 'Number' | 'Boolean' | 'Null' | 'Undefined' | 'Object' | undefined;
 
-	IsPropertyDescriptor(Desc: unknown): Desc is ESPropertyDescriptor;
-	IsAccessorDescriptor(Desc: unknown): Desc is ESAccessorDescriptor;
-	IsDataDescriptor(Desc: unknown): Desc is ESDataDescriptor;
-	IsGenericDescriptor(Desc: unknown): Desc is ESGenericDescriptor;
+    IsPropertyDescriptor(Desc: unknown): Desc is ESPropertyDescriptor;
+    IsAccessorDescriptor(Desc: unknown): Desc is ESAccessorDescriptor;
+    IsDataDescriptor(Desc: unknown): Desc is ESDataDescriptor;
+    IsGenericDescriptor(Desc: unknown): Desc is ESGenericDescriptor;
 
-	FromPropertyDescriptor(Desc: ESPropertyDescriptor): TSPropertyDescriptor;
-	ToPropertyDescriptor(Desc: TSPropertyDescriptor): ESPropertyDescriptor;
+    FromPropertyDescriptor(Desc: ESPropertyDescriptor): TSPropertyDescriptor;
+    ToPropertyDescriptor(Desc: TSPropertyDescriptor): ESPropertyDescriptor;
 
-	'Abstract Equality Comparison'(x: unknown, y: unknown): boolean;
-	'Strict Equality Comparison'(x: unknown, y: unknown): boolean;
-	'Abstract Relational Comparison'(x: unknown, y: unknown, LeftFirst: boolean): boolean;
+    'Abstract Equality Comparison'(x: unknown, y: unknown): boolean;
+    'Strict Equality Comparison'(x: unknown, y: unknown): boolean;
+    'Abstract Relational Comparison'(x: unknown, y: unknown, LeftFirst: boolean): boolean;
 
-	msFromTime(t: number): number;
-	SecFromTime(t: number): number;
-	MinFromTime(t: number): number;
-	HourFromTime(t: number): number;
-	Day(t: number): number;
-	TimeWithinDay(t: number): number;
-	DayFromYear(t: number): number;
-	TimeFromYear(t: number): number;
-	YearFromTime(t: number): number;
-	WeekDay(t: number): number;
-	DaysInYear(t: number): number;
-	InLeapYear(t: number): 0 | 1;
-	DayWithinYear(t: number): number;
-	MonthFromTime(t: number): number;
-	DateFromTime(t: number): number;
-	MakeDay(year: number, month: number, date: number): number;
-	MakeDate(day: number, time: number): number;
-	MakeTime(hour: number, min: number, sec: number, ms: number): number;
-	TimeClip(time: number): number;
+    msFromTime(t: number): number;
+    SecFromTime(t: number): number;
+    MinFromTime(t: number): number;
+    HourFromTime(t: number): number;
+    Day(t: number): number;
+    TimeWithinDay(t: number): number;
+    DayFromYear(t: number): number;
+    TimeFromYear(t: number): number;
+    YearFromTime(t: number): number;
+    WeekDay(t: number): number;
+    DaysInYear(t: number): number;
+    InLeapYear(t: number): 0 | 1;
+    DayWithinYear(t: number): number;
+    MonthFromTime(t: number): number;
+    DateFromTime(t: number): number;
+    MakeDay(year: number, month: number, date: number): number;
+    MakeDate(day: number, time: number): number;
+    MakeTime(hour: number, min: number, sec: number, ms: number): number;
+    TimeClip(time: number): number;
 
-	modulo(x: number, y: number): number;
+    modulo(x: number, y: number): number;
 }
 
 declare namespace ES5 {
-	type GenericDescriptor = ESGenericDescriptor;
-	type AccessorDescriptor = ESAccessorDescriptor;
-	type DataDescriptor = ESDataDescriptor;
-	type PropertyDescriptor = ESPropertyDescriptor;
+    type GenericDescriptor = ESGenericDescriptor;
+    type AccessorDescriptor = ESAccessorDescriptor;
+    type DataDescriptor = ESDataDescriptor;
+    type PropertyDescriptor = ESPropertyDescriptor;
 }
 
 declare const ES5: ES5;
