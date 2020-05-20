@@ -8,22 +8,45 @@ export type ResolvedLoadablePromiseInfo<T> = Readonly<{
 export type LoadablePromise<T> = Promise<ResolvedLoadablePromiseInfo<T>>;
 
 export type Accessors<T> = Readonly<{
-    // Attempt to get the value.
-    // If there's an error, throw an error.  If it's still loading, throw a Promise
-    // This is useful for composing with React Suspense or in a Recoil Selector.
+    /**
+     * Attemps to get the value. If state === 'hasError', that error will be thrown. If state === 'loading', the pending Promise will be thrown.
+     */
     getValue: () => T;
 
+    /**
+     * Returns a Promise that resolves (or rejects) depending on the eventual fulfillment of the underlying Promise.
+     */
     toPromise: () => LoadablePromise<T>;
 
-    // Convenience accessors
+    /**
+     * Will return value if it exists. Otherwise will return undefined if value is in error or loading state.
+     */
     valueMaybe: () => T | void;
-    valueOrThrow: () => T;
-    errorMaybe: () => Error | void;
-    errorOrThrow: () => Error;
-    promiseMaybe: () => Promise<T> | void;
-    promiseOrThrow: () => Promise<T>;
 
-    map: <S>(map: (val: any) => Promise<S> | S) => Loadable<S>;
+    /**
+     * Throws a generic error if state !== 'hasValue' (if it is in loading or error state)
+     */
+    valueOrThrow: () => T;
+
+    /**
+     * If state === 'hasError', returns that error. Otherwise, returns undefined.
+     */
+    errorMaybe: () => Error | void;
+
+    /**
+     * If state !== 'hasError', throw a generic error message. Otherwise, return the error.
+     */
+    errorOrThrow: () => Error;
+
+    /**
+     * If state === 'loading', return the Promise. Otherwise, return undefined.
+     */
+    promiseMaybe: () => Promise<T> | void;
+
+    /**
+     * If state !== 'loading', throw a generic error message. Otherwise, return the Promise.
+     */
+    promiseOrThrow: () => Promise<T>;
 }>;
 
 export type Loadable<T> =

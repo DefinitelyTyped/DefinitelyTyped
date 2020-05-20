@@ -17,7 +17,7 @@ export interface ReadOnlySelectorOptions<T> {
     dangerouslyAllowMutability?: boolean;
 }
 
-export type ReadWriteSelectorOptions<T> = ReadOnlySelectorOptions<T> & {
+export interface ReadWriteSelectorOptions<T> extends ReadOnlySelectorOptions<T> {
     set: (
         opts: {
             set: SetRecoilState;
@@ -26,7 +26,7 @@ export type ReadWriteSelectorOptions<T> = ReadOnlySelectorOptions<T> & {
         },
         newValue: T | DefaultValue,
     ) => void;
-};
+}
 
 export function selector<T>(options: ReadWriteSelectorOptions<T>): RecoilState<T>;
 export function selector<T>(options: ReadOnlySelectorOptions<T>): RecoilValueReadOnly<T>;

@@ -27,3 +27,7 @@ export {
 
 // Other
 export { isRecoilValue } from './lib/core/recoilValue';
+
+// Types
+export { Loadable } from './lib/core/loadable';
+export { RecoilValue, RecoilValueReadOnly, RecoilState } from './lib/core/recoilValue';

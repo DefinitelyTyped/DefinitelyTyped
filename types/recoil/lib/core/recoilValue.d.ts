@@ -2,12 +2,14 @@ import { NodeKey } from './state';
 
 export class AbstractRecoilValue<T> {
     tag: 'Writeable';
+    valTag: T;
     key: NodeKey;
     constructor(newKey: NodeKey);
 }
 
 export class AbstractRecoilValueReadonly<T> {
     tag: 'Readonly';
+    valTag: T;
     key: NodeKey;
     constructor(newKey: NodeKey);
 }

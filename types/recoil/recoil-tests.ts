@@ -1,6 +1,7 @@
 import {
     DefaultValue,
     RecoilRoot,
+    RecoilValueReadOnly,
     atom,
     selector,
     useRecoilValue,
@@ -28,6 +29,12 @@ const mySelector1 = selector({
     key: 'asdfasfds',
     get: () => 5,
 });
+
+// $ExpectError
+selector({
+    key: 'asdfasfds',
+    get: () => '',
+}) as RecoilValueReadOnly<boolean>;
 
 const readOnlySelector = selector({
     key: 'asdfasf',
