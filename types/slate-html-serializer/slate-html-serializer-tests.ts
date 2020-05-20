@@ -12,4 +12,4 @@ const serializer = new Html({
 const serializerWithDefaultBlock = new Html({
     rules: [myRule],
     defaultBlock: 'unstyled'
-})
+});
