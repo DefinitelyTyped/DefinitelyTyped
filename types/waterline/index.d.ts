@@ -168,7 +168,7 @@ declare namespace Waterline {
         where(condition: any): QueryBuilder<T>;
         limit(lim: number): QueryBuilder<T>;
         skip(num: number): QueryBuilder<T>;
-        sort(criteria: string | { [attribute: string]: string }): QueryBuilder<T>;
+        sort(criteria: string | { [attribute: string]: string }[]): QueryBuilder<T>;
         paginate(pagination?: { page: number, limit: number }): QueryBuilder<T>;
         populate(association: string): QueryBuilder<T>;
         populate(association: string, filter: any): QueryBuilder<T>;
@@ -207,8 +207,9 @@ declare namespace Waterline {
 
         findOrCreate(criteria?: any, values?: any, cb?: Callback<any>): QueryBuilder<any>;
 
-        update(criteria: any, changes: any, cb?: Callback<any>): CRUDBuilder<any[]>;
-        update(criteria: any, changes: any[], cb?: Callback<any[]>): CRUDBuilder<any[]>;
+        update(criteria: any, changes?: any, cb?: Callback<any>): UpdateBuilder<any>;
+        update(criteria: any, changes?: any[], cb?: Callback<any[]>): UpdateBuilder<any[]>;
+        updateOne(criteria: any, changes?: any | any[], cb?: Callback<any>, meta?: any): UpdateBuilder<any>;
 
         destroy(criteria: any, cb?: Callback<any>): CRUDBuilder<any[]>;
         destroy(criteria: any[], cb?: Callback<any[]>): CRUDBuilder<any[]>;
