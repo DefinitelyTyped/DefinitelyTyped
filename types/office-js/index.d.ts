@@ -10804,7 +10804,7 @@ declare namespace Office {
          */
         attachmentType: MailboxEnums.AttachmentType | string;
         /**
-         * Gets the index of the attachment in Compose mode.
+         * Gets the index of the attachment.
          */
         id: string;
         /**
@@ -10823,7 +10823,7 @@ declare namespace Office {
          */
         size: number;
         /**
-         * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`. Compose mode only.
+         * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`.
          */
         url: string;
     }
@@ -10846,11 +10846,11 @@ declare namespace Office {
          */
         attachmentType: MailboxEnums.AttachmentType | string;
         /**
-         * Gets the MIME content type of the attachment. Read mode only.
+         * Gets the MIME content type of the attachment.
          */
         contentType: string;
         /**
-         * Gets the Exchange attachment ID of the attachment in Read mode.
+         * Gets the Exchange attachment ID of the attachment.
          * However, if the attachment type is `MailboxEnums.AttachmentType.Cloud`, then a URL for the file is returned.
          */
         id: string;
