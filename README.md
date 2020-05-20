@@ -1,4 +1,4 @@
-# DefinitelyTyped
+# Definitely Typed
 
 > The repository for *high quality* TypeScript type definitions.
 
@@ -28,10 +28,10 @@ It may be helpful for contributors experiencing any issues with their PRs and pa
 * Most recent build [type-checked/linted](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * All packages are type-checking/linting cleanly on typescript@next: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
 * All packages are being [published to npm](https://github.com/microsoft/types-publisher) in under an hour: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
-* [typescript-bot](https://github.com/typescript-bot) has been active on DefinitelyTyped [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+* [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * Current [infrastructure status updates](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
 
-If anything here seems wrong, or any of the above are failing, please raise an issue in [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
+If anything here seems wrong, or any of the above are failing, please raise an issue in [the Definitely Typed Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
 
 [![Join the chat at https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -155,16 +155,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 * `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
   If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
-* You may also want to add yourself to "Definitions by" section of the package header.
-  - This will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
-  - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-  - Or if there are more people, it can be multiline
-  ```typescript
-  // Definitions by: Alice <https://github.com/alice>
-  //                 Bob <https://github.com/bob>
-  //                 Steve <https://github.com/steve>
-  //                 John <https://github.com/john>
-  ```
+
 * If there is a `tslint.json`, run `npm run lint package-name`. Otherwise, run `tsc` in the package directory.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
@@ -232,6 +223,26 @@ Definitely Typed members routinely monitor for new PRs, though keep in mind that
 
 For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
+## Definition Owners
+
+DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
+
+  - Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
+  - Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
+  - The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
+
+ To Add yourself as a Definition Owner:
+
+  - Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+  - Or if there are more people, it can be multiline
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
+
+Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) which is our source of truth.
 
 #### Common mistakes
 
@@ -336,7 +347,13 @@ The `master` branch is automatically published to the `@types` scope on NPM than
 
 #### I've submitted a pull request. How long until it is merged?
 
-It depends, but most pull requests will be merged within a week. PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) to see progress as maintainers work through the open PRs.
+It depends, but most pull requests will be merged within a week.
+Some PRs can be merged by the owners of a module, and they can be merged much faster.
+Roughly:
+
+> PRs which only change the types of a module, and have corresponding tests changes will be merged much faster
+
+PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) to see progress as maintainers work through the open PRs.
 
 #### My PR is merged; when will the `@types` NPM package be updated?
 
@@ -350,7 +367,7 @@ If the module you're referencing is an ambient module (uses `declare module`, or
 #### I notice some packages having a `package.json` here.
 
 Usually you won't need this.
-Definitely Typed's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
+DefinitelyTyped's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
 A `package.json` may be included to specify dependencies that are not other `@types` packages.
 [Pikaday is a good example.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
 Even if you write your own `package.json`, you can only specify dependencies; other fields such as `"description"` are not allowed.
@@ -362,7 +379,7 @@ Be sure to explain this when adding to the list of allowed packages so that the 
 
 #### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 
-Then they are wrong. You can help by submitting a pull request to fix them.
+Then they are wrong, and we've not noticed yet. You can help by submitting a pull request to fix them.
 
 #### Can I request a definition?
 
