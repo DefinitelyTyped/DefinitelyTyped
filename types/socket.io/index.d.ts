@@ -14,6 +14,7 @@
 
 declare const SocketIO: SocketIOStatic;
 import engine = require('engine.io');
+import { EventEmitter } from 'events';
 export = SocketIO;
 /** @deprecated Available as a global for backwards-compatibility. */
 export as namespace SocketIO;
@@ -52,7 +53,7 @@ interface SocketIOStatic {
 }
 
 declare namespace SocketIO {
-    interface Server {
+    interface Server extends EventEmitter {
         engine: { ws: any };
 
         /**
