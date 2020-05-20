@@ -741,7 +741,7 @@ interface JSTreeStaticDefaultsSearch {
      * @name $.jstree.defaults.search.show_only_matches_children
      * @plugin search
      */
-	show_only_matches_children: boolean;
+    show_only_matches_children: boolean;
 
     /**
      * Indicates if all nodes opened to reveal the search result,
@@ -1337,7 +1337,7 @@ interface JSTree extends JQuery {
      * @name hide_all()
      * @trigger hide_all.jstree
      */
-	hide_all: (skip_redraw: boolean) => boolean;
+    hide_all: (skip_redraw: boolean) => boolean;
 
     /**
      * shows all nodes

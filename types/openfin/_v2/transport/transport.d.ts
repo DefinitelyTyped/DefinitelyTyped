@@ -5,8 +5,6 @@ import { EventEmitter } from 'events';
 import { Environment } from '../environment/environment';
 import { RuntimeEvent } from '../api/events/base';
 import { EventAggregator } from '../api/events/eventAggregator';
-import { View } from '../api/view/view';
-import { Frame, Window } from '../main';
 import { EntityTypeHelpers } from '../util/entity-type';
 export declare type MessageHandler = (data: any) => boolean;
 declare class Transport extends EventEmitter {
@@ -15,7 +13,7 @@ declare class Transport extends EventEmitter {
         reject: Function;
     }>;
     protected uncorrelatedListener: Function;
-    me: (View | Window | Frame | {}) & Identity & EntityTypeHelpers;
+    me: Identity & EntityTypeHelpers;
     environment: Environment;
     topicRefMap: Map<string, number>;
     sendRaw: Wire['send'];

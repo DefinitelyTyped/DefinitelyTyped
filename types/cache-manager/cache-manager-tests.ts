@@ -55,6 +55,13 @@ if (memoryCache.store.keys) {
     });
 }
 
+memoryCache.reset().then(() => {
+    // console.log('reset with promise');
+});
+memoryCache.reset(() => {
+    // console.log('reset with callback');
+});
+
 const multiCache = cacheManager.multiCaching([memoryCache]);
 
 multiCache.set('foo', 'bar', { ttl: ttl }, (err) => {
@@ -71,4 +78,8 @@ multiCache.set('foo', 'bar', { ttl: ttl }, (err) => {
         });
 
     });
+});
+
+multiCache.reset(() => {
+    // console.log('multiCache reset');
 });

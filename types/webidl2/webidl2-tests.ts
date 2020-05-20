@@ -40,7 +40,10 @@ for (const rootType of parsed) {
             for (const member of rootType.members) {
                 member; // $ExpectType FieldType
                 logExtAttrs(member.extAttrs);
-                console.log(member.required, member.default);
+                console.log(member.required);
+                if (member.default !== null) {
+                    logValueDescription(member.default);
+                }
             }
             break;
         case "enum":
@@ -82,15 +85,19 @@ function logMembers(members: webidl2.IDLInterfaceMemberType[]) {
                 member; // $ExpectType ConstantMemberType
                 console.log(member.name);
                 logIdlType(member.idlType);
-                console.log(member.value);
+                logValueDescription(member.value);
                 console.log(member.nullable);
                 break;
             case "iterable":
-            case "setlike":
             case "maplike":
+            case "setlike":
                 member; // $ExpectType DeclarationMemberType
+                member.async; // $ExpectType boolean
+                member.readonly; // $ExpectType boolean
                 console.log(member.readonly);
                 member.idlType.forEach(logIdlType);
+                member.arguments; // $ExpectType Argument[]
+                logArguments(member.arguments);
                 break;
             default:
                 member; // $ExpectType never
@@ -181,7 +188,10 @@ function logExtAttrRHS(
 function logArguments(args: webidl2.Argument[]) {
     for (const arg of args) {
         console.log(arg.name);
-        console.log(arg.default, arg.optional, arg.variadic);
+        console.log(arg.optional, arg.variadic);
+        if (arg.default) {
+            logValueDescription(arg.default);
+        }
         logIdlType(arg.idlType);
         logExtAttrs(arg.extAttrs);
     }
@@ -199,5 +209,49 @@ function logIdlType(idlType: webidl2.IDLTypeDescription) {
     } else {
         idlType; // $ExpectType SingleTypeDescription
         console.log(idlType);
+    }
+}
+
+function logValueDescription(valueDesc: webidl2.ValueDescription) {
+    console.log(valueDesc.type);
+    switch (valueDesc.type) {
+        case "string":
+            valueDesc; // $ExpectType ValueDescriptionString
+            valueDesc.value; // $ExpectType string
+            console.log(valueDesc.value);
+            break;
+        case "number":
+            valueDesc; // $ExpectType ValueDescriptionNumber
+            valueDesc.value; // $ExpectType string
+            console.log(valueDesc.value);
+            break;
+        case "boolean":
+            valueDesc; // $ExpectType ValueDescriptionBoolean
+            valueDesc.value; // $ExpectType boolean
+            console.log(valueDesc.value);
+            break;
+        case "null":
+            valueDesc; // $ExpectType ValueDescriptionNull
+            break;
+        case "Infinity":
+            valueDesc; // $ExpectType ValueDescriptionInfinity
+            valueDesc.negative; // $ExpectType boolean
+            console.log(valueDesc.negative);
+            break;
+        case "NaN":
+            valueDesc; // $ExpectType ValueDescriptionNaN
+            break;
+        case "sequence":
+            valueDesc; // $ExpectType ValueDescriptionSequence
+            valueDesc.value; // $ExpectType []
+            valueDesc.value.length; // $ExpectType 0
+            console.log(valueDesc.value);
+            break;
+        case "dictionary":
+            valueDesc; // $ExpectType ValueDescriptionDictionary
+            break;
+        default:
+            valueDesc; // $ExpectType never
+            break;
     }
 }

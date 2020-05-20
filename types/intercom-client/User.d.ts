@@ -1,6 +1,10 @@
 import { Company } from './Company';
 
-export type UserIdentifier = { id: string } | { user_id: string } | { email: string };
+export interface UserEmailIdentifier {
+    email: string;
+}
+export type UserIdIdentifier = { id: string } | { user_id: string };
+export type UserIdentifier = UserIdIdentifier | UserEmailIdentifier;
 
 export interface Avatar {
     type: 'avatar';

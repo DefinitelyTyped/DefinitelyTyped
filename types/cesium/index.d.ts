@@ -10,6 +10,7 @@
 //                 Morgan Snyder <https://github.com/morgansierrasnyder>
 //                 Federico Giacomini <https://github.com/crocsx>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 George Melissourgos <https://github.com/DrMerfy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -2134,7 +2135,7 @@ declare namespace Cesium {
         height?: Property;
         scaleByDistance?: Property;
         translucencyByDistance?: Property;
-        disableDepthTestDistance?: Property | number;
+        disableDepthTestDistance?: Property;
         pixelOffsetScaleByDistance?: Property;
         heightReference?: Property;
         constructor(options?: { image?: Property;
@@ -2424,8 +2425,8 @@ declare namespace Cesium {
 
     class EllipseGraphics {
         definitionChanged: Event;
-        semiMajorAxis: Property | number;
-        semiMinorAxis: Property | number;
+        semiMajorAxis: Property;
+        semiMinorAxis: Property;
         rotation: Property;
         show: Property;
         material: MaterialProperty | Color;
@@ -2702,7 +2703,7 @@ declare namespace Cesium {
 
     class LabelGraphics {
         definitionChanged: Event;
-        text: Property | string;
+        text: Property;
         font: string;
         style: Property;
         fillColor: Color;
@@ -2718,6 +2719,7 @@ declare namespace Cesium {
         show: Property;
         translucencyByDistance: Property;
         pixelOffsetScaleByDistance: Property;
+        distanceDisplayCondition?: DistanceDisplayCondition | Property;
         constructor(options?: {
             text?: Property | string;
             font?: string;
@@ -2738,7 +2740,7 @@ declare namespace Cesium {
             pixelOffsetScaleByDistance?: Property;
             heightReference?: Property;
             scaleByDistance?: Property;
-            distanceDisplayCondition?: Property;
+            distanceDisplayCondition?: DistanceDisplayCondition | Property;
             disableDepthTestDistance?: Property | number;
         });
         clone(result?: LabelGraphics): LabelGraphics;
@@ -2877,8 +2879,8 @@ declare namespace Cesium {
         definitionChanged: Event;
         distanceDisplayCondition: Property;
         show: Property;
-        material: MaterialProperty | Color;
-        hierarchy: Property | Cartesian3[] | PolygonHierarchy;
+        material: MaterialProperty;
+        hierarchy: Property;
         height: Property;
         heightReference: Property;
         extrudedHeight: Property;
@@ -2954,8 +2956,8 @@ declare namespace Cesium {
         granularity: Property;
         shadows: Property;
         show: Property;
-        material: MaterialProperty | Color;
-        positions: Property | Cartesian3[];
+        material: MaterialProperty;
+        positions: Property;
         width: Property | number;
         zIndex: ConstantProperty;
         constructor(options?: {
@@ -5956,11 +5958,16 @@ declare namespace Cesium {
     }
 
     enum BingMapsStyle {
-        AERIAL,
-        AERIAL_WITH_LABELS,
-        ROAD,
-        ORDNANCE_SURVEY,
-        COLLINS_BART,
+        AERIAL = "Aerial",
+        AERIAL_WITH_LABELS = "AerialWithLabels",
+        AERIAL_WITH_LABELS_ON_DEMAND = "AerialWithLabelsOnDemand",
+        ROAD= "Road",
+        ROAD_ON_DEMAND= "RoadOnDemand",
+        CANVAS_DARK= "CanvasDark",
+        CANVAS_LIGHT= "CanvasLight",
+        CANVAS_GRAY= "CanvasGray",
+        ORDNANCE_SURVEY= "OrdnanceSurvey",
+        COLLINS_BART= "CollinsBart",
     }
 
     enum BlendEquation {

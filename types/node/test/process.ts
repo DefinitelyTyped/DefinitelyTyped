@@ -13,10 +13,6 @@ import { EventEmitter } from "events";
     ok(process.argv[0] === process.argv0);
 }
 {
-    let module: NodeModule | undefined;
-    module = process.mainModule;
-}
-{
     process.on("message", (req: any) => { });
     process.addListener("beforeExit", (code: number) => { });
     process.once("disconnect", () => { });
@@ -31,6 +27,7 @@ import { EventEmitter } from "events";
     process.on("newListener", (event: string | symbol, listener: Function) => { });
     process.once("removeListener", (event: string | symbol, listener: Function) => { });
     process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
+    process.on("customEvent", () => { });
 
     const listeners = process.listeners('uncaughtException');
     const oldHandler = listeners[listeners.length - 1];

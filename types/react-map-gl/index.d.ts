@@ -1,5 +1,5 @@
 // Type definitions for react-map-gl 5.2
-// Project: https://github.com/uber/react-map-gl#readme
+// Project: https://github.com/visgl/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
 //                 Sander Siim <https://github.com/sandersiim>
@@ -7,6 +7,7 @@
 //                 Arman Safikhani <https://github.com/Arman92>
 //                 William Chiu <https://github.com/chiuhow>
 //                 David Baumgold <https://github.com/singingwolfboy>
+//                 Ilja Reznik <https://github.com/ireznik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -237,7 +238,7 @@ export interface FlyToInterpolatorProps {
     curve?: number;
     speed?: number;
     screenSpeed?: number;
-    maxDuraiton?: number;
+    maxDuration?: number;
 }
 
 export class FlyToInterpolator extends TransitionInterpolator {

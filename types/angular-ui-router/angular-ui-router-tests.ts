@@ -5,8 +5,8 @@ import uiRouterModule from "angular-ui-router";
 var myApp = angular.module("testModule", [uiRouterModule]);
 
 interface MyAppScope extends ng.IScope {
-	items: string[];
-	things: string[];
+    items: string[];
+    things: string[];
 }
 
 myApp.config((

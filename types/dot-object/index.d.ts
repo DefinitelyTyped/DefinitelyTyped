@@ -139,7 +139,7 @@ declare namespace DotObject {
          * @param {Object} obj object to be modified
          * @param {Boolean} merge optional merge
         */
-		set(path: string, v: any, obj: object, merge?: boolean): void;
+        set(path: string, v: any, obj: object, merge?: boolean): void;
         /**
          *
          * Transfer a property from one object to another object.

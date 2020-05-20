@@ -5,9 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_matchbrackets
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
+declare module 'codemirror' {
     interface MatchBrackets {
         /**
          * Only use the character after the start position, never the one before it.

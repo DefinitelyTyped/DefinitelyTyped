@@ -5,8 +5,11 @@
 //                 Eli Young <https://github.com/elyscape>
 //                 Suntharesan Mohan <https://github.com/vanthiyathevan>
 //                 Igor Strebezhev <https://github.com/xamgore>
+//                 Peter Somogyvari <https://github.com/petermetz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+/// <reference types="node" />
 
 declare namespace convict {
     // Taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-307871458
@@ -89,6 +92,11 @@ declare namespace convict {
         properties: {
             [K in keyof T]: T[K] extends object ? InternalSchema<T[K]> : { default: T[K] }
         };
+    }
+
+    interface Options {
+        env?: NodeJS.ProcessEnv;
+        args?: string[];
     }
 
     interface Config<T> {
@@ -199,7 +207,7 @@ interface convict {
     addFormat(format: convict.Format): void;
     addFormats(formats: { [name: string]: convict.Format }): void;
     addParser(parsers: convict.Parser | convict.Parser[]): void;
-    <T>(config: convict.Schema<T> | string): convict.Config<T>;
+    <T>(config: convict.Schema<T> | string, opts?: convict.Options): convict.Config<T>;
 }
 declare var convict: convict;
 export = convict;

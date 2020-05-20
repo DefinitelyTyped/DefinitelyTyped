@@ -707,8 +707,8 @@ declare namespace Vex {
         }
 
         class NoteSubGroup extends Modifier {
-			constructor(subnotes : Note[]);
-			preFormat() : void;
+            constructor(subnotes : Note[]);
+            preFormat() : void;
         }
 
         class Ornament extends Modifier {

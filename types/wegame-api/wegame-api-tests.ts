@@ -406,9 +406,9 @@ wx.getShareInfo({
 wx.hideShareMenu();
 wx.onShareAppMessage((): wx.types.ShareOption => {
     return {
-    	imageUrl: "test.png",
-    	title: "test title",
-    	query: "__shareQueryStr"
+        imageUrl: "test.png",
+        title: "test title",
+        query: "__shareQueryStr"
     };
 });
 wx.showShareMenu({

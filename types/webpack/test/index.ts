@@ -886,29 +886,29 @@ class IgnorePlugin extends webpack.Plugin {
 class DllEntryDependency extends webpack.compilation.Dependency {}
 class DllModuleFactory extends Tapable {}
 class DllEntryPlugin extends webpack.Plugin {
-	apply(compiler: webpack.Compiler) {
-		compiler.hooks.compilation.tap(
-			"DllEntryPlugin",
-			(compilation, { normalModuleFactory }) => {
-				const dllModuleFactory = new DllModuleFactory();
-				compilation.dependencyFactories.set(
-					DllEntryDependency,
-					dllModuleFactory
-				);
-				compilation.dependencyFactories.set(
-					SingleEntryDependency,
-					normalModuleFactory
-				);
-			}
-		);
-		compiler.hooks.make.tapAsync("DllEntryPlugin", (compilation, callback) => {
-			compilation.addEntry("", new DllEntryDependency(), "", callback);
-		});
-	}
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap(
+            "DllEntryPlugin",
+            (compilation, { normalModuleFactory }) => {
+                const dllModuleFactory = new DllModuleFactory();
+                compilation.dependencyFactories.set(
+                    DllEntryDependency,
+                    dllModuleFactory
+                );
+                compilation.dependencyFactories.set(
+                    SingleEntryDependency,
+                    normalModuleFactory
+                );
+            }
+        );
+        compiler.hooks.make.tapAsync("DllEntryPlugin", (compilation, callback) => {
+            compilation.addEntry("", new DllEntryDependency(), "", callback);
+        });
+    }
 }
 
 class BannerPlugin extends webpack.Plugin {
-	apply(compiler: webpack.Compiler) {
+    apply(compiler: webpack.Compiler) {
         compiler.hooks.compilation.tap("BannerPlugin", compilation  => {
             compilation.hooks.optimizeChunkAssets.tap("BannerPlugin", chunks => {
                 for (const chunk of chunks) {
