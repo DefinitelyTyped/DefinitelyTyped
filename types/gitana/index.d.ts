@@ -164,7 +164,7 @@ declare namespace Gitana {
 
         addFeature(featureId: string, featureConfig: any): any;
 
-        attach(attachmentId: string, contentType: any, data: any, filename: any): any;
+        attach(attachmentId: string, contentType: any, data: any, filename: any): NodeAttachment;
 
         attachment(attachmentId: string): NodeAttachment;
 
@@ -188,7 +188,7 @@ declare namespace Gitana {
 
         getFeatureIds(callback: any): any;
 
-        getPreviewUri(name: any, config: any): any;
+        getPreviewUri(name: any, config: any): string;
 
         getQName(): string;
 
@@ -206,17 +206,17 @@ declare namespace Gitana {
 
         listAttachments(local?: any): NodeAttachmentMap;
 
-        ref(): any;
+        ref(): string;
 
-        refresh(): AbstractNode;
+        refresh(): this;
 
-        removeFeature(featureId: any): any;
+        removeFeature(featureId: string): any;
 
         stats(): any;
 
-        touch(): AbstractNode;
+        touch(): this;
 
-        unattach(attachmentId: any): any;
+        unattach(attachmentId: string): this;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
@@ -442,9 +442,9 @@ declare namespace Gitana {
 
         del(): any;
 
-        reload(): AbstractSelfableObject;
+        reload(): this;
 
-        update(): AbstractSelfableObject;
+        update(): this;
 
         static extend(_instance: any, _static: any, ...args: any[]): any;
 
