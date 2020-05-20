@@ -43,11 +43,11 @@ declare namespace Waterline {
         identity?: string;
         tableName?: string;
         migrate?: "alter" | "drop" | "safe";
-        autoPK?: boolean;
-        autoCreatedAt?: boolean;
-        autoUpdatedAt?: boolean;
         schema?: boolean;
         types?: any;
+        datastore: string;
+        primaryKey: string;
+        dataEncryptionKeys: any;
     }
     export type Collection = CollectionDefinition;
     export type Attributes = { [index: string]: Attribute } & {
@@ -56,16 +56,16 @@ declare namespace Waterline {
     };
     export type FunctionAttribute = () => any;
     // Data types https://github.com/balderdashy/waterline-docs/blob/master/models/data-types-attributes.md#data-types
-    export type AttributeType = "string" | "text" | "integer" | "float" | "date" | "time"
+    export type AttributeType = "string" | "text" | "number" | "integer" | "float" | "date" | "time"
         | "datetime" | "boolean" | "binary" | "array" | "json";
     export type Attribute = string | StringAttribute | EmailAttribute |
-        IntegerAttribute | FloatAttribute |
+        IntegerAttribute | NumberAttribute | FloatAttribute |
         DateAttribute | TimeAttribute | DatetimeAttribute |
         BooleanAttribute | BinaryAttribute | ArrayAttribute | JsonAttribute |
         OneToOneAttribute | OneToManyAttribute | ManyToManyAttribute |
         FunctionAttribute;
     export type DefaultsToFn<T> = () => T;
-    export type BaseAttribute<T> = AttributeValidations & {
+    export type BaseAttribute<T> = {
         type?: string;
         primaryKey?: boolean;
         unique?: boolean;
@@ -75,6 +75,10 @@ declare namespace Waterline {
         columnName?: string;
         index?: boolean;
         defaultsTo?: T | DefaultsToFn<T>;
+        allowNull?: boolean;
+        validations?: AttributeValidations;
+        autoCreatedAt?: boolean;
+        autoUpdatedAt?: boolean;
     }
     export type StringAttribute = BaseAttribute<string> & {
         type: "string";
@@ -87,6 +91,10 @@ declare namespace Waterline {
     }
     export type IntegerAttribute = BaseAttribute<number> & {
         type: "integer";
+        autoIncrement?: boolean;
+    }
+    export type NumberAttribute = BaseAttribute<number> & {
+        type: "number";
         autoIncrement?: boolean;
     }
     export type FloatAttribute = BaseAttribute<number> & {
@@ -140,7 +148,7 @@ declare namespace Waterline {
         creditcard?: AttributeValidation<boolean>,
         date?: AttributeValidation<boolean>,
         decimal?: AttributeValidation<boolean>,
-        email?: AttributeValidation<boolean>,
+        isEmail?: AttributeValidation<boolean>,
         empty?: AttributeValidation<boolean>,
         equals?: AttributeValidation<any>,
         falsey?: AttributeValidation<boolean>,
