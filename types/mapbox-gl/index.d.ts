@@ -1128,7 +1128,7 @@ declare namespace mapboxgl {
 
         clusterMaxZoom?: number;
 
-        clusterProperties?: any;
+        clusterProperties?: object;
 
         lineMetrics?: boolean;
 
