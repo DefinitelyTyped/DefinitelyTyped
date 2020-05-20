@@ -27,9 +27,15 @@ export type SubscriptionType =
     'Shared' |
     'Failover';
 
-export interface AuthenticationTls {
+export class AuthenticationTls {
+    constructor(authTlsOpts: { certificatePath: string; privateKeyPath: string });
     certificatePath: string;
     privateKeyPath: string;
+}
+
+export class AuthenticationToken {
+    constructor(authTokenOpts: { token: string });
+    token: string;
 }
 
 export interface ClientOpts {
@@ -42,7 +48,7 @@ export interface ClientOpts {
      * Configure the authentication provider.
      * Default: No Authentication
      */
-    authentication?: AuthenticationTls;
+    authentication?: AuthenticationTls | AuthenticationToken;
 
     /**
      * The timeout for Node.js client operations (creating producers, subscribing to and unsubscribing from topics).

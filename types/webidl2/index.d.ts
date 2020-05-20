@@ -1,8 +1,9 @@
-// Type definitions for webidl2 23.11
+// Type definitions for webidl2 23.12
 // Project: https://github.com/w3c/webidl2.js#readme
 // Definitions by: Kagama Sascha Rosylight <https://github.com/saschanaz>
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 export as namespace WebIDL2;
 
@@ -275,7 +276,8 @@ export interface ConstantMemberType {
 }
 
 export interface Argument {
-    default: ValueDescription;
+    /** A default value, absent if there is none. */
+    default: ValueDescription | null;
     /** True if the argument is optional. */
     optional: boolean;
     /** True if the argument is variadic. */
@@ -356,18 +358,63 @@ export interface Token {
     value: string;
 }
 
-export interface ValueDescription {
-    type: "string" | "number" | "boolean" | "null" | "Infinity" | "NaN" | "sequence" | "dictionary";
-    value: string | any[] | null;
-    negative: boolean | null;
+export type ValueDescription =
+    | ValueDescriptionString
+    | ValueDescriptionNumber
+    | ValueDescriptionBoolean
+    | ValueDescriptionNull
+    | ValueDescriptionInfinity
+    | ValueDescriptionNaN
+    | ValueDescriptionSequence
+    | ValueDescriptionDictionary;
+
+export interface ValueDescriptionString {
+    type: "string";
+    value: string;
+}
+
+export interface ValueDescriptionNumber {
+    type: "number";
+    value: string;
+}
+
+export interface ValueDescriptionBoolean {
+    type: "boolean";
+    value: boolean;
+}
+
+export interface ValueDescriptionNull {
+    type: "null";
+}
+
+export interface ValueDescriptionInfinity {
+    type: "Infinity";
+    negative: boolean;
+}
+
+export interface ValueDescriptionNaN {
+    type: "NaN";
+}
+
+export interface ValueDescriptionSequence {
+    type: "sequence";
+    value: [];
+}
+
+export interface ValueDescriptionDictionary {
+    type: "dictionary";
 }
 
 export interface DeclarationMemberType {
-    type: "iterable" | "setlike" | "maplike";
+    type: "iterable" | "maplike" | "setlike";
     /** An array with one or more IDL Types representing the declared type arguments. */
     idlType: IDLTypeDescription[];
+    /** Whether the iterable is declared as async. */
+    async: boolean;
     /** Whether the maplike or setlike is declared as read only. */
     readonly: boolean;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttribute[];
+    /** An array of arguments for the iterable declaration. */
+    arguments: Argument[];
 }
