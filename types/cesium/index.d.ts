@@ -3730,10 +3730,7 @@ declare namespace Cesium {
     class ClippingPlane {
         normal: Cartesian3;
         distance: number;
-        constructor(option: {
-            normal: Cartesian3;
-            distance: number;
-        })
+        constructor(normal: Cartesian3, distance: number);
 
         static clone(clippingPlane: ClippingPlane, result?: ClippingPlane): ClippingPlane;
         static fromPlane(plane: Plane, result?: ClippingPlane): ClippingPlane;
@@ -3750,7 +3747,7 @@ declare namespace Cesium {
         readonly length: number;
 
         constructor(options?: {
-            planes?: ClippingPlane;
+            planes?: ClippingPlane[];
             enabled?: boolean;
             modelMatrix?: Matrix4;
             unionClippingRegions?: boolean;
