@@ -1489,7 +1489,7 @@ describe('better typed spys', () => {
             spy.and.returnValue;
         });
         it('has a typed calls property', () => {
-            spy.calls.first().args; // $ExpectType [number, string]
+            spy.calls.first().args; // $ExpectType [number, string] || [num: number, str: string]
             spy.calls.first().returnValue; // $ExpectType string
         });
         it('has a typed callFake', () => {

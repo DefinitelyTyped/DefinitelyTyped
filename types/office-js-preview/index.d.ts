@@ -7991,7 +7991,12 @@ declare namespace Office {
              */
             Item = "item",
             /**
-             * The attachment is stored in a cloud location, such as OneDrive. The `id` property of the attachment contains a URL to the file.
+             * The attachment is stored in a cloud location, such as OneDrive.
+             *
+             * **Important**: In Read mode, the `id` property of the attachment's {@link Office.AttachmentDetails | details} object
+             * contains a URL to the file.
+             * From requirement set 1.8, the `url` property included in the attachment's {@link Office.AttachmentDetailsCompose | details} object
+             * contains a URL to the file in Compose mode.
              */
             Cloud = "cloud"
         }
@@ -9804,7 +9809,7 @@ declare namespace Office {
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
          *                 the failure.
          */
-        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetailsCompose[]>) => void): void;
         /**
          * Gets the item's attachments as an array.
          *
@@ -9820,7 +9825,7 @@ declare namespace Office {
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
          *                 the failure.
          */
-        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetailsCompose[]>) => void): void;
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
@@ -11384,29 +11389,25 @@ declare namespace Office {
         format: MailboxEnums.AttachmentContentFormat | string;
     }
     /**
-     * Represents an attachment on an item from the server. Read mode only.
+     * Represents an attachment on an item. Compose mode only.
      *
-     * An array of `AttachmentDetails` objects is returned as the attachments property of an appointment or message item.
+     * An array of `AttachmentDetailsCompose` objects is returned as the attachments property of an appointment or message item.
+     *
+     * [Api set: Mailbox 1.8]
      *
      * @remarks
      *
      * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
      *
-     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Read
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
      */
-    interface AttachmentDetails {
+    interface AttachmentDetailsCompose {
         /**
          * Gets a value that indicates the type of an attachment.
          */
         attachmentType: MailboxEnums.AttachmentType | string;
         /**
-         * Gets the MIME content type of the attachment.
-         *
-         * This property is only available in Read mode.
-         */
-        contentType: string;
-        /**
-         * Gets the Exchange attachment ID of the attachment.
+         * Gets the index of the attachment.
          */
         id: string;
         /**
@@ -11426,10 +11427,51 @@ declare namespace Office {
         size: number;
         /**
          * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`.
-         *
-         * [Api set: Mailbox 1.8]
          */
         url: string;
+    }
+    /**
+     * Represents an attachment on an item from the server. Read mode only.
+     *
+     * An array of `AttachmentDetails` objects is returned as the attachments property of an appointment or message item.
+     *
+     * [Api set: Mailbox 1.1]
+     *
+     * @remarks
+     *
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+     *
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Read
+     */
+    interface AttachmentDetails {
+        /**
+         * Gets a value that indicates the type of an attachment.
+         */
+        attachmentType: MailboxEnums.AttachmentType | string;
+        /**
+         * Gets the MIME content type of the attachment.
+         */
+        contentType: string;
+        /**
+         * Gets the Exchange attachment ID of the attachment.
+         * However, if the attachment type is `MailboxEnums.AttachmentType.Cloud`, then a URL for the file is returned.
+         */
+        id: string;
+        /**
+         * Gets a value that indicates whether the attachment should be displayed in the body of the item.
+         */
+        isInline: boolean;
+        /**
+         * Gets the name of the attachment.
+         *
+         * **Important**: For message or appointment items that were attached by drag-and-drop or "Attach Item",
+         * `name` includes a file extension in Outlook on Mac, but excludes the extension on the web or Windows.
+         */
+        name: string;
+        /**
+         * Gets the size of the attachment in bytes.
+         */
+        size: number;
     }
     /**
      * Provides information about the attachments that raised the `Office.EventType.AttachmentsChanged` event.
@@ -11439,7 +11481,7 @@ declare namespace Office {
     export interface AttachmentsChangedEventArgs {
         /**
          * Represents the set of attachments that were added or removed.
-         * For each such attachment, gets a subset of {@link Office.AttachmentDetails | AttachmentDetails} properties: `id`, `name`, `size`, and `attachmentType`.
+         * For each such attachment, gets `id`, `name`, `size`, and `attachmentType` properties.
          *
          * [Api set: Mailbox 1.8]
          */
@@ -14308,7 +14350,7 @@ declare namespace Office {
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
          *                 the failure.
          */
-        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetailsCompose[]>) => void): void;
         /**
          * Gets the item's attachments as an array.
          *
@@ -14324,7 +14366,7 @@ declare namespace Office {
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
          *                 the failure.
          */
-        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetailsCompose[]>) => void): void;
         /**
          * Specifies the type of message compose and its coercion type. The message can be new, or a reply or forward.
          * The coercion type can be HTML or plain text.
@@ -15009,7 +15051,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
          *
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
-		 *
+         *
          * The `itemClass` property specifies the message class of the selected item.
          * The following are the default message classes for the message or appointment item.
          *

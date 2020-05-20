@@ -417,6 +417,13 @@ h.on('ready', () => {
         h.extend.helper.register('name', (...args) => {
             return 'ret';
         });
+        const helper = h.extend.helper.get('name');
+        helper && helper();
+        const helpers = h.extend.helper.list();
+        for (const name in helpers) {
+            const helper = helpers[name];
+            helper();
+        }
     }
 
     {

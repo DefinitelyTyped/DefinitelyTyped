@@ -6,9 +6,9 @@ str = findup('foo');
 str = findup(['foo', 'bar']);
 
 str = findup('foo', {
-	debug: true
+    debug: true
 });
 
 str = findup('foo', {
-	cwd: "c:\\"
+    cwd: "c:\\"
 });

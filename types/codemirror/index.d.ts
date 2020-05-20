@@ -641,7 +641,7 @@ declare namespace CodeMirror {
             handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void,
         ): void;
 
-        /** Fires when one of the DOM events fires. */
+        /** Fires when one of the global DOM events fires. */
         on<K extends DOMEvent & keyof GlobalEventHandlersEventMap>(
             eventName: K,
             handler: (instance: CodeMirror.Editor, event: GlobalEventHandlersEventMap[K]) => void,
@@ -649,6 +649,16 @@ declare namespace CodeMirror {
         off<K extends DOMEvent & keyof GlobalEventHandlersEventMap>(
             eventName: K,
             handler: (instance: CodeMirror.Editor, event: GlobalEventHandlersEventMap[K]) => void,
+        ): void;
+
+        /** Fires when one of the clipboard DOM events fires. */
+        on<K extends DOMEvent & keyof DocumentAndElementEventHandlersEventMap>(
+            eventName: K,
+            handler: (instance: CodeMirror.Editor, event: DocumentAndElementEventHandlersEventMap[K]) => void,
+        ): void;
+        off<K extends DOMEvent & keyof DocumentAndElementEventHandlersEventMap>(
+            eventName: K,
+            handler: (instance: CodeMirror.Editor, event: DocumentAndElementEventHandlersEventMap[K]) => void,
         ): void;
 
         /** Fires when the overwrite flag is flipped. */

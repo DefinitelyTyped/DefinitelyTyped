@@ -2,6 +2,7 @@
 // Project: https://benchmarkjs.com
 // Definitions by: Asana <https://asana.com>
 //                 Charlie Fish <https://github.com/fishcharlie>
+//                 Blair Zajac <https://github.com/blair>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -149,21 +150,8 @@ declare namespace Benchmark {
         name?: string;
         fn?: Function;
         id: number;
-        stats?: {
-            moe?: number;
-            rme?: number;
-            sem?: number;
-            deviation?: number;
-            mean?: number;
-            sample?: any[];
-            variances?: number;
-        };
-        times?: {
-            cycle?: number;
-            elapsed?: number;
-            period?: number;
-            timeStamp?: number;
-        };
+        stats?: Stats;
+        times?: Times;
         running: boolean;
         count?: number;
         compiled?: Function;

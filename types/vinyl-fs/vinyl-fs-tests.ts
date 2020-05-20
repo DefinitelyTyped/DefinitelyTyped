@@ -22,13 +22,13 @@ const {describe, it, before, after, beforeEach, afterEach} = null as any as {
 // TODO: These aren't useful as types tests since they take `any`.
 declare const should: ShouldStatic;
 interface ShouldStatic {
-	exist(obj: any, desc?: string): void;
-	not: this;
+    exist(obj: any, desc?: string): void;
+    not: this;
 }
 declare global {
-	interface Object {
-		should: { equal(obj: any): void; };
-	}
+    interface Object {
+        should: { equal(obj: any): void; };
+    }
 }
 
 let bufferStream: stream.Transform;

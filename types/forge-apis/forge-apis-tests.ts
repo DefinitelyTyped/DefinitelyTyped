@@ -38,7 +38,7 @@ authClientTwoLegged.isAuthorized();
 // $ExpectType AuthClientThreeLegged
 const authClientThreeLegged = new AuthClientThreeLegged('', '', '', [], true);
 // $ExpectType string
-authClientThreeLegged.generateAuthUrl();
+authClientThreeLegged.generateAuthUrl('');
 // $ExpectType Promise<AuthToken>
 authClientThreeLegged.getToken('');
 // $ExpectType Promise<AuthToken>

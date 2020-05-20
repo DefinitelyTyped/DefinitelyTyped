@@ -7,20 +7,20 @@ var items = document.querySelectorAll('.item');
 var $element = $('#single-item');
 
 var PackeryEvents = {
-	dragItemPositioned: 'dragItemPositioned',
-	layoutComplete: 'layoutComplete',
-	fitComplete: 'fitComplete',
-	removeComplete: 'removeComplete'
+    dragItemPositioned: 'dragItemPositioned',
+    layoutComplete: 'layoutComplete',
+    fitComplete: 'fitComplete',
+    removeComplete: 'removeComplete'
 };
 
 var packery = new Packery(container);
 
 var PackeryItems: Array<any> = [
-	packery.data(item),
-	packery.data(item),
-	packery.data(item),
-	packery.data(item),
-	packery.data(item)
+    packery.data(item),
+    packery.data(item),
+    packery.data(item),
+    packery.data(item),
+    packery.data(item)
 ];
 
 packery.addItems(item);
@@ -46,51 +46,51 @@ packery.layout();
 packery.layoutItems(PackeryItems);
 
 packery.off(PackeryEvents.dragItemPositioned, () => {
-	// Some actions to execute on event trigger
+    // Some actions to execute on event trigger
 });
 
 packery.off(PackeryEvents.layoutComplete, () => {
-	// Some actions to execute on event trigger
+    // Some actions to execute on event trigger
 });
 
 packery.off(PackeryEvents.removeComplete, () => {
-	// Some actions to execute on event trigger
+    // Some actions to execute on event trigger
 });
 
 packery.off(PackeryEvents.fitComplete, () => {
-	// Some actions to execute on event trigger
+    // Some actions to execute on event trigger
 });
 
 packery.on(PackeryEvents.dragItemPositioned, () => {
-	// Some actions to execute on event trigger
+    // Some actions to execute on event trigger
 });
 
 packery.on(PackeryEvents.layoutComplete, () => {
-	// Some actions to execute on event trigger
+    // Some actions to execute on event trigger
 });
 
 packery.on(PackeryEvents.removeComplete, () => {
-	// Some actions to execute on event trigger
+    // Some actions to execute on event trigger
 });
 
 packery.on(PackeryEvents.fitComplete, () => {
-	// Some actions to execute on event trigger
+    // Some actions to execute on event trigger
 });
 
 packery.once(PackeryEvents.dragItemPositioned, () => {
-	// Some actions to execute on event trigger
+    // Some actions to execute on event trigger
 });
 
 packery.once(PackeryEvents.layoutComplete, () => {
-	// Some actions to execute on event trigger
+    // Some actions to execute on event trigger
 });
 
 packery.once(PackeryEvents.removeComplete, () => {
-	// Some actions to execute on event trigger
+    // Some actions to execute on event trigger
 });
 
 packery.once(PackeryEvents.fitComplete, () => {
-	// Some actions to execute on event trigger
+    // Some actions to execute on event trigger
 });
 
 packery.data(item);

@@ -15,6 +15,9 @@
         "paths": {
             "node-notifier": [
                 "node-notifier/v5"
+            ],
+            "node-notifier/*": [
+                "node-notifier/v5/*"
             ]
         },
         "types": [],
