@@ -776,7 +776,8 @@ declare namespace NodeJS {
         newListener: NewListenerListener;
         removeListener: RemoveListenerListener;
         multipleResolves: MultipleResolveListener;
-    } & Record<Signals, SignalsListener>;
+    } & Record<Signals, SignalsListener> &
+        Record<string | symbol, (...args: any[]) => void>;
 
     interface Process extends EventEmitter<ProcessEvents> {
         /**
