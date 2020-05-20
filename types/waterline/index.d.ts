@@ -45,9 +45,9 @@ declare namespace Waterline {
         migrate?: "alter" | "drop" | "safe";
         schema?: boolean;
         types?: any;
-        datastore: string;
-        primaryKey: string;
-        dataEncryptionKeys: any;
+        datastore?: string;
+        primaryKey?: string;
+        dataEncryptionKeys?: any;
     }
     export type Collection = CollectionDefinition;
     export type Attributes = { [index: string]: Attribute } & {
@@ -138,7 +138,6 @@ declare namespace Waterline {
 
     export type AttributeValidation<T> = T | AttributeValidationSyncFn<T> | AttributeValidationAsyncFn<T>;
     export interface AttributeValidations {
-        // https://sailsjs.com/documentation/concepts/models-and-orm/validations
         custom?: AttributeValidation<Function>,
         isAfter?: AttributeValidation<Date>,
         isBefore?: AttributeValidation<Date>,
