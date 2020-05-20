@@ -108,8 +108,7 @@ useRecoilCallback(async ({ getPromise, getLoadable, set, reset }) => {
     const val: number = await getPromise(mySelector1);
     const loadable = getLoadable(mySelector1);
 
-    loadable.getValue();
-    loadable.toPromise();
+    loadable.contents;
     loadable.state;
 
     set(myAtom, 5);
