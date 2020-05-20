@@ -1,0 +1,26 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "callable-types": false,
+        "jsdoc-format": false,
+        "no-any-union": false,
+        "no-consecutive-blank-lines": false,
+        "no-duplicate-variable": false,
+        "no-padding": false,
+        "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": false,
+        "no-single-declare-module": false,
+        "no-var-keyword": false,
+        "object-literal-shorthand": false,
+        "only-arrow-functions": false,
+        "prefer-const": false,
+        "prefer-method-signature": false,
+        "semicolon": false,
+        "space-before-function-paren": false,
+        "strict-export-declare-modifiers": false,
+        "trim-file": false,
+        "typedef-whitespace": false,
+        "whitespace": false
+    }
+}

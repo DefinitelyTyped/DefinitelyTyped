@@ -1,0 +1,11 @@
+{
+    "private": true,
+    "dependencies": {
+        "jest-diff": "^25.2.1",
+        "pretty-format": "^25.2.1"
+    },
+    "types": "index",
+    "typesVersions": {
+        ">=3.2.0-0": { "*": ["ts3.2/*"] }
+    }
+}

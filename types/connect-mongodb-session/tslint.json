@@ -1,0 +1,21 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "callable-types": false,
+        "dt-header": false,
+        "eofline": false,
+        "no-misused-new": false,
+        "no-redundant-jsdoc": false,
+        "no-reference-import": false,
+        "no-var-keyword": false,
+        "no-var-requires": false,
+        "object-literal-shorthand": false,
+        "only-arrow-functions": false,
+        "prefer-const": false,
+        "prefer-method-signature": false,
+        "semicolon": false,
+        "strict-export-declare-modifiers": false,
+        "typedef-whitespace": false,
+        "whitespace": false
+    }
+}

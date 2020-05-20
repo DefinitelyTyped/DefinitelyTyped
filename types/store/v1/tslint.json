@@ -1,0 +1,18 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "callable-types": false,
+        "dt-header": false,
+        "no-consecutive-blank-lines": false,
+        "no-redundant-jsdoc": false,
+        "no-single-declare-module": false,
+        "no-var-keyword": false,
+        "only-arrow-functions": false,
+        "prefer-const": false,
+        "prefer-method-signature": false,
+        "prefer-template": false,
+        "semicolon": false,
+        "trim-file": false,
+        "triple-equals": false
+    }
+}

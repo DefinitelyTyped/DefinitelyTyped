@@ -1,0 +1,36 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "callable-types": false,
+        "interface-name": false,
+        "max-line-length": false,
+        "no-any-union": false,
+        "no-padding": false,
+        "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": false,
+        "no-reference-import": false,
+        "no-trailing-whitespace": false,
+        "no-unnecessary-class": false,
+        "no-unnecessary-qualifier": false,
+        "no-var-keyword": false,
+        "npm-naming": [
+            true,
+            {
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
+                "mode": "code"
+            }
+        ],
+        "prefer-const": false,
+        "prefer-method-signature": false,
+        "semicolon": false,
+        "strict-export-declare-modifiers": false,
+        "typedef-whitespace": false,
+        "whitespace": false
+    }
+}

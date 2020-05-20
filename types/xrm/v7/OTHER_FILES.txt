@@ -1,0 +1,1 @@
+parature.d.ts

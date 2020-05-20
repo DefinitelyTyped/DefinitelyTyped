@@ -1,0 +1,29 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "callable-types": false,
+        "dt-header": false,
+        "no-consecutive-blank-lines": false,
+        "no-redundant-jsdoc": false,
+        "no-unnecessary-qualifier": false,
+        "no-var-keyword": false,
+        "npm-naming": [
+            true,
+            {
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
+                "mode": "code"
+            }
+        ],
+        "one-variable-per-declaration": false,
+        "only-arrow-functions": false,
+        "prefer-const": false,
+        "prefer-method-signature": false,
+        "strict-export-declare-modifiers": false,
+        "trim-file": false
+    }
+}

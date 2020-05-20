@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/next-redux-wrapper": "^2.0.2",
+        "redux": "^3.6.0"
+    }
+}

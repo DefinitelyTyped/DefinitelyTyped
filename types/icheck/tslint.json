@@ -1,0 +1,15 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "callable-types": false,
+        "dt-header": false,
+        "eofline": false,
+        "interface-name": false,
+        "jsdoc-format": false,
+        "no-redundant-jsdoc": false,
+        "npm-naming": false,
+        "only-arrow-functions": false,
+        "prefer-method-signature": false,
+        "space-before-function-paren": false
+    }
+}

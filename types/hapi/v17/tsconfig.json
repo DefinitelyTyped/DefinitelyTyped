@@ -1,0 +1,82 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "paths": {
+            "hapi": [
+                "hapi/v17"
+            ],
+            "hapi/*": [
+                "hapi/v17/*"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/request/auth.ts",
+        "test/request/catch-all.ts",
+        "test/request/event-types.ts",
+        "test/request/get-log.ts",
+        "test/request/methods.ts",
+        "test/request/parameters.ts",
+        "test/request/query.ts",
+        "test/response/continue.ts",
+        "test/response/error.ts",
+        "test/response/redirect.ts",
+        "test/response/response-events.ts",
+        "test/response/response.ts",
+        "test/route/adding-routes.ts",
+        "test/route/config.ts",
+        "test/route/ext.ts",
+        "test/route/handler.ts",
+        "test/route/route-options-pre.ts",
+        "test/route/route-options.ts",
+        "test/route/validation.ts",
+        "test/server/server-app.ts",
+        "test/server/server-auth-api.ts",
+        "test/server/server-auth-default.ts",
+        "test/server/server-auth-test.ts",
+        "test/server/server-auth-verify.ts",
+        "test/server/server-bind.ts",
+        "test/server/server-cache-provision.ts",
+        "test/server/server-cache.ts",
+        "test/server/server-control.ts",
+        "test/server/server-decoder.ts",
+        "test/server/server-decorations.ts",
+        "test/server/server-encoder.ts",
+        "test/server/server-events-once.ts",
+        "test/server/server-events.ts",
+        "test/server/server-expose.ts",
+        "test/server/server-info.ts",
+        "test/server/server-inject.ts",
+        "test/server/server-listener.ts",
+        "test/server/server-load.ts",
+        "test/server/server-lookup.ts",
+        "test/server/server-match.ts",
+        "test/server/server-method.ts",
+        "test/server/server-methods.ts",
+        "test/server/server-mime.ts",
+        "test/server/server-options.ts",
+        "test/server/server-path.ts",
+        "test/server/server-plugins.ts",
+        "test/server/server-settings.ts",
+        "test/server/server-start.ts",
+        "test/server/server-state.ts",
+        "test/server/server-stop.ts",
+        "test/server/server-table.ts",
+        "test/server/server-version.ts"
+    ]
+}

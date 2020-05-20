@@ -1,0 +1,29 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "callable-types": false,
+        "dt-header": false,
+        "no-consecutive-blank-lines": false,
+        "no-inferrable-types": false,
+        "no-padding": false,
+        "no-redundant-jsdoc": false,
+        "no-var-keyword": false,
+        "npm-naming": [
+            true,
+            {
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
+                "mode": "code"
+            }
+        ],
+        "prefer-const": false,
+        "prefer-method-signature": false,
+        "trim-file": false,
+        "typedef-whitespace": false,
+        "unified-signatures": false
+    }
+}

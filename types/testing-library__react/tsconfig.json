@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "jsx": "react",
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "target": "es6",
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@testing-library/react": [
+                "testing-library__react"
+            ],
+            "@testing-library/react/*": [
+                "testing-library__react/*"
+            ],
+            "@testing-library/dom": [
+                "testing-library__dom"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "testing-library__react-tests.tsx"
+    ]
+}
