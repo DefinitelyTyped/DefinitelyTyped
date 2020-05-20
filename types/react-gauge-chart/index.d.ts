@@ -28,3 +28,4 @@ export interface GaugeChartProps {
 }
 
 export default function GaugeChart(props: GaugeChartProps): React.ReactElement;
+
