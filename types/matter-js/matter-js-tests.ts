@@ -75,10 +75,12 @@ var constraint1 = Constraint.create({
     damping: 0.01
 });
 
+World.addConstraint(engine.world, constraint1);
+
 //Query
 var collisions = Query.ray([box1, box2, circle1], {x:1, y:2}, {x:3, y:4});
 
-World.addConstraint(engine.world, constraint1);
+collisions = Query.collides(box1, [box2, circle1])
 
 
 //events

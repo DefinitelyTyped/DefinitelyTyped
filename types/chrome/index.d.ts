@@ -6664,7 +6664,7 @@ declare namespace chrome.system.display {
        * If set, updates the display's logical bounds origin along y-axis.
        * @see[See documentation for boundsOriginX parameter.]
        */
-      boundsOriginY: number;
+      boundsOriginY?: number;
 
       /**
        * If set, updates the display mode to the mode matching this value.

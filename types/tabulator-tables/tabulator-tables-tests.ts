@@ -175,7 +175,7 @@ function moment(a: any, b: any) {
     return '';
 }
 
-colDef.cellClick = (_e, cell) => {
+colDef.cellClick = (_e: UIEvent, cell) => {
     console.log(cell.checkHeight);
 };
 
@@ -250,7 +250,7 @@ let autoComplete: Tabulator.AutoCompleteParams = {
         return 'Mr ' + title;
     },
     values: true, // create list of values from all values contained in this column,
-    sortValuesList:'asc', // sort the values by ascending order,
+    sortValuesList: 'asc', // sort the values by ascending order,
 };
 colDef.editorParams = autoComplete;
 
@@ -633,13 +633,32 @@ table = new Tabulator('#example-table', {
 });
 
 // 4.6 updates
-const menuOptions: Tabulator.MenuObject[] | Tabulator.MenuSeparator[] = [
+const rowContextMenu: Array<Tabulator.MenuObject<Tabulator.RowComponent> | Tabulator.MenuSeparator> = [
     {
-        label: 'Hide Column',
-        action: (e, column) => {
-            (column as Tabulator.ColumnComponent).hide();
+        label: 'Remove row',
+        action: (e, row) => {
+            row.delete();
         },
-    } as Tabulator.MenuObject,
+    },
+    { separator: true },
+    {
+        disabled: true,
+        label: component => {
+            return 'Move Row';
+        },
+        action: (e, row) => {
+            row.move(1, true);
+        },
+    },
+];
+
+const headerMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> | Tabulator.MenuSeparator> = [
+    {
+        label: 'Remove Column',
+        action: (e, column) => {
+            column.delete();
+        },
+    },
     { separator: true },
     {
         disabled: true,
@@ -647,15 +666,33 @@ const menuOptions: Tabulator.MenuObject[] | Tabulator.MenuSeparator[] = [
             return 'Move Column';
         },
         action: (e, column) => {
-            (column as Tabulator.ColumnComponent).move('col', true);
+            column.move('col', true);
         },
-    } as Tabulator.MenuObject,
+    },
+];
+
+const headerContextMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> | Tabulator.MenuSeparator> = [
+    {
+        label: 'Hide Column',
+        action: (e, column) => {
+            column.hide();
+        },
+    },
+];
+
+const contextMenu: Array<Tabulator.MenuObject<Tabulator.CellComponent> | Tabulator.MenuSeparator> = [
+    {
+        label: 'Restore previous value',
+        action: (e, cell) => {
+            cell.restoreOldValue();
+        },
+    },
 ];
 
 table = new Tabulator('#example-table', {
     maxHeight: '100%',
     minHeight: 300,
-    rowContextMenu: menuOptions,
+    rowContextMenu,
     cellVertAlign: 'middle',
     cellHozAlign: 'center',
     clipboardCopyConfig: {
@@ -681,9 +718,9 @@ table = new Tabulator('#example-table', {
             title: 'Name',
             field: 'name',
             width: 200,
-            headerMenu: menuOptions,
-            headerContextMenu: menuOptions,
-            contextMenu: menuOptions,
+            headerMenu,
+            headerContextMenu,
+            contextMenu,
             vertAlign: 'bottom',
             hozAlign: 'right',
             editorParams: {

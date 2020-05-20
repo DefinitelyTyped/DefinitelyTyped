@@ -285,7 +285,12 @@ declare namespace Q {
     export function when<T>(value: IWhenable<T>): Promise<T>;
 
     // If a non-promise value is provided, it will not reject or progress
-    export function when<T, U>(value: IWhenable<T>, onFulfilled: (val: T) => IWhenable<U>, onRejected?: ((reason: any) => IWhenable<U>) | null, onProgress?: ((progress: any) => any) | null): Promise<U>;
+    export function when<T, U>(
+        value: IWhenable<T>,
+        onFulfilled: (val: T) => IWhenable<U>,
+        onRejected?: ((reason: any) => IWhenable<U>) | null,
+        onProgress?: ((progress: any) => any) | null
+    ): Promise<U>;
 
     /**
      * (Deprecated) Returns a new function that calls a function asynchronously with the given variadic arguments, and returns a promise.
