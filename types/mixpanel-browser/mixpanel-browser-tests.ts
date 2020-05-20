@@ -94,4 +94,4 @@ mixpanel.people.clear_charges();
 mixpanel.people.delete_user();
 mixpanel.init('YOUR PROJECT TOKEN', {
     ignore_dnt: true,
-})
+});
