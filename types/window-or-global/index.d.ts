@@ -6,6 +6,5 @@
 
 /// <reference types="node" />
 
-declare var _: Window | typeof global;
-
+declare const _: typeof self | typeof global;
 export = _;
