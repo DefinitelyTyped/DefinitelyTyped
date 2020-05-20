@@ -182,7 +182,7 @@ declare class Dropzone {
     static ERROR: string;
     static SUCCESS: string;
 
-    element: string | HTMLElement;
+    element: HTMLElement;
     files: Dropzone.DropzoneFile[];
     listeners: Dropzone.DropzoneListeners[];
     defaultOptions: Dropzone.DropzoneOptions;
