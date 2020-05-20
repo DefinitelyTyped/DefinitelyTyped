@@ -16,6 +16,10 @@ jobs:
             - run: npm run test
 
             - name: "Run Danger"
+              env:
+                  # See https://github.com/danger/danger-js/issues/1042
+                  DANGER_GITHUB_API_BASE_URL: "https://api.github.com"
+
               run: |
                   TOKEN='7469b4e94ce21b43e3ab7a'
                   TOKEN+='79960c12a1e067f2ec'
