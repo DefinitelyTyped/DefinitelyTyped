@@ -182,6 +182,9 @@ declare namespace Waterline {
     type CRUDBuilder<T> = WaterlinePromise<T> & {
         fetch(): CRUDBuilder<T>;
     }
+    type UpdateBuilder<T> = CRUDBuilder<T> & {
+        set(criteria: any): UpdateBuilder<T>;
+    }
 
     interface ModelInstance {
         id?: number | string;
