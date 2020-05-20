@@ -7668,7 +7668,7 @@ declare namespace Office {
             /**
              * The attachment is stored in a cloud location, such as OneDrive.
              *
-             * **Important**: In Read mode, the `id` property of the attachment's {@link Office.AttachmentDetailsRead | details} object
+             * **Important**: In Read mode, the `id` property of the attachment's {@link Office.AttachmentDetails | details} object
              * contains a URL to the file.
              * From requirement set 1.8, the `url` property included in the attachment's
              * {@link https://docs.microsoft.com/javascript/api/outlook/office.attachmentdetailscompose?view=outlook-js-1.8 | details} object
@@ -9992,7 +9992,7 @@ declare namespace Office {
          * {@link https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519 | Blocked attachments in Outlook}.
          *
          */
-        attachments: AttachmentDetailsRead[];
+        attachments: AttachmentDetails[];
         /**
          * Gets an object that provides methods for manipulating the body of an item.
          *
@@ -10830,7 +10830,7 @@ declare namespace Office {
     /**
      * Represents an attachment on an item from the server. Read mode only.
      *
-     * An array of `AttachmentDetailsRead` objects is returned as the attachments property of an appointment or message item.
+     * An array of `AttachmentDetails` objects is returned as the attachments property of an appointment or message item.
      *
      * [Api set: Mailbox 1.1]
      *
@@ -10840,7 +10840,7 @@ declare namespace Office {
      *
      * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Read
      */
-    interface AttachmentDetailsRead {
+    interface AttachmentDetails {
         /**
          * Gets a value that indicates the type of an attachment.
          */
@@ -13985,7 +13985,7 @@ declare namespace Office {
          * {@link https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519 | Blocked attachments in Outlook}.
          *
          */
-        attachments: AttachmentDetailsRead[];
+        attachments: AttachmentDetails[];
         /**
          * Gets an object that provides methods for manipulating the body of an item.
          *
