@@ -73,6 +73,7 @@ export interface Config {
   opt_out_tracking_by_default: boolean;
   opt_out_tracking_persistence_type: Persistence;
   opt_out_tracking_cookie_prefix: string;
+  ignore_dnt: boolean;
 }
 
 export interface People {
