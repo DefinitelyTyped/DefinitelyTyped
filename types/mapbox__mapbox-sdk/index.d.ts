@@ -1,8 +1,9 @@
-// Type definitions for @mapbox/mapbox-sdk 0.6
+// Type definitions for @mapbox/mapbox-sdk 0.10
 // Project: https://github.com/mapbox/mapbox-sdk-js
 // Definitions by: Jeff Dye <https://github.com/jeffbdye>
 //                 Mike O'Meara <https://github.com/mikeomeara1>
 //                 chachan <https://github.com/chachan>
+//                 Jeremiah Harlan <https://github.com/theworkflow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1699,7 +1700,7 @@ declare module '@mapbox/mapbox-sdk/services/uploads' {
          * Create an upload.
          * @param config
          */
-        createUpload(config: { mapId: string; url: string; tilesetName?: string }): MapiRequest;
+        createUpload(config: { mapId: string; url: string; tilesetName?: string, name?: string, private?: boolean }): MapiRequest;
         /**
          * Get an upload's status.
          * @param config
