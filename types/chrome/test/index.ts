@@ -400,7 +400,7 @@ function testDebugger() {
 
 // https://developer.chrome.com/extensions/declarativeContent
 function testDeclarativeContent() {
-    let activeIcon: ImageData = new ImageData(32, 32);
+    const activeIcon: ImageData = new ImageData(32, 32);
 
     let rule: chrome.events.Rule = {
         conditions: [
