@@ -22,6 +22,10 @@ interface dwtEnv {
     Containers: Container[];
     IfUseActiveXForIE10Plus: boolean;
     ResourcesPath: string;
+    /**
+     * Whether or not the scanned images show up in the built-in image viewer
+     */
+    ScanDirectly: boolean;
 
     RegisterEvent(event: string, fn: (...args: any[]) => void): void;
     GetWebTwain(cid: string): WebTwain;
@@ -1382,7 +1386,7 @@ declare enum EnumDWT_UploadDataFormat {
     Base64 = 1
 }
 
-/** 
+/**
  * interface for a DWT container which basically defines a DIV on the page
  */
 interface Container {
@@ -1391,7 +1395,7 @@ interface Container {
     Height: string | number;
 }
 
-/** 
+/**
  * interface for a base64 result
  */
 interface Base64Result {
@@ -2304,7 +2308,7 @@ interface WebTwain {
      */
     Zoom: number;
 
-    /* ignored 
+    /* ignored
     style
     _AutoCropMethod
     */
@@ -2500,7 +2504,7 @@ interface WebTwain {
      * @param {Array} indices indices specifies which images are to be converted to base64.
      * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be converted to base64.
      * @return {Base64Result}
- 
+
     ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType): Base64Result;
     */
 
@@ -3298,7 +3302,7 @@ interface WebTwain {
      */
     MoveImage(sSourceImageIndex: number, sTargetImageIndex: number): boolean;
 
-    /*ignored 
+    /*ignored
     OnRefreshUI
     */
 
@@ -3747,7 +3751,7 @@ interface WebTwain {
      * @param {string} elEditorDIV Specifies a DIV by its ID to put the editor in
      * @param {number} width Specifies the width of the DIV
      * @param {number} height Specifies the height of the DIV
-     * @param {boolean} bHideToolBar Specifies whether to show the toolbar or not 
+     * @param {boolean} bHideToolBar Specifies whether to show the toolbar or not
      * @return {boolean}
      */
     ShowImageEditor(elEditorDIV?: string, width?: number, height?: number, bHideToolBar?: boolean): boolean;
@@ -3764,7 +3768,7 @@ interface WebTwain {
      */
     ShowImageEditorEx(x: number, y: number, cx: number, cy: number, nCmdShow: number): boolean;
 
-    /*ingored    
+    /*ingored
     SourceNameItems
     */
 
@@ -3820,19 +3824,19 @@ interface WebTwain {
 
     /**
      * Specifies a tag and use it to filter images
-     * @method WebTwain#FilterImagesByTag     
+     * @method WebTwain#FilterImagesByTag
      * @param {string} tagName specifies a tag
      * @return {boolean}
      */
     FilterImagesByTag(tagName: string): boolean;
-    
+
     /**
      * Selects all images
      * @method WebTwain#SelectAllImages
      * @return {boolean}
      */
     SelectAllImages(): boolean;
-    
+
     /**
      * Inverts the color of the pixels of the specified image
      * @method WebTwain#Invert
@@ -3840,7 +3844,7 @@ interface WebTwain {
      * @return {boolean}
      */
     Invert(sImageIndex: number): boolean;
-    
+
     /**
      * Converts the specified image to black & white
      * @method WebTwain#ConvertToBW
