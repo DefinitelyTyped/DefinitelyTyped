@@ -9,12 +9,12 @@
 import { GraphQLResolveInfo } from "graphql";
 import { MergeInfo } from "graphql-tools";
 
-export type IFieldResolver<TSource, TContext> = (
+export type IFieldResolver<TSource, TContext, TArgs = Record<string, any>, TReturn = any> = (
   source: TSource,
-  args: { [argument: string]: any },
+  args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo & { mergeInfo?: MergeInfo },
-) => any
+) => TReturn
 
 export const skip: undefined;
 
