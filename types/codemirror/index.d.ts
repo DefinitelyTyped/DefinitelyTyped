@@ -8,6 +8,7 @@
 //                 ysulyma <https://github.com/ysulyma>
 //                 azoson <https://github.com/azoson>
 //                 kylesferrazza <https://github.com/kylesferrazza>
+//                 fityocsaba96 <https://github.com/fityocsaba96>
 //                 koddsson <https://github.com/koddsson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
@@ -112,16 +113,8 @@ declare namespace CodeMirror {
     function off(doc: Doc, eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void): void;
 
     /** Equivalent to the event by the same name as fired on editor instances. */
-    function on(
-        doc: Doc,
-        eventName: 'beforeSelectionChange',
-        handler: (instance: CodeMirror.Editor, selection: { head: Position; anchor: Position }) => void,
-    ): void;
-    function off(
-        doc: Doc,
-        eventName: 'beforeSelectionChange',
-        handler: (instance: CodeMirror.Editor, selection: { head: Position; anchor: Position }) => void,
-    ): void;
+    function on(doc: Doc, eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void ): void;
+    function off(doc: Doc, eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void ): void;
 
     /** Will be fired when the line object is deleted. A line object is associated with the start of the line.
     Mostly useful when you need to find out when your gutter markers on a given line are removed. */
@@ -467,6 +460,9 @@ declare namespace CodeMirror {
         /** Tells you whether the editor's content can be edited by the user. */
         isReadOnly(): boolean;
 
+        /** Returns the preferred line separator string for this document, as per the option by the same name. When that option is null, the string "\n" is returned. */
+        lineSeparator(): string;
+
         /** Switches between overwrite and normal insert mode (when not given an argument),
         or sets the overwrite mode to a specific state (when given an argument). */
         toggleOverwrite(value?: boolean): void;
@@ -550,20 +546,8 @@ declare namespace CodeMirror {
 
         /** This event is fired before the selection is moved. Its handler may modify the resulting selection head and anchor.
         Handlers for this event have the same restriction as "beforeChange" handlers they should not do anything to directly update the state of the editor. */
-        on(
-            eventName: 'beforeSelectionChange',
-            handler: (
-                instance: CodeMirror.Editor,
-                selection: { head: CodeMirror.Position; anchor: CodeMirror.Position },
-            ) => void,
-        ): void;
-        off(
-            eventName: 'beforeSelectionChange',
-            handler: (
-                instance: CodeMirror.Editor,
-                selection: { head: CodeMirror.Position; anchor: CodeMirror.Position },
-            ) => void,
-        ): void;
+        on(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void ): void;
+        off(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void ): void;
 
         /** Fires whenever the view port of the editor changes (due to scrolling, editing, or any other factor).
         The from and to arguments give the new start and end of the viewport. */
@@ -706,7 +690,7 @@ declare namespace CodeMirror {
 
         /** Replace the part of the document between from and to with the given string.
         from and to must be {line, ch} objects. to can be left off to simply insert the string at position from. */
-        replaceRange(replacement: string, from: CodeMirror.Position, to?: CodeMirror.Position, origin?: string): void;
+        replaceRange(replacement: string | string[], from: CodeMirror.Position, to?: CodeMirror.Position, origin?: string): void;
 
         /** Get the content of line n. */
         getLine(n: number): string;
@@ -774,7 +758,7 @@ declare namespace CodeMirror {
 
         /** Retrieves a list of all current selections. These will always be sorted, and never overlap (overlapping selections are merged).
         Each object in the array contains anchor and head properties referring to {line, ch} objects. */
-        listSelections(): { anchor: CodeMirror.Position; head: CodeMirror.Position }[];
+        listSelections(): Range[];
 
         /** Return true if any text is selected. */
         somethingSelected(): boolean;
@@ -976,11 +960,11 @@ declare namespace CodeMirror {
         above?: boolean;
         /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
         showIfHidden?: boolean;
-        /** Determines whether the editor will capture mouse and drag events occurring in this widget. 
+        /** Determines whether the editor will capture mouse and drag events occurring in this widget.
         Default is false—the events will be left alone for the default browser handler, or specific handlers on the widget, to capture. */
         handleMouseEvents?: boolean;
-        /** By default, the widget is added below other widgets for the line. 
-        This option can be used to place it at a different position (zero for the top, N to put it after the Nth other widget). 
+        /** By default, the widget is added below other widgets for the line.
+        This option can be used to place it at a different position (zero for the top, N to put it after the Nth other widget).
         Note that this only has effect once, when the widget is created. */
         insertAt?: number;
         /** Add an extra CSS class name to the wrapper element created for the widget. */
@@ -1018,11 +1002,18 @@ declare namespace CodeMirror {
         (line: number, ch?: number, sticky?: string): Position;
     }
 
+    interface EditorSelectionChange {
+        ranges: Range[];
+        update(ranges: Range[]): void;
+        origin?: string;
+    }
+
     interface Range {
         anchor: CodeMirror.Position;
         head: CodeMirror.Position;
         from(): CodeMirror.Position;
         to(): CodeMirror.Position;
+        empty(): boolean;
     }
 
     interface Position {
@@ -1125,11 +1116,20 @@ declare namespace CodeMirror {
         /** boolean|string. This disables editing of the editor content by the user. If the special value "nocursor" is given (instead of simply true), focusing of the editor is also disallowed. */
         readOnly?: any;
 
+        /** This label is read by the screenreaders when CodeMirror text area is focused. This is helpful for accessibility. */
+        screenReaderLabel?: string;
+
         /**Whether the cursor should be drawn when a selection is active. Defaults to false. */
         showCursorWhenSelecting?: boolean;
 
         /** When enabled, which is the default, doing copy or cut when there is no selection will copy or cut the whole lines that have cursors on them. */
         lineWiseCopyCut?: boolean;
+
+        /** When pasting something from an external source (not from the editor itself), if the number of lines matches the number of selection, CodeMirror will by default insert one line per selection. You can set this to false to disable that behavior. */
+        pasteLinesPerSelection?: boolean;
+
+        /** Determines whether multiple selections are joined as soon as they touch (the default) or only when they overlap (true). */
+        selectionsMayTouch?: boolean;
 
         /** The maximum number of undo levels that the editor stores. Defaults to 40. */
         undoDepth?: number;
