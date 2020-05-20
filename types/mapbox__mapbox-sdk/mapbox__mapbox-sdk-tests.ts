@@ -5,6 +5,7 @@ import Directions, { DirectionsService, DirectionsResponse } from '@mapbox/mapbo
 import Styles, { StylesService } from '@mapbox/mapbox-sdk/services/styles';
 import StaticMap, { StaticMapService } from '@mapbox/mapbox-sdk/services/static';
 import { LineString } from 'geojson';
+import Uploads, { UploadsService } from '@mapbox/mapbox-sdk/services/uploads';
 
 const config: SdkConfig = {
     accessToken: 'access-token',
@@ -53,4 +54,16 @@ staticMapService.getStaticImage({
             geoJson: geoOverlay
         }
     ]
+});
+
+const uploadsService: UploadsService = Uploads(config);
+uploadsService.createUpload(); // $ExpectError
+uploadsService.createUpload({}); // $ExpectError
+
+uploadsService.createUpload({
+    mapId: 'some-map-id',
+    url: 'http://example.com/example',
+    tilesetName: 'some-titleset',
+    name: 'some-name',
+    private: true
 });
