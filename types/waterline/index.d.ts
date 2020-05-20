@@ -1,4 +1,4 @@
-// Type definitions for waterline 0.11
+// Type definitions for waterline 0.13
 // Project: https://github.com/balderdashy/waterline
 // Definitions by: Alexandro Libertino <https://github.com/arvitaly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -138,57 +138,28 @@ declare namespace Waterline {
 
     export type AttributeValidation<T> = T | AttributeValidationSyncFn<T> | AttributeValidationAsyncFn<T>;
     export interface AttributeValidations {
-        after?: AttributeValidation<string>;
-        alpha?: AttributeValidation<boolean>;
-        alphanumeric?: AttributeValidation<boolean>;
-        array?: AttributeValidation<boolean>;
-        before?: AttributeValidation<string>;
-        boolean?: AttributeValidation<boolean>,
-        contains?: AttributeValidation<string>,
-        creditcard?: AttributeValidation<boolean>,
-        date?: AttributeValidation<boolean>,
-        decimal?: AttributeValidation<boolean>,
+        // https://sailsjs.com/documentation/concepts/models-and-orm/validations
+        custom?: AttributeValidation<Function>,
+        isAfter?: AttributeValidation<Date>,
+        isBefore?: AttributeValidation<Date>,
+        isBoolean?: AttributeValidation<boolean>,
+        isCreditCard?: AttributeValidation<boolean>,
         isEmail?: AttributeValidation<boolean>,
-        empty?: AttributeValidation<boolean>,
-        equals?: AttributeValidation<any>,
-        falsey?: AttributeValidation<boolean>,
-        finite?: AttributeValidation<boolean>,
-        float?: AttributeValidation<boolean>,
-        hexColor?: AttributeValidation<boolean>,
-        hexadecimal?: AttributeValidation<boolean>,
-        in?: AttributeValidation<string[]>,
-        int?: AttributeValidation<boolean>,
-        integer?: AttributeValidation<boolean>,
-        ip?: AttributeValidation<boolean>,
-        ipv4?: AttributeValidation<boolean>,
-        ipv6?: AttributeValidation<boolean>,
-        is?: AttributeValidation<RegExp>,
-        len?: AttributeValidation<number>,
-        lowercase?: AttributeValidation<boolean>,
+        isHexColor?: AttributeValidation<boolean>,
+        isIn?: AttributeValidation<string[]>,
+        isInteger?: AttributeValidation<boolean>,
+        isIP?: AttributeValidation<boolean>,
+        isNotEmptyString?: AttributeValidation<boolean>,
+        isNotIn?: AttributeValidation<string[]>,
+        isNumber?: AttributeValidation<boolean>,
+        isString?: AttributeValidation<boolean>,
+        isURL?: AttributeValidation<boolean>,
+        isUUID?: AttributeValidation<boolean>,
         max?: AttributeValidation<number>,
         maxLength?: AttributeValidation<number>
         min?: AttributeValidation<number>,
         minLength?: AttributeValidation<number>,
-        not?: AttributeValidation<RegExp>,
-        notContains?: AttributeValidation<string>,
-        notEmpty?: AttributeValidation<boolean>,
-        notIn?: AttributeValidation<string[]>,
-        notNull?: AttributeValidation<boolean>,
-        notRegex?: AttributeValidation<RegExp>,
-        null?: AttributeValidation<boolean>,
-        number?: AttributeValidation<boolean>,
-        numeric?: AttributeValidation<boolean>,
         regex?: AttributeValidation<RegExp>,
-        required?: AttributeValidation<boolean>,
-        string?: AttributeValidation<boolean>,
-        truthy?: AttributeValidation<boolean>,
-        undefined?: AttributeValidation<boolean>,
-        uppercase?: AttributeValidation<boolean>,
-        url?: AttributeValidation<boolean>,
-        urlish?: AttributeValidation<boolean>,
-        uuid?: AttributeValidation<boolean>,
-        uuidv3?: AttributeValidation<boolean>,
-        uuidv4?: AttributeValidation<boolean>,
     }
 
     type WaterlinePromise<T> = BluebirdPromise<T> & {
