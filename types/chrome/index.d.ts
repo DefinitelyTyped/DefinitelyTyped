@@ -1597,7 +1597,7 @@ declare namespace chrome.declarativeContent {
 
     /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
     export class SetIcon {
-        constructor (options: {
+        constructor (options?: {
             imageData?: ImageData | {[size: string]: ImageData}
         })
     }
