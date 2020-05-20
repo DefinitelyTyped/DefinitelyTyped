@@ -402,7 +402,7 @@ function testDebugger() {
 function testDeclarativeContent() {
     const activeIcon: ImageData = new ImageData(32, 32);
 
-    let rule: chrome.events.Rule = {
+    const rule: chrome.events.Rule = {
         conditions: [
             new chrome.declarativeContent.PageStateMatcher({
                 pageUrl: {
