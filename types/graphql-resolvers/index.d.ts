@@ -1,4 +1,4 @@
-// Type definitions for graphql-resolvers 0.2.1
+// Type definitions for graphql-resolvers 0.3
 // Project: https://github.com/lucasconstantino/graphql-resolvers#readme
 // Definitions by: Alejandro Corredor <https://github.com/aecorredor>
 //                 Luis Felipe Zaguini <https://github.com/zaguiini>
@@ -14,7 +14,7 @@ export type IFieldResolver<TSource, TContext, TArgs = Record<string, any>, TRetu
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo & { mergeInfo?: MergeInfo },
-) => TReturn
+) => TReturn;
 
 export const skip: undefined;
 
