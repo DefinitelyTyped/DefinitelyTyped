@@ -65,11 +65,11 @@ NPM 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 이 경우 주로 `package.json` 파일의 `"types"` 나 `"typings"` 필드(Field)를 통해 제공되지만,
 `/// <reference path="" />` 같은 주석을 사용하여 패키지 안의 ".d.ts" 파일들을 직접 가져와야 할 수도 있습니다.
 
-#### 이전 버전 TypeScript (2.8 또는 그 이전)
+#### 이전 버전 TypeScript (2.9 또는 그 이전)
 
 Definitely Typed는 2년이 지나지 않은 TypeScript 버전만을 대상으로 패키지를 테스트합니다.
-현재 버전 2.9 및 그 이상만을 테스트하고 있습니다.
-TypeScript 2.0에서 2.8 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
+현재 버전 3.0 및 그 이상만을 테스트하고 있습니다.
+TypeScript 2.0에서 2.9 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
 그러나 작동 여부를 보장하지는 못합니다.
 지원 기간은 다음과 같습니다:
 
@@ -315,9 +315,9 @@ NPM 의 패키지들은 수시간 안에 갱신될 겁니다. 만약 24 시간�
 자료형 정의(Type definition)가 맞는 경우에는 자료형 정의(Type definition)을 수정하지 마세요.
 NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `export =` 이 맞고, `node -p 'require("foo").default'` 이 원하는 값이라면 `export default` 이 맞습니다.
 
-#### 자료형 선언(Type declaration)에서 타입스크립트(TypeScript) 2.1 이상의 기능을 사용하고 싶습니다.
+#### 자료형 선언(Type declaration)에서 타입스크립트(TypeScript) 3.1 이상의 기능을 사용하고 싶습니다.
 
-정의(Definition) 머릿주석(`// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`) 뒤에 `// TypeScript Version: 2.1` 를 추가해주시면 됩니다.
+정의(Definition) 머릿주석(`// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`) 뒤에 `// TypeScript Version: 3.1` 를 추가해주시면 됩니다.
 
 #### 타입스크립트(TypeScript)에 기본으로 포함되지 않은 DOM API 를 추가하고 싶어요.
 
