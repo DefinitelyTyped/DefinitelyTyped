@@ -16,6 +16,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
+
+      - run: git config --global user.email "bot@typescriptlang.org"
+      - run: git config --global user.name "TS Bot"
+
       - run: npm install
       - run: npm run update-codeowners
         env:
