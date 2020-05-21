@@ -339,7 +339,6 @@ declare namespace SocketIO {
 
         /**
          * Removes all listeners, or those of the specified event
-         *
          * @param event The event to remove all listeners for, if omitted
          * all events will be removed
          * @return The default '/' Namespace
@@ -350,7 +349,6 @@ declare namespace SocketIO {
 
         /**
          * Sets the max amount of event listeners
-         *
          * @param n The max amount of allowed event listeners.
          * @return The default '/' Namespace
          *
@@ -360,7 +358,6 @@ declare namespace SocketIO {
 
         /**
          * Gets the max amount of event listeners
-         *
          * @return The max amount of allowed event listeners.
          *
          * _Inherited from EventEmitter - https://nodejs.org/api/events.html_
@@ -369,7 +366,6 @@ declare namespace SocketIO {
 
         /**
          * Gets a copy of all listeners for an event.
-         *
          * @param event The event to retrieve all listeners for
          * @return A copy of the array of listeners for the event
          *
@@ -379,7 +375,6 @@ declare namespace SocketIO {
 
         /**
          * Get a copy of all listeners for an event, including one-time events.
-         *
          * @param event The event to retrieve all listeners for
          * @return A copy of the array of listeners for the event,
          * including any wrappers (such as those created by .once()).
@@ -389,9 +384,9 @@ declare namespace SocketIO {
         rawListeners(event: string): Function[];
 
         /**
-         * Get a copy of all listeners for an event, including one-time events.
-         * @param event The event to retrieve all listeners for
-         * @return The number of listeners listening to the event
+         * Gets the number of listeners listening to the event.
+         * @param event The event to retrieve the total listener count for
+         * @return The total number of listeners listening to the event
          *
          * _Inherited from EventEmitter - https://nodejs.org/api/events.html_
          */
