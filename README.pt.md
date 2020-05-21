@@ -88,7 +88,7 @@ Versão | Lançada em | Término do suporte
 3.8 | Fevereiro 2020 | Fevereiro 2022
 3.9 | Maio 2020 | Maio 2022
 
-Pacotes `@types` têm tags para versões do TypeScript que elas explicitamente suportam, então normalmente você pode pode usar versões mais antigas dos pacotes que precedem o período de 2 anos.
+Pacotes `@types` têm tags para versões do TypeScript que elas explicitamente suportam, então normalmente você pode usar versões mais antigas dos pacotes que precedem o período de 2 anos.
 Por exemplo, se você executar o comando `npm dist-tags @types/react`, você verá que o TypeScript 2.5 pode usar os tipos para o react@16.0, enquanto o TypeScript 2.6 e 2.7 podem usar os tipos para o react@16.4:
 
 |Tag | Versão|
@@ -138,9 +138,9 @@ Então faça uma build *e* execute o código para ter certeza que sua definiçã
 
 Se você está se perguntando por onde começar os testes em seu código, os exemplos no README do módulo são um ótimo lugar para começar.
 
-Logo após testar suas definições com um código real, faça uma [PR](#make-a-pull-request)
-e então siga as instruções para [editar um pacote existente](#edit-an-existing-package) ou
-[criar um novo pacote](#create-a-new-package).
+Logo após testar suas definições com um código real, faça uma [PR](#faça-uma-pull-request)
+e então siga as instruções para [editar um pacote existente](#edite-um-pacote-existente) ou
+[criar um novo pacote](#crie-um-novo-pacote).
 
 
 ### Faça uma pull request
@@ -167,7 +167,7 @@ Deve existir um arquivo `[nomedomódulo]-tests.ts`, que é considerado seu arqui
 Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `[nomedomódulo]-tests.ts`.
 Esses arquivos serão usados para validar a API exportada dos arquivos `*.d.ts` que são enviadas como `@types/seumódulo`.
 
-Mudanças nos aqruivos `*.d.ts` devem ser acompanhadas de mudanças nos arquivos `*.ts` que mostrem que a API sendo usada, para que ninguém acidentalmente "quebre" o código do qual você depende.
+Mudanças nos arquivos `*.d.ts` devem ser acompanhadas de mudanças nos arquivos `*.ts` que mostrem que a API sendo usada, para que ninguém acidentalmente "quebre" o código do qual você depende.
 Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `[nomedomódulo]-tests.ts`.
 
 Abaixo há um exemplo dessas mudanças em uma função em um arquivo `d.ts` adicionando um novo parâmetro à função:
