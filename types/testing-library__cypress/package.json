@@ -1,5 +1,8 @@
 {
     "private": true,
+    "devDependencies": {
+        "cypress": "*" 
+    },
     "peerDependencies": {
         "cypress": "*"
     }
