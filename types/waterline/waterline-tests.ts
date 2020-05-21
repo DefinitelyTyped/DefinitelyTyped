@@ -1,31 +1,31 @@
-import Waterline = require("waterline");
+import Waterline = require('waterline');
 const waterline = new Waterline();
 const userCollection = Waterline.Collection.extend({
-    identity: "user",
-    connection: "default",
+    identity: 'user',
+    connection: 'default',
     attributes: {
-        firstName: "string",
-        lastName: "string",
+        firstName: 'string',
+        lastName: 'string',
 
         // Add a reference to Pets
         pets: {
-            collection: "pet",
-            via: "owner",
+            collection: 'pet',
+            via: 'owner',
             dominant: true,
         },
     },
 });
 const petCollection = Waterline.Collection.extend({
-    identity: "pet",
-    connection: "default",
+    identity: 'pet',
+    connection: 'default',
     attributes: {
-        breed: "string",
-        type: "string",
-        name: "string",
+        breed: 'string',
+        type: 'string',
+        name: 'string',
 
         // Add a reference to User
         owner: {
-            model: "user",
+            model: 'user',
         },
     },
 });
@@ -39,7 +39,7 @@ const config: Waterline.Config = {
     },
     connections: {
         default: {
-            adapter: "memory",
+            adapter: 'memory',
         },
     },
 };
@@ -53,70 +53,75 @@ waterline.initialize(config, (err, ontology) => {
     const User: Waterline.Model = ontology.collections.user;
     const Pet: Waterline.Model = ontology.collections.pet;
 
-    User.create({ // First we create a user.
-        firstName: "Neil",
-        lastName: "Armstrong",
-    }).then((user: any) => { // Then we create the pet
-        return Pet.create({
-            breed: "beagle",
-            type: "dog",
-            name: "Astro",
-            owner: user.id,
+    User.create({
+        // First we create a user.
+        firstName: 'Neil',
+        lastName: 'Armstrong',
+    })
+        .then((user: any) => {
+            // Then we create the pet
+            return Pet.create({
+                breed: 'beagle',
+                type: 'dog',
+                name: 'Astro',
+                owner: user.id,
+            });
+        })
+        .then(pet => {
+            // Then we grab all users and their pets
+            return User.find().populate('pets');
+        })
+        .then(users => {
+            // Results of the previous then clause are passed to the next
+            console.dir(users);
+        })
+        .catch(errCatch => {
+            // If any errors occur execution jumps to the catch block.
+            console.error(errCatch);
         });
-
-    }).then((pet) => { // Then we grab all users and their pets
-        return User.find().populate("pets");
-
-    }).then((users) => { // Results of the previous then clause are passed to the next
-        console.dir(users);
-
-    }).catch((errCatch) => { // If any errors occur execution jumps to the catch block.
-        console.error(errCatch);
-    });
 });
 
 const Person = Waterline.Collection.extend({
-    identity: "person",
-    connection: "local-postgresql",
+    identity: 'person',
+    connection: 'local-postgresql',
 
     attributes: {
-
         // Don"t allow two objects with the same value
         lastName: {
-            type: "string",
-            unique: true
+            type: 'string',
+            unique: true,
         },
 
         // Ensure a value is set
         age: {
-            type: "integer",
-            required: true
+            type: 'integer',
+            required: true,
         },
 
         // Set a default value if no value is set
         phoneNumber: {
-            type: "string",
-            defaultsTo: "111-222-3333"
+            type: 'string',
+            defaultsTo: '111-222-3333',
         },
 
         // Create an auto-incrementing value (not supported by all datastores)
         incrementMe: {
-            type: "integer",
-            autoIncrement: true
+            type: 'integer',
+            autoIncrement: true,
         },
 
         // Index a value for faster queries
         emailAddress: {
-            type: "email", // Email type will get validated by the ORM
-            index: true
-        }
-    }
+            type: 'email', // Email type will get validated by the ORM
+            index: true,
+        },
+    },
 });
 const attributes: Waterline.Attribute = {
     type: 'string',
     autoIncrement: true,
     required: true,
-}
+};
 // https://github.com/balderdashy/waterline-docs/blob/master/models/validations.md
 const validations: Waterline.AttributeValidations = {
     custom: () => true,
@@ -126,7 +131,7 @@ const validations: Waterline.AttributeValidations = {
     isCreditCard: true,
     isEmail: true,
     isHexColor: true,
-    isIn: ["foo", "bar"],
+    isIn: ['foo', 'bar'],
     isInteger: true,
     isIP: true,
     isNotEmptyString: true,
@@ -144,7 +149,7 @@ const validations: Waterline.AttributeValidations = {
 const valid2 = {
     contains: (cb: (val: string) => any) => {
         setTimeout(() => {
-            cb("http://");
+            cb('http://');
         }, 1);
     },
     before: function () {
@@ -152,134 +157,144 @@ const valid2 = {
     },
     after: function () {
         return this.startDate;
-    }
+    },
 };
 const model: Waterline.CollectionDefinition = {
     attributes: {
         email: {
-            type: "email",
-            special: true // ignored by validation
+            type: 'email',
+            special: true, // ignored by validation
         },
         cousins: {
-            collection: "related",
-            via: "property",
-            async: true // ignored by validation
-        }
-    }
+            collection: 'related',
+            via: 'property',
+            async: true, // ignored by validation
+        },
+    },
 };
 // Lifecycle Callbacks https://github.com/balderdashy/waterline-docs/blob/master/models/lifecycle-callbacks.md
 
 const attr1: Waterline.CollectionDefinition = {
     beforeValidate: (values, next) => {
         next();
-        next("");
+        next('');
     },
     beforeCreate: (values, next) => {
-        next(new Error(""));
+        next(new Error(''));
         next();
     },
     afterCreate: (values, next) => {
-        next(new Error(""));
+        next(new Error(''));
         next();
     },
     beforeUpdate: (values, next) => {
-        next(new Error(""));
+        next(new Error(''));
         next();
     },
     afterUpdate: (values, next) => {
-        next(new Error(""));
+        next(new Error(''));
         next();
     },
     beforeDestroy: (values, next) => {
-        next(new Error(""));
+        next(new Error(''));
         next();
     },
     afterDestroy: (values, next) => {
-        next(new Error(""));
+        next(new Error(''));
         next();
     },
 };
 // Queries https://github.com/balderdashy/waterline-docs/blob/master/queries/query.md
 let User: Waterline.Model = {} as any;
 User.find()
-    .where({ name: { contains: "foo" } })
-    .populate("animals", { type: "dog", limit: 10 })
+    .where({ name: { contains: 'foo' } })
+    .populate('animals', { type: 'dog', limit: 10 })
     .skip(20)
     .limit(10)
     .exec((err, users) => {
-        users.map((u) => u.any);
+        users.map(u => u.any);
     });
 let Comment: Waterline.Model = {} as any;
 User.findOne()
     .where({ id: 2 })
-    .then((user) => {
-        const comments = Comment.find({ userId: user.id }).then((comments2) => {
+    .then(user => {
+        const comments = Comment.find({ userId: user.id }).then(comments2 => {
             return comments2;
         });
 
         return [user.id, user.friendsList, comments];
     })
-    .spread((userId, friendsList, comments) => {
-
-    })
+    .spread((userId, friendsList, comments) => {})
     .catch((err: any) => {
         // An error occured
     });
 
 User.find()
-    .where({ name: { startsWith: "w" } })
+    .where({ name: { startsWith: 'w' } })
     .exec((err, results) => {
         throw err;
     });
 // Simple Population
 User.find()
-    .populate("foo")
-    .exec((err, users) => { });
+    .populate('foo')
+    .exec((err, users) => {});
 // Collection Filtering
 User.find()
-    .populate("foo", { type: "bar", limit: 20 })
-    .exec((err, users) => { });
+    .populate('foo', { type: 'bar', limit: 20 })
+    .exec((err, users) => {});
 User.find()
     .limit(10)
-    .exec((err, users) => { });
+    .exec((err, users) => {});
 User.find()
     .skip(10)
-    .exec((err, users) => { });
+    .exec((err, users) => {});
 User.find()
     .skip(10)
     .limit(10)
-    .exec((err, users) => { });
+    .exec((err, users) => {});
 User.find()
     .paginate({ page: 2, limit: 10 })
-    .exec((err, users) => { });
-User.find().sort("roleId asc")
-    .sort({ createdAt: "desc" }).exec((err, users) => { });
-User.find().exec((err, users) => { });
+    .exec((err, users) => {});
+User.find()
+    .sort('roleId asc')
+    .sort({ createdAt: 'desc' })
+    .exec((err, users) => {});
+User.find().exec((err, users) => {});
 // Query methods https://github.com/balderdashy/waterline-docs/blob/master/queries/query-methods.md
 // .find( criteria, [callback] )
-User.find(1, (err, values) => { values.map((v) => v); });
-User.find({ name: "Walter Jr" }).exec((err, users) => { users.map((u) => u.id); });
+User.find(1, (err, values) => {
+    values.map(v => v);
+});
+User.find({ name: 'Walter Jr' }).exec((err, users) => {
+    users.map(u => u.id);
+});
 // .findOne( criteria, [callback] )
-User.findOne({ name: "Walter Jr" }).exec((err, users) => { users.map((u: any) => u.id); });
-User.findOne(1).exec((err, users) => { users.map((u: any) => u.id); });
-User.findOne("1").exec((err, users) => { users.map((u: any) => u.id); });
-User.findOne(1, (err, value) => { });
+User.findOne({ name: 'Walter Jr' }).exec((err, users) => {
+    users.map((u: any) => u.id);
+});
+User.findOne(1).exec((err, users) => {
+    users.map((u: any) => u.id);
+});
+User.findOne('1').exec((err, users) => {
+    users.map((u: any) => u.id);
+});
+User.findOne(1, (err, value) => {});
 // .create( criteria, [callback] )
-User.create({ name: "Walter Jr" }).exec((err, user) => { });
-User.findOrCreate({ name: "Walter Jr" }, {}, (err, user) => { }).exec((err, users) => { });
+User.create({ name: 'Walter Jr' }).exec((err, user) => {});
+User.findOrCreate({ name: 'Walter Jr' }, {}, (err, user) => {}).exec((err, users) => {});
 // .update( search criteria , values , [callback] )
-User.update({ name: "Walter Jr" }, { name: "Flynn" }, (err, value) => { }).exec((err, users) => { });
+User.update({ name: 'Walter Jr' }, { name: 'Flynn' }, (err, value) => {}).exec((err, users) => {});
 // .destroy( criteria , [callback] )
-User.destroy({ name: "Flynn" }, (err, value) => { }).exec((err) => { });
+User.destroy({ name: 'Flynn' }, (err, value) => {}).exec(err => {});
 // .query( query, [data], callback )
 const Movie: Waterline.Model = {} as any;
-const title = "The Speech";
-Movie.query("SELECT * FROM movie WHERE title = $1", [title], (err, results) => { });
+const title = 'The Speech';
+Movie.query('SELECT * FROM movie WHERE title = $1', [title], (err, results) => {});
 // Aggregates https://github.com/balderdashy/waterline-docs/blob/master/queries/query-methods.md#aggregates
 Movie.find()
-    .groupBy("genre")
-    .max("revenue")
-    .min("title")
-    .sum("imdb")
-    .average("cost")
-    .then((results: any) => { });
+    .groupBy('genre')
+    .max('revenue')
+    .min('title')
+    .sum('imdb')
+    .average('cost')
+    .then((results: any) => {});
