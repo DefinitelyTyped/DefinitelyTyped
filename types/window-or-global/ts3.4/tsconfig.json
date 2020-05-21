@@ -1,9 +1,4 @@
 {
-    "files": [
-        "index.d.ts",
-        "node-tests.ts",
-        "test/globals.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "esnext",
@@ -22,5 +17,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "window-or-global-tests.ts"
+    ]
 }
