@@ -34,7 +34,6 @@ export interface ColorResult {
     rgb: RGBColor;
 }
 
-// Color change handler receives 2 parameters - the color object itself and the click event
 export type ColorChangeHandler = (color: ColorResult, $event: React.ChangeEvent<HTMLInputElement>) => void;
 
 export interface ColorPickerProps<A> extends ClassAttributes<A> {
