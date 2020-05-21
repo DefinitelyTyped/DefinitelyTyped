@@ -2785,7 +2785,8 @@ declare namespace asana {
       }
 
       interface CustomField extends Resource {
-        enabled: boolean;
+				enabled: boolean;
+				enum_options: EnumValue[] | null;
         enum_value: EnumValue | null;
       }
     }
