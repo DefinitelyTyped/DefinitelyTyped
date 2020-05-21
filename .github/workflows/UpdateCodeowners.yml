@@ -1,7 +1,7 @@
 name: Update CODEOWNERs
 
 # For testing
-# on: push
+on: push
 
 # For production
 # on:
