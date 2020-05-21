@@ -1887,6 +1887,20 @@ interface ICanvasOptions extends IStaticCanvasOptions {
      * @default
      */
     targets?: Object[];
+
+    /**
+     * Canvas width
+     * @type number
+     * @default
+     */
+    width?: number;
+
+    /**
+     * Canvas height
+     * @type number
+     * @default
+     */
+    height?: number;
 }
 export interface Canvas extends StaticCanvas { }
 export interface Canvas extends ICanvasOptions { }
@@ -1896,7 +1910,7 @@ export class Canvas {
      * @param element <canvas> element to initialize instance on
      * @param [options] Options object
      */
-    constructor(element: HTMLCanvasElement | string, options?: ICanvasOptions);
+    constructor(element: HTMLCanvasElement | string | null, options?: ICanvasOptions);
 
     /**
      * When true, target detection is skipped when hovering over canvas. This can be used to improve performance.
