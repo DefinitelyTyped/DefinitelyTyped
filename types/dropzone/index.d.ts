@@ -9,6 +9,7 @@
 //                 Daniel Waxweiler <https://github.com/dwaxweiler>
 //                 PikachuEXE <https://github.com/PikachuEXE>
 //                 Arne Deruwe <https://github.com/arnederuwe>
+//                 Chris Macklin <https://github.com/macklin-10x>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -26,6 +27,14 @@ declare namespace Dropzone {
         trgHeight?: number;
     }
 
+    export interface DropzoneFileUpload {
+        progress: number;
+        total: number;
+        bytesSent: number;
+        uuid: string;
+        totalChunkCount?: number;
+    }
+
     export interface DropzoneFile extends File {
         previewElement: HTMLElement;
         previewTemplate: HTMLElement;
@@ -33,6 +42,7 @@ declare namespace Dropzone {
         status: string;
         accepted: boolean;
         xhr?: XMLHttpRequest;
+        upload?: DropzoneFileUpload;
     }
 
     export interface DropzoneDictFileSizeUnits {
