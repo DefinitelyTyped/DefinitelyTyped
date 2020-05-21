@@ -19,6 +19,7 @@ declare namespace Waterline {
     }
     type Ontology = {
         collections: any;
+        datastores: any;
     };
     interface Waterline {
         loadCollection(collection: CollectionClass): void;
