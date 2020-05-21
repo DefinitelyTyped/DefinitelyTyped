@@ -2779,6 +2779,12 @@
             "asOfVersion": "2.0.5"
         },
         {
+            "libraryName": "@mdx-js/react",
+            "typingsPackageName": "mdx-js__react",
+            "sourceRepoURL": "https://github.com/mdx-js/mdx",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "mem",
             "typingsPackageName": "mem",
             "sourceRepoURL": "https://github.com/sindresorhus/mem",
