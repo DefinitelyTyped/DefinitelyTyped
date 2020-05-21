@@ -4334,14 +4334,14 @@ export namespace signature {
      * @param armoredText text to be parsed
      * @returns new signature object
      */
-    function readArmored(armoredText: string | ReadableStream<String>): Signature;
+    function readArmored(armoredText: string | ReadableStream<String>): Promise<Signature>;
 
     /**
      * reads an OpenPGP signature as byte array and returns a signature object
      * @param input binary signature
      * @returns new signature object
      */
-    function read(input: Uint8Array | ReadableStream<Uint8Array>): Signature;
+    function read(input: Uint8Array | ReadableStream<Uint8Array>): Promise<Signature>;
 }
 
 export namespace type {
