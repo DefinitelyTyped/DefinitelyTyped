@@ -1,4 +1,4 @@
-// Type definitions for waterline 0.13
+// Type definitions for waterline 0.13.6
 // Project: https://github.com/balderdashy/waterline
 // Definitions by: Alexandro Libertino <https://github.com/arvitaly>
 //                 Keith Kikta <https://github.com/newbish>
