@@ -1,14 +1,18 @@
 import * as React from 'react';
 import {
     AccordionItem,
+    Column,
     DataTable,
     DataTableCustomRenderProps,
     DataTableHeader,
     DataTableRow,
     DatePickerInput,
     Dropdown,
+    HeaderContainer,
+    HeaderMenu,
     FileUploader,
     NumberInput,
+    Row,
     Slider,
     Tab,
     Table,
@@ -255,6 +259,51 @@ const uisLinkT4 = (
     </Link>
 );
 
+// UI Shell - HeaderContainer
+const uisHeaderContainerAnonRender = (
+    <HeaderContainer
+        render={({ isSideNavExpanded, onClickSideNavExpand }) => (
+            <button disabled={isSideNavExpanded} onClick={onClickSideNavExpand}>
+                Expand
+            </button>
+        )}
+    />
+);
+
+const HeaderCompRender1: React.FC<{ someProp: number }> = () => <div/>;
+const HeaderCompRender2: React.FC<{ someProp?: number }> = () => <div/>;
+
+/*
+ * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
+ *  will be used.
+ */
+const uisHeaderContainerCompRenderNotMatchingRequiredProps = (
+    <HeaderContainer render={HeaderCompRender1} />
+);
+
+const uisHeaderContainerCompRenderNotMatchingOptionalProps = (
+    <HeaderContainer render={HeaderCompRender2} />
+);
+
+// UI Shell - HeaderMenu
+const uisHeaderMenuAnonRender = (
+    <HeaderMenu menuLinkName="test" renderMenuContent={() => <div/>}>
+        <div/>
+    </HeaderMenu>
+);
+
+/*
+ * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
+ *  will be used.
+ */
+const uisHeaderMenuCompRenderNotMatchingRequiredProps = (
+    <HeaderMenu menuLinkName="test" renderMenuContent={HeaderCompRender1} />
+);
+
+const uisHeaderMenuCompRenderNotMatchingOptionalProps = (
+    <HeaderMenu menuLinkName="test" renderMenuContent={HeaderCompRender2} />
+);
+
 interface TestCompPropsOverwrite {
     element?: 'overwriteTest'; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
     someProp: string;
@@ -418,4 +467,58 @@ const multiSelectFilterable = (
         itemToString={item => item}
         onChange={({ selectedItems }) => {}}
     />
+);
+
+// Grid
+
+const GridCustomRenderComp1: React.FC<{ someProp: number }> = () => <div/>;
+
+// Grid: Row
+const rowDefaultT1 = (
+    <Row onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
+        Contents
+    </Row>
+);
+
+const rowDefaultT2 = (
+    <Row as={undefined} onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
+        Contents
+    </Row>
+);
+
+const rowCustomIntrinsic = (
+    <Row as="li" onClick={(event: React.MouseEvent<HTMLLIElement>) => {}}>
+        Contents
+    </Row>
+);
+
+const rowCustomComp1 = (
+    <Row as={GridCustomRenderComp1} someProp={5} condensed>
+        Content
+    </Row>
+);
+
+// Grid: Column
+const columnDefaultT1 = (
+    <Column onClick={(event: React.MouseEvent<HTMLDivElement>) => {}} lg={{ offset: 4 }}>
+        Contents
+    </Column>
+);
+
+const columnDefaultT2 = (
+    <Column as={undefined} onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
+        Contents
+    </Column>
+);
+
+const columnCustomIntrinsic = (
+    <Column as="li" onClick={(event: React.MouseEvent<HTMLLIElement>) => {}}>
+        Contents
+    </Column>
+);
+
+const columnCustomComp1 = (
+    <Column as={GridCustomRenderComp1} someProp={5} xlg={5} sm={2}>
+        Content
+    </Column>
 );
