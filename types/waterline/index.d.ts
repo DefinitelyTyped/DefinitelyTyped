@@ -22,6 +22,7 @@ declare namespace Waterline {
     };
     interface Waterline {
         loadCollection(collection: CollectionClass): void;
+        registerModel(collection: CollectionClass): void;
         initialize: (config: Config, cb: (err: Error, ontology: Ontology) => any) => any;
         collections: any;
     }
