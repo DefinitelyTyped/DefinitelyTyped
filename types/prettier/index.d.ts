@@ -44,32 +44,6 @@ export type BuiltInParserName =
     | 'yaml'
     | 'lwc';
 
-export type SupportOptionName =
-    | 'arrowParens'
-    | 'bracketSpacing'
-    | 'cursorOffset'
-    | 'endOfLine'
-    | 'filepath'
-    | 'htmlWhitespaceSensitivity'
-    | 'insertPragma'
-    | 'jsxBracketSameLine'
-    | 'jsxSingleQuote'
-    | 'parser'
-    | 'pluginSearchDirs'
-    | 'plugins'
-    | 'printWidth'
-    | 'proseWrap'
-    | 'quoteProps'
-    | 'rangeEnd'
-    | 'rangeStart'
-    | 'requirePragma'
-    | 'semi'
-    | 'singleQuote'
-    | 'tabWidth'
-    | 'trailingComma'
-    | 'useTabs'
-    | 'vueIndentScriptAndStyle';
-
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
 export interface Options extends Partial<RequiredOptions> {}
@@ -350,7 +324,7 @@ export interface SupportOptionDefault {
 }
 
 export interface SupportOption {
-    name: SupportOptionName;
+    name: string;
     since?: string;
     type: 'int' | 'boolean' | 'choice' | 'path';
     array?: boolean;
