@@ -5,58 +5,56 @@
 
 /// <reference types="node" />
 
-declare module 'xml' {
-    namespace xml {
-        export interface Option {
-            /**
-             * String used for tab, defaults to no tabs (compressed)
-             */
-            indent?: string;
-            /**
-             * Return the result as a `stream` (default false)
-             */
-            stream?: boolean;
-            /**
-             * Add default xml declaration (default false)
-             */
-            declaration?:
-                | boolean
-                | {
-                      encoding?: string;
-                      standalone?: string;
-                  };
-        }
-
-        export interface XmlAttrs {
-            [attr: string]: XmlAtom;
-        }
-        export interface XmlDescArray {
-            [index: number]: { _attr: XmlAttrs } | XmlObject;
-        }
-        export interface ElementObject {
-            push(xmlObject: XmlObject): void;
-            close(xmlObject?: XmlObject): void;
-        }
-
-        export type XmlAtom = string | number | boolean | null;
-        export type XmlDesc =
-            | { _attr: XmlAttrs }
-            | { _cdata: string }
-            | { _attr: XmlAttrs; _cdata: string }
-            | XmlAtom
-            | XmlAtom[]
-            | XmlDescArray;
-        export type XmlObject = { [tag: string]: ElementObject | XmlDesc } | XmlDesc;
-
-        export function element(...xmlObjects: XmlObject[]): ElementObject;
-        export function Element(...xmlObjects: XmlObject[]): ElementObject;
+declare namespace xml {
+    interface Option {
+        /**
+         * String used for tab, defaults to no tabs (compressed)
+         */
+        indent?: string;
+        /**
+         * Return the result as a `stream` (default false)
+         */
+        stream?: boolean;
+        /**
+         * Add default xml declaration (default false)
+         */
+        declaration?:
+            | boolean
+            | {
+                  encoding?: string;
+                  standalone?: string;
+              };
     }
 
-    function xml(
-        xmlObject: xml.XmlObject | xml.XmlObject[],
-        options: { stream: true; indent?: string },
-    ): NodeJS.ReadableStream;
-    function xml(xmlObject?: xml.XmlObject | xml.XmlObject[], options?: boolean | string | xml.Option): string;
+    interface XmlAttrs {
+        [attr: string]: XmlAtom;
+    }
+    interface XmlDescArray {
+        [index: number]: { _attr: XmlAttrs } | XmlObject;
+    }
+    interface ElementObject {
+        push(xmlObject: XmlObject): void;
+        close(xmlObject?: XmlObject): void;
+    }
 
-    export = xml;
+    type XmlAtom = string | number | boolean | null;
+    type XmlDesc =
+        | { _attr: XmlAttrs }
+        | { _cdata: string }
+        | { _attr: XmlAttrs; _cdata: string }
+        | XmlAtom
+        | XmlAtom[]
+        | XmlDescArray;
+    type XmlObject = { [tag: string]: ElementObject | XmlDesc } | XmlDesc;
+
+    function element(...xmlObjects: XmlObject[]): ElementObject;
+    function Element(...xmlObjects: XmlObject[]): ElementObject;
 }
+
+declare function xml(
+    xmlObject: xml.XmlObject | xml.XmlObject[],
+    options: { stream: true; indent?: string },
+): NodeJS.ReadableStream;
+declare function xml(xmlObject?: xml.XmlObject | xml.XmlObject[], options?: boolean | string | xml.Option): string;
+
+export = xml;
