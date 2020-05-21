@@ -154,7 +154,7 @@ Primeiro, [faça um fork](https://guides.github.com/activities/forking/) deste r
 
 * `cd types/meu-pacote-para-editar`
 * Faça as mudanças. Lembre de editar os testes.
-  Se você está fazendo mudanças que podem "quebrar" o pacote, não se esqueça de [atualizar a versão principal](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
+  Se você está fazendo mudanças que podem "quebrar" o pacote, não se esqueça de [atualizar a versão principal](#se-uma-biblioteca-for-atualizada-para-uma-nova-versão-major-com-mudanças-drásticas-como-eu-devo-atualizar-a-declaração-de-tipos).
 
 * Se há um `tslint.json`, execute `npm run lint nome-do-pacote`. Senão, execute `tsc` no diretório do pacote.
 
