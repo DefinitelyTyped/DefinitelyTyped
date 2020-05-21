@@ -1,16 +1,16 @@
 name: Update CODEOWNERs
 
 # For testing
-on: push
+# on: push
 
 # For production
-# on:
-#   schedule:
-#     # https://crontab.guru/#5_8_*_*_1
-#     - cron: "5 8 * * 1"
+on:
+  schedule:
+    # https://crontab.guru/#5_8_*_*_1
+    - cron: "5 8 * * 1"
 
 jobs:
-  deploy:
+  update:
     runs-on: ubuntu-latest
 
     steps:
