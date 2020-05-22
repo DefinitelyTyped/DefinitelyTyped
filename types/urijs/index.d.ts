@@ -7,6 +7,7 @@
 //                 TeamworkGuy2 <https://github.com/teamworkguy2>
 //                 Akuukis <https://github.com/Akuukis>
 //                 Marcell Toth <https://github.com/marcelltoth>
+//                 Vincenzo Chianese <https://github.com/XVincentX>
 //                 Andree Hagelstein <https://github.com/ahagelstein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
