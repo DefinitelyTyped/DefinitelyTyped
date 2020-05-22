@@ -12120,6 +12120,8 @@ declare namespace Office {
          *
          * The dictionary object can be iterated through to discover all `names` and `values`.
          *
+         * [Api set: Mailbox Preview]
+         *
          * @returns An object with all custom properties in a collection of name/value pairs.
          *
          * @remarks
@@ -12128,6 +12130,7 @@ declare namespace Office {
          *
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          *
+         * @beta
          */
         getAll(): any;
         /**
