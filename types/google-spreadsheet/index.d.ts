@@ -1,3 +1,9 @@
+// Type definitions for google-spreasheet 3.0.11
+// Project: https://github.com/theoephraim/node-google-spreadsheet
+// Definitions by: the-vampiire <https://github.com/the-vampiire>
+//                 Federico Grandi <https://github.com/EndBug>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /**
  * EDITING GUIDE
  *
