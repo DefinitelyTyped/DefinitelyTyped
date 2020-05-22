@@ -14,6 +14,7 @@
         "prefer-const": false,
         "prefer-method-signature": false,
         "space-before-function-paren": false,
-        "strict-export-declare-modifiers": false
+        "strict-export-declare-modifiers": false,
+        "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
     }
 }
