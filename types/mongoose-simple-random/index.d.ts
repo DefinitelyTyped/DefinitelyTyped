@@ -2,7 +2,7 @@
 // Project: https://github.com/larryprice/mongoose-simple-random
 // Definitions by: TypeScript Bot <https://github.com/typescript-bot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 import mongoose = require('mongoose');
 declare function pluginFunc(schema: mongoose.Schema): void;

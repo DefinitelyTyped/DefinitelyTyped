@@ -106,6 +106,13 @@ proxy("www.google.com", {
         return req.method === "GET";
     }
 });
+proxy("www.google.com", {
+    filter: (req, res) => {
+        return new Promise(resolve => {
+            resolve(req.method === 'GET');
+        });
+    }
+});
 
 proxy("www.google.com", {
     memoizeHost: true

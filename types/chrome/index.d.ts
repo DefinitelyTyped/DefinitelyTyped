@@ -10,6 +10,7 @@
 //                 Thierry Régagnon <https://github.com/tregagnon>
 //                 Brian Wilson <https://github.com/echoabstract>
 //                 Sebastiaan Pasma <https://github.com/spasma>
+//                 bdbai <https://github.com/bdbai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -1594,6 +1595,13 @@ declare namespace chrome.declarativeContent {
     /** Declarative event action that shows the extension's page action while the corresponding conditions are met. */
     export class ShowPageAction { }
 
+    /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
+    export class SetIcon {
+        constructor (options?: {
+            imageData?: ImageData | {[size: string]: ImageData}
+        })
+    }
+
     /** Provides the Declarative Event API consisting of addRules, removeRules, and getRules. */
     export interface PageChangedEvent extends chrome.events.Event<() => void> { }
 
@@ -2467,7 +2475,7 @@ declare namespace chrome.enterprise.platformKeys {
      * function(array of ArrayBuffer certificates) {...};
      * Parameter certificates: The list of certificates, each in DER encoding of a X.509 certificate.
      */
-    export function getCertificates(tokenId: string, callback: (certificates: ArrayBuffer) => void): void;
+    export function getCertificates(tokenId: string, callback: (certificates: ArrayBuffer[]) => void): void;
     /**
      * Imports certificate to the given token if the certified key is already stored in this token. After a successful certification request, this function should be used to store the obtained certificate and to make it available to the operating system and browser for authentication.
      * @param tokenId The id of a Token returned by getTokens.
@@ -3819,8 +3827,18 @@ declare namespace chrome.input.ime {
          * Whether or not the ALT key is pressed.
          */
         altKey?: boolean;
-        /** The ID of the request. */
-        requestId: string;
+        /**
+         * Optional.
+         * Whether or not the ALTGR key is pressed.
+         * @since Chrome 79.
+         */
+        altgrKey?: boolean;
+        /**
+         * Optional.
+         * The ID of the request.
+         * @deprecated since Chrome 79.
+         */
+        requestId?: string;
         /** Value of the key being pressed */
         key: string;
         /**
@@ -3968,7 +3986,7 @@ declare namespace chrome.input.ime {
         /** Text to set */
         text: string;
         /** Optional. List of segments and their associated types. */
-        segments: CompositionParameterSegment[];
+        segments?: CompositionParameterSegment[];
         /** Position in the text of the cursor. */
         cursor: number;
         /** Optional. Position in the text that the selection starts at. */
@@ -4884,12 +4902,12 @@ declare namespace chrome.permissions {
          * Optional.
          * List of named permissions (does not include hosts or origins). Anything listed here must appear in the optional_permissions list in the manifest.
          */
-        origins?: string[];
+        permissions?: string[];
         /**
          * Optional.
          * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional_permissions list in the manifest. For example, if http://*.example.com/ or http://* appears in optional_permissions, you can request an origin of http://help.example.com/. Any path is ignored.
          */
-        permissions?: string[];
+        origins?: string[];
     }
 
     export interface PermissionsRemovedEvent {
@@ -5445,8 +5463,8 @@ declare namespace chrome.serial {
   * @export
   * @param connectionId The id of the connection.
   * @param signals The set of signal changes to send to the device:
-  * boolean:	(optional) dtr - DTR (Data Terminal Ready).
-  * boolean:	(optional) rts - RTS (Request To Send).
+  * boolean:    (optional) dtr - DTR (Data Terminal Ready).
+  * boolean:    (optional) rts - RTS (Request To Send).
   * @param callback Called once the control signals have been set.
   * The callback parameter should be a function that looks like this:
   * function(boolean result) {...};
@@ -6653,7 +6671,7 @@ declare namespace chrome.system.display {
        * If set, updates the display's logical bounds origin along y-axis.
        * @see[See documentation for boundsOriginX parameter.]
        */
-      boundsOriginY: number;
+      boundsOriginY?: number;
 
       /**
        * If set, updates the display mode to the mode matching this value.
@@ -7875,16 +7893,17 @@ declare namespace chrome.tts {
         /**
          * Optional. This voice's gender.
          * One of: "male", or "female"
+         * @deprecated since Chrome 70. Gender is deprecated and will be ignored.
          */
         gender?: string;
         /** Optional. The name of the voice. */
         voiceName?: string;
-        /** The ID of the extension providing this voice. */
-        extensionsId?: string;
-        /** All of the callback event types that this voice is capable of sending. */
+        /** Optional. The ID of the extension providing this voice. */
+        extensionId?: string;
+        /** Optional. All of the callback event types that this voice is capable of sending. */
         eventTypes?: string[];
         /**
-         * If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
+         * Optional. If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
          * @since Chrome 33.
          */
         remote?: boolean;

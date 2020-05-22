@@ -40,28 +40,28 @@ declare namespace gapi.client.analytics.data.realtime {
 
 declare namespace gapi.client.analytics.kB {}
 declare namespace gapi.client.analytics.kB.parameters {
-	export interface AnalyticsParameter {
-		"type"              ?: string;
-		"description"       ?: string;
-		"default"           ?: string;
-		"enum"              ?: string[];
-		"enumDescriptions"  ?: string[];
-		"location"          ?: string;
-	}
+    export interface AnalyticsParameter {
+        "type"              ?: string;
+        "description"       ?: string;
+        "default"           ?: string;
+        "enum"              ?: string[];
+        "enumDescriptions"  ?: string[];
+        "location"          ?: string;
+    }
         export interface alt extends AnalyticsParameter {}
-	export class alt {}
+    export class alt {}
         export interface fields extends AnalyticsParameter {}
-	export class fields {}
+    export class fields {}
         export interface key extends AnalyticsParameter {}
-	export class key {}
+    export class key {}
         export interface oauth_token extends AnalyticsParameter {}
-	export class oauth_token {}
+    export class oauth_token {}
         export interface prettyPrint extends AnalyticsParameter {}
-	export class prettyPrint {}
+    export class prettyPrint {}
         export interface quotaUser extends AnalyticsParameter {}
-	export class quotaUser {}
+    export class quotaUser {}
         export interface userIP extends AnalyticsParameter {}
-	export class userIP {}
+    export class userIP {}
 }
 
 interface View {

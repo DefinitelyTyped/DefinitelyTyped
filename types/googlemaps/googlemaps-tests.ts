@@ -1,6 +1,6 @@
 // Test file for Google Maps JavaScript API Definition file
 
-const version = google.maps.version;  // $ExpectType string
+const version = google.maps.version; // $ExpectType string
 
 let mapOptions: google.maps.MapOptions = {
     backgroundColor: '#fff',
@@ -713,6 +713,10 @@ service.getDetails(
         }
 
         result.name; // $ExpectType string
+        result.reviews; // $ExpectType PlaceReview[] | undefined
+        if (result.reviews && result.reviews.length) {
+            result.reviews[0].rating; // $ExpectType number
+        }
     },
 );
 
@@ -750,15 +754,13 @@ const placeResult = autocomplete.getPlace();
 placeResult.name; // $ExpectType string
 
 /***** google.maps.places.AutocompleteService *****/
-new google.maps.places.AutocompleteService()
-    .getPlacePredictions(
-        {input: 'Kyiv, Ukr'},
-        (result) => {
-            result[0]
-                .structured_formatting
-                .secondary_text_matched_substrings; // $ExpectType PredictionSubstring[] | undefined
-        }
-    );
+new google.maps.places.AutocompleteService().getPlacePredictions(
+    { input: 'Kyiv, Ukr', origin: { lat: 50.4021368, lng: 30.252522 } },
+    result => {
+        result[0].distance_meters; // $ExpectType number | undefined
+        result[0].structured_formatting.secondary_text_matched_substrings; // $ExpectType PredictionSubstring[] | undefined
+    },
+);
 
 /***** google.maps.ImageMapType *****/
 const imageMapType = new google.maps.ImageMapType({
@@ -810,27 +812,27 @@ const directionsWaypointStopover: google.maps.DirectionsWaypoint = {
 /***** google.maps.DirectionsService *****/
 let directionsService = new google.maps.DirectionsService();
 
-directionsService.route({
-    avoidFerries: true,
-    avoidHighways: true,
-    avoidTolls: true,
-    destination: 'destination',
-    origin: 'origin',
-    provideRouteAlternatives: true,
-    transitOptions: {
-        arrivalTime: new Date(),
-        departureTime: new Date(),
-        modes: [
-            google.maps.TransitMode.BUS,
-            google.maps.TransitMode.RAIL
-        ],
-        routingPreference: google.maps.TransitRoutePreference.FEWER_TRANSFERS
+directionsService.route(
+    {
+        avoidFerries: true,
+        avoidHighways: true,
+        avoidTolls: true,
+        destination: 'destination',
+        origin: 'origin',
+        provideRouteAlternatives: true,
+        transitOptions: {
+            arrivalTime: new Date(),
+            departureTime: new Date(),
+            modes: [google.maps.TransitMode.BUS, google.maps.TransitMode.RAIL],
+            routingPreference: google.maps.TransitRoutePreference.FEWER_TRANSFERS,
+        },
+        travelMode: google.maps.TravelMode.TRANSIT,
+        unitSystem: google.maps.UnitSystem.IMPERIAL,
     },
-    travelMode: google.maps.TravelMode.TRANSIT,
-    unitSystem: google.maps.UnitSystem.IMPERIAL
-}, (result: google.maps.DirectionsResult, status: google.maps.DirectionsStatus) => {
-    const routes = result.routes; // $ExpectType DirectionsRoute[]
-    const legs = routes[0].legs; // $ExpectType DirectionsLeg[]
-    const steps = legs[0].steps; // $ExpectType DirectionsStep[]
-    steps[0].steps; // $ExpectType BaseDirectionsStep[]
-});
+    (result: google.maps.DirectionsResult, status: google.maps.DirectionsStatus) => {
+        const routes = result.routes; // $ExpectType DirectionsRoute[]
+        const legs = routes[0].legs; // $ExpectType DirectionsLeg[]
+        const steps = legs[0].steps; // $ExpectType DirectionsStep[]
+        steps[0].steps; // $ExpectType BaseDirectionsStep[]
+    },
+);

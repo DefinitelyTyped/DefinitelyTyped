@@ -709,6 +709,12 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         b; // $ExpectType AbcObject
         return true;
     });
+    // $ExpectType AbcObject[]
+    _.intersectionWith(...[list, list], (a, b) => {
+        a; // $ExpectType AbcObject
+        b; // $ExpectType never
+        return true;
+    });
 
     _(list).intersectionWith(list); // $ExpectType Collection<AbcObject>
     _(list).intersectionWith(list, list); // $ExpectType Collection<AbcObject>

@@ -5705,7 +5705,7 @@ export interface CursorPositionChangedEvent {
     newBufferPosition: Point;
     newScreenPosition: Point;
     textChanged: boolean;
-    cursor:	Cursor;
+    cursor: Cursor;
 }
 
 export interface DecorationPropsChangedEvent {

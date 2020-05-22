@@ -20,7 +20,7 @@ export default json2csv;
 export {
     JSON2CSVParser as Parser,
     JSON2CSVAsyncParser as AsyncParser,
-	JSON2CSVTransform as Transform,
+    JSON2CSVTransform as Transform,
     builtInTransforms as transforms
 };
 

@@ -20,7 +20,17 @@ const MuiCustomTable: React.FC<Props> = (props) => {
             label: 'Name',
             options: {
                 filterType: 'custom',
-                sortDirection: 'none'
+                sortDirection: 'none',
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    return (
+                        <input
+                            type="text"
+                            value={value}
+                            name={`${tableMeta.columnData.name}-${tableMeta.rowIndex}`}
+                            onChange={event => updateValue(event.target.value)}
+                        />
+                    );
+                }
             }
         },
         {

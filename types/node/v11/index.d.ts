@@ -9,7 +9,6 @@
 //                 Benjamin Toueg <https://github.com/btoueg>
 //                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Chigozirim C. <https://github.com/smac89>
-//                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 David Junger <https://github.com/touffy>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
@@ -55,6 +54,9 @@
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
+
+// We can't include assert.d.ts in base.d.ts, as it'll cause duplication errors in +ts3.7
+/// <reference path="assert.d.ts" />
 
 // TypeScript 2.1-specific augmentations:
 

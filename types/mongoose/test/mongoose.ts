@@ -40,7 +40,7 @@ const connection3 = mongoose.connect(connectUri, function (error) {
 });
 
 /**
- * Test taken from MongoDB CSFLE guide 
+ * Test taken from MongoDB CSFLE guide
  * https://docs.mongodb.com/drivers/use-cases/client-side-field-level-encryption-guide
  */
 
@@ -76,6 +76,9 @@ const dcPromise: Promise<void> = mongoose.disconnect();
 mongoose.get('test');
 mongoose.model('Actor', new mongoose.Schema({
   name: String
+}, {
+    autoCreate: true,
+    autoIndex: true,
 }), 'collectionName', true).find({});
 mongoose.model('Actor').find({});
 mongoose.modelNames()[0].toLowerCase();
@@ -725,7 +728,7 @@ new mongoose.Schema({
   }
 }, {index: true});
 
-new mongoose.Schema({foo: String}, {strict: 'throw'});
+new mongoose.Schema({foo: String}, {strict: 'throw', strictQuery: true});
 
 export default function(schema: mongoose.Schema) {
   schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void): void {
@@ -1069,6 +1072,7 @@ aggregate.option({foo: 'bar'}).exec();
 const aggregateDotPipeline: any[] = aggregate.pipeline();
 aggregate.explain(cb).then(cb).catch(cb);
 aggregate.group({ _id: "$department" }).group({ _id: "$department" });
+aggregate.hint({ _id: 1 })
 aggregate.limit(10).limit(10);
 var lookupOpt = {
   from: 'users', localField:

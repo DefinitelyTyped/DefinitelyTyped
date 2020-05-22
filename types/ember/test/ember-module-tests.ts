@@ -226,10 +226,11 @@ const ma1: Ember.MutableArray<string> = [
 ];
 ma1.addObject('!'); // $ExpectType string
 ma1.filterBy(''); // $ExpectType NativeArray<string>
+ma1.firstObject; // $ExpectType string | undefined
+ma1.lastObject; // $ExpectType string | undefined
 // Ember.MutableEnumerable
-// tslint:disable-next-line:prefer-const
-let me1: Ember.MutableEnumerable<[string]> = null as any;
-me1.compact(); // $ExpectType NativeArray<[string]>
+const me1: Ember.MutableEnumerable<string | null | undefined> = ['foo', undefined, null];
+me1.compact(); // $ExpectType NativeArray<string>
 // Ember.Namespace
 const myNs = Ember.Namespace.extend({});
 // Ember.NativeArray

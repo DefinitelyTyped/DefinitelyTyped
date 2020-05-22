@@ -9,6 +9,8 @@
 //                 Matt Krick <https://github.com/mattkrick>
 //                 Jared Kass <https://github.com/jdk243>
 //                 Renan Machado <https://github.com/renanmav>
+//                 Janic Duplessis <https://github.com/janicduplessis>
+//                 Christian Ivicevic <https://github.com/ChristianIvicevic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 

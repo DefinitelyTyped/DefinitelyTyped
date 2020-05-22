@@ -8,3 +8,4 @@
  * This is a stub types definition for react-bootstrap. React-bootstrap provides its own type definitions for v1.0.0,
  * so you don't need @types/react-bootstrap installed!
  */
+export {};

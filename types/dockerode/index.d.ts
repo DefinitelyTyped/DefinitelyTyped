@@ -411,7 +411,7 @@ declare namespace Dockerode {
         Name: string;
         EndpointID: string;
         MacAddress: string;
-        Ipv4Address: string;
+        IPv4Address: string;
         IPv6Address: string;
     }
 
@@ -475,6 +475,7 @@ declare namespace Dockerode {
         Name: string;
         RestartCount: number;
         Driver: string;
+        Platform: string;
         MountLabel: string;
         ProcessLabel: string;
         AppArmorProfile: string;

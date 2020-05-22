@@ -4,7 +4,7 @@
         "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
@@ -12,5 +12,9 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "humps-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "test/humps-tests.cjs.ts",
+        "test/humps-tests.global.ts"
+    ]
 }

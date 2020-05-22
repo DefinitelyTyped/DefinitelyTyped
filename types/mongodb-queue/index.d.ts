@@ -2,7 +2,7 @@
 // Project: https://github.com/chilts/mongodb-queue
 // Definitions by: FiveOFive <https://github.com/FiveOFive>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 import { Db, MongoError } from 'mongodb';
 

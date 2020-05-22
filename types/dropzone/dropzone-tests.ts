@@ -176,7 +176,7 @@ const dropzone = new Dropzone('.test');
 
 dropzone.options.clickable = true;
 if (!dropzone.options.headers) {
-	dropzone.options.headers = {};
+    dropzone.options.headers = {};
 }
 dropzone.options.headers.test = 'test';
 dropzone.enable();
@@ -192,6 +192,15 @@ dropzone.files.forEach(f => {
         f.previewsContainer.classList.add('accepted');
     } else {
         console.log(f.status.toUpperCase());
+    }
+    if (f.upload) {
+        console.log(f.upload.progress);
+        console.log(f.upload.bytesSent);
+        console.log(f.upload.total);
+        console.log(f.upload.uuid);
+        if (f.upload.totalChunkCount) {
+            console.log(f.upload.totalChunkCount);
+        }
     }
 });
 
