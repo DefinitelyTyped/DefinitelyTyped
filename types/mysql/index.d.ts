@@ -366,7 +366,7 @@ export interface QueryFunction {
 
     (options: string | QueryOptions, callback?: queryCallback): Query;
 
-    (options: string, values: any, callback?: queryCallback): Query;
+    (options: string | QueryOptions, values: any, callback?: queryCallback): Query;
 }
 
 export interface QueryOptions {
