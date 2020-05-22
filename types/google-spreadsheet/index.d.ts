@@ -841,7 +841,7 @@ interface GoogleSpreadsheet extends SpreadsheetBasicProperties {
      */
     // in docs as "basic property" but can not be updated
     // moved here so it does not appear as an option in methods that use basic properties
-    readonly spreadsheetId;
+    readonly spreadsheetId: string;
 
     /**
      * @description
