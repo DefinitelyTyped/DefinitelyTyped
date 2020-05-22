@@ -5,5 +5,3 @@
 
 export function diff(obj1: any, obj2: any): any;
 export function diffString(obj1: any, obj2: any): any;
-
-
