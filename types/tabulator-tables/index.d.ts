@@ -1879,7 +1879,7 @@ declare class Tabulator {
     /** To get an array of Column Components for the current table setup, call the getColumns function. This will only return actual data columns not column groups.
      ** To get a structured array of Column Components that includes column groups, pass a value of true as an argument.
      */
-    getColumns: (includeColumnGroups?: boolean) => Tabulator.ColumnComponent[] | Tabulator.GroupComponent[];
+    getColumns: (includeColumnGroups?: boolean) => Tabulator.ColumnComponent[];
     /** Using the getColumn function you can retrieve the Column Component  */
     getColumn: (column: Tabulator.ColumnLookup) => Tabulator.ColumnComponent;
     /** To get the current column definition array (including any changes made through user actions, such as resizing or re-ordering columns), call the getColumnDefinitions function. this will return the current columns definition array. */
