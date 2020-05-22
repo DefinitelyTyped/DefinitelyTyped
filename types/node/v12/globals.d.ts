@@ -893,7 +893,7 @@ declare namespace NodeJS {
                 visibility: string;
             };
         };
-        kill(pid: number, signal?: string | number): boolean;
+        kill(pid: number, signal?: string | number): true;
         pid: number;
         ppid: number;
         title: string;
