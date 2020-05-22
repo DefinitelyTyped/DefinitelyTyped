@@ -19,7 +19,7 @@
 
 // Compatability with node.js
 // tslint:disable-next-line:no-empty-interface
-interface HTMLElement {}
+interface HTMLElement { }
 
 export = URI;
 export as namespace URI;
@@ -27,7 +27,7 @@ export as namespace URI;
 declare const URI: {
     (value?: string | URI.URIOptions | HTMLElement): URI;
 
-    new (value?: string | URI.URIOptions | HTMLElement): URI;
+    new(value?: string | URI.URIOptions | HTMLElement): URI;
 
     addQuery(data: object, prop: string, value: string): object;
     addQuery(data: object, qryObj: object): object;
@@ -208,6 +208,7 @@ interface URI {
     query(): string;
     query(qry: string | object): URI;
     query(qry: boolean): object;
+    query(fn: (qryObject: { [key: string]: string }) => { [key: string]: string }): URI;
 
     readable(): string;
     relativeTo(path: string): URI;
@@ -225,6 +226,7 @@ interface URI {
     search(): string;
     search(qry: string | object): URI;
     search(qry: boolean): any;
+    search(fn: (qryObject: { [key: string]: string }) => { [key: string]: string }): URI;
     segment(): string[];
     segment(segments: string[] | string): URI;
     segment(position: number): string | undefined;
