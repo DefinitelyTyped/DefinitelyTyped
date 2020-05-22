@@ -76,13 +76,13 @@ export interface MeydaFeaturesObject {
 }
 
 export class MeydaAnalyzer {
-    start(features: MeydaAudioFeature[]): void;
+    start(features?: MeydaAudioFeature[]): void;
 
     stop(): void;
 
     setSource(source: AudioNode): void;
 
-    get(features: MeydaAudioFeature[]): Partial<MeydaFeaturesObject> | null;
+    get(features?: MeydaAudioFeature[]): Partial<MeydaFeaturesObject> | null;
 }
 
 export const audioContext: AudioContext | null;
