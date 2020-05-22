@@ -2705,14 +2705,14 @@ declare namespace Cesium {
         definitionChanged: Event;
         text: Property;
         font: string;
-        style: Property;
+        style: LabelStyle | Property;
         fillColor: Color;
         outlineColor: Color;
         outlineWidth: number;
         horizontalOrigin: Property;
-        verticalOrigin: Property;
+        verticalOrigin: VerticalOrigin | Property;
         eyeOffset: Property;
-        pixelOffset: Property;
+        pixelOffset: Cartesian2 | Property;
         backgroundColor: Property;
         scale: Property;
         showBackground?: Property;
@@ -2723,7 +2723,7 @@ declare namespace Cesium {
         constructor(options?: {
             text?: Property | string;
             font?: string;
-            style?: Property;
+            style?: LabelStyle | Property;
             fillColor?: Color;
             outlineColor?: Color;
             outlineWidth?: number;
@@ -2733,9 +2733,9 @@ declare namespace Cesium {
             backgroundColor?: Property;
             backgroundPadding?: Property;
             horizontalOrigin?: Property;
-            verticalOrigin?: Property;
+            verticalOrigin?: VerticalOrigin | Property;
             eyeOffset?: Property;
-            pixelOffset?: Property;
+            pixelOffset?: Cartesian2 | Property;
             translucencyByDistance?: Property;
             pixelOffsetScaleByDistance?: Property;
             heightReference?: Property;
