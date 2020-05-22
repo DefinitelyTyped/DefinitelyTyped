@@ -206,9 +206,8 @@ interface URI {
     preventInvalidHostname(val: boolean): URI;
 
     query(): string;
-    query(qry: string | object): URI;
+    query(qry: string | object | ((qryObject: { [key: string]: string }) => { [key: string]: string })): URI;
     query(qry: boolean): object;
-    query(fn: (qryObject: { [key: string]: string }) => { [key: string]: string }): URI;
 
     readable(): string;
     relativeTo(path: string): URI;
@@ -224,9 +223,8 @@ interface URI {
     scheme(): string;
     scheme(protocol: string): URI;
     search(): string;
-    search(qry: string | object): URI;
+    search(qry: string | object | ((qryObject: { [key: string]: string }) => { [key: string]: string })): URI;
     search(qry: boolean): any;
-    search(fn: (qryObject: { [key: string]: string }) => { [key: string]: string }): URI;
     segment(): string[];
     segment(segments: string[] | string): URI;
     segment(position: number): string | undefined;
