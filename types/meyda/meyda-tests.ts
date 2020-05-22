@@ -11,10 +11,14 @@ if (result) {
     }
 }
 
-Meyda.createMeydaAnalyzer({
+const analyzer = Meyda.createMeydaAnalyzer({
     audioContext: AC,
     source: AC.createOscillator(),
     bufferSize: 2048,
 });
 
 Meyda.windowing([], Meyda.windowingFunction);
+
+analyzer.start();
+analyzer.stop();
+analyzer.get();
