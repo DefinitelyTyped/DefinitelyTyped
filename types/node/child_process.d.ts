@@ -436,6 +436,7 @@ declare module "child_process" {
         input?: string | NodeJS.ArrayBufferView;
         killSignal?: NodeJS.Signals | number;
         maxBuffer?: number;
+        encoding?: BufferEncoding | 'buffer' | null;
     }
     interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
@@ -466,6 +467,7 @@ declare module "child_process" {
         shell?: string;
         killSignal?: NodeJS.Signals | number;
         maxBuffer?: number;
+        encoding?: BufferEncoding | 'buffer' | null;
     }
     interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
         encoding: BufferEncoding;
