@@ -8,16 +8,15 @@ function testUsingWithNodeHTTPServer() {
     app.listen(80);
 
     function handler(req: any, res: any) {
-        fs.readFile(__dirname + '/index.html',
-            function (err: any, data: any) {
-                if (err) {
-                    res.writeHead(500);
-                    return res.end('Error loading index.html');
-                }
+        fs.readFile(__dirname + '/index.html', function (err: any, data: any) {
+            if (err) {
+                res.writeHead(500);
+                return res.end('Error loading index.html');
+            }
 
-                res.writeHead(200);
-                res.end(data);
-            });
+            res.writeHead(200);
+            res.end(data);
+        });
     }
 
     io.on('connection', function (socket) {
@@ -50,7 +49,7 @@ function testUsingWithExpress() {
 function testUsingWithOptions() {
     var app = require('express')();
     var server = require('http').Server(app);
-    var io = socketIO(server, {wsEngine: 'ws'});
+    var io = socketIO(server, { wsEngine: 'ws' });
 }
 
 function testUsingWithTheExpressFramework() {
@@ -89,33 +88,27 @@ function testSendingAndReceivingEvents() {
 
 function testRestrictingYourselfToANamespace() {
     var io = socketIO.listen(80);
-    var chat = io
-        .of('/chat')
-        .on('connection', function (socket) {
-            socket.emit('a message', {
-                that: 'only'
-                , '/chat': 'will get'
-            });
-            chat.emit('a message', {
-                everyone: 'in'
-                , '/chat': 'will get'
-            });
+    var chat = io.of('/chat').on('connection', function (socket) {
+        socket.emit('a message', {
+            that: 'only',
+            '/chat': 'will get',
         });
+        chat.emit('a message', {
+            everyone: 'in',
+            '/chat': 'will get',
+        });
+    });
 
-    var news = io
-        .of('/news')
-        .on('connection', function (socket) {
-            socket.emit('item', { news: 'item' });
-        });
+    var news = io.of('/news').on('connection', function (socket) {
+        socket.emit('item', { news: 'item' });
+    });
 }
 
 function testDynamicNamespace() {
     var io = socketIO.listen(80);
-    var dynamic = io
-        .of(/^\/dynamic-\d+$/)
-        .on('connection', function (socket) {
-            socket.emit('item', { dynamic: 'item' });
-        });
+    var dynamic = io.of(/^\/dynamic-\d+$/).on('connection', function (socket) {
+        socket.emit('item', { dynamic: 'item' });
+    });
 }
 
 function testSendingVolatileMessages() {
@@ -154,8 +147,8 @@ function testUsingItJustAsACrossBrowserWebSocket() {
     var io = socketIO.listen(80);
 
     io.sockets.on('connection', function (socket) {
-        socket.on('message', function () { });
-        socket.on('disconnect', function () { });
+        socket.on('message', function () {});
+        socket.on('disconnect', function () {});
     });
 }
 
@@ -169,16 +162,15 @@ function testSocketConnection() {
         console.log(socket.conn.upgraded);
         console.log(socket.conn.readyState);
 
-        socket.on('packet', function(message :string, ping :string){
+        socket.on('packet', function (message: string, ping: string) {
             console.log(message, ping);
-        });;
+        });
     });
 }
 
 function testClosingServerWithCallback() {
     var io = socketIO.listen(80);
-    io.close(function() {
-    });
+    io.close(function () {});
 }
 
 function testClosingServerWithoutCallback() {
@@ -198,9 +190,30 @@ function testVolatileServerMessages() {
 
 function testSocketUse() {
     var io = socketIO.listen(80);
-    io.on('connection', (socket) => {
+    io.on('connection', socket => {
         socket.use((packet, next) => {
             console.log(packet);
         });
     });
+}
+
+function testServerEventEmitter() {
+    var io = socketIO.listen(80);
+    const fn = () => {};
+    io.addListener('event', fn);
+    io.emit('event', 'payload');
+    io.eventNames();
+    io.getMaxListeners();
+    io.listenerCount('event');
+    io.listeners('event');
+    io.off('event', fn);
+    io.on('event', fn);
+    io.once('event', fn);
+    io.prependListener('event', fn);
+    io.prependOnceListener('event', fn);
+    io.removeAllListeners('event');
+    io.removeAllListeners();
+    io.removeListener('event', fn);
+    io.setMaxListeners(50);
+    io.rawListeners('event');
 }

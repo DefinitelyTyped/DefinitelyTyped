@@ -6,6 +6,7 @@ import Opts = jsesc.Opts;
 
 var num: number;
 var str: string;
+var obj: object;
 var bool: boolean;
 var opts: Opts;
 var quotes: 'single' | 'double' | 'backtick';
@@ -57,3 +58,7 @@ opts = {
 
 str = jsesc(str);
 str = jsesc(str, opts);
+str = jsesc(num);
+str = jsesc(num, opts);
+str = jsesc(obj);
+str = jsesc(obj, opts);

@@ -1,7 +1,6 @@
 // Type definitions for Sinon 9.0
 // Project: https://sinonjs.org
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
-//                 Jonathan Little <https://github.com/rationull>
 //                 Lukas Spieß <https://github.com/lumaxis>
 //                 Nico Jansen <https://github.com/nicojs>
 //                 James Garbutt <https://github.com/43081j>
