@@ -1,9 +1,20 @@
 import redactSecrets from 'redact-secrets';
 
 const REDACTED = '[REDACTED]';
+
+interface Info {
+    username: string;
+    password: string;
+    extra: {
+        id: number;
+        token: string;
+        card: string;
+    };
+}
+
 const redact = redactSecrets(REDACTED);
 
-const info = {
+const info: Info = {
     username: 'watson',
     password: 'hhGu38gf',
     extra: {
@@ -15,4 +26,6 @@ const info = {
 
 const redacted = redact.map(info);
 
-assert(redacted.password === REDACTED);
+if (redacted.password !== REDACTED) {
+    // password should be redacted
+}
