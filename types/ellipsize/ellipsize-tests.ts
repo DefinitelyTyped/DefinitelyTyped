@@ -1,4 +1,4 @@
-import ellipsize from 'ellipsize';
+import ellipsize = require('ellipsize');
 
 ellipsize('');
 // ''

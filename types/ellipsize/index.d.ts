@@ -27,7 +27,7 @@
  * ellipsize( '123456789ABCDEF', 8, { truncate: true });
  * // '1234567…'
  */
-export default function ellipsize(
+declare function ellipsize(
     /**
      * text to ellipsize.
      */
@@ -55,3 +55,5 @@ export default function ellipsize(
         truncate?: boolean;
     },
 ): string;
+
+export = ellipsize;
