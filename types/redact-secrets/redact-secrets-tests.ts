@@ -1,4 +1,4 @@
-import redactSecrets from 'redact-secrets';
+import Redact from 'redact-secrets';
 
 const REDACTED = '[REDACTED]';
 
@@ -12,7 +12,7 @@ interface Info {
     };
 }
 
-const redact = redactSecrets(REDACTED);
+const redact = Redact(REDACTED);
 
 const info: Info = {
     username: 'watson',

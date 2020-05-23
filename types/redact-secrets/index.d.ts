@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-interface Redact {
+interface Redactor {
     map: (obj: any) => any;
     forEach: (obj: any) => void;
 }
 
-declare function redactFn(redacted: string): Redact;
+declare function Redact(redacted: string): Redactor;
 
-export = redactFn;
+export = Redact;
