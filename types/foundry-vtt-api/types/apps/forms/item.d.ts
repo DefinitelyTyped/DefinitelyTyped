@@ -1,6 +1,6 @@
 declare interface ItemSheetData extends BaseEntitySheetData {
-	item?: Item;
-	data?: any;
+    item?: Item;
+    data?: any;
 }
 
 /**
@@ -16,34 +16,34 @@ declare interface ItemSheetData extends BaseEntitySheetData {
  * @param options.editable	Is the item editable? Default is true.
  */
 declare class ItemSheet extends BaseEntitySheet {
-	/**
-	 * Assign the default options which are supported by this Application
-	 */
-	static get defaultOptions(): FormApplicationOptions;
+    /**
+     * Assign the default options which are supported by this Application
+     */
+    static get defaultOptions(): FormApplicationOptions;
 
-	/**
-	 * Provide a unique CSS ID for owned Item sheets
-	 */
-	get id(): string;
+    /**
+     * Provide a unique CSS ID for owned Item sheets
+     */
+    get id(): string;
 
-	/**
-	 * A convenience reference to the Item entity
-	 */
-	get item(): Item;
+    /**
+     * A convenience reference to the Item entity
+     */
+    get item(): Item;
 
-	/**
-	 * The Actor instance which owns this item. This may be null if the item is unowned.
-	 */
-	get actor(): Actor;
+    /**
+     * The Actor instance which owns this item. This may be null if the item is unowned.
+     */
+    get actor(): Actor;
 
-	/**
-	 * Customize the data provided to the item sheet for rendering. By default we just duplicate the item data.
-	 */
-	getData(): ItemSheetData;
+    /**
+     * Customize the data provided to the item sheet for rendering. By default we just duplicate the item data.
+     */
+    getData(): ItemSheetData;
 
-	/**
-	 * Activate listeners which provide interactivity for item sheet events
-	 * @param html	The HTML object returned by template rendering
-	 */
-	protected activateListeners(html: JQuery): void;
+    /**
+     * Activate listeners which provide interactivity for item sheet events
+     * @param html	The HTML object returned by template rendering
+     */
+    protected activateListeners(html: JQuery): void;
 }

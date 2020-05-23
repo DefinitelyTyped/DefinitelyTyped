@@ -1,8 +1,8 @@
 declare interface RulerData {
     class: string;
     name: string;
-    waypoints: [PIXI.Point],
-    destination: PIXI.Point,
+    waypoints: [PIXI.Point];
+    destination: PIXI.Point;
     _state: number;
 }
 
@@ -30,7 +30,7 @@ declare class Ruler extends PIXI.Container {
      * The ruler color - by default the color of the active user
      * @type {number|null}
      */
-    public color: number|null;
+    public color: number | null;
 
     /**
      * This Array tracks individual waypoints along the ruler's measured path.
@@ -98,7 +98,7 @@ declare class Ruler extends PIXI.Container {
      *
      * @return {Boolean}    An indicator for whether a token was successfully moved or not. If True the event should be
      *                      prevented from propagating further, if False it should move on to other handlers.
-     * 
+     *
      * @todo confirm with Atropos whether this should return void or not. The JSDoc says it returns a boolean,
      * but the code doesn't return anything.
      */

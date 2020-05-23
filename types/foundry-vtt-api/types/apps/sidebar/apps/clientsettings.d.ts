@@ -5,5 +5,5 @@
  *
  */
 declare class SettingsConfig extends FormApplication {
-	// @TODO: Declare
+    // @TODO: Declare
 }

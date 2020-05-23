@@ -18,5 +18,5 @@
  * dragDrop.bind(html);
  */
 declare class DragDrop {
-	// TODO
+    // TODO
 }

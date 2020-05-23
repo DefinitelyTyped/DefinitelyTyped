@@ -8,4 +8,7 @@ declare function createEditor(options: DataCue, initialContent: object): any;
  * @param links		Replace hyperlink content?
  * @return			The enriched HTML content
  */
-declare function enrichHTML(content: string, { secrets, entities, links }: { secrets: boolean, entities: boolean, links: boolean }): string;
+declare function enrichHTML(
+    content: string,
+    { secrets, entities, links }: { secrets: boolean; entities: boolean; links: boolean },
+): string;

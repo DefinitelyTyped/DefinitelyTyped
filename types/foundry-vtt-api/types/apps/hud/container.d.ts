@@ -4,19 +4,19 @@
  * Render the HUD container
  */
 declare class HeadsUpDisplay extends Application {
-	/** Token HUD */
-	token: TokenHUD;
+    /** Token HUD */
+    token: TokenHUD;
 
-	/** Tile HUD */
-	tile: TileHUD;
+    /** Tile HUD */
+    tile: TileHUD;
 
-	/** Drawing HUD */
-	drawing: DrawingHUD;
+    /** Drawing HUD */
+    drawing: DrawingHUD;
 
-	/** Chat Bubbles */
-	bubbles: ChatBubbles;
+    /** Chat Bubbles */
+    bubbles: ChatBubbles;
 
-	constructor(...args: any[]);
+    constructor(...args: any[]);
 
-	align(): void;
+    align(): void;
 }

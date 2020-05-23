@@ -2,30 +2,30 @@
  * An abstract pattern for primary layers of the game canvas to implement
  */
 declare class CanvasLayer extends PIXI.Container {
-	constructor();
+    constructor();
 
-	/* -------------------------------------------- */
-	/*  Properties and Attributes
-	/* -------------------------------------------- */
-
-	get name(): string;
-
-	/* -------------------------------------------- */
-	/*  Rendering
+    /* -------------------------------------------- */
+    /*  Properties and Attributes
 	/* -------------------------------------------- */
 
-	/**
-	 * Draw the canvas layer, rendering its internal components and returning a Promise
-	 * The Promise resolves to the drawn layer once its contents are successfully rendered.
-	 * @return {Promise.<CanvasLayer>}
-	 */
-	draw(): Promise<CanvasLayer>;
+    get name(): string;
 
-	/* -------------------------------------------- */
-	/*  Methods
+    /* -------------------------------------------- */
+    /*  Rendering
 	/* -------------------------------------------- */
 
-	activate(): void;
+    /**
+     * Draw the canvas layer, rendering its internal components and returning a Promise
+     * The Promise resolves to the drawn layer once its contents are successfully rendered.
+     * @return {Promise.<CanvasLayer>}
+     */
+    draw(): Promise<CanvasLayer>;
 
-	deactivate(): void;
+    /* -------------------------------------------- */
+    /*  Methods
+	/* -------------------------------------------- */
+
+    activate(): void;
+
+    deactivate(): void;
 }

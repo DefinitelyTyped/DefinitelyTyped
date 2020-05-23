@@ -116,7 +116,13 @@ declare namespace PIXI {
              *        There are some useful properties in the currentState :
              *        target, filters, sourceFrame, destinationFrame, renderTarget, resolution
              */
-            apply(filterManager: PIXI.systems.FilterSystem, input: PIXI.RenderTexture, output: PIXI.RenderTexture, clear: boolean, currentState?: any): void;
+            apply(
+                filterManager: PIXI.systems.FilterSystem,
+                input: PIXI.RenderTexture,
+                output: PIXI.RenderTexture,
+                clear: boolean,
+                currentState?: any,
+            ): void;
             /**
              * Sets the blendmode of the filter
              *
@@ -155,7 +161,11 @@ declare namespace PIXI {
              * @param {PIXI.RenderTexture} input - The input target.
              * @param {PIXI.RenderTexture} output - The output target.
              */
-            apply(filterManager: PIXI.systems.FilterSystem, input: PIXI.RenderTexture, output: PIXI.RenderTexture): void;
+            apply(
+                filterManager: PIXI.systems.FilterSystem,
+                input: PIXI.RenderTexture,
+                output: PIXI.RenderTexture,
+            ): void;
             /**
              * Sets the strength of both the blurX and blurY properties simultaneously
              *
@@ -258,7 +268,13 @@ declare namespace PIXI {
          * @memberof PIXI.filters
          */
         class BlurFilterPass extends PIXI.Filter {
-            constructor(horizontal: boolean, strength: number, quality: number, resolution: number, kernelSize?: number);
+            constructor(
+                horizontal: boolean,
+                strength: number,
+                quality: number,
+                resolution: number,
+                kernelSize?: number,
+            );
             /**
              * Sets the strength of both the blur.
              *
@@ -324,7 +340,13 @@ declare namespace PIXI {
              *        There are some useful properties in the currentState :
              *        target, filters, sourceFrame, destinationFrame, renderTarget, resolution
              */
-            apply(filterManager: PIXI.systems.FilterSystem, input: PIXI.RenderTexture, output: PIXI.RenderTexture, clear: boolean, currentState?: any): void;
+            apply(
+                filterManager: PIXI.systems.FilterSystem,
+                input: PIXI.RenderTexture,
+                output: PIXI.RenderTexture,
+                clear: boolean,
+                currentState?: any,
+            ): void;
             /**
              * Sets the blendmode of the filter
              *
@@ -493,7 +515,13 @@ declare namespace PIXI {
              * @param {boolean} multiply - if true, current matrix and matrix are multiplied. If false,
              *  just set the current matrix with @param matrix
              */
-            colorTone(desaturation: number, toned: number, lightColor: string, darkColor: string, multiply: boolean): void;
+            colorTone(
+                desaturation: number,
+                toned: number,
+                lightColor: string,
+                darkColor: string,
+                multiply: boolean,
+            ): void;
             /**
              * Night effect
              *
@@ -594,7 +622,13 @@ declare namespace PIXI {
              *        There are some useful properties in the currentState :
              *        target, filters, sourceFrame, destinationFrame, renderTarget, resolution
              */
-            apply(filterManager: PIXI.systems.FilterSystem, input: PIXI.RenderTexture, output: PIXI.RenderTexture, clear: boolean, currentState?: any): void;
+            apply(
+                filterManager: PIXI.systems.FilterSystem,
+                input: PIXI.RenderTexture,
+                output: PIXI.RenderTexture,
+                clear: boolean,
+                currentState?: any,
+            ): void;
             /**
              * Sets the blendmode of the filter
              *
@@ -648,7 +682,12 @@ declare namespace PIXI {
              * @param {PIXI.RenderTexture} output - The output target.
              * @param {boolean} clear - Should the output be cleared before rendering to it.
              */
-            apply(filterManager: PIXI.systems.FilterSystem, input: PIXI.RenderTexture, output: PIXI.RenderTexture, clear: boolean): void;
+            apply(
+                filterManager: PIXI.systems.FilterSystem,
+                input: PIXI.RenderTexture,
+                output: PIXI.RenderTexture,
+                clear: boolean,
+            ): void;
             /**
              * The texture used for the displacement map. Must be power of 2 sized texture.
              *
@@ -777,7 +816,13 @@ declare namespace PIXI {
              *        There are some useful properties in the currentState :
              *        target, filters, sourceFrame, destinationFrame, renderTarget, resolution
              */
-            apply(filterManager: PIXI.systems.FilterSystem, input: PIXI.RenderTexture, output: PIXI.RenderTexture, clear: boolean, currentState?: any): void;
+            apply(
+                filterManager: PIXI.systems.FilterSystem,
+                input: PIXI.RenderTexture,
+                output: PIXI.RenderTexture,
+                clear: boolean,
+                currentState?: any,
+            ): void;
             /**
              * Sets the blendmode of the filter
              *
@@ -870,7 +915,13 @@ declare namespace PIXI {
              *        There are some useful properties in the currentState :
              *        target, filters, sourceFrame, destinationFrame, renderTarget, resolution
              */
-            apply(filterManager: PIXI.systems.FilterSystem, input: PIXI.RenderTexture, output: PIXI.RenderTexture, clear: boolean, currentState?: any): void;
+            apply(
+                filterManager: PIXI.systems.FilterSystem,
+                input: PIXI.RenderTexture,
+                output: PIXI.RenderTexture,
+                clear: boolean,
+                currentState?: any,
+            ): void;
             /**
              * Sets the blendmode of the filter
              *
@@ -1040,11 +1091,14 @@ declare namespace PIXI {
          * @param {boolean} [stageOptions.baseTexture=false] - Only used for child Sprites if stageOptions.children is set
          *  to true. Should it destroy the base texture of the child sprite
          */
-        destroy(removeView?: boolean, stageOptions?: {
-            children?: boolean;
-            texture?: boolean;
-            baseTexture?: boolean;
-        }): void;
+        destroy(
+            removeView?: boolean,
+            stageOptions?: {
+                children?: boolean;
+                texture?: boolean;
+                baseTexture?: boolean;
+            },
+        ): void;
         /**
          * The element or window to resize the application to.
          * @type {Window|HTMLElement}
@@ -1115,7 +1169,7 @@ declare namespace PIXI {
     enum ENV {
         WEBGL_LEGACY,
         WEBGL,
-        WEBGL2
+        WEBGL2,
     }
     /**
      * Constant to identify the Renderer Type.
@@ -1131,7 +1185,7 @@ declare namespace PIXI {
     enum RENDERER_TYPE {
         UNKNOWN,
         WEBGL,
-        CANVAS
+        CANVAS,
     }
     /**
      * Various blend modes supported by PIXI.
@@ -1207,7 +1261,7 @@ declare namespace PIXI {
         SUBTRACT,
         SRC_OVER,
         ERASE,
-        XOR
+        XOR,
     }
     /**
      * Various webgl draw modes. These can be used to specify which GL drawMode to use
@@ -1232,7 +1286,7 @@ declare namespace PIXI {
         LINE_STRIP,
         TRIANGLES,
         TRIANGLE_STRIP,
-        TRIANGLE_FAN
+        TRIANGLE_FAN,
     }
     /**
      * Various GL texture/resources formats.
@@ -1256,7 +1310,7 @@ declare namespace PIXI {
         LUMINANCE,
         LUMINANCE_ALPHA,
         DEPTH_COMPONENT,
-        DEPTH_STENCIL
+        DEPTH_STENCIL,
     }
     /**
      * Various GL target types.
@@ -1284,7 +1338,7 @@ declare namespace PIXI {
         TEXTURE_CUBE_MAP_POSITIVE_Y,
         TEXTURE_CUBE_MAP_NEGATIVE_Y,
         TEXTURE_CUBE_MAP_POSITIVE_Z,
-        TEXTURE_CUBE_MAP_NEGATIVE_Z
+        TEXTURE_CUBE_MAP_NEGATIVE_Z,
     }
     /**
      * Various GL data format types.
@@ -1308,7 +1362,7 @@ declare namespace PIXI {
         UNSIGNED_SHORT_4_4_4_4,
         UNSIGNED_SHORT_5_5_5_1,
         FLOAT,
-        HALF_FLOAT
+        HALF_FLOAT,
     }
     /**
      * The scale modes that are supported by pixi.
@@ -1325,7 +1379,7 @@ declare namespace PIXI {
      */
     enum SCALE_MODES {
         LINEAR,
-        NEAREST
+        NEAREST,
     }
     /**
      * The wrap modes that are supported by pixi.
@@ -1348,7 +1402,7 @@ declare namespace PIXI {
     enum WRAP_MODES {
         CLAMP,
         REPEAT,
-        MIRRORED_REPEAT
+        MIRRORED_REPEAT,
     }
     /**
      * Mipmap filtering modes that are supported by pixi.
@@ -1371,7 +1425,7 @@ declare namespace PIXI {
     enum MIPMAP_MODES {
         OFF,
         POW2,
-        ON
+        ON,
     }
     /**
      * How to treat textures with premultiplied alpha
@@ -1396,7 +1450,7 @@ declare namespace PIXI {
         PREMULTIPLIED_ALPHA,
         NPM,
         UNPACK,
-        PMA
+        PMA,
     }
     /**
      * The gc modes that are supported by pixi.
@@ -1419,7 +1473,7 @@ declare namespace PIXI {
      */
     enum GC_MODES {
         AUTO,
-        MANUAL
+        MANUAL,
     }
     /**
      * Constants that specify float precision in shaders.
@@ -1436,7 +1490,7 @@ declare namespace PIXI {
     const enum PRECISION {
         LOW,
         MEDIUM,
-        HIGH
+        HIGH,
     }
     /**
      * Constants for mask implementations.
@@ -1455,7 +1509,7 @@ declare namespace PIXI {
         NONE,
         SCISSOR,
         STENCIL,
-        SPRITE
+        SPRITE,
     }
     /**
      * The AbstractRenderer is the base for a PixiJS Renderer. It is extended by the {@link PIXI.CanvasRenderer}
@@ -1467,18 +1521,21 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class AbstractRenderer extends PIXI.utils.EventEmitter {
-        constructor(system: string, options?: {
-            width?: number;
-            height?: number;
-            view?: HTMLCanvasElement;
-            transparent?: boolean;
-            autoDensity?: boolean;
-            antialias?: boolean;
-            resolution?: number;
-            preserveDrawingBuffer?: boolean;
-            clearBeforeRender?: boolean;
-            backgroundColor?: number;
-        });
+        constructor(
+            system: string,
+            options?: {
+                width?: number;
+                height?: number;
+                view?: HTMLCanvasElement;
+                transparent?: boolean;
+                autoDensity?: boolean;
+                antialias?: boolean;
+                resolution?: number;
+                preserveDrawingBuffer?: boolean;
+                clearBeforeRender?: boolean;
+                backgroundColor?: number;
+            },
+        );
         /**
          * The supplied constructor options.
          *
@@ -1628,7 +1685,12 @@ declare namespace PIXI {
          *        if no region is specified, defaults to the local bounds of the displayObject.
          * @return {PIXI.RenderTexture} A texture of the graphics object.
          */
-        generateTexture(displayObject: PIXI.DisplayObject, scaleMode: number, resolution: number, region?: PIXI.Rectangle): PIXI.RenderTexture;
+        generateTexture(
+            displayObject: PIXI.DisplayObject,
+            scaleMode: number,
+            resolution: number,
+            region?: PIXI.Rectangle,
+        ): PIXI.RenderTexture;
         /**
          * Removes everything from the renderer and optionally removes the Canvas DOM element.
          *
@@ -1813,7 +1875,13 @@ declare namespace PIXI {
          * @param {PIXI.Matrix} [transform] - A transform to apply to the render texture before rendering.
          * @param {boolean} [skipUpdateTransform=false] - Should we skip the update transform pass?
          */
-        render(displayObject: PIXI.DisplayObject, renderTexture?: PIXI.RenderTexture, clear?: boolean, transform?: PIXI.Matrix, skipUpdateTransform?: boolean): void;
+        render(
+            displayObject: PIXI.DisplayObject,
+            renderTexture?: PIXI.RenderTexture,
+            clear?: boolean,
+            transform?: PIXI.Matrix,
+            skipUpdateTransform?: boolean,
+        ): void;
         /**
          * Resizes the WebGL view to the specified width and height.
          *
@@ -1999,7 +2067,12 @@ declare namespace PIXI {
          *        if no region is specified, defaults to the local bounds of the displayObject.
          * @return {PIXI.RenderTexture} A texture of the graphics object.
          */
-        generateTexture(displayObject: PIXI.DisplayObject, scaleMode: number, resolution: number, region?: PIXI.Rectangle): PIXI.RenderTexture;
+        generateTexture(
+            displayObject: PIXI.DisplayObject,
+            scaleMode: number,
+            resolution: number,
+            region?: PIXI.Rectangle,
+        ): PIXI.RenderTexture;
         /**
          * The background color to fill if not transparent
          *
@@ -2232,7 +2305,13 @@ declare namespace PIXI {
          * @param {number} aIndex - number of floats already in the attribute buffer
          * @param {number} iIndex - number of indices already in `indexBuffer`
          */
-        packInterleavedGeometry(element: PIXI.Sprite, attributeBuffer: PIXI.ViewableBuffer, indexBuffer: Uint16Array, aIndex: number, iIndex: number): void;
+        packInterleavedGeometry(
+            element: PIXI.Sprite,
+            attributeBuffer: PIXI.ViewableBuffer,
+            indexBuffer: Uint16Array,
+            aIndex: number,
+            iIndex: number,
+        ): void;
         /**
          * Pool of `BatchDrawCall` objects that `flush` used
          * to create "batches" of the objects being rendered.
@@ -2335,12 +2414,7 @@ declare namespace PIXI {
          * @param {object} [options.geometryClass=PIXI.BatchGeometry]
          * @return {*} New batch renderer plugin
          */
-        static create(options?: {
-            vertex?: string;
-            fragment?: string;
-            vertexSize?: number;
-            geometryClass?: any;
-        }): any;
+        static create(options?: { vertex?: string; fragment?: string; vertexSize?: number; geometryClass?: any }): any;
         /**
          * The default vertex shader source
          *
@@ -2638,7 +2712,13 @@ declare namespace PIXI {
          *        There are some useful properties in the currentState :
          *        target, filters, sourceFrame, destinationFrame, renderTarget, resolution
          */
-        apply(filterManager: PIXI.systems.FilterSystem, input: PIXI.RenderTexture, output: PIXI.RenderTexture, clear: boolean, currentState?: any): void;
+        apply(
+            filterManager: PIXI.systems.FilterSystem,
+            input: PIXI.RenderTexture,
+            output: PIXI.RenderTexture,
+            clear: boolean,
+            currentState?: any,
+        ): void;
         /**
          * Sets the blendmode of the filter
          *
@@ -2712,7 +2792,12 @@ declare namespace PIXI {
          * @param {PIXI.RenderTexture} output - The target to output to.
          * @param {boolean} clear - Should the output be cleared before rendering to it.
          */
-        apply(filterManager: PIXI.systems.FilterSystem, input: PIXI.RenderTexture, output: PIXI.RenderTexture, clear: boolean): void;
+        apply(
+            filterManager: PIXI.systems.FilterSystem,
+            input: PIXI.RenderTexture,
+            output: PIXI.RenderTexture,
+            clear: boolean,
+        ): void;
         /**
          * The padding of the filter. Some filters require extra space to breath such as a blur.
          * Increasing this will add extra width and height to the bounds of the object that the
@@ -2842,7 +2927,14 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class Attribute {
-        constructor(buffer: string, size?: number, normalized?: boolean, type?: number, stride?: number, start?: number);
+        constructor(
+            buffer: string,
+            size?: number,
+            normalized?: boolean,
+            type?: number,
+            stride?: number,
+            start?: number,
+        );
         /**
          * Destroys the Attribute.
          */
@@ -2860,7 +2952,14 @@ declare namespace PIXI {
          *
          * @returns {PIXI.Attribute} A new {@link PIXI.Attribute} based on the information provided
          */
-        static from(buffer: string, size?: number, normalized?: boolean, start?: number, type?: number, stride?: number): PIXI.Attribute;
+        static from(
+            buffer: string,
+            size?: number,
+            normalized?: boolean,
+            start?: number,
+            type?: number,
+            stride?: number,
+        ): PIXI.Attribute;
     }
     /**
      * A wrapper for data so that it can be used and uploaded by WebGL
@@ -2951,7 +3050,15 @@ declare namespace PIXI {
          *
          * @return {PIXI.Geometry} returns self, useful for chaining.
          */
-        addAttribute(id: string, buffer?: PIXI.Buffer | number[], size?: number, normalized?: boolean, type?: number, stride?: number, start?: number): PIXI.Geometry;
+        addAttribute(
+            id: string,
+            buffer?: PIXI.Buffer | number[],
+            size?: number,
+            normalized?: boolean,
+            type?: number,
+            stride?: number,
+            start?: number,
+        ): PIXI.Geometry;
         /**
          * returns the requested attribute
          *
@@ -3176,12 +3283,7 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class BaseRenderTexture extends PIXI.BaseTexture {
-        constructor(options?: {
-            width?: number;
-            height?: number;
-            scaleMode?: PIXI.SCALE_MODES;
-            resolution?: number;
-        });
+        constructor(options?: { width?: number; height?: number; scaleMode?: PIXI.SCALE_MODES; resolution?: number });
         /**
          * A reference to the canvas render target (we only need one as this can be shared across renderers)
          *
@@ -3704,9 +3806,7 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class RenderTexturePool {
-        constructor(textureOptions?: {
-            scaleMode?: PIXI.SCALE_MODES;
-        });
+        constructor(textureOptions?: { scaleMode?: PIXI.SCALE_MODES });
         /**
          * Allow renderTextures of the same size as screen, not just pow2
          *
@@ -4056,7 +4156,12 @@ declare namespace PIXI {
              * @param {number} batchId marker for _batchEnabled param of textures in texArray
              * @param {number} maxTextures number of texture locations to manipulate
              */
-            boundArray(texArray: PIXI.BatchTextureArray, boundTextures: PIXI.BaseTexture[], batchId: number, maxTextures: number): void;
+            boundArray(
+                texArray: PIXI.BatchTextureArray,
+                boundTextures: PIXI.BaseTexture[],
+                batchId: number,
+                maxTextures: number,
+            ): void;
             /**
              * The renderer this manager works for.
              *
@@ -4257,7 +4362,12 @@ declare namespace PIXI {
              * @param {PIXI.RenderTexture} output - The target to output to.
              * @param {boolean} clear - Should the output be cleared before rendering to it
              */
-            applyFilter(filter: PIXI.Filter, input: PIXI.RenderTexture, output: PIXI.RenderTexture, clear: boolean): void;
+            applyFilter(
+                filter: PIXI.Filter,
+                input: PIXI.RenderTexture,
+                output: PIXI.RenderTexture,
+                clear: boolean,
+            ): void;
             /**
              * Multiply _input normalized coordinates_ to this matrix to get _sprite texture normalized coordinates_.
              *
@@ -4281,7 +4391,11 @@ declare namespace PIXI {
              * @param {number} [resolution=1] - The resolution of the render texture.
              * @return {PIXI.RenderTexture} The new render texture.
              */
-            protected getOptimalFilterTexture(minWidth: number, minHeight: number, resolution?: number): PIXI.RenderTexture;
+            protected getOptimalFilterTexture(
+                minWidth: number,
+                minHeight: number,
+                resolution?: number,
+            ): PIXI.RenderTexture;
             /**
              * Gets extra render texture to use inside current filter
              * To be compliant with older filters, you can use params in any order
@@ -4651,7 +4765,10 @@ declare namespace PIXI {
              * @param {PIXI.DisplayObject} target - Display Object to push the mask to
              * @param {PIXI.MaskData|PIXI.Sprite|PIXI.Graphics|PIXI.DisplayObject} maskData - The masking data.
              */
-            push(target: PIXI.DisplayObject, maskData: PIXI.MaskData | PIXI.Sprite | PIXI.Graphics | PIXI.DisplayObject): void;
+            push(
+                target: PIXI.DisplayObject,
+                maskData: PIXI.MaskData | PIXI.Sprite | PIXI.Graphics | PIXI.DisplayObject,
+            ): void;
             /**
              * Removes the last mask from the mask stack and doesn't return it.
              * Renderer batch must be flushed beforehand.
@@ -4794,7 +4911,12 @@ declare namespace PIXI {
              * @param {Number} resolution - Resolution
              * @param {boolean} root - If is root
              */
-            update(destinationFrame: PIXI.Rectangle, sourceFrame: PIXI.Rectangle, resolution: number, root: boolean): void;
+            update(
+                destinationFrame: PIXI.Rectangle,
+                sourceFrame: PIXI.Rectangle,
+                resolution: number,
+                root: boolean,
+            ): void;
             /**
              * Updates the projection matrix based on a projection frame (which is a rectangle)
              *
@@ -4803,7 +4925,12 @@ declare namespace PIXI {
              * @param {Number} resolution - Resolution
              * @param {boolean} root - If is root
              */
-            calculateProjection(destinationFrame: PIXI.Rectangle, sourceFrame: PIXI.Rectangle, resolution: number, root: boolean): void;
+            calculateProjection(
+                destinationFrame: PIXI.Rectangle,
+                sourceFrame: PIXI.Rectangle,
+                resolution: number,
+                root: boolean,
+            ): void;
             /**
              * Sets the transform of the active render target to the given matrix
              *
@@ -4867,7 +4994,11 @@ declare namespace PIXI {
              * @param {PIXI.Rectangle} [sourceFrame] - part of screen that is mapped to the renderTexture
              * @param {PIXI.Rectangle} [destinationFrame] - part of renderTexture, by default it has the same size as sourceFrame
              */
-            bind(renderTexture?: PIXI.RenderTexture, sourceFrame?: PIXI.Rectangle, destinationFrame?: PIXI.Rectangle): void;
+            bind(
+                renderTexture?: PIXI.RenderTexture,
+                sourceFrame?: PIXI.Rectangle,
+                destinationFrame?: PIXI.Rectangle,
+            ): void;
             /**
              * Erases the render texture and fills the drawing area with a colour
              *
@@ -5242,20 +5373,23 @@ declare namespace PIXI {
      *        see {@link PIXI.resources.autoDetectResource autoDetectResource}
      */
     class BaseTexture extends PIXI.utils.EventEmitter {
-        constructor(resource?: PIXI.resources.Resource | string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, options?: {
-            mipmap?: PIXI.MIPMAP_MODES;
-            anisotropicLevel?: number;
-            wrapMode?: PIXI.WRAP_MODES;
-            scaleMode?: PIXI.SCALE_MODES;
-            format?: PIXI.FORMATS;
-            type?: PIXI.TYPES;
-            target?: PIXI.TARGETS;
-            alphaMode?: PIXI.ALPHA_MODES;
-            width?: number;
-            height?: number;
-            resolution?: number;
-            resourceOptions?: any;
-        });
+        constructor(
+            resource?: PIXI.resources.Resource | string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+            options?: {
+                mipmap?: PIXI.MIPMAP_MODES;
+                anisotropicLevel?: number;
+                wrapMode?: PIXI.WRAP_MODES;
+                scaleMode?: PIXI.SCALE_MODES;
+                format?: PIXI.FORMATS;
+                type?: PIXI.TYPES;
+                target?: PIXI.TARGETS;
+                alphaMode?: PIXI.ALPHA_MODES;
+                width?: number;
+                height?: number;
+                resolution?: number;
+                resourceOptions?: any;
+            },
+        );
         /**
          * The width of the base texture set when the image has loaded
          *
@@ -5502,7 +5636,11 @@ declare namespace PIXI {
          * @param {boolean} [strict] Enforce strict-mode, see {@link PIXI.settings.STRICT_TEXTURE_CACHE}.
          * @returns {PIXI.BaseTexture} The new base texture.
          */
-        static from(source: string | HTMLImageElement | HTMLCanvasElement | SVGElement | HTMLVideoElement, options?: any, strict?: boolean): PIXI.BaseTexture;
+        static from(
+            source: string | HTMLImageElement | HTMLCanvasElement | SVGElement | HTMLVideoElement,
+            options?: any,
+            strict?: boolean,
+        ): PIXI.BaseTexture;
         /**
          * Create a new BaseTexture with a BufferResource from a Float32Array.
          * RGBA values are floats from 0 to 1.
@@ -5514,7 +5652,12 @@ declare namespace PIXI {
          * @param {object} [options] See {@link PIXI.BaseTexture}'s constructor for options.
          * @return {PIXI.BaseTexture} The resulting new BaseTexture
          */
-        static fromBuffer(buffer: Float32Array | Uint8Array, width: number, height: number, options?: any): PIXI.BaseTexture;
+        static fromBuffer(
+            buffer: Float32Array | Uint8Array,
+            width: number,
+            height: number,
+            options?: any,
+        ): PIXI.BaseTexture;
         /**
          * Adds a BaseTexture to the global BaseTextureCache. This cache is shared across the whole PIXI object.
          *
@@ -5547,7 +5690,10 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class CubeTexture extends PIXI.BaseTexture {
-        static from(resources: string|HTMLImageElement|HTMLCanvasElement|SVGElement|HTMLVideoElement, options?: any): BaseTexture;
+        static from(
+            resources: string | HTMLImageElement | HTMLCanvasElement | SVGElement | HTMLVideoElement,
+            options?: any,
+        ): BaseTexture;
         /**
          * Generate a new CubeTexture.
          * @static
@@ -5876,7 +6022,14 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class Texture extends PIXI.utils.EventEmitter {
-        constructor(baseTexture: PIXI.BaseTexture, frame?: PIXI.Rectangle, orig?: PIXI.Rectangle, trim?: PIXI.Rectangle, rotate?: number, anchor?: PIXI.Point);
+        constructor(
+            baseTexture: PIXI.BaseTexture,
+            frame?: PIXI.Rectangle,
+            orig?: PIXI.Rectangle,
+            trim?: PIXI.Rectangle,
+            rotate?: number,
+            anchor?: PIXI.Point,
+        );
         /**
          * Does this Texture have any frame data assigned to it?
          *
@@ -6015,7 +6168,11 @@ declare namespace PIXI {
          * @param {boolean} [strict] Enforce strict-mode, see {@link PIXI.settings.STRICT_TEXTURE_CACHE}.
          * @return {PIXI.Texture} The newly created texture
          */
-        static from(source: string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | PIXI.BaseTexture, options?: any, strict?: boolean): PIXI.Texture;
+        static from(
+            source: string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | PIXI.BaseTexture,
+            options?: any,
+            strict?: boolean,
+        ): PIXI.Texture;
         /**
          * Create a new Texture with a BufferResource from a Float32Array.
          * RGBA values are floats from 0 to 1.
@@ -6027,7 +6184,12 @@ declare namespace PIXI {
          * @param {object} [options] See {@link PIXI.BaseTexture}'s constructor for options.
          * @return {PIXI.Texture} The resulting new BaseTexture
          */
-        static fromBuffer(buffer: Float32Array | Uint8Array, width: number, height: number, options?: any): PIXI.Texture;
+        static fromBuffer(
+            buffer: Float32Array | Uint8Array,
+            width: number,
+            height: number,
+            options?: any,
+        ): PIXI.Texture;
         /**
          * Create a texture from a source and add to the cache.
          *
@@ -6300,10 +6462,13 @@ declare namespace PIXI {
          * @param {number} [options.height] - Height of the resource
          */
         class ArrayResource extends PIXI.resources.Resource {
-            constructor(source: number | any[], options?: {
-                width?: number;
-                height?: number;
-            });
+            constructor(
+                source: number | any[],
+                options?: {
+                    width?: number;
+                    height?: number;
+                },
+            );
             /**
              * Collection of resources.
              * @member {Array<PIXI.BaseTexture>} PIXI.resources.ArrayResource#items
@@ -6468,7 +6633,12 @@ declare namespace PIXI {
              * @param {HTMLImageElement|HTMLCanvasElement|HTMLVideoElement|SVGElement} [source] (optional)
              * @returns {boolean} true is success
              */
-            upload(renderer: PIXI.Renderer, baseTexture: PIXI.BaseTexture, glTexture: PIXI.GLTexture, source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | SVGElement): boolean;
+            upload(
+                renderer: PIXI.Renderer,
+                baseTexture: PIXI.BaseTexture,
+                glTexture: PIXI.GLTexture,
+                source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | SVGElement,
+            ): boolean;
             /**
              * Checks if source width/height was changed, resize can cause extra baseTexture update.
              * Triggers one update in any case.
@@ -6576,10 +6746,13 @@ declare namespace PIXI {
          * @memberof PIXI.resources
          */
         class BufferResource extends PIXI.resources.Resource {
-            constructor(source: Float32Array | Uint8Array | Uint32Array, options: {
-                width: number;
-                height: number;
-            });
+            constructor(
+                source: Float32Array | Uint8Array | Uint32Array,
+                options: {
+                    width: number;
+                    height: number;
+                },
+            );
             /**
              * Source array
              * Cannot be ClampedUint8Array because it cant be uploaded to WebGL
@@ -6733,7 +6906,12 @@ declare namespace PIXI {
              * @param {HTMLImageElement|HTMLCanvasElement|HTMLVideoElement|SVGElement} [source] (optional)
              * @returns {boolean} true is success
              */
-            upload(renderer: PIXI.Renderer, baseTexture: PIXI.BaseTexture, glTexture: PIXI.GLTexture, source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | SVGElement): boolean;
+            upload(
+                renderer: PIXI.Renderer,
+                baseTexture: PIXI.BaseTexture,
+                glTexture: PIXI.GLTexture,
+                source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | SVGElement,
+            ): boolean;
             /**
              * Checks if source width/height was changed, resize can cause extra baseTexture update.
              * Triggers one update in any case.
@@ -6847,10 +7025,13 @@ declare namespace PIXI {
          * @param {number} [options.height] - Height of resource
          */
         class CubeResource extends PIXI.resources.ArrayResource {
-            constructor(source?: (string | PIXI.resources.Resource)[], options?: {
-                width?: number;
-                height?: number;
-            });
+            constructor(
+                source?: (string | PIXI.resources.Resource)[],
+                options?: {
+                    width?: number;
+                    height?: number;
+                },
+            );
             /**
              * Upload the resource
              *
@@ -7144,7 +7325,12 @@ declare namespace PIXI {
              * @param {HTMLImageElement|HTMLCanvasElement|HTMLVideoElement|SVGElement} [source] (optional)
              * @returns {boolean} true is success
              */
-            upload(renderer: PIXI.Renderer, baseTexture: PIXI.BaseTexture, glTexture: PIXI.GLTexture, source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | SVGElement): boolean;
+            upload(
+                renderer: PIXI.Renderer,
+                baseTexture: PIXI.BaseTexture,
+                glTexture: PIXI.GLTexture,
+                source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | SVGElement,
+            ): boolean;
             /**
              * Checks if source width/height was changed, resize can cause extra baseTexture update.
              * Triggers one update in any case.
@@ -7538,12 +7724,15 @@ declare namespace PIXI {
          * @param {boolean} [options.autoLoad=true] Start loading right away.
          */
         class SVGResource extends PIXI.resources.BaseImageResource {
-            constructor(source: string, options?: {
-                scale?: number;
-                width?: number;
-                height?: number;
-                autoLoad?: boolean;
-            });
+            constructor(
+                source: string,
+                options?: {
+                    scale?: number;
+                    width?: number;
+                    height?: number;
+                    autoLoad?: boolean;
+                },
+            );
             /**
              * Base64 encoded SVG element or URL for SVG file
              * @readonly
@@ -7607,7 +7796,12 @@ declare namespace PIXI {
              * @param {HTMLImageElement|HTMLCanvasElement|HTMLVideoElement|SVGElement} [source] (optional)
              * @returns {boolean} true is success
              */
-            upload(renderer: PIXI.Renderer, baseTexture: PIXI.BaseTexture, glTexture: PIXI.GLTexture, source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | SVGElement): boolean;
+            upload(
+                renderer: PIXI.Renderer,
+                baseTexture: PIXI.BaseTexture,
+                glTexture: PIXI.GLTexture,
+                source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | SVGElement,
+            ): boolean;
             /**
              * Checks if source width/height was changed, resize can cause extra baseTexture update.
              * Triggers one update in any case.
@@ -7722,12 +7916,15 @@ declare namespace PIXI {
          * @param {boolean} [options.crossorigin=true] - Load image using cross origin
          */
         class VideoResource extends PIXI.resources.BaseImageResource {
-            constructor(source: HTMLVideoElement | any | string | (string | any)[], options?: {
-                autoLoad?: boolean;
-                autoPlay?: boolean;
-                updateFPS?: number;
-                crossorigin?: boolean;
-            });
+            constructor(
+                source: HTMLVideoElement | any | string | (string | any)[],
+                options?: {
+                    autoLoad?: boolean;
+                    autoPlay?: boolean;
+                    updateFPS?: number;
+                    crossorigin?: boolean;
+                },
+            );
             /**
              * When set to true will automatically play videos used by this texture once
              * they are loaded. If false, it will not modify the playing state.
@@ -7793,7 +7990,12 @@ declare namespace PIXI {
              * @param {HTMLImageElement|HTMLCanvasElement|HTMLVideoElement|SVGElement} [source] (optional)
              * @returns {boolean} true is success
              */
-            upload(renderer: PIXI.Renderer, baseTexture: PIXI.BaseTexture, glTexture: PIXI.GLTexture, source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | SVGElement): boolean;
+            upload(
+                renderer: PIXI.Renderer,
+                baseTexture: PIXI.BaseTexture,
+                glTexture: PIXI.GLTexture,
+                source?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | SVGElement,
+            ): boolean;
             /**
              * Clean up anything, this happens when destroying is ready.
              *
@@ -7938,16 +8140,19 @@ declare namespace PIXI {
          *        texture should be updated from the video. Leave at 0 to update at every render
          * @return {PIXI.resources.Resource} The created resource.
          */
-        function autoDetectResource(source: string | any, options?: {
-            width?: number;
-            height?: number;
-            autoLoad?: boolean;
-            scale?: number;
-            createBitmap?: boolean;
-            crossorigin?: boolean;
-            autoPlay?: boolean;
-            updateFPS?: number;
-        }): PIXI.resources.Resource;
+        function autoDetectResource(
+            source: string | any,
+            options?: {
+                width?: number;
+                height?: number;
+                autoLoad?: boolean;
+                scale?: number;
+                createBitmap?: boolean;
+                crossorigin?: boolean;
+                autoPlay?: boolean;
+                updateFPS?: number;
+            },
+        ): PIXI.resources.Resource;
     }
     /**
      * Helper class to create a quad
@@ -8024,7 +8229,15 @@ declare namespace PIXI {
          *
          * @return {PIXI.Geometry} returns self, useful for chaining.
          */
-        addAttribute(id: string, buffer?: PIXI.Buffer | number[], size?: number, normalized?: boolean, type?: number, stride?: number, start?: number): PIXI.Geometry;
+        addAttribute(
+            id: string,
+            buffer?: PIXI.Buffer | number[],
+            size?: number,
+            normalized?: boolean,
+            type?: number,
+            stride?: number,
+            start?: number,
+        ): PIXI.Geometry;
         /**
          * returns the requested attribute
          *
@@ -8185,7 +8398,14 @@ declare namespace PIXI {
          * @param {number} [padX] - x padding
          * @param {number} [padY] - y padding
          */
-        addVerticesMatrix(matrix: PIXI.Matrix, vertices: Float32Array, beginOffset: number, endOffset: number, padX?: number, padY?: number): void;
+        addVerticesMatrix(
+            matrix: PIXI.Matrix,
+            vertices: Float32Array,
+            beginOffset: number,
+            endOffset: number,
+            padX?: number,
+            padY?: number,
+        ): void;
         /**
          * Adds other Bounds
          *
@@ -8405,11 +8625,7 @@ declare namespace PIXI {
          * @param {boolean} [options.baseTexture=false] - Only used for child Sprites if options.children is set to true
          *  Should it destroy the base texture of the child sprite
          */
-        destroy(options?: {
-            children?: boolean;
-            texture?: boolean;
-            baseTexture?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean; texture?: boolean; baseTexture?: boolean }): void;
         /**
          * The width of the Container, setting this will actually modify the scale to achieve the value set
          *
@@ -8657,7 +8873,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -8679,7 +8900,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -9120,7 +9351,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Renders the object using the WebGL renderer.
          *
@@ -9148,7 +9384,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * Base destroy method for generic display objects. This will automatically
          * remove the display object from its parent Container as well as remove
@@ -9717,7 +9963,14 @@ declare namespace PIXI {
          *  indicates counter-clockwise.
          * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
          */
-        arc(cx: number, cy: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): PIXI.Graphics;
+        arc(
+            cx: number,
+            cy: number,
+            radius: number,
+            startAngle: number,
+            endAngle: number,
+            anticlockwise?: boolean,
+        ): PIXI.Graphics;
         /**
          * Specifies a simple one-color fill that subsequent calls to other Graphics methods
          * (such as lineTo() or drawCircle()) use when drawing.
@@ -9802,7 +10055,9 @@ declare namespace PIXI {
          * @param {PIXI.Circle|PIXI.Ellipse|PIXI.Polygon|PIXI.Rectangle|PIXI.RoundedRectangle} shape - Shape to draw
          * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
          */
-        drawShape(shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle): PIXI.Graphics;
+        drawShape(
+            shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle,
+        ): PIXI.Graphics;
         /**
          * Draw a star shape with an arbitrary number of points.
          *
@@ -9814,7 +10069,14 @@ declare namespace PIXI {
          * @param {number} [rotation=0] - The rotation of the star in radians, where 0 is vertical
          * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
          */
-        drawStar(x: number, y: number, points: number, radius: number, innerRadius?: number, rotation?: number): PIXI.Graphics;
+        drawStar(
+            x: number,
+            y: number,
+            points: number,
+            radius: number,
+            innerRadius?: number,
+            rotation?: number,
+        ): PIXI.Graphics;
         /**
          * Clears the graphics that were drawn to this Graphics object, and resets fill and line style settings.
          *
@@ -9932,11 +10194,7 @@ declare namespace PIXI {
          * @param {boolean} [options.baseTexture=false] - Only used for child Sprites if options.children is set to true
          *  Should it destroy the base texture of the child sprite
          */
-        destroy(options?: {
-            children?: boolean;
-            texture?: boolean;
-            baseTexture?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean; texture?: boolean; baseTexture?: boolean }): void;
         /**
          * The array of children of this container.
          *
@@ -10313,7 +10571,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -10335,7 +10598,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -10529,7 +10802,12 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class GraphicsData {
-        constructor(shape: PIXI.Circle | PIXI.Rectangle | PIXI.Ellipse | PIXI.Polygon, fillStyle?: PIXI.FillStyle, lineStyle?: PIXI.LineStyle, matrix?: PIXI.Matrix);
+        constructor(
+            shape: PIXI.Circle | PIXI.Rectangle | PIXI.Ellipse | PIXI.Polygon,
+            fillStyle?: PIXI.FillStyle,
+            lineStyle?: PIXI.LineStyle,
+            matrix?: PIXI.Matrix,
+        );
         /**
          * The shape object to draw.
          * @member {PIXI.Circle|PIXI.Ellipse|PIXI.Polygon|PIXI.Rectangle|PIXI.RoundedRectangle} PIXI.GraphicsData#shape
@@ -10737,7 +11015,12 @@ declare namespace PIXI {
          * @param {PIXI.Matrix} matrix - Transform applied to the points of the shape.
          * @return {PIXI.GraphicsGeometry} Returns geometry for chaining.
          */
-        drawShape(shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle, fillStyle: PIXI.FillStyle, lineStyle: PIXI.LineStyle, matrix: PIXI.Matrix): PIXI.GraphicsGeometry;
+        drawShape(
+            shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle,
+            fillStyle: PIXI.FillStyle,
+            lineStyle: PIXI.LineStyle,
+            matrix: PIXI.Matrix,
+        ): PIXI.GraphicsGeometry;
         /**
          * Draws the given shape to this Graphics object. Can be any of Circle, Rectangle, Ellipse, Line or Polygon.
          *
@@ -10745,7 +11028,10 @@ declare namespace PIXI {
          * @param {PIXI.Matrix} matrix - Transform applied to the points of the shape.
          * @return {PIXI.GraphicsGeometry} Returns geometry for chaining.
          */
-        drawHole(shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle, matrix: PIXI.Matrix): PIXI.GraphicsGeometry;
+        drawHole(
+            shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle,
+            matrix: PIXI.Matrix,
+        ): PIXI.GraphicsGeometry;
         /**
          * Destroys the Graphics object.
          *
@@ -10758,11 +11044,7 @@ declare namespace PIXI {
          * @param {boolean} [options.baseTexture=false] - Only used for child Sprites if options.children is set to true
          *  Should it destroy the base texture of the child sprite
          */
-        destroy(options?: {
-            children?: boolean;
-            texture?: boolean;
-            baseTexture?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean; texture?: boolean; baseTexture?: boolean }): void;
         /**
          * Check to see if a point is contained within this geometry.
          *
@@ -10878,7 +11160,14 @@ declare namespace PIXI {
          * @param {number} size - The size/length for index buffer.
          * @param {PIXI.Matrix} [matrix] - Optional transform for all points.
          */
-        protected addUvs(verts: number[], uvs: number[], texture: PIXI.Texture, start: number, size: number, matrix?: PIXI.Matrix): void;
+        protected addUvs(
+            verts: number[],
+            uvs: number[],
+            texture: PIXI.Texture,
+            start: number,
+            size: number,
+            matrix?: PIXI.Matrix,
+        ): void;
         /**
          * Modify uvs array according to position of texture region
          * Does not work with rotated or trimmed textures
@@ -11128,7 +11417,7 @@ declare namespace PIXI {
      *
      * @namespace PIXI.graphicsUtils
      */
-    namespace graphicsUtils { }
+    namespace graphicsUtils {}
     /**
      * This namespace contains a renderer plugin for handling mouse, pointer, and touch events.
      *
@@ -11344,10 +11633,13 @@ declare namespace PIXI {
          * @memberof PIXI.interaction
          */
         class InteractionManager extends PIXI.utils.EventEmitter {
-            constructor(renderer: PIXI.Renderer, options?: {
-                autoPreventDefault?: boolean;
-                interactionFrequency?: number;
-            });
+            constructor(
+                renderer: PIXI.Renderer,
+                options?: {
+                    autoPreventDefault?: boolean;
+                    interactionFrequency?: number;
+                },
+            );
             /**
              * The renderer this interaction manager works for.
              *
@@ -11512,7 +11804,12 @@ declare namespace PIXI {
              * @param {boolean} [hitTest] - indicates whether we want to calculate hits
              *  or just iterate through all interactive objects
              */
-            protected processInteractive(interactionEvent: PIXI.interaction.InteractionEvent, displayObject: PIXI.Container | PIXI.Sprite | PIXI.TilingSprite, func?: (...params: any[]) => any, hitTest?: boolean): void;
+            protected processInteractive(
+                interactionEvent: PIXI.interaction.InteractionEvent,
+                displayObject: PIXI.Container | PIXI.Sprite | PIXI.TilingSprite,
+                func?: (...params: any[]) => any,
+                hitTest?: boolean,
+            ): void;
             /**
              * Destroys the interaction manager
              *
@@ -11555,8 +11852,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class AppLoaderPlugin {
-    }
+    class AppLoaderPlugin {}
     /**
      * Plugin to be installed for handling specific Loader resources.
      *
@@ -11680,8 +11976,7 @@ declare namespace PIXI {
          */
         static registerPlugin(plugin: PIXI.ILoaderPlugin): PIXI.Loader;
     }
-    interface TextureLoader extends PIXI.ILoaderPlugin {
-    }
+    interface TextureLoader extends PIXI.ILoaderPlugin {}
     /**
      * Loader plugin for handling Texture resources.
      * @class
@@ -11704,8 +11999,7 @@ declare namespace PIXI {
      * @class LoaderResource
      * @memberof PIXI
      */
-    class LoaderResource {
-    }
+    class LoaderResource {}
     /**
      * Common interface for points. Both Point and ObservablePoint implement it
      * @memberof PIXI
@@ -11900,7 +12194,17 @@ declare namespace PIXI {
          * @param {number} skewY - Skew on the y axis
          * @return {PIXI.Matrix} This matrix. Good for chaining method calls.
          */
-        setTransform(x: number, y: number, pivotX: number, pivotY: number, scaleX: number, scaleY: number, rotation: number, skewX: number, skewY: number): PIXI.Matrix;
+        setTransform(
+            x: number,
+            y: number,
+            pivotX: number,
+            pivotY: number,
+            scaleX: number,
+            scaleY: number,
+            rotation: number,
+            skewX: number,
+            skewY: number,
+        ): PIXI.Matrix;
         /**
          * Prepends the given Matrix to this Matrix.
          *
@@ -11964,8 +12268,7 @@ declare namespace PIXI {
          */
         static TEMP_MATRIX: PIXI.Matrix;
     }
-    interface ObservablePoint extends IPoint {
-    }
+    interface ObservablePoint extends IPoint {}
     /**
      * The Point object represents a location in a two-dimensional coordinate system, where x represents
      * the horizontal axis and y represents the vertical axis.
@@ -12031,8 +12334,7 @@ declare namespace PIXI {
          */
         y: number;
     }
-    interface Point extends IPoint {
-    }
+    interface Point extends IPoint {}
     /**
      * The Point object represents a location in a two-dimensional coordinate system, where x represents
      * the horizontal axis and y represents the vertical axis.
@@ -12265,7 +12567,7 @@ declare namespace PIXI {
         RECT,
         CIRC,
         ELIP,
-        RREC
+        RREC,
     }
     /**
      * Two Pi.
@@ -12908,7 +13210,12 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class Mesh extends PIXI.Container {
-        constructor(geometry: PIXI.Geometry, shader: PIXI.Shader | PIXI.MeshMaterial, state?: PIXI.State, drawMode?: number);
+        constructor(
+            geometry: PIXI.Geometry,
+            shader: PIXI.Shader | PIXI.MeshMaterial,
+            state?: PIXI.State,
+            drawMode?: number,
+        );
         /**
          * Includes vertex positions, face indices, normals, colors, UVs, and
          * custom attributes within buffers, reducing the cost of passing all
@@ -13047,9 +13354,7 @@ declare namespace PIXI {
          * @param {boolean} [options.children=false] - if set to true, all the children will have
          *  their destroy method called as well. 'options' will be passed on to those calls.
          */
-        destroy(options?: {
-            children?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean }): void;
         /**
          * The maximum number of vertices to consider batchable. Generally, the complexity
          * of the geometry.
@@ -13434,7 +13739,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -13456,7 +13766,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -13738,7 +14058,15 @@ declare namespace PIXI {
          *
          * @return {PIXI.Geometry} returns self, useful for chaining.
          */
-        addAttribute(id: string, buffer?: PIXI.Buffer | number[], size?: number, normalized?: boolean, type?: number, stride?: number, start?: number): PIXI.Geometry;
+        addAttribute(
+            id: string,
+            buffer?: PIXI.Buffer | number[],
+            size?: number,
+            normalized?: boolean,
+            type?: number,
+            stride?: number,
+            start?: number,
+        ): PIXI.Geometry;
         /**
          * returns the requested attribute
          *
@@ -13797,13 +14125,16 @@ declare namespace PIXI {
      * @extends PIXI.Shader
      */
     class MeshMaterial extends PIXI.Shader {
-        constructor(uSampler: PIXI.Texture, options?: {
-            alpha?: number;
-            tint?: number;
-            pluginName?: string;
-            program?: PIXI.Program;
-            uniforms?: any;
-        });
+        constructor(
+            uSampler: PIXI.Texture,
+            options?: {
+                alpha?: number;
+                tint?: number;
+                pluginName?: string;
+                program?: PIXI.Program;
+                uniforms?: any;
+            },
+        );
         /**
          * TextureMatrix instance for this Mesh, used to track Texture changes
          *
@@ -13878,7 +14209,7 @@ declare namespace PIXI {
      *    +---+----------------------+---+
      *  D | 7 |          8           | 9 |
      *    +---+----------------------+---+
-    
+
      *  When changing this objects width and/or height:
      *     areas 1 3 7 and 9 will remain unscaled.
      *     areas 2 and 8 will be stretched horizontally
@@ -13892,7 +14223,13 @@ declare namespace PIXI {
      *
      */
     class NineSlicePlane extends PIXI.SimplePlane {
-        constructor(texture: PIXI.Texture, leftWidth?: number, topHeight?: number, rightWidth?: number, bottomHeight?: number);
+        constructor(
+            texture: PIXI.Texture,
+            leftWidth?: number,
+            topHeight?: number,
+            rightWidth?: number,
+            bottomHeight?: number,
+        );
         /**
          * The width of the NineSlicePlane, setting this will actually modify the vertices and UV's of this plane
          *
@@ -14100,9 +14437,7 @@ declare namespace PIXI {
          * @param {boolean} [options.children=false] - if set to true, all the children will have
          *  their destroy method called as well. 'options' will be passed on to those calls.
          */
-        destroy(options?: {
-            children?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean }): void;
         /**
          * The array of children of this container.
          *
@@ -14467,7 +14802,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -14489,7 +14829,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -14698,7 +15048,13 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class SimpleMesh extends PIXI.Mesh {
-        constructor(texture?: PIXI.Texture, vertices?: Float32Array, uvs?: Float32Array, indices?: Uint16Array, drawMode?: number);
+        constructor(
+            texture?: PIXI.Texture,
+            vertices?: Float32Array,
+            uvs?: Float32Array,
+            indices?: Uint16Array,
+            drawMode?: number,
+        );
         /**
          * upload vertices buffer each frame
          * @member {boolean} PIXI.SimpleMesh#autoUpdate
@@ -14847,9 +15203,7 @@ declare namespace PIXI {
          * @param {boolean} [options.children=false] - if set to true, all the children will have
          *  their destroy method called as well. 'options' will be passed on to those calls.
          */
-        destroy(options?: {
-            children?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean }): void;
         /**
          * The array of children of this container.
          *
@@ -15226,7 +15580,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -15248,7 +15607,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -15608,9 +15977,7 @@ declare namespace PIXI {
          * @param {boolean} [options.children=false] - if set to true, all the children will have
          *  their destroy method called as well. 'options' will be passed on to those calls.
          */
-        destroy(options?: {
-            children?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean }): void;
         /**
          * The array of children of this container.
          *
@@ -15987,7 +16354,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -16009,7 +16381,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -16370,9 +16752,7 @@ declare namespace PIXI {
          * @param {boolean} [options.children=false] - if set to true, all the children will have
          *  their destroy method called as well. 'options' will be passed on to those calls.
          */
-        destroy(options?: {
-            children?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean }): void;
         /**
          * The array of children of this container.
          *
@@ -16749,7 +17129,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -16771,7 +17156,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -17041,7 +17436,15 @@ declare namespace PIXI {
          *
          * @return {PIXI.Geometry} returns self, useful for chaining.
          */
-        addAttribute(id: string, buffer?: PIXI.Buffer | number[], size?: number, normalized?: boolean, type?: number, stride?: number, start?: number): PIXI.Geometry;
+        addAttribute(
+            id: string,
+            buffer?: PIXI.Buffer | number[],
+            size?: number,
+            normalized?: boolean,
+            type?: number,
+            stride?: number,
+            start?: number,
+        ): PIXI.Geometry;
         /**
          * returns the requested attribute
          *
@@ -17121,13 +17524,18 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class ParticleContainer extends PIXI.Container {
-        constructor(maxSize?: number, properties?: {
-            vertices?: boolean;
-            position?: boolean;
-            rotation?: boolean;
-            uvs?: boolean;
-            tint?: boolean;
-        }, batchSize?: number, autoResize?: boolean);
+        constructor(
+            maxSize?: number,
+            properties?: {
+                vertices?: boolean;
+                position?: boolean;
+                rotation?: boolean;
+                uvs?: boolean;
+                tint?: boolean;
+            },
+            batchSize?: number,
+            autoResize?: boolean,
+        );
         /**
          * @member {boolean} PIXI.ParticleContainer#interactiveChildren
          *
@@ -17191,11 +17599,7 @@ declare namespace PIXI {
          * @param {boolean} [options.baseTexture=false] - Only used for child Sprites if options.children is set to true
          *  Should it destroy the base texture of the child sprite
          */
-        destroy(options?: {
-            children?: boolean;
-            texture?: boolean;
-            baseTexture?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean; texture?: boolean; baseTexture?: boolean }): void;
         /**
          * The array of children of this container.
          *
@@ -17562,7 +17966,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -17584,7 +17993,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -17814,7 +18233,14 @@ declare namespace PIXI {
          * @param {number} stride - Stride to use for iteration.
          * @param {number} offset - Offset to start at.
          */
-        uploadVertices(children: PIXI.DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
+        uploadVertices(
+            children: PIXI.DisplayObject[],
+            startIndex: number,
+            amount: number,
+            array: number[],
+            stride: number,
+            offset: number,
+        ): void;
         /**
          * Uploads the position.
          *
@@ -17825,7 +18251,14 @@ declare namespace PIXI {
          * @param {number} stride - Stride to use for iteration.
          * @param {number} offset - Offset to start at.
          */
-        uploadPosition(children: PIXI.DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
+        uploadPosition(
+            children: PIXI.DisplayObject[],
+            startIndex: number,
+            amount: number,
+            array: number[],
+            stride: number,
+            offset: number,
+        ): void;
         /**
          * Uploads the rotiation.
          *
@@ -17836,7 +18269,14 @@ declare namespace PIXI {
          * @param {number} stride - Stride to use for iteration.
          * @param {number} offset - Offset to start at.
          */
-        uploadRotation(children: PIXI.DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
+        uploadRotation(
+            children: PIXI.DisplayObject[],
+            startIndex: number,
+            amount: number,
+            array: number[],
+            stride: number,
+            offset: number,
+        ): void;
         /**
          * Uploads the Uvs
          *
@@ -17847,7 +18287,14 @@ declare namespace PIXI {
          * @param {number} stride - Stride to use for iteration.
          * @param {number} offset - Offset to start at.
          */
-        uploadUvs(children: PIXI.DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
+        uploadUvs(
+            children: PIXI.DisplayObject[],
+            startIndex: number,
+            amount: number,
+            array: number[],
+            stride: number,
+            offset: number,
+        ): void;
         /**
          * Uploads the tint.
          *
@@ -17858,7 +18305,14 @@ declare namespace PIXI {
          * @param {number} stride - Stride to use for iteration.
          * @param {number} offset - Offset to start at.
          */
-        uploadTint(children: PIXI.DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
+        uploadTint(
+            children: PIXI.DisplayObject[],
+            startIndex: number,
+            amount: number,
+            array: number[],
+            stride: number,
+            offset: number,
+        ): void;
         /**
          * Destroys the ParticleRenderer.
          */
@@ -17944,7 +18398,17 @@ declare namespace PIXI {
              *        or the callback function, if items have been added using `prepare.add`.
              * @param {Function} [done] - Optional callback when all queued uploads have completed
              */
-            upload(item: ((...params: any[]) => any) | PIXI.DisplayObject | PIXI.Container | PIXI.BaseTexture | PIXI.Texture | PIXI.Graphics | PIXI.Text, done?: (...params: any[]) => any): void;
+            upload(
+                item:
+                    | ((...params: any[]) => any)
+                    | PIXI.DisplayObject
+                    | PIXI.Container
+                    | PIXI.BaseTexture
+                    | PIXI.Texture
+                    | PIXI.Graphics
+                    | PIXI.Text,
+                done?: (...params: any[]) => any,
+            ): void;
             /**
              * Adds hooks for finding items.
              *
@@ -17968,7 +18432,16 @@ declare namespace PIXI {
              *        add to the queue
              * @return {PIXI.prepare.BasePrepare} Instance of plugin for chaining.
              */
-            add(item: PIXI.DisplayObject | PIXI.Container | PIXI.BaseTexture | PIXI.Texture | PIXI.Graphics | PIXI.Text | any): PIXI.prepare.BasePrepare;
+            add(
+                item:
+                    | PIXI.DisplayObject
+                    | PIXI.Container
+                    | PIXI.BaseTexture
+                    | PIXI.Texture
+                    | PIXI.Graphics
+                    | PIXI.Text
+                    | any,
+            ): PIXI.prepare.BasePrepare;
             /**
              * Destroys the plugin, don't use after this.
              *
@@ -18031,7 +18504,17 @@ declare namespace PIXI {
              *        or the callback function, if items have been added using `prepare.add`.
              * @param {Function} [done] - Optional callback when all queued uploads have completed
              */
-            upload(item: ((...params: any[]) => any) | PIXI.DisplayObject | PIXI.Container | PIXI.BaseTexture | PIXI.Texture | PIXI.Graphics | PIXI.Text, done?: (...params: any[]) => any): void;
+            upload(
+                item:
+                    | ((...params: any[]) => any)
+                    | PIXI.DisplayObject
+                    | PIXI.Container
+                    | PIXI.BaseTexture
+                    | PIXI.Texture
+                    | PIXI.Graphics
+                    | PIXI.Text,
+                done?: (...params: any[]) => any,
+            ): void;
             /**
              * Adds hooks for finding items.
              *
@@ -18055,7 +18538,16 @@ declare namespace PIXI {
              *        add to the queue
              * @return {PIXI.prepare.BasePrepare} Instance of plugin for chaining.
              */
-            add(item: PIXI.DisplayObject | PIXI.Container | PIXI.BaseTexture | PIXI.Texture | PIXI.Graphics | PIXI.Text | any): PIXI.prepare.BasePrepare;
+            add(
+                item:
+                    | PIXI.DisplayObject
+                    | PIXI.Container
+                    | PIXI.BaseTexture
+                    | PIXI.Texture
+                    | PIXI.Graphics
+                    | PIXI.Text
+                    | any,
+            ): PIXI.prepare.BasePrepare;
             /**
              * Destroys the plugin, don't use after this.
              *
@@ -18519,7 +19011,7 @@ declare namespace PIXI {
     }
     /**
      * The Sprite object is the base for all textured objects that are rendered to the screen
-    *
+     *
      * A sprite can be created directly from an image like this:
      *
      * ```js
@@ -18628,11 +19120,7 @@ declare namespace PIXI {
          * @param {boolean} [options.texture=false] - Should it destroy the current texture of the sprite as well
          * @param {boolean} [options.baseTexture=false] - Should it destroy the base texture of the sprite as well
          */
-        destroy(options?: {
-            children?: boolean;
-            texture?: boolean;
-            baseTexture?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean; texture?: boolean; baseTexture?: boolean }): void;
         /**
          * Helper function that creates a new sprite based on the source you provide.
          * The source can be - frame id, image url, video url, canvas element, video element, base texture
@@ -18642,7 +19130,10 @@ declare namespace PIXI {
          * @param {object} [options] See {@link PIXI.BaseTexture}'s constructor for options.
          * @return {PIXI.Sprite} The newly created sprite
          */
-        static from(source: number | string | PIXI.Texture | HTMLCanvasElement | HTMLVideoElement, options?: any): PIXI.Sprite;
+        static from(
+            source: number | string | PIXI.Texture | HTMLCanvasElement | HTMLVideoElement,
+            options?: any,
+        ): PIXI.Sprite;
         /**
          * If true PixiJS will Math.floor() x/y values when rendering, stopping pixel interpolation.
          * Advantages can include sharper image quality (like text) and faster rendering on canvas.
@@ -19050,7 +19541,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -19072,7 +19568,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -19404,11 +19910,7 @@ declare namespace PIXI {
          * @param {boolean} [options.texture=false] - Should it destroy the current texture of the sprite as well.
          * @param {boolean} [options.baseTexture=false] - Should it destroy the base texture of the sprite as well.
          */
-        destroy(options?: {
-            children?: boolean;
-            texture?: boolean;
-            baseTexture?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean; texture?: boolean; baseTexture?: boolean }): void;
         /**
          * A short hand way of creating an AnimatedSprite from an array of frame ids.
          *
@@ -19927,7 +20429,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -19949,7 +20456,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -20157,7 +20674,10 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class TilingSprite extends PIXI.Sprite {
-        static from(source: number | string | PIXI.Texture | HTMLCanvasElement | HTMLVideoElement, options?: any): PIXI.Sprite;
+        static from(
+            source: number | string | PIXI.Texture | HTMLCanvasElement | HTMLVideoElement,
+            options?: any,
+        ): PIXI.Sprite;
         static fromFrame(): PIXI.Sprite;
         static fromImage(): PIXI.Sprite;
         constructor(texture: PIXI.Texture, width?: number, height?: number);
@@ -20245,11 +20765,7 @@ declare namespace PIXI {
          * @param {boolean} [options.texture=false] - Should it destroy the current texture of the sprite as well
          * @param {boolean} [options.baseTexture=false] - Should it destroy the base texture of the sprite as well
          */
-        destroy(options?: {
-            children?: boolean;
-            texture?: boolean;
-            baseTexture?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean; texture?: boolean; baseTexture?: boolean }): void;
         /**
          * Helper function that creates a new tiling sprite based on the source you provide.
          * The source can be - frame id, image url, video url, canvas element, video element, base texture
@@ -20260,7 +20776,11 @@ declare namespace PIXI {
          * @param {number} height - the height of the tiling sprite
          * @return {PIXI.TilingSprite} The newly created texture
          */
-        static from(source: number | string | PIXI.Texture | HTMLCanvasElement | HTMLVideoElement, width: number, height: number): PIXI.TilingSprite;
+        static from(
+            source: number | string | PIXI.Texture | HTMLCanvasElement | HTMLVideoElement,
+            width: number,
+            height: number,
+        ): PIXI.TilingSprite;
         /**
          * Helper function that creates a tiling sprite that will use a texture from the TextureCache based on the frameId
          * The frame ids are created when a Texture packer file has been loaded
@@ -20728,7 +21248,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -20750,7 +21275,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -21074,8 +21609,7 @@ declare namespace PIXI {
          */
         destroy(destroyBase?: boolean): void;
     }
-    interface SpritesheetLoader extends PIXI.ILoaderPlugin {
-    }
+    interface SpritesheetLoader extends PIXI.ILoaderPlugin {}
     /**
      * {@link PIXI.Loader Loader} middleware for loading texture atlases that have been created with
      * TexturePacker or similar JSON-based spritesheet.
@@ -21170,11 +21704,7 @@ declare namespace PIXI {
          * @param {boolean} [options.texture=true] - Should it destroy the current texture of the sprite as well
          * @param {boolean} [options.baseTexture=true] - Should it destroy the base texture of the sprite as well
          */
-        destroy(options?: {
-            children?: boolean;
-            texture?: boolean;
-            baseTexture?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean; texture?: boolean; baseTexture?: boolean }): void;
         /**
          * The width of the Text, setting this will actually modify the scale to achieve the value set
          *
@@ -21654,7 +22184,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -21676,7 +22211,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -21902,7 +22447,17 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class TextMetrics {
-        constructor(text: string, style: PIXI.TextStyle, width: number, height: number, lines: string[], lineWidths: number[], lineHeight: number, maxLineWidth: number, fontProperties: any);
+        constructor(
+            text: string,
+            style: PIXI.TextStyle,
+            width: number,
+            height: number,
+            lines: string[],
+            lineWidths: number[],
+            lineHeight: number,
+            maxLineWidth: number,
+            fontProperties: any,
+        );
         /**
          * The text that was measured
          *
@@ -21966,7 +22521,12 @@ declare namespace PIXI {
          * @param {HTMLCanvasElement} [canvas] - optional specification of the canvas to use for measuring.
          * @return {PIXI.TextMetrics} measured width and height of the text.
          */
-        static measureText(text: string, style: PIXI.TextStyle, wordWrap?: boolean, canvas?: HTMLCanvasElement): PIXI.TextMetrics;
+        static measureText(
+            text: string,
+            style: PIXI.TextStyle,
+            wordWrap?: boolean,
+            canvas?: HTMLCanvasElement,
+        ): PIXI.TextMetrics;
         /**
          * Calculates the ascent, descent and fontSize of a given font-style
          *
@@ -22283,8 +22843,7 @@ declare namespace PIXI {
         LINEAR_VERTICAL: number;
         LINEAR_HORIZONTAL: number;
     };
-    interface BitmapFontLoader extends PIXI.ILoaderPlugin {
-    }
+    interface BitmapFontLoader extends PIXI.ILoaderPlugin {}
     /**
      * {@link PIXI.Loader Loader} middleware for loading
      * bitmap-based fonts suitable for using with {@link PIXI.BitmapText}.
@@ -22341,14 +22900,17 @@ declare namespace PIXI {
      * @memberof PIXI
      */
     class BitmapText extends PIXI.Container {
-        constructor(text: string, style: {
-            font: {
-                name?: string;
-                size?: number;
-            };
-            align?: string;
-            tint?: number;
-        });
+        constructor(
+            text: string,
+            style: {
+                font: {
+                    name?: string;
+                    size?: number;
+                };
+                align?: string;
+                tint?: number;
+            },
+        );
         /**
          * The dirty state of this object.
          *
@@ -22455,9 +23017,15 @@ declare namespace PIXI {
          *  If providing an object, the key is the `<page>` element's `file` attribute in the FNT file.
          * @return {Object} Result font object with font, size, lineHeight and char fields.
          */
-        static registerFont(xml: XMLDocument, textures: {
-            [key: string]: PIXI.Texture;
-        } | PIXI.Texture | PIXI.Texture[]): any;
+        static registerFont(
+            xml: XMLDocument,
+            textures:
+                | {
+                      [key: string]: PIXI.Texture;
+                  }
+                | PIXI.Texture
+                | PIXI.Texture[],
+        ): any;
         /**
          * The array of children of this container.
          *
@@ -22610,11 +23178,7 @@ declare namespace PIXI {
          * @param {boolean} [options.baseTexture=false] - Only used for child Sprites if options.children is set to true
          *  Should it destroy the base texture of the child sprite
          */
-        destroy(options?: {
-            children?: boolean;
-            texture?: boolean;
-            baseTexture?: boolean;
-        }): void;
+        destroy(options?: { children?: boolean; texture?: boolean; baseTexture?: boolean }): void;
         /**
          * The width of the Container, setting this will actually modify the scale to achieve the value set
          *
@@ -22855,7 +23419,12 @@ declare namespace PIXI {
          * @param {boolean} [skipUpdate=false] - Should we skip the update transform
          * @return {PIXI.IPoint} A point object representing the position of this object
          */
-        toLocal(position: PIXI.IPoint, from?: PIXI.DisplayObject, point?: PIXI.IPoint, skipUpdate?: boolean): PIXI.IPoint;
+        toLocal(
+            position: PIXI.IPoint,
+            from?: PIXI.DisplayObject,
+            point?: PIXI.IPoint,
+            skipUpdate?: boolean,
+        ): PIXI.IPoint;
         /**
          * Set the parent Container of this DisplayObject.
          *
@@ -22877,7 +23446,17 @@ declare namespace PIXI {
          * @param {number} [pivotY=0] - The Y pivot value
          * @return {PIXI.DisplayObject} The DisplayObject instance
          */
-        setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, pivotX?: number, pivotY?: number): PIXI.DisplayObject;
+        setTransform(
+            x?: number,
+            y?: number,
+            scaleX?: number,
+            scaleY?: number,
+            rotation?: number,
+            skewX?: number,
+            skewY?: number,
+            pivotX?: number,
+            pivotY?: number,
+        ): PIXI.DisplayObject;
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
@@ -23324,8 +23903,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class TickerPlugin {
-    }
+    class TickerPlugin {}
     /**
      * Represents the update priorities used by internal PIXI classes when registered with
      * the {@link PIXI.Ticker} object. Higher priority items are updated first and lower
@@ -23347,7 +23925,7 @@ declare namespace PIXI {
         HIGH,
         NORMAL,
         LOW,
-        UTILITY
+        UTILITY,
     }
     /**
      * Regexp for data URI.
@@ -23477,7 +24055,12 @@ declare namespace PIXI {
          * @param {boolean} [premultiply=true] do premultiply it
          * @returns {Float32Array} vec4 rgba
          */
-        function premultiplyRgba(rgb: Float32Array | number[], alpha: number, out?: Float32Array, premultiply?: boolean): Float32Array;
+        function premultiplyRgba(
+            rgb: Float32Array | number[],
+            alpha: number,
+            out?: Float32Array,
+            premultiply?: boolean,
+        ): Float32Array;
         /**
          * premultiplies tint
          *
@@ -23499,7 +24082,12 @@ declare namespace PIXI {
          * @param {boolean} [premultiply=true] do premultiply it
          * @returns {Float32Array} vec4 rgba
          */
-        function premultiplyTintToRgba(tint: number, alpha: number, out?: Float32Array, premultiply?: boolean): Float32Array;
+        function premultiplyTintToRgba(
+            tint: number,
+            alpha: number,
+            out?: Float32Array,
+            premultiply?: boolean,
+        ): Float32Array;
         /**
          * Generic Mask Stack data structure
          *
@@ -23628,8 +24216,7 @@ declare namespace PIXI {
          * @class EventEmitter
          * @type {EventEmitter}
          */
-        class EventEmitter {
-        }
+        class EventEmitter {}
         /**
          * A polygon triangulation library
          *
@@ -23804,14 +24391,12 @@ declare namespace PIXI {
 /**
  * @interface SharedArrayBuffer
  */
-declare interface SharedArrayBuffer {
-}
+declare interface SharedArrayBuffer {}
 
 /**
  * @interface OffscreenCanvas
  */
-declare interface OffscreenCanvas {
-}
+declare interface OffscreenCanvas {}
 
 /**
  * A structure to hold interim batch objects.
@@ -23857,17 +24442,16 @@ declare var BATCH_POOL: BatchPart[];
  */
 declare var DRAW_CALL_POOL: PIXI.BatchDrawCall[];
 
-
 declare namespace PIXI {
     namespace utils {
-// https://github.com/primus/eventemitter3
+        // https://github.com/primus/eventemitter3
         export interface EventEmitter {
             /**
              * Return an array listing the events for which the emitter has registered listeners.
              *
              * @returns {(string | symbol)[]}
              */
-            eventNames(): Array<(string | symbol)>;
+            eventNames(): Array<string | symbol>;
 
             /**
              * Return the listeners registered for a given event.
@@ -23952,42 +24536,91 @@ declare namespace PIXI {
     }
 
     namespace interaction {
-        type InteractionPointerEvents = "pointerdown" | "pointercancel" | "pointerup" | "pointertap" | "pointerupoutside" | "pointermove" | "pointerover" | "pointerout";
-        type InteractionTouchEvents = "touchstart" | "touchcancel" | "touchend" | "touchendoutside" | "touchmove" | "tap";
-        type InteractionMouseEvents = "rightdown" | "mousedown" | "rightup" | "mouseup" | "rightclick" | "click" | "rightupoutside" | "mouseupoutside" | "mousemove" | "mouseover" | "mouseout";
-        type InteractionPixiEvents = "added" | "removed";
-        type InteractionEventTypes = InteractionPointerEvents | InteractionTouchEvents | InteractionMouseEvents | InteractionPixiEvents;
+        type InteractionPointerEvents =
+            | 'pointerdown'
+            | 'pointercancel'
+            | 'pointerup'
+            | 'pointertap'
+            | 'pointerupoutside'
+            | 'pointermove'
+            | 'pointerover'
+            | 'pointerout';
+        type InteractionTouchEvents =
+            | 'touchstart'
+            | 'touchcancel'
+            | 'touchend'
+            | 'touchendoutside'
+            | 'touchmove'
+            | 'tap';
+        type InteractionMouseEvents =
+            | 'rightdown'
+            | 'mousedown'
+            | 'rightup'
+            | 'mouseup'
+            | 'rightclick'
+            | 'click'
+            | 'rightupoutside'
+            | 'mouseupoutside'
+            | 'mousemove'
+            | 'mouseover'
+            | 'mouseout';
+        type InteractionPixiEvents = 'added' | 'removed';
+        type InteractionEventTypes =
+            | InteractionPointerEvents
+            | InteractionTouchEvents
+            | InteractionMouseEvents
+            | InteractionPixiEvents;
     }
 
     export interface DisplayObject {
-        on(event: interaction.InteractionEventTypes, fn: (event: interaction.InteractionEvent) => void, context?: any): this;
+        on(
+            event: interaction.InteractionEventTypes,
+            fn: (event: interaction.InteractionEvent) => void,
+            context?: any,
+        ): this;
         //tslint:disable-next-line:ban-types forbidden-types
         on(event: string | symbol, fn: Function, context?: any): this;
-        once(event: interaction.InteractionEventTypes, fn: (event: interaction.InteractionEvent) => void, context?: any): this;
+        once(
+            event: interaction.InteractionEventTypes,
+            fn: (event: interaction.InteractionEvent) => void,
+            context?: any,
+        ): this;
         //tslint:disable-next-line:ban-types forbidden-types
         once(event: string | symbol, fn: Function, context?: any): this;
-        removeListener(event: interaction.InteractionEventTypes, fn?: (event: interaction.InteractionEvent) => void, context?: any): this;
+        removeListener(
+            event: interaction.InteractionEventTypes,
+            fn?: (event: interaction.InteractionEvent) => void,
+            context?: any,
+        ): this;
         //tslint:disable-next-line:ban-types forbidden-types
         removeListener(event: string | symbol, fn?: Function, context?: any): this;
         removeAllListeners(event?: interaction.InteractionEventTypes): this;
         removeAllListeners(event?: string | symbol): this;
-        off(event: interaction.InteractionEventTypes, fn?: (event: interaction.InteractionEvent) => void, context?: any): this;
+        off(
+            event: interaction.InteractionEventTypes,
+            fn?: (event: interaction.InteractionEvent) => void,
+            context?: any,
+        ): this;
         //tslint:disable-next-line:ban-types forbidden-types
         off(event: string | symbol, fn?: Function, context?: any): this;
-        addListener(event: interaction.InteractionEventTypes, fn: (event: interaction.InteractionEvent) => void, context?: any): this;
+        addListener(
+            event: interaction.InteractionEventTypes,
+            fn: (event: interaction.InteractionEvent) => void,
+            context?: any,
+        ): this;
         //tslint:disable-next-line:ban-types forbidden-types
         addListener(event: string | symbol, fn: Function, context?: any): this;
     }
 
     export interface Container {
-        once(event: "added" | "removed", fn: (displayObject: DisplayObject) => void, context?: any): this;
+        once(event: 'added' | 'removed', fn: (displayObject: DisplayObject) => void, context?: any): this;
         //tslint:disable-next-line:ban-types forbidden-types
         once(event: string, fn: Function, context?: any): this;
-        on(event: "added" | "removed", fn: (displayObject: DisplayObject) => void, context?: any): this;
+        on(event: 'added' | 'removed', fn: (displayObject: DisplayObject) => void, context?: any): this;
         //tslint:disable-next-line:ban-types forbidden-types
         on(event: string, fn: Function, context?: any): this;
         //tslint:disable-next-line:ban-types forbidden-types
-        off(event: "added" | "removed" | string, fn?: Function, context?: any): this;
+        off(event: 'added' | 'removed' | string, fn?: Function, context?: any): this;
     }
 }
 
@@ -24018,18 +24651,17 @@ declare namespace PIXI {
 
         // depreciation
 
-        on(event: "complete", fn: (loader: Loader, object: any) => void, context?: any): this;
-        on(event: "error", fn: (error: Error, loader: Loader, resource: LoaderResource) => void, context?: any): this;
-        on(event: "load" | "progress", fn: (loader: Loader, resource: LoaderResource) => void, context?: any): this;
-        on(event: "start", fn: (loader: Loader) => void, context?: any): this;
+        on(event: 'complete', fn: (loader: Loader, object: any) => void, context?: any): this;
+        on(event: 'error', fn: (error: Error, loader: Loader, resource: LoaderResource) => void, context?: any): this;
+        on(event: 'load' | 'progress', fn: (loader: Loader, resource: LoaderResource) => void, context?: any): this;
+        on(event: 'start', fn: (loader: Loader) => void, context?: any): this;
 
-        once(event: "complete", fn: (loader: Loader, object: any) => void, context?: any): this;
-        once(event: "error", fn: (error: Error, loader: Loader, resource: LoaderResource) => void, context?: any): this;
-        once(event: "load" | "progress", fn: (loader: Loader, resource: LoaderResource) => void, context?: any): this;
-        once(event: "start", fn: (loader: Loader) => void, context?: any): this;
+        once(event: 'complete', fn: (loader: Loader, object: any) => void, context?: any): this;
+        once(event: 'error', fn: (error: Error, loader: Loader, resource: LoaderResource) => void, context?: any): this;
+        once(event: 'load' | 'progress', fn: (loader: Loader, resource: LoaderResource) => void, context?: any): this;
+        once(event: 'start', fn: (loader: Loader) => void, context?: any): this;
         //tslint:disable-next-line:ban-types forbidden-types
-        off(event: "complete" | "error" | "load" | "progress" | "start" | string, fn?: Function, context?: any): this;
-
+        off(event: 'complete' | 'error' | 'load' | 'progress' | 'start' | string, fn?: Function, context?: any): this;
     }
 
     export interface IResourceDictionary {
@@ -24085,9 +24717,9 @@ declare namespace PIXI {
 
         export enum STATUS_FLAGS {
             NONE = 0,
-            DATA_URL = (1 << 0),
-            COMPLETE = (1 << 1),
-            LOADING = (1 << 2),
+            DATA_URL = 1 << 0,
+            COMPLETE = 1 << 1,
+            LOADING = 1 << 2,
         }
 
         export enum TYPE {
@@ -24101,7 +24733,6 @@ declare namespace PIXI {
         }
 
         export enum LOAD_TYPE {
-
             /** Uses XMLHttpRequest to load the resource. */
             XHR = 1,
             /** Uses an `Image` object to load the resource. */
@@ -24131,6 +24762,6 @@ declare namespace PIXI {
     }
 }
 
-declare module "pixi.js" {
+declare module 'pixi.js' {
     export = PIXI;
 }

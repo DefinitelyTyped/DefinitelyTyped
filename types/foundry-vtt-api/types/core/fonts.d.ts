@@ -1,4 +1,3 @@
-
 /**
  * Load font, and perform a callback once the font has been rendered
  * @param fontName

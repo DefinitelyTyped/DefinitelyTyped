@@ -1,19 +1,19 @@
 {
-  "name": "foundry-pc-types",
-  "version": "0.1.0",
-  "description": "TypeScript type definitions for Foundry VTT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/foundry-projects/foundry-pc/foundry-pc-types.git"
-  },
-  "author": "N. van Oosten",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://gitlab.com/foundry-projects/foundry-pc/foundry-pc-types/issues"
-  },
-  "homepage": "https://gitlab.com/foundry-projects/foundry-pc/foundry-pc-types#readme",
-  "dependencies": {
-    "@types/jquery": "^3.3.31",
-    "@types/socket.io": "^2.1.4"
-  }
+    "name": "foundry-pc-types",
+    "version": "0.1.0",
+    "description": "TypeScript type definitions for Foundry VTT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://gitlab.com/foundry-projects/foundry-pc/foundry-pc-types.git"
+    },
+    "author": "N. van Oosten",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://gitlab.com/foundry-projects/foundry-pc/foundry-pc-types/issues"
+    },
+    "homepage": "https://gitlab.com/foundry-projects/foundry-pc/foundry-pc-types#readme",
+    "dependencies": {
+        "@types/jquery": "^3.3.31",
+        "@types/socket.io": "^2.1.4"
+    }
 }

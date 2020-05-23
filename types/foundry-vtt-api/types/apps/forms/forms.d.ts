@@ -37,7 +37,7 @@ declare class MeasuredTemplateConfig extends FormApplication {}
 declare class PlayerConfig extends FormApplication {}
 /**
  * Playlist Configuration Sheet
- * 
+ *
  * @param object	The Playlist being edited
  * @param options	Additional application rendering options
  */
@@ -53,7 +53,7 @@ declare class PlaylistSoundConfig extends FormApplication {}
 
 /**
  * Entity Sheet Configuration Application
- * 
+ *
  * @param entity	The Entity object for which the sheet is being configured
  * @param options	Additional Application options
  */

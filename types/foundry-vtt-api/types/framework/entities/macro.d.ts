@@ -3,22 +3,22 @@
  * @extends {Collection}
  */
 declare class Macros extends Collection<Macro> {
-	entities: Macro[];
+    entities: Macro[];
 
-	values(): IterableIterator<Macro>;
+    values(): IterableIterator<Macro>;
 
-	/* -------------------------------------------- */
-	/*  Properties                                  */
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Properties                                  */
+    /* -------------------------------------------- */
 
-	/**
-	 * Determine whether a given User is allowed to use JavaScript macros
-	 * @param user	The User entity to test
-	 * @return		Can the User use scripts?
-	 */
-	static canUseScripts(user: User): boolean;
+    /**
+     * Determine whether a given User is allowed to use JavaScript macros
+     * @param user	The User entity to test
+     * @return		Can the User use scripts?
+     */
+    static canUseScripts(user: User): boolean;
 
-	static registerSettings(): void;
+    static registerSettings(): void;
 }
 
 /**
@@ -31,15 +31,15 @@ declare class Macros extends Collection<Macro> {
  * @see {@link Hotbar}        The Hotbar interface application
  */
 declare class Macro extends Entity {
-	/** @override */
-	static get config(): {
-		baseEntity: Macro;
-		collection: Macros;
-		embeddedEntities: [];
-	};
+    /** @override */
+    static get config(): {
+        baseEntity: Macro;
+        collection: Macros;
+        embeddedEntities: [];
+    };
 
-	/**
-	 * Execute the Macro command
-	 */
-	execute(): Promise<any>;
+    /**
+     * Execute the Macro command
+     */
+    execute(): Promise<any>;
 }

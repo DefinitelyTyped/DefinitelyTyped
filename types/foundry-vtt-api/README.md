@@ -35,9 +35,9 @@ TypeScript is configured with a `tsconfig.json` file in your project root. Add t
 
 ```json
 {
-	"compilerOptions": {
-		"types": "foundry-pc-types"
-	}
+    "compilerOptions": {
+        "types": "foundry-pc-types"
+    }
 }
 ```
 

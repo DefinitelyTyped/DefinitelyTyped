@@ -1,23 +1,23 @@
 interface DialogData {
-	title?: string;
-	content?: string | HTMLElement;
-	close?: (html: HTMLElement | JQuery) => void;
-	buttons?: Record<string, DialogButton>;
-	default?: string;
+    title?: string;
+    content?: string | HTMLElement;
+    close?: (html: HTMLElement | JQuery) => void;
+    buttons?: Record<string, DialogButton>;
+    default?: string;
 }
 
 interface DialogButton {
-	icon?: string;
-	label?: string;
-	callback?: (html: HTMLElement | JQuery) => void;
+    icon?: string;
+    label?: string;
+    callback?: (html: HTMLElement | JQuery) => void;
 }
 
 interface ConfirmDialog {
-	title: string;
-	content: string;
-	yes: Function;
-	no: Function;
-	defaultYes?: boolean;
+    title: string;
+    content: string;
+    yes: Function;
+    no: Function;
+    defaultYes?: boolean;
 }
 
 /**
@@ -60,20 +60,20 @@ interface ConfirmDialog {
  * d.render(true);
  */
 declare class Dialog extends Application {
-	constructor(dialogData: DialogData, options?: ApplicationOptions);
+    constructor(dialogData: DialogData, options?: ApplicationOptions);
 
-	/**
-	 * A helper function to reduce code duplication when creating confirmation dialog windows.
-	 * These windows are limited in flexibility, for simple yes/no prompts.
-	 * If you require more flexibility, a custom Dialog instance is preferred.
-	 * @param title		The confirmation window title
-	 * @param content	The confirmation message
-	 * @param yes		Callback function upon yes
-	 * @param no		Callback function upon no
-	 * @param defaultYes
-	 */
-	static confirm(
-		{ title, content, yes, no, defaultYes }?: ConfirmDialog,
-		options?: ApplicationOptions
-	): Promise<void>;
+    /**
+     * A helper function to reduce code duplication when creating confirmation dialog windows.
+     * These windows are limited in flexibility, for simple yes/no prompts.
+     * If you require more flexibility, a custom Dialog instance is preferred.
+     * @param title		The confirmation window title
+     * @param content	The confirmation message
+     * @param yes		Callback function upon yes
+     * @param no		Callback function upon no
+     * @param defaultYes
+     */
+    static confirm(
+        { title, content, yes, no, defaultYes }?: ConfirmDialog,
+        options?: ApplicationOptions,
+    ): Promise<void>;
 }

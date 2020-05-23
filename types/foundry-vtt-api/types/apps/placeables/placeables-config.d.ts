@@ -8,10 +8,10 @@
  * @param options.preview 	Configure a preview version of the Drawing which is not yet saved
  */
 declare class DrawingConfig extends FormApplication {
-	/**
-	 * Extend the application close method to clear any preview sound aura if one exists
-	 */
-	close(): Promise<void>;
+    /**
+     * Extend the application close method to clear any preview sound aura if one exists
+     */
+    close(): Promise<void>;
 }
 
 /**
