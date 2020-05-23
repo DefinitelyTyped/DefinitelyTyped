@@ -18,7 +18,7 @@ declare class BasePlaceableHUD extends Application {
 
     /**
      * Bind the HUD to a new PlaceableObject and display it
-     * @param object	A PlaceableObject instance to which the HUD should be bound
+     * @param object    A PlaceableObject instance to which the HUD should be bound
      */
     bind(object: PlaceableObject): void;
 
