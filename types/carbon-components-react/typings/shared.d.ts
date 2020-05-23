@@ -89,6 +89,8 @@ export interface RefForwardingProps<T = HTMLElement> {
 // aliases for some React types that it doesn't export directly. They are needed to make sure we match the signatures
 // as close as possible
 export type FCReturn = ReturnType<React.FC>;
+// IMPORTANT: this type matches what react types has but you MUST add children prop to your prop interface or children
+// will be an unknown prop. This is typically not the case for a regular function component.
 export type ForwardRefReturn<T, P = {}> = React.ForwardRefExoticComponent<
     React.PropsWithoutRef<P> & React.RefAttributes<T>
 >;
