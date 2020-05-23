@@ -117,7 +117,7 @@ export interface MUIDataTableFilterOptions {
 
 export interface MUIDataTableCustomFilterListOptions {
     render?: (value: any) => string | string[];
-    update?: (...args: any) => string[];
+    update?: (...args: any[]) => string[];
 }
 
 export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
