@@ -21,10 +21,10 @@ declare class SidebarDirectory extends SidebarTab {
 
     /**
      * Given an entity type and a list of entities, set up the folder tree for that entity
-     * @param folders	The Array of Folder objects to organize
-     * @param entities	The Array of Entity objects to organize
-     * @param sortMode	How should entities or Folders be sorted? (a)lphabetic or (n)umeric
-     * @return			A tree structure containing the folders and entities
+     * @param folders    The Array of Folder objects to organize
+     * @param entities    The Array of Entity objects to organize
+     * @param sortMode    How should entities or Folders be sorted? (a)lphabetic or (n)umeric
+     * @return            A tree structure containing the folders and entities
      */
     static setupFolders(
         folders: Folder[],

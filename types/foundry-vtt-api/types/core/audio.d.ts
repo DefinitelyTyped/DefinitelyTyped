@@ -52,14 +52,14 @@ declare class AudioHelper {
     /**
      * Play a one-off sound effect which is not part of a Playlist
      *
-     * @param data 			An object configuring the audio data to play
-     * @param data.src		The audio source file path, either a public URL or a local path relative to the public directory
-     * @param data.volume	The volume level at which to play the audio, between 0 and 1.
-     * @param data.autoplay	Begin playback of the audio effect immediately once it is loaded.
-     * @param data.loop		Loop the audio effect and continue playing it until it is manually stopped.
-     * @param push			Push the audio sound effect to other connected clients?
+     * @param data             An object configuring the audio data to play
+     * @param data.src        The audio source file path, either a public URL or a local path relative to the public directory
+     * @param data.volume    The volume level at which to play the audio, between 0 and 1.
+     * @param data.autoplay    Begin playback of the audio effect immediately once it is loaded.
+     * @param data.loop        Loop the audio effect and continue playing it until it is manually stopped.
+     * @param push            Push the audio sound effect to other connected clients?
      *
-     * @return				A Howl instance which controls audio playback.
+     * @return                A Howl instance which controls audio playback.
      *
      * @example
      * // Play the sound of a locked door for all players
@@ -69,7 +69,7 @@ declare class AudioHelper {
 
     /**
      * Create a Howl object and load it to be ready for later playback
-     * @param data	The audio data to preload
+     * @param data    The audio data to preload
      */
     static preload(data: any): void;
 
@@ -78,16 +78,16 @@ declare class AudioHelper {
      * This is using an exponential approximation of the logarithmic nature of audio level perception
      * Based on https://www.dr-lex.be/info-stuff/volumecontrols.html
      * We're using x^3 by default instead of x^4 otherwise the audio becomes nearly silent around the 40% mark.
-     * @param control	Value between [0, 1] of the range input
-     * @param order		(optional) the exponent of the curve (default: 3)
+     * @param control    Value between [0, 1] of the range input
+     * @param order        (optional) the exponent of the curve (default: 3)
      */
     static inputToVolume(control: number, order: number): number;
 
     /**
      * Counterpart to inputToVolume()
      * Returns the input range value based on a volume
-     * @param control	Value between [0, 1] of the volume level
-     * @param order		(optional) the exponent of the curve (default: 3)
+     * @param control    Value between [0, 1] of the volume level
+     * @param order        (optional) the exponent of the curve (default: 3)
      */
     static volumeToInput(volume: number, order: number): number;
 }

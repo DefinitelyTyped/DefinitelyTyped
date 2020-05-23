@@ -1,7 +1,7 @@
 /**
  * Placeable Note configuration sheet
- * @param note		The Note object for which settings are being configured
- * @param options	Additional Application options
+ * @param note        The Note object for which settings are being configured
+ * @param options    Additional Application options
  */
 declare class NoteConfig extends FormApplication {
     /**

@@ -49,7 +49,7 @@ declare class KeyboardManager {
 
     /**
      * Return whether the keyCode is currently in the DOWN state
-     * @param keyCode	The key code to test
+     * @param keyCode    The key code to test
      */
     isDown(keyCode: number): boolean;
 

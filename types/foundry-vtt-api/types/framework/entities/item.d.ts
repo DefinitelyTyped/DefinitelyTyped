@@ -48,9 +48,9 @@ declare class Item extends Entity {
     /**
      * Configure the attributes of the ChatMessage Entity
      *
-     * @returns baseEntity			The parent class which directly inherits from the Entity interface.
-     * @returns collection			The Collection class to which Entities of this type belong.
-     * @returns embeddedEntities	The names of any Embedded Entities within the Entity data structure.
+     * @returns baseEntity            The parent class which directly inherits from the Entity interface.
+     * @returns collection            The Collection class to which Entities of this type belong.
+     * @returns embeddedEntities    The names of any Embedded Entities within the Entity data structure.
      */
     static get config(): {
         baseEntity: Item;
@@ -97,7 +97,7 @@ declare class Item extends Entity {
     /**
      * Override the standard permission test for Item entities as we need to apply a special check for owned items
      * OwnedItems have permission that the player has for the parent Actor.
-     * @return	Whether or not the user has the permission for this item
+     * @return    Whether or not the user has the permission for this item
      */
     hasPerm(...args: any[]): boolean;
 
@@ -109,9 +109,9 @@ declare class Item extends Entity {
      * Extend the base Entity update logic to update owned items as well.
      * See Entity.update for more complete API documentation
      *
-     * @param data		The data with which to update the entity
-     * @param options	Additional options which customize the update workflow
-     * @return			A Promise which resolves to the updated Entity
+     * @param data        The data with which to update the entity
+     * @param options    Additional options which customize the update workflow
+     * @return            A Promise which resolves to the updated Entity
      */
     update(data: any, options: any): Promise<Item>;
 

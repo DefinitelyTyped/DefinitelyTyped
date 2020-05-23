@@ -18,7 +18,7 @@ declare class PlaceableObject extends PIXI.Container {
 
     /* -------------------------------------------- */
     /* Properties
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Provide a reference to the canvas layer which contains placeable objects of this type
@@ -57,7 +57,7 @@ declare class PlaceableObject extends PIXI.Container {
 
     /* -------------------------------------------- */
     /* Methods
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Clear the display of the existing object
@@ -66,23 +66,23 @@ declare class PlaceableObject extends PIXI.Container {
 
     /**
      * Assume control over a PlaceableObject, flagging it as controlled and enabling downstream behaviors
-     * @param multiSelect	Is this object being selected as part of a group?
-     * @param releaseOthers	Release any other controlled objects first
-     * @return				A Boolean flag denoting whether or not control was successful.
+     * @param multiSelect    Is this object being selected as part of a group?
+     * @param releaseOthers    Release any other controlled objects first
+     * @return                A Boolean flag denoting whether or not control was successful.
      */
     control({ multiSelect, releaseOthers }?: { multiSelect?: boolean; releaseOthers?: boolean }): boolean;
 
     /**
      * Obtain the shifted position for the Object
-     * @param dx	The number of grid units to shift along the X-axis
-     * @param dy	The number of grid units to shift along the Y-axis
-     * @return		The target movement coordinates subject to some offset
+     * @param dx    The number of grid units to shift along the X-axis
+     * @param dy    The number of grid units to shift along the Y-axis
+     * @return        The target movement coordinates subject to some offset
      */
     protected _getShiftedPosition(dx: number, dy: number): { x: number; y: number };
 
     /**
      * Release control over a PlaceableObject, removing it from the controlled set
-     * @return	A Boolean flag confirming the object was released.
+     * @return    A Boolean flag confirming the object was released.
      */
     release(): boolean;
 
@@ -115,15 +115,15 @@ declare class PlaceableObject extends PIXI.Container {
      * The returned object is non-interactive, and has no assigned ID
      * If you plan to use it permanently you should call the create method
      *
-     * @return	A new object with identical data
+     * @return    A new object with identical data
      */
     clone(): PlaceableObject;
 
     /**
      * Rotate the PlaceableObject to a certain angle of facing
-     * @param angle	The desired angle of rotation
-     * @param snap	Snap the angle of rotation to a certain target degree increment
-     * @return		A Promise which resolves once the rotation has completed
+     * @param angle    The desired angle of rotation
+     * @param snap    Snap the angle of rotation to a certain target degree increment
+     * @return        A Promise which resolves once the rotation has completed
      */
     rotate(angle: number, snap: number): Promise<any>;
 
@@ -131,9 +131,9 @@ declare class PlaceableObject extends PIXI.Container {
      * Get the value of a "flag" for this PlaceableObject
      * See the setFlag method for more details on flags
      *
-     * @param scope	The flag scope which namespaces the key
-     * @param key	The flag key
-     * @return		The flag value
+     * @param scope    The flag scope which namespaces the key
+     * @param key    The flag key
+     * @return        The flag value
      */
     getFlag(scope: string, key: string): any;
 
@@ -150,19 +150,19 @@ declare class PlaceableObject extends PIXI.Container {
      *
      * Flag values can assume almost any data type. Setting a flag value to null will delete that flag.
      *
-     * @param scope	The flag scope which namespaces the key
-     * @param key	The flag key
-     * @param value	The flag value
+     * @param scope    The flag scope which namespaces the key
+     * @param key    The flag key
+     * @param value    The flag value
      *
-     * @return		A Promise resolving to the updated PlaceableObject
+     * @return        A Promise resolving to the updated PlaceableObject
      */
     setFlag(scope: string, key: string, value: any): Promise<PlaceableObject>;
 
     /**
      * Remove a flag assigned to the Entity
-     * @param scope	The flag scope which namespaces the key
-     * @param key	The flag key
-     * @return		A Promise resolving to the updated Entity
+     * @param scope    The flag scope which namespaces the key
+     * @param key    The flag key
+     * @return        A Promise resolving to the updated Entity
      */
     unsetFlag(scope: string, key: string): Promise<Entity>;
 
@@ -210,7 +210,7 @@ declare class PlaceableObject extends PIXI.Container {
 
     /**
      * Default handling for mouse-move event during a PlaceableObject drag workflow
-     * @param event	The mousemove event being handled
+     * @param event    The mousemove event being handled
      */
     protected _onMouseMove(event: PIXI.interaction.InteractionEvent): boolean;
 

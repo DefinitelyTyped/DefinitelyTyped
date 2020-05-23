@@ -8,9 +8,9 @@ declare const vtt: string;
  * The core Game instance which encapsulates the data, settings, and states relevant for managing the game experience.
  * The singleton instance of the Game class is available as the global variable ``game``.
  *
- * @param worldData	An object of all the World data vended by the server when the client first connects
- * @param userId	The ID of the currently active user, retrieved from their session cookie
- * @param socket	The open web-socket which should be used to transact game-state data
+ * @param worldData    An object of all the World data vended by the server when the client first connects
+ * @param userId    The ID of the currently active user, retrieved from their session cookie
+ * @param socket    The open web-socket which should be used to transact game-state data
  */
 declare class Game {
     /** The object of world data passed from the server */
@@ -59,7 +59,7 @@ declare class Game {
 
     /* -------------------------------------------- */
     /*  Entities
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     users: Users;
     messages: Messages;
@@ -170,8 +170,8 @@ declare class Game {
     /**
      * Toggle the pause state of the game
      * Trigger the `pauseGame` Hook when the paused state changes
-     * @param pause	The new pause state
-     * @param push	Push the pause state change to other connected clients?
+     * @param pause    The new pause state
+     * @param push    Push the pause state change to other connected clients?
      */
     togglePause(pause: boolean, push?: boolean): void;
 

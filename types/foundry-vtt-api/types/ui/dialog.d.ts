@@ -23,20 +23,20 @@ interface ConfirmDialog {
 /**
  * Create a modal dialog window displaying a title, a message, and a set of buttons which trigger callback functions.
  *
- * @param dialogData			An object of dialog data which configures how the modal window is rendered
- * @param dialogData.title		The window title
- * @param dialogData.content	HTML content
- * @param dialogData.close		Common callback operations to perform when the dialog is closed
- * @param dialogData.buttons	Action buttons which trigger callback functions.
- *								Buttons are defined as an Object with the format ``{name: buttonData}``.
- *								Valid keys for buttonData include:
+ * @param dialogData            An object of dialog data which configures how the modal window is rendered
+ * @param dialogData.title        The window title
+ * @param dialogData.content    HTML content
+ * @param dialogData.close        Common callback operations to perform when the dialog is closed
+ * @param dialogData.buttons    Action buttons which trigger callback functions.
+ *                                Buttons are defined as an Object with the format ``{name: buttonData}``.
+ *                                Valid keys for buttonData include:
  *
- * @param dialogData.buttons.button.icon		A button icon
- * @param dialogData.buttons.button.label		A button label
- * @param dialogData.buttons.button.callback	A callback function taking no arguments
+ * @param dialogData.buttons.button.icon        A button icon
+ * @param dialogData.buttons.button.label        A button label
+ * @param dialogData.buttons.button.callback    A callback function taking no arguments
  *
- * @param options			Dialog rendering options, see :class:`Application`
- * @param options.default	The name of the default button which should be triggered on Enter
+ * @param options            Dialog rendering options, see :class:`Application`
+ * @param options.default    The name of the default button which should be triggered on Enter
  *
  * @example
  * let d = new Dialog({
@@ -66,10 +66,10 @@ declare class Dialog extends Application {
      * A helper function to reduce code duplication when creating confirmation dialog windows.
      * These windows are limited in flexibility, for simple yes/no prompts.
      * If you require more flexibility, a custom Dialog instance is preferred.
-     * @param title		The confirmation window title
-     * @param content	The confirmation message
-     * @param yes		Callback function upon yes
-     * @param no		Callback function upon no
+     * @param title        The confirmation window title
+     * @param content    The confirmation message
+     * @param yes        Callback function upon yes
+     * @param no        Callback function upon no
      * @param defaultYes
      */
     static confirm(

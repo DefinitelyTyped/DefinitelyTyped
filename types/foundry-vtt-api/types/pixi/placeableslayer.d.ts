@@ -92,7 +92,7 @@ declare class PlaceablesLayer extends CanvasLayer {
 
     /* -------------------------------------------- */
     /*  Rendering
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Draw the PlaceablesLayer.
@@ -128,30 +128,30 @@ declare class PlaceablesLayer extends CanvasLayer {
 
     /**
      * Get a PlaceableObject contained in this layer by it's ID
-     * @param objectId	The ID of the contained object to retrieve
-     * @return			The object instance, or undefined
+     * @param objectId    The ID of the contained object to retrieve
+     * @return            The object instance, or undefined
      */
     get(objectId: number): PlaceableObject;
 
     /**
      * Release all controlled PlaceableObject instance from this layer.
-     * @param options	Additional options which customize the Object releasing behavior
-     * @return			The number of PlaceableObject instances which were released
+     * @param options    Additional options which customize the Object releasing behavior
+     * @return            The number of PlaceableObject instances which were released
      */
     releaseAll(options: any): number;
 
     /**
-	 * Simultaneously rotate multiple PlaceableObjects using a provided angle or incremental.
-	 * This executes a single database operation using Scene.update.
-	 * If rotating only a single object, it is better to use the PlaceableObject.rotate instance method.
+     * Simultaneously rotate multiple PlaceableObjects using a provided angle or incremental.
+     * This executes a single database operation using Scene.update.
+     * If rotating only a single object, it is better to use the PlaceableObject.rotate instance method.
 
-	 * @param angle	A target angle of rotation (in degrees) where zero faces "south"
-	 * @param delta	An incremental angle of rotation (in degrees)
-	 * @param snap	Snap the resulting angle to a multiple of some increment (in degrees)
-	 * @param ids	An Array or Set of object IDs to target for rotation
+     * @param angle    A target angle of rotation (in degrees) where zero faces "south"
+     * @param delta    An incremental angle of rotation (in degrees)
+     * @param snap    Snap the resulting angle to a multiple of some increment (in degrees)
+     * @param ids    An Array or Set of object IDs to target for rotation
 
-	 * @return		The resulting Promise from the Scene.update operation
-	 */
+     * @return        The resulting Promise from the Scene.update operation
+     */
     rotateMany({
         angle,
         delta,
@@ -169,12 +169,12 @@ declare class PlaceablesLayer extends CanvasLayer {
      * This executes a single database operation using Scene.update.
      * If moving only a single object, this will delegate to PlaceableObject.update for performance reasons.
      *
-     * @param dx		The number of incremental grid units in the horizontal direction
-     * @param dy		The number of incremental grid units in the vertical direction
-     * @param rotate	Rotate the token to the keyboard direction instead of moving
-     * @param ids		An Array or Set of object IDs to target for rotation
+     * @param dx        The number of incremental grid units in the horizontal direction
+     * @param dy        The number of incremental grid units in the vertical direction
+     * @param rotate    Rotate the token to the keyboard direction instead of moving
+     * @param ids        An Array or Set of object IDs to target for rotation
      *
-     * @return			The resulting Promise from the Scene.update operation
+     * @return            The resulting Promise from the Scene.update operation
      */
     moveMany({
         dx,
@@ -197,10 +197,10 @@ declare class PlaceablesLayer extends CanvasLayer {
     /**
      * Update multiple embedded entities in a parent Entity collection using an Array of provided data
      *
-     * @param data		An Array of update data Objects which provide incremental data
-     * @param options	Additional options which customize the update workflow
+     * @param data        An Array of update data Objects which provide incremental data
+     * @param options    Additional options which customize the update workflow
      *
-     * @return			A Promise which resolves to the returned socket response (if successful)
+     * @return            A Promise which resolves to the returned socket response (if successful)
      */
     updateMany(data: any[], options?: any): Promise<any>;
 
@@ -209,10 +209,10 @@ declare class PlaceablesLayer extends CanvasLayer {
      * This executes a single database operation using Scene.update.
      * If deleting only a single object, this will delegate to PlaceableObject.delete for performance reasons.
      *
-     * @param ids		An Array of object IDs to target for deletion
-     * @param options	Additional options which customize the update workflow
+     * @param ids        An Array of object IDs to target for deletion
+     * @param options    Additional options which customize the update workflow
      *
-     * @return			A Promise which resolves to the returned socket response (if successful)
+     * @return            A Promise which resolves to the returned socket response (if successful)
      */
     deleteMany(ids: number[], options?: any): Promise<any>;
 
@@ -224,33 +224,33 @@ declare class PlaceablesLayer extends CanvasLayer {
 
     /**
      * Record a new CRUD event in the history log so that it can be undone later
-     * @param type	The event type (create, update, delete)
-     * @param data	The object data
+     * @param type    The event type (create, update, delete)
+     * @param data    The object data
      */
     protected _storeHistory(type: string, data: any): void;
 
     /**
      * Copy currently controlled PlaceableObjects to a temporary Array, ready to paste back into the scene later
-     * @returns	The Array of copied Objects
+     * @returns    The Array of copied Objects
      */
     copyObjects(): any[];
 
     /**
      * Paste currently copied PlaceableObjects back to the layer by creating new copies
-     * @return	An Array of created Objects
+     * @return    An Array of created Objects
      */
     pasteObjects(position: { x: number; y: number }, { hidden }?: { hidden?: boolean }): Promise<any[]>;
 
     /**
      * Select all PlaceableObject instances which fall within a coordinate rectangle.
      *
-     * @param x					The top-left x-coordinate of the selection rectangle
-     * @param y					The top-left y-coordinate of the selection rectangle
-     * @param width				The width of the selection rectangle
-     * @param height			The height of the selection rectangle
-     * @param releaseOptions	Optional arguments provided to any called release() method
-     * @param controlOptions	Optional arguments provided to any called control() method
-     * @return					The number of PlaceableObject instances which were controlled.
+     * @param x                    The top-left x-coordinate of the selection rectangle
+     * @param y                    The top-left y-coordinate of the selection rectangle
+     * @param width                The width of the selection rectangle
+     * @param height            The height of the selection rectangle
+     * @param releaseOptions    Optional arguments provided to any called release() method
+     * @param controlOptions    Optional arguments provided to any called control() method
+     * @return                    The number of PlaceableObject instances which were controlled.
      */
     selectObjects({
         x,
@@ -280,12 +280,12 @@ declare class PlaceablesLayer extends CanvasLayer {
     /**
      * Create a new placeable object given input data
      *
-     * @param parentId	The parent Scene ID
-     * @param created	The created PlaceableObject data
-     * @param options	Additional options which modify the creation request
-     * @param userId	The ID of the triggering User
+     * @param parentId    The parent Scene ID
+     * @param created    The created PlaceableObject data
+     * @param options    Additional options which modify the creation request
+     * @param userId    The ID of the triggering User
      *
-     * @return			The created PlaceableObject instance
+     * @return            The created PlaceableObject instance
      */
     protected static _createPlaceableObject({
         parentId,
@@ -302,12 +302,12 @@ declare class PlaceablesLayer extends CanvasLayer {
     /**
      * Update an existing placeable object using new data
      *
-     * @param parentId	The parent Scene ID
-     * @param updated	The updated PlaceableObject data
-     * @param options	Additional options which modify the update request
-     * @param userId	The ID of the triggering User
+     * @param parentId    The parent Scene ID
+     * @param updated    The updated PlaceableObject data
+     * @param options    Additional options which modify the update request
+     * @param userId    The ID of the triggering User
      *
-     * @return			The updated PlaceableObject instance
+     * @return            The updated PlaceableObject instance
      */
     protected static _updatePlaceableObject({
         parentId,
@@ -324,12 +324,12 @@ declare class PlaceablesLayer extends CanvasLayer {
     /**
      * Handle the server response to update many Embedded Entities in a parent Entity collection
      *
-     * @param parentId	The parent Entity ID
-     * @param data		The Array of data updates performed
-     * @param options	Additional options which were included with the update request
-     * @param userId	The ID of the triggering User
+     * @param parentId    The parent Entity ID
+     * @param data        The Array of data updates performed
+     * @param options    Additional options which were included with the update request
+     * @param userId    The ID of the triggering User
      *
-     * @return			The updated PlaceableObject instance
+     * @return            The updated PlaceableObject instance
      */
     protected static _updateManyPlaceableObjects({
         parentId,
@@ -346,12 +346,12 @@ declare class PlaceablesLayer extends CanvasLayer {
     /**
      * Delete an existing placeable object by its ID within the Scene
      *
-     * @param parentId	The ID of the Scene which contains this placeable object
-     * @param deleted	The ID of the PlaceableObject to delete
-     * @param options	Additional options which modify the update request
-     * @param userId	The ID of the triggering User
+     * @param parentId    The ID of the Scene which contains this placeable object
+     * @param deleted    The ID of the PlaceableObject to delete
+     * @param options    Additional options which modify the update request
+     * @param userId    The ID of the triggering User
      *
-     * @return			The deleted PlaceableObject instance
+     * @return            The deleted PlaceableObject instance
      */
     protected static _deletePlaceableObject({
         parentId,
@@ -368,12 +368,12 @@ declare class PlaceablesLayer extends CanvasLayer {
     /**
      * Handle the server response to delete many Embedded Entities from a parent Entity collection
      *
-     * @param parentId	The parent Entity ID
-     * @param data		An Array of deleted object IDs
-     * @param options	Additional options which were included with the delete request
-     * @param userId	The ID of the triggering User
+     * @param parentId    The parent Entity ID
+     * @param data        An Array of deleted object IDs
+     * @param options    Additional options which were included with the delete request
+     * @param userId    The ID of the triggering User
      *
-     * @return			The updated PlaceableObject instance
+     * @return            The updated PlaceableObject instance
      */
     protected static _deleteManyPlaceableObjects({
         parentId,
@@ -421,7 +421,7 @@ declare class PlaceablesLayer extends CanvasLayer {
     /**
      * Handle mouse-wheel events at the PlaceableObjects layer level to rotate multiple objects at once.
      * This handler will rotate all controlled objects by some incremental angle.
-     * @param event	The mousewheel event which originated the request
+     * @param event    The mousewheel event which originated the request
      */
     protected _onMouseWheel(event: PIXI.interaction.InteractionEvent): void;
 
@@ -432,7 +432,7 @@ declare class PlaceablesLayer extends CanvasLayer {
 
     /**
      * Handle a DELETE keypress while a placeable object is hovered
-     * @param event	The delete key press event which triggered the request
+     * @param event    The delete key press event which triggered the request
      */
     protected _onDeleteKey(event: PIXI.interaction.InteractionEvent): void;
 }

@@ -5,8 +5,8 @@
  * Each Token is reference using a numeric id which indexes its position within the scene.
  * See the initialization signature of the parent PlaceableObject class for more details.
  *
- * @param data	An object of token data which is used to construct a new Token.
- * @param scene	The parent Scene entity within which the Token resides.
+ * @param data    An object of token data which is used to construct a new Token.
+ * @param scene    The parent Scene entity within which the Token resides.
  */
 declare class Token extends PlaceableObject {
     /**
@@ -61,7 +61,7 @@ declare class Token extends PlaceableObject {
 
     /* -------------------------------------------- */
     /*  Permission Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * A Boolean flag for whether the current game User has permission to control this token
@@ -90,7 +90,7 @@ declare class Token extends PlaceableObject {
 
     /* -------------------------------------------- */
     /*  Rendering Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Translate the token's grid width into a pixel width based on the canvas size
@@ -109,7 +109,7 @@ declare class Token extends PlaceableObject {
 
     /* -------------------------------------------- */
     /*  State Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * An indicator for whether or not this token is currently involved in the active combat encounter.
@@ -131,7 +131,7 @@ declare class Token extends PlaceableObject {
 
     /* -------------------------------------------- */
     /*  Lighting and Vision Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Test whether the Token has sight (or blindness) at any radius
@@ -150,7 +150,7 @@ declare class Token extends PlaceableObject {
 
     /**
      * Translate the token's sight distance in units into a radius in pixels.
-     * @return	The sight radius in pixels
+     * @return    The sight radius in pixels
      */
     get dimRadius(): number;
 
@@ -161,7 +161,7 @@ declare class Token extends PlaceableObject {
 
     /**
      * Translate the token's bright light distance in units into a radius in pixels.
-     * @return	The bright radius in pixels
+     * @return    The bright radius in pixels
      */
     get brightRadius(): number;
 
@@ -172,7 +172,7 @@ declare class Token extends PlaceableObject {
 
     /* -------------------------------------------- */
     /* Rendering
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     draw(): Promise<any>;
 

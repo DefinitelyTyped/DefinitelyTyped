@@ -1,8 +1,8 @@
 /**
  * The JournalEntry Configuration Sheet
  *
- * @param entity	The JournalEntry instance which is being edited
- * @param options	Application options
+ * @param entity    The JournalEntry instance which is being edited
+ * @param options    Application options
  */
 declare class JournalSheet extends BaseEntitySheet {
     /**
@@ -17,7 +17,7 @@ declare class JournalSheet extends BaseEntitySheet {
 
     /**
      * Prepare data used to render the Journal Sheet
-     * @return	The data object used to render the journal entry
+     * @return    The data object used to render the journal entry
      */
     getData(): BaseEntitySheetData;
 }

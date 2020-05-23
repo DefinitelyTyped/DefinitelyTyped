@@ -72,10 +72,10 @@ declare class Tabs {
  * A controller class for managing tabbed navigation within an Application instance.
  * @see {@link Application}
  *
- * @param navSelector		The CSS selector used to target the navigation element for these tabs
- * @param contentSelector	The CSS selector used to target the content container for these tabs
- * @param initial			The tab name of the initially active tab
- * @param callback			An optional callback function that executes when the active tab is changed
+ * @param navSelector        The CSS selector used to target the navigation element for these tabs
+ * @param contentSelector    The CSS selector used to target the content container for these tabs
+ * @param initial            The tab name of the initially active tab
+ * @param callback            An optional callback function that executes when the active tab is changed
  *
  * @example
  * <!-- Example HTML -->
@@ -142,7 +142,7 @@ declare class TabsV2 {
 
     /**
      * Handle click events on the tab navigation entries
-     * @param event	A left click event
+     * @param event    A left click event
      */
     protected _onClickNav(event: MouseEvent): void;
 }

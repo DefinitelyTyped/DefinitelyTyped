@@ -20,7 +20,7 @@ declare class Sidebar extends Application {
 
     /**
      * Activate a Sidebar tab by it's name
-     * @param tabName	The tab name corresponding to it's "data-tab" attribute
+     * @param tabName    The tab name corresponding to it's "data-tab" attribute
      */
     activateTab(tabName: string): void;
 

@@ -2,8 +2,8 @@
  * This class provides an interface and API for conducting dice rolls.
  * The basic structure for a dice roll is a string formula and an object of data against which to parse it.
  *
- * @param formula	The string formula to parse
- * @param data		The data object against which to parse attributes within the formula
+ * @param formula    The string formula to parse
+ * @param data        The data object against which to parse attributes within the formula
  *
  * @example
  * // Attack with advantage!
@@ -77,7 +77,7 @@ declare class Roll {
     /**
      * Replace referenced data attributes in the roll formula with the syntax `@attr` with the corresponding key from
      * the provided `data` object.
-     * @param formula	The original formula within which to replace
+     * @param formula    The original formula within which to replace
      */
     protected _replaceData(formula: string): string;
 
@@ -118,7 +118,7 @@ declare class Roll {
 
     /**
      * Execute the Roll, replacing dice and evaluating the total result
-     * @returns	The rolled Roll object, able to be chained into other methods
+     * @returns    The rolled Roll object, able to be chained into other methods
      *
      * @example
      * let r = new Roll("2d6 + 4 + 1d4");
@@ -130,13 +130,13 @@ declare class Roll {
     /**
      * Create a new Roll object using the original provided formula and data
      * Each roll is immutable, so this method returns a new Roll instance using the same data.
-     * @returns	A new Roll object, rolled using the same formula and data
+     * @returns    A new Roll object, rolled using the same formula and data
      */
     reroll(): Roll;
 
     /* -------------------------------------------- */
     /*  Helpers
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Separate a dice roll formula into parenthetical terms to be evaluated first
@@ -157,9 +157,9 @@ declare class Roll {
 
     /**
      * Replace a dice roll term enclosed in {brackets} with a DicePool instance
-     * @param term	The string term being replaced
-     * @param rgx	The regexp match for the term
-     * @return		The replaced DicePool
+     * @param term    The string term being replaced
+     * @param rgx    The regexp match for the term
+     * @return        The replaced DicePool
      */
     protected _replacePool(term: string, rgx: RegExpMatchArray): DicePool;
 
@@ -167,19 +167,19 @@ declare class Roll {
 
     /**
      * Safely evaluate a formulaic expression using a Proxy environment which is allowed access to Math commands
-     * @param expression	The formula expression to evaluate
-     * @return				The returned numeric result
+     * @param expression    The formula expression to evaluate
+     * @return                The returned numeric result
      */
     protected _safeEval(expression: string): number;
 
     /* -------------------------------------------- */
     /*  HTML Rendering
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Render a Roll instance to HTML
-     * @param chatOptions	An object configuring the behavior of the resulting chat message.
-     * @return				A Promise which resolves to the rendered HTML
+     * @param chatOptions    An object configuring the behavior of the resulting chat message.
+     * @return                A Promise which resolves to the rendered HTML
      */
     render(chatOptions?: object): Promise<JQuery | HTMLElement>;
 
@@ -192,24 +192,24 @@ declare class Roll {
      * Transform a Roll instance into a ChatMessage, displaying the roll result.
      * This function can either create the ChatMessage directly, or return the data object that will be used to create.
      *
-     * @param chatData	The data object to use when creating the message
-     * @param rollMode	The template roll mode to use for the message from CONFIG.rollModes
-     * @param create	Whether to automatically create the chat message, or only return the prepared
-     *					chatData object.
-     * @return			A promise which resolves to the created ChatMessage entity, if create is true
-     *					or the Object of prepared chatData otherwise.
+     * @param chatData    The data object to use when creating the message
+     * @param rollMode    The template roll mode to use for the message from CONFIG.rollModes
+     * @param create    Whether to automatically create the chat message, or only return the prepared
+     *                    chatData object.
+     * @return            A promise which resolves to the created ChatMessage entity, if create is true
+     *                    or the Object of prepared chatData otherwise.
      */
     toMessage(chatData?: object, { rollMode, create }?: { rollMode?: string; create?: boolean }): Promise<ChatMessage>;
 
     /* -------------------------------------------- */
     /*  Methods
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Alter the Roll formula by adding or multiplying the number of dice included in each roll term
      *
-     * @param add		A number of dice to add to each Die term
-     * @param multiply	A multiplier for the number of dice in each Die term
+     * @param add        A number of dice to add to each Die term
+     * @param multiply    A multiplier for the number of dice in each Die term
      *
      * @example
      * let r = new Roll("4d8 + 4 + 2d4");
@@ -221,15 +221,15 @@ declare class Roll {
 
     /**
      * Return the minimum possible Dice roll which can result from the given formula
-     * @param formula	A dice roll formula to minimize
-     * @return			A Roll instance representing the minimal roll
+     * @param formula    A dice roll formula to minimize
+     * @return            A Roll instance representing the minimal roll
      */
     static minimize(formula: string): Roll;
 
     /**
      * Return the maximum possible Dice roll which can result from the given formula
-     * @param formula	A dice roll formula to maximize
-     * @return			A Roll instance representing the maximal roll
+     * @param formula    A dice roll formula to maximize
+     * @return            A Roll instance representing the maximal roll
      */
     static maximize(formula: string): Roll;
 
@@ -237,7 +237,7 @@ declare class Roll {
      * Acquire data object representing the most-likely current actor.
      * This data can be included in the invocation of a Roll instance for evaluating dynamic attributes.
      *
-     * @return	An object of data representing the current Actor (if any)
+     * @return    An object of data representing the current Actor (if any)
      */
     static getActorData(): any;
 
@@ -245,18 +245,18 @@ declare class Roll {
 
     /* -------------------------------------------- */
     /*  Saving and Loading
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Structure the Roll data as an object suitable for JSON stringification
-     * @return	Structured data which can be serialized into JSON
+     * @return    Structured data which can be serialized into JSON
      */
     toJSON(): any;
 
     /**
      * Recreate a Roll instance using a provided JSON string
-     * @param json	Serialized JSON data representing the Roll
-     * @return		A revived Roll instance
+     * @param json    Serialized JSON data representing the Roll
+     * @return        A revived Roll instance
      */
     static fromJSON(json: string): Roll;
 }

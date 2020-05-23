@@ -34,8 +34,8 @@ declare class SceneControls extends Application {
 
     /**
      * Initialize the Scene Controls by obtaining the set of control buttons and rendering the HTML
-     * @param control	An optional control set to set as active
-     * @param layer		An optional layer name to target as the active control
+     * @param control    An optional control set to set as active
+     * @param layer        An optional layer name to target as the active control
      */
     initialize({ control, layer }: { control: string; layer: string }): void;
 }

@@ -20,26 +20,26 @@ declare class Notifications extends Application {
 
     /**
      * Push a new notification into the queue
-     * @param message	The content of the notification message
-     * @param type		The type of notification, currently "info", "warning", and "error" are supported
+     * @param message    The content of the notification message
+     * @param type        The type of notification, currently "info", "warning", and "error" are supported
      */
     notify(message: string, type: 'info' | 'warning' | 'error'): void;
 
     /**
      * Display a notification with the "info" type
-     * @param message	The content of the notification message
+     * @param message    The content of the notification message
      */
     info(message: string): void;
 
     /**
      * Display a notification with the "warning" type
-     * @param message	The content of the notification message
+     * @param message    The content of the notification message
      */
     warn(message: string): void;
 
     /**
      * Display a notification with the "error" type
-     * @param message	The content of the notification message
+     * @param message    The content of the notification message
      */
     error(message: string): void;
 }

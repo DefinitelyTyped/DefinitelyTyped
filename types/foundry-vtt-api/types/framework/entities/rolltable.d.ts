@@ -19,18 +19,18 @@ declare class RollTable extends Entity {
 
     /* -------------------------------------------- */
     /*  Methods
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Draw a result from the RollTable based on the table formula or a provided Roll instance
-     * @param {Roll|null} roll			An existing Roll instance to use for drawing from the table
-     * @param {Array<any>} results		One or more table results which have been drawn
+     * @param {Roll|null} roll            An existing Roll instance to use for drawing from the table
+     * @param {Array<any>} results        One or more table results which have been drawn
      *
-     * @param {boolean} displayChat		Whether to automatically display the results in chat
-     * @param {string|null} rollMode		The chat roll mode to use when displaying the result
+     * @param {boolean} displayChat        Whether to automatically display the results in chat
+     * @param {string|null} rollMode        The chat roll mode to use when displaying the result
      *
      * @return {Promise<{roll: Roll, results: any[]}>}   A Promise which resolves to an object containing the
-     *                                                      	executed roll and the produced results
+     *                                                          executed roll and the produced results
      */
     draw({
         roll,
@@ -46,8 +46,8 @@ declare class RollTable extends Entity {
 
     /**
      * Draw multiple results from a RollTable, constructing a final synthetic Roll as a dice pool of inner rolls.
-     * @param {number} number     	The number of results to draw
-     * @param {Roll} roll       		An optional pre-configured Roll instance which defines the dice roll to use
+     * @param {number} number         The number of results to draw
+     * @param {Roll} roll               An optional pre-configured Roll instance which defines the dice roll to use
      * @param {boolean} displayChat   Automatically display the drawn results in chat? Default is true
      * @param {string} rollMode       Customize the roll mode used to display the drawn results
      * @return {Promise<{roll: Roll, results: any[]}>}
@@ -77,7 +77,7 @@ declare class RollTable extends Entity {
 
     /**
      * Evaluate a RollTable, returning a the drawn result
-     * @returns	An Array, containing the Roll and the result
+     * @returns    An Array, containing the Roll and the result
      */
     roll(): [Roll, any];
 

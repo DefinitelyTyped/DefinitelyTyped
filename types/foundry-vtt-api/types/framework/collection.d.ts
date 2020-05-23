@@ -3,8 +3,8 @@
  * Each Entity type has it's own subclass of Collection, which defines the abstract interface.
  * @abstract
  *
- * @param data	An Array of Entity data from which to create instances
- * @param apps	An Array of Application instances which the Collection modifies
+ * @param data    An Array of Entity data from which to create instances
+ * @param apps    An Array of Application instances which the Collection modifies
  */
 declare class Collection<T extends Entity> extends Map {
     /**
@@ -81,7 +81,7 @@ declare class Collection<T extends Entity> extends Map {
     /**
      * Add a new Entity to the Collection, asserting that they are of the correct type
      *
-     * @param entity	The entity instance to add to the collection
+     * @param entity    The entity instance to add to the collection
      */
     insert(entity: T): void;
 
@@ -94,9 +94,9 @@ declare class Collection<T extends Entity> extends Map {
 
     /**
      * Get an element from the collection by ID.
-     * @param id		The entity ID to retrieve from the collection
-     * @param strict	Throw an Error if the requested id does not exist, otherwise return null. Default false.
-     * @return			The retrieved Entity, if the ID was found, otherwise null;
+     * @param id        The entity ID to retrieve from the collection
+     * @param strict    Throw an Error if the requested id does not exist, otherwise return null. Default false.
+     * @return            The retrieved Entity, if the ID was found, otherwise null;
      *
      * @example
      * let c = new Collection([["a", "A"], ["b", "B"], ["c", "C"]]);
@@ -109,14 +109,14 @@ declare class Collection<T extends Entity> extends Map {
     /**
      * Retrieve the index of an entity within the collection by its ID
      *
-     * @param id	The entity ID to retrieve from the collection
-     * @return		The index of the Entity within the collection, if found, otherwise -1;
+     * @param id    The entity ID to retrieve from the collection
+     * @return        The index of the Entity within the collection, if found, otherwise -1;
      */
     index(id: string): number;
 
     /**
      * Filter the Collection, returning an Array of entries which match a functional condition.
-     * @param condition 	The functional condition to test
+     * @param condition     The functional condition to test
      *
      * @example
      * let c = new Collection([["a", "AA"], ["b", "AB"], ["c", "CC"]]);
@@ -125,7 +125,7 @@ declare class Collection<T extends Entity> extends Map {
     filter(condition: any): any[];
     /**
      * Find an entry in the Map using an functional condition.
-     * @param condition 	The functional condition to test
+     * @param condition     The functional condition to test
      */
     find(condition: any): any | null;
 
@@ -138,7 +138,7 @@ declare class Collection<T extends Entity> extends Map {
     /**
      * Reduce the Collection by applying an evaluator function and accumulating entries
      * @param evaluator A function which mutates the accumulator each iteration
-     * @param initial 	An initial value which accumulates with each iteration
+     * @param initial     An initial value which accumulates with each iteration
      *
      * @example
      * let c = new Collection([["a", "A"], ["b", "B"], ["c", "C"]]);
@@ -150,10 +150,10 @@ declare class Collection<T extends Entity> extends Map {
 
     /**
      * Import an Entity from a compendium collection, adding it to the current World
-     * @param collection	The name of the pack from which to import
-     * @param entryId		The ID of the compendium entry to import
-     * @param updateData	Data used to update the imported Entity before it is created in the World
-     * @return				A Promise containing the imported Entity
+     * @param collection    The name of the pack from which to import
+     * @param entryId        The ID of the compendium entry to import
+     * @param updateData    Data used to update the imported Entity before it is created in the World
+     * @return                A Promise containing the imported Entity
      */
 
     importFromCollection(collection: string, entryId: string, updateData?: object, options?: object): Promise<T>;
@@ -164,85 +164,85 @@ declare class Collection<T extends Entity> extends Map {
 
     /**
      * Activate socket listeners related to this particular Entity type
-     * @param socket	The open game socket
+     * @param socket    The open game socket
      */
     protected static socketListeners(socket: SocketIO.Socket): void;
 
     /**
      * Handle Entity creation workflow using the server response from the create<Entity> socket
      *
-     * @param created	The created Entity data
-     * @param options	Additional options which describe the creation request
-     * @param userId	The ID of the triggering User
+     * @param created    The created Entity data
+     * @param options    Additional options which describe the creation request
+     * @param userId    The ID of the triggering User
      *
-     * @return			The created Entity instance
+     * @return            The created Entity instance
      */
     protected _createEntity({ created, options, userId }: { created: object; options: object; userId: string }): T;
 
     /**
      * Handle creation of multiple Entities using data provided from a server response.
      *
-     * @param data		An Array of created Entity data
-     * @param options	Additional options which describe the creation request
-     * @param userId	The ID of the triggering User
+     * @param data        An Array of created Entity data
+     * @param options    Additional options which describe the creation request
+     * @param userId    The ID of the triggering User
      *
-     * @return 			The created Entity instances
+     * @return             The created Entity instances
      */
     protected _createManyEntities({ data, options, userId }: { data: object[]; options: object; userId: string }): T[];
 
     /**
      * Handle Entity update workflow using the server response from the update<Entity> socket
      *
-     * @param updated	The updated Entity data
-     * @param options	Additional options which describe the update request
-     * @param userId	The ID of the triggering User
+     * @param updated    The updated Entity data
+     * @param options    Additional options which describe the update request
+     * @param userId    The ID of the triggering User
      *
-     * @return			The updated Entity instance
+     * @return            The updated Entity instance
      */
     protected _updateEntity({ updated, options, userId }: { updated: object; options: object; userId: string }): T;
 
     /**
      * Handle updates to multiple Entities using data provided from a server response.
      *
-     * @param data		An Array of incremental Entity update data
-     * @param options	Additional options which describe the update request
-     * @param userId	The ID of the triggering User
+     * @param data        An Array of incremental Entity update data
+     * @param options    Additional options which describe the update request
+     * @param userId    The ID of the triggering User
      *
-     * @return			The updated Entity instances
+     * @return            The updated Entity instances
      */
     protected _updateManyEntities({ data, options, userId }: { data: object[]; options: object; userId: string }): T[];
 
     /**
      * Handle Entity deletion workflow using the server response from the delete<Entity> socket
      *
-     * @param deleted	The ID of the deleted Entity
-     * @param options	Additional options which describe the deletion request
-     * @param userId	The ID of the triggering User
+     * @param deleted    The ID of the deleted Entity
+     * @param options    Additional options which describe the deletion request
+     * @param userId    The ID of the triggering User
      *
-     * @return			The deleted Entity instance
+     * @return            The deleted Entity instance
      */
     protected _deleteEntity({ deleted, options, userId }: { deleted: object; options: object; userId: string }): T;
 
     /**
      * Handle deletion of multiple Entities using an Array of ids provided from a server response.
      *
-     * @param data		An Array of Entity ids to delete
-     * @param options	Additional options which describe the deletion request
-     * @param userId	The ID of the triggering User
+     * @param data        An Array of Entity ids to delete
+     * @param options    Additional options which describe the deletion request
+     * @param userId    The ID of the triggering User
      *
-     * @return			The deleted Entity instances
+     * @return            The deleted Entity instances
      */
     protected _deleteManyEntities({ data, options, userId }: { data: object[]; options: object; userId: string }): T[];
 
     /**
      * Handle the creation of a new Embedded Entity within a parent Entity in response to server-side socket broadcast.
      *
-     * @param parentId	The parent Entity ID
-     * @param created	The created Embedded Entity data
-     * @param options	Additional options which modify the creation request
-     * @param userId	The id of the requesting user
+     * @param parentId    The parent Entity ID
+     * @param created    The created Embedded Entity data
+     * @param options    Additional options which modify the creation request
+     * @param userId    The id of the requesting user
      *
-     * @return			The created Embedded Entity data
+     * @return            The created Embedded Entity data
      */
     protected _createEmbeddedEntity({
         parentId,
@@ -259,12 +259,12 @@ declare class Collection<T extends Entity> extends Map {
     /**
      * Handle creation of multiple Embedded Entities within a parent Entity in response to server-side socket broadcast.
      *
-     * @param parentId	The parent Entity ID
-     * @param data		An Array of created Embedded Entity data
-     * @param options	Additional options which modify the creation request
-     * @param userId	The id of the requesting user
+     * @param parentId    The parent Entity ID
+     * @param data        An Array of created Embedded Entity data
+     * @param options    Additional options which modify the creation request
+     * @param userId    The id of the requesting user
      *
-     * @return			The created Embedded Entity Array
+     * @return            The created Embedded Entity Array
      */
     protected _createManyEmbeddedEntities({
         parentId,
@@ -281,12 +281,12 @@ declare class Collection<T extends Entity> extends Map {
     /**
      * Handle updates to an Embedded Entity within a parent Entity in response to server-side socket broadcast.
      *
-     * @param parentId	The parent Entity ID
-     * @param data		The updated Embedded Entity data
-     * @param options	Additional options which modify the update request
-     * @param userId	The id of the requesting user
+     * @param parentId    The parent Entity ID
+     * @param data        The updated Embedded Entity data
+     * @param options    Additional options which modify the update request
+     * @param userId    The id of the requesting user
      *
-     * @return			The updated Embedded Entity data
+     * @return            The updated Embedded Entity data
      */
     protected _updateEmbeddedEntity({
         parentId,
@@ -303,12 +303,12 @@ declare class Collection<T extends Entity> extends Map {
     /**
      * Handle updates to a multiple Embedded Entities within a parent Entity in response to server-side socket broadcast.
      *
-     * @param parentId	The parent Entity ID
-     * @param data		An Array of embedded entity data updates
-     * @param options	Additional options which modify the update request
-     * @param userId	The id of the requesting user
+     * @param parentId    The parent Entity ID
+     * @param data        An Array of embedded entity data updates
+     * @param options    Additional options which modify the update request
+     * @param userId    The id of the requesting user
      *
-     * @return			The updated Embedded Entity Array
+     * @return            The updated Embedded Entity Array
      */
     protected _updateManyEmbeddedEntities({
         parentId,
@@ -325,12 +325,12 @@ declare class Collection<T extends Entity> extends Map {
     /**
      * Handle deletion of an Embedded Entity within a parent Entity in response to server-side socket broadcast.
      *
-     * @param parentId	The parent Entity ID
-     * @param deleted	The Embedded Entity id to delete from the parent
-     * @param options	Additional options which modify the deletion request
-     * @param userId	The id of the requesting user
+     * @param parentId    The parent Entity ID
+     * @param deleted    The Embedded Entity id to delete from the parent
+     * @param options    Additional options which modify the deletion request
+     * @param userId    The id of the requesting user
      *
-     * @return			The deleted Embedded Entity data
+     * @return            The deleted Embedded Entity data
      */
     protected _deleteEmbeddedEntity({
         parentId,
@@ -347,12 +347,12 @@ declare class Collection<T extends Entity> extends Map {
     /**
      * Handle deletion of multiple Embedded Entities within a parent Entity in response to server-side socket broadcast.
      *
-     * @param parentId	The parent Entity ID
-     * @param data		An Array of Embedded Entity ids to delete
-     * @param options	Additional options which modify the update request
-     * @param userId	The id of the requesting user
+     * @param parentId    The parent Entity ID
+     * @param data        An Array of Embedded Entity ids to delete
+     * @param options    Additional options which modify the update request
+     * @param userId    The id of the requesting user
      *
-     * @return			The deleted Embedded Entity Array
+     * @return            The deleted Embedded Entity Array
      */
     protected _deleteManyEmbeddedEntities({
         parentId,

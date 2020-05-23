@@ -30,9 +30,9 @@ interface FormApplicationOptions extends ApplicationOptions {
  * 2) The template used contains one (and only one) HTML <form> as it's outer-most element
  * 3) This abstract layer has no knowledge of what is being updated, so the implementation must define _updateObject
  *
- * @param object	Some object or entity which is the target to be updated.
+ * @param object    Some object or entity which is the target to be updated.
  *
- * @param options	Additional options which modify the rendering of the sheet.
+ * @param options    Additional options which modify the rendering of the sheet.
  */
 declare class FormApplication extends Application {
     options: FormApplicationOptions;
@@ -75,8 +75,8 @@ declare class FormApplication extends Application {
 
     /**
      * A helper function to transform an HTML form into a FormData object which is ready for dispatch
-     * @param form	The form-type HTMLElement
-     * @return		The prepared FormData object
+     * @param form    The form-type HTMLElement
+     * @return        The prepared FormData object
      */
     protected _getFormData(form: JQuery | HTMLElement): FormData;
 
@@ -88,7 +88,7 @@ declare class FormApplication extends Application {
      * Activate the default set of listeners for the Entity sheet
      * These listeners handle basic stuff like form submission or updating images
      *
-     * @param html	The rendered template ready to have listeners attached
+     * @param html    The rendered template ready to have listeners attached
      */
     protected activateListeners(html: JQuery | HTMLElement): void;
 
@@ -104,12 +104,12 @@ declare class FormApplication extends Application {
 
     /**
      * Handle standard form submission steps
-     * @param event			The submit event which triggered this handler
-     * @param updateData	Additional specific data keys/values which override or extend the contents of
-     *						the parsed form. This can be used to update other flags or data fields at the
-     *						same time as processing a form submission to avoid multiple database operations.
-     * @param preventClose	Override the standard behavior of whether to close the form on submit
-     * @returns				A promise which resolves to the validated update data
+     * @param event            The submit event which triggered this handler
+     * @param updateData    Additional specific data keys/values which override or extend the contents of
+     *                        the parsed form. This can be used to update other flags or data fields at the
+     *                        same time as processing a form submission to avoid multiple database operations.
+     * @param preventClose    Override the standard behavior of whether to close the form on submit
+     * @returns                A promise which resolves to the validated update data
      */
     protected _onSubmit(
         event: Event | JQuery.Event,
@@ -118,21 +118,21 @@ declare class FormApplication extends Application {
 
     /**
      * Handle unfocusing an input on form - maybe trigger an update if ``options.liveUpdate`` has been set to true
-     * @param event	The initial triggering event
+     * @param event    The initial triggering event
      */
     protected _onUnfocus(event: Event | JQuery.Event): void;
 
     /**
      * This method is called upon form submission after form data is validated
-     * @param event		The initial triggering submission event
-     * @param formData	The object of validated form data with which to update the object
-     * @returns			A Promise which resolves once the update operation has completed
+     * @param event        The initial triggering submission event
+     * @param formData    The object of validated form data with which to update the object
+     * @returns            A Promise which resolves once the update operation has completed
      */
     protected _updateObject(event: Event | JQuery.Event, formData: any): Promise<any>;
 
     /* -------------------------------------------- */
     /*  TinyMCE Editor
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Activate a TinyMCE editor instance present within the form
@@ -157,8 +157,8 @@ declare class FormApplication extends Application {
 
     /**
      * Submit the contents of a Form Application, processing its content as defined by the Application
-     * @param updateData	Additional data updates to submit in addition to those parsed from the form
-     * @returns				Return a self-reference for convenient method chaining
+     * @param updateData    Additional data updates to submit in addition to those parsed from the form
+     * @returns                Return a self-reference for convenient method chaining
      */
     submit({ updateData }: { updateData?: any }): FormApplication;
 }

@@ -97,8 +97,8 @@ declare class Die {
 
     /**
      * Roll the initial set of results for the Die
-     * @param nd	The number of times to roll the die
-     * @return		The updated die containing new rolls
+     * @param nd    The number of times to roll the die
+     * @return        The updated die containing new rolls
      *
      * @example
      * let die = new Die(6);
@@ -111,8 +111,8 @@ declare class Die {
     /**
      * Re-roll any results with results in the provided target set
      * Dice which have already been re-rolled will not be re-rolled again
-     * @param targets	Target results which would trigger a reroll
-     * @return			The updated die containing new rolls
+     * @param targets    Target results which would trigger a reroll
+     * @return            The updated die containing new rolls
      *
      * @example
      * let die = new Die(4);
@@ -126,8 +126,8 @@ declare class Die {
     /**
      * Explode the rolls in this set by rolling additional dice for each roll which achieved a certain result
      * Dice which have been re-rolled or have already exploded cannot explode
-     * @param range	The range of target results which would trigger an explode
-     * @return		The updated die containing new rolls
+     * @param range    The range of target results which would trigger an explode
+     * @return        The updated die containing new rolls
      *
      * @example
      * let die = new Die(8);
@@ -140,8 +140,8 @@ declare class Die {
 
     /**
      * Filter the result set, keeping the highest n results in order
-     * @param n	The number of results to keep
-     * @return	The updated die containing new rolls
+     * @param n    The number of results to keep
+     * @return    The updated die containing new rolls
      *
      * @example
      * let die = new Die(6);
@@ -154,8 +154,8 @@ declare class Die {
 
     /**
      * Filter the result set, keeping the lowest n results in order
-     * @param n	The number of results to keep
-     * @return	The filtered results
+     * @param n    The number of results to keep
+     * @return    The filtered results
      *
      * @example
      * let die = new Die(6);
@@ -168,8 +168,8 @@ declare class Die {
 
     /**
      * Map results to 0 or 1 depending on whether they match a success condition
-     * @param target	The target result to test against
-     * @param operator	The comparison operator against which to test. Default is '>='
+     * @param target    The target result to test against
+     * @param operator    The comparison operator against which to test. Default is '>='
      *
      * @example
      * let die = new Die(3);
@@ -183,7 +183,7 @@ declare class Die {
 
     /**
      * Special Die types may optionally define a tooltip used in lieu of the numeric result
-     * @param result	The rolled die result
+     * @param result    The rolled die result
      */
     protected _getTooltip(result: number): number;
 }

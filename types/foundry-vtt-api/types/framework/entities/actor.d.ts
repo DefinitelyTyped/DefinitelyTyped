@@ -145,10 +145,10 @@ declare class Actor extends Entity {
      * Retrieve an Array of active tokens which represent this Actor in the current canvas Scene.
      * If the canvas is not currently active, or there are no linked actors, the returned Array will be empty.
      *
-     * @param linked	Only return tokens which are linked to the Actor. Default (false) is to return all
-     *					tokens even those which are not linked.
+     * @param linked    Only return tokens which are linked to the Actor. Default (false) is to return all
+     *                    tokens even those which are not linked.
      *
-     * @return			An array of tokens in the current Scene which reference this Actor.
+     * @return            An array of tokens in the current Scene which reference this Actor.
      */
     getActiveTokens(linked?: boolean): Token[];
 
@@ -160,16 +160,16 @@ declare class Actor extends Entity {
     /**
      * Handle how changes to a Token attribute bar are applied to the Actor.
      * This allows for game systems to override this behavior and deploy special logic.
-     * @param attribute	The attribute path
-     * @param value		The target attribute value
-     * @param isDelta	Whether the number represents a relative change (true) or an absolute change (false)
-     * @param isBar		Whether the new value is part of an attribute bar, or just a direct value
+     * @param attribute    The attribute path
+     * @param value        The target attribute value
+     * @param isDelta    Whether the number represents a relative change (true) or an absolute change (false)
+     * @param isBar        Whether the new value is part of an attribute bar, or just a direct value
      */
     modifyTokenAttributes(attribute: string, value: number, isDelta?: boolean, isBar?: boolean): Promise<Actor>;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /** @override */
     update(data: object, options?: object): Promise<Actor>;
@@ -191,38 +191,38 @@ declare class Actor extends Entity {
 
     /* -------------------------------------------- */
     /* Owned Item Management
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Import a new owned Item from a compendium collection
      * The imported Item is then added to the Actor as an owned item.
      *
-     * @param collection	The name of the pack from which to import
-     * @param entryId		The ID of the compendium entry to import
+     * @param collection    The name of the pack from which to import
+     * @param entryId        The ID of the compendium entry to import
      */
     importItemFromCollection(collection: string, entryId: string): Item;
 
     /**
      * Get an owned item by it's ID, initialized as an Item entity class
-     * @param itemId	The ID of the owned item
-     * @return			An Item class instance for that owned item or null if the itemId does not exist
+     * @param itemId    The ID of the owned item
+     * @return            An Item class instance for that owned item or null if the itemId does not exist
      */
     getOwnedItem(itemId: string): Item | null;
 
     /**
      * Create a new item owned by this Actor.
-     * @param itemData				Data for the newly owned item
-     * @param options				Item creation options
-     * @param options.rendeSheet	Render the Item sheet for the newly created item data
-     * @return						A Promise containing the newly created owned Item instance
+     * @param itemData                Data for the newly owned item
+     * @param options                Item creation options
+     * @param options.rendeSheet    Render the Item sheet for the newly created item data
+     * @return                        A Promise containing the newly created owned Item instance
      */
     createOwnedItem(itemData: object, options?: object): Promise<Item>;
 
     /**
      * Update an owned item using provided new data
-     * @param itemData	Data for the item to update
-     * @param options	Item update options
-     * @return			A Promise resolving to the updated Item object
+     * @param itemData    Data for the item to update
+     * @param options    Item update options
+     * @return            A Promise resolving to the updated Item object
      */
     updateOwnedItem(itemData: object, options?: object): Promise<Item>;
 
@@ -233,9 +233,9 @@ declare class Actor extends Entity {
 
     /**
      * Delete an owned item by its id. This redirects its arguments to the deleteEmbeddedEntity method.
-     * @param itemId	The ID of the item to delete
-     * @param options	Item deletion options
-     * @return			A Promise resolving to the deleted Owned Item data
+     * @param itemId    The ID of the item to delete
+     * @param options    Item deletion options
+     * @return            A Promise resolving to the deleted Owned Item data
      */
     deleteOwnedItem(itemId: string, options?: object): Promise<Item>;
 }

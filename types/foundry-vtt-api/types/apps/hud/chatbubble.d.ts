@@ -20,10 +20,10 @@ declare class ChatBubbles {
 
     /**
      * Speak a message as a particular Token, displaying it as a chat bubble
-     * @param token		The speaking Token
-     * @param message	The spoken message text
-     * @param emote		Whether to style the speech bubble as an emote
-     * @return			A Promise which resolves once the chat bubble has been created
+     * @param token        The speaking Token
+     * @param message    The spoken message text
+     * @param emote        Whether to style the speech bubble as an emote
+     * @return            A Promise which resolves once the chat bubble has been created
      */
     say(token: Token, message: string, { emote }: { emote: boolean }): Promise<void>;
 }

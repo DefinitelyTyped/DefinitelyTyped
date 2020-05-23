@@ -21,24 +21,24 @@ declare class ClientSettings {
 
     /**
      * Register a new game setting under this setting scope
-     * @param module	The module namespace under which the setting is registered
-     * @param key		The key name for the setting under the namespace module
-     * @param data		Configuration for setting data
+     * @param module    The module namespace under which the setting is registered
+     * @param key        The key name for the setting under the namespace module
+     * @param data        Configuration for setting data
      */
     register(module: string, key: string, data: any): void;
 
     /**
      * Get the value of a game setting for a certain module and setting key
-     * @param module	The module namespace under which the setting is registered
-     * @param key 		The setting key to retrieve
+     * @param module    The module namespace under which the setting is registered
+     * @param key         The setting key to retrieve
      */
     get(module: string, key: string): any;
 
     /**
      * Get the value of a game setting for a certain module and setting key
-     * @param module	The module namespace under which the setting is registered
-     * @param key	The setting key to retrieve
-     * @param value	The data to assign to the setting key
+     * @param module    The module namespace under which the setting is registered
+     * @param key    The setting key to retrieve
+     * @param value    The data to assign to the setting key
      */
     set(module: string, key: string, value: any): Promise<any>;
 

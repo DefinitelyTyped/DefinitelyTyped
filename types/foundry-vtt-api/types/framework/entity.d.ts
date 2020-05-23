@@ -16,8 +16,8 @@ declare interface BaseEntityData {
  * Entities are instantiated by providing their base data, and an optional Array of Application instances which should
  * be automatically refreshed when the Entity experiences an update.
  *
- * @param data		The data Object with which to create the Entity
- * @param options	Additional options which modify the created Entity behavior
+ * @param data        The data Object with which to create the Entity
+ * @param options    Additional options which modify the created Entity behavior
  *
  * @example
  * let actorData = {name: "John Doe", type: "character", img: "icons/mystery-man.png"};
@@ -84,22 +84,22 @@ declare class Entity {
 
     /**
      * Prepare data for a single Embedded Entity which exists within the parent Entity.
-     * @param embeddedName	The name of the Embedded Entity type
-     * @param data			The data used to initialize it
-     * @returns				The Embedded Entity object
+     * @param embeddedName    The name of the Embedded Entity type
+     * @param data            The data used to initialize it
+     * @returns                The Embedded Entity object
      */
     private _constructEmbeddedEntity(embeddedName: string, data: object): void;
 
     /**
      * Obtain a reference to the Array of source data within the data object for a certain Embedded Entity name
-     * @param embeddedName	The name of the Embedded Entity type
-     * @return				The Array of source data where Embedded Entities of this type are stored
+     * @param embeddedName    The name of the Embedded Entity type
+     * @return                The Array of source data where Embedded Entities of this type are stored
      */
     getEmbeddedCollection(embeddedName: string): Array<any>;
 
     /* -------------------------------------------- */
     /*  Properties
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Return a reference to the Collection instance which stores Entity instances of this type. This property is
@@ -196,7 +196,7 @@ declare class Entity {
 
     /* -------------------------------------------- */
     /* Methods
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Render all of the Application instances which are connected to this Entity by calling their respective
@@ -207,11 +207,11 @@ declare class Entity {
 
     /**
      * Test whether a provided User a specific permission level (or greater) over the Entity instance
-     * @param user			The user to test for permission
-     * @param permission	The permission level or level name to test
-     * @param exact			Tests for an exact permission level match, by default this method tests for
-     *						an equal or greater permission level.
-     * @return				Whether or not the user has the permission for this Entity.
+     * @param user            The user to test for permission
+     * @param permission    The permission level or level name to test
+     * @param exact            Tests for an exact permission level match, by default this method tests for
+     *                        an equal or greater permission level.
+     * @return                Whether or not the user has the permission for this Entity.
      *
      * @example <caption>Test whether a specific user has a certain permission</caption>
      * // These two are equivalent
@@ -232,13 +232,13 @@ declare class Entity {
      * The data for entity creation is typically provided from the server through the 'create<Entity>' socket
      * Alternatively, the creation event may originate locally and the new entity can be pushed back to the server.
      *
-     * @param data					The data with which to create the entity
-     * @param options				Additional options which customize the creation workflow
-     * @param options.temporary		Create a temporary entity which is not saved to the world database.
-     *								Default is false.
-     * @param options.renderSheet	Display the sheet for the created entity once it is created. Default is false.
+     * @param data                    The data with which to create the entity
+     * @param options                Additional options which customize the creation workflow
+     * @param options.temporary        Create a temporary entity which is not saved to the world database.
+     *                                Default is false.
+     * @param options.renderSheet    Display the sheet for the created entity once it is created. Default is false.
      *
-     * @return						A Promise which resolves to contain the created Entity
+     * @return                        A Promise which resolves to contain the created Entity
      *
      * @example
      * const createData = {name: "New Entity", img: "path/to/profile.jpg"};
@@ -250,12 +250,12 @@ declare class Entity {
     /**
      * Create multiple new Entities using provided input data Array, containing one Object per created Entity.
      *
-     * @param data					The data with which to create the entity
-     * @param options				Additional options which customize the creation workflow
-     * @param options.temporary		Created entities are temporary and not saved to the database. Default false.
-     * @param options.renderSheet	Display sheets for each created entities. Default false.
+     * @param data                    The data with which to create the entity
+     * @param options                Additional options which customize the creation workflow
+     * @param options.temporary        Created entities are temporary and not saved to the database. Default false.
+     * @param options.renderSheet    Display sheets for each created entities. Default false.
      *
-     * @return						A Promise which resolves to contain the created Entities
+     * @return                        A Promise which resolves to contain the created Entities
      *
      * @example
      * const dataArray = [{name: "Entry 1"}, {name: "Entry 2"}, {name: "Entry 3"}];
@@ -269,12 +269,12 @@ declare class Entity {
      * This new data is typically provided from the server through the 'update<Entity>' socket
      * Alternatively, the update may originate locally, in which case it can be pushed back to the server
      *
-     * @param data			The data with which to update the entity
-     * @param options		Additional options which customize the update workflow
-     * @param options.diff	Diff the provided data against existing entity data, only submitting the
-     * 						difference to the server. Default is true.
+     * @param data            The data with which to update the entity
+     * @param options        Additional options which customize the update workflow
+     * @param options.diff    Diff the provided data against existing entity data, only submitting the
+     *                         difference to the server. Default is true.
      *
-     * @return				A Promise which resolves to the updated Entity
+     * @return                A Promise which resolves to the updated Entity
      *
      * @example
      * const updateData = {name: "New Name"};
@@ -285,10 +285,10 @@ declare class Entity {
     /**
      * Update multiple Entities using an Array of provided update Objects which define incremental data for each Entity.
      *
-     * @param data		Data with which to update each Entity. Each Object must include the _id
-     * @param options	Additional options which customize the update workflow
+     * @param data        Data with which to update each Entity. Each Object must include the _id
+     * @param options    Additional options which customize the update workflow
      *
-     * @return			A Promise which resolves to contain the updated Entities
+     * @return            A Promise which resolves to contain the updated Entities
      *
      * @example
      * const updateArray = [{_id: "dgfkjt34kjdgfkjt34", name: "Name 1"}, {_id: "dfskjkj2r3kjdvkj2", name: "Name 2"}];
@@ -298,8 +298,8 @@ declare class Entity {
 
     /**
      * Delete the entity, removing it from its collection and deleting its data record
-     * @param options	Additional options which customize the deletion workflow
-     * @return			A Promise which resolves to the ID of the deleted Entity once handled by the server
+     * @param options    Additional options which customize the deletion workflow
+     * @return            A Promise which resolves to the ID of the deleted Entity once handled by the server
      *
      * @example
      * const deleted = await entity.delete();
@@ -309,10 +309,10 @@ declare class Entity {
     /**
      * Delete multiple Entities using a provided Array of ids, one per Entity.
      *
-     * @param ids				The data with which to create the entity
-     * @param options			Additional options which customize the deletion workflow
-     * @param options.deleteAll	An optional flag which specifies that all Entities should be deleted
-     * @return					A Promise which resolves to contain the created Entities
+     * @param ids                The data with which to create the entity
+     * @param options            Additional options which customize the deletion workflow
+     * @param options.deleteAll    An optional flag which specifies that all Entities should be deleted
+     * @return                    A Promise which resolves to contain the created Entities
      *
      * @example
      * const deleteIds = ["dskjfk23jf23kdjs", "g90klju9yujl9hj2", "23hjdfewh23rgf3"];
@@ -341,18 +341,18 @@ declare class Entity {
 
     /**
      * Get an Embedded Entity by it's ID from a named collection in the parent
-     * @param collection	The named collection of embedded entities
-     * @param id			The numeric ID of the child to retrieve
-     * @return				Retrieved data for the requested child, or null
+     * @param collection    The named collection of embedded entities
+     * @param id            The numeric ID of the child to retrieve
+     * @return                Retrieved data for the requested child, or null
      */
     getEmbeddedEntity(collection: string, id: number, { strict }: { strict?: boolean }): any;
 
     /**
      * Remove an Embedded Entity from the parent Entity data by it's id.
      *
-     * @param embeddedName	The name of the Embedded Entity type to retrieve
-     * @param id			The numeric ID of the child to retrieve
-     * @return				The embedded entity data that was removed
+     * @param embeddedName    The name of the Embedded Entity type to retrieve
+     * @param id            The numeric ID of the child to retrieve
+     * @return                The embedded entity data that was removed
      */
     removeEmbeddedEntity(embeddedName: string, id: number): any;
 
@@ -361,10 +361,10 @@ declare class Entity {
      * Dispatch the creation request to the server for handling.
      * The result will be acknowledged to this client, and broadcast to other connected clients.
      *
-     * @param embeddedName	The name of the Embedded Entity class to create
-     * @param createData	An object of initial data from which to create the Embedded Entity
-     * @param options		Additional creation options which modify the request
-     * @return				A Promise which resolves to this Entity once the creation request is successful
+     * @param embeddedName    The name of the Embedded Entity class to create
+     * @param createData    An object of initial data from which to create the Embedded Entity
+     * @param options        Additional creation options which modify the request
+     * @return                A Promise which resolves to this Entity once the creation request is successful
      */
     createEmbeddedEntity(embeddedName: string, createData: object | object[], options?: object): Promise<Entity>;
 
@@ -374,10 +374,10 @@ declare class Entity {
      * Dispatch the update request to the server for handling.
      * The result will be acknowledged to this client, and broadcast to other connected clients.
      *
-     * @param embeddedName	The name of the Embedded Entity class to update
-     * @param createData	An Array of initial data objects from which to create the Embedded Entities.
-     * @param options		Additional update options which modify the request
-     * @return				A Promise which resolves to this Entity once the creation request is successful
+     * @param embeddedName    The name of the Embedded Entity class to update
+     * @param createData    An Array of initial data objects from which to create the Embedded Entities.
+     * @param options        Additional update options which modify the request
+     * @return                A Promise which resolves to this Entity once the creation request is successful
      */
     createManyEmbeddedEntities(embeddedName: string, createData: object[], options?: object): Promise<Entity[]>;
 
@@ -386,10 +386,10 @@ declare class Entity {
      * Dispatch the update request to the server for handling.
      * The result will be acknowledged to this client, and broadcast to other connected clients.
      *
-     * @param embeddedName	The name of the Embedded Entity class to update
-     * @param updateData	An object of incremental data from which to update the Embedded Entity
-     * @param options		Additional update options which modify the request
-     * @return				A Promise which resolves to this Entity once the update request is successful
+     * @param embeddedName    The name of the Embedded Entity class to update
+     * @param updateData    An object of incremental data from which to update the Embedded Entity
+     * @param options        Additional update options which modify the request
+     * @return                A Promise which resolves to this Entity once the update request is successful
      */
     updateEmbeddedEntity(embeddedName: string, updateData: object | object[], options?: object): Promise<Entity>;
 
@@ -399,10 +399,10 @@ declare class Entity {
      * Dispatch the update request to the server for handling.
      * The result will be acknowledged to this client, and broadcast to other connected clients.
      *
-     * @param embeddedName	The name of the Embedded Entity class to update
-     * @param updateData	An Array of incremental data, one per Embedded Entity, with which to update the Entity
-     * @param options		Additional update options which modify the request
-     * @return				A Promise which resolves to this Entity once the update request is successful
+     * @param embeddedName    The name of the Embedded Entity class to update
+     * @param updateData    An Array of incremental data, one per Embedded Entity, with which to update the Entity
+     * @param options        Additional update options which modify the request
+     * @return                A Promise which resolves to this Entity once the update request is successful
      */
     updateManyEmbeddedEntities(embeddedName: string, updateData: object[], options?: object): Promise<Entity[]>;
 
@@ -411,10 +411,10 @@ declare class Entity {
      * Dispatch the deletion request to the server for handling.
      * The result will be acknowledged to this client, and broadcast to other connected clients.
      *
-     * @param embeddedName	The name of the Embedded Entity class to delete
-     * @param childId		The id of the existing Embedded Entity child to delete
-     * @param options		Additional deletion options which modify the request
-     * @return				A Promise which resolves to this Entity once the deletion request is successful
+     * @param embeddedName    The name of the Embedded Entity class to delete
+     * @param childId        The id of the existing Embedded Entity child to delete
+     * @param options        Additional deletion options which modify the request
+     * @return                A Promise which resolves to this Entity once the deletion request is successful
      */
     deleteEmbeddedEntity(embeddedName: string, childId: string | string[], options?: object): Promise<Entity>;
 
@@ -424,10 +424,10 @@ declare class Entity {
      * Dispatch the update request to the server for handling.
      * The result will be acknowledged to this client, and broadcast to other connected clients.
      *
-     * @param embeddedName	The name of the Embedded Entity class to update
-     * @param deleteIds		An Array of Embedded Entity ids to delete from the parent Entity
-     * @param options		Additional update options which modify the request
-     * @return				A Promise which resolves to this Entity once the update request is successful
+     * @param embeddedName    The name of the Embedded Entity class to update
+     * @param deleteIds        An Array of Embedded Entity ids to delete from the parent Entity
+     * @param options        Additional update options which modify the request
+     * @return                A Promise which resolves to this Entity once the update request is successful
      */
     deleteManyEmbeddedEntities(embeddedName: string, deleteIds: string[], options?: object): Promise<Entity>;
 
@@ -468,9 +468,9 @@ declare class Entity {
      * Get the value of a "flag" for this Entity
      * See the setFlag method for more details on flags
      *
-     * @param scope	The flag scope which namespaces the key
-     * @param key	The flag key
-     * @return		The flag value
+     * @param scope    The flag scope which namespaces the key
+     * @param key    The flag key
+     * @return        The flag value
      */
     getFlag(scope: string, key: string): any;
 
@@ -487,19 +487,19 @@ declare class Entity {
      *
      * Flag values can assume almost any data type. Setting a flag value to null will delete that flag.
      *
-     * @param scope	The flag scope which namespaces the key
-     * @param key	The flag key
-     * @param value	The flag value
+     * @param scope    The flag scope which namespaces the key
+     * @param key    The flag key
+     * @param value    The flag value
      *
-     * @return		A Promise resolving to the updated Entity
+     * @return        A Promise resolving to the updated Entity
      */
     setFlag(scope: string, key: string, value: any): Promise<Entity>;
 
     /**
      * Remove a flag assigned to the Entity
-     * @param scope	The flag scope which namespaces the key
-     * @param key	The flag key
-     * @return		A Promise resolving to the updated Entity
+     * @param scope    The flag scope which namespaces the key
+     * @param key    The flag key
+     * @return        A Promise resolving to the updated Entity
      */
     unsetFlag(scope: string, key: string): Promise<Entity>;
 
@@ -527,14 +527,14 @@ declare class Entity {
 
     /* -------------------------------------------- */
     /*  Saving and Loading
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Clone an Entity, creating a new Entity using the current data as well as provided creation overrides.
      *
-     * @param createData	Additional data which overrides current Entity data at the time of creation
-     * @param options		Additional creation options passed to the Entity.create method
-     * @returns				A Promise which resolves to the created clone Entity
+     * @param createData    Additional data which overrides current Entity data at the time of creation
+     * @param options        Additional creation options passed to the Entity.create method
+     * @returns                A Promise which resolves to the created clone Entity
      */
     clone(createData?: object, options?: object): Promise<Entity>;
 
@@ -545,8 +545,8 @@ declare class Entity {
 
     /**
      * Import data and update this entity
-     * @param json	JSON data string
-     * @return		The updated Entity
+     * @param json    JSON data string
+     * @return        The updated Entity
      */
     importFromJSON(json: string): Promise<Entity>;
 

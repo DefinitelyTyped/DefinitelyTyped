@@ -22,7 +22,7 @@ declare class VideoHelper {
     /**
      * Play a single video source
      * If playback is not yet enabled, add the video to the pending queue
-     * @param video	The VIDEO element to play
+     * @param video    The VIDEO element to play
      */
     play(video: HTMLElement): void;
 

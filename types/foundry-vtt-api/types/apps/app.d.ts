@@ -122,13 +122,13 @@ declare class Application {
 
     /**
      * Create drag-and-drop workflow handlers for this Application
-     * @return	An array of DragDrop handlers
+     * @return    An array of DragDrop handlers
      */
     protected _createDragDropHandlers(): DragDrop[];
 
     /**
      * Create tabbed navigation handlers for this Application
-     * @return	An array of TabsV2 handlers
+     * @return    An array of TabsV2 handlers
      */
     protected _createTabHandlers(): TabsV2[];
 
@@ -172,7 +172,7 @@ declare class Application {
 
     /* -------------------------------------------- */
     /* Application rendering
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * An application should define the data object used to render its template.
@@ -185,16 +185,16 @@ declare class Application {
      * Render the Application by evaluating it's HTML template against the object of data provided by the getData method
      * If the Application is rendered as a pop-out window, wrap the contained HTML in an outer frame with window controls
      *
-     * @param force		Add the rendered application to the DOM if it is not already present. If false, the
-     *					Application will only be re-rendered if it is already present.
-     * @param options	Additional rendering options which are applied to customize the way that the Application
-     *					is rendered in the DOM.
+     * @param force        Add the rendered application to the DOM if it is not already present. If false, the
+     *                    Application will only be re-rendered if it is already present.
+     * @param options    Additional rendering options which are applied to customize the way that the Application
+     *                    is rendered in the DOM.
      */
     render(force?: boolean, options?: RenderOptions): Application;
 
     /**
      * An asynchronous inner function which handles the rendering of the Application
-     * @param options	Provided rendering options, see the render function for details
+     * @param options    Provided rendering options, see the render function for details
      */
     protected _render(force?: boolean, options?: any): void;
 
@@ -210,21 +210,21 @@ declare class Application {
 
     /**
      * Render the outer application wrapper
-     * @return	A promise resolving to the constructed jQuery object
+     * @return    A promise resolving to the constructed jQuery object
      */
     protected _renderOuter(options: any): Promise<JQuery | HTMLElement>;
 
     /**
      * Render the inner application content
-     * @param data	The data used to render the inner template
-     * @return		A promise resolving to the constructed jQuery object
+     * @param data    The data used to render the inner template
+     * @return        A promise resolving to the constructed jQuery object
      */
     protected _renderInner(data: any, options: any): Promise<JQuery | HTMLElement>;
 
     /**
      * Customize how inner HTML is replaced when the application is refreshed
-     * @param element	The original HTML element
-     * @param html		New updated HTML
+     * @param element    The original HTML element
+     * @param html        New updated HTML
      */
     protected _replaceHTML(element: JQuery | HTMLElement, html: JQuery | HTMLElement, options: any): void;
 
@@ -245,7 +245,7 @@ declare class Application {
 
     /* -------------------------------------------- */
     /* Event Listeners and Handlers
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Once the HTML for an Application has been rendered, activate event listeners which provide interactivity for
@@ -255,41 +255,41 @@ declare class Application {
 
     /**
      * Handle changes to the active tab in a configured Tabs controller
-     * @param event		A left click event
-     * @param tabs		The TabsV2 controller
-     * @param active	The new active tab name
+     * @param event        A left click event
+     * @param tabs        The TabsV2 controller
+     * @param active    The new active tab name
      */
     protected _onChangeTab(event: MouseEvent, tabs: TabsV2, active: string): void;
 
     /**
      * Define whether a user is able to begin a dragstart workflow for a given drag selector
-     * @param selector	The candidate HTML selector for dragging
-     * @return			Can the current user drag this selector?
+     * @param selector    The candidate HTML selector for dragging
+     * @return            Can the current user drag this selector?
      */
     protected _canDragStart(selector: string): boolean;
 
     /**
      * Define whether a user is able to conclude a drag-and-drop workflow for a given drop selector
-     * @param selector	The candidate HTML selector for the drop target
-     * @return			Can the current user drop on this selector?
+     * @param selector    The candidate HTML selector for the drop target
+     * @return            Can the current user drop on this selector?
      */
     protected _canDragDrop(selector: string): boolean;
 
     /**
      * Callback actions which occur at the beginning of a drag start workflow.
-     * @param event	The originating DragEvent
+     * @param event    The originating DragEvent
      */
     protected _onDragStart(event: DragEvent): void;
 
     /**
      * Callback actions which occur when a dragged element is over a drop target.
-     * @param event	The originating DragEvent
+     * @param event    The originating DragEvent
      */
     protected _onDragOver(event: DragEvent): void;
 
     /**
      * Callback actions which occur when a dragged element is dropped on a target.
-     * @param event	The originating DragEvent
+     * @param event    The originating DragEvent
      */
     protected _onDrop(event: DragEvent): void;
 
@@ -306,14 +306,14 @@ declare class Application {
     /**
      * Minimize the pop-out window, collapsing it to a small tab
      * Take no action for applications which are not of the pop-out variety or apps which are already minimized
-     * @return	A Promise which resolves to true once the minimization action has completed
+     * @return    A Promise which resolves to true once the minimization action has completed
      */
     minimize(): Promise<boolean>;
 
     /**
      * Maximize the pop-out window, expanding it to its original size
      * Take no action for applications which are not of the pop-out variety or are already maximized
-     * @return	A Promise which resolves to true once the maximization action has completed
+     * @return    A Promise which resolves to true once the maximization action has completed
      */
     maximise(): Promise<boolean>;
 

@@ -9,13 +9,13 @@ declare class SortingHelpers {
      *   update: {sortKey: sortValue}
      * }
      *
-     * @param source		The source object being sorted
-     * @param target		The target object relative which to sort
-     * @param siblings		The sorted Array of siblings which share the same sorted container
-     * @param sortKey		The name of the data property within the source object which defines the sort key
-     * @param sortBefore	Whether to sort before the target (if true) or after (if false)
+     * @param source        The source object being sorted
+     * @param target        The target object relative which to sort
+     * @param siblings        The sorted Array of siblings which share the same sorted container
+     * @param sortKey        The name of the data property within the source object which defines the sort key
+     * @param sortBefore    Whether to sort before the target (if true) or after (if false)
      *
-     * @returns				An Array of updates for the caller of the helper function to perform
+     * @returns                An Array of updates for the caller of the helper function to perform
      */
     static performIntegerSort(
         source: any,

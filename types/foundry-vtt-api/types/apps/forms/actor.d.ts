@@ -12,9 +12,9 @@ declare interface ActorSheetData extends BaseEntitySheetData {
  * System modifications may elect to override this class to better suit their own game system by re-defining the value
  * ``CONFIG.Actor.sheetClass``.
  *
- * @param actor				The Actor instance being displayed within the sheet.
- * @param options			Additional options which modify the rendering of the Actor's sheet.
- * @param options.editable	Is the Actor editable? Default is true.
+ * @param actor                The Actor instance being displayed within the sheet.
+ * @param options            Additional options which modify the rendering of the Actor's sheet.
+ * @param options.editable    Is the Actor editable? Default is true.
  */
 declare class ActorSheet extends BaseEntitySheet {
     /**
@@ -67,7 +67,7 @@ declare class ActorSheet extends BaseEntitySheet {
      * Activate the default set of listeners for the Actor Sheet
      * These listeners handle basic stuff like form submission or updating images
      *
-     * @param html	The rendered template ready to have listeners attached
+     * @param html    The rendered template ready to have listeners attached
      */
     protected activateListeners(html: JQuery | HTMLElement): void;
 
@@ -103,7 +103,7 @@ declare class ActorSheet extends BaseEntitySheet {
 
     /* -------------------------------------------- */
     /*  Owned Item Sorting
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Handle a drop event for an existing Owned Item to sort that item

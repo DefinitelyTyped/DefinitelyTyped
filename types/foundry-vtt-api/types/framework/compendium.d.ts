@@ -11,8 +11,8 @@
  * name of the pack within that package. For example, in the D&D5e system, the compendium pack
  * which provides the spells available within the SRD has the collection name "dnd5e.spells".
  *
- * @param metadata	The compendium metadata, an object provided by game.data
- * @param options	Application rendering options
+ * @param metadata    The compendium metadata, an object provided by game.data
+ * @param options    Application rendering options
  *
  * @example
  * // Let's learn the collection names of all the compendium packs available within a game
@@ -79,7 +79,7 @@ declare class Compendium extends Application {
 
     /**
      * The canonical Compendium name - comprised of the originating package and the pack name
-     * @return	The canonical collection name
+     * @return    The canonical collection name
      */
     get collection(): string;
 
@@ -90,11 +90,11 @@ declare class Compendium extends Application {
 
     /* ----------------------------------------- */
     /*  Methods
-	/* ----------------------------------------- */
+    /* ----------------------------------------- */
 
     /**
      * Create a new Compendium pack using provided
-     * @param metadata	The compendium metadata used to create the new pack
+     * @param metadata    The compendium metadata used to create the new pack
      */
     static create(metadata: object): Promise<Compendium>;
 
@@ -108,7 +108,7 @@ declare class Compendium extends Application {
      * Get the Compendium index
      * Contains names, images and IDs of all data in the compendium
      *
-     * @return	A Promise containing an index of all compendium entries
+     * @return    A Promise containing an index of all compendium entries
      */
     getIndex(): Promise<any[]>;
 
@@ -120,16 +120,16 @@ declare class Compendium extends Application {
 
     /**
      * Get a single Compendium entry as an Object
-     * @param entryId	The compendium entry ID to retrieve
+     * @param entryId    The compendium entry ID to retrieve
      *
-     * @return			A Promise containing the return entry data, or null
+     * @return            A Promise containing the return entry data, or null
      */
     getEntry(entryId: string): Promise<any>;
 
     /**
      * Get a single Compendium entry as an Entity instance
-     * @param entryId	The compendium entry ID to load and instantiate
-     * @return			A Promise containing the returned Entity, if it exists, otherwise null
+     * @param entryId    The compendium entry ID to load and instantiate
+     * @return            A Promise containing the returned Entity, if it exists, otherwise null
      */
     getEntity(entryId: string): Promise<Entity>;
 
@@ -140,30 +140,30 @@ declare class Compendium extends Application {
 
     /**
      * Import a new Entity into a Compendium pack
-     * @param entity	The Entity instance you wish to import
-     * @return			A Promise which resolves to the created Entity once the operation is complete
+     * @param entity    The Entity instance you wish to import
+     * @return            A Promise which resolves to the created Entity once the operation is complete
      */
     importEntity(entity: Entity): Promise<Entity>;
 
     /**
      * Create a new Entity within this Compendium Pack using provided data
-     * @param data	Data with which to create the entry
-     * @return		A Promise which resolves to the created Entity once the operation is complete
+     * @param data    Data with which to create the entry
+     * @return        A Promise which resolves to the created Entity once the operation is complete
      */
     createEntity(data: any): Promise<Entity>;
 
     /**
      * Update a single Compendium entry programmatically by providing new data with which to update
-     * @param data		The incremental update with which to update the Entity. Must contain the _id
-     * @param options	Additional options which modify the update request
-     * @return			A Promise which resolves with the updated Entity once the operation is complete
+     * @param data        The incremental update with which to update the Entity. Must contain the _id
+     * @param options    Additional options which modify the update request
+     * @return            A Promise which resolves with the updated Entity once the operation is complete
      */
     updateEntity(data: any, options?: any): Promise<Entity>;
 
     /**
      * Delete a single Compendium entry by its provided _id
-     * @param id	The entry ID to delete
-     * @return		A Promise which resolves to the deleted entry ID once the operation is complete
+     * @param id    The entry ID to delete
+     * @return        A Promise which resolves to the deleted entry ID once the operation is complete
      */
     deleteEntity(id: string): Promise<string>;
 

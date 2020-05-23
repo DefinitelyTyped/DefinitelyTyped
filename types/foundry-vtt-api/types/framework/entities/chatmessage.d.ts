@@ -10,11 +10,11 @@ declare class Messages extends Collection<ChatMessage> {
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * If requested, dispatch a Chat Bubble UI for the newly created message
-     * @param response	The created ChatMessage response
+     * @param response    The created ChatMessage response
      */
     protected _sayBubble(response: object): void;
 
@@ -57,7 +57,7 @@ declare class ChatMessage extends Entity {
 
     /* -------------------------------------------- */
     /*  Properties and Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Return the recommended String alias for this message.
@@ -92,7 +92,7 @@ declare class ChatMessage extends Entity {
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Preprocess the data object used to create a new Chat Message to automatically convert some Objects to the
@@ -102,7 +102,7 @@ declare class ChatMessage extends Entity {
 
     /* -------------------------------------------- */
     /*  Saving and Loading
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Export the content of the chat message into a standardized log format
@@ -112,8 +112,8 @@ declare class ChatMessage extends Entity {
     /**
      * Given a string whisper target, return an Array of the user IDs which should be targeted for the whisper
      *
-     * @param name	The target name of the whisper target
-     * @return		An array of User instances
+     * @param name    The target name of the whisper target
+     * @return        An array of User instances
      */
     static getWhisperRecipients(name: string): User[];
 
@@ -188,7 +188,7 @@ declare class ChatMessage extends Entity {
 
     /**
      * Obtain an Actor instance which represents the speaker of this message (if any)
-     * @param speaker	The speaker data object
+     * @param speaker    The speaker data object
      */
     static getSpeakerActor(speaker: object): Actor | null;
 }

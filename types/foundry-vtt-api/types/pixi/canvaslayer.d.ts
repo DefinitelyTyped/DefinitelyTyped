@@ -6,13 +6,13 @@ declare class CanvasLayer extends PIXI.Container {
 
     /* -------------------------------------------- */
     /*  Properties and Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     get name(): string;
 
     /* -------------------------------------------- */
     /*  Rendering
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Draw the canvas layer, rendering its internal components and returning a Promise
@@ -23,7 +23,7 @@ declare class CanvasLayer extends PIXI.Container {
 
     /* -------------------------------------------- */
     /*  Methods
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     activate(): void;
 

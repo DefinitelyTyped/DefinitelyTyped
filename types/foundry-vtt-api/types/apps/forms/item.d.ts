@@ -11,9 +11,9 @@ declare interface ItemSheetData extends BaseEntitySheetData {
  * System modifications may elect to override this class to better suit their own game system by re-defining the value
  * ``CONFIG.Item.sheetClass``.
  *
- * @param item				The Item instance being displayed within the sheet.
- * @param options			Additional options which modify the rendering of the item.
- * @param options.editable	Is the item editable? Default is true.
+ * @param item                The Item instance being displayed within the sheet.
+ * @param options            Additional options which modify the rendering of the item.
+ * @param options.editable    Is the item editable? Default is true.
  */
 declare class ItemSheet extends BaseEntitySheet {
     /**
@@ -43,7 +43,7 @@ declare class ItemSheet extends BaseEntitySheet {
 
     /**
      * Activate listeners which provide interactivity for item sheet events
-     * @param html	The HTML object returned by template rendering
+     * @param html    The HTML object returned by template rendering
      */
     protected activateListeners(html: JQuery): void;
 }
