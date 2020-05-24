@@ -1,7 +1,6 @@
 // Type definitions for muibox 1.3
 // Project: https://github.com/chunkai1312/muibox
-// Definitions by: Diego Mijelshon <https://github.com/diegose>
-// Definitions by: David DIVERRES <https://github.com/comxd>
+// Definitions by: Diego Mijelshon <https://github.com/diegose>, David DIVERRES <https://github.com/comxd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ReactNode } from "react";
