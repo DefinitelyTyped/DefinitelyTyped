@@ -1,8 +1,9 @@
-// Type definitions for node-asana 0.17.3
+// Type definitions for node-asana 0.18.4
 // Project: https://github.com/Asana/node-asana
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Tasyp <https://github.com/tasyp>
 //                 Filippo Sarzana <https://github.com/filipposarzana>
+//                 Lorant Szakacs <https://github.com/szlori>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 import * as Promise from 'bluebird';
