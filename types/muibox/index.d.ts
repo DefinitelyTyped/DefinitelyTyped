@@ -13,14 +13,22 @@ export interface Dialog {
     prompt(options: PromptOptions | string): Promise<string>;
 }
 
+export interface DialogButtonOptions {
+    text: string;
+    color?: string;
+    variant?: string;
+    startIcon?: JSX.Element;
+    endIcon?: JSX.Element;
+}
+
 export interface AlertOptions {
     title?: string;
-    message?: string;
-    ok?: string;
+    message?: string | JSX.Element;
+    ok?: DialogButtonOptions;
 }
 
 export interface ConfirmOptions extends AlertOptions {
-    cancel?: string;
+    cancel?: DialogButtonOptions;
 }
 
 export interface PromptOptions extends ConfirmOptions {
