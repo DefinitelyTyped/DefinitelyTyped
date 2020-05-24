@@ -116,7 +116,7 @@ export interface MUIDataTableFilterOptions {
 }
 
 export interface MUIDataTableCustomFilterListOptions {
-    render?: (value: any) => string | string[];
+    render?: (value: any) => React.ReactNode;
     update?: (...args: any[]) => string[];
 }
 
