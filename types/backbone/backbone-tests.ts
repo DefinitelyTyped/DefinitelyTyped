@@ -287,6 +287,14 @@ function test_collection() {
     models = books.slice(1);
     models = books.slice(1, 3);
 
+    let it1: Iterator<Book>;
+    it1 = books.values();
+    it1 = books[Symbol.iterator]();
+    let it2: Iterator<any>;
+    it2 = books.keys();
+    let it3: Iterator<[any, Book]>;
+    it3 = books.entries();
+
     // underscore methods
     bool       = books.all((value: Book, index: number, list: Book[]) => true);
     bool       = books.any((value: Book, index: number, list: Book[]) => true);
