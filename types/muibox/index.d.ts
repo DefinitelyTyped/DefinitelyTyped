@@ -3,6 +3,8 @@
 // Definitions by: Diego Mijelshon <https://github.com/diegose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { Element } from 'react';
+
 export function DialogProvider(_: any): any;
 export function useDialog(): Dialog;
 export function withDialog(): (WrappedComponent: any) => (props: any) => any;
@@ -17,13 +19,13 @@ export interface DialogButtonOptions {
     text: string;
     color?: string;
     variant?: string;
-    startIcon?: React.Element;
-    endIcon?: React.Element;
+    startIcon?: React.ReactNode;
+    endIcon?: React.ReactNode;
 }
 
 export interface AlertOptions {
     title?: string;
-    message?: string | React.Element;
+    message?: string | React.ReactNode;
     ok?: DialogButtonOptions;
 }
 
