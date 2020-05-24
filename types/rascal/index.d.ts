@@ -407,7 +407,7 @@ declare const testConfig: {
 
 type AckOrNack = (err?: Error, recovery?: Recovery | Recovery[]) => void;
 
-declare class SubscriptionSession extends EventEmitter {
+export class SubscriptionSession extends EventEmitter {
     name: string;
     isCancelled(): boolean;
     cancel(): Promise<void>;
