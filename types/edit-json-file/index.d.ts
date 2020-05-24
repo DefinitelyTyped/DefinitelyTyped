@@ -19,22 +19,22 @@ declare namespace editJsonFile {
     /** JSON file editor. */
     class JsonEditor {
         constructor(path: string, options?: Options);
+        /** Get value at path. */
+        get(path: string): any;
         /** Set value at path. */
         set(path: string, value: any): JsonEditor;
         /** Unset value at path. */
         unset(path: string): JsonEditor;
-        /** Get value at path. */
-        get(path: string): any;
         /** Read the JSON file. */
-        read(cb: NoParamCallback): any;
+        read(cb?: NoParamCallback): object;
         /** Overwrite the JSON file. */
         write(content: string, cb?: NoParamCallback): JsonEditor;
         /** Empty the JSON file. */
         empty(cb?: NoParamCallback): JsonEditor;
         /** Save the JSON file back to disk. */
         save(cb?: NoParamCallback): JsonEditor;
-        /** Get f */
-        toObject(): any;
+        /** Get full object. */
+        toObject(): object;
     }
 }
 
