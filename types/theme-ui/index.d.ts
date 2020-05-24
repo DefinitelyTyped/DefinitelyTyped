@@ -136,7 +136,7 @@ export function css(styleObject: Interpolation): (theme: Theme) => SerializedSty
  * the `Theme` will be transformed to their corresponding values. Other valid
  * CSS properties are also allowed.
  */
-export type SxStyleProp = SystemStyleObject;
+export type SxStyleProp = SystemStyleObject | { label?: string };
 
 export interface SxProps {
     /**
