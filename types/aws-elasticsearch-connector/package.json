@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@elastic/elasticsearch": ">=7.0"
+    }
+}
