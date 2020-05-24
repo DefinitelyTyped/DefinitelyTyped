@@ -1,4 +1,4 @@
-// Type definitions for muibox 1.0
+// Type definitions for muibox 1.3.0
 // Project: https://github.com/chunkai1312/muibox
 // Definitions by: Diego Mijelshon <https://github.com/diegose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
