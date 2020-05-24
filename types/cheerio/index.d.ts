@@ -220,7 +220,7 @@ interface Cheerio {
 
     // Not Documented
 
-    toArray(): CheerioElement[];
+    toArray<T = CheerioElement>(): T[];
 }
 
 interface CheerioOptionsInterface {
