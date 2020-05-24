@@ -220,6 +220,7 @@ interface Cheerio {
 
     // Not Documented
 
+    // tslint:disable-next-line no-unnecessary-generics
     toArray<T = CheerioElement>(): T[];
 }
 
