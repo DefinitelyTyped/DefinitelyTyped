@@ -3,8 +3,6 @@
 // Definitions by: Diego Mijelshon <https://github.com/diegose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Element } from 'react';
-
 export function DialogProvider(_: any): any;
 export function useDialog(): Dialog;
 export function withDialog(): (WrappedComponent: any) => (props: any) => any;
