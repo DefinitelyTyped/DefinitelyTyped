@@ -1489,6 +1489,225 @@ declare namespace Vex {
         namespace Volta {
             enum type {NONE = 1, BEGIN, MID, END, BEGIN_END}
         }
+
+        class Parser {
+            constructor(grammar: any);
+            grammar: any;
+            parse(line: any): any;
+            line: any;
+            pos: any;
+            errorPos: any;
+            matchFail(returnPos: any): void;
+            matchSuccess(): void;
+            matchToken(token: any, noSpace?: boolean): {
+                success: boolean;
+                matchedString: any;
+                incrementPos: any;
+                pos: any;
+            } | {
+                success: boolean;
+                pos: any;
+                matchedString?: undefined;
+                incrementPos?: undefined;
+            };
+            expectOne(rule: any, maybe?: boolean): any;
+            expectOneOrMore(rule: any, maybe?: boolean): any;
+            expectZeroOrMore(rule: any): any;
+            expect(rules: any): any;
+        }
+        
+
+        class EasyScore {
+            constructor(options?: {});
+            defaults: {
+                clef: string;
+                time: string;
+                stem: string;
+            };
+            set(defaults: any): EasyScore;
+            setOptions(options: any): EasyScore;
+            options: any;
+            factory: any;
+            builder: any;
+            grammar: any;
+            parser: Parser;
+            setContext(context: any): EasyScore;
+            parse(line: any, options?: {}): any;
+            beam(notes: any, options?: {}): any;
+            tuplet(notes: any, options?: {}): any;
+            notes(line: any, options?: {}): any;
+            voice(notes: any, voiceOptions: any): any;
+            addCommitHook(commitHook: any): any;
+    
+        }
+        class System {
+            constructor(params?: any);
+            setOptions(options?: any): void;
+            addConnector(type?: string): any;
+            addStave(params: any): Stave; 
+            format(): any;
+            draw(): any;
+        }
+
+        class Factory {
+            static newFromElementId(elementId: any, width?: number, height?: number): Factory;
+            constructor(options: any);
+            options: {
+                stave: {
+                    space: number;
+                };
+                renderer: {
+                    context: any;
+                    elementId: string;
+                    backend: number;
+                    width: number;
+                    height: number;
+                    background: string;
+                };
+                font: {
+                    face: string;
+                    point: number;
+                    style: string;
+                };
+            };
+            reset(): void;
+            renderQ: any[];
+            systems: any[];
+            staves: any[];
+            voices: any[];
+            stave: Stave;
+            getOptions(): {
+                stave: {
+                    space: number;
+                };
+                renderer: {
+                    context: any;
+                    elementId: string;
+                    backend: number;
+                    width: number;
+                    height: number;
+                    background: string;
+                };
+                font: {
+                    face: string;
+                    point: number;
+                    style: string;
+                };
+            };
+            setOptions(options: any): void;
+            initRenderer(): void;
+            context: any;
+            getContext(): any;
+            setContext(context: any): Factory;
+            getStave(): Stave;
+            getVoices(): any[];
+            space(spacing: any): number;
+            Stave(params: any): Stave;
+            TabStave(params: any): TabStave;
+            StaveNote(noteStruct: any): StaveNote;
+            GlyphNote(glyph: any, noteStruct: any, options: any): GlyphNote;
+            RepeatNote(type: any, noteStruct: any, options: any): RepeatNote;
+            GhostNote(noteStruct: any): GhostNote;
+            TextNote(textNoteStruct: any): TextNote;
+            BarNote(params: any): BarNote;
+            ClefNote(params: any): ClefNote;
+            TimeSigNote(params: any): TimeSigNote;
+            KeySigNote(params: any): KeySigNote;
+            TabNote(noteStruct: any): TabNote;
+            GraceNote(noteStruct: any): GraceNote;
+            GraceNoteGroup(params: any): GraceNoteGroup;
+            Accidental(params: any): Accidental;
+            Annotation(params: any): Annotation;
+            Articulation(params: any): Articulation;
+            TextDynamics(params: any): TextDynamics;
+            Fingering(params: any): FretHandFinger;
+            StringNumber(params: any): StringNumber;
+            TickContext(): TickContext;
+            ModifierContext(): ModifierContext;
+            MultiMeasureRest(params: any): MultiMeasureRest;
+            Voice(params: any): Voice;
+            StaveConnector(params: any): StaveConnector;
+            Formatter(): Formatter;
+            Tuplet(params: any): Tuplet;
+            Beam(params: any): Beam;
+            Curve(params: any): Curve;
+            StaveTie(params: any): StaveTie;
+            StaveLine(params: any): StaveLine;
+            VibratoBracket(params: any): VibratoBracket;
+            TextBracket(params: any): TextBracket;
+            System(params?: {}): System;
+            EasyScore(params?: {}): EasyScore;
+            PedalMarking(params?: {}): PedalMarking;
+            NoteSubGroup(params?: {}): NoteSubGroup;
+            draw(): void;
+        }
+
+        class VibratoBracket extends Element {
+            constructor(bracket_data: any);
+            start: any;
+            stop: any;
+            line: number;
+            render_options: {
+                harsh: boolean;
+                wave_height: number;
+                wave_width: number;
+                wave_girth: number;
+            };
+            setLine(line: any): VibratoBracket;
+            setHarsh(harsh: any): VibratoBracket;
+            draw(): void;
+        }
+
+        class GlyphNote extends Note {
+            constructor(glyph: any, noteStruct: any, options: any);
+            options: any;
+            setGlyph(glyph: any): GlyphNote;
+            draw(): void;
+        }
+
+        class KeySigNote extends Note {
+            constructor(keySpec: any, cancelKeySpec: any, alterKeySpec: any);
+            keySignature: KeySignature;
+            draw(): void;
+        }
+
+        class MultiMeasureRest extends Element {
+            constructor(number_of_measures: any, options: any);
+            render_options: {
+                show_number: boolean;
+                number_line: number;
+                number_glyph_point: any;
+                padding_left: any;
+                padding_right: any;
+                line: number;
+                spacing_between_lines_px: number;
+                line_thickness: any;
+                serif_thickness: number;
+                use_symbols: boolean;
+                symbol_spacing: any;
+                semibrave_rest_glyph_scale: number;
+            };
+            number_of_measures: any;
+            xs: {
+                left: number;
+                right: number;
+            };
+            getXs(): {
+                left: number;
+                right: number;
+            };
+            setStave(stave: any): MultiMeasureRest;
+            stave: any;
+            getStave(): any;
+            drawLine(ctx: any, left: any, right: any, sbl: any): void;
+            drawSymbols(ctx: any, left: any, right: any, sbl: any): void;
+            draw(): void;
+        }
+
+        class RepeatNote extends GlyphNote {
+            constructor(type: any, noteStruct: any, options: any);
+        }
+
     }
 }
 

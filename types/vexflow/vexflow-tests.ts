@@ -1,5 +1,3 @@
-
-
 var canvas = document.getElementById("canvas");
 var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
 var ctx = renderer.getContext();
@@ -90,3 +88,21 @@ var notes = [
 
 // Format ad draw the notes
 Vex.Flow.Formatter.FormatAndDraw(ctx, tabstave, notes);
+
+
+/*
+ * Use Flow.Factory and Easy Score to draw notes
+ */
+const vf = new Vex.Flow.Factory({renderer});
+const score = vf.EasyScore();
+const system = vf.System();
+
+system.addStave({
+  voices: [
+    score.voice(score.notes('C4/q, D4, E4, F4', {stem: 'up'}), {}),
+  ]
+}).addClef('treble').addTimeSignature('4/4');
+
+system.addConnector();
+
+vf.draw();
