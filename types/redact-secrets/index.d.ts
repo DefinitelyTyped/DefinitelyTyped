@@ -1,6 +1,6 @@
 // Type definitions for redact-secrets 1.0
 // Project: https://github.com/watson/redact-secrets#readme
-// Definitions by: wrumsby <https://github.com/me>
+// Definitions by: wrumsby <https://github.com/wrumsby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
