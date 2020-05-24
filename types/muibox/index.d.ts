@@ -17,13 +17,13 @@ export interface DialogButtonOptions {
     text: string;
     color?: string;
     variant?: string;
-    startIcon?: JSX.Element;
-    endIcon?: JSX.Element;
+    startIcon?: React.Element;
+    endIcon?: React.Element;
 }
 
 export interface AlertOptions {
     title?: string;
-    message?: string | JSX.Element;
+    message?: string | React.Element;
     ok?: DialogButtonOptions;
 }
 
