@@ -15,10 +15,13 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "jsxFactory": "superfine.h"
     },
     "files": [
         "index.d.ts",
-        "superfine-tests.ts"
+        "superfine-tests.ts",
+        "superfine-tests.tsx"
     ]
 }

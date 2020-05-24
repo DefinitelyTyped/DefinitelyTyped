@@ -26,3 +26,12 @@ export function patch<TTagName extends keyof HtmlOrSvgElementTagNameMap>(
     rootElement: HtmlOrSvgElementTagNameMap[TTagName],
     vNode: VNode<TTagName>
 ): void;
+
+declare global {
+    namespace JSX {
+        interface Element extends VNode<keyof HtmlOrSvgElementTagNameMap> {}
+        type IntrinsicElements = {
+            readonly [TTagName in keyof HtmlOrSvgElementTagNameMap]: Props<TTagName>
+        };
+    }
+}
