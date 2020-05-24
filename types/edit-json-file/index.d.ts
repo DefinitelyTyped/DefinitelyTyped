@@ -20,7 +20,7 @@ declare namespace editJsonFile {
     class JsonEditor {
         constructor(path: string, options?: Options);
         /** Get value at path. */
-        get(path: string): any;
+        get(path?: string): any;
         /** Set value at path. */
         set(path: string, value: any): JsonEditor;
         /** Unset value at path. */
