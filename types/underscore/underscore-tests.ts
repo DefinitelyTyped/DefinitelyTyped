@@ -4728,6 +4728,164 @@ interface ArrayWrapper<T> {
     }
 }
 
+// uniq, unique
+// as a breaking change, consider dropping TCompare from uniq and unique in UnderscoreStatic and unique in Chain and using any instead like Underscore does since TCompare doesn't really add much
+{
+    const context = {};
+
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: { a: string }[];
+
+        result = _.uniq<{ a: string }>(array);
+        result = _.uniq<{ a: string }>(array, true);
+        result = _.uniq<{ a: string }, string>(array, true, iterator);
+        result = _.uniq<{ a: string }, string>(array, true, iterator, context);
+        result = _.uniq(array);
+        result = _.uniq(array, true);
+        result = _.uniq(array, true, iterator);
+        result = _.uniq(array, true, iterator, context);
+
+        result = _<{ a: string }>(array).uniq();
+        result = _<{ a: string }>(array).uniq(true);
+        result = _<{ a: string }>(array).uniq(true, iterator);
+        result = _<{ a: string }>(array).uniq(true, iterator, context);
+        result = _(array).uniq();
+        result = _(array).uniq(true);
+        result = _(array).uniq(true, iterator);
+        result = _(array).uniq(true, iterator, context);
+
+        result = _.chain<{ a: string }>(array).uniq().value();
+        result = _.chain<{ a: string }>(array).uniq(true).value();
+        result = _.chain<{ a: string }>(array).uniq(true, iterator).value();
+        result = _.chain<{ a: string }>(array).uniq(true, iterator, context).value();
+        result = _.chain(array).uniq().value();
+        result = _.chain(array).uniq(true).value();
+        result = _.chain(array).uniq(true, iterator).value();
+        result = _.chain(array).uniq(true, iterator, context).value();
+
+        result = _<{ a: string }>(array).chain().uniq().value();
+        result = _<{ a: string }>(array).chain().uniq(true).value();
+        result = _<{ a: string }>(array).chain().uniq(true, iterator).value();
+        result = _<{ a: string }>(array).chain().uniq(true, iterator, context).value();
+        result = _(array).chain().uniq().value();
+        result = _(array).chain().uniq(true).value();
+        result = _(array).chain().uniq(true, iterator).value();
+        result = _(array).chain().uniq(true, iterator, context).value();
+
+        result = _.unique<{ a: string }>(array);
+        result = _.unique<{ a: string }>(array, true);
+        result = _.unique<{ a: string }, string>(array, true, iterator);
+        result = _.unique<{ a: string }, string>(array, true, iterator, context);
+        result = _.unique(array);
+        result = _.unique(array, true);
+
+        result = _<{ a: string }>(array).unique();
+        result = _<{ a: string }>(array).unique(true);
+        result = _<{ a: string }>(array).unique<string>(true, iterator);
+        result = _<{ a: string }>(array).unique<string>(true, iterator, context);
+        result = _(array).unique();
+        result = _(array).unique(true);
+        result = _(array).unique(true, iterator);
+        result = _(array).unique(true, iterator, context);
+
+        result = _.chain<{ a: string }>(array).unique().value();
+        result = _.chain<{ a: string }>(array).unique(true).value();
+        result = _.chain<{ a: string }>(array).unique<string>(true, iterator).value();
+        result = _.chain<{ a: string }>(array).unique<string>(true, iterator, context).value();
+        result = _.chain(array).unique().value();
+        result = _.chain(array).unique(true).value();
+        result = _.chain(array).unique(true, iterator).value();
+        result = _.chain(array).unique(true, iterator, context).value();
+
+        result = _<{ a: string }>(array).chain().unique().value();
+        result = _<{ a: string }>(array).chain().unique(true).value();
+        result = _<{ a: string }>(array).chain().unique<string>(true, iterator).value();
+        result = _<{ a: string }>(array).chain().unique<string>(true, iterator, context).value();
+        result = _(array).chain().unique().value();
+        result = _(array).chain().unique(true).value();
+        result = _(array).chain().unique(true, iterator).value();
+        result = _(array).chain().unique(true, iterator, context).value();
+    }
+
+    {
+        const list: _.List<({ a: string })> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: { a: string }[];
+
+        result = _.uniq<{ a: string }>(list);
+        result = _.uniq<{ a: string }>(list, true);
+        result = _.uniq<{ a: string }, string>(list, true, iterator);
+        result = _.uniq<{ a: string }, string>(list, true, iterator, context);
+        result = _.uniq(list);
+        result = _.uniq(list, true);
+        result = _.uniq(list, true, iterator);
+        result = _.uniq(list, true, iterator, context);
+
+        result = _<{ a: string }>(list).uniq();
+        result = _<{ a: string }>(list).uniq(true);
+        result = _<{ a: string }>(list).uniq(true, iterator);
+        result = _<{ a: string }>(list).uniq(true, iterator, context);
+        result = _(list).uniq();
+        result = _(list).uniq(true);
+        result = _(list).uniq(true, iterator);
+        result = _(list).uniq(true, iterator, context);
+
+        result = _.chain<{ a: string }>(list).uniq().value();
+        result = _.chain<{ a: string }>(list).uniq(true).value();
+        result = _.chain<{ a: string }>(list).uniq(true, iterator).value();
+        result = _.chain<{ a: string }>(list).uniq(true, iterator, context).value();
+        result = _.chain(list).uniq().value();
+        result = _.chain(list).uniq(true).value();
+        result = _.chain(list).uniq(true, iterator).value();
+        result = _.chain(list).uniq(true, iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().uniq().value();
+        result = _<{ a: string }>(list).chain().uniq(true).value();
+        result = _<{ a: string }>(list).chain().uniq(true, iterator).value();
+        result = _<{ a: string }>(list).chain().uniq(true, iterator, context).value();
+        result = _(list).chain().uniq().value();
+        result = _(list).chain().uniq(true).value();
+        result = _(list).chain().uniq(true, iterator).value();
+        result = _(list).chain().uniq(true, iterator, context).value();
+
+        result = _.unique<{ a: string }>(list);
+        result = _.unique<{ a: string }>(list, true);
+        result = _.unique<{ a: string }, string>(list, true, iterator);
+        result = _.unique<{ a: string }, string>(list, true, iterator, context);
+        result = _.unique(list);
+        result = _.unique(list, true);
+
+        result = _<{ a: string }>(list).unique();
+        result = _<{ a: string }>(list).unique(true);
+        result = _<{ a: string }>(list).unique<string>(true, iterator);
+        result = _<{ a: string }>(list).unique<string>(true, iterator, context);
+        result = _(list).unique();
+        result = _(list).unique(true);
+        result = _(list).unique(true, iterator);
+        result = _(list).unique(true, iterator, context);
+
+        result = _.chain<{ a: string }>(list).unique().value();
+        result = _.chain<{ a: string }>(list).unique(true).value();
+        result = _.chain<{ a: string }>(list).unique<string>(true, iterator).value();
+        result = _.chain<{ a: string }>(list).unique<string>(true, iterator, context).value();
+        result = _.chain(list).unique().value();
+        result = _.chain(list).unique(true).value();
+        result = _.chain(list).unique(true, iterator).value();
+        result = _.chain(list).unique(true, iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().unique().value();
+        result = _<{ a: string }>(list).chain().unique(true).value();
+        result = _<{ a: string }>(list).chain().unique<string>(true, iterator).value();
+        result = _<{ a: string }>(list).chain().unique<string>(true, iterator, context).value();
+        result = _(list).chain().unique().value();
+        result = _(list).chain().unique(true).value();
+        result = _(list).chain().unique(true, iterator).value();
+        result = _(list).chain().unique(true, iterator, context).value();
+    }
+}
+
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
 var capitalLetters = _.filter({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
