@@ -83,10 +83,7 @@ declare namespace OSS {
         rt: number;
     }
 
-    interface UserMeta {
-        uid: number;
-        pid: number;
-    }
+    type UserMeta = Record<string, string>
 
     interface ObjectCallback {
         url: string; // After a file is uploaded successfully, the OSS sends a callback request to this URL.
