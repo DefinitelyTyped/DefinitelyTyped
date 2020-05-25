@@ -68,7 +68,7 @@ declare namespace Sticky {
         activeClass?: string;
 
         /**
-         * 	Class name to be applied to the inner element ('' by default).
+         * Class name to be applied to the inner element ('' by default).
          */
         innerClass?: string;
 
