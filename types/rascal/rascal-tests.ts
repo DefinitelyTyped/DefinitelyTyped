@@ -1,4 +1,4 @@
-import { Broker, BrokerAsPromised, BrokerConfig, AckOrNack, withDefaultConfig, PublicationSession } from 'rascal';
+import { Broker, BrokerAsPromised, BrokerConfig, AckOrNack, withDefaultConfig, PublicationSession, SubscriptionSession } from 'rascal';
 import { Message } from 'amqplib';
 
 const config: BrokerConfig = {
