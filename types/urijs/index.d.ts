@@ -117,7 +117,7 @@ declare namespace URI {
         preventInvalidHostname: boolean;
     }
 
-    interface QueryDataMap { [key: string]: string | string[] }
+    interface QueryDataMap { [key: string]: string | string[]; }
 }
 
 interface URI {
