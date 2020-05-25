@@ -55,8 +55,8 @@ export class GifReader {
 
     constructor(buf: Buffer);
 
-    decodeAndBlitFrameBGRA(frame_num: number, pixels: number[] | Uint8ClampedArray): void;
-    decodeAndBlitFrameRGBA(frame_num: number, pixels: number[] | Uint8ClampedArray): void;
+    decodeAndBlitFrameBGRA(frame_num: number, pixels: number[] | Uint8Array | Uint8ClampedArray): void;
+    decodeAndBlitFrameRGBA(frame_num: number, pixels: number[] | Uint8Array | Uint8ClampedArray): void;
     frameInfo(frame_num: number): Frame;
     loopCount(): number;
     numFrames(): number;
