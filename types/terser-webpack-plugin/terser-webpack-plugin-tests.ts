@@ -106,6 +106,12 @@ const _ = webpack({
                     },
                 },
             }),
+            new TerserPlugin({
+                extractComments: {
+                    condition: /^\**!|@preserve|@license|@cc_on/i,
+                    banner: false,
+                },
+            }),
             // warningsFilter
             new TerserPlugin({
                 warningsFilter: (warning, file, source) => {

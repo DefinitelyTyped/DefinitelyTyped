@@ -30,7 +30,7 @@ declare namespace TerserPlugin {
     interface ExtractCommentOptions {
         condition: string | RegExp | ExtractCommentFn;
         filename?: string | FilenameFn;
-        banner?: false | string | FormatFn;
+        banner?: boolean | string | FormatFn;
     }
 
     type ExtractCommentFn = (astNode: any, comment: any) => boolean | object;
