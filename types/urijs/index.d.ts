@@ -226,7 +226,7 @@ interface URI {
     scheme(): string;
     scheme(protocol: string): URI;
     search(): string;
-    search(qry: string | object | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap)): URI;
+    search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap)): URI;
     search(qry: boolean): any;
     segment(): string[];
     segment(segments: string[] | string): URI;
