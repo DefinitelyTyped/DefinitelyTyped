@@ -3356,7 +3356,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 // sample
 // as a breaking change, ideally all versions of sample without n should include undefined as a possible result since _.sample([]) yields undefined
-// also, ideally _Chain.sample should be updated to return _ChainSingle<T | undefined>
+// as a breaking change, ideally _Chain.sample should be updated to return _ChainSingle<T | undefined>
 {
     // without n
     {
