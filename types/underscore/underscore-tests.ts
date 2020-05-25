@@ -4942,6 +4942,9 @@ interface ArrayWrapper<T> {
     }
 }
 
+// as a breaking change, consider either removing Chain.chain or making its return type "never" since while it is technically something that one can do as far as I can tell
+// doing it always results in a stack overflow
+
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
 var capitalLetters = _.filter({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
