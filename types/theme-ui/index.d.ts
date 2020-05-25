@@ -75,7 +75,7 @@ export type ColorMode = {
     accent?: CSS.ColorProperty;
 };
 
-export interface Theme extends Omit<StyledSystemTheme, 'colors'> {
+export interface Theme extends Omit<Omit<StyledSystemTheme, 'colors'>, 'buttons'> {
     /**
      * Enable/disable custom CSS properties/variables if lower browser
      * support is required (for eg. IE 11).
@@ -112,6 +112,28 @@ export interface Theme extends Omit<StyledSystemTheme, 'colors'> {
     styles?: {
         [P in StyledTags]?: SystemStyleObject;
     };
+
+    /**
+     * Variants: partial style objects that can be used for stylistic component
+     * variants or making part of an application themeable. These are commonly
+     * used for typographic styles, buttons, and themeable layout components.
+     * Variants are also used to style built-in components.
+     *
+     * References:
+     *   https://theme-ui.com/theme-spec
+     *   https://theme-ui.com/components/variants
+     */
+    grids?: { [k: string]: SystemStyleObject };
+    buttons?: { [k: string]: SystemStyleObject };
+    text?: { [k: string]: SystemStyleObject };
+    links?: { [k: string]: SystemStyleObject };
+    images?: { [k: string]: SystemStyleObject };
+    cards?: { [k: string]: SystemStyleObject };
+    layout?: { [k: string]: SystemStyleObject };
+    forms?: { [k: string]: SystemStyleObject };
+    badges?: { [k: string]: SystemStyleObject };
+    alerts?: { [k: string]: SystemStyleObject };
+    messages?: { [k: string]: SystemStyleObject };
 }
 
 /**
