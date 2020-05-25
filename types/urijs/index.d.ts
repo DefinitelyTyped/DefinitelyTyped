@@ -116,6 +116,8 @@ declare namespace URI {
         escapeQuerySpace: boolean;
         preventInvalidHostname: boolean;
     }
+
+    type UriDataMap = { [key: string]: string | string[] }
 }
 
 interface URI {
@@ -207,7 +209,7 @@ interface URI {
     preventInvalidHostname(val: boolean): URI;
 
     query(): string;
-    query(qry: string | object | ((qryObject: { [key: string]: string }) => { [key: string]: string })): URI;
+    query(qry: string | URI.UriDataMap | ((qryObject: URI.UriDataMap) => URI.UriDataMap)): URI;
     query(qry: boolean): object;
 
     readable(): string;
@@ -224,7 +226,7 @@ interface URI {
     scheme(): string;
     scheme(protocol: string): URI;
     search(): string;
-    search(qry: string | object | ((qryObject: { [key: string]: string }) => { [key: string]: string })): URI;
+    search(qry: string | object | ((qryObject: URI.UriDataMap) => URI.UriDataMap)): URI;
     search(qry: boolean): any;
     segment(): string[];
     segment(segments: string[] | string): URI;
