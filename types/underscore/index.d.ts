@@ -5334,13 +5334,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.invoke
         **/
-        invoke(methodName: string, ...args: any[]): _Chain<T, any>;
+        invoke(methodName: string, ...args: any[]): _Chain<any, any[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.pluck
         **/
-        pluck(propertyName: string): _Chain<any>;
+        pluck(propertyName: string): _Chain<any, any[]>;
 
         /**
         * Wrapped type `number[]`.
@@ -5648,7 +5648,7 @@ declare module _ {
          * Wrapped type `any[][]`.
          * @see _.chunk
          **/
-        chunk(length: number): _Chain<T, T[][]>;
+        chunk(length: number): _Chain<T[], T[][]>;
 
         /* ***********
         * Functions *
