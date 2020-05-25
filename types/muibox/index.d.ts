@@ -16,7 +16,7 @@ export interface Dialog {
 }
 
 export interface DialogButtonOptions {
-    text: string;
+    text?: string;
     color?: string;
     variant?: string;
     startIcon?: ReactNode;
