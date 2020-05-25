@@ -1202,12 +1202,12 @@ declare module _ {
         range(stop: number): number[];
 
         /**
-        * Split an **array** into several arrays containing **count** or less elements
-        * of initial array.
-        * @param array The array to split
-        * @param count The maximum size of the inner arrays.
+        * Split an **array** into several arrays containing **length** or less elements
+        * of the initial array.
+        * @param array The array to split.
+        * @param length The maximum size of the inner arrays.
         */
-        chunk<T>(array: _.Collection<T>, count: number): (_.Collection<T>)[]
+        chunk<T>(array: _.Collection<T>, length: number): _.Collection<T>[]
 
         /*************
          * Functions *
@@ -4701,7 +4701,7 @@ declare module _ {
          * Wrapped type any[][].
          * @see _.chunk
          **/
-        chunk(): any[][];
+        chunk(length: number): T[][];
 
         /* ***********
         * Functions *
@@ -5654,7 +5654,7 @@ declare module _ {
          * Wrapped type `any[][]`.
          * @see _.chunk
          **/
-        chunk(): _Chain<T, T[][]>;
+        chunk(length: number): _Chain<T, T[][]>;
 
         /* ***********
         * Functions *
