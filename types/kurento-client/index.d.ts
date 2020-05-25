@@ -52,6 +52,7 @@ declare namespace kurento {
         getParent: (callback?: Callback<MediaObject>) => Promise<MediaObject>;
         getName: (callback?: Callback<string>) => Promise<string>;
         setName: (name: string, callback?: Callback<void>) => Promise<void>;
+        release: (callback?: Callback<void>) => Promise<void>;
     }
 
     interface MediaElement {

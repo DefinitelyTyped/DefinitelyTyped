@@ -24,3 +24,9 @@ async () => {
 
     return { sdpAnswer };
 };
+
+async () => {
+    const client = await kurento('//server', { failAfter: 500, useImplicitTransactions: true });
+    const pipeline = await client.create('MediaPipeline');
+    await pipeline.release();
+};
