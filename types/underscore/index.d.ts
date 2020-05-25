@@ -5888,13 +5888,13 @@ declare module _ {
         * Wrapped type `number`.
         * @see _.range
         **/
-        range(stop: number, step?: number): _Chain<T>;
+        range(stop: number, step?: number): _Chain<number, number[]>;
 
         /**
         * Wrapped type `number`.
         * @see _.range
         **/
-        range(): _Chain<T>;
+        range(): _Chain<number, number[]>;
 
         /**
          * Wrapped type `any[][]`.
