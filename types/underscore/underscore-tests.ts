@@ -3563,6 +3563,74 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     }
 }
 
+// size
+{
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let result: number;
+
+        result = _.size<{ a: string }>(array);
+        result = _.size(array);
+
+        result = _<{ a: string }>(array).size();
+        result = _(array).size();
+
+        result = _.chain<{ a: string }>(array).size().value();
+        result = _.chain(array).size().value();
+
+        result = _<{ a: string }>(array).chain().size().value();
+        result = _(array).chain().size().value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: number;
+
+        result = _.size<{ a: string }>(list);
+        result = _.size(list);
+
+        result = _<{ a: string }>(list).size();
+        result = _(list).size();
+
+        result = _.chain<{ a: string }>(list).size().value();
+        result = _.chain(list).size().value();
+
+        result = _<{ a: string }>(list).chain().size().value();
+        result = _(list).chain().size().value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let result: number;
+
+        result = _.size<{ a: string }>(dict);
+        result = _.size(dict);
+
+        result = _<{ a: string }>(dict).size();
+        result = _(dict).size();
+
+        result = _.chain<{ a: string }>(dict).size().value();
+        result = _.chain(dict).size().value();
+
+        result = _<{ a: string }>(dict).chain().size().value();
+        result = _(dict).chain().size().value();
+    }
+
+    {
+        const str = 'abc';
+        let result: number;
+
+        result = _.size<string>(str);
+        result = _.size(str);
+
+        result = _<string>(str).size();
+        result = _(str).size();
+
+        result = _<string>(str).chain().size().value();
+        result = _(str).chain().size().value();
+    }
+}
+
 // partition
 // as a breaking change, consider updating the return type of partition to be [T[], T[]]
 {
