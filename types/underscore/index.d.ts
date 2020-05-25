@@ -4817,12 +4817,12 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
+        findIndex<T>(predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
+        findLastIndex<T>(predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
 
         /**
         * Wrapped type `any[]`.
