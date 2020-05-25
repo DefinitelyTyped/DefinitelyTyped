@@ -800,6 +800,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 // find, detect
 // as a breaking change, ideally the Chain<T, V>.find<T, ...> and Chain<T, V>.detect<T, ...> functions should be updated to not take a T type argument
 // since they should ideally use T from Chain
+// as a breaking change, consider updating the versions of find and detect that take objects to take Partial<T> instead
 {
     const context = {};
 
@@ -4944,8 +4945,468 @@ interface ArrayWrapper<T> {
     }
 }
 
+// indexOf
+{
+    const isSorted = true;
+
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const item = array[0];
+        let result: number;
+
+        result = _.indexOf<{ a: string }>(array, item);
+        result = _.indexOf<{ a: string }>(array, item, isSorted);
+        result = _.indexOf(array, item);
+        result = _.indexOf(array, item, isSorted);
+
+        result = _<{ a: string }>(array).indexOf(item);
+        result = _<{ a: string }>(array).indexOf(item, isSorted);
+        result = _(array).indexOf(item);
+        result = _(array).indexOf(item, isSorted);
+
+        result = _.chain<{ a: string }>(array).indexOf(item).value();
+        result = _.chain<{ a: string }>(array).indexOf(item, isSorted).value();
+        result = _.chain(array).indexOf(item).value();
+        result = _.chain(array).indexOf(item, isSorted).value();
+
+        result = _<{ a: string }>(array).chain().indexOf(item).value();
+        result = _<{ a: string }>(array).chain().indexOf(item, isSorted).value();
+        result = _(array).chain().indexOf(item).value();
+        result = _(array).chain().indexOf(item, isSorted).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const item = list[0];
+        let result: number;
+
+        result = _.indexOf<{ a: string }>(list, item);
+        result = _.indexOf<{ a: string }>(list, item, isSorted);
+        result = _.indexOf(list, item);
+        result = _.indexOf(list, item, isSorted);
+
+        result = _<{ a: string }>(list).indexOf(item);
+        result = _<{ a: string }>(list).indexOf(item, isSorted);
+        result = _(list).indexOf(item);
+        result = _(list).indexOf(item, isSorted);
+
+        result = _.chain<{ a: string }>(list).indexOf(item).value();
+        result = _.chain<{ a: string }>(list).indexOf(item, isSorted).value();
+        result = _.chain(list).indexOf(item).value();
+        result = _.chain(list).indexOf(item, isSorted).value();
+
+        result = _<{ a: string }>(list).chain().indexOf(item).value();
+        result = _<{ a: string }>(list).chain().indexOf(item, isSorted).value();
+        result = _(list).chain().indexOf(item).value();
+        result = _(list).chain().indexOf(item, isSorted).value();
+    }
+
+    {
+        const str = 'abc';
+        const item = str[0];
+        let result: number;
+
+        result = _.indexOf<string>(str, item);
+        result = _.indexOf<string>(str, item, isSorted);
+        result = _.indexOf(str, item);
+        result = _.indexOf(str, item, isSorted);
+
+        result = _<string>(str).indexOf(item);
+        result = _<string>(str).indexOf(item, isSorted);
+        result = _(str).indexOf(item);
+        result = _(str).indexOf(item, isSorted);
+
+        result = _<string>(str).chain().indexOf(item).value();
+        result = _<string>(str).chain().indexOf(item, isSorted).value();
+        result = _(str).chain().indexOf(item).value();
+        result = _(str).chain().indexOf(item, isSorted).value();
+    }
+}
+
+// lastIndexof
+{
+    const fromIndex = 1;
+
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const item = array[0];
+        let result: number;
+
+        result = _.lastIndexOf<{ a: string }>(array, item);
+        result = _.lastIndexOf<{ a: string }>(array, item, fromIndex);
+        result = _.lastIndexOf(array, item);
+        result = _.lastIndexOf(array, item, fromIndex);
+
+        result = _<{ a: string }>(array).lastIndexOf(item);
+        result = _<{ a: string }>(array).lastIndexOf(item, fromIndex);
+        result = _(array).lastIndexOf(item);
+        result = _(array).lastIndexOf(item, fromIndex);
+
+        result = _.chain<{ a: string }>(array).lastIndexOf(item).value();
+        result = _.chain<{ a: string }>(array).lastIndexOf(item, fromIndex).value();
+        result = _.chain(array).lastIndexOf(item).value();
+        result = _.chain(array).lastIndexOf(item, fromIndex).value();
+
+        result = _<{ a: string }>(array).chain().lastIndexOf(item).value();
+        result = _<{ a: string }>(array).chain().lastIndexOf(item, fromIndex).value();
+        result = _(array).chain().lastIndexOf(item).value();
+        result = _(array).chain().lastIndexOf(item, fromIndex).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const item = list[0];
+        let result: number;
+
+        result = _.lastIndexOf<{ a: string }>(list, item);
+        result = _.lastIndexOf<{ a: string }>(list, item, fromIndex);
+        result = _.lastIndexOf(list, item);
+        result = _.lastIndexOf(list, item, fromIndex);
+
+        result = _<{ a: string }>(list).lastIndexOf(item);
+        result = _<{ a: string }>(list).lastIndexOf(item, fromIndex);
+        result = _(list).lastIndexOf(item);
+        result = _(list).lastIndexOf(item, fromIndex);
+
+        result = _.chain<{ a: string }>(list).lastIndexOf(item).value();
+        result = _.chain<{ a: string }>(list).lastIndexOf(item, fromIndex).value();
+        result = _.chain(list).lastIndexOf(item).value();
+        result = _.chain(list).lastIndexOf(item, fromIndex).value();
+
+        result = _<{ a: string }>(list).chain().lastIndexOf(item).value();
+        result = _<{ a: string }>(list).chain().lastIndexOf(item, fromIndex).value();
+        result = _(list).chain().lastIndexOf(item).value();
+        result = _(list).chain().lastIndexOf(item, fromIndex).value();
+    }
+
+    {
+        const str = 'abc';
+        const item = str[0];
+        let result: number;
+
+        result = _.lastIndexOf<string>(str, item);
+        result = _.lastIndexOf<string>(str, item, fromIndex);
+        result = _.lastIndexOf(str, item);
+        result = _.lastIndexOf(str, item, fromIndex);
+
+        result = _<string>(str).lastIndexOf(item);
+        result = _<string>(str).lastIndexOf(item, fromIndex);
+        result = _(str).lastIndexOf(item);
+        result = _(str).lastIndexOf(item, fromIndex);
+
+        result = _<string>(str).chain().lastIndexOf(item).value();
+        result = _<string>(str).chain().lastIndexOf(item, fromIndex).value();
+        result = _(str).chain().lastIndexOf(item).value();
+        result = _(str).chain().lastIndexOf(item, fromIndex).value();
+    }
+}
+
+// findIndex
+// as a breaking change, ideally the Underscore<T, V>.findIndex<T> function should be updated to not take a T type argument
+// since it should ideally use T from Underscore
+// as a breaking change, consider changing the {} iterator option to Partial<T>
+// as a breaking change, consider redefining the function that takes an iterator and the one that takes properties as separate overloads since passing a context to the latter isn't useful
+// as a not breaking change, ideally also take a property name and add tests for that
+{
+    const context = {};
+
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: number;
+
+        result = _.findIndex<{ a: string }>(array, iterator);
+        result = _.findIndex<{ a: string }>(array, iterator, context);
+        result = _.findIndex(array, iterator);
+        result = _.findIndex(array, iterator, context);
+
+        result = _<{ a: string }>(array).findIndex(iterator);
+        result = _<{ a: string }>(array).findIndex(iterator, context);
+        result = _(array).findIndex(iterator);
+        result = _(array).findIndex(iterator, context);
+
+        result = _.chain<{ a: string }>(array).findIndex(iterator).value();
+        result = _.chain<{ a: string }>(array).findIndex(iterator, context).value();
+        result = _.chain(array).findIndex(iterator).value();
+        result = _.chain(array).findIndex(iterator, context).value();
+
+        result = _<{ a: string }>(array).chain().findIndex(iterator).value();
+        result = _<{ a: string }>(array).chain().findIndex(iterator, context).value();
+        result = _(array).chain().findIndex(iterator).value();
+        result = _(array).chain().findIndex(iterator, context).value();
+    }
+
+    {
+        const array: { a: string, b: string }[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'd' }];
+        const properties = { a: 'b' };
+        let result: number;
+
+        result = _.findIndex<{ a: string }>(array, properties);
+        result = _.findIndex(array, properties);
+
+        result = _<{ a: string }>(array).findIndex(properties);
+        result = _(array).findIndex(properties);
+
+        result = _.chain<{ a: string }>(array).findIndex(properties).value();
+        result = _.chain(array).findIndex(properties).value();
+
+        result = _<{ a: string }>(array).chain().findIndex(properties).value();
+        result = _(array).chain().findIndex(properties).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: number;
+
+        result = _.findIndex<{ a: string }>(list, iterator);
+        result = _.findIndex<{ a: string }>(list, iterator, context);
+        result = _.findIndex(list, iterator);
+        result = _.findIndex(list, iterator, context);
+
+        result = _<{ a: string }>(list).findIndex(iterator);
+        result = _<{ a: string }>(list).findIndex(iterator, context);
+        result = _(list).findIndex(iterator);
+        result = _(list).findIndex(iterator, context);
+
+        result = _.chain<{ a: string }>(list).findIndex(iterator).value();
+        result = _.chain<{ a: string }>(list).findIndex(iterator, context).value();
+        result = _.chain(list).findIndex(iterator).value();
+        result = _.chain(list).findIndex(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().findIndex(iterator).value();
+        result = _<{ a: string }>(list).chain().findIndex(iterator, context).value();
+        result = _(list).chain().findIndex(iterator).value();
+        result = _(list).chain().findIndex(iterator, context).value();
+    }
+
+    {
+        const list: _.List<{ a: string, b: string }> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'd' }, length: 2 };
+        const properties = { a: 'b' };
+        let result: number;
+
+        result = _.findIndex<{ a: string }>(list, properties);
+        result = _.findIndex(list, properties);
+
+        result = _<{ a: string }>(list).findIndex(properties);
+        result = _(list).findIndex(properties);
+
+        result = _.chain<{ a: string }>(list).findIndex(properties).value();
+        result = _.chain(list).findIndex(properties).value();
+
+        result = _<{ a: string }>(list).chain().findIndex(properties).value();
+        result = _(list).chain().findIndex(properties).value();
+    }
+
+    {
+        const str = 'abc';
+        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        let result: number;
+
+        result = _.findIndex<string>(str, iterator);
+        result = _.findIndex<string>(str, iterator, context);
+        result = _.findIndex(str, iterator);
+        result = _.findIndex(str, iterator, context);
+
+        result = _<string>(str).findIndex(iterator);
+        result = _<string>(str).findIndex(iterator, context);
+        result = _(str).findIndex(iterator);
+        result = _(str).findIndex(iterator, context);
+
+        result = _<string>(str).chain().findIndex(iterator).value();
+        result = _<string>(str).chain().findIndex(iterator, context).value();
+        result = _(str).chain().findIndex(iterator).value();
+        result = _(str).chain().findIndex(iterator, context).value();
+    }
+}
+
+// findLastIndex
+// as a breaking change, ideally the Underscore<T, V>.findIndex<T> function should be updated to not take a T type argument
+// since it should ideally use T from Underscore
+{
+    const context = {};
+
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: number;
+
+        result = _.findLastIndex<{ a: string }>(array, iterator);
+        result = _.findLastIndex<{ a: string }>(array, iterator, context);
+        result = _.findLastIndex(array, iterator);
+        result = _.findLastIndex(array, iterator, context);
+
+        result = _<{ a: string }>(array).findLastIndex(iterator);
+        result = _<{ a: string }>(array).findLastIndex(iterator, context);
+        result = _(array).findLastIndex(iterator);
+        result = _(array).findLastIndex(iterator, context);
+
+        result = _.chain<{ a: string }>(array).findLastIndex(iterator).value();
+        result = _.chain<{ a: string }>(array).findLastIndex(iterator, context).value();
+        result = _.chain(array).findLastIndex(iterator).value();
+        result = _.chain(array).findLastIndex(iterator, context).value();
+
+        result = _<{ a: string }>(array).chain().findLastIndex(iterator).value();
+        result = _<{ a: string }>(array).chain().findLastIndex(iterator, context).value();
+        result = _(array).chain().findLastIndex(iterator).value();
+        result = _(array).chain().findLastIndex(iterator, context).value();
+    }
+
+    {
+        const array: { a: string, b: string }[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'd' }];
+        const properties = { a: 'b' };
+        let result: number;
+
+        result = _.findLastIndex<{ a: string }>(array, properties);
+        result = _.findLastIndex(array, properties);
+
+        result = _<{ a: string }>(array).findLastIndex(properties);
+        result = _(array).findLastIndex(properties);
+
+        result = _.chain<{ a: string }>(array).findLastIndex(properties).value();
+        result = _.chain(array).findLastIndex(properties).value();
+
+        result = _<{ a: string }>(array).chain().findLastIndex(properties).value();
+        result = _(array).chain().findLastIndex(properties).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        let result: number;
+
+        result = _.findLastIndex<{ a: string }>(list, iterator);
+        result = _.findLastIndex<{ a: string }>(list, iterator, context);
+        result = _.findLastIndex(list, iterator);
+        result = _.findLastIndex(list, iterator, context);
+
+        result = _<{ a: string }>(list).findLastIndex(iterator);
+        result = _<{ a: string }>(list).findLastIndex(iterator, context);
+        result = _(list).findLastIndex(iterator);
+        result = _(list).findLastIndex(iterator, context);
+
+        result = _.chain<{ a: string }>(list).findLastIndex(iterator).value();
+        result = _.chain<{ a: string }>(list).findLastIndex(iterator, context).value();
+        result = _.chain(list).findLastIndex(iterator).value();
+        result = _.chain(list).findLastIndex(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().findLastIndex(iterator).value();
+        result = _<{ a: string }>(list).chain().findLastIndex(iterator, context).value();
+        result = _(list).chain().findLastIndex(iterator).value();
+        result = _(list).chain().findLastIndex(iterator, context).value();
+    }
+
+    {
+        const list: _.List<{ a: string, b: string }> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'd' }, length: 2 };
+        const properties = { a: 'b' };
+        let result: number;
+
+        result = _.findLastIndex<{ a: string }>(list, properties);
+        result = _.findLastIndex(list, properties);
+
+        result = _<{ a: string }>(list).findLastIndex(properties);
+        result = _(list).findLastIndex(properties);
+
+        result = _.chain<{ a: string }>(list).findLastIndex(properties).value();
+        result = _.chain(list).findLastIndex(properties).value();
+
+        result = _<{ a: string }>(list).chain().findLastIndex(properties).value();
+        result = _(list).chain().findLastIndex(properties).value();
+    }
+
+    {
+        const str = 'abc';
+        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        let result: number;
+
+        result = _.findLastIndex<string>(str, iterator);
+        result = _.findLastIndex<string>(str, iterator, context);
+        result = _.findLastIndex(str, iterator);
+        result = _.findLastIndex(str, iterator, context);
+
+        result = _<string>(str).findLastIndex(iterator);
+        result = _<string>(str).findLastIndex(iterator, context);
+        result = _(str).findLastIndex(iterator);
+        result = _(str).findLastIndex(iterator, context);
+
+        result = _<string>(str).chain().findLastIndex(iterator).value();
+        result = _<string>(str).chain().findLastIndex(iterator, context).value();
+        result = _(str).chain().findLastIndex(iterator).value();
+        result = _(str).chain().findLastIndex(iterator, context).value();
+    }
+}
+
+// range
+{
+    const start = 0;
+    const stop = 10;
+    const step = 1;
+    let result: number[];
+
+    result = _.range(stop);
+    result = _.range(start, stop);
+    result = _.range(start, stop, step);
+
+    result = _(stop).range();
+    result = _(start).range(stop);
+    result = _(start).range(stop, step);
+
+    result = _.chain(stop).range().value();
+    result = _.chain(start).range(stop).value();
+    result = _.chain(start).range(stop, step).value();
+}
+
+// Chaining
+
+// chain
 // as a breaking change, consider either removing Chain.chain or making its return type "never" since while it is technically something that one can do as far as I can tell
 // doing it always results in a stack overflow
+// as a breaking chnage, consider updating chain<string>() to return Chain<string, string> rather than Chain<string, _.List<string>>
+{
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let result: _._Chain<{ a: string }, { a: string }[]>;
+
+        result = _.chain<{ a: string }>(array);
+        result = _.chain(array);
+
+        result = _<{ a: string }>(array).chain();
+        result = _(array).chain();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: _._Chain<{ a: string }, _.List<{ a: string }>>;
+
+        result = _.chain<{ a: string }>(list);
+        result = _.chain(list);
+
+        result = _<{ a: string }>(list).chain();
+        result = _(list).chain();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        let result: _._Chain<{ a: string }, _.Dictionary<{ a: string }>>;
+
+        result = _.chain<{ a: string }>(dict);
+        result = _.chain(dict);
+
+        result = _<{ a: string }>(dict).chain();
+        result = _(dict).chain();
+    }
+
+    {
+        const str = 'abc';
+        let result: _._Chain<string, _.List<string>>;
+
+        result = _.chain<string>(str);
+        result = _.chain(str);
+
+        result = _<string>(str).chain();
+        result = _(str).chain();
+    }
+}
 
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
