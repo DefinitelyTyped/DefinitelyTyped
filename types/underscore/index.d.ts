@@ -5586,24 +5586,18 @@ declare module _ {
         * Wrapped type `any[][]`.
         * @see _.zip
         **/
-        zip(...arrays: any[][]): _Chain<T>;
+        zip(...arrays: any[][]): _Chain<any, any[]>;
 
         /**
         * Wrapped type `any[][]`.
         * @see _.unzip
         **/
-        unzip(...arrays: any[][]): _Chain<T>;
-
-        /**
-        * Wrapped type `any[][]`.
-        * @see _.object
-        **/
-        object(...keyValuePairs: any[][]): _Chain<T>;
+        unzip(): _Chain<any, any[]>;
 
         /**
         * @see _.object
         **/
-        object(values?: any): _Chain<T>;
+        object(values?: any): _Chain<any, any>;
 
         /**
         * Wrapped type `any[]`.
