@@ -3180,6 +3180,32 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(dict).chain().countBy(iterator, context).value();
     }
 
+    {
+        const str = 'abc';
+        const iterator = (value: string, index: number, list: _.List<string>) => value;
+        let result: _.Dictionary<number>;
+
+        result = _.countBy<string>(str, iterator);
+        result = _.countBy<string>(str, iterator, context);
+        result = _.countBy(str, iterator);
+        result = _.countBy(str, iterator, context);
+
+        result = _<string>(str).countBy(iterator);
+        result = _<string>(str).countBy(iterator, context);
+        result = _(str).countBy(iterator);
+        result = _(str).countBy(iterator, context);
+
+        result = _.chain<string>(str).countBy(iterator).value();
+        result = _.chain<string>(str).countBy(iterator, context).value();
+        result = _.chain(str).countBy(iterator).value();
+        result = _.chain(str).countBy(iterator, context).value();
+
+        result = _<string>(str).chain().countBy(iterator).value();
+        result = _<string>(str).chain().countBy(iterator, context).value();
+        result = _(str).chain().countBy(iterator).value();
+        result = _(str).chain().countBy(iterator, context).value();
+    }
+
     // with property names
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
