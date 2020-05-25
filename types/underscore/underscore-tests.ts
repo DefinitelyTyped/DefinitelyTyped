@@ -19,6 +19,8 @@ var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
+// as a breaking change, consider moving functions like isNumber and bind that only make sense to call on single values to ChainSingle (or at least duplicate them there)
+
 // Collection Functions
 // as a breaking change, consider creating separate UnderscoreObject and ChainObject interfaces for dictionaries instead of taking both ListIterators and ObjectIterators
 
