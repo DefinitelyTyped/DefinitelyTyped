@@ -4566,6 +4566,168 @@ interface ArrayWrapper<T> {
     }
 }
 
+// union
+{
+    {
+        const array1: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array2: { a: string }[] = [array1[0], { a: 'c' }];
+        let result: { a: string }[];
+
+        result = _.union<{ a: string }>(array1, array2);
+        result = _.union(array1, array2);
+
+        result = _<{ a: string }>(array1).union(array2);
+        result = _(array1).union(array2);
+
+        result = _.chain<{ a: string }>(array1).union(array2).value();
+        result = _.chain(array1).union(array2).value();
+
+        result = _<{ a: string }>(array1).chain().union(array2).value();
+        result = _(array1).chain().union(array2).value();
+    }
+
+    {
+        const list1: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list2: _.List<{ a: string }> = { 0: list1[0], 1: { a: 'c' }, length: 2 };
+        let result: { a: string }[];
+
+        result = _.union<{ a: string }>(list1, list2);
+        result = _.union(list1, list2);
+
+        result = _<{ a: string }>(list1).union(list2);
+        result = _(list1).union(list2);
+
+        result = _.chain<{ a: string }>(list1).union(list2).value();
+        result = _.chain(list1).union(list2).value();
+
+        result = _<{ a: string }>(list1).chain().union(list2).value();
+        result = _(list1).chain().union(list2).value();
+    }
+
+    {
+        const str1 = 'ab';
+        const str2 = 'bc';
+        let result: string[];
+
+        result = _.union<string>(str1, str2);
+        result = _.union(str1, str2);;
+
+        result = _<string>(str1).union(str2);
+        result = _(str1).union(str2);
+
+        result = _<string>(str1).chain().union(str2).value();
+        result = _(str1).chain().union(str2).value();
+    }
+}
+
+// intersection
+{
+    {
+        const array1: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array2: { a: string }[] = [array1[0], { a: 'c' }];
+        let result: { a: string }[];
+
+        result = _.intersection<{ a: string }>(array1, array2);
+        result = _.intersection(array1, array2);
+
+        result = _<{ a: string }>(array1).intersection(array2);
+        result = _(array1).intersection(array2);
+
+        result = _.chain<{ a: string }>(array1).intersection(array2).value();
+        result = _.chain(array1).intersection(array2).value();
+
+        result = _<{ a: string }>(array1).chain().intersection(array2).value();
+        result = _(array1).chain().intersection(array2).value();
+    }
+
+    {
+        const list1: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list2: _.List<{ a: string }> = { 0: list1[0], 1: { a: 'c' }, length: 2 };
+        let result: { a: string }[];
+
+        result = _.intersection<{ a: string }>(list1, list2);
+        result = _.intersection(list1, list2);
+
+        result = _<{ a: string }>(list1).intersection(list2);
+        result = _(list1).intersection(list2);
+
+        result = _.chain<{ a: string }>(list1).intersection(list2).value();
+        result = _.chain(list1).intersection(list2).value();
+
+        result = _<{ a: string }>(list1).chain().intersection(list2).value();
+        result = _(list1).chain().intersection(list2).value();
+    }
+
+    {
+        const str1 = 'ab';
+        const str2 = 'bc';
+        let result: string[];
+
+        result = _.intersection<string>(str1, str2);
+        result = _.intersection(str1, str2);;
+
+        result = _<string>(str1).intersection(str2);
+        result = _(str1).intersection(str2);
+
+        result = _<string>(str1).chain().intersection(str2).value();
+        result = _(str1).chain().intersection(str2).value();
+    }
+}
+
+// difference
+{
+    {
+        const array1: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array2: { a: string }[] = [array1[0], { a: 'c' }];
+        let result: { a: string }[];
+
+        result = _.difference<{ a: string }>(array1, array2);
+        result = _.difference(array1, array2);
+
+        result = _<{ a: string }>(array1).difference(array2);
+        result = _(array1).difference(array2);
+
+        result = _.chain<{ a: string }>(array1).difference(array2).value();
+        result = _.chain(array1).difference(array2).value();
+
+        result = _<{ a: string }>(array1).chain().difference(array2).value();
+        result = _(array1).chain().difference(array2).value();
+    }
+
+    {
+        const list1: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list2: _.List<{ a: string }> = { 0: list1[0], 1: { a: 'c' }, length: 2 };
+        let result: { a: string }[];
+
+        result = _.difference<{ a: string }>(list1, list2);
+        result = _.difference(list1, list2);
+
+        result = _<{ a: string }>(list1).difference(list2);
+        result = _(list1).difference(list2);
+
+        result = _.chain<{ a: string }>(list1).difference(list2).value();
+        result = _.chain(list1).difference(list2).value();
+
+        result = _<{ a: string }>(list1).chain().difference(list2).value();
+        result = _(list1).chain().difference(list2).value();
+    }
+
+    {
+        const str1 = 'ab';
+        const str2 = 'bc';
+        let result: string[];
+
+        result = _.difference<string>(str1, str2);
+        result = _.difference(str1, str2);;
+
+        result = _<string>(str1).difference(str2);
+        result = _(str1).difference(str2);
+
+        result = _<string>(str1).chain().difference(str2).value();
+        result = _(str1).chain().difference(str2).value();
+    }
+}
+
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
 var capitalLetters = _.filter({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
