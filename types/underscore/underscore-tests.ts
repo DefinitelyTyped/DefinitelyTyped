@@ -4887,6 +4887,61 @@ interface ArrayWrapper<T> {
     }
 }
 
+// chunk
+// as a breaking change, ideally update UnderscoreStatic.chunk to return T[][] because _.Collection<T> is an empty interface that doesn't provide value as a return type
+{
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
+        const length = 2;
+        let result: { a: string }[][];
+
+        //result = _.chunk<{ a: string }>(array, length);
+        //result = _.chunk(array, length);
+
+        result = _<{ a: string }>(array).chunk(length);
+        result = _(array).chunk(length);
+
+        result = _.chain<{ a: string }>(array).chunk(length).value();
+        result = _.chain(array).chunk(length).value();
+
+        result = _<{ a: string }>(array).chain().chunk(length).value();
+        result = _(array).chain().chunk(length).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, 2: { a: 'b' }, length: 3 };
+        const length = 2;
+        let result: { a: string }[][];
+
+        //result = _.chunk<{ a: string }>(list, length);
+        //result = _.chunk(list, length);
+
+        result = _<{ a: string }>(list).chunk(length);
+        result = _(list).chunk(length);
+
+        result = _.chain<{ a: string }>(list).chunk(length).value();
+        result = _.chain(list).chunk(length).value();
+
+        result = _<{ a: string }>(list).chain().chunk(length).value();
+        result = _(list).chain().chunk(length).value();
+    }
+
+    {
+        const str = 'abc';
+        const length = 2;
+        let result: string[][];
+
+        //result = _.chunk<string>(str, length);
+        //result = _.chunk(str, length);
+
+        result = _<string>(str).chunk(length);
+        result = _(str).chunk(length);
+
+        result = _<string>(str).chain().chunk(length).value();
+        result = _(str).chain().chunk(length).value();
+    }
+}
+
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
 var capitalLetters = _.filter({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
