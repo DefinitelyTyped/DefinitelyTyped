@@ -393,7 +393,9 @@ export interface UseThemeFunction {
     (theme: any): SystemStyleObject;
 }
 
-type EmotionLabel = { label?: string };
+interface EmotionLabel {
+    label?: string;
+}
 
 /**
  * The `SystemStyleObject` extends [style props](https://emotion.sh/docs/object-styles)
