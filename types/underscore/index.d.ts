@@ -5328,37 +5328,37 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.groupBy
         **/
-        groupBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _ChainOfArrays<T>;
+        groupBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _Chain<T[], _.Dictionary<T[]>>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.groupBy
         **/
-        groupBy(iterator: string, context?: any): _ChainOfArrays<T>;
+        groupBy(iterator: string, context?: any): _Chain<T[], _.Dictionary<T[]>>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.indexBy
         **/
-        indexBy(iterator: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _Chain<T>;
+        indexBy(iterator: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _Chain<T, _.Dictionary<T>>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.indexBy
         **/
-        indexBy(iterator: string, context?: any): _Chain<T>;
+        indexBy(iterator: string, context?: any): _Chain<T, _.Dictionary<T>>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.countBy
         **/
-        countBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _Chain<T>;
+        countBy(iterator?: _.ListIterator<T, any> | _.ObjectIterator<T, any>, context?: any): _Chain<number, _.Dictionary<number>>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.countBy
         **/
-        countBy(iterator: string, context?: any): _Chain<T>;
+        countBy(iterator: string, context?: any): _Chain<number, _.Dictionary<number>>;
 
         /**
         * Wrapped type `any[]`.
