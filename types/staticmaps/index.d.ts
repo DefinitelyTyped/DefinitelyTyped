@@ -1,4 +1,4 @@
-// Type definitions for staticmaps 1.1
+// Type definitions for staticmaps 1.4
 // Project: https://github.com/StephanGeorg/staticmaps#readme
 // Definitions by: Olivier Kamers <https://github.com/olivierkamers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,7 @@ declare class StaticMaps {
 
     addLine: (options: AddLineOptions) => void;
     addPolygon: (options: AddPolygonOptions) => void;
+    addMultiPolygon: (options: AddMultiPolygonOptions) => void;
     addMarker: (options: AddMarkerOptions) => void;
     addText: (options: AddTextOptions) => void;
     render: (center?: ReadonlyArray<number>, zoom?: number) => Promise<void>;
@@ -54,6 +55,13 @@ export interface AddLineOptions {
 }
 
 export interface AddPolygonOptions extends AddLineOptions {
+    fill?: string;
+}
+
+export interface AddMultiPolygonOptions {
+    coords: ReadonlyArray<Array<[number, number]>>;
+    color?: string;
+    width?: number;
     fill?: string;
 }
 
