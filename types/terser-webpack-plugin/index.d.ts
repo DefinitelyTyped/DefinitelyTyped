@@ -110,9 +110,10 @@ declare namespace TerserPlugin {
 
         /**
          * Allow to filter terser warnings.
+         * ⚠️ The source argument will contain undefined if you don't use source maps.
          * @default () => true
          */
-        warningsFilter?: (file: string, warning: string, source: string) => true | false | null | undefined;
+        warningsFilter?: (warning: string, file: string, source?: string) => boolean | null | undefined;
     }
 }
 
