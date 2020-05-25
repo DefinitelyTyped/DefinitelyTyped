@@ -720,10 +720,18 @@ declare module _ {
 
         /**
         * @see _.groupBy
+        **/
+        groupBy<T>(
+            list: _.Dictionary<T>,
+            iterator: _.ObjectIterator<T, any>,
+            context?: any): _.Dictionary<T[]>;
+
+        /**
+        * @see _.groupBy
         * @param iterator Property on each object to group them by.
         **/
         groupBy<T>(
-            list: _.List<T>,
+            list: _.List<T> | _.Dictionary<T>,
             iterator: string,
             context?: any): _.Dictionary<T[]>;
 
@@ -737,11 +745,19 @@ declare module _ {
             context?: any): _.Dictionary<T>;
 
         /**
+       * @see _.indexBy
+       **/
+        indexBy<T>(
+            list: _.Dictionary<T>,
+            iterator: _.ObjectIterator<T, any>,
+            context?: any): _.Dictionary<T>;
+
+        /**
         * @see _.indexBy
         * @param iterator Property on each object to index them by.
         **/
         indexBy<T>(
-            list: _.List<T>,
+            list: _.List<T> | _.Dictionary<T>,
             iterator: string,
             context?: any): _.Dictionary<T>;
 
@@ -760,11 +776,19 @@ declare module _ {
             context?: any): _.Dictionary<number>;
 
         /**
+         * @see _.countBy
+         **/
+        countBy<T>(
+            list: _.Dictionary<T>,
+            iterator: _.ObjectIterator<T, any>,
+            context?: any): _.Dictionary<number>;
+
+        /**
         * @see _.countBy
         * @param iterator Function name
         **/
         countBy<T>(
-            list: _.List<T>,
+            list: _.List<T> | _.Dictionary<T>,
             iterator: string,
             context?: any): _.Dictionary<number>;
 
