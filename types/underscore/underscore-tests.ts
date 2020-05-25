@@ -22,16 +22,17 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 // Collection Functions
 // as a breaking change, consider creating separate UnderscoreObject and ChainObject interfaces for dictionaries instead of taking both ListIterators and ObjectIterators
 
-namespace TestEach {
-    // as a breaking change, consider either adding an overload for strings or changing function definitions to things like
-    // _.each<TItem, TList extends _.List<TItem>>(list: TList, iterator: _.ListIterator<TItem, void>, context ?: any): TList;
-    // to better reflect that _.each and its variations always return the original object
-    // if that happens, also add tests for strings and array-like objects with extra properties as inputs
-    let context = {};
+// each, forEach
+// as a breaking change, consider either adding an overload for strings or changing function definitions to things like
+// _.each<TItem, TList extends _.List<TItem>>(list: TList, iterator: _.ListIterator<TItem, void>, context ?: any): TList;
+// to better reflect that _.each and its variations always return the original object
+// if that happens, also add tests for strings and array-like objects with extra properties as inputs
+{
+    const context = {};
 
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a += 'b';
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a += 'b';
         let result: { a: string }[];
 
         result = _.each<{ a: string }>(array, iterator);
@@ -76,8 +77,8 @@ namespace TestEach {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a += 'b';
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a += 'b';
         let result: _.List<{ a: string }>;
 
         result = _.each<{ a: string }>(list, iterator);
@@ -122,8 +123,8 @@ namespace TestEach {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a += 'b';
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a += 'b';
         let result: _.Dictionary<{ a: string }>;
 
         result = _.each<{ a: string }>(dict, iterator);
@@ -168,12 +169,13 @@ namespace TestEach {
     }
 }
 
-namespace TestMap {
-    let context = {};
+// map, collect
+{
+    const context = {};
 
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
         let result: string[];
 
         result = _.map<{ a: string }, string>(array, iterator);
@@ -218,8 +220,8 @@ namespace TestMap {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
         let result: string[];
 
         result = _.map<{ a: string }, string>(list, iterator);
@@ -264,8 +266,8 @@ namespace TestMap {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
         let result: string[];
 
         result = _.map<{ a: string }, string>(dict, iterator);
@@ -310,8 +312,8 @@ namespace TestMap {
     }
 
     {
-        let str = 'abc';
-        let iterator = (value: string, index: number, list: _.List<string>) => value + 'b';
+        const str = 'abc';
+        const iterator = (value: string, index: number, list: _.List<string>) => value + 'b';
         let result: string[];
 
         result = _.map<string, string>(str, iterator);
@@ -346,13 +348,14 @@ namespace TestMap {
     }
 }
 
-namespace TestReduce {
-    let context = {};
+// reduce, foldl, inject
+{
+    const context = {};
 
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
-        let memo = '';
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
+        const memo = '';
         let result: string;
 
         result = _.reduce<{ a: string }, string>(array, iterator, memo);
@@ -417,9 +420,9 @@ namespace TestReduce {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
-        let memo = '';
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
+        const memo = '';
         let result: string;
 
         result = _.reduce<{ a: string }, string>(list, iterator, memo);
@@ -484,9 +487,9 @@ namespace TestReduce {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let iterator = (prev: string, element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => prev + element.a;
-        let memo = '';
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (prev: string, element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => prev + element.a;
+        const memo = '';
         let result: string;
 
         result = _.reduce<{ a: string }, string>(dict, iterator, memo);
@@ -551,12 +554,12 @@ namespace TestReduce {
     }
 
     {
-        let str = 'abc';
-        let iterator = (prev: _.Dictionary<number>, value: string, index: number, list: _.List<string>) => {
+        const str = 'abc';
+        const iterator = (prev: _.Dictionary<number>, value: string, index: number, list: _.List<string>) => {
             prev[value] = index;
             return prev;
         };
-        let memo: _.Dictionary<number> = {};
+        const memo: _.Dictionary<number> = {};
         let result: _.Dictionary<number>;
 
         result = _.reduce<string, _.Dictionary<number>>(str, iterator, memo);
@@ -606,13 +609,14 @@ namespace TestReduce {
     }
 }
 
-namespace TestReduceRight {
-    let context = {};
+// reduceRight, foldr
+{
+    const context = {};
 
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
-        let memo = '';
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
+        const memo = '';
         let result: string;
 
         result = _.reduceRight<{ a: string }, string>(array, iterator, memo);
@@ -657,9 +661,9 @@ namespace TestReduceRight {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
-        let memo = '';
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
+        const memo = '';
         let result: string;
 
         result = _.reduceRight<{ a: string }, string>(list, iterator, memo);
@@ -704,9 +708,9 @@ namespace TestReduceRight {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let iterator = (prev: string, element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => prev + element.a;
-        let memo = '';
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (prev: string, element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => prev + element.a;
+        const memo = '';
         let result: string;
 
         result = _.reduceRight<{ a: string }, string>(dict, iterator, memo);
@@ -751,12 +755,12 @@ namespace TestReduceRight {
     }
 
     {
-        let str = 'abc';
-        let iterator = (prev: _.Dictionary<number>, value: string, index: number, list: _.List<string>) => {
+        const str = 'abc';
+        const iterator = (prev: _.Dictionary<number>, value: string, index: number, list: _.List<string>) => {
             prev[value] = index;
             return prev;
         };
-        let memo: _.Dictionary<number> = {};
+        const memo: _.Dictionary<number> = {};
         let result: _.Dictionary<number>;
 
         result = _.reduceRight<string, _.Dictionary<number>>(str, iterator, memo);
@@ -791,14 +795,15 @@ namespace TestReduceRight {
     }
 }
 
-namespace TestFind {
-    // as a breaking change, ideally the Chain<T, V>.find<T, ...> and Chain<T, V>.detect<T, ...> functions should be updated to not take a T type argument
-    // since they should ideally use T from Chain
-    let context = {};
+// find, detect
+// as a breaking change, ideally the Chain<T, V>.find<T, ...> and Chain<T, V>.detect<T, ...> functions should be updated to not take a T type argument
+// since they should ideally use T from Chain
+{
+    const context = {};
 
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
         let result: {a: string} | undefined;
 
         result = _.find<{a: string}>(array, iterator);
@@ -833,8 +838,8 @@ namespace TestFind {
     }
 
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let properties = { a: 'b' };
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const properties = { a: 'b' };
         let result: { a: string } | undefined;
 
         result = _.find<{ a: string }, { a: string }>(array, properties);
@@ -855,8 +860,8 @@ namespace TestFind {
     }
 
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let property = 'a';
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
         let result: { a: string } | undefined;
 
         result = _.find<{ a: string }>(array, property);
@@ -877,8 +882,8 @@ namespace TestFind {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: { a: string } | undefined;
 
         result = _.find<{ a: string }>(list, iterator);
@@ -913,8 +918,8 @@ namespace TestFind {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let properties = { a: 'b' };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const properties = { a: 'b' };
         let result: { a: string } | undefined;
 
         result = _.find<{ a: string }, { a: string }>(list, properties);
@@ -935,8 +940,8 @@ namespace TestFind {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let property = 'a';
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
         let result: { a: string } | undefined;
 
         result = _.find<{ a: string }>(list, property);
@@ -957,8 +962,8 @@ namespace TestFind {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
         let result: { a: string } | undefined;
 
         result = _.find<{ a: string }>(dict, iterator);
@@ -993,8 +998,8 @@ namespace TestFind {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let properties = { a: 'b' };
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const properties = { a: 'b' };
         let result: { a: string } | undefined;
 
         result = _.find<{ a: string }, { a: string }>(dict, properties);
@@ -1015,8 +1020,8 @@ namespace TestFind {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let property = 'a';
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const property = 'a';
         let result: { a: string } | undefined;
 
         result = _.find<{ a: string }>(dict, property);
@@ -1037,8 +1042,8 @@ namespace TestFind {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
         let result: {a: string} | undefined;
 
         result = _.find<{a: string}>(dict, iterator);
@@ -1073,8 +1078,8 @@ namespace TestFind {
     }
 
     {
-        let str = 'abc';
-        let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        const str = 'abc';
+        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: string | undefined;
 
         result = _.find<string>(str, iterator);
@@ -1109,12 +1114,13 @@ namespace TestFind {
     }
 }
 
-namespace TestFilter {
-    let context = {};
+// filter, select
+{
+    const context = {};
 
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: { a: string }[];
 
         result = _.filter<{ a: string }>(array, iterator);
@@ -1159,8 +1165,8 @@ namespace TestFilter {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: { a: string }[];
 
         result = _.filter<{ a: string }>(list, iterator);
@@ -1205,8 +1211,8 @@ namespace TestFilter {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
         let result: { a: string }[];
 
         result = _.filter<{ a: string }>(dict, iterator);
@@ -1251,8 +1257,8 @@ namespace TestFilter {
     }
 
     {
-        let str = 'abc';
-        let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        const str = 'abc';
+        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: string[];
 
         result = _.filter<string>(str, iterator);
@@ -1287,10 +1293,11 @@ namespace TestFilter {
     }
 }
 
-namespace TestWhere {
+// where
+{
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let properties = { a: 'b' };
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const properties = { a: 'b' };
         let result: { a: string }[];
 
         result = _.where<{ a: string }, { a: string }>(array, properties);
@@ -1307,8 +1314,8 @@ namespace TestWhere {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let properties = { a: 'b' };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const properties = { a: 'b' };
         let result: { a: string }[];
 
         result = _.where<{ a: string }, { a: string }>(list, properties);
@@ -1325,8 +1332,8 @@ namespace TestWhere {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let properties = { a: 'b' };
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const properties = { a: 'b' };
         let result: { a: string }[];
 
         result = _.where<{ a: string }, { a: string }>(dict, properties);
@@ -1343,12 +1350,12 @@ namespace TestWhere {
     }
 }
 
-namespace TestFindWhere {
-    // as a breaking change, ideally the return value for these functions should be updated to include undefined
-
+// findWhere
+// as a breaking change, ideally the return value for these functions should be updated to include undefined
+{
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let properties = { a: 'b' };
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const properties = { a: 'b' };
         let result: { a: string } | undefined;
 
         result = _.findWhere<{ a: string }, { a: string }>(array, properties);
@@ -1365,8 +1372,8 @@ namespace TestFindWhere {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let properties = { a: 'b' };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const properties = { a: 'b' };
         let result: { a: string } | undefined;
 
         result = _.findWhere<{ a: string }, { a: string }>(list, properties);
@@ -1383,8 +1390,8 @@ namespace TestFindWhere {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let properties = { a: 'b' };
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const properties = { a: 'b' };
         let result: { a: string } | undefined;
 
         result = _.findWhere<{ a: string }, { a: string }>(dict, properties);
@@ -1401,12 +1408,13 @@ namespace TestFindWhere {
     }
 }
 
-namespace TestReject {
-    let context = {};
+// reject
+{
+    const context = {};
 
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: { a: string }[];
 
         result = _.reject<{ a: string }>(array, iterator);
@@ -1431,8 +1439,8 @@ namespace TestReject {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: { a: string }[];
 
         result = _.reject<{ a: string }>(list, iterator);
@@ -1457,8 +1465,8 @@ namespace TestReject {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
         let result: { a: string }[];
 
         result = _.reject<{ a: string }>(dict, iterator);
@@ -1483,8 +1491,8 @@ namespace TestReject {
     }
 
     {
-        let str = 'abc';
-        let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        const str = 'abc';
+        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: string[];
 
         result = _.reject<string>(str, iterator);
@@ -1504,12 +1512,13 @@ namespace TestReject {
     }
 }
 
-namespace TestEvery {
-    let context = {};
+// every, all
+{
+    const context = {};
 
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: boolean;
 
         result = _.every<{ a: string }>(array, iterator);
@@ -1554,8 +1563,8 @@ namespace TestEvery {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: boolean;
 
         result = _.every<{ a: string }>(list, iterator);
@@ -1600,8 +1609,8 @@ namespace TestEvery {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
         let result: boolean;
 
         result = _.every<{ a: string }>(dict, iterator);
@@ -1646,8 +1655,8 @@ namespace TestEvery {
     }
 
     {
-        let str = 'abc';
-        let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        const str = 'abc';
+        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: boolean;
 
         result = _.every<string>(str, iterator);
@@ -1682,12 +1691,13 @@ namespace TestEvery {
     }
 }
 
-namespace TestSome {
-    let context = {};
+// some, any
+{
+    const context = {};
 
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: boolean;
 
         result = _.some<{ a: string }>(array, iterator);
@@ -1732,8 +1742,8 @@ namespace TestSome {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: boolean;
 
         result = _.some<{ a: string }>(list, iterator);
@@ -1778,8 +1788,8 @@ namespace TestSome {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
         let result: boolean;
 
         result = _.some<{ a: string }>(dict, iterator);
@@ -1824,8 +1834,8 @@ namespace TestSome {
     }
 
     {
-        let str = 'abc';
-        let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        const str = 'abc';
+        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: boolean;
 
         result = _.some<string>(str, iterator);
@@ -1860,16 +1870,17 @@ namespace TestSome {
     }
 }
 
-namespace TestContains {
-    // as a smaller breaking change, consider changing the _.Collection<T> argument for include and includes to match the _.List<T> argument for contains
-    // as a larger breaking change, consider getting rid of _.Collection<T> or defining _.Collection<T> as
-    // type Collection<T> =  List<T> | Dictionary<T>
-    // since in its current form as an empty interface it does not provide any type safety
-    let fromIndex = 1;
+// contains, include, includes
+// as a smaller breaking change, consider changing the _.Collection<T> argument for include and includes to match the _.List<T> argument for contains
+// as a larger breaking change, consider getting rid of _.Collection<T> or defining _.Collection<T> as
+// type Collection<T> =  List<T> | Dictionary<T>
+// since in its current form as an empty interface it does not provide any type safety
+{
+    const fromIndex = 1;
 
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let value = array[0];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const value = array[0];
         let result: boolean;
 
         result = _.contains<{ a: string }>(array, value);
@@ -1934,8 +1945,8 @@ namespace TestContains {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let value = list[0];
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const value = list[0];
         let result: boolean;
 
         result = _.contains<{ a: string }>(list, value);
@@ -2000,8 +2011,8 @@ namespace TestContains {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let value = dict['a'];
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const value = dict['a'];
         let result: boolean;
 
         result = _.contains<{ a: string }>(dict, value);
@@ -2042,8 +2053,8 @@ namespace TestContains {
     }
 
     {
-        let str = 'abc';
-        let value = str[0];
+        const str = 'abc';
+        const value = str[0];
         let result: boolean;
 
         result = _.contains<string>(str, value);
@@ -2093,15 +2104,16 @@ namespace TestContains {
     }
 }
 
-namespace TestInvoke {
-    // as a small breaking change, consider updating invoke to result in any[]
-    // as a larger breaking change, consider updating invoke to be the following:
-    // invoke<TItem extends {}, TMethod extends { [KItem in keyof TItem]: TItem[KItem] extends Function ? KItem : never }[keyof TItem]>(list: _.List<TItem>, methodName: TMethod, ...args: Parameters<TItem[TMethod]>): ReturnType<TItem[TMethod]>[];
+// invoke
+// as a small breaking change, consider updating invoke to result in any[]
+// as a larger breaking change, consider updating invoke to be the following:
+// invoke<TItem extends {}, TMethod extends { [KItem in keyof TItem]: TItem[KItem] extends Function ? KItem : never }[keyof TItem]>(list: _.List<TItem>, methodName: TMethod, ...args: Parameters<TItem[TMethod]>): ReturnType<TItem[TMethod]>[];
+{
 
     // without parameters
     {
         const functionName = 'func';
-        let array: { func: () => number }[] = [{ [functionName]: Math.random }, { [functionName]: Math.random }];
+        const array: { func: () => number }[] = [{ [functionName]: Math.random }, { [functionName]: Math.random }];
         let result: number[];
 
         result = _.invoke<{ func: () => number }>(array, functionName);
@@ -2119,7 +2131,7 @@ namespace TestInvoke {
 
     {
         const functionName = 'func';
-        let list: _.List<{ func: () => number }> = { 0: { [functionName]: Math.random }, 1: { [functionName]: Math.random }, length: 2 };
+        const list: _.List<{ func: () => number }> = { 0: { [functionName]: Math.random }, 1: { [functionName]: Math.random }, length: 2 };
         let result: number[];
 
         result = _.invoke<{ func: () => number }>(list, functionName);
@@ -2137,7 +2149,7 @@ namespace TestInvoke {
 
     {
         const functionName = 'func';
-        let dict: _.Dictionary<{ func: () => number }> = { a: { [functionName]: Math.random }, b: { [functionName]: Math.random } };
+        const dict: _.Dictionary<{ func: () => number }> = { a: { [functionName]: Math.random }, b: { [functionName]: Math.random } };
         let result: { a: string }[];
 
         result = _.invoke<{ func: () => number }>(dict, functionName);
@@ -2155,7 +2167,7 @@ namespace TestInvoke {
 
     {
         const functionName = 'trim';
-        let str = 'abc';
+        const str = 'abc';
         let result: string[];
 
         result = _.invoke<string>(str, functionName);
@@ -2171,8 +2183,8 @@ namespace TestInvoke {
     // with parameters
     {
         const functionName = 'func';
-        let array: { func: (input: number) => number }[] = [{ [functionName]: Math.abs }, { [functionName]: Math.abs }];
-        let arg = -1;
+        const array: { func: (input: number) => number }[] = [{ [functionName]: Math.abs }, { [functionName]: Math.abs }];
+        const arg = -1;
         let result: number[];
 
         result = _.invoke<{ func: (input: number) => number }>(array, functionName, arg);
@@ -2190,8 +2202,8 @@ namespace TestInvoke {
 
     {
         const functionName = 'func';
-        let list: _.List<{ func: (input: number) => number }> = { 0: { [functionName]: Math.abs }, 1: { [functionName]: Math.abs }, length: 2 };
-        let arg = -1;
+        const list: _.List<{ func: (input: number) => number }> = { 0: { [functionName]: Math.abs }, 1: { [functionName]: Math.abs }, length: 2 };
+        const arg = -1;
         let result: number[];
 
         result = _.invoke<{ func: (input: number) => number }>(list, functionName, arg);
@@ -2209,8 +2221,8 @@ namespace TestInvoke {
 
     {
         const functionName = 'func';
-        let dict: _.Dictionary<{ func: (input: number) => number }> = { a: { [functionName]: Math.abs }, b: { [functionName]: Math.abs } };
-        let arg = -1;
+        const dict: _.Dictionary<{ func: (input: number) => number }> = { a: { [functionName]: Math.abs }, b: { [functionName]: Math.abs } };
+        const arg = -1;
         let result: { a: string }[];
 
         result = _.invoke<{ func: (input: number) => number }>(dict, functionName, arg);
@@ -2228,8 +2240,8 @@ namespace TestInvoke {
 
     {
         const functionName = 'substring';
-        let str = 'abc';
-        let arg = 1;
+        const str = 'abc';
+        const arg = 1;
         let result: string[];
 
         result = _.invoke<string>(str, functionName, arg);
@@ -2243,11 +2255,11 @@ namespace TestInvoke {
     }
 }
 
-namespace TestPluck {
-    // as a breaking change, ideally update Underscore and Chain types to also figure out the correct resulting type instead of any[] or any
-
+// pluck
+// as a breaking change, ideally update Underscore and Chain types to also figure out the correct resulting type instead of any[] or any
+{
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const property = 'a';
         let result: string[];
 
@@ -2265,7 +2277,7 @@ namespace TestPluck {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         const property = 'a';
         let result: string[];
 
@@ -2283,7 +2295,7 @@ namespace TestPluck {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         const property = 'a';
         let result: string[];
 
@@ -2301,10 +2313,15 @@ namespace TestPluck {
     }
 }
 
-namespace TestMax {
+// max
+// as a breaking change, consider making the return type for the version of max that takes an iterator T | number
+// since an empty collection will result in -Infinity
+// as a breaking change, consider updating Underscore.max and Chain.max to take iterators with number results instead of any
+// since the only other type that doesn't yield -Infinity is booleans, which isn't a terribly interesting case
+{
     // without iterator
     {
-        let array: number[] = [0, 1];
+        const array: number[] = [0, 1];
         let result: number;
 
         result = _.max<number>(array);
@@ -2321,7 +2338,7 @@ namespace TestMax {
     }
 
     {
-        let list: _.List<number> = { 0: 0, 1: 1, length: 2 };
+        const list: _.List<number> = { 0: 0, 1: 1, length: 2 };
         let result: number;
 
         result = _.max<number>(list);
@@ -2338,7 +2355,7 @@ namespace TestMax {
     }
 
     {
-        let dict: _.Dictionary<number> = { a: 0, b: 1 };
+        const dict: _.Dictionary<number> = { a: 0, b: 1 };
         let result: number;
 
         result = _.max<number>(dict);
@@ -2354,17 +2371,12 @@ namespace TestMax {
         result = _(dict).chain().max().value();
     }
 
-    // as a breaking change, consider making the return type for the version of max that takes an iterator T | number
-    // since an empty collection will result in -Infinity
-    // as a breaking change, consider updating Underscore.max and Chain.max to take iterators with number results instead of any
-    // since the only other type that doesn't yield -Infinity is booleans, which isn't a terribly interesting case
-
     // with iterator
-    let context = {};
+    const context = {};
 
     {
-        let array: { a: number }[] = [{ a: 0 }, { a: 1 }];
-        let iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
+        const array: { a: number }[] = [{ a: 0 }, { a: 1 }];
+        const iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
         let result: { a: number };
 
         result = _.max<{ a: number }>(array, iterator);
@@ -2389,8 +2401,8 @@ namespace TestMax {
     }
 
     {
-        let list: _.List<{ a: number }> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
-        let iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
+        const list: _.List<{ a: number }> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
+        const iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
         let result: { a: number };
 
         result = _.max<{ a: number }>(list, iterator);
@@ -2415,8 +2427,8 @@ namespace TestMax {
     }
 
     {
-        let dict: _.Dictionary<{ a: number }> = { a: { a: 0 }, b: { a: 1 } };
-        let iterator = (element: { a: number }, key: string, list: _.Dictionary<{ a: number }>) => element.a;
+        const dict: _.Dictionary<{ a: number }> = { a: { a: 0 }, b: { a: 1 } };
+        const iterator = (element: { a: number }, key: string, list: _.Dictionary<{ a: number }>) => element.a;
         let result: { a: number };
 
         result = _.max<{ a: number }>(dict, iterator);
@@ -2441,10 +2453,15 @@ namespace TestMax {
     }
 }
 
-namespace TestMin {
+// min
+// as a breaking change, consider making the return type for the version of min that takes an iterator T | number
+// since an empty collection will result in -Infinity
+// as a breaking change, consider updating Underscore.min and Chain.min to take iterators with number results instead of any
+// since the only other type that doesn't yield -Infinity is booleans, which isn't a terribly interesting case
+{
     // without iterator
     {
-        let array: number[] = [0, 1];
+        const array: number[] = [0, 1];
         let result: number;
 
         result = _.min<number>(array);
@@ -2461,7 +2478,7 @@ namespace TestMin {
     }
 
     {
-        let list: _.List<number> = { 0: 0, 1: 1, length: 2 };
+        const list: _.List<number> = { 0: 0, 1: 1, length: 2 };
         let result: number;
 
         result = _.min<number>(list);
@@ -2478,7 +2495,7 @@ namespace TestMin {
     }
 
     {
-        let dict: _.Dictionary<number> = { a: 0, b: 1 };
+        const dict: _.Dictionary<number> = { a: 0, b: 1 };
         let result: number;
 
         result = _.min<number>(dict);
@@ -2494,17 +2511,12 @@ namespace TestMin {
         result = _(dict).chain().min().value();
     }
 
-    // as a breaking change, consider making the return type for the version of min that takes an iterator T | number
-    // since an empty collection will result in -Infinity
-    // as a breaking change, consider updating Underscore.min and Chain.min to take iterators with number results instead of any
-    // since the only other type that doesn't yield -Infinity is booleans, which isn't a terribly interesting case
-
     // with iterator
-    let context = {};
+    const context = {};
 
     {
-        let array: { a: number }[] = [{ a: 0 }, { a: 1 }];
-        let iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
+        const array: { a: number }[] = [{ a: 0 }, { a: 1 }];
+        const iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
         let result: { a: number };
 
         result = _.min<{ a: number }>(array, iterator);
@@ -2529,8 +2541,8 @@ namespace TestMin {
     }
 
     {
-        let list: _.List<{ a: number }> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
-        let iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
+        const list: _.List<{ a: number }> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
+        const iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
         let result: { a: number };
 
         result = _.min<{ a: number }>(list, iterator);
@@ -2555,8 +2567,8 @@ namespace TestMin {
     }
 
     {
-        let dict: _.Dictionary<{ a: number }> = { a: { a: 0 }, b: { a: 1 } };
-        let iterator = (element: { a: number }, key: string, list: _.Dictionary<{ a: number }>) => element.a;
+        const dict: _.Dictionary<{ a: number }> = { a: { a: 0 }, b: { a: 1 } };
+        const iterator = (element: { a: number }, key: string, list: _.Dictionary<{ a: number }>) => element.a;
         let result: { a: number };
 
         result = _.min<{ a: number }>(dict, iterator);
@@ -2581,14 +2593,18 @@ namespace TestMin {
     }
 }
 
-namespace TestSortBy {
-    // as a breaking change, consider dropping TSort from UnderscoreStatic.sortBy and using any instead like Underscore and Chain do since TSort doesn't really add much
-    let context = {};
+// sortBy
+// as a breaking change, consider dropping TSort from UnderscoreStatic.sortBy and using any instead like Underscore and Chain do since TSort doesn't really add much
+// as a breaking change, consider dropping the context property from overloads that take a property name since it's not useful
+// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to property names
+// on the type being sorted
+{
+    const context = {};
 
     // with iterators
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
         let result: { a: string }[];
 
         result = _.sortBy<{ a: string }, string>(array, iterator);
@@ -2613,8 +2629,8 @@ namespace TestSortBy {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
         let result: { a: string }[];
 
         result = _.sortBy<{ a: string }, string>(list, iterator);
@@ -2639,8 +2655,8 @@ namespace TestSortBy {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
         let result: { a: string }[];
 
         result = _.sortBy<{ a: string }, string>(dict, iterator);
@@ -2665,11 +2681,8 @@ namespace TestSortBy {
     }
 
     // with property names
-    // as a breaking change, consider dropping the context property from overloads that take a property name since it's not useful
-    // as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to property names
-    // on the type being sorted
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const property = 'a';
         let result: { a: string }[];
 
@@ -2695,8 +2708,8 @@ namespace TestSortBy {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let property = 'a';
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
         let result: { a: string }[];
 
         result = _.sortBy<{ a: string }>(list, property);
@@ -2721,8 +2734,8 @@ namespace TestSortBy {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let property = 'a';
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const property = 'a';
         let result: { a: string }[];
 
         result = _.sortBy<{ a: string }>(dict, property);
@@ -2747,9 +2760,10 @@ namespace TestSortBy {
     }
 }
 
-namespace TestShuffle {
+// shuffle
+{
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string }[];
 
         result = _.shuffle<{ a: string }>(array);
@@ -2766,7 +2780,7 @@ namespace TestShuffle {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         let result: { a: string }[];
 
         result = _.shuffle<{ a: string }>(list);
@@ -2783,7 +2797,7 @@ namespace TestShuffle {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         let result: { a: string }[];
 
         result = _.shuffle<{ a: string }>(dict);
@@ -2800,7 +2814,7 @@ namespace TestShuffle {
     }
 
     {
-        let str = 'abc';
+        const str = 'abc';
         let result: string[];
 
         result = _.shuffle<string>(str);
@@ -2814,13 +2828,13 @@ namespace TestShuffle {
     }
 }
 
-namespace TestSample {
-    // as a breaking change, ideally all versions of sample without n should include undefined as a possible result since _.sample([]) yields undefined
-    // also, ideally _Chain.sample should be updated to return _ChainSingle<T | undefined>
-
+// sample
+// as a breaking change, ideally all versions of sample without n should include undefined as a possible result since _.sample([]) yields undefined
+// also, ideally _Chain.sample should be updated to return _ChainSingle<T | undefined>
+{
     // without n
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string } | undefined;
 
         result = _.sample<{ a: string }>(array);
@@ -2837,7 +2851,7 @@ namespace TestSample {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         let result: { a: string } | undefined;
 
         result = _.sample<{ a: string }>(list);
@@ -2854,7 +2868,7 @@ namespace TestSample {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         let result: { a: string } | undefined;
 
         result = _.sample<{ a: string }>(dict);
@@ -2871,7 +2885,7 @@ namespace TestSample {
     }
 
     {
-        let str = 'abc';
+        const str = 'abc';
         let result: string | undefined;
 
         result = _.sample<string>(str);
@@ -2886,9 +2900,9 @@ namespace TestSample {
 
     // with n
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const n = 2;
         let result: { a: string }[];
-        let n = 2;
 
         result = _.sample<{ a: string }>(array, n);
         result = _.sample(array, n);
@@ -2904,9 +2918,9 @@ namespace TestSample {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const n = 2;
         let result: { a: string }[];
-        let n = 2;
 
         result = _.sample<{ a: string }>(list, n);
         result = _.sample(list, n);
@@ -2922,9 +2936,9 @@ namespace TestSample {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const n = 2;
         let result: { a: string }[];
-        let n = 2;
 
         result = _.sample<{ a: string }>(dict, n);
         result = _.sample(dict, n);
@@ -2940,9 +2954,9 @@ namespace TestSample {
     }
 
     {
-        let str = 'abc';
+        const str = 'abc';
+        const n = 2;
         let result: string[];
-        let n = 2;
 
         result = _.sample<string>(str, n);
         result = _.sample(str, n);
@@ -2955,9 +2969,10 @@ namespace TestSample {
     }
 }
 
-namespace TestToArray {
+// toArray
+{
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string }[];
 
         result = _.toArray<{ a: string }>(array);
@@ -2974,7 +2989,7 @@ namespace TestToArray {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         let result: { a: string }[];
 
         result = _.toArray<{ a: string }>(list);
@@ -2991,7 +3006,7 @@ namespace TestToArray {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         let result: { a: string }[];
 
         result = _.toArray<{ a: string }>(dict);
@@ -3008,7 +3023,7 @@ namespace TestToArray {
     }
 
     {
-        let str = 'abc';
+        const str = 'abc';
         let result: string[];
 
         result = _.toArray<string>(str);
@@ -3022,12 +3037,12 @@ namespace TestToArray {
     }
 }
 
-namespace TestPartition {
-    // as a breaking change, consider updating the return type of partition to be [T[], T[]]
-
+// partition
+// as a breaking change, consider updating the return type of partition to be [T[], T[]]
+{
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: { a: string }[][];
 
         result = _.partition<{ a: string }>(array, iterator);
@@ -3044,8 +3059,8 @@ namespace TestPartition {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: { a: string }[][];
 
         result = _.partition<{ a: string }>(list, iterator);
@@ -3062,8 +3077,8 @@ namespace TestPartition {
     }
 
     {
-        let dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
         let result: { a: string }[][];
 
         result = _.partition<{ a: string }>(dict, iterator);
@@ -3080,8 +3095,8 @@ namespace TestPartition {
     }
 
     {
-        let str = 'abc';
-        let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        const str = 'abc';
+        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: string[][];
 
         result = _.partition<string>(str, iterator);
@@ -3096,12 +3111,13 @@ namespace TestPartition {
 }
 
 // Array Functions
-namespace TestFirst {
-    // as a breaking change, ideally _Chain.head and _Chain.take should be updated to return _ChainSingle<T | undefined> like _Chain.first correctly does
 
+// first, head, take
+// as a breaking change, ideally _Chain.head and _Chain.take should be updated to return _ChainSingle<T | undefined> like _Chain.first correctly does
+{
     // without n
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string } | undefined;
 
         result = _.first<{ a: string }>(array);
@@ -3142,7 +3158,7 @@ namespace TestFirst {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         let result: { a: string } | undefined;
 
         result = _.first<{ a: string }>(list);
@@ -3183,7 +3199,7 @@ namespace TestFirst {
     }
 
     {
-        let str = 'abc';
+        const str = 'abc';
         let result: string | undefined;
 
         result = _.first<string>(str);
@@ -3216,8 +3232,8 @@ namespace TestFirst {
 
     // with n
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let n = 2;
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const n = 2;
         let result: { a: string }[];
 
         result = _.first<{ a: string }>(array, n);
@@ -3258,8 +3274,8 @@ namespace TestFirst {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let n = 2;
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const n = 2;
         let result: { a: string }[];
 
         result = _.first<{ a: string }>(list, n);
@@ -3300,8 +3316,8 @@ namespace TestFirst {
     }
 
     {
-        let str = 'abc';
-        let n = 2;
+        const str = 'abc';
+        const n = 2;
         let result: string[];
 
         result = _.first<string>(str, n);
@@ -3333,10 +3349,11 @@ namespace TestFirst {
     }
 }
 
-namespace TestInitial {
+// initial
+{
     // without n
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string }[];
 
         result = _.initial<{ a: string }>(array);
@@ -3353,7 +3370,7 @@ namespace TestInitial {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         let result: { a: string }[];
 
         result = _.initial<{ a: string }>(list);
@@ -3370,7 +3387,7 @@ namespace TestInitial {
     }
 
     {
-        let str = 'abc';
+        const str = 'abc';
         let result: string[];
 
         result = _.initial<string>(str);
@@ -3385,9 +3402,9 @@ namespace TestInitial {
 
     // with n
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const n = 2;
         let result: { a: string }[];
-        let n = 2;
 
         result = _.initial<{ a: string }>(array, n);
         result = _.initial(array, n);
@@ -3403,9 +3420,9 @@ namespace TestInitial {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const n = 2;
         let result: { a: string }[];
-        let n = 2;
 
         result = _.initial<{ a: string }>(list, n);
         result = _.initial(list, n);
@@ -3421,9 +3438,9 @@ namespace TestInitial {
     }
 
     {
-        let str = 'abc';
+        const str = 'abc';
+        const n = 2;
         let result: string[];
-        let n = 2;
 
         result = _.initial<string>(str, n);
         result = _.initial(str, n);
@@ -3436,10 +3453,11 @@ namespace TestInitial {
     }
 }
 
-namespace TestLast {
+// last
+{
     // without n
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string } | undefined;
 
         result = _.last<{ a: string }>(array);
@@ -3456,7 +3474,7 @@ namespace TestLast {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         let result: { a: string } | undefined;
 
         result = _.last<{ a: string }>(list);
@@ -3473,7 +3491,7 @@ namespace TestLast {
     }
 
     {
-        let str = 'abc';
+        const str = 'abc';
         let result: string | undefined;
 
         result = _.last<string>(str);
@@ -3488,8 +3506,8 @@ namespace TestLast {
 
     // with n
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let n = 2;
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const n = 2;
         let result: { a: string }[];
 
         result = _.last<{ a: string }>(array, n);
@@ -3506,8 +3524,8 @@ namespace TestLast {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let n = 2;
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const n = 2;
         let result: { a: string }[];
 
         result = _.last<{ a: string }>(list, n);
@@ -3524,8 +3542,8 @@ namespace TestLast {
     }
 
     {
-        let str = 'abc';
-        let n = 2;
+        const str = 'abc';
+        const n = 2;
         let result: string[];
 
         result = _.last<string>(str, n);
@@ -3539,10 +3557,11 @@ namespace TestLast {
     }
 }
 
-namespace TestRest {
+// rest, tail, drop
+{
     // without n
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string }[];
 
         result = _.rest<{ a: string }>(array);
@@ -3583,7 +3602,7 @@ namespace TestRest {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         let result: { a: string }[];
 
         result = _.rest<{ a: string }>(list);
@@ -3624,7 +3643,7 @@ namespace TestRest {
     }
 
     {
-        let str = 'abc';
+        const str = 'abc';
         let result: string[];
 
         result = _.rest<string>(str);
@@ -3657,8 +3676,8 @@ namespace TestRest {
 
     // with n
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let n = 2;
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const n = 2;
         let result: { a: string }[];
 
         result = _.rest<{ a: string }>(array, n);
@@ -3699,8 +3718,8 @@ namespace TestRest {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let n = 2;
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const n = 2;
         let result: { a: string }[];
 
         result = _.rest<{ a: string }>(list, n);
@@ -3741,8 +3760,8 @@ namespace TestRest {
     }
 
     {
-        let str = 'abc';
-        let n = 2;
+        const str = 'abc';
+        const n = 2;
         let result: string[];
 
         result = _.rest<string>(str, n);
@@ -3774,11 +3793,15 @@ namespace TestRest {
     }
 }
 
-namespace TestCompact {
-    // the unwrapped methods use a type argument that includes falsy values, so they can be used to correctly end up
-    // with a result that has falsy values removed
+// compact
+// the unwrapped methods use a type argument that includes falsy values, so they can be used to correctly end up
+// with a result that has falsy values removed
+// as a breaking change, consider updating the result of Underscore and Chain compact calls to be "(T extends undefined | null | false | '' | 0 ? never : T)[]"
+// and updating this result to be { a: string }[]
+// if this is changed, it would also be nice to change how the UnderscoreStatic compact calls work to use the same logic to be consistent
+{
     {
-        let array: ({ a: string } | undefined)[] = [{ a: 'a' }, { a: 'b' }];
+        const array: ({ a: string } | undefined)[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string }[];
 
         result = _.compact<{ a: string }>(array);
@@ -3786,18 +3809,15 @@ namespace TestCompact {
     }
 
     {
-        let list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         let result: { a: string }[];
 
         result = _.compact<{ a: string }>(list);
         result = _.compact(list);
     }
 
-    // as a breaking change, consider updating the result of these compact calls to be "(T extends undefined | null | false | '' | 0 ? never : T)[]"
-    // and updating this result to be { a: string }[]
-    // it would also be nice to change how the calls above work to use the same logic to be consistent
     {
-        let array: ({ a: string } | undefined)[] = [{ a: 'a' }, { a: 'b' }];
+        const array: ({ a: string } | undefined)[] = [{ a: 'a' }, { a: 'b' }];
         let result: ({ a: string } | undefined)[];
 
         result = _<{ a: string } | undefined>(array).compact();
@@ -3811,7 +3831,7 @@ namespace TestCompact {
     }
 
     {
-        let list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         let result: ({ a: string } | undefined)[];
 
         result = _<{ a: string } | undefined>(list).compact();
@@ -3829,18 +3849,18 @@ interface ArrayWrapper<T> {
     items: T[];
 }
 
-namespace TestFlatten {
-    // as a breaking change, since shallow flattening is likely the most common type of flattening consider adding the following type:
-    // type ListItemType<T> = T extends _.List<infer TItem> ? TItem : T;
-    // and updating the flatten functions to have the following two overloads:
-    // flatten<T>(array: _.List<T>, shallow: true): ListItemType<T>[];
-    // flatten<T>(array: _.List<T>, shallow?: false): T extends _.List<_.List<any>> ? any[] : ListItemType<T>[];
-    // and dropping the ChainOfArrays type
-    // unfortunately it's not possible to recursively collapse something like T[][][][] to T[] at this time
-
+// flatten
+// as a breaking change, since shallow flattening is likely the most common type of flattening consider adding the following type:
+// type ListItemType<T> = T extends _.List<infer TItem> ? TItem : T;
+// and updating the flatten functions to have the following two overloads:
+// flatten<T>(array: _.List<T>, shallow: true): ListItemType<T>[];
+// flatten<T>(array: _.List<T>, shallow?: false): T extends _.List<_.List<any>> ? any[] : ListItemType<T>[];
+// and dropping the ChainOfArrays type
+// unfortunately it's not possible to recursively collapse something like T[][][][] to T[] at this time
+{
     // standard cases - the return value of all of these calls need to be manually checked and should be any[]
     {
-        let array: { a: string }[][] = [[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]];
+        const array: { a: string }[][] = [[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]];
         let result: { a: string }[];
 
         result = _.flatten(array);
@@ -3856,7 +3876,7 @@ namespace TestFlatten {
     }
 
     {
-        let list: _.List<_.List<{ a: string }>> = { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 };
+        const list: _.List<_.List<{ a: string }>> = { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 };
         let result: { a: string }[];
 
         result = _.flatten(list);
@@ -3875,7 +3895,7 @@ namespace TestFlatten {
     // this interface is technically incorrect since it doesn't distinguish between shallow and not shallow, but a shallow flatten is probably the most common
     // kind of flatten
     {
-        let array: ArrayWrapper<{ a: string }>[] = [{ items: [{ a: 'a' }, { a: 'b' }] }, { items: [{ a: 'a' }, { a: 'b' }] }];
+        const array: ArrayWrapper<{ a: string }>[] = [{ items: [{ a: 'a' }, { a: 'b' }] }, { items: [{ a: 'a' }, { a: 'b' }] }];
         let result: { a: string }[];
 
         result = _.chain<ArrayWrapper<{ a: string }>>(array).map(a => a.items).flatten().value();
@@ -3886,7 +3906,7 @@ namespace TestFlatten {
     }
 
     {
-        let list: _.List<ArrayWrapper<{ a: string }>> = { 0: { items: [{ a: 'a' }, { a: 'b' }] }, 1: { items: [{ a: 'a' }, { a: 'b' }] }, length: 2 };
+        const list: _.List<ArrayWrapper<{ a: string }>> = { 0: { items: [{ a: 'a' }, { a: 'b' }] }, 1: { items: [{ a: 'a' }, { a: 'b' }] }, length: 2 };
         let result: { a: string }[];
 
         result = _.chain<ArrayWrapper<{ a: string }>>(list).map(a => a.items).flatten().value();
@@ -3897,12 +3917,12 @@ namespace TestFlatten {
     }
 }
 
-namespace TestWithout {
-    // as a breaking change, ideally the return value for these functions should be updated to include undefined
-
+// without
+// as a breaking change, ideally the return value for these functions should be updated to include undefined
+{
     {
-        let array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let item = array[0];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const item = array[0];
         let result: { a: string }[];
 
         result = _.without<{ a: string }>(array, item);
@@ -3919,8 +3939,8 @@ namespace TestWithout {
     }
 
     {
-        let list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let item = list[0];
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const item = list[0];
         let result: { a: string }[];
 
         result = _.without<{ a: string }>(list, item);
@@ -3937,8 +3957,8 @@ namespace TestWithout {
     }
 
     {
-        let str = 'abc';
-        let item = str[0];
+        const str = 'abc';
+        const item = str[0];
         let result: string[];
 
         result = _.without<string>(str, item);
