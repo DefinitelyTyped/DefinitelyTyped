@@ -1,4 +1,4 @@
-import extname from 'browser-extname';
+import extname = require('browser-extname');
 
 extname('index.html');
 // Returns: '.html'
