@@ -1,4 +1,4 @@
-// Type definitions for react-stickynode 3.0.2
+// Type definitions for react-stickynode 3.0
 // Project: https://github.com/yahoo/react-stickynode
 // Definitions by: Tim Stirrat <https://github.com/tstirrat>
 //                 Kamil Socha <https://github.com/ksocha>
