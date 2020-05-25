@@ -2760,6 +2760,506 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     }
 }
 
+// groupBy
+// as a breaking chage, consider changing the result of Underscore.groupBy to be _.Dictionary<T[]> instead of _.Dictionary<_.List<T>>
+// as a breaking change, consider changing _.ListIterator<T, any> and _.ObjectIterator<T, any> to use allowed indexing types (string | number | symbol)
+// instead of any
+// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to property names
+// on the type being sorted
+{
+    const context = {};
+
+    // with iterators
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: _.Dictionary<_.List<{ a: string }>>;
+
+        result = _.groupBy<{ a: string }>(array, iterator);
+        result = _.groupBy<{ a: string }>(array, iterator, context);
+        result = _.groupBy(array, iterator);
+        result = _.groupBy(array, iterator, context);
+
+        result = _<{ a: string }>(array).groupBy(iterator);
+        result = _<{ a: string }>(array).groupBy(iterator, context);
+        result = _(array).groupBy(iterator);
+        result = _(array).groupBy(iterator, context);
+
+        result = _.chain<{ a: string }>(array).groupBy(iterator).value();
+        result = _.chain<{ a: string }>(array).groupBy(iterator, context).value();
+        result = _.chain(array).groupBy(iterator).value();
+        result = _.chain(array).groupBy(iterator, context).value();
+
+        result = _<{ a: string }>(array).chain().groupBy(iterator).value();
+        result = _<{ a: string }>(array).chain().groupBy(iterator, context).value();
+        result = _(array).chain().groupBy(iterator).value();
+        result = _(array).chain().groupBy(iterator, context).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: _.Dictionary<_.List<{ a: string }>>;
+
+        result = _.groupBy<{ a: string }>(list, iterator);
+        result = _.groupBy<{ a: string }>(list, iterator, context);
+        result = _.groupBy(list, iterator);
+        result = _.groupBy(list, iterator, context);
+
+        result = _<{ a: string }>(list).groupBy(iterator);
+        result = _<{ a: string }>(list).groupBy(iterator, context);
+        result = _(list).groupBy(iterator);
+        result = _(list).groupBy(iterator, context);
+
+        result = _.chain<{ a: string }>(list).groupBy(iterator).value();
+        result = _.chain<{ a: string }>(list).groupBy(iterator, context).value();
+        result = _.chain(list).groupBy(iterator).value();
+        result = _.chain(list).groupBy(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().groupBy(iterator).value();
+        result = _<{ a: string }>(list).chain().groupBy(iterator, context).value();
+        result = _(list).chain().groupBy(iterator).value();
+        result = _(list).chain().groupBy(iterator, context).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
+        let result: _.Dictionary<_.List<{ a: string }>>;
+
+        result = _.groupBy<{ a: string }>(dict, iterator);
+        result = _.groupBy<{ a: string }>(dict, iterator, context);
+        result = _.groupBy(dict, iterator);
+        result = _.groupBy(dict, iterator, context);
+
+        result = _<{ a: string }>(dict).groupBy(iterator);
+        result = _<{ a: string }>(dict).groupBy(iterator, context);
+        result = _(dict).groupBy(iterator);
+        result = _(dict).groupBy(iterator, context);
+
+        result = _.chain<{ a: string }>(dict).groupBy(iterator).value();
+        result = _.chain<{ a: string }>(dict).groupBy(iterator, context).value();
+        result = _.chain(dict).groupBy(iterator).value();
+        result = _.chain(dict).groupBy(iterator, context).value();
+
+        result = _<{ a: string }>(dict).chain().groupBy(iterator).value();
+        result = _<{ a: string }>(dict).chain().groupBy(iterator, context).value();
+        result = _(dict).chain().groupBy(iterator).value();
+        result = _(dict).chain().groupBy(iterator, context).value();
+    }
+
+    // with property names
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
+        let result: _.Dictionary<_.List<{ a: string }>>;
+
+        result = _.groupBy<{ a: string }>(array, property);
+        result = _.groupBy<{ a: string }>(array, property, context);
+        result = _.groupBy(array, property);
+        result = _.groupBy(array, property, context);
+
+        result = _<{ a: string }>(array).groupBy(property);
+        result = _<{ a: string }>(array).groupBy(property, context);
+        result = _(array).groupBy(property);
+        result = _(array).groupBy(property, context);
+
+        result = _.chain<{ a: string }>(array).groupBy(property).value();
+        result = _.chain<{ a: string }>(array).groupBy(property, context).value();
+        result = _.chain(array).groupBy(property).value();
+        result = _.chain(array).groupBy(property, context).value();
+
+        result = _<{ a: string }>(array).chain().groupBy(property).value();
+        result = _<{ a: string }>(array).chain().groupBy(property, context).value();
+        result = _(array).chain().groupBy(property).value();
+        result = _(array).chain().groupBy(property, context).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
+        let result: _.Dictionary<_.List<{ a: string }>>;
+
+        result = _.groupBy<{ a: string }>(list, property);
+        result = _.groupBy<{ a: string }>(list, property, context);
+        result = _.groupBy(list, property);
+        result = _.groupBy(list, property, context);
+
+        result = _<{ a: string }>(list).groupBy(property);
+        result = _<{ a: string }>(list).groupBy(property, context);
+        result = _(list).groupBy(property);
+        result = _(list).groupBy(property, context);
+
+        result = _.chain<{ a: string }>(list).groupBy(property).value();
+        result = _.chain<{ a: string }>(list).groupBy(property, context).value();
+        result = _.chain(list).groupBy(property).value();
+        result = _.chain(list).groupBy(property, context).value();
+
+        result = _<{ a: string }>(list).chain().groupBy(property).value();
+        result = _<{ a: string }>(list).chain().groupBy(property, context).value();
+        result = _(list).chain().groupBy(property).value();
+        result = _(list).chain().groupBy(property, context).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const property = 'a';
+        let result: _.Dictionary<_.List<{ a: string }>>;
+
+        result = _.groupBy<{ a: string }>(dict, property);
+        result = _.groupBy<{ a: string }>(dict, property, context);
+        result = _.groupBy(dict, property);
+        result = _.groupBy(dict, property, context);
+
+        result = _<{ a: string }>(dict).groupBy(property);
+        result = _<{ a: string }>(dict).groupBy(property, context);
+        result = _(dict).groupBy(property);
+        result = _(dict).groupBy(property, context);
+
+        result = _.chain<{ a: string }>(dict).groupBy(property).value();
+        result = _.chain<{ a: string }>(dict).groupBy(property, context).value();
+        result = _.chain(dict).groupBy(property).value();
+        result = _.chain(dict).groupBy(property, context).value();
+
+        result = _<{ a: string }>(dict).chain().groupBy(property).value();
+        result = _<{ a: string }>(dict).chain().groupBy(property, context).value();
+        result = _(dict).chain().groupBy(property).value();
+        result = _(dict).chain().groupBy(property, context).value();
+    }
+}
+
+// indexBy
+// as a breaking change, consider changing _.ListIterator<T, any> and _.ObjectIterator<T, any> to use allowed indexing types (string | number | symbol)
+// instead of any
+// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to property names
+// on the type being sorted
+{
+    const context = {};
+
+    // with iterators
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: _.Dictionary<{ a: string }>;
+
+        result = _.indexBy<{ a: string }>(array, iterator);
+        result = _.indexBy<{ a: string }>(array, iterator, context);
+        result = _.indexBy(array, iterator);
+        result = _.indexBy(array, iterator, context);
+
+        result = _<{ a: string }>(array).indexBy(iterator);
+        result = _<{ a: string }>(array).indexBy(iterator, context);
+        result = _(array).indexBy(iterator);
+        result = _(array).indexBy(iterator, context);
+
+        result = _.chain<{ a: string }>(array).indexBy(iterator).value();
+        result = _.chain<{ a: string }>(array).indexBy(iterator, context).value();
+        result = _.chain(array).indexBy(iterator).value();
+        result = _.chain(array).indexBy(iterator, context).value();
+
+        result = _<{ a: string }>(array).chain().indexBy(iterator).value();
+        result = _<{ a: string }>(array).chain().indexBy(iterator, context).value();
+        result = _(array).chain().indexBy(iterator).value();
+        result = _(array).chain().indexBy(iterator, context).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: _.Dictionary<{ a: string }>;
+
+        result = _.indexBy<{ a: string }>(list, iterator);
+        result = _.indexBy<{ a: string }>(list, iterator, context);
+        result = _.indexBy(list, iterator);
+        result = _.indexBy(list, iterator, context);
+
+        result = _<{ a: string }>(list).indexBy(iterator);
+        result = _<{ a: string }>(list).indexBy(iterator, context);
+        result = _(list).indexBy(iterator);
+        result = _(list).indexBy(iterator, context);
+
+        result = _.chain<{ a: string }>(list).indexBy(iterator).value();
+        result = _.chain<{ a: string }>(list).indexBy(iterator, context).value();
+        result = _.chain(list).indexBy(iterator).value();
+        result = _.chain(list).indexBy(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().indexBy(iterator).value();
+        result = _<{ a: string }>(list).chain().indexBy(iterator, context).value();
+        result = _(list).chain().indexBy(iterator).value();
+        result = _(list).chain().indexBy(iterator, context).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
+        let result: _.Dictionary<{ a: string }>;
+
+        result = _.indexBy<{ a: string }>(dict, iterator);
+        result = _.indexBy<{ a: string }>(dict, iterator, context);
+        result = _.indexBy(dict, iterator);
+        result = _.indexBy(dict, iterator, context);
+
+        result = _<{ a: string }>(dict).indexBy(iterator);
+        result = _<{ a: string }>(dict).indexBy(iterator, context);
+        result = _(dict).indexBy(iterator);
+        result = _(dict).indexBy(iterator, context);
+
+        result = _.chain<{ a: string }>(dict).indexBy(iterator).value();
+        result = _.chain<{ a: string }>(dict).indexBy(iterator, context).value();
+        result = _.chain(dict).indexBy(iterator).value();
+        result = _.chain(dict).indexBy(iterator, context).value();
+
+        result = _<{ a: string }>(dict).chain().indexBy(iterator).value();
+        result = _<{ a: string }>(dict).chain().indexBy(iterator, context).value();
+        result = _(dict).chain().indexBy(iterator).value();
+        result = _(dict).chain().indexBy(iterator, context).value();
+    }
+
+    // with property names
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
+        let result: _.Dictionary<{ a: string }>;
+
+        result = _.indexBy<{ a: string }>(array, property);
+        result = _.indexBy<{ a: string }>(array, property, context);
+        result = _.indexBy(array, property);
+        result = _.indexBy(array, property, context);
+
+        result = _<{ a: string }>(array).indexBy(property);
+        result = _<{ a: string }>(array).indexBy(property, context);
+        result = _(array).indexBy(property);
+        result = _(array).indexBy(property, context);
+
+        result = _.chain<{ a: string }>(array).indexBy(property).value();
+        result = _.chain<{ a: string }>(array).indexBy(property, context).value();
+        result = _.chain(array).indexBy(property).value();
+        result = _.chain(array).indexBy(property, context).value();
+
+        result = _<{ a: string }>(array).chain().indexBy(property).value();
+        result = _<{ a: string }>(array).chain().indexBy(property, context).value();
+        result = _(array).chain().indexBy(property).value();
+        result = _(array).chain().indexBy(property, context).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
+        let result: _.Dictionary<{ a: string }>;
+
+        result = _.indexBy<{ a: string }>(list, property);
+        result = _.indexBy<{ a: string }>(list, property, context);
+        result = _.indexBy(list, property);
+        result = _.indexBy(list, property, context);
+
+        result = _<{ a: string }>(list).indexBy(property);
+        result = _<{ a: string }>(list).indexBy(property, context);
+        result = _(list).indexBy(property);
+        result = _(list).indexBy(property, context);
+
+        result = _.chain<{ a: string }>(list).indexBy(property).value();
+        result = _.chain<{ a: string }>(list).indexBy(property, context).value();
+        result = _.chain(list).indexBy(property).value();
+        result = _.chain(list).indexBy(property, context).value();
+
+        result = _<{ a: string }>(list).chain().indexBy(property).value();
+        result = _<{ a: string }>(list).chain().indexBy(property, context).value();
+        result = _(list).chain().indexBy(property).value();
+        result = _(list).chain().indexBy(property, context).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const property = 'a';
+        let result: _.Dictionary<{ a: string }>;
+
+        result = _.indexBy<{ a: string }>(dict, property);
+        result = _.indexBy<{ a: string }>(dict, property, context);
+        result = _.indexBy(dict, property);
+        result = _.indexBy(dict, property, context);
+
+        result = _<{ a: string }>(dict).indexBy(property);
+        result = _<{ a: string }>(dict).indexBy(property, context);
+        result = _(dict).indexBy(property);
+        result = _(dict).indexBy(property, context);
+
+        result = _.chain<{ a: string }>(dict).indexBy(property).value();
+        result = _.chain<{ a: string }>(dict).indexBy(property, context).value();
+        result = _.chain(dict).indexBy(property).value();
+        result = _.chain(dict).indexBy(property, context).value();
+
+        result = _<{ a: string }>(dict).chain().indexBy(property).value();
+        result = _<{ a: string }>(dict).chain().indexBy(property, context).value();
+        result = _(dict).chain().indexBy(property).value();
+        result = _(dict).chain().indexBy(property, context).value();
+    }
+}
+
+// countBy
+// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to property names
+// on the type being sorted
+{
+    const context = {};
+
+    // with iterators
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: _.Dictionary<number>;
+
+        result = _.countBy<{ a: string }>(array, iterator);
+        result = _.countBy<{ a: string }>(array, iterator, context);
+        result = _.countBy(array, iterator);
+        result = _.countBy(array, iterator, context);
+
+        result = _<{ a: string }>(array).countBy(iterator);
+        result = _<{ a: string }>(array).countBy(iterator, context);
+        result = _(array).countBy(iterator);
+        result = _(array).countBy(iterator, context);
+
+        result = _.chain<{ a: string }>(array).countBy(iterator).value();
+        result = _.chain<{ a: string }>(array).countBy(iterator, context).value();
+        result = _.chain(array).countBy(iterator).value();
+        result = _.chain(array).countBy(iterator, context).value();
+
+        result = _<{ a: string }>(array).chain().countBy(iterator).value();
+        result = _<{ a: string }>(array).chain().countBy(iterator, context).value();
+        result = _(array).chain().countBy(iterator).value();
+        result = _(array).chain().countBy(iterator, context).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: _.Dictionary<number>;
+
+        result = _.countBy<{ a: string }>(list, iterator);
+        result = _.countBy<{ a: string }>(list, iterator, context);
+        result = _.countBy(list, iterator);
+        result = _.countBy(list, iterator, context);
+
+        result = _<{ a: string }>(list).countBy(iterator);
+        result = _<{ a: string }>(list).countBy(iterator, context);
+        result = _(list).countBy(iterator);
+        result = _(list).countBy(iterator, context);
+
+        result = _.chain<{ a: string }>(list).countBy(iterator).value();
+        result = _.chain<{ a: string }>(list).countBy(iterator, context).value();
+        result = _.chain(list).countBy(iterator).value();
+        result = _.chain(list).countBy(iterator, context).value();
+
+        result = _<{ a: string }>(list).chain().countBy(iterator).value();
+        result = _<{ a: string }>(list).chain().countBy(iterator, context).value();
+        result = _(list).chain().countBy(iterator).value();
+        result = _(list).chain().countBy(iterator, context).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
+        let result: _.Dictionary<number>;
+
+        result = _.countBy<{ a: string }>(dict, iterator);
+        result = _.countBy<{ a: string }>(dict, iterator, context);
+        result = _.countBy(dict, iterator);
+        result = _.countBy(dict, iterator, context);
+
+        result = _<{ a: string }>(dict).countBy(iterator);
+        result = _<{ a: string }>(dict).countBy(iterator, context);
+        result = _(dict).countBy(iterator);
+        result = _(dict).countBy(iterator, context);
+
+        result = _.chain<{ a: string }>(dict).countBy(iterator).value();
+        result = _.chain<{ a: string }>(dict).countBy(iterator, context).value();
+        result = _.chain(dict).countBy(iterator).value();
+        result = _.chain(dict).countBy(iterator, context).value();
+
+        result = _<{ a: string }>(dict).chain().countBy(iterator).value();
+        result = _<{ a: string }>(dict).chain().countBy(iterator, context).value();
+        result = _(dict).chain().countBy(iterator).value();
+        result = _(dict).chain().countBy(iterator, context).value();
+    }
+
+    // with property names
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
+        let result: _.Dictionary<number>;
+
+        result = _.countBy<{ a: string }>(array, property);
+        result = _.countBy<{ a: string }>(array, property, context);
+        result = _.countBy(array, property);
+        result = _.countBy(array, property, context);
+
+        result = _<{ a: string }>(array).countBy(property);
+        result = _<{ a: string }>(array).countBy(property, context);
+        result = _(array).countBy(property);
+        result = _(array).countBy(property, context);
+
+        result = _.chain<{ a: string }>(array).countBy(property).value();
+        result = _.chain<{ a: string }>(array).countBy(property, context).value();
+        result = _.chain(array).countBy(property).value();
+        result = _.chain(array).countBy(property, context).value();
+
+        result = _<{ a: string }>(array).chain().countBy(property).value();
+        result = _<{ a: string }>(array).chain().countBy(property, context).value();
+        result = _(array).chain().countBy(property).value();
+        result = _(array).chain().countBy(property, context).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
+        let result: _.Dictionary<number>;
+
+        result = _.countBy<{ a: string }>(list, property);
+        result = _.countBy<{ a: string }>(list, property, context);
+        result = _.countBy(list, property);
+        result = _.countBy(list, property, context);
+
+        result = _<{ a: string }>(list).countBy(property);
+        result = _<{ a: string }>(list).countBy(property, context);
+        result = _(list).countBy(property);
+        result = _(list).countBy(property, context);
+
+        result = _.chain<{ a: string }>(list).countBy(property).value();
+        result = _.chain<{ a: string }>(list).countBy(property, context).value();
+        result = _.chain(list).countBy(property).value();
+        result = _.chain(list).countBy(property, context).value();
+
+        result = _<{ a: string }>(list).chain().countBy(property).value();
+        result = _<{ a: string }>(list).chain().countBy(property, context).value();
+        result = _(list).chain().countBy(property).value();
+        result = _(list).chain().countBy(property, context).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const property = 'a';
+        let result: _.Dictionary<number>;
+
+        result = _.countBy<{ a: string }>(dict, property);
+        result = _.countBy<{ a: string }>(dict, property, context);
+        result = _.countBy(dict, property);
+        result = _.countBy(dict, property, context);
+
+        result = _<{ a: string }>(dict).countBy(property);
+        result = _<{ a: string }>(dict).countBy(property, context);
+        result = _(dict).countBy(property);
+        result = _(dict).countBy(property, context);
+
+        result = _.chain<{ a: string }>(dict).countBy(property).value();
+        result = _.chain<{ a: string }>(dict).countBy(property, context).value();
+        result = _.chain(dict).countBy(property).value();
+        result = _.chain(dict).countBy(property, context).value();
+
+        result = _<{ a: string }>(dict).chain().countBy(property).value();
+        result = _<{ a: string }>(dict).chain().countBy(property, context).value();
+        result = _(dict).chain().countBy(property).value();
+        result = _(dict).chain().countBy(property, context).value();
+    }
+}
+
 // shuffle
 {
     {
