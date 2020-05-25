@@ -2596,7 +2596,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 // sortBy
 // as a breaking change, consider dropping TSort from UnderscoreStatic.sortBy and using any instead like Underscore and Chain do since TSort doesn't really add much
 // as a breaking change, consider dropping the context property from overloads that take a property name since it's not useful
-// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to property names
+// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to valid property names
 // on the type being sorted
 {
     const context = {};
@@ -2764,7 +2764,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 // as a breaking chage, consider changing the result of Underscore.groupBy to be _.Dictionary<T[]> instead of _.Dictionary<_.List<T>>
 // as a breaking change, consider changing _.ListIterator<T, any> and _.ObjectIterator<T, any> to use allowed indexing types (string | number | symbol)
 // instead of any
-// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to property names
+// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to valid property names
 // on the type being sorted
 {
     const context = {};
@@ -2931,7 +2931,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 // indexBy
 // as a breaking change, consider changing _.ListIterator<T, any> and _.ObjectIterator<T, any> to use allowed indexing types (string | number | symbol)
 // instead of any
-// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to property names
+// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to valid property names
 // on the type being sorted
 {
     const context = {};
@@ -3096,7 +3096,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 }
 
 // countBy
-// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to property names
+// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to valid property names
 // on the type being sorted
 {
     const context = {};
@@ -4730,6 +4730,7 @@ interface ArrayWrapper<T> {
 
 // uniq, unique
 // as a breaking change, consider dropping TCompare from uniq and unique in UnderscoreStatic and unique in Chain and using any instead like Underscore does since TCompare doesn't really add much
+// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to valid property names
 {
     const context = {};
 
