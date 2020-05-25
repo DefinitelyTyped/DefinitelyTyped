@@ -110,6 +110,7 @@ const payloadToGet_One: XummGetPayloadResponse = {
         txid: null,
         resolved_at: null,
         dispatched_to: null,
+        dispatched_nodetype: null,
         dispatched_result: null,
         multisign_account: null,
         account: null,
@@ -165,6 +166,7 @@ const payloadToGet_Two: XummGetPayloadResponse = {
         txid: "9B124C14528ED14C0BDA17075A39B90ABED598B77A22DFEEBD913CAC07A513BC",
         resolved_at: "2020-02-12T13:36:32.000Z",
         dispatched_to: "wss://rippled.xrptipbot.com",
+        dispatched_nodetype: "MAINNET",
         dispatched_result: "tes_SUCCESS",
         multisign_account: "rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDY",
         account: "r9onCSkYP2tYcukw2KUHMZ1Sn5YixQCgmN"
