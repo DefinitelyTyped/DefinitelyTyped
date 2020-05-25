@@ -393,6 +393,8 @@ export interface UseThemeFunction {
     (theme: any): SystemStyleObject;
 }
 
+type EmotionLabel = { label?: string };
+
 /**
  * The `SystemStyleObject` extends [style props](https://emotion.sh/docs/object-styles)
  * such that properties that are part of the `Theme` will be transformed to
@@ -404,6 +406,7 @@ export type SystemStyleObject =
     | CSSSelectorObject
     | VariantProperty
     | UseThemeFunction
+    | EmotionLabel
     | null;
 
 /**
