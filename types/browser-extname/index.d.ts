@@ -3,4 +3,5 @@
 // Definitions by: Todd Dukart <https://github.com/tdukart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function browser_extname(path: string): string;
+declare function browser_extname(path: string): string;
+export = browser_extname;
