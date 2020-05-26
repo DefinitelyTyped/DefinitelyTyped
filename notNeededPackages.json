@@ -1513,6 +1513,12 @@
             "asOfVersion": "6.4.3"
         },
         {
+            "libraryName": "framebus",
+            "typingsPackageName": "framebus",
+            "sourceRepoURL": "https://github.com/braintree/framebus",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "fromnow",
             "typingsPackageName": "fromnow",
             "sourceRepoURL": "https://github.com/lukeed/fromNow",
