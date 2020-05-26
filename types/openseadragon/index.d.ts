@@ -366,7 +366,7 @@ declare namespace OpenSeadragon {
         previousButton?: string;
         nextButton?: string;
         sequenceMode?: boolean;
-        initialPage?: boolean;
+        initialPage?: number;
         preserveViewport?: boolean;
         preserveOverlays?: boolean;
         showReferenceStrip?: boolean;
