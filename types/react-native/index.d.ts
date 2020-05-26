@@ -7935,69 +7935,69 @@ export interface StatusBarProps extends StatusBarPropsIOS, StatusBarPropsAndroid
 }
 
 export class StatusBar extends React.Component<StatusBarProps> {
-    /**
-     * The current height of the status bar on the device.
-     * @platform android
-     */
-    static currentHeight?: number;
+           /**
+            * The current height of the status bar on the device.
+            * @platform android
+            */
+           static currentHeight?: number;
 
-    /**
-     * Show or hide the status bar
-     * @param hidden The dialog's title.
-     * @param animation Optional animation when
-     *    changing the status bar hidden property.
-     */
-    static setHidden: (hidden: boolean, animation?: StatusBarAnimation) => void;
+           /**
+            * Show or hide the status bar
+            * @param hidden The dialog's title.
+            * @param animation Optional animation when
+            *    changing the status bar hidden property.
+            */
+           static setHidden: (hidden: boolean, animation?: StatusBarAnimation) => void;
 
-    /**
-     * Set the status bar style
-     * @param style Status bar style to set
-     * @param animated Animate the style change.
-     */
-    static setBarStyle: (style: StatusBarStyle, animated?: boolean) => void;
+           /**
+            * Set the status bar style
+            * @param style Status bar style to set
+            * @param animated Animate the style change.
+            */
+           static setBarStyle: (style: StatusBarStyle, animated?: boolean) => void;
 
-    /**
-     * Control the visibility of the network activity indicator
-     * @param visible Show the indicator.
-     */
-    static setNetworkActivityIndicatorVisible: (visible: boolean) => void;
+           /**
+            * Control the visibility of the network activity indicator
+            * @param visible Show the indicator.
+            */
+           static setNetworkActivityIndicatorVisible: (visible: boolean) => void;
 
-    /**
-     * Set the background color for the status bar
-     * @param color Background color.
-     * @param animated Animate the style change.
-     */
-    static setBackgroundColor: (color: string, animated?: boolean) => void;
+           /**
+            * Set the background color for the status bar
+            * @param color Background color.
+            * @param animated Animate the style change.
+            */
+           static setBackgroundColor: (color: string, animated?: boolean) => void;
 
-    /**
-     * Control the translucency of the status bar
-     * @param translucent Set as translucent.
-     */
-    static setTranslucent: (translucent: boolean) => void;
+           /**
+            * Control the translucency of the status bar
+            * @param translucent Set as translucent.
+            */
+           static setTranslucent: (translucent: boolean) => void;
 
-    /**
-     * Push a StatusBar entry onto the stack.
-     * The return value should be passed to `popStackEntry` when complete.
-     *
-     * @param props Object containing the StatusBar props to use in the stack entry.
-     */
-    static pushStackEntry: (props: StatusBarProps) => any;
+           /**
+            * Push a StatusBar entry onto the stack.
+            * The return value should be passed to `popStackEntry` when complete.
+            *
+            * @param props Object containing the StatusBar props to use in the stack entry.
+            */
+           static pushStackEntry: (props: StatusBarProps) => StatusBarProps;
 
-    /**
-     * Pop a StatusBar entry from the stack.
-     *
-     * @param entry Entry returned from `pushStackEntry`.
-     */
-    static popStackEntry: (entry: any) => void;
+           /**
+            * Pop a StatusBar entry from the stack.
+            *
+            * @param entry Entry returned from `pushStackEntry`.
+            */
+           static popStackEntry: (entry: StatusBarProps) => void;
 
-    /**
-     * Replace an existing StatusBar stack entry with new props.
-     *
-     * @param entry Entry returned from `pushStackEntry` to replace.
-     * @param props Object containing the StatusBar props to use in the replacement stack entry.
-     */
-    static replaceStackEntry: (entry: any, props: StatusBarProps) => any;
-}
+           /**
+            * Replace an existing StatusBar stack entry with new props.
+            *
+            * @param entry Entry returned from `pushStackEntry` to replace.
+            * @param props Object containing the StatusBar props to use in the replacement stack entry.
+            */
+           static replaceStackEntry: (entry: StatusBarProps, props: StatusBarProps) => StatusBarProps;
+       }
 
 /**
  * @deprecated Use StatusBar instead
