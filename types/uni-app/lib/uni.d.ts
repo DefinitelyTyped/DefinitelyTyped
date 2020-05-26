@@ -5489,6 +5489,7 @@ interface CanvasGradient {
     addColorStop(stop?: number, color?: string): void;
 }
 
+// tslint:disable-next-line no-empty-interface
 interface CanvasPattern {
 }
 
