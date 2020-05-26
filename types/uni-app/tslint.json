@@ -1,3 +1,8 @@
 {
-    "extends": "dtslint/dt.json"
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // The interface `CanvasPattern` witch is the result of calling CanvasContext.createPattern 
+        // has no public methods or fields
+        "no-empty-interface": false
+    }
 }

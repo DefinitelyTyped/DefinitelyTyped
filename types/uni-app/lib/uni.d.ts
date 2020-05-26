@@ -5490,7 +5490,6 @@ interface CanvasGradient {
 }
 
 interface CanvasPattern {
-    
 }
 
 interface CanvasTextMetrics {
