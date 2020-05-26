@@ -65,11 +65,11 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-#### Older versions of TypeScript (2.8 and earlier)
+#### Older versions of TypeScript (2.9 and earlier)
 
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
-Currently versions 2.9 and above are tested.
-If you're using TypeScript 2.0 to 2.8, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+Currently versions 3.0 and above are tested.
+If you're using TypeScript 2.0 to 2.9, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -414,13 +414,10 @@ compiler options.
 Do not change the type definition if it is accurate.
 For an NPM package, `export =` is accurate if `node -p 'require("foo")'` works to import a module, and `export default` is accurate if `node -p 'require("foo").default'` works to import a module.
 
-#### I want to use features from TypeScript 2.9 or above.
-
-Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.9`.
-
 #### I want to use features from TypeScript 3.1 or above.
 
-You can use the same `// TypeScript Version: 3.1` comment as above.
+Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
+
 However, if your project needs to maintain types that are compatible with 3.1 and above *at the same time as* types that are compatible with 3.0 or below, you will need to use the `typesVersions` feature, which is available in TypeScript 3.1 and above.
 You can find a detailed explanation of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
 
