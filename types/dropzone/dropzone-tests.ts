@@ -251,7 +251,7 @@ dropzone.createThumbnail(
     },
 );
 
-const mockFile: Dropzone.DropZoneMockFile = {
+const mockFile: Dropzone.DropzoneMockFile = {
     name: 'Mock File',
     size: 123456,
     customProperty: 'additional data',

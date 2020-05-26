@@ -46,7 +46,7 @@ declare namespace Dropzone {
         upload?: DropzoneFileUpload;
     }
 
-    export interface DropZoneMockFile {
+    export interface DropzoneMockFile {
         name: string;
         size: number;
         [index: string]: any;
@@ -235,7 +235,7 @@ declare class Dropzone {
     ): any;
 
     displayExistingFile(
-        mockFile: Dropzone.DropZoneMockFile,
+        mockFile: Dropzone.DropzoneMockFile,
         imageUrl: string,
         callback?: (...args: any[]) => void,
         crossOrigin?: 'anonymous' | 'use-credentials',
