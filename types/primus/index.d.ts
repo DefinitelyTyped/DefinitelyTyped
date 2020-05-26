@@ -193,10 +193,6 @@ declare namespace Primus {
         on(event: 'reconnect timeout' | 'reconnect failed', handler: (err: Error, opts: ReconnectEventOpts) => void): this;
         on(event: 'data', handler: (message: any) => void): this;
         on(event: 'error', handler: (err: Error) => void): this;
-<<<<<<< HEAD
         open(): this;
-=======
-        open(): void;
->>>>>>> upstream/master
     }
 }
