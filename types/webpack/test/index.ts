@@ -111,14 +111,46 @@ configuration = {
         // Disable TSLint for allowing non-arrow functions
         /* tslint:disable-next-line */
         function(context, request, callback) {
-          if (/^yourregex$/.test(request)) {
-            // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
             /* tslint:disable-next-line */
-            return callback(null, 'commonjs ' + request);
-          }
-          callback({}, {});
-        }
-      ]
+            if (/^yourregex$/.test(request)) {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line */
+                return callback(null, 'commonjs ' + request);
+            }
+            if (request === 'foo') {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line */
+                return callback(null, ['path', 'to', 'external']);
+            }
+            if (request === 'bar') {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line */
+                return callback(null, {}, 'commonjs');
+            }
+            if (request === 'baz') {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line */
+                return callback(null, {});
+            }
+
+            // Callback can be invoked with an error
+            callback('An error');
+            callback(new Error('Boom!'));
+
+            // A null error should include external parameters
+            // $ExpectError
+            callback(null);
+
+            // An error should include no other parameters
+            // $ExpectError
+            callback('An error', 'externalName');
+
+            // Continue without externalizing the import
+            // Disable TSLint for allowing non-arrow functions
+            /* tslint:disable-next-line */
+            return callback();
+        },
+    ],
 };
 
 configuration = {
@@ -143,7 +175,7 @@ configuration = {
                 /* tslint:disable-next-line */
                 return callback(null, 'commonjs ' + request);
               }
-              callback({}, {});
+              callback(null, {});
             },
             // Regex
             /^(jquery|\$)$/i
