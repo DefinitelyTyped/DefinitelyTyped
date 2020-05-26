@@ -43,7 +43,7 @@ declare namespace Bumblebee {
         processFrame(data: any): void;
     }
 
-    class SpectrumAnalyzer {
+    class SpectrumAnalyser {
         constructor(analyser: AnalyserNode , canvas: HTMLCanvasElement);
         setColors(linecolor: string , bgcolor: string): void;
         setLineColor(linecolor: string): void;

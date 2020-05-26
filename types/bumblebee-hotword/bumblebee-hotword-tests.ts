@@ -1,4 +1,4 @@
-import Bumblebee , { VoiceProcessor , SpectrumAnalyzer } from 'bumblebee-hotword';
+import Bumblebee , { VoiceProcessor , SpectrumAnalyser } from 'bumblebee-hotword';
 
 class MockVoiceProcessor implements VoiceProcessor {
     start(
@@ -39,7 +39,7 @@ bumblebee.start();
 
 bumblebee.stop();
 
-const analyzer = new SpectrumAnalyzer(context.createAnalyser(), new HTMLCanvasElement());
+const analyzer = new SpectrumAnalyser(context.createAnalyser(), new HTMLCanvasElement());
 
 analyzer.setLineColor('#000000');
 analyzer.setBackgroundColor('#000000');
