@@ -26,7 +26,7 @@ declare class StaticMapsImage {
     buffer: (mime?: string, outputOptions?: OutputOptions | PngOptions | JpegOptions | WebpOptions) => Promise<Buffer>;
 }
 
-export type ZoomRange = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17;
+export type ZoomLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23;
 
 export interface StaticMapsOptions {
     width: number;
@@ -51,8 +51,8 @@ export interface StaticMapsOptions {
      * Defines the range of zoom levels to try
      */
     zoomRange?: {
-        min?: ZoomRange;
-        max?: ZoomRange;
+        min?: ZoomLevel;
+        max?: ZoomLevel;
     };
     /** @deprecated Use zoomRange.max instead: */
     maxZoom?: number;
