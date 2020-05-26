@@ -7,12 +7,9 @@
 interface HeadroomOptions {
     /** vertical offset in px before element is first unpinned */
     offset?: number;
-    /** scroll tolerance in px before state changes
-     * or you can specify tolerance individually for up/down scroll
-     */
+    /** scroll tolerance in px before state changes or you can specify tolerance individually for up/down scroll */
     tolerance?: { up?: number; down?: number } | number;
-    /** css classes to apply
-    multiple classes are also supported with a space-separated list */
+    /** css classes to apply multiple classes are also supported with a space-separated list */
     classes?: {
         /** when element is initialised */
         initial?: string;
