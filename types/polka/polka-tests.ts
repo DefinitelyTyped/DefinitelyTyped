@@ -2,7 +2,7 @@ import * as compression from 'compression';
 import * as Polka from 'polka';
 
 interface MyResponse {
-    foo: string
+    foo: string;
 }
 
 const middleware: Polka.Middleware<any, MyResponse, any, any> = async (req, res, next) => {

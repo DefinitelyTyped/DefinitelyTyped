@@ -17,7 +17,7 @@ declare namespace polka {
     /**
      * A middleware function
      */
-    type Middleware<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query> = RequestHandler<P, ResBody, ReqBody, ReqQuery>
+    type Middleware<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query> = RequestHandler<P, ResBody, ReqBody, ReqQuery>;
 
     /**
      * Calls the next middleware function in the chain, or throws an error.
