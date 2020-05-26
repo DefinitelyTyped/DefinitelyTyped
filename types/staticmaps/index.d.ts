@@ -1,8 +1,8 @@
 // Type definitions for staticmaps 1.4
 // Project: https://github.com/StephanGeorg/staticmaps#readme
 // Definitions by: Olivier Kamers <https://github.com/olivierkamers>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 import { JpegOptions, OutputOptions, PngOptions, WebpOptions } from 'sharp';
 
@@ -26,6 +26,8 @@ declare class StaticMapsImage {
     buffer: (mime?: string, outputOptions?: OutputOptions | PngOptions | JpegOptions | WebpOptions) => Promise<Buffer>;
 }
 
+export type ZoomLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23;
+
 export interface StaticMapsOptions {
     width: number;
     height: number;
@@ -33,8 +35,26 @@ export interface StaticMapsOptions {
     paddingY?: number;
     tileUrl?: string;
     tileSize?: number;
+    /**
+     * Subdomains of tile server
+     * @default []
+     */
+    subdomains?: string[];
     tileRequestTimeout?: number;
     tileRequestHeader?: object;
+    /**
+     * Limit concurrent connections to the tiles server
+     * @default 2
+     */
+    tileRequestLimit?: number;
+    /**
+     * Defines the range of zoom levels to try
+     */
+    zoomRange?: {
+        min?: ZoomLevel;
+        max?: ZoomLevel;
+    };
+    /** @deprecated Use zoomRange.max instead: */
     maxZoom?: number;
     reverseY?: boolean;
 }
