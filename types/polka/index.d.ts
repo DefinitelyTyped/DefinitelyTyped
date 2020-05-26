@@ -8,10 +8,10 @@
 /// <reference types="node" />
 
 import { RequestHandler } from 'express';
+import { Params, ParamsDictionary, Query } from 'express-serve-static-core';
 import { IncomingMessage, Server, ServerResponse } from 'http';
 import * as Trouter from 'trouter';
 import { Url } from 'url';
-import { Params, ParamsDictionary, Query } from '../express-serve-static-core';
 
 declare namespace polka {
     /**
