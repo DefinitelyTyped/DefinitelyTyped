@@ -174,6 +174,16 @@ dropzoneWithOptionsVariations = new Dropzone('.test', {
 
 const dropzone = new Dropzone('.test');
 
+dropzone.element;
+dropzone.previewsContainer;
+dropzone.version;
+
+dropzone.listeners;
+dropzone.listeners[0].element;
+dropzone.listeners[0].events;
+dropzone.listeners[0].events.click(new MouseEvent('click'));
+dropzone.listeners[0].events.dragstart(new DragEvent('drag'));
+
 dropzone.options.clickable = true;
 if (!dropzone.options.headers) {
     dropzone.options.headers = {};
@@ -205,6 +215,8 @@ dropzone.files.forEach(f => {
 });
 
 const firstFile = dropzone.files[0];
+firstFile.dataURL;
+
 dropzone.removeFile(firstFile);
 dropzone.addFile(firstFile);
 dropzone.enqueueFile(firstFile);

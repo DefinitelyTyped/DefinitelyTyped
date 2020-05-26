@@ -36,6 +36,7 @@ declare namespace Dropzone {
     }
 
     export interface DropzoneFile extends File {
+        dataURL?: string;
         previewElement: HTMLElement;
         previewTemplate: HTMLElement;
         previewsContainer: HTMLElement;
@@ -158,6 +159,13 @@ declare namespace Dropzone {
 
         previewTemplate?: string;
     }
+
+    export interface DropzoneListener {
+        element: HTMLElement;
+        events: {
+            [key: string]: (e: Event) => any;
+        };
+    }
 }
 
 declare class Dropzone {
@@ -179,9 +187,13 @@ declare class Dropzone {
     static ERROR: string;
     static SUCCESS: string;
 
+    element: HTMLElement;
     files: Dropzone.DropzoneFile[];
+    listeners: Dropzone.DropzoneListener[];
     defaultOptions: Dropzone.DropzoneOptions;
     options: Dropzone.DropzoneOptions;
+    previewsContainer: HTMLElement;
+    version: string;
 
     enable(): void;
 
