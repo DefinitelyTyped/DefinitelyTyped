@@ -71,7 +71,7 @@ export type Game = {
     games_tied: number;
     games_won: number;
     time_played: string;
-}
+};
 
 export type Hero = {
     name: string;
@@ -95,7 +95,7 @@ export type Hero = {
     assists?: Statistic;
     average?: Statistic;
     raw_name: string;
-}
+};
 
 export interface GameMode {
     [key: string]: Hero;
