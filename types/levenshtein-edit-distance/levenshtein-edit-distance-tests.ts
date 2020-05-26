@@ -1,4 +1,4 @@
-import { levenshtein } from "levenshtein-edit-distance";
+import levenshtein = require("levenshtein-edit-distance");
 
 // $ExpectType number
 levenshtein("test", "tset");

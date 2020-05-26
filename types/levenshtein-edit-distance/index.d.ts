@@ -3,4 +3,6 @@
 // Definitions by: Ryan Blackman <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function levenshtein(value: string, other: string, insensitive?: boolean): number;
+declare function levenshtein(value: string, other: string, insensitive?: boolean): number;
+
+export = levenshtein;
