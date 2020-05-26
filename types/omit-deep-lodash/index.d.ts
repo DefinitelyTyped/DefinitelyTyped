@@ -3,6 +3,6 @@
 // Definitions by: Daniel Chong <https://github.com/dZefa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function omitDeep(input: Object, props: string): Object;
+declare function omitDeep(input: object, props: string): object;
 
 export default omitDeep;
