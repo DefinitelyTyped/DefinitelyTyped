@@ -147,8 +147,8 @@ declare namespace IORedis {
         (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, cb: Callback<U>): void;
-        (data: T[] | { [key: string]: T }, cb: Callback<U>): void;
-        (data: T[] | { [key: string]: T }): Promise<U>;
+        (data: T[] | { [key: string]: T } | Map<string, T>, cb: Callback<U>): void;
+        (data: T[] | { [key: string]: T } | Map<string, T>): Promise<U>;
         (...args: T[]): Promise<U>;
     }
 
@@ -156,8 +156,8 @@ declare namespace IORedis {
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, cb: Callback<U>): void;
-        (key: KeyType, data: T[] | { [key: string]: T }, cb: Callback<U>): void;
-        (key: KeyType, data: T[] | { [key: string]: T }): Promise<U>;
+        (key: KeyType, data: T[] | { [key: string]: T } | Map<string, ValueType>, cb: Callback<U>): void;
+        (key: KeyType, data: T[] | { [key: string]: T } | Map<string, ValueType>): Promise<U>;
         (key: KeyType, ...args: T[]): Promise<U>;
     }
 

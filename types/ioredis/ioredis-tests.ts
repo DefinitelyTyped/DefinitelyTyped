@@ -152,6 +152,7 @@ redis.hmset('foo', '1', '2').then(console.log);
 redis.hmset('foo', '1', ['1', 2]);
 redis.hmset('foo', { a: 'b', c: 4 }).then(console.log);
 redis.hmset('foo', { a: 'b', c: 4 }, cb);
+redis.hmset('foo', new Map<string, number>(), cb);
 
 // Test OverloadedHashCommand
 redis.mset('1', '2', '3', 4, '5', new Buffer([])).then(console.log);
@@ -162,6 +163,7 @@ redis.mset('1', '2').then(console.log);
 redis.mset('1', ['1', 2]);
 redis.mset({ a: 'b', c: 4 }).then(console.log);
 redis.mset({ a: 'b', c: 4 }, cbNumber);
+redis.mset(new Map<string, number>());
 redis.msetnx('1', '2', '3', 4, '5', new Buffer([])).then(console.log);
 redis.msetnx('1', '2', '3', 4, '5', new Buffer([]), cbNumber);
 redis.msetnx('1', '2', '3', 4).then(console.log);
@@ -170,6 +172,7 @@ redis.msetnx('1', '2').then(console.log);
 redis.msetnx('1', ['1', 2]);
 redis.msetnx({ a: 'b', c: 4 }).then(console.log);
 redis.msetnx({ a: 'b', c: 4 }, cbNumber);
+redis.msetnx(new Map<string, number>(), cbNumber);
 
 // Test OverloadedEvalCommand
 redis.eval('script', 2, 'foo', 'bar').then(console.log);
