@@ -24,7 +24,7 @@ export interface RecordingOptions {
 
 export const AudioRecorder: {
     requestAuthorization(): Promise<boolean>;
-    prepareRecordingAtPath(path: string, options: RecordingOptions): Promise<string>;
+    prepareRecordingAtPath(path: string, options: RecordingOptions): void | Promise<string>;
     startRecording(): Promise<string>;
     stopRecording(): Promise<string>;
     resumeRecording(): Promise<string>;
