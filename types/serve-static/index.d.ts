@@ -54,7 +54,7 @@ declare namespace serveStatic {
          * The first that exists will be served. Example: ['html', 'htm'].
          * The default value is false.
          */
-        extensions?: string[];
+        extensions?: string[] | false;
 
         /**
          * Let client errors fall-through as unhandled requests, otherwise forward a client error.

@@ -2,11 +2,12 @@
 // Project: https://github.com/mathiasbynens/jsesc
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Lyanbin <https://github.com/Lyanbin>
+//                 Colin Reeder <https://github.com/vpzomtrrfrt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 
-declare function jsesc(str: string, opts?: any): string;
+declare function jsesc(argument: any, opts?: jsesc.Opts): string;
 
 declare namespace jsesc {
     var version: string;

@@ -10,6 +10,41 @@ export interface PatternsDefinition {
 }
 
 /**
+ * Options for the hyphenation factory function.
+ */
+export interface FactoryOptions {
+    /**
+     * If true the factory returns an asynchronous hyphenation function.
+     * @default false
+     */
+    async?: boolean;
+
+    /**
+     * A boolean indicating, if the hyphenation function should output debug info to the console.
+     * @default false
+     */
+    debug?: boolean;
+
+    /**
+     * The value of the hyphen character that is inserted into the text.
+     * @default \u00AD
+     */
+    hyphenChar?: string;
+
+    /**
+     * If true the hyphenation function is going to ignore HTML tags in the text.
+     * @default false
+     */
+    html?: boolean;
+
+    /**
+     * The minimum length for a word to get hyphenated. Can't be less than 5.
+     * @default 5
+     */
+    minWordLength?: number;
+}
+
+/**
  * Options for a hyphenation call.
  */
 export interface HyphenationOptions {

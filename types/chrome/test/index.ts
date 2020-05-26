@@ -398,6 +398,26 @@ function testDebugger() {
     });
 }
 
+// https://developer.chrome.com/extensions/declarativeContent
+function testDeclarativeContent() {
+    const activeIcon: ImageData = new ImageData(32, 32);
+
+    const rule: chrome.events.Rule = {
+        conditions: [
+            new chrome.declarativeContent.PageStateMatcher({
+                pageUrl: {
+                    hostContains: 'test.com'
+                }
+            })
+        ],
+        actions: [
+            new chrome.declarativeContent.SetIcon({
+                imageData: activeIcon
+            })
+        ]
+    }
+}
+
 // https://developer.chrome.com/extensions/storage#type-StorageArea
 function testStorage() {
     function getCallback(loadedData: { [key: string]: any; }) {

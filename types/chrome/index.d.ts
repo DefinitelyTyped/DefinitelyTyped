@@ -1595,6 +1595,13 @@ declare namespace chrome.declarativeContent {
     /** Declarative event action that shows the extension's page action while the corresponding conditions are met. */
     export class ShowPageAction { }
 
+    /** Declarative event action that changes the icon of the page action while the corresponding conditions are met. */
+    export class SetIcon {
+        constructor (options?: {
+            imageData?: ImageData | {[size: string]: ImageData}
+        })
+    }
+
     /** Provides the Declarative Event API consisting of addRules, removeRules, and getRules. */
     export interface PageChangedEvent extends chrome.events.Event<() => void> { }
 
@@ -6664,7 +6671,7 @@ declare namespace chrome.system.display {
        * If set, updates the display's logical bounds origin along y-axis.
        * @see[See documentation for boundsOriginX parameter.]
        */
-      boundsOriginY: number;
+      boundsOriginY?: number;
 
       /**
        * If set, updates the display mode to the mode matching this value.

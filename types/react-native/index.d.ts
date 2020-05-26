@@ -8533,8 +8533,30 @@ export namespace Animated {
     type EndCallback = (result: EndResult) => void;
 
     export interface CompositeAnimation {
+        /**
+         * Animations are started by calling start() on your animation.
+         * start() takes a completion callback that will be called when the
+         * animation is done or when the animation is done because stop() was
+         * called on it before it could finish.
+         *
+         * @param callback - Optional function that will be called
+         *      after the animation finished running normally or when the animation
+         *      is done because stop() was called on it before it could finish
+         *
+         * @example
+         *   Animated.timing({}).start(({ finished }) => {
+         *    // completion callback
+         *   });
+         */
         start: (callback?: EndCallback) => void;
+        /**
+         * Stops any running animation.
+         */
         stop: () => void;
+        /**
+         * Stops any running animation and resets the value to its original.
+         */
+        reset: () => void;
     }
 
     interface AnimationConfig {

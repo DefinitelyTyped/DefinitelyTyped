@@ -20,6 +20,9 @@ FR.onloadend = () => {
 
 var randomWordArrayEncoded = CryptoJS.lib.WordArray.random(16).toString(CryptoJS.enc.Hex);
 
+const libWordArray: CryptoJS.LibWordArray = CryptoJS.lib.WordArray.create("Message");
+const encKey = CryptoJS.AES.encrypt(libWordArray, "Key");
+
 // Ciphers
 var encrypted: CryptoJS.WordArray;
 var decrypted: CryptoJS.DecryptedMessage;
