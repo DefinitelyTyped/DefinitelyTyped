@@ -5,4 +5,4 @@
 
 declare function omitDeep(input: object, props: string): object;
 
-export default omitDeep;
+export = omitDeep;
