@@ -250,7 +250,7 @@ export interface ReactourProps {
      */
     disableFocusLock?: boolean;
 
-    CustomHelper?: (current: number, content: any, totalSteps: number, gotoStep: () => void, close: () => void) => void;
+    CustomHelper?: any;
 }
 
 export interface ReactourState {
