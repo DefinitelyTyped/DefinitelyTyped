@@ -1,6 +1,5 @@
-///<reference types="react" />
+/// <reference types="react" />
 
-import * as React from 'react';
 import { RecoilState } from './recoilValue';
 
 export interface RecoilRootProps {

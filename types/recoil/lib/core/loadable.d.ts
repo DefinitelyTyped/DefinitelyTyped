@@ -10,9 +10,7 @@ export type LoadablePromise<T> = Promise<ResolvedLoadablePromiseInfo<T>>;
 export type Loadable<T> =
     | Readonly<{ state: 'hasValue'; contents: T }>
     | Readonly<{ state: 'hasError'; contents: Error }>
-    | Readonly<
-          {
-              state: 'loading';
-              contents: LoadablePromise<T>;
-          }
-      >;
+    | Readonly<{
+          state: 'loading';
+          contents: LoadablePromise<T>;
+      }>;
