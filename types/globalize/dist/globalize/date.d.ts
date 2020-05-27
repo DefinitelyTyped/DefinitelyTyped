@@ -57,7 +57,7 @@ declare module "../globalize" {
         /**
          * .dateToPartsFormatter( options )
          * @param {DateFormatterOptions} options see date/expand_pattern for more info.
-         * * @returns {Function} Return a function that formats a date into parts tokens according to the given options. The default formatting is numeric year, month, and day (i.e., `{ skeleton: "yMd" }`).
+         * @returns {Function} Return a function that formats a date into parts tokens according to the given options. The default formatting is numeric year, month, and day (i.e., `{ skeleton: "yMd" }`).
          */
         dateToPartsFormatter(options?: DateFormatterOptions): (value: Date) => DateFormatPart[];
 
