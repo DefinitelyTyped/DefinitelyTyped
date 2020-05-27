@@ -48,7 +48,7 @@ const lintStateOptions: CodeMirror.LintStateOptions = {
     hasGutters: true,
 };
 
-const asyncLintOptions: CodeMirror.LintOptions = {
+const asyncLintOptions: CodeMirror.LintStateOptions = {
     async: true,
     hasGutters: true,
     getAnnotations: (
@@ -59,12 +59,24 @@ const asyncLintOptions: CodeMirror.LintOptions = {
     ) => {},
 };
 
-const syncLintOptions: CodeMirror.LintOptions = {
+const syncLintOptions: CodeMirror.LintStateOptions = {
     async: false,
     hasGutters: true,
     getAnnotations: (
         content: string,
         options: CodeMirror.LintStateOptions,
+        codeMirror: CodeMirror.Editor,
+    ): CodeMirror.Annotation[] => {
+        return [];
+    },
+};
+
+const customLintOptions: CodeMirror.LintStateOptions = {
+    async: false,
+    options: {},
+    getAnnotations: (
+        content: string,
+        options: any,
         codeMirror: CodeMirror.Editor,
     ): CodeMirror.Annotation[] => {
         return [];
