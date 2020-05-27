@@ -2705,21 +2705,21 @@ declare namespace Cesium {
         definitionChanged: Event;
         text: Property;
         font: string;
-        style: LabelStyle | Property;
+        style: Property;
         fillColor: Color;
         outlineColor: Color;
         outlineWidth: number;
         horizontalOrigin: Property;
-        verticalOrigin: VerticalOrigin | Property;
+        verticalOrigin: Property;
         eyeOffset: Property;
-        pixelOffset: Cartesian2 | Property;
+        pixelOffset: Property;
         backgroundColor: Property;
         scale: Property;
         showBackground?: Property;
         show: Property;
         translucencyByDistance: Property;
         pixelOffsetScaleByDistance: Property;
-        distanceDisplayCondition?: DistanceDisplayCondition | Property;
+        distanceDisplayCondition?: Property;
         constructor(options?: {
             text?: Property | string;
             font?: string;
