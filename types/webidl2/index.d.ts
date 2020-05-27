@@ -83,6 +83,8 @@ export interface SingleTypeDescription {
      * the eventual value of the promise, etc.
      */
     idlType: string;
+    /** A list of extended attributes. */
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface UnionTypeDescription {
@@ -103,6 +105,8 @@ export interface UnionTypeDescription {
      * the eventual value of the promise, etc.
      */
     idlType: IDLTypeDescription[];
+    /** A list of extended attributes. */
+    extAttrs: ExtendedAttribute[];
 }
 
 export interface InterfaceType {
@@ -304,13 +308,19 @@ export interface ExtendedAttribute {
 }
 
 export type ExtendedAttributeRightHandSide =
+    | ExtendedAttributeRightHandSideBase
+    | ExtendedAttributeRightHandSideList;
+
+export type ExtendedAttributeRightHandSideBase =
     | ExtendedAttributeRightHandSideIdentifier
-    | ExtendedAttributeRightHandSideIdentifierList
     | ExtendedAttributeRightHandSideString
-    | ExtendedAttributeRightHandSideStringList
     | ExtendedAttributeRightHandSideDecimal
+    | ExtendedAttributeRightHandSideInteger;
+
+export type ExtendedAttributeRightHandSideList =
+    | ExtendedAttributeRightHandSideIdentifierList
+    | ExtendedAttributeRightHandSideStringList
     | ExtendedAttributeRightHandSideDecimalList
-    | ExtendedAttributeRightHandSideInteger
     | ExtendedAttributeRightHandSideIntegerList;
 
 export interface ExtendedAttributeRightHandSideIdentifier {
