@@ -1,8 +1,10 @@
-// Type definitions for meteor/ostrio:files 1.14
+// Type definitions for non-npm package meteor/ostrio:files 1.14
 // Project: https://github.com/VeliovGroup/Meteor-Files
 // Definitions by: Oliver J. Coleman <https://github.com/OliverColeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
+
+/// <reference types="meteor" />
 
 import { Mongo } from 'meteor/mongo';
 import { ReactiveVar } from 'meteor/reactive-var';
