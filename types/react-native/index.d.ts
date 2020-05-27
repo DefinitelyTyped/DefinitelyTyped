@@ -39,6 +39,7 @@
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
+//                 Marcel Lasaj <https://github.com/TheWirv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -7973,6 +7974,29 @@ export class StatusBar extends React.Component<StatusBarProps> {
      * @param translucent Set as translucent.
      */
     static setTranslucent: (translucent: boolean) => void;
+
+    /**
+     * Push a StatusBar entry onto the stack.
+     * The return value should be passed to `popStackEntry` when complete.
+     *
+     * @param props Object containing the StatusBar props to use in the stack entry.
+     */
+    static pushStackEntry: (props: StatusBarProps) => StatusBarProps;
+
+    /**
+     * Pop a StatusBar entry from the stack.
+     *
+     * @param entry Entry returned from `pushStackEntry`.
+     */
+    static popStackEntry: (entry: StatusBarProps) => void;
+
+    /**
+     * Replace an existing StatusBar stack entry with new props.
+     *
+     * @param entry Entry returned from `pushStackEntry` to replace.
+     * @param props Object containing the StatusBar props to use in the replacement stack entry.
+     */
+    static replaceStackEntry: (entry: StatusBarProps, props: StatusBarProps) => StatusBarProps;
 }
 
 /**
