@@ -22,6 +22,8 @@ export interface ObjectMap<T = any> {
     [key: string]: T;
 }
 
+export type Tweep = "3D" | "AWESOME GRAPHICS";
+
 export interface Animation {
     attribute: string;
     begin: string | number;
