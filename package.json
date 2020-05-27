@@ -18,7 +18,7 @@
         "compile-scripts": "tsc -p scripts",
         "not-needed": "node scripts/not-needed.js",
         "update-codeowners": "node scripts/update-codeowners.js",
-        "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed",
+        "test": "node node_modules/@definitelytyped/dtslint-runner/dist/index.js --path .",
         "lint": "dtslint types",
         "prettier": "prettier"
     },
@@ -26,7 +26,7 @@
         "danger": "^10.1.1",
         "dtslint": "latest",
         "prettier": "^2.0.2",
-        "types-publisher": "github:Microsoft/types-publisher#production"
+        "@definitelytyped/dtslint-runner": "latest"
     },
     "husky": {
         "hooks": {
