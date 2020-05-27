@@ -958,3 +958,8 @@ const nestedArrayNullable = yup.object().shape({
 const nestedArrayNullableExample: yup.InferType<typeof nestedArrayNullable> = {
     foo: null
 };
+
+const arrayOfOptional = yup.array().of(
+  yup.object({ bar: yup.string() }),
+).defined();
+const arrayOfOptionalExample: yup.InferType<typeof arrayOfOptional> = [{}];
