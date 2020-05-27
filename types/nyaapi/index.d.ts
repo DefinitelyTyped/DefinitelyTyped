@@ -55,8 +55,8 @@ export namespace si {
     interface Torrent {
         id: string;
         name: string;
-        category: String;
-        sub_category: String;
+        category: string;
+        sub_category: string;
         hash: string;
         torrent: string;
         magnet: string;
