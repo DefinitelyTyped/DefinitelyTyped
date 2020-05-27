@@ -452,6 +452,7 @@ const timeLabelsChartData: Chart.ChartData = {
         1, 2, 3,
         new Date(), new Date(), new Date(),
         moment(), moment(), moment(),
+        document.createElement('img'), document.createElement('img'), document.createElement('img'),
     ],
 };
 

@@ -260,7 +260,7 @@ declare namespace Chart {
     }
 
     interface ChartData {
-        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[]>;
+        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[] | HTMLElement | HTMLElement[]>;
         datasets?: ChartDataSets[];
     }
 
