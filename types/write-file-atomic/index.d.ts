@@ -24,7 +24,7 @@ declare namespace writeFile {
         /**
          * @default 'utf8'
          */
-        encoding?: BufferEncoding | '';
+        encoding?: BufferEncoding;
         fsync?: boolean;
         mode?: number;
     }
