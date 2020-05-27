@@ -92,3 +92,6 @@ mixpanel.people.track_charge(30.50, {
 });
 mixpanel.people.clear_charges();
 mixpanel.people.delete_user();
+mixpanel.init('YOUR PROJECT TOKEN', {
+    ignore_dnt: true,
+});
