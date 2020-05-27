@@ -36,8 +36,12 @@ const options: MapOptions = {
 
 const bounds: NESWBounds = {
     ne: {
-      lat: 50,
-      lng: 15,
+      lat: 55,
+      lng: 10,
+    },
+    sw: {
+      lat: 45,
+      lng: 20,
     }
 };
 
