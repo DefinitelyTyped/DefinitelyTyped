@@ -15,6 +15,6 @@ const result = svg2ttf(`
         <glyph unicode="." glyph-name="fullstop" horiz-adv-x="300" d="M0,0 L10,10 L20,10"/>
         </font>
     </defs>
-</svg>`);
+</svg>`) // $ExpectType MicroBuffer;
 
-const buffer = result.buffer;
+result.buffer // $ExpectType Uint8Array;
