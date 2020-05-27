@@ -84,7 +84,7 @@ declare global {
             toDisplayDialog(block: () => Promise<void>): Promise<Dialog>;
             toFill(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
             toFillForm(selector: string, value: { [key: string]: any}, options?: ExpectTimingActions): Promise<void>;
-            toMatch(selector: string, options?: ExpectTimingActions): Promise<void>;
+            toMatch(matcher: string | RegExp, options?: ExpectTimingActions): Promise<void>;
             toMatchElement(selector: string, options?: ExpectToClickOptions): Promise<ElementHandle>;
             toSelect(selector: string, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
             toUploadFile(selector: string, filePath: string, options?: ExpectTimingActions): Promise<void>;

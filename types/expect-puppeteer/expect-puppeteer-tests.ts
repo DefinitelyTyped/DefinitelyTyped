@@ -18,10 +18,14 @@ const testGlobal = async (instance: ElementHandle | Page) => {
     await expect(instance).toFillForm("selector", { foo: 'bar', baz: 123 });
     await expect(instance).toFillForm("selector", { foo: 'bar', baz: 123 }, { delay: 777 });
 
-    await expect(instance).toMatch("selector");
-    await expect(instance).toMatch("selector", { timeout: 777 });
-    await expect(instance).toMatch("selector", { polling: "raf", timeout: 777 });
-    await expect(instance).toMatch("selector", { polling: "mutation", timeout: 777 });
+    await expect(instance).toMatch("some_string");
+    await expect(instance).toMatch("some_string", { timeout: 777 });
+    await expect(instance).toMatch("some_string", { polling: "raf", timeout: 777 });
+    await expect(instance).toMatch("some_string", { polling: "mutation", timeout: 777 });
+    await expect(instance).toMatch(/some_regexp/);
+    await expect(instance).toMatch(/some_regexp/, { timeout: 777 });
+    await expect(instance).toMatch(/some_regexp/, { polling: "raf", timeout: 777 });
+    await expect(instance).toMatch(/some_regexp/, { polling: "mutation", timeout: 777 });
 
     await expect(instance).toMatchElement("selector");
     await expect(instance).toMatchElement("selector", { polling: "raf", timeout: 777 });
