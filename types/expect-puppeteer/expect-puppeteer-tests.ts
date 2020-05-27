@@ -1,4 +1,5 @@
 import { ElementHandle, Page } from "puppeteer";
+import { getDefaultOptions, setDefaultOptions } from 'expect-puppeteer';
 
 const testGlobal = async (instance: ElementHandle | Page) => {
     await expect(instance).toClick("selector");
@@ -36,6 +37,9 @@ const testGlobal = async (instance: ElementHandle | Page) => {
 
     await expect(instance).toUploadFile("selector", "filePath");
     await expect(instance).toUploadFile("selector", "filePath", { timeout: 777 });
+
+    setDefaultOptions({ polling: "mutation", timeout: 5000 });
+    const { polling, timeout } = getDefaultOptions();
 };
 
 const testImported = async (instance: ElementHandle | Page) => {
