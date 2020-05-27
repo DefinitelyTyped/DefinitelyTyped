@@ -18,6 +18,8 @@ import * as tween from '@tweenjs/tween.js';
 export type ThreeLib = typeof three;
 export type TweenLib = typeof tween;
 
+type Threen = "2D" | "CRAB BATTLE";
+
 export interface ObjectMap<T = any> {
     [key: string]: T;
 }
