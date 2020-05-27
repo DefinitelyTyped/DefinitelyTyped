@@ -237,7 +237,7 @@ declare class Dropzone {
     displayExistingFile(
         mockFile: Dropzone.DropzoneMockFile,
         imageUrl: string,
-        callback?: (...args: any[]) => void,
+        callback?: () => void,
         crossOrigin?: 'anonymous' | 'use-credentials',
         resizeThumbnail?: boolean,
     ): any;
