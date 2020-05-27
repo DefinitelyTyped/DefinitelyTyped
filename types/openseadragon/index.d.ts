@@ -366,6 +366,10 @@ declare namespace OpenSeadragon {
         previousButton?: string;
         nextButton?: string;
         sequenceMode?: boolean;
+        /** 
+         * If sequenceMode is true, display this page initially.
+         * @default 0
+         */
         initialPage?: number;
         preserveViewport?: boolean;
         preserveOverlays?: boolean;
