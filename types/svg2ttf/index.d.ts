@@ -1,18 +1,18 @@
-declare module 'svg2ttf' {
-    function svg2ttf(svgFontString: string): MicroBuffer;
-    function svg2ttf(svgFontString: string, options: FontOptions): MicroBuffer;
+// Type definitions for svg2ttf 5.0
+// Project: https://github.com/fontello/svg2ttf
+// Definitions by: Ewan Morrison <https://github.com/ewan-m>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-    interface FontOptions {
-        copyright?: string;
-        description?: string;
-        ts?: number;
-        url?: string;
-        version: string;
-    }
+declare function svg2ttf(svgFontString: string, options?: FontOptions): MicroBuffer;
 
-    interface MicroBuffer {
-        buffer: Uint8Array;
-    }
+interface FontOptions {
+    copyright?: string;
+    description?: string;
+    ts?: number;
+    url?: string;
+    version: string;
+}
 
-    export = svg2ttf;
+interface MicroBuffer {
+    buffer: Uint8Array;
 }

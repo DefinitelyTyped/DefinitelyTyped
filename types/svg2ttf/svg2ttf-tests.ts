@@ -1,6 +1,4 @@
-import svg2ttf from 'svg2ttf';
-
-const result = svg2ttf(`
+const dummySvgFontString = `
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg">
@@ -15,6 +13,8 @@ const result = svg2ttf(`
         <glyph unicode="." glyph-name="fullstop" horiz-adv-x="300" d="M0,0 L10,10 L20,10"/>
         </font>
     </defs>
-</svg>`) // $ExpectType MicroBuffer;
+</svg>`;
 
-result.buffer // $ExpectType Uint8Array;
+svg2ttf(dummySvgFontString); // $ExpectType MicroBuffer
+
+svg2ttf(dummySvgFontString).buffer; // $ExpectType Uint8Array
