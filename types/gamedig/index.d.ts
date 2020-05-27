@@ -274,6 +274,7 @@ export interface QueryResult {
     bots: Player[];
     notes: object;
     raw?: object;
+    ping: number;
     query?: object;
 }
 
