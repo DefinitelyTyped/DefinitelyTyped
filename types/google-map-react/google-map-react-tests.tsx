@@ -2,7 +2,7 @@ import GoogleMapReact, {
     BootstrapURLKeys, MapOptions, NESWBounds,
     Size
 } from 'google-map-react';
-import fitBounds from 'google-map-react/utils'
+import { fitBounds } from 'google-map-react/utils'
 import * as React from 'react';
 
 const center = { lat: 0, lng: 0 };
