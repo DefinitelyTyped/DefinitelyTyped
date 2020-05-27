@@ -12,9 +12,14 @@ new StaticMaps({
     paddingY: 1,
     tileUrl: 'https://tile.server/{x}/{y}/{z}',
     tileSize: 50,
+    tileRequestLimit: 2,
     tileRequestTimeout: 2000,
     tileRequestHeader: {
         Authorization: 'Bearer token',
+    },
+    zoomRange: {
+        min: 2,
+        max: 17,
     },
     maxZoom: 17,
     reverseY: true,

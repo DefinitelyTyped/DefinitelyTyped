@@ -250,3 +250,6 @@ mixpanel.people.clear_charges((response) => {
     }
 });
 mixpanel.people.delete_user();
+mixpanel.init('YOUR PROJECT TOKEN', {
+    ignore_dnt: true,
+});
