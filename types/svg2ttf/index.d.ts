@@ -3,6 +3,8 @@
 // Definitions by: Ewan Morrison <https://github.com/ewan-m>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// tslint:disable:no-redundant-jsdoc-2
+
 /**
  * Converts SVG fonts to TTF format
  */
