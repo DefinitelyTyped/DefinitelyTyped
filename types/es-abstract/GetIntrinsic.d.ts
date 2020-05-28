@@ -19,14 +19,17 @@ declare function GetIntrinsic<K extends keyof GetIntrinsic.Intrinsics>(
     name: K,
     allowMissing?: boolean,
 ): GetIntrinsic.Intrinsics[K] | undefined;
-declare function GetIntrinsic(name: string, allowMissing?: boolean): unknown;
+declare function GetIntrinsic(name: string, allowMissing?: boolean): any;
+export = GetIntrinsic;
 
+// TODO: Generate this using a script:
+//#region Intrinsics
 declare namespace GetIntrinsic {
     interface Intrinsics {
         '%Array%': ArrayConstructor;
         '%ArrayBuffer%': ArrayBufferConstructor;
         '%ArrayBufferPrototype%': ArrayBuffer;
-        '%ArrayIteratorPrototype%': IterableIterator<unknown>;
+        '%ArrayIteratorPrototype%': IterableIterator<any>;
         '%ArrayPrototype%': typeof Array.prototype;
         '%ArrayProto_entries%': typeof Array.prototype.entries;
         '%ArrayProto_forEach%': typeof Array.prototype.forEach;
@@ -35,9 +38,9 @@ declare namespace GetIntrinsic {
         '%AsyncFromSyncIteratorPrototype%': undefined;
         '%AsyncFunction%': FunctionConstructor;
         '%AsyncFunctionPrototype%': typeof Function.prototype;
-        '%AsyncGenerator%': AsyncGenerator;
+        '%AsyncGenerator%': AsyncGeneratorFunction;
         '%AsyncGeneratorFunction%': AsyncGeneratorFunctionConstructor;
-        '%AsyncGeneratorPrototype%': AsyncGeneratorFunction;
+        '%AsyncGeneratorPrototype%': AsyncGenerator<any, any, any>;
         '%AsyncIteratorPrototype%': AsyncIterable<any>;
         '%Atomics%': Atomics;
         '%Boolean%': BooleanConstructor;
@@ -61,9 +64,9 @@ declare namespace GetIntrinsic {
         '%Float64ArrayPrototype%': Float64Array;
         '%Function%': FunctionConstructor;
         '%FunctionPrototype%': typeof Function.prototype;
-        '%Generator%': Generator;
+        '%Generator%': GeneratorFunction;
         '%GeneratorFunction%': GeneratorFunctionConstructor;
-        '%GeneratorPrototype%': GeneratorFunction;
+        '%GeneratorPrototype%': Generator<any, any, any>;
         '%Int8Array%': Int8ArrayConstructor;
         '%Int8ArrayPrototype%': Int8Array;
         '%Int16Array%': Int16ArrayConstructor;
@@ -76,7 +79,7 @@ declare namespace GetIntrinsic {
         '%JSON%': JSON;
         '%JSONParse%': typeof JSON.parse;
         '%Map%': MapConstructor;
-        '%MapIteratorPrototype%': IterableIterator<[unknown, unknown]>;
+        '%MapIteratorPrototype%': IterableIterator<any>;
         '%MapPrototype%': typeof Map.prototype;
         '%Math%': Math;
         '%Number%': NumberConstructor;
@@ -102,7 +105,7 @@ declare namespace GetIntrinsic {
         '%RegExp%': RegExpConstructor;
         '%RegExpPrototype%': RegExp;
         '%Set%': SetConstructor;
-        '%SetIteratorPrototype%': IterableIterator<unknown>;
+        '%SetIteratorPrototype%': IterableIterator<any>;
         '%SetPrototype%': typeof Set.prototype;
         '%SharedArrayBuffer%': SharedArrayBufferConstructor;
         '%SharedArrayBufferPrototype%': SharedArrayBuffer;
@@ -114,8 +117,8 @@ declare namespace GetIntrinsic {
         '%SyntaxError%': SyntaxErrorConstructor;
         '%SyntaxErrorPrototype%': SyntaxError;
         '%ThrowTypeError%': () => never;
-        '%TypedArray%': unknown;
-        '%TypedArrayPrototype%': unknown;
+        '%TypedArray%': any;
+        '%TypedArrayPrototype%': any;
         '%TypeError%': TypeErrorConstructor;
         '%TypeErrorPrototype%': TypeError;
         '%Uint8Array%': Uint8ArrayConstructor;
@@ -134,5 +137,4 @@ declare namespace GetIntrinsic {
         '%WeakSetPrototype%': typeof WeakSet.prototype;
     }
 }
-
-export = GetIntrinsic;
+//#endregion
