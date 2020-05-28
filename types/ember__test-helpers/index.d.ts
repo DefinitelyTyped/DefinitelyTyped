@@ -177,6 +177,7 @@ declare module '@ember/test-helpers/settled' {
         hasPendingTimers: boolean;
         hasPendingWaiters: boolean;
         hasPendingRequests: boolean;
+        hasPendingTransitions: boolean | null;
         pendingRequestCount: number;
     }
 

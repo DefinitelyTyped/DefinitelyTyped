@@ -1,13 +1,15 @@
-let resizer: Pica = new Pica();
+import pica = require('pica');
 
-let picaOptions: PicaOptions = { features: ['js', 'wasm', 'ww', 'cib'] };
-let resizerWithOptions: Pica = new Pica(picaOptions);
+const resizer = pica();
 
-let image: HTMLImageElement = document.createElement('img');
+const picaOptions = { features: ['js', 'wasm', 'ww', 'cib'] };
+const resizerWithOptions: pica.Pica = pica(picaOptions);
+
+const image: HTMLImageElement = document.createElement('img');
 image.width = 100;
 image.height = 100;
 
-let canvas: HTMLCanvasElement = document.createElement('canvas');
+const canvas: HTMLCanvasElement = document.createElement('canvas');
 canvas.width = 100;
 canvas.height = 100;
 
@@ -16,8 +18,8 @@ resizer.resize(image, canvas);
 resizerWithOptions.resize(image, canvas);
 
 // Resize image with options
-let resizeOptions: PicaResizeOptions = {
-    quality: 9
+const resizeOptions: pica.PicaResizeOptions = {
+    quality: 9,
 };
 resizer.resize(image, canvas, resizeOptions);
 resizerWithOptions.resize(image, canvas, resizeOptions);
@@ -31,8 +33,8 @@ resizer.toBlob(canvas, 'image/png', 9);
 resizerWithOptions.toBlob(canvas, 'image/png', 9);
 
 // Resize buffer
-let resizeBufferSrc: number[] = [21, 31];
-let resizeBufferOptions: PicaResizeBufferOptions = {
+const resizeBufferSrc: number[] = [21, 31];
+const resizeBufferOptions: pica.PicaResizeBufferOptions = {
     src: resizeBufferSrc,
     width: 100,
     height: 100,

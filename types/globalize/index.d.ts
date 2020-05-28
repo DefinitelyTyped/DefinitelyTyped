@@ -1,4 +1,4 @@
-// Type definitions for Globalize
+// Type definitions for Globalize 1.5
 // Project: https://github.com/jquery/globalize
 // Definitions by: Grégoire Castre <https://github.com/gcastre>
 //                 Aram Taieb <https://github.com/afromogli>

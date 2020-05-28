@@ -115,6 +115,11 @@ export interface MUIDataTableFilterOptions {
     logic?: (prop: string, filterValue: any[]) => boolean;
 }
 
+export interface MUIDataTableCustomFilterListOptions {
+    render?: (value: any) => React.ReactNode;
+    update?: (...args: any[]) => string[];
+}
+
 export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
     name: string;
     label?: string;
@@ -124,6 +129,7 @@ export interface MUIDataTableColumnOptions {
     customBodyRender?: (value: any, tableMeta: MUIDataTableMeta, updateValue: (value: string) => void) => string | React.ReactNode;
     customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string | React.ReactNode;
     customFilterListRender?: (value: any) => string;
+    customFilterListOptions?: MUIDataTableCustomFilterListOptions;
     display?: 'true' | 'false' | 'excluded';
     download?: boolean;
     empty?: boolean;

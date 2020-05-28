@@ -90,6 +90,7 @@ test('wait helpers', async (assert) => {
     const {
         hasPendingRequests,
         hasPendingTimers,
+        hasPendingTransitions,
         hasPendingWaiters,
         hasRunLoop,
         pendingRequestCount
