@@ -3757,7 +3757,7 @@ declare namespace cytoscape {
 
         interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>,
             Partial<UnbundledBezierEdges>, Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>,
-            Partial<Labels<EdgeSingular>>, Partial<Events<NodeSingular>> { }
+            Partial<Labels<EdgeSingular>>, Partial<Events<EdgeSingular>> { }
 
         /**
          * These properties affect the styling of an edge’s line:
