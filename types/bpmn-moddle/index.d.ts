@@ -19,7 +19,7 @@ declare namespace BPMNModdle {
         | "Diverging"
         | "Mixed";
     type ItemKind = "Physical" | "Information";
-    type MultiInstanceBehaviour = "None" | "One" | "All" | "Complex";
+    type MultiInstanceBehavior = "None" | "One" | "All" | "Complex";
     type ProcessType = "None" | "Public" | "Private";
     type RelationshipDirection = "None" | "Forward" | "Backward" | "Both";
 
@@ -599,7 +599,7 @@ declare namespace BPMNModdle {
     interface LoopCharacteristics extends BaseElement {}
     interface MultiInstanceLoopCharacteristics extends LoopCharacteristics {
         isSequential: boolean;
-        behavior: MultiInstanceBehaviour;
+        behavior: MultiInstanceBehavior;
         loopCardinality: Expression;
         loopDataInputRef: ItemAwareElement;
         loopDataOutputRef: ItemAwareElement;
@@ -644,7 +644,7 @@ declare namespace BPMNModdle {
         cancelRemainingInstances: boolean;
     }
     interface Transaction extends SubProcess {
-        protocal: string;
+        protocol: string;
         method: string;
     }
     interface GlobalScriptTask extends GlobalTask {
