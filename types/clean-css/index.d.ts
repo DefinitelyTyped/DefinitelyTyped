@@ -11,7 +11,7 @@ import { RequestOptions as HttpRequestOptions } from "http";
 /**
  * Shared options passed when initializing a new instance of CleanCSS that returns either a promise or output
  */
-interface OptionsBase {
+declare interface OptionsBase {
     /**
      * Controls compatibility mode used; defaults to ie10+ using `'*'`.
      *  Compatibility hash exposes the following properties: `colors`, `properties`, `selectors`, and `units`
