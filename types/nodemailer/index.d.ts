@@ -19,7 +19,7 @@ import StreamTransport = require('./lib/stream-transport');
 
 export type SendMailOptions = Mail.Options;
 
-export type SentMessageInfo = any;
+export type SentMessageInfo = Mail.MessageInfo;
 
 export type Transporter = Mail;
 
