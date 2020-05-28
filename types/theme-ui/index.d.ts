@@ -120,19 +120,129 @@ export interface Theme extends Omit<Omit<StyledSystemTheme, 'colors'>, 'buttons'
      * Variants are also used to style built-in components.
      *
      * References:
-     *   https://theme-ui.com/theme-spec
-     *   https://theme-ui.com/components/variants
+     *   - https://theme-ui.com/theme-spec
+     *   - https://theme-ui.com/components/variants
      */
     grids?: { [k: string]: SystemStyleObject };
+
+    /**
+     * Variants: partial style objects that can be used for stylistic component
+     * variants or making part of an application themeable. These are commonly
+     * used for typographic styles, buttons, and themeable layout components.
+     * Variants are also used to style built-in components.
+     *
+     * References:
+     *   - https://theme-ui.com/theme-spec
+     *   - https://theme-ui.com/components/variants
+     */
     buttons?: { [k: string]: SystemStyleObject };
+
+    /**
+     * Variants: partial style objects that can be used for stylistic component
+     * variants or making part of an application themeable. These are commonly
+     * used for typographic styles, buttons, and themeable layout components.
+     * Variants are also used to style built-in components.
+     *
+     * References:
+     *   - https://theme-ui.com/theme-spec
+     *   - https://theme-ui.com/components/variants
+     */
     text?: { [k: string]: SystemStyleObject };
+
+    /**
+     * Variants: partial style objects that can be used for stylistic component
+     * variants or making part of an application themeable. These are commonly
+     * used for typographic styles, buttons, and themeable layout components.
+     * Variants are also used to style built-in components.
+     *
+     * References:
+     *   - https://theme-ui.com/theme-spec
+     *   - https://theme-ui.com/components/variants
+     */
     links?: { [k: string]: SystemStyleObject };
+
+    /**
+     * Variants: partial style objects that can be used for stylistic component
+     * variants or making part of an application themeable. These are commonly
+     * used for typographic styles, buttons, and themeable layout components.
+     * Variants are also used to style built-in components.
+     *
+     * References:
+     *   - https://theme-ui.com/theme-spec
+     *   - https://theme-ui.com/components/variants
+     */
     images?: { [k: string]: SystemStyleObject };
+
+    /**
+     * Variants: partial style objects that can be used for stylistic component
+     * variants or making part of an application themeable. These are commonly
+     * used for typographic styles, buttons, and themeable layout components.
+     * Variants are also used to style built-in components.
+     *
+     * References:
+     *   - https://theme-ui.com/theme-spec
+     *   - https://theme-ui.com/components/variants
+     */
     cards?: { [k: string]: SystemStyleObject };
+
+    /**
+     * Variants: partial style objects that can be used for stylistic component
+     * variants or making part of an application themeable. These are commonly
+     * used for typographic styles, buttons, and themeable layout components.
+     * Variants are also used to style built-in components.
+     *
+     * References:
+     *   - https://theme-ui.com/theme-spec
+     *   - https://theme-ui.com/components/variants
+     */
     layout?: { [k: string]: SystemStyleObject };
+
+    /**
+     * Variants: partial style objects that can be used for stylistic component
+     * variants or making part of an application themeable. These are commonly
+     * used for typographic styles, buttons, and themeable layout components.
+     * Variants are also used to style built-in components.
+     *
+     * References:
+     *   - https://theme-ui.com/theme-spec
+     *   - https://theme-ui.com/components/variants
+     */
     forms?: { [k: string]: SystemStyleObject };
+
+    /**
+     * Variants: partial style objects that can be used for stylistic component
+     * variants or making part of an application themeable. These are commonly
+     * used for typographic styles, buttons, and themeable layout components.
+     * Variants are also used to style built-in components.
+     *
+     * References:
+     *   - https://theme-ui.com/theme-spec
+     *   - https://theme-ui.com/components/variants
+     */
     badges?: { [k: string]: SystemStyleObject };
+
+    /**
+     * Variants: partial style objects that can be used for stylistic component
+     * variants or making part of an application themeable. These are commonly
+     * used for typographic styles, buttons, and themeable layout components.
+     * Variants are also used to style built-in components.
+     *
+     * References:
+     *   - https://theme-ui.com/theme-spec
+     *   - https://theme-ui.com/components/variants
+     */
     alerts?: { [k: string]: SystemStyleObject };
+
+    /**
+     * Variants: partial style objects that can be used for stylistic component
+     * variants or making part of an application themeable. These are commonly
+     * used for typographic styles, buttons, and themeable layout components.
+     * Variants are also used to style built-in components.
+     *
+     * References:
+     *   - https://theme-ui.com/theme-spec
+     *   - https://theme-ui.com/components/variants
+     */
     messages?: { [k: string]: SystemStyleObject };
 }
 
