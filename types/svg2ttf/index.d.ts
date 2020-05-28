@@ -3,9 +3,11 @@
 // Definitions by: Ewan Morrison <https://github.com/ewan-m>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// tslint:disable-next-line strict-export-declare-modifiers
 /** Converts SVG fonts to TTF format */
 declare function svg2ttf(svgFontString: string, options?: FontOptions): MicroBuffer;
 
+// tslint:disable-next-line strict-export-declare-modifiers
 interface FontOptions {
     copyright?: string;
     description?: string;
@@ -25,8 +27,10 @@ interface FontOptions {
     version?: string;
 }
 
+// tslint:disable-next-line strict-export-declare-modifiers
 interface MicroBuffer {
     buffer: Uint8Array;
 }
 
+// tslint:disable-next-line strict-export-declare-modifiers
 export = svg2ttf;
