@@ -251,6 +251,41 @@ dropzone.createThumbnail(
     },
 );
 
+const mockFile: Dropzone.DropzoneMockFile = {
+    name: 'Mock File',
+    size: 123456,
+    customProperty: 'additional data',
+};
+dropzone.displayExistingFile(mockFile, 'https://example.com/original.jpeg');
+dropzone.displayExistingFile(mockFile, 'https://example.com/original.jpeg', () => {
+    console.log('displayExistingFile');
+});
+dropzone.displayExistingFile(
+    mockFile,
+    'https://example.com/original.jpeg',
+    () => {
+        console.log('displayExistingFile');
+    },
+    undefined,
+);
+dropzone.displayExistingFile(
+    mockFile,
+    'https://example.com/original.jpeg',
+    () => {
+        console.log('displayExistingFile');
+    },
+    'anonymous',
+);
+dropzone.displayExistingFile(
+    mockFile,
+    'https://example.com/original.jpeg',
+    () => {
+        console.log('displayExistingFile');
+    },
+    'anonymous',
+    false,
+);
+
 dropzone.createThumbnailFromUrl(firstFile);
 dropzone.createThumbnailFromUrl(firstFile, dropzone.defaultOptions.resizeWidth);
 dropzone.createThumbnailFromUrl(firstFile, dropzone.defaultOptions.resizeWidth, dropzone.defaultOptions.resizeHeight);

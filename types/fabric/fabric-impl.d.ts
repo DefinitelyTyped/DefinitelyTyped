@@ -1185,7 +1185,7 @@ export class StaticCanvas {
      * @param {Object} [options] Options object
      * @return {Object} thisArg
      */
-    constructor(element: HTMLCanvasElement | string, options?: ICanvasOptions);
+    constructor(element: HTMLCanvasElement | string | null, options?: ICanvasOptions);
 
     _activeObject?: Object | Group;
 

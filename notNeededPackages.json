@@ -5179,6 +5179,12 @@
             "asOfVersion": "1.5.7"
         },
         {
+            "libraryName": "tus-js-client",
+            "typingsPackageName": "tus-js-client",
+            "sourceRepoURL": "https://github.com/tus/tus-js-client",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "typed.js",
             "typingsPackageName": "typed.js",
             "sourceRepoURL": "https://github.com/mattboldt/typed.js",

@@ -59,12 +59,21 @@ export interface Statistic {
     [key: string]: string | number | null;
 }
 
-export interface Game {
+export type Game = {
+    gamesLost: number;
+    gamesPlayed: number;
+    gamesTied: number;
     gamesWon: number;
     timePlayed: string;
-}
+} & {
+    games_lost: number;
+    games_played: number;
+    games_tied: number;
+    games_won: number;
+    time_played: string;
+};
 
-export interface Hero {
+export type Hero = {
     name: string;
     combat?: Statistic;
     game?: Game;
@@ -75,7 +84,18 @@ export interface Hero {
     assists?: Statistic;
     average?: Statistic;
     rawName: string;
-}
+} & {
+    name: string;
+    combat?: Statistic;
+    game?: Game;
+    best?: Statistic;
+    misc?: Statistic;
+    awards?: Statistic;
+    hero?: Statistic;
+    assists?: Statistic;
+    average?: Statistic;
+    raw_name: string;
+};
 
 export interface GameMode {
     [key: string]: Hero;
