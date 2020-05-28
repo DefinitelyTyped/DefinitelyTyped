@@ -383,7 +383,9 @@ export type ClientGrant = Partial<CreateClientGrant> & {
 };
 
 export interface GetClientGrantsOptions {
-per_page?: number;
+  /** @default 10 */
+  per_page?: number;
+  /** @default 0 */
   page?: number;
   /**
    * The audience.
