@@ -1,15 +1,5 @@
 import * as React from 'react';
-import {
-    DragDropContext,
-    Draggable,
-    DragStart,
-    DragUpdate,
-    Droppable,
-    DroppableStateSnapshot,
-    DropResult,
-    resetServerContext,
-    ResponderProvided,
-} from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, DragStart, DragUpdate, Droppable, DroppableStateSnapshot, DropResult, resetServerContext, ResponderProvided } from 'react-beautiful-dnd';
 import * as ReactDOM from 'react-dom';
 
 interface Item {
@@ -93,7 +83,6 @@ class App extends React.Component<{}, AppState> {
                 onDragStart={this.onDragStart}
                 onDragUpdate={this.onDragUpdate}
                 onDragEnd={this.onDragEnd}
-                dragHandleUsageInstructions="Some instruction"
             >
                 <Droppable droppableId="droppable" ignoreContainerClipping={false} isCombineEnabled={true}>
                     {(provided, snapshot) => (
