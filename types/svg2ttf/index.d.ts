@@ -13,7 +13,8 @@ interface FontOptions {
     description?: string;
     ts?: number;
     url?: string;
-    version: string;
+    /** @default 'Version 1.0' */
+    version?: string;
 }
 
 interface MicroBuffer {
