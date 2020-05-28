@@ -1,6 +1,7 @@
 /// <reference types="node" />
 import fs = require('fs');
 import svg2ttf = require('svg2ttf');
+import { MicroBuffer, FontOptions } from 'svg2ttf';
 
 const ttf = svg2ttf(fs.readFileSync('myfont.svg', 'utf8'), {});
 

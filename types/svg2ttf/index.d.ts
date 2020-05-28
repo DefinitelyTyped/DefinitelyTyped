@@ -3,34 +3,31 @@
 // Definitions by: Ewan Morrison <https://github.com/ewan-m>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// tslint:disable-next-line strict-export-declare-modifiers
 /** Converts SVG fonts to TTF format */
-declare function svg2ttf(svgFontString: string, options?: FontOptions): MicroBuffer;
+declare function svg2ttf(svgFontString: string, options?: svg2ttf.FontOptions): svg2ttf.MicroBuffer;
 
-// tslint:disable-next-line strict-export-declare-modifiers
-interface FontOptions {
-    copyright?: string;
-    description?: string;
-    /**
-     * @summary Unix timestamp (in seconds) to override creation time
-     */
-    ts?: number;
-    /**
-     * @summary manufacturer url
-     */
-    url?: string;
-    // tslint:disable:no-redundant-jsdoc-2
-    /**
-     * @summary font version string, can be Version x.y or x.y
-     * @default 'Version 1.0'
-     */
-    version?: string;
+declare namespace svg2ttf {
+    interface FontOptions {
+        copyright?: string;
+        description?: string;
+        /**
+         * Unix timestamp (in seconds) to override creation time
+         */
+        ts?: number;
+        /**
+         * manufacturer url
+         */
+        url?: string;
+        /**
+         * font version string, can be Version x.y or x.y
+         * @default 'Version 1.0'
+         */
+        version?: string;
+    }
+
+    interface MicroBuffer {
+        buffer: Uint8Array;
+    }
 }
 
-// tslint:disable-next-line strict-export-declare-modifiers
-interface MicroBuffer {
-    buffer: Uint8Array;
-}
-
-// tslint:disable-next-line strict-export-declare-modifiers
 export = svg2ttf;
