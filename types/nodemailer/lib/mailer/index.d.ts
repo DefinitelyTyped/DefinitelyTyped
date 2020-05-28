@@ -93,6 +93,17 @@ declare namespace Mail {
         bcc?: string;
     }
 
+    interface MessageInfo {
+        accepted: string | Address | Array<string | Address>;
+        envelope: Envelope;
+        envelopeTime: number;
+        messageId: string;
+        messageSize: number;
+        messageTime: number;
+        rejected: string | Address | Array<string | Address>;
+        response: string;
+    }
+
     interface Options {
         /** The e-mail address of the sender. All e-mail addresses can be plain 'sender@server.com' or formatted 'Sender Name <sender@server.com>' */
         from?: string | Address;
