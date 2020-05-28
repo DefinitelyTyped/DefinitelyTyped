@@ -1,4 +1,4 @@
-// Type definitions for Dropzone 5.5.0
+// Type definitions for Dropzone 5.7.0
 // Project: http://www.dropzonejs.com/
 // Definitions by: Natan Vivo <https://github.com/nvivo>
 //                 Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
@@ -44,6 +44,12 @@ declare namespace Dropzone {
         accepted: boolean;
         xhr?: XMLHttpRequest;
         upload?: DropzoneFileUpload;
+    }
+
+    export interface DropzoneMockFile {
+        name: string;
+        size: number;
+        [index: string]: any;
     }
 
     export interface DropzoneDictFileSizeUnits {
@@ -226,6 +232,14 @@ declare class Dropzone {
         resizeMethod?: string,
         fixOrientation?: boolean,
         callback?: (...args: any[]) => void,
+    ): any;
+
+    displayExistingFile(
+        mockFile: Dropzone.DropzoneMockFile,
+        imageUrl: string,
+        callback?: () => void,
+        crossOrigin?: 'anonymous' | 'use-credentials',
+        resizeThumbnail?: boolean,
     ): any;
 
     createThumbnailFromUrl(
