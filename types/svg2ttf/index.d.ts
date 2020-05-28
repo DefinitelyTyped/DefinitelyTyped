@@ -3,25 +3,23 @@
 // Definitions by: Ewan Morrison <https://github.com/ewan-m>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * Converts SVG fonts to TTF format
- */
+/** Converts SVG fonts to TTF format */
 declare function svg2ttf(svgFontString: string, options?: FontOptions): MicroBuffer;
 
 interface FontOptions {
     copyright?: string;
     description?: string;
     /**
-     * Unix timestamp (in seconds) to override creation time
+     * @summary Unix timestamp (in seconds) to override creation time
      */
     ts?: number;
     /**
-     * manufacturer url
+     * @summary manufacturer url
      */
     url?: string;
     // tslint:disable:no-redundant-jsdoc-2
     /**
-     * font version string, can be Version x.y or x.y
+     * @summary font version string, can be Version x.y or x.y
      * @default 'Version 1.0'
      */
     version?: string;
