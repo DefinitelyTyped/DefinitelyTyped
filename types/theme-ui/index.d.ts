@@ -342,8 +342,6 @@ export function useThemeUI(): ThemeUIContext;
 /**
  * A hook retrieving the current color mode and a setter for a new color mode
  * in the theme.
- *
- * @param initialMode - the default color mode to use
  */
 export function useColorMode<Modes extends string>(
     initialMode?: Modes,
