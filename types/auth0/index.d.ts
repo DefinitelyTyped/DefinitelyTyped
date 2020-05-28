@@ -396,6 +396,10 @@ per_page?: number;
 }
 
 export interface GetClientGrantsOptionsPaged extends GetClientGrantsOptions {
+  /**
+   * true if a query summary must be included in the result, false otherwise
+   * @default false
+   */
   include_totals?: boolean;
 }
 
