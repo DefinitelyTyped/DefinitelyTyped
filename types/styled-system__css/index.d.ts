@@ -393,7 +393,7 @@ export interface UseThemeFunction {
     (theme: any): SystemStyleObject;
 }
 
-interface EmotionLabel {
+export interface EmotionLabel {
     label?: string;
 }
 
