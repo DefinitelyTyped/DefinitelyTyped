@@ -20,14 +20,14 @@ export interface Library {
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    new (libFile: string, funcs?: {[key: string]: any[]}, lib?: object): any;
+    new (libFile: string | null, funcs?: {[key: string]: any[]}, lib?: object): any;
 
     /**
      * @param libFile name of library
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    (libFile: string, funcs?: {[key: string]: any[]}, lib?: object): any;
+    (libFile: string | null, funcs?: {[key: string]: any[]}, lib?: object): any;
 }
 export const Library: Library;
 
