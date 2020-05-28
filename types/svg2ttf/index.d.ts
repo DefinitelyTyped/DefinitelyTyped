@@ -3,6 +3,9 @@
 // Definitions by: Ewan Morrison <https://github.com/ewan-m>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/**
+ * Converts SVG fonts to TTF format
+ */
 declare function svg2ttf(svgFontString: string, options?: FontOptions): MicroBuffer;
 
 interface FontOptions {
