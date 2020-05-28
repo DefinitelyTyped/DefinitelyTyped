@@ -838,7 +838,7 @@ declare module "../index" {
         isMap(): PrimitiveChain<boolean>;
     }
 
-    type isMatchCustomizer = (value: any, other: any, indexOrKey?: PropertyName) => boolean;
+    type isMatchCustomizer = (value: any, other: any, indexOrKey?: PropertyName) => boolean | undefined;
     interface LoDashStatic {
         /**
          * Performs a deep comparison between `object` and `source` to determine if
