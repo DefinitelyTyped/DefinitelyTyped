@@ -11,9 +11,18 @@ declare function svg2ttf(svgFontString: string, options?: FontOptions): MicroBuf
 interface FontOptions {
     copyright?: string;
     description?: string;
+    /**
+     * Unix timestamp (in seconds) to override creation time
+     */
     ts?: number;
+    /**
+     * manufacturer url
+     */
     url?: string;
-    /** @default 'Version 1.0' */
+    /**
+     * font version string, can be Version x.y or x.y
+     * @default 'Version 1.0'
+     */
     version?: string;
 }
 
