@@ -20,3 +20,5 @@ interface FontOptions {
 interface MicroBuffer {
     buffer: Uint8Array;
 }
+
+export = svg2ttf;
