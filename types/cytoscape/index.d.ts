@@ -9,6 +9,7 @@
 //                  Peter Ferrarotto <https://github.com/peterjferrarotto>
 //                  Xavier Ho <https://github.com/spaxe>
 //                  Jongsu Liam Kim <https://github.com/appleparan>
+//                  Fredrik Sandström <https://github.com/Veckodag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
