@@ -13,7 +13,12 @@ declare module '@hapi/hapi' {
     }
 }
 
-const scheme: ServerAuthScheme = (server, options) => {
+interface SchemeOptions {
+    option1: string;
+    option2: number;
+}
+
+const scheme: ServerAuthScheme<SchemeOptions> = (server, options) => {
     return {
         api: {
             settings: {
@@ -34,7 +39,10 @@ const server = new Server({
     port: 8000,
 });
 server.auth.scheme('custom', scheme);
-server.auth.strategy('default', 'custom');
+server.auth.strategy<typeof scheme>('default', 'custom', {
+    option1: 'option',
+    option2: 1,
+});
 server.start();
 
 console.log(server.auth.api.default.settings.x);    // 5

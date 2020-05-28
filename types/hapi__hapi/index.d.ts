@@ -199,6 +199,8 @@ export interface AuthCredentials {
      * If set, will only work with routes that set `access.entity` to `app`.
      */
     app?: AppCredentials;
+
+    [key: string]: unknown;
 }
 
 export type AuthMode = 'required' | 'optional' | 'try';
@@ -2024,7 +2026,7 @@ export type ServerAuthSchemeOptions = object;
  * @param server - a reference to the server object the scheme is added to.
  * @param options - (optional) the scheme options argument passed to server.auth.strategy() when instantiation a strategy.
  */
-export type ServerAuthScheme = (server: Server, options?: ServerAuthSchemeOptions) => ServerAuthSchemeObject;
+export type ServerAuthScheme<T extends ServerAuthSchemeOptions = ServerAuthSchemeOptions> = (server: Server, options?: T) => ServerAuthSchemeObject;
 
 /* tslint:disable-next-line:no-empty-interface */
 export interface ServerAuthSchemeObjectApi {
@@ -2144,7 +2146,7 @@ export interface ServerAuth {
      * @return void.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthschemename-scheme)
      */
-    scheme(name: string, scheme: ServerAuthScheme): void;
+    scheme(name: string, scheme: ServerAuthScheme<any>): void;
 
     /**
      * Registers an authentication strategy where:
@@ -2154,6 +2156,10 @@ export interface ServerAuth {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthstrategyname-scheme-options)
      */
+    /* tslint:disable-next-line:no-unnecessary-generics */
+    strategy<T extends ServerAuthScheme<any>>(name: string, scheme: string, options?: T extends ServerAuthScheme<infer U> ? U : never): void;
+    /* tslint:disable-next-line:no-unnecessary-generics */
+    strategy<T extends ServerAuthSchemeOptions>(name: string, scheme: string, options?: T): void;
     strategy(name: string, scheme: string, options?: object): void;
 
     /**
