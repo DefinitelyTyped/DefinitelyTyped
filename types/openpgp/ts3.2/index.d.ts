@@ -8,6 +8,7 @@
 //                 SardineFish <https://github.com/SardineFish>
 //                 Ryo Ota <https://github.com/nwtgck>
 //                 Sergey Bakulin <https://github.com/vansergen>
+//                 Wiktor Kwapisiewicz <https://metacode.biz/@wiktor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import BN = require('bn.js');
@@ -4398,14 +4399,14 @@ export namespace signature {
      * @param armoredText text to be parsed
      * @returns new signature object
      */
-    function readArmored(armoredText: string | ReadableStream<String>): Signature;
+    function readArmored(armoredText: string | ReadableStream<String>): Promise<Signature>;
 
     /**
      * reads an OpenPGP signature as byte array and returns a signature object
      * @param input binary signature
      * @returns new signature object
      */
-    function read(input: Uint8Array | ReadableStream<Uint8Array>): Signature;
+    function read(input: Uint8Array | ReadableStream<Uint8Array>): Promise<Signature>;
 }
 
 export namespace type {
@@ -4898,7 +4899,7 @@ export namespace wkd {
          * @param options.rawBytes Returns Uint8Array instead of parsed key.
          * @returns The public key.
          */
-        lookup(): Promise<Uint8Array | { keys: Array<key.Key>; err: Array<Error> | null }>;
+        lookup(options: { email: string; rawBytes?: boolean; }): Promise<Uint8Array | { keys: Array<key.Key>; err: Array<Error> | null }>;
     }
 }
 

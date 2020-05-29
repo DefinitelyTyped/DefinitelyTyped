@@ -43,7 +43,11 @@ declare namespace proxy {
             userReq: Request,
             userRes: Response
         ) => Buffer | string | Promise<Buffer | string>;
-        filter?: (req: Request, res: Response) => boolean;
+        /**
+         * The filter option can be used to limit what requests are proxied.
+         * Return true to continue to execute proxy; return false-y to skip proxy for this request.
+         */
+        filter?: (req: Request, res: Response) => boolean | Promise<boolean>;
         skipToNextHandlerFilter?: (proxyRes: Response) => boolean;
         proxyReqBodyDecorator?: (bodyContent: any, srcReq: Request) => any;
         preserveHostHdr?: boolean;

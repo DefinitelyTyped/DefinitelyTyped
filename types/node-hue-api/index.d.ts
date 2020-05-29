@@ -58,13 +58,13 @@
          */
         constructor();
 
-		/**
-		 * Creates an instance of HueApi.
-		 * @param {string} host Address of Hue bridge
-		 * @param {string} username Application username for Hue bridge
-		 * @param {number} [timeout]
-		 * @param {number} [port]
-		 */
+        /**
+         * Creates an instance of HueApi.
+         * @param {string} host Address of Hue bridge
+         * @param {string} username Application username for Hue bridge
+         * @param {number} [timeout]
+         * @param {number} [port]
+         */
         constructor(host: string, username: string, timeout?: number, port?: number);
 
         /**
@@ -553,14 +553,14 @@
 
     }
 
-	/**
-	 * Alias for HueApi
-	 */
+    /**
+     * Alias for HueApi
+     */
     export type BridgeApi = HueApi;
 
-	/**
-	 * Alias for HueApi
-	 */
+    /**
+     * Alias for HueApi
+     */
     export type api = HueApi;
 
     /*

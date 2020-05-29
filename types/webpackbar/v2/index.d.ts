@@ -11,7 +11,7 @@ import { Plugin } from 'webpack';
 export = WebpackBar;
 
 declare class WebpackBar extends Plugin {
-	constructor(options?: WebpackBar.Options);
+    constructor(options?: WebpackBar.Options);
 
   state: WebpackBar.State;
 }

@@ -32,7 +32,8 @@ const output = minify(code, {
         toplevel: true,
     },
     sourceMap: {
-        filename: 'foo.map'
+        filename: 'foo.map',
+        names: false,
     },
     compress: {
         arguments: true,

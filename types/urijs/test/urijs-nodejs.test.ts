@@ -70,13 +70,13 @@ declare var $: (arg?: any) => JQuery;
     ```
     */
     URI(
-      'http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag'
+        'http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag'
     ).equals(
-      URI.expand!('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
-        p: ['foo', 'bar.html'],
-        q: { foo: 'bar', bar: 'baz' },
-        h: 'frag',
-      }),
+        URI.expand!('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
+            p: ['foo', 'bar.html'],
+            q: { foo: 'bar', bar: 'baz' },
+            h: 'frag',
+        }),
     );
 
     // Basic URITemplate type usage
@@ -217,4 +217,12 @@ declare var $: (arg?: any) => JQuery;
     parts.preventInvalidHostname = false;
     parts.protocol === 'mailto';
     parts.urn === true;
+
+    /*
+    Tests for URI.search(), URI.query()
+    From: https://medialize.github.io/URI.js/docs.html#accessors-search
+    */
+    const u = new URI('mailto:mail@example.org');
+    u.query(qs => qs);
+    u.search(qs => qs);
 }

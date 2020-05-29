@@ -118,6 +118,14 @@ redis.zrem('myset', 'member').then(console.log);
 redis.zrem('myset', 'member', cbNumber);
 redis.zrem('myset', 'member', 'member2').then(console.log);
 redis.zrem('myset', 'member', 'member2', cbNumber);
+redis.zpopmin('myset', cb);
+redis.zpopmin('myset', 1, cb);
+redis.zpopmin('myset', 1).then(console.log);
+redis.zpopmin('myset').then(console.log);
+redis.zpopmax('myset', cb);
+redis.zpopmax('myset', 1, cb);
+redis.zpopmax('myset', 1).then(console.log);
+redis.zpopmax('myset').then(console.log);
 redis.sort('list').then(console.log);
 redis.sort('list', cb);
 redis.sort('list', 'LIMIT', 0, 10).then(console.log);
@@ -470,6 +478,15 @@ redis.zrevrangebyscore('set', 0, 100, 'WITHSCORES', 'LIMIT', 0, 10, cb);
 redis.zrevrangebyscore('set', 0, 100, 'LIMIT', 0, 10).then(console.log);
 redis.zrevrangebyscore('set', 0, 100, 'LIMIT', 0, 10, cb);
 
+redis.zrangebylex('set', '-', '[c').then(console.log);
+redis.zrangebylex('set', '-', '[c');
+redis.zrangebylex('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
+redis.zrangebylex('set', '-', '[c', 'LIMIT', 0, 10, cb);
+redis.zrevrangebylex('set', '-', '[c').then(console.log);
+redis.zrevrangebylex('set', '-', '[c');
+redis.zrevrangebylex('set', '-', '[c', 'LIMIT', 0, 10).then(console.log);
+redis.zrevrangebylex('set', '-', '[c', 'LIMIT', 0, 10, cb);
+
 // ClusterRetryStrategy can return non-numbers to stop retrying
 new Redis.Cluster([], {
     clusterRetryStrategy: (times: number, reason?: Error) => null,
@@ -618,3 +635,26 @@ redis.zaddBuffer('foo', 1, Buffer.from('bar')).then(() => {
 
 new Command('mget', ['key1', 'key2']);
 new Command('get', ['key2'], { replyEncoding: 'utf8' });
+
+// Test all z*bylex commands in a single pipeline
+redis.pipeline()
+    .zrangebylex('foo', '-', '+', (err: Error | null, res: string[]) => {
+        // do something with res or err
+    })
+    .zrangebylex('foo', '-', '+', 'LIMIT', 10, 10, (err: Error | null, res: string[]) => {
+        // do something with res or err
+    })
+    .zrangebylex('foo', '-', '+', 'LIMIT', 10, 10)
+    .zrangebylex('foo', '-', '+')
+    .zrevrangebylex('foo', '-', '+', (err: Error | null, res: string[]) => {
+        // do something with res or err
+    })
+    .zrevrangebylex('foo', '-', '+', 'LIMIT', 10, 10, (err: Error | null, res: string[]) => {
+        // do something with res or err
+    })
+    .zrevrangebylex('foo', '-', '+', 'LIMIT', 10, 10)
+    .zrevrangebylex('foo', '-', '+')
+    .zremrangebylex('foo', '-', '+')
+    .zremrangebylex('foo', '-', '+', (err: Error | null, res: number) => {
+        // do something with res or err
+    });

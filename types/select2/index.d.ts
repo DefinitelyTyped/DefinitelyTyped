@@ -233,21 +233,21 @@ export interface Select2Plugin<TElement = HTMLElement>  {
     // tslint:disable-next-line:no-unnecessary-generics
     <Result = DataFormat | GroupedDataFormat, RemoteResult = any>(options: Options<Result, RemoteResult>): JQuery<TElement>;
 
-	/**
-	 * Get the data object of the current selection
-	 */
+    /**
+     * Get the data object of the current selection
+     */
     (method: "data"): OptionData[];
-	/**
-	 * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
-	 */
+    /**
+     * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
+     */
     (method: "destroy"): JQuery<TElement>;
-	/**
-	 * Opens the dropdown
-	 */
+    /**
+     * Opens the dropdown
+     */
     (method: "open"): JQuery<TElement>;
-	/**
-	 * Closes the dropdown
-	 */
+    /**
+     * Closes the dropdown
+     */
     (method: "close"): JQuery<TElement>;
 }
 

@@ -1,11 +1,20 @@
-// Type definitions for graphql-resolvers 0.2
+// Type definitions for graphql-resolvers 0.3
 // Project: https://github.com/lucasconstantino/graphql-resolvers#readme
-// Definitions by: Mike Engel <https://github.com/mike-engel>
-//                 Alejandro Corredor <https://github.com/aecorredor>
+// Definitions by: Alejandro Corredor <https://github.com/aecorredor>
+//                 Luis Felipe Zaguini <https://github.com/zaguiini>
+//                 Mike Engel <https://github.com/mike-engel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { IFieldResolver } from "graphql-tools";
+import { GraphQLResolveInfo } from "graphql";
+import { MergeInfo } from "graphql-tools";
+
+export type IFieldResolver<TSource, TContext, TArgs = Record<string, any>, TReturn = any> = (
+  source: TSource,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo & { mergeInfo?: MergeInfo },
+) => TReturn;
 
 export const skip: undefined;
 

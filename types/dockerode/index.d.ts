@@ -475,6 +475,7 @@ declare namespace Dockerode {
         Name: string;
         RestartCount: number;
         Driver: string;
+        Platform: string;
         MountLabel: string;
         ProcessLabel: string;
         AppArmorProfile: string;

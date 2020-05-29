@@ -5,10 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_runmode
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
-
+declare module 'codemirror' {
     /**
      * Runs a CodeMirror mode over text without opening an editor instance.
      *
@@ -20,5 +19,12 @@ declare module "codemirror" {
      *               If it is a DOM node, the tokens will be converted to span elements as in an editor,
      *               and inserted into the node (through innerHTML).
      */
-    function runMode(text: string, mode: any, callback: (HTMLElement | ((text: string, style?: string | null, row?: number, column?: number, state?: any) => void)), options? : { tabSize?: number; state?: any; }): void;
+    function runMode(
+        text: string,
+        mode: any,
+        callback:
+            | HTMLElement
+            | ((text: string, style?: string | null, row?: number, column?: number, state?: any) => void),
+        options?: { tabSize?: number; state?: any },
+    ): void;
 }
