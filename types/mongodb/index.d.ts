@@ -15,7 +15,6 @@
 //                 Geraldine Lemeur <https://github.com/geraldinelemeur>
 //                 Dominik Heigl <https://github.com/various89>
 //                 Angela-1 <https://github.com/angela-1>
-//                 Mikael Lirbank <https://github.com/lirbank>
 //                 Hector Ribes <https://github.com/hector7>
 //                 Florian Richter <https://github.com/floric>
 //                 Erik Christensen <https://github.com/erikc5000>
