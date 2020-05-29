@@ -815,6 +815,22 @@ map.showPadding = false;
 expectType<mapboxgl.Map>(map.setFilter('layerId', true));
 expectType<mapboxgl.Map>(map.setFilter('layerId', false));
 
+expectType<mapboxgl.Map>(map.setMinZoom(5));
+expectType<mapboxgl.Map>(map.setMaxZoom(10));
+
+// $ExpectType number
+map.getMinZoom();
+// $ExpectType number
+map.getMaxZoom();
+
+expectType<mapboxgl.Map>(map.setMinPitch(5));
+expectType<mapboxgl.Map>(map.setMaxPitch(10));
+
+// $ExpectType number
+map.getMinPitch();
+// $ExpectType number
+map.getMaxPitch();
+
 /*
  * Map Events
  */

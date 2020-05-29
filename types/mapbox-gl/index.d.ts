@@ -205,6 +205,14 @@ declare namespace mapboxgl {
 
         getMaxZoom(): number;
 
+        setMinPitch(minPitch?: number): this;
+
+        getMinPitch(): number;
+
+        setMaxPitch(maxPitch?: number): this;
+
+        getMaxPitch(): number;
+
         getRenderWorldCopies(): boolean;
 
         setRenderWorldCopies(renderWorldCopies?: boolean): this;
@@ -844,17 +852,17 @@ declare namespace mapboxgl {
         enableRotation(): void;
     }
 
-     export class TouchPitchHandler {
-         constructor(map: mapboxgl.Map);
+    export class TouchPitchHandler {
+        constructor(map: mapboxgl.Map);
 
-         enable(): void;
+        enable(): void;
 
-         isActive(): boolean;
+        isActive(): boolean;
 
-         isEnabled(): boolean;
+        isEnabled(): boolean;
 
-         disable(): void;
-     }
+        disable(): void;
+    }
 
     export interface IControl {
         onAdd(map: Map): HTMLElement;
