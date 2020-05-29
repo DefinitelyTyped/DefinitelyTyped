@@ -1,4 +1,4 @@
-// Type definitions for ember-data 3.1
+// Type definitions for ember-data 3.16
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
@@ -6,7 +6,7 @@
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import Ember from 'ember';
 import Evented from '@ember/object/evented';
