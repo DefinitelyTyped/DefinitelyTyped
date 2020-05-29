@@ -461,3 +461,5 @@ export const TableSelectCell: React.Component<MUIDataTableSelectCell>;
 export const TableToolbar: React.Component<MUIDataTableToolbar>;
 export const TableToolbarSelect: React.Component<MUIDataTableToolbarSelect>;
 export const TableViewCol: React.Component<MUIDataTableViewCol>;
+
+export default MUIDataTable;
