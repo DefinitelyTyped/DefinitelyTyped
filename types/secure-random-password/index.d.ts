@@ -4,14 +4,16 @@
 //                 GaspardFRDev <https://github.com/GaspardFRDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export const consonants: string;
-export const copyableSymbols: string;
-export const digits: string;
-export const fullSymbols: string;
 export const lower: string;
-export const symbols: string;
 export const upper: string;
+
+export const consonants: string;
 export const vowels: string;
+export const digits: string;
+
+export const symbols: string;
+export const copyableSymbols: string;
+export const fullSymbols: string;
 
 export interface RandomPasswordCharactersSet {
     characters: string;
@@ -20,7 +22,7 @@ export interface RandomPasswordCharactersSet {
 
 export interface RandomPasswordOptions {
     avoidAmbiguous?: boolean;
-    characters?: string | Array<(RandomPasswordCharactersSet | string)>;
+    characters?: string | RandomPasswordCharactersSet | Array<(RandomPasswordCharactersSet | string)>;
     length?: number;
     predicate?: (result: string) => boolean;
 }
