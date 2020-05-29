@@ -31,3 +31,5 @@ interface EphemeralResult {
 }
 
 export function ephemeral(options: KeyGenOptions): Promise<EphemeralResult>;
+
+export {};
