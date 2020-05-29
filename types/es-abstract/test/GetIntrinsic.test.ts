@@ -12,7 +12,7 @@ declare const boolean: boolean;
     GetIntrinsic('%ArrayProto_forEach%'); // $ExpectType (callbackfn: (value: any, index: number, array: any[]) => void, thisArg?: any) => void
     GetIntrinsic('%ArrayProto_keys%'); // $ExpectType () => IterableIterator<number>
     GetIntrinsic('%ArrayProto_values%'); // $ExpectType () => IterableIterator<any>
-    GetIntrinsic('%AsyncFromSyncIteratorPrototype%'); // $ExpectType undefined
+    GetIntrinsic('%AsyncFromSyncIteratorPrototype%'); // $ExpectType AsyncIterableIterator<any>
     GetIntrinsic('%AsyncFunction%'); // $ExpectType FunctionConstructor
     GetIntrinsic('%AsyncFunctionPrototype%'); // $ExpectType Function
     GetIntrinsic('%AsyncGenerator%'); // $ExpectType AsyncGeneratorFunction
@@ -124,7 +124,7 @@ declare const boolean: boolean;
     GetIntrinsic('%ArrayProto_forEach%', false); // $ExpectType (callbackfn: (value: any, index: number, array: any[]) => void, thisArg?: any) => void
     GetIntrinsic('%ArrayProto_keys%', false); // $ExpectType () => IterableIterator<number>
     GetIntrinsic('%ArrayProto_values%', false); // $ExpectType () => IterableIterator<any>
-    GetIntrinsic('%AsyncFromSyncIteratorPrototype%', false); // $ExpectType undefined
+    GetIntrinsic('%AsyncFromSyncIteratorPrototype%', false); // $ExpectType AsyncIterableIterator<any>
     GetIntrinsic('%AsyncFunction%', false); // $ExpectType FunctionConstructor
     GetIntrinsic('%AsyncFunctionPrototype%', false); // $ExpectType Function
     GetIntrinsic('%AsyncGenerator%', false); // $ExpectType AsyncGeneratorFunction
@@ -236,7 +236,7 @@ declare const boolean: boolean;
     GetIntrinsic('%ArrayProto_forEach%', true); // $ExpectType ((callbackfn: (value: any, index: number, array: any[]) => void, thisArg?: any) => void) | undefined
     GetIntrinsic('%ArrayProto_keys%', true); // $ExpectType (() => IterableIterator<number>) | undefined
     GetIntrinsic('%ArrayProto_values%', true); // $ExpectType (() => IterableIterator<any>) | undefined
-    GetIntrinsic('%AsyncFromSyncIteratorPrototype%', true); // $ExpectType undefined
+    GetIntrinsic('%AsyncFromSyncIteratorPrototype%', true); // $ExpectType AsyncIterableIterator<any> | undefined
     GetIntrinsic('%AsyncFunction%', true); // $ExpectType FunctionConstructor | undefined
     GetIntrinsic('%AsyncFunctionPrototype%', true); // $ExpectType Function | undefined
     GetIntrinsic('%AsyncGenerator%', true); // $ExpectType AsyncGeneratorFunction | undefined
@@ -348,7 +348,7 @@ declare const boolean: boolean;
     GetIntrinsic('%ArrayProto_forEach%', boolean); // $ExpectType ((callbackfn: (value: any, index: number, array: any[]) => void, thisArg?: any) => void) | undefined
     GetIntrinsic('%ArrayProto_keys%', boolean); // $ExpectType (() => IterableIterator<number>) | undefined
     GetIntrinsic('%ArrayProto_values%', boolean); // $ExpectType (() => IterableIterator<any>) | undefined
-    GetIntrinsic('%AsyncFromSyncIteratorPrototype%', boolean); // $ExpectType undefined
+    GetIntrinsic('%AsyncFromSyncIteratorPrototype%', boolean); // $ExpectType AsyncIterableIterator<any> | undefined
     GetIntrinsic('%AsyncFunction%', boolean); // $ExpectType FunctionConstructor | undefined
     GetIntrinsic('%AsyncFunctionPrototype%', boolean); // $ExpectType Function | undefined
     GetIntrinsic('%AsyncGenerator%', boolean); // $ExpectType AsyncGeneratorFunction | undefined
