@@ -8,13 +8,15 @@
 
 import * as CSS from 'csstype';
 
-type StandardCSSProperties = CSS.PropertiesFallback<number | string>;
+export {};
+
+export type StandardCSSProperties = CSS.PropertiesFallback<number | string>;
 
 /**
  * Omit exists in TypeScript >= v3.5, we're putting this here so typings can be
  * used with earlier versions of TypeScript.
  */
-type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 /**
  * The `css` function accepts arrays as values for mobile-first responsive styles.
@@ -42,12 +44,12 @@ export type CSSPseudoSelectorProps = { [K in CSS.Pseudos]?: SystemStyleObject };
  */
 export interface CSSObject extends CSSPropertiesWithMultiValues, CSSPseudosForCSSObject, CSSOthersObjectForCSSObject {}
 
-type CSSPropertiesWithMultiValues = {
+export type CSSPropertiesWithMultiValues = {
     [K in keyof CSSProperties]: CSSProperties[K];
 };
-type CSSPseudosForCSSObject = { [K in CSS.Pseudos]?: CSSObject };
-type CSSInterpolation = undefined | number | string | CSSObject;
-interface CSSOthersObjectForCSSObject {
+export type CSSPseudosForCSSObject = { [K in CSS.Pseudos]?: CSSObject };
+export type CSSInterpolation = undefined | number | string | CSSObject;
+export interface CSSOthersObjectForCSSObject {
     [propertiesName: string]: CSSInterpolation;
 }
 
@@ -58,7 +60,7 @@ export interface CSSSelectorObject {
     [cssSelector: string]: SystemStyleObject;
 }
 
-interface AliasesCSSProperties {
+export interface AliasesCSSProperties {
     /**
      * The **`background-color`** CSS property sets the background color of an element.
      *
@@ -305,7 +307,7 @@ interface AliasesCSSProperties {
     paddingY?: StandardCSSProperties['paddingTop'];
 }
 
-interface OverwriteCSSProperties {
+export interface OverwriteCSSProperties {
     /**
      * The **`box-shadow`** CSS property adds shadow effects around an element's frame. You can set multiple effects separated by commas. A box shadow is described by X and Y offsets relative to the
      * element, blur and spread radii, and color.
@@ -352,7 +354,7 @@ interface OverwriteCSSProperties {
  * Only used internally to map CCS properties to input types (responsive value,
  * theme function or nested) in `SystemCssProperties`.
  */
-interface AllSystemCSSProperties
+export interface AllSystemCSSProperties
     extends Omit<CSSProperties, 'boxShadow' | 'fontWeight' | 'zIndex'>,
         AliasesCSSProperties,
         OverwriteCSSProperties {}
@@ -393,7 +395,7 @@ export interface UseThemeFunction {
     (theme: any): SystemStyleObject;
 }
 
-interface EmotionLabel {
+export interface EmotionLabel {
     label?: string;
 }
 
