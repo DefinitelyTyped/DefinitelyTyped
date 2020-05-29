@@ -49,6 +49,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
     css: {
       'target-arrow-shape': 'triangle',
       'curve-style': 'taxi',
+      'source-endpoint': 'outside-to-node',
+      'target-endpoint': 'outside-to-node'
     }
   },
   {
