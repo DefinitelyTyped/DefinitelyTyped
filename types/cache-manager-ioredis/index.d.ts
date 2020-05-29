@@ -3,9 +3,6 @@
 // Definitions by: Yi Hong <https://github.com/hongyiweiwu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="cache-manager" />
-/// <reference types="ioredis" />
-
 import * as IORedis from "ioredis";
 import { Store, CachingConfig, CacheOptions, Cache } from 'cache-manager';
 
@@ -28,7 +25,7 @@ declare namespace CacheManagerIORedis {
     }
 
     interface RedisStoreConstructor {
-        create: (...options: ((RedisStoreSingleNodeConfig | any)[]) | ((RedisStoreClusterConfig | any)[])) => RedisSingleNodeStore;
+        create: (...options: Array<RedisStoreSingleNodeConfig>) => RedisSingleNodeStore | ((...options: Array<RedisStoreClusterConfig>) => RedisClusterStore);
     }
 
     type RedisStoreSingleNodeConfig = (CachingConfig & IORedis.RedisOptions & {
@@ -46,10 +43,10 @@ declare namespace CacheManagerIORedis {
         getClient(): IORedis.Redis | IORedis.Cluster;
         name: 'redis';
         isCacheableValue(value: any): boolean;
-        del<T>(...args: any[]): Promise<any>;
-        reset<T>(...args: any[]): Promise<any>;
-        keys<T>(...args: any[]): Promise<any>;
-        ttl<T>(...args: any[]): Promise<any>;
+        del(...args: any[]): Promise<any>;
+        reset(...args: any[]): Promise<any>;
+        keys(...args: any[]): Promise<any>;
+        ttl(...args: any[]): Promise<any>;
     }
 
     interface RedisSingleNodeStore extends Store {

@@ -1,7 +1,7 @@
 import cacheManager = require("cache-manager");
 import redisStore = require("cache-manager-ioredis");
 
-var redisCache = cacheManager.caching({
+const redisCache = cacheManager.caching({
     store: redisStore,
     host: 'localhost', // default value
     port: 6379, // default value
@@ -10,7 +10,7 @@ var redisCache = cacheManager.caching({
     ttl: 600,
 });
 
-var clusterCache = cacheManager.caching({
+const clusterCache = cacheManager.caching({
     store: redisStore,
     clusterConfig: {
         nodes: [
@@ -33,6 +33,6 @@ var clusterCache = cacheManager.caching({
 redisCache.store.getClient();
 clusterCache.store.getClient();
 
-var memoryCache = cacheManager.caching({ store: 'memory', max: 100, ttl: 60 });
+const memoryCache = cacheManager.caching({ store: 'memory', max: 100, ttl: 60 });
 
 cacheManager.multiCaching([redisCache, memoryCache]);
