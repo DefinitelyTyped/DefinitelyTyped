@@ -16,12 +16,12 @@ export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' |
 export type Responsive = 'stacked' | 'scrollMaxHeight' | 'scrollFullHeight';
 export type SelectableRows = 'multiple' | 'single' | 'none';
 
-interface MUIDataTableData {
+export interface MUIDataTableData {
     data: Array<object | number[] | string[]>;
     index: number;
 }
 
-interface MUIDataTableStateRows {
+export interface MUIDataTableStateRows {
     data: string[];
     lookup: any;
 }
@@ -53,23 +53,23 @@ export interface MUIDataTableMeta {
     tableState: MUIDataTableState;
 }
 
-interface MUIDataTableCustomHeadRenderer extends MUIDataTableColumn {
+export interface MUIDataTableCustomHeadRenderer extends MUIDataTableColumn {
     index: number;
 }
 
-interface MUIDataTableTextLabelsBody {
+export interface MUIDataTableTextLabelsBody {
     noMatch: string;
     toolTip: string;
 }
 
-interface MUIDataTableTextLabelsPagination {
+export interface MUIDataTableTextLabelsPagination {
     displayRows: string;
     next: string;
     previous: string;
     rowsPerPage: string;
 }
 
-interface MUIDataTableTextLabelsToolbar {
+export interface MUIDataTableTextLabelsToolbar {
     downloadCsv: string;
     filterTable: string;
     print: string;
@@ -77,18 +77,18 @@ interface MUIDataTableTextLabelsToolbar {
     viewColumns: string;
 }
 
-interface MUIDataTableTextLabelsFilter {
+export interface MUIDataTableTextLabelsFilter {
     all: string;
     reset: string;
     title: string;
 }
 
-interface MUIDataTableTextLabelsViewColumns {
+export interface MUIDataTableTextLabelsViewColumns {
     title: string;
     titleAria: string;
 }
 
-interface MUIDataTableTextLabelsSelectedRows {
+export interface MUIDataTableTextLabelsSelectedRows {
     delete: string;
     deleteAria: string;
     text: string;
