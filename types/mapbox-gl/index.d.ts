@@ -197,19 +197,19 @@ declare namespace mapboxgl {
 
         setMaxBounds(lnglatbounds?: LngLatBoundsLike): this;
 
-        setMinZoom(minZoom?: number): this;
+        setMinZoom(minZoom?: number | null): this;
 
         getMinZoom(): number;
 
-        setMaxZoom(maxZoom?: number): this;
+        setMaxZoom(maxZoom?: number | null): this;
 
         getMaxZoom(): number;
 
-        setMinPitch(minPitch?: number): this;
+        setMinPitch(minPitch?: number | null): this;
 
         getMinPitch(): number;
 
-        setMaxPitch(maxPitch?: number): this;
+        setMaxPitch(maxPitch?: number | null): this;
 
         getMaxPitch(): number;
 

@@ -815,16 +815,36 @@ map.showPadding = false;
 expectType<mapboxgl.Map>(map.setFilter('layerId', true));
 expectType<mapboxgl.Map>(map.setFilter('layerId', false));
 
-expectType<mapboxgl.Map>(map.setMinZoom(5));
-expectType<mapboxgl.Map>(map.setMaxZoom(10));
+// $ExpectType Map
+map.setMinZoom(5);
+// $ExpectType Map
+map.setMaxZoom(10);
+// $ExpectType Map
+map.setMinZoom(null);
+// $ExpectType Map
+map.setMinZoom();
+// $ExpectType Map
+map.setMaxZoom(null);
+// $ExpectType Map
+map.setMaxZoom();
 
 // $ExpectType number
 map.getMinZoom();
 // $ExpectType number
 map.getMaxZoom();
 
-expectType<mapboxgl.Map>(map.setMinPitch(5));
-expectType<mapboxgl.Map>(map.setMaxPitch(10));
+// $ExpectType Map
+map.setMinPitch(5);
+// $ExpectType Map
+map.setMaxPitch(10);
+// $ExpectType Map
+map.setMinPitch(null);
+// $ExpectType Map
+map.setMinPitch();
+// $ExpectType Map
+map.setMaxPitch(null);
+// $ExpectType Map
+map.setMaxPitch();
 
 // $ExpectType number
 map.getMinPitch();
