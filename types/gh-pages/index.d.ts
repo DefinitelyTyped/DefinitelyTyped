@@ -39,3 +39,21 @@ export function publish(basePath: string, callback: (err: any) => void): void;
 export function publish(basePath: string, config: PublishOptions, callback?: (err: any) => void): void;
 
 export function clean(): void;
+
+export interface Defaults {
+    dest: '.';
+    add: false;
+    git: 'git';
+    depth: 1;
+    dotfiles: false;
+    branch: 'gh-pages';
+    remote: string;
+    src: '**/*';
+    remove: '.';
+    push: true;
+    history: true;
+    message: 'Updates';
+    silent: false;
+}
+
+export const defaults: Readonly<Defaults>;
