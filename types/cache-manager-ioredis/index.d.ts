@@ -25,7 +25,7 @@ declare namespace CacheManagerIORedis {
     }
 
     interface RedisStoreConstructor {
-        create: (...options: Array<RedisStoreSingleNodeConfig>) => RedisSingleNodeStore | ((...options: Array<RedisStoreClusterConfig>) => RedisClusterStore);
+        create: (...options: RedisStoreSingleNodeConfig[]) => RedisSingleNodeStore | ((...options: RedisStoreClusterConfig[]) => RedisClusterStore);
     }
 
     type RedisStoreSingleNodeConfig = (CachingConfig & IORedis.RedisOptions & {
