@@ -8,6 +8,7 @@ import { Store, CachingConfig, CacheOptions, Cache } from 'cache-manager';
 
 declare const methods: CacheManagerIORedis.RedisStoreConstructor;
 export = methods;
+export { };
 
 declare module 'cache-manager' {
     function caching(IConfig: CacheManagerIORedis.RedisStoreClusterConfig): CacheManagerIORedis.ClusterCache;
