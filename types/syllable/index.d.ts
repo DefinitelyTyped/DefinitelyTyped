@@ -3,4 +3,6 @@
 // Definitions by: Ryan Blackman <https://github.com/rblackman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = function syllable(value: string): number;
+declare function syllable(value: string): number;
+
+export = syllable;
