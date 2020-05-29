@@ -2,7 +2,6 @@
 // Project: https://gitlab.com/sebdeckers/tls-keygen
 // Definitions by: Yi Hong <https://github.com/hongyiweiwu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8.3
 
 /// <reference types="node" />
 
