@@ -1,6 +1,7 @@
 // Type definitions for foreach 2.0
 // Project: https://github.com/manuelstofer/foreach
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -11,11 +12,11 @@
  * @param thisArg A value to which the `this` keyword can refer in the `callbackfn` function.
  *        If `thisArg` is omitted, `undefined` is used as the `this` value.
  */
-declare function forEach<O extends ArrayLike<any>, THIS_ARG = undefined>(
+declare function forEach<O extends ArrayLike<unknown>, THIS_ARG = undefined>(
     array: O,
     callbackfn: (
         this: THIS_ARG,
-        value: O extends ArrayLike<infer T> ? T : any,
+        value: O extends ArrayLike<infer T> ? T : unknown,
         index: number,
         array: O,
     ) => void,
@@ -30,11 +31,11 @@ declare function forEach<O extends ArrayLike<any>, THIS_ARG = undefined>(
  * @param thisArg A value to which the `this` keyword can refer in the `callbackfn` function.
  *        If `thisArg` is omitted, `undefined` is used as the `this` value.
  */
-declare function forEach<O extends Record<string, any>, THIS_ARG = undefined>(
+declare function forEach<O extends Record<string, unknown>, THIS_ARG = undefined>(
     target: O,
     callbackfn: (
         this: THIS_ARG,
-        value: O extends Record<string, infer T> ? T : any,
+        value: O extends Record<string, infer T> ? T : unknown,
         property: string,
         target: O,
     ) => void,
