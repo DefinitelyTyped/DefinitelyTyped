@@ -9,15 +9,13 @@
 import * as React from 'react';
 import * as moment from 'moment';
 
-export = ReactDates;
-
 declare namespace momentPropTypes {
     type momentObj = moment.Moment;
     type momentString = any;
     type momentDurationObj = any;
 }
 
-declare namespace ReactDates {
+export namespace ReactDates {
     // SHAPES
     //
     // shapes/AnchorDirectionShape.js
