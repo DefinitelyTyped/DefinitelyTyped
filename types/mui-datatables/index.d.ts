@@ -230,7 +230,10 @@ export interface MUIDataTableOptions {
     onFilterDialogOpen?: () => void;
     onFilterDialogClose?: () => void;
     onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
-    onRowsDelete?: (rowsDeleted: {lookup: {[dataIndex: number]: boolean}, data: Array<{index: number, dataIndex: number}>}) => void;
+    onRowsDelete?: (rowsDeleted: {
+        lookup: { [dataIndex: number]: boolean };
+        data: Array<{ index: number; dataIndex: number }>;
+    }) => void;
     onRowsExpand?: (currentRowsExpanded: any[], allRowsExpanded: any[]) => void;
     onRowsSelect?: (currentRowsSelected: any[], rowsSelected: any[]) => void;
     onSearchChange?: (searchText: string) => void;

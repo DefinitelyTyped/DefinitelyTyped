@@ -52,7 +52,7 @@ const MuiCustomTable: React.FC<Props> = (props) => {
     const TableOptions: MUIDataTableOptions = {
         fixedHeaderOptions: {
             xAxis: false,
-            yAxis: true
+            yAxis: true,
         },
         filterType: 'checkbox',
         responsive: 'scrollFullHeight',
@@ -99,7 +99,10 @@ const MuiCustomTable: React.FC<Props> = (props) => {
                     });
             }
         },
-        onRowsDelete: (rowsDeleted: {lookup: {[dataIndex: number]: boolean}, data: Array<{index: number, dataIndex: number}>}) => {
+        onRowsDelete: (rowsDeleted: {
+            lookup: { [dataIndex: number]: boolean };
+            data: Array<{ index: number; dataIndex: number }>;
+        }) => {
             if (rowsDeleted.data[0].index === rowsDeleted.data[0].dataIndex && rowsDeleted.lookup[0]) {
                 console.log(`Data deleted on index ${rowsDeleted.data[0].dataIndex}`);
             }
