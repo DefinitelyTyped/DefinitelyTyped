@@ -1,11 +1,11 @@
-// Type definitions for tls-keygen 3.7.0
+// Type definitions for tls-keygen 3.7
 // Project: https://gitlab.com/sebdeckers/tls-keygen
 // Definitions by: Yi Hong <https://github.com/hongyiweiwu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-export declare function keygen(options: KeyGenOptions): Promise<KeyGenResult>;
+export function keygen(options: KeyGenOptions): Promise<KeyGenResult>;
 
 interface KeyGenOptions {
     key?: string;
@@ -20,14 +20,14 @@ interface KeyGenResult {
     cert: string;
 }
 
-export declare const defaultKey: string;
-export declare const defaultCert: string;
-export declare const defaultCommonName: string;
-export declare const defaultSubjectAltName: string[];
+export const defaultKey: string;
+export const defaultCert: string;
+export const defaultCommonName: string;
+export const defaultSubjectAltName: string[];
 
 interface EphemeralResult {
     key: Buffer;
     cert: Buffer;
 }
 
-export declare function ephemeral(options: KeyGenOptions): Promise<EphemeralResult>;
+export function ephemeral(options: KeyGenOptions): Promise<EphemeralResult>;

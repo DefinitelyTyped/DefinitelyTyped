@@ -1,7 +1,7 @@
 import * as TlsKeygen from 'tls-keygen';
 
 async function testKeygen() {
-    let {key, cert} = await TlsKeygen.keygen({
+    const {key, cert} = await TlsKeygen.keygen({
         key: TlsKeygen.defaultKey,
         cert: TlsKeygen.defaultCert,
         commonName: TlsKeygen.defaultCommonName,
@@ -14,7 +14,7 @@ async function testKeygen() {
 }
 
 async function testEphemeral() {
-    let {key, cert} = await TlsKeygen.ephemeral({
+    const {key, cert} = await TlsKeygen.ephemeral({
         key: TlsKeygen.defaultKey,
         cert: TlsKeygen.defaultCert,
         commonName: TlsKeygen.defaultCommonName,
@@ -26,3 +26,5 @@ async function testEphemeral() {
     temp = cert;
 }
 
+testKeygen();
+testEphemeral();
