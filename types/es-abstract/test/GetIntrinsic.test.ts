@@ -92,8 +92,8 @@ declare const boolean: boolean;
     GetIntrinsic('%SyntaxError%'); // $ExpectType SyntaxErrorConstructor
     GetIntrinsic('%SyntaxErrorPrototype%'); // $ExpectType SyntaxError
     GetIntrinsic('%ThrowTypeError%'); // $ExpectType () => never
-    GetIntrinsic('%TypedArray%'); // $ExpectType any
-    GetIntrinsic('%TypedArrayPrototype%'); // $ExpectType any
+    GetIntrinsic('%TypedArray%'); // $ExpectType unknown
+    GetIntrinsic('%TypedArrayPrototype%'); // $ExpectType unknown
     GetIntrinsic('%TypeError%'); // $ExpectType TypeErrorConstructor
     GetIntrinsic('%TypeErrorPrototype%'); // $ExpectType TypeError
     GetIntrinsic('%Uint8Array%'); // $ExpectType Uint8ArrayConstructor
@@ -110,7 +110,7 @@ declare const boolean: boolean;
     GetIntrinsic('%WeakMapPrototype%'); // $ExpectType WeakMap<object, any>
     GetIntrinsic('%WeakSet%'); // $ExpectType WeakSetConstructor
     GetIntrinsic('%WeakSetPrototype%'); // $ExpectType WeakSet<object>
-    GetIntrinsic('unknown'); // $ExpectType any
+    GetIntrinsic('unknown'); // $ExpectType unknown
 }
 
 // allowMissing = false
@@ -204,8 +204,8 @@ declare const boolean: boolean;
     GetIntrinsic('%SyntaxError%', false); // $ExpectType SyntaxErrorConstructor
     GetIntrinsic('%SyntaxErrorPrototype%', false); // $ExpectType SyntaxError
     GetIntrinsic('%ThrowTypeError%', false); // $ExpectType () => never
-    GetIntrinsic('%TypedArray%', false); // $ExpectType any
-    GetIntrinsic('%TypedArrayPrototype%', false); // $ExpectType any
+    GetIntrinsic('%TypedArray%', false); // $ExpectType unknown
+    GetIntrinsic('%TypedArrayPrototype%', false); // $ExpectType unknown
     GetIntrinsic('%TypeError%', false); // $ExpectType TypeErrorConstructor
     GetIntrinsic('%TypeErrorPrototype%', false); // $ExpectType TypeError
     GetIntrinsic('%Uint8Array%', false); // $ExpectType Uint8ArrayConstructor
@@ -222,7 +222,7 @@ declare const boolean: boolean;
     GetIntrinsic('%WeakMapPrototype%', false); // $ExpectType WeakMap<object, any>
     GetIntrinsic('%WeakSet%', false); // $ExpectType WeakSetConstructor
     GetIntrinsic('%WeakSetPrototype%', false); // $ExpectType WeakSet<object>
-    GetIntrinsic('unknown', false); // $ExpectType any
+    GetIntrinsic('unknown', false); // $ExpectType unknown
 }
 
 // allowMissing = true
@@ -316,8 +316,8 @@ declare const boolean: boolean;
     GetIntrinsic('%SyntaxError%', true); // $ExpectType SyntaxErrorConstructor | undefined
     GetIntrinsic('%SyntaxErrorPrototype%', true); // $ExpectType SyntaxError | undefined
     GetIntrinsic('%ThrowTypeError%', true); // $ExpectType (() => never) | undefined
-    GetIntrinsic('%TypedArray%', true); // $ExpectType any
-    GetIntrinsic('%TypedArrayPrototype%', true); // $ExpectType any
+    GetIntrinsic('%TypedArray%', true); // $ExpectType unknown
+    GetIntrinsic('%TypedArrayPrototype%', true); // $ExpectType unknown
     GetIntrinsic('%TypeError%', true); // $ExpectType TypeErrorConstructor | undefined
     GetIntrinsic('%TypeErrorPrototype%', true); // $ExpectType TypeError | undefined
     GetIntrinsic('%Uint8Array%', true); // $ExpectType Uint8ArrayConstructor | undefined
@@ -334,7 +334,7 @@ declare const boolean: boolean;
     GetIntrinsic('%WeakMapPrototype%', true); // $ExpectType WeakMap<object, any> | undefined
     GetIntrinsic('%WeakSet%', true); // $ExpectType WeakSetConstructor | undefined
     GetIntrinsic('%WeakSetPrototype%', true); // $ExpectType WeakSet<object> | undefined
-    GetIntrinsic('unknown', true); // $ExpectType any
+    GetIntrinsic('unknown', true); // $ExpectType unknown
 }
 
 // allowMissing = boolean
@@ -428,8 +428,8 @@ declare const boolean: boolean;
     GetIntrinsic('%SyntaxError%', boolean); // $ExpectType SyntaxErrorConstructor | undefined
     GetIntrinsic('%SyntaxErrorPrototype%', boolean); // $ExpectType SyntaxError | undefined
     GetIntrinsic('%ThrowTypeError%', boolean); // $ExpectType (() => never) | undefined
-    GetIntrinsic('%TypedArray%', boolean); // $ExpectType any
-    GetIntrinsic('%TypedArrayPrototype%', boolean); // $ExpectType any
+    GetIntrinsic('%TypedArray%', boolean); // $ExpectType unknown
+    GetIntrinsic('%TypedArrayPrototype%', boolean); // $ExpectType unknown
     GetIntrinsic('%TypeError%', boolean); // $ExpectType TypeErrorConstructor | undefined
     GetIntrinsic('%TypeErrorPrototype%', boolean); // $ExpectType TypeError | undefined
     GetIntrinsic('%Uint8Array%', boolean); // $ExpectType Uint8ArrayConstructor | undefined
@@ -446,5 +446,5 @@ declare const boolean: boolean;
     GetIntrinsic('%WeakMapPrototype%', boolean); // $ExpectType WeakMap<object, any> | undefined
     GetIntrinsic('%WeakSet%', boolean); // $ExpectType WeakSetConstructor | undefined
     GetIntrinsic('%WeakSetPrototype%', boolean); // $ExpectType WeakSet<object> | undefined
-    GetIntrinsic('unknown', boolean); // $ExpectType any
+    GetIntrinsic('unknown', boolean); // $ExpectType unknown
 }

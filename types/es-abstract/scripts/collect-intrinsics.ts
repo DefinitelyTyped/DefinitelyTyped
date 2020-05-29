@@ -440,8 +440,6 @@ const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = {
     },
     '%SyntaxErrorPrototype%': override,
     '%ThrowTypeError%': '() => never',
-    '%TypedArray%': 'any',
-    '%TypedArrayPrototype%': 'any',
     '%TypeError%': {
         type: 'TypeErrorConstructor',
         get: 'typeof TypeError',
@@ -702,7 +700,7 @@ for (const intrinsicName of Object.getOwnPropertyNames(BASE_INTRINSICS)) {
         type = data;
         data = undefined;
     } else {
-        type = data?.type || 'any';
+        type = data?.type || 'unknown';
     }
 
     printIntrinsic(
