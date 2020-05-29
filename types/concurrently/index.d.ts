@@ -14,6 +14,7 @@ declare function concurrently(
 declare namespace concurrently {
     interface CommandObj {
         command: string;
+        env?: NodeJS.ProcessEnv;
         name?: string;
         prefixColor?: string;
     }

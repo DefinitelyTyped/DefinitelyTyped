@@ -7,6 +7,10 @@ concurrently(
         'echo foo',
         {
             command: 'echo bar',
+            env: {
+                a: 'bar',
+                b: undefined,
+            },
             name: 'bar',
             prefixColor: 'yellow',
         },
