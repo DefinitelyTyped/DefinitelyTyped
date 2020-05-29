@@ -17,8 +17,7 @@ declare namespace editJsonFile {
     }
 
     /** JSON file editor. */
-    class JsonEditor {
-        constructor(path: string, options?: Options);
+    interface JsonEditor {
         /** Get value at path. */
         get(path?: string): any;
         /** Set value at path. */
