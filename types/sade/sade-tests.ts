@@ -18,3 +18,16 @@ prog.command('build <src> <dest>')
 prog.help('build');
 
 prog.parse(argv);
+
+// $ExpectType Sade
+prog.alias('a');
+// $ExpectType Sade
+prog.alias('a', 'b');
+// $ExpectType Sade
+prog.command('command', 'description', {
+    alias: 'a',
+});
+// $ExpectType Sade
+prog.command('command', 'description', {
+    alias: ['a', 'b']
+});
