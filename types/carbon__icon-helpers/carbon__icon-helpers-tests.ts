@@ -1,10 +1,20 @@
-import { defaultAttributes, getAttributes, formatAttributes, toString, toSvg } from '@carbon/icon-helpers';
+import { defaultAttributes, getAttributes, formatAttributes, toString, toSVG } from '@carbon/icon-helpers';
 
-defaultAttributes.focusable; // $Expect 'false'
-defaultAttributes.preserveAspectRatio; // $Expect 'xMidYMid meet'
-getAttributes({ width: 16, height: 16 }); // $ExpectType IconAttributes
+defaultAttributes.focusable; // $Expect string
+defaultAttributes.preserveAspectRatio; // $Expect string
+getAttributes({
+    width: 16,
+    height: 16,
+}); /* $ExpectType {
+    width: number;
+    height: number;
+    viewBox: string;
+    title?: string;
+    role?: string;
+    focusable: string;
+    preserveAspectRatio: string;
+} */
 formatAttributes({ width: 16, height: 16 }); // $ExpectType string
-toString(); // $Expect string
 toString({
     elem: 'svg',
     attrs: { width: 16, height: 16 },
@@ -14,8 +24,7 @@ toString({
         { elem: 'rect', attrs: { width: '', height: '', x: '', y: '', rx: '' } },
     ],
 }); // $Expect string
-toSvg(); // $ExpectType SVGSVGElement
-toSvg({
+toSVG({
     elem: 'svg',
     attrs: { width: 16, height: 16 },
     content: [
