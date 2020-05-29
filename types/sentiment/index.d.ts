@@ -19,9 +19,9 @@ declare class Sentiment {
 declare namespace Sentiment {
     // No options supported currently
     // tslint:disable-next-line no-empty-interface
-    export interface SentimentOptions {}
+    interface SentimentOptions {}
 
-    export interface LanguageModule {
+    interface LanguageModule {
         labels: {
             [token: string]: number;
         };
@@ -30,7 +30,7 @@ declare namespace Sentiment {
         };
     }
 
-    export interface AnalysisOptions {
+    interface AnalysisOptions {
         extras?: {
             [token: string]: number;
         };
