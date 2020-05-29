@@ -94,4 +94,5 @@ export interface PickerProps {
     icons?: CustomIcons;
     enableFrequentEmojiSort?: boolean;
     useButton?: boolean;
+    darkMode?: boolean;
 }
