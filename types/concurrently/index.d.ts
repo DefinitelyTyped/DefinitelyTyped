@@ -2,22 +2,19 @@
 // Project: https://github.com/kimmobrunfeldt/concurrently#readme
 // Definitions by: Michael B. <https://github.com/Blasz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Ryan Ling <https://github.com/72636c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-declare function concurrently(
-    commands: Array<concurrently.CommandObj | string>,
-    options?: concurrently.Options,
-): Promise<null>;
-
-declare namespace concurrently {
+declare module 'concurrently' {
     interface CommandObj {
         command: string;
         env?: NodeJS.ProcessEnv;
         name?: string;
         prefixColor?: string;
     }
+
     interface Options {
         /** the default input target when reading from `inputStream`. Default: `0`. */
         defaultInputTarget?: number;
@@ -49,6 +46,8 @@ declare namespace concurrently {
         /** a date-fns format to use when prefixing with time. Default: `yyyy-MM-dd HH:mm:ss.ZZZ` */
         timestampFormat?: string;
     }
-}
 
-export = concurrently;
+    function concurrently(commands: Array<CommandObj | string>, options?: Options): Promise<null>;
+
+    export = concurrently;
+}
