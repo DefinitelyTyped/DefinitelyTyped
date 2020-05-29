@@ -1,4 +1,4 @@
-// Type definitions for gh-pages 2.2
+// Type definitions for gh-pages 3.0
 // Project: https://github.com/tschaub/gh-pages
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
