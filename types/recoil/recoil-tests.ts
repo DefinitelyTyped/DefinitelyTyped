@@ -12,6 +12,7 @@ import {
     useResetRecoilState,
     useRecoilCallback,
     isRecoilValue,
+    RecoilState,
 } from 'recoil';
 // import { atomFamily } from 'recoil/utils';
 
@@ -73,6 +74,22 @@ RecoilRoot({
 });
 
 // Hooks
+const roAtom: RecoilValueReadOnly<string> = {} as any;
+const waAtom: RecoilState<string> = {} as any;
+const nsAtom: RecoilState<number | string> = {} as any; // number or string
+
+useRecoilValue(roAtom);
+useRecoilValue(waAtom);
+
+useRecoilState(roAtom); // $ExpectError
+useRecoilState(waAtom);
+
+useRecoilState<number>(waAtom); // $ExpectError
+useRecoilState<number | string>(waAtom); // $ExpectError
+useRecoilValue<number>(waAtom); // $ExpectError
+useRecoilValue<number | string>(waAtom);
+useRecoilValue<number>(nsAtom); // $ExpectError
+
 useRecoilValue(myAtom);
 useRecoilValue(mySelector1);
 useRecoilValue(readOnlySelector);

@@ -158,15 +158,16 @@ export type Loadable<T> =
 
 // recoilValue.d.ts
 export class AbstractRecoilValue<T> {
-    tag: 'Writeable';
-    valTag: T;
+    __tag: [T];
+    __cTag: (t: T) => void; // for contravariance
+
     key: NodeKey;
     constructor(newKey: NodeKey);
 }
 
 export class AbstractRecoilValueReadonly<T> {
-    tag: 'Readonly';
-    valTag: T;
+    __tag: [T];
+
     key: NodeKey;
     constructor(newKey: NodeKey);
 }
