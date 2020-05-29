@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/jest-dom 5.7
+// Type definitions for @testing-library/jest-dom 5.9
 // Project: https://github.com/testing-library/jest-dom
 // Definitions by: Ernesto García <https://github.com/gnapse>
 //                 John Gozde <https://github.com/jgoz>
@@ -63,6 +63,8 @@ declare namespace jest {
          */
         toBeVisible(): R;
         /**
+         * @deprecated
+         * since v5.9.0
          * @description
          * Assert whether an element has content or not.
          * @example
@@ -76,6 +78,20 @@ declare namespace jest {
          * [testing-library/jest-dom#tobeempty](https:github.com/testing-library/jest-dom#tobeempty)
          */
         toBeEmpty(): R;
+        /**
+         * @description
+         * Assert whether an element has content or not.
+         * @example
+         * <span data-testid="not-empty">
+         *   <span data-testid="empty"></span>
+         * </span>
+         *
+         * expect(getByTestId('empty')).toBeEmptyDomElement()
+         * expect(getByTestId('not-empty')).not.toBeEmptyDomElement()
+         * @see
+         * [testing-library/jest-dom#tobeemptydomelement](https:github.com/testing-library/jest-dom#tobeemptydomelement)
+         */
+        toBeEmptyDomElement(): R;
         /**
          * @description
          * Allows you to check whether an element is disabled from the user's perspective.
@@ -469,5 +485,43 @@ declare namespace jest {
          * [testing-library/jest-dom#tohavedescription](https:github.com/testing-library/jest-dom#tohavedescription)
          */
         toHaveDescription(text?: string | RegExp | ReturnType<typeof expect.stringContaining>): R;
+        /**
+         * @description
+         * This allows you to check whether the given element is partially checked.
+         * It accepts an input of type checkbox and elements with a role of checkbox
+         * with a aria-checked="mixed", or input of type checkbox with indeterminate
+         * set to true
+         *
+         * @example
+         * <input type="checkbox" aria-checked="mixed" data-testid="aria-checkbox-mixed" />
+         * <input type="checkbox" checked data-testid="input-checkbox-checked" />
+         * <input type="checkbox" data-testid="input-checkbox-unchecked" />
+         * <div role="checkbox" aria-checked="true" data-testid="aria-checkbox-checked" />
+         * <div
+         *   role="checkbox"
+         *   aria-checked="false"
+         *   data-testid="aria-checkbox-unchecked"
+         * />
+         * <input type="checkbox" data-testid="input-checkbox-indeterminate" />
+         *
+         * const ariaCheckboxMixed = getByTestId('aria-checkbox-mixed')
+         * const inputCheckboxChecked = getByTestId('input-checkbox-checked')
+         * const inputCheckboxUnchecked = getByTestId('input-checkbox-unchecked')
+         * const ariaCheckboxChecked = getByTestId('aria-checkbox-checked')
+         * const ariaCheckboxUnchecked = getByTestId('aria-checkbox-unchecked')
+         * const inputCheckboxIndeterminate = getByTestId('input-checkbox-indeterminate')
+         *
+         * expect(ariaCheckboxMixed).toBePartiallyChecked()
+         * expect(inputCheckboxChecked).not.toBePartiallyChecked()
+         * expect(inputCheckboxUnchecked).not.toBePartiallyChecked()
+         * expect(ariaCheckboxChecked).not.toBePartiallyChecked()
+         * expect(ariaCheckboxUnchecked).not.toBePartiallyChecked()
+         *
+         * inputCheckboxIndeterminate.indeterminate = true
+         * expect(inputCheckboxIndeterminate).toBePartiallyChecked()
+         * @see
+         * [testing-library/jest-dom#tobepartiallychecked](https:github.com/testing-library/jest-dom#tobepartiallychecked)
+         */
+        toBePartiallyChecked(): R;
     }
 }
