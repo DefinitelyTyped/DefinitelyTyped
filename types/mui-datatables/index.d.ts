@@ -442,7 +442,7 @@ export interface MUIDataTableViewCol {
     onColumnUpdate: (...args: any) => any;
 }
 
-declare const MUIDataTable: React.ComponentType<MUIDataTableProps>;
+export const MUIDataTable: React.ComponentType<MUIDataTableProps>;
 
 export const Popover: React.Component<MUIDataTablePopover>;
 export const TableBody: React.Component<MUIDataTableBody>;
@@ -461,5 +461,3 @@ export const TableSelectCell: React.Component<MUIDataTableSelectCell>;
 export const TableToolbar: React.Component<MUIDataTableToolbar>;
 export const TableToolbarSelect: React.Component<MUIDataTableToolbarSelect>;
 export const TableViewCol: React.Component<MUIDataTableViewCol>;
-
-export default MUIDataTable;
