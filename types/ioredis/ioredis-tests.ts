@@ -526,11 +526,9 @@ cluster
     .then(result => console.log(result))
     .catch(reason => console.error(reason));
 cluster
-    .connect(() => {
-        console.log('connect');
-    })
+    .connect()
     .then(result => console.log(result))
-    .then(reason => console.error(reason));
+    .catch(reason => console.error(reason));
 
 cluster.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 cluster.getBuffer('key', (err, data) => {
