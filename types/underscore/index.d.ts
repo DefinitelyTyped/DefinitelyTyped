@@ -1037,13 +1037,6 @@ declare module _ {
             ...others: _.List<T>[]): T[];
 
         /**
-        * @see _.uniq
-        **/
-        uniq<T>(
-            array: _.List<T>,
-            isSorted?: boolean): T[];
-
-        /**
         * Produces a duplicate-free version of the array, using === to test object equality. If you know in
         * advance that the array is sorted, passing true for isSorted will run a much faster algorithm. If
         * you want to compute unique items based on a transformation, pass an iterator function.
@@ -1053,18 +1046,18 @@ declare module _ {
         * @param context 'this' object in `iterator`, optional.
         * @return Copy of `array` where all elements are unique.
         **/
-        uniq<T, TCompare>(
+        uniq<T>(
             array: _.List<T>,
             isSorted?: boolean,
-            iterator?: _.ListIterator<T, TCompare> | _.IterateePropertyShorthand,
+            iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand,
             context?: any): T[];
 
         /**
         * @see _.uniq
         **/
-        uniq<T, TCompare>(
+        uniq<T>(
             array: _.List<T>,
-            iterator?: _.ListIterator<T, TCompare> | _.IterateePropertyShorthand,
+            iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand,
             context?: any): T[];
 
         /**
@@ -1072,23 +1065,16 @@ declare module _ {
         **/
         unique<T>(
             array: _.List<T>,
-            isSorted?: boolean): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique<T, TCompare>(
-            array: _.List<T>,
-            iterator?: _.ListIterator<T, TCompare> | _.IterateePropertyShorthand,
+            iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand,
             context?: any): T[];
 
         /**
         * @see _.uniq
         **/
-        unique<T, TCompare>(
+        unique<T>(
             array: _.List<T>,
             isSorted?: boolean,
-            iterator?: _.ListIterator<T, TCompare>  | _.IterateePropertyShorthand,
+            iterator?: _.ListIterator<T, any>  | _.IterateePropertyShorthand,
             context?: any): T[];
 
         /**
@@ -4764,33 +4750,17 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq(iterator?: _.IterateePropertyShorthand): T[];
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.uniq
-        **/
-        uniq<TCompare>(iterator?: _.ListIterator<T, TCompare>, context?: any): T[];
+        uniq(iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): T[];
 
         /**
         * @see _.uniq
         **/
-        unique(isSorted?: boolean, iterator?: _.IterateePropertyShorthand): T[];
+        unique(isSorted?: boolean, iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): T[];
 
         /**
         * @see _.uniq
         **/
-        unique<TCompare>(isSorted?: boolean, iterator?: _.ListIterator<T, TCompare>, context?: any): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique(iterator?: _.IterateePropertyShorthand, context?: any): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique<TCompare>(iterator?: _.ListIterator<T, TCompare>, context?: any): T[];
+        unique(iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): T[];
 
         /**
         * Wrapped type `any[][]`.
@@ -5828,22 +5798,19 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq<TCompare>(iterator?: _.ListIterator<T, TCompare> | _.IterateePropertyShorthand, context?: any): _Chain<T, T[]>;
+        uniq(iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): _Chain<T, T[]>;
 
         /**
+        * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        unique(isSorted?: boolean): _Chain<T, T[]>;
+        unique(isSorted?: boolean, iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): _Chain<T, T[]>;
 
         /**
+        * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        unique<TCompare>(isSorted?: boolean, iterator?: _.ListIterator<T, TCompare> | _.IterateePropertyShorthand, context?: any): _Chain<T, T[]>;
-
-        /**
-        * @see _.uniq
-        **/
-        unique<TCompare>(iterator?: _.ListIterator<T, TCompare> | _.IterateePropertyShorthand, context?: any): _Chain<T, T[]>;
+        unique(iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[][]`.
