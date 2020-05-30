@@ -7,6 +7,11 @@
 
 /// <reference types="node" />
 
+declare function concurrently(
+    commands: Array<concurrently.CommandObj | string>,
+    options?: concurrently.Options,
+): Promise<null>;
+
 declare namespace concurrently {
     interface CommandObj {
         command: string;
@@ -46,10 +51,5 @@ declare namespace concurrently {
         timestampFormat?: string;
     }
 }
-
-declare function concurrently(
-    commands: Array<concurrently.CommandObj | string>,
-    options?: concurrently.Options,
-): Promise<null>;
 
 export = concurrently;
