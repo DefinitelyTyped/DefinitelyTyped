@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-export interface MicrophoneOptions {
+interface MicrophoneOptions {
     endian?: 'big' | 'little';
     bitwidth?: 8 | 16 | 24;
     encoding?: 'signed-integer' | 'unsigned-integer';
@@ -15,9 +15,11 @@ export interface MicrophoneOptions {
     additionalParameters?: any;
 }
 
-export default class Microphone {
+declare class Microphone {
     constructor(options?: MicrophoneOptions);
 
-    public startRecording(): NodeJS.WriteStream;
-    public stopRecording(): void;
+    startRecording(): NodeJS.WriteStream;
+    stopRecording(): void;
 }
+
+export = Microphone;
