@@ -20,7 +20,7 @@ export as namespace Papa;
  * Parse a csv string, a csv file or a readable stream
  */
 export const parse: {
-    (input: string | File | NodeJS.ReadableStream, config?: ParseConfig): ParseResult;
+    <T>(input: string | File | NodeJS.ReadableStream, config?: ParseConfig<T>): ParseResult<T>;
     (stream: NODE_STREAM_INPUT_TYPE, config?: ParseConfig): NodeJS.ReadWriteStream;
 };
 
@@ -90,7 +90,7 @@ export class Parser {
     resume(): void;
 }
 
-export interface ParseConfig {
+export interface ParseConfig<T = any> {
     delimiter?: string; // default: ","
     newline?: string; // default: "\r\n"
     quoteChar?: string; // default: '"'
@@ -113,10 +113,10 @@ export interface ParseConfig {
     delimitersToGuess?: GuessableDelimiters[]; // default: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
 
     // Callbacks
-    step?(results: ParseResult, parser: Parser): void; // default: undefined
-    complete?(results: ParseResult, file?: File): void; // default: undefined
+    step?(results: ParseResult<T>, parser: Parser): void; // default: undefined
+    complete?(results: ParseResult<T>, file?: File): void; // default: undefined
     error?(error: ParseError, file?: File): void; // default: undefined
-    chunk?(results: ParseResult, parser: Parser): void; // default: undefined
+    chunk?(results: ParseResult<T>, parser: Parser): void; // default: undefined
     beforeFirstChunk?(chunk: string): string | void; // default: undefined
     transform?(value: string, field: string | number): any; // default: undefined
     transformHeader?(header: string): string; // default: undefined
@@ -161,8 +161,8 @@ export interface ParseMeta {
  * errors: is an array of errors
  * meta: contains extra information about the parse, such as delimiter used, the newline sequence, whether the process was aborted, etc. Properties in this object are not guaranteed to exist in all situations
  */
-export interface ParseResult {
-    data: Array<any>;
+export interface ParseResult<T> {
+    data: Array<T>;
     errors: Array<ParseError>;
     meta: ParseMeta;
 }
