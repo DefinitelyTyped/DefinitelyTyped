@@ -2543,6 +2543,7 @@ declare class TypedEventEmitter<Events> {
 
     emit<E extends keyof Events> (event: E, ...args: EventArguments<Events[E]>): boolean;
     eventNames (): Array<keyof Events>;
+    rawListeners<E extends keyof Events> (event: E): Function[];
     listeners<E extends keyof Events> (event: E): Function[];
     listenerCount<E extends keyof Events> (event: E): number;
 
