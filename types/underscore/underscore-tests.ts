@@ -4536,7 +4536,6 @@ interface ArrayWrapper<T> {
 }
 
 // without
-// as a breaking change, ideally the return value for these functions should be updated to include undefined
 {
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
