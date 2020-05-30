@@ -916,7 +916,11 @@ class BannerPlugin extends webpack.Plugin {
                         continue;
                     }
                     for (const file of chunk.files) {
-                        compilation.getPath("", {});
+                        const pathA = compilation.getPath("", {});
+                        const pathB = compilation.getPath("", {
+                            contentHash: "abc",
+                            contentHashType: "javascript",
+                        });
                     }
                 }
             });

@@ -1240,7 +1240,17 @@ declare namespace webpack {
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
-            getPath(filename: string, data: {hash?: any, chunk?: any, filename?: string, basename?: string, query?: any}): string;
+
+            getPath(filename: string, data: {
+                hash?: any,
+                chunk?: any,
+                filename?: string,
+                basename?: string,
+                query?: any,
+                contentHashType?: string,
+                contentHash?: string,
+            }): string;
+
             /**
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
