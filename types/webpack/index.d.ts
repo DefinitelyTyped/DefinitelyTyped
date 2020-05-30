@@ -407,7 +407,21 @@ declare namespace webpack {
         [key: string]: boolean | string | string[] | Record<string, string | string[]>;
     }
 
-    type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
+    interface ExternalsFunctionCallback {
+        /**
+         * Invoke with no arguments to not externalize
+         */
+        (): void;
+        /**
+         * Callback with an Error
+         */
+        (error: {}): void; /* tslint:disable-line */
+        /**
+         * Externalize the dependency
+         */
+        (error: null, result: string | string[] | ExternalsObjectElement, type?: string): void;
+    }
+    type ExternalsFunctionElement = (context: any, request: any, callback: ExternalsFunctionCallback) => any;
 
     interface Node {
         console?: boolean | 'mock';
