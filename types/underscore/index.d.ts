@@ -4595,12 +4595,12 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sample
         **/
-        sample<T>(n: number): T[];
+        sample(n: number): T[];
 
         /**
         * @see _.sample
         **/
-        sample<T>(): T;
+        sample(): T | undefined;
 
         /**
         * Wrapped type `any`.
@@ -5666,12 +5666,12 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sample
         **/
-        sample<T>(n: number): _Chain<T, T[]>;
+        sample(n: number): _Chain<T, T[]>;
 
         /**
         * @see _.sample
         **/
-        sample<T>(): _ChainSingle<T>;
+        sample(): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type `any`.

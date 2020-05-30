@@ -3218,8 +3218,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 }
 
 // sample
-// as a breaking change, ideally all versions of sample without n should include undefined as a possible result since _.sample([]) yields undefined
-// as a breaking change, ideally _Chain.sample should be updated to return _ChainSingle<T | undefined>
 {
     // without n
     {
@@ -3232,11 +3230,11 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).sample();
         result = _(array).sample();
 
-        result = _.chain<{ a: string }>(array).sample<{ a: string }>().value();
-        result = _.chain(array).sample<{ a: string }>().value();
+        result = _.chain<{ a: string }>(array).sample().value();
+        result = _.chain(array).sample().value();
 
-        result = _<{ a: string }>(array).chain().sample<{ a: string }>().value();
-        result = _(array).chain().sample<{ a: string }>().value();
+        result = _<{ a: string }>(array).chain().sample().value();
+        result = _(array).chain().sample().value();
     }
 
     {
@@ -3246,14 +3244,14 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.sample<{ a: string }>(list);
         result = _.sample(list);
 
-        result = _<{ a: string }>(list).sample<{ a: string }>();
-        result = _(list).sample<{ a: string }>();
+        result = _<{ a: string }>(list).sample();
+        result = _(list).sample();
 
-        result = _.chain<{ a: string }>(list).sample<{ a: string }>().value();
-        result = _.chain(list).sample<{ a: string }>().value();
+        result = _.chain<{ a: string }>(list).sample().value();
+        result = _.chain(list).sample().value();
 
-        result = _<{ a: string }>(list).chain().sample<{ a: string }>().value();
-        result = _(list).chain().sample<{ a: string }>().value();
+        result = _<{ a: string }>(list).chain().sample().value();
+        result = _(list).chain().sample().value();
     }
 
     {
@@ -3263,14 +3261,14 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.sample<{ a: string }>(dict);
         result = _.sample(dict);
 
-        result = _<{ a: string }>(dict).sample<{ a: string }>();
-        result = _(dict).sample<{ a: string }>();
+        result = _<{ a: string }>(dict).sample();
+        result = _(dict).sample();
 
-        result = _.chain<{ a: string }>(dict).sample<{ a: string }>().value();
-        result = _.chain(dict).sample<{ a: string }>().value();
+        result = _.chain<{ a: string }>(dict).sample().value();
+        result = _.chain(dict).sample().value();
 
-        result = _<{ a: string }>(dict).chain().sample<{ a: string }>().value();
-        result = _(dict).chain().sample<{ a: string }>().value();
+        result = _<{ a: string }>(dict).chain().sample().value();
+        result = _(dict).chain().sample().value();
     }
 
     {
@@ -3280,11 +3278,11 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.sample<string>(str);
         result = _.sample(str);
 
-        result = _<string>(str).sample<string>();
-        result = _(str).sample<string>();
+        result = _<string>(str).sample();
+        result = _(str).sample();
 
-        result = _<string>(str).chain().sample<string>().value();
-        result = _(str).chain().sample<string>().value();
+        result = _<string>(str).chain().sample().value();
+        result = _(str).chain().sample().value();
     }
 
     // with n
@@ -3299,11 +3297,11 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).sample(n);
         result = _(array).sample(n);
 
-        result = _.chain<{ a: string }>(array).sample<{ a: string }>(n).value();
-        result = _.chain(array).sample<{ a: string }>(n).value();
+        result = _.chain<{ a: string }>(array).sample(n).value();
+        result = _.chain(array).sample(n).value();
 
-        result = _<{ a: string }>(array).chain().sample<{ a: string }>(n).value();
-        result = _(array).chain().sample<{ a: string }>(n).value();
+        result = _<{ a: string }>(array).chain().sample(n).value();
+        result = _(array).chain().sample(n).value();
     }
 
     {
@@ -3314,14 +3312,14 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.sample<{ a: string }>(list, n);
         result = _.sample(list, n);
 
-        result = _<{ a: string }>(list).sample<{ a: string }>(n);
-        result = _(list).sample<{ a: string }>(n);
+        result = _<{ a: string }>(list).sample(n);
+        result = _(list).sample(n);
 
-        result = _.chain<{ a: string }>(list).sample<{ a: string }>(n).value();
-        result = _.chain(list).sample<{ a: string }>(n).value();
+        result = _.chain<{ a: string }>(list).sample(n).value();
+        result = _.chain(list).sample(n).value();
 
-        result = _<{ a: string }>(list).chain().sample<{ a: string }>(n).value();
-        result = _(list).chain().sample<{ a: string }>(n).value();
+        result = _<{ a: string }>(list).chain().sample(n).value();
+        result = _(list).chain().sample(n).value();
     }
 
     {
@@ -3332,14 +3330,14 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.sample<{ a: string }>(dict, n);
         result = _.sample(dict, n);
 
-        result = _<{ a: string }>(dict).sample<{ a: string }>(n);
-        result = _(dict).sample<{ a: string }>(n);
+        result = _<{ a: string }>(dict).sample(n);
+        result = _(dict).sample(n);
 
-        result = _.chain<{ a: string }>(dict).sample<{ a: string }>(n).value();
-        result = _.chain(dict).sample<{ a: string }>(n).value();
+        result = _.chain<{ a: string }>(dict).sample(n).value();
+        result = _.chain(dict).sample(n).value();
 
-        result = _<{ a: string }>(dict).chain().sample<{ a: string }>(n).value();
-        result = _(dict).chain().sample<{ a: string }>(n).value();
+        result = _<{ a: string }>(dict).chain().sample(n).value();
+        result = _(dict).chain().sample(n).value();
     }
 
     {
@@ -3350,11 +3348,11 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.sample<string>(str, n);
         result = _.sample(str, n);
 
-        result = _<string>(str).sample<string>(n);
-        result = _(str).sample<string>(n);
+        result = _<string>(str).sample(n);
+        result = _(str).sample(n);
 
-        result = _<string>(str).chain().sample<string>(n).value();
-        result = _(str).chain().sample<string>(n).value();
+        result = _<string>(str).chain().sample(n).value();
+        result = _(str).chain().sample(n).value();
     }
 }
 
