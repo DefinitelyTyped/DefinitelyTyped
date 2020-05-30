@@ -3567,7 +3567,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 // Array Functions
 
 // first, head, take
-// as a breaking change, ideally _Chain.head and _Chain.take should be updated to return _ChainSingle<T | undefined> like _Chain.first correctly does
 {
     // without n
     {

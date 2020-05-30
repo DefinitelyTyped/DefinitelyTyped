@@ -904,7 +904,7 @@ declare module _ {
         /**
         * @see _.first
         **/
-        take<T>(array: _.List<T>): T;
+        take<T>(array: _.List<T>): T | undefined;
 
         /**
         * @see _.first
@@ -4643,7 +4643,7 @@ declare module _ {
         /**
         * @see _.first
         **/
-        take(): T;
+        take(): T | undefined;
 
         /**
         * @see _.first
@@ -5704,7 +5704,7 @@ declare module _ {
         /**
         * @see _.first
         **/
-        head(): _ChainSingle<T>;
+        head(): _ChainSingle<T | undefined>;
 
         /**
         * @see _.first
@@ -5714,7 +5714,7 @@ declare module _ {
         /**
         * @see _.first
         **/
-        take(): _ChainSingle<T>;
+        take(): _ChainSingle<T | undefined>;
 
         /**
         * @see _.first
@@ -5731,7 +5731,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.last
         **/
-        last(): _ChainSingle<T>;
+        last(): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type `any[]`.
