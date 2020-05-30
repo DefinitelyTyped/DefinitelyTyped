@@ -16,11 +16,8 @@ export interface MicrophoneOptions {
 }
 
 export default class Microphone {
-
     constructor(options?: MicrophoneOptions);
 
     public startRecording(): NodeJS.WriteStream;
-
     public stopRecording(): void;
-
 }
