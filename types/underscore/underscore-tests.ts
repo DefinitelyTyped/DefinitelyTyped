@@ -5121,8 +5121,6 @@ interface ArrayWrapper<T> {
 }
 
 // findIndex
-// as a breaking change, ideally the Underscore<T, V>.findIndex<T> function should be updated to not take a T type argument
-// since it should ideally use T from Underscore
 {
     const context = {};
 
@@ -5237,8 +5235,6 @@ interface ArrayWrapper<T> {
 }
 
 // findLastIndex
-// as a breaking change, ideally the Underscore<T, V>.findIndex<T> function should be updated to not take a T type argument
-// since it should ideally use T from Underscore
 {
     const context = {};
 

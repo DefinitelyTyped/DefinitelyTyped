@@ -4887,12 +4887,12 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex<T>(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): number;
+        findIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): number;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex<T>(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): number;
+        findLastIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): number;
 
         /**
         * Wrapped type `any[]`.
@@ -5983,12 +5983,12 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex<T>(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): _ChainSingle<number>;
+        findIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): _ChainSingle<number>;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex<T>(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): _ChainSingle<number>;
+        findLastIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): _ChainSingle<number>;
 
         /**
         * Wrapped type `any[]`.
