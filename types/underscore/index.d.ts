@@ -119,8 +119,8 @@ declare module _ {
     // surprisingly T extends _.List<_.List<infer TItem>> isn't true when T = SomeType[][], so writing this that way doesn't work
     type DeepFlattenedList<T> = T extends _.List<infer TItem>
         ? TItem extends _.List<infer TInnerItem>
-        ? TInnerItem extends _.List<unknown>
-        ? unknown[]
+        ? TInnerItem extends _.List<any>
+        ? any[]
         : TInnerItem[]
         : TItem[]
         : T[];

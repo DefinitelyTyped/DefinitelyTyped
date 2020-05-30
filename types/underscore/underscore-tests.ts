@@ -4499,10 +4499,10 @@ interface ArrayWrapper<T> {
         result = _(list).chain().flatten(true).value();
     }
 
-    // four dimensions, deep - this is where recursion gives up
+    // four dimensions, deep - this is where recursion gives up, use a type that's definitely wrong to check that giving up happens
     {
         const array: { a: string }[][][][] = [[[[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]]]];
-        let result: unknown[];
+        let result: number[];
 
         result = _.flatten<{ a: string }[][][]>(array);
         result = _.flatten(array);
@@ -4519,7 +4519,7 @@ interface ArrayWrapper<T> {
 
     {
         const list: _.List<_.List<_.List<_.List<{ a: string }>>>> = { 0: { 0: { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 }, length: 1 }, length: 1 };
-        let result: unknown[];
+        let result: number[];
 
         result = _.flatten<_.List<_.List<_.List<{ a: string }>>>>(list);
         result = _.flatten(list);
