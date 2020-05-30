@@ -111,6 +111,20 @@ declare module _ {
 
     type TypeOfDictionary<T> = T extends _.Dictionary<infer V> ? V : never;
 
+    type TypeOfListItem<T> = T extends _.List<infer TItem> ? TItem : never;
+
+    type ShallowFlattenedList<T> = T extends _.List<infer TItem> ? TItem[] : T[];
+
+    // unfortunately it's not possible to recursively collapse all possible list dimensions to T[] at this time, so give up after two dimensions and require an assertion
+    // surprisingly T extends _.List<_.List<infer TItem>> isn't true when T = SomeType[][], so writing this that way doesn't work
+    type DeepFlattenedList<T> = T extends _.List<infer TItem>
+        ? TItem extends _.List<infer TInnerItem>
+        ? TInnerItem extends _.List<unknown>
+        ? unknown[]
+        : TInnerItem[]
+        : TItem[]
+        : T[];
+
     interface UnderscoreStatic {
         /**
         * Underscore OOP Wrapper, all Underscore functions that take an object
@@ -979,9 +993,12 @@ declare module _ {
         * @param shallow If true then only flatten one level, optional, default = false.
         * @return `array` flattened.
         **/
-        flatten(
-            array: _.List<any>,
-            shallow?: boolean): any[];
+        flatten<T>(array: _.List<T>, shallow?: false): DeepFlattenedList<T>;
+
+        /**
+        * @see _.flatten
+        **/
+        flatten<T>(array: _.List<T>, shallow: true): ShallowFlattenedList<T>;
 
         /**
         * Returns a copy of the array with all instances of the values removed.
@@ -4694,7 +4711,12 @@ declare module _ {
         * Wrapped type `any`.
         * @see _.flatten
         **/
-        flatten(shallow?: boolean): any[];
+        flatten(shallow?: false): DeepFlattenedList<T>;
+
+        /**
+        * @see _.flatten
+        **/
+        flatten(shallow: true): ShallowFlattenedList<T>;
 
         /**
         * Wrapped type `any[]`.
@@ -5314,19 +5336,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TArrayItem>(iterator: _.ListIterator<T, TArrayItem[]>, context?: any): _ChainOfArrays<TArrayItem>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.map
-        **/
         map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any):  _Chain<TResult, TResult[]>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.map
-        **/
-        map<TArrayItem>(iterator: _.ObjectIterator<T, TArrayItem[]>, context?: any): _ChainOfArrays<TArrayItem>;
 
         /**
         * Wrapped type `any[]`.
@@ -5765,7 +5775,12 @@ declare module _ {
         * Wrapped type `any`.
         * @see _.flatten
         **/
-        flatten(shallow?: boolean): _Chain<any, any[]>;
+        flatten(shallow?: false): _Chain<TypeOfListItem<DeepFlattenedList<T>>, DeepFlattenedList<T>>;
+
+        /**
+        * @see _.flatten
+        **/
+        flatten(shallow: true): _Chain<TypeOfListItem<ShallowFlattenedList<T>>, ShallowFlattenedList<T>>;
 
         /**
         * Wrapped type `any[]`.
@@ -6424,8 +6439,5 @@ declare module _ {
     }
     interface _ChainSingle<T> {
         value(): T;
-    }
-    interface _ChainOfArrays<T> extends _Chain<T[], T[][]> {
-        flatten(shallow?: boolean): _Chain<T, T[]>;
     }
 }

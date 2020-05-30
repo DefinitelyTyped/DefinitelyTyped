@@ -4288,19 +4288,83 @@ interface ArrayWrapper<T> {
 }
 
 // flatten
-// as a breaking change, since shallow flattening is likely the most common type of flattening consider adding the following type:
-// type ListItemType<T> = T extends _.List<infer TItem> ? TItem : T;
-// and updating the flatten functions to have the following two overloads:
-// flatten<T>(array: _.List<T>, shallow: true): ListItemType<T>[];
-// flatten<T>(array: _.List<T>, shallow?: false): T extends _.List<_.List<any>> ? any[] : ListItemType<T>[];
-// and dropping the ChainOfArrays type
-// unfortunately it's not possible to recursively collapse something like T[][][][] to T[] at this time
 {
-    // standard cases - the return value of all of these calls need to be manually checked and should be any[]
+    // one dimension, deep
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let result: { a: string }[];
+
+        result = _.flatten<{ a: string }>(array);
+        result = _.flatten(array);
+
+        result = _<{ a: string }>(array).flatten();
+        result = _(array).flatten();
+
+        result = _.chain<{ a: string }>(array).flatten().value();
+        result = _.chain(array).flatten().value();
+
+        result = _<{ a: string }>(array).chain().flatten().value();
+        result = _(array).chain().flatten().value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: { a: string }[];
+
+        result = _.flatten<{ a: string }>(list);
+        result = _.flatten(list);
+
+        result = _<{ a: string }>(list).flatten();
+        result = _(list).flatten();
+
+        result = _.chain<{ a: string }>(list).flatten().value();
+        result = _.chain(list).flatten().value();
+
+        result = _<{ a: string }>(list).chain().flatten().value();
+        result = _(list).chain().flatten().value();
+    }
+
+    // one dimension, shallow
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        let result: { a: string }[];
+
+        result = _.flatten<{ a: string }>(array, true);
+        result = _.flatten(array, true);
+
+        result = _<{ a: string }>(array).flatten(true);
+        result = _(array).flatten(true);
+
+        result = _.chain<{ a: string }>(array).flatten(true).value();
+        result = _.chain(array).flatten(true).value();
+
+        result = _<{ a: string }>(array).chain().flatten(true).value();
+        result = _(array).chain().flatten(true).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        let result: { a: string }[];
+
+        result = _.flatten<{ a: string }>(list, true);
+        result = _.flatten(list, true);
+
+        result = _<{ a: string }>(list).flatten(true);
+        result = _(list).flatten(true);
+
+        result = _.chain<{ a: string }>(list).flatten(true).value();
+        result = _.chain(list).flatten(true).value();
+
+        result = _<{ a: string }>(list).chain().flatten(true).value();
+        result = _(list).chain().flatten(true).value();
+    }
+
+    // two dimensions, deep
     {
         const array: { a: string }[][] = [[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]];
         let result: { a: string }[];
 
+        result = _.flatten<{ a: string }[]>(array);
         result = _.flatten(array);
 
         result = _<{ a: string }[]>(array).flatten();
@@ -4317,6 +4381,7 @@ interface ArrayWrapper<T> {
         const list: _.List<_.List<{ a: string }>> = { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 };
         let result: { a: string }[];
 
+        result = _.flatten<_.List<{ a: string }>>(list);
         result = _.flatten(list);
 
         result = _<_.List<{ a: string }>>(list).flatten();
@@ -4329,29 +4394,144 @@ interface ArrayWrapper<T> {
         result = _(list).chain().flatten().value();
     }
 
-    // special case: ChainOfArrays<T> - the return value of all of these calls needs to be manually checked and should be { a: string }[]
-    // this interface is technically incorrect since it doesn't distinguish between shallow and not shallow, but a shallow flatten is probably the most common
-    // kind of flatten
+    // two dimensions, shallow
     {
-        const array: ArrayWrapper<{ a: string }>[] = [{ items: [{ a: 'a' }, { a: 'b' }] }, { items: [{ a: 'a' }, { a: 'b' }] }];
+        const array: { a: string }[][] = [[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]];
         let result: { a: string }[];
 
-        result = _.chain<ArrayWrapper<{ a: string }>>(array).map(a => a.items).flatten().value();
-        result = _.chain(array).map(a => a.items).flatten().value();
+        result = _.flatten<{ a: string }[]>(array, true);
+        result = _.flatten(array, true);
 
-        result = _<ArrayWrapper<{ a: string }>>(array).chain().map(a => a.items).flatten().value();
-        result = _(array).chain().map(a => a.items).flatten().value();
+        result = _<{ a: string }[]>(array).flatten(true);
+        result = _(array).flatten(true);
+
+        result = _.chain<{ a: string }[]>(array).flatten(true).value();
+        result = _.chain(array).flatten(true).value();
+
+        result = _<{ a: string }[]>(array).chain().flatten(true).value();
+        result = _(array).chain().flatten(true).value();
     }
 
     {
-        const list: _.List<ArrayWrapper<{ a: string }>> = { 0: { items: [{ a: 'a' }, { a: 'b' }] }, 1: { items: [{ a: 'a' }, { a: 'b' }] }, length: 2 };
+        const list: _.List<_.List<{ a: string }>> = { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 };
         let result: { a: string }[];
 
-        result = _.chain<ArrayWrapper<{ a: string }>>(list).map(a => a.items).flatten().value();
-        result = _.chain(list).map(a => a.items).flatten().value();
+        result = _.flatten<_.List<{ a: string }>>(list, true);
+        result = _.flatten(list, true);
 
-        result = _<ArrayWrapper<{ a: string }>>(list).chain().map(a => a.items).flatten().value();
-        result = _(list).chain().map(a => a.items).flatten().value();
+        result = _<_.List<{ a: string }>>(list).flatten(true);
+        result = _(list).flatten(true);
+
+        result = _.chain<_.List<{ a: string }>>(list).flatten(true).value();
+        result = _.chain(list).flatten(true).value();
+
+        result = _<_.List<{ a: string }>>(list).chain().flatten(true).value();
+        result = _(list).chain().flatten(true).value();
+    }
+
+    // three dimensions, deep
+    {
+        const array: { a: string }[][][] = [[[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]]];
+        let result: { a: string }[];
+
+        result = _.flatten<{ a: string }[][]>(array);
+        result = _.flatten(array);
+
+        result = _<{ a: string }[][]>(array).flatten();
+        result = _(array).flatten();
+
+        result = _.chain<{ a: string }[][]>(array).flatten().value();
+        result = _.chain(array).flatten().value();
+
+        result = _<{ a: string }[][]>(array).chain().flatten().value();
+        result = _(array).chain().flatten().value();
+    }
+
+    {
+        const list: _.List<_.List<_.List<{ a: string }>>> = { 0: { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 }, length: 1 };
+        let result: { a: string }[];
+
+        result = _.flatten<_.List<_.List<{ a: string }>>>(list);
+        result = _.flatten(list);
+
+        result = _<_.List<_.List<{ a: string }>>>(list).flatten();
+        result = _(list).flatten();
+
+        result = _.chain < _.List<_.List<{ a: string }>>>(list).flatten().value();
+        result = _.chain(list).flatten().value();
+
+        result = _<_.List<_.List<{ a: string }>>>(list).chain().flatten().value();
+        result = _(list).chain().flatten().value();
+    }
+
+    // three dimensions, shallow
+    {
+        const array: { a: string }[][][] = [[[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]]];
+        let result: { a: string }[][];
+
+        result = _.flatten<{ a: string }[][]>(array, true);
+        result = _.flatten(array, true);
+
+        result = _<{ a: string }[][]>(array).flatten(true);
+        result = _(array).flatten(true);
+
+        result = _.chain<{ a: string }[][]>(array).flatten(true).value();
+        result = _.chain(array).flatten(true).value();
+
+        result = _<{ a: string }[][]>(array).chain().flatten(true).value();
+        result = _(array).chain().flatten(true).value();
+    }
+
+    {
+        const list: _.List<_.List<_.List<{ a: string }>>> = { 0: { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 }, length: 1 };
+        let result: _.List<{ a: string }>[];
+
+        result = _.flatten<_.List<_.List<{ a: string }>>>(list, true);
+        result = _.flatten(list, true);
+
+        result = _<_.List<_.List<{ a: string }>>>(list).flatten(true);
+        result = _(list).flatten(true);
+
+        result = _.chain<_.List<_.List<{ a: string }>>>(list).flatten(true).value();
+        result = _.chain(list).flatten(true).value();
+
+        result = _<_.List<_.List<{ a: string }>>>(list).chain().flatten(true).value();
+        result = _(list).chain().flatten(true).value();
+    }
+
+    // four dimensions, deep - this is where recursion gives up
+    {
+        const array: { a: string }[][][][] = [[[[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]]]];
+        let result: unknown[];
+
+        result = _.flatten<{ a: string }[][][]>(array);
+        result = _.flatten(array);
+
+        result = _<{ a: string }[][][]>(array).flatten();
+        result = _(array).flatten();
+
+        result = _.chain<{ a: string }[][][]>(array).flatten().value();
+        result = _.chain(array).flatten().value();
+
+        result = _<{ a: string }[][][]>(array).chain().flatten().value();
+        result = _(array).chain().flatten().value();
+    }
+
+    {
+        const list: _.List<_.List<_.List<_.List<{ a: string }>>>> = { 0: { 0: { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 }, length: 1 }, length: 1 };
+        let result: unknown[];
+
+        result = _.flatten<_.List<_.List<_.List<{ a: string }>>>>(list);
+        result = _.flatten(list);
+
+        result = _<_.List<_.List<_.List<{ a: string }>>>>(list).flatten();
+        result = _(list).flatten();
+
+        result = _.chain<_.List<_.List<_.List<{ a: string }>>>>(list).flatten().value();
+        result = _.chain(list).flatten().value();
+
+        result = _<_.List<_.List<_.List<{ a: string }>>>>(list).chain().flatten().value();
+        result = _(list).chain().flatten().value();
     }
 }
 
@@ -5329,15 +5509,14 @@ let usersTable: { age: number; name: string; id: string }[] = _.chain(usersData)
     })
     .value();
 
-// Test map function with _ChainOfArrays<>
 let usersTable_2 /*: { age: number; name: string; id: string }[][]*/ = _.chain(usersData)
-    .map<{ age: number; name: string; id: string }>((p, k: string) => {
+    .map<{ age: number; name: string; id: string }[]>((p, k: string) => {
         return [{ id: k, ...p }];
     })
     .value();
 
 let usersTable_3 /*: { score: number; fullName: string; login: string }[][]*/ = _.chain(usersTable)
-    .map<{ score: number; fullName: string; login: string }>(p => {
+    .map<{ score: number; fullName: string; login: string }[]>(p => {
         return [
             {
                 login: p.id,
