@@ -642,8 +642,9 @@ type Id<T> = { [K in keyof T]: T[K] };
 type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
 type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
 type InnerInferType<T> =
-    | (T extends Array<infer T> ? T[] : Id<NotRequiredProps<T> & RequiredProps<T>>)
+    | (T extends Array<infer T> ? InnerInferTypeArray<T> : Id<NotRequiredProps<T> & RequiredProps<T>>)
     | PreserveOptionals<T>;
+interface InnerInferTypeArray<T> extends Array<InnerInferType<T>> {}
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;
 /** If `T` is optional, returns optional `U`. */
 type MaintainOptionality<T, U> = T extends undefined ? U | undefined : U;
