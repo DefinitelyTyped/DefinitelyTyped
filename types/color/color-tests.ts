@@ -7,7 +7,7 @@ const colorInt: Color = new Color(0x000000);
 const colorWithoutNew: Color = Color(0x000000);
 const colorByStaticMethod: Color = Color.rgb({ r: 0, g: 0, b: 0 });
 
-const hex: string = color.hex();
+const hex: string = color.hexString();
 const percent: string = color.percentString();
 const keyword: string = color.keyword();
 const alpha: number = color.alpha();
