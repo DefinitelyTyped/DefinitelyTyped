@@ -1862,6 +1862,10 @@ declare namespace webpack {
         constructor();
     }
 
+    class ExternalsPlugin extends Plugin {
+        constructor(type: string, externals: ExternalsElement);
+    }
+
     class HashedModuleIdsPlugin extends Plugin {
         constructor(options?: {
             hashFunction?: string,

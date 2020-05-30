@@ -430,6 +430,14 @@ plugin = new webpack.DllReferencePlugin({
     scope: 'dll prefix',
     sourceType: 'var'
 });
+plugin = new webpack.ExternalsPlugin('this', 'react');
+plugin = new webpack.ExternalsPlugin('this', {jquery: 'jQuery'});
+plugin = new webpack.ExternalsPlugin('this', (context, request, callback) => {
+    if (request === 'jquery') {
+        callback(null, 'jQuery');
+    }
+    callback();
+});
 plugin = new webpack.IgnorePlugin(requestRegExp);
 plugin = new webpack.IgnorePlugin(requestRegExp, contextRegExp);
 
