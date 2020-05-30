@@ -4,6 +4,7 @@
         "lib": [
             "es6"
         ],
+        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-relative-portal-tests.ts"
+        "react-relative-portal-tests.tsx"
     ]
 }
