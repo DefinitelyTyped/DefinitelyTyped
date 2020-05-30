@@ -69,15 +69,15 @@ declare module _ {
         source: string;
     }
 
-    interface Collection<T> { }
+    type Collection<T> = _.List<T> | _.Dictionary<T>;
 
     // Common interface between Arrays and jQuery objects
-    interface List<T> extends Collection<T> {
+    interface List<T> {
         [index: number]: T;
         length: number;
     }
 
-    interface Dictionary<T> extends Collection<T> {
+    interface Dictionary<T> {
         [index: string]: T;
     }
 
@@ -92,10 +92,6 @@ declare module _ {
     interface ObjectIterator<T, TResult> {
         (element: T, key: string, list: Dictionary<T>): TResult;
     }
-
-    type IterateePropertyShorthand = string | number;
-
-    type IterateeMatcherShorthand<T> = Dictionary<T>;
 
     interface MemoIterator<T, TResult> {
         (prev: TResult, curr: T, index: number, list: List<T>): TResult;
@@ -205,8 +201,7 @@ declare module _ {
 
         /**
         * Produces a new array of values by mapping each value in list through a transformation function
-        * (iterator). If the native map method exists, it will be used instead. If list is a JavaScript
-        * object, iterator's arguments will be (value, key, object).
+        * (iterator).
         * @param list Maps the elements of this array.
         * @param iterator Map iterator function for each element in `list`.
         * @param context `this` object in `iterator`, optional.
@@ -216,16 +211,6 @@ declare module _ {
             list: _.List<T>,
             iterator: _.ListIterator<T, TResult>,
             context?: any): TResult[];
-
-        map<T>(
-            list: _.List<T>,
-            iterator: _.IterateePropertyShorthand,
-            context?: any): any[];
-
-        map<T>(
-            list: _.List<T>,
-            iterator: _.IterateeMatcherShorthand<any>,
-            context?: any): boolean[];
 
         /**
         * @see _.map
@@ -238,6 +223,26 @@ declare module _ {
             object: _.Dictionary<T>,
             iterator: _.ObjectIterator<T, TResult>,
             context?: any): TResult[];
+
+        /**
+        * @see _.map
+        * @param collection The collection of items.
+        * @param iterator - The name of a specific property to retrieve from all items.
+        * @return The set of values for the specified property for each item in the collection.
+        */
+        map<T, TProperty extends keyof T>(
+            collection: _.Collection<T>,
+            iterator: TProperty): T[TProperty][];
+
+        /**
+        * @see _.map
+        * @param collection - The collection of items.
+        * @param iterator - The set of properties to check the values for.
+        * @return A set of boolean values that signify whether each item in the collection matches the set of provided values.
+        */
+        map<T>(
+            collection: _.Collection<T>,
+            iterator: Partial<T>): boolean[];
 
         /**
         * @see _.map
@@ -292,7 +297,7 @@ declare module _ {
         * @see _.reduce
         **/
         foldl<T, TResult>(
-            list: _.Collection<T>,
+            list: _.List<T>,
             iterator: _.MemoIterator<T, TResult>,
             memo?: TResult,
             context?: any): TResult;
@@ -301,7 +306,7 @@ declare module _ {
         * @see _.reduce
         **/
         foldl<T, TResult>(
-            list: _.Collection<T>,
+            list: _.Dictionary<T>,
             iterator: _.MemoObjectIterator<T, TResult>,
             memo?: TResult,
             context?: any): TResult;
@@ -317,7 +322,7 @@ declare module _ {
         * @return Reduced object result.
         **/
         reduceRight<T, TResult>(
-            list: _.Collection<T>,
+            list: _.List<T>,
             iterator: _.MemoIterator<T, TResult>,
             memo?: TResult,
             context?: any): TResult;
@@ -326,7 +331,7 @@ declare module _ {
         * @see _.reduceRight
         **/
         reduceRight<T, TResult>(
-            list: _.Collection<T>,
+            list: _.Dictionary<T>,
             iterator: _.MemoObjectIterator<T, TResult>,
             memo?: TResult,
             context?: any): TResult;
@@ -335,7 +340,7 @@ declare module _ {
         * @see _.reduceRight
         **/
         foldr<T, TResult>(
-            list: _.Collection<T>,
+            list: _.List<T>,
             iterator: _.MemoIterator<T, TResult>,
             memo?: TResult,
             context?: any): TResult;
@@ -344,7 +349,7 @@ declare module _ {
         * @see _.reduceRight
         **/
         foldr<T, TResult>(
-            list: _.Collection<T>,
+            list: _.Dictionary<T>,
             iterator: _.MemoObjectIterator<T, TResult>,
             memo?: TResult,
             context?: any): TResult;
@@ -375,15 +380,8 @@ declare module _ {
         * @see _.find
         **/
         find<T>(
-            object: _.List<T> | _.Dictionary<T>,
-            iterator: Partial<T>): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        find<T>(
-            object: _.List<T> | _.Dictionary<T>,
-            iterator: keyof T): T | undefined;
+            object: _.Collection<T>,
+            iterator: Partial<T> | keyof T): T | undefined;
 
         /**
         * @see _.find
@@ -405,15 +403,8 @@ declare module _ {
         * @see _.find
         **/
         detect<T>(
-            object: _.List<T> | _.Dictionary<T>,
-            iterator: Partial<T>): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(
-            object: _.List<T> | _.Dictionary<T>,
-            iterator: keyof T): T | undefined;
+            object: _.Collection<T>,
+            iterator: Partial<T> | keyof T): T | undefined;
 
         /**
         * Looks through each value in the list, returning an array of all the values that pass a truth
@@ -439,6 +430,13 @@ declare module _ {
         /**
         * @see _.filter
         **/
+        filter<T>(
+            object: _.Collection<T>,
+            iterator: Partial<T> | keyof T): T[];
+
+        /**
+        * @see _.filter
+        **/
         select<T>(
             list: _.List<T>,
             iterator: _.ListIterator<T, boolean>,
@@ -453,15 +451,22 @@ declare module _ {
             context?: any): T[];
 
         /**
+        * @see _.select
+        **/
+        select<T>(
+            object: _.Collection<T>,
+            iterator: Partial<T> | keyof T): T[];
+
+        /**
         * Looks through each value in the list, returning an array of all the values that contain all
         * of the key-value pairs listed in properties.
-        * @param list List to match elements again `properties`.
+        * @param list List to match elements against `properties`.
         * @param properties The properties to check for on each element within `list`.
         * @return The elements within `list` that contain the required `properties`.
         **/
-        where<T, U extends {}>(
-            list: _.List<T> | _.Dictionary<T>,
-            properties: U): T[];
+        where<T>(
+            list: _.Collection<T>,
+            properties: Partial<T>): T[];
 
         /**
         * Looks through the list and returns the first value that matches all of the key-value pairs listed in properties.
@@ -469,9 +474,9 @@ declare module _ {
         * @param properties Properties to look for on the elements within `list`.
         * @return The first element in `list` that has all `properties`.
         **/
-        findWhere<T, U extends {}>(
-            list: _.List<T> | _.Dictionary<T>,
-            properties: U): T | undefined;
+        findWhere<T>(
+            list: _.Collection<T>,
+            properties: Partial<T>): T | undefined;
 
         /**
         * Returns the values in list without the elements that the truth test (iterator) passes.
@@ -494,6 +499,13 @@ declare module _ {
             object: _.Dictionary<T>,
             iterator: _.ObjectIterator<T, boolean>,
             context?: any): T[];
+
+        /**
+        * @see _.reject
+        **/
+        reject<T>(
+            object: _.Collection<T>,
+            iterator: Partial<T> | keyof T): T[];
 
         /**
         * Returns true if all of the values in the list pass the iterator truth test. Delegates to the
@@ -519,6 +531,13 @@ declare module _ {
         /**
         * @see _.every
         **/
+        every<T>(
+            list: _.Collection<T>,
+            iterator?: Partial<T> | keyof T): boolean;
+
+        /**
+        * @see _.every
+        **/
         all<T>(
             list: _.List<T>,
             iterator?: _.ListIterator<T, boolean>,
@@ -528,9 +547,16 @@ declare module _ {
         * @see _.every
         **/
         all<T>(
-            list: _.Dictionary<T>,
+            list: _.List<T> | _.Dictionary<T>,
             iterator?: _.ObjectIterator<T, boolean>,
             context?: any): boolean;
+
+        /**
+        * @see _.every
+        **/
+        all<T>(
+            list: _.Collection<T>,
+            iterator?: Partial<T> | keyof T): boolean;
 
         /**
         * Returns true if any of the values in the list pass the iterator truth test. Short-circuits and
@@ -556,6 +582,13 @@ declare module _ {
         /**
         * @see _.some
         **/
+        some<T>(
+            object: _.Collection<T>,
+            iterator?: Partial<T> | keyof T): boolean;
+
+        /**
+        * @see _.some
+        **/
         any<T>(
             list: _.List<T>,
             iterator?: _.ListIterator<T, boolean>,
@@ -569,9 +602,12 @@ declare module _ {
             iterator?: _.ObjectIterator<T, boolean>,
             context?: any): boolean;
 
+        /**
+        * @see _.some
+        **/
         any<T>(
-            list: _.List<T>,
-            value: T): boolean;
+            object: _.Collection<T>,
+            iterator?: Partial<T> | keyof T): boolean;
 
         /**
         * Returns true if the value is present in the list. Uses indexOf internally,
@@ -596,7 +632,7 @@ declare module _ {
         * @see _.contains
         **/
         include<T>(
-            list: _.Collection<T>,
+            list: _.List<T>,
             value: T,
             fromIndex?: number): boolean;
 
@@ -611,7 +647,7 @@ declare module _ {
         * @see _.contains
         **/
         includes<T>(
-            list: _.Collection<T>,
+            list: _.List<T>,
             value: T,
             fromIndex?: number): boolean;
 
@@ -630,7 +666,7 @@ declare module _ {
         * @param arguments Additional arguments to pass to the method `methodName`.
         **/
         invoke<T extends {}>(
-            list: _.List<T> | _.Dictionary<T>,
+            list: _.Collection<T>,
             methodName: string,
             ...args: any[]): any;
 
@@ -642,24 +678,15 @@ declare module _ {
         * @return The list of elements within `list` that have the property `propertyName`.
         **/
         pluck<T extends {}, K extends keyof T>(
-            list: _.List<T> | _.Dictionary<T>,
+            list: _.Collection<T>,
             propertyName: K): T[K][];
-
-        pluck(
-            list: _.List<any>,
-            propertyName: string): any[];
 
         /**
         * Returns the maximum value in list.
-        * @param list Finds the maximum value in this list.
-        * @return Maximum value in `list`.
+        * @param collection Finds the maximum value in this collection.
+        * @return Maximum value in `collection`.
         **/
-        max(list: _.List<number>): number;
-
-        /**
-        * @see _.max
-        */
-        max(object: _.Dictionary<number>): number;
+        max(collection: _.Collection<number>): number;
 
         /**
         * Returns the maximum value in list. If iterator is passed, it will be used on each value to generate
@@ -678,21 +705,23 @@ declare module _ {
         * @see _.max
         */
         max<T>(
-            list: _.Dictionary<T>,
+            object: _.Dictionary<T>,
             iterator?: _.ObjectIterator<T, any>,
             context?: any): T;
+
+        /**
+        * @see _.max
+        */
+        max<T>(
+            collection: _.Collection<T>,
+            iterator?: keyof T): T;
 
         /**
         * Returns the minimum value in list.
         * @param list Finds the minimum value in this list.
         * @return Minimum value in `list`.
         **/
-        min(list: _.List<number>): number;
-
-        /**
-         * @see _.min
-         */
-        min(o: _.Dictionary<number>): number;
+        min(list: _.Collection<number>): number;
 
         /**
         * Returns the minimum value in list. If iterator is passed, it will be used on each value to generate
@@ -711,9 +740,16 @@ declare module _ {
         * @see _.min
         */
         min<T>(
-            list: _.Dictionary<T>,
+            object: _.Dictionary<T>,
             iterator?: _.ObjectIterator<T, any>,
             context?: any): T;
+
+        /**
+        * @see _.min
+        */
+        min<T>(
+            collection: _.Collection<T>,
+            iterator?: keyof T): T;
 
         /**
         * Returns a sorted copy of list, ranked in ascending order by the results of running each value
@@ -732,7 +768,7 @@ declare module _ {
         * @see _.sortBy
         */
         sortBy<T>(
-            list: _.Dictionary<T>,
+            object: _.Dictionary<T>,
             iterator?: _.ObjectIterator<T, any>,
             context?: any): T[];
 
@@ -741,7 +777,7 @@ declare module _ {
         * @param iterator Sort iterator for each element within `list`.
         **/
         sortBy<T>(
-            list: _.List<T> | _.Dictionary<T>,
+            collection: _.Collection<T>,
             iterator: keyof T): T[];
 
         /**
@@ -762,7 +798,7 @@ declare module _ {
         * @see _.groupBy
         **/
         groupBy<T>(
-            list: _.Dictionary<T>,
+            object: _.Dictionary<T>,
             iterator: _.ObjectIterator<T, any>,
             context?: any): _.Dictionary<T[]>;
 
@@ -771,7 +807,7 @@ declare module _ {
         * @param iterator Property on each object to group them by.
         **/
         groupBy<T>(
-            list: _.List<T> | _.Dictionary<T>,
+            collection: _.Collection<T>,
             iterator: keyof T): _.Dictionary<T[]>;
 
         /**
@@ -787,7 +823,7 @@ declare module _ {
        * @see _.indexBy
        **/
         indexBy<T>(
-            list: _.Dictionary<T>,
+            object: _.Dictionary<T>,
             iterator: _.ObjectIterator<T, any>,
             context?: any): _.Dictionary<T>;
 
@@ -796,7 +832,7 @@ declare module _ {
         * @param iterator Property on each object to index them by.
         **/
         indexBy<T>(
-            list: _.List<T> | _.Dictionary<T>,
+            collection: _.Collection<T>,
             iterator: keyof T): _.Dictionary<T>;
 
         /**
@@ -817,7 +853,7 @@ declare module _ {
          * @see _.countBy
          **/
         countBy<T>(
-            list: _.Dictionary<T>,
+            object: _.Dictionary<T>,
             iterator: _.ObjectIterator<T, any>,
             context?: any): _.Dictionary<number>;
 
@@ -826,7 +862,7 @@ declare module _ {
         * @param iterator Function name
         **/
         countBy<T>(
-            list: _.List<T> | _.Dictionary<T>,
+            collection: _.Collection<T>,
             iterator: keyof T): _.Dictionary<number>;
 
         /**
@@ -866,13 +902,13 @@ declare module _ {
         /**
         * Split list into two arrays:
         * one whose elements all satisfy predicate and one whose elements all do not satisfy predicate.
-        * @param array Array to split in two.
+        * @param list Array to split in two.
         * @param iterator Filter iterator function for each element in `array`.
         * @param context `this` object in `iterator`, optional.
         * @return Array where Array[0] are the elements in `array` that satisfies the predicate, and Array[1] the elements that did not.
         **/
         partition<T>(
-            array: _.List<T>,
+            list: _.List<T>,
             iterator: _.ListIterator<T, boolean>,
             context?: any): [T[], T[]];
 
@@ -880,7 +916,7 @@ declare module _ {
         * @see _.partition.
         **/
         partition<T>(
-            array: _.Dictionary<T>,
+            object: _.Dictionary<T>,
             iterator: _.ObjectIterator<T, boolean>,
             context?: any): [T[], T[]];
 
@@ -1049,7 +1085,7 @@ declare module _ {
         uniq<T>(
             array: _.List<T>,
             isSorted?: boolean,
-            iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand,
+            iterator?: _.ListIterator<T, any> | keyof T,
             context?: any): T[];
 
         /**
@@ -1057,7 +1093,7 @@ declare module _ {
         **/
         uniq<T>(
             array: _.List<T>,
-            iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand,
+            iterator?: _.ListIterator<T, any> | keyof T,
             context?: any): T[];
 
         /**
@@ -1065,7 +1101,7 @@ declare module _ {
         **/
         unique<T>(
             array: _.List<T>,
-            iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand,
+            iterator?: _.ListIterator<T, any> | keyof T,
             context?: any): T[];
 
         /**
@@ -1074,7 +1110,7 @@ declare module _ {
         unique<T>(
             array: _.List<T>,
             isSorted?: boolean,
-            iterator?: _.ListIterator<T, any>  | _.IterateePropertyShorthand,
+            iterator?: _.ListIterator<T, any> | keyof T,
             context?: any): T[];
 
         /**
@@ -1172,7 +1208,7 @@ declare module _ {
         **/
         findIndex<T>(
             array: _.List<T>,
-            predicate: _.ListIterator<T, boolean> | {},
+            predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T,
             context?: any): number;
 
         /**
@@ -1184,7 +1220,7 @@ declare module _ {
         **/
         findLastIndex<T>(
             array: _.List<T>,
-            predicate: _.ListIterator<T, boolean> | {},
+            predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T,
             context?: any): number;
 
         /**
@@ -1233,7 +1269,7 @@ declare module _ {
         * @param array The array to split.
         * @param length The maximum size of the inner arrays.
         */
-        chunk<T>(array: _.Collection<T>, length: number): _.Collection<T>[]
+        chunk<T>(array: _.List<T>, length: number): T[][]
 
         /*************
          * Functions *
@@ -4267,6 +4303,12 @@ declare module _ {
         map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): TResult[];
 
         /**
+        * Wrapped type `any[]`.
+        * @see _.map
+        **/
+        map<TProperty extends keyof T>(iterator: TProperty): T[TProperty][];
+
+        /**
         * @see _.map
         **/
         collect<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): TResult[];
@@ -4275,6 +4317,11 @@ declare module _ {
         * @see _.map
         **/
         collect<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): TResult[];
+
+        /**
+        * @see _.map
+        **/
+        collect<TProperty extends keyof T>(iterator: TProperty): T[TProperty][];
 
         /**
         * Wrapped type `any[]`.
@@ -4345,12 +4392,7 @@ declare module _ {
         /**
         * @see _.find
         **/
-        find(iterator: Partial<T>): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        find(iterator: keyof T): T | undefined;
+        find(iterator: Partial<T> | keyof T): T | undefined;
 
         /**
         * @see _.find
@@ -4365,12 +4407,7 @@ declare module _ {
         /**
         * @see _.find
         **/
-        detect(interator?: Partial<T>): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect(interator?: keyof T): T | undefined;
+        detect(interator?: Partial<T> | keyof T): T | undefined;
 
         /**
         * Wrapped type `any[]`.
@@ -4387,6 +4424,11 @@ declare module _ {
         /**
         * @see _.filter
         **/
+        filter<T>(iterator: Partial<T> | keyof T): T[];
+
+        /**
+        * @see _.filter
+        **/
         select(iterator: _.ListIterator<T, boolean>, context?: any): T[];
 
         /**
@@ -4395,16 +4437,21 @@ declare module _ {
         select(iterator: _.ObjectIterator<T, boolean>, context?: any): T[];
 
         /**
+        * @see _.filter
+        **/
+        select<T>(iterator: Partial<T> | keyof T): T[];
+
+        /**
         * Wrapped type `any[]`.
         * @see _.where
         **/
-        where<U extends {}>(properties: U): T[];
+        where(properties: Partial<T>): T[];
 
         /**
         * Wrapped type `any[]`.
         * @see _.findWhere
         **/
-        findWhere<U extends {}>(properties: U): T | undefined;
+        findWhere(properties: Partial<T>): T | undefined;
 
         /**
         * Wrapped type `any[]`.
@@ -4417,6 +4464,11 @@ declare module _ {
         * @see _.reject
         **/
         reject(iterator: _.ObjectIterator<T, boolean>, context?: any): T[];
+
+        /**
+        * @see _.reject
+        **/
+        reject<T>(iterator: Partial<T> | keyof T): T[];
 
         /**
         * Wrapped type `any[]`.
@@ -4433,12 +4485,22 @@ declare module _ {
         /**
         * @see _.every
         **/
+        every<T>(iterator?: Partial<T> | keyof T): boolean;
+
+        /**
+        * @see _.every
+        **/
         all(iterator?: _.ListIterator<T, boolean>, context?: any): boolean;
 
         /**
         * @see _.every
         **/
         all(iterator?: _.ObjectIterator<T, boolean>, context?: any): boolean;
+
+        /**
+        * @see _.every
+        **/
+        all<T>(iterator?: Partial<T> | keyof T): boolean;
 
         /**
         * Wrapped type `any[]`.
@@ -4455,12 +4517,22 @@ declare module _ {
         /**
         * @see _.some
         **/
+        some<T>(iterator?: Partial<T> | keyof T): boolean;
+
+        /**
+        * @see _.some
+        **/
         any(iterator?: _.ListIterator<T, boolean>, context?: any): boolean;
 
         /**
         * @see _.some
         **/
         any(iterator?: _.ObjectIterator<T, boolean>, context?: any): boolean;
+
+        /**
+        * @see _.some
+        **/
+        any<T>(iterator?: Partial<T> | keyof T): boolean;
 
         /**
         * Wrapped type `any[]`.
@@ -4490,7 +4562,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.pluck
         **/
-        pluck(propertyName: string): any[];
+        pluck<TProperty extends keyof T>(propertyName: TProperty): T[TProperty][];
 
         /**
         * Wrapped type `any[]`.
@@ -4505,6 +4577,11 @@ declare module _ {
         max(iterator?: _.ObjectIterator<T, any>, context?: any): T;
 
         /**
+        * @see _.max
+        */
+        max<T>(iterator?: keyof T): T;
+
+        /**
         * Wrapped type `any[]`.
         * @see _.min
         **/
@@ -4515,6 +4592,11 @@ declare module _ {
         * @see _.min
         **/
         min(iterator?: _.ObjectIterator<T, any>, context?: any): T;
+
+        /**
+        * @see _.min
+        */
+        min<T>(iterator?: keyof T): T;
 
         /**
         * Wrapped type `any[]`.
@@ -4744,23 +4826,23 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, cotext?: any): T[];
+        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> | keyof T, cotext?: any): T[];
 
         /**
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq(iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): T[];
+        uniq(iterator?: _.ListIterator<T, any> | keyof T, context?: any): T[];
 
         /**
         * @see _.uniq
         **/
-        unique(isSorted?: boolean, iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): T[];
+        unique(isSorted?: boolean, iterator?: _.ListIterator<T, any> | keyof T, context?: any): T[];
 
         /**
         * @see _.uniq
         **/
-        unique(iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): T[];
+        unique(iterator?: _.ListIterator<T, any> | keyof T, context?: any): T[];
 
         /**
         * Wrapped type `any[][]`.
@@ -4805,12 +4887,12 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex<T>(predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
+        findIndex<T>(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): number;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex<T>(predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
+        findLastIndex<T>(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): number;
 
         /**
         * Wrapped type `any[]`.
@@ -5290,7 +5372,7 @@ declare module _ {
         /**
         * @see _.each
         **/
-        each(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T, _.Dictionary<T>>;
+        each(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T, V>;
 
         /**
         * @see _.each
@@ -5300,7 +5382,7 @@ declare module _ {
         /**
         * @see _.each
         **/
-        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T, _.Dictionary<T>>;
+        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T, V>;
 
         /**
         * Wrapped type `any[]`.
@@ -5315,6 +5397,12 @@ declare module _ {
         map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult, TResult[]>;
 
         /**
+        * Wrapped type `any[]`.
+        * @see _.map
+        **/
+        map<TProperty extends keyof T>(iterator: TProperty): _Chain<T[TProperty], T[TProperty][]>;
+
+        /**
         * @see _.map
         **/
         collect<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<TResult, TResult[]>;
@@ -5323,6 +5411,11 @@ declare module _ {
         * @see _.map
         **/
         collect<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult, TResult[]>;
+
+        /**
+        * @see _.map
+        **/
+        collect<TProperty extends keyof T>(iterator: TProperty): _Chain<T[TProperty], T[TProperty][]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5393,12 +5486,7 @@ declare module _ {
         /**
         * @see _.find
         **/
-        find(iterator: Partial<T>): _ChainSingle<T | undefined>;
-
-        /**
-        * @see _.find
-        **/
-        find(iterator: keyof T): _ChainSingle<T | undefined>;
+        find(iterator: Partial<T> | keyof T): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
@@ -5413,12 +5501,7 @@ declare module _ {
         /**
         * @see _.find
         **/
-        detect(iterator: Partial<T>): _ChainSingle<T | undefined>;
-
-        /**
-        * @see _.find
-        **/
-        detect(iterator: keyof T): _ChainSingle<T | undefined>;
+        detect(iterator: Partial<T> | keyof T): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type `any[]`.
@@ -5433,6 +5516,12 @@ declare module _ {
         filter(iterator: _.ObjectIterator<T, boolean>, context?: any): _Chain<T, T[]>;
 
         /**
+        * Wrapped type `any[]`.
+        * @see _.filter
+        **/
+        filter<T>(iterator: Partial<T> | keyof T): _Chain<T, T[]>;
+
+        /**
         * @see _.filter
         **/
         select(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T, T[]>;
@@ -5443,16 +5532,21 @@ declare module _ {
         select(iterator: _.ObjectIterator<T, boolean>, context?: any): _Chain<T, T[]>;
 
         /**
+        * @see _.filter
+        **/
+        select<T>(iterator: Partial<T> | keyof T): _Chain<T, T[]>;
+
+        /**
         * Wrapped type `any[]`.
         * @see _.where
         **/
-        where<U extends {}>(properties: U): _Chain<T, T[]>;
+        where(properties: Partial<T>): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.findWhere
         **/
-        findWhere<U extends {}>(properties: U): _ChainSingle<T | undefined>;
+        findWhere(properties: Partial<T>): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type `any[]`.
@@ -5468,6 +5562,12 @@ declare module _ {
 
         /**
         * Wrapped type `any[]`.
+        * @see _.reject
+        **/
+        reject<T>(iterator: Partial<T> | keyof T): _Chain<T, T[]>;
+
+        /**
+        * Wrapped type `any[]`.
         * @see _.every
         **/
         every(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
@@ -5479,6 +5579,12 @@ declare module _ {
         every(iterator?: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
         /**
+        * Wrapped type `any[]`.
+        * @see _.every
+        **/
+        every<T>(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
+
+        /**
         * @see _.every
         **/
         all(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
@@ -5487,6 +5593,11 @@ declare module _ {
         * @see _.every
         **/
         all(iterator?: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+
+        /**
+        * @see _.every
+        **/
+        all<T>(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
 
         /**
         * Wrapped type `any[]`.
@@ -5501,6 +5612,12 @@ declare module _ {
         some(iterator?: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
         /**
+        * Wrapped type `any[]`.
+        * @see _.some
+        **/
+        some<T>(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
+
+        /**
         * @see _.some
         **/
         any(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
@@ -5509,6 +5626,11 @@ declare module _ {
         * @see _.some
         **/
         any(iterator?: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+
+        /**
+        * @see _.some
+        **/
+        any<T>(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
 
         /**
         * Wrapped type `any[]`.
@@ -5538,7 +5660,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.pluck
         **/
-        pluck(propertyName: string): _Chain<any, any[]>;
+        pluck<TProperty extends keyof T>(propertyName: TProperty): _Chain<T[TProperty], T[TProperty][]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5554,6 +5676,12 @@ declare module _ {
 
         /**
         * Wrapped type `any[]`.
+        * @see _.max
+        */
+        max<T>(iterator?: keyof T): _ChainSingle<T>;
+
+        /**
+        * Wrapped type `any[]`.
         * @see _.min
         **/
         min(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
@@ -5563,6 +5691,12 @@ declare module _ {
         * @see _.min
         **/
         min(iterator?: _.ObjectIterator<T, any>, context?: any): _ChainSingle<T>;
+
+        /**
+        * Wrapped type `any[]`.
+        * @see _.min
+        */
+        min<T>(iterator?: keyof T): _ChainSingle<T>;
 
         /**
         * Wrapped type `any[]`.
@@ -5792,25 +5926,25 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): _Chain<T, T[]>;
+        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> | keyof T, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq(iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): _Chain<T, T[]>;
+        uniq(iterator?: _.ListIterator<T, any> | keyof T, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        unique(isSorted?: boolean, iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): _Chain<T, T[]>;
+        unique(isSorted?: boolean, iterator?: _.ListIterator<T, any> | keyof T, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        unique(iterator?: _.ListIterator<T, any> | _.IterateePropertyShorthand, context?: any): _Chain<T, T[]>;
+        unique(iterator?: _.ListIterator<T, any> | keyof T, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[][]`.
@@ -5849,12 +5983,12 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex<T>(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
+        findIndex<T>(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): _ChainSingle<number>;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex<T>(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
+        findLastIndex<T>(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): _ChainSingle<number>;
 
         /**
         * Wrapped type `any[]`.

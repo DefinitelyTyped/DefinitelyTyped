@@ -1275,16 +1275,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const properties = { a: 'b' };
         let result: { a: string }[];
 
-        result = _.where<{ a: string }, { a: string }>(array, properties);
+        result = _.where<{ a: string }>(array, properties);
         result = _.where(array, properties);
 
-        result = _<{ a: string }>(array).where<{ a: string }>(properties);
+        result = _<{ a: string }>(array).where(properties);
         result = _(array).where(properties);
 
-        result = _.chain<{ a: string }>(array).where<{ a: string }>(properties).value();
+        result = _.chain<{ a: string }>(array).where(properties).value();
         result = _.chain(array).where(properties).value();
 
-        result = _<{ a: string }>(array).chain().where<{ a: string }>(properties).value();
+        result = _<{ a: string }>(array).chain().where(properties).value();
         result = _(array).chain().where(properties).value();
     }
 
@@ -1293,16 +1293,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const properties = { a: 'b' };
         let result: { a: string }[];
 
-        result = _.where<{ a: string }, { a: string }>(list, properties);
+        result = _.where<{ a: string }>(list, properties);
         result = _.where(list, properties);
 
-        result = _<{ a: string }>(list).where<{ a: string }>(properties);
+        result = _<{ a: string }>(list).where(properties);
         result = _(list).where(properties);
 
-        result = _.chain<{ a: string }>(list).where<{ a: string }>(properties).value();
+        result = _.chain<{ a: string }>(list).where(properties).value();
         result = _.chain(list).where(properties).value();
 
-        result = _<{ a: string }>(list).chain().where<{ a: string }>(properties).value();
+        result = _<{ a: string }>(list).chain().where(properties).value();
         result = _(list).chain().where(properties).value();
     }
 
@@ -1311,16 +1311,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const properties = { a: 'b' };
         let result: { a: string }[];
 
-        result = _.where<{ a: string }, { a: string }>(dict, properties);
+        result = _.where<{ a: string }>(dict, properties);
         result = _.where(dict, properties);
 
-        result = _<{ a: string }>(dict).where<{ a: string }>(properties);
+        result = _<{ a: string }>(dict).where(properties);
         result = _(dict).where(properties);
 
-        result = _.chain<{ a: string }>(dict).where<{ a: string }>(properties).value();
+        result = _.chain<{ a: string }>(dict).where(properties).value();
         result = _.chain(dict).where(properties).value();
 
-        result = _<{ a: string }>(dict).chain().where<{ a: string }>(properties).value();
+        result = _<{ a: string }>(dict).chain().where(properties).value();
         result = _(dict).chain().where(properties).value();
     }
 }
@@ -1332,16 +1332,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const properties = { a: 'b' };
         let result: { a: string } | undefined;
 
-        result = _.findWhere<{ a: string }, { a: string }>(array, properties);
+        result = _.findWhere<{ a: string }>(array, properties);
         result = _.findWhere(array, properties);
 
-        result = _<{ a: string }>(array).findWhere<{ a: string }>(properties);
+        result = _<{ a: string }>(array).findWhere(properties);
         result = _(array).findWhere(properties);
 
-        result = _.chain<{ a: string }>(array).findWhere<{ a: string }>(properties).value();
+        result = _.chain<{ a: string }>(array).findWhere(properties).value();
         result = _.chain(array).findWhere(properties).value();
 
-        result = _<{ a: string }>(array).chain().findWhere<{ a: string }>(properties).value();
+        result = _<{ a: string }>(array).chain().findWhere(properties).value();
         result = _(array).chain().findWhere(properties).value();
     }
 
@@ -1350,16 +1350,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const properties = { a: 'b' };
         let result: { a: string } | undefined;
 
-        result = _.findWhere<{ a: string }, { a: string }>(list, properties);
+        result = _.findWhere<{ a: string }>(list, properties);
         result = _.findWhere(list, properties);
 
-        result = _<{ a: string }>(list).findWhere<{ a: string }>(properties);
+        result = _<{ a: string }>(list).findWhere(properties);
         result = _(list).findWhere(properties);
 
-        result = _.chain<{ a: string }>(list).findWhere<{ a: string }>(properties).value();
+        result = _.chain<{ a: string }>(list).findWhere(properties).value();
         result = _.chain(list).findWhere(properties).value();
 
-        result = _<{ a: string }>(list).chain().findWhere<{ a: string }>(properties).value();
+        result = _<{ a: string }>(list).chain().findWhere(properties).value();
         result = _(list).chain().findWhere(properties).value();
     }
 
@@ -1368,16 +1368,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const properties = { a: 'b' };
         let result: { a: string } | undefined;
 
-        result = _.findWhere<{ a: string }, { a: string }>(dict, properties);
+        result = _.findWhere<{ a: string }>(dict, properties);
         result = _.findWhere(dict, properties);
 
-        result = _<{ a: string }>(dict).findWhere<{ a: string }>(properties);
+        result = _<{ a: string }>(dict).findWhere(properties);
         result = _(dict).findWhere(properties);
 
-        result = _.chain<{ a: string }>(dict).findWhere<{ a: string }>(properties).value();
+        result = _.chain<{ a: string }>(dict).findWhere(properties).value();
         result = _.chain(dict).findWhere(properties).value();
 
-        result = _<{ a: string }>(dict).chain().findWhere<{ a: string }>(properties).value();
+        result = _<{ a: string }>(dict).chain().findWhere(properties).value();
         result = _(dict).chain().findWhere(properties).value();
     }
 }
@@ -1845,10 +1845,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 }
 
 // contains, include, includes
-// as a smaller breaking change, consider changing the _.Collection<T> argument for include and includes to match the _.List<T> argument for contains
-// as a larger breaking change, consider getting rid of _.Collection<T> or defining _.Collection<T> as
-// type Collection<T> =  List<T> | Dictionary<T>
-// since in its current form as an empty interface it does not provide any type safety
 {
     const fromIndex = 1;
 
@@ -2230,7 +2226,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 }
 
 // pluck
-// as a breaking change, ideally update Underscore and Chain types to also figure out the correct resulting type instead of any[] or any
 {
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
@@ -4916,15 +4911,14 @@ interface ArrayWrapper<T> {
 }
 
 // chunk
-// as a breaking change, ideally update UnderscoreStatic.chunk to return T[][] because _.Collection<T> is an empty interface that doesn't provide value as a return type
 {
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const length = 2;
         let result: { a: string }[][];
 
-        //result = _.chunk<{ a: string }>(array, length);
-        //result = _.chunk(array, length);
+        result = _.chunk<{ a: string }>(array, length);
+        result = _.chunk(array, length);
 
         result = _<{ a: string }>(array).chunk(length);
         result = _(array).chunk(length);
@@ -4941,8 +4935,8 @@ interface ArrayWrapper<T> {
         const length = 2;
         let result: { a: string }[][];
 
-        //result = _.chunk<{ a: string }>(list, length);
-        //result = _.chunk(list, length);
+        result = _.chunk<{ a: string }>(list, length);
+        result = _.chunk(list, length);
 
         result = _<{ a: string }>(list).chunk(length);
         result = _(list).chunk(length);
@@ -4959,8 +4953,8 @@ interface ArrayWrapper<T> {
         const length = 2;
         let result: string[][];
 
-        //result = _.chunk<string>(str, length);
-        //result = _.chunk(str, length);
+        result = _.chunk<string>(str, length);
+        result = _.chunk(str, length);
 
         result = _<string>(str).chunk(length);
         result = _(str).chunk(length);
@@ -5129,9 +5123,6 @@ interface ArrayWrapper<T> {
 // findIndex
 // as a breaking change, ideally the Underscore<T, V>.findIndex<T> function should be updated to not take a T type argument
 // since it should ideally use T from Underscore
-// as a breaking change, consider changing the {} iterator option to Partial<T>
-// as a breaking change, consider redefining the function that takes an iterator and the one that takes properties as separate overloads since passing a context to the latter isn't useful
-// as a not breaking change, ideally also take a property name and add tests for that
 {
     const context = {};
 
