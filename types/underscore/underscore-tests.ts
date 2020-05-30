@@ -1326,7 +1326,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 }
 
 // findWhere
-// as a breaking change, ideally the return value for these functions should be updated to include undefined
 {
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];

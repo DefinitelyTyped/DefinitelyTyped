@@ -5476,7 +5476,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.findWhere
         **/
-        findWhere<U extends {}>(properties: U): _ChainSingle<T>;
+        findWhere<U extends {}>(properties: U): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type `any[]`.
