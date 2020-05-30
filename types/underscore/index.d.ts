@@ -860,7 +860,7 @@ declare module _ {
         partition<T>(
             array: _.List<T>,
             iterator: _.ListIterator<T, boolean>,
-            context?: any): T[][];
+            context?: any): [T[], T[]];
 
         /**
         * @see _.partition.
@@ -868,7 +868,7 @@ declare module _ {
         partition<T>(
             array: _.Dictionary<T>,
             iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T[][];
+            context?: any): [T[], T[]];
 
         /*********
         * Arrays *
@@ -4706,13 +4706,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.partition
         **/
-        partition(iterator: _.ListIterator<T, boolean>, context?: any): T[][];
+        partition(iterator: _.ListIterator<T, boolean>, context?: any): [T[], T[]];
 
         /**
         * Wrapped type `any[]`.
         * @see _.partition
         **/
-        partition(iterator: _.ObjectIterator<T, boolean>, context?: any): T[][];
+        partition(iterator: _.ObjectIterator<T, boolean>, context?: any): [T[], T[]];
 
         /**
         * Wrapped type `any[][]`.

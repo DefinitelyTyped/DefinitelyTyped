@@ -3493,12 +3493,11 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 }
 
 // partition
-// as a breaking change, consider updating the return type of partition to be [T[], T[]]
 {
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
-        let result: { a: string }[][];
+        let result: [{ a: string }[], { a: string }[]];
 
         result = _.partition<{ a: string }>(array, iterator);
         result = _.partition(array, iterator);
@@ -3516,7 +3515,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     {
         const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
-        let result: { a: string }[][];
+        let result: [{ a: string }[], { a: string }[]];
 
         result = _.partition<{ a: string }>(list, iterator);
         result = _.partition(list, iterator);
@@ -3534,7 +3533,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     {
         const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
-        let result: { a: string }[][];
+        let result: [{ a: string }[], { a: string }[]];
 
         result = _.partition<{ a: string }>(dict, iterator);
         result = _.partition(dict, iterator);
@@ -3552,7 +3551,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     {
         const str = 'abc';
         const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
-        let result: string[][];
+        let result: [string[], string[]];
 
         result = _.partition<string>(str, iterator);
         result = _.partition(str, iterator);
