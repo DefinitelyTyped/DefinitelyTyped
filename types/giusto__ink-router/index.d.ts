@@ -1,5 +1,5 @@
 // Type definitions for @giusto/ink-router 2.4
-// Project: https://github.com/jimmed/ink-router
+// Project: https://github.com/lujiajing1126/ink-router
 // Definitions by: omjadas <https://github.com/omjadas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
