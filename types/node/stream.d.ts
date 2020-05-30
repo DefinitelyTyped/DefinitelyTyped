@@ -124,7 +124,7 @@ declare module "stream" {
         interface WritableOptions {
             highWaterMark?: number;
             decodeStrings?: boolean;
-            defaultencoding?: BufferEncoding;
+            defaultEncoding?: BufferEncoding;
             objectMode?: boolean;
             emitClose?: boolean;
             write?(this: Writable, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
