@@ -4538,54 +4538,57 @@ interface ArrayWrapper<T> {
 // without
 {
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const item = array[0];
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
+        const item1 = array[0];
+        const item2 = array[1];
         let result: { a: string }[];
 
-        result = _.without<{ a: string }>(array, item);
-        result = _.without(array, item);
+        result = _.without<{ a: string }>(array, item1, item2);
+        result = _.without(array, item1, item2);
 
-        result = _<{ a: string }>(array).without(item);
-        result = _(array).without(item);
+        result = _<{ a: string }>(array).without(item1, item2);
+        result = _(array).without(item1, item2);
 
-        result = _.chain<{ a: string }>(array).without(item).value();
-        result = _.chain(array).without(item).value();
+        result = _.chain<{ a: string }>(array).without(item1, item2).value();
+        result = _.chain(array).without(item1, item2).value();
 
-        result = _<{ a: string }>(array).chain().without(item).value();
-        result = _(array).chain().without(item).value();
+        result = _<{ a: string }>(array).chain().without(item1, item2).value();
+        result = _(array).chain().without(item1, item2).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const item = list[0];
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, 2: { a: 'c' }, length: 3 };
+        const item1 = list[0];
+        const item2 = list[1];
         let result: { a: string }[];
 
-        result = _.without<{ a: string }>(list, item);
-        result = _.without(list, item);
+        result = _.without<{ a: string }>(list, item1, item2);
+        result = _.without(list, item1, item2);
 
-        result = _<{ a: string }>(list).without(item);
-        result = _(list).without(item);
+        result = _<{ a: string }>(list).without(item1, item2);
+        result = _(list).without(item1, item2);
 
-        result = _.chain<{ a: string }>(list).without(item).value();
-        result = _.chain(list).without(item).value();
+        result = _.chain<{ a: string }>(list).without(item1, item2).value();
+        result = _.chain(list).without(item1, item2).value();
 
-        result = _<{ a: string }>(list).chain().without(item).value();
-        result = _(list).chain().without(item).value();
+        result = _<{ a: string }>(list).chain().without(item1, item2).value();
+        result = _(list).chain().without(item1, item2).value();
     }
 
     {
         const str = 'abc';
-        const item = str[0];
+        const item1 = str[0];
+        const item2 = str[1];
         let result: string[];
 
-        result = _.without<string>(str, item);
-        result = _.without(str, item);;
+        result = _.without<string>(str, item1, item2);
+        result = _.without(str, item1, item2);
 
-        result = _<string>(str).without(item);
-        result = _(str).without(item);
+        result = _<string>(str).without(item1, item2);
+        result = _(str).without(item1, item2);
 
-        result = _<string>(str).chain().without(item).value();
-        result = _(str).chain().without(item).value();
+        result = _<string>(str).chain().without(item1, item2).value();
+        result = _(str).chain().without(item1, item2).value();
     }
 }
 
