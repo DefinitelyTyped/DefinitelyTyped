@@ -44,4 +44,4 @@ export class Strategy extends passport.Strategy {
     authenticate(req: express.Request, options?: object): void;
 }
 
-export default Strategy;
+export as namespace Strategy;
