@@ -10,7 +10,7 @@ const options: DomToImage.Options = {
     height: 100,
     quality: 0.1,
     imagePlaceholder: 'data:image/gif;base64,R0lGODlhAQABAIAAAP',
-    cachebust: true
+    cacheBust: true
 };
 
 function filter(node: Node): boolean {
@@ -34,5 +34,5 @@ async function testToBlob() {
 }
 
 async function testToPixelData() {
-    const pixelData = await DomToImage.toPixelData(node, { imagePlaceholder: 'data:image/gif;base64,R0lGODlhAQABAIAAAP', cachebust: true });
+    const pixelData = await DomToImage.toPixelData(node, { imagePlaceholder: 'data:image/gif;base64,R0lGODlhAQABAIAAAP', cacheBust: true });
 }
