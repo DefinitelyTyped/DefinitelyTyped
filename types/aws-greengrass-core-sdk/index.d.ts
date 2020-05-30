@@ -17,11 +17,7 @@ export interface IotCallbackData {
 
 export type IotCallback = (error: Error | null, data: IotCallbackData | null) => void;
 
-export interface IotDataClient {
-    publish(params: PublishParams, callback: IotCallback): void;
-}
-
-export class IotData implements IotDataClient {
+export class IotData {
     constructor();
     publish(params: PublishParams, callback: IotCallback): void;
 }
