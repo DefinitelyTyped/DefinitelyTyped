@@ -3,10 +3,9 @@
 // Definitions by: omjadas <https://github.com/omjadas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ReactNode } from "react";
+import * as React from "react";
 
 interface BoxProps {
-    children: ReactNode | ReactNode[];
     borderColor?: string;
     borderStyle?: ("single" | "double" | "round" | "singleDouble" | "doubleSingle" | "classic") | {
         topLeft?: string;
@@ -33,5 +32,5 @@ interface BoxProps {
     backgroundColor?: string;
     align?: "right" | "center" | "left";
 }
-declare function Box(props: BoxProps): JSX.Element;
+declare const Box: React.FC<BoxProps>;
 export = Box;
