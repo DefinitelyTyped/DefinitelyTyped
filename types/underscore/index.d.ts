@@ -970,7 +970,7 @@ declare module _ {
         * @param array Array to compact.
         * @return Copy of `array` without false values.
         **/
-        compact<T>(array: _.List<T | null | undefined | false | "" | 0> | null | undefined): T[]
+        compact<T>(array: _.List<T>): (T extends undefined | null | false | '' | 0 ? never : T)[]
 
         /**
         * Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will
@@ -4688,7 +4688,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.compact
         **/
-        compact(): T[];
+        compact(): (T extends undefined | null | false | '' | 0 ? never : T)[];
 
         /**
         * Wrapped type `any`.
@@ -5759,7 +5759,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.compact
         **/
-        compact(): _Chain<T, T[]>;
+        compact(): _Chain<T, (T extends undefined | null | false | '' | 0 ? never : T)[]>;
 
         /**
         * Wrapped type `any`.

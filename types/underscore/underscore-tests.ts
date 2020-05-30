@@ -4247,31 +4247,13 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 }
 
 // compact
-// the unwrapped methods use a type argument that includes falsy values, so they can be used to correctly end up
-// with a result that has falsy values removed
-// as a breaking change, consider updating the result of Underscore and Chain compact calls to be "(T extends undefined | null | false | '' | 0 ? never : T)[]"
-// and updating this result to be { a: string }[]
-// if this is changed, it would also be nice to change how the UnderscoreStatic compact calls work to use the same logic to be consistent
 {
     {
         const array: ({ a: string } | undefined)[] = [{ a: 'a' }, { a: 'b' }];
         let result: { a: string }[];
 
-        result = _.compact<{ a: string }>(array);
+        result = _.compact<{ a: string } | undefined>(array);
         result = _.compact(array);
-    }
-
-    {
-        const list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: { a: string }[];
-
-        result = _.compact<{ a: string }>(list);
-        result = _.compact(list);
-    }
-
-    {
-        const array: ({ a: string } | undefined)[] = [{ a: 'a' }, { a: 'b' }];
-        let result: ({ a: string } | undefined)[];
 
         result = _<{ a: string } | undefined>(array).compact();
         result = _(array).compact();
@@ -4285,7 +4267,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
     {
         const list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: ({ a: string } | undefined)[];
+        let result: { a: string }[];
+
+        result = _.compact<{ a: string } | undefined>(list);
+        result = _.compact(list);
 
         result = _<{ a: string } | undefined>(list).compact();
         result = _(list).compact();
