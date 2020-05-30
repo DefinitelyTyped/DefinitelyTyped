@@ -709,17 +709,17 @@ declare module _ {
         * @param context `this` object in `iterator`, optional.
         * @return A sorted copy of `list`.
         **/
-        sortBy<T, TSort>(
+        sortBy<T>(
             list: _.List<T>,
-            iterator?: _.ListIterator<T, TSort>,
+            iterator?: _.ListIterator<T, any>,
             context?: any): T[];
 
         /**
         * @see _.sortBy
         */
-        sortBy<T, TSort>(
+        sortBy<T>(
             list: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, TSort>,
+            iterator?: _.ObjectIterator<T, any>,
             context?: any): T[];
 
         /**
@@ -728,8 +728,7 @@ declare module _ {
         **/
         sortBy<T>(
             list: _.List<T> | _.Dictionary<T>,
-            iterator: string,
-            context?: any): T[];
+            iterator: keyof T): T[];
 
         /**
         * Splits a collection into sets, grouped by the result of running each value through iterator.
@@ -759,8 +758,7 @@ declare module _ {
         **/
         groupBy<T>(
             list: _.List<T> | _.Dictionary<T>,
-            iterator: string,
-            context?: any): _.Dictionary<T[]>;
+            iterator: keyof T): _.Dictionary<T[]>;
 
         /**
         * Given a `list`, and an `iterator` function that returns a key for each element in the list (or a property name),
@@ -785,8 +783,7 @@ declare module _ {
         **/
         indexBy<T>(
             list: _.List<T> | _.Dictionary<T>,
-            iterator: string,
-            context?: any): _.Dictionary<T>;
+            iterator: keyof T): _.Dictionary<T>;
 
         /**
         * Sorts a list into groups and returns a count for the number of objects in each group. Similar
@@ -816,8 +813,7 @@ declare module _ {
         **/
         countBy<T>(
             list: _.List<T> | _.Dictionary<T>,
-            iterator: string,
-            context?: any): _.Dictionary<number>;
+            iterator: keyof T): _.Dictionary<number>;
 
         /**
         * Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.
@@ -4533,25 +4529,25 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sortBy
         **/
-        sortBy(iterator: string, context?: any): T[];
+        sortBy(iterator: keyof T): T[];
 
         /**
         * Wrapped type `any[]`.
         * @see _.groupBy
         **/
-        groupBy(iterator?: _.ListIterator<T, any>, context?: any): _.Dictionary<_.List<T>>;
+        groupBy(iterator?: _.ListIterator<T, any>, context?: any): _.Dictionary<T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.groupBy
         **/
-        groupBy(iterator?: _.ObjectIterator<T, any>, context?: any): _.Dictionary<_.List<T>>;
+        groupBy(iterator?: _.ObjectIterator<T, any>, context?: any): _.Dictionary<T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.groupBy
         **/
-        groupBy(iterator: string, context?: any): _.Dictionary<T[]>;
+        groupBy(iterator: keyof T): _.Dictionary<T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -4569,7 +4565,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.indexBy
         **/
-        indexBy(iterator: string, context?: any): _.Dictionary<T>;
+        indexBy(iterator: keyof T): _.Dictionary<T>;
 
         /**
         * Wrapped type `any[]`.
@@ -4587,7 +4583,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.countBy
         **/
-        countBy(iterator: string, context?: any): _.Dictionary<number>;
+        countBy(iterator: keyof T): _.Dictionary<number>;
 
         /**
         * Wrapped type `any[]`.
@@ -5604,7 +5600,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sortBy
         **/
-        sortBy(iterator: string, context?: any): _Chain<T, T[]>;
+        sortBy(iterator: keyof T): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5622,7 +5618,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.groupBy
         **/
-        groupBy(iterator: string, context?: any): _Chain<T[], _.Dictionary<T[]>>;
+        groupBy(iterator: keyof T): _Chain<T[], _.Dictionary<T[]>>;
 
         /**
         * Wrapped type `any[]`.
@@ -5640,7 +5636,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.indexBy
         **/
-        indexBy(iterator: string, context?: any): _Chain<T, _.Dictionary<T>>;
+        indexBy(iterator: keyof T): _Chain<T, _.Dictionary<T>>;
 
         /**
         * Wrapped type `any[]`.
@@ -5658,7 +5654,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.countBy
         **/
-        countBy(iterator: string, context?: any): _Chain<number, _.Dictionary<number>>;
+        countBy(iterator: keyof T): _Chain<number, _.Dictionary<number>>;
 
         /**
         * Wrapped type `any[]`.

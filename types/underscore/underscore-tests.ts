@@ -2568,10 +2568,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 }
 
 // sortBy
-// as a breaking change, consider dropping TSort from UnderscoreStatic.sortBy and using any instead like Underscore and Chain do since TSort doesn't really add much
-// as a breaking change, consider dropping the context property from overloads that take a property name since it's not useful
-// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to valid property names
-// on the type being sorted
 {
     const context = {};
 
@@ -2581,8 +2577,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
         let result: { a: string }[];
 
-        result = _.sortBy<{ a: string }, string>(array, iterator);
-        result = _.sortBy<{ a: string }, string>(array, iterator, context);
+        result = _.sortBy<{ a: string }>(array, iterator);
+        result = _.sortBy<{ a: string }>(array, iterator, context);
         result = _.sortBy(array, iterator);
         result = _.sortBy(array, iterator, context);
 
@@ -2607,8 +2603,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
         let result: { a: string }[];
 
-        result = _.sortBy<{ a: string }, string>(list, iterator);
-        result = _.sortBy<{ a: string }, string>(list, iterator, context);
+        result = _.sortBy<{ a: string }>(list, iterator);
+        result = _.sortBy<{ a: string }>(list, iterator, context);
         result = _.sortBy(list, iterator);
         result = _.sortBy(list, iterator, context);
 
@@ -2633,8 +2629,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
         let result: { a: string }[];
 
-        result = _.sortBy<{ a: string }, string>(dict, iterator);
-        result = _.sortBy<{ a: string }, string>(dict, iterator, context);
+        result = _.sortBy<{ a: string }>(dict, iterator);
+        result = _.sortBy<{ a: string }>(dict, iterator, context);
         result = _.sortBy(dict, iterator);
         result = _.sortBy(dict, iterator, context);
 
@@ -2661,24 +2657,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: { a: string }[];
 
         result = _.sortBy<{ a: string }>(array, property);
-        result = _.sortBy<{ a: string }>(array, property, context);
         result = _.sortBy(array, property);
-        result = _.sortBy(array, property, context);
 
         result = _<{ a: string }>(array).sortBy(property);
-        result = _<{ a: string }>(array).sortBy(property, context);
         result = _(array).sortBy(property);
-        result = _(array).sortBy(property, context);
 
         result = _.chain<{ a: string }>(array).sortBy(property).value();
-        result = _.chain<{ a: string }>(array).sortBy(property, context).value();
         result = _.chain(array).sortBy(property).value();
-        result = _.chain(array).sortBy(property, context).value();
 
         result = _<{ a: string }>(array).chain().sortBy(property).value();
-        result = _<{ a: string }>(array).chain().sortBy(property, context).value();
         result = _(array).chain().sortBy(property).value();
-        result = _(array).chain().sortBy(property, context).value();
     }
 
     {
@@ -2687,24 +2675,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: { a: string }[];
 
         result = _.sortBy<{ a: string }>(list, property);
-        result = _.sortBy<{ a: string }>(list, property, context);
         result = _.sortBy(list, property);
-        result = _.sortBy(list, property, context);
 
         result = _<{ a: string }>(list).sortBy(property);
-        result = _<{ a: string }>(list).sortBy(property, context);
         result = _(list).sortBy(property);
-        result = _(list).sortBy(property, context);
 
         result = _.chain<{ a: string }>(list).sortBy(property).value();
-        result = _.chain<{ a: string }>(list).sortBy(property, context).value();
         result = _.chain(list).sortBy(property).value();
-        result = _.chain(list).sortBy(property, context).value();
 
         result = _<{ a: string }>(list).chain().sortBy(property).value();
-        result = _<{ a: string }>(list).chain().sortBy(property, context).value();
         result = _(list).chain().sortBy(property).value();
-        result = _(list).chain().sortBy(property, context).value();
     }
 
     {
@@ -2713,33 +2693,20 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: { a: string }[];
 
         result = _.sortBy<{ a: string }>(dict, property);
-        result = _.sortBy<{ a: string }>(dict, property, context);
         result = _.sortBy(dict, property);
-        result = _.sortBy(dict, property, context);
 
         result = _<{ a: string }>(dict).sortBy(property);
-        result = _<{ a: string }>(dict).sortBy(property, context);
         result = _(dict).sortBy(property);
-        result = _(dict).sortBy(property, context);
 
         result = _.chain<{ a: string }>(dict).sortBy(property).value();
-        result = _.chain<{ a: string }>(dict).sortBy(property, context).value();
         result = _.chain(dict).sortBy(property).value();
-        result = _.chain(dict).sortBy(property, context).value();
 
         result = _<{ a: string }>(dict).chain().sortBy(property).value();
-        result = _<{ a: string }>(dict).chain().sortBy(property, context).value();
         result = _(dict).chain().sortBy(property).value();
-        result = _(dict).chain().sortBy(property, context).value();
     }
 }
 
 // groupBy
-// as a breaking chage, consider changing the result of Underscore.groupBy to be _.Dictionary<T[]> instead of _.Dictionary<_.List<T>>
-// as a breaking change, consider changing _.ListIterator<T, any> and _.ObjectIterator<T, any> to use allowed indexing types (string | number | symbol)
-// instead of any
-// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to valid property names
-// on the type being sorted
 {
     const context = {};
 
@@ -2829,24 +2796,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: _.Dictionary<_.List<{ a: string }>>;
 
         result = _.groupBy<{ a: string }>(array, property);
-        result = _.groupBy<{ a: string }>(array, property, context);
         result = _.groupBy(array, property);
-        result = _.groupBy(array, property, context);
 
         result = _<{ a: string }>(array).groupBy(property);
-        result = _<{ a: string }>(array).groupBy(property, context);
         result = _(array).groupBy(property);
-        result = _(array).groupBy(property, context);
 
         result = _.chain<{ a: string }>(array).groupBy(property).value();
-        result = _.chain<{ a: string }>(array).groupBy(property, context).value();
         result = _.chain(array).groupBy(property).value();
-        result = _.chain(array).groupBy(property, context).value();
 
         result = _<{ a: string }>(array).chain().groupBy(property).value();
-        result = _<{ a: string }>(array).chain().groupBy(property, context).value();
         result = _(array).chain().groupBy(property).value();
-        result = _(array).chain().groupBy(property, context).value();
     }
 
     {
@@ -2855,24 +2814,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: _.Dictionary<_.List<{ a: string }>>;
 
         result = _.groupBy<{ a: string }>(list, property);
-        result = _.groupBy<{ a: string }>(list, property, context);
         result = _.groupBy(list, property);
-        result = _.groupBy(list, property, context);
 
         result = _<{ a: string }>(list).groupBy(property);
-        result = _<{ a: string }>(list).groupBy(property, context);
         result = _(list).groupBy(property);
-        result = _(list).groupBy(property, context);
 
         result = _.chain<{ a: string }>(list).groupBy(property).value();
-        result = _.chain<{ a: string }>(list).groupBy(property, context).value();
         result = _.chain(list).groupBy(property).value();
-        result = _.chain(list).groupBy(property, context).value();
 
         result = _<{ a: string }>(list).chain().groupBy(property).value();
-        result = _<{ a: string }>(list).chain().groupBy(property, context).value();
         result = _(list).chain().groupBy(property).value();
-        result = _(list).chain().groupBy(property, context).value();
     }
 
     {
@@ -2881,32 +2832,20 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: _.Dictionary<_.List<{ a: string }>>;
 
         result = _.groupBy<{ a: string }>(dict, property);
-        result = _.groupBy<{ a: string }>(dict, property, context);
         result = _.groupBy(dict, property);
-        result = _.groupBy(dict, property, context);
 
         result = _<{ a: string }>(dict).groupBy(property);
-        result = _<{ a: string }>(dict).groupBy(property, context);
         result = _(dict).groupBy(property);
-        result = _(dict).groupBy(property, context);
 
         result = _.chain<{ a: string }>(dict).groupBy(property).value();
-        result = _.chain<{ a: string }>(dict).groupBy(property, context).value();
         result = _.chain(dict).groupBy(property).value();
-        result = _.chain(dict).groupBy(property, context).value();
 
         result = _<{ a: string }>(dict).chain().groupBy(property).value();
-        result = _<{ a: string }>(dict).chain().groupBy(property, context).value();
         result = _(dict).chain().groupBy(property).value();
-        result = _(dict).chain().groupBy(property, context).value();
     }
 }
 
 // indexBy
-// as a breaking change, consider changing _.ListIterator<T, any> and _.ObjectIterator<T, any> to use allowed indexing types (string | number | symbol)
-// instead of any
-// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to valid property names
-// on the type being sorted
 {
     const context = {};
 
@@ -2996,24 +2935,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: _.Dictionary<{ a: string }>;
 
         result = _.indexBy<{ a: string }>(array, property);
-        result = _.indexBy<{ a: string }>(array, property, context);
         result = _.indexBy(array, property);
-        result = _.indexBy(array, property, context);
 
         result = _<{ a: string }>(array).indexBy(property);
-        result = _<{ a: string }>(array).indexBy(property, context);
         result = _(array).indexBy(property);
-        result = _(array).indexBy(property, context);
 
         result = _.chain<{ a: string }>(array).indexBy(property).value();
-        result = _.chain<{ a: string }>(array).indexBy(property, context).value();
         result = _.chain(array).indexBy(property).value();
-        result = _.chain(array).indexBy(property, context).value();
 
         result = _<{ a: string }>(array).chain().indexBy(property).value();
-        result = _<{ a: string }>(array).chain().indexBy(property, context).value();
         result = _(array).chain().indexBy(property).value();
-        result = _(array).chain().indexBy(property, context).value();
     }
 
     {
@@ -3022,24 +2953,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: _.Dictionary<{ a: string }>;
 
         result = _.indexBy<{ a: string }>(list, property);
-        result = _.indexBy<{ a: string }>(list, property, context);
         result = _.indexBy(list, property);
-        result = _.indexBy(list, property, context);
 
         result = _<{ a: string }>(list).indexBy(property);
-        result = _<{ a: string }>(list).indexBy(property, context);
         result = _(list).indexBy(property);
-        result = _(list).indexBy(property, context);
 
         result = _.chain<{ a: string }>(list).indexBy(property).value();
-        result = _.chain<{ a: string }>(list).indexBy(property, context).value();
         result = _.chain(list).indexBy(property).value();
-        result = _.chain(list).indexBy(property, context).value();
 
         result = _<{ a: string }>(list).chain().indexBy(property).value();
-        result = _<{ a: string }>(list).chain().indexBy(property, context).value();
         result = _(list).chain().indexBy(property).value();
-        result = _(list).chain().indexBy(property, context).value();
     }
 
     {
@@ -3048,30 +2971,20 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: _.Dictionary<{ a: string }>;
 
         result = _.indexBy<{ a: string }>(dict, property);
-        result = _.indexBy<{ a: string }>(dict, property, context);
         result = _.indexBy(dict, property);
-        result = _.indexBy(dict, property, context);
 
         result = _<{ a: string }>(dict).indexBy(property);
-        result = _<{ a: string }>(dict).indexBy(property, context);
         result = _(dict).indexBy(property);
-        result = _(dict).indexBy(property, context);
 
         result = _.chain<{ a: string }>(dict).indexBy(property).value();
-        result = _.chain<{ a: string }>(dict).indexBy(property, context).value();
         result = _.chain(dict).indexBy(property).value();
-        result = _.chain(dict).indexBy(property, context).value();
 
         result = _<{ a: string }>(dict).chain().indexBy(property).value();
-        result = _<{ a: string }>(dict).chain().indexBy(property, context).value();
         result = _(dict).chain().indexBy(property).value();
-        result = _(dict).chain().indexBy(property, context).value();
     }
 }
 
 // countBy
-// as a breaking change, consider adding a type parameter to overloads that take a property name that is constrained to valid property names
-// on the type being sorted
 {
     const context = {};
 
@@ -3187,24 +3100,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: _.Dictionary<number>;
 
         result = _.countBy<{ a: string }>(array, property);
-        result = _.countBy<{ a: string }>(array, property, context);
         result = _.countBy(array, property);
-        result = _.countBy(array, property, context);
 
         result = _<{ a: string }>(array).countBy(property);
-        result = _<{ a: string }>(array).countBy(property, context);
         result = _(array).countBy(property);
-        result = _(array).countBy(property, context);
 
         result = _.chain<{ a: string }>(array).countBy(property).value();
-        result = _.chain<{ a: string }>(array).countBy(property, context).value();
         result = _.chain(array).countBy(property).value();
-        result = _.chain(array).countBy(property, context).value();
 
         result = _<{ a: string }>(array).chain().countBy(property).value();
-        result = _<{ a: string }>(array).chain().countBy(property, context).value();
         result = _(array).chain().countBy(property).value();
-        result = _(array).chain().countBy(property, context).value();
     }
 
     {
@@ -3213,24 +3118,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: _.Dictionary<number>;
 
         result = _.countBy<{ a: string }>(list, property);
-        result = _.countBy<{ a: string }>(list, property, context);
         result = _.countBy(list, property);
-        result = _.countBy(list, property, context);
 
         result = _<{ a: string }>(list).countBy(property);
-        result = _<{ a: string }>(list).countBy(property, context);
         result = _(list).countBy(property);
-        result = _(list).countBy(property, context);
 
         result = _.chain<{ a: string }>(list).countBy(property).value();
-        result = _.chain<{ a: string }>(list).countBy(property, context).value();
         result = _.chain(list).countBy(property).value();
-        result = _.chain(list).countBy(property, context).value();
 
         result = _<{ a: string }>(list).chain().countBy(property).value();
-        result = _<{ a: string }>(list).chain().countBy(property, context).value();
         result = _(list).chain().countBy(property).value();
-        result = _(list).chain().countBy(property, context).value();
     }
 
     {
@@ -3239,24 +3136,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: _.Dictionary<number>;
 
         result = _.countBy<{ a: string }>(dict, property);
-        result = _.countBy<{ a: string }>(dict, property, context);
         result = _.countBy(dict, property);
-        result = _.countBy(dict, property, context);
 
         result = _<{ a: string }>(dict).countBy(property);
-        result = _<{ a: string }>(dict).countBy(property, context);
         result = _(dict).countBy(property);
-        result = _(dict).countBy(property, context);
 
         result = _.chain<{ a: string }>(dict).countBy(property).value();
-        result = _.chain<{ a: string }>(dict).countBy(property, context).value();
         result = _.chain(dict).countBy(property).value();
-        result = _.chain(dict).countBy(property, context).value();
 
         result = _<{ a: string }>(dict).chain().countBy(property).value();
-        result = _<{ a: string }>(dict).chain().countBy(property, context).value();
         result = _(dict).chain().countBy(property).value();
-        result = _(dict).chain().countBy(property, context).value();
     }
 }
 
