@@ -798,9 +798,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 }
 
 // find, detect
-// as a breaking change, ideally the Chain<T, V>.find<T, ...> and Chain<T, V>.detect<T, ...> functions should be updated to not take a T type argument
-// since they should ideally use T from Chain
-// as a breaking change, consider updating the versions of find and detect that take objects to take Partial<T> instead
 {
     const context = {};
 
@@ -809,33 +806,33 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
         let result: {a: string} | undefined;
 
-        result = _.find<{a: string}>(array, iterator);
+        result = _.find<{ a: string }>(array, iterator);
         result = _.find<{ a: string }>(array, iterator, context);
         result = _.find(array, iterator);
         result = _.find(array, iterator, context);
 
-        result = _<{ a: string }>(array).find<{a: string}>(iterator);
-        result = _<{ a: string }>(array).find<{ a: string }>(iterator, context);
+        result = _<{ a: string }>(array).find(iterator);
+        result = _<{ a: string }>(array).find(iterator, context);
         result = _(array).find(iterator);
         result = _(array).find(iterator, context);
 
-        result = _<{ a: string }>(array).chain().find<{a: string}>(iterator).value();
-        result = _<{ a: string }>(array).chain().find<{ a: string }>(iterator, context).value();
+        result = _<{ a: string }>(array).chain().find(iterator).value();
+        result = _<{ a: string }>(array).chain().find(iterator, context).value();
         result = _(array).chain().find(iterator).value();
         result = _(array).chain().find(iterator, context).value();
 
-        result = _.detect<{a: string}>(array, iterator);
+        result = _.detect<{ a: string }>(array, iterator);
         result = _.detect<{ a: string }>(array, iterator, context);
         result = _.detect(array, iterator);
         result = _.detect(array, iterator, context);
 
-        result = _<{ a: string }>(array).detect<{a: string}>(iterator);
-        result = _<{ a: string }>(array).detect<{ a: string }>(iterator, context);
+        result = _<{ a: string }>(array).detect(iterator);
+        result = _<{ a: string }>(array).detect(iterator, context);
         result = _(array).detect(iterator);
         result = _(array).detect(iterator, context);
 
-        result = _<{ a: string }>(array).chain().detect<{a: string}>(iterator).value();
-        result = _<{ a: string }>(array).chain().detect<{ a: string }>(iterator, context).value();
+        result = _<{ a: string }>(array).chain().detect(iterator).value();
+        result = _<{ a: string }>(array).chain().detect(iterator, context).value();
         result = _(array).chain().detect(iterator).value();
         result = _(array).chain().detect(iterator, context).value();
     }
@@ -845,21 +842,22 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const properties = { a: 'b' };
         let result: { a: string } | undefined;
 
-        result = _.find<{ a: string }, { a: string }>(array, properties);
+        result = _.find<{ a: string }>(array, properties);
         result = _.find(array, properties);
 
-        result = _(array).find<{ a: string }, { a: string }>(properties);
+        result = _<{ a: string }>(array).find(properties);
         result = _(array).find(properties);
 
-        result = _(array).chain().find<{ a: string }, { a: string }>(properties).value();
+        result = _<{ a: string }>(array).chain().find(properties).value();
+        result = _(array).chain().find(properties).value();
 
-        result = _.detect<{ a: string }, { a: string }>(array, properties);
+        result = _.detect<{ a: string }>(array, properties);
         result = _.detect(array, properties);
 
-        result = _(array).detect<{ a: string }, { a: string }>(properties);
+        result = _<{ a: string }>(array).detect(properties);
         result = _(array).detect(properties);
 
-        result = _(array).chain().detect<{ a: string }, { a: string }>(properties).value();
+        result = _<{ a: string }>(array).chain().detect(properties).value();
     }
 
     {
@@ -870,18 +868,20 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.find<{ a: string }>(array, property);
         result = _.find(array, property);
 
-        result = _(array).find<{ a: string }>(property);
+        result = _<{ a: string }>(array).find(property);
         result = _(array).find(property);
 
-        result = _(array).chain().find<{ a: string }>(property).value();
+        result = _<{ a: string }>(array).chain().find(property).value();
+        result = _(array).chain().find(property).value();
 
         result = _.detect<{ a: string }>(array, property);
         result = _.detect(array, property);
 
-        result = _(array).detect<{ a: string }>(property);
+        result = _<{ a: string }>(array).detect(property);
         result = _(array).detect(property);
 
-        result = _(array).chain().detect<{ a: string }>(property).value();
+        result = _<{ a: string }>(array).chain().detect(property).value();
+        result = _(array).chain().detect(property).value();
     }
 
     {
@@ -894,13 +894,13 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.find(list, iterator);
         result = _.find(list, iterator, context);
 
-        result = _<{ a: string }>(list).find<{ a: string }>(iterator);
-        result = _<{ a: string }>(list).find<{ a: string }>(iterator, context);
+        result = _<{ a: string }>(list).find(iterator);
+        result = _<{ a: string }>(list).find(iterator, context);
         result = _(list).find(iterator);
         result = _(list).find(iterator, context);
 
-        result = _<{ a: string }>(list).chain().find<{ a: string }>(iterator).value();
-        result = _<{ a: string }>(list).chain().find<{ a: string }>(iterator, context).value();
+        result = _<{ a: string }>(list).chain().find(iterator).value();
+        result = _<{ a: string }>(list).chain().find(iterator, context).value();
         result = _(list).chain().find(iterator).value();
         result = _(list).chain().find(iterator, context).value();
 
@@ -909,13 +909,13 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.detect(list, iterator);
         result = _.detect(list, iterator, context);
 
-        result = _<{ a: string }>(list).detect<{ a: string }>(iterator);
-        result = _<{ a: string }>(list).detect<{ a: string }>(iterator, context);
+        result = _<{ a: string }>(list).detect(iterator);
+        result = _<{ a: string }>(list).detect(iterator, context);
         result = _(list).detect(iterator);
         result = _(list).detect(iterator, context);
 
-        result = _<{ a: string }>(list).chain().detect<{ a: string }>(iterator).value();
-        result = _<{ a: string }>(list).chain().detect<{ a: string }>(iterator, context).value();
+        result = _<{ a: string }>(list).chain().detect(iterator).value();
+        result = _<{ a: string }>(list).chain().detect(iterator, context).value();
         result = _(list).chain().detect(iterator).value();
         result = _(list).chain().detect(iterator, context).value();
     }
@@ -925,21 +925,23 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const properties = { a: 'b' };
         let result: { a: string } | undefined;
 
-        result = _.find<{ a: string }, { a: string }>(list, properties);
+        result = _.find<{ a: string }>(list, properties);
         result = _.find(list, properties);
 
-        result = _(list).find<{ a: string }, { a: string }>(properties);
+        result = _<{ a: string }>(list).find(properties);
         result = _(list).find(properties);
 
-        result = _(list).chain().find<{ a: string }, { a: string }>(properties).value();
+        result = _<{ a: string }>(list).chain().find(properties).value();
+        result = _(list).chain().find(properties).value();
 
-        result = _.detect<{ a: string }, { a: string }>(list, properties);
+        result = _.detect<{ a: string }>(list, properties);
         result = _.detect(list, properties);
 
-        result = _(list).detect<{ a: string }, { a: string }>(properties);
+        result = _<{ a: string }>(list).detect(properties);
         result = _(list).detect(properties);
 
-        result = _(list).chain().detect<{ a: string }, { a: string }>(properties).value();
+        result = _<{ a: string }>(list).chain().detect(properties).value();
+        result = _(list).chain().detect(properties).value();
     }
 
     {
@@ -950,18 +952,20 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.find<{ a: string }>(list, property);
         result = _.find(list, property);
 
-        result = _(list).find<{ a: string }>(property);
+        result = _<{ a: string }>(list).find(property);
         result = _(list).find(property);
 
-        result = _(list).chain().find<{ a: string }>(property).value();
+        result = _<{ a: string }>(list).chain().find(property).value();
+        result = _(list).chain().find(property).value();
 
         result = _.detect<{ a: string }>(list, property);
         result = _.detect(list, property);
 
-        result = _(list).detect<{ a: string }>(property);
+        result = _<{ a: string }>(list).detect(property);
         result = _(list).detect(property);
 
-        result = _(list).chain().detect<{ a: string }>(property).value();
+        result = _<{ a: string }>(list).chain().detect(property).value();
+        result = _(list).chain().detect(property).value();
     }
 
     {
@@ -974,13 +978,13 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.find(dict, iterator);
         result = _.find(dict, iterator, context);
 
-        result = _<{ a: string }>(dict).find<{ a: string }>(iterator);
-        result = _<{ a: string }>(dict).find<{ a: string }>(iterator, context);
+        result = _<{ a: string }>(dict).find(iterator);
+        result = _<{ a: string }>(dict).find(iterator, context);
         result = _(dict).find(iterator);
         result = _(dict).find(iterator, context);
 
-        result = _<{ a: string }>(dict).chain().find<{ a: string }>(iterator).value();
-        result = _<{ a: string }>(dict).chain().find<{ a: string }>(iterator, context).value();
+        result = _<{ a: string }>(dict).chain().find(iterator).value();
+        result = _<{ a: string }>(dict).chain().find(iterator, context).value();
         result = _(dict).chain().find(iterator).value();
         result = _(dict).chain().find(iterator, context).value();
 
@@ -989,13 +993,13 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.detect(dict, iterator);
         result = _.detect(dict, iterator, context);
 
-        result = _<{ a: string }>(dict).detect<{ a: string }>(iterator);
-        result = _<{ a: string }>(dict).detect<{ a: string }>(iterator, context);
+        result = _<{ a: string }>(dict).detect(iterator);
+        result = _<{ a: string }>(dict).detect(iterator, context);
         result = _(dict).detect(iterator);
         result = _(dict).detect(iterator, context);
 
-        result = _<{ a: string }>(dict).chain().detect<{ a: string }>(iterator).value();
-        result = _<{ a: string }>(dict).chain().detect<{ a: string }>(iterator, context).value();
+        result = _<{ a: string }>(dict).chain().detect(iterator).value();
+        result = _<{ a: string }>(dict).chain().detect(iterator, context).value();
         result = _(dict).chain().detect(iterator).value();
         result = _(dict).chain().detect(iterator, context).value();
     }
@@ -1005,21 +1009,23 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const properties = { a: 'b' };
         let result: { a: string } | undefined;
 
-        result = _.find<{ a: string }, { a: string }>(dict, properties);
+        result = _.find<{ a: string }>(dict, properties);
         result = _.find(dict, properties);
 
-        result = _(dict).find<{ a: string }, { a: string }>(properties);
+        result = _<{ a: string }>(dict).find(properties);
         result = _(dict).find(properties);
 
-        result = _(dict).chain().find<{ a: string }, { a: string }>(properties).value();
+        result = _<{ a: string }>(dict).chain().find(properties).value();
+        result = _(dict).chain().find(properties).value();
 
-        result = _.detect<{ a: string }, { a: string }>(dict, properties);
+        result = _.detect<{ a: string }>(dict, properties);
         result = _.detect(dict, properties);
 
-        result = _(dict).detect<{ a: string }, { a: string }>(properties);
+        result = _<{ a: string }>(dict).detect(properties);
         result = _(dict).detect(properties);
 
-        result = _(dict).chain().detect<{ a: string }, { a: string }>(properties).value();
+        result = _<{ a: string }>(dict).chain().detect(properties).value();
+        result = _(dict).chain().detect(properties).value();
     }
 
     {
@@ -1030,54 +1036,20 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.find<{ a: string }>(dict, property);
         result = _.find(dict, property);
 
-        result = _(dict).find<{ a: string }>(property);
+        result = _<{ a: string }>(dict).find(property);
         result = _(dict).find(property);
 
-        result = _(dict).chain().find<{ a: string }>(property).value();
+        result = _<{ a: string }>(dict).chain().find(property).value();
+        result = _(dict).chain().find(property).value();
 
         result = _.detect<{ a: string }>(dict, property);
         result = _.detect(dict, property);
 
-        result = _(dict).detect<{ a: string }>(property);
+        result = _<{ a: string }>(dict).detect(property);
         result = _(dict).detect(property);
 
-        result = _(dict).chain().detect<{ a: string }>(property).value();
-    }
-
-    {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
-        let result: {a: string} | undefined;
-
-        result = _.find<{a: string}>(dict, iterator);
-        result = _.find<{a: string}>(dict, iterator, context);
-        result = _.find<{a: string}, {a: string}>(dict, {a: 'b'});
-        result = _.find<{a: string}>(dict, 'a');
-
-        result = _(dict).find<{a: string}>(iterator);
-        result = _(dict).find<{a: string}>(iterator, context);
-        result = _(dict).find<{a: string}, {a: string}>({a: 'b'});
-        result = _(dict).find<{a: string}>('a');
-
-        result = _(dict).chain().find<{a: string}>(iterator).value();
-        result = _(dict).chain().find<{a: string}>(iterator, context).value();
-        result = _(dict).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
-        result = _(dict).chain().find<{a: string}>('a').value();
-
-        result = _.detect<{a: string}>(dict, iterator);
-        result = _.detect<{a: string}>(dict, iterator, context);
-        result = _.detect<{a: string}, {a: string}>(dict, {a: 'b'});
-        result = _.detect<{a: string}>(dict, 'a');
-
-        result = _(dict).detect<{a: string}>(iterator);
-        result = _(dict).detect<{a: string}>(iterator, context);
-        result = _(dict).detect<{a: string}, {a: string}>({a: 'b'});
-        result = _(dict).detect<{a: string}>('a');
-
-        result = _(dict).chain().detect<{a: string}>(iterator).value();
-        result = _(dict).chain().detect<{a: string}>(iterator, context).value();
-        result = _(dict).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
-        result = _(dict).chain().detect<{a: string}>('a').value();
+        result = _<{ a: string }>(dict).chain().detect(property).value();
+        result = _(dict).chain().detect(property).value();
     }
 
     {
@@ -1090,13 +1062,13 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.find(str, iterator);
         result = _.find(str, iterator, context);
 
-        result = _(str).find<string>(iterator);
-        result = _(str).find<string>(iterator, context);
+        result = _<string>(str).find(iterator);
+        result = _<string>(str).find(iterator, context);
         result = _(str).find(iterator);
         result = _(str).find(iterator, context);
 
-        result = _(str).chain().find<string>(iterator).value();
-        result = _(str).chain().find<string>(iterator, context).value();
+        result = _<string>(str).chain().find(iterator).value();
+        result = _<string>(str).chain().find(iterator, context).value();
         result = _(str).chain().find(iterator).value();
         result = _(str).chain().find(iterator, context).value();
 
@@ -1105,13 +1077,13 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.detect(str, iterator);
         result = _.detect(str, iterator, context);
 
-        result = _(str).detect<string>(iterator);
-        result = _(str).detect<string>(iterator, context);
+        result = _<string>(str).detect(iterator);
+        result = _<string>(str).detect(iterator, context);
         result = _(str).detect(iterator);
         result = _(str).detect(iterator, context);
 
-        result = _(str).chain().detect<string>(iterator).value();
-        result = _(str).chain().detect<string>(iterator, context).value();
+        result = _<string>(str).chain().detect(iterator).value();
+        result = _<string>(str).chain().detect(iterator, context).value();
         result = _(str).chain().detect(iterator).value();
         result = _(str).chain().detect(iterator, context).value();
     }

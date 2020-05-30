@@ -360,16 +360,16 @@ declare module _ {
         /**
         * @see _.find
         **/
-        find<T, U extends {}>(
+        find<T>(
             object: _.List<T> | _.Dictionary<T>,
-            iterator: U): T | undefined;
+            iterator: Partial<T>): T | undefined;
 
         /**
         * @see _.find
         **/
         find<T>(
             object: _.List<T> | _.Dictionary<T>,
-            iterator: string): T | undefined;
+            iterator: keyof T): T | undefined;
 
         /**
         * @see _.find
@@ -390,16 +390,16 @@ declare module _ {
         /**
         * @see _.find
         **/
-        detect<T, U extends {}>(
+        detect<T>(
             object: _.List<T> | _.Dictionary<T>,
-            iterator: U): T | undefined;
+            iterator: Partial<T>): T | undefined;
 
         /**
         * @see _.find
         **/
         detect<T>(
             object: _.List<T> | _.Dictionary<T>,
-            iterator: string): T | undefined;
+            iterator: keyof T): T | undefined;
 
         /**
         * Looks through each value in the list, returning an array of all the values that pass a truth
@@ -4335,43 +4335,43 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.find
         **/
-        find<T>(iterator: _.ListIterator<T, boolean>, context?: any): T | undefined;
+        find(iterator: _.ListIterator<T, boolean>, context?: any): T | undefined;
 
         /**
         * Wrapped type `any[]`.
         * @see _.find
         **/
-        find<T>(iterator: _.ObjectIterator<T, boolean>, context?: any): T | undefined;
+        find(iterator: _.ObjectIterator<T, boolean>, context?: any): T | undefined;
 
         /**
         * @see _.find
         **/
-        find<T, U extends {}>(interator: U): T | undefined;
+        find(iterator: Partial<T>): T | undefined;
 
         /**
         * @see _.find
         **/
-        find<T>(interator: string): T | undefined;
+        find(iterator: keyof T): T | undefined;
 
         /**
         * @see _.find
         **/
-        detect<T>(iterator: _.ListIterator<T, boolean>, context?: any): T | undefined;
+        detect(iterator: _.ListIterator<T, boolean>, context?: any): T | undefined;
 
         /**
         * @see _.find
         **/
-        detect<T>(iterator: _.ObjectIterator<T, boolean>, context?: any): T | undefined;
+        detect(iterator: _.ObjectIterator<T, boolean>, context?: any): T | undefined;
 
         /**
         * @see _.find
         **/
-        detect<T, U extends {}>(interator?: U): T | undefined;
+        detect(interator?: Partial<T>): T | undefined;
 
         /**
         * @see _.find
         **/
-        detect<T>(interator?: string): T | undefined;
+        detect(interator?: keyof T): T | undefined;
 
         /**
         * Wrapped type `any[]`.
@@ -5406,43 +5406,43 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.find
         **/
-        find<T>(iterator: _.ListIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
+        find(iterator: _.ListIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.find
         **/
-        find<T>(iterator: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
+        find(iterator: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
         **/
-        find<T, U extends {}>(interator: U): _ChainSingle<T | undefined>;
+        find(iterator: Partial<T>): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
         **/
-        find<T>(interator: string): _ChainSingle<T | undefined>;
+        find(iterator: keyof T): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
         **/
-        detect<T>(iterator: _.ListIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
+        detect(iterator: _.ListIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
         **/
-        detect<T>(iterator: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
+        detect(iterator: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
         **/
-        detect<T, U extends {}>(interator: U): _ChainSingle<T | undefined>;
+        detect(iterator: Partial<T>): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
         **/
-        detect<T>(interator: string): _ChainSingle<T | undefined>;
+        detect(iterator: keyof T): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type `any[]`.
