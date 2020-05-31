@@ -8775,7 +8775,7 @@ export namespace Animated {
         (T extends {
             ref?: React.Ref<infer R>;
         }
-            ? { ref?: React.Ref<R | { getNode(): R }> }
+            ? { ref?: React.Ref<R & { getNode(): R }> }
             : {});
 
     export interface AnimatedComponent<T extends React.ComponentType<any>>
