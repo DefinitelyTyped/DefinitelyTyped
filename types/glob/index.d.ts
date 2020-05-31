@@ -3,6 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 voy <https://github.com/voy>
 //                 Klaus Meinhardt <https://github.com/ajafff>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -10,8 +11,8 @@
 import events = require("events");
 import minimatch = require("minimatch");
 
-declare function G(pattern: string, cb: (err: Error | null, matches: string[]) => void): void;
-declare function G(pattern: string, options: G.IOptions, cb: (err: Error | null, matches: string[]) => void): void;
+declare function G(pattern: string, cb: (err: Error | null, matches: string[]) => void): G.IGlob;
+declare function G(pattern: string, options: G.IOptions, cb: (err: Error | null, matches: string[]) => void): G.IGlob;
 
 declare namespace G {
     function __promisify__(pattern: string, options?: IOptions): Promise<string[]>;
