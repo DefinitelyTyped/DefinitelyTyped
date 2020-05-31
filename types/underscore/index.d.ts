@@ -4309,6 +4309,12 @@ declare module _ {
         map<TProperty extends keyof T>(iterator: TProperty): T[TProperty][];
 
         /**
+        * Wrapped type `any[]`.
+        * @see _.map
+        **/
+        map(iterator: Partial<T>): boolean[];
+
+        /**
         * @see _.map
         **/
         collect<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): TResult[];
@@ -4322,6 +4328,11 @@ declare module _ {
         * @see _.map
         **/
         collect<TProperty extends keyof T>(iterator: TProperty): T[TProperty][];
+
+        /**
+        * @see _.map
+        **/
+        collect(iterator: Partial<T>): boolean[];
 
         /**
         * Wrapped type `any[]`.
@@ -4424,7 +4435,7 @@ declare module _ {
         /**
         * @see _.filter
         **/
-        filter<T>(iterator: Partial<T> | keyof T): T[];
+        filter(iterator: Partial<T> | keyof T): T[];
 
         /**
         * @see _.filter
@@ -4439,7 +4450,7 @@ declare module _ {
         /**
         * @see _.filter
         **/
-        select<T>(iterator: Partial<T> | keyof T): T[];
+        select(iterator: Partial<T> | keyof T): T[];
 
         /**
         * Wrapped type `any[]`.
@@ -4468,7 +4479,7 @@ declare module _ {
         /**
         * @see _.reject
         **/
-        reject<T>(iterator: Partial<T> | keyof T): T[];
+        reject(iterator: Partial<T> | keyof T): T[];
 
         /**
         * Wrapped type `any[]`.
@@ -4485,7 +4496,7 @@ declare module _ {
         /**
         * @see _.every
         **/
-        every<T>(iterator?: Partial<T> | keyof T): boolean;
+        every(iterator?: Partial<T> | keyof T): boolean;
 
         /**
         * @see _.every
@@ -4500,7 +4511,7 @@ declare module _ {
         /**
         * @see _.every
         **/
-        all<T>(iterator?: Partial<T> | keyof T): boolean;
+        all(iterator?: Partial<T> | keyof T): boolean;
 
         /**
         * Wrapped type `any[]`.
@@ -4517,7 +4528,7 @@ declare module _ {
         /**
         * @see _.some
         **/
-        some<T>(iterator?: Partial<T> | keyof T): boolean;
+        some(iterator?: Partial<T> | keyof T): boolean;
 
         /**
         * @see _.some
@@ -4532,7 +4543,7 @@ declare module _ {
         /**
         * @see _.some
         **/
-        any<T>(iterator?: Partial<T> | keyof T): boolean;
+        any(iterator?: Partial<T> | keyof T): boolean;
 
         /**
         * Wrapped type `any[]`.
@@ -4579,7 +4590,7 @@ declare module _ {
         /**
         * @see _.max
         */
-        max<T>(iterator?: keyof T): T;
+        max(iterator?: keyof T): T;
 
         /**
         * Wrapped type `any[]`.
@@ -4596,7 +4607,7 @@ declare module _ {
         /**
         * @see _.min
         */
-        min<T>(iterator?: keyof T): T;
+        min(iterator?: keyof T): T;
 
         /**
         * Wrapped type `any[]`.
@@ -5403,6 +5414,12 @@ declare module _ {
         map<TProperty extends keyof T>(iterator: TProperty): _Chain<T[TProperty], T[TProperty][]>;
 
         /**
+        * Wrapped type `any[]`.
+        * @see _.map
+        **/
+        map(iterator: Partial<T>): _Chain<boolean, boolean[]>;
+
+        /**
         * @see _.map
         **/
         collect<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<TResult, TResult[]>;
@@ -5416,6 +5433,11 @@ declare module _ {
         * @see _.map
         **/
         collect<TProperty extends keyof T>(iterator: TProperty): _Chain<T[TProperty], T[TProperty][]>;
+
+        /**
+        * @see _.map
+        **/
+        collect(iterator: Partial<T>): _Chain<boolean, boolean[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5519,7 +5541,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.filter
         **/
-        filter<T>(iterator: Partial<T> | keyof T): _Chain<T, T[]>;
+        filter(iterator: Partial<T> | keyof T): _Chain<T, T[]>;
 
         /**
         * @see _.filter
@@ -5534,7 +5556,7 @@ declare module _ {
         /**
         * @see _.filter
         **/
-        select<T>(iterator: Partial<T> | keyof T): _Chain<T, T[]>;
+        select(iterator: Partial<T> | keyof T): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5564,7 +5586,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.reject
         **/
-        reject<T>(iterator: Partial<T> | keyof T): _Chain<T, T[]>;
+        reject(iterator: Partial<T> | keyof T): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5582,7 +5604,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.every
         **/
-        every<T>(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
+        every(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
 
         /**
         * @see _.every
@@ -5597,7 +5619,7 @@ declare module _ {
         /**
         * @see _.every
         **/
-        all<T>(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
+        all(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
 
         /**
         * Wrapped type `any[]`.
@@ -5615,7 +5637,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.some
         **/
-        some<T>(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
+        some(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
 
         /**
         * @see _.some
@@ -5630,7 +5652,7 @@ declare module _ {
         /**
         * @see _.some
         **/
-        any<T>(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
+        any(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
 
         /**
         * Wrapped type `any[]`.
@@ -5678,7 +5700,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.max
         */
-        max<T>(iterator?: keyof T): _ChainSingle<T>;
+        max(iterator?: keyof T): _ChainSingle<T>;
 
         /**
         * Wrapped type `any[]`.
@@ -5696,7 +5718,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.min
         */
-        min<T>(iterator?: keyof T): _ChainSingle<T>;
+        min(iterator?: keyof T): _ChainSingle<T>;
 
         /**
         * Wrapped type `any[]`.

@@ -23,12 +23,9 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 // Collection Functions
 // as a breaking change, consider creating separate UnderscoreObject and ChainObject interfaces for dictionaries instead of taking both ListIterators and ObjectIterators
+// maybe also UnderscoreString and ChainString since each and forEach returns the original string and all iterators get the full string as their third parameter
 
 // each, forEach
-// as a breaking change, consider either adding an overload for strings or changing function definitions to things like
-// _.each<TItem, TList extends _.List<TItem>>(list: TList, iterator: _.ListIterator<TItem, void>, context ?: any): TList;
-// to better reflect that _.each and its variations always return the original object
-// if that happens, also add tests for strings and array-like objects with extra properties as inputs
 {
     const context = {};
 
@@ -175,6 +172,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     const context = {};
 
+    // function iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
@@ -347,6 +345,188 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).chain().collect<string>(iterator, context).value();
         result = _(str).chain().collect(iterator).value();
         result = _(str).chain().collect(iterator, context).value();
+    }
+
+    // partial object iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const properties = { a: 'a' };
+        let result: boolean[];
+
+        result = _.map<{ a: string }>(array, properties);
+        result = _.map(array, properties);
+
+        result = _<{ a: string }>(array).map(properties);
+        result = _(array).map(properties);
+
+        result = _.chain<{ a: string }>(array).map(properties).value();
+        result = _.chain(array).map(properties).value();
+
+        result = _<{ a: string }>(array).chain().map(properties).value();
+        result = _(array).chain().map(properties).value();
+
+        result = _.collect<{ a: string }>(array, properties);
+        result = _.collect(array, properties);
+
+        result = _<{ a: string }>(array).collect(properties);
+        result = _(array).collect(properties);
+
+        result = _.chain<{ a: string }>(array).collect(properties).value();
+        result = _.chain(array).collect(properties).value();
+
+        result = _<{ a: string }>(array).chain().collect(properties).value();
+        result = _(array).chain().collect(properties).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const properties = { a: 'a' };
+        let result: boolean[];
+
+        result = _.map<{ a: string }>(list, properties);
+        result = _.map(list, properties);
+
+        result = _<{ a: string }>(list).map(properties);
+        result = _(list).map(properties);
+
+        result = _.chain<{ a: string }>(list).map(properties).value();
+        result = _.chain(list).map(properties).value();
+
+        result = _<{ a: string }>(list).chain().map(properties).value();
+        result = _(list).chain().map(properties).value();
+
+        result = _.collect<{ a: string }>(list, properties);
+        result = _.collect(list, properties);
+
+        result = _<{ a: string }>(list).collect(properties);
+        result = _(list).collect(properties);
+
+        result = _.chain<{ a: string }>(list).collect(properties).value();
+        result = _.chain(list).collect(properties).value();
+
+        result = _<{ a: string }>(list).chain().collect(properties).value();
+        result = _(list).chain().collect(properties).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const properties = { a: 'a' };
+        let result: boolean[];
+
+        result = _.map<{ a: string }>(dict, properties);
+        result = _.map(dict, properties);
+
+        result = _<{ a: string }>(dict).map(properties);
+        result = _(dict).map(properties);
+
+        result = _.chain<{ a: string }>(dict).map(properties).value();
+        result = _.chain(dict).map(properties).value();
+
+        result = _<{ a: string }>(dict).chain().map(properties).value();
+        result = _(dict).chain().map(properties).value();
+
+        result = _.collect<{ a: string }>(dict, properties);
+        result = _.collect(dict, properties);
+
+        result = _<{ a: string }>(dict).collect(properties);
+        result = _(dict).collect(properties);
+
+        result = _.chain<{ a: string }>(dict).collect(properties).value();
+        result = _.chain(dict).collect(properties).value();
+
+        result = _<{ a: string }>(dict).chain().collect(properties).value();
+        result = _(dict).chain().collect(properties).value();
+    }
+
+    // property name iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
+        let result: string[];
+
+        result = _.map<{ a: string }, typeof property>(array, property);
+        result = _.map(array, property);
+
+        result = _<{ a: string }>(array).map<typeof property>(property);
+        result = _(array).map(property);
+
+        result = _.chain<{ a: string }>(array).map<typeof property>(property).value();
+        result = _.chain(array).map(property).value();
+
+        result = _<{ a: string }>(array).chain().map<typeof property>(property).value();
+        result = _(array).chain().map(property).value();
+
+        result = _.collect<{ a: string }, typeof property>(array, property);
+        result = _.collect(array, property);
+
+        result = _<{ a: string }>(array).collect<typeof property>(property);
+        result = _(array).collect(property);
+
+        result = _.chain<{ a: string }>(array).collect<typeof property>(property).value();
+        result = _.chain(array).collect(property).value();
+
+        result = _<{ a: string }>(array).chain().collect<typeof property>(property).value();
+        result = _(array).chain().collect(property).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
+        let result: string[];
+
+        result = _.map<{ a: string }, typeof property>(list, property);
+        result = _.map(list, property);
+
+        result = _<{ a: string }>(list).map<typeof property>(property);
+        result = _(list).map(property);
+
+        result = _.chain<{ a: string }>(list).map<typeof property>(property).value();
+        result = _.chain(list).map(property).value();
+
+        result = _<{ a: string }>(list).chain().map<typeof property>(property).value();
+        result = _(list).chain().map(property).value();
+
+        result = _.collect<{ a: string }, typeof property>(list, property);
+        result = _.collect(list, property);
+
+        result = _<{ a: string }>(list).collect<typeof property>(property);
+        result = _(list).collect(property);
+
+        result = _.chain<{ a: string }>(list).collect<typeof property>(property).value();
+        result = _.chain(list).collect(property).value();
+
+        result = _<{ a: string }>(list).chain().collect<typeof property>(property).value();
+        result = _(list).chain().collect(property).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const property = 'a';
+        let result: string[];
+
+        result = _.map<{ a: string }, typeof property>(dict, property);
+        result = _.map(dict, property);
+
+        result = _<{ a: string }>(dict).map<typeof property>(property);
+        result = _(dict).map(property);
+
+        result = _.chain<{ a: string }>(dict).map<typeof property>(property).value();
+        result = _.chain(dict).map(property).value();
+
+        result = _<{ a: string }>(dict).chain().map<typeof property>(property).value();
+        result = _(dict).chain().map(property).value();
+
+        result = _.collect<{ a: string }, typeof property>(dict, property);
+        result = _.collect(dict, property);
+
+        result = _<{ a: string }>(dict).collect<typeof property>(property);
+        result = _(dict).collect(property);
+
+        result = _.chain<{ a: string }>(dict).collect<typeof property>(property).value();
+        result = _.chain(dict).collect(property).value();
+
+        result = _<{ a: string }>(dict).chain().collect<typeof property>(property).value();
+        result = _(dict).chain().collect(property).value();
     }
 }
 
@@ -801,6 +981,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     const context = {};
 
+    // function iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
@@ -835,53 +1016,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).chain().detect(iterator, context).value();
         result = _(array).chain().detect(iterator).value();
         result = _(array).chain().detect(iterator, context).value();
-    }
-
-    {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const properties = { a: 'b' };
-        let result: { a: string } | undefined;
-
-        result = _.find<{ a: string }>(array, properties);
-        result = _.find(array, properties);
-
-        result = _<{ a: string }>(array).find(properties);
-        result = _(array).find(properties);
-
-        result = _<{ a: string }>(array).chain().find(properties).value();
-        result = _(array).chain().find(properties).value();
-
-        result = _.detect<{ a: string }>(array, properties);
-        result = _.detect(array, properties);
-
-        result = _<{ a: string }>(array).detect(properties);
-        result = _(array).detect(properties);
-
-        result = _<{ a: string }>(array).chain().detect(properties).value();
-    }
-
-    {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const property = 'a';
-        let result: { a: string } | undefined;
-
-        result = _.find<{ a: string }>(array, property);
-        result = _.find(array, property);
-
-        result = _<{ a: string }>(array).find(property);
-        result = _(array).find(property);
-
-        result = _<{ a: string }>(array).chain().find(property).value();
-        result = _(array).chain().find(property).value();
-
-        result = _.detect<{ a: string }>(array, property);
-        result = _.detect(array, property);
-
-        result = _<{ a: string }>(array).detect(property);
-        result = _(array).detect(property);
-
-        result = _<{ a: string }>(array).chain().detect(property).value();
-        result = _(array).chain().detect(property).value();
     }
 
     {
@@ -921,54 +1055,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const properties = { a: 'b' };
-        let result: { a: string } | undefined;
-
-        result = _.find<{ a: string }>(list, properties);
-        result = _.find(list, properties);
-
-        result = _<{ a: string }>(list).find(properties);
-        result = _(list).find(properties);
-
-        result = _<{ a: string }>(list).chain().find(properties).value();
-        result = _(list).chain().find(properties).value();
-
-        result = _.detect<{ a: string }>(list, properties);
-        result = _.detect(list, properties);
-
-        result = _<{ a: string }>(list).detect(properties);
-        result = _(list).detect(properties);
-
-        result = _<{ a: string }>(list).chain().detect(properties).value();
-        result = _(list).chain().detect(properties).value();
-    }
-
-    {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const property = 'a';
-        let result: { a: string } | undefined;
-
-        result = _.find<{ a: string }>(list, property);
-        result = _.find(list, property);
-
-        result = _<{ a: string }>(list).find(property);
-        result = _(list).find(property);
-
-        result = _<{ a: string }>(list).chain().find(property).value();
-        result = _(list).chain().find(property).value();
-
-        result = _.detect<{ a: string }>(list, property);
-        result = _.detect(list, property);
-
-        result = _<{ a: string }>(list).detect(property);
-        result = _(list).detect(property);
-
-        result = _<{ a: string }>(list).chain().detect(property).value();
-        result = _(list).chain().detect(property).value();
-    }
-
-    {
         const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
         let result: { a: string } | undefined;
@@ -1002,54 +1088,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).chain().detect(iterator, context).value();
         result = _(dict).chain().detect(iterator).value();
         result = _(dict).chain().detect(iterator, context).value();
-    }
-
-    {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const properties = { a: 'b' };
-        let result: { a: string } | undefined;
-
-        result = _.find<{ a: string }>(dict, properties);
-        result = _.find(dict, properties);
-
-        result = _<{ a: string }>(dict).find(properties);
-        result = _(dict).find(properties);
-
-        result = _<{ a: string }>(dict).chain().find(properties).value();
-        result = _(dict).chain().find(properties).value();
-
-        result = _.detect<{ a: string }>(dict, properties);
-        result = _.detect(dict, properties);
-
-        result = _<{ a: string }>(dict).detect(properties);
-        result = _(dict).detect(properties);
-
-        result = _<{ a: string }>(dict).chain().detect(properties).value();
-        result = _(dict).chain().detect(properties).value();
-    }
-
-    {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const property = 'a';
-        let result: { a: string } | undefined;
-
-        result = _.find<{ a: string }>(dict, property);
-        result = _.find(dict, property);
-
-        result = _<{ a: string }>(dict).find(property);
-        result = _(dict).find(property);
-
-        result = _<{ a: string }>(dict).chain().find(property).value();
-        result = _(dict).chain().find(property).value();
-
-        result = _.detect<{ a: string }>(dict, property);
-        result = _.detect(dict, property);
-
-        result = _<{ a: string }>(dict).detect(property);
-        result = _(dict).detect(property);
-
-        result = _<{ a: string }>(dict).chain().detect(property).value();
-        result = _(dict).chain().detect(property).value();
     }
 
     {
@@ -1087,12 +1125,159 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).chain().detect(iterator).value();
         result = _(str).chain().detect(iterator, context).value();
     }
+
+    // partial object iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const properties = { a: 'b' };
+        let result: { a: string } | undefined;
+
+        result = _.find<{ a: string }>(array, properties);
+        result = _.find(array, properties);
+
+        result = _<{ a: string }>(array).find(properties);
+        result = _(array).find(properties);
+
+        result = _<{ a: string }>(array).chain().find(properties).value();
+        result = _(array).chain().find(properties).value();
+
+        result = _.detect<{ a: string }>(array, properties);
+        result = _.detect(array, properties);
+
+        result = _<{ a: string }>(array).detect(properties);
+        result = _(array).detect(properties);
+
+        result = _<{ a: string }>(array).chain().detect(properties).value();
+        result = _(array).chain().detect(properties).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const properties = { a: 'b' };
+        let result: { a: string } | undefined;
+
+        result = _.find<{ a: string }>(list, properties);
+        result = _.find(list, properties);
+
+        result = _<{ a: string }>(list).find(properties);
+        result = _(list).find(properties);
+
+        result = _<{ a: string }>(list).chain().find(properties).value();
+        result = _(list).chain().find(properties).value();
+
+        result = _.detect<{ a: string }>(list, properties);
+        result = _.detect(list, properties);
+
+        result = _<{ a: string }>(list).detect(properties);
+        result = _(list).detect(properties);
+
+        result = _<{ a: string }>(list).chain().detect(properties).value();
+        result = _(list).chain().detect(properties).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const properties = { a: 'b' };
+        let result: { a: string } | undefined;
+
+        result = _.find<{ a: string }>(dict, properties);
+        result = _.find(dict, properties);
+
+        result = _<{ a: string }>(dict).find(properties);
+        result = _(dict).find(properties);
+
+        result = _<{ a: string }>(dict).chain().find(properties).value();
+        result = _(dict).chain().find(properties).value();
+
+        result = _.detect<{ a: string }>(dict, properties);
+        result = _.detect(dict, properties);
+
+        result = _<{ a: string }>(dict).detect(properties);
+        result = _(dict).detect(properties);
+
+        result = _<{ a: string }>(dict).chain().detect(properties).value();
+        result = _(dict).chain().detect(properties).value();
+    }
+
+    // property name iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
+        let result: { a: string } | undefined;
+
+        result = _.find<{ a: string }>(array, property);
+        result = _.find(array, property);
+
+        result = _<{ a: string }>(array).find(property);
+        result = _(array).find(property);
+
+        result = _<{ a: string }>(array).chain().find(property).value();
+        result = _(array).chain().find(property).value();
+
+        result = _.detect<{ a: string }>(array, property);
+        result = _.detect(array, property);
+
+        result = _<{ a: string }>(array).detect(property);
+        result = _(array).detect(property);
+
+        result = _<{ a: string }>(array).chain().detect(property).value();
+        result = _(array).chain().detect(property).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
+        let result: { a: string } | undefined;
+
+        result = _.find<{ a: string }>(list, property);
+        result = _.find(list, property);
+
+        result = _<{ a: string }>(list).find(property);
+        result = _(list).find(property);
+
+        result = _<{ a: string }>(list).chain().find(property).value();
+        result = _(list).chain().find(property).value();
+
+        result = _.detect<{ a: string }>(list, property);
+        result = _.detect(list, property);
+
+        result = _<{ a: string }>(list).detect(property);
+        result = _(list).detect(property);
+
+        result = _<{ a: string }>(list).chain().detect(property).value();
+        result = _(list).chain().detect(property).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const property = 'a';
+        let result: { a: string } | undefined;
+
+        result = _.find<{ a: string }>(dict, property);
+        result = _.find(dict, property);
+
+        result = _<{ a: string }>(dict).find(property);
+        result = _(dict).find(property);
+
+        result = _<{ a: string }>(dict).chain().find(property).value();
+        result = _(dict).chain().find(property).value();
+
+        result = _.detect<{ a: string }>(dict, property);
+        result = _.detect(dict, property);
+
+        result = _<{ a: string }>(dict).detect(property);
+        result = _(dict).detect(property);
+
+        result = _<{ a: string }>(dict).chain().detect(property).value();
+        result = _(dict).chain().detect(property).value();
+    }
 }
 
 // filter, select
 {
     const context = {};
 
+    // function iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
@@ -1266,6 +1451,152 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).chain().select(iterator).value();
         result = _(str).chain().select(iterator, context).value();
     }
+
+    // partial object iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const properties = { a: 'b' };
+        let result: { a: string }[];
+
+        result = _.filter<{ a: string }>(array, properties);
+        result = _.filter(array, properties);
+
+        result = _<{ a: string }>(array).filter(properties);
+        result = _(array).filter(properties);
+
+        result = _<{ a: string }>(array).chain().filter(properties).value();
+        result = _(array).chain().filter(properties).value();
+
+        result = _.select<{ a: string }>(array, properties);
+        result = _.select(array, properties);
+
+        result = _<{ a: string }>(array).select(properties);
+        result = _(array).select(properties);
+
+        result = _<{ a: string }>(array).chain().select(properties).value();
+        result = _(array).chain().select(properties).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const properties = { a: 'b' };
+        let result: { a: string }[];
+
+        result = _.filter<{ a: string }>(list, properties);
+        result = _.filter(list, properties);
+
+        result = _<{ a: string }>(list).filter(properties);
+        result = _(list).filter(properties);
+
+        result = _<{ a: string }>(list).chain().filter(properties).value();
+        result = _(list).chain().filter(properties).value();
+
+        result = _.select<{ a: string }>(list, properties);
+        result = _.select(list, properties);
+
+        result = _<{ a: string }>(list).select(properties);
+        result = _(list).select(properties);
+
+        result = _<{ a: string }>(list).chain().select(properties).value();
+        result = _(list).chain().select(properties).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const properties = { a: 'b' };
+        let result: { a: string }[];
+
+        result = _.filter<{ a: string }>(dict, properties);
+        result = _.filter(dict, properties);
+
+        result = _<{ a: string }>(dict).filter(properties);
+        result = _(dict).filter(properties);
+
+        result = _<{ a: string }>(dict).chain().filter(properties).value();
+        result = _(dict).chain().filter(properties).value();
+
+        result = _.select<{ a: string }>(dict, properties);
+        result = _.select(dict, properties);
+
+        result = _<{ a: string }>(dict).select(properties);
+        result = _(dict).select(properties);
+
+        result = _<{ a: string }>(dict).chain().select(properties).value();
+        result = _(dict).chain().select(properties).value();
+    }
+
+    // property name iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
+        let result: { a: string }[];
+
+        result = _.filter<{ a: string }>(array, property);
+        result = _.filter(array, property);
+
+        result = _<{ a: string }>(array).filter(property);
+        result = _(array).filter(property);
+
+        result = _<{ a: string }>(array).chain().filter(property).value();
+        result = _(array).chain().filter(property).value();
+
+        result = _.select<{ a: string }>(array, property);
+        result = _.select(array, property);
+
+        result = _<{ a: string }>(array).select(property);
+        result = _(array).select(property);
+
+        result = _<{ a: string }>(array).chain().select(property).value();
+        result = _(array).chain().select(property).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
+        let result: { a: string }[];
+
+        result = _.filter<{ a: string }>(list, property);
+        result = _.filter(list, property);
+
+        result = _<{ a: string }>(list).filter(property);
+        result = _(list).filter(property);
+
+        result = _<{ a: string }>(list).chain().filter(property).value();
+        result = _(list).chain().filter(property).value();
+
+        result = _.select<{ a: string }>(list, property);
+        result = _.select(list, property);
+
+        result = _<{ a: string }>(list).select(property);
+        result = _(list).select(property);
+
+        result = _<{ a: string }>(list).chain().select(property).value();
+        result = _(list).chain().select(property).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const property = 'a';
+        let result: { a: string }[];
+
+        result = _.filter<{ a: string }>(dict, property);
+        result = _.filter(dict, property);
+
+        result = _<{ a: string }>(dict).filter(property);
+        result = _(dict).filter(property);
+
+        result = _<{ a: string }>(dict).chain().filter(property).value();
+        result = _(dict).chain().filter(property).value();
+
+        result = _.select<{ a: string }>(dict, property);
+        result = _.select(dict, property);
+
+        result = _<{ a: string }>(dict).select(property);
+        result = _(dict).select(property);
+
+        result = _<{ a: string }>(dict).chain().select(property).value();
+        result = _(dict).chain().select(property).value();
+    }
 }
 
 // where
@@ -1386,6 +1717,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     const context = {};
 
+    // function iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
@@ -1483,6 +1815,98 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).chain().reject(iterator, context).value();
         result = _(str).chain().reject(iterator).value();
         result = _(str).chain().reject(iterator, context).value();
+    }
+
+    // partial object iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const properties = { a: 'b' };
+        let result: { a: string }[];
+
+        result = _.reject<{ a: string }>(array, properties);
+        result = _.reject(array, properties);
+
+        result = _<{ a: string }>(array).reject(properties);
+        result = _(array).reject(properties);
+
+        result = _<{ a: string }>(array).chain().reject(properties).value();
+        result = _(array).chain().reject(properties).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const properties = { a: 'b' };
+        let result: { a: string }[];
+
+        result = _.reject<{ a: string }>(list, properties);
+        result = _.reject(list, properties);
+
+        result = _<{ a: string }>(list).reject(properties);
+        result = _(list).reject(properties);
+
+        result = _<{ a: string }>(list).chain().reject(properties).value();
+        result = _(list).chain().reject(properties).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const properties = { a: 'b' };
+        let result: { a: string }[];
+
+        result = _.reject<{ a: string }>(dict, properties);
+        result = _.reject(dict, properties);
+
+        result = _<{ a: string }>(dict).reject(properties);
+        result = _(dict).reject(properties);
+
+        result = _<{ a: string }>(dict).chain().reject(properties).value();
+        result = _(dict).chain().reject(properties).value();
+    }
+
+    // property name iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
+        let result: { a: string }[];
+
+        result = _.reject<{ a: string }>(array, property);
+        result = _.reject(array, property);
+
+        result = _<{ a: string }>(array).reject(property);
+        result = _(array).reject(property);
+
+        result = _<{ a: string }>(array).chain().reject(property).value();
+        result = _(array).chain().reject(property).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
+        let result: { a: string }[];
+
+        result = _.reject<{ a: string }>(list, property);
+        result = _.reject(list, property);
+
+        result = _<{ a: string }>(list).reject(property);
+        result = _(list).reject(property);
+
+        result = _<{ a: string }>(list).chain().reject(property).value();
+        result = _(list).chain().reject(property).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const property = 'a';
+        let result: { a: string }[];
+
+        result = _.reject<{ a: string }>(dict, property);
+        result = _.reject(dict, property);
+
+        result = _<{ a: string }>(dict).reject(property);
+        result = _(dict).reject(property);
+
+        result = _<{ a: string }>(dict).chain().reject(property).value();
+        result = _(dict).chain().reject(property).value();
     }
 }
 
@@ -1663,6 +2087,152 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).chain().all(iterator).value();
         result = _(str).chain().all(iterator, context).value();
     }
+
+    // partial object iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const properties = { a: 'b' };
+        let result: boolean;
+
+        result = _.every<{ a: string }>(array, properties);
+        result = _.every(array, properties);
+
+        result = _<{ a: string }>(array).every(properties);
+        result = _(array).every(properties);
+
+        result = _<{ a: string }>(array).chain().every(properties).value();
+        result = _(array).chain().every(properties).value();
+
+        result = _.all<{ a: string }>(array, properties);
+        result = _.all(array, properties);
+
+        result = _<{ a: string }>(array).all(properties);
+        result = _(array).all(properties);
+
+        result = _<{ a: string }>(array).chain().all(properties).value();
+        result = _(array).chain().all(properties).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const properties = { a: 'b' };
+        let result: boolean;
+
+        result = _.every<{ a: string }>(list, properties);
+        result = _.every(list, properties);
+
+        result = _<{ a: string }>(list).every(properties);
+        result = _(list).every(properties);
+
+        result = _<{ a: string }>(list).chain().every(properties).value();
+        result = _(list).chain().every(properties).value();
+
+        result = _.all<{ a: string }>(list, properties);
+        result = _.all(list, properties);
+
+        result = _<{ a: string }>(list).all(properties);
+        result = _(list).all(properties);
+
+        result = _<{ a: string }>(list).chain().all(properties).value();
+        result = _(list).chain().all(properties).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const properties = { a: 'b' };
+        let result: boolean;
+
+        result = _.every<{ a: string }>(dict, properties);
+        result = _.every(dict, properties);
+
+        result = _<{ a: string }>(dict).every(properties);
+        result = _(dict).every(properties);
+
+        result = _<{ a: string }>(dict).chain().every(properties).value();
+        result = _(dict).chain().every(properties).value();
+
+        result = _.all<{ a: string }>(dict, properties);
+        result = _.all(dict, properties);
+
+        result = _<{ a: string }>(dict).all(properties);
+        result = _(dict).all(properties);
+
+        result = _<{ a: string }>(dict).chain().all(properties).value();
+        result = _(dict).chain().all(properties).value();
+    }
+
+    // property name iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
+        let result: boolean;
+
+        result = _.every<{ a: string }>(array, property);
+        result = _.every(array, property);
+
+        result = _<{ a: string }>(array).every(property);
+        result = _(array).every(property);
+
+        result = _<{ a: string }>(array).chain().every(property).value();
+        result = _(array).chain().every(property).value();
+
+        result = _.all<{ a: string }>(array, property);
+        result = _.all(array, property);
+
+        result = _<{ a: string }>(array).all(property);
+        result = _(array).all(property);
+
+        result = _<{ a: string }>(array).chain().all(property).value();
+        result = _(array).chain().all(property).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
+        let result: boolean;
+
+        result = _.every<{ a: string }>(list, property);
+        result = _.every(list, property);
+
+        result = _<{ a: string }>(list).every(property);
+        result = _(list).every(property);
+
+        result = _<{ a: string }>(list).chain().every(property).value();
+        result = _(list).chain().every(property).value();
+
+        result = _.all<{ a: string }>(list, property);
+        result = _.all(list, property);
+
+        result = _<{ a: string }>(list).all(property);
+        result = _(list).all(property);
+
+        result = _<{ a: string }>(list).chain().all(property).value();
+        result = _(list).chain().all(property).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const property = 'a';
+        let result: boolean;
+
+        result = _.every<{ a: string }>(dict, property);
+        result = _.every(dict, property);
+
+        result = _<{ a: string }>(dict).every(property);
+        result = _(dict).every(property);
+
+        result = _<{ a: string }>(dict).chain().every(property).value();
+        result = _(dict).chain().every(property).value();
+
+        result = _.all<{ a: string }>(dict, property);
+        result = _.all(dict, property);
+
+        result = _<{ a: string }>(dict).all(property);
+        result = _(dict).all(property);
+
+        result = _<{ a: string }>(dict).chain().all(property).value();
+        result = _(dict).chain().all(property).value();
+    }
 }
 
 // some, any
@@ -1841,6 +2411,152 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).chain().any(iterator, context).value();
         result = _(str).chain().any(iterator).value();
         result = _(str).chain().any(iterator, context).value();
+    }
+
+    // partial object iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const properties = { a: 'b' };
+        let result: boolean;
+
+        result = _.some<{ a: string }>(array, properties);
+        result = _.some(array, properties);
+
+        result = _<{ a: string }>(array).some(properties);
+        result = _(array).some(properties);
+
+        result = _<{ a: string }>(array).chain().some(properties).value();
+        result = _(array).chain().some(properties).value();
+
+        result = _.any<{ a: string }>(array, properties);
+        result = _.any(array, properties);
+
+        result = _<{ a: string }>(array).any(properties);
+        result = _(array).any(properties);
+
+        result = _<{ a: string }>(array).chain().any(properties).value();
+        result = _(array).chain().any(properties).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const properties = { a: 'b' };
+        let result: boolean;
+
+        result = _.some<{ a: string }>(list, properties);
+        result = _.some(list, properties);
+
+        result = _<{ a: string }>(list).some(properties);
+        result = _(list).some(properties);
+
+        result = _<{ a: string }>(list).chain().some(properties).value();
+        result = _(list).chain().some(properties).value();
+
+        result = _.any<{ a: string }>(list, properties);
+        result = _.any(list, properties);
+
+        result = _<{ a: string }>(list).any(properties);
+        result = _(list).any(properties);
+
+        result = _<{ a: string }>(list).chain().any(properties).value();
+        result = _(list).chain().any(properties).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const properties = { a: 'b' };
+        let result: boolean;
+
+        result = _.some<{ a: string }>(dict, properties);
+        result = _.some(dict, properties);
+
+        result = _<{ a: string }>(dict).some(properties);
+        result = _(dict).some(properties);
+
+        result = _<{ a: string }>(dict).chain().some(properties).value();
+        result = _(dict).chain().some(properties).value();
+
+        result = _.any<{ a: string }>(dict, properties);
+        result = _.any(dict, properties);
+
+        result = _<{ a: string }>(dict).any(properties);
+        result = _(dict).any(properties);
+
+        result = _<{ a: string }>(dict).chain().any(properties).value();
+        result = _(dict).chain().any(properties).value();
+    }
+
+    // property name iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
+        let result: boolean;
+
+        result = _.some<{ a: string }>(array, property);
+        result = _.some(array, property);
+
+        result = _<{ a: string }>(array).some(property);
+        result = _(array).some(property);
+
+        result = _<{ a: string }>(array).chain().some(property).value();
+        result = _(array).chain().some(property).value();
+
+        result = _.any<{ a: string }>(array, property);
+        result = _.any(array, property);
+
+        result = _<{ a: string }>(array).any(property);
+        result = _(array).any(property);
+
+        result = _<{ a: string }>(array).chain().any(property).value();
+        result = _(array).chain().any(property).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
+        let result: boolean;
+
+        result = _.some<{ a: string }>(list, property);
+        result = _.some(list, property);
+
+        result = _<{ a: string }>(list).some(property);
+        result = _(list).some(property);
+
+        result = _<{ a: string }>(list).chain().some(property).value();
+        result = _(list).chain().some(property).value();
+
+        result = _.any<{ a: string }>(list, property);
+        result = _.any(list, property);
+
+        result = _<{ a: string }>(list).any(property);
+        result = _(list).any(property);
+
+        result = _<{ a: string }>(list).chain().any(property).value();
+        result = _(list).chain().any(property).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const property = 'a';
+        let result: boolean;
+
+        result = _.some<{ a: string }>(dict, property);
+        result = _.some(dict, property);
+
+        result = _<{ a: string }>(dict).some(property);
+        result = _(dict).some(property);
+
+        result = _<{ a: string }>(dict).chain().some(property).value();
+        result = _(dict).chain().some(property).value();
+
+        result = _.any<{ a: string }>(dict, property);
+        result = _.any(dict, property);
+
+        result = _<{ a: string }>(dict).any(property);
+        result = _(dict).any(property);
+
+        result = _<{ a: string }>(dict).chain().any(property).value();
+        result = _(dict).chain().any(property).value();
     }
 }
 
@@ -2232,16 +2948,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const property = 'a';
         let result: string[];
 
-        result = _.pluck<{ a: string }, 'a'>(array, property);
+        result = _.pluck<{ a: string }, typeof property>(array, property);
         result = _.pluck(array, property);
 
-        result = _<{ a: string }>(array).pluck(property);
+        result = _<{ a: string }>(array).pluck<typeof property>(property);
         result = _(array).pluck(property);
 
-        result = _.chain<{ a: string }>(array).pluck(property).value();
+        result = _.chain<{ a: string }>(array).pluck<typeof property>(property).value();
         result = _.chain(array).pluck(property).value();
 
-        result = _<{ a: string }>(array).chain().pluck(property).value();
+        result = _<{ a: string }>(array).chain().pluck<typeof property>(property).value();
         result = _(array).chain().pluck(property).value();
     }
 
@@ -2250,16 +2966,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const property = 'a';
         let result: string[];
 
-        result = _.pluck<{ a: string }, 'a'>(list, property);
+        result = _.pluck<{ a: string }, typeof property>(list, property);
         result = _.pluck(list, property);
 
-        result = _<{ a: string }>(list).pluck(property);
+        result = _<{ a: string }>(list).pluck<typeof property>(property);
         result = _(list).pluck(property);
 
-        result = _.chain<{ a: string }>(list).pluck(property).value();
+        result = _.chain<{ a: string }>(list).pluck<typeof property>(property).value();
         result = _.chain(list).pluck(property).value();
 
-        result = _<{ a: string }>(list).chain().pluck(property).value();
+        result = _<{ a: string }>(list).chain().pluck<typeof property>(property).value();
         result = _(list).chain().pluck(property).value();
     }
 
@@ -2268,16 +2984,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const property = 'a';
         let result: string[];
 
-        result = _.pluck<{ a: string }, 'a'>(dict, property);
+        result = _.pluck<{ a: string }, typeof property>(dict, property);
         result = _.pluck(dict, property);
 
-        result = _<{ a: string }>(dict).pluck(property);
+        result = _<{ a: string }>(dict).pluck<typeof property>(property);
         result = _(dict).pluck(property);
 
-        result = _.chain<{ a: string }>(dict).pluck(property).value();
+        result = _.chain<{ a: string }>(dict).pluck<typeof property>(property).value();
         result = _.chain(dict).pluck(property).value();
 
-        result = _<{ a: string }>(dict).chain().pluck(property).value();
+        result = _<{ a: string }>(dict).chain().pluck<typeof property>(property).value();
         result = _(dict).chain().pluck(property).value();
     }
 }
@@ -2285,7 +3001,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 // max
 // as a breaking change, consider making the return type for the version of max that takes an iterator T | number
 // since an empty collection will result in -Infinity
-// as a breaking change, consider updating Underscore.max and Chain.max to take iterators with number results instead of any
+// as a breaking change, consider updating the overloads of max to take iterators with number results instead of any
 // since the only other type that doesn't yield -Infinity is booleans, which isn't a terribly interesting case
 {
     // without iterator
@@ -2340,7 +3056,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(dict).chain().max().value();
     }
 
-    // with iterator
+    // function iterator
     const context = {};
 
     {
@@ -2420,12 +3136,58 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(dict).chain().max(iterator).value();
         result = _(dict).chain().max(iterator, context).value();
     }
+
+    // property name iterator
+    {
+        const array: { a: number }[] = [{ a: 0 }, { a: 1 }];
+        const property = 'a';
+        let result: { a: number };
+
+        result = _.max<{ a: number }>(array, property);
+        result = _.max(array, property);
+
+        result = _<{ a: number }>(array).max(property);
+        result = _(array).max(property);
+
+        result = _<{ a: number }>(array).chain().max(property).value();
+        result = _(array).chain().max(property).value();
+    }
+
+    {
+        const list: _.List<{ a: number }> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
+        const property = 'a';
+        let result: { a: number };
+
+        result = _.max<{ a: number }>(list, property);
+        result = _.max(list, property);
+
+        result = _<{ a: number }>(list).max(property);
+        result = _(list).max(property);
+
+        result = _<{ a: number }>(list).chain().max(property).value();
+        result = _(list).chain().max(property).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: number }> = { a: { a: 0 }, b: { a: 1 } };
+        const property = 'a';
+        let result: { a: number };
+
+        result = _.max<{ a: number }>(dict, property);
+        result = _.max(dict, property);
+
+        result = _<{ a: number }>(dict).max(property);
+        result = _(dict).max(property);
+
+        result = _<{ a: number }>(dict).chain().max(property).value();
+        result = _(dict).chain().max(property).value();
+    }
 }
 
 // min
 // as a breaking change, consider making the return type for the version of min that takes an iterator T | number
 // since an empty collection will result in -Infinity
-// as a breaking change, consider updating Underscore.min and Chain.min to take iterators with number results instead of any
+// as a breaking change, consider updating the overloads of min to take iterators with number results instead of any
 // since the only other type that doesn't yield -Infinity is booleans, which isn't a terribly interesting case
 {
     // without iterator
@@ -2480,7 +3242,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(dict).chain().min().value();
     }
 
-    // with iterator
+    // function iterator
     const context = {};
 
     {
@@ -2559,6 +3321,52 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: number }>(dict).chain().min(iterator, context).value();
         result = _(dict).chain().min(iterator).value();
         result = _(dict).chain().min(iterator, context).value();
+    }
+
+    // property name iterator
+    {
+        const array: { a: number }[] = [{ a: 0 }, { a: 1 }];
+        const property = 'a';
+        let result: { a: number };
+
+        result = _.min<{ a: number }>(array, property);
+        result = _.min(array, property);
+
+        result = _<{ a: number }>(array).min(property);
+        result = _(array).min(property);
+
+        result = _<{ a: number }>(array).chain().min(property).value();
+        result = _(array).chain().min(property).value();
+    }
+
+    {
+        const list: _.List<{ a: number }> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
+        const property = 'a';
+        let result: { a: number };
+
+        result = _.min<{ a: number }>(list, property);
+        result = _.min(list, property);
+
+        result = _<{ a: number }>(list).min(property);
+        result = _(list).min(property);
+
+        result = _<{ a: number }>(list).chain().min(property).value();
+        result = _(list).chain().min(property).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: number }> = { a: { a: 0 }, b: { a: 1 } };
+        const property = 'a';
+        let result: { a: number };
+
+        result = _.min<{ a: number }>(dict, property);
+        result = _.min(dict, property);
+
+        result = _<{ a: number }>(dict).min(property);
+        result = _(dict).min(property);
+
+        result = _<{ a: number }>(dict).chain().min(property).value();
+        result = _(dict).chain().min(property).value();
     }
 }
 
@@ -4278,10 +5086,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     }
 }
 
-interface ArrayWrapper<T> {
-    items: T[];
-}
-
 // flatten
 {
     // one dimension, deep
@@ -4753,6 +5557,7 @@ interface ArrayWrapper<T> {
 {
     const context = {};
 
+    // function iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
@@ -4837,76 +5642,201 @@ interface ArrayWrapper<T> {
         let result: { a: string }[];
 
         result = _.uniq<{ a: string }>(list);
+        result = _.uniq<{ a: string }>(list, iterator);
+        result = _.uniq<{ a: string }>(list, iterator, context);
         result = _.uniq<{ a: string }>(list, true);
         result = _.uniq<{ a: string }>(list, true, iterator);
         result = _.uniq<{ a: string }>(list, true, iterator, context);
         result = _.uniq(list);
+        result = _.uniq(list, iterator);
+        result = _.uniq(list, iterator, context);
         result = _.uniq(list, true);
         result = _.uniq(list, true, iterator);
         result = _.uniq(list, true, iterator, context);
 
         result = _<{ a: string }>(list).uniq();
+        result = _<{ a: string }>(list).uniq(iterator);
+        result = _<{ a: string }>(list).uniq(iterator, context);
         result = _<{ a: string }>(list).uniq(true);
         result = _<{ a: string }>(list).uniq(true, iterator);
         result = _<{ a: string }>(list).uniq(true, iterator, context);
         result = _(list).uniq();
+        result = _(list).uniq(iterator);
+        result = _(list).uniq(iterator, context);
         result = _(list).uniq(true);
         result = _(list).uniq(true, iterator);
         result = _(list).uniq(true, iterator, context);
 
         result = _.chain<{ a: string }>(list).uniq().value();
+        result = _.chain<{ a: string }>(list).uniq(iterator).value();
+        result = _.chain<{ a: string }>(list).uniq(iterator, context).value();
         result = _.chain<{ a: string }>(list).uniq(true).value();
         result = _.chain<{ a: string }>(list).uniq(true, iterator).value();
         result = _.chain<{ a: string }>(list).uniq(true, iterator, context).value();
         result = _.chain(list).uniq().value();
+        result = _.chain(list).uniq(iterator).value();
+        result = _.chain(list).uniq(iterator, context).value();
         result = _.chain(list).uniq(true).value();
         result = _.chain(list).uniq(true, iterator).value();
         result = _.chain(list).uniq(true, iterator, context).value();
 
         result = _<{ a: string }>(list).chain().uniq().value();
+        result = _<{ a: string }>(list).chain().uniq(iterator).value();
+        result = _<{ a: string }>(list).chain().uniq(iterator, context).value();
         result = _<{ a: string }>(list).chain().uniq(true).value();
         result = _<{ a: string }>(list).chain().uniq(true, iterator).value();
         result = _<{ a: string }>(list).chain().uniq(true, iterator, context).value();
         result = _(list).chain().uniq().value();
+        result = _(list).chain().uniq(iterator).value();
+        result = _(list).chain().uniq(iterator, context).value();
         result = _(list).chain().uniq(true).value();
         result = _(list).chain().uniq(true, iterator).value();
         result = _(list).chain().uniq(true, iterator, context).value();
 
         result = _.unique<{ a: string }>(list);
+        result = _.unique<{ a: string }>(list, iterator);
+        result = _.unique<{ a: string }>(list, iterator, context);
         result = _.unique<{ a: string }>(list, true);
         result = _.unique<{ a: string }>(list, true, iterator);
         result = _.unique<{ a: string }>(list, true, iterator, context);
         result = _.unique(list);
+        result = _.unique(list, iterator);
+        result = _.unique(list, iterator, context);
         result = _.unique(list, true);
         result = _.unique(list, true, iterator);
         result = _.unique(list, true, iterator, context);
 
         result = _<{ a: string }>(list).unique();
+        result = _<{ a: string }>(list).unique(iterator);
+        result = _<{ a: string }>(list).unique(iterator, context);
         result = _<{ a: string }>(list).unique(true);
         result = _<{ a: string }>(list).unique(true, iterator);
         result = _<{ a: string }>(list).unique(true, iterator, context);
         result = _(list).unique();
+        result = _(list).unique(iterator);
+        result = _(list).unique(iterator, context);
         result = _(list).unique(true);
         result = _(list).unique(true, iterator);
         result = _(list).unique(true, iterator, context);
 
         result = _.chain<{ a: string }>(list).unique().value();
+        result = _.chain<{ a: string }>(list).unique(iterator).value();
+        result = _.chain<{ a: string }>(list).unique(iterator, context).value();
         result = _.chain<{ a: string }>(list).unique(true).value();
         result = _.chain<{ a: string }>(list).unique(true, iterator).value();
         result = _.chain<{ a: string }>(list).unique(true, iterator, context).value();
         result = _.chain(list).unique().value();
+        result = _.chain(list).unique(iterator).value();
+        result = _.chain(list).unique(iterator, context).value();
         result = _.chain(list).unique(true).value();
         result = _.chain(list).unique(true, iterator).value();
         result = _.chain(list).unique(true, iterator, context).value();
 
         result = _<{ a: string }>(list).chain().unique().value();
+        result = _<{ a: string }>(list).chain().unique(iterator).value();
+        result = _<{ a: string }>(list).chain().unique(iterator, context).value();
         result = _<{ a: string }>(list).chain().unique(true).value();
         result = _<{ a: string }>(list).chain().unique(true, iterator).value();
         result = _<{ a: string }>(list).chain().unique(true, iterator, context).value();
         result = _(list).chain().unique().value();
+        result = _(list).chain().unique(iterator).value();
+        result = _(list).chain().unique(iterator, context).value();
         result = _(list).chain().unique(true).value();
         result = _(list).chain().unique(true, iterator).value();
         result = _(list).chain().unique(true, iterator, context).value();
+    }
+
+    // property name iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const property = 'a';
+        let result: { a: string }[];
+
+        result = _.uniq<{ a: string }>(array, property);
+        result = _.uniq<{ a: string }>(array, true, property);
+        result = _.uniq(array, property);
+        result = _.uniq(array, true, property);
+
+        result = _<{ a: string }>(array).uniq( property);
+        result = _<{ a: string }>(array).uniq(true, property);
+        result = _(array).uniq(property);
+        result = _(array).uniq(true, property);
+
+        result = _.chain<{ a: string }>(array).uniq(property).value();
+        result = _.chain<{ a: string }>(array).uniq(true, property).value();
+        result = _.chain(array).uniq(property).value();
+        result = _.chain(array).uniq(true, property).value();
+
+        result = _<{ a: string }>(array).chain().uniq(property).value();
+        result = _<{ a: string }>(array).chain().uniq(true, property).value();
+        result = _(array).chain().uniq(property).value();
+        result = _(array).chain().uniq(true, property).value();
+
+        result = _.unique<{ a: string }>(array, property);
+        result = _.unique<{ a: string }>(array, true, property);
+        result = _.unique(array, property);
+        result = _.unique(array, true, property);
+
+        result = _<{ a: string }>(array).unique(property);
+        result = _<{ a: string }>(array).unique(true, property);
+        result = _(array).unique(property);
+        result = _(array).unique(true, property);
+
+        result = _.chain<{ a: string }>(array).unique(property).value();
+        result = _.chain<{ a: string }>(array).unique(true, property).value();
+        result = _.chain(array).unique(property).value();
+        result = _.chain(array).unique(true, property).value();
+
+        result = _<{ a: string }>(array).chain().unique(property).value();
+        result = _<{ a: string }>(array).chain().unique(true, property).value();
+        result = _(array).chain().unique(property).value();
+        result = _(array).chain().unique(true, property).value();
+    }
+
+    {
+        const list: _.List<({ a: string })> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const property = 'a';
+        let result: { a: string }[];
+
+        result = _.uniq<{ a: string }>(list, property);
+        result = _.uniq<{ a: string }>(list, true, property);
+        result = _.uniq(list, property);
+        result = _.uniq(list, true, property);
+
+        result = _<{ a: string }>(list).uniq(property);
+        result = _<{ a: string }>(list).uniq(true, property);
+        result = _(list).uniq(property);
+        result = _(list).uniq(true, property);
+
+        result = _.chain<{ a: string }>(list).uniq(property).value();
+        result = _.chain<{ a: string }>(list).uniq(true, property).value();
+        result = _.chain(list).uniq(property).value();
+        result = _.chain(list).uniq(true, property).value();
+
+        result = _<{ a: string }>(list).chain().uniq(property).value();
+        result = _<{ a: string }>(list).chain().uniq(true, property).value();
+        result = _(list).chain().uniq(property).value();
+        result = _(list).chain().uniq(true, property).value();
+
+        result = _.unique<{ a: string }>(list, property);
+        result = _.unique<{ a: string }>(list, true, property);
+        result = _.unique(list, property);
+        result = _.unique(list, true, property);
+
+        result = _<{ a: string }>(list).unique(property);
+        result = _<{ a: string }>(list).unique(true, property);
+        result = _(list).unique(property);
+        result = _(list).unique(true, property);
+
+        result = _.chain<{ a: string }>(list).unique(property).value();
+        result = _.chain<{ a: string }>(list).unique(true, property).value();
+        result = _.chain(list).unique(property).value();
+        result = _.chain(list).unique(true, property).value();
+
+        result = _<{ a: string }>(list).chain().unique(property).value();
+        result = _<{ a: string }>(list).chain().unique(true, property).value();
+        result = _(list).chain().unique(property).value();
+        result = _(list).chain().unique(true, property).value();
     }
 }
 
