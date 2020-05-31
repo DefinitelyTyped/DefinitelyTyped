@@ -8,8 +8,6 @@
 
 import { JSONSchema4, JSONSchema6, JSONSchema7 } from 'json-schema';
 
-export = jsf;
-
 declare namespace jsf {
     const version: string;
     function format(nameOrFormatMap?: NameOrFormatMap, callback?: (schema?: Schema) => void): any;
@@ -31,7 +29,6 @@ declare namespace jsf {
     }
 
     type Schema = JSONSchema4 | JSONSchema6 | JSONSchema7;
-    // Type must be cast on parameters.
     type OptionInputObject = Partial<
         {
             [option in jsfOptions]: any;
@@ -65,3 +62,6 @@ declare namespace jsf {
         | 'random'
         | 'replaceEmptyByRandomValue';
 }
+
+declare function jsf(): any;
+export = jsf;
