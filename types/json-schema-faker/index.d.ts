@@ -1,4 +1,4 @@
-// Type definitions for json-schema-faker 3.7
+// Type definitions for json-schema-faker 0.5
 // Project: https://github.com/json-schema-faker
 // Definitions by: Charles Desbiens <https://github.com/baremaximum>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,34 +10,28 @@ import { JSONSchema4, JSONSchema6, JSONSchema7 } from 'json-schema';
 
 export as namespace jsf;
 
-export const version: string;
-export function format(nameOrFormatMap?: NameOrFormatMap, callback?: (schema?: Schema) => void): any;
-export function extend(name: string, cb: () => void): any;
-export function define(name: string, cb: () => void): any;
-export function reset(name: string): any;
-export function locate(name: string): any;
-export function generate<T>(schema: Schema, refs?: string | Schema[]): T[];
-export function resolve<T>(schema: Schema, refs?: string | Schema[], cwd?: string): Promise<T[]>;
-export function option(option: string | OptionInputObject, value?: any): any;
+declare const version: string;
+declare function format(nameOrFormatMap?: NameOrFormatMap, callback?: (schema?: Schema) => void): any;
+declare function extend(name: string, cb: () => void): any;
+declare function define(name: string, cb: () => void): any;
+declare function reset(name: string): any;
+declare function locate(name: string): any;
+declare function generate(schema: Schema, refs?: string | Schema[]): any[];
+declare function resolve(schema: Schema, refs?: string | Schema[], cwd?: string): Promise<any[]>;
+declare function option(option: string | OptionInputObject, value?: any): any;
 
 // jsf.random
 export namespace random {
-    export function randexp(value: string): string | number;
-    export function pick<T>(collection: T[]): T;
-    export function date(step: string): Date;
-    export function shuffle<T>(collection: T[]): T[];
-    export function number(
-        min?: number,
-        max?: number,
-        defMin?: number,
-        defMax?: number,
-        hasPrecision?: boolean,
-    ): number;
+    function randexp(value: string): string | number;
+    function pick<T>(collection: T[]): T;
+    function date(step: string): Date;
+    function shuffle<T>(collection: T[]): T[];
+    function number(min?: number, max?: number, defMin?: number, defMax?: number, hasPrecision?: boolean): number;
 }
 
 // Type must be cast on parameters.
-export type Schema = JSONSchema4 | JSONSchema6 | JSONSchema7;
-export type OptionInputObject = Partial<
+declare type Schema = JSONSchema4 | JSONSchema6 | JSONSchema7;
+declare type OptionInputObject = Partial<
     {
         [option in jsfOptions]: any;
     }
