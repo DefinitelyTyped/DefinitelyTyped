@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "baseUrl": "../",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "importHelpers": true,
@@ -14,10 +15,7 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "target": "es6",
-        "typeRoots": [
-            "../",
-            "../react/"
-        ],
+        "typeRoots": ["../"],
         "types": []
     },
     "files": [

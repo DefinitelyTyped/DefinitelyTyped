@@ -404,6 +404,22 @@ export class LineMarkSeries extends AbstractSeries<LineMarkSeriesProps> {}
 export interface LineMarkSeriesCanvasProps extends AbstractSeriesProps<LineMarkSeriesPoint> {}
 export class LineMarkSeriesCanvas extends AbstractSeries<LineMarkSeriesCanvasProps> {}
 
+export interface HighlightProps extends AbstractSeriesProps<LineMarkSeriesPoint> {
+    enableX?: boolean;
+    enableY?: boolean;
+    highlightHeight: number;
+    highlightWidth: number;
+    highlightX: string | number;
+    highlightY: string | number;
+    onBrushStart: (row: any) => any;
+    onDragStart: (row: any) => any;
+    onBrush: (row: any) => any;
+    onDrag: (row: any) => any;
+    onBrushEnd: (row: any) => any;
+    onDragEnd: (row: any) => any;
+}
+export class Highlight extends AbstractSeries<HighlightProps> {}
+
 export interface HintProps {
     marginTop?: number;
     marginLeft?: number;
