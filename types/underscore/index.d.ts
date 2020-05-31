@@ -3892,7 +3892,7 @@ declare module _ {
         * @param object Check if this object is a finite Number.
         * @return True if `object` is a finite Number.
         **/
-        isFinite(object: any): object is number;
+        isFinite(object: any): boolean;
 
         /**
         * Returns true if object is either true or false.
@@ -3922,7 +3922,7 @@ declare module _ {
         * @param object Check if this object is NaN.
         * @return True if `object` is NaN, otherwise false.
         **/
-        isNaN(object: any): object is number;
+        isNaN(object: any): boolean;
 
         /**
         * Returns true if the value of object is null.
