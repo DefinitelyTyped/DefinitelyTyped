@@ -251,7 +251,7 @@ declare module _ {
         * @see _.reduce
         **/
         reduce<T, TResult>(
-            list: _.Dictionary<T>,
+            object: _.Dictionary<T>,
             iterator: _.MemoObjectIterator<T, TResult>,
             memo?: TResult,
             context?: any): TResult;
@@ -286,7 +286,7 @@ declare module _ {
         * @see _.reduceRight
         **/
         reduceRight<T, TResult>(
-            list: _.Dictionary<T>,
+            object: _.Dictionary<T>,
             iterator: _.MemoObjectIterator<T, TResult>,
             memo?: TResult,
             context?: any): TResult;
@@ -322,7 +322,7 @@ declare module _ {
         * @see _.find
         **/
         find<T>(
-            object: _.Collection<T>,
+            collection: _.Collection<T>,
             iterator: Partial<T> | keyof T): T | undefined;
 
         /**
@@ -355,7 +355,7 @@ declare module _ {
         * @see _.filter
         **/
         filter<T>(
-            object: _.Collection<T>,
+            collection: _.Collection<T>,
             iterator: Partial<T> | keyof T): T[];
 
         /**
@@ -366,22 +366,22 @@ declare module _ {
         /**
         * Looks through each value in the list, returning an array of all the values that contain all
         * of the key-value pairs listed in properties.
-        * @param list List to match elements against `properties`.
-        * @param properties The properties to check for on each element within `list`.
-        * @return The elements within `list` that contain the required `properties`.
+        * @param collection Colleciton to match elements against `properties`.
+        * @param properties The properties to check for on each element within `collection`.
+        * @return The elements within `collection` that contain the required `properties`.
         **/
         where<T>(
-            list: _.Collection<T>,
+            collection: _.Collection<T>,
             properties: Partial<T>): T[];
 
         /**
         * Looks through the list and returns the first value that matches all of the key-value pairs listed in properties.
-        * @param list Search through this list's elements for the first object with all `properties`.
-        * @param properties Properties to look for on the elements within `list`.
-        * @return The first element in `list` that has all `properties`.
+        * @param collection Search through this collection's elements for the first object with all `properties`.
+        * @param properties Properties to look for on the elements within `collection`.
+        * @return The first element in `collection` that has all `properties`.
         **/
         findWhere<T>(
-            list: _.Collection<T>,
+            collection: _.Collection<T>,
             properties: Partial<T>): T | undefined;
 
         /**
@@ -410,7 +410,7 @@ declare module _ {
         * @see _.reject
         **/
         reject<T>(
-            object: _.Collection<T>,
+            collection: _.Collection<T>,
             iterator: Partial<T> | keyof T): T[];
 
         /**
@@ -430,7 +430,7 @@ declare module _ {
         * @see _.every
         **/
         every<T>(
-            list: _.Dictionary<T>,
+            object: _.Dictionary<T>,
             iterator?: _.ObjectIterator<T, boolean>,
             context?: any): boolean;
 
@@ -438,7 +438,7 @@ declare module _ {
         * @see _.every
         **/
         every<T>(
-            list: _.Collection<T>,
+            collection: _.Collection<T>,
             iterator?: Partial<T> | keyof T): boolean;
 
         /**
@@ -471,7 +471,7 @@ declare module _ {
         * @see _.some
         **/
         some<T>(
-            object: _.Collection<T>,
+            collection: _.Collection<T>,
             iterator?: Partial<T> | keyof T): boolean;
 
         /**
@@ -523,12 +523,12 @@ declare module _ {
         /**
         * A convenient version of what is perhaps the most common use-case for map: extracting a list of
         * property values.
-        * @param list The list to pluck elements out of that have the property `propertyName`.
+        * @param collection The list to pluck elements out of that have the property `propertyName`.
         * @param propertyName The property to look for on each element within `list`.
         * @return The list of elements within `list` that have the property `propertyName`.
         **/
         pluck<T extends {}, K extends keyof T>(
-            list: _.Collection<T>,
+            collection: _.Collection<T>,
             propertyName: K): T[K][];
 
         /**
@@ -717,37 +717,37 @@ declare module _ {
 
         /**
         * Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.
-        * @param list List to shuffle.
+        * @param collection Collection to shuffle.
         * @return Shuffled copy of `list`.
         **/
-        shuffle<T>(list: _.Collection<T>): T[];
+        shuffle<T>(collection: _.Collection<T>): T[];
 
         /**
         * Produce a random sample from the `list`.  Pass a number to return `n` random elements from the list.  Otherwise a single random item will be returned.
-        * @param list List to sample.
+        * @param collection Collection to sample.
         * @return Random sample of `n` elements in `list`.
         **/
-        sample<T>(list: _.Collection<T>, n: number): T[];
+        sample<T>(collection: _.Collection<T>, n: number): T[];
 
         /**
         * @see _.sample
         **/
-        sample<T>(list: _.Collection<T>): T;
+        sample<T>(collection: _.Collection<T>): T;
 
         /**
-        * Converts the list (anything that can be iterated over), into a real Array. Useful for transmuting
+        * Converts the collection (anything that can be iterated over), into a real Array. Useful for transmuting
         * the arguments object.
-        * @param list object to transform into an array.
-        * @return `list` as an array.
+        * @param collection Collection to transform into an array.
+        * @return `collection` as an array.
         **/
-        toArray<T>(list: _.Collection<T>): T[];
+        toArray<T>(collection: _.Collection<T>): T[];
 
         /**
         * Return the number of values in the list.
-        * @param list Count the number of values/elements in this list.
-        * @return Number of values in `list`.
+        * @param collection Count the number of values/elements in this collection.
+        * @return Number of values in `collection`.
         **/
-        size<T>(list: _.Collection<T>): number;
+        size<T>(collection: _.Collection<T>): number;
 
         /**
         * Split list into two arrays:
