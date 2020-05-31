@@ -1,4 +1,4 @@
-import jsf = require('json-schema-faker');
+import jsf, { Schema } from 'json-schema-faker';
 import Chance from 'chance';
 
 // custom chance extension
@@ -48,7 +48,7 @@ jsf.option('failOnInvalidTypes', false);
 
 // register an option using object input format
 jsf.option({ alwaysFakeOptionals: true });
-const testSchema: jsf.Schema = {
+const testSchema: Schema = {
     type: 'object',
     properties: {
         user: {
@@ -114,11 +114,11 @@ interface Item {
 }
 
 // generate
-const generated = jsf.generate<Item>(testSchema);
+const generated = jsf.generate(testSchema);
 generated.forEach(testItem);
 
 // resolve
-jsf.resolve<Item>(testSchema, testRef).then(res => {
+jsf.resolve(testSchema, testRef).then(res => {
     res.forEach(testItem);
 });
 
