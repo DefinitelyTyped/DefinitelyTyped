@@ -49,11 +49,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).each(iterator).value();
         result = _.chain(array).each(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().each(iterator).value();
-        result = _<{ a: string }>(array).chain().each(iterator, context).value();
-        result = _(array).chain().each(iterator).value();
-        result = _(array).chain().each(iterator, context).value();
-
         result = _.forEach<{ a: string }>(array, iterator);
         result = _.forEach<{ a: string }>(array, iterator, context);
         result = _.forEach(array, iterator);
@@ -68,11 +63,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).forEach(iterator, context).value();
         result = _.chain(array).forEach(iterator).value();
         result = _.chain(array).forEach(iterator, context).value();
-
-        result = _<{ a: string }>(array).chain().forEach(iterator).value();
-        result = _<{ a: string }>(array).chain().forEach(iterator, context).value();
-        result = _(array).chain().forEach(iterator).value();
-        result = _(array).chain().forEach(iterator, context).value();
     }
 
     {
@@ -95,11 +85,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).each(iterator).value();
         result = _.chain(list).each(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().each(iterator).value();
-        result = _<{ a: string }>(list).chain().each(iterator, context).value();
-        result = _(list).chain().each(iterator).value();
-        result = _(list).chain().each(iterator, context).value();
-
         result = _.forEach<{ a: string }>(list, iterator);
         result = _.forEach<{ a: string }>(list, iterator, context);
         result = _.forEach(list, iterator);
@@ -114,11 +99,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).forEach(iterator, context).value();
         result = _.chain(list).forEach(iterator).value();
         result = _.chain(list).forEach(iterator, context).value();
-
-        result = _<{ a: string }>(list).chain().forEach(iterator).value();
-        result = _<{ a: string }>(list).chain().forEach(iterator, context).value();
-        result = _(list).chain().forEach(iterator).value();
-        result = _(list).chain().forEach(iterator, context).value();
     }
 
     {
@@ -141,11 +121,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).each(iterator).value();
         result = _.chain(dict).each(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().each(iterator).value();
-        result = _<{ a: string }>(dict).chain().each(iterator, context).value();
-        result = _(dict).chain().each(iterator).value();
-        result = _(dict).chain().each(iterator, context).value();
-
         result = _.forEach<{ a: string }>(dict, iterator);
         result = _.forEach<{ a: string }>(dict, iterator, context);
         result = _.forEach(dict, iterator);
@@ -160,11 +135,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).forEach(iterator, context).value();
         result = _.chain(dict).forEach(iterator).value();
         result = _.chain(dict).forEach(iterator, context).value();
-
-        result = _<{ a: string }>(dict).chain().forEach(iterator).value();
-        result = _<{ a: string }>(dict).chain().forEach(iterator, context).value();
-        result = _(dict).chain().forEach(iterator).value();
-        result = _(dict).chain().forEach(iterator, context).value();
     }
 }
 
@@ -193,11 +163,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).map(iterator).value();
         result = _.chain(array).map(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().map<string>(iterator).value();
-        result = _<{ a: string }>(array).chain().map<string>(iterator, context).value();
-        result = _(array).chain().map(iterator).value();
-        result = _(array).chain().map(iterator, context).value();
-
         result = _.collect<{ a: string }, string>(array, iterator);
         result = _.collect<{ a: string }, string>(array, iterator, context);
         result = _.collect(array, iterator);
@@ -212,11 +177,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).collect<string>(iterator, context).value();
         result = _.chain(array).collect(iterator).value();
         result = _.chain(array).collect(iterator, context).value();
-
-        result = _<{ a: string }>(array).chain().collect<string>(iterator).value();
-        result = _<{ a: string }>(array).chain().collect<string>(iterator, context).value();
-        result = _(array).chain().collect(iterator).value();
-        result = _(array).chain().collect(iterator, context).value();
     }
 
     {
@@ -239,11 +199,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).map(iterator).value();
         result = _.chain(list).map(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().map<string>(iterator).value();
-        result = _<{ a: string }>(list).chain().map<string>(iterator, context).value();
-        result = _(list).chain().map(iterator).value();
-        result = _(list).chain().map(iterator, context).value();
-
         result = _.collect<{ a: string }, string>(list, iterator);
         result = _.collect<{ a: string }, string>(list, iterator, context);
         result = _.collect(list, iterator);
@@ -258,11 +213,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).collect<string>(iterator, context).value();
         result = _.chain(list).collect(iterator).value();
         result = _.chain(list).collect(iterator, context).value();
-
-        result = _<{ a: string }>(list).chain().collect<string>(iterator).value();
-        result = _<{ a: string }>(list).chain().collect<string>(iterator, context).value();
-        result = _(list).chain().collect(iterator).value();
-        result = _(list).chain().collect(iterator, context).value();
     }
 
     {
@@ -285,11 +235,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).map(iterator).value();
         result = _.chain(dict).map(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().map<string>(iterator).value();
-        result = _<{ a: string }>(dict).chain().map<string>(iterator, context).value();
-        result = _(dict).chain().map(iterator).value();
-        result = _(dict).chain().map(iterator, context).value();
-
         result = _.collect<{ a: string }, string>(dict, iterator);
         result = _.collect<{ a: string }, string>(dict, iterator, context);
         result = _.collect(dict, iterator);
@@ -304,11 +249,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).collect<string>(iterator, context).value();
         result = _.chain(dict).collect(iterator).value();
         result = _.chain(dict).collect(iterator, context).value();
-
-        result = _<{ a: string }>(dict).chain().collect<string>(iterator).value();
-        result = _<{ a: string }>(dict).chain().collect<string>(iterator, context).value();
-        result = _(dict).chain().collect(iterator).value();
-        result = _(dict).chain().collect(iterator, context).value();
     }
 
     {
@@ -326,10 +266,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).map(iterator);
         result = _(str).map(iterator, context);
 
-        result = _<string>(str).chain().map<string>(iterator).value();
-        result = _<string>(str).chain().map<string>(iterator, context).value();
-        result = _(str).chain().map(iterator).value();
-        result = _(str).chain().map(iterator, context).value();
+        result = _.chain<string>(str).map<string>(iterator).value();
+        result = _.chain<string>(str).map<string>(iterator, context).value();
+        result = _.chain(str).map(iterator).value();
+        result = _.chain(str).map(iterator, context).value();
 
         result = _.collect<string, string>(str, iterator);
         result = _.collect<string, string>(str, iterator, context);
@@ -341,10 +281,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).collect(iterator);
         result = _(str).collect(iterator, context);
 
-        result = _<string>(str).chain().collect<string>(iterator).value();
-        result = _<string>(str).chain().collect<string>(iterator, context).value();
-        result = _(str).chain().collect(iterator).value();
-        result = _(str).chain().collect(iterator, context).value();
+        result = _.chain<string>(str).collect<string>(iterator).value();
+        result = _.chain<string>(str).collect<string>(iterator, context).value();
+        result = _.chain(str).collect(iterator).value();
+        result = _.chain(str).collect(iterator, context).value();
     }
 
     // partial object iterator
@@ -362,9 +302,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).map(properties).value();
         result = _.chain(array).map(properties).value();
 
-        result = _<{ a: string }>(array).chain().map(properties).value();
-        result = _(array).chain().map(properties).value();
-
         result = _.collect<{ a: string }>(array, properties);
         result = _.collect(array, properties);
 
@@ -373,9 +310,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(array).collect(properties).value();
         result = _.chain(array).collect(properties).value();
-
-        result = _<{ a: string }>(array).chain().collect(properties).value();
-        result = _(array).chain().collect(properties).value();
     }
 
     {
@@ -392,9 +326,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).map(properties).value();
         result = _.chain(list).map(properties).value();
 
-        result = _<{ a: string }>(list).chain().map(properties).value();
-        result = _(list).chain().map(properties).value();
-
         result = _.collect<{ a: string }>(list, properties);
         result = _.collect(list, properties);
 
@@ -403,9 +334,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(list).collect(properties).value();
         result = _.chain(list).collect(properties).value();
-
-        result = _<{ a: string }>(list).chain().collect(properties).value();
-        result = _(list).chain().collect(properties).value();
     }
 
     {
@@ -422,9 +350,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).map(properties).value();
         result = _.chain(dict).map(properties).value();
 
-        result = _<{ a: string }>(dict).chain().map(properties).value();
-        result = _(dict).chain().map(properties).value();
-
         result = _.collect<{ a: string }>(dict, properties);
         result = _.collect(dict, properties);
 
@@ -433,9 +358,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(dict).collect(properties).value();
         result = _.chain(dict).collect(properties).value();
-
-        result = _<{ a: string }>(dict).chain().collect(properties).value();
-        result = _(dict).chain().collect(properties).value();
     }
 
     // property name iterator
@@ -453,9 +375,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).map<typeof property>(property).value();
         result = _.chain(array).map(property).value();
 
-        result = _<{ a: string }>(array).chain().map<typeof property>(property).value();
-        result = _(array).chain().map(property).value();
-
         result = _.collect<{ a: string }, typeof property>(array, property);
         result = _.collect(array, property);
 
@@ -464,9 +383,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(array).collect<typeof property>(property).value();
         result = _.chain(array).collect(property).value();
-
-        result = _<{ a: string }>(array).chain().collect<typeof property>(property).value();
-        result = _(array).chain().collect(property).value();
     }
 
     {
@@ -483,9 +399,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).map<typeof property>(property).value();
         result = _.chain(list).map(property).value();
 
-        result = _<{ a: string }>(list).chain().map<typeof property>(property).value();
-        result = _(list).chain().map(property).value();
-
         result = _.collect<{ a: string }, typeof property>(list, property);
         result = _.collect(list, property);
 
@@ -494,9 +407,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(list).collect<typeof property>(property).value();
         result = _.chain(list).collect(property).value();
-
-        result = _<{ a: string }>(list).chain().collect<typeof property>(property).value();
-        result = _(list).chain().collect(property).value();
     }
 
     {
@@ -513,9 +423,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).map<typeof property>(property).value();
         result = _.chain(dict).map(property).value();
 
-        result = _<{ a: string }>(dict).chain().map<typeof property>(property).value();
-        result = _(dict).chain().map(property).value();
-
         result = _.collect<{ a: string }, typeof property>(dict, property);
         result = _.collect(dict, property);
 
@@ -524,9 +431,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(dict).collect<typeof property>(property).value();
         result = _.chain(dict).collect(property).value();
-
-        result = _<{ a: string }>(dict).chain().collect<typeof property>(property).value();
-        result = _(dict).chain().collect(property).value();
     }
 }
 
@@ -555,11 +459,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).reduce(iterator, memo).value();
         result = _.chain(array).reduce(iterator, memo, context).value();
 
-        result = _<{ a: string }>(array).chain().reduce<string>(iterator, memo).value();
-        result = _<{ a: string }>(array).chain().reduce<string>(iterator, memo, context).value();
-        result = _(array).chain().reduce(iterator, memo).value();
-        result = _(array).chain().reduce(iterator, memo, context).value();
-
         result = _.foldl<{ a: string }, string>(array, iterator, memo);
         result = _.foldl<{ a: string }, string>(array, iterator, memo, context);
         result = _.foldl(array, iterator, memo);
@@ -575,11 +474,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).foldl(iterator, memo).value();
         result = _.chain(array).foldl(iterator, memo, context).value();
 
-        result = _<{ a: string }>(array).chain().foldl<string>(iterator, memo).value();
-        result = _<{ a: string }>(array).chain().foldl<string>(iterator, memo, context).value();
-        result = _(array).chain().foldl(iterator, memo).value();
-        result = _(array).chain().foldl(iterator, memo, context).value();
-
         result = _.inject<{ a: string }, string>(array, iterator, memo);
         result = _.inject<{ a: string }, string>(array, iterator, memo, context);
         result = _.inject(array, iterator, memo);
@@ -594,11 +488,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).inject<string>(iterator, memo, context).value();
         result = _.chain(array).inject(iterator, memo).value();
         result = _.chain(array).inject(iterator, memo, context).value();
-
-        result = _<{ a: string }>(array).chain().inject<string>(iterator, memo).value();
-        result = _<{ a: string }>(array).chain().inject<string>(iterator, memo, context).value();
-        result = _(array).chain().inject(iterator, memo).value();
-        result = _(array).chain().inject(iterator, memo, context).value();
     }
 
     {
@@ -622,11 +511,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).reduce(iterator, memo).value();
         result = _.chain(list).reduce(iterator, memo, context).value();
 
-        result = _<{ a: string }>(list).chain().reduce<string>(iterator, memo).value();
-        result = _<{ a: string }>(list).chain().reduce<string>(iterator, memo, context).value();
-        result = _(list).chain().reduce(iterator, memo).value();
-        result = _(list).chain().reduce(iterator, memo, context).value();
-
         result = _.foldl<{ a: string }, string>(list, iterator, memo);
         result = _.foldl<{ a: string }, string>(list, iterator, memo, context);
         result = _.foldl(list, iterator, memo);
@@ -642,11 +526,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).foldl(iterator, memo).value();
         result = _.chain(list).foldl(iterator, memo, context).value();
 
-        result = _<{ a: string }>(list).chain().foldl<string>(iterator, memo).value();
-        result = _<{ a: string }>(list).chain().foldl<string>(iterator, memo, context).value();
-        result = _(list).chain().foldl(iterator, memo).value();
-        result = _(list).chain().foldl(iterator, memo, context).value();
-
         result = _.inject<{ a: string }, string>(list, iterator, memo);
         result = _.inject<{ a: string }, string>(list, iterator, memo, context);
         result = _.inject(list, iterator, memo);
@@ -661,11 +540,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).inject<string>(iterator, memo, context).value();
         result = _.chain(list).inject(iterator, memo).value();
         result = _.chain(list).inject(iterator, memo, context).value();
-
-        result = _<{ a: string }>(list).chain().inject<string>(iterator, memo).value();
-        result = _<{ a: string }>(list).chain().inject<string>(iterator, memo, context).value();
-        result = _(list).chain().inject(iterator, memo).value();
-        result = _(list).chain().inject(iterator, memo, context).value();
     }
 
     {
@@ -689,11 +563,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).reduce(iterator, memo).value();
         result = _.chain(dict).reduce(iterator, memo, context).value();
 
-        result = _<{ a: string }>(dict).chain().reduce<string>(iterator, memo).value();
-        result = _<{ a: string }>(dict).chain().reduce<string>(iterator, memo, context).value();
-        result = _(dict).chain().reduce(iterator, memo).value();
-        result = _(dict).chain().reduce(iterator, memo, context).value();
-
         result = _.foldl<{ a: string }, string>(dict, iterator, memo);
         result = _.foldl<{ a: string }, string>(dict, iterator, memo, context);
         result = _.foldl(dict, iterator, memo);
@@ -708,11 +577,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).foldl<string>(iterator, memo, context).value();
         result = _.chain(dict).foldl(iterator, memo).value();
         result = _.chain(dict).foldl(iterator, memo, context).value();
-
-        result = _<{ a: string }>(dict).chain().foldl<string>(iterator, memo).value();
-        result = _<{ a: string }>(dict).chain().foldl<string>(iterator, memo, context).value();
-        result = _(dict).chain().foldl(iterator, memo).value();
-        result = _(dict).chain().foldl(iterator, memo, context).value();
 
         result = _.inject<{ a: string }, string>(dict, iterator, memo);
         result = _.inject<{ a: string }, string>(dict, iterator, memo, context);
@@ -729,10 +593,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).inject(iterator, memo).value();
         result = _.chain(dict).inject(iterator, memo, context).value();
 
-        result = _<{ a: string }>(dict).chain().inject<string>(iterator, memo).value();
-        result = _<{ a: string }>(dict).chain().inject<string>(iterator, memo, context).value();
-        result = _(dict).chain().inject(iterator, memo).value();
-        result = _(dict).chain().inject(iterator, memo, context).value();
+        result = _.chain<{ a: string }>(dict).inject<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(dict).inject<string>(iterator, memo, context).value();
+        result = _.chain(dict).inject(iterator, memo).value();
+        result = _.chain(dict).inject(iterator, memo, context).value();
     }
 
     {
@@ -754,10 +618,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).reduce(iterator, memo);
         result = _(str).reduce(iterator, memo, context);
 
-        result = _<string>(str).chain().reduce<_.Dictionary<number>>(iterator, memo).value();
-        result = _<string>(str).chain().reduce<_.Dictionary<number>>(iterator, memo, context).value();
-        result = _(str).chain().reduce(iterator, memo).value();
-        result = _(str).chain().reduce(iterator, memo, context).value();
+        result = _.chain<string>(str).reduce<_.Dictionary<number>>(iterator, memo).value();
+        result = _.chain<string>(str).reduce<_.Dictionary<number>>(iterator, memo, context).value();
+        result = _.chain(str).reduce(iterator, memo).value();
+        result = _.chain(str).reduce(iterator, memo, context).value();
 
         result = _.foldl<string, _.Dictionary<number>>(str, iterator, memo);
         result = _.foldl<string, _.Dictionary<number>>(str, iterator, memo, context);
@@ -769,10 +633,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).foldl(iterator, memo);
         result = _(str).foldl(iterator, memo, context);
 
-        result = _<string>(str).chain().foldl<_.Dictionary<number>>(iterator, memo).value();
-        result = _<string>(str).chain().foldl<_.Dictionary<number>>(iterator, memo, context).value();
-        result = _(str).chain().foldl(iterator, memo).value();
-        result = _(str).chain().foldl(iterator, memo, context).value();
+        result = _.chain<string>(str).foldl<_.Dictionary<number>>(iterator, memo).value();
+        result = _.chain<string>(str).foldl<_.Dictionary<number>>(iterator, memo, context).value();
+        result = _.chain(str).foldl(iterator, memo).value();
+        result = _.chain(str).foldl(iterator, memo, context).value();
 
         result = _.inject<string, _.Dictionary<number>>(str, iterator, memo);
         result = _.inject<string, _.Dictionary<number>>(str, iterator, memo, context);
@@ -784,10 +648,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).inject(iterator, memo);
         result = _(str).inject(iterator, memo, context);
 
-        result = _<string>(str).chain().inject<_.Dictionary<number>>(iterator, memo).value();
-        result = _<string>(str).chain().inject<_.Dictionary<number>>(iterator, memo, context).value();
-        result = _(str).chain().inject(iterator, memo).value();
-        result = _(str).chain().inject(iterator, memo, context).value();
+        result = _.chain<string>(str).inject<_.Dictionary<number>>(iterator, memo).value();
+        result = _.chain<string>(str).inject<_.Dictionary<number>>(iterator, memo, context).value();
+        result = _.chain(str).inject(iterator, memo).value();
+        result = _.chain(str).inject(iterator, memo, context).value();
     }
 }
 
@@ -816,11 +680,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).reduceRight(iterator, memo).value();
         result = _.chain(array).reduceRight(iterator, memo, context).value();
 
-        result = _<{ a: string }>(array).chain().reduceRight<string>(iterator, memo).value();
-        result = _<{ a: string }>(array).chain().reduceRight<string>(iterator, memo, context).value();
-        result = _(array).chain().reduceRight(iterator, memo).value();
-        result = _(array).chain().reduceRight(iterator, memo, context).value();
-
         result = _.foldr<{ a: string }, string>(array, iterator, memo);
         result = _.foldr<{ a: string }, string>(array, iterator, memo, context);
         result = _.foldr(array, iterator, memo);
@@ -836,10 +695,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).foldr(iterator, memo).value();
         result = _.chain(array).foldr(iterator, memo, context).value();
 
-        result = _<{ a: string }>(array).chain().foldr<string>(iterator, memo).value();
-        result = _<{ a: string }>(array).chain().foldr<string>(iterator, memo, context).value();
-        result = _(array).chain().foldr(iterator, memo).value();
-        result = _(array).chain().foldr(iterator, memo, context).value();
+        result = _.chain<{ a: string }>(array).foldr<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(array).foldr<string>(iterator, memo, context).value();
+        result = _.chain(array).foldr(iterator, memo).value();
+        result = _.chain(array).foldr(iterator, memo, context).value();
     }
 
     {
@@ -863,11 +722,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).reduceRight(iterator, memo).value();
         result = _.chain(list).reduceRight(iterator, memo, context).value();
 
-        result = _<{ a: string }>(list).chain().reduceRight<string>(iterator, memo).value();
-        result = _<{ a: string }>(list).chain().reduceRight<string>(iterator, memo, context).value();
-        result = _(list).chain().reduceRight(iterator, memo).value();
-        result = _(list).chain().reduceRight(iterator, memo, context).value();
-
         result = _.foldr<{ a: string }, string>(list, iterator, memo);
         result = _.foldr<{ a: string }, string>(list, iterator, memo, context);
         result = _.foldr(list, iterator, memo);
@@ -883,10 +737,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).foldr(iterator, memo).value();
         result = _.chain(list).foldr(iterator, memo, context).value();
 
-        result = _<{ a: string }>(list).chain().foldr<string>(iterator, memo).value();
-        result = _<{ a: string }>(list).chain().foldr<string>(iterator, memo, context).value();
-        result = _(list).chain().foldr(iterator, memo).value();
-        result = _(list).chain().foldr(iterator, memo, context).value();
+        result = _.chain<{ a: string }>(list).foldr<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(list).foldr<string>(iterator, memo, context).value();
+        result = _.chain(list).foldr(iterator, memo).value();
+        result = _.chain(list).foldr(iterator, memo, context).value();
     }
 
     {
@@ -910,11 +764,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).reduceRight(iterator, memo).value();
         result = _.chain(dict).reduceRight(iterator, memo, context).value();
 
-        result = _<{ a: string }>(dict).chain().reduceRight<string>(iterator, memo).value();
-        result = _<{ a: string }>(dict).chain().reduceRight<string>(iterator, memo, context).value();
-        result = _(dict).chain().reduceRight(iterator, memo).value();
-        result = _(dict).chain().reduceRight(iterator, memo, context).value();
-
         result = _.foldr<{ a: string }, string>(dict, iterator, memo);
         result = _.foldr<{ a: string }, string>(dict, iterator, memo, context);
         result = _.foldr(dict, iterator, memo);
@@ -930,10 +779,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).foldr(iterator, memo).value();
         result = _.chain(dict).foldr(iterator, memo, context).value();
 
-        result = _<{ a: string }>(dict).chain().foldr<string>(iterator, memo).value();
-        result = _<{ a: string }>(dict).chain().foldr<string>(iterator, memo, context).value();
-        result = _(dict).chain().foldr(iterator, memo).value();
-        result = _(dict).chain().foldr(iterator, memo, context).value();
+        result = _.chain<{ a: string }>(dict).foldr<string>(iterator, memo).value();
+        result = _.chain<{ a: string }>(dict).foldr<string>(iterator, memo, context).value();
+        result = _.chain(dict).foldr(iterator, memo).value();
+        result = _.chain(dict).foldr(iterator, memo, context).value();
     }
 
     {
@@ -955,10 +804,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).reduceRight(iterator, memo);
         result = _(str).reduceRight(iterator, memo, context);
 
-        result = _<string>(str).chain().reduceRight<_.Dictionary<number>>(iterator, memo).value();
-        result = _<string>(str).chain().reduceRight<_.Dictionary<number>>(iterator, memo, context).value();
-        result = _(str).chain().reduceRight(iterator, memo).value();
-        result = _(str).chain().reduceRight(iterator, memo, context).value();
+        result = _.chain<string>(str).reduceRight<_.Dictionary<number>>(iterator, memo).value();
+        result = _.chain<string>(str).reduceRight<_.Dictionary<number>>(iterator, memo, context).value();
+        result = _.chain(str).reduceRight(iterator, memo).value();
+        result = _.chain(str).reduceRight(iterator, memo, context).value();
 
         result = _.foldr<string, _.Dictionary<number>>(str, iterator, memo);
         result = _.foldr<string, _.Dictionary<number>>(str, iterator, memo, context);
@@ -970,10 +819,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).foldr(iterator, memo);
         result = _(str).foldr(iterator, memo, context);
 
-        result = _<string>(str).chain().foldr<_.Dictionary<number>>(iterator, memo).value();
-        result = _<string>(str).chain().foldr<_.Dictionary<number>>(iterator, memo, context).value();
-        result = _(str).chain().foldr(iterator, memo).value();
-        result = _(str).chain().foldr(iterator, memo, context).value();
+        result = _.chain<string>(str).foldr<_.Dictionary<number>>(iterator, memo).value();
+        result = _.chain<string>(str).foldr<_.Dictionary<number>>(iterator, memo, context).value();
+        result = _.chain(str).foldr(iterator, memo).value();
+        result = _.chain(str).foldr(iterator, memo, context).value();
     }
 }
 
@@ -997,10 +846,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(array).find(iterator);
         result = _(array).find(iterator, context);
 
-        result = _<{ a: string }>(array).chain().find(iterator).value();
-        result = _<{ a: string }>(array).chain().find(iterator, context).value();
-        result = _(array).chain().find(iterator).value();
-        result = _(array).chain().find(iterator, context).value();
+        result = _.chain<{ a: string }>(array).find(iterator).value();
+        result = _.chain<{ a: string }>(array).find(iterator, context).value();
+        result = _.chain(array).find(iterator).value();
+        result = _.chain(array).find(iterator, context).value();
 
         result = _.detect<{ a: string }>(array, iterator);
         result = _.detect<{ a: string }>(array, iterator, context);
@@ -1012,10 +861,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(array).detect(iterator);
         result = _(array).detect(iterator, context);
 
-        result = _<{ a: string }>(array).chain().detect(iterator).value();
-        result = _<{ a: string }>(array).chain().detect(iterator, context).value();
-        result = _(array).chain().detect(iterator).value();
-        result = _(array).chain().detect(iterator, context).value();
+        result = _.chain<{ a: string }>(array).detect(iterator).value();
+        result = _.chain<{ a: string }>(array).detect(iterator, context).value();
+        result = _.chain(array).detect(iterator).value();
+        result = _.chain(array).detect(iterator, context).value();
     }
 
     {
@@ -1033,10 +882,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(list).find(iterator);
         result = _(list).find(iterator, context);
 
-        result = _<{ a: string }>(list).chain().find(iterator).value();
-        result = _<{ a: string }>(list).chain().find(iterator, context).value();
-        result = _(list).chain().find(iterator).value();
-        result = _(list).chain().find(iterator, context).value();
+        result = _.chain<{ a: string }>(list).find(iterator).value();
+        result = _.chain<{ a: string }>(list).find(iterator, context).value();
+        result = _.chain(list).find(iterator).value();
+        result = _.chain(list).find(iterator, context).value();
 
         result = _.detect<{ a: string }>(list, iterator);
         result = _.detect<{ a: string }>(list, iterator, context);
@@ -1048,10 +897,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(list).detect(iterator);
         result = _(list).detect(iterator, context);
 
-        result = _<{ a: string }>(list).chain().detect(iterator).value();
-        result = _<{ a: string }>(list).chain().detect(iterator, context).value();
-        result = _(list).chain().detect(iterator).value();
-        result = _(list).chain().detect(iterator, context).value();
+        result = _.chain<{ a: string }>(list).detect(iterator).value();
+        result = _.chain<{ a: string }>(list).detect(iterator, context).value();
+        result = _.chain(list).detect(iterator).value();
+        result = _.chain(list).detect(iterator, context).value();
     }
 
     {
@@ -1069,10 +918,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(dict).find(iterator);
         result = _(dict).find(iterator, context);
 
-        result = _<{ a: string }>(dict).chain().find(iterator).value();
-        result = _<{ a: string }>(dict).chain().find(iterator, context).value();
-        result = _(dict).chain().find(iterator).value();
-        result = _(dict).chain().find(iterator, context).value();
+        result = _.chain<{ a: string }>(dict).find(iterator).value();
+        result = _.chain<{ a: string }>(dict).find(iterator, context).value();
+        result = _.chain(dict).find(iterator).value();
+        result = _.chain(dict).find(iterator, context).value();
 
         result = _.detect<{ a: string }>(dict, iterator);
         result = _.detect<{ a: string }>(dict, iterator, context);
@@ -1084,10 +933,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(dict).detect(iterator);
         result = _(dict).detect(iterator, context);
 
-        result = _<{ a: string }>(dict).chain().detect(iterator).value();
-        result = _<{ a: string }>(dict).chain().detect(iterator, context).value();
-        result = _(dict).chain().detect(iterator).value();
-        result = _(dict).chain().detect(iterator, context).value();
+        result = _.chain<{ a: string }>(dict).detect(iterator).value();
+        result = _.chain<{ a: string }>(dict).detect(iterator, context).value();
+        result = _.chain(dict).detect(iterator).value();
+        result = _.chain(dict).detect(iterator, context).value();
     }
 
     {
@@ -1105,10 +954,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).find(iterator);
         result = _(str).find(iterator, context);
 
-        result = _<string>(str).chain().find(iterator).value();
-        result = _<string>(str).chain().find(iterator, context).value();
-        result = _(str).chain().find(iterator).value();
-        result = _(str).chain().find(iterator, context).value();
+        result = _.chain<string>(str).find(iterator).value();
+        result = _.chain<string>(str).find(iterator, context).value();
+        result = _.chain(str).find(iterator).value();
+        result = _.chain(str).find(iterator, context).value();
 
         result = _.detect<string>(str, iterator);
         result = _.detect<string>(str, iterator, context);
@@ -1120,10 +969,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).detect(iterator);
         result = _(str).detect(iterator, context);
 
-        result = _<string>(str).chain().detect(iterator).value();
-        result = _<string>(str).chain().detect(iterator, context).value();
-        result = _(str).chain().detect(iterator).value();
-        result = _(str).chain().detect(iterator, context).value();
+        result = _.chain<string>(str).detect(iterator).value();
+        result = _.chain<string>(str).detect(iterator, context).value();
+        result = _.chain(str).detect(iterator).value();
+        result = _.chain(str).detect(iterator, context).value();
     }
 
     // partial object iterator
@@ -1138,8 +987,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).find(properties);
         result = _(array).find(properties);
 
-        result = _<{ a: string }>(array).chain().find(properties).value();
-        result = _(array).chain().find(properties).value();
+        result = _.chain<{ a: string }>(array).find(properties).value();
+        result = _.chain(array).find(properties).value();
 
         result = _.detect<{ a: string }>(array, properties);
         result = _.detect(array, properties);
@@ -1147,8 +996,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).detect(properties);
         result = _(array).detect(properties);
 
-        result = _<{ a: string }>(array).chain().detect(properties).value();
-        result = _(array).chain().detect(properties).value();
+        result = _.chain<{ a: string }>(array).detect(properties).value();
+        result = _.chain(array).detect(properties).value();
     }
 
     {
@@ -1162,8 +1011,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).find(properties);
         result = _(list).find(properties);
 
-        result = _<{ a: string }>(list).chain().find(properties).value();
-        result = _(list).chain().find(properties).value();
+        result = _.chain<{ a: string }>(list).find(properties).value();
+        result = _.chain(list).find(properties).value();
 
         result = _.detect<{ a: string }>(list, properties);
         result = _.detect(list, properties);
@@ -1171,8 +1020,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).detect(properties);
         result = _(list).detect(properties);
 
-        result = _<{ a: string }>(list).chain().detect(properties).value();
-        result = _(list).chain().detect(properties).value();
+        result = _.chain<{ a: string }>(list).detect(properties).value();
+        result = _.chain(list).detect(properties).value();
     }
 
     {
@@ -1186,8 +1035,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).find(properties);
         result = _(dict).find(properties);
 
-        result = _<{ a: string }>(dict).chain().find(properties).value();
-        result = _(dict).chain().find(properties).value();
+        result = _.chain<{ a: string }>(dict).find(properties).value();
+        result = _.chain(dict).find(properties).value();
 
         result = _.detect<{ a: string }>(dict, properties);
         result = _.detect(dict, properties);
@@ -1195,8 +1044,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).detect(properties);
         result = _(dict).detect(properties);
 
-        result = _<{ a: string }>(dict).chain().detect(properties).value();
-        result = _(dict).chain().detect(properties).value();
+        result = _.chain<{ a: string }>(dict).detect(properties).value();
+        result = _.chain(dict).detect(properties).value();
     }
 
     // property name iterator
@@ -1211,8 +1060,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).find(property);
         result = _(array).find(property);
 
-        result = _<{ a: string }>(array).chain().find(property).value();
-        result = _(array).chain().find(property).value();
+        result = _.chain<{ a: string }>(array).find(property).value();
+        result = _.chain(array).find(property).value();
 
         result = _.detect<{ a: string }>(array, property);
         result = _.detect(array, property);
@@ -1220,8 +1069,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).detect(property);
         result = _(array).detect(property);
 
-        result = _<{ a: string }>(array).chain().detect(property).value();
-        result = _(array).chain().detect(property).value();
+        result = _.chain<{ a: string }>(array).detect(property).value();
+        result = _.chain(array).detect(property).value();
     }
 
     {
@@ -1235,8 +1084,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).find(property);
         result = _(list).find(property);
 
-        result = _<{ a: string }>(list).chain().find(property).value();
-        result = _(list).chain().find(property).value();
+        result = _.chain<{ a: string }>(list).find(property).value();
+        result = _.chain(list).find(property).value();
 
         result = _.detect<{ a: string }>(list, property);
         result = _.detect(list, property);
@@ -1244,8 +1093,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).detect(property);
         result = _(list).detect(property);
 
-        result = _<{ a: string }>(list).chain().detect(property).value();
-        result = _(list).chain().detect(property).value();
+        result = _.chain<{ a: string }>(list).detect(property).value();
+        result = _.chain(list).detect(property).value();
     }
 
     {
@@ -1259,8 +1108,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).find(property);
         result = _(dict).find(property);
 
-        result = _<{ a: string }>(dict).chain().find(property).value();
-        result = _(dict).chain().find(property).value();
+        result = _.chain<{ a: string }>(dict).find(property).value();
+        result = _.chain(dict).find(property).value();
 
         result = _.detect<{ a: string }>(dict, property);
         result = _.detect(dict, property);
@@ -1268,8 +1117,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).detect(property);
         result = _(dict).detect(property);
 
-        result = _<{ a: string }>(dict).chain().detect(property).value();
-        result = _(dict).chain().detect(property).value();
+        result = _.chain<{ a: string }>(dict).detect(property).value();
+        result = _.chain(dict).detect(property).value();
     }
 }
 
@@ -1298,11 +1147,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).filter(iterator).value();
         result = _.chain(array).filter(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().filter(iterator).value();
-        result = _<{ a: string }>(array).chain().filter(iterator, context).value();
-        result = _(array).chain().filter(iterator).value();
-        result = _(array).chain().filter(iterator, context).value();
-
         result = _.select<{ a: string }>(array, iterator);
         result = _.select<{ a: string }>(array, iterator, context);
         result = _.select(array, iterator);
@@ -1318,10 +1162,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).select(iterator).value();
         result = _.chain(array).select(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().select(iterator).value();
-        result = _<{ a: string }>(array).chain().select(iterator, context).value();
-        result = _(array).chain().select(iterator).value();
-        result = _(array).chain().select(iterator, context).value();
+        result = _.chain<{ a: string }>(array).select(iterator).value();
+        result = _.chain<{ a: string }>(array).select(iterator, context).value();
+        result = _.chain(array).select(iterator).value();
+        result = _.chain(array).select(iterator, context).value();
     }
 
     {
@@ -1344,11 +1188,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).filter(iterator).value();
         result = _.chain(list).filter(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().filter(iterator).value();
-        result = _<{ a: string }>(list).chain().filter(iterator, context).value();
-        result = _(list).chain().filter(iterator).value();
-        result = _(list).chain().filter(iterator, context).value();
-
         result = _.select<{ a: string }>(list, iterator);
         result = _.select<{ a: string }>(list, iterator, context);
         result = _.select(list, iterator);
@@ -1364,10 +1203,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).select(iterator).value();
         result = _.chain(list).select(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().select(iterator).value();
-        result = _<{ a: string }>(list).chain().select(iterator, context).value();
-        result = _(list).chain().select(iterator).value();
-        result = _(list).chain().select(iterator, context).value();
+        result = _.chain<{ a: string }>(list).select(iterator).value();
+        result = _.chain<{ a: string }>(list).select(iterator, context).value();
+        result = _.chain(list).select(iterator).value();
+        result = _.chain(list).select(iterator, context).value();
     }
 
     {
@@ -1390,11 +1229,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).filter(iterator).value();
         result = _.chain(dict).filter(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().filter(iterator).value();
-        result = _<{ a: string }>(dict).chain().filter(iterator, context).value();
-        result = _(dict).chain().filter(iterator).value();
-        result = _(dict).chain().filter(iterator, context).value();
-
         result = _.select<{ a: string }>(dict, iterator);
         result = _.select<{ a: string }>(dict, iterator, context);
         result = _.select(dict, iterator);
@@ -1410,10 +1244,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).select(iterator).value();
         result = _.chain(dict).select(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().select(iterator).value();
-        result = _<{ a: string }>(dict).chain().select(iterator, context).value();
-        result = _(dict).chain().select(iterator).value();
-        result = _(dict).chain().select(iterator, context).value();
+        result = _.chain<{ a: string }>(dict).select(iterator).value();
+        result = _.chain<{ a: string }>(dict).select(iterator, context).value();
+        result = _.chain(dict).select(iterator).value();
+        result = _.chain(dict).select(iterator, context).value();
     }
 
     {
@@ -1431,10 +1265,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).filter(iterator);
         result = _(str).filter(iterator, context);
 
-        result = _<string>(str).chain().filter(iterator).value();
-        result = _<string>(str).chain().filter(iterator, context).value();
-        result = _(str).chain().filter(iterator).value();
-        result = _(str).chain().filter(iterator, context).value();
+        result = _.chain<string>(str).filter(iterator).value();
+        result = _.chain<string>(str).filter(iterator, context).value();
+        result = _.chain(str).filter(iterator).value();
+        result = _.chain(str).filter(iterator, context).value();
 
         result = _.select<string>(str, iterator);
         result = _.select<string>(str, iterator, context);
@@ -1446,10 +1280,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).select(iterator);
         result = _(str).select(iterator, context);
 
-        result = _<string>(str).chain().select(iterator).value();
-        result = _<string>(str).chain().select(iterator, context).value();
-        result = _(str).chain().select(iterator).value();
-        result = _(str).chain().select(iterator, context).value();
+        result = _.chain<string>(str).select(iterator).value();
+        result = _.chain<string>(str).select(iterator, context).value();
+        result = _.chain(str).select(iterator).value();
+        result = _.chain(str).select(iterator, context).value();
     }
 
     // partial object iterator
@@ -1464,8 +1298,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).filter(properties);
         result = _(array).filter(properties);
 
-        result = _<{ a: string }>(array).chain().filter(properties).value();
-        result = _(array).chain().filter(properties).value();
+        result = _.chain<{ a: string }>(array).filter(properties).value();
+        result = _.chain(array).filter(properties).value();
 
         result = _.select<{ a: string }>(array, properties);
         result = _.select(array, properties);
@@ -1473,8 +1307,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).select(properties);
         result = _(array).select(properties);
 
-        result = _<{ a: string }>(array).chain().select(properties).value();
-        result = _(array).chain().select(properties).value();
+        result = _.chain<{ a: string }>(array).select(properties).value();
+        result = _.chain(array).select(properties).value();
     }
 
     {
@@ -1488,8 +1322,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).filter(properties);
         result = _(list).filter(properties);
 
-        result = _<{ a: string }>(list).chain().filter(properties).value();
-        result = _(list).chain().filter(properties).value();
+        result = _.chain<{ a: string }>(list).filter(properties).value();
+        result = _.chain(list).filter(properties).value();
 
         result = _.select<{ a: string }>(list, properties);
         result = _.select(list, properties);
@@ -1497,8 +1331,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).select(properties);
         result = _(list).select(properties);
 
-        result = _<{ a: string }>(list).chain().select(properties).value();
-        result = _(list).chain().select(properties).value();
+        result = _.chain<{ a: string }>(list).select(properties).value();
+        result = _.chain(list).select(properties).value();
     }
 
     {
@@ -1512,8 +1346,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).filter(properties);
         result = _(dict).filter(properties);
 
-        result = _<{ a: string }>(dict).chain().filter(properties).value();
-        result = _(dict).chain().filter(properties).value();
+        result = _.chain<{ a: string }>(dict).filter(properties).value();
+        result = _.chain(dict).filter(properties).value();
 
         result = _.select<{ a: string }>(dict, properties);
         result = _.select(dict, properties);
@@ -1521,8 +1355,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).select(properties);
         result = _(dict).select(properties);
 
-        result = _<{ a: string }>(dict).chain().select(properties).value();
-        result = _(dict).chain().select(properties).value();
+        result = _.chain<{ a: string }>(dict).select(properties).value();
+        result = _.chain(dict).select(properties).value();
     }
 
     // property name iterator
@@ -1537,8 +1371,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).filter(property);
         result = _(array).filter(property);
 
-        result = _<{ a: string }>(array).chain().filter(property).value();
-        result = _(array).chain().filter(property).value();
+        result = _.chain<{ a: string }>(array).filter(property).value();
+        result = _.chain(array).filter(property).value();
 
         result = _.select<{ a: string }>(array, property);
         result = _.select(array, property);
@@ -1546,8 +1380,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).select(property);
         result = _(array).select(property);
 
-        result = _<{ a: string }>(array).chain().select(property).value();
-        result = _(array).chain().select(property).value();
+        result = _.chain<{ a: string }>(array).select(property).value();
+        result = _.chain(array).select(property).value();
     }
 
     {
@@ -1561,8 +1395,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).filter(property);
         result = _(list).filter(property);
 
-        result = _<{ a: string }>(list).chain().filter(property).value();
-        result = _(list).chain().filter(property).value();
+        result = _.chain<{ a: string }>(list).filter(property).value();
+        result = _.chain(list).filter(property).value();
 
         result = _.select<{ a: string }>(list, property);
         result = _.select(list, property);
@@ -1570,8 +1404,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).select(property);
         result = _(list).select(property);
 
-        result = _<{ a: string }>(list).chain().select(property).value();
-        result = _(list).chain().select(property).value();
+        result = _.chain<{ a: string }>(list).select(property).value();
+        result = _.chain(list).select(property).value();
     }
 
     {
@@ -1585,8 +1419,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).filter(property);
         result = _(dict).filter(property);
 
-        result = _<{ a: string }>(dict).chain().filter(property).value();
-        result = _(dict).chain().filter(property).value();
+        result = _.chain<{ a: string }>(dict).filter(property).value();
+        result = _.chain(dict).filter(property).value();
 
         result = _.select<{ a: string }>(dict, property);
         result = _.select(dict, property);
@@ -1594,8 +1428,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).select(property);
         result = _(dict).select(property);
 
-        result = _<{ a: string }>(dict).chain().select(property).value();
-        result = _(dict).chain().select(property).value();
+        result = _.chain<{ a: string }>(dict).select(property).value();
+        result = _.chain(dict).select(property).value();
     }
 }
 
@@ -1615,8 +1449,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).where(properties).value();
         result = _.chain(array).where(properties).value();
 
-        result = _<{ a: string }>(array).chain().where(properties).value();
-        result = _(array).chain().where(properties).value();
+        result = _.chain<{ a: string }>(array).where(properties).value();
+        result = _.chain(array).where(properties).value();
     }
 
     {
@@ -1633,8 +1467,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).where(properties).value();
         result = _.chain(list).where(properties).value();
 
-        result = _<{ a: string }>(list).chain().where(properties).value();
-        result = _(list).chain().where(properties).value();
+        result = _.chain<{ a: string }>(list).where(properties).value();
+        result = _.chain(list).where(properties).value();
     }
 
     {
@@ -1651,8 +1485,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).where(properties).value();
         result = _.chain(dict).where(properties).value();
 
-        result = _<{ a: string }>(dict).chain().where(properties).value();
-        result = _(dict).chain().where(properties).value();
+        result = _.chain<{ a: string }>(dict).where(properties).value();
+        result = _.chain(dict).where(properties).value();
     }
 }
 
@@ -1672,8 +1506,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).findWhere(properties).value();
         result = _.chain(array).findWhere(properties).value();
 
-        result = _<{ a: string }>(array).chain().findWhere(properties).value();
-        result = _(array).chain().findWhere(properties).value();
+        result = _.chain<{ a: string }>(array).findWhere(properties).value();
+        result = _.chain(array).findWhere(properties).value();
     }
 
     {
@@ -1690,8 +1524,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).findWhere(properties).value();
         result = _.chain(list).findWhere(properties).value();
 
-        result = _<{ a: string }>(list).chain().findWhere(properties).value();
-        result = _(list).chain().findWhere(properties).value();
+        result = _.chain<{ a: string }>(list).findWhere(properties).value();
+        result = _.chain(list).findWhere(properties).value();
     }
 
     {
@@ -1708,8 +1542,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).findWhere(properties).value();
         result = _.chain(dict).findWhere(properties).value();
 
-        result = _<{ a: string }>(dict).chain().findWhere(properties).value();
-        result = _(dict).chain().findWhere(properties).value();
+        result = _.chain<{ a: string }>(dict).findWhere(properties).value();
+        result = _.chain(dict).findWhere(properties).value();
     }
 }
 
@@ -1738,10 +1572,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).reject(iterator).value();
         result = _.chain(array).reject(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().reject(iterator).value();
-        result = _<{ a: string }>(array).chain().reject(iterator, context).value();
-        result = _(array).chain().reject(iterator).value();
-        result = _(array).chain().reject(iterator, context).value();
+        result = _.chain<{ a: string }>(array).reject(iterator).value();
+        result = _.chain<{ a: string }>(array).reject(iterator, context).value();
+        result = _.chain(array).reject(iterator).value();
+        result = _.chain(array).reject(iterator, context).value();
     }
 
     {
@@ -1764,10 +1598,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).reject(iterator).value();
         result = _.chain(list).reject(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().reject(iterator).value();
-        result = _<{ a: string }>(list).chain().reject(iterator, context).value();
-        result = _(list).chain().reject(iterator).value();
-        result = _(list).chain().reject(iterator, context).value();
+        result = _.chain<{ a: string }>(list).reject(iterator).value();
+        result = _.chain<{ a: string }>(list).reject(iterator, context).value();
+        result = _.chain(list).reject(iterator).value();
+        result = _.chain(list).reject(iterator, context).value();
     }
 
     {
@@ -1790,10 +1624,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).reject(iterator).value();
         result = _.chain(dict).reject(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().reject(iterator).value();
-        result = _<{ a: string }>(dict).chain().reject(iterator, context).value();
-        result = _(dict).chain().reject(iterator).value();
-        result = _(dict).chain().reject(iterator, context).value();
+        result = _.chain<{ a: string }>(dict).reject(iterator).value();
+        result = _.chain<{ a: string }>(dict).reject(iterator, context).value();
+        result = _.chain(dict).reject(iterator).value();
+        result = _.chain(dict).reject(iterator, context).value();
     }
 
     {
@@ -1811,10 +1645,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).reject(iterator);
         result = _(str).reject(iterator, context);
 
-        result = _<string>(str).chain().reject(iterator).value();
-        result = _<string>(str).chain().reject(iterator, context).value();
-        result = _(str).chain().reject(iterator).value();
-        result = _(str).chain().reject(iterator, context).value();
+        result = _.chain<string>(str).reject(iterator).value();
+        result = _.chain<string>(str).reject(iterator, context).value();
+        result = _.chain(str).reject(iterator).value();
+        result = _.chain(str).reject(iterator, context).value();
     }
 
     // partial object iterator
@@ -1829,8 +1663,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).reject(properties);
         result = _(array).reject(properties);
 
-        result = _<{ a: string }>(array).chain().reject(properties).value();
-        result = _(array).chain().reject(properties).value();
+        result = _.chain<{ a: string }>(array).reject(properties).value();
+        result = _.chain(array).reject(properties).value();
     }
 
     {
@@ -1844,8 +1678,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).reject(properties);
         result = _(list).reject(properties);
 
-        result = _<{ a: string }>(list).chain().reject(properties).value();
-        result = _(list).chain().reject(properties).value();
+        result = _.chain<{ a: string }>(list).reject(properties).value();
+        result = _.chain(list).reject(properties).value();
     }
 
     {
@@ -1859,8 +1693,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).reject(properties);
         result = _(dict).reject(properties);
 
-        result = _<{ a: string }>(dict).chain().reject(properties).value();
-        result = _(dict).chain().reject(properties).value();
+        result = _.chain<{ a: string }>(dict).reject(properties).value();
+        result = _.chain(dict).reject(properties).value();
     }
 
     // property name iterator
@@ -1875,8 +1709,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).reject(property);
         result = _(array).reject(property);
 
-        result = _<{ a: string }>(array).chain().reject(property).value();
-        result = _(array).chain().reject(property).value();
+        result = _.chain<{ a: string }>(array).reject(property).value();
+        result = _.chain(array).reject(property).value();
     }
 
     {
@@ -1890,8 +1724,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).reject(property);
         result = _(list).reject(property);
 
-        result = _<{ a: string }>(list).chain().reject(property).value();
-        result = _(list).chain().reject(property).value();
+        result = _.chain<{ a: string }>(list).reject(property).value();
+        result = _.chain(list).reject(property).value();
     }
 
     {
@@ -1905,8 +1739,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).reject(property);
         result = _(dict).reject(property);
 
-        result = _<{ a: string }>(dict).chain().reject(property).value();
-        result = _(dict).chain().reject(property).value();
+        result = _.chain<{ a: string }>(dict).reject(property).value();
+        result = _.chain(dict).reject(property).value();
     }
 }
 
@@ -1934,11 +1768,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).every(iterator).value();
         result = _.chain(array).every(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().every(iterator).value();
-        result = _<{ a: string }>(array).chain().every(iterator, context).value();
-        result = _(array).chain().every(iterator).value();
-        result = _(array).chain().every(iterator, context).value();
-
         result = _.all<{ a: string }>(array, iterator);
         result = _.all<{ a: string }>(array, iterator, context);
         result = _.all(array, iterator);
@@ -1954,10 +1783,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).all(iterator).value();
         result = _.chain(array).all(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().all(iterator).value();
-        result = _<{ a: string }>(array).chain().all(iterator, context).value();
-        result = _(array).chain().all(iterator).value();
-        result = _(array).chain().all(iterator, context).value();
+        result = _.chain<{ a: string }>(array).all(iterator).value();
+        result = _.chain<{ a: string }>(array).all(iterator, context).value();
+        result = _.chain(array).all(iterator).value();
+        result = _.chain(array).all(iterator, context).value();
     }
 
     {
@@ -1980,11 +1809,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).every(iterator).value();
         result = _.chain(list).every(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().every(iterator).value();
-        result = _<{ a: string }>(list).chain().every(iterator, context).value();
-        result = _(list).chain().every(iterator).value();
-        result = _(list).chain().every(iterator, context).value();
-
         result = _.all<{ a: string }>(list, iterator);
         result = _.all<{ a: string }>(list, iterator, context);
         result = _.all(list, iterator);
@@ -2000,10 +1824,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).all(iterator).value();
         result = _.chain(list).all(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().all(iterator).value();
-        result = _<{ a: string }>(list).chain().all(iterator, context).value();
-        result = _(list).chain().all(iterator).value();
-        result = _(list).chain().all(iterator, context).value();
+        result = _.chain<{ a: string }>(list).all(iterator).value();
+        result = _.chain<{ a: string }>(list).all(iterator, context).value();
+        result = _.chain(list).all(iterator).value();
+        result = _.chain(list).all(iterator, context).value();
     }
 
     {
@@ -2026,11 +1850,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).every(iterator).value();
         result = _.chain(dict).every(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().every(iterator).value();
-        result = _<{ a: string }>(dict).chain().every(iterator, context).value();
-        result = _(dict).chain().every(iterator).value();
-        result = _(dict).chain().every(iterator, context).value();
-
         result = _.all<{ a: string }>(dict, iterator);
         result = _.all<{ a: string }>(dict, iterator, context);
         result = _.all(dict, iterator);
@@ -2046,10 +1865,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).all(iterator).value();
         result = _.chain(dict).all(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().all(iterator).value();
-        result = _<{ a: string }>(dict).chain().all(iterator, context).value();
-        result = _(dict).chain().all(iterator).value();
-        result = _(dict).chain().all(iterator, context).value();
+        result = _.chain<{ a: string }>(dict).all(iterator).value();
+        result = _.chain<{ a: string }>(dict).all(iterator, context).value();
+        result = _.chain(dict).all(iterator).value();
+        result = _.chain(dict).all(iterator, context).value();
     }
 
     {
@@ -2067,10 +1886,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).every(iterator);
         result = _(str).every(iterator, context);
 
-        result = _<string>(str).chain().every(iterator).value();
-        result = _<string>(str).chain().every(iterator, context).value();
-        result = _(str).chain().every(iterator).value();
-        result = _(str).chain().every(iterator, context).value();
+        result = _.chain<string>(str).every(iterator).value();
+        result = _.chain<string>(str).every(iterator, context).value();
+        result = _.chain(str).every(iterator).value();
+        result = _.chain(str).every(iterator, context).value();
 
         result = _.all<string>(str, iterator);
         result = _.all<string>(str, iterator, context);
@@ -2082,10 +1901,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).all(iterator);
         result = _(str).all(iterator, context);
 
-        result = _<string>(str).chain().all(iterator).value();
-        result = _<string>(str).chain().all(iterator, context).value();
-        result = _(str).chain().all(iterator).value();
-        result = _(str).chain().all(iterator, context).value();
+        result = _.chain<string>(str).all(iterator).value();
+        result = _.chain<string>(str).all(iterator, context).value();
+        result = _.chain(str).all(iterator).value();
+        result = _.chain(str).all(iterator, context).value();
     }
 
     // partial object iterator
@@ -2100,8 +1919,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).every(properties);
         result = _(array).every(properties);
 
-        result = _<{ a: string }>(array).chain().every(properties).value();
-        result = _(array).chain().every(properties).value();
+        result = _.chain<{ a: string }>(array).every(properties).value();
+        result = _.chain(array).every(properties).value();
 
         result = _.all<{ a: string }>(array, properties);
         result = _.all(array, properties);
@@ -2109,8 +1928,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).all(properties);
         result = _(array).all(properties);
 
-        result = _<{ a: string }>(array).chain().all(properties).value();
-        result = _(array).chain().all(properties).value();
+        result = _.chain<{ a: string }>(array).all(properties).value();
+        result = _.chain(array).all(properties).value();
     }
 
     {
@@ -2124,8 +1943,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).every(properties);
         result = _(list).every(properties);
 
-        result = _<{ a: string }>(list).chain().every(properties).value();
-        result = _(list).chain().every(properties).value();
+        result = _.chain<{ a: string }>(list).every(properties).value();
+        result = _.chain(list).every(properties).value();
 
         result = _.all<{ a: string }>(list, properties);
         result = _.all(list, properties);
@@ -2133,8 +1952,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).all(properties);
         result = _(list).all(properties);
 
-        result = _<{ a: string }>(list).chain().all(properties).value();
-        result = _(list).chain().all(properties).value();
+        result = _.chain<{ a: string }>(list).all(properties).value();
+        result = _.chain(list).all(properties).value();
     }
 
     {
@@ -2148,8 +1967,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).every(properties);
         result = _(dict).every(properties);
 
-        result = _<{ a: string }>(dict).chain().every(properties).value();
-        result = _(dict).chain().every(properties).value();
+        result = _.chain<{ a: string }>(dict).every(properties).value();
+        result = _.chain(dict).every(properties).value();
 
         result = _.all<{ a: string }>(dict, properties);
         result = _.all(dict, properties);
@@ -2157,8 +1976,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).all(properties);
         result = _(dict).all(properties);
 
-        result = _<{ a: string }>(dict).chain().all(properties).value();
-        result = _(dict).chain().all(properties).value();
+        result = _.chain<{ a: string }>(dict).all(properties).value();
+        result = _.chain(dict).all(properties).value();
     }
 
     // property name iterator
@@ -2173,8 +1992,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).every(property);
         result = _(array).every(property);
 
-        result = _<{ a: string }>(array).chain().every(property).value();
-        result = _(array).chain().every(property).value();
+        result = _.chain<{ a: string }>(array).every(property).value();
+        result = _.chain(array).every(property).value();
 
         result = _.all<{ a: string }>(array, property);
         result = _.all(array, property);
@@ -2182,8 +2001,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).all(property);
         result = _(array).all(property);
 
-        result = _<{ a: string }>(array).chain().all(property).value();
-        result = _(array).chain().all(property).value();
+        result = _.chain<{ a: string }>(array).all(property).value();
+        result = _.chain(array).all(property).value();
     }
 
     {
@@ -2197,8 +2016,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).every(property);
         result = _(list).every(property);
 
-        result = _<{ a: string }>(list).chain().every(property).value();
-        result = _(list).chain().every(property).value();
+        result = _.chain<{ a: string }>(list).every(property).value();
+        result = _.chain(list).every(property).value();
 
         result = _.all<{ a: string }>(list, property);
         result = _.all(list, property);
@@ -2206,8 +2025,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).all(property);
         result = _(list).all(property);
 
-        result = _<{ a: string }>(list).chain().all(property).value();
-        result = _(list).chain().all(property).value();
+        result = _.chain<{ a: string }>(list).all(property).value();
+        result = _.chain(list).all(property).value();
     }
 
     {
@@ -2221,8 +2040,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).every(property);
         result = _(dict).every(property);
 
-        result = _<{ a: string }>(dict).chain().every(property).value();
-        result = _(dict).chain().every(property).value();
+        result = _.chain<{ a: string }>(dict).every(property).value();
+        result = _.chain(dict).every(property).value();
 
         result = _.all<{ a: string }>(dict, property);
         result = _.all(dict, property);
@@ -2230,8 +2049,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).all(property);
         result = _(dict).all(property);
 
-        result = _<{ a: string }>(dict).chain().all(property).value();
-        result = _(dict).chain().all(property).value();
+        result = _.chain<{ a: string }>(dict).all(property).value();
+        result = _.chain(dict).all(property).value();
     }
 }
 
@@ -2259,11 +2078,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).some(iterator).value();
         result = _.chain(array).some(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().some(iterator).value();
-        result = _<{ a: string }>(array).chain().some(iterator, context).value();
-        result = _(array).chain().some(iterator).value();
-        result = _(array).chain().some(iterator, context).value();
-
         result = _.any<{ a: string }>(array, iterator);
         result = _.any<{ a: string }>(array, iterator, context);
         result = _.any(array, iterator);
@@ -2279,10 +2093,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).any(iterator).value();
         result = _.chain(array).any(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().any(iterator).value();
-        result = _<{ a: string }>(array).chain().any(iterator, context).value();
-        result = _(array).chain().any(iterator).value();
-        result = _(array).chain().any(iterator, context).value();
+        result = _.chain<{ a: string }>(array).any(iterator).value();
+        result = _.chain<{ a: string }>(array).any(iterator, context).value();
+        result = _.chain(array).any(iterator).value();
+        result = _.chain(array).any(iterator, context).value();
     }
 
     {
@@ -2305,11 +2119,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).some(iterator).value();
         result = _.chain(list).some(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().some(iterator).value();
-        result = _<{ a: string }>(list).chain().some(iterator, context).value();
-        result = _(list).chain().some(iterator).value();
-        result = _(list).chain().some(iterator, context).value();
-
         result = _.any<{ a: string }>(list, iterator);
         result = _.any<{ a: string }>(list, iterator, context);
         result = _.any(list, iterator);
@@ -2325,10 +2134,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).any(iterator).value();
         result = _.chain(list).any(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().any(iterator).value();
-        result = _<{ a: string }>(list).chain().any(iterator, context).value();
-        result = _(list).chain().any(iterator).value();
-        result = _(list).chain().any(iterator, context).value();
+        result = _.chain<{ a: string }>(list).any(iterator).value();
+        result = _.chain<{ a: string }>(list).any(iterator, context).value();
+        result = _.chain(list).any(iterator).value();
+        result = _.chain(list).any(iterator, context).value();
     }
 
     {
@@ -2351,11 +2160,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).some(iterator).value();
         result = _.chain(dict).some(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().some(iterator).value();
-        result = _<{ a: string }>(dict).chain().some(iterator, context).value();
-        result = _(dict).chain().some(iterator).value();
-        result = _(dict).chain().some(iterator, context).value();
-
         result = _.any<{ a: string }>(dict, iterator);
         result = _.any<{ a: string }>(dict, iterator, context);
         result = _.any(dict, iterator);
@@ -2371,10 +2175,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).any(iterator).value();
         result = _.chain(dict).any(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().any(iterator).value();
-        result = _<{ a: string }>(dict).chain().any(iterator, context).value();
-        result = _(dict).chain().any(iterator).value();
-        result = _(dict).chain().any(iterator, context).value();
+        result = _.chain<{ a: string }>(dict).any(iterator).value();
+        result = _.chain<{ a: string }>(dict).any(iterator, context).value();
+        result = _.chain(dict).any(iterator).value();
+        result = _.chain(dict).any(iterator, context).value();
     }
 
     {
@@ -2392,10 +2196,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).some(iterator);
         result = _(str).some(iterator, context);
 
-        result = _<string>(str).chain().some(iterator).value();
-        result = _<string>(str).chain().some(iterator, context).value();
-        result = _(str).chain().some(iterator).value();
-        result = _(str).chain().some(iterator, context).value();
+        result = _.chain<string>(str).some(iterator).value();
+        result = _.chain<string>(str).some(iterator, context).value();
+        result = _.chain(str).some(iterator).value();
+        result = _.chain(str).some(iterator, context).value();
 
         result = _.any<string>(str, iterator);
         result = _.any<string>(str, iterator, context);
@@ -2407,10 +2211,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).any(iterator);
         result = _(str).any(iterator, context);
 
-        result = _<string>(str).chain().any(iterator).value();
-        result = _<string>(str).chain().any(iterator, context).value();
-        result = _(str).chain().any(iterator).value();
-        result = _(str).chain().any(iterator, context).value();
+        result = _.chain<string>(str).any(iterator).value();
+        result = _.chain<string>(str).any(iterator, context).value();
+        result = _.chain(str).any(iterator).value();
+        result = _.chain(str).any(iterator, context).value();
     }
 
     // partial object iterator
@@ -2425,8 +2229,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).some(properties);
         result = _(array).some(properties);
 
-        result = _<{ a: string }>(array).chain().some(properties).value();
-        result = _(array).chain().some(properties).value();
+        result = _.chain<{ a: string }>(array).some(properties).value();
+        result = _.chain(array).some(properties).value();
 
         result = _.any<{ a: string }>(array, properties);
         result = _.any(array, properties);
@@ -2434,8 +2238,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).any(properties);
         result = _(array).any(properties);
 
-        result = _<{ a: string }>(array).chain().any(properties).value();
-        result = _(array).chain().any(properties).value();
+        result = _.chain<{ a: string }>(array).any(properties).value();
+        result = _.chain(array).any(properties).value();
     }
 
     {
@@ -2449,8 +2253,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).some(properties);
         result = _(list).some(properties);
 
-        result = _<{ a: string }>(list).chain().some(properties).value();
-        result = _(list).chain().some(properties).value();
+        result = _.chain<{ a: string }>(list).some(properties).value();
+        result = _.chain(list).some(properties).value();
 
         result = _.any<{ a: string }>(list, properties);
         result = _.any(list, properties);
@@ -2458,8 +2262,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).any(properties);
         result = _(list).any(properties);
 
-        result = _<{ a: string }>(list).chain().any(properties).value();
-        result = _(list).chain().any(properties).value();
+        result = _.chain<{ a: string }>(list).any(properties).value();
+        result = _.chain(list).any(properties).value();
     }
 
     {
@@ -2473,8 +2277,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).some(properties);
         result = _(dict).some(properties);
 
-        result = _<{ a: string }>(dict).chain().some(properties).value();
-        result = _(dict).chain().some(properties).value();
+        result = _.chain<{ a: string }>(dict).some(properties).value();
+        result = _.chain(dict).some(properties).value();
 
         result = _.any<{ a: string }>(dict, properties);
         result = _.any(dict, properties);
@@ -2482,8 +2286,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).any(properties);
         result = _(dict).any(properties);
 
-        result = _<{ a: string }>(dict).chain().any(properties).value();
-        result = _(dict).chain().any(properties).value();
+        result = _.chain<{ a: string }>(dict).any(properties).value();
+        result = _.chain(dict).any(properties).value();
     }
 
     // property name iterator
@@ -2498,8 +2302,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).some(property);
         result = _(array).some(property);
 
-        result = _<{ a: string }>(array).chain().some(property).value();
-        result = _(array).chain().some(property).value();
+        result = _.chain<{ a: string }>(array).some(property).value();
+        result = _.chain(array).some(property).value();
 
         result = _.any<{ a: string }>(array, property);
         result = _.any(array, property);
@@ -2507,8 +2311,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(array).any(property);
         result = _(array).any(property);
 
-        result = _<{ a: string }>(array).chain().any(property).value();
-        result = _(array).chain().any(property).value();
+        result = _.chain<{ a: string }>(array).any(property).value();
+        result = _.chain(array).any(property).value();
     }
 
     {
@@ -2522,8 +2326,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).some(property);
         result = _(list).some(property);
 
-        result = _<{ a: string }>(list).chain().some(property).value();
-        result = _(list).chain().some(property).value();
+        result = _.chain<{ a: string }>(list).some(property).value();
+        result = _.chain(list).some(property).value();
 
         result = _.any<{ a: string }>(list, property);
         result = _.any(list, property);
@@ -2531,8 +2335,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(list).any(property);
         result = _(list).any(property);
 
-        result = _<{ a: string }>(list).chain().any(property).value();
-        result = _(list).chain().any(property).value();
+        result = _.chain<{ a: string }>(list).any(property).value();
+        result = _.chain(list).any(property).value();
     }
 
     {
@@ -2546,8 +2350,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).some(property);
         result = _(dict).some(property);
 
-        result = _<{ a: string }>(dict).chain().some(property).value();
-        result = _(dict).chain().some(property).value();
+        result = _.chain<{ a: string }>(dict).some(property).value();
+        result = _.chain(dict).some(property).value();
 
         result = _.any<{ a: string }>(dict, property);
         result = _.any(dict, property);
@@ -2555,8 +2359,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: string }>(dict).any(property);
         result = _(dict).any(property);
 
-        result = _<{ a: string }>(dict).chain().any(property).value();
-        result = _(dict).chain().any(property).value();
+        result = _.chain<{ a: string }>(dict).any(property).value();
+        result = _.chain(dict).any(property).value();
     }
 }
 
@@ -2584,11 +2388,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).contains(value).value();
         result = _.chain(array).contains(value, fromIndex).value();
 
-        result = _<{ a: string }>(array).chain().contains(value).value();
-        result = _<{ a: string }>(array).chain().contains(value, fromIndex).value();
-        result = _(array).chain().contains(value).value();
-        result = _(array).chain().contains(value, fromIndex).value();
-
         result = _.include<{ a: string }>(array, value);
         result = _.include<{ a: string }>(array, value, fromIndex);
         result = _.include(array, value);
@@ -2603,11 +2402,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).include(value, fromIndex).value();
         result = _.chain(array).include(value).value();
         result = _.chain(array).include(value, fromIndex).value();
-
-        result = _<{ a: string }>(array).chain().include(value).value();
-        result = _<{ a: string }>(array).chain().include(value, fromIndex).value();
-        result = _(array).chain().include(value).value();
-        result = _(array).chain().include(value, fromIndex).value();
 
         result = _.includes<{ a: string }>(array, value);
         result = _.includes<{ a: string }>(array, value, fromIndex);
@@ -2624,10 +2418,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).includes(value).value();
         result = _.chain(array).includes(value, fromIndex).value();
 
-        result = _<{ a: string }>(array).chain().includes(value).value();
-        result = _<{ a: string }>(array).chain().includes(value, fromIndex).value();
-        result = _(array).chain().includes(value).value();
-        result = _(array).chain().includes(value, fromIndex).value();
+        result = _.chain<{ a: string }>(array).includes(value).value();
+        result = _.chain<{ a: string }>(array).includes(value, fromIndex).value();
+        result = _.chain(array).includes(value).value();
+        result = _.chain(array).includes(value, fromIndex).value();
     }
 
     {
@@ -2650,11 +2444,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).contains(value).value();
         result = _.chain(list).contains(value, fromIndex).value();
 
-        result = _<{ a: string }>(list).chain().contains(value).value();
-        result = _<{ a: string }>(list).chain().contains(value, fromIndex).value();
-        result = _(list).chain().contains(value).value();
-        result = _(list).chain().contains(value, fromIndex).value();
-
         result = _.include<{ a: string }>(list, value);
         result = _.include<{ a: string }>(list, value, fromIndex);
         result = _.include(list, value);
@@ -2669,11 +2458,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).include(value, fromIndex).value();
         result = _.chain(list).include(value).value();
         result = _.chain(list).include(value, fromIndex).value();
-
-        result = _<{ a: string }>(list).chain().include(value).value();
-        result = _<{ a: string }>(list).chain().include(value, fromIndex).value();
-        result = _(list).chain().include(value).value();
-        result = _(list).chain().include(value, fromIndex).value();
 
         result = _.includes<{ a: string }>(list, value);
         result = _.includes<{ a: string }>(list, value, fromIndex);
@@ -2690,10 +2474,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).includes(value).value();
         result = _.chain(list).includes(value, fromIndex).value();
 
-        result = _<{ a: string }>(list).chain().includes(value).value();
-        result = _<{ a: string }>(list).chain().includes(value, fromIndex).value();
-        result = _(list).chain().includes(value).value();
-        result = _(list).chain().includes(value, fromIndex).value();
+        result = _.chain<{ a: string }>(list).includes(value).value();
+        result = _.chain<{ a: string }>(list).includes(value, fromIndex).value();
+        result = _.chain(list).includes(value).value();
+        result = _.chain(list).includes(value, fromIndex).value();
     }
 
     {
@@ -2710,9 +2494,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).contains(value).value();
         result = _.chain(dict).contains(value).value();
 
-        result = _<{ a: string }>(dict).chain().contains(value).value();
-        result = _(dict).chain().contains(value).value();
-
         result = _.include<{ a: string }>(dict, value);
         result = _.include(dict, value);
 
@@ -2721,9 +2502,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(dict).include(value).value();
         result = _.chain(dict).include(value).value();
-
-        result = _<{ a: string }>(dict).chain().include(value).value();
-        result = _(dict).chain().include(value).value();
 
         result = _.includes<{ a: string }>(dict, value);
         result = _.includes(dict, value);
@@ -2734,8 +2512,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).includes(value).value();
         result = _.chain(dict).includes(value).value();
 
-        result = _<{ a: string }>(dict).chain().includes(value).value();
-        result = _(dict).chain().includes(value).value();
+        result = _.chain<{ a: string }>(dict).includes(value).value();
+        result = _.chain(dict).includes(value).value();
     }
 
     {
@@ -2753,10 +2531,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).contains(value);
         result = _(str).contains(value, fromIndex);
 
-        result = _<string>(str).chain().contains(value).value();
-        result = _<string>(str).chain().contains(value, fromIndex).value();
-        result = _(str).chain().contains(value).value();
-        result = _(str).chain().contains(value, fromIndex).value();
+        result = _.chain<string>(str).contains(value).value();
+        result = _.chain<string>(str).contains(value, fromIndex).value();
+        result = _.chain(str).contains(value).value();
+        result = _.chain(str).contains(value, fromIndex).value();
 
         result = _.include<string>(str, value);
         result = _.include<string>(str, value, fromIndex);
@@ -2768,10 +2546,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).include(value);
         result = _(str).include(value, fromIndex);
 
-        result = _<string>(str).chain().include(value).value();
-        result = _<string>(str).chain().include(value, fromIndex).value();
-        result = _(str).chain().include(value).value();
-        result = _(str).chain().include(value, fromIndex).value();
+        result = _.chain<string>(str).include(value).value();
+        result = _.chain<string>(str).include(value, fromIndex).value();
+        result = _.chain(str).include(value).value();
+        result = _.chain(str).include(value, fromIndex).value();
 
         result = _.includes<string>(str, value);
         result = _.includes<string>(str, value, fromIndex);
@@ -2783,10 +2561,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).includes(value);
         result = _(str).includes(value, fromIndex);
 
-        result = _<string>(str).chain().includes(value).value();
-        result = _<string>(str).chain().includes(value, fromIndex).value();
-        result = _(str).chain().includes(value).value();
-        result = _(str).chain().includes(value, fromIndex).value();
+        result = _.chain<string>(str).includes(value).value();
+        result = _.chain<string>(str).includes(value, fromIndex).value();
+        result = _.chain(str).includes(value).value();
+        result = _.chain(str).includes(value, fromIndex).value();
     }
 }
 
@@ -2810,8 +2588,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ func: () => number }>(array).invoke<typeof functionName>(functionName).value();
         result = _.chain(array).invoke(functionName).value();
 
-        result = _<{ func: () => number }>(array).chain().invoke<typeof functionName>(functionName).value();
-        result = _(array).chain().invoke(functionName).value();
+        result = _.chain<{ func: () => number }>(array).invoke<typeof functionName>(functionName).value();
+        result = _.chain(array).invoke(functionName).value();
     }
 
     {
@@ -2828,8 +2606,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ func: () => number }>(list).invoke<typeof functionName>(functionName).value();
         result = _.chain(list).invoke(functionName).value();
 
-        result = _<{ func: () => number }>(list).chain().invoke<typeof functionName>(functionName).value();
-        result = _(list).chain().invoke(functionName).value();
+        result = _.chain<{ func: () => number }>(list).invoke<typeof functionName>(functionName).value();
+        result = _.chain(list).invoke(functionName).value();
     }
 
     {
@@ -2846,8 +2624,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ func: () => number }>(dict).invoke<typeof functionName>(functionName).value();
         result = _.chain(dict).invoke(functionName).value();
 
-        result = _<{ func: () => number }>(dict).chain().invoke<typeof functionName>(functionName).value();
-        result = _(dict).chain().invoke(functionName).value();
+        result = _.chain<{ func: () => number }>(dict).invoke<typeof functionName>(functionName).value();
+        result = _.chain(dict).invoke(functionName).value();
     }
 
     {
@@ -2861,8 +2639,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).invoke<typeof functionName>(functionName);
         result = _(str).invoke(functionName);
 
-        result = _<string>(str).chain().invoke<typeof functionName>(functionName).value();
-        result = _(str).chain().invoke(functionName).value();
+        result = _.chain<string>(str).invoke<typeof functionName>(functionName).value();
+        result = _.chain(str).invoke(functionName).value();
     }
 
     // with parameters
@@ -2881,8 +2659,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ func: (input: number) => number }>(array).invoke<typeof functionName>(functionName, arg).value();
         result = _.chain(array).invoke(functionName, arg).value();
 
-        result = _<{ func: (input: number) => number }>(array).chain().invoke<typeof functionName>(functionName, arg).value();
-        result = _(array).chain().invoke(functionName, arg).value();
+        result = _.chain<{ func: (input: number) => number }>(array).invoke<typeof functionName>(functionName, arg).value();
+        result = _.chain(array).invoke(functionName, arg).value();
     }
 
     {
@@ -2900,8 +2678,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ func: (input: number) => number }>(list).invoke<typeof functionName>(functionName, arg).value();
         result = _.chain(list).invoke(functionName, arg).value();
 
-        result = _<{ func: (input: number) => number }>(list).chain().invoke<typeof functionName>(functionName, arg).value();
-        result = _(list).chain().invoke(functionName, arg).value();
+        result = _.chain<{ func: (input: number) => number }>(list).invoke<typeof functionName>(functionName, arg).value();
+        result = _.chain(list).invoke(functionName, arg).value();
     }
 
     {
@@ -2919,8 +2697,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ func: (input: number) => number }>(dict).invoke<typeof functionName>(functionName, arg).value();
         result = _.chain(dict).invoke(functionName, arg).value();
 
-        result = _<{ func: (input: number) => number }>(dict).chain().invoke<typeof functionName>(functionName, arg).value();
-        result = _(dict).chain().invoke(functionName, arg).value();
+        result = _.chain<{ func: (input: number) => number }>(dict).invoke<typeof functionName>(functionName, arg).value();
+        result = _.chain(dict).invoke(functionName, arg).value();
     }
 
     {
@@ -2935,8 +2713,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).invoke<typeof functionName>(functionName, arg);
         result = _(str).invoke(functionName, arg);
 
-        result = _<string>(str).chain().invoke<typeof functionName>(functionName, arg).value();
-        result = _(str).chain().invoke(functionName, arg).value();
+        result = _.chain<string>(str).invoke<typeof functionName>(functionName, arg).value();
+        result = _.chain(str).invoke(functionName, arg).value();
     }
 }
 
@@ -2956,8 +2734,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).pluck<typeof property>(property).value();
         result = _.chain(array).pluck(property).value();
 
-        result = _<{ a: string }>(array).chain().pluck<typeof property>(property).value();
-        result = _(array).chain().pluck(property).value();
+        result = _.chain<{ a: string }>(array).pluck<typeof property>(property).value();
+        result = _.chain(array).pluck(property).value();
     }
 
     {
@@ -2974,8 +2752,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).pluck<typeof property>(property).value();
         result = _.chain(list).pluck(property).value();
 
-        result = _<{ a: string }>(list).chain().pluck<typeof property>(property).value();
-        result = _(list).chain().pluck(property).value();
+        result = _.chain<{ a: string }>(list).pluck<typeof property>(property).value();
+        result = _.chain(list).pluck(property).value();
     }
 
     {
@@ -2992,8 +2770,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).pluck<typeof property>(property).value();
         result = _.chain(dict).pluck(property).value();
 
-        result = _<{ a: string }>(dict).chain().pluck<typeof property>(property).value();
-        result = _(dict).chain().pluck(property).value();
+        result = _.chain<{ a: string }>(dict).pluck<typeof property>(property).value();
+        result = _.chain(dict).pluck(property).value();
     }
 }
 
@@ -3017,8 +2795,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<number>(array).max().value();
         result = _.chain(array).max().value();
 
-        result = _<number>(array).chain().max().value();
-        result = _(array).chain().max().value();
+        result = _.chain<number>(array).max().value();
+        result = _.chain(array).max().value();
     }
 
     {
@@ -3034,8 +2812,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<number>(list).max().value();
         result = _.chain(list).max().value();
 
-        result = _<number>(list).chain().max().value();
-        result = _(list).chain().max().value();
+        result = _.chain<number>(list).max().value();
+        result = _.chain(list).max().value();
     }
 
     {
@@ -3051,8 +2829,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<number>(dict).max().value();
         result = _.chain(dict).max().value();
 
-        result = _<number>(dict).chain().max().value();
-        result = _(dict).chain().max().value();
+        result = _.chain<number>(dict).max().value();
+        result = _.chain(dict).max().value();
     }
 
     // function iterator
@@ -3078,10 +2856,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).max(iterator).value();
         result = _.chain(array).max(iterator, context).value();
 
-        result = _<{ a: number }>(array).chain().max(iterator).value();
-        result = _<{ a: number }>(array).chain().max(iterator, context).value();
-        result = _(array).chain().max(iterator).value();
-        result = _(array).chain().max(iterator, context).value();
+        result = _.chain<{ a: number }>(array).max(iterator).value();
+        result = _.chain<{ a: number }>(array).max(iterator, context).value();
+        result = _.chain(array).max(iterator).value();
+        result = _.chain(array).max(iterator, context).value();
     }
 
     {
@@ -3104,10 +2882,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).max(iterator).value();
         result = _.chain(list).max(iterator, context).value();
 
-        result = _<{ a: number }>(list).chain().max(iterator).value();
-        result = _<{ a: number }>(list).chain().max(iterator, context).value();
-        result = _(list).chain().max(iterator).value();
-        result = _(list).chain().max(iterator, context).value();
+        result = _.chain<{ a: number }>(list).max(iterator).value();
+        result = _.chain<{ a: number }>(list).max(iterator, context).value();
+        result = _.chain(list).max(iterator).value();
+        result = _.chain(list).max(iterator, context).value();
     }
 
     {
@@ -3130,10 +2908,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).max(iterator).value();
         result = _.chain(dict).max(iterator, context).value();
 
-        result = _<{ a: number }>(dict).chain().max(iterator).value();
-        result = _<{ a: number }>(dict).chain().max(iterator, context).value();
-        result = _(dict).chain().max(iterator).value();
-        result = _(dict).chain().max(iterator, context).value();
+        result = _.chain<{ a: number }>(dict).max(iterator).value();
+        result = _.chain<{ a: number }>(dict).max(iterator, context).value();
+        result = _.chain(dict).max(iterator).value();
+        result = _.chain(dict).max(iterator, context).value();
     }
 
     // property name iterator
@@ -3148,8 +2926,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: number }>(array).max(property);
         result = _(array).max(property);
 
-        result = _<{ a: number }>(array).chain().max(property).value();
-        result = _(array).chain().max(property).value();
+        result = _.chain<{ a: number }>(array).max(property).value();
+        result = _.chain(array).max(property).value();
     }
 
     {
@@ -3163,8 +2941,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: number }>(list).max(property);
         result = _(list).max(property);
 
-        result = _<{ a: number }>(list).chain().max(property).value();
-        result = _(list).chain().max(property).value();
+        result = _.chain<{ a: number }>(list).max(property).value();
+        result = _.chain(list).max(property).value();
     }
 
     {
@@ -3178,8 +2956,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: number }>(dict).max(property);
         result = _(dict).max(property);
 
-        result = _<{ a: number }>(dict).chain().max(property).value();
-        result = _(dict).chain().max(property).value();
+        result = _.chain<{ a: number }>(dict).max(property).value();
+        result = _.chain(dict).max(property).value();
     }
 }
 
@@ -3203,8 +2981,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<number>(array).min().value();
         result = _.chain(array).min().value();
 
-        result = _<number>(array).chain().min().value();
-        result = _(array).chain().min().value();
+        result = _.chain<number>(array).min().value();
+        result = _.chain(array).min().value();
     }
 
     {
@@ -3220,8 +2998,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<number>(list).min().value();
         result = _.chain(list).min().value();
 
-        result = _<number>(list).chain().min().value();
-        result = _(list).chain().min().value();
+        result = _.chain<number>(list).min().value();
+        result = _.chain(list).min().value();
     }
 
     {
@@ -3237,8 +3015,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<number>(dict).min().value();
         result = _.chain(dict).min().value();
 
-        result = _<number>(dict).chain().min().value();
-        result = _(dict).chain().min().value();
+        result = _.chain<number>(dict).min().value();
+        result = _.chain(dict).min().value();
     }
 
     // function iterator
@@ -3264,10 +3042,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).min(iterator).value();
         result = _.chain(array).min(iterator, context).value();
 
-        result = _<{ a: number }>(array).chain().min(iterator).value();
-        result = _<{ a: number }>(array).chain().min(iterator, context).value();
-        result = _(array).chain().min(iterator).value();
-        result = _(array).chain().min(iterator, context).value();
+        result = _.chain<{ a: number }>(array).min(iterator).value();
+        result = _.chain<{ a: number }>(array).min(iterator, context).value();
+        result = _.chain(array).min(iterator).value();
+        result = _.chain(array).min(iterator, context).value();
     }
 
     {
@@ -3290,10 +3068,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).min(iterator).value();
         result = _.chain(list).min(iterator, context).value();
 
-        result = _<{ a: number }>(list).chain().min(iterator).value();
-        result = _<{ a: number }>(list).chain().min(iterator, context).value();
-        result = _(list).chain().min(iterator).value();
-        result = _(list).chain().min(iterator, context).value();
+        result = _.chain<{ a: number }>(list).min(iterator).value();
+        result = _.chain<{ a: number }>(list).min(iterator, context).value();
+        result = _.chain(list).min(iterator).value();
+        result = _.chain(list).min(iterator, context).value();
     }
 
     {
@@ -3316,10 +3094,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).min(iterator).value();
         result = _.chain(dict).min(iterator, context).value();
 
-        result = _<{ a: number }>(dict).chain().min(iterator).value();
-        result = _<{ a: number }>(dict).chain().min(iterator, context).value();
-        result = _(dict).chain().min(iterator).value();
-        result = _(dict).chain().min(iterator, context).value();
+        result = _.chain<{ a: number }>(dict).min(iterator).value();
+        result = _.chain<{ a: number }>(dict).min(iterator, context).value();
+        result = _.chain(dict).min(iterator).value();
+        result = _.chain(dict).min(iterator, context).value();
     }
 
     // property name iterator
@@ -3334,8 +3112,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: number }>(array).min(property);
         result = _(array).min(property);
 
-        result = _<{ a: number }>(array).chain().min(property).value();
-        result = _(array).chain().min(property).value();
+        result = _.chain<{ a: number }>(array).min(property).value();
+        result = _.chain(array).min(property).value();
     }
 
     {
@@ -3349,8 +3127,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: number }>(list).min(property);
         result = _(list).min(property);
 
-        result = _<{ a: number }>(list).chain().min(property).value();
-        result = _(list).chain().min(property).value();
+        result = _.chain<{ a: number }>(list).min(property).value();
+        result = _.chain(list).min(property).value();
     }
 
     {
@@ -3364,8 +3142,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<{ a: number }>(dict).min(property);
         result = _(dict).min(property);
 
-        result = _<{ a: number }>(dict).chain().min(property).value();
-        result = _(dict).chain().min(property).value();
+        result = _.chain<{ a: number }>(dict).min(property).value();
+        result = _.chain(dict).min(property).value();
     }
 }
 
@@ -3394,10 +3172,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).sortBy(iterator).value();
         result = _.chain(array).sortBy(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().sortBy(iterator).value();
-        result = _<{ a: string }>(array).chain().sortBy(iterator, context).value();
-        result = _(array).chain().sortBy(iterator).value();
-        result = _(array).chain().sortBy(iterator, context).value();
+        result = _.chain<{ a: string }>(array).sortBy(iterator).value();
+        result = _.chain<{ a: string }>(array).sortBy(iterator, context).value();
+        result = _.chain(array).sortBy(iterator).value();
+        result = _.chain(array).sortBy(iterator, context).value();
     }
 
     {
@@ -3420,10 +3198,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).sortBy(iterator).value();
         result = _.chain(list).sortBy(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().sortBy(iterator).value();
-        result = _<{ a: string }>(list).chain().sortBy(iterator, context).value();
-        result = _(list).chain().sortBy(iterator).value();
-        result = _(list).chain().sortBy(iterator, context).value();
+        result = _.chain<{ a: string }>(list).sortBy(iterator).value();
+        result = _.chain<{ a: string }>(list).sortBy(iterator, context).value();
+        result = _.chain(list).sortBy(iterator).value();
+        result = _.chain(list).sortBy(iterator, context).value();
     }
 
     {
@@ -3446,10 +3224,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).sortBy(iterator).value();
         result = _.chain(dict).sortBy(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().sortBy(iterator).value();
-        result = _<{ a: string }>(dict).chain().sortBy(iterator, context).value();
-        result = _(dict).chain().sortBy(iterator).value();
-        result = _(dict).chain().sortBy(iterator, context).value();
+        result = _.chain<{ a: string }>(dict).sortBy(iterator).value();
+        result = _.chain<{ a: string }>(dict).sortBy(iterator, context).value();
+        result = _.chain(dict).sortBy(iterator).value();
+        result = _.chain(dict).sortBy(iterator, context).value();
     }
 
     // with property names
@@ -3467,8 +3245,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).sortBy(property).value();
         result = _.chain(array).sortBy(property).value();
 
-        result = _<{ a: string }>(array).chain().sortBy(property).value();
-        result = _(array).chain().sortBy(property).value();
+        result = _.chain<{ a: string }>(array).sortBy(property).value();
+        result = _.chain(array).sortBy(property).value();
     }
 
     {
@@ -3485,8 +3263,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).sortBy(property).value();
         result = _.chain(list).sortBy(property).value();
 
-        result = _<{ a: string }>(list).chain().sortBy(property).value();
-        result = _(list).chain().sortBy(property).value();
+        result = _.chain<{ a: string }>(list).sortBy(property).value();
+        result = _.chain(list).sortBy(property).value();
     }
 
     {
@@ -3503,8 +3281,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).sortBy(property).value();
         result = _.chain(dict).sortBy(property).value();
 
-        result = _<{ a: string }>(dict).chain().sortBy(property).value();
-        result = _(dict).chain().sortBy(property).value();
+        result = _.chain<{ a: string }>(dict).sortBy(property).value();
+        result = _.chain(dict).sortBy(property).value();
     }
 }
 
@@ -3533,10 +3311,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).groupBy(iterator).value();
         result = _.chain(array).groupBy(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().groupBy(iterator).value();
-        result = _<{ a: string }>(array).chain().groupBy(iterator, context).value();
-        result = _(array).chain().groupBy(iterator).value();
-        result = _(array).chain().groupBy(iterator, context).value();
+        result = _.chain<{ a: string }>(array).groupBy(iterator).value();
+        result = _.chain<{ a: string }>(array).groupBy(iterator, context).value();
+        result = _.chain(array).groupBy(iterator).value();
+        result = _.chain(array).groupBy(iterator, context).value();
     }
 
     {
@@ -3559,10 +3337,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).groupBy(iterator).value();
         result = _.chain(list).groupBy(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().groupBy(iterator).value();
-        result = _<{ a: string }>(list).chain().groupBy(iterator, context).value();
-        result = _(list).chain().groupBy(iterator).value();
-        result = _(list).chain().groupBy(iterator, context).value();
+        result = _.chain<{ a: string }>(list).groupBy(iterator).value();
+        result = _.chain<{ a: string }>(list).groupBy(iterator, context).value();
+        result = _.chain(list).groupBy(iterator).value();
+        result = _.chain(list).groupBy(iterator, context).value();
     }
 
     {
@@ -3585,10 +3363,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).groupBy(iterator).value();
         result = _.chain(dict).groupBy(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().groupBy(iterator).value();
-        result = _<{ a: string }>(dict).chain().groupBy(iterator, context).value();
-        result = _(dict).chain().groupBy(iterator).value();
-        result = _(dict).chain().groupBy(iterator, context).value();
+        result = _.chain<{ a: string }>(dict).groupBy(iterator).value();
+        result = _.chain<{ a: string }>(dict).groupBy(iterator, context).value();
+        result = _.chain(dict).groupBy(iterator).value();
+        result = _.chain(dict).groupBy(iterator, context).value();
     }
 
     // with property names
@@ -3606,8 +3384,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).groupBy(property).value();
         result = _.chain(array).groupBy(property).value();
 
-        result = _<{ a: string }>(array).chain().groupBy(property).value();
-        result = _(array).chain().groupBy(property).value();
+        result = _.chain<{ a: string }>(array).groupBy(property).value();
+        result = _.chain(array).groupBy(property).value();
     }
 
     {
@@ -3624,8 +3402,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).groupBy(property).value();
         result = _.chain(list).groupBy(property).value();
 
-        result = _<{ a: string }>(list).chain().groupBy(property).value();
-        result = _(list).chain().groupBy(property).value();
+        result = _.chain<{ a: string }>(list).groupBy(property).value();
+        result = _.chain(list).groupBy(property).value();
     }
 
     {
@@ -3642,8 +3420,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).groupBy(property).value();
         result = _.chain(dict).groupBy(property).value();
 
-        result = _<{ a: string }>(dict).chain().groupBy(property).value();
-        result = _(dict).chain().groupBy(property).value();
+        result = _.chain<{ a: string }>(dict).groupBy(property).value();
+        result = _.chain(dict).groupBy(property).value();
     }
 }
 
@@ -3672,10 +3450,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).indexBy(iterator).value();
         result = _.chain(array).indexBy(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().indexBy(iterator).value();
-        result = _<{ a: string }>(array).chain().indexBy(iterator, context).value();
-        result = _(array).chain().indexBy(iterator).value();
-        result = _(array).chain().indexBy(iterator, context).value();
+        result = _.chain<{ a: string }>(array).indexBy(iterator).value();
+        result = _.chain<{ a: string }>(array).indexBy(iterator, context).value();
+        result = _.chain(array).indexBy(iterator).value();
+        result = _.chain(array).indexBy(iterator, context).value();
     }
 
     {
@@ -3698,10 +3476,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).indexBy(iterator).value();
         result = _.chain(list).indexBy(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().indexBy(iterator).value();
-        result = _<{ a: string }>(list).chain().indexBy(iterator, context).value();
-        result = _(list).chain().indexBy(iterator).value();
-        result = _(list).chain().indexBy(iterator, context).value();
+        result = _.chain<{ a: string }>(list).indexBy(iterator).value();
+        result = _.chain<{ a: string }>(list).indexBy(iterator, context).value();
+        result = _.chain(list).indexBy(iterator).value();
+        result = _.chain(list).indexBy(iterator, context).value();
     }
 
     {
@@ -3724,10 +3502,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).indexBy(iterator).value();
         result = _.chain(dict).indexBy(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().indexBy(iterator).value();
-        result = _<{ a: string }>(dict).chain().indexBy(iterator, context).value();
-        result = _(dict).chain().indexBy(iterator).value();
-        result = _(dict).chain().indexBy(iterator, context).value();
+        result = _.chain<{ a: string }>(dict).indexBy(iterator).value();
+        result = _.chain<{ a: string }>(dict).indexBy(iterator, context).value();
+        result = _.chain(dict).indexBy(iterator).value();
+        result = _.chain(dict).indexBy(iterator, context).value();
     }
 
     // with property names
@@ -3745,8 +3523,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).indexBy(property).value();
         result = _.chain(array).indexBy(property).value();
 
-        result = _<{ a: string }>(array).chain().indexBy(property).value();
-        result = _(array).chain().indexBy(property).value();
+        result = _.chain<{ a: string }>(array).indexBy(property).value();
+        result = _.chain(array).indexBy(property).value();
     }
 
     {
@@ -3763,8 +3541,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).indexBy(property).value();
         result = _.chain(list).indexBy(property).value();
 
-        result = _<{ a: string }>(list).chain().indexBy(property).value();
-        result = _(list).chain().indexBy(property).value();
+        result = _.chain<{ a: string }>(list).indexBy(property).value();
+        result = _.chain(list).indexBy(property).value();
     }
 
     {
@@ -3781,8 +3559,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).indexBy(property).value();
         result = _.chain(dict).indexBy(property).value();
 
-        result = _<{ a: string }>(dict).chain().indexBy(property).value();
-        result = _(dict).chain().indexBy(property).value();
+        result = _.chain<{ a: string }>(dict).indexBy(property).value();
+        result = _.chain(dict).indexBy(property).value();
     }
 }
 
@@ -3811,10 +3589,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).countBy(iterator).value();
         result = _.chain(array).countBy(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().countBy(iterator).value();
-        result = _<{ a: string }>(array).chain().countBy(iterator, context).value();
-        result = _(array).chain().countBy(iterator).value();
-        result = _(array).chain().countBy(iterator, context).value();
+        result = _.chain<{ a: string }>(array).countBy(iterator).value();
+        result = _.chain<{ a: string }>(array).countBy(iterator, context).value();
+        result = _.chain(array).countBy(iterator).value();
+        result = _.chain(array).countBy(iterator, context).value();
     }
 
     {
@@ -3837,10 +3615,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).countBy(iterator).value();
         result = _.chain(list).countBy(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().countBy(iterator).value();
-        result = _<{ a: string }>(list).chain().countBy(iterator, context).value();
-        result = _(list).chain().countBy(iterator).value();
-        result = _(list).chain().countBy(iterator, context).value();
+        result = _.chain<{ a: string }>(list).countBy(iterator).value();
+        result = _.chain<{ a: string }>(list).countBy(iterator, context).value();
+        result = _.chain(list).countBy(iterator).value();
+        result = _.chain(list).countBy(iterator, context).value();
     }
 
     {
@@ -3863,10 +3641,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).countBy(iterator).value();
         result = _.chain(dict).countBy(iterator, context).value();
 
-        result = _<{ a: string }>(dict).chain().countBy(iterator).value();
-        result = _<{ a: string }>(dict).chain().countBy(iterator, context).value();
-        result = _(dict).chain().countBy(iterator).value();
-        result = _(dict).chain().countBy(iterator, context).value();
+        result = _.chain<{ a: string }>(dict).countBy(iterator).value();
+        result = _.chain<{ a: string }>(dict).countBy(iterator, context).value();
+        result = _.chain(dict).countBy(iterator).value();
+        result = _.chain(dict).countBy(iterator, context).value();
     }
 
     {
@@ -3889,10 +3667,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(str).countBy(iterator).value();
         result = _.chain(str).countBy(iterator, context).value();
 
-        result = _<string>(str).chain().countBy(iterator).value();
-        result = _<string>(str).chain().countBy(iterator, context).value();
-        result = _(str).chain().countBy(iterator).value();
-        result = _(str).chain().countBy(iterator, context).value();
+        result = _.chain<string>(str).countBy(iterator).value();
+        result = _.chain<string>(str).countBy(iterator, context).value();
+        result = _.chain(str).countBy(iterator).value();
+        result = _.chain(str).countBy(iterator, context).value();
     }
 
     // with property names
@@ -3910,8 +3688,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).countBy(property).value();
         result = _.chain(array).countBy(property).value();
 
-        result = _<{ a: string }>(array).chain().countBy(property).value();
-        result = _(array).chain().countBy(property).value();
+        result = _.chain<{ a: string }>(array).countBy(property).value();
+        result = _.chain(array).countBy(property).value();
     }
 
     {
@@ -3928,8 +3706,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).countBy(property).value();
         result = _.chain(list).countBy(property).value();
 
-        result = _<{ a: string }>(list).chain().countBy(property).value();
-        result = _(list).chain().countBy(property).value();
+        result = _.chain<{ a: string }>(list).countBy(property).value();
+        result = _.chain(list).countBy(property).value();
     }
 
     {
@@ -3946,8 +3724,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).countBy(property).value();
         result = _.chain(dict).countBy(property).value();
 
-        result = _<{ a: string }>(dict).chain().countBy(property).value();
-        result = _(dict).chain().countBy(property).value();
+        result = _.chain<{ a: string }>(dict).countBy(property).value();
+        result = _.chain(dict).countBy(property).value();
     }
 }
 
@@ -3966,8 +3744,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).shuffle().value();
         result = _.chain(array).shuffle().value();
 
-        result = _<{ a: string }>(array).chain().shuffle().value();
-        result = _(array).chain().shuffle().value();
+        result = _.chain<{ a: string }>(array).shuffle().value();
+        result = _.chain(array).shuffle().value();
     }
 
     {
@@ -3983,8 +3761,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).shuffle().value();
         result = _.chain(list).shuffle().value();
 
-        result = _<{ a: string }>(list).chain().shuffle().value();
-        result = _(list).chain().shuffle().value();
+        result = _.chain<{ a: string }>(list).shuffle().value();
+        result = _.chain(list).shuffle().value();
     }
 
     {
@@ -4000,8 +3778,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).shuffle().value();
         result = _.chain(dict).shuffle().value();
 
-        result = _<{ a: string }>(dict).chain().shuffle().value();
-        result = _(dict).chain().shuffle().value();
+        result = _.chain<{ a: string }>(dict).shuffle().value();
+        result = _.chain(dict).shuffle().value();
     }
 
     {
@@ -4014,8 +3792,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).shuffle();
         result = _(str).shuffle();
 
-        result = _<string>(str).chain().shuffle().value();
-        result = _(str).chain().shuffle().value();
+        result = _.chain<string>(str).shuffle().value();
+        result = _.chain(str).shuffle().value();
     }
 }
 
@@ -4035,8 +3813,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).sample().value();
         result = _.chain(array).sample().value();
 
-        result = _<{ a: string }>(array).chain().sample().value();
-        result = _(array).chain().sample().value();
+        result = _.chain<{ a: string }>(array).sample().value();
+        result = _.chain(array).sample().value();
     }
 
     {
@@ -4052,8 +3830,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).sample().value();
         result = _.chain(list).sample().value();
 
-        result = _<{ a: string }>(list).chain().sample().value();
-        result = _(list).chain().sample().value();
+        result = _.chain<{ a: string }>(list).sample().value();
+        result = _.chain(list).sample().value();
     }
 
     {
@@ -4069,8 +3847,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).sample().value();
         result = _.chain(dict).sample().value();
 
-        result = _<{ a: string }>(dict).chain().sample().value();
-        result = _(dict).chain().sample().value();
+        result = _.chain<{ a: string }>(dict).sample().value();
+        result = _.chain(dict).sample().value();
     }
 
     {
@@ -4083,8 +3861,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).sample();
         result = _(str).sample();
 
-        result = _<string>(str).chain().sample().value();
-        result = _(str).chain().sample().value();
+        result = _.chain<string>(str).sample().value();
+        result = _.chain(str).sample().value();
     }
 
     // with n
@@ -4102,8 +3880,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).sample(n).value();
         result = _.chain(array).sample(n).value();
 
-        result = _<{ a: string }>(array).chain().sample(n).value();
-        result = _(array).chain().sample(n).value();
+        result = _.chain<{ a: string }>(array).sample(n).value();
+        result = _.chain(array).sample(n).value();
     }
 
     {
@@ -4120,8 +3898,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).sample(n).value();
         result = _.chain(list).sample(n).value();
 
-        result = _<{ a: string }>(list).chain().sample(n).value();
-        result = _(list).chain().sample(n).value();
+        result = _.chain<{ a: string }>(list).sample(n).value();
+        result = _.chain(list).sample(n).value();
     }
 
     {
@@ -4138,8 +3916,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).sample(n).value();
         result = _.chain(dict).sample(n).value();
 
-        result = _<{ a: string }>(dict).chain().sample(n).value();
-        result = _(dict).chain().sample(n).value();
+        result = _.chain<{ a: string }>(dict).sample(n).value();
+        result = _.chain(dict).sample(n).value();
     }
 
     {
@@ -4153,8 +3931,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).sample(n);
         result = _(str).sample(n);
 
-        result = _<string>(str).chain().sample(n).value();
-        result = _(str).chain().sample(n).value();
+        result = _.chain<string>(str).sample(n).value();
+        result = _.chain(str).sample(n).value();
     }
 }
 
@@ -4173,8 +3951,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).toArray().value();
         result = _.chain(array).toArray().value();
 
-        result = _<{ a: string }>(array).chain().toArray().value();
-        result = _(array).chain().toArray().value();
+        result = _.chain<{ a: string }>(array).toArray().value();
+        result = _.chain(array).toArray().value();
     }
 
     {
@@ -4190,8 +3968,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).toArray().value();
         result = _.chain(list).toArray().value();
 
-        result = _<{ a: string }>(list).chain().toArray().value();
-        result = _(list).chain().toArray().value();
+        result = _.chain<{ a: string }>(list).toArray().value();
+        result = _.chain(list).toArray().value();
     }
 
     {
@@ -4207,8 +3985,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).toArray().value();
         result = _.chain(dict).toArray().value();
 
-        result = _<{ a: string }>(dict).chain().toArray().value();
-        result = _(dict).chain().toArray().value();
+        result = _.chain<{ a: string }>(dict).toArray().value();
+        result = _.chain(dict).toArray().value();
     }
 
     {
@@ -4221,8 +3999,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).toArray();
         result = _(str).toArray();
 
-        result = _<string>(str).chain().toArray().value();
-        result = _(str).chain().toArray().value();
+        result = _.chain<string>(str).toArray().value();
+        result = _.chain(str).toArray().value();
     }
 }
 
@@ -4241,8 +4019,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).size().value();
         result = _.chain(array).size().value();
 
-        result = _<{ a: string }>(array).chain().size().value();
-        result = _(array).chain().size().value();
+        result = _.chain<{ a: string }>(array).size().value();
+        result = _.chain(array).size().value();
     }
 
     {
@@ -4258,8 +4036,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).size().value();
         result = _.chain(list).size().value();
 
-        result = _<{ a: string }>(list).chain().size().value();
-        result = _(list).chain().size().value();
+        result = _.chain<{ a: string }>(list).size().value();
+        result = _.chain(list).size().value();
     }
 
     {
@@ -4275,8 +4053,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).size().value();
         result = _.chain(dict).size().value();
 
-        result = _<{ a: string }>(dict).chain().size().value();
-        result = _(dict).chain().size().value();
+        result = _.chain<{ a: string }>(dict).size().value();
+        result = _.chain(dict).size().value();
     }
 
     {
@@ -4289,8 +4067,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).size();
         result = _(str).size();
 
-        result = _<string>(str).chain().size().value();
-        result = _(str).chain().size().value();
+        result = _.chain<string>(str).size().value();
+        result = _.chain(str).size().value();
     }
 }
 
@@ -4310,8 +4088,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).partition(iterator).value();
         result = _.chain(array).partition(iterator).value();
 
-        result = _<{ a: string }>(array).chain().partition(iterator).value();
-        result = _(array).chain().partition(iterator).value();
+        result = _.chain<{ a: string }>(array).partition(iterator).value();
+        result = _.chain(array).partition(iterator).value();
     }
 
     {
@@ -4328,8 +4106,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).partition(iterator).value();
         result = _.chain(list).partition(iterator).value();
 
-        result = _<{ a: string }>(list).chain().partition(iterator).value();
-        result = _(list).chain().partition(iterator).value();
+        result = _.chain<{ a: string }>(list).partition(iterator).value();
+        result = _.chain(list).partition(iterator).value();
     }
 
     {
@@ -4346,8 +4124,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(dict).partition(iterator).value();
         result = _.chain(dict).partition(iterator).value();
 
-        result = _<{ a: string }>(dict).chain().partition(iterator).value();
-        result = _(dict).chain().partition(iterator).value();
+        result = _.chain<{ a: string }>(dict).partition(iterator).value();
+        result = _.chain(dict).partition(iterator).value();
     }
 
     {
@@ -4361,8 +4139,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).partition(iterator);
         result = _(str).partition(iterator);
 
-        result = _<string>(str).chain().partition(iterator).value();
-        result = _(str).chain().partition(iterator).value();
+        result = _.chain<string>(str).partition(iterator).value();
+        result = _.chain(str).partition(iterator).value();
     }
 }
 
@@ -4384,9 +4162,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).first().value();
         result = _.chain(array).first().value();
 
-        result = _<{ a: string }>(array).chain().first().value();
-        result = _(array).chain().first().value();
-
         result = _.head<{ a: string }>(array);
         result = _.head(array);
 
@@ -4395,9 +4170,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(array).head().value();
         result = _.chain(array).head().value();
-
-        result = _<{ a: string }>(array).chain().head().value();
-        result = _(array).chain().head().value();
 
         result = _.take<{ a: string }>(array);
         result = _.take(array);
@@ -4408,8 +4180,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).take().value();
         result = _.chain(array).take().value();
 
-        result = _<{ a: string }>(array).chain().take().value();
-        result = _(array).chain().take().value();
+        result = _.chain<{ a: string }>(array).take().value();
+        result = _.chain(array).take().value();
     }
 
     {
@@ -4425,9 +4197,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).first().value();
         result = _.chain(list).first().value();
 
-        result = _<{ a: string }>(list).chain().first().value();
-        result = _(list).chain().first().value();
-
         result = _.head<{ a: string }>(list);
         result = _.head(list);
 
@@ -4436,9 +4205,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(list).head().value();
         result = _.chain(list).head().value();
-
-        result = _<{ a: string }>(list).chain().head().value();
-        result = _(list).chain().head().value();
 
         result = _.take<{ a: string }>(list);
         result = _.take(list);
@@ -4449,8 +4215,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).take().value();
         result = _.chain(list).take().value();
 
-        result = _<{ a: string }>(list).chain().take().value();
-        result = _(list).chain().take().value();
+        result = _.chain<{ a: string }>(list).take().value();
+        result = _.chain(list).take().value();
     }
 
     {
@@ -4463,8 +4229,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).first();
         result = _(str).first();
 
-        result = _<string>(str).chain().first().value();
-        result = _(str).chain().first().value();
+        result = _.chain<string>(str).first().value();
+        result = _.chain(str).first().value();
 
         result = _.head<string>(str);
         result = _.head(str);
@@ -4472,8 +4238,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).head();
         result = _(str).head();
 
-        result = _<string>(str).chain().head().value();
-        result = _(str).chain().head().value();
+        result = _.chain<string>(str).head().value();
+        result = _.chain(str).head().value();
 
         result = _.take<string>(str);
         result = _.take(str);
@@ -4481,8 +4247,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).take();
         result = _(str).take();
 
-        result = _<string>(str).chain().take().value();
-        result = _(str).chain().take().value();
+        result = _.chain<string>(str).take().value();
+        result = _.chain(str).take().value();
     }
 
     // with n
@@ -4500,9 +4266,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).first(n).value();
         result = _.chain(array).first(n).value();
 
-        result = _<{ a: string }>(array).chain().first(n).value();
-        result = _(array).chain().first(n).value();
-
         result = _.head<{ a: string }>(array, n);
         result = _.head(array, n);
 
@@ -4511,9 +4274,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(array).head(n).value();
         result = _.chain(array).head(n).value();
-
-        result = _<{ a: string }>(array).chain().head(n).value();
-        result = _(array).chain().head(n).value();
 
         result = _.take<{ a: string }>(array, n);
         result = _.take(array, n);
@@ -4524,8 +4284,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).take(n).value();
         result = _.chain(array).take(n).value();
 
-        result = _<{ a: string }>(array).chain().take(n).value();
-        result = _(array).chain().take(n).value();
+        result = _.chain<{ a: string }>(array).take(n).value();
+        result = _.chain(array).take(n).value();
     }
 
     {
@@ -4542,9 +4302,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).first(n).value();
         result = _.chain(list).first(n).value();
 
-        result = _<{ a: string }>(list).chain().first(n).value();
-        result = _(list).chain().first(n).value();
-
         result = _.head<{ a: string }>(list, n);
         result = _.head(list, n);
 
@@ -4553,9 +4310,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(list).head(n).value();
         result = _.chain(list).head(n).value();
-
-        result = _<{ a: string }>(list).chain().head(n).value();
-        result = _(list).chain().head(n).value();
 
         result = _.take<{ a: string }>(list, n);
         result = _.take(list, n);
@@ -4566,8 +4320,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).take(n).value();
         result = _.chain(list).take(n).value();
 
-        result = _<{ a: string }>(list).chain().take(n).value();
-        result = _(list).chain().take(n).value();
+        result = _.chain<{ a: string }>(list).take(n).value();
+        result = _.chain(list).take(n).value();
     }
 
     {
@@ -4581,8 +4335,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).first(n);
         result = _(str).first(n);
 
-        result = _<string>(str).chain().first(n).value();
-        result = _(str).chain().first(n).value();
+        result = _.chain<string>(str).first(n).value();
+        result = _.chain(str).first(n).value();
 
         result = _.head<string>(str, n);
         result = _.head(str, n);
@@ -4590,8 +4344,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).head(n);
         result = _(str).head(n);
 
-        result = _<string>(str).chain().head(n).value();
-        result = _(str).chain().head(n).value();
+        result = _.chain<string>(str).head(n).value();
+        result = _.chain(str).head(n).value();
 
         result = _.take<string>(str, n);
         result = _.take(str, n);
@@ -4599,8 +4353,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).take(n);
         result = _(str).take(n);
 
-        result = _<string>(str).chain().take(n).value();
-        result = _(str).chain().take(n).value();
+        result = _.chain<string>(str).take(n).value();
+        result = _.chain(str).take(n).value();
     }
 }
 
@@ -4620,8 +4374,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).initial().value();
         result = _.chain(array).initial().value();
 
-        result = _<{ a: string }>(array).chain().initial().value();
-        result = _(array).chain().initial().value();
+        result = _.chain<{ a: string }>(array).initial().value();
+        result = _.chain(array).initial().value();
     }
 
     {
@@ -4637,8 +4391,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).initial().value();
         result = _.chain(list).initial().value();
 
-        result = _<{ a: string }>(list).chain().initial().value();
-        result = _(list).chain().initial().value();
+        result = _.chain<{ a: string }>(list).initial().value();
+        result = _.chain(list).initial().value();
     }
 
     {
@@ -4651,8 +4405,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).initial();
         result = _(str).initial();
 
-        result = _<string>(str).chain().initial().value();
-        result = _(str).chain().initial().value();
+        result = _.chain<string>(str).initial().value();
+        result = _.chain(str).initial().value();
     }
 
     // with n
@@ -4670,8 +4424,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).initial(n).value();
         result = _.chain(array).initial(n).value();
 
-        result = _<{ a: string }>(array).chain().initial(n).value();
-        result = _(array).chain().initial(n).value();
+        result = _.chain<{ a: string }>(array).initial(n).value();
+        result = _.chain(array).initial(n).value();
     }
 
     {
@@ -4688,8 +4442,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).initial(n).value();
         result = _.chain(list).initial(n).value();
 
-        result = _<{ a: string }>(list).chain().initial(n).value();
-        result = _(list).chain().initial(n).value();
+        result = _.chain<{ a: string }>(list).initial(n).value();
+        result = _.chain(list).initial(n).value();
     }
 
     {
@@ -4703,8 +4457,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).initial(n);
         result = _(str).initial(n);
 
-        result = _<string>(str).chain().initial(n).value();
-        result = _(str).chain().initial(n).value();
+        result = _.chain<string>(str).initial(n).value();
+        result = _.chain(str).initial(n).value();
     }
 }
 
@@ -4724,8 +4478,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).last().value();
         result = _.chain(array).last().value();
 
-        result = _<{ a: string }>(array).chain().last().value();
-        result = _(array).chain().last().value();
+        result = _.chain<{ a: string }>(array).last().value();
+        result = _.chain(array).last().value();
     }
 
     {
@@ -4741,8 +4495,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).last().value();
         result = _.chain(list).last().value();
 
-        result = _<{ a: string }>(list).chain().last().value();
-        result = _(list).chain().last().value();
+        result = _.chain<{ a: string }>(list).last().value();
+        result = _.chain(list).last().value();
     }
 
     {
@@ -4755,8 +4509,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).last();
         result = _(str).last();
 
-        result = _<string>(str).chain().last().value();
-        result = _(str).chain().last().value();
+        result = _.chain<string>(str).last().value();
+        result = _.chain(str).last().value();
     }
 
     // with n
@@ -4774,8 +4528,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).last(n).value();
         result = _.chain(array).last(n).value();
 
-        result = _<{ a: string }>(array).chain().last(n).value();
-        result = _(array).chain().last(n).value();
+        result = _.chain<{ a: string }>(array).last(n).value();
+        result = _.chain(array).last(n).value();
     }
 
     {
@@ -4792,8 +4546,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).last(n).value();
         result = _.chain(list).last(n).value();
 
-        result = _<{ a: string }>(list).chain().last(n).value();
-        result = _(list).chain().last(n).value();
+        result = _.chain<{ a: string }>(list).last(n).value();
+        result = _.chain(list).last(n).value();
     }
 
     {
@@ -4807,8 +4561,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).last(n);
         result = _(str).last(n);
 
-        result = _<string>(str).chain().last(n).value();
-        result = _(str).chain().last(n).value();
+        result = _.chain<string>(str).last(n).value();
+        result = _.chain(str).last(n).value();
     }
 }
 
@@ -4828,9 +4582,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).rest().value();
         result = _.chain(array).rest().value();
 
-        result = _<{ a: string }>(array).chain().rest().value();
-        result = _(array).chain().rest().value();
-
         result = _.tail<{ a: string }>(array);
         result = _.tail(array);
 
@@ -4839,9 +4590,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(array).tail().value();
         result = _.chain(array).tail().value();
-
-        result = _<{ a: string }>(array).chain().tail().value();
-        result = _(array).chain().tail().value();
 
         result = _.drop<{ a: string }>(array);
         result = _.drop(array);
@@ -4852,8 +4600,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).drop().value();
         result = _.chain(array).drop().value();
 
-        result = _<{ a: string }>(array).chain().drop().value();
-        result = _(array).chain().drop().value();
+        result = _.chain<{ a: string }>(array).drop().value();
+        result = _.chain(array).drop().value();
     }
 
     {
@@ -4869,9 +4617,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).rest().value();
         result = _.chain(list).rest().value();
 
-        result = _<{ a: string }>(list).chain().rest().value();
-        result = _(list).chain().rest().value();
-
         result = _.tail<{ a: string }>(list);
         result = _.tail(list);
 
@@ -4880,9 +4625,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(list).tail().value();
         result = _.chain(list).tail().value();
-
-        result = _<{ a: string }>(list).chain().tail().value();
-        result = _(list).chain().tail().value();
 
         result = _.drop<{ a: string }>(list);
         result = _.drop(list);
@@ -4893,8 +4635,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).drop().value();
         result = _.chain(list).drop().value();
 
-        result = _<{ a: string }>(list).chain().drop().value();
-        result = _(list).chain().drop().value();
+        result = _.chain<{ a: string }>(list).drop().value();
+        result = _.chain(list).drop().value();
     }
 
     {
@@ -4907,8 +4649,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).rest();
         result = _(str).rest();
 
-        result = _<string>(str).chain().rest().value();
-        result = _(str).chain().rest().value();
+        result = _.chain<string>(str).rest().value();
+        result = _.chain(str).rest().value();
 
         result = _.tail<string>(str);
         result = _.tail(str);
@@ -4916,8 +4658,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).tail();
         result = _(str).tail();
 
-        result = _<string>(str).chain().tail().value();
-        result = _(str).chain().tail().value();
+        result = _.chain<string>(str).tail().value();
+        result = _.chain(str).tail().value();
 
         result = _.drop<string>(str);
         result = _.drop(str);
@@ -4925,8 +4667,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).drop();
         result = _(str).drop();
 
-        result = _<string>(str).chain().drop().value();
-        result = _(str).chain().drop().value();
+        result = _.chain<string>(str).drop().value();
+        result = _.chain(str).drop().value();
     }
 
     // with n
@@ -4944,9 +4686,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).rest(n).value();
         result = _.chain(array).rest(n).value();
 
-        result = _<{ a: string }>(array).chain().rest(n).value();
-        result = _(array).chain().rest(n).value();
-
         result = _.tail<{ a: string }>(array, n);
         result = _.tail(array, n);
 
@@ -4955,9 +4694,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(array).tail(n).value();
         result = _.chain(array).tail(n).value();
-
-        result = _<{ a: string }>(array).chain().tail(n).value();
-        result = _(array).chain().tail(n).value();
 
         result = _.drop<{ a: string }>(array, n);
         result = _.drop(array, n);
@@ -4968,8 +4704,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).drop(n).value();
         result = _.chain(array).drop(n).value();
 
-        result = _<{ a: string }>(array).chain().drop(n).value();
-        result = _(array).chain().drop(n).value();
+        result = _.chain<{ a: string }>(array).drop(n).value();
+        result = _.chain(array).drop(n).value();
     }
 
     {
@@ -4986,9 +4722,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).rest(n).value();
         result = _.chain(list).rest(n).value();
 
-        result = _<{ a: string }>(list).chain().rest(n).value();
-        result = _(list).chain().rest(n).value();
-
         result = _.tail<{ a: string }>(list, n);
         result = _.tail(list, n);
 
@@ -4997,9 +4730,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
         result = _.chain<{ a: string }>(list).tail(n).value();
         result = _.chain(list).tail(n).value();
-
-        result = _<{ a: string }>(list).chain().tail(n).value();
-        result = _(list).chain().tail(n).value();
 
         result = _.drop<{ a: string }>(list, n);
         result = _.drop(list, n);
@@ -5010,8 +4740,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).drop(n).value();
         result = _.chain(list).drop(n).value();
 
-        result = _<{ a: string }>(list).chain().drop(n).value();
-        result = _(list).chain().drop(n).value();
+        result = _.chain<{ a: string }>(list).drop(n).value();
+        result = _.chain(list).drop(n).value();
     }
 
     {
@@ -5025,8 +4755,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).rest(n);
         result = _(str).rest(n);
 
-        result = _<string>(str).chain().rest(n).value();
-        result = _(str).chain().rest(n).value();
+        result = _.chain<string>(str).rest(n).value();
+        result = _.chain(str).rest(n).value();
 
         result = _.tail<string>(str, n);
         result = _.tail(str, n);
@@ -5034,8 +4764,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).tail(n);
         result = _(str).tail(n);
 
-        result = _<string>(str).chain().tail(n).value();
-        result = _(str).chain().tail(n).value();
+        result = _.chain<string>(str).tail(n).value();
+        result = _.chain(str).tail(n).value();
 
         result = _.drop<string>(str, n);
         result = _.drop(str, n);
@@ -5043,8 +4773,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).drop(n);
         result = _(str).drop(n);
 
-        result = _<string>(str).chain().drop(n).value();
-        result = _(str).chain().drop(n).value();
+        result = _.chain<string>(str).drop(n).value();
+        result = _.chain(str).drop(n).value();
     }
 }
 
@@ -5063,8 +4793,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string } | undefined>(array).compact().value();
         result = _.chain(array).compact().value();
 
-        result = _<{ a: string } | undefined>(array).chain().compact().value();
-        result = _(array).chain().compact().value();
+        result = _.chain<{ a: string } | undefined>(array).compact().value();
+        result = _.chain(array).compact().value();
     }
 
     {
@@ -5080,8 +4810,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string } | undefined>(list).compact().value();
         result = _.chain(list).compact().value();
 
-        result = _<{ a: string } | undefined>(list).chain().compact().value();
-        result = _(list).chain().compact().value();
+        result = _.chain<{ a: string } | undefined>(list).compact().value();
+        result = _.chain(list).compact().value();
     }
 }
 
@@ -5101,8 +4831,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).flatten().value();
         result = _.chain(array).flatten().value();
 
-        result = _<{ a: string }>(array).chain().flatten().value();
-        result = _(array).chain().flatten().value();
+        result = _.chain<{ a: string }>(array).flatten().value();
+        result = _.chain(array).flatten().value();
     }
 
     {
@@ -5118,8 +4848,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).flatten().value();
         result = _.chain(list).flatten().value();
 
-        result = _<{ a: string }>(list).chain().flatten().value();
-        result = _(list).chain().flatten().value();
+        result = _.chain<{ a: string }>(list).flatten().value();
+        result = _.chain(list).flatten().value();
     }
 
     // one dimension, shallow
@@ -5136,8 +4866,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).flatten(true).value();
         result = _.chain(array).flatten(true).value();
 
-        result = _<{ a: string }>(array).chain().flatten(true).value();
-        result = _(array).chain().flatten(true).value();
+        result = _.chain<{ a: string }>(array).flatten(true).value();
+        result = _.chain(array).flatten(true).value();
     }
 
     {
@@ -5153,8 +4883,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).flatten(true).value();
         result = _.chain(list).flatten(true).value();
 
-        result = _<{ a: string }>(list).chain().flatten(true).value();
-        result = _(list).chain().flatten(true).value();
+        result = _.chain<{ a: string }>(list).flatten(true).value();
+        result = _.chain(list).flatten(true).value();
     }
 
     // two dimensions, deep
@@ -5171,8 +4901,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }[]>(array).flatten().value();
         result = _.chain(array).flatten().value();
 
-        result = _<{ a: string }[]>(array).chain().flatten().value();
-        result = _(array).chain().flatten().value();
+        result = _.chain<{ a: string }[]>(array).flatten().value();
+        result = _.chain(array).flatten().value();
     }
 
     {
@@ -5189,7 +4919,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).flatten().value();
 
         result = _<_.List<{ a: string }>>(list).chain().flatten().value();
-        result = _(list).chain().flatten().value();
+        result = _.chain(list).flatten().value();
     }
 
     // two dimensions, shallow
@@ -5206,8 +4936,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }[]>(array).flatten(true).value();
         result = _.chain(array).flatten(true).value();
 
-        result = _<{ a: string }[]>(array).chain().flatten(true).value();
-        result = _(array).chain().flatten(true).value();
+        result = _.chain<{ a: string }[]>(array).flatten(true).value();
+        result = _.chain(array).flatten(true).value();
     }
 
     {
@@ -5224,7 +4954,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).flatten(true).value();
 
         result = _<_.List<{ a: string }>>(list).chain().flatten(true).value();
-        result = _(list).chain().flatten(true).value();
+        result = _.chain(list).flatten(true).value();
     }
 
     // three dimensions, deep
@@ -5241,8 +4971,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }[][]>(array).flatten().value();
         result = _.chain(array).flatten().value();
 
-        result = _<{ a: string }[][]>(array).chain().flatten().value();
-        result = _(array).chain().flatten().value();
+        result = _.chain<{ a: string }[][]>(array).flatten().value();
+        result = _.chain(array).flatten().value();
     }
 
     {
@@ -5259,7 +4989,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).flatten().value();
 
         result = _<_.List<_.List<{ a: string }>>>(list).chain().flatten().value();
-        result = _(list).chain().flatten().value();
+        result = _.chain(list).flatten().value();
     }
 
     // three dimensions, shallow
@@ -5276,8 +5006,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }[][]>(array).flatten(true).value();
         result = _.chain(array).flatten(true).value();
 
-        result = _<{ a: string }[][]>(array).chain().flatten(true).value();
-        result = _(array).chain().flatten(true).value();
+        result = _.chain<{ a: string }[][]>(array).flatten(true).value();
+        result = _.chain(array).flatten(true).value();
     }
 
     {
@@ -5294,7 +5024,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).flatten(true).value();
 
         result = _<_.List<_.List<{ a: string }>>>(list).chain().flatten(true).value();
-        result = _(list).chain().flatten(true).value();
+        result = _.chain(list).flatten(true).value();
     }
 
     // four dimensions, deep - this is where recursion gives up, use a type that's definitely wrong to check that giving up happens
@@ -5311,8 +5041,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }[][][]>(array).flatten().value();
         result = _.chain(array).flatten().value();
 
-        result = _<{ a: string }[][][]>(array).chain().flatten().value();
-        result = _(array).chain().flatten().value();
+        result = _.chain<{ a: string }[][][]>(array).flatten().value();
+        result = _.chain(array).flatten().value();
     }
 
     {
@@ -5329,7 +5059,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).flatten().value();
 
         result = _<_.List<_.List<_.List<{ a: string }>>>>(list).chain().flatten().value();
-        result = _(list).chain().flatten().value();
+        result = _.chain(list).flatten().value();
     }
 }
 
@@ -5350,8 +5080,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).without(item1, item2).value();
         result = _.chain(array).without(item1, item2).value();
 
-        result = _<{ a: string }>(array).chain().without(item1, item2).value();
-        result = _(array).chain().without(item1, item2).value();
+        result = _.chain<{ a: string }>(array).without(item1, item2).value();
+        result = _.chain(array).without(item1, item2).value();
     }
 
     {
@@ -5369,8 +5099,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).without(item1, item2).value();
         result = _.chain(list).without(item1, item2).value();
 
-        result = _<{ a: string }>(list).chain().without(item1, item2).value();
-        result = _(list).chain().without(item1, item2).value();
+        result = _.chain<{ a: string }>(list).without(item1, item2).value();
+        result = _.chain(list).without(item1, item2).value();
     }
 
     {
@@ -5385,8 +5115,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).without(item1, item2);
         result = _(str).without(item1, item2);
 
-        result = _<string>(str).chain().without(item1, item2).value();
-        result = _(str).chain().without(item1, item2).value();
+        result = _.chain<string>(str).without(item1, item2).value();
+        result = _.chain(str).without(item1, item2).value();
     }
 }
 
@@ -5406,8 +5136,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array1).union(array2).value();
         result = _.chain(array1).union(array2).value();
 
-        result = _<{ a: string }>(array1).chain().union(array2).value();
-        result = _(array1).chain().union(array2).value();
+        result = _.chain<{ a: string }>(array1).union(array2).value();
+        result = _.chain(array1).union(array2).value();
     }
 
     {
@@ -5424,8 +5154,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list1).union(list2).value();
         result = _.chain(list1).union(list2).value();
 
-        result = _<{ a: string }>(list1).chain().union(list2).value();
-        result = _(list1).chain().union(list2).value();
+        result = _.chain<{ a: string }>(list1).union(list2).value();
+        result = _.chain(list1).union(list2).value();
     }
 
     {
@@ -5439,8 +5169,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str1).union(str2);
         result = _(str1).union(str2);
 
-        result = _<string>(str1).chain().union(str2).value();
-        result = _(str1).chain().union(str2).value();
+        result = _.chain<string>(str1).union(str2).value();
+        result = _.chain(str1).union(str2).value();
     }
 }
 
@@ -5460,8 +5190,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array1).intersection(array2).value();
         result = _.chain(array1).intersection(array2).value();
 
-        result = _<{ a: string }>(array1).chain().intersection(array2).value();
-        result = _(array1).chain().intersection(array2).value();
+        result = _.chain<{ a: string }>(array1).intersection(array2).value();
+        result = _.chain(array1).intersection(array2).value();
     }
 
     {
@@ -5478,8 +5208,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list1).intersection(list2).value();
         result = _.chain(list1).intersection(list2).value();
 
-        result = _<{ a: string }>(list1).chain().intersection(list2).value();
-        result = _(list1).chain().intersection(list2).value();
+        result = _.chain<{ a: string }>(list1).intersection(list2).value();
+        result = _.chain(list1).intersection(list2).value();
     }
 
     {
@@ -5493,8 +5223,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str1).intersection(str2);
         result = _(str1).intersection(str2);
 
-        result = _<string>(str1).chain().intersection(str2).value();
-        result = _(str1).chain().intersection(str2).value();
+        result = _.chain<string>(str1).intersection(str2).value();
+        result = _.chain(str1).intersection(str2).value();
     }
 }
 
@@ -5514,8 +5244,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array1).difference(array2).value();
         result = _.chain(array1).difference(array2).value();
 
-        result = _<{ a: string }>(array1).chain().difference(array2).value();
-        result = _(array1).chain().difference(array2).value();
+        result = _.chain<{ a: string }>(array1).difference(array2).value();
+        result = _.chain(array1).difference(array2).value();
     }
 
     {
@@ -5532,8 +5262,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list1).difference(list2).value();
         result = _.chain(list1).difference(list2).value();
 
-        result = _<{ a: string }>(list1).chain().difference(list2).value();
-        result = _(list1).chain().difference(list2).value();
+        result = _.chain<{ a: string }>(list1).difference(list2).value();
+        result = _.chain(list1).difference(list2).value();
     }
 
     {
@@ -5547,8 +5277,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str1).difference(str2);
         result = _(str1).difference(str2);
 
-        result = _<string>(str1).chain().difference(str2).value();
-        result = _(str1).chain().difference(str2).value();
+        result = _.chain<string>(str1).difference(str2).value();
+        result = _.chain(str1).difference(str2).value();
     }
 }
 
@@ -5589,15 +5319,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).uniq(true, iterator).value();
         result = _.chain(array).uniq(true, iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().uniq().value();
-        result = _<{ a: string }>(array).chain().uniq(true).value();
-        result = _<{ a: string }>(array).chain().uniq(true, iterator).value();
-        result = _<{ a: string }>(array).chain().uniq(true, iterator, context).value();
-        result = _(array).chain().uniq().value();
-        result = _(array).chain().uniq(true).value();
-        result = _(array).chain().uniq(true, iterator).value();
-        result = _(array).chain().uniq(true, iterator, context).value();
-
         result = _.unique<{ a: string }>(array);
         result = _.unique<{ a: string }>(array, true);
         result = _.unique<{ a: string }>(array, true, iterator);
@@ -5625,14 +5346,14 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).unique(true, iterator).value();
         result = _.chain(array).unique(true, iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().unique().value();
-        result = _<{ a: string }>(array).chain().unique(true).value();
-        result = _<{ a: string }>(array).chain().unique(true, iterator).value();
-        result = _<{ a: string }>(array).chain().unique(true, iterator, context).value();
-        result = _(array).chain().unique().value();
-        result = _(array).chain().unique(true).value();
-        result = _(array).chain().unique(true, iterator).value();
-        result = _(array).chain().unique(true, iterator, context).value();
+        result = _.chain<{ a: string }>(array).unique().value();
+        result = _.chain<{ a: string }>(array).unique(true).value();
+        result = _.chain<{ a: string }>(array).unique(true, iterator).value();
+        result = _.chain<{ a: string }>(array).unique(true, iterator, context).value();
+        result = _.chain(array).unique().value();
+        result = _.chain(array).unique(true).value();
+        result = _.chain(array).unique(true, iterator).value();
+        result = _.chain(array).unique(true, iterator, context).value();
     }
 
     {
@@ -5679,19 +5400,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).uniq(true, iterator).value();
         result = _.chain(list).uniq(true, iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().uniq().value();
-        result = _<{ a: string }>(list).chain().uniq(iterator).value();
-        result = _<{ a: string }>(list).chain().uniq(iterator, context).value();
-        result = _<{ a: string }>(list).chain().uniq(true).value();
-        result = _<{ a: string }>(list).chain().uniq(true, iterator).value();
-        result = _<{ a: string }>(list).chain().uniq(true, iterator, context).value();
-        result = _(list).chain().uniq().value();
-        result = _(list).chain().uniq(iterator).value();
-        result = _(list).chain().uniq(iterator, context).value();
-        result = _(list).chain().uniq(true).value();
-        result = _(list).chain().uniq(true, iterator).value();
-        result = _(list).chain().uniq(true, iterator, context).value();
-
         result = _.unique<{ a: string }>(list);
         result = _.unique<{ a: string }>(list, iterator);
         result = _.unique<{ a: string }>(list, iterator, context);
@@ -5731,18 +5439,18 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).unique(true, iterator).value();
         result = _.chain(list).unique(true, iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().unique().value();
-        result = _<{ a: string }>(list).chain().unique(iterator).value();
-        result = _<{ a: string }>(list).chain().unique(iterator, context).value();
-        result = _<{ a: string }>(list).chain().unique(true).value();
-        result = _<{ a: string }>(list).chain().unique(true, iterator).value();
-        result = _<{ a: string }>(list).chain().unique(true, iterator, context).value();
-        result = _(list).chain().unique().value();
-        result = _(list).chain().unique(iterator).value();
-        result = _(list).chain().unique(iterator, context).value();
-        result = _(list).chain().unique(true).value();
-        result = _(list).chain().unique(true, iterator).value();
-        result = _(list).chain().unique(true, iterator, context).value();
+        result = _.chain<{ a: string }>(list).unique().value();
+        result = _.chain<{ a: string }>(list).unique(iterator).value();
+        result = _.chain<{ a: string }>(list).unique(iterator, context).value();
+        result = _.chain<{ a: string }>(list).unique(true).value();
+        result = _.chain<{ a: string }>(list).unique(true, iterator).value();
+        result = _.chain<{ a: string }>(list).unique(true, iterator, context).value();
+        result = _.chain(list).unique().value();
+        result = _.chain(list).unique(iterator).value();
+        result = _.chain(list).unique(iterator, context).value();
+        result = _.chain(list).unique(true).value();
+        result = _.chain(list).unique(true, iterator).value();
+        result = _.chain(list).unique(true, iterator, context).value();
     }
 
     // property name iterator
@@ -5766,11 +5474,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).uniq(property).value();
         result = _.chain(array).uniq(true, property).value();
 
-        result = _<{ a: string }>(array).chain().uniq(property).value();
-        result = _<{ a: string }>(array).chain().uniq(true, property).value();
-        result = _(array).chain().uniq(property).value();
-        result = _(array).chain().uniq(true, property).value();
-
         result = _.unique<{ a: string }>(array, property);
         result = _.unique<{ a: string }>(array, true, property);
         result = _.unique(array, property);
@@ -5786,10 +5489,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).unique(property).value();
         result = _.chain(array).unique(true, property).value();
 
-        result = _<{ a: string }>(array).chain().unique(property).value();
-        result = _<{ a: string }>(array).chain().unique(true, property).value();
-        result = _(array).chain().unique(property).value();
-        result = _(array).chain().unique(true, property).value();
+        result = _.chain<{ a: string }>(array).unique(property).value();
+        result = _.chain<{ a: string }>(array).unique(true, property).value();
+        result = _.chain(array).unique(property).value();
+        result = _.chain(array).unique(true, property).value();
     }
 
     {
@@ -5812,11 +5515,6 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).uniq(property).value();
         result = _.chain(list).uniq(true, property).value();
 
-        result = _<{ a: string }>(list).chain().uniq(property).value();
-        result = _<{ a: string }>(list).chain().uniq(true, property).value();
-        result = _(list).chain().uniq(property).value();
-        result = _(list).chain().uniq(true, property).value();
-
         result = _.unique<{ a: string }>(list, property);
         result = _.unique<{ a: string }>(list, true, property);
         result = _.unique(list, property);
@@ -5832,10 +5530,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).unique(property).value();
         result = _.chain(list).unique(true, property).value();
 
-        result = _<{ a: string }>(list).chain().unique(property).value();
-        result = _<{ a: string }>(list).chain().unique(true, property).value();
-        result = _(list).chain().unique(property).value();
-        result = _(list).chain().unique(true, property).value();
+        result = _.chain<{ a: string }>(list).unique(property).value();
+        result = _.chain<{ a: string }>(list).unique(true, property).value();
+        result = _.chain(list).unique(property).value();
+        result = _.chain(list).unique(true, property).value();
     }
 }
 
@@ -5855,8 +5553,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).chunk(length).value();
         result = _.chain(array).chunk(length).value();
 
-        result = _<{ a: string }>(array).chain().chunk(length).value();
-        result = _(array).chain().chunk(length).value();
+        result = _.chain<{ a: string }>(array).chunk(length).value();
+        result = _.chain(array).chunk(length).value();
     }
 
     {
@@ -5873,8 +5571,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).chunk(length).value();
         result = _.chain(list).chunk(length).value();
 
-        result = _<{ a: string }>(list).chain().chunk(length).value();
-        result = _(list).chain().chunk(length).value();
+        result = _.chain<{ a: string }>(list).chunk(length).value();
+        result = _.chain(list).chunk(length).value();
     }
 
     {
@@ -5888,8 +5586,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _<string>(str).chunk(length);
         result = _(str).chunk(length);
 
-        result = _<string>(str).chain().chunk(length).value();
-        result = _(str).chain().chunk(length).value();
+        result = _.chain<string>(str).chunk(length).value();
+        result = _.chain(str).chunk(length).value();
     }
 }
 
@@ -5917,10 +5615,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).indexOf(item).value();
         result = _.chain(array).indexOf(item, isSorted).value();
 
-        result = _<{ a: string }>(array).chain().indexOf(item).value();
-        result = _<{ a: string }>(array).chain().indexOf(item, isSorted).value();
-        result = _(array).chain().indexOf(item).value();
-        result = _(array).chain().indexOf(item, isSorted).value();
+        result = _.chain<{ a: string }>(array).indexOf(item).value();
+        result = _.chain<{ a: string }>(array).indexOf(item, isSorted).value();
+        result = _.chain(array).indexOf(item).value();
+        result = _.chain(array).indexOf(item, isSorted).value();
     }
 
     {
@@ -5943,10 +5641,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).indexOf(item).value();
         result = _.chain(list).indexOf(item, isSorted).value();
 
-        result = _<{ a: string }>(list).chain().indexOf(item).value();
-        result = _<{ a: string }>(list).chain().indexOf(item, isSorted).value();
-        result = _(list).chain().indexOf(item).value();
-        result = _(list).chain().indexOf(item, isSorted).value();
+        result = _.chain<{ a: string }>(list).indexOf(item).value();
+        result = _.chain<{ a: string }>(list).indexOf(item, isSorted).value();
+        result = _.chain(list).indexOf(item).value();
+        result = _.chain(list).indexOf(item, isSorted).value();
     }
 
     {
@@ -5964,10 +5662,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).indexOf(item);
         result = _(str).indexOf(item, isSorted);
 
-        result = _<string>(str).chain().indexOf(item).value();
-        result = _<string>(str).chain().indexOf(item, isSorted).value();
-        result = _(str).chain().indexOf(item).value();
-        result = _(str).chain().indexOf(item, isSorted).value();
+        result = _.chain<string>(str).indexOf(item).value();
+        result = _.chain<string>(str).indexOf(item, isSorted).value();
+        result = _.chain(str).indexOf(item).value();
+        result = _.chain(str).indexOf(item, isSorted).value();
     }
 }
 
@@ -5995,10 +5693,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).lastIndexOf(item).value();
         result = _.chain(array).lastIndexOf(item, fromIndex).value();
 
-        result = _<{ a: string }>(array).chain().lastIndexOf(item).value();
-        result = _<{ a: string }>(array).chain().lastIndexOf(item, fromIndex).value();
-        result = _(array).chain().lastIndexOf(item).value();
-        result = _(array).chain().lastIndexOf(item, fromIndex).value();
+        result = _.chain<{ a: string }>(array).lastIndexOf(item).value();
+        result = _.chain<{ a: string }>(array).lastIndexOf(item, fromIndex).value();
+        result = _.chain(array).lastIndexOf(item).value();
+        result = _.chain(array).lastIndexOf(item, fromIndex).value();
     }
 
     {
@@ -6021,10 +5719,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).lastIndexOf(item).value();
         result = _.chain(list).lastIndexOf(item, fromIndex).value();
 
-        result = _<{ a: string }>(list).chain().lastIndexOf(item).value();
-        result = _<{ a: string }>(list).chain().lastIndexOf(item, fromIndex).value();
-        result = _(list).chain().lastIndexOf(item).value();
-        result = _(list).chain().lastIndexOf(item, fromIndex).value();
+        result = _.chain<{ a: string }>(list).lastIndexOf(item).value();
+        result = _.chain<{ a: string }>(list).lastIndexOf(item, fromIndex).value();
+        result = _.chain(list).lastIndexOf(item).value();
+        result = _.chain(list).lastIndexOf(item, fromIndex).value();
     }
 
     {
@@ -6042,10 +5740,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).lastIndexOf(item);
         result = _(str).lastIndexOf(item, fromIndex);
 
-        result = _<string>(str).chain().lastIndexOf(item).value();
-        result = _<string>(str).chain().lastIndexOf(item, fromIndex).value();
-        result = _(str).chain().lastIndexOf(item).value();
-        result = _(str).chain().lastIndexOf(item, fromIndex).value();
+        result = _.chain<string>(str).lastIndexOf(item).value();
+        result = _.chain<string>(str).lastIndexOf(item, fromIndex).value();
+        result = _.chain(str).lastIndexOf(item).value();
+        result = _.chain(str).lastIndexOf(item, fromIndex).value();
     }
 }
 
@@ -6073,10 +5771,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).findIndex(iterator).value();
         result = _.chain(array).findIndex(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().findIndex(iterator).value();
-        result = _<{ a: string }>(array).chain().findIndex(iterator, context).value();
-        result = _(array).chain().findIndex(iterator).value();
-        result = _(array).chain().findIndex(iterator, context).value();
+        result = _.chain<{ a: string }>(array).findIndex(iterator).value();
+        result = _.chain<{ a: string }>(array).findIndex(iterator, context).value();
+        result = _.chain(array).findIndex(iterator).value();
+        result = _.chain(array).findIndex(iterator, context).value();
     }
 
     {
@@ -6093,8 +5791,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).findIndex(properties).value();
         result = _.chain(array).findIndex(properties).value();
 
-        result = _<{ a: string }>(array).chain().findIndex(properties).value();
-        result = _(array).chain().findIndex(properties).value();
+        result = _.chain<{ a: string }>(array).findIndex(properties).value();
+        result = _.chain(array).findIndex(properties).value();
     }
 
     {
@@ -6117,10 +5815,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).findIndex(iterator).value();
         result = _.chain(list).findIndex(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().findIndex(iterator).value();
-        result = _<{ a: string }>(list).chain().findIndex(iterator, context).value();
-        result = _(list).chain().findIndex(iterator).value();
-        result = _(list).chain().findIndex(iterator, context).value();
+        result = _.chain<{ a: string }>(list).findIndex(iterator).value();
+        result = _.chain<{ a: string }>(list).findIndex(iterator, context).value();
+        result = _.chain(list).findIndex(iterator).value();
+        result = _.chain(list).findIndex(iterator, context).value();
     }
 
     {
@@ -6137,8 +5835,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).findIndex(properties).value();
         result = _.chain(list).findIndex(properties).value();
 
-        result = _<{ a: string }>(list).chain().findIndex(properties).value();
-        result = _(list).chain().findIndex(properties).value();
+        result = _.chain<{ a: string }>(list).findIndex(properties).value();
+        result = _.chain(list).findIndex(properties).value();
     }
 
     {
@@ -6156,10 +5854,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).findIndex(iterator);
         result = _(str).findIndex(iterator, context);
 
-        result = _<string>(str).chain().findIndex(iterator).value();
-        result = _<string>(str).chain().findIndex(iterator, context).value();
-        result = _(str).chain().findIndex(iterator).value();
-        result = _(str).chain().findIndex(iterator, context).value();
+        result = _.chain<string>(str).findIndex(iterator).value();
+        result = _.chain<string>(str).findIndex(iterator, context).value();
+        result = _.chain(str).findIndex(iterator).value();
+        result = _.chain(str).findIndex(iterator, context).value();
     }
 }
 
@@ -6187,10 +5885,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(array).findLastIndex(iterator).value();
         result = _.chain(array).findLastIndex(iterator, context).value();
 
-        result = _<{ a: string }>(array).chain().findLastIndex(iterator).value();
-        result = _<{ a: string }>(array).chain().findLastIndex(iterator, context).value();
-        result = _(array).chain().findLastIndex(iterator).value();
-        result = _(array).chain().findLastIndex(iterator, context).value();
+        result = _.chain<{ a: string }>(array).findLastIndex(iterator).value();
+        result = _.chain<{ a: string }>(array).findLastIndex(iterator, context).value();
+        result = _.chain(array).findLastIndex(iterator).value();
+        result = _.chain(array).findLastIndex(iterator, context).value();
     }
 
     {
@@ -6207,8 +5905,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(array).findLastIndex(properties).value();
         result = _.chain(array).findLastIndex(properties).value();
 
-        result = _<{ a: string }>(array).chain().findLastIndex(properties).value();
-        result = _(array).chain().findLastIndex(properties).value();
+        result = _.chain<{ a: string }>(array).findLastIndex(properties).value();
+        result = _.chain(array).findLastIndex(properties).value();
     }
 
     {
@@ -6231,10 +5929,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).findLastIndex(iterator).value();
         result = _.chain(list).findLastIndex(iterator, context).value();
 
-        result = _<{ a: string }>(list).chain().findLastIndex(iterator).value();
-        result = _<{ a: string }>(list).chain().findLastIndex(iterator, context).value();
-        result = _(list).chain().findLastIndex(iterator).value();
-        result = _(list).chain().findLastIndex(iterator, context).value();
+        result = _.chain<{ a: string }>(list).findLastIndex(iterator).value();
+        result = _.chain<{ a: string }>(list).findLastIndex(iterator, context).value();
+        result = _.chain(list).findLastIndex(iterator).value();
+        result = _.chain(list).findLastIndex(iterator, context).value();
     }
 
     {
@@ -6251,8 +5949,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain<{ a: string }>(list).findLastIndex(properties).value();
         result = _.chain(list).findLastIndex(properties).value();
 
-        result = _<{ a: string }>(list).chain().findLastIndex(properties).value();
-        result = _(list).chain().findLastIndex(properties).value();
+        result = _.chain<{ a: string }>(list).findLastIndex(properties).value();
+        result = _.chain(list).findLastIndex(properties).value();
     }
 
     {
@@ -6270,10 +5968,10 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _(str).findLastIndex(iterator);
         result = _(str).findLastIndex(iterator, context);
 
-        result = _<string>(str).chain().findLastIndex(iterator).value();
-        result = _<string>(str).chain().findLastIndex(iterator, context).value();
-        result = _(str).chain().findLastIndex(iterator).value();
-        result = _(str).chain().findLastIndex(iterator, context).value();
+        result = _.chain<string>(str).findLastIndex(iterator).value();
+        result = _.chain<string>(str).findLastIndex(iterator, context).value();
+        result = _.chain(str).findLastIndex(iterator).value();
+        result = _.chain(str).findLastIndex(iterator, context).value();
     }
 }
 
