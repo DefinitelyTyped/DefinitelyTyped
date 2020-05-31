@@ -63,5 +63,5 @@ declare namespace jsf {
         | 'replaceEmptyByRandomValue';
 }
 
-declare function jsf(): any;
+declare function jsf(schema: jsf.Schema, refs?: string | jsf.Schema[]): any; // Deprecated.
 export = jsf;
