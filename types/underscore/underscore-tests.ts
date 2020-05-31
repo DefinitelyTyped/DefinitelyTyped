@@ -2569,8 +2569,9 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 }
 
 // invoke
-// once TS 3.0 is reached as a minimum version, as a breaking change, consider updating invoke to be the following:
-// invoke<T extends {}, TFunction extends FunctionPropertyNames<T>>(list: _.List<T>, methodName: TMethod, ...args: Parameters<T[TFunction]>): ReturnType<T[TFunction]>[];
+// once TS 3.6 is reached as a minimum version, as a breaking change, consider updating invoke to be the following:
+// type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T];
+// invoke<T extends {}, TFunctionProperty extends FunctionPropertyNames<T>>(list: _.List<T>, methodName: TFunctionProperty, ...args: Parameters<T[TFunctionProperty]>): ReturnType<T[TFunctionProperty]>[];
 {
 
     // without parameters
@@ -2579,16 +2580,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const array: { func: () => number }[] = [{ [functionName]: Math.random }, { [functionName]: Math.random }];
         let result: number[];
 
-        result = _.invoke<{ func: () => number }, typeof functionName>(array, functionName);
+        result = _.invoke<{ func: () => number }>(array, functionName);
         result = _.invoke(array, functionName);
 
-        result = _<{ func: () => number }>(array).invoke<typeof functionName>(functionName);
+        result = _<{ func: () => number }>(array).invoke(functionName);
         result = _(array).invoke(functionName);
 
-        result = _.chain<{ func: () => number }>(array).invoke<typeof functionName>(functionName).value();
+        result = _.chain<{ func: () => number }>(array).invoke(functionName).value();
         result = _.chain(array).invoke(functionName).value();
 
-        result = _.chain<{ func: () => number }>(array).invoke<typeof functionName>(functionName).value();
+        result = _.chain<{ func: () => number }>(array).invoke(functionName).value();
         result = _.chain(array).invoke(functionName).value();
     }
 
@@ -2597,34 +2598,34 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const list: _.List<{ func: () => number }> = { 0: { [functionName]: Math.random }, 1: { [functionName]: Math.random }, length: 2 };
         let result: number[];
 
-        result = _.invoke<{ func: () => number }, typeof functionName>(list, functionName);
+        result = _.invoke<{ func: () => number }>(list, functionName);
         result = _.invoke(list, functionName);
 
-        result = _<{ func: () => number }>(list).invoke<typeof functionName>(functionName);
+        result = _<{ func: () => number }>(list).invoke(functionName);
         result = _(list).invoke(functionName);
 
-        result = _.chain<{ func: () => number }>(list).invoke<typeof functionName>(functionName).value();
+        result = _.chain<{ func: () => number }>(list).invoke(functionName).value();
         result = _.chain(list).invoke(functionName).value();
 
-        result = _.chain<{ func: () => number }>(list).invoke<typeof functionName>(functionName).value();
+        result = _.chain<{ func: () => number }>(list).invoke(functionName).value();
         result = _.chain(list).invoke(functionName).value();
     }
 
     {
         const functionName = 'func';
         const dict: _.Dictionary<{ func: () => number }> = { a: { [functionName]: Math.random }, b: { [functionName]: Math.random } };
-        let result: number[];
+        let result: { a: string }[];
 
-        result = _.invoke<{ func: () => number }, typeof functionName>(dict, functionName);
+        result = _.invoke<{ func: () => number }>(dict, functionName);
         result = _.invoke(dict, functionName);
 
-        result = _<{ func: () => number }>(dict).invoke<typeof functionName>(functionName);
+        result = _<{ func: () => number }>(dict).invoke(functionName);
         result = _(dict).invoke(functionName);
 
-        result = _.chain<{ func: () => number }>(dict).invoke<typeof functionName>(functionName).value();
+        result = _.chain<{ func: () => number }>(dict).invoke(functionName).value();
         result = _.chain(dict).invoke(functionName).value();
 
-        result = _.chain<{ func: () => number }>(dict).invoke<typeof functionName>(functionName).value();
+        result = _.chain<{ func: () => number }>(dict).invoke(functionName).value();
         result = _.chain(dict).invoke(functionName).value();
     }
 
@@ -2633,13 +2634,13 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const str = 'abc';
         let result: string[];
 
-        result = _.invoke<string, typeof functionName>(str, functionName);
+        result = _.invoke<string>(str, functionName);
         result = _.invoke(str, functionName);
 
-        result = _<string>(str).invoke<typeof functionName>(functionName);
+        result = _<string>(str).invoke(functionName);
         result = _(str).invoke(functionName);
 
-        result = _.chain<string>(str).invoke<typeof functionName>(functionName).value();
+        result = _.chain<string>(str).invoke(functionName).value();
         result = _.chain(str).invoke(functionName).value();
     }
 
@@ -2650,16 +2651,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const arg = -1;
         let result: number[];
 
-        result = _.invoke<{ func: (input: number) => number }, typeof functionName>(array, functionName, arg);
+        result = _.invoke<{ func: (input: number) => number }>(array, functionName, arg);
         result = _.invoke(array, functionName, arg);
 
-        result = _<{ func: (input: number) => number }>(array).invoke<typeof functionName>(functionName, arg);
+        result = _<{ func: (input: number) => number }>(array).invoke(functionName, arg);
         result = _(array).invoke(functionName, arg);
 
-        result = _.chain<{ func: (input: number) => number }>(array).invoke<typeof functionName>(functionName, arg).value();
+        result = _.chain<{ func: (input: number) => number }>(array).invoke(functionName, arg).value();
         result = _.chain(array).invoke(functionName, arg).value();
 
-        result = _.chain<{ func: (input: number) => number }>(array).invoke<typeof functionName>(functionName, arg).value();
+        result = _.chain<{ func: (input: number) => number }>(array).invoke(functionName, arg).value();
         result = _.chain(array).invoke(functionName, arg).value();
     }
 
@@ -2669,16 +2670,16 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const arg = -1;
         let result: number[];
 
-        result = _.invoke<{ func: (input: number) => number }, typeof functionName>(list, functionName, arg);
+        result = _.invoke<{ func: (input: number) => number }>(list, functionName, arg);
         result = _.invoke(list, functionName, arg);
 
-        result = _<{ func: (input: number) => number }>(list).invoke<typeof functionName>(functionName, arg);
+        result = _<{ func: (input: number) => number }>(list).invoke(functionName, arg);
         result = _(list).invoke(functionName, arg);
 
-        result = _.chain<{ func: (input: number) => number }>(list).invoke<typeof functionName>(functionName, arg).value();
+        result = _.chain<{ func: (input: number) => number }>(list).invoke(functionName, arg).value();
         result = _.chain(list).invoke(functionName, arg).value();
 
-        result = _.chain<{ func: (input: number) => number }>(list).invoke<typeof functionName>(functionName, arg).value();
+        result = _.chain<{ func: (input: number) => number }>(list).invoke(functionName, arg).value();
         result = _.chain(list).invoke(functionName, arg).value();
     }
 
@@ -2686,18 +2687,18 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const functionName = 'func';
         const dict: _.Dictionary<{ func: (input: number) => number }> = { a: { [functionName]: Math.abs }, b: { [functionName]: Math.abs } };
         const arg = -1;
-        let result: number[];
+        let result: { a: string }[];
 
-        result = _.invoke<{ func: (input: number) => number }, typeof functionName>(dict, functionName, arg);
+        result = _.invoke<{ func: (input: number) => number }>(dict, functionName, arg);
         result = _.invoke(dict, functionName, arg);
 
-        result = _<{ func: (input: number) => number }>(dict).invoke<typeof functionName>(functionName, arg);
+        result = _<{ func: (input: number) => number }>(dict).invoke(functionName, arg);
         result = _(dict).invoke(functionName, arg);
 
-        result = _.chain<{ func: (input: number) => number }>(dict).invoke<typeof functionName>(functionName, arg).value();
+        result = _.chain<{ func: (input: number) => number }>(dict).invoke(functionName, arg).value();
         result = _.chain(dict).invoke(functionName, arg).value();
 
-        result = _.chain<{ func: (input: number) => number }>(dict).invoke<typeof functionName>(functionName, arg).value();
+        result = _.chain<{ func: (input: number) => number }>(dict).invoke(functionName, arg).value();
         result = _.chain(dict).invoke(functionName, arg).value();
     }
 
@@ -2707,13 +2708,13 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         const arg = 1;
         let result: string[];
 
-        result = _.invoke<string, typeof functionName>(str, functionName, arg);
+        result = _.invoke<string>(str, functionName, arg);
         result = _.invoke(str, functionName, arg);
 
-        result = _<string>(str).invoke<typeof functionName>(functionName, arg);
+        result = _<string>(str).invoke(functionName, arg);
         result = _(str).invoke(functionName, arg);
 
-        result = _.chain<string>(str).invoke<typeof functionName>(functionName, arg).value();
+        result = _.chain<string>(str).invoke(functionName, arg).value();
         result = _.chain(str).invoke(functionName, arg).value();
     }
 }
