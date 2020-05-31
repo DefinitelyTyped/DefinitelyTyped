@@ -1,7 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import { XAxis, YAxis, XYPlot, MarkSeriesCanvas, Borders, Highlight } from 'react-vis';
 
-import Iris from '../../datasets/iris.json';
+const Iris: any[] = [
+    { 'sepal length': 1, 'sepal width': 2, 'petal length': 3, 'petal width': 4, species: 'versicolor' },
+];
 
 import './iris-dashboard.scss';
 const AXES = ['sepal length', 'sepal width', 'petal length', 'petal width'];
@@ -18,7 +20,7 @@ export default class IrisDashboard extends React.Component {
         }, {}),
     };
 
-    render() {
+    render(): any {
         const { filters } = this.state;
 
         const data = Iris.map(d => {
@@ -29,7 +31,7 @@ export default class IrisDashboard extends React.Component {
             return { ...d, selected: !unselected };
         });
         return (
-            <div className="iris-dasboard-example">
+            <div className="iris-dashboard-example">
                 <div className="chart-container">
                     {AXES.map(yAxis => {
                         return (
@@ -70,7 +72,7 @@ export default class IrisDashboard extends React.Component {
                                                 colorType="category"
                                                 colorDomain={SPECIES}
                                                 colorRange={['#19CDD7', 'red', '#88572C']}
-                                                getOpacity={d => (d.selected ? 1 : 0.1)}
+                                                getOpacity={(d: any) => (d.selected ? 1 : 0.1)}
                                                 size={2}
                                             />
                                             <Borders style={{ all: { fill: '#fff' } }} />

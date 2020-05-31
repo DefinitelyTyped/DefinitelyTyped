@@ -1,16 +1,24 @@
 {
     "compilerOptions": {
-        "sourceMap": true,
-        "noImplicitAny": true,
-        "module": "commonjs",
-        "target": "es6",
-        "jsx": "react",
         "esModuleInterop": true,
-        "moduleResolution": "node",
-        "importHelpers": true,
-        "removeComments": true,
         "forceConsistentCasingInFileNames": true,
-        "strict": false
+        "importHelpers": true,
+        "jsx": "react",
+        "lib": ["es6"],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "sourceMap": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "target": "es6",
+        "typeRoots": [
+            "../",
+            "../react/"
+        ],
+        "types": []
     },
     "files": [
         "index.d.ts",
