@@ -6769,12 +6769,7 @@ function chain_tests() {
         .max()
         .value();
 
-    // this test was failing as of commit 6de1126, and even changing _Chain.Find<T> to _Chain.Find<TItem = T> as a workaround did not help
-    // most likely removing the type argument T local to the function in favor of using T from _Chain<T, V> is the best fix for this,
-    // but that will be a breaking change
-    // ideally _Chain.detect and _Chain.sample should also be updated as part of that update along with Underscore.find, Underscore.detect,
-    // Underscore.sample, Underscore.findIndex, and Underscore.findLastIndex
-    var hoverOverValueShouldBeNumberNotAny = _([1, 2, 3]).chain()
+    var hoverOverValueShouldBeNumberOrUndefinedNotAny = _([1, 2, 3]).chain()
         .map(num => [num, num + 1])
         .flatten()
         .find(num => num % 2 == 0)
