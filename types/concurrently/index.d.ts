@@ -2,6 +2,7 @@
 // Project: https://github.com/kimmobrunfeldt/concurrently#readme
 // Definitions by: Michael B. <https://github.com/Blasz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Ryan Ling <https://github.com/72636c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -14,6 +15,7 @@ declare function concurrently(
 declare namespace concurrently {
     interface CommandObj {
         command: string;
+        env?: NodeJS.ProcessEnv;
         name?: string;
         prefixColor?: string;
     }
