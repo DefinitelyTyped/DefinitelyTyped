@@ -3849,7 +3849,7 @@ declare module _ {
         * @param object Check if this object is an Object.
         * @return True of `object` is an Object, otherwise false.
         **/
-        isObject(object: any): boolean;
+        isObject(object: any): object is object;
 
         /**
         * Returns true if object is an Arguments object.
@@ -3891,7 +3891,7 @@ declare module _ {
         * @param object Check if this object is a finite Number.
         * @return True if `object` is a finite Number.
         **/
-        isFinite(object: any): boolean;
+        isFinite(object: any): object is number;
 
         /**
         * Returns true if object is either true or false.
@@ -3921,21 +3921,21 @@ declare module _ {
         * @param object Check if this object is NaN.
         * @return True if `object` is NaN, otherwise false.
         **/
-        isNaN(object: any): boolean;
+        isNaN(object: any): object is number;
 
         /**
         * Returns true if the value of object is null.
         * @param object Check if this object is null.
         * @return True if `object` is null, otherwise false.
         **/
-        isNull(object: any): boolean;
+        isNull(object: any): object is null;
 
         /**
         * Returns true if value is undefined.
         * @param object Check if this object is undefined.
         * @return True if `object` is undefined, otherwise false.
         **/
-        isUndefined(value: any): boolean;
+        isUndefined(object: any): object is undefined;
 
         /* *********
         * Utility *
