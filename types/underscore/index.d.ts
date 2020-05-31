@@ -770,6 +770,13 @@ declare module _ {
             iterator: _.ObjectIterator<T, boolean>,
             context?: any): [T[], T[]];
 
+        /**
+        * @see _.partition.
+        **/
+        partition<T>(
+            collection: _.Collection<T>,
+            iterator: Partial<T> | keyof T): [T[], T[]];
+
         /*********
         * Arrays *
         **********/
@@ -4551,6 +4558,12 @@ declare module _ {
         partition(iterator: _.ObjectIterator<T, boolean>, context?: any): [T[], T[]];
 
         /**
+        * Wrapped type `any[]`.
+        * @see _.partition
+        **/
+        partition(iterator: Partial<T> | keyof T): [T[], T[]];
+
+        /**
         * Wrapped type `any[][]`.
         * @see _.union
         **/
@@ -5570,6 +5583,12 @@ declare module _ {
         * @see _.partition
         **/
         partition(iterator: _.ObjectIterator<T, boolean>, context?: any): _Chain<T[], [T[], T[]]>;
+
+        /**
+        * Wrapped type `any[]`.
+        * @see _.partition
+        **/
+        partition(iterator: Partial<T> | keyof T): _Chain<T[], [T[], T[]]>;
 
         /**
         * Wrapped type `any[][]`.

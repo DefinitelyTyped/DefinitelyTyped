@@ -4075,22 +4075,33 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 // partition
 {
+    const context = {};
+
+    // function iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: [{ a: string }[], { a: string }[]];
 
         result = _.partition<{ a: string }>(array, iterator);
+        result = _.partition<{ a: string }>(array, iterator, context);
         result = _.partition(array, iterator);
+        result = _.partition(array, iterator, context);
 
         result = _<{ a: string }>(array).partition(iterator);
+        result = _<{ a: string }>(array).partition(iterator, context);
         result = _(array).partition(iterator);
+        result = _(array).partition(iterator, context);
 
         result = _.chain<{ a: string }>(array).partition(iterator).value();
+        result = _.chain<{ a: string }>(array).partition(iterator, context).value();
         result = _.chain(array).partition(iterator).value();
+        result = _.chain(array).partition(iterator, context).value();
 
         result = _.chain<{ a: string }>(array).partition(iterator).value();
+        result = _.chain<{ a: string }>(array).partition(iterator, context).value();
         result = _.chain(array).partition(iterator).value();
+        result = _.chain(array).partition(iterator, context).value();
     }
 
     {
@@ -4099,16 +4110,24 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: [{ a: string }[], { a: string }[]];
 
         result = _.partition<{ a: string }>(list, iterator);
+        result = _.partition<{ a: string }>(list, iterator, context);
         result = _.partition(list, iterator);
+        result = _.partition(list, iterator, context);
 
         result = _<{ a: string }>(list).partition(iterator);
+        result = _<{ a: string }>(list).partition(iterator, context);
         result = _(list).partition(iterator);
+        result = _(list).partition(iterator, context);
 
         result = _.chain<{ a: string }>(list).partition(iterator).value();
+        result = _.chain<{ a: string }>(list).partition(iterator, context).value();
         result = _.chain(list).partition(iterator).value();
+        result = _.chain(list).partition(iterator, context).value();
 
         result = _.chain<{ a: string }>(list).partition(iterator).value();
+        result = _.chain<{ a: string }>(list).partition(iterator, context).value();
         result = _.chain(list).partition(iterator).value();
+        result = _.chain(list).partition(iterator, context).value();
     }
 
     {
@@ -4117,16 +4136,24 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: [{ a: string }[], { a: string }[]];
 
         result = _.partition<{ a: string }>(dict, iterator);
+        result = _.partition<{ a: string }>(dict, iterator, context);
         result = _.partition(dict, iterator);
+        result = _.partition(dict, iterator, context);
 
         result = _<{ a: string }>(dict).partition(iterator);
+        result = _<{ a: string }>(dict).partition(iterator, context);
         result = _(dict).partition(iterator);
+        result = _(dict).partition(iterator, context);
 
         result = _.chain<{ a: string }>(dict).partition(iterator).value();
+        result = _.chain<{ a: string }>(dict).partition(iterator, context).value();
         result = _.chain(dict).partition(iterator).value();
+        result = _.chain(dict).partition(iterator, context).value();
 
         result = _.chain<{ a: string }>(dict).partition(iterator).value();
+        result = _.chain<{ a: string }>(dict).partition(iterator, context).value();
         result = _.chain(dict).partition(iterator).value();
+        result = _.chain(dict).partition(iterator, context).value();
     }
 
     {
@@ -4135,13 +4162,129 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         let result: [string[], string[]];
 
         result = _.partition<string>(str, iterator);
+        result = _.partition<string>(str, iterator, context);
         result = _.partition(str, iterator);
+        result = _.partition(str, iterator, context);
 
         result = _<string>(str).partition(iterator);
+        result = _<string>(str).partition(iterator, context);
         result = _(str).partition(iterator);
+        result = _(str).partition(iterator, context);
 
         result = _.chain<string>(str).partition(iterator).value();
+        result = _.chain<string>(str).partition(iterator, context).value();
         result = _.chain(str).partition(iterator).value();
+        result = _.chain(str).partition(iterator, context).value();
+    }
+
+    // partial object iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const properties = { a: 'a' };
+        let result: [{ a: string }[], { a: string }[]];
+
+        result = _.partition<{ a: string }>(array, properties);
+        result = _.partition(array, properties);
+
+        result = _<{ a: string }>(array).partition(properties);
+        result = _(array).partition(properties);
+
+        result = _.chain<{ a: string }>(array).partition(properties).value();
+        result = _.chain(array).partition(properties).value();
+
+        result = _.chain<{ a: string }>(array).partition(properties).value();
+        result = _.chain(array).partition(properties).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const properties = { a: 'a' };
+        let result: [{ a: string }[], { a: string }[]];
+
+        result = _.partition<{ a: string }>(list, properties);
+        result = _.partition(list, properties);
+
+        result = _<{ a: string }>(list).partition(properties);
+        result = _(list).partition(properties);
+
+        result = _.chain<{ a: string }>(list).partition(properties).value();
+        result = _.chain(list).partition(properties).value();
+
+        result = _.chain<{ a: string }>(list).partition(properties).value();
+        result = _.chain(list).partition(properties).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const properties = { a: 'a' };
+        let result: [{ a: string }[], { a: string }[]];
+
+        result = _.partition<{ a: string }>(dict, properties);
+        result = _.partition(dict, properties);
+
+        result = _<{ a: string }>(dict).partition(properties);
+        result = _(dict).partition(properties);
+
+        result = _.chain<{ a: string }>(dict).partition(properties).value();
+        result = _.chain(dict).partition(properties).value();
+
+        result = _.chain<{ a: string }>(dict).partition(properties).value();
+        result = _.chain(dict).partition(properties).value();
+    }
+
+    // property name iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const properties = 'a';
+        let result: [{ a: string }[], { a: string }[]];
+
+        result = _.partition<{ a: string }>(array, properties);
+        result = _.partition(array, properties);
+
+        result = _<{ a: string }>(array).partition(properties);
+        result = _(array).partition(properties);
+
+        result = _.chain<{ a: string }>(array).partition(properties).value();
+        result = _.chain(array).partition(properties).value();
+
+        result = _.chain<{ a: string }>(array).partition(properties).value();
+        result = _.chain(array).partition(properties).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const properties = 'a';
+        let result: [{ a: string }[], { a: string }[]];
+
+        result = _.partition<{ a: string }>(list, properties);
+        result = _.partition(list, properties);
+
+        result = _<{ a: string }>(list).partition(properties);
+        result = _(list).partition(properties);
+
+        result = _.chain<{ a: string }>(list).partition(properties).value();
+        result = _.chain(list).partition(properties).value();
+
+        result = _.chain<{ a: string }>(list).partition(properties).value();
+        result = _.chain(list).partition(properties).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const properties = 'a';
+        let result: [{ a: string }[], { a: string }[]];
+
+        result = _.partition<{ a: string }>(dict, properties);
+        result = _.partition(dict, properties);
+
+        result = _<{ a: string }>(dict).partition(properties);
+        result = _(dict).partition(properties);
+
+        result = _.chain<{ a: string }>(dict).partition(properties).value();
+        result = _.chain(dict).partition(properties).value();
+
+        result = _.chain<{ a: string }>(dict).partition(properties).value();
+        result = _.chain(dict).partition(properties).value();
     }
 }
 
