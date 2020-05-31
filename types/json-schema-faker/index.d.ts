@@ -1,5 +1,5 @@
 // Type definitions for json-schema-faker 0.5
-// Project: https://github.com/json-schema-faker
+// Project: https://github.com/json-schema-faker/json-schema-faker
 // Definitions by: Charles Desbiens <https://github.com/baremaximum>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
