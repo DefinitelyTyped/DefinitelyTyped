@@ -120,7 +120,7 @@ const App = track()((props: { foo: string }) => {
         tracking.trackEvent({
             page: 'Home - useEffect callback'
         })
-    )
+    );
     return (
         <div
             onClick={() => {
