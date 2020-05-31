@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-/// <reference types="node" />
-
 import { JSONSchema4, JSONSchema6, JSONSchema7 } from 'json-schema';
 
 declare namespace jsf {

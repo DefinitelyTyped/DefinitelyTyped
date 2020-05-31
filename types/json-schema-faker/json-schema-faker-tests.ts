@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import jsf, { Schema } from 'json-schema-faker';
 import Chance from 'chance';
 
