@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node --script-mode
+#!/usr/bin/env ts-node-script
 /// <reference types="node"/>
 import path = require('path');
 import fs = require('fs');
@@ -7,12 +7,13 @@ const OUT_FILE_PATH = path.resolve(__dirname, '..', 'GetIntrinsic.d.ts');
 
 const hasSymbols = true;
 const { getPrototypeOf: getProto, getOwnPropertyDescriptor: $gOPD } = Reflect as {
-    getPrototypeOf(target: object): any;
+    getPrototypeOf(target: object): object | null;
     getOwnPropertyDescriptor<T extends object, P extends PropertyKey>(
         target: T,
         propertyKey: P,
     ): (P extends keyof T ? TypedPropertyDescriptor<T[P]> : PropertyDescriptor) | undefined;
 };
+const { getOwnPropertyNames: $gOPN } = Object;
 
 function isObject(value: unknown): value is object {
     if (value === undefined || value === null) return false;
@@ -40,7 +41,8 @@ const asyncGenFunction = asyncGen ? /** @type {AsyncGeneratorFunctionConstructor
 const asyncGenFunctionPrototype = asyncGenFunction ? asyncGenFunction.prototype : undefined;
 const asyncGenPrototype = asyncGenFunctionPrototype ? asyncGenFunctionPrototype.prototype : undefined;
 
-const TypedArray: any = typeof Uint8Array === 'undefined' ? undefined : getProto(Uint8Array);
+// tslint:disable-next-line: ban-types
+const TypedArray = typeof Uint8Array === 'undefined' ? undefined : getProto(Uint8Array) as Function;
 
 interface BaseIntrinsic {
     getterType?: string;
@@ -57,13 +59,14 @@ interface Intrinsic extends Override {
 }
 
 const $ObjectPrototype = Object.prototype;
+const $ArrayIteratorPrototype = hasSymbols ? (getProto([][Symbol.iterator]()) as IterableIterator<any>) : undefined;
 
 // prettier-ignore
-const BASE_INTRINSICS: { [intrinsic: string]: object | undefined; } = {
+const BASE_INTRINSICS: { [intrinsic: string]: unknown } = {
     '%Array%': Array,
     '%ArrayBuffer%': typeof ArrayBuffer === 'undefined' ? undefined : ArrayBuffer,
     '%ArrayBufferPrototype%': typeof ArrayBuffer === 'undefined' ? undefined : ArrayBuffer.prototype,
-    '%ArrayIteratorPrototype%': hasSymbols ? getProto([][Symbol.iterator]()) : undefined,
+    '%ArrayIteratorPrototype%': $ArrayIteratorPrototype,
     '%ArrayPrototype%': Array.prototype,
     '%ArrayProto_entries%': Array.prototype.entries,
     '%ArrayProto_forEach%': Array.prototype.forEach,
@@ -72,7 +75,7 @@ const BASE_INTRINSICS: { [intrinsic: string]: object | undefined; } = {
     '%AsyncFromSyncIteratorPrototype%': undefined,
     '%AsyncFunction%': asyncFunction,
     '%AsyncFunctionPrototype%': asyncFunction ? asyncFunction.prototype : undefined,
-    '%AsyncGenerator%':  asyncGenFunctionPrototype,
+    '%AsyncGenerator%': asyncGenFunctionPrototype,
     '%AsyncGeneratorFunction%': asyncGenFunction,
     '%AsyncGeneratorPrototype%': asyncGenPrototype,
     '%AsyncIteratorPrototype%': asyncGenPrototype ? getProto(asyncGenPrototype) : undefined,
@@ -98,7 +101,7 @@ const BASE_INTRINSICS: { [intrinsic: string]: object | undefined; } = {
     '%Float64ArrayPrototype%': typeof Float64Array === 'undefined' ? undefined : Float64Array.prototype,
     '%Function%': Function,
     '%FunctionPrototype%': Function.prototype,
-    '%Generator%':  generatorFunctionPrototype,
+    '%Generator%': generatorFunctionPrototype,
     '%GeneratorFunction%': generatorFunction,
     '%GeneratorPrototype%': generatorPrototype,
     '%Int8Array%': typeof Int8Array === 'undefined' ? undefined : Int8Array,
@@ -109,11 +112,11 @@ const BASE_INTRINSICS: { [intrinsic: string]: object | undefined; } = {
     '%Int32ArrayPrototype%': typeof Int32Array === 'undefined' ? undefined : Int32Array.prototype,
     '%isFinite%': isFinite,
     '%isNaN%': isNaN,
-    '%IteratorPrototype%': hasSymbols ? getProto(getProto([][Symbol.iterator]())) : undefined,
+    '%IteratorPrototype%': hasSymbols ? getProto($ArrayIteratorPrototype!) : undefined,
     '%JSON%': typeof JSON === 'object' ? JSON : undefined,
     '%JSONParse%': typeof JSON === 'object' ? JSON.parse : undefined,
     '%Map%': typeof Map === 'undefined' ? undefined : Map,
-    '%MapIteratorPrototype%': typeof Map === 'undefined' || !hasSymbols ? undefined : getProto(new Map()[Symbol.iterator]()),
+    '%MapIteratorPrototype%': typeof Map === 'undefined' || !hasSymbols ? undefined : getProto(new Map()[Symbol.iterator]())!,
     '%MapPrototype%': typeof Map === 'undefined' ? undefined : Map.prototype,
     '%Math%': Math,
     '%Number%': Number,
@@ -168,7 +171,7 @@ const BASE_INTRINSICS: { [intrinsic: string]: object | undefined; } = {
     '%WeakMap%': typeof WeakMap === 'undefined' ? undefined : WeakMap,
     '%WeakMapPrototype%': typeof WeakMap === 'undefined' ? undefined : WeakMap.prototype,
     '%WeakSet%': typeof WeakSet === 'undefined' ? undefined : WeakSet,
-    '%WeakSetPrototype%': typeof WeakSet === 'undefined' ? undefined : WeakSet.prototype
+    '%WeakSetPrototype%': typeof WeakSet === 'undefined' ? undefined : WeakSet.prototype,
 };
 
 let override: Intrinsic;
@@ -325,10 +328,7 @@ const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = {
         type: 'MapConstructor',
         get: 'typeof Map',
         overrides: {
-            prototype: override = {
-                type: 'typeof Map.prototype',
-                getterType: 'Map<any, any>',
-            },
+            prototype: override = { type: 'typeof Map.prototype', getterType: 'Map<any, any>' },
         },
     },
     '%MapIteratorPrototype%': 'IterableIterator<any>',
@@ -336,8 +336,23 @@ const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = {
     '%Math%': { type: 'Math', get: 'typeof Math' },
     '%Number%': { type: 'NumberConstructor', get: 'typeof Number' },
     '%NumberPrototype%': 'typeof Number.prototype',
-    '%Object%': { type: 'ObjectConstructor', get: 'typeof Object' },
-    '%ObjectPrototype%': 'typeof Object.prototype',
+    '%Object%': {
+        type: 'ObjectConstructor',
+        get: 'typeof Object',
+        overrides: {
+            prototype: override = {
+                type: 'typeof Object.prototype',
+                overrides: {
+                    ['__proto__']: null,
+                    __defineGetter__: null,
+                    __defineSetter__: null,
+                    __lookupGetter__: null,
+                    __lookupSetter__: null,
+                },
+            },
+        },
+    },
+    '%ObjectPrototype%': override,
     '%ObjProto_toString%': 'typeof Object.prototype.toString',
     '%ObjProto_valueOf%': 'typeof Object.prototype.valueOf',
     '%parseFloat%': 'typeof parseFloat',
@@ -390,10 +405,7 @@ const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = {
         type: 'SetConstructor',
         get: 'typeof Set',
         overrides: {
-            prototype: override = {
-                type: 'typeof Set.prototype',
-                getterType: 'Set<any>',
-            },
+            prototype: override = { type: 'typeof Set.prototype', getterType: 'Set<any>' },
         },
     },
     '%SetIteratorPrototype%': 'IterableIterator<any>',
@@ -440,6 +452,7 @@ const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = {
     },
     '%SyntaxErrorPrototype%': override,
     '%ThrowTypeError%': '() => never',
+    // TODO: Add types for %TypedArray% and %TypedArrayPrototype%
     '%TypeError%': {
         type: 'TypeErrorConstructor',
         get: 'typeof TypeError',
@@ -557,40 +570,80 @@ function printIntrinsic(
     outStream.write(`        '%${path}%': ${isGetter ? `(this: ${parentGetterType || parentType}) => ` : ''}${type};
 `);
 
-    if (isObject(value) && type !== 'any' && type !== 'unknown') {
-        const propertyNames = Object.getOwnPropertyNames(value);
-        for (const propertyName of propertyNames) {
-            if (propertyName === 'constructor') {
-                continue;
-            }
+    const propertyNames = isObject(value) && type !== 'any' && type !== 'unknown' ? $gOPN(value) : [];
+    for (const propertyName of propertyNames) {
+        if (propertyName === 'constructor') {
+            continue;
+        }
 
-            if (typeof value === 'function' && (propertyName === 'length' || propertyName === 'name')) {
-                continue;
-            }
+        if (typeof value === 'function' && (propertyName === 'length' || propertyName === 'name')) {
+            continue;
+        }
 
-            if (
-                // tslint:disable-next-line: strict-comparisons
-                value === RegExp &&
-                propertyName.startsWith('$')
-            ) {
-                continue;
-            }
+        if (
+            // tslint:disable-next-line: strict-comparisons
+            value === RegExp &&
+            propertyName.startsWith('$')
+        ) {
+            continue;
+        }
 
-            if (
-                // tslint:disable-next-line: strict-comparisons
-                value === $ObjectPrototype &&
-                propertyName.startsWith('__')
-            ) {
-                continue;
-            }
+        const desc = $gOPD(value as object, propertyName);
+        if (!desc) continue;
 
-            const desc = $gOPD(value, propertyName);
-            if (!desc) continue;
+        const isGetter = 'get' in desc;
+        const propertyValue = isGetter ? desc.get : desc.value;
 
-            const isGetter = 'get' in desc;
-            const propertyValue = isGetter ? desc.get : desc.value;
+        let override = overrides?.[propertyName];
+        if (override === null) {
+            continue;
+        }
 
-            let override = overrides?.[propertyName];
+        let propertyType;
+        if (typeof override === 'string') {
+            propertyType = override;
+            override = undefined;
+        } else {
+            propertyType = override?.type || appendType(get || type, propertyName);
+        }
+
+        if (skipNested) {
+            nestedIntrinsics[`${path}.${propertyName}`] = {
+                ...override,
+                isGetter,
+                type: propertyType,
+                value: propertyValue,
+                parentPath: path,
+                parentType: type,
+                parentGetterType: data?.getterType,
+                propertyName,
+            };
+        } else {
+            printIntrinsic({
+                intrinsicName: propertyName,
+                type: propertyType,
+                value: propertyValue,
+                parentPath: path,
+                parentType: type,
+                parentGetterType: data?.getterType,
+                data: {
+                    ...override,
+                    isGetter,
+                },
+            });
+        }
+    }
+
+    let overrideNames: string[];
+    if (
+        overrides &&
+        (overrideNames = $gOPN(overrides).filter((overrideName) => {
+            return !propertyNames.includes(overrideName);
+        })).length > 0
+    ) {
+        for (const propertyName of overrideNames) {
+            // tslint:disable-next-line: no-null-undefined-union
+            let override: typeof overrides[keyof typeof overrides] | undefined = overrides[propertyName];
             if (override === null) {
                 continue;
             }
@@ -608,7 +661,7 @@ function printIntrinsic(
                     ...override,
                     isGetter,
                     type: propertyType,
-                    value: propertyValue,
+                    value: undefined,
                     parentPath: path,
                     parentType: type,
                     parentGetterType: data?.getterType,
@@ -618,7 +671,6 @@ function printIntrinsic(
                 printIntrinsic({
                     intrinsicName: propertyName,
                     type: propertyType,
-                    value: propertyValue,
                     parentPath: path,
                     parentType: type,
                     parentGetterType: data?.getterType,
@@ -627,55 +679,6 @@ function printIntrinsic(
                         isGetter,
                     },
                 });
-            }
-        }
-
-        let overrideNames: string[];
-        if (
-            overrides &&
-            (overrideNames = Object.getOwnPropertyNames(overrides).filter(
-                (overrideName) => !propertyNames.includes(overrideName),
-            )).length > 0
-        ) {
-            for (const propertyName of overrideNames) {
-                // tslint:disable-next-line: no-null-undefined-union
-                let override: typeof overrides[keyof typeof overrides] | undefined = overrides[propertyName];
-                if (override === null) {
-                    continue;
-                }
-
-                let propertyType;
-                if (typeof override === 'string') {
-                    propertyType = override;
-                    override = undefined;
-                } else {
-                    propertyType = override?.type || appendType(get || type, propertyName);
-                }
-
-                if (skipNested) {
-                    nestedIntrinsics[`${path}.${propertyName}`] = {
-                        ...override,
-                        isGetter,
-                        type: propertyType,
-                        value: undefined,
-                        parentPath: path,
-                        parentType: type,
-                        parentGetterType: data?.getterType,
-                        propertyName,
-                    };
-                } else {
-                    printIntrinsic({
-                        intrinsicName: propertyName,
-                        type: propertyType,
-                        parentPath: path,
-                        parentType: type,
-                        parentGetterType: data?.getterType,
-                        data: {
-                            ...override,
-                            isGetter,
-                        },
-                    });
-                }
             }
         }
     }
@@ -691,7 +694,7 @@ declare namespace GetIntrinsic {
     interface Intrinsics {
 `);
 
-for (const intrinsicName of Object.getOwnPropertyNames(BASE_INTRINSICS)) {
+for (const intrinsicName of $gOPN(BASE_INTRINSICS)) {
     let data: string | Intrinsic | undefined = BASE_INTRINSIC_DATA[intrinsicName];
     const baseName = intrinsicName.slice(1, -1);
 
@@ -716,7 +719,7 @@ for (const intrinsicName of Object.getOwnPropertyNames(BASE_INTRINSICS)) {
 
 outStream.write('    }\n');
 
-const nestedIntrinsicNames = Object.getOwnPropertyNames(nestedIntrinsics);
+const nestedIntrinsicNames = $gOPN(nestedIntrinsics);
 if (nestedIntrinsicNames.length > 0) {
     outStream.write(`
     interface Intrinsics {
