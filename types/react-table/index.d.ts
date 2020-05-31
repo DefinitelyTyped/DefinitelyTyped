@@ -272,7 +272,7 @@ export interface UseTableInstanceProps<D extends object> {
 }
 
 export interface UseTableHeaderGroupProps<D extends object> {
-    headers: Array<ColumnInstance<D>>;
+    headers: Array<HeaderGroup<D>>;
     getHeaderGroupProps: (propGetter?: HeaderGroupPropGetter<D>) => TableHeaderProps;
     getFooterGroupProps: (propGetter?: FooterGroupPropGetter<D>) => TableFooterProps;
     totalHeaderCount: number; // not documented
