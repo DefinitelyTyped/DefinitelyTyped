@@ -104,17 +104,6 @@ const testRef: jsf.Schema[] = [
     },
 ];
 
-interface Item {
-    user: {
-        id: number;
-        reffed: string;
-        randomname: string;
-        version: string;
-        email: string;
-        name: string;
-    };
-}
-
 // generate
 const generated = jsf.generate(testSchema);
 generated.forEach(testItem);
