@@ -1,5 +1,6 @@
+/// <reference types="react" />
 import React from 'react';
-
+/// <reference types="react-vis" />
 import { XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineMarkSeries } from 'react-vis';
 
 export default function Example() {
