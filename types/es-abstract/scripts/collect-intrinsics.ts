@@ -42,7 +42,7 @@ const asyncGenFunctionPrototype = asyncGenFunction ? asyncGenFunction.prototype 
 const asyncGenPrototype = asyncGenFunctionPrototype ? asyncGenFunctionPrototype.prototype : undefined;
 
 // tslint:disable-next-line: ban-types
-const TypedArray = typeof Uint8Array === 'undefined' ? undefined : getProto(Uint8Array) as Function;
+const TypedArray = typeof Uint8Array === 'undefined' ? undefined : (getProto(Uint8Array) as Function);
 
 interface BaseIntrinsic {
     getterType?: string;
@@ -191,15 +191,19 @@ const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = {
     '%ArrayProto_forEach%': 'typeof Array.prototype.forEach',
     '%ArrayProto_keys%': 'typeof Array.prototype.keys',
     '%ArrayProto_values%': 'typeof Array.prototype.values',
-    '%AsyncFromSyncIteratorPrototype%': 'AsyncIterableIterator<any>',
+    '%AsyncFromSyncIteratorPrototype%': {
+        type: 'AsyncGenerator<any>',
+        overrides: {
+            next: "AsyncGenerator<any>['next']",
+            return: "AsyncGenerator<any>['return']",
+            throw: "AsyncGenerator<any>['throw']",
+        },
+    },
     '%AsyncFunction%': { type: 'FunctionConstructor', get: 'typeof Function' },
     '%AsyncFunctionPrototype%': 'typeof Function.prototype',
-    '%AsyncGenerator%': override = {
-        type: 'AsyncGeneratorFunction',
-        overrides: { prototype: 'AsyncGenerator<any, any, any>' },
-    },
+    '%AsyncGenerator%': override = { type: 'AsyncGeneratorFunction', overrides: { prototype: 'AsyncGenerator<any>' } },
     '%AsyncGeneratorFunction%': { type: 'AsyncGeneratorFunctionConstructor', overrides: { prototype: override } },
-    '%AsyncGeneratorPrototype%': 'AsyncGenerator<any, any, any>',
+    '%AsyncGeneratorPrototype%': 'AsyncGenerator<any>',
     '%AsyncIteratorPrototype%': 'AsyncIterable<any>',
     '%Atomics%': { type: 'Atomics', get: 'typeof Atomics' },
     '%BigInt64Array%': {
@@ -289,12 +293,9 @@ const BASE_INTRINSIC_DATA: { [intrinsic: string]: string | Intrinsic } = {
         },
     },
     '%FunctionPrototype%': override,
-    '%Generator%': override = {
-        type: 'GeneratorFunction',
-        overrides: { prototype: 'Generator<any, any, any>' },
-    },
+    '%Generator%': override = { type: 'GeneratorFunction', overrides: { prototype: 'Generator<any>' } },
     '%GeneratorFunction%': { type: 'GeneratorFunctionConstructor', overrides: { prototype: override } },
-    '%GeneratorPrototype%': 'Generator<any, any, any>',
+    '%GeneratorPrototype%': 'Generator<any>',
     '%Int8Array%': {
         type: 'Int8ArrayConstructor',
         get: 'typeof Int8Array',
