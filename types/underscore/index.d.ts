@@ -111,6 +111,8 @@ declare module _ {
 
     type ShallowFlattenedList<T> = T extends _.List<infer TItem> ? TItem[] : T[];
 
+    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T];
+
     // unfortunately it's not possible to recursively collapse all possible list dimensions to T[] at this time, so give up after two dimensions and require an assertion
     // surprisingly T extends _.List<_.List<infer TItem>> isn't true when T = SomeType[][], so writing this that way doesn't work
     type DeepFlattenedList<T> = T extends _.List<infer TItem>
@@ -662,13 +664,13 @@ declare module _ {
         * Calls the method named by methodName on each value in the list. Any extra arguments passed to
         * invoke will be forwarded on to the method invocation.
         * @param list The element's in this list will each have the method `methodName` invoked.
-        * @param methodName The method's name to call on each element within `list`.
+        * @param functionName The method's name to call on each element within `list`.
         * @param arguments Additional arguments to pass to the method `methodName`.
         **/
-        invoke<T extends {}>(
+        invoke<T extends {}, TFunctionProperty extends FunctionPropertyNames<T>>(
             list: _.Collection<T>,
-            methodName: string,
-            ...args: any[]): any;
+            functionName: TFunctionProperty,
+            ...args: any[]): ReturnType<T[TFunctionProperty]>[];
 
         /**
         * A convenient version of what is perhaps the most common use-case for map: extracting a list of
@@ -4567,7 +4569,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.invoke
         **/
-        invoke(methodName: string, ...args: any[]): any;
+        invoke<TFunctionProperty extends FunctionPropertyNames<T>>(functionName: TFunctionProperty, ...args: any[]): ReturnType<T[TFunctionProperty]>[];
 
         /**
         * Wrapped type `any[]`.
@@ -5676,7 +5678,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.invoke
         **/
-        invoke(methodName: string, ...args: any[]): _Chain<any, any[]>;
+        invoke<TFunctionProperty extends FunctionPropertyNames<T>>(functionName: TFunctionProperty, ...args: any[]): _Chain<ReturnType<T[TFunctionProperty]>, ReturnType<T[TFunctionProperty]>[]>;
 
         /**
         * Wrapped type `any[]`.
