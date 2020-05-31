@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es6",
+        "jsx": "react",
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "removeComments": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": false
+    },
+    "files": [
+        "index.d.ts",
+        "react-vis-tests.tsx"
+    ]
+}
