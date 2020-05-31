@@ -1,4 +1,4 @@
-// Type definitions for jsdoc-to-markdown 5.0
+// Type definitions for jsdoc-to-markdown 6.0
 // Project: https://github.com/jsdoc2md/jsdoc-to-markdown
 // Definitions by:  Adam Zerella <https://github.com/adamzerella>
 //                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
