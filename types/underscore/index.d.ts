@@ -7,6 +7,7 @@
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>,
 //                 Florian Keller <https://github.com/ffflorian>
 //                 Regev Brody <https://github.com/regevbr>
+//                 Michael Ness <https://github.com/reubenrybnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
