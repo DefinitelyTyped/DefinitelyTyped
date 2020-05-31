@@ -1053,10 +1053,10 @@ declare module _ {
         * @param context `this` object in `iterator`, optional.
         * @return The index where `value` should be inserted into `list`.
         **/
-        sortedIndex<T, TSort>(
+        sortedIndex<T>(
             list: _.List<T>,
             value: T,
-            iterator?: ((x: T) => TSort) | string,
+            iterator?: _.ListIterator<T, any> | keyof T,
             context?: any
         ): number;
 
@@ -4639,7 +4639,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sortedIndex
         **/
-        sortedIndex(value: T, iterator?: (x: T) => any, context?: any): number;
+        sortedIndex(value: T, iterator?: _.ListIterator<T, any> | keyof T, context?: any): number;
 
         /**
         * Wrapped type `number`.
@@ -5655,7 +5655,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sortedIndex
         **/
-        sortedIndex(value: T, iterator?: (x: T) => any, context?: any): _ChainSingle<number>;
+        sortedIndex(value: T, iterator?: _.ListIterator<T, any> | keyof T, context?: any): _ChainSingle<number>;
 
         /**
         * Wrapped type `number`.

@@ -5748,6 +5748,157 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     }
 }
 
+// sortedIndex
+{
+    const context = {};
+
+    // no iterator
+    {
+        const array: string[] = ['a', 'c'];
+        const item = 'b';
+        let result: number;
+
+        result = _.sortedIndex<string>(array, item);
+        result = _.sortedIndex(array, item);
+
+        result = _<string>(array).sortedIndex(item);
+        result = _(array).sortedIndex(item);
+
+        result = _.chain<string>(array).sortedIndex(item).value();
+        result = _.chain(array).sortedIndex(item).value();
+
+        result = _.chain<string>(array).sortedIndex(item).value();
+        result = _.chain(array).sortedIndex(item).value();
+    }
+
+    {
+        const list: _.List<string> = { 0: 'a', 1: 'c', length: 2 };
+        const item = 'b';
+        let result: number;
+
+        result = _.sortedIndex<string>(list, item);
+        result = _.sortedIndex(list, item);
+
+        result = _<string>(list).sortedIndex(item);
+        result = _(list).sortedIndex(item);
+
+        result = _.chain<string>(list).sortedIndex(item).value();
+        result = _.chain(list).sortedIndex(item).value();
+
+        result = _.chain<string>(list).sortedIndex(item).value();
+        result = _.chain(list).sortedIndex(item).value();
+    }
+
+    {
+        const str = 'ac';
+        const item = 'b';
+        let result: number;
+
+        result = _.sortedIndex<string>(str, item);
+        result = _.sortedIndex(str, item);
+
+        result = _<string>(str).sortedIndex(item);
+        result = _(str).sortedIndex(item);
+
+        result = _.chain<string>(str).sortedIndex(item).value();
+        result = _.chain(str).sortedIndex(item).value();
+    }
+
+    // function iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'c' }];
+        const item = { a: 'b' };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: number;
+
+        result = _.sortedIndex<{ a: string }>(array, item, iterator);
+        result = _.sortedIndex<{ a: string }>(array, item, iterator, context);
+        result = _.sortedIndex(array, item, iterator);
+        result = _.sortedIndex(array, item, iterator, context);
+
+        result = _<{ a: string }>(array).sortedIndex(item, iterator);
+        result = _<{ a: string }>(array).sortedIndex(item, iterator, context);
+        result = _(array).sortedIndex(item, iterator);
+        result = _(array).sortedIndex(item, iterator, context);
+
+        result = _.chain<{ a: string }>(array).sortedIndex(item, iterator).value();
+        result = _.chain<{ a: string }>(array).sortedIndex(item, iterator, context).value();
+        result = _.chain(array).sortedIndex(item, iterator).value();
+        result = _.chain(array).sortedIndex(item, iterator, context).value();
+
+        result = _.chain<{ a: string }>(array).sortedIndex(item, iterator).value();
+        result = _.chain<{ a: string }>(array).sortedIndex(item, iterator, context).value();
+        result = _.chain(array).sortedIndex(item, iterator).value();
+        result = _.chain(array).sortedIndex(item, iterator, context).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'c' }, length: 2 };
+        const item = { a: 'b' };
+        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        let result: number;
+
+        result = _.sortedIndex<{ a: string }>(list, item, iterator);
+        result = _.sortedIndex<{ a: string }>(list, item, iterator, context);
+        result = _.sortedIndex(list, item, iterator);
+        result = _.sortedIndex(list, item, iterator, context);
+
+        result = _<{ a: string }>(list).sortedIndex(item, iterator);
+        result = _<{ a: string }>(list).sortedIndex(item, iterator, context);
+        result = _(list).sortedIndex(item, iterator);
+        result = _(list).sortedIndex(item, iterator, context);
+
+        result = _.chain<{ a: string }>(list).sortedIndex(item, iterator).value();
+        result = _.chain<{ a: string }>(list).sortedIndex(item, iterator, context).value();
+        result = _.chain(list).sortedIndex(item, iterator).value();
+        result = _.chain(list).sortedIndex(item, iterator, context).value();
+
+        result = _.chain<{ a: string }>(list).sortedIndex(item, iterator).value();
+        result = _.chain<{ a: string }>(list).sortedIndex(item, iterator, context).value();
+        result = _.chain(list).sortedIndex(item, iterator).value();
+        result = _.chain(list).sortedIndex(item, iterator, context).value();
+    }
+
+    // property name iterator
+    {
+        const array: { a: string }[] = [{ a: 'a' }, { a: 'c' }];
+        const item = { a: 'b' };
+        const property = 'a'
+        let result: number;
+
+        result = _.sortedIndex<{ a: string }>(array, item, property);
+        result = _.sortedIndex(array, item, property);
+
+        result = _<{ a: string }>(array).sortedIndex(item, property);
+        result = _(array).sortedIndex(item, property);
+
+        result = _.chain<{ a: string }>(array).sortedIndex(item, property).value();
+        result = _.chain(array).sortedIndex(item, property).value();
+
+        result = _.chain<{ a: string }>(array).sortedIndex(item, property).value();
+        result = _.chain(array).sortedIndex(item, property).value();
+    }
+
+    {
+        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'c' }, length: 2 };
+        const item = { a: 'b' };
+        const property = 'a';
+        let result: number;
+
+        result = _.sortedIndex<{ a: string }>(list, item, property);
+        result = _.sortedIndex(list, item, property);
+
+        result = _<{ a: string }>(list).sortedIndex(item, property);
+        result = _(list).sortedIndex(item, property);
+
+        result = _.chain<{ a: string }>(list).sortedIndex(item, property).value();
+        result = _.chain(list).sortedIndex(item, property).value();
+
+        result = _.chain<{ a: string }>(list).sortedIndex(item, property).value();
+        result = _.chain(list).sortedIndex(item, property).value();
+    }
+}
+
 // findIndex
 {
     const context = {};
