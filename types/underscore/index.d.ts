@@ -178,26 +178,7 @@ declare module _ {
         /**
         * @see _.each
         **/
-        forEach<T>(
-            list: T[],
-            iterator: _.ListIterator<T, void>,
-            context?: any): T[];
-
-        /**
-        * @see _.each
-        **/
-        forEach<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, void>,
-            context?: any): _.List<T>;
-
-        /**
-        * @see _.each
-        **/
-        forEach<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, void>,
-            context?: any): _.Dictionary<T>;
+        forEach: UnderscoreStatic['each'];
 
         /**
         * Produces a new array of values by mapping each value in list through a transformation function
@@ -247,7 +228,7 @@ declare module _ {
         /**
         * @see _.map
         **/
-        collect: typeof _.map;
+        collect: UnderscoreStatic['map'];
 
         /**
         * Also known as inject and foldl, reduce boils down a list of values into a single value.
@@ -278,38 +259,12 @@ declare module _ {
         /**
         * @see _.reduce
         **/
-        inject<T, TResult>(
-            list: _.List<T>,
-            iterator: _.MemoIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
+        inject: UnderscoreStatic['reduce'];
 
         /**
         * @see _.reduce
         **/
-        inject<T, TResult>(
-            list: _.Dictionary<T>,
-            iterator: _.MemoObjectIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<T, TResult>(
-            list: _.List<T>,
-            iterator: _.MemoIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<T, TResult>(
-            list: _.Dictionary<T>,
-            iterator: _.MemoObjectIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
+        foldl: UnderscoreStatic['reduce'];
 
         /**
         * The right-associative version of reduce. Delegates to the JavaScript 1.8 version of
@@ -339,20 +294,7 @@ declare module _ {
         /**
         * @see _.reduceRight
         **/
-        foldr<T, TResult>(
-            list: _.List<T>,
-            iterator: _.MemoIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
-
-        /**
-        * @see _.reduceRight
-        **/
-        foldr<T, TResult>(
-            list: _.Dictionary<T>,
-            iterator: _.MemoObjectIterator<T, TResult>,
-            memo?: TResult,
-            context?: any): TResult;
+        foldr: UnderscoreStatic['reduceRight'];
 
         /**
         * Looks through each value in the list, returning the first one that passes a truth
@@ -386,25 +328,7 @@ declare module _ {
         /**
         * @see _.find
         **/
-        detect<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, boolean>,
-            context?: any): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect<T>(
-            object: _.Collection<T>,
-            iterator: Partial<T> | keyof T): T | undefined;
+        detect: UnderscoreStatic['find'];
 
         /**
         * Looks through each value in the list, returning an array of all the values that pass a truth
@@ -437,25 +361,7 @@ declare module _ {
         /**
         * @see _.filter
         **/
-        select<T>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-        * @see _.filter
-        **/
-        select<T>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T[];
-
-        /**
-        * @see _.select
-        **/
-        select<T>(
-            object: _.Collection<T>,
-            iterator: Partial<T> | keyof T): T[];
+        select: UnderscoreStatic['filter'];
 
         /**
         * Looks through each value in the list, returning an array of all the values that contain all
@@ -538,25 +444,7 @@ declare module _ {
         /**
         * @see _.every
         **/
-        all<T>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, boolean>,
-            context?: any): boolean;
-
-        /**
-        * @see _.every
-        **/
-        all<T>(
-            list: _.List<T> | _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, boolean>,
-            context?: any): boolean;
-
-        /**
-        * @see _.every
-        **/
-        all<T>(
-            list: _.Collection<T>,
-            iterator?: Partial<T> | keyof T): boolean;
+        all: UnderscoreStatic['every'];
 
         /**
         * Returns true if any of the values in the list pass the iterator truth test. Short-circuits and
@@ -589,25 +477,7 @@ declare module _ {
         /**
         * @see _.some
         **/
-        any<T>(
-            list: _.List<T>,
-            iterator?: _.ListIterator<T, boolean>,
-            context?: any): boolean;
-
-        /**
-        * @see _.some
-        **/
-        any<T>(
-            object: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, boolean>,
-            context?: any): boolean;
-
-        /**
-        * @see _.some
-        **/
-        any<T>(
-            object: _.Collection<T>,
-            iterator?: Partial<T> | keyof T): boolean;
+        any: UnderscoreStatic['some'];
 
         /**
         * Returns true if the value is present in the list. Uses indexOf internally,
@@ -631,32 +501,12 @@ declare module _ {
         /**
         * @see _.contains
         **/
-        include<T>(
-            list: _.List<T>,
-            value: T,
-            fromIndex?: number): boolean;
+        include: UnderscoreStatic['contains'];
 
         /**
         * @see _.contains
         **/
-        include<T>(
-            object: _.Dictionary<T>,
-            value: T): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        includes<T>(
-            list: _.List<T>,
-            value: T,
-            fromIndex?: number): boolean;
-
-        /**
-        * @see _.contains
-        **/
-        includes<T>(
-            object: _.Dictionary<T>,
-            value: T): boolean;
+        includes: UnderscoreStatic['contains'];
 
         /**
         * Calls the method named by methodName on each value in the list. Any extra arguments passed to
@@ -942,26 +792,12 @@ declare module _ {
         /**
         * @see _.first
         **/
-        head<T>(array: _.List<T>): T | undefined;
+        head: UnderscoreStatic['first'];
 
         /**
         * @see _.first
         **/
-        head<T>(
-            array: _.List<T>,
-            n: number): T[];
-
-        /**
-        * @see _.first
-        **/
-        take<T>(array: _.List<T>): T | undefined;
-
-        /**
-        * @see _.first
-        **/
-        take<T>(
-            array: _.List<T>,
-            n: number): T[];
+        take: UnderscoreStatic['first'];
 
         /**
         * Returns everything but the last entry of the array. Especially useful on the arguments object.
@@ -1003,16 +839,12 @@ declare module _ {
         /**
         * @see _.rest
         **/
-        tail<T>(
-            array: _.List<T>,
-            n?: number): T[];
+        tail: UnderscoreStatic['rest'];
 
         /**
         * @see _.rest
         **/
-        drop<T>(
-            array: _.List<T>,
-            n?: number): T[];
+        drop: UnderscoreStatic['rest'];
 
         /**
         * Returns a copy of the array with all falsy values removed. In JavaScript, false, null, 0, "",
@@ -1099,19 +931,7 @@ declare module _ {
         /**
         * @see _.uniq
         **/
-        unique<T>(
-            array: _.List<T>,
-            iterator?: _.ListIterator<T, any> | keyof T,
-            context?: any): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique<T>(
-            array: _.List<T>,
-            isSorted?: boolean,
-            iterator?: _.ListIterator<T, any> | keyof T,
-            context?: any): T[];
+        unique: UnderscoreStatic['uniq'];
 
         /**
         * Merges together the values of each of the arrays with the values at the corresponding position.
@@ -4283,12 +4103,7 @@ declare module _ {
         /**
         * @see _.each
         **/
-        forEach(iterator: _.ListIterator<T, void>, context?: any): V;
-
-        /**
-        * @see _.each
-        **/
-        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _.Dictionary<T>;
+        forEach: Underscore<T, V>['each'];
 
         /**
         * Wrapped type `any[]`.
@@ -4317,22 +4132,7 @@ declare module _ {
         /**
         * @see _.map
         **/
-        collect<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): TResult[];
-
-        /**
-        * @see _.map
-        **/
-        collect<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): TResult[];
-
-        /**
-        * @see _.map
-        **/
-        collect<TProperty extends keyof T>(iterator: TProperty): T[TProperty][];
-
-        /**
-        * @see _.map
-        **/
-        collect(iterator: Partial<T>): boolean[];
+        collect: Underscore<T, V>['map'];
 
         /**
         * Wrapped type `any[]`.
@@ -4349,22 +4149,12 @@ declare module _ {
         /**
         * @see _.reduce
         **/
-        inject<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+        inject: Underscore<T, V>['reduce'];
 
         /**
         * @see _.reduce
         **/
-        inject<TResult>(iterator: _.MemoObjectIterator<T, TResult>, memo?: TResult, context?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<TResult>(iterator: _.MemoObjectIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+        foldl: Underscore<T, V>['reduce'];
 
         /**
         * Wrapped type `any[]`.
@@ -4381,12 +4171,7 @@ declare module _ {
         /**
         * @see _.reduceRight
         **/
-        foldr<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
-
-        /**
-        * @see _.reduceRight
-        **/
-        foldr<TResult>(iterator: _.MemoObjectIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+        foldr: Underscore<T, V>['reduceRight'];
 
         /**
         * Wrapped type `any[]`.
@@ -4408,17 +4193,7 @@ declare module _ {
         /**
         * @see _.find
         **/
-        detect(iterator: _.ListIterator<T, boolean>, context?: any): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect(iterator: _.ObjectIterator<T, boolean>, context?: any): T | undefined;
-
-        /**
-        * @see _.find
-        **/
-        detect(interator?: Partial<T> | keyof T): T | undefined;
+        detect: Underscore<T, V>['find'];
 
         /**
         * Wrapped type `any[]`.
@@ -4440,17 +4215,7 @@ declare module _ {
         /**
         * @see _.filter
         **/
-        select(iterator: _.ListIterator<T, boolean>, context?: any): T[];
-
-        /**
-        * @see _.filter
-        **/
-        select(iterator: _.ObjectIterator<T, boolean>, context?: any): T[];
-
-        /**
-        * @see _.filter
-        **/
-        select(iterator: Partial<T> | keyof T): T[];
+        select: Underscore<T, V>['filter'];
 
         /**
         * Wrapped type `any[]`.
@@ -4501,17 +4266,7 @@ declare module _ {
         /**
         * @see _.every
         **/
-        all(iterator?: _.ListIterator<T, boolean>, context?: any): boolean;
-
-        /**
-        * @see _.every
-        **/
-        all(iterator?: _.ObjectIterator<T, boolean>, context?: any): boolean;
-
-        /**
-        * @see _.every
-        **/
-        all(iterator?: Partial<T> | keyof T): boolean;
+        all: Underscore<T, V>['every'];
 
         /**
         * Wrapped type `any[]`.
@@ -4533,17 +4288,7 @@ declare module _ {
         /**
         * @see _.some
         **/
-        any(iterator?: _.ListIterator<T, boolean>, context?: any): boolean;
-
-        /**
-        * @see _.some
-        **/
-        any(iterator?: _.ObjectIterator<T, boolean>, context?: any): boolean;
-
-        /**
-        * @see _.some
-        **/
-        any(iterator?: Partial<T> | keyof T): boolean;
+        any: Underscore<T, V>['some'];
 
         /**
         * Wrapped type `any[]`.
@@ -4555,13 +4300,13 @@ declare module _ {
         * Alias for 'contains'.
         * @see contains
         **/
-        include(value: T, fromIndex?: number): boolean;
+        include: Underscore<T, V>['contains'];
 
         /**
          * Alias for 'contains'.
          * @see contains
          **/
-        includes(value: T, fromIndex?: number): boolean;
+        includes: Underscore<T, V>['contains'];
 
         /**
         * Wrapped type `any[]`.
@@ -4729,22 +4474,12 @@ declare module _ {
         /**
         * @see _.first
         **/
-        head(): T | undefined;
+        head: Underscore<T, V>['first'];
 
         /**
         * @see _.first
         **/
-        head(n: number): T[];
-
-        /**
-        * @see _.first
-        **/
-        take(): T | undefined;
-
-        /**
-        * @see _.first
-        **/
-        take(n: number): T[];
+        take: Underscore<T, V>['first'];
 
         /**
         * Wrapped type `any[]`.
@@ -4773,12 +4508,12 @@ declare module _ {
         /**
         * @see _.rest
         **/
-        tail(n?: number): T[];
+        tail: Underscore<T, V>['rest'];
 
         /**
         * @see _.rest
         **/
-        drop(n?: number): T[];
+        drop: Underscore<T, V>['rest'];
 
         /**
         * Wrapped type `any[]`.
@@ -4848,12 +4583,7 @@ declare module _ {
         /**
         * @see _.uniq
         **/
-        unique(isSorted?: boolean, iterator?: _.ListIterator<T, any> | keyof T, context?: any): T[];
-
-        /**
-        * @see _.uniq
-        **/
-        unique(iterator?: _.ListIterator<T, any> | keyof T, context?: any): T[];
+        unique: Underscore<T, V>['uniq'];
 
         /**
         * Wrapped type `any[][]`.
@@ -5388,12 +5118,7 @@ declare module _ {
         /**
         * @see _.each
         **/
-        forEach(iterator: _.ListIterator<T, void>, context?: any): _Chain<T, V>;
-
-        /**
-        * @see _.each
-        **/
-        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _Chain<T, V>;
+        forEach: _Chain<T, V>['each'];
 
         /**
         * Wrapped type `any[]`.
@@ -5422,22 +5147,7 @@ declare module _ {
         /**
         * @see _.map
         **/
-        collect<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<TResult, TResult[]>;
-
-        /**
-        * @see _.map
-        **/
-        collect<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult, TResult[]>;
-
-        /**
-        * @see _.map
-        **/
-        collect<TProperty extends keyof T>(iterator: TProperty): _Chain<T[TProperty], T[TProperty][]>;
-
-        /**
-        * @see _.map
-        **/
-        collect(iterator: Partial<T>): _Chain<boolean, boolean[]>;
+        collect: _Chain<T, V>['map'];
 
         /**
         * Wrapped type `any[]`.
@@ -5454,22 +5164,12 @@ declare module _ {
         /**
         * @see _.reduce
         **/
-        inject<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+        inject: _Chain<T, V>['reduce'];
 
         /**
         * @see _.reduce
         **/
-        inject<TResult>(iterator: _.MemoObjectIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
-
-        /**
-        * @see _.reduce
-        **/
-        foldl<TResult>(iterator: _.MemoObjectIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+        foldl: _Chain<T, V>['reduce'];
 
         /**
         * Wrapped type `any[]`.
@@ -5486,12 +5186,7 @@ declare module _ {
         /**
         * @see _.reduceRight
         **/
-        foldr<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
-
-        /**
-        * @see _.reduceRight
-        **/
-        foldr<TResult>(iterator: _.MemoObjectIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+        foldr: _Chain<T, V>['reduceRight'];
 
         /**
         * Wrapped type `any[]`.
@@ -5513,17 +5208,7 @@ declare module _ {
         /**
         * @see _.find
         **/
-        detect(iterator: _.ListIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
-
-        /**
-        * @see _.find
-        **/
-        detect(iterator: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
-
-        /**
-        * @see _.find
-        **/
-        detect(iterator: Partial<T> | keyof T): _ChainSingle<T | undefined>;
+        detect: _Chain<T, V>['find'];
 
         /**
         * Wrapped type `any[]`.
@@ -5546,17 +5231,7 @@ declare module _ {
         /**
         * @see _.filter
         **/
-        select(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T, T[]>;
-
-        /**
-        * @see _.filter
-        **/
-        select(iterator: _.ObjectIterator<T, boolean>, context?: any): _Chain<T, T[]>;
-
-        /**
-        * @see _.filter
-        **/
-        select(iterator: Partial<T> | keyof T): _Chain<T, T[]>;
+        select: _Chain<T, V>['filter'];
 
         /**
         * Wrapped type `any[]`.
@@ -5609,17 +5284,7 @@ declare module _ {
         /**
         * @see _.every
         **/
-        all(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
-
-        /**
-        * @see _.every
-        **/
-        all(iterator?: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
-
-        /**
-        * @see _.every
-        **/
-        all(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
+        all: _Chain<T, V>['every'];
 
         /**
         * Wrapped type `any[]`.
@@ -5642,17 +5307,7 @@ declare module _ {
         /**
         * @see _.some
         **/
-        any(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
-
-        /**
-        * @see _.some
-        **/
-        any(iterator?: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
-
-        /**
-        * @see _.some
-        **/
-        any(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
+        any: _Chain<T, V>['some'];
 
         /**
         * Wrapped type `any[]`.
@@ -5664,13 +5319,13 @@ declare module _ {
         * Alias for 'contains'.
         * @see contains
         **/
-        include(value: T, fromIndex?: number): _ChainSingle<boolean>;
+        include: _Chain<T, V>['contains'];
 
         /**
          * Alias for 'contains'.
          * @see contains
          **/
-        includes(value: T, fromIndex?: number): _ChainSingle<boolean>;
+        includes: _Chain<T, V>['contains'];
 
         /**
         * Wrapped type `any[]`.
@@ -5840,22 +5495,12 @@ declare module _ {
         /**
         * @see _.first
         **/
-        head(): _ChainSingle<T | undefined>;
+        head: _Chain<T, V>['first'];
 
         /**
         * @see _.first
         **/
-        head(n: number): _Chain<T, T[]>;
-
-        /**
-        * @see _.first
-        **/
-        take(): _ChainSingle<T | undefined>;
-
-        /**
-        * @see _.first
-        **/
-        take(n: number): _Chain<T, T[]>;
+        take: _Chain<T, V>['first'];
 
         /**
         * Wrapped type `any[]`.
@@ -5884,12 +5529,12 @@ declare module _ {
         /**
         * @see _.rest
         **/
-        tail(n?: number): _Chain<T, T[]>;
+        tail: _Chain<T, V>['rest'];
 
         /**
         * @see _.rest
         **/
-        drop(n?: number): _Chain<T, T[]>;
+        drop: _Chain<T, V>['rest'];
 
         /**
         * Wrapped type `any[]`.
@@ -5960,13 +5605,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        unique(isSorted?: boolean, iterator?: _.ListIterator<T, any> | keyof T, context?: any): _Chain<T, T[]>;
-
-        /**
-        * Wrapped type `any[]`.
-        * @see _.uniq
-        **/
-        unique(iterator?: _.ListIterator<T, any> | keyof T, context?: any): _Chain<T, T[]>;
+        unique: _Chain<T, V>['uniq'];
 
         /**
         * Wrapped type `any[][]`.
