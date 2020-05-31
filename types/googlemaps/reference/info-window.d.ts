@@ -2,36 +2,82 @@ declare namespace google.maps {
     /**
      * An overlay that looks like a bubble and is often connected to a marker.
      * This class extends MVCObject.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow Maps JavaScript API}
      */
     class InfoWindow extends MVCObject {
         /**
-         * Creates an info window with the given options. An InfoWindow can be
-         * placed on a map at a particular position or above a marker,
-         * depending on what is specified in the options. Unless auto-pan is
-         * disabled, an InfoWindow will pan the map to make itself visible
-         * when it is opened. After constructing an InfoWindow, you must call
-         * open to display it on the map. The user can click the close button
-         * on the InfoWindow to remove it from the map, or the developer can
-         * call close() for the same effect.
+         * Creates an info window with the given options. An {@link InfoWindow} can be placed on a map at a particular
+         * position or above a marker, depending on what is specified in the options. Unless auto-pan is disabled, an
+         * {@link InfoWindow} will pan the map to make itself visible when it is opened. After constructing an
+         * {@link InfoWindow}, you must call open to display it on the map. The user can click the close button on the
+         * {@link InfoWindow} to remove it from the map, or the developer can call {@link close}() for the same effect.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.constructor Maps JavaScript API}
          */
         constructor(opts?: InfoWindowOptions);
-        /** Closes this InfoWindow by removing it from the DOM structure. */
-        close(): void;
-        getContent(): string | Element;
-        getPosition(): LatLng;
-        getZIndex(): number;
+
         /**
-         * Opens this InfoWindow on the given map. Optionally, an InfoWindow can be
-         * associated with an anchor. In the core API, the only anchor is the Marker
-         * class. However, an anchor can be any MVCObject that exposes a LatLng
-         * position property and optionally a Point anchorPoint property for
-         * calculating the pixelOffset (see InfoWindowOptions). The anchorPoint is
-         * the offset from the anchor's position to the tip of the InfoWindow.
+         * Closes this {@link InfoWindow} by removing it from the DOM structure.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.close Maps JavaScript API}
+         * @see {@link open}
+         */
+        close(): void;
+
+        /**
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.getContent Maps JavaScript API}
+         * @see {@link InfoWindowOptions#content}
+         * @see {@link setContent}
+         */
+        getContent(): string | Node;
+
+        /**
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.getPosition Maps JavaScript API}
+         * @see {@link InfoWindowOptions#position}
+         * @see {@link setPosition}
+         */
+        getPosition(): LatLng;
+
+        /**
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.getZIndex Maps JavaScript API}
+         * @see {@link InfoWindowOptions#zIndex}
+         * @see {@link setZIndex}
+         */
+        getZIndex(): number;
+
+        /**
+         * Opens this {@link InfoWindow} on the given map. Optionally, an {@link InfoWindow} can be associated with an
+         * anchor. In the core API, the only anchor is the {@link Marker} class. However, an anchor can be any
+         * {@link MVCObject} that exposes a {@link LatLng} position property and optionally a {@link Point} anchorPoint
+         * property for calculating the {@link InfoWindowOptions#pixelOffset pixelOffset}. The anchorPoint is the offset
+         * from the anchor's position to the tip of the {@link InfoWindow}.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.open Maps JavaScript API}
+         * @see {@link close}
          */
         open(map?: Map | StreetViewPanorama, anchor?: MVCObject): void;
+
+        /**
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.setContent Maps JavaScript API}
+         * @see {@link InfoWindowOptions#content}
+         * @see {@link getContent}
+         */
         setContent(content: string | Node): void;
+
+        /**
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.setOptions Maps JavaScript API}
+         */
         setOptions(options: InfoWindowOptions): void;
+
+        /**
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.setPosition Maps JavaScript API}
+         * @see {@link InfoWindowOptions#position}
+         * @see {@link getPosition}
+         */
         setPosition(position: LatLng | LatLngLiteral): void;
+
+        /**
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.setZIndex Maps JavaScript API}
+         * @see {@link InfoWindowOptions#zIndex}
+         * @see {@link getZIndex}
+         */
         setZIndex(zIndex: number): void;
     }
 
