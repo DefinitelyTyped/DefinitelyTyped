@@ -137,7 +137,7 @@ function TestAnimatedAPI() {
     Animated.event([{ nativeEvent: { contentOffset: { y: v1 } } }], { useNativeDriver: true, listener });
 
     const AnimatedView = Animated.createAnimatedComponent(View);
-    const ref = React.useRef<View>(null);
+    const ref = React.useRef<View & { getNode(): View }>(null);
     const legacyRef = React.useRef<Animated.LegacyRef<View>>(null);
 
     return (
