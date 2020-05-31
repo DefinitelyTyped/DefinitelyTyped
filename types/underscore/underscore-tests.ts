@@ -1748,6 +1748,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     const context = {};
 
+    // function iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
@@ -2058,6 +2059,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     const context = {};
 
+    // function iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
@@ -3152,7 +3154,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     const context = {};
 
-    // with iterators
+    // function iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
@@ -3231,7 +3233,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).sortBy(iterator, context).value();
     }
 
-    // with property names
+    // property name iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const property = 'a';
@@ -3291,7 +3293,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     const context = {};
 
-    // with iterators
+    // function iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
@@ -3370,7 +3372,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).groupBy(iterator, context).value();
     }
 
-    // with property names
+    // property name iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const property = 'a';
@@ -3430,7 +3432,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     const context = {};
 
-    // with iterators
+    // function iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
@@ -3509,7 +3511,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(dict).indexBy(iterator, context).value();
     }
 
-    // with property names
+    // property name iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const property = 'a';
@@ -3569,7 +3571,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     const context = {};
 
-    // with iterators
+    // function iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
@@ -3674,7 +3676,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(str).countBy(iterator, context).value();
     }
 
-    // with property names
+    // property name iterator
     {
         const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const property = 'a';
@@ -5171,39 +5173,47 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(list).flatten(true).value();
     }
 
-    // four dimensions, deep - this is where recursion gives up, use a type that's definitely wrong to check that giving up happens
+    // four dimensions, deep - this is where recursion gives up and results in any[]
     {
         const array: { a: string }[][][][] = [[[[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]]]];
-        let result: number[];
+        let result: { a: string }[];
 
+        // $ExpectType any[]
         result = _.flatten<{ a: string }[][][]>(array);
+        // $ExpectType any[]
         result = _.flatten(array);
 
+        // $ExpectType any[]
         result = _<{ a: string }[][][]>(array).flatten();
+        // $ExpectType any[]
         result = _(array).flatten();
 
+        // $ExpectType any[]
         result = _.chain<{ a: string }[][][]>(array).flatten().value();
+        // $ExpectType any[]
         result = _.chain(array).flatten().value();
 
+        // $ExpectType any[]
         result = _.chain<{ a: string }[][][]>(array).flatten().value();
+        // $ExpectType any[]
         result = _.chain(array).flatten().value();
     }
 
     {
         const list: _.List<_.List<_.List<_.List<{ a: string }>>>> = { 0: { 0: { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 }, length: 1 }, length: 1 };
-        let result: number[];
+        let result: { a: string }[];
 
-        result = _.flatten<_.List<_.List<_.List<{ a: string }>>>>(list);
-        result = _.flatten(list);
+        result = _.flatten<_.List<_.List<_.List<{ a: string }>>>>(list); // $ExpectType any[]
+        result = _.flatten(list); // $ExpectType any[]
 
-        result = _<_.List<_.List<_.List<{ a: string }>>>>(list).flatten();
-        result = _(list).flatten();
+        result = _<_.List<_.List<_.List<{ a: string }>>>>(list).flatten(); // $ExpectType any[]
+        result = _(list).flatten(); // $ExpectType any[]
 
-        result = _.chain<_.List<_.List<_.List<{ a: string }>>>>(list).flatten().value();
-        result = _.chain(list).flatten().value();
+        result = _.chain<_.List<_.List<_.List<{ a: string }>>>>(list).flatten().value(); // $ExpectType any[]
+        result = _.chain(list).flatten().value(); // $ExpectType any[]
 
-        result = _<_.List<_.List<_.List<{ a: string }>>>>(list).chain().flatten().value();
-        result = _.chain(list).flatten().value();
+        result = _<_.List<_.List<_.List<{ a: string }>>>>(list).chain().flatten().value(); // $ExpectType any[]
+        result = _.chain(list).flatten().value(); // $ExpectType any[]
     }
 }
 
