@@ -5465,7 +5465,7 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.uniq(array, property);
         result = _.uniq(array, true, property);
 
-        result = _<{ a: string }>(array).uniq( property);
+        result = _<{ a: string }>(array).uniq(property);
         result = _<{ a: string }>(array).uniq(true, property);
         result = _(array).uniq(property);
         result = _(array).uniq(true, property);
