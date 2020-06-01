@@ -1314,8 +1314,8 @@ declare class Dockerode {
     createService(options: {}, callback: Callback<any>): void;
     createService(options: {}): Promise<any>;
 
-    createNetwork(options: {}, callback: Callback<Dockerode.Network>): void;
-    createNetwork(options: {}): Promise<Dockerode.Network>;
+    createNetwork(options: Dockerode.NetworkCreateOptions, callback: Callback<Dockerode.Network>): void;
+    createNetwork(options: Dockerode.NetworkCreateOptions): Promise<Dockerode.Network>;
 
     searchImages(options: {}, callback: Callback<any>): void;
     searchImages(options: {}): Promise<any>;
