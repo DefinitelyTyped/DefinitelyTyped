@@ -91,12 +91,12 @@ applied together atomically. Your changes may be altered with respect to
 collaborator changes. If there are no collaborators, the spreadsheet
 should reflect your changes.
 */
-await gapi.client.spreadsheets.batchUpdate({ spreadsheetId: "spreadsheetId",  });
+await gapi.client.sheets.spreadsheets.batchUpdate({ spreadsheetId: "spreadsheetId",  });
 
 /*
 Creates a spreadsheet, returning the newly created spreadsheet.
 */
-await gapi.client.spreadsheets.create({  });
+await gapi.client.sheets.spreadsheets.create({  });
 
 /*
 Returns the spreadsheet at the given ID.
@@ -121,7 +121,7 @@ Multiple ranges can be specified.  Limiting the range will
 return only the portions of the spreadsheet that intersect the requested
 ranges. Ranges are specified using A1 notation.
 */
-await gapi.client.spreadsheets.get({ spreadsheetId: "spreadsheetId",  });
+await gapi.client.sheets.spreadsheets.get({ spreadsheetId: "spreadsheetId",  });
 
 /*
 Returns the spreadsheet at the given ID.
@@ -147,5 +147,5 @@ parameter is ignored
 For large spreadsheets, it is recommended to retrieve only the specific
 fields of the spreadsheet that you want.
 */
-await gapi.client.spreadsheets.getByDataFilter({ spreadsheetId: "spreadsheetId",  });
+await gapi.client.sheets.spreadsheets.getByDataFilter({ spreadsheetId: "spreadsheetId",  });
 ```
