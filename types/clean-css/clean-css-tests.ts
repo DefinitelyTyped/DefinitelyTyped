@@ -99,12 +99,12 @@ new CleanCSS(CleanCssOptions).minify(source, (error: any, minified: CleanCSS.Out
 
 // test clean-css semicolonAfterLastProperty option works as expected
 source = 'a{font-weight:bold;}';
-CleanCssOptions = {
+const CleanCssSemiOptions: CleanCSS.Options = {
     format: {
         semicolonAfterLastProperty: true
     }
 };
 
-new CleanCSS(CleanCssOptions).minify(source, (error: any, minified: CleanCSS.Output): void => {
+new CleanCSS(CleanCssSemiOptions).minify(source, (error: any, minified: CleanCSS.Output): void => {
     console.log(minified.styles);
 });
