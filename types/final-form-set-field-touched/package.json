@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "final-form": "^4.20.0"
+        "final-form": "4.x.x"
     }
 }
