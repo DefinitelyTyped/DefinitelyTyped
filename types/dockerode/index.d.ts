@@ -407,6 +407,19 @@ declare namespace Dockerode {
         Labels?: { [key: string]: string };
     }
 
+    interface NetworkCreateOptions {
+        Name: string;
+        CheckDuplicate?: boolean;
+        Driver?: string;
+        Internal?: boolean;
+        Attachable?: boolean;
+        Ingress?: boolean;
+        IPAM?: IPAM;
+        EnableIPv6?: boolean;
+        Options?: { [option: string]: string};
+        Labels?: { [label: string]: string};
+      }
+
     interface NetworkContainer {
         Name: string;
         EndpointID: string;
@@ -1301,8 +1314,8 @@ declare class Dockerode {
     createService(options: {}, callback: Callback<any>): void;
     createService(options: {}): Promise<any>;
 
-    createNetwork(options: {}, callback: Callback<any>): void;
-    createNetwork(options: {}): Promise<any>;
+    createNetwork(options: {}, callback: Callback<Dockerode.Network>): void;
+    createNetwork(options: {}): Promise<Dockerode.Network>;
 
     searchImages(options: {}, callback: Callback<any>): void;
     searchImages(options: {}): Promise<any>;

@@ -137,6 +137,18 @@ docker.createContainer({ Tty: true }, (err, container) => {
     });
 });
 
+docker.createNetwork({Name: 'networkName'},  (err, network) => {
+    network.remove((err, data) => {
+        // NOOP
+    });
+});
+
+docker.createNetwork({Name: 'networkName'}).then((network) => {
+    network.remove().then((response) => {
+        // NOOP
+    });
+});
+
 docker.pruneContainers((err, response) => {
     // NOOP
 });
