@@ -357,6 +357,14 @@ export class WhiskerSeries extends AbstractSeries<WhiskerSeriesProps> {}
 export interface HeatmapSeriesProps extends AbstractSeriesProps<HeatmapSeriesPoint> {}
 export class HeatmapSeries extends AbstractSeries<HeatmapSeriesProps> {}
 
+export interface HexbinSeriesProps extends AbstractSeriesProps<ContourSeriesPoint> {
+    radius?: number;
+    xOffset?: number;
+    yOffset?: number;
+    sizeHexagonsWithCount?: boolean;
+}
+export class HexbinSeries extends AbstractSeries<HexbinSeriesProps> {}
+
 export interface ContourSeriesProps extends AbstractSeriesProps<ContourSeriesPoint> {
     bandwidth?: number; // default: 40
     marginLeft?: number;
@@ -443,6 +451,16 @@ export interface HintProps {
     orientation?: 'bottomleft' | 'bottomright' | 'topleft' | 'topright';
 }
 export class Hint<T = any> extends PureComponent<HintProps & T> {}
+
+export interface ChartLabelProps {
+    className?: string;
+    includeMargin?: boolean;
+    style?: { [x: string]: any };
+    text: string;
+    xPercent: number;
+    yPercent: number;
+}
+export class ChartLabel<T = any> extends PureComponent<ChartLabelProps & T> {}
 
 export interface BordersProps {
     style?: {
