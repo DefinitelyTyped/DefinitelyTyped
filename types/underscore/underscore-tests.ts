@@ -5737,8 +5737,8 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     }
 
     {
-        const list: _.List<[string, number, boolean]> = { 0: { 0: 'a', 1: 1, 2: true, length: 3 }, 1: { 0: 'b', 1: 2, 2: false, length: 3 }, length: 2 };
-        let result: any[][]; // ideally should be [string[], number[], boolean[]]
+        const list: _.List<_.List<(string | number | boolean)>> = { 0: { 0: 'a', 1: 1, 2: true, length: 3 }, 1: { 0: 'b', 1: 2, 2: false, length: 3 }, length: 2 };
+        let result: any[][]; // ideally should be [(string | number | boolean)[], (string | number | boolean)[], (string | number | boolean)[]]
 
         result = _.unzip(list);
 
