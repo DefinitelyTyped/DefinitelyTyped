@@ -1,14 +1,14 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex } from "stream";
-import { promisify } from "util";
-import { createReadStream, createWriteStream } from "fs";
-import { createGzip, constants } from "zlib";
+import { Readable, Writable, Transform, finished, pipeline, Duplex } from 'stream';
+import { promisify } from 'util';
+import { createReadStream, createWriteStream } from 'fs';
+import { createGzip, constants } from 'zlib';
 import { ok as assert } from 'assert';
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
     new Readable({
         read(size) {
-            // $ExpectType Readable
+            // $ExpectType Readable<any>
             this;
             // $ExpectType number
             size;
@@ -18,12 +18,12 @@ function simplified_stream_ctor_test() {
             error;
             // $ExpectType (error: Error | null) => void
             cb;
-        }
+        },
     });
 
     new Writable({
         write(chunk, enc, cb) {
-            // $ExpectType Writable
+            // $ExpectType Writable<any>
             this;
             // $ExpectType any
             chunk;
@@ -33,7 +33,7 @@ function simplified_stream_ctor_test() {
             cb;
         },
         writev(chunks, cb) {
-            // $ExpectType Writable
+            // $ExpectType Writable<any>
             this;
             // $ExpectType { chunk: any; encoding: BufferEncoding; }[]
             chunks;
@@ -41,7 +41,7 @@ function simplified_stream_ctor_test() {
             cb;
         },
         destroy(error, cb) {
-            // $ExpectType Writable
+            // $ExpectType Writable<any>
             this;
             // $ExpectType Error | null
             error;
@@ -49,7 +49,7 @@ function simplified_stream_ctor_test() {
             cb;
         },
         final(cb) {
-            // $ExpectType Writable
+            // $ExpectType Writable<any>
             this;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -99,7 +99,7 @@ function simplified_stream_ctor_test() {
         readableObjectMode: true,
         writableObjectMode: true,
         readableHighWaterMark: 2048,
-        writableHighWaterMark: 1024
+        writableHighWaterMark: 1024,
     });
 
     new Transform({
@@ -159,7 +159,7 @@ function simplified_stream_ctor_test() {
         readableObjectMode: true,
         writableObjectMode: true,
         readableHighWaterMark: 2048,
-        writableHighWaterMark: 1024
+        writableHighWaterMark: 1024,
     });
 }
 
