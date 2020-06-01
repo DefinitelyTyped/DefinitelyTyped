@@ -39,4 +39,5 @@ declare class jCaptcha {
     reset(): void;
 }
 
+export as namespace jCaptcha;
 export = jCaptcha;
