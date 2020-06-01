@@ -91,8 +91,6 @@ declare global {
             max?: number;
             /** unit of the value */
             unit?: string;
-            /** the default value */
-            def?: any;
             /** description of this state */
             desc?: string;
 
@@ -102,6 +100,11 @@ declare global {
             write: boolean;
             /** role of the state (used in user interfaces to indicate which widget to choose) */
             role: string;
+
+            /** the default value */
+            def?: any;
+            /** the default status of the ack flag */
+            defAck?: boolean;
 
             /** Configures this state as an alias for another state */
             alias?: {
