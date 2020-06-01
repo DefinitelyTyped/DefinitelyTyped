@@ -1,4 +1,4 @@
-// Type definitions for quicksettings 3.0.3
+// Type definitions for quicksettings 3.0
 // Project: https://github.com/bit101/quicksettings
 // Definitions by: janizde <https://github.com/janizde>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
