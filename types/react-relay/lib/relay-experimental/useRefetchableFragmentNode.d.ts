@@ -31,7 +31,7 @@ export type RefetchFnExact<TQuery extends OperationType, TOptions = Options> = R
     TOptions
 >;
 export type RefetchFnInexact<TQuery extends OperationType, TOptions = Options> = RefetchFnBase<
-    TQuery['variables'],
+    Partial<TQuery['variables']>,
     TOptions
 >;
 

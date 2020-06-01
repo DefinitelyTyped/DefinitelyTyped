@@ -2,6 +2,7 @@
 // Project: https://github.com/mixpanel/mixpanel-js
 // Definitions by: Carlos López <https://github.com/karlos1337>
 //                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
+//                 Kristian Randall <https://github.com/randak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -72,6 +73,7 @@ export interface Config {
   opt_out_tracking_by_default: boolean;
   opt_out_tracking_persistence_type: Persistence;
   opt_out_tracking_cookie_prefix: string;
+  ignore_dnt: boolean;
 }
 
 export interface People {
@@ -105,9 +107,9 @@ export interface Mixpanel {
   reset(): void;
   set_config(config: Partial<Config>): void;
   time_event(event_name: string): void;
-  track(event_name: string, properties?: Dict, callback?: () => void): void;
-  track_forms(query: string, event_name: string, properties?: Dict | (() => void)): void;
-  track_links(query: string, event_name: string, properties?: Dict | (() => void)): void;
+  track(event_name: string, properties?: Dict, optionsOrCallback?: RequestOptions | (() => void), callback?: () => void): void;
+  track_forms(query: Query, event_name: string, properties?: Dict | (() => void)): void;
+  track_links(query: Query, event_name: string, properties?: Dict | (() => void)): void;
   unregister(property: string): void;
   people: People;
 }
@@ -130,7 +132,7 @@ export function register_once(props: Dict, default_value?: any, days?: number): 
 export function reset(): void;
 export function set_config(config: Partial<Config>): void;
 export function time_event(event_name: string): void;
-export function track(event_name: string, properties?: Dict, options?: RequestOptions, callback?: () => void): void;
+export function track(event_name: string, properties?: Dict, optionsOrCallback?: RequestOptions | (() => void), callback?: () => void): void;
 export function track_forms(query: Query, event_name: string, properties?: Dict | (() => void)): void;
 export function track_links(query: Query, event_name: string, properties?: Dict | (() => void)): void;
 export function unregister(property: string): void;

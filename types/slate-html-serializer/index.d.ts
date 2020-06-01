@@ -13,7 +13,7 @@ export interface Rule {
 
 export interface HtmlOptions {
     rules?: Rule[];
-    defaultBlock?: BlockProperties;
+    defaultBlock?: BlockProperties | string;
     parseHtml?: (html: string) => HTMLElement;
 }
 

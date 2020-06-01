@@ -12,6 +12,7 @@
 /// <reference path="domain.d.ts" />
 /// <reference path="events.d.ts" />
 /// <reference path="fs.d.ts" />
+/// <reference path="fs/promises.d.ts" />
 /// <reference path="http.d.ts" />
 /// <reference path="http2.d.ts" />
 /// <reference path="https.d.ts" />

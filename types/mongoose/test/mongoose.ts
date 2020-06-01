@@ -76,6 +76,9 @@ const dcPromise: Promise<void> = mongoose.disconnect();
 mongoose.get('test');
 mongoose.model('Actor', new mongoose.Schema({
   name: String
+}, {
+    autoCreate: true,
+    autoIndex: true,
 }), 'collectionName', true).find({});
 mongoose.model('Actor').find({});
 mongoose.modelNames()[0].toLowerCase();
@@ -725,7 +728,7 @@ new mongoose.Schema({
   }
 }, {index: true});
 
-new mongoose.Schema({foo: String}, {strict: 'throw'});
+new mongoose.Schema({foo: String}, {strict: 'throw', strictQuery: true});
 
 export default function(schema: mongoose.Schema) {
   schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void): void {

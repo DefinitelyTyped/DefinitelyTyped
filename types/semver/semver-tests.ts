@@ -162,6 +162,13 @@ bool = semver.ltr(version, str, loose);
 bool = semver.outside(version, str, '<', loose);
 bool = semver.intersects(str, str, loose);
 sem = semver.minVersion(str, loose);
+semver.simplify(versions, '1.x'); // $ExpectType string | Range
+semver.simplify(versions, '1.0.0 || 1.0.1 || 1.0.2 || 1.0.3 || 1.0.4'); // $ExpectType string | Range
+semver.simplify(versions, new Range('1.0.0 || 1.0.1 || 1.0.2 || 1.0.3 || 1.0.4')); // $ExpectType string | Range
+semver.simplify(versions, '>=3.0.0 <3.1.0'); // $ExpectType string | Range
+semver.simplify(versions, '3.0.0 || 3.1 || 3.2 || 3.3'); // $ExpectType string | Range
+semver.simplify(versions, '1 || 2 || 3'); // $ExpectType string | Range
+semver.simplify(versions, '2.1 || 2.2 || 2.3'); // $ExpectType string | Range
 
 // Coercion
 sem = semver.coerce(str);

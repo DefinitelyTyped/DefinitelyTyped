@@ -92,7 +92,7 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#suspenselist
      * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
      */
-    export const SuspenseList: ExoticComponent<SuspenseListProps>;
+    export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
     export interface SuspenseConfig extends TimeoutConfig {
         busyDelayMs?: number;
@@ -143,7 +143,7 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usedeferredvalue
      */
-    export function useDeferredValue<T>(value: T, config?: TimeoutConfig | null): T;
+    export function unstable_useDeferredValue<T>(value: T, config?: TimeoutConfig | null): T;
 
     /**
      * Allows components to avoid undesirable loading states by waiting for content to load
@@ -162,5 +162,5 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
      */
-    export function useTransition(config?: SuspenseConfig | null): [TransitionStartFunction, boolean];
+    export function unstable_useTransition(config?: SuspenseConfig | null): [TransitionStartFunction, boolean];
 }

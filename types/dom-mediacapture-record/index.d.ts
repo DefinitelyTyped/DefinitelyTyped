@@ -1,6 +1,6 @@
 // Type definitions for non-npm package w3c MediaStream Recording 1.0
 // Project: https://w3c.github.io/mediacapture-record
-// Definitions by: Elias Meire <https://github.com/eliasmeire>
+// Definitions by: Elias Meire <https://github.com/elsmr>
 //                 AppLover69 <https://github.com/AppLover69>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -58,7 +58,9 @@ declare class MediaRecorder extends EventTarget {
 
     constructor(stream: MediaStream, options?: MediaRecorderOptions);
 
+    addEventListener<K extends keyof MediaRecorderEventMap>(type: K, listener: (this: MediaRecorder, ev: MediaRecorderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MediaRecorderEventMap>(type: K, listener: (this: MediaRecorder, ev: MediaRecorderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 
     start(timeslice?: number): void;

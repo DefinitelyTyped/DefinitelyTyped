@@ -39,16 +39,22 @@ function retryStrategyNumber(options: redis.RetryStrategyOptions): number {
 function retryStrategyError(options: redis.RetryStrategyOptions): Error {
   return new Error('Foo');
 }
+function retryStrategyUndefined(options: redis.RetryStrategyOptions): undefined {
+  return undefined;
+}
 client = redis.createClient({
   retry_strategy: retryStrategyNumber
 });
 client = redis.createClient({
   retry_strategy: retryStrategyError
 });
+client = redis.createClient({
+  retry_strategy: retryStrategyUndefined
+});
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 const connected: boolean = client.connected;
-const retry_delay: number = client.retry_delay;
+const retry_delay: number | Error = client.retry_delay;
 const retry_backoff: number = client.retry_backoff;
 const command_queue: any[] = client.command_queue;
 const offline_queue: any[] = client.offline_queue;
@@ -85,6 +91,18 @@ client.set('test', 'test', okCallback);
 client.mset(args, resCallback);
 
 client.incr(str, resCallback);
+
+// Test del and unlink with single and multiple parameters
+client.del('test');
+client.del('test', 'test2', 'test3');
+client.unlink('test', 'test2', 'test3');
+client.unlink('test');
+
+// Test del and unlink with single and multiple parameters and a callback
+client.del('test', numCallback);
+client.unlink('test', numCallback);
+client.del('test', 'test2', 'test3', numCallback);
+client.unlink('test', 'test2', 'test3', numCallback);
 
 // Friendlier hash commands
 client.hgetall(str, resCallback);

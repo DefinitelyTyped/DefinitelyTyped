@@ -37,6 +37,9 @@
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
 //                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
+//                 Natsathorn Yuthakovit <https://github.com/natsathorn>
+//                 ConnectDotz <https://github.com/connectdotz>
+//                 Marcel Lasaj <https://github.com/TheWirv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1721,6 +1724,13 @@ export interface ToolbarAndroidProps extends ViewProps {
  */
 declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProps> {}
 declare const ToolbarAndroidBase: Constructor<NativeMethodsMixinType> & typeof ToolbarAndroidComponent;
+
+/**
+ * ToolbarAndroid has been deprecated and removed from the package since React Native v0.61.0.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
+ * @see https://github.com/react-native-community/toolbar-android
+ * @deprecated
+ */
 export class ToolbarAndroid extends ToolbarAndroidBase {}
 
 /**
@@ -2058,11 +2068,6 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
     accessibilityRole?: AccessibilityRole;
     /**
      * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
-     * @deprecated: accessibilityState available in 0.60+
-     */
-    accessibilityStates?: AccessibilityStates[];
-    /**
-     * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
      */
     accessibilityState?: AccessibilityState;
     /**
@@ -2092,11 +2097,11 @@ export type AccessibilityActionName =
      */
     | 'activate'
     /**
-     * Gererated when a screen reader user increments an adjustable component.
+     * Generated when a screen reader user increments an adjustable component.
      */
     | 'increment'
     /**
-     * Gererated when a screen reader user decrements an adjustable component.
+     * Generated when a screen reader user decrements an adjustable component.
      */
     | 'decrement'
     /**
@@ -2120,17 +2125,6 @@ export type AccessibilityActionEvent = NativeSyntheticEvent<
         actionName: string;
     }>
 >;
-
-// @deprecated: use AccessibilityState available in 0.60+
-export type AccessibilityStates =
-    | 'disabled'
-    | 'selected'
-    | 'checked'
-    | 'unchecked'
-    | 'busy'
-    | 'expanded'
-    | 'collapsed'
-    | 'hasPopup';
 
 export interface AccessibilityState {
     /**
@@ -2464,6 +2458,13 @@ export interface ViewPagerAndroidProps extends ViewProps {
 
 declare class ViewPagerAndroidComponent extends React.Component<ViewPagerAndroidProps> {}
 declare const ViewPagerAndroidBase: Constructor<NativeMethodsMixinType> & typeof ViewPagerAndroidComponent;
+
+/**
+ * ViewPagerAndroid has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/viewpager` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-viewpager
+ * @deprecated
+ */
 export class ViewPagerAndroid extends ViewPagerAndroidBase {
     /**
      * A helper function to scroll to a specific page in the ViewPager.
@@ -2608,6 +2609,13 @@ export interface InputAccessoryViewProps {
  */
 declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProps> {}
 declare const SegmentedControlIOSBase: Constructor<NativeMethodsMixinType> & typeof SegmentedControlIOSComponent;
+
+/**
+ * SegmentedControlIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/segmented-control` instead of 'react-native'.
+ * @see https://github.com/react-native-community/segmented-control
+ * @deprecated
+ */
 export class SegmentedControlIOS extends SegmentedControlIOSBase {}
 
 export interface NavigatorIOSProps {
@@ -2848,6 +2856,13 @@ export interface DatePickerIOSProps extends ViewProps {
 
 declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}
 declare const DatePickerIOSBase: Constructor<NativeMethodsMixinType> & typeof DatePickerIOSComponent;
+
+/**
+ * DatePickerIOS has been merged with DatePickerAndroid and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
+ * @see https://github.com/react-native-community/datetimepicker
+ * @deprecated
+ */
 export class DatePickerIOS extends DatePickerIOSBase {}
 
 export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
@@ -3052,8 +3067,10 @@ export interface PickerProps extends PickerPropsIOS, PickerPropsAndroid {
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/picker.html
- * @see Picker.js
+ * Picker has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/picker` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-picker
+ * @deprecated
  */
 export class Picker extends React.Component<PickerProps> {
     /**
@@ -3085,13 +3102,21 @@ export interface PickerIOSProps extends ViewProps {
  */
 declare class PickerIOSComponent extends React.Component<PickerIOSProps> {}
 declare const PickerIOSBase: Constructor<NativeMethodsMixinType> & typeof PickerIOSComponent;
+/**
+ * PickerIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/picker` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-picker
+ * @deprecated
+ */
 export class PickerIOS extends PickerIOSBase {
     static Item: typeof PickerIOSItem;
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/progressbarandroid.html
- * @see ProgressBarAndroid.android.js
+ * ProgressBarAndroid has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/progress-bar-android` instead of 'react-native'.
+ * @see https://github.com/react-native-community/progress-bar-android
+ * @deprecated
  */
 export interface ProgressBarAndroidProps extends ViewProps {
     /**
@@ -3177,6 +3202,12 @@ export interface ProgressViewIOSProps extends ViewProps {
 }
 declare class ProgressViewIOSComponent extends React.Component<ProgressViewIOSProps> {}
 declare const ProgressViewIOSBase: Constructor<NativeMethodsMixinType> & typeof ProgressViewIOSComponent;
+/**
+ * ProgressViewIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/progress-view` instead of 'react-native'.
+ * @see https://github.com/react-native-community/progress-view
+ * @deprecated
+ */
 export class ProgressViewIOS extends ProgressViewIOSBase {}
 
 export interface RefreshControlPropsIOS extends ViewProps {
@@ -3394,6 +3425,12 @@ export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
  */
 declare class SliderComponent extends React.Component<SliderProps> {}
 declare const SliderBase: Constructor<NativeMethodsMixinType> & typeof SliderComponent;
+/**
+ * Slider has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/slider` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-slider
+ * @deprecated
+ */
 export class Slider extends SliderBase {}
 export type SliderIOS = Slider;
 
@@ -4363,8 +4400,29 @@ export interface SectionListStatic<SectionT> extends React.ComponentClass<Sectio
 }
 
 /**
+ * @see https://facebook.github.io/react-native/docs/virtualizedlist.html
+ */
+
+export class VirtualizedList<ItemT> extends React.Component<VirtualizedListProps<ItemT>> {
+    scrollToEnd: (params?: { animated?: boolean }) => void;
+    scrollToIndex: (params: { animated?: boolean; index: number; viewOffset?: number; viewPosition?: number }) => void;
+    scrollToItem: (params: { animated?: boolean; item: ItemT; viewPosition?: number }) => void;
+
+    /**
+     * Scroll to a specific content pixel offset in the list.
+     * Param `offset` expects the offset to scroll to. In case of horizontal is true, the
+     * offset is the x-value, in any other case the offset is the y-value.
+     * Param `animated` (true by default) defines whether the list should do an animation while scrolling.
+     */
+    scrollToOffset: (params: { animated?: boolean; offset: number }) => void;
+
+    recordInteraction: () => void;
+}
+
+/**
  * @see https://facebook.github.io/react-native/docs/virtualizedlist.html#props
  */
+
 export interface VirtualizedListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
     renderItem: ListRenderItem<ItemT> | null | undefined;
 }
@@ -4536,6 +4594,8 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      * chance that fast scrolling may reveal momentary blank areas of unrendered content.
      */
     windowSize?: number;
+
+    CellRendererComponent?: React.ComponentType<any>;
 }
 
 /**
@@ -4703,6 +4763,11 @@ interface TimerMixin {
 
 declare class ListViewComponent extends React.Component<ListViewProps> {}
 declare const ListViewBase: Constructor<ScrollResponderMixin> & Constructor<TimerMixin> & typeof ListViewComponent;
+/**
+ * @deprecated See Flatlist or SectionList
+ * or use `deprecated-react-native-listview`
+ * @see https://fb.me/nolistview
+ */
 export class ListView extends ListViewBase {
     static DataSource: ListViewDataSource;
 
@@ -4738,6 +4803,12 @@ interface MaskedViewIOSProps extends ViewProps {
  */
 declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> {}
 declare const MaskedViewBase: Constructor<NativeMethodsMixinType> & typeof MaskedViewComponent;
+/**
+ * MaskedViewIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/masked-view` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-masked-view
+ * @deprecated
+ */
 export class MaskedViewIOS extends MaskedViewBase {}
 
 export interface ModalBaseProps {
@@ -6654,22 +6725,9 @@ export interface SwipeableListViewProps {
 }
 
 /**
- * A container component that renders multiple SwipeableRow's in a ListView
- * implementation. This is designed to be a drop-in replacement for the
- * standard React Native `ListView`, so use it as if it were a ListView, but
- * with extra props, i.e.
- *
- * let ds = SwipeableListView.getNewDataSource();
- * ds.cloneWithRowsAndSections(dataBlob, ?sectionIDs, ?rowIDs);
- * // ..
- * <SwipeableListView renderRow={..} renderQuickActions={..} {..ListView props} />
- *
- * SwipeableRow can be used independently of this component, but the main
- * benefit of using this component is
- *
- * - It ensures that at most 1 row is swiped open (auto closes others)
- * - It can bounce the 1st row of the list so users know it's swipeable
- * - More to come
+ * SwipeableListView has been removed from React Native.
+ * See https://fb.me/nolistview for more information or use `deprecated-react-native-swipeable-listview`.
+ * @deprecated
  */
 export class SwipeableListView extends React.Component<SwipeableListViewProps> {
     static getNewDataSource(): SwipeableListViewDataSource;
@@ -6806,24 +6864,27 @@ export interface ShareStatic {
     dismissedAction: 'dismissedAction';
 }
 
-type AccessibilityEventName =
+type AccessibilityChangeEventName =
     | 'change' // deprecated, maps to screenReaderChanged
     | 'boldTextChanged' // iOS-only Event
     | 'grayscaleChanged' // iOS-only Event
     | 'invertColorsChanged' // iOS-only Event
     | 'reduceMotionChanged'
     | 'screenReaderChanged'
-    | 'reduceTransparencyChanged' // iOS-only Event
-    | 'announcementFinished'; // iOS-only Event
+    | 'reduceTransparencyChanged'; // iOS-only Event
 
 type AccessibilityChangeEvent = boolean;
 
-type AccessibilityAnnoucementFinishedEvent = {
+type AccessibilityChangeEventHandler = (event: AccessibilityChangeEvent) => void;
+
+type AccessibilityAnnouncementEventName = 'announcementFinished'; // iOS-only Event
+
+type AccessibilityAnnouncementFinishedEvent = {
     announcement: string;
     success: boolean;
 };
 
-type AccessibilityEvent = AccessibilityChangeEvent | AccessibilityAnnoucementFinishedEvent;
+type AccessibilityAnnouncementFinishedEventHandler = (event: AccessibilityAnnouncementFinishedEvent) => void;
 
 /**
  * @see https://facebook.github.io/react-native/docs/accessibilityinfo.html
@@ -6885,24 +6946,28 @@ export interface AccessibilityInfoStatic {
      *            The boolean is true when the related event's feature is enabled and false otherwise.
      *
      */
-    addEventListener: (eventName: AccessibilityEventName, handler: (event: AccessibilityEvent) => void) => void;
+    addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
+    addEventListener(
+        eventName: AccessibilityAnnouncementEventName,
+        handler: AccessibilityAnnouncementFinishedEventHandler,
+    ): void;
 
     /**
      * Remove an event handler.
      */
-    removeEventListener: (eventName: AccessibilityEventName, handler: (event: AccessibilityEvent) => void) => void;
+    removeEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
+    removeEventListener(
+        eventName: AccessibilityAnnouncementEventName,
+        handler: AccessibilityAnnouncementFinishedEventHandler,
+    ): void;
 
     /**
-     * Set acessibility focus to a react component.
-     *
-     * @platform ios
+     * Set accessibility focus to a react component.
      */
     setAccessibilityFocus: (reactTag: number) => void;
 
     /**
      * Post a string to be announced by the screen reader.
-     *
-     * @platform ios
      */
     announceForAccessibility: (announcement: string) => void;
 }
@@ -7265,6 +7330,12 @@ export interface CheckBoxProps extends ViewProps {
     value?: boolean;
 }
 
+/**
+ * CheckBox has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/checkbox` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-checkbox
+ * @deprecated
+ */
 export class CheckBox extends React.Component<CheckBoxProps> {}
 
 /** Clipboard gives you an interface for setting and getting content from Clipboard on both iOS and Android */
@@ -7903,6 +7974,29 @@ export class StatusBar extends React.Component<StatusBarProps> {
      * @param translucent Set as translucent.
      */
     static setTranslucent: (translucent: boolean) => void;
+
+    /**
+     * Push a StatusBar entry onto the stack.
+     * The return value should be passed to `popStackEntry` when complete.
+     *
+     * @param props Object containing the StatusBar props to use in the stack entry.
+     */
+    static pushStackEntry: (props: StatusBarProps) => StatusBarProps;
+
+    /**
+     * Pop a StatusBar entry from the stack.
+     *
+     * @param entry Entry returned from `pushStackEntry`.
+     */
+    static popStackEntry: (entry: StatusBarProps) => void;
+
+    /**
+     * Replace an existing StatusBar stack entry with new props.
+     *
+     * @param entry Entry returned from `pushStackEntry` to replace.
+     * @param props Object containing the StatusBar props to use in the replacement stack entry.
+     */
+    static replaceStackEntry: (entry: StatusBarProps, props: StatusBarProps) => StatusBarProps;
 }
 
 /**
@@ -8463,8 +8557,30 @@ export namespace Animated {
     type EndCallback = (result: EndResult) => void;
 
     export interface CompositeAnimation {
+        /**
+         * Animations are started by calling start() on your animation.
+         * start() takes a completion callback that will be called when the
+         * animation is done or when the animation is done because stop() was
+         * called on it before it could finish.
+         *
+         * @param callback - Optional function that will be called
+         *      after the animation finished running normally or when the animation
+         *      is done because stop() was called on it before it could finish
+         *
+         * @example
+         *   Animated.timing({}).start(({ finished }) => {
+         *    // completion callback
+         *   });
+         */
         start: (callback?: EndCallback) => void;
+        /**
+         * Stops any running animation.
+         */
         stop: () => void;
+        /**
+         * Stops any running animation and resets the value to its original.
+         */
+        reset: () => void;
     }
 
     interface AnimationConfig {
@@ -8961,8 +9077,12 @@ export const DevSettings: DevSettingsStatic;
 //
 //////////////////////////////////////////////////////////////////////////
 
-// TODO: The following components need to be added
-// - [ ] ART
+/**
+ * ART has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/art` instead of 'react-native'.
+ * @see https://github.com/react-native-community/art
+ * @deprecated
+ */
 export const ART: ARTStatic;
 export type ART = ARTStatic;
 
@@ -8979,6 +9099,12 @@ export type Alert = AlertStatic;
 export const AppState: AppStateStatic;
 export type AppState = AppStateStatic;
 
+/**
+ * AsyncStorage has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/async-storage` instead of 'react-native'.
+ * @see https://github.com/react-native-community/async-storage
+ * @deprecated
+ */
 export const AsyncStorage: AsyncStorageStatic;
 export type AsyncStorage = AsyncStorageStatic;
 
@@ -8986,18 +9112,29 @@ export const BackHandler: BackHandlerStatic;
 export type BackHandler = BackHandlerStatic;
 
 /**
- * CameraRoll has been extracted from react-native core and will be removed in a future release.
- * "It can now be installed and imported from '@react-native-community/cameraroll' instead of 'react-native'.
- * See 'https://github.com/react-native-community/react-native-cameraroll',
- *
+ * CameraRoll has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/cameraroll` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-cameraroll
  * @deprecated
  */
 export const CameraRoll: CameraRollStatic;
 export type CameraRoll = CameraRollStatic;
 
+/**
+ * Clipboard has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/clipboard` instead of 'react-native'.
+ * @see https://github.com/react-native-community/clipboard
+ * @deprecated
+ */
 export const Clipboard: ClipboardStatic;
 export type Clipboard = ClipboardStatic;
 
+/**
+ * DatePickerAndroid has been merged with DatePickerIOS and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
+ * @see https://github.com/react-native-community/datetimepicker
+ * @deprecated
+ */
 export const DatePickerAndroid: DatePickerAndroidStatic;
 export type DatePickerAndroid = DatePickerAndroidStatic;
 
@@ -9010,12 +9147,32 @@ export const Easing: EasingStatic;
 export const I18nManager: I18nManagerStatic;
 export type I18nManager = I18nManagerStatic;
 
+/**
+ * ImageEditor has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/image-editor` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-image-editor
+ * @deprecated
+ */
 export const ImageEditor: ImageEditorStatic;
 export type ImageEditor = ImageEditorStatic;
 
+/**
+ * ImagePickerIOS has been extracted from react-native core and will be removed in a future release.
+ * Please upgrade to use either `@react-native-community/react-native-image-picker` or 'expo-image-picker'.
+ * If you cannot upgrade to a different library, please install the deprecated `@react-native-community/image-picker-ios` package.
+ * @see https://github.com/react-native-community/react-native-image-picker-ios
+ * @deprecated
+ */
 export const ImagePickerIOS: ImagePickerIOSStatic;
 export type ImagePickerIOS = ImagePickerIOSStatic;
 
+/**
+ * ImageStore has been removed from React Native.
+ * To get a base64-encoded string from a local image use either of the following third-party libraries:
+ * * expo-file-system: `readAsStringAsync(filepath, 'base64')`
+ * * react-native-fs: `readFile(filepath, 'base64')`
+ * @deprecated
+ */
 export const ImageStore: ImageStoreStatic;
 export type ImageStore = ImageStoreStatic;
 
@@ -9037,8 +9194,8 @@ export type PermissionsAndroid = PermissionsAndroidStatic;
 
 /**
  * PushNotificationIOS has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from '@react-native-community/push-notification-ios' instead of 'react-native'.
- * See https://github.com/react-native-community/react-native-push-notification-ios'
+ * It can now be installed and imported from `@react-native-community/push-notification-ios` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-push-notification-ios
  * @deprecated
  */
 export const PushNotificationIOS: PushNotificationIOSStatic;
@@ -9059,6 +9216,12 @@ export type StatusBarIOS = StatusBarIOSStatic;
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
 
+/**
+ * TimePickerAndroid has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
+ * @see https://github.com/react-native-community/datetimepicker
+ * @deprecated
+ */
 export const TimePickerAndroid: TimePickerAndroidStatic;
 export type TimePickerAndroid = TimePickerAndroidStatic;
 
@@ -9139,6 +9302,10 @@ export function processColor(color: any): number;
 
 export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warnings: string[]) => void };
 
+/**
+ * LogBox is enabled by default so there is no need to call unstable_enableLogBox() anymore. This is a no op and will be removed in the next version.
+ * @depcreated
+ */
 export function unstable_enableLogBox(): void;
 
 //////////////////////////////////////////////////////////////////////////
@@ -9178,6 +9345,8 @@ export const ColorPropType: React.Validator<string>;
 export const EdgeInsetsPropType: React.Validator<Insets>;
 export const PointPropType: React.Validator<PointPropType>;
 export const ViewPropTypes: React.ValidationMap<ViewProps>;
+export const TextPropTypes: React.ValidationMap<TextProps>;
+export const ImagePropTypes: React.ValidationMap<ImageProps>;
 
 declare global {
     interface NodeRequire {

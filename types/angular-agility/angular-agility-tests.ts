@@ -31,30 +31,30 @@ defaults.danger = (message:string, options:any, notifier:any):any=>{};
 defaults.error = (message:string, options:any, notifier:any):any=>{};
 
 var configWithoutTemplate:aa.INotifyConfig = {
-	name: "",
-	options: <aa.INotifyOptions> {},
-	namedDefaults: <aa.INotifyDefaults> {}
+    name: "",
+    options: <aa.INotifyOptions> {},
+    namedDefaults: <aa.INotifyDefaults> {}
 }
 
 var configWithTemplate:aa.INotifyConfig = {
-	name: "",
-	template: "",
-	templateName: "",
-	options: <aa.INotifyOptions> {},
-	namedDefaults: <aa.INotifyDefaults> {}
+    name: "",
+    template: "",
+    templateName: "",
+    options: <aa.INotifyOptions> {},
+    namedDefaults: <aa.INotifyDefaults> {}
 }
 
 var notifyOptionsWithoutCssClasses:aa.INotifyOptions = {
-	messageType: "",
-	allowHtml: true,
-	message: ""
+    messageType: "",
+    allowHtml: true,
+    message: ""
 }
 
 var notifyOptionsWithCssClasses:aa.INotifyOptions = {
-	cssClasses: "",
-	messageType: "",
-	allowHtml: true,
-	message: ""
+    cssClasses: "",
+    messageType: "",
+    allowHtml: true,
+    message: ""
 }
 
 var notifyConfigProvider:aa.INotifyConfigProvider = <aa.INotifyConfigProvider> {};
@@ -65,13 +65,13 @@ notifyConfigProvider.addOrUpdateNotifyConfig("", configWithTemplate);
 notifyConfigProvider.optionsTransformer(notifyOptionsWithCssClasses, <ng.ISCEService>{});
 
 var fullExternalConfig:aa.IExternalFormValidationConfig = {
-	validations: "",
-	ignore: "",
-	globals: "",
-	resolve: "",
-	resolveFn: (modelValue:string):string=>{ return "" }
+    validations: "",
+    ignore: "",
+    globals: "",
+    resolve: "",
+    resolveFn: (modelValue:string):string=>{ return "" }
 }
 
 var minimalExternalConfig:aa.IExternalFormValidationConfig = {
-	validations: ""
+    validations: ""
 }

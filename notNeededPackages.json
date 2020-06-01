@@ -1513,6 +1513,12 @@
             "asOfVersion": "6.4.3"
         },
         {
+            "libraryName": "framebus",
+            "typingsPackageName": "framebus",
+            "sourceRepoURL": "https://github.com/braintree/framebus",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "fromnow",
             "typingsPackageName": "fromnow",
             "sourceRepoURL": "https://github.com/lukeed/fromNow",
@@ -1649,6 +1655,12 @@
             "typingsPackageName": "google-cloud__storage",
             "sourceRepoURL": "https://github.com/googleapis/nodejs-storage",
             "asOfVersion": "2.3.0"
+        },
+        {
+            "libraryName": "google-maps-react",
+            "typingsPackageName": "google-maps-react",
+            "sourceRepoURL": "https://github.com/fullstackreact/google-maps-react",
+            "asOfVersion": "2.0.5"
         },
         {
             "libraryName": "graphene-pk11",
@@ -2425,6 +2437,12 @@
             "asOfVersion": "10.0.0"
         },
         {
+            "libraryName": "jszip",
+            "typingsPackageName": "jszip",
+            "sourceRepoURL": "https://github.com/Stuk/jszip",
+            "asOfVersion": "3.4.0"
+        },
+        {
             "libraryName": "junk",
             "typingsPackageName": "junk",
             "sourceRepoURL": "https://github.com/sindresorhus/junk",
@@ -3037,6 +3055,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "node-vault",
+            "typingsPackageName": "node-vault",
+            "sourceRepoURL": "https://github.com/kr1sp1n/node-vault",
+            "asOfVersion": "0.9.13"
+        },
+        {
             "libraryName": "node-waves",
             "typingsPackageName": "node-waves",
             "sourceRepoURL": "http://fian.my.id/Waves",
@@ -3481,6 +3505,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "parse-duration",
+            "typingsPackageName": "parse-duration",
+            "sourceRepoURL": "https://github.com/jkroso/parse-duration",
+            "asOfVersion": "0.3.0"
+        },
+        {
             "libraryName": "parse-ms",
             "typingsPackageName": "parse-ms",
             "sourceRepoURL": "https://github.com/sindresorhus/parse-ms",
@@ -3805,6 +3835,12 @@
             "asOfVersion": "1.3.0"
         },
         {
+            "libraryName": "raspi-board",
+            "typingsPackageName": "raspi-board",
+            "sourceRepoURL": "https://github.com/nebrius/raspi-board",
+            "asOfVersion": "5.3.0"
+        },
+        {
             "libraryName": "Raven JS",
             "typingsPackageName": "raven-js",
             "sourceRepoURL": "https://github.com/getsentry/raven-js",
@@ -3821,6 +3857,12 @@
             "typingsPackageName": "rc-progress",
             "sourceRepoURL": "http://github.com/react-component/progress",
             "asOfVersion": "2.4.0"
+        },
+        {
+            "libraryName": "rdflib",
+            "typingsPackageName": "rdflib",
+            "sourceRepoURL": "https://github.com/linkeddata/rdflib.js",
+            "asOfVersion": "1.2.0"
         },
         {
             "libraryName": "re2",
@@ -4561,6 +4603,12 @@
             "asOfVersion": "13.0.0"
         },
         {
+            "libraryName": "@simonwep/selection-js",
+            "typingsPackageName": "simonwep__selection-js",
+            "sourceRepoURL": "https://github.com/Simonwep/selection.git",
+            "asOfVersion": "1.7.0"
+        },
+        {
             "libraryName": "SimpleSignal",
             "typingsPackageName": "simplesignal",
             "sourceRepoURL": "https://github.com/zeh/simplesignal",
@@ -5131,6 +5179,12 @@
             "asOfVersion": "1.5.7"
         },
         {
+            "libraryName": "tus-js-client",
+            "typingsPackageName": "tus-js-client",
+            "sourceRepoURL": "https://github.com/tus/tus-js-client",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "typed.js",
             "typingsPackageName": "typed.js",
             "sourceRepoURL": "https://github.com/mattboldt/typed.js",
@@ -5471,6 +5525,72 @@
             "typingsPackageName": "word-wrap",
             "sourceRepoURL": "https://github.com/jonschlinkert/word-wrap",
             "asOfVersion": "1.2.1"
+        },
+        {
+            "libraryName": "@wordpress/a11y",
+            "typingsPackageName": "wordpress__a11y",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.9.0"
+        },
+        {
+            "libraryName": "@wordpress/autop",
+            "typingsPackageName": "wordpress__autop",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
+        },
+        {
+            "libraryName": "@wordpress/blob",
+            "typingsPackageName": "wordpress__blob",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.8.0"
+        },
+        {
+            "libraryName": "@wordpress/dom-ready",
+            "typingsPackageName": "wordpress__dom-ready",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.9.0"
+        },
+        {
+            "libraryName": "@wordpress/escape-html",
+            "typingsPackageName": "wordpress__escape-html",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "1.8.0"
+        },
+        {
+            "libraryName": "@wordpress/html-entities",
+            "typingsPackageName": "wordpress__html-entities",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.7.0"
+        },
+        {
+            "libraryName": "@wordpress/i18n",
+            "typingsPackageName": "wordpress__i18n",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "3.11.0"
+        },
+        {
+            "libraryName": "@wordpress/is-shallow-equal",
+            "typingsPackageName": "wordpress__is-shallow-equal",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "@wordpress/priority-queue",
+            "typingsPackageName": "wordpress__priority-queue",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "1.6.0"
+        },
+        {
+            "libraryName": "@wordpress/token-list",
+            "typingsPackageName": "wordpress__token-list",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "1.10.0"
+        },
+        {
+            "libraryName": "@wordpress/url",
+            "typingsPackageName": "wordpress__url",
+            "sourceRepoURL": "https://github.com/WordPress/gutenberg",
+            "asOfVersion": "2.14.0"
         },
         {
             "libraryName": "wouter",

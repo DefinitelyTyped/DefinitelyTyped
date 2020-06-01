@@ -6,6 +6,7 @@ import Opts = jsesc.Opts;
 
 var num: number;
 var str: string;
+var obj: object;
 var bool: boolean;
 var opts: Opts;
 var quotes: 'single' | 'double' | 'backtick';
@@ -18,42 +19,46 @@ str = jsesc.version;
 // ---- ---- ---- ---- ---- ---- ----
 
 opts = {
-	quotes: quotes
+    quotes: quotes
 };
 opts = {
-	numbers: numbers
+    numbers: numbers
 }
 opts = {
-	wrap: bool
+    wrap: bool
 };
 opts = {
-	es6: bool
+    es6: bool
 };
 opts = {
-	escapeEverything: bool
+    escapeEverything: bool
 };
 opts = {
-	minimal: bool
+    minimal: bool
 };
 opts = {
-	isScriptContext: bool
+    isScriptContext: bool
 };
 opts = {
-	compact: bool
+    compact: bool
 };
 opts = {
-	indent: str
+    indent: str
 };
 opts = {
-	indentLevel: num
+    indentLevel: num
 };
 opts = {
-	json: bool
+    json: bool
 };
 opts = {
-	lowercaseHex: bool
+    lowercaseHex: bool
 };
 // ---- ---- ---- ---- ---- ---- ----
 
 str = jsesc(str);
 str = jsesc(str, opts);
+str = jsesc(num);
+str = jsesc(num, opts);
+str = jsesc(obj);
+str = jsesc(obj, opts);

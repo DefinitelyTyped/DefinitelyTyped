@@ -23,22 +23,22 @@ interface FastClickObject {
 }
 
 interface FastClickOptions {
-	touchBoundary?: number;
-	tapDelay?: number;
+    touchBoundary?: number;
+    tapDelay?: number;
 }
 
 interface FastClickStatic {
-	new(layer: any, options?: FastClickOptions): FastClickObject;
-	attach(layer: any, options?: FastClickOptions): FastClickObject;
+    new(layer: any, options?: FastClickOptions): FastClickObject;
+    attach(layer: any, options?: FastClickOptions): FastClickObject;
 }
 
 declare module "fastclick" {
-	function fastclick(layer: any, options?: FastClickOptions): FastClickObject;
-	namespace fastclick {
-		var FastClick: FastClickStatic;
-	}
+    function fastclick(layer: any, options?: FastClickOptions): FastClickObject;
+    namespace fastclick {
+        var FastClick: FastClickStatic;
+    }
 
-	export = fastclick;
+    export = fastclick;
 }
 
 declare var FastClick: FastClickStatic;

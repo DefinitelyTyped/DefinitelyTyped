@@ -88,7 +88,7 @@ export function getActivePostLock(): string | undefined;
  * be autosaved, or has been saved or published since the last autosave).
  *
  * @deprecated since 5.6. Callers should use the `getAutosave( postType, postId, userId )`
- * 			   selector from the '@wordpress/core-data' package.
+ *                selector from the '@wordpress/core-data' package.
  */
 export function getAutosave(): Autosave | {};
 
@@ -97,8 +97,8 @@ export function getAutosave(): Autosave | {};
  * there is no autosave for the post.
  *
  * @deprecated since 5.6. Callers should use the `getAutosave( postType, postId, userId )` selector
- * 			   from the '@wordpress/core-data' package and access properties on the returned
- * 			   autosave object using getPostRawValue.
+ *                from the '@wordpress/core-data' package and access properties on the returned
+ *                autosave object using getPostRawValue.
  *
  * @param attributeName - Autosave attribute name.
  */

@@ -3,6 +3,7 @@ declare const window: any;
 declare const alert: (msg: string) => any;
 declare const console: {log: any};
 
+_.VERSION; // $ExpectType string
 _.each([1, 2, 3], (num) => alert(num.toString()));
 _.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
 
@@ -10,13 +11,13 @@ _.map([1, 2, 3], (num) => num * 3);
 _.map({ one: 1, two: 2, three: 3 }, (value, key) => value * 3);
 let plucked: string[] = _.map([{key: 'apples'}, {key: 'oranges'}], 'key');
 
-//var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);	// https://typescript.codeplex.com/workitem/1960
+//var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);    // https://typescript.codeplex.com/workitem/1960
 var sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num, 0);
 sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
 sum = _.reduce<string, number>({'a':'1', 'b':'2', 'c':'3'}, (memo, numstr) => memo + (+numstr));
 
 var list = [[0, 1], [2, 3], [4, 5]];
-//var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
+//var flat = _.reduceRight(list, (a, b) => a.concat(b), []);    // https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 // as a breaking change, consider moving functions like isNumber and bind that only make sense to call on single values to ChainSingle (or at least duplicate them there)
@@ -6918,10 +6919,10 @@ function chain_tests() {
         .mapObject((objects) => _.pluck(objects, 'value'))
         .value(); // { odd: [1], even: [0, 2] }
 
-  var matrixOfString : string[][] = _.chain({'foo' : '1', 'bar': '1'})
-    .keys()    // return ['foo', 'bar'] : string[]
-    .pairs()   // return [['foo', '0'], ['bar', '1']] : string[][]
-    .value();
+    var matrixOfString : string[][] = _.chain({'foo' : '1', 'bar': '1'})
+        .keys()    // return ['foo', 'bar'] : string[]
+        .pairs()   // return [['foo', '0'], ['bar', '1']] : string[][]
+        .value();
 
     interface IYears {
         2016: number;

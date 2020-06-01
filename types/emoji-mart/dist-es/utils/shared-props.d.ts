@@ -69,6 +69,7 @@ export interface PickerProps {
     i18n?: PartialI18n;
     style?: React.CSSProperties;
     title?: string;
+    theme?: "auto" | "light" | "dark";
     emoji?: string;
     color?: string;
     set?: EmojiSet;
@@ -91,5 +92,6 @@ export interface PickerProps {
     notFound?(): React.Component;
     notFoundEmoji?: string;
     icons?: CustomIcons;
-    darkMode?: boolean;
+    enableFrequentEmojiSort?: boolean;
+    useButton?: boolean;
 }

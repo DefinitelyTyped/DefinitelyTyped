@@ -34,7 +34,9 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
                     animationSpeed={2000}
                     arrows
                     arrowLeft={<div>left</div>}
-                    arrowRight={<div>left</div>}
+                    arrowRight={<div>right</div>}
+                    arrowLeftDisabled={<div>left (disabled)</div>}
+                    arrowRightDisabled={<div>right (disabled)</div>}
                     autoPlay={1000}
                     clickToChange
                     centered
@@ -50,7 +52,8 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
                     slidesPerScroll={3}
                     stopAutoPlayOnHover
                     value={value}
-                    rtl={false}>
+                    rtl={false}
+                    minDraggableOffset={12}>
                     <img alt="image-1"/>
                     <img alt="image-2"/>
                     <img alt="image-3"/>

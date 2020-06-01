@@ -187,6 +187,6 @@ declare class SignaturePad {
   constructor(canvas: HTMLCanvasElement, options?: SignaturePad.SignaturePadOptions);
 }
 
-export default SignaturePad;
+export = SignaturePad;
 
 export as namespace SignaturePad;

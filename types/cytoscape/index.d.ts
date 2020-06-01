@@ -1277,7 +1277,7 @@ declare namespace cytoscape {
          * Effectively move nodes to different parent node. The modified (actually new) elements are returned.
          * http://js.cytoscape.org/#eles.move
          */
-        move(location: { parent: string }): NodeCollection;
+        move(location: { parent: string | null }): NodeCollection;
     }
 
     /**
@@ -3536,10 +3536,11 @@ declare namespace cytoscape {
          * 'polygon' is a custom polygon specified via shape-polygon-points.
          */
         type NodeShape = 'rectangle' | 'roundrectangle' | 'ellipse' | 'triangle'
-            | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star"
-            | "diamond" | "vee" | "rhomboid" | "polygon" | "round-rectangle"
+            | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star" | "barrel"
+            | "diamond" | "vee" | "rhomboid" | "polygon" | "tag" | "round-rectangle"
             | "round-triangle" | "round-diamond" | "round-pentagon" | "round-hexagon"
-            | "round-heptagon" | "round-octagon" | "round-tag";
+            | "round-heptagon" | "round-octagon" | "round-tag"
+            | "cut-rectangle"| "bottom-round-rectangle" | "concave-hexagon";
 
         /**
          * A space-separated list of numbers ranging on [-1, 1],
@@ -3557,8 +3558,8 @@ declare namespace cytoscape {
         /**
          * http://js.cytoscape.org/#style/node-body
          */
-        interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels<NodeSingular>>,
-            BackgroundImage, Partial<Ghost>, Partial<Visibility<NodeSingular>>, Partial<PieChartBackground> {
+        interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels<NodeSingular>>, BackgroundImage,
+            Partial<Ghost>, Partial<Visibility<NodeSingular>>, Partial<PieChartBackground>, Partial<Events<NodeSingular>> {
             /**
              * The CSS content field
              */
@@ -3754,8 +3755,9 @@ declare namespace cytoscape {
             "pie-i-background-opacity": PropertyValueNode<number>;
         }
 
-        interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>, Partial<UnbundledBezierEdges>,
-        Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>, Partial<Labels<EdgeSingular>> { }
+        interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>,
+            Partial<UnbundledBezierEdges>, Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>,
+            Partial<Labels<EdgeSingular>>, Partial<Events<NodeSingular>> { }
 
         /**
          * These properties affect the styling of an edge’s line:
@@ -4269,27 +4271,22 @@ declare namespace cytoscape {
              * it is guaranteed that the label will be shown at sizes equal to or greater than the value specified.
              */
             "min-zoomed-font-size": PropertyValue<SingularType, number>;
-            /**
-             * Whether events should occur on an element if the label receives an event.
-             * You may want a style applied to the text onactive so you know the text is activatable.
-             */
-            "text-events": PropertyValue<SingularType, "yes" | "no">;
         }
 
         /**
          * http://js.cytoscape.org/#style/events
          */
-        interface Events {
+        interface Events<SingularType extends NodeSingular | EdgeSingular> {
             /**
              * Whether events should occur on an element (e.g.tap, mouseover, etc.).
              *  * For "no", the element receives no events and events simply pass through to the core/viewport.
              */
-            "events": PropertyValueNode<"yes" | "no">;
+            "events": PropertyValue<SingularType, "yes" | "no">;
             /**
              *  Whether events should occur on an element if the label receives an event.
              * You may want a style applied to the text on active so you know the text is activatable.
              */
-            "text-events": PropertyValueNode<"yes" | "no">;
+            "text-events": PropertyValue<SingularType, "yes" | "no">;
         }
 
         /**

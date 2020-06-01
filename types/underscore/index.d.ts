@@ -1,4 +1,4 @@
-// Type definitions for Underscore 1.9
+// Type definitions for Underscore 1.10
 // Project: http://underscorejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>,
 //                 Josh Baldwin <https://github.com/jbaldwin>,
@@ -7,6 +7,7 @@
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>,
 //                 Florian Keller <https://github.com/ffflorian>
 //                 Regev Brody <https://github.com/regevbr>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Michael Ness <https://github.com/reubenrybnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -4077,6 +4078,11 @@ declare module _ {
         chain<T>(obj: _.List<T>): _Chain<T, _.List<T>>;
         chain<T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(obj: V): _Chain<T, V>;
         chain<T extends {}>(obj: T): _Chain<T>;
+
+        /**
+         * Current version
+         */
+        readonly VERSION: string;
     }
 
     interface Underscore<T, V = T> {
