@@ -575,7 +575,7 @@ declare namespace Draft {
                 depth: number;
                 inlineStyleRanges: Array<RawDraftInlineStyleRange>;
                 entityRanges: Array<RawDraftEntityRange>;
-                data?: Object;
+                data?: { [key: string]: any };
             }
 
             /**
