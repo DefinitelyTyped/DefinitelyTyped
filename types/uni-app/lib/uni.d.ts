@@ -5255,11 +5255,11 @@ interface CanvasContext {
     /**
      * 填充色
      */
-    fillStyle?: string;
+    fillStyle?: string | CanvasGradient | CanvasPattern;
     /**
      * 边框颜色
      */
-    strokeStyle?: string;
+    strokeStyle?: string | CanvasGradient | CanvasPattern;
     /**
      * 阴影的模糊级别
      */
@@ -5317,11 +5317,11 @@ interface CanvasContext {
     /**
      * 设置填充色
      */
-    setFillStyle(color?: string): void;
+    setFillStyle(color?: string | CanvasGradient | CanvasPattern): void;
     /**
      * 设置边框颜色
      */
-    setStrokeStyle(color?: string): void;
+    setStrokeStyle(color?: string | CanvasGradient | CanvasPattern): void;
     /**
      * 设置阴影样式
      */
@@ -5329,15 +5329,11 @@ interface CanvasContext {
     /**
      * 创建一个线性的渐变颜色
      */
-    createLinearGradient(x0?: number, y0?: number, x1?: number, y1?: string): CanvasContext;
+    createLinearGradient(x0?: number, y0?: number, x1?: number, y1?: number): CanvasGradient;
     /**
      * 创建一个圆形的渐变颜色
      */
-    createCircularGradient(x?: number, y?: number, r?: number): CanvasContext;
-    /**
-     * 创建一个颜色的渐变点
-     */
-    addColorStop(stop?: number, color?: string): void;
+    createCircularGradient(x?: number, y?: number, r?: number): CanvasGradient;
     /**
      * 设置线条的宽度
      */
@@ -5479,11 +5475,22 @@ interface CanvasContext {
     /**
      * 对指定的图像创建模式的方法，可在指定的方向上重复元图像
      */
-    createPattern(image?: string, repetition?: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat'): void;
+    createPattern(image?: string, repetition?: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat'): CanvasPattern | null;
     /**
      * 使用矩阵重新设置（覆盖）当前变换的方法
      */
     setTransform(scaleX?: number, skewX?: number, skewY?: number, scaleY?: number, translateX?: number, translateY?: number): void;
+}
+
+interface CanvasGradient {
+    /**
+     * 创建一个颜色的渐变点
+     */
+    addColorStop(stop?: number, color?: string): void;
+}
+
+// tslint:disable-next-line no-empty-interface
+interface CanvasPattern {
 }
 
 interface CanvasTextMetrics {
