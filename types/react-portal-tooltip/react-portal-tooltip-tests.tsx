@@ -58,8 +58,8 @@ class ToolTipTestParentProp1 extends React.Component {
     }
 }
 
-class ToolTipTestParentProp2 extends React.Component<{}> {
-    private element = React.createRef<HTMLDivElement>();
+class ToolTipTestParentProp2 extends React.Component {
+    readonly element = React.createRef<HTMLDivElement>();
 
     constructor(props: {}) {
         super(props);
