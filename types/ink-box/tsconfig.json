@@ -2,7 +2,6 @@
     "compilerOptions": {
         "module": "commonjs",
         "jsx": "react",
-        "esModuleInterop": true,
         "lib": [
             "es6"
         ],

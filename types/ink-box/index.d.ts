@@ -5,6 +5,15 @@
 
 import * as React from "react";
 
+type Alignment = "right" | "center" | "left";
+
+type Spacing = number | {
+    top?: number;
+    right?: number;
+    bottom?: number;
+    left?: number;
+};
+
 interface BoxProps {
     borderColor?: string;
     borderStyle?: ("single" | "double" | "round" | "singleDouble" | "doubleSingle" | "classic") | {
@@ -16,21 +25,11 @@ interface BoxProps {
         vertical?: string;
     };
     dimBorder?: boolean;
-    padding?: number | {
-        top?: number;
-        right?: number;
-        bottom?: number;
-        left?: number;
-    };
-    margin?: number | {
-        top?: number;
-        right?: number;
-        bottom?: number;
-        left?: number;
-    };
-    float?: "right" | "center" | "left";
+    padding?: Spacing;
+    margin?: Spacing;
+    float?: Alignment;
     backgroundColor?: string;
-    align?: "right" | "center" | "left";
+    align?: Alignment;
 }
 declare const Box: React.FC<BoxProps>;
 export = Box;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import Box from "ink-box";
+import * as Box from "ink-box";
 
 const test1 = () => {
     return (
