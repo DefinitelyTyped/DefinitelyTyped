@@ -171,8 +171,6 @@ declare namespace echarts {
             extraCssText?: string;
         }
 
-
-
         interface Tooltip extends BaseTooltip {
             /**
              * Whether to show the tooltip component,
