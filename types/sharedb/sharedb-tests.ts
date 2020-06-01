@@ -198,14 +198,24 @@ function startServer() {
     });
 }
 
-ShareDBClient.types.register({
+const richTextType = {
   name: 'rich-text',
-  uri: 'http://sharejs.org/types/rich-text/v1'
-});
+  uri: 'http://sharejs.org/types/rich-text/v1',
+  create() {},
+  apply() {},
+  transform() {},
+  compose() {},
+};
+
+ShareDBClient.types.register(richTextType);
 
 console.log(ShareDBClient.types.map);
 console.log(ShareDBClient.types.map['rich-text'].name);
 console.log(ShareDBClient.types.map['rich-text'].uri);
+
+const op1 = [{ insert: 'Hello' }];
+const op2 = [{ retain: 5 }, { insert: ' world!' }];
+const op3 = ShareDBClient.types.map['rich-text'].compose(op1, op2);
 
 function startClient(callback) {
     const socket = new WebSocket('ws://localhost:8080');

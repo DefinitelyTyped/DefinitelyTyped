@@ -51,16 +51,25 @@ export interface RawOp {
     c: string;
     d: string;
 }
-export type OTType = 'ot-text' | 'ot-json0' | 'ot-text-tp2' | 'rich-text';
+export type OTType = 'ot-text' | 'ot-json0' | 'ot-json1' | 'ot-text-tp2' | 'rich-text';
 
 export interface Type {
-  name?: string;
-  uri?: string;
-  [key: string]: any;
+    name?: string;
+    uri?: string;
+    create(initialData?: any): any;
+    apply(snapshot: any, op: any): any;
+    transform(op1: any, op2: any, side: 'left' | 'right'): any;
+    compose(op1: any, op2: any): any;
+    invert?(op: any): any;
+    normalize?(op: any): any;
+    transformCursor?(cursor: any, op: any, isOwnOp: boolean): any;
+    serialize?(snapshot: any): any;
+    deserialize?(data: any): any;
+    [key: string]: any;
 }
 export interface Types {
-  register: (type: Type) => void;
-  map: { [key: string]: Type };
+    register: (type: Type) => void;
+    map: { [key: string]: Type };
 }
 
 export interface Error {
