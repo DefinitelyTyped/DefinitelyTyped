@@ -5691,6 +5691,125 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     }
 }
 
+// zip
+// once TS 3.0 is reached as a minimum version, as a breaking change, consider updating zip to something like zip<T extends _.List<any>[]>(...arrays: T): TypeOfListItem<T>[]
+// except not that because that doesn't distribute to each type in the tuple individually and also ends up making a type union
+{
+    {
+        const array1: string[] = ['a', 'b'];
+        const array2: number[] = [1, 2];
+        const array3: boolean[] = [true, false];
+        let result: any[][]; // ideally should be [string, number, boolean][]
+
+        result = _.zip(array1, array2, array3);
+
+        result = _(array1).zip(array2, array3);
+
+        result = _.chain(array1).zip(array2, array3).value();
+    }
+
+    {
+        const list1: _.List<string> = { 0: 'a', 1: 'b', length: 2 };
+        const list2: _.List<number> = { 0: 1, 1: 2, length: 2 };
+        const list3: _.List<boolean> = { 0: true, 1: false, length: 2 };
+        let result: any[][]; // ideally should be [string, number, boolean][]
+
+        result = _.zip(list1, list2, list3);
+
+        result = _(list1).zip(list2, list3);
+
+        result = _.chain(list1).zip(list2, list3).value();
+    }
+}
+
+// unzip
+{
+    {
+        const array: [string, number, boolean][] = [['a', 1, true], ['b', 2, false]];
+        let result: any[][]; // ideally should be [string[], number[], boolean[]]
+
+        result = _.unzip(array);
+
+        result = _(array).unzip();
+
+        result = _.chain(array).unzip().value();
+    }
+
+    {
+        const list: _.List<[string, number, boolean]> = { 0: { 0: 'a', 1: 1, 2: true, length: 3 }, 1: { 0: 'b', 1: 2, 2: false, length: 3 }, length: 2 };
+        let result: any[][]; // ideally should be [string[], number[], boolean[]]
+
+        result = _.unzip(list);
+
+        result = _(list).unzip();
+
+        result = _.chain(list).unzip().value();
+    }
+}
+
+// object
+{
+    // separate key and value sets
+    {
+        const keyArray: string[] = ['a', 'b'];
+        const valueArray: number[] = [1, 2];
+        let result: _.Dictionary<number>;
+
+        result = _.object<number>(keyArray, valueArray);
+        result = _.object(keyArray, valueArray);
+
+        result = _<string>(keyArray).object<number>(valueArray);
+        result = _(keyArray).object(valueArray);
+
+        result = _.chain<string>(keyArray).object<number>(valueArray).value();
+        result = _.chain(keyArray).object(valueArray).value();
+    }
+
+    {
+        const keyList: _.List<string> = { 0: 'a', 1: 'b', length: 2 };
+        const valueList: _.List<number> = { 0: 1, 1: 2, length: 2 };
+        let result: _.Dictionary<number>;
+
+        result = _.object<number>(keyList, valueList);
+        result = _.object(keyList, valueList);
+
+        result = _<string>(keyList).object<number>(valueList);
+        result = _(keyList).object(valueList);
+
+        result = _.chain<string>(keyList).object<number>(valueList).value();
+        result = _.chain(keyList).object(valueList).value();
+    }
+
+    // key value pair tuples
+    {
+        const array: [string, number][] = [['a', 1], ['b', 2]];
+        let result: _.Dictionary<number>;
+
+        result = _.object<number>(array);
+        result = _.object(array);
+
+        result = _<[string, number]>(array).object();
+        result = _(array).object();
+
+        result = _.chain<[string, number]>(array).object().value();
+        result = _.chain(array).object().value();
+    }
+
+    {
+        const list: _.List<[string, number]> = { 0: ['a', 1], 1: ['b', 2], length: 2 };
+        let result: _.Dictionary<number>;
+
+        result = _.object<number>(list);
+        result = _.object(list);
+
+        result = _<[string, number]>(list).object();
+        result = _(list).object();
+
+        result = _.chain<[string, number]>(list).object().value();
+        result = _.chain(list).object().value();
+    }
+}
+
 // chunk
 {
     {

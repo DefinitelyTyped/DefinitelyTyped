@@ -948,22 +948,17 @@ declare module _ {
         * @param arrays The arrays to merge/zip.
         * @return Zipped version of `arrays`.
         **/
-        zip(...arrays: any[][]): any[][];
-
-        /**
-        * @see _.zip
-        **/
-        zip(...arrays: any[]): any[];
+        zip(...arrays: _.List<any>[]): any[][];
 
         /**
         * The opposite of zip. Given a number of arrays, returns a series of new arrays, the first
         * of which contains all of the first elements in the input arrays, the second of which
         * contains all of the second elements, and so on. Use with apply to pass in an array
         * of arrays
-        * @param arrays The arrays to unzip.
+        * @param array The arrays to unzip.
         * @return Unzipped version of `arrays`.
         **/
-        unzip(...arrays: any[][]): any[][];
+        unzip(array: _.List<_.List<any>>): any[][];
 
         /**
         * Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
@@ -972,9 +967,9 @@ declare module _ {
         * @param values Value array.
         * @return An object containing the `keys` as properties and `values` as the property values.
         **/
-        object<TResult extends {}>(
+        object<TValue>(
             keys: _.List<string>,
-            values: _.List<any>): TResult;
+            values: _.List<TValue>): _.Dictionary<TValue>;
 
         /**
         * Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
@@ -982,14 +977,7 @@ declare module _ {
         * @param keyValuePairs Array of [key, value] pairs.
         * @return An object containing the `keys` as properties and `values` as the property values.
         **/
-        object<TResult extends {}>(...keyValuePairs: any[][]): TResult;
-
-        /**
-        * @see _.object
-        **/
-        object<TResult extends {}>(
-            list: _.List<any>,
-            values?: any): TResult;
+        object<TValue>(keyValuePairs: _.List<[string, TValue]>): _.Dictionary<TValue>;
 
         /**
         * Returns the index at which value can be found in the array, or -1 if value is not present in the array.
@@ -4600,27 +4588,28 @@ declare module _ {
         unique: Underscore<T, V>['uniq'];
 
         /**
-        * Wrapped type `any[][]`.
+        * Wrapped type `any[]`.
         * @see _.zip
         **/
-        zip(...arrays: any[][]): any[][];
+        zip(...arrays: _.List<any>[]): any[][];
 
         /**
         * Wrapped type `any[][]`.
         * @see _.unzip
         **/
-        unzip(...arrays: any[][]): any[][];
+        unzip(): any[][];
 
         /**
-        * Wrapped type `any[][]`.
+        * Wrapped type `string[]`.
         * @see _.object
         **/
-        object(...keyValuePairs: any[][]): any;
+        object<TValue>(values: _.List<TValue>): _.Dictionary<TValue>;
 
         /**
+        * Wrapped type `[string, any][]`.
         * @see _.object
         **/
-        object(values?: any): any;
+        object(): T extends [string, infer TValue] ? _.Dictionary<TValue> : _.Dictionary<any>;
 
         /**
         * Wrapped type `any[]`.
@@ -5628,21 +5617,26 @@ declare module _ {
         unique: _Chain<T, V>['uniq'];
 
         /**
-        * Wrapped type `any[][]`.
+        * Wrapped type `any[]`.
         * @see _.zip
         **/
-        zip(...arrays: any[][]): _Chain<any, any[]>;
+        zip(...arrays: _.List<any>[]): _Chain<any[], any[][]>;
 
         /**
         * Wrapped type `any[][]`.
         * @see _.unzip
         **/
-        unzip(): _Chain<any, any[]>;
+        unzip(): _Chain<any[], any[][]>;
 
         /**
         * @see _.object
         **/
-        object(values?: any): _Chain<any, any>;
+        object<TValue>(values: _.List<TValue>): _Chain<TValue, _.Dictionary<TValue>>;
+
+        /**
+        * @see _.object
+        **/
+        object(): T extends [string, infer TValue] ? _Chain<TValue, _.Dictionary<TValue>> : _Chain<any, _.Dictionary<any>>;
 
         /**
         * Wrapped type `any[]`.
