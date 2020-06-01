@@ -10,7 +10,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "./",
+        "baseUrl": "../../",
         "paths": {
             "ember": ["ember/v2"]
         },
