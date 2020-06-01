@@ -243,11 +243,11 @@ declare namespace Office {
      * *Supported hosts, by platform*
      *  <table>
      *   <tr><th>                             </th><th> Office on Windows </th><th> Office in web browser </th><th> Office on iPad </th><th> Outlook on mobile devices </th><th> Office on Mac </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
      *   <tr><td><strong> Outlook    </strong></td><td> Y                 </td><td> Y                     </td><td>                </td><td> Y                         </td><td> Y             </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td>               </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
+     *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td> Y             </td></tr>
+     *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
      *  </table>
      */
     var context: Context;
@@ -278,11 +278,11 @@ declare namespace Office {
      * *Supported hosts, by platform*
      *  <table>
      *   <tr><th>                             </th><th> Office on Windows </th><th> Office in web browser </th><th> Office on iPad </th><th> Outlook on mobile devices </th><th> Office on Mac </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
      *   <tr><td><strong> Outlook    </strong></td><td> Y                 </td><td> Y                     </td><td>                </td><td> Y                         </td><td> Y             </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td>               </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
+     *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td> Y             </td></tr>
+     *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
      *  </table>
      * 
      * @param reason Indicates how the app was initialized.
@@ -553,11 +553,11 @@ declare namespace Office {
         * *Supported hosts, by platform*
         *  <table>
         *   <tr><th>                             </th><th> Office on Windows </th><th> Office in web browser </th><th> Office on iPad </th><th> Outlook on mobile devices </th><th> Office on Mac </th></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+        *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
         *   <tr><td><strong> Outlook    </strong></td><td> Y                 </td><td> Y                     </td><td>                </td><td> Y                         </td><td> Y             </td></tr>
-        *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
-        *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td>               </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td>                       </td><td> Y              </td><td>                           </td><td>               </td></tr>
+        *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
+        *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td> Y             </td></tr>
+        *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td>                       </td><td> Y              </td><td>                           </td><td> Y             </td></tr>
         *  </table>
         */
         displayLanguage: string;
@@ -7666,7 +7666,13 @@ declare namespace Office {
              */
             Item = "item",
             /**
-             * The attachment is stored in a cloud location, such as OneDrive. The `id` property of the attachment contains a URL to the file.
+             * The attachment is stored in a cloud location, such as OneDrive.
+             *
+             * **Important**: In Read mode, the `id` property of the attachment's {@link Office.AttachmentDetails | details} object
+             * contains a URL to the file.
+             * From requirement set 1.8, the `url` property included in the attachment's
+             * {@link https://docs.microsoft.com/javascript/api/outlook/office.attachmentdetailscompose?view=outlook-js-1.8 | details} object
+             * contains a URL to the file in Compose mode.
              */
             Cloud = "cloud"
         }
@@ -9374,7 +9380,7 @@ declare namespace Office {
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
          *                 the failure.
          */
-        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetailsCompose[]>) => void): void;
         /**
          * Gets the item's attachments as an array.
          * 
@@ -9390,7 +9396,7 @@ declare namespace Office {
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
          *                 the failure.
          */
-        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetailsCompose[]>) => void): void;
         /**
          * Asynchronously gets the ID of a saved item.
          *
@@ -9670,7 +9676,7 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for `saveAsync` on appointments in compose mode:
          *
-         * - In Outlook on Mac, only preview build 16.35.205.0 or later with an Office 365 subscription supports saving a meeting.
+         * - In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
          * Otherwise, the `saveAsync` method fails when called from a meeting in compose mode.
          * For a workaround, see {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
          *
@@ -9710,7 +9716,7 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for `saveAsync` on appointments in compose mode:
          *
-         * - In Outlook on Mac, only preview build 16.35.205.0 or later with an Office 365 subscription supports saving a meeting.
+         * - In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
          * Otherwise, the `saveAsync` method fails when called from a meeting in compose mode.
          * For a workaround, see {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
          *
@@ -10780,29 +10786,25 @@ declare namespace Office {
         format: MailboxEnums.AttachmentContentFormat | string;
     }
     /**
-     * Represents an attachment on an item from the server. Read mode only.
+     * Represents an attachment on an item. Compose mode only.
      *
-     * An array of `AttachmentDetails` objects is returned as the attachments property of an appointment or message item.
+     * An array of `AttachmentDetailsCompose` objects is returned as the attachments property of an appointment or message item.
+     *
+     * [Api set: Mailbox 1.8]
      *
      * @remarks
-     * 
+     *
      * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
-     * 
-     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Read
+     *
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
      */
-    interface AttachmentDetails {
+    interface AttachmentDetailsCompose {
         /**
          * Gets a value that indicates the type of an attachment.
          */
         attachmentType: MailboxEnums.AttachmentType | string;
         /**
-         * Gets the MIME content type of the attachment.
-         * 
-         * This property is only available in Read mode.
-         */
-        contentType: string;
-        /**
-         * Gets the Exchange attachment ID of the attachment.
+         * Gets the index of the attachment.
          */
         id: string;
         /**
@@ -10811,7 +10813,7 @@ declare namespace Office {
         isInline: boolean;
         /**
          * Gets the name of the attachment.
-         * 
+         *
          * **Important**: For message or appointment items that were attached by drag-and-drop or "Attach Item",
          * `name` includes a file extension in Outlook on Mac, but excludes the extension on the web or Windows.
          */
@@ -10822,10 +10824,51 @@ declare namespace Office {
         size: number;
         /**
          * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`.
-         * 
-         * [Api set: Mailbox 1.8]
          */
-        url: string;
+        url?: string;
+    }
+    /**
+     * Represents an attachment on an item from the server. Read mode only.
+     *
+     * An array of `AttachmentDetails` objects is returned as the attachments property of an appointment or message item.
+     *
+     * [Api set: Mailbox 1.1]
+     *
+     * @remarks
+     *
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+     *
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Read
+     */
+    interface AttachmentDetails {
+        /**
+         * Gets a value that indicates the type of an attachment.
+         */
+        attachmentType: MailboxEnums.AttachmentType | string;
+        /**
+         * Gets the MIME content type of the attachment.
+         */
+        contentType: string;
+        /**
+         * Gets the Exchange attachment ID of the attachment.
+         * However, if the attachment type is `MailboxEnums.AttachmentType.Cloud`, then a URL for the file is returned.
+         */
+        id: string;
+        /**
+         * Gets a value that indicates whether the attachment should be displayed in the body of the item.
+         */
+        isInline: boolean;
+        /**
+         * Gets the name of the attachment.
+         *
+         * **Important**: For message or appointment items that were attached by drag-and-drop or "Attach Item",
+         * `name` includes a file extension in Outlook on Mac, but excludes the extension on the web or Windows.
+         */
+        name: string;
+        /**
+         * Gets the size of the attachment in bytes.
+         */
+        size: number;
     }
     /**
      * Provides information about the attachments that raised the `Office.EventType.AttachmentsChanged` event.
@@ -10835,7 +10878,7 @@ declare namespace Office {
     export interface AttachmentsChangedEventArgs { 
         /** 
          * Represents the set of attachments that were added or removed. 
-         * For each such attachment, gets a subset of {@link Office.AttachmentDetails | AttachmentDetails} properties: `id`, `name`, `size`, and `attachmentType`.
+         * For each such attachment, gets `id`, `name`, `size`, and `attachmentType` properties.
          * 
          * [Api set: Mailbox 1.8]
          */
@@ -12973,7 +13016,8 @@ declare namespace Office {
         /**
          * Gets an object that provides methods to get or update the recipients on the Bcc (blind carbon copy) line of a message.
          *
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         * By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, Windows, and Mac,
+         * the following limits apply.
          *
          * - Get 500 members maximum.
          *
@@ -13018,8 +13062,9 @@ declare namespace Office {
          * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
          * current item.
          *
-         * The `cc` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the Cc line of 
-         * the message. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         * The `cc` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the
+         * **Cc** line of the message. By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, Windows,
+         * and Mac, the following limits apply.
          * 
          * - Get 500 members maximum.
          *
@@ -13146,8 +13191,9 @@ declare namespace Office {
          * Provides access to the recipients on the To line of a message. The type of object and level of access depends on the mode of the
          * current item.
          *
-         * The `to` property returns a `Recipients` object that provides methods to get or update the recipients on the To line of the message.
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         * The `to` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the
+         * **To** line of the message. By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, Windows,
+         * and Mac, the following limits apply.
          * 
          * - Get 500 members maximum.
          *
@@ -13515,7 +13561,7 @@ declare namespace Office {
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
          *                 the failure.
          */
-        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentDetailsCompose[]>) => void): void;
         /**
          * Gets the item's attachments as an array.
          * 
@@ -13531,7 +13577,7 @@ declare namespace Office {
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
          *                 the failure.
          */
-        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
+        getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetailsCompose[]>) => void): void;
         /**
          * Asynchronously gets the ID of a saved item.
          *
@@ -13972,7 +14018,8 @@ declare namespace Office {
          * current item.
          *
          * The `cc` property returns an array that contains an `EmailAddressDetails` object for each recipient listed on the Cc line of the message. 
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
+         * By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, you can get 20 members maximum, while
+         * on Windows and Mac, you can get 500 members maximum.
          *
          * @remarks
          *
@@ -14074,7 +14121,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
          * 
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
-		 *
+         *
          * The `itemClass` property specifies the message class of the selected item.
          * The following are the default message classes for the message or appointment item.
          * 
@@ -14261,7 +14308,8 @@ declare namespace Office {
          * current item.
          *
          * The `to` property returns an array that contains an `EmailAddressDetails` object for each recipient listed on the To line of the message.
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
+         * By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, you can get 20 members maximum, while
+         * on Windows and Mac, you can get 500 members maximum.
          *
          * @remarks
          *

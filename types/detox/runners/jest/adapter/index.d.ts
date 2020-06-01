@@ -1,4 +1,4 @@
-interface DetoxJestAdapter {
+interface DetoxJestAdapter extends Detox.CircusTestEventListenerBase {
     detox: Detox.Detox;
     beforeEach: () => Promise<void>;
     afterAll: () => Promise<void>;

@@ -10,6 +10,7 @@
 //                 Morgan Snyder <https://github.com/morgansierrasnyder>
 //                 Federico Giacomini <https://github.com/crocsx>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 George Melissourgos <https://github.com/DrMerfy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -2718,10 +2719,11 @@ declare namespace Cesium {
         show: Property;
         translucencyByDistance: Property;
         pixelOffsetScaleByDistance: Property;
+        distanceDisplayCondition?: Property;
         constructor(options?: {
             text?: Property | string;
             font?: string;
-            style?: Property;
+            style?: LabelStyle | Property;
             fillColor?: Color;
             outlineColor?: Color;
             outlineWidth?: number;
@@ -2731,14 +2733,14 @@ declare namespace Cesium {
             backgroundColor?: Property;
             backgroundPadding?: Property;
             horizontalOrigin?: Property;
-            verticalOrigin?: Property;
+            verticalOrigin?: VerticalOrigin | Property;
             eyeOffset?: Property;
-            pixelOffset?: Property;
+            pixelOffset?: Cartesian2 | Property;
             translucencyByDistance?: Property;
             pixelOffsetScaleByDistance?: Property;
             heightReference?: Property;
             scaleByDistance?: Property;
-            distanceDisplayCondition?: Property;
+            distanceDisplayCondition?: DistanceDisplayCondition | Property;
             disableDepthTestDistance?: Property | number;
         });
         clone(result?: LabelGraphics): LabelGraphics;
@@ -3728,10 +3730,7 @@ declare namespace Cesium {
     class ClippingPlane {
         normal: Cartesian3;
         distance: number;
-        constructor(option: {
-            normal: Cartesian3;
-            distance: number;
-        })
+        constructor(normal: Cartesian3, distance: number);
 
         static clone(clippingPlane: ClippingPlane, result?: ClippingPlane): ClippingPlane;
         static fromPlane(plane: Plane, result?: ClippingPlane): ClippingPlane;
@@ -3748,7 +3747,7 @@ declare namespace Cesium {
         readonly length: number;
 
         constructor(options?: {
-            planes?: ClippingPlane;
+            planes?: ClippingPlane[];
             enabled?: boolean;
             modelMatrix?: Matrix4;
             unionClippingRegions?: boolean;
@@ -5956,11 +5955,16 @@ declare namespace Cesium {
     }
 
     enum BingMapsStyle {
-        AERIAL,
-        AERIAL_WITH_LABELS,
-        ROAD,
-        ORDNANCE_SURVEY,
-        COLLINS_BART,
+        AERIAL = "Aerial",
+        AERIAL_WITH_LABELS = "AerialWithLabels",
+        AERIAL_WITH_LABELS_ON_DEMAND = "AerialWithLabelsOnDemand",
+        ROAD= "Road",
+        ROAD_ON_DEMAND= "RoadOnDemand",
+        CANVAS_DARK= "CanvasDark",
+        CANVAS_LIGHT= "CanvasLight",
+        CANVAS_GRAY= "CanvasGray",
+        ORDNANCE_SURVEY= "OrdnanceSurvey",
+        COLLINS_BART= "CollinsBart",
     }
 
     enum BlendEquation {

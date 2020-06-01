@@ -111,14 +111,46 @@ configuration = {
         // Disable TSLint for allowing non-arrow functions
         /* tslint:disable-next-line */
         function(context, request, callback) {
-          if (/^yourregex$/.test(request)) {
-            // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
             /* tslint:disable-next-line */
-            return callback(null, 'commonjs ' + request);
-          }
-          callback({}, {});
-        }
-      ]
+            if (/^yourregex$/.test(request)) {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line */
+                return callback(null, 'commonjs ' + request);
+            }
+            if (request === 'foo') {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line */
+                return callback(null, ['path', 'to', 'external']);
+            }
+            if (request === 'bar') {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line */
+                return callback(null, {}, 'commonjs');
+            }
+            if (request === 'baz') {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line */
+                return callback(null, {});
+            }
+
+            // Callback can be invoked with an error
+            callback('An error');
+            callback(new Error('Boom!'));
+
+            // A null error should include external parameters
+            // $ExpectError
+            callback(null);
+
+            // An error should include no other parameters
+            // $ExpectError
+            callback('An error', 'externalName');
+
+            // Continue without externalizing the import
+            // Disable TSLint for allowing non-arrow functions
+            /* tslint:disable-next-line */
+            return callback();
+        },
+    ],
 };
 
 configuration = {
@@ -143,7 +175,7 @@ configuration = {
                 /* tslint:disable-next-line */
                 return callback(null, 'commonjs ' + request);
               }
-              callback({}, {});
+              callback(null, {});
             },
             // Regex
             /^(jquery|\$)$/i
@@ -397,6 +429,14 @@ plugin = new webpack.DllReferencePlugin({
     name: 'dll name',
     scope: 'dll prefix',
     sourceType: 'var'
+});
+plugin = new webpack.ExternalsPlugin('this', 'react');
+plugin = new webpack.ExternalsPlugin('this', {jquery: 'jQuery'});
+plugin = new webpack.ExternalsPlugin('this', (context, request, callback) => {
+    if (request === 'jquery') {
+        callback(null, 'jQuery');
+    }
+    callback();
 });
 plugin = new webpack.IgnorePlugin(requestRegExp);
 plugin = new webpack.IgnorePlugin(requestRegExp, contextRegExp);
@@ -886,29 +926,29 @@ class IgnorePlugin extends webpack.Plugin {
 class DllEntryDependency extends webpack.compilation.Dependency {}
 class DllModuleFactory extends Tapable {}
 class DllEntryPlugin extends webpack.Plugin {
-	apply(compiler: webpack.Compiler) {
-		compiler.hooks.compilation.tap(
-			"DllEntryPlugin",
-			(compilation, { normalModuleFactory }) => {
-				const dllModuleFactory = new DllModuleFactory();
-				compilation.dependencyFactories.set(
-					DllEntryDependency,
-					dllModuleFactory
-				);
-				compilation.dependencyFactories.set(
-					SingleEntryDependency,
-					normalModuleFactory
-				);
-			}
-		);
-		compiler.hooks.make.tapAsync("DllEntryPlugin", (compilation, callback) => {
-			compilation.addEntry("", new DllEntryDependency(), "", callback);
-		});
-	}
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap(
+            "DllEntryPlugin",
+            (compilation, { normalModuleFactory }) => {
+                const dllModuleFactory = new DllModuleFactory();
+                compilation.dependencyFactories.set(
+                    DllEntryDependency,
+                    dllModuleFactory
+                );
+                compilation.dependencyFactories.set(
+                    SingleEntryDependency,
+                    normalModuleFactory
+                );
+            }
+        );
+        compiler.hooks.make.tapAsync("DllEntryPlugin", (compilation, callback) => {
+            compilation.addEntry("", new DllEntryDependency(), "", callback);
+        });
+    }
 }
 
 class BannerPlugin extends webpack.Plugin {
-	apply(compiler: webpack.Compiler) {
+    apply(compiler: webpack.Compiler) {
         compiler.hooks.compilation.tap("BannerPlugin", compilation  => {
             compilation.hooks.optimizeChunkAssets.tap("BannerPlugin", chunks => {
                 for (const chunk of chunks) {
@@ -916,7 +956,11 @@ class BannerPlugin extends webpack.Plugin {
                         continue;
                     }
                     for (const file of chunk.files) {
-                        compilation.getPath("", {});
+                        const pathA = compilation.getPath("", {});
+                        const pathB = compilation.getPath("", {
+                            contentHash: "abc",
+                            contentHashType: "javascript",
+                        });
                     }
                 }
             });

@@ -1,6 +1,7 @@
 import fs = require('fs')
 import os = require('os')
-import { markdown, danger } from "danger"
+import path = require('path')
+import { markdown, danger, fail } from "danger"
 const suggestionsDir = [os.homedir(), ".dts", "suggestions"].join('/')
 const lines: string[] = []
 const missingProperty = /module exports a property named '(.+?)', which is missing/
@@ -53,3 +54,15 @@ if (fs.existsSync(suggestionsDir)) {
     markdown(lines.join('\n'))
 }
 
+if (danger.git.created_files.some(f => path.basename(f) === ".editorconfig")) {
+    fail("A nested .editorconfig file may not be added to a package on DefinitelyTyped. Please respect the root .editorconfig.", danger.git.created_files.find(f => path.basename(f) === ".editorconfig"), 1)
+}
+
+
+for (const filename of danger.git.modified_files.concat(danger.git.created_files)) {
+    danger.git.diffForFile(filename).then(d => {
+        if (d.added.indexOf("\t") > -1) { // This is a dumb check for tabs, in lieu of running `prettier` on the diff'd parts
+            fail("The root .editorconfig style specifies spaces for whitespace. Please use spaces in new or changed types.", filename, d.after.split("\n").findIndex(e => e.indexOf("\t") > -1) + 1)
+        }
+    })
+}

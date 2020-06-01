@@ -118,6 +118,14 @@ redis.zrem('myset', 'member').then(console.log);
 redis.zrem('myset', 'member', cbNumber);
 redis.zrem('myset', 'member', 'member2').then(console.log);
 redis.zrem('myset', 'member', 'member2', cbNumber);
+redis.zpopmin('myset', cb);
+redis.zpopmin('myset', 1, cb);
+redis.zpopmin('myset', 1).then(console.log);
+redis.zpopmin('myset').then(console.log);
+redis.zpopmax('myset', cb);
+redis.zpopmax('myset', 1, cb);
+redis.zpopmax('myset', 1).then(console.log);
+redis.zpopmax('myset').then(console.log);
 redis.sort('list').then(console.log);
 redis.sort('list', cb);
 redis.sort('list', 'LIMIT', 0, 10).then(console.log);
@@ -518,11 +526,9 @@ cluster
     .then(result => console.log(result))
     .catch(reason => console.error(reason));
 cluster
-    .connect(() => {
-        console.log('connect');
-    })
+    .connect()
     .then(result => console.log(result))
-    .then(reason => console.error(reason));
+    .catch(reason => console.error(reason));
 
 cluster.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 cluster.getBuffer('key', (err, data) => {

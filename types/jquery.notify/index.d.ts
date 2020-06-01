@@ -7,26 +7,26 @@
 /// <reference types="jquery"/>
 
 interface JQueryNotifyOptions {
-	close?: () => void;
-	open?: () => void;
-	custom?: boolean;
-	disabled?: boolean;
-	expires?: number;
-	queue?: boolean;
-	speed?: number;
-	stack?: "below" | "above";
+    close?: () => void;
+    open?: () => void;
+    custom?: boolean;
+    disabled?: boolean;
+    expires?: number;
+    queue?: boolean;
+    speed?: number;
+    stack?: "below" | "above";
 }
 interface JQuery {
-	notify(options?: JQueryNotifyOptions): JQueryNotifyWidget;
-	notify(method: string, template: number, params?: object, opts?: JQueryNotifyOptions): JQueryNotifyInstance;
-	notify(method: string, params?: object, opts?: JQueryNotifyOptions): JQueryNotifyInstance;
+    notify(options?: JQueryNotifyOptions): JQueryNotifyWidget;
+    notify(method: string, template: number, params?: object, opts?: JQueryNotifyOptions): JQueryNotifyInstance;
+    notify(method: string, params?: object, opts?: JQueryNotifyOptions): JQueryNotifyInstance;
 }
 interface JQueryNotifyInstance {
-	element: JQuery;
-	isOpen: boolean;
-	options: JQueryNotifyOptions;
-	close(): void;
-	open(): void;
+    element: JQuery;
+    isOpen: boolean;
+    options: JQueryNotifyOptions;
+    close(): void;
+    open(): void;
 }
 interface JQueryNotifyWidget extends JQuery  {
 }

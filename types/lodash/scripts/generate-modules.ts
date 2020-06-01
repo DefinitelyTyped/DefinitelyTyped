@@ -19,7 +19,7 @@ async function main(): Promise<void> {
     }
 
     // Generate lodash/tsconfig.json
-    fs.writeFileSync(path.join("..", "tsconfig.json"), lodashTsconfig(all));
+    fs.writeFileSync(path.join("..", "tsconfig.json"), lodashTsconfig());
 
     for (const module of all) {
         console.log(module);
@@ -85,13 +85,12 @@ function compilerOptions(): object {
     };
 }
 
-function lodashTsconfig(moduleNames: ReadonlyArray<string>): string {
+function lodashTsconfig(): string {
     return JSON.stringify({
         compilerOptions: compilerOptions(),
         files: [
             "index.d.ts",
             "lodash-tests.ts",
-            ...moduleNames.map(m => `${m}.d.ts`),
         ]
     }, undefined, 4);
 }

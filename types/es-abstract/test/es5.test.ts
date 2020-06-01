@@ -4,16 +4,16 @@ import { expectType } from './index.test';
 declare const any: unknown;
 // tslint:disable-next-line: no-null-undefined-union
 const nullableObject: string | object | null | undefined =
-	Math.random() < 0.5 ? (Math.random() < 0.5 ? undefined : null) : Object('foo');
+    Math.random() < 0.5 ? (Math.random() < 0.5 ? undefined : null) : Object('foo');
 
 const nullableMaybePromise =
-	Math.random() < 0.5
-		? Math.random() < 0.5
-			? undefined
-			: null
-		: Math.random() < 0.5
-		? ('bar' as string)
-		: Promise.resolve('baz');
+    Math.random() < 0.5
+        ? Math.random() < 0.5
+            ? undefined
+            : null
+        : Math.random() < 0.5
+        ? ('bar' as string)
+        : Promise.resolve('baz');
 
 ES5.Type(undefined); // $ExpectType "Undefined"
 ES5.Type(null); // $ExpectType "Null"

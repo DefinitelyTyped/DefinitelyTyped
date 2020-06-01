@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/jest-dom 5.6
+// Type definitions for @testing-library/jest-dom 5.9
 // Project: https://github.com/testing-library/jest-dom
 // Definitions by: Ernesto García <https://github.com/gnapse>
 //                 John Gozde <https://github.com/jgoz>
@@ -63,6 +63,8 @@ declare namespace jest {
          */
         toBeVisible(): R;
         /**
+         * @deprecated
+         * since v5.9.0
          * @description
          * Assert whether an element has content or not.
          * @example
@@ -76,6 +78,20 @@ declare namespace jest {
          * [testing-library/jest-dom#tobeempty](https:github.com/testing-library/jest-dom#tobeempty)
          */
         toBeEmpty(): R;
+        /**
+         * @description
+         * Assert whether an element has content or not.
+         * @example
+         * <span data-testid="not-empty">
+         *   <span data-testid="empty"></span>
+         * </span>
+         *
+         * expect(getByTestId('empty')).toBeEmptyDOMElement()
+         * expect(getByTestId('not-empty')).not.toBeEmptyDOMElement()
+         * @see
+         * [testing-library/jest-dom#tobeemptydomelement](https:github.com/testing-library/jest-dom#tobeemptydomelement)
+         */
+        toBeEmptyDOMElement(): R;
         /**
          * @description
          * Allows you to check whether an element is disabled from the user's perspective.
@@ -253,6 +269,48 @@ declare namespace jest {
         toHaveClass(...classNames: string[]): R;
         /**
          * @description
+         * This allows you to check whether the given form element has the specified displayed value (the one the
+         * end user will see). It accepts <input>, <select> and <textarea> elements with the exception of <input type="checkbox">
+         * and <input type="radio">, which can be meaningfully matched only using toBeChecked or toHaveFormValues.
+         * @example
+         * <label for="input-example">First name</label>
+         * <input type="text" id="input-example" value="Luca" />
+         *
+         * <label for="textarea-example">Description</label>
+         * <textarea id="textarea-example">An example description here.</textarea>
+         *
+         * <label for="single-select-example">Fruit</label>
+         * <select id="single-select-example">
+         *   <option value="">Select a fruit...</option>
+         *   <option value="banana">Banana</option>
+         *   <option value="ananas">Ananas</option>
+         *   <option value="avocado">Avocado</option>
+         * </select>
+         *
+         * <label for="mutiple-select-example">Fruits</label>
+         * <select id="multiple-select-example" multiple>
+         *   <option value="">Select a fruit...</option>
+         *   <option value="banana" selected>Banana</option>
+         *   <option value="ananas">Ananas</option>
+         *   <option value="avocado" selected>Avocado</option>
+         * </select>
+         *
+         * const input = screen.getByLabelText('First name')
+         * const textarea = screen.getByLabelText('Description')
+         * const selectSingle = screen.getByLabelText('Fruit')
+         * const selectMultiple = screen.getByLabelText('Fruits')
+         *
+         * expect(input).toHaveDisplayValue('Luca')
+         * expect(textarea).toHaveDisplayValue('An example description here.')
+         * expect(selectSingle).toHaveDisplayValue('Select a fruit...')
+         * expect(selectMultiple).toHaveDisplayValue(['Banana', 'Avocado'])
+         *
+         * @see
+         * [testing-library/jest-dom#tohavedisplayvalue](https:github.com/testing-library/jest-dom#tohavedisplayvalue)
+         */
+        toHaveDisplayValue(value: string | RegExp | Array<string | RegExp>): R;
+        /**
+         * @description
          * Assert whether an element has focus or not.
          * @example
          * <div>
@@ -427,5 +485,43 @@ declare namespace jest {
          * [testing-library/jest-dom#tohavedescription](https:github.com/testing-library/jest-dom#tohavedescription)
          */
         toHaveDescription(text?: string | RegExp | ReturnType<typeof expect.stringContaining>): R;
+        /**
+         * @description
+         * This allows you to check whether the given element is partially checked.
+         * It accepts an input of type checkbox and elements with a role of checkbox
+         * with a aria-checked="mixed", or input of type checkbox with indeterminate
+         * set to true
+         *
+         * @example
+         * <input type="checkbox" aria-checked="mixed" data-testid="aria-checkbox-mixed" />
+         * <input type="checkbox" checked data-testid="input-checkbox-checked" />
+         * <input type="checkbox" data-testid="input-checkbox-unchecked" />
+         * <div role="checkbox" aria-checked="true" data-testid="aria-checkbox-checked" />
+         * <div
+         *   role="checkbox"
+         *   aria-checked="false"
+         *   data-testid="aria-checkbox-unchecked"
+         * />
+         * <input type="checkbox" data-testid="input-checkbox-indeterminate" />
+         *
+         * const ariaCheckboxMixed = getByTestId('aria-checkbox-mixed')
+         * const inputCheckboxChecked = getByTestId('input-checkbox-checked')
+         * const inputCheckboxUnchecked = getByTestId('input-checkbox-unchecked')
+         * const ariaCheckboxChecked = getByTestId('aria-checkbox-checked')
+         * const ariaCheckboxUnchecked = getByTestId('aria-checkbox-unchecked')
+         * const inputCheckboxIndeterminate = getByTestId('input-checkbox-indeterminate')
+         *
+         * expect(ariaCheckboxMixed).toBePartiallyChecked()
+         * expect(inputCheckboxChecked).not.toBePartiallyChecked()
+         * expect(inputCheckboxUnchecked).not.toBePartiallyChecked()
+         * expect(ariaCheckboxChecked).not.toBePartiallyChecked()
+         * expect(ariaCheckboxUnchecked).not.toBePartiallyChecked()
+         *
+         * inputCheckboxIndeterminate.indeterminate = true
+         * expect(inputCheckboxIndeterminate).toBePartiallyChecked()
+         * @see
+         * [testing-library/jest-dom#tobepartiallychecked](https:github.com/testing-library/jest-dom#tobepartiallychecked)
+         */
+        toBePartiallyChecked(): R;
     }
 }

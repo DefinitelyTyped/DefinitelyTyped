@@ -34,5 +34,5 @@ const mailOptions: nodemailer.SendMailOptions = {
 };
 
 transport.sendMail(mailOptions, (error: Error | null, info: nodemailer.SentMessageInfo): void => {
-	// nothing
+    // nothing
 });

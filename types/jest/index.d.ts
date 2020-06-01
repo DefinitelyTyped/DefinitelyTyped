@@ -176,12 +176,12 @@ declare namespace jest {
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
      */
-    function requireActual(moduleName: string): any;
+    function requireActual<TModule = any>(moduleName: string): TModule;
     /**
      * Returns a mock module instead of the actual module, bypassing all checks
      * on whether the module should be required normally or not.
      */
-    function requireMock(moduleName: string): any;
+    function requireMock<TModule = any>(moduleName: string): TModule;
     /**
      * Resets the module registry - the cache of all required modules. This is
      * useful to isolate modules where local state might conflict between tests.

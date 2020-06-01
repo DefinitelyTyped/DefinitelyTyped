@@ -395,6 +395,14 @@ declare namespace IORedis {
         zincrby(key: KeyType, increment: number, member: string, callback: Callback<string>): void;
         zincrby(key: KeyType, increment: number, member: string): Promise<string>;
 
+        zpopmin(key: KeyType, callback: Callback<string[]>): void;
+        zpopmin(key: KeyType, count: number, callback: Callback<string[]>): void;
+        zpopmin(key: KeyType, count?: number): Promise<string[]>;
+
+        zpopmax(key: KeyType, callback: Callback<string[]>): void;
+        zpopmax(key: KeyType, count: number, callback: Callback<string[]>): void;
+        zpopmax(key: KeyType, count?: number): Promise<string[]>;
+
         zrem: OverloadedKeyCommand<ValueType, number>;
 
         zremrangebyscore(key: KeyType, min: number | string, max: number | string, callback: Callback<number>): void;
@@ -1387,7 +1395,7 @@ declare namespace IORedis {
     type Ok = 'OK';
 
     interface Cluster extends EventEmitter, Commander, Commands {
-        connect(callback: () => void): Promise<void>;
+        connect(): Promise<void>;
         disconnect(): void;
         nodes(role?: NodeRole): Redis[];
     }

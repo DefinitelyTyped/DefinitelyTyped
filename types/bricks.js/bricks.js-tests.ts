@@ -1,4 +1,4 @@
-import Bricks from 'bricks.js';
+import Bricks = require('bricks.js');
 
 const bricks = Bricks({
     container: document.body.firstChild!,

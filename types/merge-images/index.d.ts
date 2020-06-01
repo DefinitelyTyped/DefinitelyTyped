@@ -21,5 +21,6 @@ declare namespace mergeImages {
         width?: number;
         height?: number;
         Canvas?: any;
+        Images?: any;
     }
 }

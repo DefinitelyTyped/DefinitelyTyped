@@ -1,6 +1,14 @@
 import * as React from 'react';
 
-import { Environment, RecordSource, Store, Network, commitMutation, FragmentRefs } from 'relay-runtime';
+import {
+    Environment,
+    RecordSource,
+    Store,
+    Network,
+    commitMutation,
+    FragmentRefs,
+    GraphQLSubscriptionConfig,
+} from 'relay-runtime';
 import {
     fetchQuery,
     graphql,
@@ -13,7 +21,8 @@ import {
     useRefetchableFragment,
     usePaginationFragment,
     useBlockingPaginationFragment,
-    useMutation
+    useMutation,
+    useSubscription,
 } from 'react-relay/hooks';
 
 const source = new RecordSource();
@@ -748,7 +757,7 @@ function Mutation() {
                 readonly id: string;
                 readonly viewer_does_like?: boolean | null;
                 readonly like_count?: number | null;
-            }
+            };
         } | null;
     }
 
@@ -758,13 +767,13 @@ function Mutation() {
                 readonly id: string;
                 readonly viewer_does_like?: boolean | null;
                 readonly like_count?: number | null;
-            }
+            };
         } | null;
     }
 
     interface FeedbackLikeMutationVariables {
         input: {
-            id: string,
+            id: string;
             text: string;
         };
     }
@@ -788,7 +797,7 @@ function Mutation() {
             }
         `);
         if (isInFlight) {
-          return <div>loading</div>;
+            return <div>loading</div>;
         }
         return (
             <button
@@ -814,13 +823,60 @@ function Mutation() {
                         optimisticResponse: {
                             feedback_like: {
                                 feedback: {
-                                    id: "1"
-                                }
-                            }
-                        }
+                                    id: '1',
+                                },
+                            },
+                        },
                     });
                 }}
             />
         );
+    };
+}
+
+/**
+ * Tests for useSubscription
+ * see https://relay.dev/docs/en/experimental/api-reference#usesubscription
+ */
+function Subscription() {
+    interface SubscriptionVariables {
+        id: string;
+    }
+    interface SubscriptionResponse {
+        readonly store: {
+            readonly id: string;
+            readonly value1: number;
+            readonly value2: number;
+        };
+    }
+    interface Subscription {
+        readonly response: SubscriptionResponse;
+        readonly variables: SubscriptionVariables;
+    }
+
+    interface Props {
+        id: string;
+    }
+
+    return function SubscriptionComponent({ id }: Props) {
+        const subscriptionConfig: GraphQLSubscriptionConfig<Subscription> = React.useMemo(
+            () => ({
+                subscription: graphql`
+                    subscription subscriptionComponentSubscription($id: ID!) {
+                        store(id: $id) {
+                            id
+                            value1
+                            value2
+                        }
+                    }
+                `,
+                variables: { id },
+            }),
+            [id],
+        );
+
+        useSubscription(subscriptionConfig);
+
+        return <p>The subscription has been started in the background.</p>;
     };
 }

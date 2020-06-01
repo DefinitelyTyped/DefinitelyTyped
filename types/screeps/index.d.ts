@@ -739,9 +739,10 @@ declare const BOOSTS: {
 declare const COMMODITIES: Record<
     CommodityConstant | MineralConstant | RESOURCE_GHODIUM,
     {
+        level?: number;
         amount: number;
         cooldown: number;
-        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_GHODIUM, number>;
+        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM, number>;
     }
 >;
 
@@ -1873,7 +1874,7 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    costCallback?(roomName: string, costMatrix: CostMatrix): boolean | CostMatrix;
+    costCallback?(roomName: string, costMatrix: CostMatrix): void | CostMatrix;
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
@@ -4609,29 +4610,29 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      * @param resource The type of the resource.
      * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
      */
-    getCapacity<R extends ResourceConstant | undefined>(
+    getCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
     ): UNLIMITED_STORE extends true
         ? null
-        : (undefined extends R
-              ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
-              : (R extends POSSIBLE_RESOURCES ? number : null));
+        : R extends undefined
+        ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
+        : (R extends POSSIBLE_RESOURCES ? number : null);
     /**
      * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
      * @param resource The type of the resource.
      * @returns Returns used capacity number, or `null` in case of a not valid `resource` for this store type.
      */
-    getUsedCapacity<R extends ResourceConstant | undefined>(
+    getUsedCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
     /**
      * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
      * @param resource The type of the resource.
      * @returns Returns available capacity number, or `null` in case of an invalid `resource` for this store type.
      */
-    getFreeCapacity<R extends ResourceConstant | undefined>(
+    getFreeCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
 }
 
 type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<POSSIBLE_RESOURCES, UNLIMITED_STORE> &
@@ -4716,7 +4717,7 @@ interface OwnedStructure<T extends StructureConstant = StructureConstant> extend
     /**
      * Whether this is your own structure. Walls and roads don't have this property as they are considered neutral structures.
      */
-    my: T extends STRUCTURE_CONTROLLER ? boolean | undefined : boolean;
+    my: boolean;
     /**
      * An object with the structure’s owner info (if present) containing the following properties: username
      */
@@ -5331,7 +5332,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Produces the specified commodity.
      * All ingredients should be available in the factory store.
      */
-    produce(resource: CommodityConstant | MineralConstant | RESOURCE_GHODIUM): ScreepsReturnCode;
+    produce(resource: CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM): ScreepsReturnCode;
 }
 
 interface StructureFactoryConstructor extends _Constructor<StructureFactory>, _ConstructorById<StructureFactory> {}

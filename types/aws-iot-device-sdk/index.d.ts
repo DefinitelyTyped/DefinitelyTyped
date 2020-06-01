@@ -194,10 +194,9 @@ export class device extends EventEmitter {
    * Unsubscribe from a topic or topics
    *
    * @param topic  is a String topic or an array of topics to unsubscribe from
-   * @param options
    * @param callback  fired on unsuback
    */
-  unsubscribe(topic: string | string[], options?: mqtt.IClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
+  unsubscribe(topic: string | string[], callback?: mqtt.PacketCallback): mqtt.Client;
 
   /**
    * end - close connection

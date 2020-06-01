@@ -329,6 +329,28 @@ management.getClients({fields:['name','client_metadata'], include_fields:true})
 // Get all clients with params (with callback)
 management.getClients({fields:['name','client_metadata'], include_fields:true}, (err:Error, clients:auth0.Client[]) => {});
 
+// Get all client grants
+management.getClientGrants();
+
+// Get all client grants (with callback)
+management.getClientGrants((err: Error, data: auth0.ClientGrant[]) => console.log(data));
+
+// Get all client data with params
+management.getClientGrants({per_page: 1}).then((data: auth0.ClientGrant[]) => console.log(data));
+management.getClientGrants({per_page: 12}, (err: Error, data: auth0.ClientGrant[]) => console.log(data));
+
+management.getClientGrants({page: 12}).then((data: auth0.ClientGrant[]) => console.log(data));
+management.getClientGrants({page: 12}, (err: Error, data) => console.log(data));
+
+management.getClientGrants({audience: 'audience'}).then((data: auth0.ClientGrant[]) => console.log(data));
+management.getClientGrants({audience: 'audience'}, (err: Error, data: auth0.ClientGrant[]) => console.log(data));
+
+management.getClientGrants({client_id: 'client_id'}).then((data: auth0.ClientGrant[]) => console.log(data));
+management.getClientGrants({client_id: 'client_id'}, (err: Error, data: auth0.ClientGrant[]) => console.log(data));
+
+management.getClientGrants({include_totals: true}).then((data: auth0.ClientGrantPage) => console.log(data));
+management.getClientGrants({include_totals: true}, (err: Error, data: auth0.ClientGrantPage) => console.log(data));
+
 // Jobs
 management.getJob({
     id: 'job_id'

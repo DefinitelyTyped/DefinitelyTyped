@@ -70,6 +70,7 @@ export interface ActionMeta<OptionType extends OptionTypeBase> {
   action: ActionTypes;
   name?: string;
   option?: OptionType;
+  removedValue?: OptionType;
 }
 
 export type InputActionTypes =
