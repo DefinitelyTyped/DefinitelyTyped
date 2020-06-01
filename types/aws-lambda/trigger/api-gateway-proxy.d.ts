@@ -142,7 +142,7 @@ export interface APIGatewayProxyResultV2 {
     headers?: {
         [header: string]: boolean | number | string;
     };
-    body: string;
+    body?: string | object;
     isBase64Encoded?: boolean;
     cookies?: string[];
 }
