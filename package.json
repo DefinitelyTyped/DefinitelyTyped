@@ -34,5 +34,7 @@
             "pre-commit": "npm uninstall husky"
         }
     },
-    "dependencies": {}
+    "dependencies": {
+        "typescript": "next"
+    }
 }
