@@ -1,3 +1,7 @@
+// Type definitions for quicksettings 3.0.3
+// Project: https://github.com/bit101/quicksettings
+// Definitions by: janizde <https://github.com/janizde>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
 export type ChangeHandler<T> = (value: T) => void;
