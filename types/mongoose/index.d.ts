@@ -1129,7 +1129,7 @@ declare module "mongoose" {
   interface SchemaTimestampsConfig {
     createdAt?: boolean | string;
     updatedAt?: boolean | string;
-    currentTime?: () => Date;
+    currentTime?: () => Date | () => number;
   }
 
   /*
