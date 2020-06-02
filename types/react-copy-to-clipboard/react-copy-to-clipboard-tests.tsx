@@ -1,5 +1,5 @@
 import React from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import CopyToClipboard, { CopyToClipboard as CopyToClipboardNamed } from 'react-copy-to-clipboard';
 
 export class OnlyRequiredProps extends React.Component {
     render() {
@@ -35,16 +35,16 @@ export class App extends React.Component {
           <input value={this.state.value}
             onChange={({target: {value}}) => this.setState({value, copied: false})} />
 
-          <CopyToClipboard text={this.state.value}
+          <CopyToClipboardNamed text={this.state.value}
             onCopy={() => this.setState({copied: true})}>
             <span>Copy to clipboard with span</span>
-          </CopyToClipboard>
+          </CopyToClipboardNamed>
 
-          <CopyToClipboard text={this.state.value}
+          <CopyToClipboardNamed text={this.state.value}
             onCopy={() => this.setState({copied: true})}
             options={{debug: true, message: "message", format: "text/plain"}}>
             <button>Copy to clipboard with button</button>
-          </CopyToClipboard>
+          </CopyToClipboardNamed>
 
           {this.state.copied ? <span style={{color: 'red'}}>Copied.</span> : null}
         </div>

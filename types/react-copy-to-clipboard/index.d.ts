@@ -22,6 +22,9 @@ export namespace CopyToClipboard {
     onCopy?(text: string, result: boolean): void;
     options?: Options;
   }
+  
+  class CopyToClipboard extends React.Component<Props> { }
 }
 
 export class CopyToClipboard extends React.Component<CopyToClipboard.Props> { }
+export default class extends React.Component<CopyToClipboard.Props> { }
