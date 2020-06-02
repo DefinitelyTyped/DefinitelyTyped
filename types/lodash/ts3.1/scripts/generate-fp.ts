@@ -857,7 +857,7 @@ function getInterfaceName(baseName: string, overloadId: number, index: number, t
 }
 
 function interfaceToString(interfaceDef: Interface, exportedInterface: boolean): string {
-// Exported interface extends LodashConvertible to allow
+    // Exported interface extends LodashConvertible to allow
     // calling `.convert({})` on each lodash/fp functions
     const interfaceExtendsStatement = exportedInterface
         ? " extends LodashConvertible"
