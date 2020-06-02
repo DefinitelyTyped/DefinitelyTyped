@@ -35,7 +35,8 @@ expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
 /**
  * Set RTL Text Plugin
  */
-expectType<void>(mapboxgl.setRTLTextPlugin('http://github.com', e => {}, false));
+// $ExpectType void
+mapboxgl.setRTLTextPlugin('http://github.com', e => {}, false);
 
 // $ExpectType void
 mapboxgl.prewarm();
@@ -106,7 +107,7 @@ expectType<mapboxgl.MapboxOptions>({
 
 expectType<mapboxgl.MapboxOptions>({
     container: 'map',
-    touchPitch: true
+    touchPitch: true,
 });
 
 /**
@@ -121,7 +122,7 @@ map.on('load', function () {
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
         clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
-        clusterProperties: {"sum": ["+", ["get", "property"]]},
+        clusterProperties: { sum: ['+', ['get', 'property']] },
     });
 
     map.addLayer({
@@ -790,7 +791,8 @@ expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1));
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts));
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts, { key: 'value' }));
 
-expectType<void>(map.triggerRepaint());
+// $ExpectType void
+map.triggerRepaint();
 
 // $ExpectType PaddingOptions
 map.getPadding();
@@ -855,8 +857,8 @@ expectType<mapboxgl.Map>(
         expectType<mapboxgl.Map>(ev.target);
         expectType<mapboxgl.LngLat>(ev.lngLat);
         expectType<mapboxgl.Point>(ev.point);
-
-        expectType<void>(ev.preventDefault());
+        // $ExpectType void
+        ev.preventDefault();
         expectType<boolean>(ev.defaultPrevented);
 
         expectType<MouseEvent>(ev.originalEvent);
@@ -869,7 +871,8 @@ expectType<mapboxgl.Map>(
         expectType<mapboxgl.LngLat>(ev.lngLat);
         expectType<mapboxgl.Point>(ev.point);
 
-        expectType<void>(ev.preventDefault());
+        // $ExpectType void
+        ev.preventDefault();
         expectType<boolean>(ev.defaultPrevented);
 
         expectType<MouseEvent>(ev.originalEvent);
@@ -882,7 +885,8 @@ expectType<mapboxgl.Map>(
         expectType<mapboxgl.LngLat>(ev.lngLat);
         expectType<mapboxgl.Point>(ev.point);
 
-        expectType<void>(ev.preventDefault());
+        // $ExpectType void
+        ev.preventDefault();
         expectType<boolean>(ev.defaultPrevented);
 
         expectType<MouseEvent>(ev.originalEvent);
@@ -895,7 +899,8 @@ expectType<mapboxgl.Map>(
         expectType<mapboxgl.LngLat>(ev.lngLat);
         expectType<mapboxgl.Point>(ev.point);
 
-        expectType<void>(ev.preventDefault());
+        // $ExpectType void
+        ev.preventDefault();
         expectType<boolean>(ev.defaultPrevented);
 
         expectType<MouseEvent>(ev.originalEvent);
@@ -908,7 +913,8 @@ expectType<mapboxgl.Map>(
         expectType<mapboxgl.LngLat>(ev.lngLat);
         expectType<mapboxgl.Point>(ev.point);
 
-        expectType<void>(ev.preventDefault());
+        // $ExpectType void
+        ev.preventDefault();
         expectType<boolean>(ev.defaultPrevented);
 
         expectType<MouseEvent>(ev.originalEvent);
@@ -921,7 +927,8 @@ expectType<mapboxgl.Map>(
         expectType<mapboxgl.LngLat>(ev.lngLat);
         expectType<mapboxgl.Point>(ev.point);
 
-        expectType<void>(ev.preventDefault());
+        // $ExpectType void
+        ev.preventDefault();
         expectType<boolean>(ev.defaultPrevented);
 
         expectType<MouseEvent>(ev.originalEvent);
@@ -934,7 +941,8 @@ expectType<mapboxgl.Map>(
         expectType<mapboxgl.LngLat>(ev.lngLat);
         expectType<mapboxgl.Point>(ev.point);
 
-        expectType<void>(ev.preventDefault());
+        // $ExpectType void
+        ev.preventDefault();
         expectType<boolean>(ev.defaultPrevented);
 
         expectType<MouseEvent>(ev.originalEvent);
@@ -947,7 +955,8 @@ expectType<mapboxgl.Map>(
         expectType<mapboxgl.LngLat>(ev.lngLat);
         expectType<mapboxgl.Point>(ev.point);
 
-        expectType<void>(ev.preventDefault());
+        // $ExpectType void
+        ev.preventDefault();
         expectType<boolean>(ev.defaultPrevented);
 
         expectType<MouseEvent>(ev.originalEvent);
@@ -964,7 +973,8 @@ expectType<mapboxgl.Map>(
         expectType<mapboxgl.Point>(ev.point);
         expectType<mapboxgl.Point[]>(ev.points);
 
-        expectType<void>(ev.preventDefault());
+        // $ExpectType void
+        ev.preventDefault();
         expectType<boolean>(ev.defaultPrevented);
 
         expectType<TouchEvent>(ev.originalEvent);
@@ -979,7 +989,8 @@ expectType<mapboxgl.Map>(
         expectType<mapboxgl.Point>(ev.point);
         expectType<mapboxgl.Point[]>(ev.points);
 
-        expectType<void>(ev.preventDefault());
+        // $ExpectType void
+        ev.preventDefault();
         expectType<boolean>(ev.defaultPrevented);
 
         expectType<TouchEvent>(ev.originalEvent);
@@ -994,7 +1005,8 @@ expectType<mapboxgl.Map>(
         expectType<mapboxgl.Point>(ev.point);
         expectType<mapboxgl.Point[]>(ev.points);
 
-        expectType<void>(ev.preventDefault());
+        // $ExpectType void
+        ev.preventDefault();
         expectType<boolean>(ev.defaultPrevented);
 
         expectType<TouchEvent>(ev.originalEvent);
@@ -1009,7 +1021,8 @@ expectType<mapboxgl.Map>(
         expectType<mapboxgl.Point>(ev.point);
         expectType<mapboxgl.Point[]>(ev.points);
 
-        expectType<void>(ev.preventDefault());
+        // $ExpectType void
+        ev.preventDefault();
         expectType<boolean>(ev.defaultPrevented);
 
         expectType<TouchEvent>(ev.originalEvent);
@@ -1184,8 +1197,11 @@ const expression = expectType<mapboxgl.Expression>(['coalesce', ['get', 'propert
 /*
  *    ScrollZoomHandler
  */
-expectType<void>(new mapboxgl.Map().scrollZoom.setZoomRate(1));
-expectType<void>(new mapboxgl.Map().scrollZoom.setWheelZoomRate(1));
+// $ExpectType void
+new mapboxgl.Map().scrollZoom.setZoomRate(1);
+
+// $ExpectType void
+new mapboxgl.Map().scrollZoom.setWheelZoomRate(1);
 
 const touchPitchHandler = new mapboxgl.TouchPitchHandler(map);
 // $ExpectType void
