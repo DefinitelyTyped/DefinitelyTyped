@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-declare namespace CopyToClipboard {
+export namespace CopyToClipboard {
   interface Options {
     debug?: boolean;
     format?: 'text/html' | 'text/plain';
