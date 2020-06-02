@@ -1,6 +1,5 @@
 // base definnitions for all NodeJS modules that are not specific to any version of TypeScript
 /// <reference path="globals.d.ts" />
-/// <reference path="assert.d.ts" />
 /// <reference path="async_hooks.d.ts" />
 /// <reference path="buffer.d.ts" />
 /// <reference path="child_process.d.ts" />

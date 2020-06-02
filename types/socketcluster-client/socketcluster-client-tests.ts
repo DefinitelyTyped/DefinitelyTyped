@@ -10,7 +10,7 @@ const socket = create({
 socket.transmit('foo', 123);
 
 (async () => {
-    // $ExpectType number
+    // $ExpectType any
     await socket.invoke('myProc', 123);
 })();
 
@@ -51,7 +51,7 @@ socket.transmitPublish('myChannel', 'This is a message');
         // $ExpectType string
         response.channel;
 
-        // $ExpectType string
+        // $ExpectType any
         response.data;
     } catch (error) {}
 })();
@@ -82,6 +82,23 @@ socket.transmitPublish('myChannel', 'This is a message');
 
     // $ExpectType AuthStates
     authStatus.isAuthenticated;
+})();
+
+(async () => {
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const event of socket.listener('subscribeStateChange')) {
+        // $ExpectType string
+        event.channel;
+
+        // $ExpectType ChannelState
+        event.oldChannelState;
+
+        // $ExpectType ChannelState
+        event.newChannelState;
+
+        // $ExpectType SubscribeOptions
+        event.subscriptionOptions;
+    }
 })();
 
 const mostOptions = {

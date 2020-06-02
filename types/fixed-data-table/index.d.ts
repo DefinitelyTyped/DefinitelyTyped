@@ -407,18 +407,18 @@ declare namespace FixedDataTable {
      */
     export interface ColumnGroupProps extends React.Props<ColumnGroup> {
         /**
-	     * The horizontal alignment of the table cell content.
+         * The horizontal alignment of the table cell content.
          * 'left', 'center', 'right'
-	     */
-	    align?: string;
+         */
+        align?: string;
 
-	    /**
-	     * Controls if the column group is fixed when scrolling in the X
-	     * axis.
-	     *
-	     * defaultValue: false
-	     */
-	    fixed?: boolean;
+        /**
+         * Controls if the column group is fixed when scrolling in the X
+         * axis.
+         *
+         * defaultValue: false
+         */
+        fixed?: boolean;
 
         /**
           * The header cell for this column group. This can either be
@@ -440,14 +440,14 @@ declare namespace FixedDataTable {
           * If you pass in a function, you will receive the same props
           * object as the first argument.
           */
-	    header: string | React.ReactElement | ((props: CellProps) => (string | React.ReactElement));
+        header: string | React.ReactElement | ((props: CellProps) => (string | React.ReactElement));
     }
 
     /**
      * Component that handles default cell layout and styling.
      *
      * All props unless specified below will be set onto the top
-	 * level div rendered by the cell.
+     * level div rendered by the cell.
      *
      * Example usage via from a Column:
      *

@@ -1,4 +1,4 @@
-# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+# Definitely Typed [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
 
 [![Join the chat at https://gitter.im/borisyankov/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/borisyankov/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -32,21 +32,52 @@ Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](http://www.t
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
+#### Versiones más viejas de Typescript (2.9 y anteriores)
 
-### Otros métodos
+Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
+Actualmente, las versiones 3.0 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 2.9, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
+Versiones soportadas:
 
-Estos pueden ser utilizados por TypeScript 1.0.
+Versión | Liberado | Fin de soporte
+-- | -- | --
+2.8 | Marzo 2018 | Marzo 2020
+2.9 | Mayo 2018 | Mayo 2020
+3.0 | Julio 2018 | Julio 2020
+3.1 | Septiembre 2018 | Septiembre 2020
+3.2 | Noviembre 2018 | Noviembre 2020
+3.3 | Enero 2019 | Enero 2020
+3.4 | Marzo 2019 | Marzo 2021
+3.5 | Mayo 2019 | Mayo 2021
+3.6 | Agosto 2019 | Agosto 2021
+3.7 | Noviembre 2019 | Noviembre 2021
+3.8 | Febrero 2020 | Febrero 2022
+3.9 | Mayo 2020 | Mayo 2022
 
-* [Typings](https://github.com/typings/typings)
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use las alternativas preferidas, la publicación DT type de nuget ha sido desactivada)
+Los paquetes `@types` tienen etiquetas para las versiones de Typescript que explícitamente soportan, usualmente puedes obtener versiones más viejas de los paquetes anteriores a 2 años.
+Por ejemplo, si ejecutas `npm dist-tags @types/react`, observaras que Typescript 2.5 puede usar types para react@16.0, a su vez, Typescript 2.6 y 2.7 pueden usar types para react@16.4.
+
+|Etiqueta | Versión|
+|----|---------|
+|latest| 16.9.23|
+|ts2.0| 15.0.1|
+| ... | ... |
+|ts2.5| 16.0.36|
+|ts2.6| 16.4.7|
+|ts2.7| 16.4.7|
+| ... | ... |
+
+#### Typescript 1.*
+
 * Descárguelo manualmente desde la `master` branch de este repositorio
+* [Typings](https://github.com/typings/typings)~~ (use las alternativas preferidas, typings es obsoleto)
+* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use las alternativas preferidas, la publicación DT type de nuget ha sido desactivada)
 
 Tal vez debas añadir manualmente las [referencias](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
 
 
 ## ¿Cómo puedo contribuir?
 
-¡DefinitelyTyped solo trabaja gracias a contribuidores como tú!
+¡Definitely Typed solo trabaja gracias a contribuidores como tú!
 
 ### Prueba
 
@@ -78,7 +109,7 @@ luego sigue las instrucciones para [editar un paquete existente](#edit-an-existi
 
 ### Haz un pull request
 
-Una vez que hayas probado tu paquete, podrás compartirlo en DefinitelyTyped.
+Una vez que hayas probado tu paquete, podrás compartirlo en Definitely Typed.
 
 Primero, haz un [fork](https://guides.github.com/activities/forking/) en este repositorio, instala [node](https://nodejs.org/), y luego ejecuta la `npm install`.
 
@@ -106,7 +137,7 @@ Si no lo hace, puedes hacerlo en el comentario asociado con el PR.
 
 #### Crear un nuevo paquete
 
-Si eres el autor de la librería, o puedes hacer un pull request a la biblioteca, [bundle types](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) en vez de publicarlo en DefinitelyTyped.
+Si eres el autor de la librería, o puedes hacer un pull request a la biblioteca, [bundle types](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) en vez de publicarlo en Definitely Typed.
 
 Si estás agregando typings para un paquete NPM, crea un directorio con el mismo nombre.
 Si el paquete al que le estás agregando typings no es para NPM, asegúrate de que el nombre que escojas no genere problemas con el nombre del paquete en NPM.
@@ -126,7 +157,7 @@ Ve todas las opciones en [dts-gen](https://github.com/Microsoft/dts-gen).
 
 También puedes configurar el `tsconfig.json` para añadir nuevos archivos, para agregar un `"target": "es6"` (necesitado por las funciones asíncronas), para agregar a la `"lib"`, o para agregar la opción de compilación `"jsx"`.
 
-Los miembros de DefinitelyTyped frecuentemente monitorean nuevos PRs, pero ten en mente que la cantidad de PRs podrían ralentizar el proceso.
+Los miembros de Definitely Typed frecuentemente monitorean nuevos PRs, pero ten en mente que la cantidad de PRs podrían ralentizar el proceso.
 
 Para un buen paquete de ejemplo, vea [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
@@ -154,7 +185,7 @@ Para un buen paquete de ejemplo, vea [base64-js](https://github.com/DefinitelyTy
 
 #### Remover un paquete
 
-Cuando un paquete [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) sus propios tipos, estos tipos deberán ser removidos de DefinitelyTyped para evitar que generen confusión.
+Cuando un paquete [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) sus propios tipos, estos tipos deberán ser removidos de Definitely Typed para evitar que generen confusión.
 
 Se puede remover ejecutando `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
 - `typingsPackageName`: Este es el nombre del directorio que tienes que eliminar.
@@ -162,9 +193,9 @@ Se puede remover ejecutando `npm run not-needed -- typingsPackageName asOfVersio
 - `sourceRepoURL`: Esto debería señalar el repositorio que contiene los typings.
 - `libraryName`: Un nombre descriptivo de la librería, p.ej. "Angular 2" en vez de "angular2". (Si es omitido, será idéntico a "typingsPackageName".)
 
-Cualquier otro paquete en DefinitelyTyped que referencie el paquete eliminado deberá ser actualizado para referenciar los tipos bundled. para hacer esto, añade `package.json` con `"dependencies": { "foo": "x.y.z" }`.
+Cualquier otro paquete en Definitely Typed que referencie el paquete eliminado deberá ser actualizado para referenciar los tipos bundled. para hacer esto, añade `package.json` con `"dependencies": { "foo": "x.y.z" }`.
 
-Si un paquete nunca estuvo en DefinitelyTyped, no será necesario añadirlo a `notNeededPackages.json`.
+Si un paquete nunca estuvo en Definitely Typed, no será necesario añadirlo a `notNeededPackages.json`.
 
 
 #### Lint
@@ -208,7 +239,7 @@ La `master` branch es automáticamente publicada en el alcance de los  `@types` 
 
 #### He enviado un pull request. ¿Cuánto tardará en ser merged?
 
-Esto depende, pero la mayoría de los pull requests serán merged en alrededor de una semana. PRs que hayan sido aprobados por un autor listado en el encabezado de las definiciones usualmente son merged más rápidamente; PRs para nuevas definiciones tomarán más tiempo ya que requieren más revisiones de los mantenedores. Cada PR es revisado por un miembro de TypeScript o DefinitelyTyped antes de ser merged, por favor sé paciente debido a que factores humanos pueden causar retrasos. Revisa el [PR Burndown Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/3?card_filter_query=is%3Aopen) para ver el progreso mientras los mantenedores trabajan en los PRs abiertos.
+Esto depende, pero la mayoría de los pull requests serán merged en alrededor de una semana. PRs que hayan sido aprobados por un autor listado en el encabezado de las definiciones usualmente son merged más rápidamente; PRs para nuevas definiciones tomarán más tiempo ya que requieren más revisiones de los mantenedores. Cada PR es revisado por un miembro de TypeScript o Definitely Typed antes de ser merged, por favor sé paciente debido a que factores humanos pueden causar retrasos. Revisa el [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) para ver el progreso mientras los mantenedores trabajan en los PRs abiertos.
 
 #### Mi PR ha sido merged; ¿cuándo será actualizado el paquete de `@types` NPM?
 
@@ -244,9 +275,9 @@ Si la import predeterminada trabaja en tu ambiente, considera hacer un cambio en
 No cambies la type definition si es preciso.
 Para un paquete NPM, `export =` es exacto si `node -p 'require("foo")'` es la export, y `export default` es exacto si `node -p 'require("foo").default'` es el export.
 
-#### Quiero usar las características de TypeScript 2.1 o superior.
+#### Quiero usar las características de TypeScript 3.1 o superior.
 
-Entonces deberás añadir un comentario a la última línea de la definición en el encabezado (despues de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
+Entonces deberás añadir un comentario a la última línea de la definición en el encabezado (despues de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
 
 #### Quiero añadir un DOM API que no está presente en TypeScript por defecto.
 
@@ -280,7 +311,7 @@ Por ejemplo [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/Defi
 }
 ```
 
-Si hay otros paquetes en DefinitelyTyped que son incompatibles con la nueva versión, necesitarás mapear las rutas a la versión anterior. También deberá hacer esto para los paquetes que dependen de paquetes que dependen de una version anterior.
+Si hay otros paquetes en Definitely Typed que son incompatibles con la nueva versión, necesitarás mapear las rutas a la versión anterior. También deberá hacer esto para los paquetes que dependen de paquetes que dependen de una version anterior.
 
 Por ejemplo, `react-router` depende de `history@2`, así que [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) tiene una ruta mapeada a "history": `[ "history/v2" ]`;
 transitivo así mismo, `react-router-bootstrap` (que depende de `react-router`) también añade una ruta mapeada en su [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).

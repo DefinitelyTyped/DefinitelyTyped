@@ -12,6 +12,10 @@ proxy("www.google.com", {
 });
 
 proxy("www.google.com", {
+    proxyReqPathResolver: async req => req.url
+});
+
+proxy("www.google.com", {
     limit: "10mb"
 });
 
@@ -100,6 +104,13 @@ app.use("/proxy/:port", proxy(req => "localhost:" + req.params.port));
 proxy("www.google.com", {
     filter: (req, res) => {
         return req.method === "GET";
+    }
+});
+proxy("www.google.com", {
+    filter: (req, res) => {
+        return new Promise(resolve => {
+            resolve(req.method === 'GET');
+        });
     }
 });
 

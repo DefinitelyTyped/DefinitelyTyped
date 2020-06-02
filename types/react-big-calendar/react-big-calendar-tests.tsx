@@ -1,10 +1,11 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {
     Calendar,
     CalendarProps,
     momentLocalizer,
     globalizeLocalizer,
+    dateFnsLocalizer,
     move,
     Views,
     components,
@@ -15,13 +16,15 @@ import {
     ToolbarProps,
     EventProps,
     EventWrapperProps,
-    NavigateAction
-} from "react-big-calendar";
-import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+    NavigateAction,
+    Culture, DayLayoutAlgorithm, DayLayoutFunction,
+} from 'react-big-calendar';
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const globalize: any;
 declare const moment: any;
+declare const dateFnsConfig: any;
 
 declare const allViews: View[];
 
@@ -74,6 +77,27 @@ class CalendarResource {
     );
 
     const localizer = momentLocalizer(moment);
+
+    ReactDOM.render(<Basic localizer={localizer} />, document.body);
+}
+
+// date-fns Example Test
+{
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    const Basic = ({ localizer }: Props) => (
+        <Calendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+        />
+    );
+
+    const localizer = dateFnsLocalizer(dateFnsConfig);
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
@@ -174,6 +198,7 @@ class CalendarResource {
                         const end = slotInfo.end;
                         return true;
                     }}
+                    dayLayoutAlgorithm={customLayoutAlgorithm}
                     views={['day']}
                     toolbar={true}
                     popup={true}
@@ -195,8 +220,8 @@ class CalendarResource {
                     scrollToTime={new Date()}
                     formats={{
                         dateFormat: 'h a',
-                        agendaDateFormat: (date: Date, culture?: string, localizer?: object) => 'some-format',
-                        dayRangeHeaderFormat: (range: DateRange, culture?: string, localizer?: object) => 'some-format',
+                        agendaDateFormat: (date: Date, culture?: Culture, localizer?: DateLocalizer) => 'some-format',
+                        dayRangeHeaderFormat: (range: DateRange, culture?: Culture, localizer?: DateLocalizer) => 'some-format',
                     }}
                     messages={{
                         date: 'Date',
@@ -230,6 +255,7 @@ class CalendarResource {
                     }}
                     dayPropGetter={customDayPropGetter}
                     slotPropGetter={customSlotPropGetter}
+                    slotGroupPropGetter={customGroupSlotPropGetter}
                     defaultDate={new Date()}
                     resources={getResources()}
                     resourceAccessor={event => event.resourceId}
@@ -302,6 +328,24 @@ const customSlotPropGetter = (date: Date) => {
     else return {};
 };
 
+const customGroupSlotPropGetter = () => {
+    return {
+        className: 'slot-group'
+    };
+};
+
+const customLayoutAlgorithm: DayLayoutFunction<CalendarEvent> = (args: {
+    events: CalendarEvent[],
+    minimumStartDifference: any,
+    slotMetrics: any,
+    accessors: any,
+}) => {
+    // This is where the events would get styled in an actual algorithm, but for TS test we just want to confirm it returns
+    return args.events.map(e => {
+        return { event: e, style: {} };
+    });
+};
+
 function Event(props: EventProps<CalendarEvent>) {
     return (
         <span>
@@ -315,7 +359,7 @@ function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
     const { continuesEarlier, event, label, accessors = {}, style } = props;
     return (
         <div style={style}>
-            <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>
+            <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}</div>
         </div>
     );
 }
@@ -325,7 +369,7 @@ class Toolbar extends React.Component<ToolbarProps> {
         const { date, label, view } = this.props;
         return (
             <div>
-                <div>{date.toJSON()}-{label}-{view}}</div>
+                <div>{date.toJSON()}-{label}-{view}</div>
             </div>
         );
     }

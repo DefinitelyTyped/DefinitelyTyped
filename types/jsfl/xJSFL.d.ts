@@ -6,42 +6,42 @@
 ///<reference path="index.d.ts" />
 
 interface _xjsfl {
-	init(_this: any): void;
-	uri: string;
+    init(_this: any): void;
+    uri: string;
 }
 
 declare class _File {
-	constructor(path: string);
-	copy(path: string): _File;
-	write(data: string): _File;
-	contents: string;
+    constructor(path: string);
+    copy(path: string): _File;
+    write(data: string): _File;
+    contents: string;
 }
 
 declare class _Folder {
-	constructor(path: string);
-	contents: _File[];
+    constructor(path: string);
+    contents: _File[];
 }
 
 declare class _Context {
-	static create(): _Context;
-	static from(frame: FlashFrame): _Context;
-	layer: FlashLayer;
-	frame: FlashFrame;
-	keyframes: FlashFrame[];
-	elements: FlashElement[];
-	setLayer(index: number);
-	update();
-	goto();
+    static create(): _Context;
+    static from(frame: FlashFrame): _Context;
+    layer: FlashLayer;
+    frame: FlashFrame;
+    keyframes: FlashFrame[];
+    elements: FlashElement[];
+    setLayer(index: number);
+    update();
+    goto();
 }
 
 interface GenericCollection<T> {
-	elements: T[];
-	rename(pattern: string): GenericCollection<T>;
-	update(): GenericCollection<T>;
-	select(): GenericCollection<T>;
-	toGrid(x: number, y: number): GenericCollection<T>;
-	randomize(info: any): GenericCollection<T>;
-	each(callback: (element: T, index?: number, elements?: T[]) => void );
+    elements: T[];
+    rename(pattern: string): GenericCollection<T>;
+    update(): GenericCollection<T>;
+    select(): GenericCollection<T>;
+    toGrid(x: number, y: number): GenericCollection<T>;
+    randomize(info: any): GenericCollection<T>;
+    each(callback: (element: T, index?: number, elements?: T[]) => void );
 }
 
 interface ElementCollection extends GenericCollection<FlashElement> {
@@ -51,14 +51,14 @@ interface ItemCollection extends GenericCollection<FlashItem> {
 }
 
 declare class _URI {
-	constructor(path: string);
-	uri: string;
-	folder: string;
-	name: string;
-	extension: string;
-	path: string;
-	type: string;
-	toURI(string: string): string;
+    constructor(path: string);
+    uri: string;
+    folder: string;
+    name: string;
+    extension: string;
+    path: string;
+    type: string;
+    toURI(string: string): string;
 }
 
 declare var xjsfl: _xjsfl;

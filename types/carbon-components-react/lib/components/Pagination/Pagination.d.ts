@@ -19,7 +19,8 @@ export interface PaginationProps extends InheritedProps {
     pageNumberText?: string,
     pageRangeText?(current: number, total: number): string,
     pageSize?: number,
-    pageSizes: number[],
+    pageSizes: readonly number[],
+    pageText?(page: number): string,
     pagesUnknown?: boolean,
     totalItems?: number,
 }

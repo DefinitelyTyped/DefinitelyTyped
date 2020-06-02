@@ -1,4 +1,4 @@
-// Type definitions for nyaapi 2.1
+// Type definitions for nyaapi 2.3
 // Project: https://github.com/Kylart/Nyaapi#readme
 // Definitions by: Christopher Schreiner <https://github.com/infanf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -53,18 +53,18 @@ export namespace si {
     }
 
     interface Torrent {
-        category: { label: string; code: Category };
+        id: string;
         name: string;
-        links: {
-            page: string;
-            file: string;
-            magnet: string;
-        };
-        fileSize: string;
-        timestamp: string;
+        category: string;
+        sub_category: string;
+        hash: string;
+        torrent: string;
+        magnet: string;
+        filesize: string;
+        date: string;
+        completed: string;
         seeders: string;
         leechers: string;
-        nbDownload: string;
     }
 
     interface UploadData {

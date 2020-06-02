@@ -64,6 +64,7 @@ render/Box.d.ts
 render/canvas/Builder.d.ts
 render/canvas/BuilderGroup.d.ts
 render/canvas/BuilderType.d.ts
+render/canvas/Executor.d.ts
 render/canvas/ExecutorGroup.d.ts
 render/canvas/hitdetet.d.ts
 render/canvas/ImageBuilder.d.ts

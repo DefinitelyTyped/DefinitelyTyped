@@ -1,11 +1,11 @@
-// Type definitions for CodeMirror
+// Type definitions for codemirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: jacqt <https://github.com/jacqt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
+declare module 'codemirror' {
     interface Doc {
         /** This method can be used to implement search/replace functionality.
          *  `query`: This can be a regular * expression or a string (only strings will match across lines -
@@ -39,7 +39,6 @@ declare module "codemirror" {
         /** Only valid when the last call to find, findNext, or findPrevious did not return false. Returns {line, ch}
          * objects pointing the end of the match. */
         to(): Position;
-
 
         /** Replaces the currently found match with the given text and adjusts the cursor position to reflect the deplacement. */
         replace(text: string, origin?: string): void;

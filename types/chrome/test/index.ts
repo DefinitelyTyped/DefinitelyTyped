@@ -326,40 +326,96 @@ function testOptionsPage() {
   });
 }
 
+// https://developer.chrome.com/extensions/tabCapture#type-CaptureOptions
+function testTabCaptureOptions() {
+    // Constraints based on:
+    // https://github.com/muaz-khan/WebRTC-Experiment/blob/master/Chrome-Extensions/tabCapture/tab-capturing.js
+
+    const resolutions = {
+        maxWidth: 1920,
+        maxHeight: 1080,
+    };
+
+    const constraints: chrome.tabCapture.CaptureOptions = {
+        audio: true,
+        video: true,
+        audioConstraints: {
+            mandatory: {
+                chromeMediaSource: 'tab',
+                echoCancellation: true
+            }
+        },
+        videoConstraints: {
+            mandatory: {
+                chromeMediaSource: 'tab',
+                maxWidth: resolutions.maxWidth,
+                maxHeight: resolutions.maxHeight,
+                minFrameRate: 30,
+                minAspectRatio: 1.77
+            }
+        }
+    };
+
+    let constraints2: chrome.tabCapture.CaptureOptions;
+    constraints2 = constraints;
+}
+
+
+
 // https://developer.chrome.com/extensions/debugger
 function testDebugger() {
-	chrome.debugger.attach({tabId: 123}, '1.23', () => {
-		console.log('This is a callback!');
-	});
+    chrome.debugger.attach({tabId: 123}, '1.23', () => {
+        console.log('This is a callback!');
+    });
 
-	chrome.debugger.detach({tabId: 123}, () => {
-		console.log('This is a callback!');
-	});
+    chrome.debugger.detach({tabId: 123}, () => {
+        console.log('This is a callback!');
+    });
 
-	chrome.debugger.sendCommand(
-		{targetId: 'abc'}, 'Debugger.Cmd', {param1: 'x'}, (result) => {
-			console.log('Do something with the result.' + result);
-	});
+    chrome.debugger.sendCommand(
+        {targetId: 'abc'}, 'Debugger.Cmd', {param1: 'x'}, (result) => {
+            console.log('Do something with the result.' + result);
+    });
 
-	chrome.debugger.getTargets((results) => {
-		for (let result of results) {
-			if (result.tabId == 123) {
-			// Do Something.
-			}
-		}
-	});
+    chrome.debugger.getTargets((results) => {
+        for (let result of results) {
+            if (result.tabId == 123) {
+            // Do Something.
+            }
+        }
+    });
 
-	chrome.debugger.onEvent.addListener((source, methodName, params) => {
-		if (source.tabId == 123) {
-			console.log('Hello World.');
-		}
-	});
+    chrome.debugger.onEvent.addListener((source, methodName, params) => {
+        if (source.tabId == 123) {
+            console.log('Hello World.');
+        }
+    });
 
-	chrome.debugger.onDetach.addListener((source, reason) => {
-		if (source.tabId == 123) {
-			console.log('Hello World.');
-		}
-	});
+    chrome.debugger.onDetach.addListener((source, reason) => {
+        if (source.tabId == 123) {
+            console.log('Hello World.');
+        }
+    });
+}
+
+// https://developer.chrome.com/extensions/declarativeContent
+function testDeclarativeContent() {
+    const activeIcon: ImageData = new ImageData(32, 32);
+
+    const rule: chrome.events.Rule = {
+        conditions: [
+            new chrome.declarativeContent.PageStateMatcher({
+                pageUrl: {
+                    hostContains: 'test.com'
+                }
+            })
+        ],
+        actions: [
+            new chrome.declarativeContent.SetIcon({
+                imageData: activeIcon
+            })
+        ]
+    }
 }
 
 // https://developer.chrome.com/extensions/storage#type-StorageArea
@@ -403,3 +459,24 @@ function testStorage() {
         var myOldValue: { x: number } = changes["myKey"].oldValue;
     });
 }
+
+// https://developer.chrome.com/apps/tts#type-TtsVoice
+function testTtsVoice() {
+    chrome.tts.getVoices(voices => voices.forEach(voice => {
+        console.log(voice.voiceName);
+        console.log("\tlang: " + voice.lang);
+        console.log("\tremote: " + voice.remote);
+        console.log("\textensionId: " + voice.extensionId);
+        console.log("\teventTypes: " + voice.eventTypes);
+    }));
+}
+
+chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
+    request; // $ExpectType Request
+    console.log('request: ', request);
+});
+
+chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
+    harLog; // $ExpectType HARLog
+    console.log('harLog: ', harLog)
+});

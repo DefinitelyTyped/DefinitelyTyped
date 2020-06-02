@@ -11,9 +11,9 @@
 //                 Peter Safranek <https://github.com/pe8ter>
 //                 Moshe Kolodny <https://github.com/kolodny>
 //                 Stephen Farrar <https://github.com/stephenfarrar>
-//                 Mochamad Arfin <https://github.com/ndunks>
 //                 Alex Povar <https://github.com/zvirja>
 //                 Dominik Ehrenberg <https://github.com/djungowski>
+//                 Chives <https://github.com/chivesrs>
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 /**
@@ -138,7 +138,7 @@ declare function expect(): jasmine.NothingMatcher;
  * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual - Actual computed value to test expectations against.
  */
-declare function expectAsync<T, U>(actual: Promise<T>): jasmine.AsyncMatchers<T, U>;
+declare function expectAsync<T, U>(actual: T|Promise<T>): jasmine.AsyncMatchers<T, U>;
 
 /**
  * Explicitly mark a spec as failed.
@@ -210,7 +210,7 @@ declare namespace jasmine {
     type SpyObjPropertyNames<T = undefined> =
         T extends undefined ?
                 (ReadonlyArray<string> | { [propertyName: string]: any }) :
-                (ReadonlyArray<keyof T>);
+                (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] });
 
     /**
      * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
@@ -266,7 +266,7 @@ declare namespace jasmine {
 
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
-    function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
+    function objectContaining<T>(sample: {[K in keyof T]?: ExpectedRecursive<T[K]>}): ObjectContaining<T>;
 
     function setDefaultSpyStrategy<Fn extends Func = Func>(and: SpyAnd<Fn>): void;
     function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
@@ -282,7 +282,7 @@ declare namespace jasmine {
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
 
     function addMatchers(matchers: CustomMatcherFactories): void;
-    function addAsyncMatchers(matchers: CustomMatcherFactories): void;
+    function addAsyncMatchers(matchers: CustomAsyncMatcherFactories): void;
 
     function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
 
@@ -311,7 +311,7 @@ declare namespace jasmine {
         new?(sample: ArrayLike<T>): ArrayLike<T>;
     }
 
-    interface ObjectContaining<T> extends AsymmetricMatcher<any> {
+    interface ObjectContaining<T> extends AsymmetricMatcher<T> {
         new?(sample: {[K in keyof T]?: any}): {[K in keyof T]?: any};
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
@@ -350,10 +350,23 @@ declare namespace jasmine {
         negativeCompare?(actual: any, ...expected: any[]): CustomMatcherResult;
     }
 
+    interface CustomAsyncMatcher {
+        compare<T>(actual: T, expected: T, ...args: any[]): Promise<CustomMatcherResult>;
+        compare(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
+        negativeCompare?<T>(actual: T, expected: T, ...args: any[]): Promise<CustomMatcherResult>;
+        negativeCompare?(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
+    }
+
     type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomMatcher;
 
+    type CustomAsyncMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomAsyncMatcher;
+
     interface CustomMatcherFactories {
-        [index: string]: CustomMatcherFactory;
+        [name: string]: CustomMatcherFactory;
+    }
+
+    interface CustomAsyncMatcherFactories {
+        [name: string]: CustomAsyncMatcherFactory;
     }
 
     interface CustomMatcherResult {
@@ -889,6 +902,19 @@ declare namespace jasmine {
      */
     type NonTypedSpyObj<T> = SpyObj<{ [K in keyof T]: T[K] extends Func ? Func : T[K] }>;
 
+    /**
+     * Obtains the promised type that a promise-returning function resolves to.
+     */
+    type PromisedReturnType<Fn extends Func> =
+        Fn extends ((...args: any[]) => PromiseLike<infer TResult>) ? TResult : never;
+
+    /**
+     * Obtains the type that a promise-returning function can be rejected with.
+     * This is so we can use .and.rejectWith() only for functions that return a promise.
+     */
+    type PromisedRejectType<Fn extends Function> =
+        Fn extends ((...args: any[]) => PromiseLike<unknown>) ? any : never;
+
     interface SpyAnd<Fn extends Func> {
         identity: string;
 
@@ -900,8 +926,12 @@ declare namespace jasmine {
         returnValues(...values: Array<ReturnType<Fn>>): Spy<Fn>;
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
         callFake(fn: Fn): Spy<Fn>;
+        /** Tell the spy to return a promise resolving to the specified value when invoked. */
+        resolveTo(val?: PromisedReturnType<Fn>): Spy<Fn>;
+        /** Tell the spy to return a promise rejecting with the specified value when invoked. */
+        rejectWith(val?: PromisedRejectType<Fn>): Spy<Fn>;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
-        throwError(msg: string): Spy;
+        throwError(msg: string | Error): Spy;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
         stub(): Spy;
     }

@@ -15,7 +15,7 @@ export type AutoSizerProps = {
      */
     children: (props: Size) => React.ReactNode;
     /**
-     * 	Optional custom CSS class name to attach to root AutoSizer element.
+     *     Optional custom CSS class name to attach to root AutoSizer element.
      * This is an advanced property and is not typically necessary.
      */
     className?: string;

@@ -11,9 +11,7 @@ async () => {
     endpoint.addIceCandidate(candidate);
 
     endpoint.on('OnIceCandidate', ({ candidate }) => {
-        const value = kurento.getComplexType('IceCandidate')(
-            candidate
-        );
+        const value = kurento.getComplexType('IceCandidate')(candidate);
 
         endpoint.addIceCandidate(value);
     });
@@ -25,4 +23,10 @@ async () => {
     });
 
     return { sdpAnswer };
+};
+
+async () => {
+    const client = await kurento('//server', { failAfter: 500, useImplicitTransactions: true });
+    const pipeline = await client.create('MediaPipeline');
+    await pipeline.release();
 };

@@ -6,6 +6,7 @@
 //                 Renan Machado <https://github.com/renanmav>
 //                 Stephen Pittman <https://github.com/Stephen2>
 //                 Martin Zlámal <https://github.com/mrtnzlml>
+//                 Christian Ivicevic <https://github.com/ChristianIvicevic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -200,16 +201,10 @@ export { deepFreeze } from './lib/util/deepFreeze';
  * relay-compiler-language-typescript support for fragment references
  */
 
-/**
- * @private
- */
 export interface _RefType<Ref extends string> {
     ' $refType': Ref;
 }
 
-/**
- * @private
- */
 export interface _FragmentRefs<Refs extends string> {
     ' $fragmentRefs': FragmentRefs<Refs>;
 }

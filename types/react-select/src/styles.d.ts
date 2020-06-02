@@ -31,11 +31,6 @@ import { CSSProperties } from 'react';
 
 export interface Props { [key: string]: any; }
 
-/**
- * @param base -- the component's default style
- * @param state -- the component's current state e.g. `isFocused`
- * @returns
- */
 export type styleFn = (base: CSSProperties, state: any) => CSSProperties;
 
 export interface Styles {

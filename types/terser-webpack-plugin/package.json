@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "terser": "^4.3.9"
+    "terser": "^4.6.13"
   }
 }

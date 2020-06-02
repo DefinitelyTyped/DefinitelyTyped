@@ -127,7 +127,7 @@ declare module Mongo {
 
     var Collection: CollectionStatic;
     interface CollectionStatic {
-        new <T>(name: string, options?: {
+        new <T>(name: string | null, options?: {
             connection?: Object | null;
             idGeneration?: string;
             transform?: Function | null;
@@ -170,6 +170,7 @@ declare module Mongo {
         update(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
             multi?: boolean;
             upsert?: boolean;
+            arrayFilters? : { [identifier: string]: any }[];
         }, callback?: Function): number;
         upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
             multi?: boolean;

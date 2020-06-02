@@ -1,4 +1,4 @@
-// Type definitions for pino 5.15
+// Type definitions for pino 6.0
 // Project: https://github.com/pinojs/pino.git, http://getpino.io
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
@@ -142,11 +142,24 @@ declare namespace P {
     };
 
     /**
+     * Equivalent of SonicBoom constructor options object
+     */
+    // TODO: use SonicBoom constructor options interface when available
+    interface DestinationObjectOptions {
+        fd?: string | number;
+        dest?: string;
+        minLength?: number;
+        sync?: boolean;
+    }
+
+    /**
      * Create a Pino Destination instance: a stream-like object with significantly more throughput (over 30%) than a standard Node.js stream.
-     * @param [fileDescriptor]: File path or numerical file descriptor, by default 1
+     * @param [dest]: The `destination` parameter, at a minimum must be an object with a `write` method. An ordinary Node.js
+     *                `stream` can be passed as the destination (such as the result of `fs.createWriteStream`) but for peak log
+     *                writing performance it is strongly recommended to use `pino.destination` to create the destination stream.
      * @returns A Sonic-Boom  stream to be used as destination for the pino function
      */
-    function destination(fileDescriptor?: string | number): SonicBoom;
+    function destination(dest?: string | number | DestinationObjectOptions | DestinationStream | NodeJS.WritableStream): SonicBoom;
 
     /**
      * Create an extreme mode destination. This yields an additional 60% performance boost.
@@ -227,6 +240,10 @@ declare namespace P {
         /**
          * Changes the property `level` to any string value you pass in. Default: 'level'
          */
+        levelKey?: string;
+        /**
+         * (DEPRECATED, use `levelKey`) Changes the property `level` to any string value you pass in. Default: 'level'
+         */
         changeLevelName?: string;
         /**
          * Use this option to define additional logging levels.
@@ -277,6 +294,11 @@ declare namespace P {
          * object as outlined in http://getpino.io/#/docs/API?id=pretty. Default: `false`.
          */
         prettyPrint?: boolean | PrettyOptions;
+        /**
+         * Allows to optionally define which prettifier module to use.
+         */
+        // TODO: use type definitions from 'pino-pretty' when available.
+        prettifier?: any;
         /**
          * This function will be invoked during process shutdown when `extreme` is set to `true`. If you do not specify
          * a function, Pino will invoke `process.exit(0)` when no error has occurred, and `process.exit(1)` otherwise.
@@ -440,6 +462,35 @@ declare namespace P {
          * key-value object added as child logger to each log line. If set to null the base child logger is not added
          */
         base?: { [key: string]: any } | null;
+
+        /**
+         * An object containing functions for formatting the shape of the log lines.
+         * These functions should return a JSONifiable object and should never throw.
+         * These functions allow for full customization of the resulting log lines.
+         * For example, they can be used to change the level key name or to enrich the default metadata.
+         */
+        formatters?: {
+          /**
+           * Changes the shape of the log level.
+           * The default shape is { level: number }.
+           * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
+           */
+          level?: (level: string, number: number) => object;
+          /**
+           * Changes the shape of the bindings.
+           * The default shape is { pid, hostname }.
+           * The function takes a single argument, the bindings object.
+           * It will be called every time a child logger is created.
+           */
+          bindings?: (bindings: Bindings) => object;
+          /**
+           * Changes the shape of the log object.
+           * This function will be called every time one of the log methods (such as .info) is called.
+           * All arguments passed to the log method, except the message, will be pass to this function.
+           * By default it does not change the shape of the log object.
+           */
+          log?: (object: object) => object;
+        };
     }
 
     interface PrettyOptions {

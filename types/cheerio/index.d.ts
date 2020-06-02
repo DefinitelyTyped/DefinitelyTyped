@@ -8,6 +8,7 @@
 //                 Chennakrishna <https://github.com/chennakrishna8>
 //                 AzSiAz <https://github.com/AzSiAz>
 //                 Ryo Ota <https://github.com/nwtgck>
+//                 Trevor Reed <https://github.com/trevorhreed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -235,7 +236,10 @@ interface CheerioOptionsInterface {
     recognizeCDATA?: boolean;
     recognizeSelfClosing?: boolean;
     normalizeWhitespace?: boolean;
+    withStartIndices?: boolean;
+    withEndIndices?: boolean;
     ignoreWhitespace?: boolean;
+    _useHtmlParser2?: boolean;
 }
 
 interface CheerioSelector {

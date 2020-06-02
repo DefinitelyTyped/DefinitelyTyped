@@ -7,12 +7,12 @@ export interface FeedbackProps {
 }
 
 interface InheritedProps extends
-    Omit<ReactButtonAttr, "type">,
+    Omit<ReactButtonAttr, "aria-live" | "type">,
     FeedbackProps
 { }
 
 export interface CopyProps extends InheritedProps { }
 
-declare class Copy extends React.Component<CopyProps> { }
+declare const Copy: React.FC<CopyProps>;
 
 export default Copy;

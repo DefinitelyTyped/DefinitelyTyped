@@ -18,4 +18,6 @@ export declare class WebContents<T extends WebContentsEventMapping> extends Emit
     findInPage(searchTerm: string, options?: FindInPageOptions): Promise<void>;
     stopFindInPage(action: string): Promise<void>;
     getPrinters(): Promise<PrinterInfo>;
+    focus(): Promise<void>;
+    showDeveloperTools(): Promise<void>;
 }

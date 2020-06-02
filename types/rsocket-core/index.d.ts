@@ -33,6 +33,7 @@ export {
     MAX_RESUME_LENGTH,
     MAX_STREAM_ID,
     MAX_VERSION,
+    ErrorSource,
     createErrorFromFrame,
     getErrorCodeExplanation,
     isComplete,

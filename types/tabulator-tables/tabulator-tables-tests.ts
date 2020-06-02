@@ -175,7 +175,7 @@ function moment(a: any, b: any) {
     return '';
 }
 
-colDef.cellClick = (_e, cell) => {
+colDef.cellClick = (_e: UIEvent, cell) => {
     console.log(cell.checkHeight);
 };
 
@@ -249,7 +249,8 @@ let autoComplete: Tabulator.AutoCompleteParams = {
         // prefix all titles with the work "Mr"
         return 'Mr ' + title;
     },
-    values: true, // create list of values from all values contained in this column
+    values: true, // create list of values from all values contained in this column,
+    sortValuesList: 'asc', // sort the values by ascending order,
 };
 colDef.editorParams = autoComplete;
 
@@ -318,6 +319,15 @@ let validators: Tabulator.Validator[] = [
 colDef.headerFilterFunc = '!=';
 colDef.headerFilterFunc = (headerValue, rowValue, rowData, filterParams) => {
     return rowData.name === filterParams.name && rowValue < headerValue; // must return a boolean, true if it passes the filter.
+};
+
+// Calculation
+colDef.bottomCalc = (values, data, calcParams) => {
+    return {};
+};
+
+colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
+    return '';
 };
 
 // Cell Component
@@ -449,7 +459,7 @@ table = new Tabulator('#test', {
     },
 });
 colDef.editorParams = { search: true };
-table.getHtml(true, true, { columnCalcs: true });
+table.getHtml('all', true, { columnCalcs: true });
 
 table.download('pdf', 'data.pdf', {
     documentProcessing: doc => {},
@@ -584,10 +594,9 @@ table = new Tabulator('#example-table', {
     },
 });
 
-table = new Tabulator('#test', {
-    blockRedraw: () => {},
-    restoreRedraw: () => {},
-});
+table = new Tabulator('#test', {});
+table.blockRedraw();
+table.restoreRedraw();
 
 table = Tabulator.prototype.findTable('#example-table');
 
@@ -622,3 +631,125 @@ table = new Tabulator('#example-table', {
     scrollVertical: () => {},
     scrollHorizontal: () => {},
 });
+
+// 4.6 updates
+const rowContextMenu: Array<Tabulator.MenuObject<Tabulator.RowComponent> | Tabulator.MenuSeparator> = [
+    {
+        label: 'Remove row',
+        action: (e, row) => {
+            row.delete();
+        },
+    },
+    { separator: true },
+    {
+        disabled: true,
+        label: component => {
+            return 'Move Row';
+        },
+        action: (e, row) => {
+            row.move(1, true);
+        },
+    },
+];
+
+const headerMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> | Tabulator.MenuSeparator> = [
+    {
+        label: 'Remove Column',
+        action: (e, column) => {
+            column.delete();
+        },
+    },
+    { separator: true },
+    {
+        disabled: true,
+        label: component => {
+            return 'Move Column';
+        },
+        action: (e, column) => {
+            column.move('col', true);
+        },
+    },
+];
+
+const headerContextMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> | Tabulator.MenuSeparator> = [
+    {
+        label: 'Hide Column',
+        action: (e, column) => {
+            column.hide();
+        },
+    },
+];
+
+const contextMenu: Array<Tabulator.MenuObject<Tabulator.CellComponent> | Tabulator.MenuSeparator> = [
+    {
+        label: 'Restore previous value',
+        action: (e, cell) => {
+            cell.restoreOldValue();
+        },
+    },
+];
+
+table = new Tabulator('#example-table', {
+    maxHeight: '100%',
+    minHeight: 300,
+    rowContextMenu,
+    cellVertAlign: 'middle',
+    cellHozAlign: 'center',
+    clipboardCopyConfig: {
+        columnHeaders: false,
+        columnGroups: false,
+        rowGroups: false,
+        columnCalcs: false,
+        dataTree: false,
+        formatCells: false,
+    },
+    clipboardCopyRowRange: 'selected',
+    clipboardCopyFormatter: (type, output) => {
+        return output;
+    },
+    printRowRange: () => {
+        return [];
+    },
+    rowFormatterPrint: row => {},
+    rowFormatterHtmlOutput: row => {},
+    headerFilterLiveFilterDelay: 600,
+    columns: [
+        {
+            title: 'Name',
+            field: 'name',
+            width: 200,
+            headerMenu,
+            headerContextMenu,
+            contextMenu,
+            vertAlign: 'bottom',
+            hozAlign: 'right',
+            editorParams: {
+                mask: 'A!!-9BBB$',
+                maskLetterChar: 'B',
+                maskNumberChar: '!',
+                maskWildcardChar: '$',
+                maskAutoFill: true,
+                searchFunc: (term, values) => {
+                    return new Promise((resolve, reject) => {
+                        fetch('http://test.com?search=' + term).then(response => {
+                            resolve(response.json());
+                        });
+                    });
+                },
+                searchingPlaceholder: 'Filtering...',
+                emptyPlaceholder: 'no matching results',
+            },
+            accessorHtmlOutput: (value, data, type, params, column) => {
+                if (column) {
+                    const filterVal = column.getHeaderFilterValue();
+                }
+                return value >= params.legalAge;
+            },
+            accessorHtmlOutputParams: { legalAge: 18 },
+        },
+    ],
+});
+const filterVal = table.getHeaderFilterValue('name');
+table.recalc();
+const columns = table.getColumns(true);
+columns.forEach(col => col.getDefinition());

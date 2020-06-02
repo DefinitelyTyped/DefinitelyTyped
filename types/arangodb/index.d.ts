@@ -89,7 +89,7 @@ declare namespace ArangoDB {
         | "network authentication required";
     type EdgeDirection = "any" | "inbound" | "outbound";
     type EngineType = "mmfiles" | "rocksdb";
-    type IndexType = "hash" | "skiplist" | "fulltext" | "geo" | "ttl";
+    type IndexType = "persistent" | "hash" | "skiplist" | "fulltext" | "geo" | "ttl";
     type ViewType = "arangosearch";
     type KeyGeneratorType = "traditional" | "autoincrement";
     type ErrorName =
@@ -511,6 +511,8 @@ declare namespace ArangoDB {
         unique?: boolean;
         deduplicate?: boolean;
         expireAfter?: number;
+        name?: string;
+        minLength?: number;
     }
 
     interface Index<T extends object = any> {
@@ -1432,6 +1434,7 @@ declare module "@arangodb" {
     function aql(strings: TemplateStringsArray, ...args: any[]): ArangoDB.Query;
     namespace aql {
         function literal(value: any): ArangoDB.AqlLiteral;
+        function join(values: any[], sep?: string): ArangoDB.Query;
     }
     function query(
         strings: TemplateStringsArray,
@@ -1531,9 +1534,17 @@ declare module "@arangodb/foxx/queues" {
 }
 
 declare module "@arangodb/foxx/graphql" {
-    import { formatError, GraphQLSchema } from "graphql";
-    type GraphQLModule = object;
-    type GraphQLFormatErrorFunction = typeof formatError;
+    type GraphQLSchema = object;
+    type GraphQLFormatErrorFunction = (error: any) => any;
+    interface GraphQLModule {
+      formatError: GraphQLFormatErrorFunction;
+      Source: any;
+      parse: any;
+      validate: any;
+      specifiedRules: any;
+      getOperationAST: any;
+      execute: any;
+    }
     interface GraphQLOptions {
         schema: GraphQLSchema;
         context?: any;

@@ -762,7 +762,7 @@ async function custom_auth_async_test() {
                     console.log('Supported extensions: %s', ctx.extensions.join(', '));
                     console.log('Supported auth methods: %s', ctx.authMethods.join(', '));
 
-                    if (!ctx.authMethods.includes('LOGIN')) {
+                    if (ctx.authMethods.indexOf('LOGIN') === -1) {
                         console.log('Server does not support AUTH LOGIN');
                         throw new Error('Can not log in');
                     }
@@ -838,7 +838,7 @@ async function custom_auth_cb_test() {
                     console.log('Supported extensions: %s', ctx.extensions.join(', '));
                     console.log('Supported auth methods: %s', ctx.authMethods.join(', '));
 
-                    if (!ctx.authMethods.includes('LOGIN')) {
+                    if (ctx.authMethods.indexOf('LOGIN') === -1) {
                         console.log('Server does not support AUTH LOGIN');
                         return ctx.reject(new Error('Can not log in'));
                     }

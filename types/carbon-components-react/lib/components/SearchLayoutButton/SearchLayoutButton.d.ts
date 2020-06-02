@@ -1,10 +1,8 @@
 import * as React from "react";
 
-interface InheritedProps { }
-
 export type SearchLayoutButtonFormat = "grid" | "list";
 
-export interface SearchLayoutButtonProps extends InheritedProps {
+export interface SearchLayoutButtonProps {
     format?: SearchLayoutButtonFormat,
     iconDescriptionGrid?: string,
     iconDescriptionList?: string,

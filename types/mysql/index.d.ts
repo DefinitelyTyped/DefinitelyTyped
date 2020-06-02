@@ -1,16 +1,17 @@
 // Type definitions for mysql 2.15
 // Project: https://github.com/mysqljs/mysql
 // Definitions by:  William Johnston <https://github.com/wjohnsto>
-// 	                Kacper Polak <https://github.com/kacepe>
-// 	                Krittanan Pingclasai <https://github.com/kpping>
-// 	                James Munro <https://github.com/jdmunro>
+//                     Kacper Polak <https://github.com/kacepe>
+//                     Krittanan Pingclasai <https://github.com/kpping>
+//                     James Munro <https://github.com/jdmunro>
+//                     Sanders DeNardi <https://github.com/sedenardi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
 
-import stream = require("stream");
-import tls = require("tls");
+import stream = require('stream');
+import tls = require('tls');
 
 export interface EscapeFunctions {
     /**
@@ -121,8 +122,8 @@ export interface Connection extends EscapeFunctions {
      * there are any fatal errors, the connection will be immediately closed.
      * @param callback Handler for any fatal error
      */
-    end(callback?: (err: MysqlError, ...args: any[]) => void): void;
-    end(options: any, callback: (err: MysqlError, ...args: any[]) => void): void;
+    end(callback?: (err?: MysqlError) => void): void;
+    end(options: any, callback: (err?: MysqlError) => void): void;
 
     /**
      * Close the connection immediately, without waiting for any queued data (eg
@@ -190,7 +191,10 @@ export interface Pool extends EscapeFunctions {
 
     getConnection(callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
-    acquireConnection(connection: PoolConnection, callback: (err: MysqlError, connection: PoolConnection) => void): void;
+    acquireConnection(
+        connection: PoolConnection,
+        callback: (err: MysqlError, connection: PoolConnection) => void,
+    ): void;
 
     releaseConnection(connection: PoolConnection): void;
 
@@ -269,7 +273,11 @@ export interface PoolCluster {
 
     getConnection(pattern: string, callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
-    getConnection(pattern: string, selector: string, callback: (err: MysqlError, connection: PoolConnection) => void): void;
+    getConnection(
+        pattern: string,
+        selector: string,
+        callback: (err: MysqlError, connection: PoolConnection) => void,
+    ): void;
 
     /**
      * Set handler to be run on a certain event.
@@ -347,15 +355,23 @@ export interface Query {
     on(ev: 'end', callback: () => void): Query;
 }
 
-export interface GeometryType extends Array<{ x: number, y: number } | GeometryType> {
+export interface GeometryType extends Array<{ x: number; y: number } | GeometryType> {
     x: number;
     y: number;
 }
 
-export type TypeCast = boolean | (
-    (field: FieldInfo
-        & { type: string, length: number, string(): string, buffer(): Buffer, geometry(): null | GeometryType },
-        next: () => void) => any);
+export type TypeCast =
+    | boolean
+    | ((
+          field: UntypedFieldInfo & {
+              type: string;
+              length: number;
+              string(): string;
+              buffer(): Buffer;
+              geometry(): null | GeometryType;
+          },
+          next: () => void,
+      ) => any);
 
 export type queryCallback = (err: MysqlError | null, results?: any, fields?: FieldInfo[]) => void;
 
@@ -365,7 +381,7 @@ export interface QueryFunction {
 
     (options: string | QueryOptions, callback?: queryCallback): Query;
 
-    (options: string, values: any, callback?: queryCallback): Query;
+    (options: string | QueryOptions, values: any, callback?: queryCallback): Query;
 }
 
 export interface QueryOptions {
@@ -667,6 +683,30 @@ export interface MysqlError extends Error {
     sqlMessage?: string;
 }
 
+// Result from an insert, update, or delete statement.
+export interface OkPacket {
+    fieldCount: number;
+    /**
+     * The number of affected rows from an insert, update, or delete statement.
+     */
+    affectedRows: number;
+    /**
+     * The insert id after inserting a row into a table with an auto increment primary key.
+     */
+    insertId: number;
+    serverStatus?: number;
+    warningCount?: number;
+    /**
+     * The server result message from an insert, update, or delete statement.
+     */
+    message: string;
+    /**
+     * The number of changed rows from an update statement. "changedRows" differs from "affectedRows" in that it does not count updated rows whose values were not changed.
+     */
+    changedRows: number;
+    protocol41: boolean;
+}
+
 export const enum Types {
     DECIMAL = 0x00, // aka DECIMAL (http://dev.mysql.com/doc/refman/5.0/en/precision-math-decimal-changes.html)
     TINY = 0x01, // aka TINYINT, 1 byte
@@ -701,7 +741,7 @@ export const enum Types {
     GEOMETRY = 0xff, // aka GEOMETRY
 }
 
-export interface FieldInfo {
+export interface UntypedFieldInfo {
     catalog: string;
     db: string;
     table: string;
@@ -710,10 +750,13 @@ export interface FieldInfo {
     orgName: string;
     charsetNr: number;
     length: number;
-    type: Types;
     flags: number;
     decimals: number;
     default?: string;
     zeroFill: boolean;
     protocol41: boolean;
+}
+
+export interface FieldInfo extends UntypedFieldInfo {
+    type: Types;
 }

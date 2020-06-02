@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODO
         "dt-header": false,
         "no-any-union": false,
         "no-object-literal-type-assertion": false,

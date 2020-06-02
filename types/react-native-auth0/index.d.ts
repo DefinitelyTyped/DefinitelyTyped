@@ -3,6 +3,7 @@
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Leo Farias <https://github.com/leoafarias>
+//                 Will Dady <https://github.com/willdady>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -55,7 +56,7 @@ export interface PasswordRealmResponse {
     expiresIn: number;
     idToken: string;
     scope: string;
-    tokenType: "Bearer";
+    tokenType: 'Bearer';
     refreshToken?: string;
 }
 
@@ -75,6 +76,30 @@ export interface UserInfoParams {
 export interface ResetPasswordParams {
     email: string;
     connection: string;
+}
+
+export interface PasswordlessWithEmailParams {
+    email: string;
+    send?: 'link' | 'code';
+    authParams?: string;
+}
+
+export interface PasswordlessWithSMSParams {
+    phoneNumber: string;
+}
+
+export interface LoginWithEmailParams {
+    email: string;
+    code: string;
+    audience?: string;
+    scope?: string;
+}
+
+export interface LoginWithSMSParams {
+    phoneNumber: string;
+    code: string;
+    audience?: string;
+    scope?: string;
 }
 
 export type UserInfo<CustomClaims = {}> = {
@@ -99,6 +124,10 @@ export class Auth {
     revoke(params: RevokeParams): Promise<any>;
     /* tslint:disable-next-line no-unnecessary-generics */
     userInfo<CustomClaims = {}>(params: UserInfoParams): Promise<UserInfo<CustomClaims>>;
+    passwordlessWithEmail(params: PasswordlessWithEmailParams): Promise<any>;
+    passwordlessWithSMS(params: PasswordlessWithSMSParams): Promise<any>;
+    loginWithEmail(params: LoginWithEmailParams): Promise<any>;
+    loginWithSMS(params: LoginWithSMSParams): Promise<any>;
 }
 
 /**
@@ -161,7 +190,7 @@ export class WebAuth {
 }
 
 export interface UsersOptions {
-    baseUrl: Options["domain"];
+    baseUrl: Options['domain'];
     token: string;
 }
 

@@ -39,7 +39,7 @@ declare namespace iab.vpaid {
         | 'AdVolumeChange'
         | 'AdVideoStart'
         | 'AdVideoFirstQuartile'
-        | 'AdVideoMidPoint'
+        | 'AdVideoMidpoint'
         | 'AdVideoThirdQuartile'
         | 'AdVideoComplete'
         | 'AdUserAcceptInvitation'

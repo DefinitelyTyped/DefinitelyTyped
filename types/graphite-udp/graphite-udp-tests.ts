@@ -14,26 +14,26 @@ client2.close();
 
 // Test creation with options.
 graphite.createClient({
-	host: '127.0.0.1',
-	port: 2003,
-	type: 'udp4',
-	maxPacketSize: 4096,
-	prefix: 'prefix',
-	suffix: 'suffix',
-	interval: 60 * 1000,
-	verbose: true,
-	callback: (error: Error, metrics: any): void => {}
+    host: '127.0.0.1',
+    port: 2003,
+    type: 'udp4',
+    maxPacketSize: 4096,
+    prefix: 'prefix',
+    suffix: 'suffix',
+    interval: 60 * 1000,
+    verbose: true,
+    callback: (error: Error, metrics: any): void => {}
 });
 
 // Test creation options with class directly.
 new graphite.Client({
-	host: '127.0.0.1',
-	port: 2003,
-	type: 'udp4',
-	maxPacketSize: 4096,
-	prefix: 'prefix',
-	suffix: 'suffix',
-	interval: 60 * 1000,
-	verbose: true,
-	callback: (error: Error, metrics: any): void => {}
+    host: '127.0.0.1',
+    port: 2003,
+    type: 'udp4',
+    maxPacketSize: 4096,
+    prefix: 'prefix',
+    suffix: 'suffix',
+    interval: 60 * 1000,
+    verbose: true,
+    callback: (error: Error, metrics: any): void => {}
 });

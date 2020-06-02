@@ -198,7 +198,7 @@ declare namespace AGServer {
 
         // Can be 1 or 2. Version 1 is for maximum backwards
         // compatibility with SocketCluster clients.
-        protocolVersion: 1 | 2;
+        protocolVersion?: 1 | 2;
 
         // In milliseconds - If the socket handshake hasn't been
         // completed before this timeout is reached, the new

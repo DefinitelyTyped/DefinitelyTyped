@@ -1,6 +1,6 @@
-import { Bounds, Coords, Point, Size } from '.';
+import { Bounds, Coords, Point, Size, NESWBounds } from '.';
 
-interface Tile extends Point {
+export interface Tile extends Point {
     zoom: number;
 }
 
@@ -9,9 +9,13 @@ export function convertNeSwToNwSe(boundCorder: { ne: Coords; sw: Coords }): { nw
 export function convertNwSeToNeSw(boundCorder: { nw: Coords; se: Coords }): { ne: Coords; sw: Coords };
 
 export function fitBounds(
-    bounds: Bounds,
+    bounds: NESWBounds,
     size: Size,
-): { center: { metersPerLatDegree: number; metersPerLngDegree: number }; zoom: number; newBounds: Bounds };
+): {
+    center: { lat: number; lng: number };
+    zoom: number;
+    newBounds: Bounds;
+};
 
 export function meters2ScreenPixels(meters: number, coords: Coords, zoom: number): { w: number; h: number };
 

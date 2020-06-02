@@ -17,6 +17,7 @@ export interface AutosizeInputProps extends React.InputHTMLAttributes<HTMLInputE
 }
 
 declare class AutosizeInput extends React.Component<AutosizeInputProps> {
+    copyInputStyles(): void;
     getInput(): HTMLInputElement;
 }
 

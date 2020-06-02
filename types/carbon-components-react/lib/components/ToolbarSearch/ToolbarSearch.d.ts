@@ -6,12 +6,18 @@ interface InheritedProps extends
     SizingProps
 { }
 
+/**
+ * @deprecated
+ */
 export interface ToolbarSearchProps extends InheritedProps {
     labelId?: ReactAttr['id'];
     labelText?: React.ReactNode;
     placeHolderText?: string;
 }
 
+/**
+ * @deprecated
+ */
 declare class ToolbarSearch extends React.Component<ToolbarSearchProps> { }
 
 export default ToolbarSearch;

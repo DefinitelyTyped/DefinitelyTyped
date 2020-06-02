@@ -4,7 +4,7 @@
         "comment-format": false,
         "interface-name": false,
         "no-empty-interface": false,
-        "unified-signatures": false,
-        "npm-naming": false
+        "npm-naming": false,
+        "unified-signatures": false
     }
 }

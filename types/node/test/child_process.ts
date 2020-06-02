@@ -18,6 +18,13 @@ import { Writable, Readable, Pipe } from 'stream';
     childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
     childProcess.spawnSync("echo test", {input: new Uint8Array([])});
     childProcess.spawnSync("echo test", {input: new DataView(new ArrayBuffer(1))});
+    childProcess.spawnSync("echo test", { encoding: 'utf-8' });
+    childProcess.spawnSync("echo test", { encoding: 'buffer' });
+}
+
+{
+    childProcess.execSync("echo test", { encoding: 'utf-8' });
+    childProcess.execSync("echo test", { encoding: 'buffer' });
 }
 
 {
@@ -70,6 +77,9 @@ async function testPromisify() {
     const _socket: net.Socket = net.createConnection(1);
     const _server: net.Server = net.createServer();
     let _boolean: boolean;
+    let _string: string;
+    let _stringArray: string[];
+    let _maybeNumber: number | null;
 
     _boolean = cp.send(1);
     _boolean = cp.send('one');
@@ -281,6 +291,17 @@ async function testPromisify() {
         const _message: any = message;
         const _sendHandle: net.Socket | net.Server = sendHandle;
     });
+
+    _boolean = cp.kill();
+    _boolean = cp.kill(9);
+    _boolean = cp.kill("SIGTERM");
+
+    _maybeNumber = cp.exitCode;
+    _maybeNumber = cp.signalCode;
+
+    _string = cp.spawnfile;
+
+    _stringArray = cp.spawnargs;
 
     function expectNonNull(cp: {
         readonly stdin: Writable;

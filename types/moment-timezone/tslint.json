@@ -1,7 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
+        "no-outside-dependencies": false,
         "no-unnecessary-qualifier": false,
         "unified-signatures": false
     }

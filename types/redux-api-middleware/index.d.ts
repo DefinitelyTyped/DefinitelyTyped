@@ -1,8 +1,9 @@
-// Type definitions for redux-api-middleware 3.0
+// Type definitions for redux-api-middleware 3.2
 // Project: https://github.com/agraboso/redux-api-middleware
 // Definitions by:  Andrew Luca <https://github.com/iamandrewluca>
 //                  Craig S <https://github.com/Mrman>
 //                  Arturs Vonda <https://github.com/artursvonda>
+//                  Matthew M <https://github.com/magoogli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -50,7 +51,7 @@ export class ApiError<T = any> extends Error {
     constructor(status: number, statusText: string, response: T);
 }
 
-export function getJSON(res: Response): Promise<any> | Promise<void>;
+export function getJSON(res: Response): Promise<any>;
 
 export function apiMiddleware(api: MiddlewareAPI): ReturnType<Middleware>;
 
@@ -146,6 +147,10 @@ export type RSAAResultAction<Payload = never, Meta = never> =
     | InvalidAction<InternalError | RequestError | ApiError<Payload>>;
 
 export type RSAAActions = RSAARequestAction | RSAAResultAction;
+
+export function createAction<State, Payload, Meta>(
+    clientCall: RSAACall<State, Payload, Meta>
+): RSAAAction<State, Payload, Meta>;
 
 /**
  * Redux behaviour changed by middleware, so overloads here

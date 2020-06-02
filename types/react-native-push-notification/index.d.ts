@@ -69,6 +69,7 @@ export class PushNotificationObject {
     soundName?: string;
     number?: string;
     repeatType?: RepeatType;
+    repeatTime?: number;
     actions?: string;
 }
 
@@ -84,6 +85,7 @@ export interface PushNotification {
     requestPermissions(
         permissions?: Array<"alert" | "badge" | "sound">
     ): Promise<PushNotificationPermissions>;
+    subscribeToTopic(topic: string): void;
     presentLocalNotification(details: PushNotificationObject): void;
     scheduleLocalNotification(details: PushNotificationScheduleObject): void;
     cancelLocalNotifications(details: object): void;

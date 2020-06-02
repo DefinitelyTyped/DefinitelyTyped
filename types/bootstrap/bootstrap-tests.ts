@@ -51,6 +51,7 @@ $("#carousel").carousel({
     keyboard: true,
     slide: false,
     pause: "hover",
+    ride: 'carousel',
     wrap: true,
     touch: false,
 });
@@ -169,6 +170,10 @@ $("#modal").modal({
     backdrop: "static",
 });
 
+$("#modal").on('hidePrevented.bs.modal', e => {
+    const {data, target: modal} = e;
+});
+
 // --------------------------------------------------------------------------------------
 // Popover
 // --------------------------------------------------------------------------------------
@@ -240,6 +245,10 @@ $("#scrollspy").scrollspy({
 });
 
 $("#scrollspy").scrollspy({
+    target: $("#navbar-example2"),
+});
+
+$("#scrollspy").scrollspy({
     method: "position"
 });
 
@@ -307,6 +316,9 @@ $("#tooltip").tooltip({
         img: ['src', 'alt', 'title', 'width', 'height'],
     },
     sanitizeFn: (x: string) => x.replace("<", ""),
+    popperConfig: {
+        placement: 'bottom',
+    },
 });
 
 $("#tooltip").tooltip({

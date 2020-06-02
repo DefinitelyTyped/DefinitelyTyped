@@ -48,6 +48,11 @@ app.use((ctx, next) => {
 app.use(ctx => {
     ctx.body = 'Hello World';
     ctx.body = ctx.URL.toString();
+    ctx.attachment();
+    ctx.attachment('path/to/tobi.png');
+    ctx.attachment('path/to/tobi.png', {
+        type: 'inline'
+    });
 });
 
 app.listen(3000);

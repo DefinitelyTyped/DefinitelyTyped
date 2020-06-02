@@ -1,8 +1,9 @@
-// Type definitions for pino-http 4.3
+// Type definitions for pino-http 5.0
 // Project: https://github.com/pinojs/pino-http#readme
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 //                 Jeremy Forsythe <https://github.com/jdforsythe>
 //                 Griffin Yourick <https://github.com/tough-griff>
+//                 Jorge Barnaby <https://github.com/yorch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -28,12 +29,27 @@ declare namespace PinoHttp {
         genReqId?: GenReqId;
         useLevel?: Level;
         stream?: DestinationStream;
-        autoLogging?: boolean;
+        autoLogging?: boolean | AutoLoggingOptions;
         customLogLevel?: (res: ServerResponse, error: Error) => Level;
+        customSuccessMessage?: (req: IncomingMessage) => string;
+        customErrorMessage?: (req: IncomingMessage) => string;
+        customAttributeKeys?: CustomAttributeKeys;
     }
 
     interface GenReqId {
         (req: IncomingMessage): ReqId;
+    }
+
+    interface AutoLoggingOptions {
+        ignorePaths?: string[];
+        getPath?: (req: IncomingMessage) => string | undefined;
+    }
+
+    interface CustomAttributeKeys {
+        req?: string;
+        res?: string;
+        err?: string;
+        responseTime?: string;
     }
 }
 

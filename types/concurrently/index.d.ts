@@ -1,7 +1,8 @@
-// Type definitions for concurrently 5.1
+// Type definitions for concurrently 5.2
 // Project: https://github.com/kimmobrunfeldt/concurrently#readme
 // Definitions by: Michael B. <https://github.com/Blasz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Ryan Ling <https://github.com/72636c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -14,6 +15,7 @@ declare function concurrently(
 declare namespace concurrently {
     interface CommandObj {
         command: string;
+        env?: NodeJS.ProcessEnv;
         name?: string;
         prefixColor?: string;
     }
@@ -24,6 +26,11 @@ declare namespace concurrently {
         inputStream?: NodeJS.ReadableStream;
         /** an array of exiting conditions that will cause a process to kill others. Can contain any of success or failure. */
         killOthers?: Array<'success' | 'failure'>;
+        /**
+         * how many processes should run at once
+         * @default 0
+         */
+        maxProcesses?: number;
         /**  a Writable stream to write logs to. Default: `process.stdout` */
         outputStream?: NodeJS.WritableStream;
         /**

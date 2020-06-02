@@ -35,7 +35,7 @@ interface NotificationActionButtonInheritedProps extends ButtonProps { }
 
 export interface NotificationActionButtonProps extends NotificationActionButtonInheritedProps { }
 
-export declare class NotificationActionButton extends React.Component<NotificationActionButtonProps> { }
+export declare const NotificationActionButton: React.FC<NotificationActionButtonProps>;
 
 // NotificationButton
 
@@ -53,7 +53,7 @@ export interface NotificationButtonProps extends NotificationButtonInheritedProp
     name?: string,
 }
 
-export declare class NotificationButton extends React.Component<NotificationButtonProps> { }
+export declare const NotificationButton: React.FC<NotificationButtonProps>;
 
 // NotificationTextDetail
 
@@ -67,7 +67,7 @@ interface NotificationTextDetailInheritedProps extends
 
 export interface NotificationTextDetailsProps extends NotificationTextDetailInheritedProps { }
 
-export declare class NotificationTextDetails extends React.Component<NotificationTextDetailsProps> { }
+export declare const NotificationTextDetails: React.FC<NotificationTextDetailsProps>;
 
 // ToastNotification
 
@@ -81,11 +81,12 @@ interface ToastNotificationInheritedProps extends
 { }
 
 export interface ToastNotificationProps extends ToastNotificationInheritedProps {
-    kind?: NotificationKind;
+    kind?: NotificationKind; // required but has default value
+    statusIconDescription?: string,
     timeout?: number;
 }
 
-export declare class ToastNotification extends React.Component<ToastNotificationProps> { }
+export declare const ToastNotification: React.FC<ToastNotificationProps>;
 
 // Inline Notification
 
@@ -100,6 +101,7 @@ interface InlineNotificationInheritedProps extends
 export interface InlineNotificationProps extends InlineNotificationInheritedProps {
     actions?: React.ReactNode;
     kind: NotificationKind;
+    statusIconDescription?: string,
 }
 
-export declare class InlineNotification extends React.Component<InlineNotificationProps> { }
+export declare const InlineNotification: React.FC<InlineNotificationProps>;

@@ -1,30 +1,30 @@
-// Type definitions for Emscripten 1.39.5
-// Project: http://kripken.github.io/emscripten-site/index.html
+// Type definitions for Emscripten 1.39.16
+// Project: https://emscripten.org
 // Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
 //                 Periklis Tsirakidis <https://github.com/periklis>
 //                 Bumsik Kim <https://github.com/kbumsik>
+//                 Louis DeScioli <https://github.com/lourd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 /** Other WebAssembly declarations, for compatibility with older versions of Typescript */
 declare namespace WebAssembly {
-    interface Module { }
+    interface Module {}
 }
 
 declare namespace Emscripten {
-    interface FileSystemType {
-    }
-    type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
+    interface FileSystemType {}
+    type EnvironmentType = 'WEB' | 'NODE' | 'SHELL' | 'WORKER';
 
-    type JSType = "number" | "string" | "array" | "boolean";
+    type JSType = 'number' | 'string' | 'array' | 'boolean';
     type TypeCompatibleWithC = number | string | any[] | boolean;
 
     type CIntType = 'i8' | 'i16' | 'i32' | 'i64';
     type CFloatType = 'float' | 'double';
     type CPointerType = 'i8*' | 'i16*' | 'i32*' | 'i64*' | 'float*' | 'double*' | '*';
-    type CType =  CIntType | CFloatType | CPointerType;
+    type CType = CIntType | CFloatType | CPointerType;
 
-    type WebAssemblyImports =  Array<{
+    type WebAssemblyImports = Array<{
         name: string;
         kind: string;
     }>;
@@ -41,26 +41,6 @@ declare namespace Emscripten {
 }
 
 interface EmscriptenModule {
-    /**
-     * Initializes an EmscriptenModule object and returns it. The initialized
-     * obejct will be passed to then(). Works only when -s MODULARIZE=1 is
-     * enabled. This is default exported function when -s EXPORT_ES6=1 is
-     * enabled.
-     * https://emscripten.org/docs/getting_started/FAQ.html#how-can-i-tell-when-the-page-is-fully-loaded-and-it-is-safe-to-call-compiled-functions
-     * @param moduleOverrides Properties of an initialized module to override.
-     */
-    (moduleOverrides?: Partial<this>): this;
-    /**
-     * Promise-like then() inteface.
-     * WRANGING: Emscripten's then() is not really promise-based 'thenable'.
-     * Don't try to use it with Promise.resolve() or in an async function
-     * without deleting delete Module["then"] in the callback.
-     * https://github.com/kripken/emscripten/issues/5820
-     * Works only when -s MODULARIZE=1 is enabled.
-     * @param callback A callback chained from Module() with an Module instance.
-     */
-    then(callback: (module: this) => void): this;
-
     print(str: string): void;
     printErr(str: string): void;
     arguments: string[];
@@ -81,7 +61,7 @@ interface EmscriptenModule {
     getPreloadedPackage(remotePackageName: string, remotePackageSize: number): ArrayBuffer;
     instantiateWasm(
         imports: Emscripten.WebAssemblyImports,
-        successCallback: (module: WebAssembly.Module) => void
+        successCallback: (module: WebAssembly.Module) => void,
     ): Emscripten.WebAssemblyExports;
     locateFile(url: string, scriptDirectory: string): string;
     onCustomMessage(event: MessageEvent): void;
@@ -118,10 +98,22 @@ interface EmscriptenModule {
     _free(ptr: number): void;
 }
 
-// By default Emscripten emits a single global Module.  Users setting -s
-// MODULARIZE=1 -s EXPORT_NAME=MyMod should declare their own types, e.g.
-// declare var MyMod: EmscriptenModule;
-declare var Module: EmscriptenModule;
+/**
+ * A factory function is generated when setting the `MODULARIZE` build option
+ * to `1` in your Emscripten build. It return a Promise that resolves to an
+ * initialized, ready-to-call `EmscriptenModule` instance.
+ *
+ * By default, the factory function will be named `Module`. It's recommended to
+ * use the `EXPORT_ES6` option, in which the factory function will be the
+ * default export. If used without `EXPORT_ES6`, the factory function will be a
+ * global variable. You can rename the variable using the `EXPORT_NAME` build
+ * option. It's left to you to declare any global variables as needed in your
+ * application's types.
+ * @param moduleOverrides Default properties for the initialized module.
+ */
+type EmscriptenModuleFactory<T extends EmscriptenModule = EmscriptenModule> = (
+    moduleOverrides?: Partial<T>,
+) => Promise<T>;
 
 declare namespace FS {
     interface Lookup {
@@ -194,12 +186,27 @@ declare namespace FS {
     function close(stream: FSStream): void;
     function llseek(stream: FSStream, offset: number, whence: number): any;
     function read(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position?: number): number;
-    function write(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position?: number, canOwn?: boolean): number;
+    function write(
+        stream: FSStream,
+        buffer: ArrayBufferView,
+        offset: number,
+        length: number,
+        position?: number,
+        canOwn?: boolean,
+    ): number;
     function allocate(stream: FSStream, offset: number, length: number): void;
-    function mmap(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position: number, prot: number, flags: number): any;
+    function mmap(
+        stream: FSStream,
+        buffer: ArrayBufferView,
+        offset: number,
+        length: number,
+        position: number,
+        prot: number,
+        flags: number,
+    ): any;
     function ioctl(stream: FSStream, cmd: any, arg: any): any;
-    function readFile(path: string, opts: { encoding: "binary", flags?: string }): Uint8Array;
-    function readFile(path: string, opts: { encoding: "utf8", flags?: string }): string;
+    function readFile(path: string, opts: { encoding: 'binary'; flags?: string }): Uint8Array;
+    function readFile(path: string, opts: { encoding: 'utf8'; flags?: string }): string;
     function readFile(path: string, opts?: { flags?: string }): Uint8Array;
     function writeFile(path: string, data: string | ArrayBufferView, opts?: { flags?: string }): void;
 
@@ -214,10 +221,32 @@ declare namespace FS {
         error: null | ((c: number) => any),
     ): void;
 
-    function createLazyFile(parent: string | FSNode, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
-    function createPreloadedFile(parent: string | FSNode, name: string, url: string,
-        canRead: boolean, canWrite: boolean, onload?: () => void, onerror?: () => void, dontCreateFile?: boolean, canOwn?: boolean): void;
-    function createDataFile(parent: string | FSNode, name: string, data: ArrayBufferView, canRead: boolean, canWrite: boolean, canOwn: boolean): FSNode;
+    function createLazyFile(
+        parent: string | FSNode,
+        name: string,
+        url: string,
+        canRead: boolean,
+        canWrite: boolean,
+    ): FSNode;
+    function createPreloadedFile(
+        parent: string | FSNode,
+        name: string,
+        url: string,
+        canRead: boolean,
+        canWrite: boolean,
+        onload?: () => void,
+        onerror?: () => void,
+        dontCreateFile?: boolean,
+        canOwn?: boolean,
+    ): void;
+    function createDataFile(
+        parent: string | FSNode,
+        name: string,
+        data: ArrayBufferView,
+        canRead: boolean,
+        canWrite: boolean,
+        canOwn: boolean,
+    ): FSNode;
 }
 
 declare var MEMFS: Emscripten.FileSystemType;
@@ -238,13 +267,29 @@ declare var IDBFS: Emscripten.FileSystemType;
 //
 // See: https://emscripten.org/docs/getting_started/FAQ.html#why-do-i-get-typeerror-module-something-is-not-a-function
 
-declare function ccall(ident: string, returnType: Emscripten.JSType | null, argTypes: Emscripten.JSType[], args: Emscripten.TypeCompatibleWithC[], opts?: Emscripten.CCallOpts): any;
-declare function cwrap(ident: string, returnType: Emscripten.JSType | null, argTypes: Emscripten.JSType[], opts?: Emscripten.CCallOpts): (...args: any[]) => any;
+declare function ccall(
+    ident: string,
+    returnType: Emscripten.JSType | null,
+    argTypes: Emscripten.JSType[],
+    args: Emscripten.TypeCompatibleWithC[],
+    opts?: Emscripten.CCallOpts,
+): any;
+declare function cwrap(
+    ident: string,
+    returnType: Emscripten.JSType | null,
+    argTypes: Emscripten.JSType[],
+    opts?: Emscripten.CCallOpts,
+): (...args: any[]) => any;
 
 declare function setValue(ptr: number, value: any, type: Emscripten.CType, noSafe?: boolean): void;
 declare function getValue(ptr: number, type: Emscripten.CType, noSafe?: boolean): number;
 
-declare function allocate(slab: number[] | ArrayBufferView | number, types: Emscripten.CType | Emscripten.CType[], allocator: number, ptr?: number): number;
+declare function allocate(
+    slab: number[] | ArrayBufferView | number,
+    types: Emscripten.CType | Emscripten.CType[],
+    allocator: number,
+    ptr?: number,
+): number;
 
 declare function stackAlloc(size: number): number;
 declare function stackSave(): number;
@@ -271,7 +316,7 @@ declare function writeAsciiToMemory(str: string, buffer: number, dontAddNull: bo
 declare function addRunDependency(id: any): void;
 declare function removeRunDependency(id: any): void;
 
-declare function addFunction(func: () => any, signature?: string): number;
+declare function addFunction(func: (...args: any[]) => any, signature?: string): number;
 declare function removeFunction(funcPtr: number): void;
 
 declare var ALLOC_NORMAL: number;
