@@ -23,16 +23,16 @@
         "prettier": "prettier"
     },
     "devDependencies": {
+        "@definitelytyped/dtslint-runner": "latest",
         "danger": "^10.1.1",
         "dtslint": "latest",
         "prettier": "^2.0.2",
-        "@definitelytyped/dtslint-runner": "latest"
+        "typescript": "next"
     },
     "husky": {
         "hooks": {
             "_comment": "This will remove husky from when we started migrating to use prettier",
             "pre-commit": "npm uninstall husky"
         }
-    },
-    "dependencies": {}
+    }
 }
