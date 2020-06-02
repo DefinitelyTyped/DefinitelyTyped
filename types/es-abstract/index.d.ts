@@ -1,7 +1,7 @@
 // Type definitions for es-abstract 1.16
 // Project: https://github.com/ljharb/es-abstract#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-//                 Jordan Harband <https://github.com/ljharb>
+// Definitions by: Jordan Harband <https://github.com/ljharb>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -25,17 +25,17 @@ declare namespace ESAbstract {
         '[[Configurable]]'?: boolean;
     }
 
-    interface AccessorDescriptor extends GenericDescriptor {
-        '[[Get]]'?(): any;
-        '[[Set]]'?(value: any): void;
+    interface AccessorDescriptor<T = any> extends GenericDescriptor {
+        '[[Get]]'?(): T;
+        '[[Set]]'?(value: T): void;
     }
 
-    interface DataDescriptor extends GenericDescriptor {
-        '[[Value]]'?: any;
+    interface DataDescriptor<T = any> extends GenericDescriptor {
+        '[[Value]]'?: T;
         '[[Writable]]'?: boolean;
     }
 
-    type PropertyDescriptor = AccessorDescriptor | DataDescriptor;
+    type PropertyDescriptor<T = any> = AccessorDescriptor<T> | DataDescriptor<T>;
 }
 
 interface ESAbstract extends ES6 {

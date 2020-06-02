@@ -11,6 +11,6 @@ declare function IsPropertyDescriptor(
         IsDataDescriptor(Desc: unknown): Desc is ESDataDescriptor;
     },
     Desc: unknown,
-): Desc is ESPropertyDescriptor;
+): Desc is ESPropertyDescriptor<unknown>;
 
 export = IsPropertyDescriptor;

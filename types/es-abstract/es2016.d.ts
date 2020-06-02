@@ -27,9 +27,9 @@ declare namespace ES2016 {
 
     // - ES5:
     type GenericDescriptor = ES2015.GenericDescriptor;
-    type AccessorDescriptor = ES2015.AccessorDescriptor;
-    type DataDescriptor = ES2015.DataDescriptor;
-    type PropertyDescriptor = ES2015.PropertyDescriptor;
+    type AccessorDescriptor<T = any> = ES2015.AccessorDescriptor<T>;
+    type DataDescriptor<T = any> = ES2015.DataDescriptor<T>;
+    type PropertyDescriptor<T = any> = ES2015.PropertyDescriptor<T>;
 }
 
 declare const ES2016: ES2016;
