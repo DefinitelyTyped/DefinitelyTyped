@@ -288,149 +288,295 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
         result = _.chain(str).collect(iterator, context).value();
     }
 
-    // partial object iterator
+    // partial object iterator (nullable values always return false if any properties are specified and true if no properties are specified)
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: ({ a: string } | undefined)[] = [{ a: 'a' }, { a: 'b' }, undefined];
         const properties = { a: 'a' };
         let result: boolean[];
 
-        result = _.map<{ a: string }>(array, properties);
+        result = _.map<({ a: string } | undefined)>(array, properties);
         result = _.map(array, properties);
 
-        result = _<{ a: string }>(array).map(properties);
+        result = _<({ a: string } | undefined)>(array).map(properties);
         result = _(array).map(properties);
 
-        result = _.chain<{ a: string }>(array).map(properties).value();
+        result = _.chain<({ a: string } | undefined)>(array).map(properties).value();
         result = _.chain(array).map(properties).value();
 
-        result = _.collect<{ a: string }>(array, properties);
+        result = _.collect<({ a: string } | undefined)>(array, properties);
         result = _.collect(array, properties);
 
-        result = _<{ a: string }>(array).collect(properties);
+        result = _<({ a: string } | undefined)>(array).collect(properties);
         result = _(array).collect(properties);
 
-        result = _.chain<{ a: string }>(array).collect(properties).value();
+        result = _.chain<({ a: string } | undefined)>(array).collect(properties).value();
         result = _.chain(array).collect(properties).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, 2: undefined, length: 3 };
         const properties = { a: 'a' };
         let result: boolean[];
 
-        result = _.map<{ a: string }>(list, properties);
+        result = _.map<({ a: string } | undefined)>(list, properties);
         result = _.map(list, properties);
 
-        result = _<{ a: string }>(list).map(properties);
+        result = _<({ a: string } | undefined)>(list).map(properties);
         result = _(list).map(properties);
 
-        result = _.chain<{ a: string }>(list).map(properties).value();
+        result = _.chain<({ a: string } | undefined)>(list).map(properties).value();
         result = _.chain(list).map(properties).value();
 
-        result = _.collect<{ a: string }>(list, properties);
+        result = _.collect<({ a: string } | undefined)>(list, properties);
         result = _.collect(list, properties);
 
-        result = _<{ a: string }>(list).collect(properties);
+        result = _<({ a: string } | undefined)>(list).collect(properties);
         result = _(list).collect(properties);
 
-        result = _.chain<{ a: string }>(list).collect(properties).value();
+        result = _.chain<({ a: string } | undefined)>(list).collect(properties).value();
         result = _.chain(list).collect(properties).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const dict: _.Dictionary<({ a: string } | undefined)> = { a: { a: 'a' }, b: { a: 'b' }, c: undefined };
         const properties = { a: 'a' };
         let result: boolean[];
 
-        result = _.map<{ a: string }>(dict, properties);
+        result = _.map<({ a: string } | undefined)>(dict, properties);
         result = _.map(dict, properties);
 
-        result = _<{ a: string }>(dict).map(properties);
+        result = _<({ a: string } | undefined)>(dict).map(properties);
         result = _(dict).map(properties);
 
-        result = _.chain<{ a: string }>(dict).map(properties).value();
+        result = _.chain<({ a: string } | undefined)>(dict).map(properties).value();
         result = _.chain(dict).map(properties).value();
 
-        result = _.collect<{ a: string }>(dict, properties);
+        result = _.collect<({ a: string } | undefined)>(dict, properties);
         result = _.collect(dict, properties);
 
-        result = _<{ a: string }>(dict).collect(properties);
+        result = _<({ a: string } | undefined)>(dict).collect(properties);
         result = _(dict).collect(properties);
 
-        result = _.chain<{ a: string }>(dict).collect(properties).value();
+        result = _.chain<({ a: string } | undefined)>(dict).collect(properties).value();
         result = _.chain(dict).collect(properties).value();
     }
 
-    // property name iterator
+    // property name iterator with nonnullable intersecting types
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: ({ a: string, b: string } | { a: boolean, c: string })[] = [{ a: 'a', b: 'b' }, { a: true, c: 'c' }];
         const property = 'a';
-        let result: string[];
+        let result: (string | boolean)[];
 
-        result = _.map<{ a: string }, typeof property>(array, property);
+        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(array, property);
         result = _.map(array, property);
 
-        result = _<{ a: string }>(array).map<typeof property>(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(array).map<typeof property>(property);
         result = _(array).map(property);
 
-        result = _.chain<{ a: string }>(array).map<typeof property>(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(array).map<typeof property>(property).value();
         result = _.chain(array).map(property).value();
 
-        result = _.collect<{ a: string }, typeof property>(array, property);
+        result = _.collect<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(array, property);
         result = _.collect(array, property);
 
-        result = _<{ a: string }>(array).collect<typeof property>(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(array).collect<typeof property>(property);
         result = _(array).collect(property);
 
-        result = _.chain<{ a: string }>(array).collect<typeof property>(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(array).collect<typeof property>(property).value();
         result = _.chain(array).collect(property).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<{ a: string, b: string } | { a: boolean, c: string }> = { 0: { a: 'a', b: 'b' }, 1: { a: true, c: 'c' }, length: 2 };
         const property = 'a';
-        let result: string[];
+        let result: (string | boolean)[];
 
-        result = _.map<{ a: string }, typeof property>(list, property);
+        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(list, property);
         result = _.map(list, property);
 
-        result = _<{ a: string }>(list).map<typeof property>(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(list).map<typeof property>(property);
         result = _(list).map(property);
 
-        result = _.chain<{ a: string }>(list).map<typeof property>(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(list).map<typeof property>(property).value();
         result = _.chain(list).map(property).value();
 
-        result = _.collect<{ a: string }, typeof property>(list, property);
+        result = _.collect<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(list, property);
         result = _.collect(list, property);
 
-        result = _<{ a: string }>(list).collect<typeof property>(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(list).collect<typeof property>(property);
         result = _(list).collect(property);
 
-        result = _.chain<{ a: string }>(list).collect<typeof property>(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(list).collect<typeof property>(property).value();
         result = _.chain(list).collect(property).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const dict: _.Dictionary<{ a: string, b: string } | { a: boolean, c: string }> = { a: { a: 'a', b: 'b' }, b: { a: true, c: 'c' } };
         const property = 'a';
-        let result: string[];
+        let result: (string | boolean)[];
 
-        result = _.map<{ a: string }, typeof property>(dict, property);
+        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(dict, property);
         result = _.map(dict, property);
 
-        result = _<{ a: string }>(dict).map<typeof property>(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(dict).map<typeof property>(property);
         result = _(dict).map(property);
 
-        result = _.chain<{ a: string }>(dict).map<typeof property>(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(dict).map<typeof property>(property).value();
         result = _.chain(dict).map(property).value();
 
-        result = _.collect<{ a: string }, typeof property>(dict, property);
+        result = _.collect<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(dict, property);
         result = _.collect(dict, property);
 
-        result = _<{ a: string }>(dict).collect<typeof property>(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(dict).collect<typeof property>(property);
         result = _(dict).collect(property);
 
-        result = _.chain<{ a: string }>(dict).collect<typeof property>(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(dict).collect<typeof property>(property).value();
+        result = _.chain(dict).collect(property).value();
+    }
+
+    // property name iterator with nullable types
+    {
+        const array: ({ a: string } | undefined)[] = [{ a: 'a' }, undefined];
+        const property = 'a';
+        let result: (string | undefined)[];
+
+        result = _.map<{ a: string } | undefined, typeof property>(array, property);
+        result = _.map(array, property);
+
+        result = _<{ a: string } | undefined>(array).map<typeof property>(property);
+        result = _(array).map(property);
+
+        result = _.chain<{ a: string } | undefined>(array).map<typeof property>(property).value();
+        result = _.chain(array).map(property).value();
+
+        result = _.collect<{ a: string } | undefined, typeof property>(array, property);
+        result = _.collect(array, property);
+
+        result = _<{ a: string } | undefined>(array).collect<typeof property>(property);
+        result = _(array).collect(property);
+
+        result = _.chain<{ a: string } | undefined>(array).collect<typeof property>(property).value();
+        result = _.chain(array).collect(property).value();
+    }
+
+    {
+        const list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: undefined, length: 2 };
+        const property = 'a';
+        let result: (string | undefined)[];
+
+        result = _.map<{ a: string } | undefined, typeof property>(list, property);
+        result = _.map(list, property);
+
+        result = _<{ a: string } | undefined>(list).map<typeof property>(property);
+        result = _(list).map(property);
+
+        result = _.chain<{ a: string } | undefined>(list).map<typeof property>(property).value();
+        result = _.chain(list).map(property).value();
+
+        result = _.collect<{ a: string } | undefined, typeof property>(list, property);
+        result = _.collect(list, property);
+
+        result = _<{ a: string } | undefined>(list).collect<typeof property>(property);
+        result = _(list).collect(property);
+
+        result = _.chain<{ a: string } | undefined>(list).collect<typeof property>(property).value();
+        result = _.chain(list).collect(property).value();
+    }
+
+    {
+        const dict: _.Dictionary<({ a: string } | undefined)> = { a: { a: 'a' }, b: undefined };
+        const property = 'a';
+        let result: (string | undefined)[];
+
+        result = _.map<{ a: string } | undefined, typeof property>(dict, property);
+        result = _.map(dict, property);
+
+        result = _<{ a: string } | undefined>(dict).map<typeof property>(property);
+        result = _(dict).map(property);
+
+        result = _.chain<{ a: string } | undefined>(dict).map<typeof property>(property).value();
+        result = _.chain(dict).map(property).value();
+
+        result = _.collect<{ a: string } | undefined, typeof property>(dict, property);
+        result = _.collect(dict, property);
+
+        result = _<{ a: string } | undefined>(dict).collect<typeof property>(property);
+        result = _(dict).collect(property);
+
+        result = _.chain<{ a: string } | undefined>(dict).collect<typeof property>(property).value();
+        result = _.chain(dict).collect(property).value();
+    }
+
+    // property name iterator with a non-nullable non-intersecting types
+    {
+        const array: ({ a: string } | { b: string })[] = [{ a: 'a' }, { b: 'b' }];
+        const property = 'a';
+        let result: (string | undefined)[];
+
+        result = _.map<{ a: string } | { b: string }, typeof property>(array, property);
+        result = _.map(array, property);
+
+        result = _<{ a: string } | { b: string }>(array).map<typeof property>(property);
+        result = _(array).map(property);
+
+        result = _.chain<{ a: string } | { b: string }>(array).map<typeof property>(property).value();
+        result = _.chain(array).map(property).value();
+
+        result = _.collect<{ a: string } | { b: string }, typeof property>(array, property);
+        result = _.collect(array, property);
+
+        result = _<{ a: string } | { b: string }>(array).collect<typeof property>(property);
+        result = _(array).collect(property);
+
+        result = _.chain<{ a: string } | { b: string }>(array).collect<typeof property>(property).value();
+        result = _.chain(array).collect(property).value();
+    }
+
+    {
+        const list: _.List<{ a: string } | { b: string }> = { 0: { a: 'a' }, 1: { b: 'b' }, length: 2 };
+        const property = 'a';
+        let result: (string | undefined)[];
+
+        result = _.map<{ a: string } | { b: string }, typeof property>(list, property);
+        result = _.map(list, property);
+
+        result = _<{ a: string } | { b: string }>(list).map<typeof property>(property);
+        result = _(list).map(property);
+
+        result = _.chain<{ a: string } | { b: string }>(list).map<typeof property>(property).value();
+        result = _.chain(list).map(property).value();
+
+        result = _.collect<{ a: string } | { b: string }, typeof property>(list, property);
+        result = _.collect(list, property);
+
+        result = _<{ a: string } | { b: string }>(list).collect<typeof property>(property);
+        result = _(list).collect(property);
+
+        result = _.chain<{ a: string } | { b: string }>(list).collect<typeof property>(property).value();
+        result = _.chain(list).collect(property).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string } | { b: string }> = { a: { a: 'a' }, b: { b: 'b' } };
+        const property = 'a';
+        let result: (string | undefined)[];
+
+        result = _.map<{ a: string } | { b: string }, typeof property>(dict, property);
+        result = _.map(dict, property);
+
+        result = _<{ a: string } | { b: string }>(dict).map<typeof property>(property);
+        result = _(dict).map(property);
+
+        result = _.chain<{ a: string } | { b: string }>(dict).map<typeof property>(property).value();
+        result = _.chain(dict).map(property).value();
+
+        result = _.collect<{ a: string } | { b: string }, typeof property>(dict, property);
+        result = _.collect(dict, property);
+
+        result = _<{ a: string } | { b: string }>(dict).collect<typeof property>(property);
+        result = _(dict).collect(property);
+
+        result = _.chain<{ a: string } | { b: string }>(dict).collect<typeof property>(property).value();
         result = _.chain(dict).collect(property).value();
     }
 }
@@ -2724,58 +2870,142 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 // pluck
 {
+    // property name iterator with nonnullable intersecting types
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
+        const array: ({ a: string, b: string } | { a: boolean, c: string })[] = [{ a: 'a', b: 'b' }, { a: true, c: 'c' }];
         const property = 'a';
-        let result: string[];
+        let result: (string | boolean)[];
 
-        result = _.pluck<{ a: string }, typeof property>(array, property);
-        result = _.pluck(array, property);
+        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(array, property);
+        result = _.map(array, property);
 
-        result = _<{ a: string }>(array).pluck<typeof property>(property);
-        result = _(array).pluck(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(array).map<typeof property>(property);
+        result = _(array).map(property);
 
-        result = _.chain<{ a: string }>(array).pluck<typeof property>(property).value();
-        result = _.chain(array).pluck(property).value();
-
-        result = _.chain<{ a: string }>(array).pluck<typeof property>(property).value();
-        result = _.chain(array).pluck(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(array).map<typeof property>(property).value();
+        result = _.chain(array).map(property).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list: _.List<{ a: string, b: string } | { a: boolean, c: string }> = { 0: { a: 'a', b: 'b' }, 1: { a: true, c: 'c' }, length: 2 };
         const property = 'a';
-        let result: string[];
+        let result: (string | boolean)[];
 
-        result = _.pluck<{ a: string }, typeof property>(list, property);
-        result = _.pluck(list, property);
+        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(list, property);
+        result = _.map(list, property);
 
-        result = _<{ a: string }>(list).pluck<typeof property>(property);
-        result = _(list).pluck(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(list).map<typeof property>(property);
+        result = _(list).map(property);
 
-        result = _.chain<{ a: string }>(list).pluck<typeof property>(property).value();
-        result = _.chain(list).pluck(property).value();
-
-        result = _.chain<{ a: string }>(list).pluck<typeof property>(property).value();
-        result = _.chain(list).pluck(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(list).map<typeof property>(property).value();
+        result = _.chain(list).map(property).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
+        const dict: _.Dictionary<{ a: string, b: string } | { a: boolean, c: string }> = { a: { a: 'a', b: 'b' }, b: { a: true, c: 'c' } };
         const property = 'a';
-        let result: string[];
+        let result: (string | boolean)[];
 
-        result = _.pluck<{ a: string }, typeof property>(dict, property);
-        result = _.pluck(dict, property);
+        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(dict, property);
+        result = _.map(dict, property);
 
-        result = _<{ a: string }>(dict).pluck<typeof property>(property);
-        result = _(dict).pluck(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(dict).map<typeof property>(property);
+        result = _(dict).map(property);
 
-        result = _.chain<{ a: string }>(dict).pluck<typeof property>(property).value();
-        result = _.chain(dict).pluck(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(dict).map<typeof property>(property).value();
+        result = _.chain(dict).map(property).value();
+    }
 
-        result = _.chain<{ a: string }>(dict).pluck<typeof property>(property).value();
-        result = _.chain(dict).pluck(property).value();
+    // property name iterator with nullable types
+    {
+        const array: ({ a: string } | undefined)[] = [{ a: 'a' }, undefined];
+        const property = 'a';
+        let result: (string | undefined)[];
+
+        result = _.map<{ a: string } | undefined, typeof property>(array, property);
+        result = _.map(array, property);
+
+        result = _<{ a: string } | undefined>(array).map<typeof property>(property);
+        result = _(array).map(property);
+
+        result = _.chain<{ a: string } | undefined>(array).map<typeof property>(property).value();
+        result = _.chain(array).map(property).value();
+    }
+
+    {
+        const list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: undefined, length: 2 };
+        const property = 'a';
+        let result: (string | undefined)[];
+
+        result = _.map<{ a: string } | undefined, typeof property>(list, property);
+        result = _.map(list, property);
+
+        result = _<{ a: string } | undefined>(list).map<typeof property>(property);
+        result = _(list).map(property);
+
+        result = _.chain<{ a: string } | undefined>(list).map<typeof property>(property).value();
+        result = _.chain(list).map(property).value();
+    }
+
+    {
+        const dict: _.Dictionary<({ a: string } | undefined)> = { a: { a: 'a' }, b: undefined };
+        const property = 'a';
+        let result: (string | undefined)[];
+
+        result = _.map<{ a: string } | undefined, typeof property>(dict, property);
+        result = _.map(dict, property);
+
+        result = _<{ a: string } | undefined>(dict).map<typeof property>(property);
+        result = _(dict).map(property);
+
+        result = _.chain<{ a: string } | undefined>(dict).map<typeof property>(property).value();
+        result = _.chain(dict).map(property).value();
+    }
+
+    // property name iterator with a non-nullable non-intersecting types
+    {
+        const array: ({ a: string } | { b: string })[] = [{ a: 'a' }, { b: 'b' }];
+        const property = 'a';
+        let result: (string | undefined)[];
+
+        result = _.map<{ a: string } | { b: string }, typeof property>(array, property);
+        result = _.map(array, property);
+
+        result = _<{ a: string } | { b: string }>(array).map<typeof property>(property);
+        result = _(array).map(property);
+
+        result = _.chain<{ a: string } | { b: string }>(array).map<typeof property>(property).value();
+        result = _.chain(array).map(property).value();
+    }
+
+    {
+        const list: _.List<{ a: string } | { b: string }> = { 0: { a: 'a' }, 1: { b: 'b' }, length: 2 };
+        const property = 'a';
+        let result: (string | undefined)[];
+
+        result = _.map<{ a: string } | { b: string }, typeof property>(list, property);
+        result = _.map(list, property);
+
+        result = _<{ a: string } | { b: string }>(list).map<typeof property>(property);
+        result = _(list).map(property);
+
+        result = _.chain<{ a: string } | { b: string }>(list).map<typeof property>(property).value();
+        result = _.chain(list).map(property).value();
+    }
+
+    {
+        const dict: _.Dictionary<{ a: string } | { b: string }> = { a: { a: 'a' }, b: { b: 'b' } };
+        const property = 'a';
+        let result: (string | undefined)[];
+
+        result = _.map<{ a: string } | { b: string }, typeof property>(dict, property);
+        result = _.map(dict, property);
+
+        result = _<{ a: string } | { b: string }>(dict).map<typeof property>(property);
+        result = _(dict).map(property);
+
+        result = _.chain<{ a: string } | { b: string }>(dict).map<typeof property>(property).value();
+        result = _.chain(dict).map(property).value();
     }
 }
 
