@@ -25,7 +25,7 @@ export class CoverageSummary {
 }
 
 export interface CoverageMapData {
-    [key: string]: FileCoverage;
+    [key: string]: FileCoverage | FileCoverageData;
 }
 
 export class CoverageMap {
