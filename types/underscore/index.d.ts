@@ -107,6 +107,8 @@ declare module _ {
         cancel(): void;
     }
 
+    type NonFalsy<T> = T extends undefined | null | false | '' | 0 ? never : T;
+
     type TypeOfDictionary<T> = T extends _.Dictionary<infer V> ? V : never;
 
     type TypeOfListItem<T> = T extends _.List<infer TItem> ? TItem : never;
@@ -861,7 +863,7 @@ declare module _ {
         * @param array Array to compact.
         * @return Copy of `array` without false values.
         **/
-        compact<T>(array: _.List<T>): (T extends undefined | null | false | '' | 0 ? never : T)[]
+        compact<T>(array: _.List<T>): NonFalsy<T>[]
 
         /**
         * Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will
@@ -4521,7 +4523,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.compact
         **/
-        compact(): (T extends undefined | null | false | '' | 0 ? never : T)[];
+        compact(): NonFalsy<T>[];
 
         /**
         * Wrapped type `any`.
@@ -5549,7 +5551,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.compact
         **/
-        compact(): _Chain<T, (T extends undefined | null | false | '' | 0 ? never : T)[]>;
+        compact(): _Chain<NonFalsy<T>, NonFalsy<T>[]>;
 
         /**
         * Wrapped type `any`.
