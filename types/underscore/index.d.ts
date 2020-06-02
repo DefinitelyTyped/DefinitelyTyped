@@ -5168,13 +5168,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.reduce
         **/
-        reduce<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+        reduce<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _Chain<TResult>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.reduce
         **/
-        reduce<TResult>(iterator: _.MemoObjectIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+        reduce<TResult>(iterator: _.MemoObjectIterator<T, TResult>, memo?: TResult, context?: any): _Chain<TResult>;
 
         /**
         * @see _.reduce
@@ -5190,13 +5190,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.reduceRight
         **/
-        reduceRight<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+        reduceRight<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): _Chain<TResult>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.reduceRight
         **/
-        reduceRight<TResult>(iterator: _.MemoObjectIterator<T, TResult>, memo?: TResult, context?: any): _ChainSingle<TResult>;
+        reduceRight<TResult>(iterator: _.MemoObjectIterator<T, TResult>, memo?: TResult, context?: any): _Chain<TResult>;
 
         /**
         * @see _.reduceRight
@@ -5207,18 +5207,18 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.find
         **/
-        find(iterator: _.ListIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
+        find(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T | undefined>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.find
         **/
-        find(iterator: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
+        find(iterator: _.ObjectIterator<T, boolean>, context?: any): _Chain<T | undefined>;
 
         /**
         * @see _.find
         **/
-        find(iterator: Partial<T> | KeysOfUnion<T>): _ChainSingle<T | undefined>;
+        find(iterator: Partial<T> | KeysOfUnion<T>): _Chain<T | undefined>;
 
         /**
         * @see _.find
@@ -5258,7 +5258,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.findWhere
         **/
-        findWhere(properties: Partial<T>): _ChainSingle<T | undefined>;
+        findWhere(properties: Partial<T>): _Chain<T | undefined>;
 
         /**
         * Wrapped type `any[]`.
@@ -5282,19 +5282,19 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.every
         **/
-        every(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+        every(iterator?: _.ListIterator<T, boolean>, context?: any): _Chain<boolean>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.every
         **/
-        every(iterator?: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+        every(iterator?: _.ObjectIterator<T, boolean>, context?: any): _Chain<boolean>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.every
         **/
-        every(iterator?: Partial<T> | KeysOfUnion<T>): _ChainSingle<boolean>;
+        every(iterator?: Partial<T> | KeysOfUnion<T>): _Chain<boolean>;
 
         /**
         * @see _.every
@@ -5305,19 +5305,19 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.some
         **/
-        some(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+        some(iterator?: _.ListIterator<T, boolean>, context?: any): _Chain<boolean>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.some
         **/
-        some(iterator?: _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
+        some(iterator?: _.ObjectIterator<T, boolean>, context?: any): _Chain<boolean>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.some
         **/
-        some(iterator?: Partial<T> | KeysOfUnion<T>): _ChainSingle<boolean>;
+        some(iterator?: Partial<T> | KeysOfUnion<T>): _Chain<boolean>;
 
         /**
         * @see _.some
@@ -5328,7 +5328,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.contains
         **/
-        contains(value: T, fromIndex?: number): _ChainSingle<boolean>;
+        contains(value: T, fromIndex?: number): _Chain<boolean>;
 
         /**
         * Alias for 'contains'.
@@ -5358,37 +5358,37 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.max
         **/
-        max(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
+        max(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.max
         **/
-        max(iterator?: _.ObjectIterator<T, any>, context?: any): _ChainSingle<T>;
+        max(iterator?: _.ObjectIterator<T, any>, context?: any): _Chain<T>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.max
         */
-        max(iterator?: keyof T): _ChainSingle<T>;
+        max(iterator?: keyof T): _Chain<T>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.min
         **/
-        min(iterator?: _.ListIterator<T, any>, context?: any): _ChainSingle<T>;
+        min(iterator?: _.ListIterator<T, any>, context?: any): _Chain<T>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.min
         **/
-        min(iterator?: _.ObjectIterator<T, any>, context?: any): _ChainSingle<T>;
+        min(iterator?: _.ObjectIterator<T, any>, context?: any): _Chain<T>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.min
         */
-        min(iterator?: keyof T): _ChainSingle<T>;
+        min(iterator?: keyof T): _Chain<T>;
 
         /**
         * Wrapped type `any[]`.
@@ -5477,7 +5477,7 @@ declare module _ {
         /**
         * @see _.sample
         **/
-        sample(): _ChainSingle<T | undefined>;
+        sample(): _Chain<T | undefined>;
 
         /**
         * Wrapped type `any`.
@@ -5489,7 +5489,7 @@ declare module _ {
         * Wrapped type `any`.
         * @see _.size
         **/
-        size(): _ChainSingle<number>;
+        size(): _Chain<number>;
 
         /*********
         * Arrays *
@@ -5499,7 +5499,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.first
         **/
-        first(): _ChainSingle<T | undefined>;
+        first(): _Chain<T | undefined>;
 
         /**
         * Wrapped type `any[]`.
@@ -5527,7 +5527,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.last
         **/
-        last(): _ChainSingle<T | undefined>;
+        last(): _Chain<T | undefined>;
 
         /**
         * Wrapped type `any[]`.
@@ -5654,34 +5654,34 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.indexOf
         **/
-        indexOf(value: T, isSorted?: boolean): _ChainSingle<number>;
+        indexOf(value: T, isSorted?: boolean): _Chain<number>;
 
         /**
         * @see _.indexOf
         **/
-        indexOf(value: T, startFrom: number): _ChainSingle<number>;
+        indexOf(value: T, startFrom: number): _Chain<number>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.lastIndexOf
         **/
-        lastIndexOf(value: T, from?: number): _ChainSingle<number>;
+        lastIndexOf(value: T, from?: number): _Chain<number>;
 
         /**
         * @see _.findIndex
         **/
-        findIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>, context?: any): _ChainSingle<number>;
+        findIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>, context?: any): _Chain<number>;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>, context?: any): _ChainSingle<number>;
+        findLastIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>, context?: any): _Chain<number>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.sortedIndex
         **/
-        sortedIndex(value: T, iterator?: _.ListIterator<T, any> | keyof T, context?: any): _ChainSingle<number>;
+        sortedIndex(value: T, iterator?: _.ListIterator<T, any> | keyof T, context?: any): _Chain<number>;
 
         /**
         * Wrapped type `number`.
@@ -6145,13 +6145,13 @@ declare module _ {
         * @param separator Optional. Specifies a string to separate each element of the array. The separator is converted to a string if necessary. If omitted, the array elements are separated with a comma.
         * @return The string conversions of all array elements joined into one string.
         **/
-        join(separator?: any): _ChainSingle<T>;
+        join(separator?: any): _Chain<T>;
 
         /**
         * Removes the last element from an array and returns that element.
         * @return Returns the popped element.
         **/
-        pop(): _ChainSingle<T>;
+        pop(): _Chain<T>;
 
         /**
         * Adds one or more elements to the end of an array and returns the new length of the array.
@@ -6170,7 +6170,7 @@ declare module _ {
         * Removes the first element from an array and returns that element. This method changes the length of the array.
         * @return The shifted element.
         **/
-        shift(): _ChainSingle<T>;
+        shift(): _Chain<T>;
 
         /**
         * Returns a shallow copy of a portion of an array into a new array object.
@@ -6200,7 +6200,7 @@ declare module _ {
         * A string representing the specified array and its elements.
         * @return A string representing the specified array and its elements.
         **/
-        toString(): _ChainSingle<T>;
+        toString(): _Chain<T>;
 
         /**
         * Adds one or more elements to the beginning of an array and returns the new length of the array.
@@ -6224,8 +6224,5 @@ declare module _ {
         * @see _.value
         **/
         value(): V;
-    }
-    interface _ChainSingle<T> {
-        value(): T;
     }
 }
