@@ -227,8 +227,8 @@ function createProxyResult(): APIGatewayProxyResult {
     return result;
 }
 
-function createProxyResultV2(): APIGatewayProxyResult {
-    let result: APIGatewayProxyResult = {
+function createProxyResultV2(): APIGatewayProxyResultV2 {
+    let result: APIGatewayProxyResultV2 = {
         statusCode: num,
         body: str,
     };
