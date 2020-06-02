@@ -4,6 +4,7 @@
 //                 Alexander Leon <https://github.com/alien35>
 //                 Nicholas Higgins <https://github.com/nicholashza>
 //                 Carlos Urango <https://github.com/cjurango>
+//                 R.J. <https://github.com/jun-sheaf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HowlerGlobal {
@@ -27,36 +28,130 @@ interface HowlerGlobal {
 
 declare let Howler: HowlerGlobal;
 
-interface IHowlSoundSpriteDefinition {
+export type HowlCallback = (soundId: number) => void;
+export type HowlErrorCallback = (soundId: number, error: any) => void;
+
+export interface SoundSpriteDefinitions {
     [name: string]: [number, number] | [number, number, boolean]
 }
 
-interface IHowlProperties {
-    src: string | string[];
+export interface HowlOptions {
+    /**
+     * The sources to the track(s) to be loaded for the sound (URLs or base64 data URIs). These should
+     * be in order of preference, howler.js will automatically load the first one that is compatible
+     * with the current browser. If your files have no extensions, you will need to explicitly specify
+     * the extension using the format property.
+     * 
+     * @default `[]`
+     */
+    src?: string | string[];
+
+    /**
+     * The volume of the specific track, from 0.0 to 1.0.
+     *
+     * @default `1.0`
+     */
     volume?: number;
+
+    /**
+     * Set to true to force HTML5 Audio. This should be used for large audio files so that you don't
+     * have to wait for the full file to be downloaded and decoded before playing.
+     *
+     * @default `false`
+     */
     html5?: boolean;
+
+    /**
+     * Set to true to automatically loop the sound forever.
+     *
+     * @default `false`
+     */
     loop?: boolean;
-    preload?: boolean;
+
+    /**
+     * Automatically begin downloading the audio file when the Howl is defined. If using HTML5 Audio,
+     * you can set this to 'metadata' to only preload the file's metadata (to get its duration without
+     * download the entire file, for example).
+     *
+     * @default `true`
+     */
+    preload?: boolean | "metadata";
+
+    /**
+     * Set to true to automatically start playback when sound is loaded.
+     *
+     * @default `false`
+     */
     autoplay?: boolean;
+
+    /**
+     * Set to true to load the audio muted.
+     *
+     * @default `false`
+     */
     mute?: boolean;
-    sprite?: IHowlSoundSpriteDefinition;
+
+    /**
+     * Define a sound sprite for the sound. The offset and duration are defined in milliseconds. A
+     * third (optional) parameter is available to set a sprite as looping. An easy way to generate
+     * compatible sound sprites is with audiosprite.
+     *
+     * @default `{}`
+     */
+    sprite?: {
+        [name: string]: [number, number] | [number, number, boolean];
+    };
+
+    /**
+     * The rate of playback. 0.5 to 4.0, with 1.0 being normal speed.
+     *
+     * @default `1.0`
+     */
     rate?: number;
+
+    /**
+     * The size of the inactive sounds pool. Once sounds are stopped or finish playing, they are marked
+     * as ended and ready for cleanup. We keep a pool of these to recycle for improved performance.
+     * Generally this doesn't need to be changed. It is important to keep in mind that when a sound is
+     * paused, it won't be removed from the pool and will still be considered active so that it can be
+     * resumed later.
+     *
+     * @default `5`
+     */
     pool?: number;
-    format?: string[] | string;
-    xhrWithCredentials?: boolean;
+
+    /**
+     * howler.js automatically detects your file format from the extension, but you may also specify a
+     * format in situations where extraction won't work (such as with a SoundCloud stream).
+     *
+     * @default `[]`
+     */
+    format?: string[];
+
+    /**
+     * When using Web Audio, howler.js uses an XHR request to load the audio files. If you need to send
+     * custom headers, set the HTTP method or enable withCredentials (see reference), include them with
+     * this parameter. Each is optional (method defaults to GET, headers default to null and
+     * withCredentials defaults to false).
+     */
+    xhr?: {
+        method?: string;
+        headers?: Record<string, string>;
+        withCredentials?: true;
+    };
     onload?: () => void;
-    onloaderror?: (soundId: number, error: any) => void;
-    onplay?: (soundId: number) => void;
-    onplayerror?: (soundId: number, error: any) => void;
-    onend?: (soundId: number) => void;
-    onpause?: (soundId: number) => void;
-    onstop?: (soundId: number) => void;
-    onmute?: (soundId: number) => void;
-    onvolume?: (soundId: number) => void;
-    onrate?: (soundId: number) => void;
-    onseek?: (soundId: number) => void;
-    onfade?: (soundId: number) => void;
-    onunlock?: (soundId: number) => void;
+    onloaderror?: HowlErrorCallback;
+    onplay?: HowlCallback;
+    onplayerror?: HowlErrorCallback;
+    onend?: HowlCallback;
+    onpause?: HowlCallback;
+    onstop?: HowlCallback;
+    onmute?: HowlCallback;
+    onvolume?: HowlCallback;
+    onrate?: HowlCallback;
+    onseek?: HowlCallback;
+    onfade?: HowlCallback;
+    onunlock?: HowlCallback;
 }
 
 interface Howl {
@@ -89,34 +184,34 @@ interface Howl {
     unload(): void;
 
     on(event: 'load', callback: () => void, id?: number): this;
-    on(event: 'loaderror', callback: (soundId: number, error: any) => void, id?: number): this;
-    on(event: 'play', callback: (soundId: number) => void, id?: number): this;
-    on(event: 'playerror', callback: (soundId: number, error: any) => void, id?: number): this;
-    on(event: 'end', callback: (soundId: number) => void, id?: number): this;
-    on(event: 'pause', callback: (soundId: number) => void, id?: number): this;
-    on(event: 'stop', callback: (soundId: number) => void, id?: number): this;
-    on(event: 'mute', callback: (soundId: number) => void, id?: number): this;
-    on(event: 'volume', callback: (soundId: number) => void, id?: number): this;
-    on(event: 'rate', callback: (soundId: number) => void, id?: number): this;
-    on(event: 'seek', callback: (soundId: number) => void, id?: number): this;
-    on(event: 'fade', callback: (soundId: number) => void, id?: number): this;
+    on(event: 'loaderror', callback: HowlErrorCallback, id?: number): this;
+    on(event: 'play', callback: HowlCallback, id?: number): this;
+    on(event: 'playerror', callback: HowlErrorCallback, id?: number): this;
+    on(event: 'end', callback: HowlCallback, id?: number): this;
+    on(event: 'pause', callback: HowlCallback, id?: number): this;
+    on(event: 'stop', callback: HowlCallback, id?: number): this;
+    on(event: 'mute', callback: HowlCallback, id?: number): this;
+    on(event: 'volume', callback: HowlCallback, id?: number): this;
+    on(event: 'rate', callback: HowlCallback, id?: number): this;
+    on(event: 'seek', callback: HowlCallback, id?: number): this;
+    on(event: 'fade', callback: HowlCallback, id?: number): this;
     on(event: string, callback: Function, id?: number): this;
-    on(event: 'unlock', callback: (soundId: number) => void, id?: number): this;
+    on(event: 'unlock', callback: HowlCallback, id?: number): this;
 
     once(event: 'load', callback: () => void, id?: number): this;
-    once(event: 'loaderror', callback: (soundId: number, error: any) => void, id?: number): this;
-    once(event: 'play', callback: (soundId: number) => void, id?: number): this;
-    once(event: 'playerror', callback: (soundId: number, error: any) => void, id?: number): this;
-    once(event: 'end', callback: (soundId: number) => void, id?: number): this;
-    once(event: 'pause', callback: (soundId: number) => void, id?: number): this;
-    once(event: 'stop', callback: (soundId: number) => void, id?: number): this;
-    once(event: 'mute', callback: (soundId: number) => void, id?: number): this;
-    once(event: 'volume', callback: (soundId: number) => void, id?: number): this;
-    once(event: 'rate', callback: (soundId: number) => void, id?: number): this;
-    once(event: 'seek', callback: (soundId: number) => void, id?: number): this;
-    once(event: 'fade', callback: (soundId: number) => void, id?: number): this;
+    once(event: 'loaderror', callback: HowlErrorCallback, id?: number): this;
+    once(event: 'play', callback: HowlCallback, id?: number): this;
+    once(event: 'playerror', callback: HowlErrorCallback, id?: number): this;
+    once(event: 'end', callback: HowlCallback, id?: number): this;
+    once(event: 'pause', callback: HowlCallback, id?: number): this;
+    once(event: 'stop', callback: HowlCallback, id?: number): this;
+    once(event: 'mute', callback: HowlCallback, id?: number): this;
+    once(event: 'volume', callback: HowlCallback, id?: number): this;
+    once(event: 'rate', callback: HowlCallback, id?: number): this;
+    once(event: 'seek', callback: HowlCallback, id?: number): this;
+    once(event: 'fade', callback: HowlCallback, id?: number): this;
     once(event: string, callback: Function, id?: number): this;
-    once(event: 'unlock', callback: (soundId: number) => void, id?: number): this;
+    once(event: 'unlock', callback: HowlCallback, id?: number): this;
 
     off(event: string, callback?: Function, id?: number): this;
     off(): this;
@@ -133,7 +228,7 @@ interface Howl {
 }
 
 interface HowlStatic {
-    new(properties: IHowlProperties): Howl;
+    new(options: HowlOptions): Howl;
 }
 
 declare let Howl: HowlStatic;
