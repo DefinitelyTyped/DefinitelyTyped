@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-export namespace CopyToClipboard {
+declare namespace CopyToClipboard {
   interface Options {
     debug?: boolean;
     format?: 'text/html' | 'text/plain';
@@ -22,8 +22,6 @@ export namespace CopyToClipboard {
     onCopy?(text: string, result: boolean): void;
     options?: Options;
   }
-  
-  class CopyToClipboard extends React.Component<Props> { }
 }
 
 export class CopyToClipboard extends React.Component<CopyToClipboard.Props> { }
