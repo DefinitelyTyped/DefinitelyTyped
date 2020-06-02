@@ -1,5 +1,5 @@
-// Type definitions for non-npm package @ember/template  3.12
-// Project: https://emberjs.com/api/ember/3.12/modules/@ember%2Ftemplate
+// Type definitions for non-npm package @ember/template 3.16
+// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Ftemplate
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>

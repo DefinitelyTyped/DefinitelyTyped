@@ -1,5 +1,5 @@
-// Type definitions for non-npm package @ember/runloop  3.12
-// Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Frunloop
+// Type definitions for non-npm package @ember/runloop 3.16
+// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Frunloop
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Steve Calvert <https://github.com/scalvert>
 //                 Chris Krycho <https://github.com/chriskrycho>

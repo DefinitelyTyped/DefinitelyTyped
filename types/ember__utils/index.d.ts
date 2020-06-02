@@ -1,5 +1,5 @@
-// Type definitions for non-npm package @ember/utils  3.12
-// Project: https://emberjs.com/
+// Type definitions for non-npm package @ember/utils 3.16
+// Project: https://api.emberjs.com/ember/3.16/modules/@ember%2Futils
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
