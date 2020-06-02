@@ -12,6 +12,9 @@ import {
     APIGatewayProxyEvent,
     APIGatewayProxyHandler,
     APIGatewayProxyResult,
+    APIGatewayProxyEventV2,
+    APIGatewayProxyHandlerV2,
+    APIGatewayProxyResultV2,
     APIGatewayProxyWithLambdaAuthorizerEventRequestContext,
     APIGatewayProxyWithLambdaAuthorizerHandler,
     APIGatewayRequestAuthorizerHandler,
@@ -132,6 +135,36 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     return result;
 };
 
+const proxyHandlerV2: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
+    strOrNull = event.body;
+    str = event.headers['example'];
+    str = event.routeKey;
+    bool = event.isBase64Encoded;
+    str = event.rawPath;
+    str = event.rawQueryString;
+    strOrUndefinedOrNull = event.cookies[0];
+    str = event.stageVariables['example'];
+
+    str = event.requestContext.http.protocol;
+    str = event.requestContext.http.sourceIp;
+    str = event.requestContext.http.method;
+    str = event.requestContext.http.userAgent;
+    str = event.requestContext.accountId;
+    str = event.requestContext.apiId;
+    str = event.requestContext.domainName;
+    str = event.requestContext.domainPrefix;
+    str = event.requestContext.stage;
+    str = event.requestContext.requestId;
+    str = event.requestContext.time;
+    num = event.requestContext.timeEpoch;
+
+    const result = createProxyResultV2();
+
+    callback(new Error());
+    callback(null, result);
+    return result;
+};
+
 const proxyHandlerWithCustomAuthorizer: APIGatewayProxyWithLambdaAuthorizerHandler<CustomAuthorizerContext> = async (event, context, callback) => {
     // standard fields...
     strOrNull = event.body;
@@ -187,6 +220,24 @@ function createProxyResult(): APIGatewayProxyResult {
         },
         multiValueHeaders: {
             [str]: [str, bool, num],
+        },
+        isBase64Encoded: true,
+        body: str,
+    };
+    return result;
+}
+
+function createProxyResultV2(): APIGatewayProxyResultV2 {
+    let result: APIGatewayProxyResultV2 = {
+        statusCode: num,
+        body: str,
+    };
+    result = {
+        statusCode: num,
+        headers: {
+            [str]: str,
+            [str]: bool,
+            [str]: num,
         },
         isBase64Encoded: true,
         body: str,
