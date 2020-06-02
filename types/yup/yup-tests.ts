@@ -320,56 +320,54 @@ yup.object()
     });
 
 // String schema
-function strSchemaTests(strSchema: yup.StringSchema) {
-    strSchema.type;
-    strSchema.isValid('hello'); // => true
-    strSchema.required();
-    strSchema.required('req');
-    strSchema.required(() => 'req');
-    strSchema.length(5, 'message');
-    strSchema.length(5, () => 'message');
-    strSchema.length(5, ({ length }) => `must be ${length}`);
-    // $ExpectError
-    strSchema.length(5, ({ min }) => `must be ${min}`);
-    strSchema.min(5, 'message');
-    strSchema.min(5, () => 'message');
-    strSchema.min(5, ({ min }) => `more than ${min}`);
-    // $ExpectError
-    strSchema.min(5, ({ max }) => `more than ${max}`);
-    strSchema.max(5, 'message');
-    strSchema.max(5, () => 'message');
-    strSchema.max(5, ({ max }) => `less than ${max}`);
-    // $ExpectError
-    strSchema.max(5, ({ min }) => `less than ${min}`);
-    strSchema.matches(/(hi|bye)/);
-    strSchema.matches(/(hi|bye)/, 'invalid');
-    strSchema.matches(/(hi|bye)/, () => 'invalid');
-    strSchema.matches(/(hi|bye)/, ({ regex }) => `Does not match ${regex}`);
-    strSchema.email();
-    strSchema.email('invalid');
-    strSchema.email(() => 'invalid');
-    strSchema.email(({ regex }) => `Does not match ${regex}`);
-    strSchema.url();
-    strSchema.url('bad url');
-    strSchema.url(() => 'bad url');
-    strSchema.url(({ regex }) => `Does not match ${regex}`);
-    strSchema.ensure();
-    strSchema.trim();
-    strSchema.trim('trimmed');
-    strSchema.trim(() => 'trimmed');
-    strSchema.lowercase();
-    strSchema.lowercase('lower');
-    strSchema.lowercase(() => 'lower');
-    strSchema.uppercase();
-    strSchema.uppercase('upper');
-    strSchema.uppercase(() => 'upper');
-    strSchema.defined();
-}
-
 const strSchema = yup.string(); // $ExpectType StringSchema<string | undefined>
 strSchema.oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world" | undefined>
 strSchema.required().oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world">
-strSchemaTests(strSchema);
+strSchema.type;
+strSchema.isValid('hello'); // => true
+strSchema.required();
+strSchema.required('req');
+strSchema.required(() => 'req');
+strSchema.length(5, 'message');
+strSchema.length(5, () => 'message');
+strSchema.length(5, ({ length }) => `must be ${length}`);
+// $ExpectError
+strSchema.length(5, ({ min }) => `must be ${min}`);
+strSchema.min(5, 'message');
+strSchema.min(5, () => 'message');
+strSchema.min(5, ({ min }) => `more than ${min}`);
+// $ExpectError
+strSchema.min(5, ({ max }) => `more than ${max}`);
+strSchema.max(5, 'message');
+strSchema.max(5, () => 'message');
+strSchema.max(5, ({ max }) => `less than ${max}`);
+// $ExpectError
+strSchema.max(5, ({ min }) => `less than ${min}`);
+strSchema.matches(/(hi|bye)/);
+strSchema.matches(/(hi|bye)/, 'invalid');
+strSchema.matches(/(hi|bye)/, () => 'invalid');
+strSchema.matches(/(hi|bye)/, ({ regex }) => `Does not match ${regex}`);
+strSchema.email();
+strSchema.email('invalid');
+strSchema.email(() => 'invalid');
+strSchema.email(({ regex }) => `Does not match ${regex}`);
+strSchema.url();
+strSchema.url('bad url');
+strSchema.url(() => 'bad url');
+strSchema.url(({ regex }) => `Does not match ${regex}`);
+strSchema.ensure();
+strSchema.trim();
+strSchema.trim('trimmed');
+strSchema.trim(() => 'trimmed');
+strSchema.lowercase();
+strSchema.lowercase('lower');
+strSchema.lowercase(() => 'lower');
+strSchema.uppercase();
+strSchema.uppercase('upper');
+strSchema.uppercase(() => 'upper');
+strSchema.defined();
+strSchema.default();
+strSchema.defined().default("abc"); // $ExpectType StringSchema<string | null | undefined>
 
 // $ExpectError
 yup.string<123>();
@@ -415,6 +413,8 @@ numSchema.oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined>
 numSchema.equals([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined>
 numSchema.required().oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
 numSchema.defined();
+numSchema.default();
+numSchema.defined().default(1); // $ExpectType NumberSchema<number | null | undefined>
 
 // Boolean Schema
 const boolSchema = yup.boolean(); // $ExpectType BooleanSchema<boolean | undefined>
@@ -424,6 +424,8 @@ boolSchema.oneOf([true] as const); // $ExpectType BooleanSchema<true | undefined
 boolSchema.equals([true] as const); // $ExpectType BooleanSchema<true | undefined>
 boolSchema.required().oneOf([true] as const); // $ExpectType BooleanSchema<true>
 boolSchema.defined();
+boolSchema.default();
+boolSchema.defined().default(true); // $ExpectType BooleanSchema<boolean | null | undefined>
 
 // Date Schema
 const dateSchema = yup.date(); // $ExpectType DateSchema<Date | undefined>
@@ -442,6 +444,8 @@ dateSchema.max('2017-11-12', () => 'message');
 dateSchema.oneOf([new Date()] as const); // $ExpectType DateSchema<Date | undefined>
 dateSchema.equals([new Date()] as const); // $ExpectType DateSchema<Date | undefined>
 dateSchema.required().oneOf([new Date()] as const); // $ExpectType DateSchema<Date>
+dateSchema.default();
+dateSchema.defined().default(new Date()); // $ExpectType DateSchema<Date | null | undefined>
 
 // Array Schema
 const arrSchema = yup.array().of(yup.number().defined().min(2));
@@ -469,6 +473,8 @@ arrSchema.compact((value, index, array) => value === array[index]);
 arrSchema.oneOf([]); // $ExpectType NotRequiredArraySchema<number>
 arrSchema.equals([]); // $ExpectType NotRequiredArraySchema<number>
 arrSchema.defined();
+arrSchema.default();
+arrSchema.defined().default([123]); // $ExpectType NotRequiredNullableArraySchema<number>
 
 const arrOfObjSchema = yup.array().defined().of(
     yup.object().defined().shape({
@@ -515,6 +521,13 @@ objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
 objSchema.snakeCase();
 objSchema.constantCase();
+objSchema.default();
+objSchema.defined().default({
+    name: "John Doe",
+    age: 35,
+    email: "john@example.com",
+    website: "example.com"
+});
 interface LiteralExampleObject {
     name: "John Doe";
     age: 35;
