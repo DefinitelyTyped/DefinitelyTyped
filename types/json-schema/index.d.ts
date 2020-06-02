@@ -38,7 +38,7 @@ export type JSONSchema4Type =
 
 // Workaround for infinite type recursion
 export interface JSONSchema4Object {
-[key: string]: JSONSchema4Type;
+    [key: string]: JSONSchema4Type;
 }
 
 // Workaround for infinite type recursion
