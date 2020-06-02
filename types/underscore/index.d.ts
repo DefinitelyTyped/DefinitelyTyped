@@ -109,6 +109,10 @@ declare module _ {
 
     type NonFalsy<T> = T extends undefined | null | false | '' | 0 ? never : T;
 
+    type KeysOfUnion<T> = T extends any ? keyof T : never;
+
+    type TypesOfUnionProperty<T, K extends KeysOfUnion<T>> = T extends any ? T[Extract<keyof T, K>] extends never ? undefined : T[Extract<keyof T, K>] : never;
+
     type TypeOfDictionary<T> = T extends _.Dictionary<infer V> ? V : never;
 
     type TypeOfListItem<T> = T extends _.List<infer TItem> ? TItem : never;
@@ -215,9 +219,9 @@ declare module _ {
         * @param iterator - The name of a specific property to retrieve from all items.
         * @return The set of values for the specified property for each item in the collection.
         */
-        map<T, TProperty extends keyof T>(
+        map<T, K extends KeysOfUnion<T>>(
             collection: _.Collection<T>,
-            iterator: TProperty): T[TProperty][];
+            iterator: K): TypesOfUnionProperty<T, K>[];
 
         /**
         * @see _.map
@@ -327,7 +331,7 @@ declare module _ {
         **/
         find<T>(
             collection: _.Collection<T>,
-            iterator: Partial<T> | keyof T): T | undefined;
+            iterator: Partial<T> | KeysOfUnion<T>): T | undefined;
 
         /**
         * @see _.find
@@ -360,7 +364,7 @@ declare module _ {
         **/
         filter<T>(
             collection: _.Collection<T>,
-            iterator: Partial<T> | keyof T): T[];
+            iterator: Partial<T> | KeysOfUnion<T>): T[];
 
         /**
         * @see _.filter
@@ -415,7 +419,7 @@ declare module _ {
         **/
         reject<T>(
             collection: _.Collection<T>,
-            iterator: Partial<T> | keyof T): T[];
+            iterator: Partial<T> | KeysOfUnion<T>): T[];
 
         /**
         * Returns true if all of the values in the list pass the iterator truth test. Delegates to the
@@ -443,7 +447,7 @@ declare module _ {
         **/
         every<T>(
             collection: _.Collection<T>,
-            iterator?: Partial<T> | keyof T): boolean;
+            iterator?: Partial<T> | KeysOfUnion<T>): boolean;
 
         /**
         * @see _.every
@@ -476,7 +480,7 @@ declare module _ {
         **/
         some<T>(
             collection: _.Collection<T>,
-            iterator?: Partial<T> | keyof T): boolean;
+            iterator?: Partial<T> | KeysOfUnion<T>): boolean;
 
         /**
         * @see _.some
@@ -519,7 +523,7 @@ declare module _ {
         * @param methodName The method's name to call on each element within `list`.
         * @param arguments Additional arguments to pass to the method `methodName`.
         **/
-        invoke<T extends {}>(
+        invoke<T>(
             list: _.Collection<T>,
             methodName: string,
             ...args: any[]): any[];
@@ -531,9 +535,9 @@ declare module _ {
         * @param propertyName The property to look for on each element within `list`.
         * @return The list of elements within `list` that have the property `propertyName`.
         **/
-        pluck<T extends {}, K extends keyof T>(
+        pluck<T, K extends KeysOfUnion<T>>(
             collection: _.Collection<T>,
-            propertyName: K): T[K][];
+            propertyName: K): TypesOfUnionProperty<T, K>[];
 
         /**
         * Returns the maximum value in list.
@@ -779,7 +783,7 @@ declare module _ {
         **/
         partition<T>(
             collection: _.Collection<T>,
-            iterator: Partial<T> | keyof T): [T[], T[]];
+            iterator: Partial<T> | KeysOfUnion<T>): [T[], T[]];
 
         /*********
         * Arrays *
@@ -1027,7 +1031,7 @@ declare module _ {
         **/
         findIndex<T>(
             array: _.List<T>,
-            predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T,
+            predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>,
             context?: any): number;
 
         /**
@@ -1039,7 +1043,7 @@ declare module _ {
         **/
         findLastIndex<T>(
             array: _.List<T>,
-            predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T,
+            predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>,
             context?: any): number;
 
         /**
@@ -4079,7 +4083,7 @@ declare module _ {
         chain<T>(obj: T[]): _Chain<T, T[]>;
         chain<T>(obj: _.List<T>): _Chain<T, _.List<T>>;
         chain<T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(obj: V): _Chain<T, V>;
-        chain<T extends {}>(obj: T): _Chain<T>;
+        chain<T>(obj: T): _Chain<T>;
 
         /**
          * Current version
@@ -4125,7 +4129,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TProperty extends keyof T>(iterator: TProperty): T[TProperty][];
+        map<K extends KeysOfUnion<T>>(iterator: K): TypesOfUnionProperty<T, K>[];
 
         /**
         * Wrapped type `any[]`.
@@ -4192,7 +4196,7 @@ declare module _ {
         /**
         * @see _.find
         **/
-        find(iterator: Partial<T> | keyof T): T | undefined;
+        find(iterator: Partial<T> | KeysOfUnion<T>): T | undefined;
 
         /**
         * @see _.find
@@ -4214,7 +4218,7 @@ declare module _ {
         /**
         * @see _.filter
         **/
-        filter(iterator: Partial<T> | keyof T): T[];
+        filter(iterator: Partial<T> | KeysOfUnion<T>): T[];
 
         /**
         * @see _.filter
@@ -4248,7 +4252,7 @@ declare module _ {
         /**
         * @see _.reject
         **/
-        reject(iterator: Partial<T> | keyof T): T[];
+        reject(iterator: Partial<T> | KeysOfUnion<T>): T[];
 
         /**
         * Wrapped type `any[]`.
@@ -4265,7 +4269,7 @@ declare module _ {
         /**
         * @see _.every
         **/
-        every(iterator?: Partial<T> | keyof T): boolean;
+        every(iterator?: Partial<T> | KeysOfUnion<T>): boolean;
 
         /**
         * @see _.every
@@ -4287,7 +4291,7 @@ declare module _ {
         /**
         * @see _.some
         **/
-        some(iterator?: Partial<T> | keyof T): boolean;
+        some(iterator?: Partial<T> | KeysOfUnion<T>): boolean;
 
         /**
         * @see _.some
@@ -4322,7 +4326,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.pluck
         **/
-        pluck<TProperty extends keyof T>(propertyName: TProperty): T[TProperty][];
+        pluck<K extends KeysOfUnion<T>>(propertyName: K): TypesOfUnionProperty<T, K>[];
 
         /**
         * Wrapped type `any[]`.
@@ -4558,7 +4562,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.partition
         **/
-        partition(iterator: Partial<T> | keyof T): [T[], T[]];
+        partition(iterator: Partial<T> | KeysOfUnion<T>): [T[], T[]];
 
         /**
         * Wrapped type `any[][]`.
@@ -4639,12 +4643,12 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): number;
+        findIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>, context?: any): number;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): number;
+        findLastIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>, context?: any): number;
 
         /**
         * Wrapped type `any[]`.
@@ -5147,7 +5151,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TProperty extends keyof T>(iterator: TProperty): _Chain<T[TProperty], T[TProperty][]>;
+        map<K extends KeysOfUnion<T>>(iterator: K): _Chain<TypesOfUnionProperty<T, K>, TypesOfUnionProperty<T, K>[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5214,7 +5218,7 @@ declare module _ {
         /**
         * @see _.find
         **/
-        find(iterator: Partial<T> | keyof T): _ChainSingle<T | undefined>;
+        find(iterator: Partial<T> | KeysOfUnion<T>): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
@@ -5237,7 +5241,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.filter
         **/
-        filter(iterator: Partial<T> | keyof T): _Chain<T, T[]>;
+        filter(iterator: Partial<T> | KeysOfUnion<T>): _Chain<T, T[]>;
 
         /**
         * @see _.filter
@@ -5272,7 +5276,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.reject
         **/
-        reject(iterator: Partial<T> | keyof T): _Chain<T, T[]>;
+        reject(iterator: Partial<T> | KeysOfUnion<T>): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5290,7 +5294,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.every
         **/
-        every(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
+        every(iterator?: Partial<T> | KeysOfUnion<T>): _ChainSingle<boolean>;
 
         /**
         * @see _.every
@@ -5313,7 +5317,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.some
         **/
-        some(iterator?: Partial<T> | keyof T): _ChainSingle<boolean>;
+        some(iterator?: Partial<T> | KeysOfUnion<T>): _ChainSingle<boolean>;
 
         /**
         * @see _.some
@@ -5348,7 +5352,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.pluck
         **/
-        pluck<TProperty extends keyof T>(propertyName: TProperty): _Chain<T[TProperty], T[TProperty][]>;
+        pluck<K extends KeysOfUnion<T>>(propertyName: K): _Chain<TypesOfUnionProperty<T, K>, TypesOfUnionProperty<T, K>[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5586,7 +5590,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.partition
         **/
-        partition(iterator: Partial<T> | keyof T): _Chain<T[], [T[], T[]]>;
+        partition(iterator: Partial<T> | KeysOfUnion<T>): _Chain<T[], [T[], T[]]>;
 
         /**
         * Wrapped type `any[][]`.
@@ -5666,12 +5670,12 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): _ChainSingle<number>;
+        findIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>, context?: any): _ChainSingle<number>;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | keyof T, context?: any): _ChainSingle<number>;
+        findLastIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>, context?: any): _ChainSingle<number>;
 
         /**
         * Wrapped type `any[]`.
