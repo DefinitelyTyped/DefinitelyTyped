@@ -156,7 +156,7 @@ const awsServerless: Aws.Serverless = {
         environment: {
             testenvironmentkey: 'testenvironmentvalue'
         },
-        endpointType: 'testendpointType',
+        endpointType: 'regional',
         apiKeys: ['testApiKeys'],
         apiGateway: {
             restApiId: 'testrestApiId',
