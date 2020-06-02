@@ -1,17 +1,9 @@
-/*
- * HTTP client.
- * https://docs.k6.io/docs/k6http
- */
-
 import { bytes, JSONValue } from '.';
 import { Selection } from './html';
 
-// === Main ===
-// ------------
-
 /**
- * Make DELETE request.
- * https://docs.k6.io/docs/del-url-body-params
+ * Make DELETE  request.
+ * https://k6.io/docs/javascript-api/k6-http/del-url-body-params
  * @param url - Request URL.
  * @param body - Discouraged. Request body. Object form encoded.
  * @param params - Request parameters.
@@ -26,7 +18,7 @@ export function del<RT extends ResponseType | undefined>(
 
 /**
  * Make GET request.
- * https://docs.k6.io/docs/get-url-body-params
+ * https://k6.io/docs/javascript-api/k6-http/get-url-params
  * @param url - Request URL.
  * @param params - Request parameters.
  * @returns Resulting response.
@@ -39,7 +31,7 @@ export function get<RT extends ResponseType | undefined>(
 
 /**
  * Make OPTIONS request.
- * https://docs.k6.io/docs/options-url-body-params
+ * https://k6.io/docs/javascript-api/k6-http/options-url-body-params
  * @param url - Request URL.
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
@@ -54,7 +46,7 @@ export function options<RT extends ResponseType | undefined>(
 
 /**
  * Make PATCH request.
- * https://docs.k6.io/docs/patch-url-body-params
+ * https://k6.io/docs/javascript-api/k6-http/patch-url-body-params
  * @param url - Request URL.
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
@@ -69,7 +61,7 @@ export function patch<RT extends ResponseType | undefined>(
 
 /**
  * Make POST request.
- * https://docs.k6.io/docs/post-url-body-params
+ * https://k6.io/docs/javascript-api/k6-http/post-url-body-params
  * @param url - Request URL.
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
@@ -84,7 +76,7 @@ export function post<RT extends ResponseType | undefined>(
 
 /**
  * Make PUT request.
- * https://docs.k6.io/docs/put-url-body-params
+ * https://k6.io/docs/javascript-api/k6-http/put-url-body-params
  * @param url - Request URL.
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
@@ -99,7 +91,7 @@ export function put<RT extends ResponseType | undefined>(
 
 /**
  * Make request.
- * https://docs.k6.io/docs/request-method-url-body-params
+ * https://k6.io/docs/javascript-api/k6-http/request-method-url-body-params
  * @param method - HTTP method.
  * @param url - Request URL.
  * @param body - Request body. Object form encoded.
@@ -117,7 +109,7 @@ export function request<RT extends ResponseType | undefined>(
 /**
  * Batch multiple HTTP requests together,
  * to issue them in parallel over multiple TCP connections.
- * https://docs.k6.io/docs/batch-requests
+ * https://k6.io/docs/javascript-api/k6-http/batch-requests
  * @param requests - Request specifications.
  * @returns Resulting responses.
  * @public
@@ -126,7 +118,7 @@ export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
 
 /**
  * Create a file object used for building multipart requests (file uploads).
- * https://docs.k6.io/docs/file-data-filename-contenttype
+ * https://k6.io/docs/javascript-api/k6-http/file-data-filename-contenttype
  * @param data - File data.
  * @param filename - Filename. Included in MIME message.
  * @param contentType - Content type. Included in MIME message.
@@ -137,7 +129,7 @@ export function file(data: string | bytes, filename?: string, contentType?: stri
 
 /**
  * Get active cookie jar.
- * https://docs.k6.io/docs/cookiejar
+ * https://k6.io/docs/javascript-api/k6-http/cookiejar
  * @returns Active cookie jar.
  * @public
  */
@@ -214,7 +206,7 @@ export const OCSP_REASON_UNSPECIFIED = 'unspecified';
 
 /**
  * Request parameters.
- * https://docs.k6.io/docs/params-k6http
+ * https://k6.io/docs/javascript-api/k6-http/params-k6-http
  * @public
  */
 export interface Params {
@@ -269,7 +261,7 @@ export type ResponseType = 'binary' | 'none' | 'text';
 
 /**
  * Cookie value in request parameters.
- * https://docs.k6.io/docs/params-k6http
+ * https://k6.io/docs/javascript-api/k6-http/params-k6-http
  * @public
  */
 export type ParamsCookieValue = string | { value?: string; replace?: boolean };
@@ -296,7 +288,7 @@ export interface StructuredRequestBody {
 
 /**
  * Batch request specification.
- * https://docs.k6.io/docs/batch-requests
+ * https://k6.io/docs/javascript-api/k6-http/batch-requests
  * @public
  */
 export type BatchRequest = string | ArrayBatchRequest | ObjectBatchRequest;
@@ -382,7 +374,7 @@ export type BatchResponses<Q> = {
 
 /**
  * Response.
- * https://docs.k6.io/docs/response-k6http
+ * https://k6.io/docs/javascript-api/k6-http/response-k6-http
  * @public
  */
 export interface Response {
@@ -487,7 +479,7 @@ export interface Response {
 
     /**
      * Click link on page.
-     * https://docs.k6.io/docs/responseclicklink-params
+     * https://k6.io/docs/javascript-api/k6-http/response-k6-http/response-clicklink-params
      * @param selector - Selector expression locating link to click.
      * @param params - Parameters for link click request.
      * @returns Link click response.
@@ -515,7 +507,7 @@ export interface Response {
 
     /**
      * Submit form on page.
-     * https://docs.k6.io/docs/responsesubmitform-params
+     * https://k6.io/docs/javascript-api/k6-http/response-k6-http/response-submitform-params
      * @param formSelector - Selector expression locating form to submit.
      * @param fields - Form field values.
      * @param submitSelector - Selector expression locating submit button.
@@ -649,7 +641,7 @@ export interface ResponseCookie {
 
 /**
  * File data for constructing a multipart request with file uploads.
- * https://docs.k6.io/docs/filedata-k6http
+ * https://k6.io/docs/javascript-api/k6-http/filedata-k6-http
  * @public
  */
 export abstract class FileData {
@@ -678,7 +670,7 @@ export abstract class CookieJar {
 
     /**
      * Get cookies set for a particular URL.
-     * https://docs.k6.io/docs/cookiejarcookiesforurlurl
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-cookiesforurl-url
      * @param url - URL for which to get cookies.
      * @returns Cookies for URL.
      */
@@ -686,7 +678,7 @@ export abstract class CookieJar {
 
     /**
      * Set cookie.
-     * https://docs.k6.io/docs/cookiejarsetname-value-options
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-set-name-value-options
      * @param name - Cookie name.
      * @param value - Cookie value.
      * @param options - Optional settings.
@@ -725,3 +717,147 @@ export interface CookieOptions {
     /** HTTP only. */
     http_only?: boolean;
 }
+
+/**
+ * @namespace k6/http
+ *
+ * The http module contains functionality for performing HTTP transactions.
+ * https://k6.io/docs/javascript-api/k6-http
+ */
+declare namespace http {
+    /**
+     * Make DELETE  request.
+     * https://k6.io/docs/javascript-api/k6-http/del-url-body-params
+     * @param url - Request URL.
+     * @param body - Discouraged. Request body. Object form encoded.
+     * @param params - Request parameters.
+     * @returns Resulting response.
+     * @public
+     */
+    function del<RT extends ResponseType | undefined>(
+        url: string,
+        body?: RequestBody | null,
+        params?: RefinedParams<RT> | null
+    ): RefinedResponse<RT>;
+
+    /**
+     * Make GET request.
+     * https://k6.io/docs/javascript-api/k6-http/get-url-params
+     * @param url - Request URL.
+     * @param params - Request parameters.
+     * @returns Resulting response.
+     * @public
+     */
+    function get<RT extends ResponseType | undefined>(
+        url: string,
+        params?: RefinedParams<RT> | null
+    ): RefinedResponse<RT>;
+
+    /**
+     * Make OPTIONS request.
+     * https://k6.io/docs/javascript-api/k6-http/options-url-body-params
+     * @param url - Request URL.
+     * @param body - Request body. Object form encoded.
+     * @param params - Request parameters.
+     * @returns Resulting response.
+     * @public
+     */
+    function options<RT extends ResponseType | undefined>(
+        url: string,
+        body?: RequestBody | null,
+        params?: RefinedParams<RT> | null
+    ): RefinedResponse<RT>;
+
+    /**
+     * Make PATCH request.
+     * https://k6.io/docs/javascript-api/k6-http/patch-url-body-params
+     * @param url - Request URL.
+     * @param body - Request body. Object form encoded.
+     * @param params - Request parameters.
+     * @returns Resulting response.
+     * @public
+     */
+    function patch<RT extends ResponseType | undefined>(
+        url: string,
+        body?: RequestBody | null,
+        params?: RefinedParams<RT> | null
+    ): RefinedResponse<RT>;
+
+    /**
+     * Make POST request.
+     * https://k6.io/docs/javascript-api/k6-http/post-url-body-params
+     * @param url - Request URL.
+     * @param body - Request body. Object form encoded.
+     * @param params - Request parameters.
+     * @returns Resulting response.
+     * @public
+     */
+    function post<RT extends ResponseType | undefined>(
+        url: string,
+        body?: RequestBody | null,
+        params?: RefinedParams<RT> | null
+    ): RefinedResponse<RT>;
+
+    /**
+     * Make PUT request.
+     * https://k6.io/docs/javascript-api/k6-http/put-url-body-params
+     * @param url - Request URL.
+     * @param body - Request body. Object form encoded.
+     * @param params - Request parameters.
+     * @returns Resulting response.
+     * @public
+     */
+    function put<RT extends ResponseType | undefined>(
+        url: string,
+        body?: RequestBody | null,
+        params?: RefinedParams<RT> | null
+    ): RefinedResponse<RT>;
+
+    /**
+     * Make request.
+     * https://k6.io/docs/javascript-api/k6-http/request-method-url-body-params
+     * @param method - HTTP method.
+     * @param url - Request URL.
+     * @param body - Request body. Object form encoded.
+     * @param params - Request parameters.
+     * @returns Resulting response.
+     * @public
+     */
+    function request<RT extends ResponseType | undefined>(
+        method: string,
+        url: string,
+        body?: RequestBody | null,
+        params?: RefinedParams<RT> | null
+    ): RefinedResponse<RT>;
+
+    /**
+     * Batch multiple HTTP requests together,
+     * to issue them in parallel over multiple TCP connections.
+     * https://k6.io/docs/javascript-api/k6-http/batch-requests
+     * @param requests - Request specifications.
+     * @returns Resulting responses.
+     * @public
+     */
+    function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
+
+    /**
+     * Create a file object used for building multipart requests (file uploads).
+     * https://k6.io/docs/javascript-api/k6-http/file-data-filename-contenttype
+     * @param data - File data.
+     * @param filename - Filename. Included in MIME message.
+     * @param contentType - Content type. Included in MIME message.
+     * @returns File data object.
+     * @public
+     */
+    function file(data: string | bytes, filename?: string, contentType?: string): FileData;
+
+    /**
+     * Get active cookie jar.
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar
+     * @returns Active cookie jar.
+     * @public
+     */
+    function cookieJar(): CookieJar;
+}
+
+export default http;

@@ -1,13 +1,13 @@
 /*
  * Program options.
- * https://docs.k6.io/docs/options
+ * https://k6.io/docs/using-k6/options
  */
 
 import { CipherSuite } from './http';
 
 /**
  * Program options.
- * https://docs.k6.io/docs/options
+ * https://k6.io/docs/using-k6/options
  * @public
  */
 export interface Options {
@@ -130,14 +130,14 @@ export interface Stage {
 
 /**
  * Threshold specification.
- * https://docs.k6.io/docs/thresholds
+ * https://k6.io/docs/using-k6/thresholds
  * @public
  */
 export type Threshold = string | ObjectThreshold;
 
 /**
  * Object form threshold specification.
- * https://docs.k6.io/docs/thresholds
+ * https://k6.io/docs/using-k6/thresholds
  * @public
  */
 export interface ObjectThreshold {

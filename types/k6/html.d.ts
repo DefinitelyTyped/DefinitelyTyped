@@ -1,6 +1,6 @@
 /*
  * HTML parsing and access.
- * https://docs.k6.io/docs/k6html
+ * https://k6.io/docs/javascript-api/k6-html
  */
 
 // === Main ===
@@ -19,7 +19,7 @@ export function parseHTML(html: string): Selection;
 
 /**
  * Represents a set of nodes in a DOM tree.
- * https://docs.k6.io/docs/selection-k6html
+ * https://k6.io/docs/javascript-api/k6-html/selection
  * @public
  */
 export abstract class Selection {
@@ -27,7 +27,7 @@ export abstract class Selection {
 
     /**
      * Get the value of an attribute for the first element in the Selection.
-     * https://docs.k6.io/docs/selectionattrname
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-attr-name
      * @param name - Name of attribute to get.
      * @returns Attribute value.
      */
@@ -36,7 +36,7 @@ export abstract class Selection {
     /**
      * Get the children of each element in the set of matched elements,
      * optionally filtered by a selector.
-     * https://docs.k6.io/docs/selectionchildrenselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-children-selector
      * @param selector - Selector expression.
      * @returns Selected children.
      */
@@ -46,7 +46,7 @@ export abstract class Selection {
      * For each element in the set, get the first element that matches the
      * selector by testing the element itself and traversing up through its
      * ancestors in the DOM tree.
-     * https://docs.k6.io/docs/selectionclosestselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-closest-selector
      * @param selector - Selector expression.
      * @returns Selected nodes.
      */
@@ -55,7 +55,7 @@ export abstract class Selection {
     /**
      * Get the children of each element in the set of matched elements,
      * including text and comment nodes.
-     * https://docs.k6.io/docs/selectioncontents
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-contents
      * @returns Selected nodes.
      */
     contents(): Selection;
@@ -63,7 +63,7 @@ export abstract class Selection {
     /**
      * Return the value at the named data store for the first element in the
      * set of matched elements.
-     * https://docs.k6.io/docs/selectiondatakey
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-data-key
      * @param key - A string naming the piece of data to set.\
      * @returns The value at the named data store.
      */
@@ -72,14 +72,14 @@ export abstract class Selection {
     /**
      * Iterate over a Selection (k6/html), executing a function for each
      * matched element.
-     * https://docs.k6.io/docs/selectioneachfn
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-each-fn
      * @param handler - Logic to execute for each element.
      */
     each(handler: Handler): void;
 
     /**
      * Reduce the set of matched elements to the one at the specified index.
-     * https://docs.k6.io/docs/selectioneqindex
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-eq-index
      * @param index - An integer indicating the 0-based position of the element.
      * @returns Unary set of selected element.
      */
@@ -88,7 +88,7 @@ export abstract class Selection {
     /**
      * Reduce the set of matched elements to those that match the selector
      * or pass the function's test.
-     * https://docs.k6.io/docs/selectionfilterfn
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-filter-selector
      * @param selector - Selector expression.
      * @returns Selected elements.
      */
@@ -97,7 +97,7 @@ export abstract class Selection {
     /**
      * Reduce the set of matched elements to those that match the selector
      * or pass the function's test.
-     * https://docs.k6.io/docs/selectionfilterfn
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-filter-selector
      * @param selector - A function used as a test for each element in the set.
      * @returns Selected elements.
      */
@@ -106,7 +106,7 @@ export abstract class Selection {
     /**
      * Reduce the set of matched elements to those that match the selector
      * or pass the function's test.
-     * https://docs.k6.io/docs/selectionfilterfn
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-filter-selector
      * @param selector - A selection to match elements against.
      * @returns Selected elements.
      */
@@ -114,7 +114,7 @@ export abstract class Selection {
 
     /**
      * Find the selection descendants, filtered by a selector.
-     * https://docs.k6.io/docs/selectionfindselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-find-selector
      * @param selector - Selector expression.
      * @returns Selected elements.
      */
@@ -122,14 +122,14 @@ export abstract class Selection {
 
     /**
      * Reduce the set of matched elements to the first.
-     * https://docs.k6.io/docs/selectionfirst
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-first
      * @returns Unary set of first element.
      */
     first(): Selection;
 
     /**
      * Retrieve the element matched by the selector.
-     * https://docs.k6.io/docs/selectiongetindex
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-get-index
      * @param index - A zero-based integer indicating which element to retrieve.
      * @returns Selected element.
      */
@@ -138,7 +138,7 @@ export abstract class Selection {
     /**
      * Reduce the set of matched elements to those that have a descendant that
      * matches the selector.
-     * https://docs.k6.io/docs/selectionhasselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-has-selector
      * @param selector - Selector expression.
      * @returns Selected elements.
      */
@@ -146,7 +146,7 @@ export abstract class Selection {
 
     /**
      * Get the HTML contents of the first element.
-     * https://docs.k6.io/docs/selectionhtml
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-html
      * @returns The HTML content of the first element.
      */
     html(): string | undefined;
@@ -155,7 +155,7 @@ export abstract class Selection {
      * Check the current matched set of elements against a selector or element
      * and return true if at least one of these elements matches the given
      * arguments.
-     * https://docs.k6.io/docs/selectionisselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-is-selector
      * @param selector - Selector expression.
      * @returns Whether selector matched at least one element.
      */
@@ -165,7 +165,7 @@ export abstract class Selection {
      * Check the current matched set of elements against a selector or element
      * and return true if at least one of these elements matches the given
      * arguments.
-     * https://docs.k6.io/docs/selectionisselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-is-selector
      * @param selector - A function used as a test for each element in the set.
      * @returns Whether selector matched at least one element.
      */
@@ -175,7 +175,7 @@ export abstract class Selection {
      * Check the current matched set of elements against a selector or element
      * and return true if at least one of these elements matches the given
      * arguments.
-     * https://docs.k6.io/docs/selectionisselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-is-selector
      * @param selector - A selection to match against.
      * @returns Whether selector matched at least one element.
      */
@@ -183,7 +183,7 @@ export abstract class Selection {
 
     /**
      * Reduce the set of matched elements to the final one.
-     * https://docs.k6.io/docs/selectionlast
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-last
      * @returns Unary set of last element.
      */
     last(): Selection;
@@ -191,7 +191,7 @@ export abstract class Selection {
     /**
      * Pass each element in the current matched set through a function,
      * producing a new Array containing the return values.
-     * https://docs.k6.io/docs/selectionmapfn
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-map-fn
      * @param mapper - Procedure to execute on each element.
      * @returns Mapper return values.
      */
@@ -199,7 +199,7 @@ export abstract class Selection {
 
     /**
      * Get the immediately following sibling of each element.
-     * https://docs.k6.io/docs/selectionnext
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-next-selector
      * @param selector - Selector expression.
      * @returns Selected elements.
      */
@@ -208,7 +208,7 @@ export abstract class Selection {
     /**
      * Get all following siblings of each element,
      * optionally filtered by a selector.
-     * https://docs.k6.io/docs/selectionnextallselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-nextall-selector
      * @param selector - Selector expression.
      * @returns Selected elements.
      */
@@ -217,7 +217,7 @@ export abstract class Selection {
     /**
      * Get all following siblings of each element up to but not including the
      * element matched by the selector.
-     * https://docs.k6.io/docs/selectionnextuntilselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-nextuntil-selector-filter
      * @param selector - Selector expression.
      * @returns Selected elements.
      */
@@ -225,7 +225,7 @@ export abstract class Selection {
 
     /**
      * Remove elements.
-     * https://docs.k6.io/docs/selectionnotselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-not-selector
      * @param selector - Selector expression.
      * @returns Selection with matched elements removed.
      */
@@ -233,7 +233,7 @@ export abstract class Selection {
 
     /**
      * Remove elements.
-     * https://docs.k6.io/docs/selectionnotselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-not-selector
      * @param selector - A function used as a test for each element in the set.
      * @returns Selection with matched elements removed.
      */
@@ -241,7 +241,7 @@ export abstract class Selection {
 
     /**
      * Get the parent of each element, optionally filtered by a selector.
-     * https://docs.k6.io/docs/selectionparentselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-parent-selector
      * @param selector - Selector expression.
      * @returns Selected elements.
      */
@@ -249,7 +249,7 @@ export abstract class Selection {
 
     /**
      * Get the ancestors of each element, optionally filtered by a selector.
-     * https://docs.k6.io/docs/selectionparentsselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-parents-selector
      * @param selector - Selector expression.
      * @returns Selected elements.
      */
@@ -258,7 +258,7 @@ export abstract class Selection {
     /**
      * Get the ancestors of each element,
      * up to but not including the element matched by the selector.
-     * https://docs.k6.io/docs/selectionparentsuntilselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-parentsuntil-selector-filter
      * @param selector - Selector expression.
      * @returns Selected elements.
      */
@@ -266,7 +266,7 @@ export abstract class Selection {
 
     /**
      * Get the immediately preceding sibling of each element.
-     * https://docs.k6.io/docs/selectionprevselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-prev-selector
      * @param selector - Selector expression.
      * @returns Selected elements.
      */
@@ -275,7 +275,7 @@ export abstract class Selection {
     /**
      * Get all preceding siblings of each element,
      * optionally filtered by a selector.
-     * https://docs.k6.io/docs/selectionprevallselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-prevall-selector
      * @param selector - Selector expression.
      * @returns Selected elements.
      */
@@ -284,7 +284,7 @@ export abstract class Selection {
     /**
      * Get all preceding siblings of each element
      * up to but not including the element matched by the selector.
-     * https://docs.k6.io/docs/selectionprevuntilselector
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-prevuntil-selector-filter
      * @param selector - Selector expression.
      * @returns Selected elements.
      */
@@ -293,7 +293,7 @@ export abstract class Selection {
     /**
      * Encode a set of form elements as a string
      * in standard URL-encoded notation for submission.
-     * https://docs.k6.io/docs/selectionserialize
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-serialize
      * @returns URL-encoded representation of the form or form elements.
      */
     serialize(): string;
@@ -301,7 +301,7 @@ export abstract class Selection {
     /**
      * Encode a set of form elements as an array of name-value objects.
      * `[{ name: "name", value: "value" }, ... ]`
-     * https://docs.k6.io/docs/selectionserializearray
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-serializearray
      * @returns Array of name value objects of the form or form elements.
      */
     serializeArray(): FormValue[];
@@ -309,7 +309,7 @@ export abstract class Selection {
     /**
      * Encode a set of form elements as an object.
      * `{ inputName: "value", checkboxName: "value", ... }`
-     * https://docs.k6.io/docs/selectionserializeobject
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-serializeobject
      * @returns Object representation of the form or form elements,
      *     key is field name and value is field value.
      */
@@ -317,14 +317,14 @@ export abstract class Selection {
 
     /**
      * Return the number of elements in the selection.
-     * https://docs.k6.io/docs/selectionsize
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-size
      * @returns The number of elements in the selection.
      */
     size(): number;
 
     /**
      * Reduce the set of elements to a subset specified by a range of indices.
-     * https://docs.k6.io/docs/selectionslicestart-end
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-slice-start-end
      * @param start - An integer indicating the 0-based position at which the
      *     elements begin to be selected.
      * @param end - An integer indicating the 0-based position at which the
@@ -335,19 +335,21 @@ export abstract class Selection {
 
     /**
      * Get the text content of the selection.
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-text
      * @returns Text content.
      */
     text(): string;
 
     /**
      * Retrieve all the elements contained in the selection as an array.
-     * https://docs.k6.io/docs/selectiontoarray
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-toarray
      * @returns A unary selection of each element.
      */
     toArray(): Selection[];
 
     /**
      * Get the current value of the first element.
+     * https://k6.io/docs/javascript-api/k6-html/selection/selection-val
      * @returns The value of the first element.
      */
     val(): string | undefined;
@@ -628,7 +630,7 @@ export abstract class Element {
 
 /**
  * HTML <a> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class AnchorElement extends HrefElement {
@@ -637,7 +639,7 @@ export abstract class AnchorElement extends HrefElement {
 
 /**
  * HTML <area> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class AreaElement extends HrefElement {
@@ -646,7 +648,7 @@ export abstract class AreaElement extends HrefElement {
 
 /**
  * HTML <audio> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class AudioElement extends MediaElement {
@@ -655,7 +657,7 @@ export abstract class AudioElement extends MediaElement {
 
 /**
  * HTML <base> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class BaseElement extends Element {
@@ -664,7 +666,7 @@ export abstract class BaseElement extends Element {
 
 /**
  * HTML <button> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class ButtonElement extends FormFieldElement {
@@ -676,7 +678,7 @@ export abstract class ButtonElement extends FormFieldElement {
 
 /**
  * HTML <canvas> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class CanvasElement extends Element {
@@ -691,7 +693,7 @@ export abstract class CanvasElement extends Element {
 
 /**
  * HTML <data> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class DataElement extends Element {
@@ -700,7 +702,7 @@ export abstract class DataElement extends Element {
 
 /**
  * HTML <datalist> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class DataListElement extends Element {
@@ -712,7 +714,7 @@ export abstract class DataListElement extends Element {
 
 /**
  * HTML <del> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class DelElement extends ModElement {
@@ -721,7 +723,7 @@ export abstract class DelElement extends ModElement {
 
 /**
  * HTML <embed> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class EmbedElement extends Element {
@@ -730,7 +732,7 @@ export abstract class EmbedElement extends Element {
 
 /**
  * HTML <fieldset> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class FieldSetElement extends Element {
@@ -751,7 +753,7 @@ export abstract class FieldSetElement extends Element {
 
 /**
  * HTML <form> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class FormElement extends Element {
@@ -769,7 +771,7 @@ export abstract class FormElement extends Element {
 
 /**
  * HTML form field element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class FormFieldElement extends Element {
@@ -802,7 +804,7 @@ export abstract class FormFieldElement extends Element {
 
 /**
  * HTML hyperlink element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class HrefElement extends Element {
@@ -847,7 +849,7 @@ export abstract class HrefElement extends Element {
 
 /**
  * HTML <iframe> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class IFrameElement extends Element {
@@ -856,7 +858,7 @@ export abstract class IFrameElement extends Element {
 
 /**
  * HTML <img> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class ImageElement extends Element {
@@ -865,7 +867,7 @@ export abstract class ImageElement extends Element {
 
 /**
  * HTML <input> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class InputElement extends FormFieldElement {
@@ -877,7 +879,7 @@ export abstract class InputElement extends FormFieldElement {
 
 /**
  * HTML <ins> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class InsElement extends ModElement {
@@ -886,7 +888,7 @@ export abstract class InsElement extends ModElement {
 
 /**
  * HTML <keygen> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class KeygenElement extends Element {
@@ -901,7 +903,7 @@ export abstract class KeygenElement extends Element {
 
 /**
  * HTML <label> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class LabelElement extends Element {
@@ -916,7 +918,7 @@ export abstract class LabelElement extends Element {
 
 /**
  * HTML <legend> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class LegendElement extends Element {
@@ -928,7 +930,7 @@ export abstract class LegendElement extends Element {
 
 /**
  * HTML <li> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class LiElement extends Element {
@@ -937,7 +939,7 @@ export abstract class LiElement extends Element {
 
 /**
  * HTML <link> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class LinkElement extends Element {
@@ -949,7 +951,7 @@ export abstract class LinkElement extends Element {
 
 /**
  * HTML <map> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class MapElement extends Element {
@@ -964,7 +966,7 @@ export abstract class MapElement extends Element {
 
 /**
  * HTML media element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class MediaElement extends Element {
@@ -976,7 +978,7 @@ export abstract class MediaElement extends Element {
 
 /**
  * HTML <meta> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class MetaElement extends Element {
@@ -985,7 +987,7 @@ export abstract class MetaElement extends Element {
 
 /**
  * HTML <meter> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @Public
  */
 export abstract class MeterElement extends Element {
@@ -997,7 +999,7 @@ export abstract class MeterElement extends Element {
 
 /**
  * HTML modification element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class ModElement extends Element {
@@ -1006,7 +1008,7 @@ export abstract class ModElement extends Element {
 
 /**
  * HTML <object> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class ObjectElement extends Element {
@@ -1018,7 +1020,7 @@ export abstract class ObjectElement extends Element {
 
 /**
  * HTML <ol> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class OListElement extends Element {
@@ -1027,7 +1029,7 @@ export abstract class OListElement extends Element {
 
 /**
  * HTML <optgroup> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class OptGroupElement extends Element {
@@ -1036,7 +1038,7 @@ export abstract class OptGroupElement extends Element {
 
 /**
  * HTML <option> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class OptionElement extends Element {
@@ -1063,7 +1065,7 @@ export abstract class OptionElement extends Element {
 
 /**
  * HTML <output> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class OutputElement extends Element {
@@ -1084,7 +1086,7 @@ export abstract class OutputElement extends Element {
 
 /**
  * HTML <param> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class ParamElement extends Element {
@@ -1093,7 +1095,7 @@ export abstract class ParamElement extends Element {
 
 /**
  * HTML <pre> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class PreElement extends Element {
@@ -1102,7 +1104,7 @@ export abstract class PreElement extends Element {
 
 /**
  * HTML <progress> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class ProgressElement extends Element {
@@ -1123,7 +1125,7 @@ export abstract class ProgressElement extends Element {
 
 /**
  * HTML <q> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class QuoteElement extends Element {
@@ -1132,7 +1134,7 @@ export abstract class QuoteElement extends Element {
 
 /**
  * HTML <script> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class ScriptElement extends Element {
@@ -1144,7 +1146,7 @@ export abstract class ScriptElement extends Element {
 
 /**
  * HTML <select> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class SelectElement extends Element {
@@ -1180,7 +1182,7 @@ export abstract class SelectElement extends Element {
 
 /**
  * HTML <source> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class SourceElement extends Element {
@@ -1189,7 +1191,7 @@ export abstract class SourceElement extends Element {
 
 /**
  * HTML <style> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class StyleElement extends Element {
@@ -1201,7 +1203,7 @@ export abstract class StyleElement extends Element {
 
 /**
  * HTML <tbody> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TableBodyElement extends TableSectionElement {
@@ -1210,7 +1212,7 @@ export abstract class TableBodyElement extends TableSectionElement {
 
 /**
  * HTML table cell element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TableCellElement extends Element {
@@ -1222,7 +1224,7 @@ export abstract class TableCellElement extends Element {
 
 /**
  * HTML <col> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TableColElement extends Element {
@@ -1234,7 +1236,7 @@ export abstract class TableColElement extends Element {
 
 /**
  * HTML <td> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TableDataCellElement extends TableCellElement {
@@ -1243,7 +1245,7 @@ export abstract class TableDataCellElement extends TableCellElement {
 
 /**
  * HTML <table> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TableElement extends Element {
@@ -1267,7 +1269,7 @@ export abstract class TableElement extends Element {
 
 /**
  * HTML <tfoot> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TableFootElement extends TableSectionElement {
@@ -1276,7 +1278,7 @@ export abstract class TableFootElement extends TableSectionElement {
 
 /**
  * HTML <thead> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TableHeadElement extends TableSectionElement {
@@ -1285,7 +1287,7 @@ export abstract class TableHeadElement extends TableSectionElement {
 
 /**
  * HTML <th> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TableHeaderCellElement extends TableCellElement {
@@ -1294,7 +1296,7 @@ export abstract class TableHeaderCellElement extends TableCellElement {
 
 /**
  * HTML <tr> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TableRowElement extends Element {
@@ -1312,7 +1314,7 @@ export abstract class TableRowElement extends Element {
 
 /**
  * HTML table section element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TableSectionElement extends Element {
@@ -1324,7 +1326,7 @@ export abstract class TableSectionElement extends Element {
 
 /**
  * HTML <textarea> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TextAreaElement extends Element {
@@ -1342,7 +1344,7 @@ export abstract class TextAreaElement extends Element {
 
 /**
  * HTML <time> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TimeElement extends Element {
@@ -1351,7 +1353,7 @@ export abstract class TimeElement extends Element {
 
 /**
  * HTML <title> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TitleElement extends Element {
@@ -1363,7 +1365,7 @@ export abstract class TitleElement extends Element {
 
 /**
  * HTML <track> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class TrackElement extends Element {
@@ -1372,7 +1374,7 @@ export abstract class TrackElement extends Element {
 
 /**
  * HTML <ul> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class UListElement extends Element {
@@ -1381,7 +1383,7 @@ export abstract class UListElement extends Element {
 
 /**
  * HTML <video> element.
- * https://docs.k6.io/docs/element-k6html
+ * https://k6.io/docs/javascript-api/k6-html/element
  * @public
  */
 export abstract class VideoElement extends MediaElement {

@@ -1,6 +1,6 @@
 /*
  * Custom metrics.
- * https://docs.k6.io/docs/k6metrics
+ * https://k6.io/docs/javascript-api/k6-metrics
  */
 
 /**
@@ -26,7 +26,7 @@ export abstract class Metric {
 
 /**
  * Cumulative counter.
- * https://docs.k6.io/docs/counter-k6metrics
+ * https://k6.io/docs/javascript-api/k6-metrics/counter-k6-metrics
  * @public
  */
 export class Counter extends Metric {
@@ -35,7 +35,7 @@ export class Counter extends Metric {
 
 /**
  * Gauge. Holds only latest value.
- * https://docs.k6.io/docs/gauge-k6metrics
+ * https://k6.io/docs/javascript-api/k6-metrics/gauge-k6-metrics
  * @public
  */
 export class Gauge extends Metric {
@@ -44,7 +44,7 @@ export class Gauge extends Metric {
 
 /**
  * Tracks percentage of nonzero values.
- * https://docs.k6.io/docs/rate-k6metrics
+ * https://k6.io/docs/javascript-api/k6-metrics/rate-k6-metrics
  * @public
  */
 export class Rate extends Metric {
@@ -53,7 +53,7 @@ export class Rate extends Metric {
 
 /**
  * Calculates summary statistics.
- * https://docs.k6.io/docs/trend-k6metrics
+ * https://k6.io/docs/javascript-api/k6-metrics/trend-k6-metrics
  * @public
  */
 export class Trend extends Metric {

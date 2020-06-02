@@ -17,7 +17,7 @@ declare global {
 
     /**
      * Opens a file, reading all its contents into memory.
-     * https://docs.k6.io/docs/open-filepath-mode
+     * https://k6.io/docs/javascript-api/init-context/open-filepath-mode
      * @param filePath - Path to file.
      * @returns File contents decoded as UTF-8.
      * @public
@@ -26,7 +26,7 @@ declare global {
 
     /**
      * Opens a file, reading all its contents into memory.
-     * https://docs.k6.io/docs/open-filepath-mode
+     * https://k6.io/docs/javascript-api/init-context/open-filepath-mode
      * @param filePath - Path to file.
      * @returns Binary file contents.
      * @public
@@ -38,7 +38,7 @@ declare global {
 
     /**
      * Environment variables.
-     * https://docs.k6.io/docs/environment-variables
+     * https://k6.io/docs/using-k6/environment-variables
      * @public
      */
     const __ENV: { [name: string]: string };
@@ -54,14 +54,14 @@ declare global {
 
     /**
      * Current VU number.
-     * https://docs.k6.io/docs/execution-context-variables
+     * https://k6.io/docs/using-k6/execution-context-variables
      * @public
      */
     const __VU: number;
 
     /**
      * Current iteration number.
-     * https://docs.k6.io/docs/execution-context-variables
+     * https://k6.io/docs/using-k6/execution-context-variables
      * @public
      */
     const __ITER: number;
