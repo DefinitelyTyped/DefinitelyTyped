@@ -184,7 +184,9 @@ resultNum = faker.random.number({
 });
 resultStr = faker.random.arrayElement();
 resultStr = faker.random.arrayElement(['foo', 'bar', 'quux']);
-resultStr = faker.random.arrayElement(['foo', 'bar', 'quux'] as ReadonlyArray<string>);
+resultStrArr = faker.random.arrayElements(['foo', 'bar', 'quux'], 2);
+resultStrArr = faker.random.arrayElements(['foo', 'bar', 'quux'] as ReadonlyArray<string>, 2);
+
 resultStr = faker.random.objectElement();
 resultStr = faker.random.objectElement({foo: 'bar', field: 'foo'});
 resultStr = faker.random.uuid();
