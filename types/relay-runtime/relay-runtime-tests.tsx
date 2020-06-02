@@ -262,11 +262,15 @@ const node: ConcreteRequest = (function() {
 
 /*
 graphql`
-  fragment FooComponent_foo on Foo
-    @argumentDefinitions(fooSearchTerm: { type: "String" }) {
-    name
-    bars(filter: { name: { EQ: $fooSearchTerm } }) {
-      name
+  query TestQueryWithLiteral($latArg: String, $lonArg: String) {
+    route(
+      waypoints: [
+        {lat: $latArg, lon: $lonArg}
+        {lat: null, lon: $latArg}
+        {lat: $lonArg, lon: "1234"}
+      ]
+    ) {
+      __typename
     }
   }
 `,
@@ -276,57 +280,94 @@ const nodeFragment: ReaderFragment = {
         {
             defaultValue: null,
             kind: 'LocalArgument',
-            name: 'fooSearchTerm',
+            name: 'latArg',
+            type: 'String',
+        },
+        {
+            defaultValue: null,
+            kind: 'LocalArgument',
+            name: 'lonArg',
             type: 'String',
         },
     ],
     kind: 'Fragment',
     metadata: null,
-    name: 'FooComponent_foo',
+    name: 'TestQueryWithLiteral',
     selections: [
-        {
-            alias: null,
-            args: null,
-            kind: 'ScalarField',
-            name: 'name',
-            storageKey: null,
-        },
         {
             alias: null,
             args: [
                 {
-                    fields: [
+                    items: [
                         {
                             fields: [
                                 {
                                     kind: 'Variable',
-                                    name: 'EQ',
-                                    variableName: 'fooSearchTerm',
+                                    name: 'lat',
+                                    variableName: 'latArg',
+                                },
+                                {
+                                    kind: 'Variable',
+                                    name: 'lon',
+                                    variableName: 'lonArg',
                                 },
                             ],
                             kind: 'ObjectValue',
-                            name: 'name',
+                            name: 'waypoints.0',
+                        },
+                        {
+                            fields: [
+                                {
+                                    kind: 'Literal',
+                                    name: 'lat',
+                                    value: null,
+                                },
+                                {
+                                    kind: 'Variable',
+                                    name: 'lon',
+                                    variableName: 'latArg',
+                                },
+                            ],
+                            kind: 'ObjectValue',
+                            name: 'waypoints.1',
+                        },
+                        {
+                            fields: [
+                                {
+                                    kind: 'Variable',
+                                    name: 'lat',
+                                    variableName: 'lonArg',
+                                },
+                                {
+                                    kind: 'Literal',
+                                    name: 'lon',
+                                    value: '1234',
+                                },
+                            ],
+                            kind: 'ObjectValue',
+                            name: 'waypoints.2',
                         },
                     ],
-                    kind: 'ObjectValue',
-                    name: 'filter',
+                    kind: 'ListValue',
+                    name: 'waypoints',
                 },
             ],
-            concreteType: 'Market',
+            concreteType: 'Route',
             kind: 'LinkedField',
-            name: 'bars',
-            plural: true,
+            name: 'route',
+            plural: false,
             selections: [
                 {
                     alias: null,
                     args: null,
                     kind: 'ScalarField',
-                    name: 'name',
+                    name: '__typename',
                     storageKey: null,
                 },
             ],
             storageKey: null,
         },
     ],
-    type: 'Foo',
+    type: 'Query',
+    abstractKey: null,
 };
