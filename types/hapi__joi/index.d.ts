@@ -1671,6 +1671,11 @@ declare namespace Joi {
          * Optional settings must be the last argument.
          */
         xor(...peers: Array<string | HierarchySeparatorOptions>): this;
+
+        /**
+         * Requires the object to be a RegExp instance.
+         */
+        regex(): this;
     }
 
     interface BinarySchema extends AnySchema {
