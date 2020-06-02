@@ -350,8 +350,8 @@ const dbObjectTests = async () => {
     geom.SDO_GTYPE = 2003;
     geom.SDO_SRID = null;
     geom.SDO_POINT = null;
-    geom.SDO_ELEM_INFO =  [1, 1003, 3];
-    geom.SDO_ORDINATES =  [1, 1, 5, 7];
+    geom.SDO_ELEM_INFO = [1, 1003, 3];
+    geom.SDO_ORDINATES = [1, 1, 5, 7];
 
     geom.getKeys().find((e) => e === 'SDO_ELEM_INFO')
 
@@ -386,12 +386,12 @@ const dbObjectTests = async () => {
     }
 
     const result = await conn.execute<oracledb.DBObject_OUT<OutGeom>[]>(`SELECT geometry FROM testgeometry WHERE id = 1`);
-    let o = result.rows[0][0];
+    const o = result.rows[0][0];
     console.log(o.isCollection);
     o.getKeys()
     o.SDO_ELEM_INFO.getKeys()
-    console.log(o.SDO_ELEM_INFO.isCollection);  
-    console.log(o.SDO_ELEM_INFO.getKeys().find(e => typeof e === 'number'));  
+    console.log(o.SDO_ELEM_INFO.isCollection);
+    console.log(o.SDO_ELEM_INFO.getKeys().find(e => typeof e === 'number'));
     console.log(o.getValues()[0].SDO_ELEM_INFO);
 }
 

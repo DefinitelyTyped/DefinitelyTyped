@@ -3,7 +3,7 @@
 // Definitions by: Richard Natal <https://github.com/Bigous>
 //                 Connor Fitzgerald <https://github.com/connorjayfitzgerald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.5
 
 /// <reference types="node" />
 
@@ -2053,7 +2053,7 @@ declare namespace OracleDB {
     type DBObject_OUT<T> = {
         [P in keyof T]: DBObject_OUT<T[P]>
     } & BaseDBObject<T>;
-    
+
     /**
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
      * @since 4.0
@@ -2089,11 +2089,11 @@ declare namespace OracleDB {
         /**
          * Add the given value to the end of the collection.
          */
-        append(value: T): void;    
+        append(value: T): void;
         /**
          * Deletes the value from collection at the given index.
          */
-        deleteElement(index: number): void;    
+        deleteElement(index: number): void;
         /**
          * Return the value associated with the given index.
          */
@@ -2104,7 +2104,7 @@ declare namespace OracleDB {
         getFirstIndex(): number;
         /**
          * Returns a JavaScript array containing the ‘index’ keys.
-         */    
+         */
         getKeys(): T extends string | number ? number[] : (keyof T)[]
         /**
          * To obtain the last index for later use to obtain a value.
@@ -2128,7 +2128,7 @@ declare namespace OracleDB {
         setElement(index: number, value: T): void;
         /**
          * Returns an array of element values as a JavaScript array in key order.
-         */    
+         */
         getValues(): T[];
         /**
          * Trims the specified number of elements from the end of the collection.
