@@ -1,7 +1,7 @@
 import { ConnectionMetadata } from '../handlers/connection/ConnectionHandler';
 import { ConcreteRequest } from './RelayConcreteNode';
 
-export type ReaderArgument = ReaderLiteral | ReaderVariable;
+export type ReaderArgument = ReaderLiteral | ReaderVariable | ReaderObjectValue;
 
 export type ReaderArgumentDefinition = ReaderLocalArgument | ReaderRootArgument;
 
@@ -107,6 +107,12 @@ export interface ReaderVariable {
     readonly name: string;
     readonly type?: string | null;
     readonly variableName: string;
+}
+
+export interface ReaderObjectValue {
+    readonly kind: string; // 'ObjectValue';
+    readonly name: string;
+    readonly fields: ReadonlyArray<ReaderArgument>;
 }
 
 export interface ReaderLocalArgument {
