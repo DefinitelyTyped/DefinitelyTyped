@@ -2,6 +2,13 @@ import _ = require("../index");
 // tslint:disable-next-line:strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
+    interface ConvertOptions {
+        cap?: boolean;
+        curry?: boolean;
+        fixed?: boolean;
+        immutable?: boolean;
+        rearg?: boolean;
+    }
     type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | ReadonlyArray<T>;
