@@ -24,7 +24,9 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 const context = {};
 const simpleObjectPropertyName = 'a';
 
-type SimpleStringObject = { a: string };
+interface SimpleStringObject {
+    a: string;
+}
 const simpleStringObjectPartialPropertyMatch: Partial<SimpleStringObject> = { a: 'b' };
 
 const simpleStringObjectArray: SimpleStringObject[] = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
@@ -49,7 +51,9 @@ const stringListMemoIterator = (prev: _.Dictionary<number>, value: string, index
     return prev;
 };
 
-type SimpleNumberObject = { a: number };
+interface SimpleNumberObject {
+    a: number;
+}
 const simpleNumberObjectArray: SimpleNumberObject[] = [{ a: 0 }, { a: 1 }];
 const simpleNumberObjectList: _.List<SimpleNumberObject> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
 const simpleNumberObjectListPropertySelectingIterator = (value: SimpleNumberObject, index: number, list: _.List<SimpleNumberObject>) => value.a;
@@ -61,16 +65,19 @@ const simpleNumberArray: number[] = [0, 1];
 const simpleNumberList: _.List<number> = { 0: 0, 1: 1, length: 2 };
 const simpleNumberDictionary: _.Dictionary<number> = { a: 0, b: 1 };
 
-type SimpleNoParameterFunctionObject = { a: () => number };
+interface SimpleNoParameterFunctionObject {
+    a: () => number;
+}
 const simpleNoParameterFunctionObjectArray: SimpleNoParameterFunctionObject[] = [{ a: Math.random }, { a: Math.random }];
 const simpleNoParameterFunctionObjectList: _.List<SimpleNoParameterFunctionObject> = { 0: { a: Math.random }, 1: { a: Math.random }, length: 2 };
 const simpleNoParameterFunctionObjectDictionary: _.Dictionary<SimpleNoParameterFunctionObject> = { a: { a: Math.random }, b: { a: Math.random } };
 
-type SimpleOneParameterFunctionObject = { a: (arg0: number) => number };
+interface SimpleOneParameterFunctionObject {
+    a: (arg0: number) => number;
+}
 const simpleOneParameterFunctionObjectArray: SimpleOneParameterFunctionObject[] = [{ a: Math.abs }, { a: Math.abs }];
 const simpleOneParameterFunctionObjectList: _.List<SimpleOneParameterFunctionObject> = { 0: { a: Math.abs }, 1: { a: Math.abs }, length: 2 };
 const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParameterFunctionObject> = { a: { a: Math.abs }, b: { a: Math.abs } };
-
 
 // Collection Functions
 
