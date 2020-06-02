@@ -113,9 +113,24 @@ declare module _ {
 
     type NonFalsy<T> = T extends undefined | null | false | '' | 0 ? never : T;
 
+    // given a union type like { a: string } | { b: number } | undefined, generates a union of all the keys of all the types in the union
     type KeysOfUnion<T> = T extends any ? keyof T : never;
 
-    type TypesOfUnionProperty<T, K extends KeysOfUnion<T>> = T extends any ? T[Extract<keyof T, K>] extends never ? undefined : T[Extract<keyof T, K>] : never;
+    // given a union type like { a: string } | { a: number } | { b: boolean } and a property name,
+    // generates a union of all the types implemented by that property name and adds undefined
+    // if any type in the union doesn't implement the property
+    // e.g. TypesOfUnionProperty<{ a: string } | { a: number } | { b: boolean }, 'a'> => string | number | undefined
+    type TypesOfUnionProperty<T, K extends KeysOfUnion<T>> =
+        // iterate over each type T in a type union
+        T extends any
+        // check whether the property is implemented by T, using Extract to get around K possibly not being in keyof T
+        ? T[Extract<keyof T, K>] extends never
+        // if T does not implement property K, add undefined to the resulting type union
+        ? undefined
+        // if T does implement property K, add type T[K] to the resulting type union
+        : T[Extract<keyof T, K>]
+        // this should never actually be evaluated since all types extend any
+        : never;
 
     type TypeOfDictionary<T> = T extends _.Dictionary<infer V> ? V : never;
 
@@ -123,8 +138,10 @@ declare module _ {
 
     type ShallowFlattenedList<T> = T extends _.List<infer TItem> ? TItem[] : T[];
 
-    // unfortunately it's not possible to recursively collapse all possible list dimensions to T[] at this time, so give up after two dimensions and require an assertion
-    // surprisingly T extends _.List<_.List<infer TItem>> isn't true when T = SomeType[][], so writing this that way doesn't work
+    // unfortunately it's not possible to recursively collapse all possible list dimensions to T[] at this time,
+    // so give up after two dimensions and require an assertion
+    // surprisingly T extends _.List<_.List<infer TItem>> isn't true when T = SomeType[][],
+    // so writing this that way doesn't work
     type DeepFlattenedList<T> = T extends _.List<infer TItem>
         ? TItem extends _.List<infer TInnerItem>
         ? TInnerItem extends _.List<any>
