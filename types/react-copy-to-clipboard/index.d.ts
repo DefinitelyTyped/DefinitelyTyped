@@ -25,4 +25,5 @@ export namespace CopyToClipboard {
 }
 
 export class CopyToClipboard extends React.PureComponent<CopyToClipboard.Props> { }
+/* tslint:disable-next-line:npm-naming */
 export default CopyToClipboard
