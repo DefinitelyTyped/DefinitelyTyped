@@ -11,6 +11,7 @@ export interface ReaderFragment {
     readonly kind: string; // 'Fragment';
     readonly name: string;
     readonly type: string;
+    readonly abstractKey?: string | null;
     readonly metadata:
         | {
               readonly connection?: ReadonlyArray<ConnectionMetadata>;
@@ -162,6 +163,7 @@ export interface ReaderInlineFragment {
     readonly kind: string; // 'InlineFragment';
     readonly selections: ReadonlyArray<ReaderSelection>;
     readonly type: string;
+    readonly abstractKey?: string | null;
 }
 
 export type ReaderSelectableNode = ReaderFragment | ReaderSplitOperation;
