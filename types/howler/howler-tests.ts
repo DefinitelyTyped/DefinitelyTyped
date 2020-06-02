@@ -1,56 +1,56 @@
-import * as howler from "howler";
+import { Howl } from 'howler';
 
-var sound = new Howl({
-    src: ['sound.mp3']
+const sound1 = new Howl({
+    src: ['sound.mp3'],
 });
 
-sound.play();
+sound1.play();
 
-var sound = new Howl({
+const sound2 = new Howl({
     src: ['sound.webm', 'sound.mp3', 'sound.wav'],
     autoplay: true,
     loop: true,
     volume: 0.5,
-    onend: function() {
+    onend: function () {
         console.log('Finished!');
-    }
+    },
 });
 
-var sound = new Howl({
+const sound3 = new Howl({
     src: ['sounds.webm', 'sounds.mp3'],
     sprite: {
         blast: [0, 1000],
         laser: [2000, 3000],
-        winner: [4000, 7500]
-    }
+        winner: [4000, 7500],
+    },
 });
 
 // Shoot the laser!
-sound.play('laser');
+sound3.play('laser');
 
-var sound = new Howl({
-    src: ['sound.webm', 'sound.mp3']
+const sound4 = new Howl({
+    src: ['sound.webm', 'sound.mp3'],
 });
 
 // Clear listener after first call.
-sound.once('load', function(){
-    sound.play();
+sound4.once('load', function () {
+    sound4.play();
 });
 
 // Fires when the sound finishes playing.
-sound.on('end', function(){
+sound4.on('end', function () {
     console.log('Finished!');
 });
 
-var sound = new Howl({
-    src: ['sound.webm', 'sound.mp3']
+const sound5 = new Howl({
+    src: ['sound.webm', 'sound.mp3'],
 });
 
-// Play returns a uniqe Sound ID that can be passed
+// Play returns a unique Sound ID that can be passed
 // into any method on Howl to control that specific sound.
-var id1 = sound.play();
-var id2 = sound.play();
+const id1 = sound5.play();
+const id2 = sound5.play();
 
 // Fade out the first sound and speed up the second.
-sound.fade(1, 0, 1000, id1);
-sound.rate(1.5, id2);
+sound5.fade(1, 0, 1000, id1);
+sound5.rate(1.5, id2);
