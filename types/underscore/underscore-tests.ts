@@ -20,2492 +20,2367 @@ var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);    // https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
+// common testing types and objects
+const context = {};
+const simpleObjectPropertyName = 'a';
+
+type SimpleStringObject = { a: string };
+const simpleStringObjectPartialPropertyMatch: Partial<SimpleStringObject> = { a: 'b' };
+
+const simpleStringObjectArray: SimpleStringObject[] = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
+const simpleStringObjectList: _.List<SimpleStringObject> = { 0: { a: 'a' }, 1: { a: 'b' }, 2: { a: 'c' }, length: 3 };
+const simpleStringObjectListPropertyModifyingIterator = (value: SimpleStringObject, index: number, list: _.List<SimpleStringObject>) => value.a += 'b';
+const simpleStringObjectListPropertySelectingIterator = (value: SimpleStringObject, index: number, list: _.List<SimpleStringObject>) => value.a;
+const simpleStringObjectListPropertyComparingIterator = (value: SimpleStringObject, index: number, list: _.List<SimpleStringObject>) => value.a === 'b';
+const simpleStringObjectListPropertyMemoIterator = (prev: string, value: SimpleStringObject, index: number, list: _.List<SimpleStringObject>) => prev + value.a;
+
+const simpleStringObjectDictionary: _.Dictionary<SimpleStringObject> = { a: { a: 'a' }, b: { a: 'b' }, c: { a: 'c' } };
+const simpleStringObjectDictionaryPropertyModifyingIterator = (element: SimpleStringObject, key: string, dictionary: _.Dictionary<SimpleStringObject>) => element.a += 'b';
+const simpleStringObjectDictionaryPropertySelectingIterator = (element: SimpleStringObject, key: string, dictionary: _.Dictionary<SimpleStringObject>) => element.a;
+const simpleStringObjectDictionaryPropertyComparingIterator = (element: SimpleStringObject, key: string, list: _.Dictionary<SimpleStringObject>) => element.a === 'b';
+const simpleStringObjectDictionaryPropertyMemoIterator = (prev: string, element: SimpleStringObject, key: string, dictionary: _.Dictionary<SimpleStringObject>) => prev + element.a;
+
+const simpleString = 'abc';
+const stringListModifyingIterator = (value: string, index: number, list: _.List<string>) => value + 'b';
+const stringListSelectingIterator = (value: string, index: number, list: _.List<string>) => value;
+const stringListComparingIterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+const stringListMemoIterator = (prev: _.Dictionary<number>, value: string, index: number, list: _.List<string>) => {
+    prev[value] = index;
+    return prev;
+};
+
+type SimpleNumberObject = { a: number };
+const simpleNumberObjectArray: SimpleNumberObject[] = [{ a: 0 }, { a: 1 }];
+const simpleNumberObjectList: _.List<SimpleNumberObject> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
+const simpleNumberObjectListPropertySelectingIterator = (value: SimpleNumberObject, index: number, list: _.List<SimpleNumberObject>) => value.a;
+
+const simpleNumberObjectDictionary: _.Dictionary<SimpleNumberObject> = { a: { a: 0 }, b: { a: 1 } };
+const simpleNumberObjectDictionaryPropertySelectingIterator = (element: SimpleNumberObject, key: string, list: _.Dictionary<SimpleNumberObject>) => element.a;
+
+const simpleNumberArray: number[] = [0, 1];
+const simpleNumberList: _.List<number> = { 0: 0, 1: 1, length: 2 };
+const simpleNumberDictionary: _.Dictionary<number> = { a: 0, b: 1 };
+
+type SimpleNoParameterFunctionObject = { a: () => number };
+const simpleNoParameterFunctionObjectArray: SimpleNoParameterFunctionObject[] = [{ a: Math.random }, { a: Math.random }];
+const simpleNoParameterFunctionObjectList: _.List<SimpleNoParameterFunctionObject> = { 0: { a: Math.random }, 1: { a: Math.random }, length: 2 };
+const simpleNoParameterFunctionObjectDictionary: _.Dictionary<SimpleNoParameterFunctionObject> = { a: { a: Math.random }, b: { a: Math.random } };
+
+type SimpleOneParameterFunctionObject = { a: (arg0: number) => number };
+const simpleOneParameterFunctionObjectArray: SimpleOneParameterFunctionObject[] = [{ a: Math.abs }, { a: Math.abs }];
+const simpleOneParameterFunctionObjectList: _.List<SimpleOneParameterFunctionObject> = { 0: { a: Math.abs }, 1: { a: Math.abs }, length: 2 };
+const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParameterFunctionObject> = { a: { a: Math.abs }, b: { a: Math.abs } };
+
+
 // Collection Functions
 
 // each, forEach
 {
-    const context = {};
-
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a += 'b';
-        let result: { a: string }[];
 
-        result = _.each<{ a: string }>(array, iterator);
-        result = _.each<{ a: string }>(array, iterator, context);
-        result = _.each(array, iterator);
-        result = _.each(array, iterator, context);
+        let result: SimpleStringObject[];
 
-        result = _<{ a: string }>(array).each(iterator);
-        result = _<{ a: string }>(array).each(iterator, context);
-        result = _(array).each(iterator);
-        result = _(array).each(iterator, context);
+        result = _.each<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator);
+        result = _.each<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator, context);
+        result = _.each(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator);
+        result = _.each(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator, context);
 
-        result = _.chain<{ a: string }>(array).each(iterator).value();
-        result = _.chain<{ a: string }>(array).each(iterator, context).value();
-        result = _.chain(array).each(iterator).value();
-        result = _.chain(array).each(iterator, context).value();
+        result = _<SimpleStringObject>(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator, context);
+        result = _(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator);
+        result = _(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator, context);
 
-        result = _.forEach<{ a: string }>(array, iterator);
-        result = _.forEach<{ a: string }>(array, iterator, context);
-        result = _.forEach(array, iterator);
-        result = _.forEach(array, iterator, context);
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator).value();
+        result = _.chain(simpleStringObjectArray).each(simpleStringObjectListPropertyModifyingIterator, context).value();
 
-        result = _<{ a: string }>(array).forEach(iterator);
-        result = _<{ a: string }>(array).forEach(iterator, context);
-        result = _(array).forEach(iterator);
-        result = _(array).forEach(iterator, context);
+        result = _.forEach<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator);
+        result = _.forEach<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator, context);
+        result = _.forEach(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator);
+        result = _.forEach(simpleStringObjectArray, simpleStringObjectListPropertyModifyingIterator, context);
 
-        result = _.chain<{ a: string }>(array).forEach(iterator).value();
-        result = _.chain<{ a: string }>(array).forEach(iterator, context).value();
-        result = _.chain(array).forEach(iterator).value();
-        result = _.chain(array).forEach(iterator, context).value();
+        result = _<SimpleStringObject>(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator, context);
+        result = _(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator);
+        result = _(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator, context);
+
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator).value();
+        result = _.chain(simpleStringObjectArray).forEach(simpleStringObjectListPropertyModifyingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a += 'b';
-        let result: _.List<{ a: string }>;
+        let result: _.List<SimpleStringObject>;
 
-        result = _.each<{ a: string }>(list, iterator);
-        result = _.each<{ a: string }>(list, iterator, context);
-        result = _.each(list, iterator);
-        result = _.each(list, iterator, context);
+        result = _.each<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator);
+        result = _.each<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator, context);
+        result = _.each(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator);
+        result = _.each(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator, context);
 
-        result = _<{ a: string }>(list).each(iterator);
-        result = _<{ a: string }>(list).each(iterator, context);
-        result = _(list).each(iterator);
-        result = _(list).each(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator, context);
+        result = _(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator);
+        result = _(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator, context);
 
-        result = _.chain<{ a: string }>(list).each(iterator).value();
-        result = _.chain<{ a: string }>(list).each(iterator, context).value();
-        result = _.chain(list).each(iterator).value();
-        result = _.chain(list).each(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator, context).value();
+        result = _.chain(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator).value();
+        result = _.chain(simpleStringObjectList).each(simpleStringObjectListPropertyModifyingIterator, context).value();
 
-        result = _.forEach<{ a: string }>(list, iterator);
-        result = _.forEach<{ a: string }>(list, iterator, context);
-        result = _.forEach(list, iterator);
-        result = _.forEach(list, iterator, context);
+        result = _.forEach<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator);
+        result = _.forEach<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator, context);
+        result = _.forEach(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator);
+        result = _.forEach(simpleStringObjectList, simpleStringObjectListPropertyModifyingIterator, context);
 
-        result = _<{ a: string }>(list).forEach(iterator);
-        result = _<{ a: string }>(list).forEach(iterator, context);
-        result = _(list).forEach(iterator);
-        result = _(list).forEach(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator, context);
+        result = _(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator);
+        result = _(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator, context);
 
-        result = _.chain<{ a: string }>(list).forEach(iterator).value();
-        result = _.chain<{ a: string }>(list).forEach(iterator, context).value();
-        result = _.chain(list).forEach(iterator).value();
-        result = _.chain(list).forEach(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator, context).value();
+        result = _.chain(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator).value();
+        result = _.chain(simpleStringObjectList).forEach(simpleStringObjectListPropertyModifyingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a += 'b';
-        let result: _.Dictionary<{ a: string }>;
+        let result: _.Dictionary<SimpleStringObject>;
 
-        result = _.each<{ a: string }>(dict, iterator);
-        result = _.each<{ a: string }>(dict, iterator, context);
-        result = _.each(dict, iterator);
-        result = _.each(dict, iterator, context);
+        result = _.each<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator);
+        result = _.each<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator, context);
+        result = _.each(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator);
+        result = _.each(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator, context);
 
-        result = _<{ a: string }>(dict).each(iterator);
-        result = _<{ a: string }>(dict).each(iterator, context);
-        result = _(dict).each(iterator);
-        result = _(dict).each(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator, context);
+        result = _(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator);
+        result = _(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).each(iterator).value();
-        result = _.chain<{ a: string }>(dict).each(iterator, context).value();
-        result = _.chain(dict).each(iterator).value();
-        result = _.chain(dict).each(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).each(simpleStringObjectDictionaryPropertyModifyingIterator, context).value();
 
-        result = _.forEach<{ a: string }>(dict, iterator);
-        result = _.forEach<{ a: string }>(dict, iterator, context);
-        result = _.forEach(dict, iterator);
-        result = _.forEach(dict, iterator, context);
+        result = _.forEach<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator);
+        result = _.forEach<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator, context);
+        result = _.forEach(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator);
+        result = _.forEach(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyModifyingIterator, context);
 
-        result = _<{ a: string }>(dict).forEach(iterator);
-        result = _<{ a: string }>(dict).forEach(iterator, context);
-        result = _(dict).forEach(iterator);
-        result = _(dict).forEach(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator, context);
+        result = _(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator);
+        result = _(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).forEach(iterator).value();
-        result = _.chain<{ a: string }>(dict).forEach(iterator, context).value();
-        result = _.chain(dict).forEach(iterator).value();
-        result = _.chain(dict).forEach(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).forEach(simpleStringObjectDictionaryPropertyModifyingIterator, context).value();
     }
 }
 
 // map, collect
 {
-    const context = {};
-
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
         let result: string[];
 
-        result = _.map<{ a: string }, string>(array, iterator);
-        result = _.map<{ a: string }, string>(array, iterator, context);
-        result = _.map(array, iterator);
-        result = _.map(array, iterator, context);
+        result = _.map<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
+        result = _.map<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.map(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
+        result = _.map(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(array).map<string>(iterator);
-        result = _<{ a: string }>(array).map<string>(iterator, context);
-        result = _(array).map(iterator);
-        result = _(array).map(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).map<string>(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).map<string>(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(array).map<string>(iterator).value();
-        result = _.chain<{ a: string }>(array).map<string>(iterator, context).value();
-        result = _.chain(array).map(iterator).value();
-        result = _.chain(array).map(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).map<string>(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).map<string>(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).map(simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.collect<{ a: string }, string>(array, iterator);
-        result = _.collect<{ a: string }, string>(array, iterator, context);
-        result = _.collect(array, iterator);
-        result = _.collect(array, iterator, context);
+        result = _.collect<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
+        result = _.collect<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.collect(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
+        result = _.collect(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(array).collect<string>(iterator);
-        result = _<{ a: string }>(array).collect<string>(iterator, context);
-        result = _(array).collect(iterator);
-        result = _(array).collect(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).collect<string>(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).collect<string>(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(array).collect<string>(iterator).value();
-        result = _.chain<{ a: string }>(array).collect<string>(iterator, context).value();
-        result = _.chain(array).collect(iterator).value();
-        result = _.chain(array).collect(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).collect<string>(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).collect<string>(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).collect(simpleStringObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
         let result: string[];
 
-        result = _.map<{ a: string }, string>(list, iterator);
-        result = _.map<{ a: string }, string>(list, iterator, context);
-        result = _.map(list, iterator);
-        result = _.map(list, iterator, context);
+        result = _.map<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.map<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.map(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.map(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(list).map<string>(iterator);
-        result = _<{ a: string }>(list).map<string>(iterator, context);
-        result = _(list).map(iterator);
-        result = _(list).map(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).map<string>(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).map<string>(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(list).map<string>(iterator).value();
-        result = _.chain<{ a: string }>(list).map<string>(iterator, context).value();
-        result = _.chain(list).map(iterator).value();
-        result = _.chain(list).map(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).map<string>(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).map<string>(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).map(simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.collect<{ a: string }, string>(list, iterator);
-        result = _.collect<{ a: string }, string>(list, iterator, context);
-        result = _.collect(list, iterator);
-        result = _.collect(list, iterator, context);
+        result = _.collect<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.collect<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.collect(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.collect(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(list).collect<string>(iterator);
-        result = _<{ a: string }>(list).collect<string>(iterator, context);
-        result = _(list).collect(iterator);
-        result = _(list).collect(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).collect<string>(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).collect<string>(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(list).collect<string>(iterator).value();
-        result = _.chain<{ a: string }>(list).collect<string>(iterator, context).value();
-        result = _.chain(list).collect(iterator).value();
-        result = _.chain(list).collect(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).collect<string>(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).collect<string>(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).collect(simpleStringObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
         let result: string[];
 
-        result = _.map<{ a: string }, string>(dict, iterator);
-        result = _.map<{ a: string }, string>(dict, iterator, context);
-        result = _.map(dict, iterator);
-        result = _.map(dict, iterator, context);
+        result = _.map<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _.map<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
+        result = _.map(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _.map(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(dict).map<string>(iterator);
-        result = _<{ a: string }>(dict).map<string>(iterator, context);
-        result = _(dict).map(iterator);
-        result = _(dict).map(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).map<string>(simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).map<string>(simpleStringObjectDictionaryPropertySelectingIterator, context);
+        result = _(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).map<string>(iterator).value();
-        result = _.chain<{ a: string }>(dict).map<string>(iterator, context).value();
-        result = _.chain(dict).map(iterator).value();
-        result = _.chain(dict).map(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).map<string>(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).map<string>(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).map(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
 
-        result = _.collect<{ a: string }, string>(dict, iterator);
-        result = _.collect<{ a: string }, string>(dict, iterator, context);
-        result = _.collect(dict, iterator);
-        result = _.collect(dict, iterator, context);
+        result = _.collect<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _.collect<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
+        result = _.collect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _.collect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(dict).collect<string>(iterator);
-        result = _<{ a: string }>(dict).collect<string>(iterator, context);
-        result = _(dict).collect(iterator);
-        result = _(dict).collect(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).collect<string>(simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).collect<string>(simpleStringObjectDictionaryPropertySelectingIterator, context);
+        result = _(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).collect<string>(iterator).value();
-        result = _.chain<{ a: string }>(dict).collect<string>(iterator, context).value();
-        result = _.chain(dict).collect(iterator).value();
-        result = _.chain(dict).collect(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).collect<string>(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).collect<string>(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).collect(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
     }
 
     {
-        const str = 'abc';
-        const iterator = (value: string, index: number, list: _.List<string>) => value + 'b';
         let result: string[];
 
-        result = _.map<string, string>(str, iterator);
-        result = _.map<string, string>(str, iterator, context);
-        result = _.map(str, iterator);
-        result = _.map(str, iterator, context);
+        result = _.map<string, string>(simpleString, stringListModifyingIterator);
+        result = _.map<string, string>(simpleString, stringListModifyingIterator, context);
+        result = _.map(simpleString, stringListModifyingIterator);
+        result = _.map(simpleString, stringListModifyingIterator, context);
 
-        result = _<string>(str).map<string>(iterator);
-        result = _<string>(str).map<string>(iterator, context);
-        result = _(str).map(iterator);
-        result = _(str).map(iterator, context);
+        result = _<string>(simpleString).map<string>(stringListModifyingIterator);
+        result = _<string>(simpleString).map<string>(stringListModifyingIterator, context);
+        result = _(simpleString).map(stringListModifyingIterator);
+        result = _(simpleString).map(stringListModifyingIterator, context);
 
-        result = _.chain<string>(str).map<string>(iterator).value();
-        result = _.chain<string>(str).map<string>(iterator, context).value();
-        result = _.chain(str).map(iterator).value();
-        result = _.chain(str).map(iterator, context).value();
+        result = _.chain<string>(simpleString).map<string>(stringListModifyingIterator).value();
+        result = _.chain<string>(simpleString).map<string>(stringListModifyingIterator, context).value();
+        result = _.chain(simpleString).map(stringListModifyingIterator).value();
+        result = _.chain(simpleString).map(stringListModifyingIterator, context).value();
 
-        result = _.collect<string, string>(str, iterator);
-        result = _.collect<string, string>(str, iterator, context);
-        result = _.collect(str, iterator);
-        result = _.collect(str, iterator, context);
+        result = _.collect<string, string>(simpleString, stringListModifyingIterator);
+        result = _.collect<string, string>(simpleString, stringListModifyingIterator, context);
+        result = _.collect(simpleString, stringListModifyingIterator);
+        result = _.collect(simpleString, stringListModifyingIterator, context);
 
-        result = _<string>(str).collect<string>(iterator);
-        result = _<string>(str).collect<string>(iterator, context);
-        result = _(str).collect(iterator);
-        result = _(str).collect(iterator, context);
+        result = _<string>(simpleString).collect<string>(stringListModifyingIterator);
+        result = _<string>(simpleString).collect<string>(stringListModifyingIterator, context);
+        result = _(simpleString).collect(stringListModifyingIterator);
+        result = _(simpleString).collect(stringListModifyingIterator, context);
 
-        result = _.chain<string>(str).collect<string>(iterator).value();
-        result = _.chain<string>(str).collect<string>(iterator, context).value();
-        result = _.chain(str).collect(iterator).value();
-        result = _.chain(str).collect(iterator, context).value();
+        result = _.chain<string>(simpleString).collect<string>(stringListModifyingIterator).value();
+        result = _.chain<string>(simpleString).collect<string>(stringListModifyingIterator, context).value();
+        result = _.chain(simpleString).collect(stringListModifyingIterator).value();
+        result = _.chain(simpleString).collect(stringListModifyingIterator, context).value();
     }
 
     // partial object iterator (nullable values always return false if any properties are specified and true if no properties are specified)
     {
-        const array: ({ a: string } | undefined)[] = [{ a: 'a' }, { a: 'b' }, undefined];
-        const properties = { a: 'a' };
+        const array: (SimpleStringObject | undefined)[] = [{ a: 'a' }, { a: 'b' }, undefined];
         let result: boolean[];
 
-        result = _.map<({ a: string } | undefined)>(array, properties);
-        result = _.map(array, properties);
+        result = _.map<(SimpleStringObject | undefined)>(array, simpleStringObjectPartialPropertyMatch);
+        result = _.map(array, simpleStringObjectPartialPropertyMatch);
 
-        result = _<({ a: string } | undefined)>(array).map(properties);
-        result = _(array).map(properties);
+        result = _<(SimpleStringObject | undefined)>(array).map(simpleStringObjectPartialPropertyMatch);
+        result = _(array).map(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<({ a: string } | undefined)>(array).map(properties).value();
-        result = _.chain(array).map(properties).value();
+        result = _.chain<(SimpleStringObject | undefined)>(array).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(array).map(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.collect<({ a: string } | undefined)>(array, properties);
-        result = _.collect(array, properties);
+        result = _.collect<(SimpleStringObject | undefined)>(array, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(array, simpleStringObjectPartialPropertyMatch);
 
-        result = _<({ a: string } | undefined)>(array).collect(properties);
-        result = _(array).collect(properties);
+        result = _<(SimpleStringObject | undefined)>(array).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(array).collect(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<({ a: string } | undefined)>(array).collect(properties).value();
-        result = _.chain(array).collect(properties).value();
+        result = _.chain<(SimpleStringObject | undefined)>(array).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(array).collect(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, 2: undefined, length: 3 };
-        const properties = { a: 'a' };
+        const list: _.List<(SimpleStringObject | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, 2: undefined, length: 3 };
         let result: boolean[];
 
-        result = _.map<({ a: string } | undefined)>(list, properties);
-        result = _.map(list, properties);
+        result = _.map<(SimpleStringObject | undefined)>(list, simpleStringObjectPartialPropertyMatch);
+        result = _.map(list, simpleStringObjectPartialPropertyMatch);
 
-        result = _<({ a: string } | undefined)>(list).map(properties);
-        result = _(list).map(properties);
+        result = _<(SimpleStringObject | undefined)>(list).map(simpleStringObjectPartialPropertyMatch);
+        result = _(list).map(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<({ a: string } | undefined)>(list).map(properties).value();
-        result = _.chain(list).map(properties).value();
+        result = _.chain<(SimpleStringObject | undefined)>(list).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(list).map(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.collect<({ a: string } | undefined)>(list, properties);
-        result = _.collect(list, properties);
+        result = _.collect<(SimpleStringObject | undefined)>(list, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(list, simpleStringObjectPartialPropertyMatch);
 
-        result = _<({ a: string } | undefined)>(list).collect(properties);
-        result = _(list).collect(properties);
+        result = _<(SimpleStringObject | undefined)>(list).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(list).collect(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<({ a: string } | undefined)>(list).collect(properties).value();
-        result = _.chain(list).collect(properties).value();
+        result = _.chain<(SimpleStringObject | undefined)>(list).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(list).collect(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const dict: _.Dictionary<({ a: string } | undefined)> = { a: { a: 'a' }, b: { a: 'b' }, c: undefined };
-        const properties = { a: 'a' };
+        const dict: _.Dictionary<(SimpleStringObject | undefined)> = { a: { a: 'a' }, b: { a: 'b' }, c: undefined };
         let result: boolean[];
 
-        result = _.map<({ a: string } | undefined)>(dict, properties);
-        result = _.map(dict, properties);
+        result = _.map<(SimpleStringObject | undefined)>(dict, simpleStringObjectPartialPropertyMatch);
+        result = _.map(dict, simpleStringObjectPartialPropertyMatch);
 
-        result = _<({ a: string } | undefined)>(dict).map(properties);
-        result = _(dict).map(properties);
+        result = _<(SimpleStringObject | undefined)>(dict).map(simpleStringObjectPartialPropertyMatch);
+        result = _(dict).map(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<({ a: string } | undefined)>(dict).map(properties).value();
-        result = _.chain(dict).map(properties).value();
+        result = _.chain<(SimpleStringObject | undefined)>(dict).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(dict).map(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.collect<({ a: string } | undefined)>(dict, properties);
-        result = _.collect(dict, properties);
+        result = _.collect<(SimpleStringObject | undefined)>(dict, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(dict, simpleStringObjectPartialPropertyMatch);
 
-        result = _<({ a: string } | undefined)>(dict).collect(properties);
-        result = _(dict).collect(properties);
+        result = _<(SimpleStringObject | undefined)>(dict).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(dict).collect(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<({ a: string } | undefined)>(dict).collect(properties).value();
-        result = _.chain(dict).collect(properties).value();
+        result = _.chain<(SimpleStringObject | undefined)>(dict).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(dict).collect(simpleStringObjectPartialPropertyMatch).value();
     }
 
     // property name iterator with nonnullable intersecting types
     {
         const array: ({ a: string, b: string } | { a: boolean, c: string })[] = [{ a: 'a', b: 'b' }, { a: true, c: 'c' }];
-        const property = 'a';
         let result: (string | boolean)[];
 
-        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(array, property);
-        result = _.map(array, property);
+        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof simpleObjectPropertyName>(array, simpleObjectPropertyName);
+        result = _.map(array, simpleObjectPropertyName);
 
-        result = _<{ a: string, b: string } | { a: boolean, c: string }>(array).map<typeof property>(property);
-        result = _(array).map(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(array).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(array).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(array).map<typeof property>(property).value();
-        result = _.chain(array).map(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(array).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(array).map(simpleObjectPropertyName).value();
 
-        result = _.collect<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(array, property);
-        result = _.collect(array, property);
+        result = _.collect<{ a: string, b: string } | { a: boolean, c: string }, typeof simpleObjectPropertyName>(array, simpleObjectPropertyName);
+        result = _.collect(array, simpleObjectPropertyName);
 
-        result = _<{ a: string, b: string } | { a: boolean, c: string }>(array).collect<typeof property>(property);
-        result = _(array).collect(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(array).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(array).collect(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(array).collect<typeof property>(property).value();
-        result = _.chain(array).collect(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(array).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(array).collect(simpleObjectPropertyName).value();
     }
 
     {
         const list: _.List<{ a: string, b: string } | { a: boolean, c: string }> = { 0: { a: 'a', b: 'b' }, 1: { a: true, c: 'c' }, length: 2 };
-        const property = 'a';
         let result: (string | boolean)[];
 
-        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(list, property);
-        result = _.map(list, property);
+        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof simpleObjectPropertyName>(list, simpleObjectPropertyName);
+        result = _.map(list, simpleObjectPropertyName);
 
-        result = _<{ a: string, b: string } | { a: boolean, c: string }>(list).map<typeof property>(property);
-        result = _(list).map(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(list).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(list).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(list).map<typeof property>(property).value();
-        result = _.chain(list).map(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(list).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(list).map(simpleObjectPropertyName).value();
 
-        result = _.collect<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(list, property);
-        result = _.collect(list, property);
+        result = _.collect<{ a: string, b: string } | { a: boolean, c: string }, typeof simpleObjectPropertyName>(list, simpleObjectPropertyName);
+        result = _.collect(list, simpleObjectPropertyName);
 
-        result = _<{ a: string, b: string } | { a: boolean, c: string }>(list).collect<typeof property>(property);
-        result = _(list).collect(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(list).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(list).collect(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(list).collect<typeof property>(property).value();
-        result = _.chain(list).collect(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(list).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(list).collect(simpleObjectPropertyName).value();
     }
 
     {
         const dict: _.Dictionary<{ a: string, b: string } | { a: boolean, c: string }> = { a: { a: 'a', b: 'b' }, b: { a: true, c: 'c' } };
-        const property = 'a';
         let result: (string | boolean)[];
 
-        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(dict, property);
-        result = _.map(dict, property);
+        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof simpleObjectPropertyName>(dict, simpleObjectPropertyName);
+        result = _.map(dict, simpleObjectPropertyName);
 
-        result = _<{ a: string, b: string } | { a: boolean, c: string }>(dict).map<typeof property>(property);
-        result = _(dict).map(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(dict).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(dict).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(dict).map<typeof property>(property).value();
-        result = _.chain(dict).map(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(dict).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(dict).map(simpleObjectPropertyName).value();
 
-        result = _.collect<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(dict, property);
-        result = _.collect(dict, property);
+        result = _.collect<{ a: string, b: string } | { a: boolean, c: string }, typeof simpleObjectPropertyName>(dict, simpleObjectPropertyName);
+        result = _.collect(dict, simpleObjectPropertyName);
 
-        result = _<{ a: string, b: string } | { a: boolean, c: string }>(dict).collect<typeof property>(property);
-        result = _(dict).collect(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(dict).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(dict).collect(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(dict).collect<typeof property>(property).value();
-        result = _.chain(dict).collect(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(dict).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(dict).collect(simpleObjectPropertyName).value();
     }
 
     // property name iterator with nullable types
     {
-        const array: ({ a: string } | undefined)[] = [{ a: 'a' }, undefined];
-        const property = 'a';
+        const array: (SimpleStringObject | undefined)[] = [{ a: 'a' }, undefined];
         let result: (string | undefined)[];
 
-        result = _.map<{ a: string } | undefined, typeof property>(array, property);
-        result = _.map(array, property);
+        result = _.map<SimpleStringObject | undefined, typeof simpleObjectPropertyName>(array, simpleObjectPropertyName);
+        result = _.map(array, simpleObjectPropertyName);
 
-        result = _<{ a: string } | undefined>(array).map<typeof property>(property);
-        result = _(array).map(property);
+        result = _<SimpleStringObject | undefined>(array).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(array).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | undefined>(array).map<typeof property>(property).value();
-        result = _.chain(array).map(property).value();
+        result = _.chain<SimpleStringObject | undefined>(array).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(array).map(simpleObjectPropertyName).value();
 
-        result = _.collect<{ a: string } | undefined, typeof property>(array, property);
-        result = _.collect(array, property);
+        result = _.collect<SimpleStringObject | undefined, typeof simpleObjectPropertyName>(array, simpleObjectPropertyName);
+        result = _.collect(array, simpleObjectPropertyName);
 
-        result = _<{ a: string } | undefined>(array).collect<typeof property>(property);
-        result = _(array).collect(property);
+        result = _<SimpleStringObject | undefined>(array).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(array).collect(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | undefined>(array).collect<typeof property>(property).value();
-        result = _.chain(array).collect(property).value();
+        result = _.chain<SimpleStringObject | undefined>(array).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(array).collect(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: undefined, length: 2 };
-        const property = 'a';
+        const list: _.List<(SimpleStringObject | undefined)> = { 0: { a: 'a' }, 1: undefined, length: 2 };
         let result: (string | undefined)[];
 
-        result = _.map<{ a: string } | undefined, typeof property>(list, property);
-        result = _.map(list, property);
+        result = _.map<SimpleStringObject | undefined, typeof simpleObjectPropertyName>(list, simpleObjectPropertyName);
+        result = _.map(list, simpleObjectPropertyName);
 
-        result = _<{ a: string } | undefined>(list).map<typeof property>(property);
-        result = _(list).map(property);
+        result = _<SimpleStringObject | undefined>(list).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(list).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | undefined>(list).map<typeof property>(property).value();
-        result = _.chain(list).map(property).value();
+        result = _.chain<SimpleStringObject | undefined>(list).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(list).map(simpleObjectPropertyName).value();
 
-        result = _.collect<{ a: string } | undefined, typeof property>(list, property);
-        result = _.collect(list, property);
+        result = _.collect<SimpleStringObject | undefined, typeof simpleObjectPropertyName>(list, simpleObjectPropertyName);
+        result = _.collect(list, simpleObjectPropertyName);
 
-        result = _<{ a: string } | undefined>(list).collect<typeof property>(property);
-        result = _(list).collect(property);
+        result = _<SimpleStringObject | undefined>(list).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(list).collect(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | undefined>(list).collect<typeof property>(property).value();
-        result = _.chain(list).collect(property).value();
+        result = _.chain<SimpleStringObject | undefined>(list).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(list).collect(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<({ a: string } | undefined)> = { a: { a: 'a' }, b: undefined };
-        const property = 'a';
+        const dict: _.Dictionary<(SimpleStringObject | undefined)> = { a: { a: 'a' }, b: undefined };
         let result: (string | undefined)[];
 
-        result = _.map<{ a: string } | undefined, typeof property>(dict, property);
-        result = _.map(dict, property);
+        result = _.map<SimpleStringObject | undefined, typeof simpleObjectPropertyName>(dict, simpleObjectPropertyName);
+        result = _.map(dict, simpleObjectPropertyName);
 
-        result = _<{ a: string } | undefined>(dict).map<typeof property>(property);
-        result = _(dict).map(property);
+        result = _<SimpleStringObject | undefined>(dict).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(dict).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | undefined>(dict).map<typeof property>(property).value();
-        result = _.chain(dict).map(property).value();
+        result = _.chain<SimpleStringObject | undefined>(dict).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(dict).map(simpleObjectPropertyName).value();
 
-        result = _.collect<{ a: string } | undefined, typeof property>(dict, property);
-        result = _.collect(dict, property);
+        result = _.collect<SimpleStringObject | undefined, typeof simpleObjectPropertyName>(dict, simpleObjectPropertyName);
+        result = _.collect(dict, simpleObjectPropertyName);
 
-        result = _<{ a: string } | undefined>(dict).collect<typeof property>(property);
-        result = _(dict).collect(property);
+        result = _<SimpleStringObject | undefined>(dict).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(dict).collect(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | undefined>(dict).collect<typeof property>(property).value();
-        result = _.chain(dict).collect(property).value();
+        result = _.chain<SimpleStringObject | undefined>(dict).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(dict).collect(simpleObjectPropertyName).value();
     }
 
     // property name iterator with a non-nullable non-intersecting types
     {
-        const array: ({ a: string } | { b: string })[] = [{ a: 'a' }, { b: 'b' }];
-        const property = 'a';
+        const array: (SimpleStringObject | { b: string })[] = [{ a: 'a' }, { b: 'b' }];
         let result: (string | undefined)[];
 
-        result = _.map<{ a: string } | { b: string }, typeof property>(array, property);
-        result = _.map(array, property);
+        result = _.map<SimpleStringObject | { b: string }, typeof simpleObjectPropertyName>(array, simpleObjectPropertyName);
+        result = _.map(array, simpleObjectPropertyName);
 
-        result = _<{ a: string } | { b: string }>(array).map<typeof property>(property);
-        result = _(array).map(property);
+        result = _<SimpleStringObject | { b: string }>(array).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(array).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | { b: string }>(array).map<typeof property>(property).value();
-        result = _.chain(array).map(property).value();
+        result = _.chain<SimpleStringObject | { b: string }>(array).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(array).map(simpleObjectPropertyName).value();
 
-        result = _.collect<{ a: string } | { b: string }, typeof property>(array, property);
-        result = _.collect(array, property);
+        result = _.collect<SimpleStringObject | { b: string }, typeof simpleObjectPropertyName>(array, simpleObjectPropertyName);
+        result = _.collect(array, simpleObjectPropertyName);
 
-        result = _<{ a: string } | { b: string }>(array).collect<typeof property>(property);
-        result = _(array).collect(property);
+        result = _<SimpleStringObject | { b: string }>(array).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(array).collect(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | { b: string }>(array).collect<typeof property>(property).value();
-        result = _.chain(array).collect(property).value();
+        result = _.chain<SimpleStringObject | { b: string }>(array).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(array).collect(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string } | { b: string }> = { 0: { a: 'a' }, 1: { b: 'b' }, length: 2 };
-        const property = 'a';
+        const list: _.List<SimpleStringObject | { b: string }> = { 0: { a: 'a' }, 1: { b: 'b' }, length: 2 };
         let result: (string | undefined)[];
 
-        result = _.map<{ a: string } | { b: string }, typeof property>(list, property);
-        result = _.map(list, property);
+        result = _.map<SimpleStringObject | { b: string }, typeof simpleObjectPropertyName>(list, simpleObjectPropertyName);
+        result = _.map(list, simpleObjectPropertyName);
 
-        result = _<{ a: string } | { b: string }>(list).map<typeof property>(property);
-        result = _(list).map(property);
+        result = _<SimpleStringObject | { b: string }>(list).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(list).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | { b: string }>(list).map<typeof property>(property).value();
-        result = _.chain(list).map(property).value();
+        result = _.chain<SimpleStringObject | { b: string }>(list).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(list).map(simpleObjectPropertyName).value();
 
-        result = _.collect<{ a: string } | { b: string }, typeof property>(list, property);
-        result = _.collect(list, property);
+        result = _.collect<SimpleStringObject | { b: string }, typeof simpleObjectPropertyName>(list, simpleObjectPropertyName);
+        result = _.collect(list, simpleObjectPropertyName);
 
-        result = _<{ a: string } | { b: string }>(list).collect<typeof property>(property);
-        result = _(list).collect(property);
+        result = _<SimpleStringObject | { b: string }>(list).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(list).collect(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | { b: string }>(list).collect<typeof property>(property).value();
-        result = _.chain(list).collect(property).value();
+        result = _.chain<SimpleStringObject | { b: string }>(list).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(list).collect(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string } | { b: string }> = { a: { a: 'a' }, b: { b: 'b' } };
-        const property = 'a';
+        const dict: _.Dictionary<SimpleStringObject | { b: string }> = { a: { a: 'a' }, b: { b: 'b' } };
         let result: (string | undefined)[];
 
-        result = _.map<{ a: string } | { b: string }, typeof property>(dict, property);
-        result = _.map(dict, property);
+        result = _.map<SimpleStringObject | { b: string }, typeof simpleObjectPropertyName>(dict, simpleObjectPropertyName);
+        result = _.map(dict, simpleObjectPropertyName);
 
-        result = _<{ a: string } | { b: string }>(dict).map<typeof property>(property);
-        result = _(dict).map(property);
+        result = _<SimpleStringObject | { b: string }>(dict).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(dict).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | { b: string }>(dict).map<typeof property>(property).value();
-        result = _.chain(dict).map(property).value();
+        result = _.chain<SimpleStringObject | { b: string }>(dict).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(dict).map(simpleObjectPropertyName).value();
 
-        result = _.collect<{ a: string } | { b: string }, typeof property>(dict, property);
-        result = _.collect(dict, property);
+        result = _.collect<SimpleStringObject | { b: string }, typeof simpleObjectPropertyName>(dict, simpleObjectPropertyName);
+        result = _.collect(dict, simpleObjectPropertyName);
 
-        result = _<{ a: string } | { b: string }>(dict).collect<typeof property>(property);
-        result = _(dict).collect(property);
+        result = _<SimpleStringObject | { b: string }>(dict).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(dict).collect(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | { b: string }>(dict).collect<typeof property>(property).value();
-        result = _.chain(dict).collect(property).value();
+        result = _.chain<SimpleStringObject | { b: string }>(dict).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(dict).collect(simpleObjectPropertyName).value();
     }
 }
 
 // reduce, foldl, inject
 {
-    const context = {};
-
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
         const memo = '';
         let result: string;
 
-        result = _.reduce<{ a: string }, string>(array, iterator, memo);
-        result = _.reduce<{ a: string }, string>(array, iterator, memo, context);
-        result = _.reduce(array, iterator, memo);
-        result = _.reduce(array, iterator, memo, context);
+        result = _.reduce<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.reduce<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _.reduce(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.reduce(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(array).reduce<string>(iterator, memo);
-        result = _<{ a: string }>(array).reduce<string>(iterator, memo, context);
-        result = _(array).reduce(iterator, memo);
-        result = _(array).reduce(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).reduce<string>(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectArray).reduce<string>(simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(array).reduce<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(array).reduce<string>(iterator, memo, context).value();
-        result = _.chain(array).reduce(iterator, memo).value();
-        result = _.chain(array).reduce(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).reduce<string>(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).reduce<string>(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectArray).reduce(simpleStringObjectListPropertyMemoIterator, memo, context).value();
 
-        result = _.foldl<{ a: string }, string>(array, iterator, memo);
-        result = _.foldl<{ a: string }, string>(array, iterator, memo, context);
-        result = _.foldl(array, iterator, memo);
-        result = _.foldl(array, iterator, memo, context);
+        result = _.foldl<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.foldl<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _.foldl(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.foldl(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(array).foldl<string>(iterator, memo);
-        result = _<{ a: string }>(array).foldl<string>(iterator, memo, context);
-        result = _(array).foldl(iterator, memo);
-        result = _(array).foldl(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).foldl<string>(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectArray).foldl<string>(simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(array).foldl<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(array).foldl<string>(iterator, memo, context).value();
-        result = _.chain(array).foldl(iterator, memo).value();
-        result = _.chain(array).foldl(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).foldl<string>(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).foldl<string>(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectArray).foldl(simpleStringObjectListPropertyMemoIterator, memo, context).value();
 
-        result = _.inject<{ a: string }, string>(array, iterator, memo);
-        result = _.inject<{ a: string }, string>(array, iterator, memo, context);
-        result = _.inject(array, iterator, memo);
-        result = _.inject(array, iterator, memo, context);
+        result = _.inject<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.inject<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _.inject(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.inject(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(array).inject<string>(iterator, memo);
-        result = _<{ a: string }>(array).inject<string>(iterator, memo, context);
-        result = _(array).inject(iterator, memo);
-        result = _(array).inject(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).inject<string>(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectArray).inject<string>(simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(array).inject<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(array).inject<string>(iterator, memo, context).value();
-        result = _.chain(array).inject(iterator, memo).value();
-        result = _.chain(array).inject(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).inject<string>(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).inject<string>(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectArray).inject(simpleStringObjectListPropertyMemoIterator, memo, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
         const memo = '';
         let result: string;
 
-        result = _.reduce<{ a: string }, string>(list, iterator, memo);
-        result = _.reduce<{ a: string }, string>(list, iterator, memo, context);
-        result = _.reduce(list, iterator, memo);
-        result = _.reduce(list, iterator, memo, context);
+        result = _.reduce<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.reduce<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _.reduce(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.reduce(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(list).reduce<string>(iterator, memo);
-        result = _<{ a: string }>(list).reduce<string>(iterator, memo, context);
-        result = _(list).reduce(iterator, memo);
-        result = _(list).reduce(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).reduce<string>(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectList).reduce<string>(simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(list).reduce<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(list).reduce<string>(iterator, memo, context).value();
-        result = _.chain(list).reduce(iterator, memo).value();
-        result = _.chain(list).reduce(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).reduce<string>(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).reduce<string>(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectList).reduce(simpleStringObjectListPropertyMemoIterator, memo, context).value();
 
-        result = _.foldl<{ a: string }, string>(list, iterator, memo);
-        result = _.foldl<{ a: string }, string>(list, iterator, memo, context);
-        result = _.foldl(list, iterator, memo);
-        result = _.foldl(list, iterator, memo, context);
+        result = _.foldl<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.foldl<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _.foldl(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.foldl(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(list).foldl<string>(iterator, memo);
-        result = _<{ a: string }>(list).foldl<string>(iterator, memo, context);
-        result = _(list).foldl(iterator, memo);
-        result = _(list).foldl(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).foldl<string>(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectList).foldl<string>(simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(list).foldl<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(list).foldl<string>(iterator, memo, context).value();
-        result = _.chain(list).foldl(iterator, memo).value();
-        result = _.chain(list).foldl(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).foldl<string>(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).foldl<string>(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectList).foldl(simpleStringObjectListPropertyMemoIterator, memo, context).value();
 
-        result = _.inject<{ a: string }, string>(list, iterator, memo);
-        result = _.inject<{ a: string }, string>(list, iterator, memo, context);
-        result = _.inject(list, iterator, memo);
-        result = _.inject(list, iterator, memo, context);
+        result = _.inject<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.inject<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _.inject(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.inject(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(list).inject<string>(iterator, memo);
-        result = _<{ a: string }>(list).inject<string>(iterator, memo, context);
-        result = _(list).inject(iterator, memo);
-        result = _(list).inject(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).inject<string>(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectList).inject<string>(simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(list).inject<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(list).inject<string>(iterator, memo, context).value();
-        result = _.chain(list).inject(iterator, memo).value();
-        result = _.chain(list).inject(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).inject<string>(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).inject<string>(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectList).inject(simpleStringObjectListPropertyMemoIterator, memo, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (prev: string, element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => prev + element.a;
         const memo = '';
         let result: string;
 
-        result = _.reduce<{ a: string }, string>(dict, iterator, memo);
-        result = _.reduce<{ a: string }, string>(dict, iterator, memo, context);
-        result = _.reduce(dict, iterator, memo);
-        result = _.reduce(dict, iterator, memo, context);
+        result = _.reduce<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _.reduce<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+        result = _.reduce(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _.reduce(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(dict).reduce<string>(iterator, memo);
-        result = _<{ a: string }>(dict).reduce<string>(iterator, memo, context);
-        result = _(dict).reduce(iterator, memo);
-        result = _(dict).reduce(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).reduce<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).reduce<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(dict).reduce<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(dict).reduce<string>(iterator, memo, context).value();
-        result = _.chain(dict).reduce(iterator, memo).value();
-        result = _.chain(dict).reduce(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).reduce<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).reduce<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectDictionary).reduce(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
 
-        result = _.foldl<{ a: string }, string>(dict, iterator, memo);
-        result = _.foldl<{ a: string }, string>(dict, iterator, memo, context);
-        result = _.foldl(dict, iterator, memo);
-        result = _.foldl(dict, iterator, memo, context);
+        result = _.foldl<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _.foldl<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+        result = _.foldl(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _.foldl(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(dict).foldl<string>(iterator, memo);
-        result = _<{ a: string }>(dict).foldl<string>(iterator, memo, context);
-        result = _(dict).foldl(iterator, memo);
-        result = _(dict).foldl(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).foldl<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).foldl<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(dict).foldl<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(dict).foldl<string>(iterator, memo, context).value();
-        result = _.chain(dict).foldl(iterator, memo).value();
-        result = _.chain(dict).foldl(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).foldl<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).foldl<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectDictionary).foldl(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
 
-        result = _.inject<{ a: string }, string>(dict, iterator, memo);
-        result = _.inject<{ a: string }, string>(dict, iterator, memo, context);
-        result = _.inject(dict, iterator, memo);
-        result = _.inject(dict, iterator, memo, context);
+        result = _.inject<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _.inject<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+        result = _.inject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _.inject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(dict).inject<string>(iterator, memo);
-        result = _<{ a: string }>(dict).inject<string>(iterator, memo, context);
-        result = _(dict).inject(iterator, memo);
-        result = _(dict).inject(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).inject<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).inject<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(dict).inject<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(dict).inject<string>(iterator, memo, context).value();
-        result = _.chain(dict).inject(iterator, memo).value();
-        result = _.chain(dict).inject(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).inject<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).inject<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
 
-        result = _.chain<{ a: string }>(dict).inject<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(dict).inject<string>(iterator, memo, context).value();
-        result = _.chain(dict).inject(iterator, memo).value();
-        result = _.chain(dict).inject(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).inject<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).inject<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectDictionary).inject(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
     }
 
     {
-        const str = 'abc';
-        const iterator = (prev: _.Dictionary<number>, value: string, index: number, list: _.List<string>) => {
-            prev[value] = index;
-            return prev;
-        };
         const memo: _.Dictionary<number> = {};
         let result: _.Dictionary<number>;
 
-        result = _.reduce<string, _.Dictionary<number>>(str, iterator, memo);
-        result = _.reduce<string, _.Dictionary<number>>(str, iterator, memo, context);
-        result = _.reduce(str, iterator, memo);
-        result = _.reduce(str, iterator, memo, context);
+        result = _.reduce<string, _.Dictionary<number>>(simpleString, stringListMemoIterator, memo);
+        result = _.reduce<string, _.Dictionary<number>>(simpleString, stringListMemoIterator, memo, context);
+        result = _.reduce(simpleString, stringListMemoIterator, memo);
+        result = _.reduce(simpleString, stringListMemoIterator, memo, context);
 
-        result = _<string>(str).reduce<_.Dictionary<number>>(iterator, memo);
-        result = _<string>(str).reduce<_.Dictionary<number>>(iterator, memo, context);
-        result = _(str).reduce(iterator, memo);
-        result = _(str).reduce(iterator, memo, context);
+        result = _<string>(simpleString).reduce<_.Dictionary<number>>(stringListMemoIterator, memo);
+        result = _<string>(simpleString).reduce<_.Dictionary<number>>(stringListMemoIterator, memo, context);
+        result = _(simpleString).reduce(stringListMemoIterator, memo);
+        result = _(simpleString).reduce(stringListMemoIterator, memo, context);
 
-        result = _.chain<string>(str).reduce<_.Dictionary<number>>(iterator, memo).value();
-        result = _.chain<string>(str).reduce<_.Dictionary<number>>(iterator, memo, context).value();
-        result = _.chain(str).reduce(iterator, memo).value();
-        result = _.chain(str).reduce(iterator, memo, context).value();
+        result = _.chain<string>(simpleString).reduce<_.Dictionary<number>>(stringListMemoIterator, memo).value();
+        result = _.chain<string>(simpleString).reduce<_.Dictionary<number>>(stringListMemoIterator, memo, context).value();
+        result = _.chain(simpleString).reduce(stringListMemoIterator, memo).value();
+        result = _.chain(simpleString).reduce(stringListMemoIterator, memo, context).value();
 
-        result = _.foldl<string, _.Dictionary<number>>(str, iterator, memo);
-        result = _.foldl<string, _.Dictionary<number>>(str, iterator, memo, context);
-        result = _.foldl(str, iterator, memo);
-        result = _.foldl(str, iterator, memo, context);
+        result = _.foldl<string, _.Dictionary<number>>(simpleString, stringListMemoIterator, memo);
+        result = _.foldl<string, _.Dictionary<number>>(simpleString, stringListMemoIterator, memo, context);
+        result = _.foldl(simpleString, stringListMemoIterator, memo);
+        result = _.foldl(simpleString, stringListMemoIterator, memo, context);
 
-        result = _<string>(str).foldl<_.Dictionary<number>>(iterator, memo);
-        result = _<string>(str).foldl<_.Dictionary<number>>(iterator, memo, context);
-        result = _(str).foldl(iterator, memo);
-        result = _(str).foldl(iterator, memo, context);
+        result = _<string>(simpleString).foldl<_.Dictionary<number>>(stringListMemoIterator, memo);
+        result = _<string>(simpleString).foldl<_.Dictionary<number>>(stringListMemoIterator, memo, context);
+        result = _(simpleString).foldl(stringListMemoIterator, memo);
+        result = _(simpleString).foldl(stringListMemoIterator, memo, context);
 
-        result = _.chain<string>(str).foldl<_.Dictionary<number>>(iterator, memo).value();
-        result = _.chain<string>(str).foldl<_.Dictionary<number>>(iterator, memo, context).value();
-        result = _.chain(str).foldl(iterator, memo).value();
-        result = _.chain(str).foldl(iterator, memo, context).value();
+        result = _.chain<string>(simpleString).foldl<_.Dictionary<number>>(stringListMemoIterator, memo).value();
+        result = _.chain<string>(simpleString).foldl<_.Dictionary<number>>(stringListMemoIterator, memo, context).value();
+        result = _.chain(simpleString).foldl(stringListMemoIterator, memo).value();
+        result = _.chain(simpleString).foldl(stringListMemoIterator, memo, context).value();
 
-        result = _.inject<string, _.Dictionary<number>>(str, iterator, memo);
-        result = _.inject<string, _.Dictionary<number>>(str, iterator, memo, context);
-        result = _.inject(str, iterator, memo);
-        result = _.inject(str, iterator, memo, context);
+        result = _.inject<string, _.Dictionary<number>>(simpleString, stringListMemoIterator, memo);
+        result = _.inject<string, _.Dictionary<number>>(simpleString, stringListMemoIterator, memo, context);
+        result = _.inject(simpleString, stringListMemoIterator, memo);
+        result = _.inject(simpleString, stringListMemoIterator, memo, context);
 
-        result = _<string>(str).inject<_.Dictionary<number>>(iterator, memo);
-        result = _<string>(str).inject<_.Dictionary<number>>(iterator, memo, context);
-        result = _(str).inject(iterator, memo);
-        result = _(str).inject(iterator, memo, context);
+        result = _<string>(simpleString).inject<_.Dictionary<number>>(stringListMemoIterator, memo);
+        result = _<string>(simpleString).inject<_.Dictionary<number>>(stringListMemoIterator, memo, context);
+        result = _(simpleString).inject(stringListMemoIterator, memo);
+        result = _(simpleString).inject(stringListMemoIterator, memo, context);
 
-        result = _.chain<string>(str).inject<_.Dictionary<number>>(iterator, memo).value();
-        result = _.chain<string>(str).inject<_.Dictionary<number>>(iterator, memo, context).value();
-        result = _.chain(str).inject(iterator, memo).value();
-        result = _.chain(str).inject(iterator, memo, context).value();
+        result = _.chain<string>(simpleString).inject<_.Dictionary<number>>(stringListMemoIterator, memo).value();
+        result = _.chain<string>(simpleString).inject<_.Dictionary<number>>(stringListMemoIterator, memo, context).value();
+        result = _.chain(simpleString).inject(stringListMemoIterator, memo).value();
+        result = _.chain(simpleString).inject(stringListMemoIterator, memo, context).value();
     }
 }
 
 // reduceRight, foldr
 {
-    const context = {};
-
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
         const memo = '';
         let result: string;
 
-        result = _.reduceRight<{ a: string }, string>(array, iterator, memo);
-        result = _.reduceRight<{ a: string }, string>(array, iterator, memo, context);
-        result = _.reduceRight(array, iterator, memo);
-        result = _.reduceRight(array, iterator, memo, context);
+        result = _.reduceRight<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.reduceRight<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _.reduceRight(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.reduceRight(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(array).reduceRight<string>(iterator, memo);
-        result = _<{ a: string }>(array).reduceRight<string>(iterator, memo, context);
-        result = _(array).reduceRight(iterator, memo);
-        result = _(array).reduceRight(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).reduceRight<string>(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectArray).reduceRight<string>(simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(array).reduceRight<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(array).reduceRight<string>(iterator, memo, context).value();
-        result = _.chain(array).reduceRight(iterator, memo).value();
-        result = _.chain(array).reduceRight(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).reduceRight<string>(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).reduceRight<string>(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectArray).reduceRight(simpleStringObjectListPropertyMemoIterator, memo, context).value();
 
-        result = _.foldr<{ a: string }, string>(array, iterator, memo);
-        result = _.foldr<{ a: string }, string>(array, iterator, memo, context);
-        result = _.foldr(array, iterator, memo);
-        result = _.foldr(array, iterator, memo, context);
+        result = _.foldr<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.foldr<SimpleStringObject, string>(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _.foldr(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.foldr(simpleStringObjectArray, simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(array).foldr<string>(iterator, memo);
-        result = _<{ a: string }>(array).foldr<string>(iterator, memo, context);
-        result = _(array).foldr(iterator, memo);
-        result = _(array).foldr(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).foldr<string>(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectArray).foldr<string>(simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(array).foldr<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(array).foldr<string>(iterator, memo, context).value();
-        result = _.chain(array).foldr(iterator, memo).value();
-        result = _.chain(array).foldr(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).foldr<string>(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).foldr<string>(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, memo, context).value();
 
-        result = _.chain<{ a: string }>(array).foldr<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(array).foldr<string>(iterator, memo, context).value();
-        result = _.chain(array).foldr(iterator, memo).value();
-        result = _.chain(array).foldr(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).foldr<string>(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).foldr<string>(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectArray).foldr(simpleStringObjectListPropertyMemoIterator, memo, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (prev: string, value: { a: string }, index: number, list: _.List<{ a: string }>) => prev + value.a;
         const memo = '';
         let result: string;
 
-        result = _.reduceRight<{ a: string }, string>(list, iterator, memo);
-        result = _.reduceRight<{ a: string }, string>(list, iterator, memo, context);
-        result = _.reduceRight(list, iterator, memo);
-        result = _.reduceRight(list, iterator, memo, context);
+        result = _.reduceRight<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.reduceRight<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _.reduceRight(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.reduceRight(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(list).reduceRight<string>(iterator, memo);
-        result = _<{ a: string }>(list).reduceRight<string>(iterator, memo, context);
-        result = _(list).reduceRight(iterator, memo);
-        result = _(list).reduceRight(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).reduceRight<string>(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectList).reduceRight<string>(simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(list).reduceRight<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(list).reduceRight<string>(iterator, memo, context).value();
-        result = _.chain(list).reduceRight(iterator, memo).value();
-        result = _.chain(list).reduceRight(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).reduceRight<string>(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).reduceRight<string>(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectList).reduceRight(simpleStringObjectListPropertyMemoIterator, memo, context).value();
 
-        result = _.foldr<{ a: string }, string>(list, iterator, memo);
-        result = _.foldr<{ a: string }, string>(list, iterator, memo, context);
-        result = _.foldr(list, iterator, memo);
-        result = _.foldr(list, iterator, memo, context);
+        result = _.foldr<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.foldr<SimpleStringObject, string>(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _.foldr(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo);
+        result = _.foldr(simpleStringObjectList, simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(list).foldr<string>(iterator, memo);
-        result = _<{ a: string }>(list).foldr<string>(iterator, memo, context);
-        result = _(list).foldr(iterator, memo);
-        result = _(list).foldr(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).foldr<string>(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectList).foldr<string>(simpleStringObjectListPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, memo);
+        result = _(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(list).foldr<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(list).foldr<string>(iterator, memo, context).value();
-        result = _.chain(list).foldr(iterator, memo).value();
-        result = _.chain(list).foldr(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).foldr<string>(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).foldr<string>(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, memo, context).value();
 
-        result = _.chain<{ a: string }>(list).foldr<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(list).foldr<string>(iterator, memo, context).value();
-        result = _.chain(list).foldr(iterator, memo).value();
-        result = _.chain(list).foldr(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).foldr<string>(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).foldr<string>(simpleStringObjectListPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectList).foldr(simpleStringObjectListPropertyMemoIterator, memo, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (prev: string, element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => prev + element.a;
         const memo = '';
         let result: string;
 
-        result = _.reduceRight<{ a: string }, string>(dict, iterator, memo);
-        result = _.reduceRight<{ a: string }, string>(dict, iterator, memo, context);
-        result = _.reduceRight(dict, iterator, memo);
-        result = _.reduceRight(dict, iterator, memo, context);
+        result = _.reduceRight<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _.reduceRight<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+        result = _.reduceRight(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _.reduceRight(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(dict).reduceRight<string>(iterator, memo);
-        result = _<{ a: string }>(dict).reduceRight<string>(iterator, memo, context);
-        result = _(dict).reduceRight(iterator, memo);
-        result = _(dict).reduceRight(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).reduceRight<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).reduceRight<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(dict).reduceRight<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(dict).reduceRight<string>(iterator, memo, context).value();
-        result = _.chain(dict).reduceRight(iterator, memo).value();
-        result = _.chain(dict).reduceRight(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).reduceRight<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).reduceRight<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectDictionary).reduceRight(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
 
-        result = _.foldr<{ a: string }, string>(dict, iterator, memo);
-        result = _.foldr<{ a: string }, string>(dict, iterator, memo, context);
-        result = _.foldr(dict, iterator, memo);
-        result = _.foldr(dict, iterator, memo, context);
+        result = _.foldr<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _.foldr<SimpleStringObject, string>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+        result = _.foldr(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _.foldr(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
 
-        result = _<{ a: string }>(dict).foldr<string>(iterator, memo);
-        result = _<{ a: string }>(dict).foldr<string>(iterator, memo, context);
-        result = _(dict).foldr(iterator, memo);
-        result = _(dict).foldr(iterator, memo, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).foldr<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).foldr<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
+        result = _(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, memo);
+        result = _(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, memo, context);
 
-        result = _.chain<{ a: string }>(dict).foldr<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(dict).foldr<string>(iterator, memo, context).value();
-        result = _.chain(dict).foldr(iterator, memo).value();
-        result = _.chain(dict).foldr(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).foldr<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).foldr<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
 
-        result = _.chain<{ a: string }>(dict).foldr<string>(iterator, memo).value();
-        result = _.chain<{ a: string }>(dict).foldr<string>(iterator, memo, context).value();
-        result = _.chain(dict).foldr(iterator, memo).value();
-        result = _.chain(dict).foldr(iterator, memo, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).foldr<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).foldr<string>(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
+        result = _.chain(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, memo).value();
+        result = _.chain(simpleStringObjectDictionary).foldr(simpleStringObjectDictionaryPropertyMemoIterator, memo, context).value();
     }
 
     {
-        const str = 'abc';
-        const iterator = (prev: _.Dictionary<number>, value: string, index: number, list: _.List<string>) => {
-            prev[value] = index;
-            return prev;
-        };
         const memo: _.Dictionary<number> = {};
         let result: _.Dictionary<number>;
 
-        result = _.reduceRight<string, _.Dictionary<number>>(str, iterator, memo);
-        result = _.reduceRight<string, _.Dictionary<number>>(str, iterator, memo, context);
-        result = _.reduceRight(str, iterator, memo);
-        result = _.reduceRight(str, iterator, memo, context);
+        result = _.reduceRight<string, _.Dictionary<number>>(simpleString, stringListMemoIterator, memo);
+        result = _.reduceRight<string, _.Dictionary<number>>(simpleString, stringListMemoIterator, memo, context);
+        result = _.reduceRight(simpleString, stringListMemoIterator, memo);
+        result = _.reduceRight(simpleString, stringListMemoIterator, memo, context);
 
-        result = _<string>(str).reduceRight<_.Dictionary<number>>(iterator, memo);
-        result = _<string>(str).reduceRight<_.Dictionary<number>>(iterator, memo, context);
-        result = _(str).reduceRight(iterator, memo);
-        result = _(str).reduceRight(iterator, memo, context);
+        result = _<string>(simpleString).reduceRight<_.Dictionary<number>>(stringListMemoIterator, memo);
+        result = _<string>(simpleString).reduceRight<_.Dictionary<number>>(stringListMemoIterator, memo, context);
+        result = _(simpleString).reduceRight(stringListMemoIterator, memo);
+        result = _(simpleString).reduceRight(stringListMemoIterator, memo, context);
 
-        result = _.chain<string>(str).reduceRight<_.Dictionary<number>>(iterator, memo).value();
-        result = _.chain<string>(str).reduceRight<_.Dictionary<number>>(iterator, memo, context).value();
-        result = _.chain(str).reduceRight(iterator, memo).value();
-        result = _.chain(str).reduceRight(iterator, memo, context).value();
+        result = _.chain<string>(simpleString).reduceRight<_.Dictionary<number>>(stringListMemoIterator, memo).value();
+        result = _.chain<string>(simpleString).reduceRight<_.Dictionary<number>>(stringListMemoIterator, memo, context).value();
+        result = _.chain(simpleString).reduceRight(stringListMemoIterator, memo).value();
+        result = _.chain(simpleString).reduceRight(stringListMemoIterator, memo, context).value();
 
-        result = _.foldr<string, _.Dictionary<number>>(str, iterator, memo);
-        result = _.foldr<string, _.Dictionary<number>>(str, iterator, memo, context);
-        result = _.foldr(str, iterator, memo);
-        result = _.foldr(str, iterator, memo, context);
+        result = _.foldr<string, _.Dictionary<number>>(simpleString, stringListMemoIterator, memo);
+        result = _.foldr<string, _.Dictionary<number>>(simpleString, stringListMemoIterator, memo, context);
+        result = _.foldr(simpleString, stringListMemoIterator, memo);
+        result = _.foldr(simpleString, stringListMemoIterator, memo, context);
 
-        result = _<string>(str).foldr<_.Dictionary<number>>(iterator, memo);
-        result = _<string>(str).foldr<_.Dictionary<number>>(iterator, memo, context);
-        result = _(str).foldr(iterator, memo);
-        result = _(str).foldr(iterator, memo, context);
+        result = _<string>(simpleString).foldr<_.Dictionary<number>>(stringListMemoIterator, memo);
+        result = _<string>(simpleString).foldr<_.Dictionary<number>>(stringListMemoIterator, memo, context);
+        result = _(simpleString).foldr(stringListMemoIterator, memo);
+        result = _(simpleString).foldr(stringListMemoIterator, memo, context);
 
-        result = _.chain<string>(str).foldr<_.Dictionary<number>>(iterator, memo).value();
-        result = _.chain<string>(str).foldr<_.Dictionary<number>>(iterator, memo, context).value();
-        result = _.chain(str).foldr(iterator, memo).value();
-        result = _.chain(str).foldr(iterator, memo, context).value();
+        result = _.chain<string>(simpleString).foldr<_.Dictionary<number>>(stringListMemoIterator, memo).value();
+        result = _.chain<string>(simpleString).foldr<_.Dictionary<number>>(stringListMemoIterator, memo, context).value();
+        result = _.chain(simpleString).foldr(stringListMemoIterator, memo).value();
+        result = _.chain(simpleString).foldr(stringListMemoIterator, memo, context).value();
     }
 }
 
 // find, detect
 {
-    const context = {};
-
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
         let result: {a: string} | undefined;
 
-        result = _.find<{ a: string }>(array, iterator);
-        result = _.find<{ a: string }>(array, iterator, context);
-        result = _.find(array, iterator);
-        result = _.find(array, iterator, context);
+        result = _.find<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.find<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.find(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.find(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(array).find(iterator);
-        result = _<{ a: string }>(array).find(iterator, context);
-        result = _(array).find(iterator);
-        result = _(array).find(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(array).find(iterator).value();
-        result = _.chain<{ a: string }>(array).find(iterator, context).value();
-        result = _.chain(array).find(iterator).value();
-        result = _.chain(array).find(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).find(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.detect<{ a: string }>(array, iterator);
-        result = _.detect<{ a: string }>(array, iterator, context);
-        result = _.detect(array, iterator);
-        result = _.detect(array, iterator, context);
+        result = _.detect<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.detect<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.detect(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.detect(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(array).detect(iterator);
-        result = _<{ a: string }>(array).detect(iterator, context);
-        result = _(array).detect(iterator);
-        result = _(array).detect(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(array).detect(iterator).value();
-        result = _.chain<{ a: string }>(array).detect(iterator, context).value();
-        result = _.chain(array).detect(iterator).value();
-        result = _.chain(array).detect(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).detect(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.find<{ a: string }>(list, iterator);
-        result = _.find<{ a: string }>(list, iterator, context);
-        result = _.find(list, iterator);
-        result = _.find(list, iterator, context);
+        result = _.find<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.find<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.find(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.find(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(list).find(iterator);
-        result = _<{ a: string }>(list).find(iterator, context);
-        result = _(list).find(iterator);
-        result = _(list).find(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(list).find(iterator).value();
-        result = _.chain<{ a: string }>(list).find(iterator, context).value();
-        result = _.chain(list).find(iterator).value();
-        result = _.chain(list).find(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).find(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.detect<{ a: string }>(list, iterator);
-        result = _.detect<{ a: string }>(list, iterator, context);
-        result = _.detect(list, iterator);
-        result = _.detect(list, iterator, context);
+        result = _.detect<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.detect<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.detect(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.detect(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(list).detect(iterator);
-        result = _<{ a: string }>(list).detect(iterator, context);
-        result = _(list).detect(iterator);
-        result = _(list).detect(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(list).detect(iterator).value();
-        result = _.chain<{ a: string }>(list).detect(iterator, context).value();
-        result = _.chain(list).detect(iterator).value();
-        result = _.chain(list).detect(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).detect(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.find<{ a: string }>(dict, iterator);
-        result = _.find<{ a: string }>(dict, iterator, context);
-        result = _.find(dict, iterator);
-        result = _.find(dict, iterator, context);
+        result = _.find<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.find<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _.find(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.find(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(dict).find(iterator);
-        result = _<{ a: string }>(dict).find(iterator, context);
-        result = _(dict).find(iterator);
-        result = _(dict).find(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).find(iterator).value();
-        result = _.chain<{ a: string }>(dict).find(iterator, context).value();
-        result = _.chain(dict).find(iterator).value();
-        result = _.chain(dict).find(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).find(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
 
-        result = _.detect<{ a: string }>(dict, iterator);
-        result = _.detect<{ a: string }>(dict, iterator, context);
-        result = _.detect(dict, iterator);
-        result = _.detect(dict, iterator, context);
+        result = _.detect<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.detect<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _.detect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.detect(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(dict).detect(iterator);
-        result = _<{ a: string }>(dict).detect(iterator, context);
-        result = _(dict).detect(iterator);
-        result = _(dict).detect(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).detect(iterator).value();
-        result = _.chain<{ a: string }>(dict).detect(iterator, context).value();
-        result = _.chain(dict).detect(iterator).value();
-        result = _.chain(dict).detect(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).detect(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
     }
 
     {
-        const str = 'abc';
-        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: string | undefined;
 
-        result = _.find<string>(str, iterator);
-        result = _.find<string>(str, iterator, context);
-        result = _.find(str, iterator);
-        result = _.find(str, iterator, context);
+        result = _.find<string>(simpleString, stringListComparingIterator);
+        result = _.find<string>(simpleString, stringListComparingIterator, context);
+        result = _.find(simpleString, stringListComparingIterator);
+        result = _.find(simpleString, stringListComparingIterator, context);
 
-        result = _<string>(str).find(iterator);
-        result = _<string>(str).find(iterator, context);
-        result = _(str).find(iterator);
-        result = _(str).find(iterator, context);
+        result = _<string>(simpleString).find(stringListComparingIterator);
+        result = _<string>(simpleString).find(stringListComparingIterator, context);
+        result = _(simpleString).find(stringListComparingIterator);
+        result = _(simpleString).find(stringListComparingIterator, context);
 
-        result = _.chain<string>(str).find(iterator).value();
-        result = _.chain<string>(str).find(iterator, context).value();
-        result = _.chain(str).find(iterator).value();
-        result = _.chain(str).find(iterator, context).value();
+        result = _.chain<string>(simpleString).find(stringListComparingIterator).value();
+        result = _.chain<string>(simpleString).find(stringListComparingIterator, context).value();
+        result = _.chain(simpleString).find(stringListComparingIterator).value();
+        result = _.chain(simpleString).find(stringListComparingIterator, context).value();
 
-        result = _.detect<string>(str, iterator);
-        result = _.detect<string>(str, iterator, context);
-        result = _.detect(str, iterator);
-        result = _.detect(str, iterator, context);
+        result = _.detect<string>(simpleString, stringListComparingIterator);
+        result = _.detect<string>(simpleString, stringListComparingIterator, context);
+        result = _.detect(simpleString, stringListComparingIterator);
+        result = _.detect(simpleString, stringListComparingIterator, context);
 
-        result = _<string>(str).detect(iterator);
-        result = _<string>(str).detect(iterator, context);
-        result = _(str).detect(iterator);
-        result = _(str).detect(iterator, context);
+        result = _<string>(simpleString).detect(stringListComparingIterator);
+        result = _<string>(simpleString).detect(stringListComparingIterator, context);
+        result = _(simpleString).detect(stringListComparingIterator);
+        result = _(simpleString).detect(stringListComparingIterator, context);
 
-        result = _.chain<string>(str).detect(iterator).value();
-        result = _.chain<string>(str).detect(iterator, context).value();
-        result = _.chain(str).detect(iterator).value();
-        result = _.chain(str).detect(iterator, context).value();
+        result = _.chain<string>(simpleString).detect(stringListComparingIterator).value();
+        result = _.chain<string>(simpleString).detect(stringListComparingIterator, context).value();
+        result = _.chain(simpleString).detect(stringListComparingIterator).value();
+        result = _.chain(simpleString).detect(stringListComparingIterator, context).value();
     }
 
     // partial object iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const properties = { a: 'b' };
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.find<{ a: string }>(array, properties);
-        result = _.find(array, properties);
+        result = _.find<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.find(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).find(properties);
-        result = _(array).find(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).find(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).find(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).find(properties).value();
-        result = _.chain(array).find(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).find(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).find(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.detect<{ a: string }>(array, properties);
-        result = _.detect(array, properties);
+        result = _.detect<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.detect(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).detect(properties);
-        result = _(array).detect(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).detect(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).detect(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).detect(properties).value();
-        result = _.chain(array).detect(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).detect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).detect(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const properties = { a: 'b' };
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.find<{ a: string }>(list, properties);
-        result = _.find(list, properties);
+        result = _.find<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.find(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).find(properties);
-        result = _(list).find(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).find(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).find(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).find(properties).value();
-        result = _.chain(list).find(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).find(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).find(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.detect<{ a: string }>(list, properties);
-        result = _.detect(list, properties);
+        result = _.detect<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.detect(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).detect(properties);
-        result = _(list).detect(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).detect(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).detect(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).detect(properties).value();
-        result = _.chain(list).detect(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).detect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).detect(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const properties = { a: 'b' };
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.find<{ a: string }>(dict, properties);
-        result = _.find(dict, properties);
+        result = _.find<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.find(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(dict).find(properties);
-        result = _(dict).find(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).find(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).find(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(dict).find(properties).value();
-        result = _.chain(dict).find(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).find(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).find(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.detect<{ a: string }>(dict, properties);
-        result = _.detect(dict, properties);
+        result = _.detect<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.detect(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(dict).detect(properties);
-        result = _(dict).detect(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).detect(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).detect(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(dict).detect(properties).value();
-        result = _.chain(dict).detect(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).detect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).detect(simpleStringObjectPartialPropertyMatch).value();
     }
 
     // property name iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const property = 'a';
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.find<{ a: string }>(array, property);
-        result = _.find(array, property);
+        result = _.find<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.find(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).find(property);
-        result = _(array).find(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).find(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).find(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).find(property).value();
-        result = _.chain(array).find(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).find(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).find(simpleObjectPropertyName).value();
 
-        result = _.detect<{ a: string }>(array, property);
-        result = _.detect(array, property);
+        result = _.detect<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.detect(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).detect(property);
-        result = _(array).detect(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).detect(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).detect(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).detect(property).value();
-        result = _.chain(array).detect(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).detect(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).detect(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const property = 'a';
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.find<{ a: string }>(list, property);
-        result = _.find(list, property);
+        result = _.find<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.find(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).find(property);
-        result = _(list).find(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).find(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).find(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).find(property).value();
-        result = _.chain(list).find(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).find(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).find(simpleObjectPropertyName).value();
 
-        result = _.detect<{ a: string }>(list, property);
-        result = _.detect(list, property);
+        result = _.detect<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.detect(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).detect(property);
-        result = _(list).detect(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).detect(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).detect(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).detect(property).value();
-        result = _.chain(list).detect(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).detect(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).detect(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const property = 'a';
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.find<{ a: string }>(dict, property);
-        result = _.find(dict, property);
+        result = _.find<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.find(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).find(property);
-        result = _(dict).find(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).find(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).find(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).find(property).value();
-        result = _.chain(dict).find(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).find(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).find(simpleObjectPropertyName).value();
 
-        result = _.detect<{ a: string }>(dict, property);
-        result = _.detect(dict, property);
+        result = _.detect<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.detect(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).detect(property);
-        result = _(dict).detect(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).detect(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).detect(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).detect(property).value();
-        result = _.chain(dict).detect(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).detect(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).detect(simpleObjectPropertyName).value();
     }
 }
 
 // filter, select
 {
-    const context = {};
-
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.filter<{ a: string }>(array, iterator);
-        result = _.filter<{ a: string }>(array, iterator, context);
-        result = _.filter(array, iterator);
-        result = _.filter(array, iterator, context);
+        result = _.filter<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.filter<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.filter(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.filter(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(array).filter(iterator);
-        result = _<{ a: string }>(array).filter(iterator, context);
-        result = _(array).filter(iterator);
-        result = _(array).filter(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(array).filter(iterator).value();
-        result = _.chain<{ a: string }>(array).filter(iterator, context).value();
-        result = _.chain(array).filter(iterator).value();
-        result = _.chain(array).filter(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).filter(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.select<{ a: string }>(array, iterator);
-        result = _.select<{ a: string }>(array, iterator, context);
-        result = _.select(array, iterator);
-        result = _.select(array, iterator, context);
+        result = _.select<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.select<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.select(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.select(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(array).select(iterator);
-        result = _<{ a: string }>(array).select(iterator, context);
-        result = _(array).select(iterator);
-        result = _(array).select(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(array).select(iterator).value();
-        result = _.chain<{ a: string }>(array).select(iterator, context).value();
-        result = _.chain(array).select(iterator).value();
-        result = _.chain(array).select(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(array).select(iterator).value();
-        result = _.chain<{ a: string }>(array).select(iterator, context).value();
-        result = _.chain(array).select(iterator).value();
-        result = _.chain(array).select(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).select(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.filter<{ a: string }>(list, iterator);
-        result = _.filter<{ a: string }>(list, iterator, context);
-        result = _.filter(list, iterator);
-        result = _.filter(list, iterator, context);
+        result = _.filter<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.filter<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.filter(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.filter(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(list).filter(iterator);
-        result = _<{ a: string }>(list).filter(iterator, context);
-        result = _(list).filter(iterator);
-        result = _(list).filter(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(list).filter(iterator).value();
-        result = _.chain<{ a: string }>(list).filter(iterator, context).value();
-        result = _.chain(list).filter(iterator).value();
-        result = _.chain(list).filter(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).filter(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.select<{ a: string }>(list, iterator);
-        result = _.select<{ a: string }>(list, iterator, context);
-        result = _.select(list, iterator);
-        result = _.select(list, iterator, context);
+        result = _.select<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.select<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.select(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.select(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(list).select(iterator);
-        result = _<{ a: string }>(list).select(iterator, context);
-        result = _(list).select(iterator);
-        result = _(list).select(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(list).select(iterator).value();
-        result = _.chain<{ a: string }>(list).select(iterator, context).value();
-        result = _.chain(list).select(iterator).value();
-        result = _.chain(list).select(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(list).select(iterator).value();
-        result = _.chain<{ a: string }>(list).select(iterator, context).value();
-        result = _.chain(list).select(iterator).value();
-        result = _.chain(list).select(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).select(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.filter<{ a: string }>(dict, iterator);
-        result = _.filter<{ a: string }>(dict, iterator, context);
-        result = _.filter(dict, iterator);
-        result = _.filter(dict, iterator, context);
+        result = _.filter<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.filter<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _.filter(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.filter(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(dict).filter(iterator);
-        result = _<{ a: string }>(dict).filter(iterator, context);
-        result = _(dict).filter(iterator);
-        result = _(dict).filter(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).filter(iterator).value();
-        result = _.chain<{ a: string }>(dict).filter(iterator, context).value();
-        result = _.chain(dict).filter(iterator).value();
-        result = _.chain(dict).filter(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).filter(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
 
-        result = _.select<{ a: string }>(dict, iterator);
-        result = _.select<{ a: string }>(dict, iterator, context);
-        result = _.select(dict, iterator);
-        result = _.select(dict, iterator, context);
+        result = _.select<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.select<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _.select(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.select(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(dict).select(iterator);
-        result = _<{ a: string }>(dict).select(iterator, context);
-        result = _(dict).select(iterator);
-        result = _(dict).select(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).select(iterator).value();
-        result = _.chain<{ a: string }>(dict).select(iterator, context).value();
-        result = _.chain(dict).select(iterator).value();
-        result = _.chain(dict).select(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(dict).select(iterator).value();
-        result = _.chain<{ a: string }>(dict).select(iterator, context).value();
-        result = _.chain(dict).select(iterator).value();
-        result = _.chain(dict).select(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).select(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
     }
 
     {
-        const str = 'abc';
-        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: string[];
 
-        result = _.filter<string>(str, iterator);
-        result = _.filter<string>(str, iterator, context);
-        result = _.filter(str, iterator);
-        result = _.filter(str, iterator, context);
+        result = _.filter<string>(simpleString, stringListComparingIterator);
+        result = _.filter<string>(simpleString, stringListComparingIterator, context);
+        result = _.filter(simpleString, stringListComparingIterator);
+        result = _.filter(simpleString, stringListComparingIterator, context);
 
-        result = _<string>(str).filter(iterator);
-        result = _<string>(str).filter(iterator, context);
-        result = _(str).filter(iterator);
-        result = _(str).filter(iterator, context);
+        result = _<string>(simpleString).filter(stringListComparingIterator);
+        result = _<string>(simpleString).filter(stringListComparingIterator, context);
+        result = _(simpleString).filter(stringListComparingIterator);
+        result = _(simpleString).filter(stringListComparingIterator, context);
 
-        result = _.chain<string>(str).filter(iterator).value();
-        result = _.chain<string>(str).filter(iterator, context).value();
-        result = _.chain(str).filter(iterator).value();
-        result = _.chain(str).filter(iterator, context).value();
+        result = _.chain<string>(simpleString).filter(stringListComparingIterator).value();
+        result = _.chain<string>(simpleString).filter(stringListComparingIterator, context).value();
+        result = _.chain(simpleString).filter(stringListComparingIterator).value();
+        result = _.chain(simpleString).filter(stringListComparingIterator, context).value();
 
-        result = _.select<string>(str, iterator);
-        result = _.select<string>(str, iterator, context);
-        result = _.select(str, iterator);
-        result = _.select(str, iterator, context);
+        result = _.select<string>(simpleString, stringListComparingIterator);
+        result = _.select<string>(simpleString, stringListComparingIterator, context);
+        result = _.select(simpleString, stringListComparingIterator);
+        result = _.select(simpleString, stringListComparingIterator, context);
 
-        result = _<string>(str).select(iterator);
-        result = _<string>(str).select(iterator, context);
-        result = _(str).select(iterator);
-        result = _(str).select(iterator, context);
+        result = _<string>(simpleString).select(stringListComparingIterator);
+        result = _<string>(simpleString).select(stringListComparingIterator, context);
+        result = _(simpleString).select(stringListComparingIterator);
+        result = _(simpleString).select(stringListComparingIterator, context);
 
-        result = _.chain<string>(str).select(iterator).value();
-        result = _.chain<string>(str).select(iterator, context).value();
-        result = _.chain(str).select(iterator).value();
-        result = _.chain(str).select(iterator, context).value();
+        result = _.chain<string>(simpleString).select(stringListComparingIterator).value();
+        result = _.chain<string>(simpleString).select(stringListComparingIterator, context).value();
+        result = _.chain(simpleString).select(stringListComparingIterator).value();
+        result = _.chain(simpleString).select(stringListComparingIterator, context).value();
     }
 
     // partial object iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const properties = { a: 'b' };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.filter<{ a: string }>(array, properties);
-        result = _.filter(array, properties);
+        result = _.filter<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.filter(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).filter(properties);
-        result = _(array).filter(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).filter(properties).value();
-        result = _.chain(array).filter(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).filter(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.select<{ a: string }>(array, properties);
-        result = _.select(array, properties);
+        result = _.select<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.select(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).select(properties);
-        result = _(array).select(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).select(properties).value();
-        result = _.chain(array).select(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).select(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const properties = { a: 'b' };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.filter<{ a: string }>(list, properties);
-        result = _.filter(list, properties);
+        result = _.filter<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.filter(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).filter(properties);
-        result = _(list).filter(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).filter(properties).value();
-        result = _.chain(list).filter(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).filter(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.select<{ a: string }>(list, properties);
-        result = _.select(list, properties);
+        result = _.select<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.select(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).select(properties);
-        result = _(list).select(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).select(properties).value();
-        result = _.chain(list).select(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).select(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const properties = { a: 'b' };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.filter<{ a: string }>(dict, properties);
-        result = _.filter(dict, properties);
+        result = _.filter<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.filter(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(dict).filter(properties);
-        result = _(dict).filter(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(dict).filter(properties).value();
-        result = _.chain(dict).filter(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).filter(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.select<{ a: string }>(dict, properties);
-        result = _.select(dict, properties);
+        result = _.select<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.select(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(dict).select(properties);
-        result = _(dict).select(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(dict).select(properties).value();
-        result = _.chain(dict).select(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).select(simpleStringObjectPartialPropertyMatch).value();
     }
 
     // property name iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const property = 'a';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.filter<{ a: string }>(array, property);
-        result = _.filter(array, property);
+        result = _.filter<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.filter(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).filter(property);
-        result = _(array).filter(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).filter(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).filter(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).filter(property).value();
-        result = _.chain(array).filter(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).filter(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).filter(simpleObjectPropertyName).value();
 
-        result = _.select<{ a: string }>(array, property);
-        result = _.select(array, property);
+        result = _.select<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.select(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).select(property);
-        result = _(array).select(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).select(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).select(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).select(property).value();
-        result = _.chain(array).select(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).select(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).select(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const property = 'a';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.filter<{ a: string }>(list, property);
-        result = _.filter(list, property);
+        result = _.filter<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.filter(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).filter(property);
-        result = _(list).filter(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).filter(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).filter(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).filter(property).value();
-        result = _.chain(list).filter(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).filter(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).filter(simpleObjectPropertyName).value();
 
-        result = _.select<{ a: string }>(list, property);
-        result = _.select(list, property);
+        result = _.select<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.select(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).select(property);
-        result = _(list).select(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).select(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).select(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).select(property).value();
-        result = _.chain(list).select(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).select(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).select(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const property = 'a';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.filter<{ a: string }>(dict, property);
-        result = _.filter(dict, property);
+        result = _.filter<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.filter(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).filter(property);
-        result = _(dict).filter(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).filter(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).filter(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).filter(property).value();
-        result = _.chain(dict).filter(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).filter(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).filter(simpleObjectPropertyName).value();
 
-        result = _.select<{ a: string }>(dict, property);
-        result = _.select(dict, property);
+        result = _.select<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.select(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).select(property);
-        result = _(dict).select(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).select(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).select(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).select(property).value();
-        result = _.chain(dict).select(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).select(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).select(simpleObjectPropertyName).value();
     }
 }
 
 // where
 {
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const properties = { a: 'b' };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.where<{ a: string }>(array, properties);
-        result = _.where(array, properties);
+        result = _.where<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.where(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).where(properties);
-        result = _(array).where(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).where(properties).value();
-        result = _.chain(array).where(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(array).where(properties).value();
-        result = _.chain(array).where(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).where(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const properties = { a: 'b' };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.where<{ a: string }>(list, properties);
-        result = _.where(list, properties);
+        result = _.where<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.where(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).where(properties);
-        result = _(list).where(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).where(properties).value();
-        result = _.chain(list).where(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(list).where(properties).value();
-        result = _.chain(list).where(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).where(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const properties = { a: 'b' };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.where<{ a: string }>(dict, properties);
-        result = _.where(dict, properties);
+        result = _.where<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.where(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(dict).where(properties);
-        result = _(dict).where(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(dict).where(properties).value();
-        result = _.chain(dict).where(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(dict).where(properties).value();
-        result = _.chain(dict).where(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).where(simpleStringObjectPartialPropertyMatch).value();
     }
 }
 
 // findWhere
 {
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const properties = { a: 'b' };
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.findWhere<{ a: string }>(array, properties);
-        result = _.findWhere(array, properties);
+        result = _.findWhere<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.findWhere(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).findWhere(properties);
-        result = _(array).findWhere(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).findWhere(properties).value();
-        result = _.chain(array).findWhere(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(array).findWhere(properties).value();
-        result = _.chain(array).findWhere(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).findWhere(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const properties = { a: 'b' };
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.findWhere<{ a: string }>(list, properties);
-        result = _.findWhere(list, properties);
+        result = _.findWhere<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.findWhere(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).findWhere(properties);
-        result = _(list).findWhere(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).findWhere(properties).value();
-        result = _.chain(list).findWhere(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(list).findWhere(properties).value();
-        result = _.chain(list).findWhere(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).findWhere(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const properties = { a: 'b' };
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.findWhere<{ a: string }>(dict, properties);
-        result = _.findWhere(dict, properties);
+        result = _.findWhere<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.findWhere(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(dict).findWhere(properties);
-        result = _(dict).findWhere(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(dict).findWhere(properties).value();
-        result = _.chain(dict).findWhere(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(dict).findWhere(properties).value();
-        result = _.chain(dict).findWhere(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).findWhere(simpleStringObjectPartialPropertyMatch).value();
     }
 }
 
 // reject
 {
-    const context = {};
-
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.reject<{ a: string }>(array, iterator);
-        result = _.reject<{ a: string }>(array, iterator, context);
-        result = _.reject(array, iterator);
-        result = _.reject(array, iterator, context);
+        result = _.reject<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.reject<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.reject(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.reject(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(array).reject(iterator);
-        result = _<{ a: string }>(array).reject(iterator, context);
-        result = _(array).reject(iterator);
-        result = _(array).reject(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(array).reject(iterator).value();
-        result = _.chain<{ a: string }>(array).reject(iterator, context).value();
-        result = _.chain(array).reject(iterator).value();
-        result = _.chain(array).reject(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(array).reject(iterator).value();
-        result = _.chain<{ a: string }>(array).reject(iterator, context).value();
-        result = _.chain(array).reject(iterator).value();
-        result = _.chain(array).reject(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).reject(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.reject<{ a: string }>(list, iterator);
-        result = _.reject<{ a: string }>(list, iterator, context);
-        result = _.reject(list, iterator);
-        result = _.reject(list, iterator, context);
+        result = _.reject<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.reject<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.reject(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.reject(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(list).reject(iterator);
-        result = _<{ a: string }>(list).reject(iterator, context);
-        result = _(list).reject(iterator);
-        result = _(list).reject(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(list).reject(iterator).value();
-        result = _.chain<{ a: string }>(list).reject(iterator, context).value();
-        result = _.chain(list).reject(iterator).value();
-        result = _.chain(list).reject(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(list).reject(iterator).value();
-        result = _.chain<{ a: string }>(list).reject(iterator, context).value();
-        result = _.chain(list).reject(iterator).value();
-        result = _.chain(list).reject(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).reject(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.reject<{ a: string }>(dict, iterator);
-        result = _.reject<{ a: string }>(dict, iterator, context);
-        result = _.reject(dict, iterator);
-        result = _.reject(dict, iterator, context);
+        result = _.reject<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.reject<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _.reject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.reject(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(dict).reject(iterator);
-        result = _<{ a: string }>(dict).reject(iterator, context);
-        result = _(dict).reject(iterator);
-        result = _(dict).reject(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).reject(iterator).value();
-        result = _.chain<{ a: string }>(dict).reject(iterator, context).value();
-        result = _.chain(dict).reject(iterator).value();
-        result = _.chain(dict).reject(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(dict).reject(iterator).value();
-        result = _.chain<{ a: string }>(dict).reject(iterator, context).value();
-        result = _.chain(dict).reject(iterator).value();
-        result = _.chain(dict).reject(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).reject(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
     }
 
     {
-        const str = 'abc';
-        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: string[];
 
-        result = _.reject<string>(str, iterator);
-        result = _.reject<string>(str, iterator, context);
-        result = _.reject(str, iterator);
-        result = _.reject(str, iterator, context);
+        result = _.reject<string>(simpleString, stringListComparingIterator);
+        result = _.reject<string>(simpleString, stringListComparingIterator, context);
+        result = _.reject(simpleString, stringListComparingIterator);
+        result = _.reject(simpleString, stringListComparingIterator, context);
 
-        result = _<string>(str).reject(iterator);
-        result = _<string>(str).reject(iterator, context);
-        result = _(str).reject(iterator);
-        result = _(str).reject(iterator, context);
+        result = _<string>(simpleString).reject(stringListComparingIterator);
+        result = _<string>(simpleString).reject(stringListComparingIterator, context);
+        result = _(simpleString).reject(stringListComparingIterator);
+        result = _(simpleString).reject(stringListComparingIterator, context);
 
-        result = _.chain<string>(str).reject(iterator).value();
-        result = _.chain<string>(str).reject(iterator, context).value();
-        result = _.chain(str).reject(iterator).value();
-        result = _.chain(str).reject(iterator, context).value();
+        result = _.chain<string>(simpleString).reject(stringListComparingIterator).value();
+        result = _.chain<string>(simpleString).reject(stringListComparingIterator, context).value();
+        result = _.chain(simpleString).reject(stringListComparingIterator).value();
+        result = _.chain(simpleString).reject(stringListComparingIterator, context).value();
     }
 
     // partial object iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const properties = { a: 'b' };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.reject<{ a: string }>(array, properties);
-        result = _.reject(array, properties);
+        result = _.reject<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.reject(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).reject(properties);
-        result = _(array).reject(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).reject(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).reject(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).reject(properties).value();
-        result = _.chain(array).reject(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).reject(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).reject(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const properties = { a: 'b' };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.reject<{ a: string }>(list, properties);
-        result = _.reject(list, properties);
+        result = _.reject<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.reject(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).reject(properties);
-        result = _(list).reject(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).reject(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).reject(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).reject(properties).value();
-        result = _.chain(list).reject(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).reject(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).reject(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const properties = { a: 'b' };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.reject<{ a: string }>(dict, properties);
-        result = _.reject(dict, properties);
+        result = _.reject<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.reject(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(dict).reject(properties);
-        result = _(dict).reject(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).reject(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).reject(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(dict).reject(properties).value();
-        result = _.chain(dict).reject(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).reject(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).reject(simpleStringObjectPartialPropertyMatch).value();
     }
 
     // property name iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const property = 'a';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.reject<{ a: string }>(array, property);
-        result = _.reject(array, property);
+        result = _.reject<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.reject(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).reject(property);
-        result = _(array).reject(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).reject(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).reject(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).reject(property).value();
-        result = _.chain(array).reject(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).reject(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).reject(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const property = 'a';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.reject<{ a: string }>(list, property);
-        result = _.reject(list, property);
+        result = _.reject<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.reject(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).reject(property);
-        result = _(list).reject(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).reject(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).reject(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).reject(property).value();
-        result = _.chain(list).reject(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).reject(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).reject(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const property = 'a';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.reject<{ a: string }>(dict, property);
-        result = _.reject(dict, property);
+        result = _.reject<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.reject(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).reject(property);
-        result = _(dict).reject(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).reject(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).reject(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).reject(property).value();
-        result = _.chain(dict).reject(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).reject(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).reject(simpleObjectPropertyName).value();
     }
 }
 
 // every, all
 {
-    const context = {};
-
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: boolean;
 
-        result = _.every<{ a: string }>(array, iterator);
-        result = _.every<{ a: string }>(array, iterator, context);
-        result = _.every(array, iterator);
-        result = _.every(array, iterator, context);
+        result = _.every<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.every<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.every(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.every(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(array).every(iterator);
-        result = _<{ a: string }>(array).every(iterator, context);
-        result = _(array).every(iterator);
-        result = _(array).every(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(array).every(iterator).value();
-        result = _.chain<{ a: string }>(array).every(iterator, context).value();
-        result = _.chain(array).every(iterator).value();
-        result = _.chain(array).every(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).every(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.all<{ a: string }>(array, iterator);
-        result = _.all<{ a: string }>(array, iterator, context);
-        result = _.all(array, iterator);
-        result = _.all(array, iterator, context);
+        result = _.all<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.all<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.all(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.all(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(array).all(iterator);
-        result = _<{ a: string }>(array).all(iterator, context);
-        result = _(array).all(iterator);
-        result = _(array).all(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(array).all(iterator).value();
-        result = _.chain<{ a: string }>(array).all(iterator, context).value();
-        result = _.chain(array).all(iterator).value();
-        result = _.chain(array).all(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(array).all(iterator).value();
-        result = _.chain<{ a: string }>(array).all(iterator, context).value();
-        result = _.chain(array).all(iterator).value();
-        result = _.chain(array).all(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).all(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: boolean;
 
-        result = _.every<{ a: string }>(list, iterator);
-        result = _.every<{ a: string }>(list, iterator, context);
-        result = _.every(list, iterator);
-        result = _.every(list, iterator, context);
+        result = _.every<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.every<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.every(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.every(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(list).every(iterator);
-        result = _<{ a: string }>(list).every(iterator, context);
-        result = _(list).every(iterator);
-        result = _(list).every(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(list).every(iterator).value();
-        result = _.chain<{ a: string }>(list).every(iterator, context).value();
-        result = _.chain(list).every(iterator).value();
-        result = _.chain(list).every(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).every(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.all<{ a: string }>(list, iterator);
-        result = _.all<{ a: string }>(list, iterator, context);
-        result = _.all(list, iterator);
-        result = _.all(list, iterator, context);
+        result = _.all<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.all<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.all(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.all(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(list).all(iterator);
-        result = _<{ a: string }>(list).all(iterator, context);
-        result = _(list).all(iterator);
-        result = _(list).all(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(list).all(iterator).value();
-        result = _.chain<{ a: string }>(list).all(iterator, context).value();
-        result = _.chain(list).all(iterator).value();
-        result = _.chain(list).all(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(list).all(iterator).value();
-        result = _.chain<{ a: string }>(list).all(iterator, context).value();
-        result = _.chain(list).all(iterator).value();
-        result = _.chain(list).all(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).all(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
         let result: boolean;
 
-        result = _.every<{ a: string }>(dict, iterator);
-        result = _.every<{ a: string }>(dict, iterator, context);
-        result = _.every(dict, iterator);
-        result = _.every(dict, iterator, context);
+        result = _.every<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.every<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _.every(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.every(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(dict).every(iterator);
-        result = _<{ a: string }>(dict).every(iterator, context);
-        result = _(dict).every(iterator);
-        result = _(dict).every(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).every(iterator).value();
-        result = _.chain<{ a: string }>(dict).every(iterator, context).value();
-        result = _.chain(dict).every(iterator).value();
-        result = _.chain(dict).every(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).every(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
 
-        result = _.all<{ a: string }>(dict, iterator);
-        result = _.all<{ a: string }>(dict, iterator, context);
-        result = _.all(dict, iterator);
-        result = _.all(dict, iterator, context);
+        result = _.all<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.all<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _.all(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.all(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(dict).all(iterator);
-        result = _<{ a: string }>(dict).all(iterator, context);
-        result = _(dict).all(iterator);
-        result = _(dict).all(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).all(iterator).value();
-        result = _.chain<{ a: string }>(dict).all(iterator, context).value();
-        result = _.chain(dict).all(iterator).value();
-        result = _.chain(dict).all(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(dict).all(iterator).value();
-        result = _.chain<{ a: string }>(dict).all(iterator, context).value();
-        result = _.chain(dict).all(iterator).value();
-        result = _.chain(dict).all(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).all(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
     }
 
     {
-        const str = 'abc';
-        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: boolean;
 
-        result = _.every<string>(str, iterator);
-        result = _.every<string>(str, iterator, context);
-        result = _.every(str, iterator);
-        result = _.every(str, iterator, context);
+        result = _.every<string>(simpleString, stringListComparingIterator);
+        result = _.every<string>(simpleString, stringListComparingIterator, context);
+        result = _.every(simpleString, stringListComparingIterator);
+        result = _.every(simpleString, stringListComparingIterator, context);
 
-        result = _<string>(str).every(iterator);
-        result = _<string>(str).every(iterator, context);
-        result = _(str).every(iterator);
-        result = _(str).every(iterator, context);
+        result = _<string>(simpleString).every(stringListComparingIterator);
+        result = _<string>(simpleString).every(stringListComparingIterator, context);
+        result = _(simpleString).every(stringListComparingIterator);
+        result = _(simpleString).every(stringListComparingIterator, context);
 
-        result = _.chain<string>(str).every(iterator).value();
-        result = _.chain<string>(str).every(iterator, context).value();
-        result = _.chain(str).every(iterator).value();
-        result = _.chain(str).every(iterator, context).value();
+        result = _.chain<string>(simpleString).every(stringListComparingIterator).value();
+        result = _.chain<string>(simpleString).every(stringListComparingIterator, context).value();
+        result = _.chain(simpleString).every(stringListComparingIterator).value();
+        result = _.chain(simpleString).every(stringListComparingIterator, context).value();
 
-        result = _.all<string>(str, iterator);
-        result = _.all<string>(str, iterator, context);
-        result = _.all(str, iterator);
-        result = _.all(str, iterator, context);
+        result = _.all<string>(simpleString, stringListComparingIterator);
+        result = _.all<string>(simpleString, stringListComparingIterator, context);
+        result = _.all(simpleString, stringListComparingIterator);
+        result = _.all(simpleString, stringListComparingIterator, context);
 
-        result = _<string>(str).all(iterator);
-        result = _<string>(str).all(iterator, context);
-        result = _(str).all(iterator);
-        result = _(str).all(iterator, context);
+        result = _<string>(simpleString).all(stringListComparingIterator);
+        result = _<string>(simpleString).all(stringListComparingIterator, context);
+        result = _(simpleString).all(stringListComparingIterator);
+        result = _(simpleString).all(stringListComparingIterator, context);
 
-        result = _.chain<string>(str).all(iterator).value();
-        result = _.chain<string>(str).all(iterator, context).value();
-        result = _.chain(str).all(iterator).value();
-        result = _.chain(str).all(iterator, context).value();
+        result = _.chain<string>(simpleString).all(stringListComparingIterator).value();
+        result = _.chain<string>(simpleString).all(stringListComparingIterator, context).value();
+        result = _.chain(simpleString).all(stringListComparingIterator).value();
+        result = _.chain(simpleString).all(stringListComparingIterator, context).value();
     }
 
     // partial object iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const properties = { a: 'b' };
         let result: boolean;
 
-        result = _.every<{ a: string }>(array, properties);
-        result = _.every(array, properties);
+        result = _.every<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.every(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).every(properties);
-        result = _(array).every(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).every(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).every(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).every(properties).value();
-        result = _.chain(array).every(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).every(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).every(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.all<{ a: string }>(array, properties);
-        result = _.all(array, properties);
+        result = _.all<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.all(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).all(properties);
-        result = _(array).all(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).all(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).all(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).all(properties).value();
-        result = _.chain(array).all(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).all(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).all(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const properties = { a: 'b' };
         let result: boolean;
 
-        result = _.every<{ a: string }>(list, properties);
-        result = _.every(list, properties);
+        result = _.every<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.every(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).every(properties);
-        result = _(list).every(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).every(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).every(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).every(properties).value();
-        result = _.chain(list).every(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).every(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).every(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.all<{ a: string }>(list, properties);
-        result = _.all(list, properties);
+        result = _.all<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.all(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).all(properties);
-        result = _(list).all(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).all(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).all(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).all(properties).value();
-        result = _.chain(list).all(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).all(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).all(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const properties = { a: 'b' };
         let result: boolean;
 
-        result = _.every<{ a: string }>(dict, properties);
-        result = _.every(dict, properties);
+        result = _.every<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.every(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(dict).every(properties);
-        result = _(dict).every(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).every(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).every(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(dict).every(properties).value();
-        result = _.chain(dict).every(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).every(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).every(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.all<{ a: string }>(dict, properties);
-        result = _.all(dict, properties);
+        result = _.all<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.all(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(dict).all(properties);
-        result = _(dict).all(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).all(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).all(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(dict).all(properties).value();
-        result = _.chain(dict).all(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).all(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).all(simpleStringObjectPartialPropertyMatch).value();
     }
 
     // property name iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const property = 'a';
         let result: boolean;
 
-        result = _.every<{ a: string }>(array, property);
-        result = _.every(array, property);
+        result = _.every<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.every(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).every(property);
-        result = _(array).every(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).every(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).every(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).every(property).value();
-        result = _.chain(array).every(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).every(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).every(simpleObjectPropertyName).value();
 
-        result = _.all<{ a: string }>(array, property);
-        result = _.all(array, property);
+        result = _.all<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.all(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).all(property);
-        result = _(array).all(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).all(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).all(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).all(property).value();
-        result = _.chain(array).all(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).all(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).all(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const property = 'a';
         let result: boolean;
 
-        result = _.every<{ a: string }>(list, property);
-        result = _.every(list, property);
+        result = _.every<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.every(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).every(property);
-        result = _(list).every(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).every(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).every(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).every(property).value();
-        result = _.chain(list).every(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).every(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).every(simpleObjectPropertyName).value();
 
-        result = _.all<{ a: string }>(list, property);
-        result = _.all(list, property);
+        result = _.all<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.all(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).all(property);
-        result = _(list).all(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).all(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).all(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).all(property).value();
-        result = _.chain(list).all(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).all(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).all(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const property = 'a';
         let result: boolean;
 
-        result = _.every<{ a: string }>(dict, property);
-        result = _.every(dict, property);
+        result = _.every<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.every(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).every(property);
-        result = _(dict).every(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).every(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).every(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).every(property).value();
-        result = _.chain(dict).every(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).every(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).every(simpleObjectPropertyName).value();
 
-        result = _.all<{ a: string }>(dict, property);
-        result = _.all(dict, property);
+        result = _.all<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.all(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).all(property);
-        result = _(dict).all(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).all(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).all(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).all(property).value();
-        result = _.chain(dict).all(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).all(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).all(simpleObjectPropertyName).value();
     }
 }
 
 // some, any
 {
-    const context = {};
-
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: boolean;
 
-        result = _.some<{ a: string }>(array, iterator);
-        result = _.some<{ a: string }>(array, iterator, context);
-        result = _.some(array, iterator);
-        result = _.some(array, iterator, context);
+        result = _.some<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.some<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.some(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.some(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(array).some(iterator);
-        result = _<{ a: string }>(array).some(iterator, context);
-        result = _(array).some(iterator);
-        result = _(array).some(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(array).some(iterator).value();
-        result = _.chain<{ a: string }>(array).some(iterator, context).value();
-        result = _.chain(array).some(iterator).value();
-        result = _.chain(array).some(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).some(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.any<{ a: string }>(array, iterator);
-        result = _.any<{ a: string }>(array, iterator, context);
-        result = _.any(array, iterator);
-        result = _.any(array, iterator, context);
+        result = _.any<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.any<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.any(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.any(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(array).any(iterator);
-        result = _<{ a: string }>(array).any(iterator, context);
-        result = _(array).any(iterator);
-        result = _(array).any(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(array).any(iterator).value();
-        result = _.chain<{ a: string }>(array).any(iterator, context).value();
-        result = _.chain(array).any(iterator).value();
-        result = _.chain(array).any(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(array).any(iterator).value();
-        result = _.chain<{ a: string }>(array).any(iterator, context).value();
-        result = _.chain(array).any(iterator).value();
-        result = _.chain(array).any(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).any(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: boolean;
 
-        result = _.some<{ a: string }>(list, iterator);
-        result = _.some<{ a: string }>(list, iterator, context);
-        result = _.some(list, iterator);
-        result = _.some(list, iterator, context);
+        result = _.some<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.some<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.some(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.some(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(list).some(iterator);
-        result = _<{ a: string }>(list).some(iterator, context);
-        result = _(list).some(iterator);
-        result = _(list).some(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(list).some(iterator).value();
-        result = _.chain<{ a: string }>(list).some(iterator, context).value();
-        result = _.chain(list).some(iterator).value();
-        result = _.chain(list).some(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).some(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.any<{ a: string }>(list, iterator);
-        result = _.any<{ a: string }>(list, iterator, context);
-        result = _.any(list, iterator);
-        result = _.any(list, iterator, context);
+        result = _.any<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.any<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.any(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.any(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(list).any(iterator);
-        result = _<{ a: string }>(list).any(iterator, context);
-        result = _(list).any(iterator);
-        result = _(list).any(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(list).any(iterator).value();
-        result = _.chain<{ a: string }>(list).any(iterator, context).value();
-        result = _.chain(list).any(iterator).value();
-        result = _.chain(list).any(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(list).any(iterator).value();
-        result = _.chain<{ a: string }>(list).any(iterator, context).value();
-        result = _.chain(list).any(iterator).value();
-        result = _.chain(list).any(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).any(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
         let result: boolean;
 
-        result = _.some<{ a: string }>(dict, iterator);
-        result = _.some<{ a: string }>(dict, iterator, context);
-        result = _.some(dict, iterator);
-        result = _.some(dict, iterator, context);
+        result = _.some<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.some<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _.some(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.some(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(dict).some(iterator);
-        result = _<{ a: string }>(dict).some(iterator, context);
-        result = _(dict).some(iterator);
-        result = _(dict).some(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).some(iterator).value();
-        result = _.chain<{ a: string }>(dict).some(iterator, context).value();
-        result = _.chain(dict).some(iterator).value();
-        result = _.chain(dict).some(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).some(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
 
-        result = _.any<{ a: string }>(dict, iterator);
-        result = _.any<{ a: string }>(dict, iterator, context);
-        result = _.any(dict, iterator);
-        result = _.any(dict, iterator, context);
+        result = _.any<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.any<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _.any(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.any(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(dict).any(iterator);
-        result = _<{ a: string }>(dict).any(iterator, context);
-        result = _(dict).any(iterator);
-        result = _(dict).any(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).any(iterator).value();
-        result = _.chain<{ a: string }>(dict).any(iterator, context).value();
-        result = _.chain(dict).any(iterator).value();
-        result = _.chain(dict).any(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(dict).any(iterator).value();
-        result = _.chain<{ a: string }>(dict).any(iterator, context).value();
-        result = _.chain(dict).any(iterator).value();
-        result = _.chain(dict).any(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).any(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
     }
 
     {
-        const str = 'abc';
-        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: boolean;
 
-        result = _.some<string>(str, iterator);
-        result = _.some<string>(str, iterator, context);
-        result = _.some(str, iterator);
-        result = _.some(str, iterator, context);
+        result = _.some<string>(simpleString, stringListComparingIterator);
+        result = _.some<string>(simpleString, stringListComparingIterator, context);
+        result = _.some(simpleString, stringListComparingIterator);
+        result = _.some(simpleString, stringListComparingIterator, context);
 
-        result = _<string>(str).some(iterator);
-        result = _<string>(str).some(iterator, context);
-        result = _(str).some(iterator);
-        result = _(str).some(iterator, context);
+        result = _<string>(simpleString).some(stringListComparingIterator);
+        result = _<string>(simpleString).some(stringListComparingIterator, context);
+        result = _(simpleString).some(stringListComparingIterator);
+        result = _(simpleString).some(stringListComparingIterator, context);
 
-        result = _.chain<string>(str).some(iterator).value();
-        result = _.chain<string>(str).some(iterator, context).value();
-        result = _.chain(str).some(iterator).value();
-        result = _.chain(str).some(iterator, context).value();
+        result = _.chain<string>(simpleString).some(stringListComparingIterator).value();
+        result = _.chain<string>(simpleString).some(stringListComparingIterator, context).value();
+        result = _.chain(simpleString).some(stringListComparingIterator).value();
+        result = _.chain(simpleString).some(stringListComparingIterator, context).value();
 
-        result = _.any<string>(str, iterator);
-        result = _.any<string>(str, iterator, context);
-        result = _.any(str, iterator);
-        result = _.any(str, iterator, context);
+        result = _.any<string>(simpleString, stringListComparingIterator);
+        result = _.any<string>(simpleString, stringListComparingIterator, context);
+        result = _.any(simpleString, stringListComparingIterator);
+        result = _.any(simpleString, stringListComparingIterator, context);
 
-        result = _<string>(str).any(iterator);
-        result = _<string>(str).any(iterator, context);
-        result = _(str).any(iterator);
-        result = _(str).any(iterator, context);
+        result = _<string>(simpleString).any(stringListComparingIterator);
+        result = _<string>(simpleString).any(stringListComparingIterator, context);
+        result = _(simpleString).any(stringListComparingIterator);
+        result = _(simpleString).any(stringListComparingIterator, context);
 
-        result = _.chain<string>(str).any(iterator).value();
-        result = _.chain<string>(str).any(iterator, context).value();
-        result = _.chain(str).any(iterator).value();
-        result = _.chain(str).any(iterator, context).value();
+        result = _.chain<string>(simpleString).any(stringListComparingIterator).value();
+        result = _.chain<string>(simpleString).any(stringListComparingIterator, context).value();
+        result = _.chain(simpleString).any(stringListComparingIterator).value();
+        result = _.chain(simpleString).any(stringListComparingIterator, context).value();
     }
 
     // partial object iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const properties = { a: 'b' };
         let result: boolean;
 
-        result = _.some<{ a: string }>(array, properties);
-        result = _.some(array, properties);
+        result = _.some<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.some(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).some(properties);
-        result = _(array).some(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).some(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).some(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).some(properties).value();
-        result = _.chain(array).some(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).some(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).some(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.any<{ a: string }>(array, properties);
-        result = _.any(array, properties);
+        result = _.any<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.any(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).any(properties);
-        result = _(array).any(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).any(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).any(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).any(properties).value();
-        result = _.chain(array).any(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).any(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).any(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const properties = { a: 'b' };
         let result: boolean;
 
-        result = _.some<{ a: string }>(list, properties);
-        result = _.some(list, properties);
+        result = _.some<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.some(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).some(properties);
-        result = _(list).some(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).some(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).some(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).some(properties).value();
-        result = _.chain(list).some(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).some(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).some(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.any<{ a: string }>(list, properties);
-        result = _.any(list, properties);
+        result = _.any<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.any(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).any(properties);
-        result = _(list).any(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).any(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).any(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).any(properties).value();
-        result = _.chain(list).any(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).any(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).any(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const properties = { a: 'b' };
         let result: boolean;
 
-        result = _.some<{ a: string }>(dict, properties);
-        result = _.some(dict, properties);
+        result = _.some<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.some(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(dict).some(properties);
-        result = _(dict).some(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).some(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).some(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(dict).some(properties).value();
-        result = _.chain(dict).some(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).some(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).some(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.any<{ a: string }>(dict, properties);
-        result = _.any(dict, properties);
+        result = _.any<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.any(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(dict).any(properties);
-        result = _(dict).any(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).any(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).any(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(dict).any(properties).value();
-        result = _.chain(dict).any(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).any(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).any(simpleStringObjectPartialPropertyMatch).value();
     }
 
     // property name iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const property = 'a';
         let result: boolean;
 
-        result = _.some<{ a: string }>(array, property);
-        result = _.some(array, property);
+        result = _.some<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.some(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).some(property);
-        result = _(array).some(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).some(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).some(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).some(property).value();
-        result = _.chain(array).some(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).some(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).some(simpleObjectPropertyName).value();
 
-        result = _.any<{ a: string }>(array, property);
-        result = _.any(array, property);
+        result = _.any<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.any(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).any(property);
-        result = _(array).any(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).any(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).any(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).any(property).value();
-        result = _.chain(array).any(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).any(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).any(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const property = 'a';
         let result: boolean;
 
-        result = _.some<{ a: string }>(list, property);
-        result = _.some(list, property);
+        result = _.some<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.some(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).some(property);
-        result = _(list).some(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).some(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).some(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).some(property).value();
-        result = _.chain(list).some(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).some(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).some(simpleObjectPropertyName).value();
 
-        result = _.any<{ a: string }>(list, property);
-        result = _.any(list, property);
+        result = _.any<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.any(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).any(property);
-        result = _(list).any(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).any(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).any(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).any(property).value();
-        result = _.chain(list).any(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).any(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).any(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const property = 'a';
         let result: boolean;
 
-        result = _.some<{ a: string }>(dict, property);
-        result = _.some(dict, property);
+        result = _.some<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.some(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).some(property);
-        result = _(dict).some(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).some(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).some(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).some(property).value();
-        result = _.chain(dict).some(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).some(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).some(simpleObjectPropertyName).value();
 
-        result = _.any<{ a: string }>(dict, property);
-        result = _.any(dict, property);
+        result = _.any<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.any(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).any(property);
-        result = _(dict).any(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).any(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).any(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).any(property).value();
-        result = _.chain(dict).any(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).any(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).any(simpleObjectPropertyName).value();
     }
 }
 
@@ -2514,202 +2389,198 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     const fromIndex = 1;
 
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const value = array[0];
+        const value = simpleStringObjectArray[0];
         let result: boolean;
 
-        result = _.contains<{ a: string }>(array, value);
-        result = _.contains<{ a: string }>(array, value, fromIndex);
-        result = _.contains(array, value);
-        result = _.contains(array, value, fromIndex);
+        result = _.contains<SimpleStringObject>(simpleStringObjectArray, value);
+        result = _.contains<SimpleStringObject>(simpleStringObjectArray, value, fromIndex);
+        result = _.contains(simpleStringObjectArray, value);
+        result = _.contains(simpleStringObjectArray, value, fromIndex);
 
-        result = _<{ a: string }>(array).contains(value);
-        result = _<{ a: string }>(array).contains(value, fromIndex);
-        result = _(array).contains(value);
-        result = _(array).contains(value, fromIndex);
+        result = _<SimpleStringObject>(simpleStringObjectArray).contains(value);
+        result = _<SimpleStringObject>(simpleStringObjectArray).contains(value, fromIndex);
+        result = _(simpleStringObjectArray).contains(value);
+        result = _(simpleStringObjectArray).contains(value, fromIndex);
 
-        result = _.chain<{ a: string }>(array).contains(value).value();
-        result = _.chain<{ a: string }>(array).contains(value, fromIndex).value();
-        result = _.chain(array).contains(value).value();
-        result = _.chain(array).contains(value, fromIndex).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).contains(value).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).contains(value, fromIndex).value();
+        result = _.chain(simpleStringObjectArray).contains(value).value();
+        result = _.chain(simpleStringObjectArray).contains(value, fromIndex).value();
 
-        result = _.include<{ a: string }>(array, value);
-        result = _.include<{ a: string }>(array, value, fromIndex);
-        result = _.include(array, value);
-        result = _.include(array, value, fromIndex);
+        result = _.include<SimpleStringObject>(simpleStringObjectArray, value);
+        result = _.include<SimpleStringObject>(simpleStringObjectArray, value, fromIndex);
+        result = _.include(simpleStringObjectArray, value);
+        result = _.include(simpleStringObjectArray, value, fromIndex);
 
-        result = _<{ a: string }>(array).include(value);
-        result = _<{ a: string }>(array).include(value, fromIndex);
-        result = _(array).include(value);
-        result = _(array).include(value, fromIndex);
+        result = _<SimpleStringObject>(simpleStringObjectArray).include(value);
+        result = _<SimpleStringObject>(simpleStringObjectArray).include(value, fromIndex);
+        result = _(simpleStringObjectArray).include(value);
+        result = _(simpleStringObjectArray).include(value, fromIndex);
 
-        result = _.chain<{ a: string }>(array).include(value).value();
-        result = _.chain<{ a: string }>(array).include(value, fromIndex).value();
-        result = _.chain(array).include(value).value();
-        result = _.chain(array).include(value, fromIndex).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).include(value).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).include(value, fromIndex).value();
+        result = _.chain(simpleStringObjectArray).include(value).value();
+        result = _.chain(simpleStringObjectArray).include(value, fromIndex).value();
 
-        result = _.includes<{ a: string }>(array, value);
-        result = _.includes<{ a: string }>(array, value, fromIndex);
-        result = _.includes(array, value);
-        result = _.includes(array, value, fromIndex);
+        result = _.includes<SimpleStringObject>(simpleStringObjectArray, value);
+        result = _.includes<SimpleStringObject>(simpleStringObjectArray, value, fromIndex);
+        result = _.includes(simpleStringObjectArray, value);
+        result = _.includes(simpleStringObjectArray, value, fromIndex);
 
-        result = _<{ a: string }>(array).includes(value);
-        result = _<{ a: string }>(array).includes(value, fromIndex);
-        result = _(array).includes(value);
-        result = _(array).includes(value, fromIndex);
+        result = _<SimpleStringObject>(simpleStringObjectArray).includes(value);
+        result = _<SimpleStringObject>(simpleStringObjectArray).includes(value, fromIndex);
+        result = _(simpleStringObjectArray).includes(value);
+        result = _(simpleStringObjectArray).includes(value, fromIndex);
 
-        result = _.chain<{ a: string }>(array).includes(value).value();
-        result = _.chain<{ a: string }>(array).includes(value, fromIndex).value();
-        result = _.chain(array).includes(value).value();
-        result = _.chain(array).includes(value, fromIndex).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).includes(value).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).includes(value, fromIndex).value();
+        result = _.chain(simpleStringObjectArray).includes(value).value();
+        result = _.chain(simpleStringObjectArray).includes(value, fromIndex).value();
 
-        result = _.chain<{ a: string }>(array).includes(value).value();
-        result = _.chain<{ a: string }>(array).includes(value, fromIndex).value();
-        result = _.chain(array).includes(value).value();
-        result = _.chain(array).includes(value, fromIndex).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).includes(value).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).includes(value, fromIndex).value();
+        result = _.chain(simpleStringObjectArray).includes(value).value();
+        result = _.chain(simpleStringObjectArray).includes(value, fromIndex).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const value = list[0];
+        const value = simpleStringObjectList[0];
         let result: boolean;
 
-        result = _.contains<{ a: string }>(list, value);
-        result = _.contains<{ a: string }>(list, value, fromIndex);
-        result = _.contains(list, value);
-        result = _.contains(list, value, fromIndex);
+        result = _.contains<SimpleStringObject>(simpleStringObjectList, value);
+        result = _.contains<SimpleStringObject>(simpleStringObjectList, value, fromIndex);
+        result = _.contains(simpleStringObjectList, value);
+        result = _.contains(simpleStringObjectList, value, fromIndex);
 
-        result = _<{ a: string }>(list).contains(value);
-        result = _<{ a: string }>(list).contains(value, fromIndex);
-        result = _(list).contains(value);
-        result = _(list).contains(value, fromIndex);
+        result = _<SimpleStringObject>(simpleStringObjectList).contains(value);
+        result = _<SimpleStringObject>(simpleStringObjectList).contains(value, fromIndex);
+        result = _(simpleStringObjectList).contains(value);
+        result = _(simpleStringObjectList).contains(value, fromIndex);
 
-        result = _.chain<{ a: string }>(list).contains(value).value();
-        result = _.chain<{ a: string }>(list).contains(value, fromIndex).value();
-        result = _.chain(list).contains(value).value();
-        result = _.chain(list).contains(value, fromIndex).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).contains(value).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).contains(value, fromIndex).value();
+        result = _.chain(simpleStringObjectList).contains(value).value();
+        result = _.chain(simpleStringObjectList).contains(value, fromIndex).value();
 
-        result = _.include<{ a: string }>(list, value);
-        result = _.include<{ a: string }>(list, value, fromIndex);
-        result = _.include(list, value);
-        result = _.include(list, value, fromIndex);
+        result = _.include<SimpleStringObject>(simpleStringObjectList, value);
+        result = _.include<SimpleStringObject>(simpleStringObjectList, value, fromIndex);
+        result = _.include(simpleStringObjectList, value);
+        result = _.include(simpleStringObjectList, value, fromIndex);
 
-        result = _<{ a: string }>(list).include(value);
-        result = _<{ a: string }>(list).include(value, fromIndex);
-        result = _(list).include(value);
-        result = _(list).include(value, fromIndex);
+        result = _<SimpleStringObject>(simpleStringObjectList).include(value);
+        result = _<SimpleStringObject>(simpleStringObjectList).include(value, fromIndex);
+        result = _(simpleStringObjectList).include(value);
+        result = _(simpleStringObjectList).include(value, fromIndex);
 
-        result = _.chain<{ a: string }>(list).include(value).value();
-        result = _.chain<{ a: string }>(list).include(value, fromIndex).value();
-        result = _.chain(list).include(value).value();
-        result = _.chain(list).include(value, fromIndex).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).include(value).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).include(value, fromIndex).value();
+        result = _.chain(simpleStringObjectList).include(value).value();
+        result = _.chain(simpleStringObjectList).include(value, fromIndex).value();
 
-        result = _.includes<{ a: string }>(list, value);
-        result = _.includes<{ a: string }>(list, value, fromIndex);
-        result = _.includes(list, value);
-        result = _.includes(list, value, fromIndex);
+        result = _.includes<SimpleStringObject>(simpleStringObjectList, value);
+        result = _.includes<SimpleStringObject>(simpleStringObjectList, value, fromIndex);
+        result = _.includes(simpleStringObjectList, value);
+        result = _.includes(simpleStringObjectList, value, fromIndex);
 
-        result = _<{ a: string }>(list).includes(value);
-        result = _<{ a: string }>(list).includes(value, fromIndex);
-        result = _(list).includes(value);
-        result = _(list).includes(value, fromIndex);
+        result = _<SimpleStringObject>(simpleStringObjectList).includes(value);
+        result = _<SimpleStringObject>(simpleStringObjectList).includes(value, fromIndex);
+        result = _(simpleStringObjectList).includes(value);
+        result = _(simpleStringObjectList).includes(value, fromIndex);
 
-        result = _.chain<{ a: string }>(list).includes(value).value();
-        result = _.chain<{ a: string }>(list).includes(value, fromIndex).value();
-        result = _.chain(list).includes(value).value();
-        result = _.chain(list).includes(value, fromIndex).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).includes(value).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).includes(value, fromIndex).value();
+        result = _.chain(simpleStringObjectList).includes(value).value();
+        result = _.chain(simpleStringObjectList).includes(value, fromIndex).value();
 
-        result = _.chain<{ a: string }>(list).includes(value).value();
-        result = _.chain<{ a: string }>(list).includes(value, fromIndex).value();
-        result = _.chain(list).includes(value).value();
-        result = _.chain(list).includes(value, fromIndex).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).includes(value).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).includes(value, fromIndex).value();
+        result = _.chain(simpleStringObjectList).includes(value).value();
+        result = _.chain(simpleStringObjectList).includes(value, fromIndex).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const value = dict['a'];
+        const value = simpleStringObjectDictionary.a;
         let result: boolean;
 
-        result = _.contains<{ a: string }>(dict, value);
-        result = _.contains(dict, value);
+        result = _.contains<SimpleStringObject>(simpleStringObjectDictionary, value);
+        result = _.contains(simpleStringObjectDictionary, value);
 
-        result = _<{ a: string }>(dict).contains(value);
-        result = _(dict).contains(value);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).contains(value);
+        result = _(simpleStringObjectDictionary).contains(value);
 
-        result = _.chain<{ a: string }>(dict).contains(value).value();
-        result = _.chain(dict).contains(value).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).contains(value).value();
+        result = _.chain(simpleStringObjectDictionary).contains(value).value();
 
-        result = _.include<{ a: string }>(dict, value);
-        result = _.include(dict, value);
+        result = _.include<SimpleStringObject>(simpleStringObjectDictionary, value);
+        result = _.include(simpleStringObjectDictionary, value);
 
-        result = _<{ a: string }>(dict).include(value);
-        result = _(dict).include(value);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).include(value);
+        result = _(simpleStringObjectDictionary).include(value);
 
-        result = _.chain<{ a: string }>(dict).include(value).value();
-        result = _.chain(dict).include(value).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).include(value).value();
+        result = _.chain(simpleStringObjectDictionary).include(value).value();
 
-        result = _.includes<{ a: string }>(dict, value);
-        result = _.includes(dict, value);
+        result = _.includes<SimpleStringObject>(simpleStringObjectDictionary, value);
+        result = _.includes(simpleStringObjectDictionary, value);
 
-        result = _<{ a: string }>(dict).includes(value);
-        result = _(dict).includes(value);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).includes(value);
+        result = _(simpleStringObjectDictionary).includes(value);
 
-        result = _.chain<{ a: string }>(dict).includes(value).value();
-        result = _.chain(dict).includes(value).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).includes(value).value();
+        result = _.chain(simpleStringObjectDictionary).includes(value).value();
 
-        result = _.chain<{ a: string }>(dict).includes(value).value();
-        result = _.chain(dict).includes(value).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).includes(value).value();
+        result = _.chain(simpleStringObjectDictionary).includes(value).value();
     }
 
     {
-        const str = 'abc';
-        const value = str[0];
+        const value = simpleString[0];
         let result: boolean;
 
-        result = _.contains<string>(str, value);
-        result = _.contains<string>(str, value, fromIndex);
-        result = _.contains(str, value);
-        result = _.contains(str, value, fromIndex);
+        result = _.contains<string>(simpleString, value);
+        result = _.contains<string>(simpleString, value, fromIndex);
+        result = _.contains(simpleString, value);
+        result = _.contains(simpleString, value, fromIndex);
 
-        result = _<string>(str).contains(value);
-        result = _<string>(str).contains(value, fromIndex);
-        result = _(str).contains(value);
-        result = _(str).contains(value, fromIndex);
+        result = _<string>(simpleString).contains(value);
+        result = _<string>(simpleString).contains(value, fromIndex);
+        result = _(simpleString).contains(value);
+        result = _(simpleString).contains(value, fromIndex);
 
-        result = _.chain<string>(str).contains(value).value();
-        result = _.chain<string>(str).contains(value, fromIndex).value();
-        result = _.chain(str).contains(value).value();
-        result = _.chain(str).contains(value, fromIndex).value();
+        result = _.chain<string>(simpleString).contains(value).value();
+        result = _.chain<string>(simpleString).contains(value, fromIndex).value();
+        result = _.chain(simpleString).contains(value).value();
+        result = _.chain(simpleString).contains(value, fromIndex).value();
 
-        result = _.include<string>(str, value);
-        result = _.include<string>(str, value, fromIndex);
-        result = _.include(str, value);
-        result = _.include(str, value, fromIndex);
+        result = _.include<string>(simpleString, value);
+        result = _.include<string>(simpleString, value, fromIndex);
+        result = _.include(simpleString, value);
+        result = _.include(simpleString, value, fromIndex);
 
-        result = _<string>(str).include(value);
-        result = _<string>(str).include(value, fromIndex);
-        result = _(str).include(value);
-        result = _(str).include(value, fromIndex);
+        result = _<string>(simpleString).include(value);
+        result = _<string>(simpleString).include(value, fromIndex);
+        result = _(simpleString).include(value);
+        result = _(simpleString).include(value, fromIndex);
 
-        result = _.chain<string>(str).include(value).value();
-        result = _.chain<string>(str).include(value, fromIndex).value();
-        result = _.chain(str).include(value).value();
-        result = _.chain(str).include(value, fromIndex).value();
+        result = _.chain<string>(simpleString).include(value).value();
+        result = _.chain<string>(simpleString).include(value, fromIndex).value();
+        result = _.chain(simpleString).include(value).value();
+        result = _.chain(simpleString).include(value, fromIndex).value();
 
-        result = _.includes<string>(str, value);
-        result = _.includes<string>(str, value, fromIndex);
-        result = _.includes(str, value);
-        result = _.includes(str, value, fromIndex);
+        result = _.includes<string>(simpleString, value);
+        result = _.includes<string>(simpleString, value, fromIndex);
+        result = _.includes(simpleString, value);
+        result = _.includes(simpleString, value, fromIndex);
 
-        result = _<string>(str).includes(value);
-        result = _<string>(str).includes(value, fromIndex);
-        result = _(str).includes(value);
-        result = _(str).includes(value, fromIndex);
+        result = _<string>(simpleString).includes(value);
+        result = _<string>(simpleString).includes(value, fromIndex);
+        result = _(simpleString).includes(value);
+        result = _(simpleString).includes(value, fromIndex);
 
-        result = _.chain<string>(str).includes(value).value();
-        result = _.chain<string>(str).includes(value, fromIndex).value();
-        result = _.chain(str).includes(value).value();
-        result = _.chain(str).includes(value, fromIndex).value();
+        result = _.chain<string>(simpleString).includes(value).value();
+        result = _.chain<string>(simpleString).includes(value, fromIndex).value();
+        result = _.chain(simpleString).includes(value).value();
+        result = _.chain(simpleString).includes(value, fromIndex).value();
     }
 }
 
@@ -2721,146 +2592,131 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
     // without parameters
     {
-        const functionName = 'func';
-        const array: { func: () => number }[] = [{ [functionName]: Math.random }, { [functionName]: Math.random }];
         let result: number[];
 
-        result = _.invoke<{ func: () => number }>(array, functionName);
-        result = _.invoke(array, functionName);
+        result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectArray, simpleObjectPropertyName);
+        result = _.invoke(simpleNoParameterFunctionObjectArray, simpleObjectPropertyName);
 
-        result = _<{ func: () => number }>(array).invoke(functionName);
-        result = _(array).invoke(functionName);
+        result = _<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectArray).invoke(simpleObjectPropertyName);
+        result = _(simpleNoParameterFunctionObjectArray).invoke(simpleObjectPropertyName);
 
-        result = _.chain<{ func: () => number }>(array).invoke(functionName).value();
-        result = _.chain(array).invoke(functionName).value();
+        result = _.chain<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectArray).invoke(simpleObjectPropertyName).value();
+        result = _.chain(simpleNoParameterFunctionObjectArray).invoke(simpleObjectPropertyName).value();
 
-        result = _.chain<{ func: () => number }>(array).invoke(functionName).value();
-        result = _.chain(array).invoke(functionName).value();
+        result = _.chain<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectArray).invoke(simpleObjectPropertyName).value();
+        result = _.chain(simpleNoParameterFunctionObjectArray).invoke(simpleObjectPropertyName).value();
     }
 
     {
-        const functionName = 'func';
-        const list: _.List<{ func: () => number }> = { 0: { [functionName]: Math.random }, 1: { [functionName]: Math.random }, length: 2 };
         let result: number[];
 
-        result = _.invoke<{ func: () => number }>(list, functionName);
-        result = _.invoke(list, functionName);
+        result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectList, simpleObjectPropertyName);
+        result = _.invoke(simpleNoParameterFunctionObjectList, simpleObjectPropertyName);
 
-        result = _<{ func: () => number }>(list).invoke(functionName);
-        result = _(list).invoke(functionName);
+        result = _<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectList).invoke(simpleObjectPropertyName);
+        result = _(simpleNoParameterFunctionObjectList).invoke(simpleObjectPropertyName);
 
-        result = _.chain<{ func: () => number }>(list).invoke(functionName).value();
-        result = _.chain(list).invoke(functionName).value();
+        result = _.chain<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectList).invoke(simpleObjectPropertyName).value();
+        result = _.chain(simpleNoParameterFunctionObjectList).invoke(simpleObjectPropertyName).value();
 
-        result = _.chain<{ func: () => number }>(list).invoke(functionName).value();
-        result = _.chain(list).invoke(functionName).value();
+        result = _.chain<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectList).invoke(simpleObjectPropertyName).value();
+        result = _.chain(simpleNoParameterFunctionObjectList).invoke(simpleObjectPropertyName).value();
     }
 
     {
-        const functionName = 'func';
-        const dict: _.Dictionary<{ func: () => number }> = { a: { [functionName]: Math.random }, b: { [functionName]: Math.random } };
-        let result: { a: string }[];
+        let result: number[];
 
-        result = _.invoke<{ func: () => number }>(dict, functionName);
-        result = _.invoke(dict, functionName);
+        result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectDictionary, simpleObjectPropertyName);
+        result = _.invoke(simpleNoParameterFunctionObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ func: () => number }>(dict).invoke(functionName);
-        result = _(dict).invoke(functionName);
+        result = _<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName);
+        result = _(simpleNoParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName);
 
-        result = _.chain<{ func: () => number }>(dict).invoke(functionName).value();
-        result = _.chain(dict).invoke(functionName).value();
+        result = _.chain<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName).value();
+        result = _.chain(simpleNoParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName).value();
 
-        result = _.chain<{ func: () => number }>(dict).invoke(functionName).value();
-        result = _.chain(dict).invoke(functionName).value();
+        result = _.chain<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName).value();
+        result = _.chain(simpleNoParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName).value();
     }
 
     {
-        const functionName = 'trim';
-        const str = 'abc';
         let result: string[];
 
-        result = _.invoke<string>(str, functionName);
-        result = _.invoke(str, functionName);
+        result = _.invoke<string>(simpleString, simpleObjectPropertyName);
+        result = _.invoke(simpleString, simpleObjectPropertyName);
 
-        result = _<string>(str).invoke(functionName);
-        result = _(str).invoke(functionName);
+        result = _<string>(simpleString).invoke(simpleObjectPropertyName);
+        result = _(simpleString).invoke(simpleObjectPropertyName);
 
-        result = _.chain<string>(str).invoke(functionName).value();
-        result = _.chain(str).invoke(functionName).value();
+        result = _.chain<string>(simpleString).invoke(simpleObjectPropertyName).value();
+        result = _.chain(simpleString).invoke(simpleObjectPropertyName).value();
     }
 
     // with parameters
     {
-        const functionName = 'func';
-        const array: { func: (input: number) => number }[] = [{ [functionName]: Math.abs }, { [functionName]: Math.abs }];
         const arg = -1;
         let result: number[];
 
-        result = _.invoke<{ func: (input: number) => number }>(array, functionName, arg);
-        result = _.invoke(array, functionName, arg);
+        result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectArray, simpleObjectPropertyName, arg);
+        result = _.invoke(simpleOneParameterFunctionObjectArray, simpleObjectPropertyName, arg);
 
-        result = _<{ func: (input: number) => number }>(array).invoke(functionName, arg);
-        result = _(array).invoke(functionName, arg);
+        result = _<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectArray).invoke(simpleObjectPropertyName, arg);
+        result = _(simpleOneParameterFunctionObjectArray).invoke(simpleObjectPropertyName, arg);
 
-        result = _.chain<{ func: (input: number) => number }>(array).invoke(functionName, arg).value();
-        result = _.chain(array).invoke(functionName, arg).value();
+        result = _.chain<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectArray).invoke(simpleObjectPropertyName, arg).value();
+        result = _.chain(simpleOneParameterFunctionObjectArray).invoke(simpleObjectPropertyName, arg).value();
 
-        result = _.chain<{ func: (input: number) => number }>(array).invoke(functionName, arg).value();
-        result = _.chain(array).invoke(functionName, arg).value();
+        result = _.chain<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectArray).invoke(simpleObjectPropertyName, arg).value();
+        result = _.chain(simpleOneParameterFunctionObjectArray).invoke(simpleObjectPropertyName, arg).value();
     }
 
     {
-        const functionName = 'func';
-        const list: _.List<{ func: (input: number) => number }> = { 0: { [functionName]: Math.abs }, 1: { [functionName]: Math.abs }, length: 2 };
         const arg = -1;
         let result: number[];
 
-        result = _.invoke<{ func: (input: number) => number }>(list, functionName, arg);
-        result = _.invoke(list, functionName, arg);
+        result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectList, simpleObjectPropertyName, arg);
+        result = _.invoke(simpleOneParameterFunctionObjectList, simpleObjectPropertyName, arg);
 
-        result = _<{ func: (input: number) => number }>(list).invoke(functionName, arg);
-        result = _(list).invoke(functionName, arg);
+        result = _<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectList).invoke(simpleObjectPropertyName, arg);
+        result = _(simpleOneParameterFunctionObjectList).invoke(simpleObjectPropertyName, arg);
 
-        result = _.chain<{ func: (input: number) => number }>(list).invoke(functionName, arg).value();
-        result = _.chain(list).invoke(functionName, arg).value();
+        result = _.chain<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectList).invoke(simpleObjectPropertyName, arg).value();
+        result = _.chain(simpleOneParameterFunctionObjectList).invoke(simpleObjectPropertyName, arg).value();
 
-        result = _.chain<{ func: (input: number) => number }>(list).invoke(functionName, arg).value();
-        result = _.chain(list).invoke(functionName, arg).value();
+        result = _.chain<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectList).invoke(simpleObjectPropertyName, arg).value();
+        result = _.chain(simpleOneParameterFunctionObjectList).invoke(simpleObjectPropertyName, arg).value();
     }
 
     {
-        const functionName = 'func';
-        const dict: _.Dictionary<{ func: (input: number) => number }> = { a: { [functionName]: Math.abs }, b: { [functionName]: Math.abs } };
         const arg = -1;
-        let result: { a: string }[];
+        let result: number[];
 
-        result = _.invoke<{ func: (input: number) => number }>(dict, functionName, arg);
-        result = _.invoke(dict, functionName, arg);
+        result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectDictionary, simpleObjectPropertyName, arg);
+        result = _.invoke(simpleOneParameterFunctionObjectDictionary, simpleObjectPropertyName, arg);
 
-        result = _<{ func: (input: number) => number }>(dict).invoke(functionName, arg);
-        result = _(dict).invoke(functionName, arg);
+        result = _<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName, arg);
+        result = _(simpleOneParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName, arg);
 
-        result = _.chain<{ func: (input: number) => number }>(dict).invoke(functionName, arg).value();
-        result = _.chain(dict).invoke(functionName, arg).value();
+        result = _.chain<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName, arg).value();
+        result = _.chain(simpleOneParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName, arg).value();
 
-        result = _.chain<{ func: (input: number) => number }>(dict).invoke(functionName, arg).value();
-        result = _.chain(dict).invoke(functionName, arg).value();
+        result = _.chain<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName, arg).value();
+        result = _.chain(simpleOneParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName, arg).value();
     }
 
     {
         const functionName = 'substring';
-        const str = 'abc';
         const arg = 1;
         let result: string[];
 
-        result = _.invoke<string>(str, functionName, arg);
-        result = _.invoke(str, functionName, arg);
+        result = _.invoke<string>(simpleString, functionName, arg);
+        result = _.invoke(simpleString, functionName, arg);
 
-        result = _<string>(str).invoke(functionName, arg);
-        result = _(str).invoke(functionName, arg);
+        result = _<string>(simpleString).invoke(functionName, arg);
+        result = _(simpleString).invoke(functionName, arg);
 
-        result = _.chain<string>(str).invoke(functionName, arg).value();
-        result = _.chain(str).invoke(functionName, arg).value();
+        result = _.chain<string>(simpleString).invoke(functionName, arg).value();
+        result = _.chain(simpleString).invoke(functionName, arg).value();
     }
 }
 
@@ -2869,139 +2725,130 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     // property name iterator with nonnullable intersecting types
     {
         const array: ({ a: string, b: string } | { a: boolean, c: string })[] = [{ a: 'a', b: 'b' }, { a: true, c: 'c' }];
-        const property = 'a';
         let result: (string | boolean)[];
 
-        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(array, property);
-        result = _.map(array, property);
+        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof simpleObjectPropertyName>(array, simpleObjectPropertyName);
+        result = _.map(array, simpleObjectPropertyName);
 
-        result = _<{ a: string, b: string } | { a: boolean, c: string }>(array).map<typeof property>(property);
-        result = _(array).map(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(array).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(array).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(array).map<typeof property>(property).value();
-        result = _.chain(array).map(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(array).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(array).map(simpleObjectPropertyName).value();
     }
 
     {
         const list: _.List<{ a: string, b: string } | { a: boolean, c: string }> = { 0: { a: 'a', b: 'b' }, 1: { a: true, c: 'c' }, length: 2 };
-        const property = 'a';
         let result: (string | boolean)[];
 
-        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(list, property);
-        result = _.map(list, property);
+        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof simpleObjectPropertyName>(list, simpleObjectPropertyName);
+        result = _.map(list, simpleObjectPropertyName);
 
-        result = _<{ a: string, b: string } | { a: boolean, c: string }>(list).map<typeof property>(property);
-        result = _(list).map(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(list).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(list).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(list).map<typeof property>(property).value();
-        result = _.chain(list).map(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(list).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(list).map(simpleObjectPropertyName).value();
     }
 
     {
         const dict: _.Dictionary<{ a: string, b: string } | { a: boolean, c: string }> = { a: { a: 'a', b: 'b' }, b: { a: true, c: 'c' } };
-        const property = 'a';
         let result: (string | boolean)[];
 
-        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof property>(dict, property);
-        result = _.map(dict, property);
+        result = _.map<{ a: string, b: string } | { a: boolean, c: string }, typeof simpleObjectPropertyName>(dict, simpleObjectPropertyName);
+        result = _.map(dict, simpleObjectPropertyName);
 
-        result = _<{ a: string, b: string } | { a: boolean, c: string }>(dict).map<typeof property>(property);
-        result = _(dict).map(property);
+        result = _<{ a: string, b: string } | { a: boolean, c: string }>(dict).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(dict).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(dict).map<typeof property>(property).value();
-        result = _.chain(dict).map(property).value();
+        result = _.chain<{ a: string, b: string } | { a: boolean, c: string }>(dict).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(dict).map(simpleObjectPropertyName).value();
     }
 
     // property name iterator with nullable types
     {
-        const array: ({ a: string } | undefined)[] = [{ a: 'a' }, undefined];
-        const property = 'a';
+        const array: (SimpleStringObject | undefined)[] = [{ a: 'a' }, undefined];
         let result: (string | undefined)[];
 
-        result = _.map<{ a: string } | undefined, typeof property>(array, property);
-        result = _.map(array, property);
+        result = _.map<SimpleStringObject | undefined, typeof simpleObjectPropertyName>(array, simpleObjectPropertyName);
+        result = _.map(array, simpleObjectPropertyName);
 
-        result = _<{ a: string } | undefined>(array).map<typeof property>(property);
-        result = _(array).map(property);
+        result = _<SimpleStringObject | undefined>(array).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(array).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | undefined>(array).map<typeof property>(property).value();
-        result = _.chain(array).map(property).value();
+        result = _.chain<SimpleStringObject | undefined>(array).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(array).map(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: undefined, length: 2 };
-        const property = 'a';
+        const list: _.List<(SimpleStringObject | undefined)> = { 0: { a: 'a' }, 1: undefined, length: 2 };
         let result: (string | undefined)[];
 
-        result = _.map<{ a: string } | undefined, typeof property>(list, property);
-        result = _.map(list, property);
+        result = _.map<SimpleStringObject | undefined, typeof simpleObjectPropertyName>(list, simpleObjectPropertyName);
+        result = _.map(list, simpleObjectPropertyName);
 
-        result = _<{ a: string } | undefined>(list).map<typeof property>(property);
-        result = _(list).map(property);
+        result = _<SimpleStringObject | undefined>(list).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(list).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | undefined>(list).map<typeof property>(property).value();
-        result = _.chain(list).map(property).value();
+        result = _.chain<SimpleStringObject | undefined>(list).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(list).map(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<({ a: string } | undefined)> = { a: { a: 'a' }, b: undefined };
-        const property = 'a';
+        const dict: _.Dictionary<(SimpleStringObject | undefined)> = { a: { a: 'a' }, b: undefined };
         let result: (string | undefined)[];
 
-        result = _.map<{ a: string } | undefined, typeof property>(dict, property);
-        result = _.map(dict, property);
+        result = _.map<SimpleStringObject | undefined, typeof simpleObjectPropertyName>(dict, simpleObjectPropertyName);
+        result = _.map(dict, simpleObjectPropertyName);
 
-        result = _<{ a: string } | undefined>(dict).map<typeof property>(property);
-        result = _(dict).map(property);
+        result = _<SimpleStringObject | undefined>(dict).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(dict).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | undefined>(dict).map<typeof property>(property).value();
-        result = _.chain(dict).map(property).value();
+        result = _.chain<SimpleStringObject | undefined>(dict).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(dict).map(simpleObjectPropertyName).value();
     }
 
     // property name iterator with a non-nullable non-intersecting types
     {
-        const array: ({ a: string } | { b: string })[] = [{ a: 'a' }, { b: 'b' }];
-        const property = 'a';
+        const array: (SimpleStringObject | { b: string })[] = [{ a: 'a' }, { b: 'b' }];
         let result: (string | undefined)[];
 
-        result = _.map<{ a: string } | { b: string }, typeof property>(array, property);
-        result = _.map(array, property);
+        result = _.map<SimpleStringObject | { b: string }, typeof simpleObjectPropertyName>(array, simpleObjectPropertyName);
+        result = _.map(array, simpleObjectPropertyName);
 
-        result = _<{ a: string } | { b: string }>(array).map<typeof property>(property);
-        result = _(array).map(property);
+        result = _<SimpleStringObject | { b: string }>(array).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(array).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | { b: string }>(array).map<typeof property>(property).value();
-        result = _.chain(array).map(property).value();
+        result = _.chain<SimpleStringObject | { b: string }>(array).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(array).map(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string } | { b: string }> = { 0: { a: 'a' }, 1: { b: 'b' }, length: 2 };
-        const property = 'a';
+        const list: _.List<SimpleStringObject | { b: string }> = { 0: { a: 'a' }, 1: { b: 'b' }, length: 2 };
         let result: (string | undefined)[];
 
-        result = _.map<{ a: string } | { b: string }, typeof property>(list, property);
-        result = _.map(list, property);
+        result = _.map<SimpleStringObject | { b: string }, typeof simpleObjectPropertyName>(list, simpleObjectPropertyName);
+        result = _.map(list, simpleObjectPropertyName);
 
-        result = _<{ a: string } | { b: string }>(list).map<typeof property>(property);
-        result = _(list).map(property);
+        result = _<SimpleStringObject | { b: string }>(list).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(list).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | { b: string }>(list).map<typeof property>(property).value();
-        result = _.chain(list).map(property).value();
+        result = _.chain<SimpleStringObject | { b: string }>(list).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(list).map(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string } | { b: string }> = { a: { a: 'a' }, b: { b: 'b' } };
-        const property = 'a';
+        const dict: _.Dictionary<SimpleStringObject | { b: string }> = { a: { a: 'a' }, b: { b: 'b' } };
         let result: (string | undefined)[];
 
-        result = _.map<{ a: string } | { b: string }, typeof property>(dict, property);
-        result = _.map(dict, property);
+        result = _.map<SimpleStringObject | { b: string }, typeof simpleObjectPropertyName>(dict, simpleObjectPropertyName);
+        result = _.map(dict, simpleObjectPropertyName);
 
-        result = _<{ a: string } | { b: string }>(dict).map<typeof property>(property);
-        result = _(dict).map(property);
+        result = _<SimpleStringObject | { b: string }>(dict).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
+        result = _(dict).map(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string } | { b: string }>(dict).map<typeof property>(property).value();
-        result = _.chain(dict).map(property).value();
+        result = _.chain<SimpleStringObject | { b: string }>(dict).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
+        result = _.chain(dict).map(simpleObjectPropertyName).value();
     }
 }
 
@@ -3013,181 +2860,164 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     // without iterator
     {
-        const array: number[] = [0, 1];
         let result: number;
 
-        result = _.max<number>(array);
-        result = _.max(array);
+        result = _.max<number>(simpleNumberArray);
+        result = _.max(simpleNumberArray);
 
-        result = _<number>(array).max();
-        result = _(array).max();
+        result = _<number>(simpleNumberArray).max();
+        result = _(simpleNumberArray).max();
 
-        result = _.chain<number>(array).max().value();
-        result = _.chain(array).max().value();
+        result = _.chain<number>(simpleNumberArray).max().value();
+        result = _.chain(simpleNumberArray).max().value();
 
-        result = _.chain<number>(array).max().value();
-        result = _.chain(array).max().value();
+        result = _.chain<number>(simpleNumberArray).max().value();
+        result = _.chain(simpleNumberArray).max().value();
     }
 
     {
-        const list: _.List<number> = { 0: 0, 1: 1, length: 2 };
         let result: number;
 
-        result = _.max<number>(list);
-        result = _.max(list);
+        result = _.max<number>(simpleNumberList);
+        result = _.max(simpleNumberList);
 
-        result = _<number>(list).max();
-        result = _(list).max();
+        result = _<number>(simpleNumberList).max();
+        result = _(simpleNumberList).max();
 
-        result = _.chain<number>(list).max().value();
-        result = _.chain(list).max().value();
+        result = _.chain<number>(simpleNumberList).max().value();
+        result = _.chain(simpleNumberList).max().value();
 
-        result = _.chain<number>(list).max().value();
-        result = _.chain(list).max().value();
+        result = _.chain<number>(simpleNumberList).max().value();
+        result = _.chain(simpleNumberList).max().value();
     }
 
     {
-        const dict: _.Dictionary<number> = { a: 0, b: 1 };
         let result: number;
 
-        result = _.max<number>(dict);
-        result = _.max(dict);
+        result = _.max<number>(simpleNumberDictionary);
+        result = _.max(simpleNumberDictionary);
 
-        result = _<number>(dict).max();
-        result = _(dict).max();
+        result = _<number>(simpleNumberDictionary).max();
+        result = _(simpleNumberDictionary).max();
 
-        result = _.chain<number>(dict).max().value();
-        result = _.chain(dict).max().value();
+        result = _.chain<number>(simpleNumberDictionary).max().value();
+        result = _.chain(simpleNumberDictionary).max().value();
 
-        result = _.chain<number>(dict).max().value();
-        result = _.chain(dict).max().value();
+        result = _.chain<number>(simpleNumberDictionary).max().value();
+        result = _.chain(simpleNumberDictionary).max().value();
     }
 
     // function iterator
-    const context = {};
-
     {
-        const array: { a: number }[] = [{ a: 0 }, { a: 1 }];
-        const iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
-        let result: { a: number };
+        let result: SimpleNumberObject;
 
-        result = _.max<{ a: number }>(array, iterator);
-        result = _.max<{ a: number }>(array, iterator, context);
-        result = _.max(array, iterator);
-        result = _.max(array, iterator, context);
+        result = _.max<SimpleNumberObject>(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator);
+        result = _.max<SimpleNumberObject>(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator, context);
+        result = _.max(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator);
+        result = _.max(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: number }>(array).max(iterator);
-        result = _<{ a: number }>(array).max(iterator, context);
-        result = _(array).max(iterator);
-        result = _(array).max(iterator, context);
+        result = _<SimpleNumberObject>(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator);
+        result = _<SimpleNumberObject>(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context);
+        result = _(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator);
+        result = _(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: number }>(array).max(iterator).value();
-        result = _.chain<{ a: number }>(array).max(iterator, context).value();
-        result = _.chain(array).max(iterator).value();
-        result = _.chain(array).max(iterator, context).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: number }>(array).max(iterator).value();
-        result = _.chain<{ a: number }>(array).max(iterator, context).value();
-        result = _.chain(array).max(iterator).value();
-        result = _.chain(array).max(iterator, context).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleNumberObjectArray).max(simpleNumberObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: number }> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
-        const iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
-        let result: { a: number };
+        let result: SimpleNumberObject;
 
-        result = _.max<{ a: number }>(list, iterator);
-        result = _.max<{ a: number }>(list, iterator, context);
-        result = _.max(list, iterator);
-        result = _.max(list, iterator, context);
+        result = _.max<SimpleNumberObject>(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator);
+        result = _.max<SimpleNumberObject>(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator, context);
+        result = _.max(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator);
+        result = _.max(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: number }>(list).max(iterator);
-        result = _<{ a: number }>(list).max(iterator, context);
-        result = _(list).max(iterator);
-        result = _(list).max(iterator, context);
+        result = _<SimpleNumberObject>(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator);
+        result = _<SimpleNumberObject>(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context);
+        result = _(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator);
+        result = _(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: number }>(list).max(iterator).value();
-        result = _.chain<{ a: number }>(list).max(iterator, context).value();
-        result = _.chain(list).max(iterator).value();
-        result = _.chain(list).max(iterator, context).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: number }>(list).max(iterator).value();
-        result = _.chain<{ a: number }>(list).max(iterator, context).value();
-        result = _.chain(list).max(iterator).value();
-        result = _.chain(list).max(iterator, context).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleNumberObjectList).max(simpleNumberObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: number }> = { a: { a: 0 }, b: { a: 1 } };
-        const iterator = (element: { a: number }, key: string, list: _.Dictionary<{ a: number }>) => element.a;
-        let result: { a: number };
+        let result: SimpleNumberObject;
 
-        result = _.max<{ a: number }>(dict, iterator);
-        result = _.max<{ a: number }>(dict, iterator, context);
-        result = _.max(dict, iterator);
-        result = _.max(dict, iterator, context);
+        result = _.max<SimpleNumberObject>(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator);
+        result = _.max<SimpleNumberObject>(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator, context);
+        result = _.max(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator);
+        result = _.max(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator, context);
 
-        result = _<{ a: number }>(dict).max(iterator);
-        result = _<{ a: number }>(dict).max(iterator, context);
-        result = _(dict).max(iterator);
-        result = _(dict).max(iterator, context);
+        result = _<SimpleNumberObject>(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator);
+        result = _<SimpleNumberObject>(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context);
+        result = _(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator);
+        result = _(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context);
 
-        result = _.chain<{ a: number }>(dict).max(iterator).value();
-        result = _.chain<{ a: number }>(dict).max(iterator, context).value();
-        result = _.chain(dict).max(iterator).value();
-        result = _.chain(dict).max(iterator, context).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: number }>(dict).max(iterator).value();
-        result = _.chain<{ a: number }>(dict).max(iterator, context).value();
-        result = _.chain(dict).max(iterator).value();
-        result = _.chain(dict).max(iterator, context).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleNumberObjectDictionary).max(simpleNumberObjectDictionaryPropertySelectingIterator, context).value();
     }
 
     // property name iterator
     {
-        const array: { a: number }[] = [{ a: 0 }, { a: 1 }];
-        const property = 'a';
-        let result: { a: number };
+        let result: SimpleNumberObject;
 
-        result = _.max<{ a: number }>(array, property);
-        result = _.max(array, property);
+        result = _.max<SimpleNumberObject>(simpleNumberObjectArray, simpleObjectPropertyName);
+        result = _.max(simpleNumberObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: number }>(array).max(property);
-        result = _(array).max(property);
+        result = _<SimpleNumberObject>(simpleNumberObjectArray).max(simpleObjectPropertyName);
+        result = _(simpleNumberObjectArray).max(simpleObjectPropertyName);
 
-        result = _.chain<{ a: number }>(array).max(property).value();
-        result = _.chain(array).max(property).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectArray).max(simpleObjectPropertyName).value();
+        result = _.chain(simpleNumberObjectArray).max(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: number }> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
-        const property = 'a';
-        let result: { a: number };
+        let result: SimpleNumberObject;
 
-        result = _.max<{ a: number }>(list, property);
-        result = _.max(list, property);
+        result = _.max<SimpleNumberObject>(simpleNumberObjectList, simpleObjectPropertyName);
+        result = _.max(simpleNumberObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: number }>(list).max(property);
-        result = _(list).max(property);
+        result = _<SimpleNumberObject>(simpleNumberObjectList).max(simpleObjectPropertyName);
+        result = _(simpleNumberObjectList).max(simpleObjectPropertyName);
 
-        result = _.chain<{ a: number }>(list).max(property).value();
-        result = _.chain(list).max(property).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectList).max(simpleObjectPropertyName).value();
+        result = _.chain(simpleNumberObjectList).max(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: number }> = { a: { a: 0 }, b: { a: 1 } };
-        const property = 'a';
-        let result: { a: number };
+        let result: SimpleNumberObject;
 
-        result = _.max<{ a: number }>(dict, property);
-        result = _.max(dict, property);
+        result = _.max<SimpleNumberObject>(simpleNumberObjectDictionary, simpleObjectPropertyName);
+        result = _.max(simpleNumberObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: number }>(dict).max(property);
-        result = _(dict).max(property);
+        result = _<SimpleNumberObject>(simpleNumberObjectDictionary).max(simpleObjectPropertyName);
+        result = _(simpleNumberObjectDictionary).max(simpleObjectPropertyName);
 
-        result = _.chain<{ a: number }>(dict).max(property).value();
-        result = _.chain(dict).max(property).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectDictionary).max(simpleObjectPropertyName).value();
+        result = _.chain(simpleNumberObjectDictionary).max(simpleObjectPropertyName).value();
     }
 }
 
@@ -3199,831 +3029,752 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     // without iterator
     {
-        const array: number[] = [0, 1];
         let result: number;
 
-        result = _.min<number>(array);
-        result = _.min(array);
+        result = _.min<number>(simpleNumberArray);
+        result = _.min(simpleNumberArray);
 
-        result = _<number>(array).min();
-        result = _(array).min();
+        result = _<number>(simpleNumberArray).min();
+        result = _(simpleNumberArray).min();
 
-        result = _.chain<number>(array).min().value();
-        result = _.chain(array).min().value();
+        result = _.chain<number>(simpleNumberArray).min().value();
+        result = _.chain(simpleNumberArray).min().value();
 
-        result = _.chain<number>(array).min().value();
-        result = _.chain(array).min().value();
+        result = _.chain<number>(simpleNumberArray).min().value();
+        result = _.chain(simpleNumberArray).min().value();
     }
 
     {
-        const list: _.List<number> = { 0: 0, 1: 1, length: 2 };
         let result: number;
 
-        result = _.min<number>(list);
-        result = _.min(list);
+        result = _.min<number>(simpleNumberList);
+        result = _.min(simpleNumberList);
 
-        result = _<number>(list).min();
-        result = _(list).min();
+        result = _<number>(simpleNumberList).min();
+        result = _(simpleNumberList).min();
 
-        result = _.chain<number>(list).min().value();
-        result = _.chain(list).min().value();
+        result = _.chain<number>(simpleNumberList).min().value();
+        result = _.chain(simpleNumberList).min().value();
 
-        result = _.chain<number>(list).min().value();
-        result = _.chain(list).min().value();
+        result = _.chain<number>(simpleNumberList).min().value();
+        result = _.chain(simpleNumberList).min().value();
     }
 
     {
-        const dict: _.Dictionary<number> = { a: 0, b: 1 };
         let result: number;
 
-        result = _.min<number>(dict);
-        result = _.min(dict);
+        result = _.min<number>(simpleNumberDictionary);
+        result = _.min(simpleNumberDictionary);
 
-        result = _<number>(dict).min();
-        result = _(dict).min();
+        result = _<number>(simpleNumberDictionary).min();
+        result = _(simpleNumberDictionary).min();
 
-        result = _.chain<number>(dict).min().value();
-        result = _.chain(dict).min().value();
+        result = _.chain<number>(simpleNumberDictionary).min().value();
+        result = _.chain(simpleNumberDictionary).min().value();
 
-        result = _.chain<number>(dict).min().value();
-        result = _.chain(dict).min().value();
+        result = _.chain<number>(simpleNumberDictionary).min().value();
+        result = _.chain(simpleNumberDictionary).min().value();
     }
 
     // function iterator
-    const context = {};
-
     {
-        const array: { a: number }[] = [{ a: 0 }, { a: 1 }];
-        const iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
-        let result: { a: number };
+        let result: SimpleNumberObject;
 
-        result = _.min<{ a: number }>(array, iterator);
-        result = _.min<{ a: number }>(array, iterator, context);
-        result = _.min(array, iterator);
-        result = _.min(array, iterator, context);
+        result = _.min<SimpleNumberObject>(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator);
+        result = _.min<SimpleNumberObject>(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator, context);
+        result = _.min(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator);
+        result = _.min(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: number }>(array).min(iterator);
-        result = _<{ a: number }>(array).min(iterator, context);
-        result = _(array).min(iterator);
-        result = _(array).min(iterator, context);
+        result = _<SimpleNumberObject>(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator);
+        result = _<SimpleNumberObject>(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context);
+        result = _(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator);
+        result = _(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: number }>(array).min(iterator).value();
-        result = _.chain<{ a: number }>(array).min(iterator, context).value();
-        result = _.chain(array).min(iterator).value();
-        result = _.chain(array).min(iterator, context).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: number }>(array).min(iterator).value();
-        result = _.chain<{ a: number }>(array).min(iterator, context).value();
-        result = _.chain(array).min(iterator).value();
-        result = _.chain(array).min(iterator, context).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleNumberObjectArray).min(simpleNumberObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: number }> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
-        const iterator = (value: { a: number }, index: number, list: _.List<{ a: number }>) => value.a;
-        let result: { a: number };
+        let result: SimpleNumberObject;
 
-        result = _.min<{ a: number }>(list, iterator);
-        result = _.min<{ a: number }>(list, iterator, context);
-        result = _.min(list, iterator);
-        result = _.min(list, iterator, context);
+        result = _.min<SimpleNumberObject>(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator);
+        result = _.min<SimpleNumberObject>(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator, context);
+        result = _.min(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator);
+        result = _.min(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: number }>(list).min(iterator);
-        result = _<{ a: number }>(list).min(iterator, context);
-        result = _(list).min(iterator);
-        result = _(list).min(iterator, context);
+        result = _<SimpleNumberObject>(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator);
+        result = _<SimpleNumberObject>(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context);
+        result = _(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator);
+        result = _(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: number }>(list).min(iterator).value();
-        result = _.chain<{ a: number }>(list).min(iterator, context).value();
-        result = _.chain(list).min(iterator).value();
-        result = _.chain(list).min(iterator, context).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: number }>(list).min(iterator).value();
-        result = _.chain<{ a: number }>(list).min(iterator, context).value();
-        result = _.chain(list).min(iterator).value();
-        result = _.chain(list).min(iterator, context).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleNumberObjectList).min(simpleNumberObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: number }> = { a: { a: 0 }, b: { a: 1 } };
-        const iterator = (element: { a: number }, key: string, list: _.Dictionary<{ a: number }>) => element.a;
-        let result: { a: number };
+        let result: SimpleNumberObject;
 
-        result = _.min<{ a: number }>(dict, iterator);
-        result = _.min<{ a: number }>(dict, iterator, context);
-        result = _.min(dict, iterator);
-        result = _.min(dict, iterator, context);
+        result = _.min<SimpleNumberObject>(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator);
+        result = _.min<SimpleNumberObject>(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator, context);
+        result = _.min(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator);
+        result = _.min(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator, context);
 
-        result = _<{ a: number }>(dict).min(iterator);
-        result = _<{ a: number }>(dict).min(iterator, context);
-        result = _(dict).min(iterator);
-        result = _(dict).min(iterator, context);
+        result = _<SimpleNumberObject>(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator);
+        result = _<SimpleNumberObject>(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context);
+        result = _(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator);
+        result = _(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context);
 
-        result = _.chain<{ a: number }>(dict).min(iterator).value();
-        result = _.chain<{ a: number }>(dict).min(iterator, context).value();
-        result = _.chain(dict).min(iterator).value();
-        result = _.chain(dict).min(iterator, context).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: number }>(dict).min(iterator).value();
-        result = _.chain<{ a: number }>(dict).min(iterator, context).value();
-        result = _.chain(dict).min(iterator).value();
-        result = _.chain(dict).min(iterator, context).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleNumberObjectDictionary).min(simpleNumberObjectDictionaryPropertySelectingIterator, context).value();
     }
 
     // property name iterator
     {
-        const array: { a: number }[] = [{ a: 0 }, { a: 1 }];
-        const property = 'a';
-        let result: { a: number };
+        let result: SimpleNumberObject;
 
-        result = _.min<{ a: number }>(array, property);
-        result = _.min(array, property);
+        result = _.min<SimpleNumberObject>(simpleNumberObjectArray, simpleObjectPropertyName);
+        result = _.min(simpleNumberObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: number }>(array).min(property);
-        result = _(array).min(property);
+        result = _<SimpleNumberObject>(simpleNumberObjectArray).min(simpleObjectPropertyName);
+        result = _(simpleNumberObjectArray).min(simpleObjectPropertyName);
 
-        result = _.chain<{ a: number }>(array).min(property).value();
-        result = _.chain(array).min(property).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectArray).min(simpleObjectPropertyName).value();
+        result = _.chain(simpleNumberObjectArray).min(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: number }> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
-        const property = 'a';
-        let result: { a: number };
+        let result: SimpleNumberObject;
 
-        result = _.min<{ a: number }>(list, property);
-        result = _.min(list, property);
+        result = _.min<SimpleNumberObject>(simpleNumberObjectList, simpleObjectPropertyName);
+        result = _.min(simpleNumberObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: number }>(list).min(property);
-        result = _(list).min(property);
+        result = _<SimpleNumberObject>(simpleNumberObjectList).min(simpleObjectPropertyName);
+        result = _(simpleNumberObjectList).min(simpleObjectPropertyName);
 
-        result = _.chain<{ a: number }>(list).min(property).value();
-        result = _.chain(list).min(property).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectList).min(simpleObjectPropertyName).value();
+        result = _.chain(simpleNumberObjectList).min(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: number }> = { a: { a: 0 }, b: { a: 1 } };
-        const property = 'a';
-        let result: { a: number };
+        let result: SimpleNumberObject;
 
-        result = _.min<{ a: number }>(dict, property);
-        result = _.min(dict, property);
+        result = _.min<SimpleNumberObject>(simpleNumberObjectDictionary, simpleObjectPropertyName);
+        result = _.min(simpleNumberObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: number }>(dict).min(property);
-        result = _(dict).min(property);
+        result = _<SimpleNumberObject>(simpleNumberObjectDictionary).min(simpleObjectPropertyName);
+        result = _(simpleNumberObjectDictionary).min(simpleObjectPropertyName);
 
-        result = _.chain<{ a: number }>(dict).min(property).value();
-        result = _.chain(dict).min(property).value();
+        result = _.chain<SimpleNumberObject>(simpleNumberObjectDictionary).min(simpleObjectPropertyName).value();
+        result = _.chain(simpleNumberObjectDictionary).min(simpleObjectPropertyName).value();
     }
 }
 
 // sortBy
 {
-    const context = {};
-
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.sortBy<{ a: string }>(array, iterator);
-        result = _.sortBy<{ a: string }>(array, iterator, context);
-        result = _.sortBy(array, iterator);
-        result = _.sortBy(array, iterator, context);
+        result = _.sortBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
+        result = _.sortBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.sortBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
+        result = _.sortBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(array).sortBy(iterator);
-        result = _<{ a: string }>(array).sortBy(iterator, context);
-        result = _(array).sortBy(iterator);
-        result = _(array).sortBy(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(array).sortBy(iterator).value();
-        result = _.chain<{ a: string }>(array).sortBy(iterator, context).value();
-        result = _.chain(array).sortBy(iterator).value();
-        result = _.chain(array).sortBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(array).sortBy(iterator).value();
-        result = _.chain<{ a: string }>(array).sortBy(iterator, context).value();
-        result = _.chain(array).sortBy(iterator).value();
-        result = _.chain(array).sortBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).sortBy(simpleStringObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.sortBy<{ a: string }>(list, iterator);
-        result = _.sortBy<{ a: string }>(list, iterator, context);
-        result = _.sortBy(list, iterator);
-        result = _.sortBy(list, iterator, context);
+        result = _.sortBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.sortBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.sortBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.sortBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(list).sortBy(iterator);
-        result = _<{ a: string }>(list).sortBy(iterator, context);
-        result = _(list).sortBy(iterator);
-        result = _(list).sortBy(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(list).sortBy(iterator).value();
-        result = _.chain<{ a: string }>(list).sortBy(iterator, context).value();
-        result = _.chain(list).sortBy(iterator).value();
-        result = _.chain(list).sortBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(list).sortBy(iterator).value();
-        result = _.chain<{ a: string }>(list).sortBy(iterator, context).value();
-        result = _.chain(list).sortBy(iterator).value();
-        result = _.chain(list).sortBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).sortBy(simpleStringObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.sortBy<{ a: string }>(dict, iterator);
-        result = _.sortBy<{ a: string }>(dict, iterator, context);
-        result = _.sortBy(dict, iterator);
-        result = _.sortBy(dict, iterator, context);
+        result = _.sortBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _.sortBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
+        result = _.sortBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _.sortBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(dict).sortBy(iterator);
-        result = _<{ a: string }>(dict).sortBy(iterator, context);
-        result = _(dict).sortBy(iterator);
-        result = _(dict).sortBy(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context);
+        result = _(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).sortBy(iterator).value();
-        result = _.chain<{ a: string }>(dict).sortBy(iterator, context).value();
-        result = _.chain(dict).sortBy(iterator).value();
-        result = _.chain(dict).sortBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(dict).sortBy(iterator).value();
-        result = _.chain<{ a: string }>(dict).sortBy(iterator, context).value();
-        result = _.chain(dict).sortBy(iterator).value();
-        result = _.chain(dict).sortBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
     }
 
     // property name iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const property = 'a';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.sortBy<{ a: string }>(array, property);
-        result = _.sortBy(array, property);
+        result = _.sortBy<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.sortBy(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).sortBy(property);
-        result = _(array).sortBy(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).sortBy(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).sortBy(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).sortBy(property).value();
-        result = _.chain(array).sortBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).sortBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).sortBy(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(array).sortBy(property).value();
-        result = _.chain(array).sortBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).sortBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).sortBy(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const property = 'a';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.sortBy<{ a: string }>(list, property);
-        result = _.sortBy(list, property);
+        result = _.sortBy<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.sortBy(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).sortBy(property);
-        result = _(list).sortBy(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).sortBy(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).sortBy(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).sortBy(property).value();
-        result = _.chain(list).sortBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).sortBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).sortBy(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(list).sortBy(property).value();
-        result = _.chain(list).sortBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).sortBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).sortBy(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const property = 'a';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.sortBy<{ a: string }>(dict, property);
-        result = _.sortBy(dict, property);
+        result = _.sortBy<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.sortBy(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).sortBy(property);
-        result = _(dict).sortBy(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).sortBy(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).sortBy(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).sortBy(property).value();
-        result = _.chain(dict).sortBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).sortBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).sortBy(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(dict).sortBy(property).value();
-        result = _.chain(dict).sortBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).sortBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).sortBy(simpleObjectPropertyName).value();
     }
 }
 
 // groupBy
 {
-    const context = {};
-
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
-        let result: _.Dictionary<_.List<{ a: string }>>;
+        let result: _.Dictionary<_.List<SimpleStringObject>>;
 
-        result = _.groupBy<{ a: string }>(array, iterator);
-        result = _.groupBy<{ a: string }>(array, iterator, context);
-        result = _.groupBy(array, iterator);
-        result = _.groupBy(array, iterator, context);
+        result = _.groupBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
+        result = _.groupBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.groupBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
+        result = _.groupBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(array).groupBy(iterator);
-        result = _<{ a: string }>(array).groupBy(iterator, context);
-        result = _(array).groupBy(iterator);
-        result = _(array).groupBy(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(array).groupBy(iterator).value();
-        result = _.chain<{ a: string }>(array).groupBy(iterator, context).value();
-        result = _.chain(array).groupBy(iterator).value();
-        result = _.chain(array).groupBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(array).groupBy(iterator).value();
-        result = _.chain<{ a: string }>(array).groupBy(iterator, context).value();
-        result = _.chain(array).groupBy(iterator).value();
-        result = _.chain(array).groupBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).groupBy(simpleStringObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
-        let result: _.Dictionary<_.List<{ a: string }>>;
+        let result: _.Dictionary<_.List<SimpleStringObject>>;
 
-        result = _.groupBy<{ a: string }>(list, iterator);
-        result = _.groupBy<{ a: string }>(list, iterator, context);
-        result = _.groupBy(list, iterator);
-        result = _.groupBy(list, iterator, context);
+        result = _.groupBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.groupBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.groupBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.groupBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(list).groupBy(iterator);
-        result = _<{ a: string }>(list).groupBy(iterator, context);
-        result = _(list).groupBy(iterator);
-        result = _(list).groupBy(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(list).groupBy(iterator).value();
-        result = _.chain<{ a: string }>(list).groupBy(iterator, context).value();
-        result = _.chain(list).groupBy(iterator).value();
-        result = _.chain(list).groupBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(list).groupBy(iterator).value();
-        result = _.chain<{ a: string }>(list).groupBy(iterator, context).value();
-        result = _.chain(list).groupBy(iterator).value();
-        result = _.chain(list).groupBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).groupBy(simpleStringObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
-        let result: _.Dictionary<_.List<{ a: string }>>;
+        let result: _.Dictionary<_.List<SimpleStringObject>>;
 
-        result = _.groupBy<{ a: string }>(dict, iterator);
-        result = _.groupBy<{ a: string }>(dict, iterator, context);
-        result = _.groupBy(dict, iterator);
-        result = _.groupBy(dict, iterator, context);
+        result = _.groupBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _.groupBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
+        result = _.groupBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _.groupBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(dict).groupBy(iterator);
-        result = _<{ a: string }>(dict).groupBy(iterator, context);
-        result = _(dict).groupBy(iterator);
-        result = _(dict).groupBy(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator, context);
+        result = _(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).groupBy(iterator).value();
-        result = _.chain<{ a: string }>(dict).groupBy(iterator, context).value();
-        result = _.chain(dict).groupBy(iterator).value();
-        result = _.chain(dict).groupBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(dict).groupBy(iterator).value();
-        result = _.chain<{ a: string }>(dict).groupBy(iterator, context).value();
-        result = _.chain(dict).groupBy(iterator).value();
-        result = _.chain(dict).groupBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
     }
 
     // property name iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const property = 'a';
-        let result: _.Dictionary<_.List<{ a: string }>>;
+        let result: _.Dictionary<_.List<SimpleStringObject>>;
 
-        result = _.groupBy<{ a: string }>(array, property);
-        result = _.groupBy(array, property);
+        result = _.groupBy<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.groupBy(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).groupBy(property);
-        result = _(array).groupBy(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).groupBy(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).groupBy(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).groupBy(property).value();
-        result = _.chain(array).groupBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).groupBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).groupBy(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(array).groupBy(property).value();
-        result = _.chain(array).groupBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).groupBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).groupBy(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const property = 'a';
-        let result: _.Dictionary<_.List<{ a: string }>>;
+        let result: _.Dictionary<_.List<SimpleStringObject>>;
 
-        result = _.groupBy<{ a: string }>(list, property);
-        result = _.groupBy(list, property);
+        result = _.groupBy<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.groupBy(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).groupBy(property);
-        result = _(list).groupBy(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).groupBy(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).groupBy(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).groupBy(property).value();
-        result = _.chain(list).groupBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).groupBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).groupBy(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(list).groupBy(property).value();
-        result = _.chain(list).groupBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).groupBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).groupBy(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const property = 'a';
-        let result: _.Dictionary<_.List<{ a: string }>>;
+        let result: _.Dictionary<_.List<SimpleStringObject>>;
 
-        result = _.groupBy<{ a: string }>(dict, property);
-        result = _.groupBy(dict, property);
+        result = _.groupBy<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.groupBy(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).groupBy(property);
-        result = _(dict).groupBy(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).groupBy(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).groupBy(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).groupBy(property).value();
-        result = _.chain(dict).groupBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).groupBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).groupBy(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(dict).groupBy(property).value();
-        result = _.chain(dict).groupBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).groupBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).groupBy(simpleObjectPropertyName).value();
     }
 }
 
 // indexBy
 {
-    const context = {};
-
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
-        let result: _.Dictionary<{ a: string }>;
+        let result: _.Dictionary<SimpleStringObject>;
 
-        result = _.indexBy<{ a: string }>(array, iterator);
-        result = _.indexBy<{ a: string }>(array, iterator, context);
-        result = _.indexBy(array, iterator);
-        result = _.indexBy(array, iterator, context);
+        result = _.indexBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
+        result = _.indexBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.indexBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
+        result = _.indexBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(array).indexBy(iterator);
-        result = _<{ a: string }>(array).indexBy(iterator, context);
-        result = _(array).indexBy(iterator);
-        result = _(array).indexBy(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(array).indexBy(iterator).value();
-        result = _.chain<{ a: string }>(array).indexBy(iterator, context).value();
-        result = _.chain(array).indexBy(iterator).value();
-        result = _.chain(array).indexBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(array).indexBy(iterator).value();
-        result = _.chain<{ a: string }>(array).indexBy(iterator, context).value();
-        result = _.chain(array).indexBy(iterator).value();
-        result = _.chain(array).indexBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).indexBy(simpleStringObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
-        let result: _.Dictionary<{ a: string }>;
+        let result: _.Dictionary<SimpleStringObject>;
 
-        result = _.indexBy<{ a: string }>(list, iterator);
-        result = _.indexBy<{ a: string }>(list, iterator, context);
-        result = _.indexBy(list, iterator);
-        result = _.indexBy(list, iterator, context);
+        result = _.indexBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.indexBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.indexBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.indexBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(list).indexBy(iterator);
-        result = _<{ a: string }>(list).indexBy(iterator, context);
-        result = _(list).indexBy(iterator);
-        result = _(list).indexBy(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(list).indexBy(iterator).value();
-        result = _.chain<{ a: string }>(list).indexBy(iterator, context).value();
-        result = _.chain(list).indexBy(iterator).value();
-        result = _.chain(list).indexBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(list).indexBy(iterator).value();
-        result = _.chain<{ a: string }>(list).indexBy(iterator, context).value();
-        result = _.chain(list).indexBy(iterator).value();
-        result = _.chain(list).indexBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).indexBy(simpleStringObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
-        let result: _.Dictionary<{ a: string }>;
+        let result: _.Dictionary<SimpleStringObject>;
 
-        result = _.indexBy<{ a: string }>(dict, iterator);
-        result = _.indexBy<{ a: string }>(dict, iterator, context);
-        result = _.indexBy(dict, iterator);
-        result = _.indexBy(dict, iterator, context);
+        result = _.indexBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _.indexBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
+        result = _.indexBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _.indexBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(dict).indexBy(iterator);
-        result = _<{ a: string }>(dict).indexBy(iterator, context);
-        result = _(dict).indexBy(iterator);
-        result = _(dict).indexBy(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator, context);
+        result = _(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).indexBy(iterator).value();
-        result = _.chain<{ a: string }>(dict).indexBy(iterator, context).value();
-        result = _.chain(dict).indexBy(iterator).value();
-        result = _.chain(dict).indexBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(dict).indexBy(iterator).value();
-        result = _.chain<{ a: string }>(dict).indexBy(iterator, context).value();
-        result = _.chain(dict).indexBy(iterator).value();
-        result = _.chain(dict).indexBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).indexBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
     }
 
     // property name iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const property = 'a';
-        let result: _.Dictionary<{ a: string }>;
+        let result: _.Dictionary<SimpleStringObject>;
 
-        result = _.indexBy<{ a: string }>(array, property);
-        result = _.indexBy(array, property);
+        result = _.indexBy<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.indexBy(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).indexBy(property);
-        result = _(array).indexBy(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).indexBy(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).indexBy(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).indexBy(property).value();
-        result = _.chain(array).indexBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).indexBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).indexBy(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(array).indexBy(property).value();
-        result = _.chain(array).indexBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).indexBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).indexBy(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const property = 'a';
-        let result: _.Dictionary<{ a: string }>;
+        let result: _.Dictionary<SimpleStringObject>;
 
-        result = _.indexBy<{ a: string }>(list, property);
-        result = _.indexBy(list, property);
+        result = _.indexBy<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.indexBy(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).indexBy(property);
-        result = _(list).indexBy(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).indexBy(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).indexBy(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).indexBy(property).value();
-        result = _.chain(list).indexBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).indexBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).indexBy(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(list).indexBy(property).value();
-        result = _.chain(list).indexBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).indexBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).indexBy(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const property = 'a';
-        let result: _.Dictionary<{ a: string }>;
+        let result: _.Dictionary<SimpleStringObject>;
 
-        result = _.indexBy<{ a: string }>(dict, property);
-        result = _.indexBy(dict, property);
+        result = _.indexBy<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.indexBy(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).indexBy(property);
-        result = _(dict).indexBy(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).indexBy(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).indexBy(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).indexBy(property).value();
-        result = _.chain(dict).indexBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).indexBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).indexBy(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(dict).indexBy(property).value();
-        result = _.chain(dict).indexBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).indexBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).indexBy(simpleObjectPropertyName).value();
     }
 }
 
 // countBy
 {
-    const context = {};
-
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
         let result: _.Dictionary<number>;
 
-        result = _.countBy<{ a: string }>(array, iterator);
-        result = _.countBy<{ a: string }>(array, iterator, context);
-        result = _.countBy(array, iterator);
-        result = _.countBy(array, iterator, context);
+        result = _.countBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
+        result = _.countBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.countBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
+        result = _.countBy(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(array).countBy(iterator);
-        result = _<{ a: string }>(array).countBy(iterator, context);
-        result = _(array).countBy(iterator);
-        result = _(array).countBy(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(array).countBy(iterator).value();
-        result = _.chain<{ a: string }>(array).countBy(iterator, context).value();
-        result = _.chain(array).countBy(iterator).value();
-        result = _.chain(array).countBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(array).countBy(iterator).value();
-        result = _.chain<{ a: string }>(array).countBy(iterator, context).value();
-        result = _.chain(array).countBy(iterator).value();
-        result = _.chain(array).countBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).countBy(simpleStringObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
         let result: _.Dictionary<number>;
 
-        result = _.countBy<{ a: string }>(list, iterator);
-        result = _.countBy<{ a: string }>(list, iterator, context);
-        result = _.countBy(list, iterator);
-        result = _.countBy(list, iterator, context);
+        result = _.countBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.countBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.countBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.countBy(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(list).countBy(iterator);
-        result = _<{ a: string }>(list).countBy(iterator, context);
-        result = _(list).countBy(iterator);
-        result = _(list).countBy(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(list).countBy(iterator).value();
-        result = _.chain<{ a: string }>(list).countBy(iterator, context).value();
-        result = _.chain(list).countBy(iterator).value();
-        result = _.chain(list).countBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(list).countBy(iterator).value();
-        result = _.chain<{ a: string }>(list).countBy(iterator, context).value();
-        result = _.chain(list).countBy(iterator).value();
-        result = _.chain(list).countBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).countBy(simpleStringObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a;
         let result: _.Dictionary<number>;
 
-        result = _.countBy<{ a: string }>(dict, iterator);
-        result = _.countBy<{ a: string }>(dict, iterator, context);
-        result = _.countBy(dict, iterator);
-        result = _.countBy(dict, iterator, context);
+        result = _.countBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _.countBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
+        result = _.countBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _.countBy(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(dict).countBy(iterator);
-        result = _<{ a: string }>(dict).countBy(iterator, context);
-        result = _(dict).countBy(iterator);
-        result = _(dict).countBy(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context);
+        result = _(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator);
+        result = _(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).countBy(iterator).value();
-        result = _.chain<{ a: string }>(dict).countBy(iterator, context).value();
-        result = _.chain(dict).countBy(iterator).value();
-        result = _.chain(dict).countBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(dict).countBy(iterator).value();
-        result = _.chain<{ a: string }>(dict).countBy(iterator, context).value();
-        result = _.chain(dict).countBy(iterator).value();
-        result = _.chain(dict).countBy(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectDictionaryPropertySelectingIterator, context).value();
     }
 
     {
-        const str = 'abc';
-        const iterator = (value: string, index: number, list: _.List<string>) => value;
         let result: _.Dictionary<number>;
 
-        result = _.countBy<string>(str, iterator);
-        result = _.countBy<string>(str, iterator, context);
-        result = _.countBy(str, iterator);
-        result = _.countBy(str, iterator, context);
+        result = _.countBy<string>(simpleString, stringListSelectingIterator);
+        result = _.countBy<string>(simpleString, stringListSelectingIterator, context);
+        result = _.countBy(simpleString, stringListSelectingIterator);
+        result = _.countBy(simpleString, stringListSelectingIterator, context);
 
-        result = _<string>(str).countBy(iterator);
-        result = _<string>(str).countBy(iterator, context);
-        result = _(str).countBy(iterator);
-        result = _(str).countBy(iterator, context);
+        result = _<string>(simpleString).countBy(stringListSelectingIterator);
+        result = _<string>(simpleString).countBy(stringListSelectingIterator, context);
+        result = _(simpleString).countBy(stringListSelectingIterator);
+        result = _(simpleString).countBy(stringListSelectingIterator, context);
 
-        result = _.chain<string>(str).countBy(iterator).value();
-        result = _.chain<string>(str).countBy(iterator, context).value();
-        result = _.chain(str).countBy(iterator).value();
-        result = _.chain(str).countBy(iterator, context).value();
+        result = _.chain<string>(simpleString).countBy(stringListSelectingIterator).value();
+        result = _.chain<string>(simpleString).countBy(stringListSelectingIterator, context).value();
+        result = _.chain(simpleString).countBy(stringListSelectingIterator).value();
+        result = _.chain(simpleString).countBy(stringListSelectingIterator, context).value();
 
-        result = _.chain<string>(str).countBy(iterator).value();
-        result = _.chain<string>(str).countBy(iterator, context).value();
-        result = _.chain(str).countBy(iterator).value();
-        result = _.chain(str).countBy(iterator, context).value();
+        result = _.chain<string>(simpleString).countBy(stringListSelectingIterator).value();
+        result = _.chain<string>(simpleString).countBy(stringListSelectingIterator, context).value();
+        result = _.chain(simpleString).countBy(stringListSelectingIterator).value();
+        result = _.chain(simpleString).countBy(stringListSelectingIterator, context).value();
     }
 
     // property name iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const property = 'a';
         let result: _.Dictionary<number>;
 
-        result = _.countBy<{ a: string }>(array, property);
-        result = _.countBy(array, property);
+        result = _.countBy<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.countBy(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).countBy(property);
-        result = _(array).countBy(property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).countBy(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).countBy(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).countBy(property).value();
-        result = _.chain(array).countBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).countBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).countBy(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(array).countBy(property).value();
-        result = _.chain(array).countBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).countBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).countBy(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const property = 'a';
         let result: _.Dictionary<number>;
 
-        result = _.countBy<{ a: string }>(list, property);
-        result = _.countBy(list, property);
+        result = _.countBy<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.countBy(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).countBy(property);
-        result = _(list).countBy(property);
+        result = _<SimpleStringObject>(simpleStringObjectList).countBy(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).countBy(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).countBy(property).value();
-        result = _.chain(list).countBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).countBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).countBy(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(list).countBy(property).value();
-        result = _.chain(list).countBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).countBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).countBy(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const property = 'a';
         let result: _.Dictionary<number>;
 
-        result = _.countBy<{ a: string }>(dict, property);
-        result = _.countBy(dict, property);
+        result = _.countBy<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.countBy(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).countBy(property);
-        result = _(dict).countBy(property);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).countBy(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).countBy(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).countBy(property).value();
-        result = _.chain(dict).countBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).countBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).countBy(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(dict).countBy(property).value();
-        result = _.chain(dict).countBy(property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).countBy(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).countBy(simpleObjectPropertyName).value();
     }
 }
 
 // shuffle
 {
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.shuffle<{ a: string }>(array);
-        result = _.shuffle(array);
+        result = _.shuffle<SimpleStringObject>(simpleStringObjectArray);
+        result = _.shuffle(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).shuffle();
-        result = _(array).shuffle();
+        result = _<SimpleStringObject>(simpleStringObjectArray).shuffle();
+        result = _(simpleStringObjectArray).shuffle();
 
-        result = _.chain<{ a: string }>(array).shuffle().value();
-        result = _.chain(array).shuffle().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).shuffle().value();
+        result = _.chain(simpleStringObjectArray).shuffle().value();
 
-        result = _.chain<{ a: string }>(array).shuffle().value();
-        result = _.chain(array).shuffle().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).shuffle().value();
+        result = _.chain(simpleStringObjectArray).shuffle().value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.shuffle<{ a: string }>(list);
-        result = _.shuffle(list);
+        result = _.shuffle<SimpleStringObject>(simpleStringObjectList);
+        result = _.shuffle(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).shuffle();
-        result = _(list).shuffle();
+        result = _<SimpleStringObject>(simpleStringObjectList).shuffle();
+        result = _(simpleStringObjectList).shuffle();
 
-        result = _.chain<{ a: string }>(list).shuffle().value();
-        result = _.chain(list).shuffle().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).shuffle().value();
+        result = _.chain(simpleStringObjectList).shuffle().value();
 
-        result = _.chain<{ a: string }>(list).shuffle().value();
-        result = _.chain(list).shuffle().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).shuffle().value();
+        result = _.chain(simpleStringObjectList).shuffle().value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.shuffle<{ a: string }>(dict);
-        result = _.shuffle(dict);
+        result = _.shuffle<SimpleStringObject>(simpleStringObjectDictionary);
+        result = _.shuffle(simpleStringObjectDictionary);
 
-        result = _<{ a: string }>(dict).shuffle();
-        result = _(dict).shuffle();
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).shuffle();
+        result = _(simpleStringObjectDictionary).shuffle();
 
-        result = _.chain<{ a: string }>(dict).shuffle().value();
-        result = _.chain(dict).shuffle().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).shuffle().value();
+        result = _.chain(simpleStringObjectDictionary).shuffle().value();
 
-        result = _.chain<{ a: string }>(dict).shuffle().value();
-        result = _.chain(dict).shuffle().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).shuffle().value();
+        result = _.chain(simpleStringObjectDictionary).shuffle().value();
     }
 
     {
-        const str = 'abc';
         let result: string[];
 
-        result = _.shuffle<string>(str);
-        result = _.shuffle(str);
+        result = _.shuffle<string>(simpleString);
+        result = _.shuffle(simpleString);
 
-        result = _<string>(str).shuffle();
-        result = _(str).shuffle();
+        result = _<string>(simpleString).shuffle();
+        result = _(simpleString).shuffle();
 
-        result = _.chain<string>(str).shuffle().value();
-        result = _.chain(str).shuffle().value();
+        result = _.chain<string>(simpleString).shuffle().value();
+        result = _.chain(simpleString).shuffle().value();
     }
 }
 
@@ -4031,489 +3782,451 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     // without n
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.sample<{ a: string }>(array);
-        result = _.sample(array);
+        result = _.sample<SimpleStringObject>(simpleStringObjectArray);
+        result = _.sample(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).sample();
-        result = _(array).sample();
+        result = _<SimpleStringObject>(simpleStringObjectArray).sample();
+        result = _(simpleStringObjectArray).sample();
 
-        result = _.chain<{ a: string }>(array).sample().value();
-        result = _.chain(array).sample().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).sample().value();
+        result = _.chain(simpleStringObjectArray).sample().value();
 
-        result = _.chain<{ a: string }>(array).sample().value();
-        result = _.chain(array).sample().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).sample().value();
+        result = _.chain(simpleStringObjectArray).sample().value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.sample<{ a: string }>(list);
-        result = _.sample(list);
+        result = _.sample<SimpleStringObject>(simpleStringObjectList);
+        result = _.sample(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).sample();
-        result = _(list).sample();
+        result = _<SimpleStringObject>(simpleStringObjectList).sample();
+        result = _(simpleStringObjectList).sample();
 
-        result = _.chain<{ a: string }>(list).sample().value();
-        result = _.chain(list).sample().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).sample().value();
+        result = _.chain(simpleStringObjectList).sample().value();
 
-        result = _.chain<{ a: string }>(list).sample().value();
-        result = _.chain(list).sample().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).sample().value();
+        result = _.chain(simpleStringObjectList).sample().value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.sample<{ a: string }>(dict);
-        result = _.sample(dict);
+        result = _.sample<SimpleStringObject>(simpleStringObjectDictionary);
+        result = _.sample(simpleStringObjectDictionary);
 
-        result = _<{ a: string }>(dict).sample();
-        result = _(dict).sample();
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).sample();
+        result = _(simpleStringObjectDictionary).sample();
 
-        result = _.chain<{ a: string }>(dict).sample().value();
-        result = _.chain(dict).sample().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).sample().value();
+        result = _.chain(simpleStringObjectDictionary).sample().value();
 
-        result = _.chain<{ a: string }>(dict).sample().value();
-        result = _.chain(dict).sample().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).sample().value();
+        result = _.chain(simpleStringObjectDictionary).sample().value();
     }
 
     {
-        const str = 'abc';
         let result: string | undefined;
 
-        result = _.sample<string>(str);
-        result = _.sample(str);
+        result = _.sample<string>(simpleString);
+        result = _.sample(simpleString);
 
-        result = _<string>(str).sample();
-        result = _(str).sample();
+        result = _<string>(simpleString).sample();
+        result = _(simpleString).sample();
 
-        result = _.chain<string>(str).sample().value();
-        result = _.chain(str).sample().value();
+        result = _.chain<string>(simpleString).sample().value();
+        result = _.chain(simpleString).sample().value();
     }
 
     // with n
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const n = 2;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.sample<{ a: string }>(array, n);
-        result = _.sample(array, n);
+        result = _.sample<SimpleStringObject>(simpleStringObjectArray, n);
+        result = _.sample(simpleStringObjectArray, n);
 
-        result = _<{ a: string }>(array).sample(n);
-        result = _(array).sample(n);
+        result = _<SimpleStringObject>(simpleStringObjectArray).sample(n);
+        result = _(simpleStringObjectArray).sample(n);
 
-        result = _.chain<{ a: string }>(array).sample(n).value();
-        result = _.chain(array).sample(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).sample(n).value();
+        result = _.chain(simpleStringObjectArray).sample(n).value();
 
-        result = _.chain<{ a: string }>(array).sample(n).value();
-        result = _.chain(array).sample(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).sample(n).value();
+        result = _.chain(simpleStringObjectArray).sample(n).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         const n = 2;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.sample<{ a: string }>(list, n);
-        result = _.sample(list, n);
+        result = _.sample<SimpleStringObject>(simpleStringObjectList, n);
+        result = _.sample(simpleStringObjectList, n);
 
-        result = _<{ a: string }>(list).sample(n);
-        result = _(list).sample(n);
+        result = _<SimpleStringObject>(simpleStringObjectList).sample(n);
+        result = _(simpleStringObjectList).sample(n);
 
-        result = _.chain<{ a: string }>(list).sample(n).value();
-        result = _.chain(list).sample(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).sample(n).value();
+        result = _.chain(simpleStringObjectList).sample(n).value();
 
-        result = _.chain<{ a: string }>(list).sample(n).value();
-        result = _.chain(list).sample(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).sample(n).value();
+        result = _.chain(simpleStringObjectList).sample(n).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         const n = 2;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.sample<{ a: string }>(dict, n);
-        result = _.sample(dict, n);
+        result = _.sample<SimpleStringObject>(simpleStringObjectDictionary, n);
+        result = _.sample(simpleStringObjectDictionary, n);
 
-        result = _<{ a: string }>(dict).sample(n);
-        result = _(dict).sample(n);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).sample(n);
+        result = _(simpleStringObjectDictionary).sample(n);
 
-        result = _.chain<{ a: string }>(dict).sample(n).value();
-        result = _.chain(dict).sample(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).sample(n).value();
+        result = _.chain(simpleStringObjectDictionary).sample(n).value();
 
-        result = _.chain<{ a: string }>(dict).sample(n).value();
-        result = _.chain(dict).sample(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).sample(n).value();
+        result = _.chain(simpleStringObjectDictionary).sample(n).value();
     }
 
     {
-        const str = 'abc';
         const n = 2;
         let result: string[];
 
-        result = _.sample<string>(str, n);
-        result = _.sample(str, n);
+        result = _.sample<string>(simpleString, n);
+        result = _.sample(simpleString, n);
 
-        result = _<string>(str).sample(n);
-        result = _(str).sample(n);
+        result = _<string>(simpleString).sample(n);
+        result = _(simpleString).sample(n);
 
-        result = _.chain<string>(str).sample(n).value();
-        result = _.chain(str).sample(n).value();
+        result = _.chain<string>(simpleString).sample(n).value();
+        result = _.chain(simpleString).sample(n).value();
     }
 }
 
 // toArray
 {
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.toArray<{ a: string }>(array);
-        result = _.toArray(array);
+        result = _.toArray<SimpleStringObject>(simpleStringObjectArray);
+        result = _.toArray(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).toArray();
-        result = _(array).toArray();
+        result = _<SimpleStringObject>(simpleStringObjectArray).toArray();
+        result = _(simpleStringObjectArray).toArray();
 
-        result = _.chain<{ a: string }>(array).toArray().value();
-        result = _.chain(array).toArray().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).toArray().value();
+        result = _.chain(simpleStringObjectArray).toArray().value();
 
-        result = _.chain<{ a: string }>(array).toArray().value();
-        result = _.chain(array).toArray().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).toArray().value();
+        result = _.chain(simpleStringObjectArray).toArray().value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.toArray<{ a: string }>(list);
-        result = _.toArray(list);
+        result = _.toArray<SimpleStringObject>(simpleStringObjectList);
+        result = _.toArray(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).toArray();
-        result = _(list).toArray();
+        result = _<SimpleStringObject>(simpleStringObjectList).toArray();
+        result = _(simpleStringObjectList).toArray();
 
-        result = _.chain<{ a: string }>(list).toArray().value();
-        result = _.chain(list).toArray().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).toArray().value();
+        result = _.chain(simpleStringObjectList).toArray().value();
 
-        result = _.chain<{ a: string }>(list).toArray().value();
-        result = _.chain(list).toArray().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).toArray().value();
+        result = _.chain(simpleStringObjectList).toArray().value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.toArray<{ a: string }>(dict);
-        result = _.toArray(dict);
+        result = _.toArray<SimpleStringObject>(simpleStringObjectDictionary);
+        result = _.toArray(simpleStringObjectDictionary);
 
-        result = _<{ a: string }>(dict).toArray();
-        result = _(dict).toArray();
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).toArray();
+        result = _(simpleStringObjectDictionary).toArray();
 
-        result = _.chain<{ a: string }>(dict).toArray().value();
-        result = _.chain(dict).toArray().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).toArray().value();
+        result = _.chain(simpleStringObjectDictionary).toArray().value();
 
-        result = _.chain<{ a: string }>(dict).toArray().value();
-        result = _.chain(dict).toArray().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).toArray().value();
+        result = _.chain(simpleStringObjectDictionary).toArray().value();
     }
 
     {
-        const str = 'abc';
         let result: string[];
 
-        result = _.toArray<string>(str);
-        result = _.toArray(str);
+        result = _.toArray<string>(simpleString);
+        result = _.toArray(simpleString);
 
-        result = _<string>(str).toArray();
-        result = _(str).toArray();
+        result = _<string>(simpleString).toArray();
+        result = _(simpleString).toArray();
 
-        result = _.chain<string>(str).toArray().value();
-        result = _.chain(str).toArray().value();
+        result = _.chain<string>(simpleString).toArray().value();
+        result = _.chain(simpleString).toArray().value();
     }
 }
 
 // size
 {
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         let result: number;
 
-        result = _.size<{ a: string }>(array);
-        result = _.size(array);
+        result = _.size<SimpleStringObject>(simpleStringObjectArray);
+        result = _.size(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).size();
-        result = _(array).size();
+        result = _<SimpleStringObject>(simpleStringObjectArray).size();
+        result = _(simpleStringObjectArray).size();
 
-        result = _.chain<{ a: string }>(array).size().value();
-        result = _.chain(array).size().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).size().value();
+        result = _.chain(simpleStringObjectArray).size().value();
 
-        result = _.chain<{ a: string }>(array).size().value();
-        result = _.chain(array).size().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).size().value();
+        result = _.chain(simpleStringObjectArray).size().value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         let result: number;
 
-        result = _.size<{ a: string }>(list);
-        result = _.size(list);
+        result = _.size<SimpleStringObject>(simpleStringObjectList);
+        result = _.size(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).size();
-        result = _(list).size();
+        result = _<SimpleStringObject>(simpleStringObjectList).size();
+        result = _(simpleStringObjectList).size();
 
-        result = _.chain<{ a: string }>(list).size().value();
-        result = _.chain(list).size().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).size().value();
+        result = _.chain(simpleStringObjectList).size().value();
 
-        result = _.chain<{ a: string }>(list).size().value();
-        result = _.chain(list).size().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).size().value();
+        result = _.chain(simpleStringObjectList).size().value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
         let result: number;
 
-        result = _.size<{ a: string }>(dict);
-        result = _.size(dict);
+        result = _.size<SimpleStringObject>(simpleStringObjectDictionary);
+        result = _.size(simpleStringObjectDictionary);
 
-        result = _<{ a: string }>(dict).size();
-        result = _(dict).size();
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).size();
+        result = _(simpleStringObjectDictionary).size();
 
-        result = _.chain<{ a: string }>(dict).size().value();
-        result = _.chain(dict).size().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).size().value();
+        result = _.chain(simpleStringObjectDictionary).size().value();
 
-        result = _.chain<{ a: string }>(dict).size().value();
-        result = _.chain(dict).size().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).size().value();
+        result = _.chain(simpleStringObjectDictionary).size().value();
     }
 
     {
-        const str = 'abc';
         let result: number;
 
-        result = _.size<string>(str);
-        result = _.size(str);
+        result = _.size<string>(simpleString);
+        result = _.size(simpleString);
 
-        result = _<string>(str).size();
-        result = _(str).size();
+        result = _<string>(simpleString).size();
+        result = _(simpleString).size();
 
-        result = _.chain<string>(str).size().value();
-        result = _.chain(str).size().value();
+        result = _.chain<string>(simpleString).size().value();
+        result = _.chain(simpleString).size().value();
     }
 }
 
 // partition
 {
-    const context = {};
-
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
-        let result: [{ a: string }[], { a: string }[]];
+        let result: [SimpleStringObject[], SimpleStringObject[]];
 
-        result = _.partition<{ a: string }>(array, iterator);
-        result = _.partition<{ a: string }>(array, iterator, context);
-        result = _.partition(array, iterator);
-        result = _.partition(array, iterator, context);
+        result = _.partition<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.partition<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.partition(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.partition(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(array).partition(iterator);
-        result = _<{ a: string }>(array).partition(iterator, context);
-        result = _(array).partition(iterator);
-        result = _(array).partition(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(array).partition(iterator).value();
-        result = _.chain<{ a: string }>(array).partition(iterator, context).value();
-        result = _.chain(array).partition(iterator).value();
-        result = _.chain(array).partition(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(array).partition(iterator).value();
-        result = _.chain<{ a: string }>(array).partition(iterator, context).value();
-        result = _.chain(array).partition(iterator).value();
-        result = _.chain(array).partition(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).partition(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
-        let result: [{ a: string }[], { a: string }[]];
+        let result: [SimpleStringObject[], SimpleStringObject[]];
 
-        result = _.partition<{ a: string }>(list, iterator);
-        result = _.partition<{ a: string }>(list, iterator, context);
-        result = _.partition(list, iterator);
-        result = _.partition(list, iterator, context);
+        result = _.partition<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.partition<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.partition(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.partition(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(list).partition(iterator);
-        result = _<{ a: string }>(list).partition(iterator, context);
-        result = _(list).partition(iterator);
-        result = _(list).partition(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(list).partition(iterator).value();
-        result = _.chain<{ a: string }>(list).partition(iterator, context).value();
-        result = _.chain(list).partition(iterator).value();
-        result = _.chain(list).partition(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(list).partition(iterator).value();
-        result = _.chain<{ a: string }>(list).partition(iterator, context).value();
-        result = _.chain(list).partition(iterator).value();
-        result = _.chain(list).partition(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).partition(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const iterator = (element: { a: string }, key: string, list: _.Dictionary<{ a: string }>) => element.a === 'b';
-        let result: [{ a: string }[], { a: string }[]];
+        let result: [SimpleStringObject[], SimpleStringObject[]];
 
-        result = _.partition<{ a: string }>(dict, iterator);
-        result = _.partition<{ a: string }>(dict, iterator, context);
-        result = _.partition(dict, iterator);
-        result = _.partition(dict, iterator, context);
+        result = _.partition<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.partition<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _.partition(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _.partition(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(dict).partition(iterator);
-        result = _<{ a: string }>(dict).partition(iterator, context);
-        result = _(dict).partition(iterator);
-        result = _(dict).partition(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context);
+        result = _(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator);
+        result = _(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(dict).partition(iterator).value();
-        result = _.chain<{ a: string }>(dict).partition(iterator, context).value();
-        result = _.chain(dict).partition(iterator).value();
-        result = _.chain(dict).partition(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(dict).partition(iterator).value();
-        result = _.chain<{ a: string }>(dict).partition(iterator, context).value();
-        result = _.chain(dict).partition(iterator).value();
-        result = _.chain(dict).partition(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectDictionary).partition(simpleStringObjectDictionaryPropertyComparingIterator, context).value();
     }
 
     {
-        const str = 'abc';
-        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: [string[], string[]];
 
-        result = _.partition<string>(str, iterator);
-        result = _.partition<string>(str, iterator, context);
-        result = _.partition(str, iterator);
-        result = _.partition(str, iterator, context);
+        result = _.partition<string>(simpleString, stringListComparingIterator);
+        result = _.partition<string>(simpleString, stringListComparingIterator, context);
+        result = _.partition(simpleString, stringListComparingIterator);
+        result = _.partition(simpleString, stringListComparingIterator, context);
 
-        result = _<string>(str).partition(iterator);
-        result = _<string>(str).partition(iterator, context);
-        result = _(str).partition(iterator);
-        result = _(str).partition(iterator, context);
+        result = _<string>(simpleString).partition(stringListComparingIterator);
+        result = _<string>(simpleString).partition(stringListComparingIterator, context);
+        result = _(simpleString).partition(stringListComparingIterator);
+        result = _(simpleString).partition(stringListComparingIterator, context);
 
-        result = _.chain<string>(str).partition(iterator).value();
-        result = _.chain<string>(str).partition(iterator, context).value();
-        result = _.chain(str).partition(iterator).value();
-        result = _.chain(str).partition(iterator, context).value();
+        result = _.chain<string>(simpleString).partition(stringListComparingIterator).value();
+        result = _.chain<string>(simpleString).partition(stringListComparingIterator, context).value();
+        result = _.chain(simpleString).partition(stringListComparingIterator).value();
+        result = _.chain(simpleString).partition(stringListComparingIterator, context).value();
     }
 
     // partial object iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const properties = { a: 'a' };
-        let result: [{ a: string }[], { a: string }[]];
+        let result: [SimpleStringObject[], SimpleStringObject[]];
 
-        result = _.partition<{ a: string }>(array, properties);
-        result = _.partition(array, properties);
+        result = _.partition<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.partition(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).partition(properties);
-        result = _(array).partition(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).partition(properties).value();
-        result = _.chain(array).partition(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(array).partition(properties).value();
-        result = _.chain(array).partition(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).partition(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const properties = { a: 'a' };
-        let result: [{ a: string }[], { a: string }[]];
+        let result: [SimpleStringObject[], SimpleStringObject[]];
 
-        result = _.partition<{ a: string }>(list, properties);
-        result = _.partition(list, properties);
+        result = _.partition<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.partition(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).partition(properties);
-        result = _(list).partition(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).partition(properties).value();
-        result = _.chain(list).partition(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(list).partition(properties).value();
-        result = _.chain(list).partition(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).partition(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const properties = { a: 'a' };
-        let result: [{ a: string }[], { a: string }[]];
+        let result: [SimpleStringObject[], SimpleStringObject[]];
 
-        result = _.partition<{ a: string }>(dict, properties);
-        result = _.partition(dict, properties);
+        result = _.partition<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.partition(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(dict).partition(properties);
-        result = _(dict).partition(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(dict).partition(properties).value();
-        result = _.chain(dict).partition(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(dict).partition(properties).value();
-        result = _.chain(dict).partition(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).partition(simpleStringObjectPartialPropertyMatch).value();
     }
 
     // property name iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const properties = 'a';
-        let result: [{ a: string }[], { a: string }[]];
+        let result: [SimpleStringObject[], SimpleStringObject[]];
 
-        result = _.partition<{ a: string }>(array, properties);
-        result = _.partition(array, properties);
+        result = _.partition<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.partition(simpleStringObjectArray, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).partition(properties);
-        result = _(array).partition(properties);
+        result = _<SimpleStringObject>(simpleStringObjectArray).partition(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).partition(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).partition(properties).value();
-        result = _.chain(array).partition(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).partition(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).partition(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(array).partition(properties).value();
-        result = _.chain(array).partition(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).partition(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).partition(simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const properties = 'a';
-        let result: [{ a: string }[], { a: string }[]];
+        let result: [SimpleStringObject[], SimpleStringObject[]];
 
-        result = _.partition<{ a: string }>(list, properties);
-        result = _.partition(list, properties);
+        result = _.partition<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.partition(simpleStringObjectList, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).partition(properties);
-        result = _(list).partition(properties);
+        result = _<SimpleStringObject>(simpleStringObjectList).partition(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).partition(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).partition(properties).value();
-        result = _.chain(list).partition(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).partition(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).partition(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(list).partition(properties).value();
-        result = _.chain(list).partition(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).partition(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).partition(simpleObjectPropertyName).value();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        const properties = 'a';
-        let result: [{ a: string }[], { a: string }[]];
+        let result: [SimpleStringObject[], SimpleStringObject[]];
 
-        result = _.partition<{ a: string }>(dict, properties);
-        result = _.partition(dict, properties);
+        result = _.partition<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.partition(simpleStringObjectDictionary, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(dict).partition(properties);
-        result = _(dict).partition(properties);
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).partition(simpleObjectPropertyName);
+        result = _(simpleStringObjectDictionary).partition(simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(dict).partition(properties).value();
-        result = _.chain(dict).partition(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).partition(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).partition(simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(dict).partition(properties).value();
-        result = _.chain(dict).partition(properties).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary).partition(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).partition(simpleObjectPropertyName).value();
     }
 }
 
@@ -4523,211 +4236,205 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     // without n
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.first<{ a: string }>(array);
-        result = _.first(array);
+        result = _.first<SimpleStringObject>(simpleStringObjectArray);
+        result = _.first(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).first();
-        result = _(array).first();
+        result = _<SimpleStringObject>(simpleStringObjectArray).first();
+        result = _(simpleStringObjectArray).first();
 
-        result = _.chain<{ a: string }>(array).first().value();
-        result = _.chain(array).first().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).first().value();
+        result = _.chain(simpleStringObjectArray).first().value();
 
-        result = _.head<{ a: string }>(array);
-        result = _.head(array);
+        result = _.head<SimpleStringObject>(simpleStringObjectArray);
+        result = _.head(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).head();
-        result = _(array).head();
+        result = _<SimpleStringObject>(simpleStringObjectArray).head();
+        result = _(simpleStringObjectArray).head();
 
-        result = _.chain<{ a: string }>(array).head().value();
-        result = _.chain(array).head().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).head().value();
+        result = _.chain(simpleStringObjectArray).head().value();
 
-        result = _.take<{ a: string }>(array);
-        result = _.take(array);
+        result = _.take<SimpleStringObject>(simpleStringObjectArray);
+        result = _.take(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).take();
-        result = _(array).take();
+        result = _<SimpleStringObject>(simpleStringObjectArray).take();
+        result = _(simpleStringObjectArray).take();
 
-        result = _.chain<{ a: string }>(array).take().value();
-        result = _.chain(array).take().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).take().value();
+        result = _.chain(simpleStringObjectArray).take().value();
 
-        result = _.chain<{ a: string }>(array).take().value();
-        result = _.chain(array).take().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).take().value();
+        result = _.chain(simpleStringObjectArray).take().value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.first<{ a: string }>(list);
-        result = _.first(list);
+        result = _.first<SimpleStringObject>(simpleStringObjectList);
+        result = _.first(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).first();
-        result = _(list).first();
+        result = _<SimpleStringObject>(simpleStringObjectList).first();
+        result = _(simpleStringObjectList).first();
 
-        result = _.chain<{ a: string }>(list).first().value();
-        result = _.chain(list).first().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).first().value();
+        result = _.chain(simpleStringObjectList).first().value();
 
-        result = _.head<{ a: string }>(list);
-        result = _.head(list);
+        result = _.head<SimpleStringObject>(simpleStringObjectList);
+        result = _.head(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).head();
-        result = _(list).head();
+        result = _<SimpleStringObject>(simpleStringObjectList).head();
+        result = _(simpleStringObjectList).head();
 
-        result = _.chain<{ a: string }>(list).head().value();
-        result = _.chain(list).head().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).head().value();
+        result = _.chain(simpleStringObjectList).head().value();
 
-        result = _.take<{ a: string }>(list);
-        result = _.take(list);
+        result = _.take<SimpleStringObject>(simpleStringObjectList);
+        result = _.take(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).take();
-        result = _(list).take();
+        result = _<SimpleStringObject>(simpleStringObjectList).take();
+        result = _(simpleStringObjectList).take();
 
-        result = _.chain<{ a: string }>(list).take().value();
-        result = _.chain(list).take().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).take().value();
+        result = _.chain(simpleStringObjectList).take().value();
 
-        result = _.chain<{ a: string }>(list).take().value();
-        result = _.chain(list).take().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).take().value();
+        result = _.chain(simpleStringObjectList).take().value();
     }
 
     {
-        const str = 'abc';
         let result: string | undefined;
 
-        result = _.first<string>(str);
-        result = _.first(str);
+        result = _.first<string>(simpleString);
+        result = _.first(simpleString);
 
-        result = _<string>(str).first();
-        result = _(str).first();
+        result = _<string>(simpleString).first();
+        result = _(simpleString).first();
 
-        result = _.chain<string>(str).first().value();
-        result = _.chain(str).first().value();
+        result = _.chain<string>(simpleString).first().value();
+        result = _.chain(simpleString).first().value();
 
-        result = _.head<string>(str);
-        result = _.head(str);
+        result = _.head<string>(simpleString);
+        result = _.head(simpleString);
 
-        result = _<string>(str).head();
-        result = _(str).head();
+        result = _<string>(simpleString).head();
+        result = _(simpleString).head();
 
-        result = _.chain<string>(str).head().value();
-        result = _.chain(str).head().value();
+        result = _.chain<string>(simpleString).head().value();
+        result = _.chain(simpleString).head().value();
 
-        result = _.take<string>(str);
-        result = _.take(str);
+        result = _.take<string>(simpleString);
+        result = _.take(simpleString);
 
-        result = _<string>(str).take();
-        result = _(str).take();
+        result = _<string>(simpleString).take();
+        result = _(simpleString).take();
 
-        result = _.chain<string>(str).take().value();
-        result = _.chain(str).take().value();
+        result = _.chain<string>(simpleString).take().value();
+        result = _.chain(simpleString).take().value();
     }
 
     // with n
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const n = 2;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.first<{ a: string }>(array, n);
-        result = _.first(array, n);
+        result = _.first<SimpleStringObject>(simpleStringObjectArray, n);
+        result = _.first(simpleStringObjectArray, n);
 
-        result = _<{ a: string }>(array).first(n);
-        result = _(array).first(n);
+        result = _<SimpleStringObject>(simpleStringObjectArray).first(n);
+        result = _(simpleStringObjectArray).first(n);
 
-        result = _.chain<{ a: string }>(array).first(n).value();
-        result = _.chain(array).first(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).first(n).value();
+        result = _.chain(simpleStringObjectArray).first(n).value();
 
-        result = _.head<{ a: string }>(array, n);
-        result = _.head(array, n);
+        result = _.head<SimpleStringObject>(simpleStringObjectArray, n);
+        result = _.head(simpleStringObjectArray, n);
 
-        result = _<{ a: string }>(array).head(n);
-        result = _(array).head(n);
+        result = _<SimpleStringObject>(simpleStringObjectArray).head(n);
+        result = _(simpleStringObjectArray).head(n);
 
-        result = _.chain<{ a: string }>(array).head(n).value();
-        result = _.chain(array).head(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).head(n).value();
+        result = _.chain(simpleStringObjectArray).head(n).value();
 
-        result = _.take<{ a: string }>(array, n);
-        result = _.take(array, n);
+        result = _.take<SimpleStringObject>(simpleStringObjectArray, n);
+        result = _.take(simpleStringObjectArray, n);
 
-        result = _<{ a: string }>(array).take(n);
-        result = _(array).take(n);
+        result = _<SimpleStringObject>(simpleStringObjectArray).take(n);
+        result = _(simpleStringObjectArray).take(n);
 
-        result = _.chain<{ a: string }>(array).take(n).value();
-        result = _.chain(array).take(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).take(n).value();
+        result = _.chain(simpleStringObjectArray).take(n).value();
 
-        result = _.chain<{ a: string }>(array).take(n).value();
-        result = _.chain(array).take(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).take(n).value();
+        result = _.chain(simpleStringObjectArray).take(n).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         const n = 2;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.first<{ a: string }>(list, n);
-        result = _.first(list, n);
+        result = _.first<SimpleStringObject>(simpleStringObjectList, n);
+        result = _.first(simpleStringObjectList, n);
 
-        result = _<{ a: string }>(list).first(n);
-        result = _(list).first(n);
+        result = _<SimpleStringObject>(simpleStringObjectList).first(n);
+        result = _(simpleStringObjectList).first(n);
 
-        result = _.chain<{ a: string }>(list).first(n).value();
-        result = _.chain(list).first(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).first(n).value();
+        result = _.chain(simpleStringObjectList).first(n).value();
 
-        result = _.head<{ a: string }>(list, n);
-        result = _.head(list, n);
+        result = _.head<SimpleStringObject>(simpleStringObjectList, n);
+        result = _.head(simpleStringObjectList, n);
 
-        result = _<{ a: string }>(list).head(n);
-        result = _(list).head(n);
+        result = _<SimpleStringObject>(simpleStringObjectList).head(n);
+        result = _(simpleStringObjectList).head(n);
 
-        result = _.chain<{ a: string }>(list).head(n).value();
-        result = _.chain(list).head(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).head(n).value();
+        result = _.chain(simpleStringObjectList).head(n).value();
 
-        result = _.take<{ a: string }>(list, n);
-        result = _.take(list, n);
+        result = _.take<SimpleStringObject>(simpleStringObjectList, n);
+        result = _.take(simpleStringObjectList, n);
 
-        result = _<{ a: string }>(list).take(n);
-        result = _(list).take(n);
+        result = _<SimpleStringObject>(simpleStringObjectList).take(n);
+        result = _(simpleStringObjectList).take(n);
 
-        result = _.chain<{ a: string }>(list).take(n).value();
-        result = _.chain(list).take(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).take(n).value();
+        result = _.chain(simpleStringObjectList).take(n).value();
 
-        result = _.chain<{ a: string }>(list).take(n).value();
-        result = _.chain(list).take(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).take(n).value();
+        result = _.chain(simpleStringObjectList).take(n).value();
     }
 
     {
-        const str = 'abc';
         const n = 2;
         let result: string[];
 
-        result = _.first<string>(str, n);
-        result = _.first(str, n);
+        result = _.first<string>(simpleString, n);
+        result = _.first(simpleString, n);
 
-        result = _<string>(str).first(n);
-        result = _(str).first(n);
+        result = _<string>(simpleString).first(n);
+        result = _(simpleString).first(n);
 
-        result = _.chain<string>(str).first(n).value();
-        result = _.chain(str).first(n).value();
+        result = _.chain<string>(simpleString).first(n).value();
+        result = _.chain(simpleString).first(n).value();
 
-        result = _.head<string>(str, n);
-        result = _.head(str, n);
+        result = _.head<string>(simpleString, n);
+        result = _.head(simpleString, n);
 
-        result = _<string>(str).head(n);
-        result = _(str).head(n);
+        result = _<string>(simpleString).head(n);
+        result = _(simpleString).head(n);
 
-        result = _.chain<string>(str).head(n).value();
-        result = _.chain(str).head(n).value();
+        result = _.chain<string>(simpleString).head(n).value();
+        result = _.chain(simpleString).head(n).value();
 
-        result = _.take<string>(str, n);
-        result = _.take(str, n);
+        result = _.take<string>(simpleString, n);
+        result = _.take(simpleString, n);
 
-        result = _<string>(str).take(n);
-        result = _(str).take(n);
+        result = _<string>(simpleString).take(n);
+        result = _(simpleString).take(n);
 
-        result = _.chain<string>(str).take(n).value();
-        result = _.chain(str).take(n).value();
+        result = _.chain<string>(simpleString).take(n).value();
+        result = _.chain(simpleString).take(n).value();
     }
 }
 
@@ -4735,103 +4442,97 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     // without n
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.initial<{ a: string }>(array);
-        result = _.initial(array);
+        result = _.initial<SimpleStringObject>(simpleStringObjectArray);
+        result = _.initial(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).initial();
-        result = _(array).initial();
+        result = _<SimpleStringObject>(simpleStringObjectArray).initial();
+        result = _(simpleStringObjectArray).initial();
 
-        result = _.chain<{ a: string }>(array).initial().value();
-        result = _.chain(array).initial().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).initial().value();
+        result = _.chain(simpleStringObjectArray).initial().value();
 
-        result = _.chain<{ a: string }>(array).initial().value();
-        result = _.chain(array).initial().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).initial().value();
+        result = _.chain(simpleStringObjectArray).initial().value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.initial<{ a: string }>(list);
-        result = _.initial(list);
+        result = _.initial<SimpleStringObject>(simpleStringObjectList);
+        result = _.initial(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).initial();
-        result = _(list).initial();
+        result = _<SimpleStringObject>(simpleStringObjectList).initial();
+        result = _(simpleStringObjectList).initial();
 
-        result = _.chain<{ a: string }>(list).initial().value();
-        result = _.chain(list).initial().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).initial().value();
+        result = _.chain(simpleStringObjectList).initial().value();
 
-        result = _.chain<{ a: string }>(list).initial().value();
-        result = _.chain(list).initial().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).initial().value();
+        result = _.chain(simpleStringObjectList).initial().value();
     }
 
     {
-        const str = 'abc';
         let result: string[];
 
-        result = _.initial<string>(str);
-        result = _.initial(str);
+        result = _.initial<string>(simpleString);
+        result = _.initial(simpleString);
 
-        result = _<string>(str).initial();
-        result = _(str).initial();
+        result = _<string>(simpleString).initial();
+        result = _(simpleString).initial();
 
-        result = _.chain<string>(str).initial().value();
-        result = _.chain(str).initial().value();
+        result = _.chain<string>(simpleString).initial().value();
+        result = _.chain(simpleString).initial().value();
     }
 
     // with n
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const n = 2;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.initial<{ a: string }>(array, n);
-        result = _.initial(array, n);
+        result = _.initial<SimpleStringObject>(simpleStringObjectArray, n);
+        result = _.initial(simpleStringObjectArray, n);
 
-        result = _<{ a: string }>(array).initial(n);
-        result = _(array).initial(n);
+        result = _<SimpleStringObject>(simpleStringObjectArray).initial(n);
+        result = _(simpleStringObjectArray).initial(n);
 
-        result = _.chain<{ a: string }>(array).initial(n).value();
-        result = _.chain(array).initial(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).initial(n).value();
+        result = _.chain(simpleStringObjectArray).initial(n).value();
 
-        result = _.chain<{ a: string }>(array).initial(n).value();
-        result = _.chain(array).initial(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).initial(n).value();
+        result = _.chain(simpleStringObjectArray).initial(n).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         const n = 2;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.initial<{ a: string }>(list, n);
-        result = _.initial(list, n);
+        result = _.initial<SimpleStringObject>(simpleStringObjectList, n);
+        result = _.initial(simpleStringObjectList, n);
 
-        result = _<{ a: string }>(list).initial(n);
-        result = _(list).initial(n);
+        result = _<SimpleStringObject>(simpleStringObjectList).initial(n);
+        result = _(simpleStringObjectList).initial(n);
 
-        result = _.chain<{ a: string }>(list).initial(n).value();
-        result = _.chain(list).initial(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).initial(n).value();
+        result = _.chain(simpleStringObjectList).initial(n).value();
 
-        result = _.chain<{ a: string }>(list).initial(n).value();
-        result = _.chain(list).initial(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).initial(n).value();
+        result = _.chain(simpleStringObjectList).initial(n).value();
     }
 
     {
-        const str = 'abc';
         const n = 2;
         let result: string[];
 
-        result = _.initial<string>(str, n);
-        result = _.initial(str, n);
+        result = _.initial<string>(simpleString, n);
+        result = _.initial(simpleString, n);
 
-        result = _<string>(str).initial(n);
-        result = _(str).initial(n);
+        result = _<string>(simpleString).initial(n);
+        result = _(simpleString).initial(n);
 
-        result = _.chain<string>(str).initial(n).value();
-        result = _.chain(str).initial(n).value();
+        result = _.chain<string>(simpleString).initial(n).value();
+        result = _.chain(simpleString).initial(n).value();
     }
 }
 
@@ -4839,103 +4540,97 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     // without n
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.last<{ a: string }>(array);
-        result = _.last(array);
+        result = _.last<SimpleStringObject>(simpleStringObjectArray);
+        result = _.last(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).last();
-        result = _(array).last();
+        result = _<SimpleStringObject>(simpleStringObjectArray).last();
+        result = _(simpleStringObjectArray).last();
 
-        result = _.chain<{ a: string }>(array).last().value();
-        result = _.chain(array).last().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).last().value();
+        result = _.chain(simpleStringObjectArray).last().value();
 
-        result = _.chain<{ a: string }>(array).last().value();
-        result = _.chain(array).last().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).last().value();
+        result = _.chain(simpleStringObjectArray).last().value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: { a: string } | undefined;
+        let result: SimpleStringObject | undefined;
 
-        result = _.last<{ a: string }>(list);
-        result = _.last(list);
+        result = _.last<SimpleStringObject>(simpleStringObjectList);
+        result = _.last(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).last();
-        result = _(list).last();
+        result = _<SimpleStringObject>(simpleStringObjectList).last();
+        result = _(simpleStringObjectList).last();
 
-        result = _.chain<{ a: string }>(list).last().value();
-        result = _.chain(list).last().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).last().value();
+        result = _.chain(simpleStringObjectList).last().value();
 
-        result = _.chain<{ a: string }>(list).last().value();
-        result = _.chain(list).last().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).last().value();
+        result = _.chain(simpleStringObjectList).last().value();
     }
 
     {
-        const str = 'abc';
         let result: string | undefined;
 
-        result = _.last<string>(str);
-        result = _.last(str);
+        result = _.last<string>(simpleString);
+        result = _.last(simpleString);
 
-        result = _<string>(str).last();
-        result = _(str).last();
+        result = _<string>(simpleString).last();
+        result = _(simpleString).last();
 
-        result = _.chain<string>(str).last().value();
-        result = _.chain(str).last().value();
+        result = _.chain<string>(simpleString).last().value();
+        result = _.chain(simpleString).last().value();
     }
 
     // with n
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const n = 2;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.last<{ a: string }>(array, n);
-        result = _.last(array, n);
+        result = _.last<SimpleStringObject>(simpleStringObjectArray, n);
+        result = _.last(simpleStringObjectArray, n);
 
-        result = _<{ a: string }>(array).last(n);
-        result = _(array).last(n);
+        result = _<SimpleStringObject>(simpleStringObjectArray).last(n);
+        result = _(simpleStringObjectArray).last(n);
 
-        result = _.chain<{ a: string }>(array).last(n).value();
-        result = _.chain(array).last(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).last(n).value();
+        result = _.chain(simpleStringObjectArray).last(n).value();
 
-        result = _.chain<{ a: string }>(array).last(n).value();
-        result = _.chain(array).last(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).last(n).value();
+        result = _.chain(simpleStringObjectArray).last(n).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         const n = 2;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.last<{ a: string }>(list, n);
-        result = _.last(list, n);
+        result = _.last<SimpleStringObject>(simpleStringObjectList, n);
+        result = _.last(simpleStringObjectList, n);
 
-        result = _<{ a: string }>(list).last(n);
-        result = _(list).last(n);
+        result = _<SimpleStringObject>(simpleStringObjectList).last(n);
+        result = _(simpleStringObjectList).last(n);
 
-        result = _.chain<{ a: string }>(list).last(n).value();
-        result = _.chain(list).last(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).last(n).value();
+        result = _.chain(simpleStringObjectList).last(n).value();
 
-        result = _.chain<{ a: string }>(list).last(n).value();
-        result = _.chain(list).last(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).last(n).value();
+        result = _.chain(simpleStringObjectList).last(n).value();
     }
 
     {
-        const str = 'abc';
         const n = 2;
         let result: string[];
 
-        result = _.last<string>(str, n);
-        result = _.last(str, n);
+        result = _.last<string>(simpleString, n);
+        result = _.last(simpleString, n);
 
-        result = _<string>(str).last(n);
-        result = _(str).last(n);
+        result = _<string>(simpleString).last(n);
+        result = _(simpleString).last(n);
 
-        result = _.chain<string>(str).last(n).value();
-        result = _.chain(str).last(n).value();
+        result = _.chain<string>(simpleString).last(n).value();
+        result = _.chain(simpleString).last(n).value();
     }
 }
 
@@ -4943,247 +4638,241 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     // without n
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.rest<{ a: string }>(array);
-        result = _.rest(array);
+        result = _.rest<SimpleStringObject>(simpleStringObjectArray);
+        result = _.rest(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).rest();
-        result = _(array).rest();
+        result = _<SimpleStringObject>(simpleStringObjectArray).rest();
+        result = _(simpleStringObjectArray).rest();
 
-        result = _.chain<{ a: string }>(array).rest().value();
-        result = _.chain(array).rest().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).rest().value();
+        result = _.chain(simpleStringObjectArray).rest().value();
 
-        result = _.tail<{ a: string }>(array);
-        result = _.tail(array);
+        result = _.tail<SimpleStringObject>(simpleStringObjectArray);
+        result = _.tail(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).tail();
-        result = _(array).tail();
+        result = _<SimpleStringObject>(simpleStringObjectArray).tail();
+        result = _(simpleStringObjectArray).tail();
 
-        result = _.chain<{ a: string }>(array).tail().value();
-        result = _.chain(array).tail().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).tail().value();
+        result = _.chain(simpleStringObjectArray).tail().value();
 
-        result = _.drop<{ a: string }>(array);
-        result = _.drop(array);
+        result = _.drop<SimpleStringObject>(simpleStringObjectArray);
+        result = _.drop(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).drop();
-        result = _(array).drop();
+        result = _<SimpleStringObject>(simpleStringObjectArray).drop();
+        result = _(simpleStringObjectArray).drop();
 
-        result = _.chain<{ a: string }>(array).drop().value();
-        result = _.chain(array).drop().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).drop().value();
+        result = _.chain(simpleStringObjectArray).drop().value();
 
-        result = _.chain<{ a: string }>(array).drop().value();
-        result = _.chain(array).drop().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).drop().value();
+        result = _.chain(simpleStringObjectArray).drop().value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.rest<{ a: string }>(list);
-        result = _.rest(list);
+        result = _.rest<SimpleStringObject>(simpleStringObjectList);
+        result = _.rest(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).rest();
-        result = _(list).rest();
+        result = _<SimpleStringObject>(simpleStringObjectList).rest();
+        result = _(simpleStringObjectList).rest();
 
-        result = _.chain<{ a: string }>(list).rest().value();
-        result = _.chain(list).rest().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).rest().value();
+        result = _.chain(simpleStringObjectList).rest().value();
 
-        result = _.tail<{ a: string }>(list);
-        result = _.tail(list);
+        result = _.tail<SimpleStringObject>(simpleStringObjectList);
+        result = _.tail(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).tail();
-        result = _(list).tail();
+        result = _<SimpleStringObject>(simpleStringObjectList).tail();
+        result = _(simpleStringObjectList).tail();
 
-        result = _.chain<{ a: string }>(list).tail().value();
-        result = _.chain(list).tail().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).tail().value();
+        result = _.chain(simpleStringObjectList).tail().value();
 
-        result = _.drop<{ a: string }>(list);
-        result = _.drop(list);
+        result = _.drop<SimpleStringObject>(simpleStringObjectList);
+        result = _.drop(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).drop();
-        result = _(list).drop();
+        result = _<SimpleStringObject>(simpleStringObjectList).drop();
+        result = _(simpleStringObjectList).drop();
 
-        result = _.chain<{ a: string }>(list).drop().value();
-        result = _.chain(list).drop().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).drop().value();
+        result = _.chain(simpleStringObjectList).drop().value();
 
-        result = _.chain<{ a: string }>(list).drop().value();
-        result = _.chain(list).drop().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).drop().value();
+        result = _.chain(simpleStringObjectList).drop().value();
     }
 
     {
-        const str = 'abc';
         let result: string[];
 
-        result = _.rest<string>(str);
-        result = _.rest(str);
+        result = _.rest<string>(simpleString);
+        result = _.rest(simpleString);
 
-        result = _<string>(str).rest();
-        result = _(str).rest();
+        result = _<string>(simpleString).rest();
+        result = _(simpleString).rest();
 
-        result = _.chain<string>(str).rest().value();
-        result = _.chain(str).rest().value();
+        result = _.chain<string>(simpleString).rest().value();
+        result = _.chain(simpleString).rest().value();
 
-        result = _.tail<string>(str);
-        result = _.tail(str);
+        result = _.tail<string>(simpleString);
+        result = _.tail(simpleString);
 
-        result = _<string>(str).tail();
-        result = _(str).tail();
+        result = _<string>(simpleString).tail();
+        result = _(simpleString).tail();
 
-        result = _.chain<string>(str).tail().value();
-        result = _.chain(str).tail().value();
+        result = _.chain<string>(simpleString).tail().value();
+        result = _.chain(simpleString).tail().value();
 
-        result = _.drop<string>(str);
-        result = _.drop(str);
+        result = _.drop<string>(simpleString);
+        result = _.drop(simpleString);
 
-        result = _<string>(str).drop();
-        result = _(str).drop();
+        result = _<string>(simpleString).drop();
+        result = _(simpleString).drop();
 
-        result = _.chain<string>(str).drop().value();
-        result = _.chain(str).drop().value();
+        result = _.chain<string>(simpleString).drop().value();
+        result = _.chain(simpleString).drop().value();
     }
 
     // with n
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
         const n = 2;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.rest<{ a: string }>(array, n);
-        result = _.rest(array, n);
+        result = _.rest<SimpleStringObject>(simpleStringObjectArray, n);
+        result = _.rest(simpleStringObjectArray, n);
 
-        result = _<{ a: string }>(array).rest(n);
-        result = _(array).rest(n);
+        result = _<SimpleStringObject>(simpleStringObjectArray).rest(n);
+        result = _(simpleStringObjectArray).rest(n);
 
-        result = _.chain<{ a: string }>(array).rest(n).value();
-        result = _.chain(array).rest(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).rest(n).value();
+        result = _.chain(simpleStringObjectArray).rest(n).value();
 
-        result = _.tail<{ a: string }>(array, n);
-        result = _.tail(array, n);
+        result = _.tail<SimpleStringObject>(simpleStringObjectArray, n);
+        result = _.tail(simpleStringObjectArray, n);
 
-        result = _<{ a: string }>(array).tail(n);
-        result = _(array).tail(n);
+        result = _<SimpleStringObject>(simpleStringObjectArray).tail(n);
+        result = _(simpleStringObjectArray).tail(n);
 
-        result = _.chain<{ a: string }>(array).tail(n).value();
-        result = _.chain(array).tail(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).tail(n).value();
+        result = _.chain(simpleStringObjectArray).tail(n).value();
 
-        result = _.drop<{ a: string }>(array, n);
-        result = _.drop(array, n);
+        result = _.drop<SimpleStringObject>(simpleStringObjectArray, n);
+        result = _.drop(simpleStringObjectArray, n);
 
-        result = _<{ a: string }>(array).drop(n);
-        result = _(array).drop(n);
+        result = _<SimpleStringObject>(simpleStringObjectArray).drop(n);
+        result = _(simpleStringObjectArray).drop(n);
 
-        result = _.chain<{ a: string }>(array).drop(n).value();
-        result = _.chain(array).drop(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).drop(n).value();
+        result = _.chain(simpleStringObjectArray).drop(n).value();
 
-        result = _.chain<{ a: string }>(array).drop(n).value();
-        result = _.chain(array).drop(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).drop(n).value();
+        result = _.chain(simpleStringObjectArray).drop(n).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
         const n = 2;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.rest<{ a: string }>(list, n);
-        result = _.rest(list, n);
+        result = _.rest<SimpleStringObject>(simpleStringObjectList, n);
+        result = _.rest(simpleStringObjectList, n);
 
-        result = _<{ a: string }>(list).rest(n);
-        result = _(list).rest(n);
+        result = _<SimpleStringObject>(simpleStringObjectList).rest(n);
+        result = _(simpleStringObjectList).rest(n);
 
-        result = _.chain<{ a: string }>(list).rest(n).value();
-        result = _.chain(list).rest(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).rest(n).value();
+        result = _.chain(simpleStringObjectList).rest(n).value();
 
-        result = _.tail<{ a: string }>(list, n);
-        result = _.tail(list, n);
+        result = _.tail<SimpleStringObject>(simpleStringObjectList, n);
+        result = _.tail(simpleStringObjectList, n);
 
-        result = _<{ a: string }>(list).tail(n);
-        result = _(list).tail(n);
+        result = _<SimpleStringObject>(simpleStringObjectList).tail(n);
+        result = _(simpleStringObjectList).tail(n);
 
-        result = _.chain<{ a: string }>(list).tail(n).value();
-        result = _.chain(list).tail(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).tail(n).value();
+        result = _.chain(simpleStringObjectList).tail(n).value();
 
-        result = _.drop<{ a: string }>(list, n);
-        result = _.drop(list, n);
+        result = _.drop<SimpleStringObject>(simpleStringObjectList, n);
+        result = _.drop(simpleStringObjectList, n);
 
-        result = _<{ a: string }>(list).drop(n);
-        result = _(list).drop(n);
+        result = _<SimpleStringObject>(simpleStringObjectList).drop(n);
+        result = _(simpleStringObjectList).drop(n);
 
-        result = _.chain<{ a: string }>(list).drop(n).value();
-        result = _.chain(list).drop(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).drop(n).value();
+        result = _.chain(simpleStringObjectList).drop(n).value();
 
-        result = _.chain<{ a: string }>(list).drop(n).value();
-        result = _.chain(list).drop(n).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).drop(n).value();
+        result = _.chain(simpleStringObjectList).drop(n).value();
     }
 
     {
-        const str = 'abc';
         const n = 2;
         let result: string[];
 
-        result = _.rest<string>(str, n);
-        result = _.rest(str, n);
+        result = _.rest<string>(simpleString, n);
+        result = _.rest(simpleString, n);
 
-        result = _<string>(str).rest(n);
-        result = _(str).rest(n);
+        result = _<string>(simpleString).rest(n);
+        result = _(simpleString).rest(n);
 
-        result = _.chain<string>(str).rest(n).value();
-        result = _.chain(str).rest(n).value();
+        result = _.chain<string>(simpleString).rest(n).value();
+        result = _.chain(simpleString).rest(n).value();
 
-        result = _.tail<string>(str, n);
-        result = _.tail(str, n);
+        result = _.tail<string>(simpleString, n);
+        result = _.tail(simpleString, n);
 
-        result = _<string>(str).tail(n);
-        result = _(str).tail(n);
+        result = _<string>(simpleString).tail(n);
+        result = _(simpleString).tail(n);
 
-        result = _.chain<string>(str).tail(n).value();
-        result = _.chain(str).tail(n).value();
+        result = _.chain<string>(simpleString).tail(n).value();
+        result = _.chain(simpleString).tail(n).value();
 
-        result = _.drop<string>(str, n);
-        result = _.drop(str, n);
+        result = _.drop<string>(simpleString, n);
+        result = _.drop(simpleString, n);
 
-        result = _<string>(str).drop(n);
-        result = _(str).drop(n);
+        result = _<string>(simpleString).drop(n);
+        result = _(simpleString).drop(n);
 
-        result = _.chain<string>(str).drop(n).value();
-        result = _.chain(str).drop(n).value();
+        result = _.chain<string>(simpleString).drop(n).value();
+        result = _.chain(simpleString).drop(n).value();
     }
 }
 
 // compact
 {
     {
-        const array: ({ a: string } | undefined)[] = [{ a: 'a' }, { a: 'b' }];
-        let result: { a: string }[];
+        const array: (SimpleStringObject | undefined)[] = [{ a: 'a' }, { a: 'b' }, undefined];
+        let result: SimpleStringObject[];
 
-        result = _.compact<{ a: string } | undefined>(array);
+        result = _.compact<SimpleStringObject | undefined>(array);
         result = _.compact(array);
 
-        result = _<{ a: string } | undefined>(array).compact();
+        result = _<SimpleStringObject | undefined>(array).compact();
         result = _(array).compact();
 
-        result = _.chain<{ a: string } | undefined>(array).compact().value();
+        result = _.chain<SimpleStringObject | undefined>(array).compact().value();
         result = _.chain(array).compact().value();
 
-        result = _.chain<{ a: string } | undefined>(array).compact().value();
+        result = _.chain<SimpleStringObject | undefined>(array).compact().value();
         result = _.chain(array).compact().value();
     }
 
     {
-        const list: _.List<({ a: string } | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: { a: string }[];
+        const list: _.List<(SimpleStringObject | undefined)> = { 0: { a: 'a' }, 1: { a: 'b' }, 2: undefined, length: 3 };
+        let result: SimpleStringObject[];
 
-        result = _.compact<{ a: string } | undefined>(list);
+        result = _.compact<SimpleStringObject | undefined>(list);
         result = _.compact(list);
 
-        result = _<{ a: string } | undefined>(list).compact();
+        result = _<SimpleStringObject | undefined>(list).compact();
         result = _(list).compact();
 
-        result = _.chain<{ a: string } | undefined>(list).compact().value();
+        result = _.chain<SimpleStringObject | undefined>(list).compact().value();
         result = _.chain(list).compact().value();
 
-        result = _.chain<{ a: string } | undefined>(list).compact().value();
+        result = _.chain<SimpleStringObject | undefined>(list).compact().value();
         result = _.chain(list).compact().value();
     }
 }
@@ -5192,254 +4881,250 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 {
     // one dimension, deep
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.flatten<{ a: string }>(array);
-        result = _.flatten(array);
+        result = _.flatten<SimpleStringObject>(simpleStringObjectArray);
+        result = _.flatten(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).flatten();
-        result = _(array).flatten();
+        result = _<SimpleStringObject>(simpleStringObjectArray).flatten();
+        result = _(simpleStringObjectArray).flatten();
 
-        result = _.chain<{ a: string }>(array).flatten().value();
-        result = _.chain(array).flatten().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).flatten().value();
+        result = _.chain(simpleStringObjectArray).flatten().value();
 
-        result = _.chain<{ a: string }>(array).flatten().value();
-        result = _.chain(array).flatten().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).flatten().value();
+        result = _.chain(simpleStringObjectArray).flatten().value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.flatten<{ a: string }>(list);
-        result = _.flatten(list);
+        result = _.flatten<SimpleStringObject>(simpleStringObjectList);
+        result = _.flatten(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).flatten();
-        result = _(list).flatten();
+        result = _<SimpleStringObject>(simpleStringObjectList).flatten();
+        result = _(simpleStringObjectList).flatten();
 
-        result = _.chain<{ a: string }>(list).flatten().value();
-        result = _.chain(list).flatten().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).flatten().value();
+        result = _.chain(simpleStringObjectList).flatten().value();
 
-        result = _.chain<{ a: string }>(list).flatten().value();
-        result = _.chain(list).flatten().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).flatten().value();
+        result = _.chain(simpleStringObjectList).flatten().value();
     }
 
     // one dimension, shallow
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.flatten<{ a: string }>(array, true);
-        result = _.flatten(array, true);
+        result = _.flatten<SimpleStringObject>(simpleStringObjectArray, true);
+        result = _.flatten(simpleStringObjectArray, true);
 
-        result = _<{ a: string }>(array).flatten(true);
-        result = _(array).flatten(true);
+        result = _<SimpleStringObject>(simpleStringObjectArray).flatten(true);
+        result = _(simpleStringObjectArray).flatten(true);
 
-        result = _.chain<{ a: string }>(array).flatten(true).value();
-        result = _.chain(array).flatten(true).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).flatten(true).value();
+        result = _.chain(simpleStringObjectArray).flatten(true).value();
 
-        result = _.chain<{ a: string }>(array).flatten(true).value();
-        result = _.chain(array).flatten(true).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).flatten(true).value();
+        result = _.chain(simpleStringObjectArray).flatten(true).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.flatten<{ a: string }>(list, true);
-        result = _.flatten(list, true);
+        result = _.flatten<SimpleStringObject>(simpleStringObjectList, true);
+        result = _.flatten(simpleStringObjectList, true);
 
-        result = _<{ a: string }>(list).flatten(true);
-        result = _(list).flatten(true);
+        result = _<SimpleStringObject>(simpleStringObjectList).flatten(true);
+        result = _(simpleStringObjectList).flatten(true);
 
-        result = _.chain<{ a: string }>(list).flatten(true).value();
-        result = _.chain(list).flatten(true).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).flatten(true).value();
+        result = _.chain(simpleStringObjectList).flatten(true).value();
 
-        result = _.chain<{ a: string }>(list).flatten(true).value();
-        result = _.chain(list).flatten(true).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).flatten(true).value();
+        result = _.chain(simpleStringObjectList).flatten(true).value();
     }
 
     // two dimensions, deep
     {
-        const array: { a: string }[][] = [[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]];
-        let result: { a: string }[];
+        const array: SimpleStringObject[][] = [[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]];
+        let result: SimpleStringObject[];
 
-        result = _.flatten<{ a: string }[]>(array);
+        result = _.flatten<SimpleStringObject[]>(array);
         result = _.flatten(array);
 
-        result = _<{ a: string }[]>(array).flatten();
+        result = _<SimpleStringObject[]>(array).flatten();
         result = _(array).flatten();
 
-        result = _.chain<{ a: string }[]>(array).flatten().value();
+        result = _.chain<SimpleStringObject[]>(array).flatten().value();
         result = _.chain(array).flatten().value();
 
-        result = _.chain<{ a: string }[]>(array).flatten().value();
+        result = _.chain<SimpleStringObject[]>(array).flatten().value();
         result = _.chain(array).flatten().value();
     }
 
     {
-        const list: _.List<_.List<{ a: string }>> = { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 };
-        let result: { a: string }[];
+        const list: _.List<_.List<SimpleStringObject>> = { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 };
+        let result: SimpleStringObject[];
 
-        result = _.flatten<_.List<{ a: string }>>(list);
+        result = _.flatten<_.List<SimpleStringObject>>(list);
         result = _.flatten(list);
 
-        result = _<_.List<{ a: string }>>(list).flatten();
+        result = _<_.List<SimpleStringObject>>(list).flatten();
         result = _(list).flatten();
 
-        result = _.chain<_.List<{ a: string }>>(list).flatten().value();
+        result = _.chain<_.List<SimpleStringObject>>(list).flatten().value();
         result = _.chain(list).flatten().value();
 
-        result = _<_.List<{ a: string }>>(list).chain().flatten().value();
+        result = _<_.List<SimpleStringObject>>(list).chain().flatten().value();
         result = _.chain(list).flatten().value();
     }
 
     // two dimensions, shallow
     {
-        const array: { a: string }[][] = [[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]];
-        let result: { a: string }[];
+        const array: SimpleStringObject[][] = [[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]];
+        let result: SimpleStringObject[];
 
-        result = _.flatten<{ a: string }[]>(array, true);
+        result = _.flatten<SimpleStringObject[]>(array, true);
         result = _.flatten(array, true);
 
-        result = _<{ a: string }[]>(array).flatten(true);
+        result = _<SimpleStringObject[]>(array).flatten(true);
         result = _(array).flatten(true);
 
-        result = _.chain<{ a: string }[]>(array).flatten(true).value();
+        result = _.chain<SimpleStringObject[]>(array).flatten(true).value();
         result = _.chain(array).flatten(true).value();
 
-        result = _.chain<{ a: string }[]>(array).flatten(true).value();
+        result = _.chain<SimpleStringObject[]>(array).flatten(true).value();
         result = _.chain(array).flatten(true).value();
     }
 
     {
-        const list: _.List<_.List<{ a: string }>> = { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 };
-        let result: { a: string }[];
+        const list: _.List<_.List<SimpleStringObject>> = { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 };
+        let result: SimpleStringObject[];
 
-        result = _.flatten<_.List<{ a: string }>>(list, true);
+        result = _.flatten<_.List<SimpleStringObject>>(list, true);
         result = _.flatten(list, true);
 
-        result = _<_.List<{ a: string }>>(list).flatten(true);
+        result = _<_.List<SimpleStringObject>>(list).flatten(true);
         result = _(list).flatten(true);
 
-        result = _.chain<_.List<{ a: string }>>(list).flatten(true).value();
+        result = _.chain<_.List<SimpleStringObject>>(list).flatten(true).value();
         result = _.chain(list).flatten(true).value();
 
-        result = _<_.List<{ a: string }>>(list).chain().flatten(true).value();
+        result = _<_.List<SimpleStringObject>>(list).chain().flatten(true).value();
         result = _.chain(list).flatten(true).value();
     }
 
     // three dimensions, deep
     {
-        const array: { a: string }[][][] = [[[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]]];
-        let result: { a: string }[];
+        const array: SimpleStringObject[][][] = [[[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]]];
+        let result: SimpleStringObject[];
 
-        result = _.flatten<{ a: string }[][]>(array);
+        result = _.flatten<SimpleStringObject[][]>(array);
         result = _.flatten(array);
 
-        result = _<{ a: string }[][]>(array).flatten();
+        result = _<SimpleStringObject[][]>(array).flatten();
         result = _(array).flatten();
 
-        result = _.chain<{ a: string }[][]>(array).flatten().value();
+        result = _.chain<SimpleStringObject[][]>(array).flatten().value();
         result = _.chain(array).flatten().value();
 
-        result = _.chain<{ a: string }[][]>(array).flatten().value();
+        result = _.chain<SimpleStringObject[][]>(array).flatten().value();
         result = _.chain(array).flatten().value();
     }
 
     {
-        const list: _.List<_.List<_.List<{ a: string }>>> = { 0: { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 }, length: 1 };
-        let result: { a: string }[];
+        const list: _.List<_.List<_.List<SimpleStringObject>>> = { 0: { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 }, length: 1 };
+        let result: SimpleStringObject[];
 
-        result = _.flatten<_.List<_.List<{ a: string }>>>(list);
+        result = _.flatten<_.List<_.List<SimpleStringObject>>>(list);
         result = _.flatten(list);
 
-        result = _<_.List<_.List<{ a: string }>>>(list).flatten();
+        result = _<_.List<_.List<SimpleStringObject>>>(list).flatten();
         result = _(list).flatten();
 
-        result = _.chain < _.List<_.List<{ a: string }>>>(list).flatten().value();
+        result = _.chain < _.List<_.List<SimpleStringObject>>>(list).flatten().value();
         result = _.chain(list).flatten().value();
 
-        result = _<_.List<_.List<{ a: string }>>>(list).chain().flatten().value();
+        result = _<_.List<_.List<SimpleStringObject>>>(list).chain().flatten().value();
         result = _.chain(list).flatten().value();
     }
 
     // three dimensions, shallow
     {
-        const array: { a: string }[][][] = [[[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]]];
-        let result: { a: string }[][];
+        const array: SimpleStringObject[][][] = [[[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]]];
+        let result: SimpleStringObject[][];
 
-        result = _.flatten<{ a: string }[][]>(array, true);
+        result = _.flatten<SimpleStringObject[][]>(array, true);
         result = _.flatten(array, true);
 
-        result = _<{ a: string }[][]>(array).flatten(true);
+        result = _<SimpleStringObject[][]>(array).flatten(true);
         result = _(array).flatten(true);
 
-        result = _.chain<{ a: string }[][]>(array).flatten(true).value();
+        result = _.chain<SimpleStringObject[][]>(array).flatten(true).value();
         result = _.chain(array).flatten(true).value();
 
-        result = _.chain<{ a: string }[][]>(array).flatten(true).value();
+        result = _.chain<SimpleStringObject[][]>(array).flatten(true).value();
         result = _.chain(array).flatten(true).value();
     }
 
     {
-        const list: _.List<_.List<_.List<{ a: string }>>> = { 0: { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 }, length: 1 };
-        let result: _.List<{ a: string }>[];
+        const list: _.List<_.List<_.List<SimpleStringObject>>> = { 0: { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 }, length: 1 };
+        let result: _.List<SimpleStringObject>[];
 
-        result = _.flatten<_.List<_.List<{ a: string }>>>(list, true);
+        result = _.flatten<_.List<_.List<SimpleStringObject>>>(list, true);
         result = _.flatten(list, true);
 
-        result = _<_.List<_.List<{ a: string }>>>(list).flatten(true);
+        result = _<_.List<_.List<SimpleStringObject>>>(list).flatten(true);
         result = _(list).flatten(true);
 
-        result = _.chain<_.List<_.List<{ a: string }>>>(list).flatten(true).value();
+        result = _.chain<_.List<_.List<SimpleStringObject>>>(list).flatten(true).value();
         result = _.chain(list).flatten(true).value();
 
-        result = _<_.List<_.List<{ a: string }>>>(list).chain().flatten(true).value();
+        result = _<_.List<_.List<SimpleStringObject>>>(list).chain().flatten(true).value();
         result = _.chain(list).flatten(true).value();
     }
 
     // four dimensions, deep - this is where recursion gives up and results in any[]
     {
-        const array: { a: string }[][][][] = [[[[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]]]];
-        let result: { a: string }[];
+        const array: SimpleStringObject[][][][] = [[[[{ a: 'a' }, { a: 'b' }], [{ a: 'a' }, { a: 'b' }]]]];
+        let result: SimpleStringObject[];
 
         // $ExpectType any[]
-        result = _.flatten<{ a: string }[][][]>(array);
+        result = _.flatten<SimpleStringObject[][][]>(array);
         // $ExpectType any[]
         result = _.flatten(array);
 
         // $ExpectType any[]
-        result = _<{ a: string }[][][]>(array).flatten();
+        result = _<SimpleStringObject[][][]>(array).flatten();
         // $ExpectType any[]
         result = _(array).flatten();
 
         // $ExpectType any[]
-        result = _.chain<{ a: string }[][][]>(array).flatten().value();
+        result = _.chain<SimpleStringObject[][][]>(array).flatten().value();
         // $ExpectType any[]
         result = _.chain(array).flatten().value();
 
         // $ExpectType any[]
-        result = _.chain<{ a: string }[][][]>(array).flatten().value();
+        result = _.chain<SimpleStringObject[][][]>(array).flatten().value();
         // $ExpectType any[]
         result = _.chain(array).flatten().value();
     }
 
     {
-        const list: _.List<_.List<_.List<_.List<{ a: string }>>>> = { 0: { 0: { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 }, length: 1 }, length: 1 };
-        let result: { a: string }[];
+        const list: _.List<_.List<_.List<_.List<SimpleStringObject>>>> = { 0: { 0: { 0: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, 1: { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 }, length: 2 }, length: 1 }, length: 1 };
+        let result: SimpleStringObject[];
 
-        result = _.flatten<_.List<_.List<_.List<{ a: string }>>>>(list); // $ExpectType any[]
+        result = _.flatten<_.List<_.List<_.List<SimpleStringObject>>>>(list); // $ExpectType any[]
         result = _.flatten(list); // $ExpectType any[]
 
-        result = _<_.List<_.List<_.List<{ a: string }>>>>(list).flatten(); // $ExpectType any[]
+        result = _<_.List<_.List<_.List<SimpleStringObject>>>>(list).flatten(); // $ExpectType any[]
         result = _(list).flatten(); // $ExpectType any[]
 
-        result = _.chain<_.List<_.List<_.List<{ a: string }>>>>(list).flatten().value(); // $ExpectType any[]
+        result = _.chain<_.List<_.List<_.List<SimpleStringObject>>>>(list).flatten().value(); // $ExpectType any[]
         result = _.chain(list).flatten().value(); // $ExpectType any[]
 
-        result = _<_.List<_.List<_.List<{ a: string }>>>>(list).chain().flatten().value(); // $ExpectType any[]
+        result = _<_.List<_.List<_.List<SimpleStringObject>>>>(list).chain().flatten().value(); // $ExpectType any[]
         result = _.chain(list).flatten().value(); // $ExpectType any[]
     }
 }
@@ -5447,95 +5132,92 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 // without
 {
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
-        const item1 = array[0];
-        const item2 = array[1];
-        let result: { a: string }[];
+        const item1 = simpleStringObjectArray[0];
+        const item2 = simpleStringObjectArray[1];
+        let result: SimpleStringObject[];
 
-        result = _.without<{ a: string }>(array, item1, item2);
-        result = _.without(array, item1, item2);
+        result = _.without<SimpleStringObject>(simpleStringObjectArray, item1, item2);
+        result = _.without(simpleStringObjectArray, item1, item2);
 
-        result = _<{ a: string }>(array).without(item1, item2);
-        result = _(array).without(item1, item2);
+        result = _<SimpleStringObject>(simpleStringObjectArray).without(item1, item2);
+        result = _(simpleStringObjectArray).without(item1, item2);
 
-        result = _.chain<{ a: string }>(array).without(item1, item2).value();
-        result = _.chain(array).without(item1, item2).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).without(item1, item2).value();
+        result = _.chain(simpleStringObjectArray).without(item1, item2).value();
 
-        result = _.chain<{ a: string }>(array).without(item1, item2).value();
-        result = _.chain(array).without(item1, item2).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).without(item1, item2).value();
+        result = _.chain(simpleStringObjectArray).without(item1, item2).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, 2: { a: 'c' }, length: 3 };
-        const item1 = list[0];
-        const item2 = list[1];
-        let result: { a: string }[];
+        const item1 = simpleStringObjectList[0];
+        const item2 = simpleStringObjectList[1];
+        let result: SimpleStringObject[];
 
-        result = _.without<{ a: string }>(list, item1, item2);
-        result = _.without(list, item1, item2);
+        result = _.without<SimpleStringObject>(simpleStringObjectList, item1, item2);
+        result = _.without(simpleStringObjectList, item1, item2);
 
-        result = _<{ a: string }>(list).without(item1, item2);
-        result = _(list).without(item1, item2);
+        result = _<SimpleStringObject>(simpleStringObjectList).without(item1, item2);
+        result = _(simpleStringObjectList).without(item1, item2);
 
-        result = _.chain<{ a: string }>(list).without(item1, item2).value();
-        result = _.chain(list).without(item1, item2).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).without(item1, item2).value();
+        result = _.chain(simpleStringObjectList).without(item1, item2).value();
 
-        result = _.chain<{ a: string }>(list).without(item1, item2).value();
-        result = _.chain(list).without(item1, item2).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).without(item1, item2).value();
+        result = _.chain(simpleStringObjectList).without(item1, item2).value();
     }
 
     {
-        const str = 'abc';
-        const item1 = str[0];
-        const item2 = str[1];
+        const item1 = simpleString[0];
+        const item2 = simpleString[1];
         let result: string[];
 
-        result = _.without<string>(str, item1, item2);
-        result = _.without(str, item1, item2);
+        result = _.without<string>(simpleString, item1, item2);
+        result = _.without(simpleString, item1, item2);
 
-        result = _<string>(str).without(item1, item2);
-        result = _(str).without(item1, item2);
+        result = _<string>(simpleString).without(item1, item2);
+        result = _(simpleString).without(item1, item2);
 
-        result = _.chain<string>(str).without(item1, item2).value();
-        result = _.chain(str).without(item1, item2).value();
+        result = _.chain<string>(simpleString).without(item1, item2).value();
+        result = _.chain(simpleString).without(item1, item2).value();
     }
 }
 
 // union
 {
     {
-        const array1: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const array2: { a: string }[] = [array1[0], { a: 'c' }];
-        let result: { a: string }[];
+        const array1: SimpleStringObject[] = [{ a: 'a' }, { a: 'b' }];
+        const array2: SimpleStringObject[] = [array1[0], { a: 'c' }];
+        let result: SimpleStringObject[];
 
-        result = _.union<{ a: string }>(array1, array2);
+        result = _.union<SimpleStringObject>(array1, array2);
         result = _.union(array1, array2);
 
-        result = _<{ a: string }>(array1).union(array2);
+        result = _<SimpleStringObject>(array1).union(array2);
         result = _(array1).union(array2);
 
-        result = _.chain<{ a: string }>(array1).union(array2).value();
+        result = _.chain<SimpleStringObject>(array1).union(array2).value();
         result = _.chain(array1).union(array2).value();
 
-        result = _.chain<{ a: string }>(array1).union(array2).value();
+        result = _.chain<SimpleStringObject>(array1).union(array2).value();
         result = _.chain(array1).union(array2).value();
     }
 
     {
-        const list1: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const list2: _.List<{ a: string }> = { 0: list1[0], 1: { a: 'c' }, length: 2 };
-        let result: { a: string }[];
+        const list1: _.List<SimpleStringObject> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list2: _.List<SimpleStringObject> = { 0: list1[0], 1: { a: 'c' }, length: 2 };
+        let result: SimpleStringObject[];
 
-        result = _.union<{ a: string }>(list1, list2);
+        result = _.union<SimpleStringObject>(list1, list2);
         result = _.union(list1, list2);
 
-        result = _<{ a: string }>(list1).union(list2);
+        result = _<SimpleStringObject>(list1).union(list2);
         result = _(list1).union(list2);
 
-        result = _.chain<{ a: string }>(list1).union(list2).value();
+        result = _.chain<SimpleStringObject>(list1).union(list2).value();
         result = _.chain(list1).union(list2).value();
 
-        result = _.chain<{ a: string }>(list1).union(list2).value();
+        result = _.chain<SimpleStringObject>(list1).union(list2).value();
         result = _.chain(list1).union(list2).value();
     }
 
@@ -5558,38 +5240,38 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 // intersection
 {
     {
-        const array1: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const array2: { a: string }[] = [array1[0], { a: 'c' }];
-        let result: { a: string }[];
+        const array1: SimpleStringObject[] = [{ a: 'a' }, { a: 'b' }];
+        const array2: SimpleStringObject[] = [array1[0], { a: 'c' }];
+        let result: SimpleStringObject[];
 
-        result = _.intersection<{ a: string }>(array1, array2);
+        result = _.intersection<SimpleStringObject>(array1, array2);
         result = _.intersection(array1, array2);
 
-        result = _<{ a: string }>(array1).intersection(array2);
+        result = _<SimpleStringObject>(array1).intersection(array2);
         result = _(array1).intersection(array2);
 
-        result = _.chain<{ a: string }>(array1).intersection(array2).value();
+        result = _.chain<SimpleStringObject>(array1).intersection(array2).value();
         result = _.chain(array1).intersection(array2).value();
 
-        result = _.chain<{ a: string }>(array1).intersection(array2).value();
+        result = _.chain<SimpleStringObject>(array1).intersection(array2).value();
         result = _.chain(array1).intersection(array2).value();
     }
 
     {
-        const list1: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const list2: _.List<{ a: string }> = { 0: list1[0], 1: { a: 'c' }, length: 2 };
-        let result: { a: string }[];
+        const list1: _.List<SimpleStringObject> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list2: _.List<SimpleStringObject> = { 0: list1[0], 1: { a: 'c' }, length: 2 };
+        let result: SimpleStringObject[];
 
-        result = _.intersection<{ a: string }>(list1, list2);
+        result = _.intersection<SimpleStringObject>(list1, list2);
         result = _.intersection(list1, list2);
 
-        result = _<{ a: string }>(list1).intersection(list2);
+        result = _<SimpleStringObject>(list1).intersection(list2);
         result = _(list1).intersection(list2);
 
-        result = _.chain<{ a: string }>(list1).intersection(list2).value();
+        result = _.chain<SimpleStringObject>(list1).intersection(list2).value();
         result = _.chain(list1).intersection(list2).value();
 
-        result = _.chain<{ a: string }>(list1).intersection(list2).value();
+        result = _.chain<SimpleStringObject>(list1).intersection(list2).value();
         result = _.chain(list1).intersection(list2).value();
     }
 
@@ -5612,38 +5294,38 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 // difference
 {
     {
-        const array1: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const array2: { a: string }[] = [array1[0], { a: 'c' }];
-        let result: { a: string }[];
+        const array1: SimpleStringObject[] = [{ a: 'a' }, { a: 'b' }];
+        const array2: SimpleStringObject[] = [array1[0], { a: 'c' }];
+        let result: SimpleStringObject[];
 
-        result = _.difference<{ a: string }>(array1, array2);
+        result = _.difference<SimpleStringObject>(array1, array2);
         result = _.difference(array1, array2);
 
-        result = _<{ a: string }>(array1).difference(array2);
+        result = _<SimpleStringObject>(array1).difference(array2);
         result = _(array1).difference(array2);
 
-        result = _.chain<{ a: string }>(array1).difference(array2).value();
+        result = _.chain<SimpleStringObject>(array1).difference(array2).value();
         result = _.chain(array1).difference(array2).value();
 
-        result = _.chain<{ a: string }>(array1).difference(array2).value();
+        result = _.chain<SimpleStringObject>(array1).difference(array2).value();
         result = _.chain(array1).difference(array2).value();
     }
 
     {
-        const list1: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const list2: _.List<{ a: string }> = { 0: list1[0], 1: { a: 'c' }, length: 2 };
-        let result: { a: string }[];
+        const list1: _.List<SimpleStringObject> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
+        const list2: _.List<SimpleStringObject> = { 0: list1[0], 1: { a: 'c' }, length: 2 };
+        let result: SimpleStringObject[];
 
-        result = _.difference<{ a: string }>(list1, list2);
+        result = _.difference<SimpleStringObject>(list1, list2);
         result = _.difference(list1, list2);
 
-        result = _<{ a: string }>(list1).difference(list2);
+        result = _<SimpleStringObject>(list1).difference(list2);
         result = _(list1).difference(list2);
 
-        result = _.chain<{ a: string }>(list1).difference(list2).value();
+        result = _.chain<SimpleStringObject>(list1).difference(list2).value();
         result = _.chain(list1).difference(list2).value();
 
-        result = _.chain<{ a: string }>(list1).difference(list2).value();
+        result = _.chain<SimpleStringObject>(list1).difference(list2).value();
         result = _.chain(list1).difference(list2).value();
     }
 
@@ -5665,256 +5347,246 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 // uniq, unique
 {
-    const context = {};
-
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.uniq<{ a: string }>(array);
-        result = _.uniq<{ a: string }>(array, true);
-        result = _.uniq<{ a: string }>(array, true, iterator);
-        result = _.uniq<{ a: string }>(array, true, iterator, context);
-        result = _.uniq(array);
-        result = _.uniq(array, true);
-        result = _.uniq(array, true, iterator);
-        result = _.uniq(array, true, iterator, context);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectArray);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectArray, true);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.uniq(simpleStringObjectArray);
+        result = _.uniq(simpleStringObjectArray, true);
+        result = _.uniq(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator);
+        result = _.uniq(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(array).uniq();
-        result = _<{ a: string }>(array).uniq(true);
-        result = _<{ a: string }>(array).uniq(true, iterator);
-        result = _<{ a: string }>(array).uniq(true, iterator, context);
-        result = _(array).uniq();
-        result = _(array).uniq(true);
-        result = _(array).uniq(true, iterator);
-        result = _(array).uniq(true, iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).uniq();
+        result = _<SimpleStringObject>(simpleStringObjectArray).uniq(true);
+        result = _<SimpleStringObject>(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectArray).uniq();
+        result = _(simpleStringObjectArray).uniq(true);
+        result = _(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(array).uniq().value();
-        result = _.chain<{ a: string }>(array).uniq(true).value();
-        result = _.chain<{ a: string }>(array).uniq(true, iterator).value();
-        result = _.chain<{ a: string }>(array).uniq(true, iterator, context).value();
-        result = _.chain(array).uniq().value();
-        result = _.chain(array).uniq(true).value();
-        result = _.chain(array).uniq(true, iterator).value();
-        result = _.chain(array).uniq(true, iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).uniq().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).uniq(true).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).uniq().value();
+        result = _.chain(simpleStringObjectArray).uniq(true).value();
+        result = _.chain(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).uniq(true, simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.unique<{ a: string }>(array);
-        result = _.unique<{ a: string }>(array, true);
-        result = _.unique<{ a: string }>(array, true, iterator);
-        result = _.unique<{ a: string }>(array, true, iterator, context);
-        result = _.unique(array);
-        result = _.unique(array, true);
-        result = _.unique(array, true, iterator);
-        result = _.unique(array, true, iterator, context);
+        result = _.unique<SimpleStringObject>(simpleStringObjectArray);
+        result = _.unique<SimpleStringObject>(simpleStringObjectArray, true);
+        result = _.unique<SimpleStringObject>(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator);
+        result = _.unique<SimpleStringObject>(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.unique(simpleStringObjectArray);
+        result = _.unique(simpleStringObjectArray, true);
+        result = _.unique(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator);
+        result = _.unique(simpleStringObjectArray, true, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(array).unique();
-        result = _<{ a: string }>(array).unique(true);
-        result = _<{ a: string }>(array).unique(true, iterator);
-        result = _<{ a: string }>(array).unique(true, iterator, context);
-        result = _(array).unique();
-        result = _(array).unique(true);
-        result = _(array).unique(true, iterator);
-        result = _(array).unique(true, iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).unique();
+        result = _<SimpleStringObject>(simpleStringObjectArray).unique(true);
+        result = _<SimpleStringObject>(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectArray).unique();
+        result = _(simpleStringObjectArray).unique(true);
+        result = _(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(array).unique().value();
-        result = _.chain<{ a: string }>(array).unique(true).value();
-        result = _.chain<{ a: string }>(array).unique(true, iterator).value();
-        result = _.chain<{ a: string }>(array).unique(true, iterator, context).value();
-        result = _.chain(array).unique().value();
-        result = _.chain(array).unique(true).value();
-        result = _.chain(array).unique(true, iterator).value();
-        result = _.chain(array).unique(true, iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).unique().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).unique(true).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).unique().value();
+        result = _.chain(simpleStringObjectArray).unique(true).value();
+        result = _.chain(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(array).unique().value();
-        result = _.chain<{ a: string }>(array).unique(true).value();
-        result = _.chain<{ a: string }>(array).unique(true, iterator).value();
-        result = _.chain<{ a: string }>(array).unique(true, iterator, context).value();
-        result = _.chain(array).unique().value();
-        result = _.chain(array).unique(true).value();
-        result = _.chain(array).unique(true, iterator).value();
-        result = _.chain(array).unique(true, iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).unique().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).unique(true).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).unique().value();
+        result = _.chain(simpleStringObjectArray).unique(true).value();
+        result = _.chain(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectArray).unique(true, simpleStringObjectListPropertySelectingIterator, context).value();
     }
 
     {
-        const list: _.List<({ a: string })> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.uniq<{ a: string }>(list);
-        result = _.uniq<{ a: string }>(list, iterator);
-        result = _.uniq<{ a: string }>(list, iterator, context);
-        result = _.uniq<{ a: string }>(list, true);
-        result = _.uniq<{ a: string }>(list, true, iterator);
-        result = _.uniq<{ a: string }>(list, true, iterator, context);
-        result = _.uniq(list);
-        result = _.uniq(list, iterator);
-        result = _.uniq(list, iterator, context);
-        result = _.uniq(list, true);
-        result = _.uniq(list, true, iterator);
-        result = _.uniq(list, true, iterator, context);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectList);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectList, true);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.uniq(simpleStringObjectList);
+        result = _.uniq(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.uniq(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.uniq(simpleStringObjectList, true);
+        result = _.uniq(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator);
+        result = _.uniq(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(list).uniq();
-        result = _<{ a: string }>(list).uniq(iterator);
-        result = _<{ a: string }>(list).uniq(iterator, context);
-        result = _<{ a: string }>(list).uniq(true);
-        result = _<{ a: string }>(list).uniq(true, iterator);
-        result = _<{ a: string }>(list).uniq(true, iterator, context);
-        result = _(list).uniq();
-        result = _(list).uniq(iterator);
-        result = _(list).uniq(iterator, context);
-        result = _(list).uniq(true);
-        result = _(list).uniq(true, iterator);
-        result = _(list).uniq(true, iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).uniq();
+        result = _<SimpleStringObject>(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).uniq(true);
+        result = _<SimpleStringObject>(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectList).uniq();
+        result = _(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectList).uniq(true);
+        result = _(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(list).uniq().value();
-        result = _.chain<{ a: string }>(list).uniq(iterator).value();
-        result = _.chain<{ a: string }>(list).uniq(iterator, context).value();
-        result = _.chain<{ a: string }>(list).uniq(true).value();
-        result = _.chain<{ a: string }>(list).uniq(true, iterator).value();
-        result = _.chain<{ a: string }>(list).uniq(true, iterator, context).value();
-        result = _.chain(list).uniq().value();
-        result = _.chain(list).uniq(iterator).value();
-        result = _.chain(list).uniq(iterator, context).value();
-        result = _.chain(list).uniq(true).value();
-        result = _.chain(list).uniq(true, iterator).value();
-        result = _.chain(list).uniq(true, iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).uniq().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).uniq(true).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).uniq().value();
+        result = _.chain(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).uniq(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).uniq(true).value();
+        result = _.chain(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).uniq(true, simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.unique<{ a: string }>(list);
-        result = _.unique<{ a: string }>(list, iterator);
-        result = _.unique<{ a: string }>(list, iterator, context);
-        result = _.unique<{ a: string }>(list, true);
-        result = _.unique<{ a: string }>(list, true, iterator);
-        result = _.unique<{ a: string }>(list, true, iterator, context);
-        result = _.unique(list);
-        result = _.unique(list, iterator);
-        result = _.unique(list, iterator, context);
-        result = _.unique(list, true);
-        result = _.unique(list, true, iterator);
-        result = _.unique(list, true, iterator, context);
+        result = _.unique<SimpleStringObject>(simpleStringObjectList);
+        result = _.unique<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.unique<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.unique<SimpleStringObject>(simpleStringObjectList, true);
+        result = _.unique<SimpleStringObject>(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator);
+        result = _.unique<SimpleStringObject>(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.unique(simpleStringObjectList);
+        result = _.unique(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
+        result = _.unique(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
+        result = _.unique(simpleStringObjectList, true);
+        result = _.unique(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator);
+        result = _.unique(simpleStringObjectList, true, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _<{ a: string }>(list).unique();
-        result = _<{ a: string }>(list).unique(iterator);
-        result = _<{ a: string }>(list).unique(iterator, context);
-        result = _<{ a: string }>(list).unique(true);
-        result = _<{ a: string }>(list).unique(true, iterator);
-        result = _<{ a: string }>(list).unique(true, iterator, context);
-        result = _(list).unique();
-        result = _(list).unique(iterator);
-        result = _(list).unique(iterator, context);
-        result = _(list).unique(true);
-        result = _(list).unique(true, iterator);
-        result = _(list).unique(true, iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).unique();
+        result = _<SimpleStringObject>(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).unique(true);
+        result = _<SimpleStringObject>(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectList).unique();
+        result = _(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator, context);
+        result = _(simpleStringObjectList).unique(true);
+        result = _(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator);
+        result = _(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context);
 
-        result = _.chain<{ a: string }>(list).unique().value();
-        result = _.chain<{ a: string }>(list).unique(iterator).value();
-        result = _.chain<{ a: string }>(list).unique(iterator, context).value();
-        result = _.chain<{ a: string }>(list).unique(true).value();
-        result = _.chain<{ a: string }>(list).unique(true, iterator).value();
-        result = _.chain<{ a: string }>(list).unique(true, iterator, context).value();
-        result = _.chain(list).unique().value();
-        result = _.chain(list).unique(iterator).value();
-        result = _.chain(list).unique(iterator, context).value();
-        result = _.chain(list).unique(true).value();
-        result = _.chain(list).unique(true, iterator).value();
-        result = _.chain(list).unique(true, iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(true).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).unique().value();
+        result = _.chain(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).unique(true).value();
+        result = _.chain(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context).value();
 
-        result = _.chain<{ a: string }>(list).unique().value();
-        result = _.chain<{ a: string }>(list).unique(iterator).value();
-        result = _.chain<{ a: string }>(list).unique(iterator, context).value();
-        result = _.chain<{ a: string }>(list).unique(true).value();
-        result = _.chain<{ a: string }>(list).unique(true, iterator).value();
-        result = _.chain<{ a: string }>(list).unique(true, iterator, context).value();
-        result = _.chain(list).unique().value();
-        result = _.chain(list).unique(iterator).value();
-        result = _.chain(list).unique(iterator, context).value();
-        result = _.chain(list).unique(true).value();
-        result = _.chain(list).unique(true, iterator).value();
-        result = _.chain(list).unique(true, iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique().value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(true).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).unique().value();
+        result = _.chain(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).unique(simpleStringObjectListPropertySelectingIterator, context).value();
+        result = _.chain(simpleStringObjectList).unique(true).value();
+        result = _.chain(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator).value();
+        result = _.chain(simpleStringObjectList).unique(true, simpleStringObjectListPropertySelectingIterator, context).value();
     }
 
     // property name iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const property = 'a';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.uniq<{ a: string }>(array, property);
-        result = _.uniq<{ a: string }>(array, true, property);
-        result = _.uniq(array, property);
-        result = _.uniq(array, true, property);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectArray, true, simpleObjectPropertyName);
+        result = _.uniq(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.uniq(simpleStringObjectArray, true, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).uniq(property);
-        result = _<{ a: string }>(array).uniq(true, property);
-        result = _(array).uniq(property);
-        result = _(array).uniq(true, property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).uniq(simpleObjectPropertyName);
+        result = _<SimpleStringObject>(simpleStringObjectArray).uniq(true, simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).uniq(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).uniq(true, simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).uniq(property).value();
-        result = _.chain<{ a: string }>(array).uniq(true, property).value();
-        result = _.chain(array).uniq(property).value();
-        result = _.chain(array).uniq(true, property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).uniq(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).uniq(true, simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).uniq(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).uniq(true, simpleObjectPropertyName).value();
 
-        result = _.unique<{ a: string }>(array, property);
-        result = _.unique<{ a: string }>(array, true, property);
-        result = _.unique(array, property);
-        result = _.unique(array, true, property);
+        result = _.unique<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.unique<SimpleStringObject>(simpleStringObjectArray, true, simpleObjectPropertyName);
+        result = _.unique(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.unique(simpleStringObjectArray, true, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).unique(property);
-        result = _<{ a: string }>(array).unique(true, property);
-        result = _(array).unique(property);
-        result = _(array).unique(true, property);
+        result = _<SimpleStringObject>(simpleStringObjectArray).unique(simpleObjectPropertyName);
+        result = _<SimpleStringObject>(simpleStringObjectArray).unique(true, simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).unique(simpleObjectPropertyName);
+        result = _(simpleStringObjectArray).unique(true, simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).unique(property).value();
-        result = _.chain<{ a: string }>(array).unique(true, property).value();
-        result = _.chain(array).unique(property).value();
-        result = _.chain(array).unique(true, property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).unique(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).unique(true, simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).unique(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).unique(true, simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(array).unique(property).value();
-        result = _.chain<{ a: string }>(array).unique(true, property).value();
-        result = _.chain(array).unique(property).value();
-        result = _.chain(array).unique(true, property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).unique(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).unique(true, simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).unique(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).unique(true, simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<({ a: string })> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const property = 'a';
-        let result: { a: string }[];
+        let result: SimpleStringObject[];
 
-        result = _.uniq<{ a: string }>(list, property);
-        result = _.uniq<{ a: string }>(list, true, property);
-        result = _.uniq(list, property);
-        result = _.uniq(list, true, property);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectList, true, simpleObjectPropertyName);
+        result = _.uniq(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.uniq(simpleStringObjectList, true, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).uniq(property);
-        result = _<{ a: string }>(list).uniq(true, property);
-        result = _(list).uniq(property);
-        result = _(list).uniq(true, property);
+        result = _<SimpleStringObject>(simpleStringObjectList).uniq(simpleObjectPropertyName);
+        result = _<SimpleStringObject>(simpleStringObjectList).uniq(true, simpleObjectPropertyName);
+        result = _(simpleStringObjectList).uniq(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).uniq(true, simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).uniq(property).value();
-        result = _.chain<{ a: string }>(list).uniq(true, property).value();
-        result = _.chain(list).uniq(property).value();
-        result = _.chain(list).uniq(true, property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).uniq(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).uniq(true, simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).uniq(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).uniq(true, simpleObjectPropertyName).value();
 
-        result = _.unique<{ a: string }>(list, property);
-        result = _.unique<{ a: string }>(list, true, property);
-        result = _.unique(list, property);
-        result = _.unique(list, true, property);
+        result = _.unique<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.unique<SimpleStringObject>(simpleStringObjectList, true, simpleObjectPropertyName);
+        result = _.unique(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.unique(simpleStringObjectList, true, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).unique(property);
-        result = _<{ a: string }>(list).unique(true, property);
-        result = _(list).unique(property);
-        result = _(list).unique(true, property);
+        result = _<SimpleStringObject>(simpleStringObjectList).unique(simpleObjectPropertyName);
+        result = _<SimpleStringObject>(simpleStringObjectList).unique(true, simpleObjectPropertyName);
+        result = _(simpleStringObjectList).unique(simpleObjectPropertyName);
+        result = _(simpleStringObjectList).unique(true, simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).unique(property).value();
-        result = _.chain<{ a: string }>(list).unique(true, property).value();
-        result = _.chain(list).unique(property).value();
-        result = _.chain(list).unique(true, property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(true, simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).unique(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).unique(true, simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(list).unique(property).value();
-        result = _.chain<{ a: string }>(list).unique(true, property).value();
-        result = _.chain(list).unique(property).value();
-        result = _.chain(list).unique(true, property).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).unique(true, simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).unique(simpleObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).unique(true, simpleObjectPropertyName).value();
     }
 }
 
@@ -6040,54 +5712,51 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 // chunk
 {
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const length = 2;
-        let result: { a: string }[][];
+        let result: SimpleStringObject[][];
 
-        result = _.chunk<{ a: string }>(array, length);
-        result = _.chunk(array, length);
+        result = _.chunk<SimpleStringObject>(simpleStringObjectArray, length);
+        result = _.chunk(simpleStringObjectArray, length);
 
-        result = _<{ a: string }>(array).chunk(length);
-        result = _(array).chunk(length);
+        result = _<SimpleStringObject>(simpleStringObjectArray).chunk(length);
+        result = _(simpleStringObjectArray).chunk(length);
 
-        result = _.chain<{ a: string }>(array).chunk(length).value();
-        result = _.chain(array).chunk(length).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).chunk(length).value();
+        result = _.chain(simpleStringObjectArray).chunk(length).value();
 
-        result = _.chain<{ a: string }>(array).chunk(length).value();
-        result = _.chain(array).chunk(length).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).chunk(length).value();
+        result = _.chain(simpleStringObjectArray).chunk(length).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, 2: { a: 'b' }, length: 3 };
         const length = 2;
-        let result: { a: string }[][];
+        let result: SimpleStringObject[][];
 
-        result = _.chunk<{ a: string }>(list, length);
-        result = _.chunk(list, length);
+        result = _.chunk<SimpleStringObject>(simpleStringObjectList, length);
+        result = _.chunk(simpleStringObjectList, length);
 
-        result = _<{ a: string }>(list).chunk(length);
-        result = _(list).chunk(length);
+        result = _<SimpleStringObject>(simpleStringObjectList).chunk(length);
+        result = _(simpleStringObjectList).chunk(length);
 
-        result = _.chain<{ a: string }>(list).chunk(length).value();
-        result = _.chain(list).chunk(length).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).chunk(length).value();
+        result = _.chain(simpleStringObjectList).chunk(length).value();
 
-        result = _.chain<{ a: string }>(list).chunk(length).value();
-        result = _.chain(list).chunk(length).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).chunk(length).value();
+        result = _.chain(simpleStringObjectList).chunk(length).value();
     }
 
     {
-        const str = 'abc';
         const length = 2;
         let result: string[][];
 
-        result = _.chunk<string>(str, length);
-        result = _.chunk(str, length);
+        result = _.chunk<string>(simpleString, length);
+        result = _.chunk(simpleString, length);
 
-        result = _<string>(str).chunk(length);
-        result = _(str).chunk(length);
+        result = _<string>(simpleString).chunk(length);
+        result = _(simpleString).chunk(length);
 
-        result = _.chain<string>(str).chunk(length).value();
-        result = _.chain(str).chunk(length).value();
+        result = _.chain<string>(simpleString).chunk(length).value();
+        result = _.chain(simpleString).chunk(length).value();
     }
 }
 
@@ -6096,76 +5765,73 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     const isSorted = true;
 
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const item = array[0];
+        const item = simpleStringObjectArray[0];
         let result: number;
 
-        result = _.indexOf<{ a: string }>(array, item);
-        result = _.indexOf<{ a: string }>(array, item, isSorted);
-        result = _.indexOf(array, item);
-        result = _.indexOf(array, item, isSorted);
+        result = _.indexOf<SimpleStringObject>(simpleStringObjectArray, item);
+        result = _.indexOf<SimpleStringObject>(simpleStringObjectArray, item, isSorted);
+        result = _.indexOf(simpleStringObjectArray, item);
+        result = _.indexOf(simpleStringObjectArray, item, isSorted);
 
-        result = _<{ a: string }>(array).indexOf(item);
-        result = _<{ a: string }>(array).indexOf(item, isSorted);
-        result = _(array).indexOf(item);
-        result = _(array).indexOf(item, isSorted);
+        result = _<SimpleStringObject>(simpleStringObjectArray).indexOf(item);
+        result = _<SimpleStringObject>(simpleStringObjectArray).indexOf(item, isSorted);
+        result = _(simpleStringObjectArray).indexOf(item);
+        result = _(simpleStringObjectArray).indexOf(item, isSorted);
 
-        result = _.chain<{ a: string }>(array).indexOf(item).value();
-        result = _.chain<{ a: string }>(array).indexOf(item, isSorted).value();
-        result = _.chain(array).indexOf(item).value();
-        result = _.chain(array).indexOf(item, isSorted).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).indexOf(item).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).indexOf(item, isSorted).value();
+        result = _.chain(simpleStringObjectArray).indexOf(item).value();
+        result = _.chain(simpleStringObjectArray).indexOf(item, isSorted).value();
 
-        result = _.chain<{ a: string }>(array).indexOf(item).value();
-        result = _.chain<{ a: string }>(array).indexOf(item, isSorted).value();
-        result = _.chain(array).indexOf(item).value();
-        result = _.chain(array).indexOf(item, isSorted).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).indexOf(item).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).indexOf(item, isSorted).value();
+        result = _.chain(simpleStringObjectArray).indexOf(item).value();
+        result = _.chain(simpleStringObjectArray).indexOf(item, isSorted).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const item = list[0];
+        const item = simpleStringObjectList[0];
         let result: number;
 
-        result = _.indexOf<{ a: string }>(list, item);
-        result = _.indexOf<{ a: string }>(list, item, isSorted);
-        result = _.indexOf(list, item);
-        result = _.indexOf(list, item, isSorted);
+        result = _.indexOf<SimpleStringObject>(simpleStringObjectList, item);
+        result = _.indexOf<SimpleStringObject>(simpleStringObjectList, item, isSorted);
+        result = _.indexOf(simpleStringObjectList, item);
+        result = _.indexOf(simpleStringObjectList, item, isSorted);
 
-        result = _<{ a: string }>(list).indexOf(item);
-        result = _<{ a: string }>(list).indexOf(item, isSorted);
-        result = _(list).indexOf(item);
-        result = _(list).indexOf(item, isSorted);
+        result = _<SimpleStringObject>(simpleStringObjectList).indexOf(item);
+        result = _<SimpleStringObject>(simpleStringObjectList).indexOf(item, isSorted);
+        result = _(simpleStringObjectList).indexOf(item);
+        result = _(simpleStringObjectList).indexOf(item, isSorted);
 
-        result = _.chain<{ a: string }>(list).indexOf(item).value();
-        result = _.chain<{ a: string }>(list).indexOf(item, isSorted).value();
-        result = _.chain(list).indexOf(item).value();
-        result = _.chain(list).indexOf(item, isSorted).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).indexOf(item).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).indexOf(item, isSorted).value();
+        result = _.chain(simpleStringObjectList).indexOf(item).value();
+        result = _.chain(simpleStringObjectList).indexOf(item, isSorted).value();
 
-        result = _.chain<{ a: string }>(list).indexOf(item).value();
-        result = _.chain<{ a: string }>(list).indexOf(item, isSorted).value();
-        result = _.chain(list).indexOf(item).value();
-        result = _.chain(list).indexOf(item, isSorted).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).indexOf(item).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).indexOf(item, isSorted).value();
+        result = _.chain(simpleStringObjectList).indexOf(item).value();
+        result = _.chain(simpleStringObjectList).indexOf(item, isSorted).value();
     }
 
     {
-        const str = 'abc';
-        const item = str[0];
+        const item = simpleString[0];
         let result: number;
 
-        result = _.indexOf<string>(str, item);
-        result = _.indexOf<string>(str, item, isSorted);
-        result = _.indexOf(str, item);
-        result = _.indexOf(str, item, isSorted);
+        result = _.indexOf<string>(simpleString, item);
+        result = _.indexOf<string>(simpleString, item, isSorted);
+        result = _.indexOf(simpleString, item);
+        result = _.indexOf(simpleString, item, isSorted);
 
-        result = _<string>(str).indexOf(item);
-        result = _<string>(str).indexOf(item, isSorted);
-        result = _(str).indexOf(item);
-        result = _(str).indexOf(item, isSorted);
+        result = _<string>(simpleString).indexOf(item);
+        result = _<string>(simpleString).indexOf(item, isSorted);
+        result = _(simpleString).indexOf(item);
+        result = _(simpleString).indexOf(item, isSorted);
 
-        result = _.chain<string>(str).indexOf(item).value();
-        result = _.chain<string>(str).indexOf(item, isSorted).value();
-        result = _.chain(str).indexOf(item).value();
-        result = _.chain(str).indexOf(item, isSorted).value();
+        result = _.chain<string>(simpleString).indexOf(item).value();
+        result = _.chain<string>(simpleString).indexOf(item, isSorted).value();
+        result = _.chain(simpleString).indexOf(item).value();
+        result = _.chain(simpleString).indexOf(item, isSorted).value();
     }
 }
 
@@ -6174,83 +5840,78 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     const fromIndex = 1;
 
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const item = array[0];
+        const item = simpleStringObjectArray[0];
         let result: number;
 
-        result = _.lastIndexOf<{ a: string }>(array, item);
-        result = _.lastIndexOf<{ a: string }>(array, item, fromIndex);
-        result = _.lastIndexOf(array, item);
-        result = _.lastIndexOf(array, item, fromIndex);
+        result = _.lastIndexOf<SimpleStringObject>(simpleStringObjectArray, item);
+        result = _.lastIndexOf<SimpleStringObject>(simpleStringObjectArray, item, fromIndex);
+        result = _.lastIndexOf(simpleStringObjectArray, item);
+        result = _.lastIndexOf(simpleStringObjectArray, item, fromIndex);
 
-        result = _<{ a: string }>(array).lastIndexOf(item);
-        result = _<{ a: string }>(array).lastIndexOf(item, fromIndex);
-        result = _(array).lastIndexOf(item);
-        result = _(array).lastIndexOf(item, fromIndex);
+        result = _<SimpleStringObject>(simpleStringObjectArray).lastIndexOf(item);
+        result = _<SimpleStringObject>(simpleStringObjectArray).lastIndexOf(item, fromIndex);
+        result = _(simpleStringObjectArray).lastIndexOf(item);
+        result = _(simpleStringObjectArray).lastIndexOf(item, fromIndex);
 
-        result = _.chain<{ a: string }>(array).lastIndexOf(item).value();
-        result = _.chain<{ a: string }>(array).lastIndexOf(item, fromIndex).value();
-        result = _.chain(array).lastIndexOf(item).value();
-        result = _.chain(array).lastIndexOf(item, fromIndex).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).lastIndexOf(item).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).lastIndexOf(item, fromIndex).value();
+        result = _.chain(simpleStringObjectArray).lastIndexOf(item).value();
+        result = _.chain(simpleStringObjectArray).lastIndexOf(item, fromIndex).value();
 
-        result = _.chain<{ a: string }>(array).lastIndexOf(item).value();
-        result = _.chain<{ a: string }>(array).lastIndexOf(item, fromIndex).value();
-        result = _.chain(array).lastIndexOf(item).value();
-        result = _.chain(array).lastIndexOf(item, fromIndex).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).lastIndexOf(item).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).lastIndexOf(item, fromIndex).value();
+        result = _.chain(simpleStringObjectArray).lastIndexOf(item).value();
+        result = _.chain(simpleStringObjectArray).lastIndexOf(item, fromIndex).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const item = list[0];
+        const item = simpleStringObjectList[0];
         let result: number;
 
-        result = _.lastIndexOf<{ a: string }>(list, item);
-        result = _.lastIndexOf<{ a: string }>(list, item, fromIndex);
-        result = _.lastIndexOf(list, item);
-        result = _.lastIndexOf(list, item, fromIndex);
+        result = _.lastIndexOf<SimpleStringObject>(simpleStringObjectList, item);
+        result = _.lastIndexOf<SimpleStringObject>(simpleStringObjectList, item, fromIndex);
+        result = _.lastIndexOf(simpleStringObjectList, item);
+        result = _.lastIndexOf(simpleStringObjectList, item, fromIndex);
 
-        result = _<{ a: string }>(list).lastIndexOf(item);
-        result = _<{ a: string }>(list).lastIndexOf(item, fromIndex);
-        result = _(list).lastIndexOf(item);
-        result = _(list).lastIndexOf(item, fromIndex);
+        result = _<SimpleStringObject>(simpleStringObjectList).lastIndexOf(item);
+        result = _<SimpleStringObject>(simpleStringObjectList).lastIndexOf(item, fromIndex);
+        result = _(simpleStringObjectList).lastIndexOf(item);
+        result = _(simpleStringObjectList).lastIndexOf(item, fromIndex);
 
-        result = _.chain<{ a: string }>(list).lastIndexOf(item).value();
-        result = _.chain<{ a: string }>(list).lastIndexOf(item, fromIndex).value();
-        result = _.chain(list).lastIndexOf(item).value();
-        result = _.chain(list).lastIndexOf(item, fromIndex).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).lastIndexOf(item).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).lastIndexOf(item, fromIndex).value();
+        result = _.chain(simpleStringObjectList).lastIndexOf(item).value();
+        result = _.chain(simpleStringObjectList).lastIndexOf(item, fromIndex).value();
 
-        result = _.chain<{ a: string }>(list).lastIndexOf(item).value();
-        result = _.chain<{ a: string }>(list).lastIndexOf(item, fromIndex).value();
-        result = _.chain(list).lastIndexOf(item).value();
-        result = _.chain(list).lastIndexOf(item, fromIndex).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).lastIndexOf(item).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).lastIndexOf(item, fromIndex).value();
+        result = _.chain(simpleStringObjectList).lastIndexOf(item).value();
+        result = _.chain(simpleStringObjectList).lastIndexOf(item, fromIndex).value();
     }
 
     {
-        const str = 'abc';
-        const item = str[0];
+        const item = simpleString[0];
         let result: number;
 
-        result = _.lastIndexOf<string>(str, item);
-        result = _.lastIndexOf<string>(str, item, fromIndex);
-        result = _.lastIndexOf(str, item);
-        result = _.lastIndexOf(str, item, fromIndex);
+        result = _.lastIndexOf<string>(simpleString, item);
+        result = _.lastIndexOf<string>(simpleString, item, fromIndex);
+        result = _.lastIndexOf(simpleString, item);
+        result = _.lastIndexOf(simpleString, item, fromIndex);
 
-        result = _<string>(str).lastIndexOf(item);
-        result = _<string>(str).lastIndexOf(item, fromIndex);
-        result = _(str).lastIndexOf(item);
-        result = _(str).lastIndexOf(item, fromIndex);
+        result = _<string>(simpleString).lastIndexOf(item);
+        result = _<string>(simpleString).lastIndexOf(item, fromIndex);
+        result = _(simpleString).lastIndexOf(item);
+        result = _(simpleString).lastIndexOf(item, fromIndex);
 
-        result = _.chain<string>(str).lastIndexOf(item).value();
-        result = _.chain<string>(str).lastIndexOf(item, fromIndex).value();
-        result = _.chain(str).lastIndexOf(item).value();
-        result = _.chain(str).lastIndexOf(item, fromIndex).value();
+        result = _.chain<string>(simpleString).lastIndexOf(item).value();
+        result = _.chain<string>(simpleString).lastIndexOf(item, fromIndex).value();
+        result = _.chain(simpleString).lastIndexOf(item).value();
+        result = _.chain(simpleString).lastIndexOf(item, fromIndex).value();
     }
 }
 
 // sortedIndex
 {
-    const context = {};
-
     // no iterator
     {
         const array: string[] = ['a', 'c'];
@@ -6289,340 +5950,319 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
     }
 
     {
-        const str = 'ac';
+        const simpleString = 'ac';
         const item = 'b';
         let result: number;
 
-        result = _.sortedIndex<string>(str, item);
-        result = _.sortedIndex(str, item);
+        result = _.sortedIndex<string>(simpleString, item);
+        result = _.sortedIndex(simpleString, item);
 
-        result = _<string>(str).sortedIndex(item);
-        result = _(str).sortedIndex(item);
+        result = _<string>(simpleString).sortedIndex(item);
+        result = _(simpleString).sortedIndex(item);
 
-        result = _.chain<string>(str).sortedIndex(item).value();
-        result = _.chain(str).sortedIndex(item).value();
+        result = _.chain<string>(simpleString).sortedIndex(item).value();
+        result = _.chain(simpleString).sortedIndex(item).value();
     }
 
     // function iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'c' }];
+        const array: SimpleStringObject[] = [{ a: 'a' }, { a: 'c' }];
         const item = { a: 'b' };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        const iterator = (value: SimpleStringObject, index: number, list: _.List<SimpleStringObject>) => value.a;
         let result: number;
 
-        result = _.sortedIndex<{ a: string }>(array, item, iterator);
-        result = _.sortedIndex<{ a: string }>(array, item, iterator, context);
+        result = _.sortedIndex<SimpleStringObject>(array, item, iterator);
+        result = _.sortedIndex<SimpleStringObject>(array, item, iterator, context);
         result = _.sortedIndex(array, item, iterator);
         result = _.sortedIndex(array, item, iterator, context);
 
-        result = _<{ a: string }>(array).sortedIndex(item, iterator);
-        result = _<{ a: string }>(array).sortedIndex(item, iterator, context);
+        result = _<SimpleStringObject>(array).sortedIndex(item, iterator);
+        result = _<SimpleStringObject>(array).sortedIndex(item, iterator, context);
         result = _(array).sortedIndex(item, iterator);
         result = _(array).sortedIndex(item, iterator, context);
 
-        result = _.chain<{ a: string }>(array).sortedIndex(item, iterator).value();
-        result = _.chain<{ a: string }>(array).sortedIndex(item, iterator, context).value();
+        result = _.chain<SimpleStringObject>(array).sortedIndex(item, iterator).value();
+        result = _.chain<SimpleStringObject>(array).sortedIndex(item, iterator, context).value();
         result = _.chain(array).sortedIndex(item, iterator).value();
         result = _.chain(array).sortedIndex(item, iterator, context).value();
 
-        result = _.chain<{ a: string }>(array).sortedIndex(item, iterator).value();
-        result = _.chain<{ a: string }>(array).sortedIndex(item, iterator, context).value();
+        result = _.chain<SimpleStringObject>(array).sortedIndex(item, iterator).value();
+        result = _.chain<SimpleStringObject>(array).sortedIndex(item, iterator, context).value();
         result = _.chain(array).sortedIndex(item, iterator).value();
         result = _.chain(array).sortedIndex(item, iterator, context).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'c' }, length: 2 };
+        const list: _.List<SimpleStringObject> = { 0: { a: 'a' }, 1: { a: 'c' }, length: 2 };
         const item = { a: 'b' };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a;
+        const iterator = (value: SimpleStringObject, index: number, list: _.List<SimpleStringObject>) => value.a;
         let result: number;
 
-        result = _.sortedIndex<{ a: string }>(list, item, iterator);
-        result = _.sortedIndex<{ a: string }>(list, item, iterator, context);
+        result = _.sortedIndex<SimpleStringObject>(list, item, iterator);
+        result = _.sortedIndex<SimpleStringObject>(list, item, iterator, context);
         result = _.sortedIndex(list, item, iterator);
         result = _.sortedIndex(list, item, iterator, context);
 
-        result = _<{ a: string }>(list).sortedIndex(item, iterator);
-        result = _<{ a: string }>(list).sortedIndex(item, iterator, context);
+        result = _<SimpleStringObject>(list).sortedIndex(item, iterator);
+        result = _<SimpleStringObject>(list).sortedIndex(item, iterator, context);
         result = _(list).sortedIndex(item, iterator);
         result = _(list).sortedIndex(item, iterator, context);
 
-        result = _.chain<{ a: string }>(list).sortedIndex(item, iterator).value();
-        result = _.chain<{ a: string }>(list).sortedIndex(item, iterator, context).value();
+        result = _.chain<SimpleStringObject>(list).sortedIndex(item, iterator).value();
+        result = _.chain<SimpleStringObject>(list).sortedIndex(item, iterator, context).value();
         result = _.chain(list).sortedIndex(item, iterator).value();
         result = _.chain(list).sortedIndex(item, iterator, context).value();
 
-        result = _.chain<{ a: string }>(list).sortedIndex(item, iterator).value();
-        result = _.chain<{ a: string }>(list).sortedIndex(item, iterator, context).value();
+        result = _.chain<SimpleStringObject>(list).sortedIndex(item, iterator).value();
+        result = _.chain<SimpleStringObject>(list).sortedIndex(item, iterator, context).value();
         result = _.chain(list).sortedIndex(item, iterator).value();
         result = _.chain(list).sortedIndex(item, iterator, context).value();
     }
 
     // property name iterator
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'c' }];
+        const array: SimpleStringObject[] = [{ a: 'a' }, { a: 'c' }];
         const item = { a: 'b' };
-        const property = 'a'
+        const simpleObjectPropertyName = 'a'
         let result: number;
 
-        result = _.sortedIndex<{ a: string }>(array, item, property);
-        result = _.sortedIndex(array, item, property);
+        result = _.sortedIndex<SimpleStringObject>(array, item, simpleObjectPropertyName);
+        result = _.sortedIndex(array, item, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(array).sortedIndex(item, property);
-        result = _(array).sortedIndex(item, property);
+        result = _<SimpleStringObject>(array).sortedIndex(item, simpleObjectPropertyName);
+        result = _(array).sortedIndex(item, simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(array).sortedIndex(item, property).value();
-        result = _.chain(array).sortedIndex(item, property).value();
+        result = _.chain<SimpleStringObject>(array).sortedIndex(item, simpleObjectPropertyName).value();
+        result = _.chain(array).sortedIndex(item, simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(array).sortedIndex(item, property).value();
-        result = _.chain(array).sortedIndex(item, property).value();
+        result = _.chain<SimpleStringObject>(array).sortedIndex(item, simpleObjectPropertyName).value();
+        result = _.chain(array).sortedIndex(item, simpleObjectPropertyName).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'c' }, length: 2 };
+        const list: _.List<SimpleStringObject> = { 0: { a: 'a' }, 1: { a: 'c' }, length: 2 };
         const item = { a: 'b' };
-        const property = 'a';
         let result: number;
 
-        result = _.sortedIndex<{ a: string }>(list, item, property);
-        result = _.sortedIndex(list, item, property);
+        result = _.sortedIndex<SimpleStringObject>(list, item, simpleObjectPropertyName);
+        result = _.sortedIndex(list, item, simpleObjectPropertyName);
 
-        result = _<{ a: string }>(list).sortedIndex(item, property);
-        result = _(list).sortedIndex(item, property);
+        result = _<SimpleStringObject>(list).sortedIndex(item, simpleObjectPropertyName);
+        result = _(list).sortedIndex(item, simpleObjectPropertyName);
 
-        result = _.chain<{ a: string }>(list).sortedIndex(item, property).value();
-        result = _.chain(list).sortedIndex(item, property).value();
+        result = _.chain<SimpleStringObject>(list).sortedIndex(item, simpleObjectPropertyName).value();
+        result = _.chain(list).sortedIndex(item, simpleObjectPropertyName).value();
 
-        result = _.chain<{ a: string }>(list).sortedIndex(item, property).value();
-        result = _.chain(list).sortedIndex(item, property).value();
+        result = _.chain<SimpleStringObject>(list).sortedIndex(item, simpleObjectPropertyName).value();
+        result = _.chain(list).sortedIndex(item, simpleObjectPropertyName).value();
     }
 }
 
 // findIndex
 {
-    const context = {};
-
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: number;
 
-        result = _.findIndex<{ a: string }>(array, iterator);
-        result = _.findIndex<{ a: string }>(array, iterator, context);
-        result = _.findIndex(array, iterator);
-        result = _.findIndex(array, iterator, context);
+        result = _.findIndex<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.findIndex<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.findIndex(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.findIndex(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(array).findIndex(iterator);
-        result = _<{ a: string }>(array).findIndex(iterator, context);
-        result = _(array).findIndex(iterator);
-        result = _(array).findIndex(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(array).findIndex(iterator).value();
-        result = _.chain<{ a: string }>(array).findIndex(iterator, context).value();
-        result = _.chain(array).findIndex(iterator).value();
-        result = _.chain(array).findIndex(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(array).findIndex(iterator).value();
-        result = _.chain<{ a: string }>(array).findIndex(iterator, context).value();
-        result = _.chain(array).findIndex(iterator).value();
-        result = _.chain(array).findIndex(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).findIndex(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
         const array: { a: string, b: string }[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'd' }];
-        const properties = { a: 'b' };
         let result: number;
 
-        result = _.findIndex<{ a: string }>(array, properties);
-        result = _.findIndex(array, properties);
+        result = _.findIndex<SimpleStringObject>(array, simpleStringObjectPartialPropertyMatch);
+        result = _.findIndex(array, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).findIndex(properties);
-        result = _(array).findIndex(properties);
+        result = _<SimpleStringObject>(array).findIndex(simpleStringObjectPartialPropertyMatch);
+        result = _(array).findIndex(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).findIndex(properties).value();
-        result = _.chain(array).findIndex(properties).value();
+        result = _.chain<SimpleStringObject>(array).findIndex(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(array).findIndex(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(array).findIndex(properties).value();
-        result = _.chain(array).findIndex(properties).value();
+        result = _.chain<SimpleStringObject>(array).findIndex(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(array).findIndex(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: number;
 
-        result = _.findIndex<{ a: string }>(list, iterator);
-        result = _.findIndex<{ a: string }>(list, iterator, context);
-        result = _.findIndex(list, iterator);
-        result = _.findIndex(list, iterator, context);
+        result = _.findIndex<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.findIndex<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.findIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.findIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(list).findIndex(iterator);
-        result = _<{ a: string }>(list).findIndex(iterator, context);
-        result = _(list).findIndex(iterator);
-        result = _(list).findIndex(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(list).findIndex(iterator).value();
-        result = _.chain<{ a: string }>(list).findIndex(iterator, context).value();
-        result = _.chain(list).findIndex(iterator).value();
-        result = _.chain(list).findIndex(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(list).findIndex(iterator).value();
-        result = _.chain<{ a: string }>(list).findIndex(iterator, context).value();
-        result = _.chain(list).findIndex(iterator).value();
-        result = _.chain(list).findIndex(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).findIndex(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
         const list: _.List<{ a: string, b: string }> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'd' }, length: 2 };
-        const properties = { a: 'b' };
         let result: number;
 
-        result = _.findIndex<{ a: string }>(list, properties);
-        result = _.findIndex(list, properties);
+        result = _.findIndex<SimpleStringObject>(list, simpleStringObjectPartialPropertyMatch);
+        result = _.findIndex(list, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).findIndex(properties);
-        result = _(list).findIndex(properties);
+        result = _<SimpleStringObject>(list).findIndex(simpleStringObjectPartialPropertyMatch);
+        result = _(list).findIndex(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).findIndex(properties).value();
-        result = _.chain(list).findIndex(properties).value();
+        result = _.chain<SimpleStringObject>(list).findIndex(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(list).findIndex(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(list).findIndex(properties).value();
-        result = _.chain(list).findIndex(properties).value();
+        result = _.chain<SimpleStringObject>(list).findIndex(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(list).findIndex(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const str = 'abc';
-        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: number;
 
-        result = _.findIndex<string>(str, iterator);
-        result = _.findIndex<string>(str, iterator, context);
-        result = _.findIndex(str, iterator);
-        result = _.findIndex(str, iterator, context);
+        result = _.findIndex<string>(simpleString, stringListComparingIterator);
+        result = _.findIndex<string>(simpleString, stringListComparingIterator, context);
+        result = _.findIndex(simpleString, stringListComparingIterator);
+        result = _.findIndex(simpleString, stringListComparingIterator, context);
 
-        result = _<string>(str).findIndex(iterator);
-        result = _<string>(str).findIndex(iterator, context);
-        result = _(str).findIndex(iterator);
-        result = _(str).findIndex(iterator, context);
+        result = _<string>(simpleString).findIndex(stringListComparingIterator);
+        result = _<string>(simpleString).findIndex(stringListComparingIterator, context);
+        result = _(simpleString).findIndex(stringListComparingIterator);
+        result = _(simpleString).findIndex(stringListComparingIterator, context);
 
-        result = _.chain<string>(str).findIndex(iterator).value();
-        result = _.chain<string>(str).findIndex(iterator, context).value();
-        result = _.chain(str).findIndex(iterator).value();
-        result = _.chain(str).findIndex(iterator, context).value();
+        result = _.chain<string>(simpleString).findIndex(stringListComparingIterator).value();
+        result = _.chain<string>(simpleString).findIndex(stringListComparingIterator, context).value();
+        result = _.chain(simpleString).findIndex(stringListComparingIterator).value();
+        result = _.chain(simpleString).findIndex(stringListComparingIterator, context).value();
     }
 }
 
 // findLastIndex
 {
-    const context = {};
-
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: number;
 
-        result = _.findLastIndex<{ a: string }>(array, iterator);
-        result = _.findLastIndex<{ a: string }>(array, iterator, context);
-        result = _.findLastIndex(array, iterator);
-        result = _.findLastIndex(array, iterator, context);
+        result = _.findLastIndex<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.findLastIndex<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.findLastIndex(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator);
+        result = _.findLastIndex(simpleStringObjectArray, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(array).findLastIndex(iterator);
-        result = _<{ a: string }>(array).findLastIndex(iterator, context);
-        result = _(array).findLastIndex(iterator);
-        result = _(array).findLastIndex(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(array).findLastIndex(iterator).value();
-        result = _.chain<{ a: string }>(array).findLastIndex(iterator, context).value();
-        result = _.chain(array).findLastIndex(iterator).value();
-        result = _.chain(array).findLastIndex(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(array).findLastIndex(iterator).value();
-        result = _.chain<{ a: string }>(array).findLastIndex(iterator, context).value();
-        result = _.chain(array).findLastIndex(iterator).value();
-        result = _.chain(array).findLastIndex(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectArray).findLastIndex(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
         const array: { a: string, b: string }[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'd' }];
-        const properties = { a: 'b' };
         let result: number;
 
-        result = _.findLastIndex<{ a: string }>(array, properties);
-        result = _.findLastIndex(array, properties);
+        result = _.findLastIndex<SimpleStringObject>(array, simpleStringObjectPartialPropertyMatch);
+        result = _.findLastIndex(array, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(array).findLastIndex(properties);
-        result = _(array).findLastIndex(properties);
+        result = _<SimpleStringObject>(array).findLastIndex(simpleStringObjectPartialPropertyMatch);
+        result = _(array).findLastIndex(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(array).findLastIndex(properties).value();
-        result = _.chain(array).findLastIndex(properties).value();
+        result = _.chain<SimpleStringObject>(array).findLastIndex(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(array).findLastIndex(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(array).findLastIndex(properties).value();
-        result = _.chain(array).findLastIndex(properties).value();
+        result = _.chain<SimpleStringObject>(array).findLastIndex(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(array).findLastIndex(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        const iterator = (value: { a: string }, index: number, list: _.List<{ a: string }>) => value.a === 'b';
         let result: number;
 
-        result = _.findLastIndex<{ a: string }>(list, iterator);
-        result = _.findLastIndex<{ a: string }>(list, iterator, context);
-        result = _.findLastIndex(list, iterator);
-        result = _.findLastIndex(list, iterator, context);
+        result = _.findLastIndex<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.findLastIndex<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
+        result = _.findLastIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator);
+        result = _.findLastIndex(simpleStringObjectList, simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _<{ a: string }>(list).findLastIndex(iterator);
-        result = _<{ a: string }>(list).findLastIndex(iterator, context);
-        result = _(list).findLastIndex(iterator);
-        result = _(list).findLastIndex(iterator, context);
+        result = _<SimpleStringObject>(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator);
+        result = _<SimpleStringObject>(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context);
+        result = _(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator);
+        result = _(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context);
 
-        result = _.chain<{ a: string }>(list).findLastIndex(iterator).value();
-        result = _.chain<{ a: string }>(list).findLastIndex(iterator, context).value();
-        result = _.chain(list).findLastIndex(iterator).value();
-        result = _.chain(list).findLastIndex(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context).value();
 
-        result = _.chain<{ a: string }>(list).findLastIndex(iterator).value();
-        result = _.chain<{ a: string }>(list).findLastIndex(iterator, context).value();
-        result = _.chain(list).findLastIndex(iterator).value();
-        result = _.chain(list).findLastIndex(iterator, context).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain<SimpleStringObject>(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context).value();
+        result = _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator).value();
+        result = _.chain(simpleStringObjectList).findLastIndex(simpleStringObjectListPropertyComparingIterator, context).value();
     }
 
     {
         const list: _.List<{ a: string, b: string }> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'd' }, length: 2 };
-        const properties = { a: 'b' };
         let result: number;
 
-        result = _.findLastIndex<{ a: string }>(list, properties);
-        result = _.findLastIndex(list, properties);
+        result = _.findLastIndex<SimpleStringObject>(list, simpleStringObjectPartialPropertyMatch);
+        result = _.findLastIndex(list, simpleStringObjectPartialPropertyMatch);
 
-        result = _<{ a: string }>(list).findLastIndex(properties);
-        result = _(list).findLastIndex(properties);
+        result = _<SimpleStringObject>(list).findLastIndex(simpleStringObjectPartialPropertyMatch);
+        result = _(list).findLastIndex(simpleStringObjectPartialPropertyMatch);
 
-        result = _.chain<{ a: string }>(list).findLastIndex(properties).value();
-        result = _.chain(list).findLastIndex(properties).value();
+        result = _.chain<SimpleStringObject>(list).findLastIndex(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(list).findLastIndex(simpleStringObjectPartialPropertyMatch).value();
 
-        result = _.chain<{ a: string }>(list).findLastIndex(properties).value();
-        result = _.chain(list).findLastIndex(properties).value();
+        result = _.chain<SimpleStringObject>(list).findLastIndex(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(list).findLastIndex(simpleStringObjectPartialPropertyMatch).value();
     }
 
     {
-        const str = 'abc';
-        const iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
         let result: number;
 
-        result = _.findLastIndex<string>(str, iterator);
-        result = _.findLastIndex<string>(str, iterator, context);
-        result = _.findLastIndex(str, iterator);
-        result = _.findLastIndex(str, iterator, context);
+        result = _.findLastIndex<string>(simpleString, stringListComparingIterator);
+        result = _.findLastIndex<string>(simpleString, stringListComparingIterator, context);
+        result = _.findLastIndex(simpleString, stringListComparingIterator);
+        result = _.findLastIndex(simpleString, stringListComparingIterator, context);
 
-        result = _<string>(str).findLastIndex(iterator);
-        result = _<string>(str).findLastIndex(iterator, context);
-        result = _(str).findLastIndex(iterator);
-        result = _(str).findLastIndex(iterator, context);
+        result = _<string>(simpleString).findLastIndex(stringListComparingIterator);
+        result = _<string>(simpleString).findLastIndex(stringListComparingIterator, context);
+        result = _(simpleString).findLastIndex(stringListComparingIterator);
+        result = _(simpleString).findLastIndex(stringListComparingIterator, context);
 
-        result = _.chain<string>(str).findLastIndex(iterator).value();
-        result = _.chain<string>(str).findLastIndex(iterator, context).value();
-        result = _.chain(str).findLastIndex(iterator).value();
-        result = _.chain(str).findLastIndex(iterator, context).value();
+        result = _.chain<string>(simpleString).findLastIndex(stringListComparingIterator).value();
+        result = _.chain<string>(simpleString).findLastIndex(stringListComparingIterator, context).value();
+        result = _.chain(simpleString).findLastIndex(stringListComparingIterator).value();
+        result = _.chain(simpleString).findLastIndex(stringListComparingIterator, context).value();
     }
 }
 
@@ -6654,47 +6294,43 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 // as a breaking chnage, consider updating chain<string>() to return Chain<string, string> rather than Chain<string, _.List<string>>
 {
     {
-        const array: { a: string }[] = [{ a: 'a' }, { a: 'b' }];
-        let result: _._Chain<{ a: string }, { a: string }[]>;
+        let result: _._Chain<SimpleStringObject, SimpleStringObject[]>;
 
-        result = _.chain<{ a: string }>(array);
-        result = _.chain(array);
+        result = _.chain<SimpleStringObject>(simpleStringObjectArray);
+        result = _.chain(simpleStringObjectArray);
 
-        result = _<{ a: string }>(array).chain();
-        result = _(array).chain();
+        result = _<SimpleStringObject>(simpleStringObjectArray).chain();
+        result = _(simpleStringObjectArray).chain();
     }
 
     {
-        const list: _.List<{ a: string }> = { 0: { a: 'a' }, 1: { a: 'b' }, length: 2 };
-        let result: _._Chain<{ a: string }, _.List<{ a: string }>>;
+        let result: _._Chain<SimpleStringObject, _.List<SimpleStringObject>>;
 
-        result = _.chain<{ a: string }>(list);
-        result = _.chain(list);
+        result = _.chain<SimpleStringObject>(simpleStringObjectList);
+        result = _.chain(simpleStringObjectList);
 
-        result = _<{ a: string }>(list).chain();
-        result = _(list).chain();
+        result = _<SimpleStringObject>(simpleStringObjectList).chain();
+        result = _(simpleStringObjectList).chain();
     }
 
     {
-        const dict: _.Dictionary<{ a: string }> = { a: { a: 'a' }, b: { a: 'b' } };
-        let result: _._Chain<{ a: string }, _.Dictionary<{ a: string }>>;
+        let result: _._Chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>;
 
-        result = _.chain<{ a: string }>(dict);
-        result = _.chain(dict);
+        result = _.chain<SimpleStringObject>(simpleStringObjectDictionary);
+        result = _.chain(simpleStringObjectDictionary);
 
-        result = _<{ a: string }>(dict).chain();
-        result = _(dict).chain();
+        result = _<SimpleStringObject>(simpleStringObjectDictionary).chain();
+        result = _(simpleStringObjectDictionary).chain();
     }
 
     {
-        const str = 'abc';
         let result: _._Chain<string, _.List<string>>;
 
-        result = _.chain<string>(str);
-        result = _.chain(str);
+        result = _.chain<string>(simpleString);
+        result = _.chain(simpleString);
 
-        result = _<string>(str).chain();
-        result = _(str).chain();
+        result = _<string>(simpleString).chain();
+        result = _(simpleString).chain();
     }
 }
 
@@ -7139,9 +6775,9 @@ function chain_tests() {
         .first()
         .value();
 
-    let numberObjects = [{property: 'odd', value: 1}, {property: 'even', value: 2}, {property: 'even', value: 0}];
+    let numberObjects = [{simpleObjectPropertyName: 'odd', value: 1}, {simpleObjectPropertyName: 'even', value: 2}, {simpleObjectPropertyName: 'even', value: 0}];
     let evenAndOddGroupedNumbers = _.chain(numberObjects)
-        .groupBy('property')
+        .groupBy('simpleObjectPropertyName')
         .mapObject((objects) => _.pluck(objects, 'value'))
         .value(); // { odd: [1], even: [0, 2] }
 
