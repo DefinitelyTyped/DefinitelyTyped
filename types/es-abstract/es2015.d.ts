@@ -200,8 +200,23 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
         current?: ES5.PropertyDescriptor & ThisType<any>,
     ): boolean;
     OrdinaryDefineOwnProperty(O: object, P: ESPropertyKey, Desc: ES5.PropertyDescriptor & ThisType<any>): boolean;
-    OrdinaryGetOwnProperty<O extends object, P extends ESPropertyKey>(O: O, P: P): ES5.PropertyDescriptor<P extends keyof O ? O[P] : any> | undefined;
-    OrdinaryGetOwnProperty(O: object, P: ESPropertyKey): ES5.PropertyDescriptor | undefined;
+    OrdinaryGetOwnProperty<O extends object, P extends ESPropertyKey>(
+        O: O,
+        P: P,
+    ):
+        | {
+            '[[Configurable]]': boolean;
+            '[[Enumerable]]': boolean;
+            '[[Writable]]': boolean;
+            '[[Value]]': P extends keyof O ? O[P] : any;
+        }
+        | {
+            '[[Configurable]]': boolean;
+            '[[Enumerable]]': boolean;
+            '[[Get]]': (() => P extends keyof O ? O[P] : any) | undefined;
+            '[[Set]]': (value: P extends keyof O ? O[P] : any) => void;
+        }
+        | undefined;
 
     ArrayCreate(length: number, proto?: object | null): unknown[];
     ArraySetLength(A: unknown[], Desc: ES5.PropertyDescriptor & ThisType<any>): boolean;

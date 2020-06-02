@@ -21,8 +21,8 @@ declare namespace ESAbstract {
 
     // ES5 types:
     interface GenericDescriptor {
-        '[[Enumerable]]'?: boolean;
         '[[Configurable]]'?: boolean;
+        '[[Enumerable]]'?: boolean;
     }
 
     interface AccessorDescriptor<T = any> extends GenericDescriptor {
@@ -31,8 +31,8 @@ declare namespace ESAbstract {
     }
 
     interface DataDescriptor<T = any> extends GenericDescriptor {
-        '[[Value]]'?: T;
         '[[Writable]]'?: boolean;
+        '[[Value]]'?: T;
     }
 
     type PropertyDescriptor<T = any> = AccessorDescriptor<T> | DataDescriptor<T>;
