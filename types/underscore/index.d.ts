@@ -4106,7 +4106,7 @@ declare module _ {
         /**
         * @see _.each
         **/
-        each(iterator: _.ObjectIterator<T, void>, context?: any): _.Dictionary<T>;
+        each(iterator: _.ObjectIterator<T, void>, context?: any): V;
 
         /**
         * @see _.each
