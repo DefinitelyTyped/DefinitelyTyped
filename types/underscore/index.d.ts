@@ -97,7 +97,7 @@ declare module _ {
 
     type CollectionIterator<V, T, TResult> = V extends List<T> ? ListIterator<T, TResult> : ObjectIterator<T, TResult>;
 
-    interface MemoListIterator<T, TResult> {
+    interface MemoIterator<T, TResult> {
         (prev: TResult, curr: T, index: number, list: List<T>): TResult;
     }
 
@@ -105,7 +105,7 @@ declare module _ {
         (prev: TResult, curr: T, key: string, list: Dictionary<T>): TResult;
     }
 
-    type MemoCollectionIterator<V, T, TResult> = V extends List<T> ? MemoListIterator<T, TResult> : MemoObjectIterator<T, TResult>;
+    type MemoCollectionIterator<V, T, TResult> = V extends List<T> ? MemoIterator<T, TResult> : MemoObjectIterator<T, TResult>;
 
     interface Cancelable {
         cancel(): void;
@@ -255,7 +255,7 @@ declare module _ {
         **/
         reduce<T, TResult>(
             list: _.List<T>,
-            iterator: _.MemoListIterator<T, TResult>,
+            iterator: _.MemoIterator<T, TResult>,
             memo?: TResult,
             context?: any): TResult;
 
@@ -290,7 +290,7 @@ declare module _ {
         **/
         reduceRight<T, TResult>(
             list: _.List<T>,
-            iterator: _.MemoListIterator<T, TResult>,
+            iterator: _.MemoIterator<T, TResult>,
             memo?: TResult,
             context?: any): TResult;
 
