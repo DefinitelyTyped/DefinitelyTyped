@@ -24,5 +24,5 @@ export namespace CopyToClipboard {
   }
 }
 
-export class CopyToClipboard extends React.Component<CopyToClipboard.Props> { }
-export default class extends React.Component<CopyToClipboard.Props> { }
+export class CopyToClipboard extends React.PureComponent<CopyToClipboard.Props> { }
+export default CopyToClipboard
