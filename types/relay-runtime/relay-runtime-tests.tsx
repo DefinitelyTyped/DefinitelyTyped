@@ -12,6 +12,7 @@ import {
     RecordSourceSelectorProxy,
     Store,
     commitLocalUpdate,
+    ReaderFragment,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -254,3 +255,78 @@ const node: ConcreteRequest = (function() {
     };
 })();
 /* tslint:enable:only-arrow-functions no-var-keyword prefer-const */
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// ReaderFragment
+// ~~~~~~~~~~~~~~~~~~~~~
+
+/*
+graphql`
+  fragment FooComponent_foo on Foo
+    @argumentDefinitions(fooSearchTerm: { type: "String" }) {
+    name
+    bars(filter: { name: { EQ: $fooSearchTerm } }) {
+      name
+    }
+  }
+`,
+ */
+const nodeFragment: ReaderFragment = {
+    argumentDefinitions: [
+        {
+            defaultValue: null,
+            kind: 'LocalArgument',
+            name: 'fooSearchTerm',
+            type: 'String',
+        },
+    ],
+    kind: 'Fragment',
+    metadata: null,
+    name: 'FooComponent_foo',
+    selections: [
+        {
+            alias: null,
+            args: null,
+            kind: 'ScalarField',
+            name: 'name',
+            storageKey: null,
+        },
+        {
+            alias: null,
+            args: [
+                {
+                    fields: [
+                        {
+                            fields: [
+                                {
+                                    kind: 'Variable',
+                                    name: 'EQ',
+                                    variableName: 'fooSearchTerm',
+                                },
+                            ],
+                            kind: 'ObjectValue',
+                            name: 'name',
+                        },
+                    ],
+                    kind: 'ObjectValue',
+                    name: 'filter',
+                },
+            ],
+            concreteType: 'Market',
+            kind: 'LinkedField',
+            name: 'bars',
+            plural: true,
+            selections: [
+                {
+                    alias: null,
+                    args: null,
+                    kind: 'ScalarField',
+                    name: 'name',
+                    storageKey: null,
+                },
+            ],
+            storageKey: null,
+        },
+    ],
+    type: 'Foo',
+};
