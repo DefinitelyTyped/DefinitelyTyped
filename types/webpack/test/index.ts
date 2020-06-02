@@ -336,6 +336,9 @@ configuration = {
         const { mainTemplate } = compilation;
         mainTemplate.requireFn.trimLeft();
         mainTemplate.outputOptions.crossOriginLoading;
+        mainTemplate.hooks.require.tap('SomePlugin', resource => {
+            return `console.log('A module is required'); ${resource}`;
+        });
         mainTemplate.hooks.requireExtensions.tap('SomePlugin', resource => {
           return resource.trimLeft();
         });
@@ -353,6 +356,10 @@ configuration = {
             } else {
                 return resource;
             }
+        });
+        mainTemplate.hooks.hash.tap('SomePlugin', hash => {
+            hash.update('SomePlugin');
+            hash.update('1');
         });
         mainTemplate.hooks.hashForChunk.tap('SomePlugin', (hash, chunk) => {
             if (chunk.name) {

@@ -1166,10 +1166,12 @@ declare namespace webpack {
         class MainTemplate extends Tapable {
           hooks: {
             jsonpScript?: SyncWaterfallHook<string, Chunk, string>;
+            require: SyncWaterfallHook<string, Chunk, string>;
             requireExtensions: SyncWaterfallHook<string, Chunk, string>;
             requireEnsure: SyncWaterfallHook<string, Chunk, string>;
             localVars: SyncWaterfallHook<string, Chunk, string>;
             afterStartup: SyncWaterfallHook<string, Chunk, string>;
+            hash: SyncHook<CryptoHash>;
             hashForChunk: SyncHook<CryptoHash, Chunk>;
           };
           outputOptions: Output;
