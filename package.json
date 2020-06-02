@@ -27,7 +27,7 @@
         "dtslint": "latest",
         "prettier": "^2.0.2",
         "@definitelytyped/dtslint-runner": "latest",
-        "typescript": "^3.8.3"
+        "typescript": "next"
     },
     "husky": {
         "hooks": {
