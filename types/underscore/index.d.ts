@@ -136,6 +136,8 @@ declare module _ {
 
     type TypeOfListItem<T> = T extends _.List<infer TItem> ? TItem : never;
 
+    type PropertyNamesOfType<T, P> = { [K in keyof T]: T[K] extends P ? K : never }[keyof T];
+
     type ShallowFlattenedList<T> = T extends _.List<infer TItem> ? TItem[] : T[];
 
     // unfortunately it's not possible to recursively collapse all possible list dimensions to T[] at this time,
@@ -573,11 +575,11 @@ declare module _ {
         * @param list Finds the maximum value in this list.
         * @param iterator Compares each element in `list` to find the maximum value.
         * @param context `this` object in `iterator`, optional.
-        * @return The maximum element within `list`.
+        * @return The maximum element within `list` or -Infinity if the list is empty.
         **/
         max<T>(
             list: _.List<T>,
-            iterator?: _.ListIterator<T, any>,
+            iterator?: _.ListIterator<T, number>,
             context?: any): T;
 
         /**
@@ -585,15 +587,15 @@ declare module _ {
         */
         max<T>(
             object: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, any>,
-            context?: any): T;
+            iterator?: _.ObjectIterator<T, number>,
+            context?: any): T | number;
 
         /**
         * @see _.max
         */
         max<T>(
             collection: _.Collection<T>,
-            iterator?: keyof T): T;
+            iterator?: PropertyNamesOfType<T, number>): T | number;
 
         /**
         * Returns the minimum value in list.
@@ -608,27 +610,27 @@ declare module _ {
         * @param list Finds the minimum value in this list.
         * @param iterator Compares each element in `list` to find the minimum value.
         * @param context `this` object in `iterator`, optional.
-        * @return The minimum element within `list`.
+        * @return The minimum element within `list` or Infinity if the list is empty.
         **/
         min<T>(
             list: _.List<T>,
-            iterator?: _.ListIterator<T, any>,
-            context?: any): T;
+            iterator?: _.ListIterator<T, number>,
+            context?: any): T | number;
 
         /**
         * @see _.min
         */
         min<T>(
             object: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, any>,
-            context?: any): T;
+            iterator?: _.ObjectIterator<T, number>,
+            context?: any): T | number;
 
         /**
         * @see _.min
         */
         min<T>(
             collection: _.Collection<T>,
-            iterator?: keyof T): T;
+            iterator?: PropertyNamesOfType<T, number>): T | number;
 
         /**
         * Returns a sorted copy of list, ranked in ascending order by the results of running each value
@@ -4300,23 +4302,23 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.max
         **/
-        max(iterator?: _.CollectionIterator<V, T, any>, context?: any): T;
+        max(iterator?: _.CollectionIterator<V, T, number>, context?: any): T | number;
 
         /**
         * @see _.max
         */
-        max(iterator?: keyof T): T;
+        max(iterator?: PropertyNamesOfType<T, number>): T | number;
 
         /**
         * Wrapped type `any[]`.
         * @see _.min
         **/
-        min(iterator?: _.CollectionIterator<V, T, any>, context?: any): T;
+        min(iterator?: _.CollectionIterator<V, T, number>, context?: any): T | number;
 
         /**
         * @see _.min
         */
-        min(iterator?: keyof T): T;
+        min(iterator?: PropertyNamesOfType<T, number>): T | number;
 
         /**
         * Wrapped type `any[]`.
@@ -5231,25 +5233,25 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.max
         **/
-        max(iterator?: _.CollectionIterator<V, T, any>, context?: any): _Chain<T>;
+        max(iterator?: _.CollectionIterator<V, T, number>, context?: any): _Chain<T | number>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.max
         */
-        max(iterator?: keyof T): _Chain<T>;
+        max(iterator?: PropertyNamesOfType<T, number>): _Chain<T | number>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.min
         **/
-        min(iterator?: _.CollectionIterator<V, T, any>, context?: any): _Chain<T>;
+        min(iterator?: _.CollectionIterator<V, T, number>, context?: any): _Chain<T | number>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.min
         */
-        min(iterator?: keyof T): _Chain<T>;
+        min(iterator?: PropertyNamesOfType<T, number>): _Chain<T | number>;
 
         /**
         * Wrapped type `any[]`.

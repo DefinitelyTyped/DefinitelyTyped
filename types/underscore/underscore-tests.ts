@@ -2860,10 +2860,6 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 }
 
 // max
-// as a breaking change, consider making the return type for the version of max that takes an iterator T | number
-// since an empty collection will result in -Infinity
-// as a breaking change, consider updating the overloads of max to take iterators with number results instead of any
-// since the only other type that doesn't yield -Infinity is booleans, which isn't a terribly interesting case
 {
     // without iterator
     {
@@ -2916,7 +2912,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     // function iterator
     {
-        let result: SimpleNumberObject;
+        let result: SimpleNumberObject | number;
 
         result = _.max<SimpleNumberObject>(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator);
         result = _.max<SimpleNumberObject>(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator, context);
@@ -2940,7 +2936,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     }
 
     {
-        let result: SimpleNumberObject;
+        let result: SimpleNumberObject | number;
 
         result = _.max<SimpleNumberObject>(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator);
         result = _.max<SimpleNumberObject>(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator, context);
@@ -2964,7 +2960,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     }
 
     {
-        let result: SimpleNumberObject;
+        let result: SimpleNumberObject | number;
 
         result = _.max<SimpleNumberObject>(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator);
         result = _.max<SimpleNumberObject>(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator, context);
@@ -2989,7 +2985,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     // property name iterator
     {
-        let result: SimpleNumberObject;
+        let result: SimpleNumberObject | number;
 
         result = _.max<SimpleNumberObject>(simpleNumberObjectArray, simpleObjectPropertyName);
         result = _.max(simpleNumberObjectArray, simpleObjectPropertyName);
@@ -3002,7 +2998,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     }
 
     {
-        let result: SimpleNumberObject;
+        let result: SimpleNumberObject | number;
 
         result = _.max<SimpleNumberObject>(simpleNumberObjectList, simpleObjectPropertyName);
         result = _.max(simpleNumberObjectList, simpleObjectPropertyName);
@@ -3015,7 +3011,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     }
 
     {
-        let result: SimpleNumberObject;
+        let result: SimpleNumberObject | number;
 
         result = _.max<SimpleNumberObject>(simpleNumberObjectDictionary, simpleObjectPropertyName);
         result = _.max(simpleNumberObjectDictionary, simpleObjectPropertyName);
@@ -3029,10 +3025,6 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 }
 
 // min
-// as a breaking change, consider making the return type for the version of min that takes an iterator T | number
-// since an empty collection will result in -Infinity
-// as a breaking change, consider updating the overloads of min to take iterators with number results instead of any
-// since the only other type that doesn't yield -Infinity is booleans, which isn't a terribly interesting case
 {
     // without iterator
     {
@@ -3085,7 +3077,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     // function iterator
     {
-        let result: SimpleNumberObject;
+        let result: SimpleNumberObject | number;
 
         result = _.min<SimpleNumberObject>(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator);
         result = _.min<SimpleNumberObject>(simpleNumberObjectArray, simpleNumberObjectListPropertySelectingIterator, context);
@@ -3109,7 +3101,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     }
 
     {
-        let result: SimpleNumberObject;
+        let result: SimpleNumberObject | number;
 
         result = _.min<SimpleNumberObject>(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator);
         result = _.min<SimpleNumberObject>(simpleNumberObjectList, simpleNumberObjectListPropertySelectingIterator, context);
@@ -3133,7 +3125,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     }
 
     {
-        let result: SimpleNumberObject;
+        let result: SimpleNumberObject | number;
 
         result = _.min<SimpleNumberObject>(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator);
         result = _.min<SimpleNumberObject>(simpleNumberObjectDictionary, simpleNumberObjectDictionaryPropertySelectingIterator, context);
@@ -3158,7 +3150,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
     // property name iterator
     {
-        let result: SimpleNumberObject;
+        let result: SimpleNumberObject | number;
 
         result = _.min<SimpleNumberObject>(simpleNumberObjectArray, simpleObjectPropertyName);
         result = _.min(simpleNumberObjectArray, simpleObjectPropertyName);
@@ -3171,7 +3163,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     }
 
     {
-        let result: SimpleNumberObject;
+        let result: SimpleNumberObject | number;
 
         result = _.min<SimpleNumberObject>(simpleNumberObjectList, simpleObjectPropertyName);
         result = _.min(simpleNumberObjectList, simpleObjectPropertyName);
@@ -3184,7 +3176,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     }
 
     {
-        let result: SimpleNumberObject;
+        let result: SimpleNumberObject | number;
 
         result = _.min<SimpleNumberObject>(simpleNumberObjectDictionary, simpleObjectPropertyName);
         result = _.min(simpleNumberObjectDictionary, simpleObjectPropertyName);
