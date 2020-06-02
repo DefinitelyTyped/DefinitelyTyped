@@ -23,10 +23,10 @@
         "prettier": "prettier"
     },
     "devDependencies": {
+        "@definitelytyped/dtslint-runner": "latest",
         "danger": "^10.1.1",
         "dtslint": "latest",
         "prettier": "^2.0.2",
-        "@definitelytyped/dtslint-runner": "latest",
         "typescript": "next"
     },
     "husky": {
