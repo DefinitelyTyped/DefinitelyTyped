@@ -42,6 +42,7 @@ export interface ReactDatePickerProps {
     clearButtonTitle?: string;
     customInput?: React.ReactNode;
     customInputRef?: string;
+    customTimeInput?: React.ReactNode;
     dateFormat?: string | string[];
     dateFormatCalendar?: string;
     dayClassName?(date: Date): string | null;
