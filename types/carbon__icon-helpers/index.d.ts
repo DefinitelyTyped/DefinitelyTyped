@@ -8,6 +8,7 @@ export const defaultAttributes: {
     focusable: string;
     preserveAspectRatio: string;
 };
+
 export function getAttributes({
     width,
     height,
@@ -29,6 +30,7 @@ export function getAttributes({
     focusable: string;
     preserveAspectRatio: string;
 };
+
 export function toString(descriptor: any): string;
 export function formatAttributes(attrs: any): string;
 export function toSVG(descriptor: any): SVGSVGElement;
