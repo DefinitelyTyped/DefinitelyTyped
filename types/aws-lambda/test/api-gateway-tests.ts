@@ -291,6 +291,17 @@ const proxyHandlerV2ForObjectResultFailure: APIGatewayProxyHandlerV2<Response> =
     return result;
 };
 
+// $ExpectError
+const proxyHandlerV2ForObjectResultFailure2: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
+    const result = {
+        wrongExample: 'wrong example',
+    };
+
+    callback(new Error());
+    callback(undefined, result); // $ExpectError
+    return result;
+};
+
 const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback) => {
     if (event.type === "TOKEN") {
         str = event.methodArn;

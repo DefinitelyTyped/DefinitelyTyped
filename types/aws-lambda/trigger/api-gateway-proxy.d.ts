@@ -19,7 +19,7 @@ export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
  * Works with HTTP API integration Payload Format version 2.0
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
-export type APIGatewayProxyHandlerV2<T = object> = Handler<APIGatewayProxyEventV2, APIGatewayProxyResultV2<T>>;
+export type APIGatewayProxyHandlerV2<T = never> = Handler<APIGatewayProxyEventV2, APIGatewayProxyResultV2<T>>;
 /**
  * Works with HTTP API integration Payload Format version 2.0
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
@@ -139,7 +139,7 @@ export interface APIGatewayProxyEventV2 {
  * Works with HTTP API integration Payload Format version 2.0
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
-export type APIGatewayProxyResultV2<T = object> = APIGatewayProxyStructuredResultV2 | string | T;
+export type APIGatewayProxyResultV2<T = never> = APIGatewayProxyStructuredResultV2 | string | T;
 
 /**
  * Interface for structured response with `statusCode` and`headers`
