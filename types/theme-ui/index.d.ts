@@ -75,7 +75,7 @@ export type ColorMode = {
     accent?: CSS.ColorProperty;
 };
 
-export interface Theme extends Omit<Omit<StyledSystemTheme, 'colors'>, 'buttons'> {
+export interface Theme extends Omit<StyledSystemTheme, 'colors' | 'buttons'> {
     /**
      * Enable/disable custom CSS properties/variables if lower browser
      * support is required (for eg. IE 11).
