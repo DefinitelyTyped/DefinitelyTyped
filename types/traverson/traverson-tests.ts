@@ -9,11 +9,11 @@ function testTraverson() {
         .from('http://example.api.com/')
         .follow('link_to')
         .withTemplateParameters({ id: 1 })
-        .get(function (error, document, traversal) {
+        .get((error, document, traversal) => {
             traversal
                 .continue()
                 .follow('link_back')
-                .get(function (error, document, traversal) {
+                .get((error, document, traversal) => {
                     ///
                 });
         });
