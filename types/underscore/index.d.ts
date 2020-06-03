@@ -87,25 +87,25 @@ declare module _ {
         (value: T): boolean;
     }
 
-    interface ListIterator<T, TResult> {
-        (value: T, index: number, list: List<T>): TResult;
+    interface ListIterator<T, TResult, V = List<T>> {
+        (value: T, index: number, list: V): TResult;
     }
 
-    interface ObjectIterator<T, TResult> {
-        (element: T, key: string, list: Dictionary<T>): TResult;
+    interface ObjectIterator<T, TResult, V = Dictionary<T>> {
+        (element: T, key: string, list: V): TResult;
     }
 
-    type CollectionIterator<V, T, TResult> = V extends List<T> ? ListIterator<T, TResult> : ObjectIterator<T, TResult>;
+    type CollectionIterator<T, TResult, V> = V extends List<T> ? ListIterator<T, TResult, V> : ObjectIterator<T, TResult, V>;
 
-    interface MemoIterator<T, TResult> {
-        (prev: TResult, curr: T, index: number, list: List<T>): TResult;
+    interface MemoIterator<T, TResult, V = List<T>> {
+        (prev: TResult, curr: T, index: number, list: V): TResult;
     }
 
-    interface MemoObjectIterator<T, TResult> {
-        (prev: TResult, curr: T, key: string, list: Dictionary<T>): TResult;
+    interface MemoObjectIterator<T, TResult, V = Dictionary<T>> {
+        (prev: TResult, curr: T, key: string, list: V): TResult;
     }
 
-    type MemoCollectionIterator<V, T, TResult> = V extends List<T> ? MemoIterator<T, TResult> : MemoObjectIterator<T, TResult>;
+    type MemoCollectionIterator<T, TResult, V> = V extends List<T> ? MemoIterator<T, TResult, V> : MemoObjectIterator<T, TResult, V>;
 
     interface Cancelable {
         cancel(): void;
@@ -134,7 +134,7 @@ declare module _ {
 
     type TypeOfDictionary<T> = T extends _.Dictionary<infer V> ? V : never;
 
-    type TypeOfListItem<T> = T extends _.List<infer TItem> ? TItem : never;
+    type TypeOfList<T> = T extends _.List<infer TItem> ? TItem : never;
 
     type PropertyNamesOfType<T, P> = { [K in keyof T]: T[K] extends P ? K : never }[keyof T];
 
@@ -158,10 +158,9 @@ declare module _ {
         * as the first parameter can be invoked through this function.
         * @param key First argument to Underscore object functions.
         **/
-        <T>(value: T[]): Underscore<T, T[]>;
-        <T>(value: _.List<T>): Underscore<T, _.List<T>>;
-        <T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(value: V): Underscore<T, V>;
-        <T>(value: T): Underscore<T>;
+        <V extends _.List<any>, T extends _.TypeOfList<V> = _.TypeOfList<V>>(value: V): Underscore<T, V>;
+        <V extends _.Dictionary<any>, T extends _.TypeOfDictionary<V> = _.TypeOfDictionary<V>>(value: V): Underscore<T, V>;
+        <V>(value: V): Underscore<V>;
 
         /* *************
         * Collections *
@@ -178,7 +177,7 @@ declare module _ {
         **/
         each<T>(
             list: T[],
-            iterator: _.ListIterator<T, void>,
+            iterator: _.ListIterator<T, void, T[]>,
             context?: any): T[];
 
         /**
@@ -4103,10 +4102,9 @@ declare module _ {
         * @param obj Object to chain.
         * @return Wrapped `obj`.
         **/
-        chain<T>(obj: T[]): _Chain<T, T[]>;
-        chain<T>(obj: _.List<T>): _Chain<T, _.List<T>>;
-        chain<T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(obj: V): _Chain<T, V>;
-        chain<T>(obj: T): _Chain<T>;
+        chain<V extends _.List<any>, T extends _.TypeOfList<V> = _.TypeOfList<V>>(value: V): _Chain<T, V>;
+        chain<V extends _.Dictionary<any>, T extends _.TypeOfDictionary<V> = _.TypeOfDictionary<V>>(value: V): _Chain<T, V>;
+        chain<V>(value: V): _Chain<V>;
 
         /**
          * Current version
@@ -4124,7 +4122,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.each
         **/
-        each(iterator: _.CollectionIterator<V, T, void>, context?: any): V;
+        each(iterator: _.CollectionIterator<T, void, V>, context?: any): V;
 
         /**
         * @see _.each
@@ -4135,7 +4133,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TResult>(iterator: _.CollectionIterator<V, T, TResult>, context?: any): TResult[];
+        map<TResult>(iterator: _.CollectionIterator<T, TResult, V>, context?: any): TResult[];
 
         /**
         * Wrapped type `any[]`.
@@ -4158,7 +4156,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.reduce
         **/
-        reduce<TResult>(iterator: _.MemoCollectionIterator<V, T, TResult>, memo?: TResult, context?: any): TResult;
+        reduce<TResult>(iterator: _.MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: any): TResult;
 
         /**
         * @see _.reduce
@@ -4174,7 +4172,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.reduceRight
         **/
-        reduceRight<TResult>(iterator: _.MemoCollectionIterator<V, T, TResult>, memo?: TResult, context?: any): TResult;
+        reduceRight<TResult>(iterator: _.MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: any): TResult;
 
         /**
         * @see _.reduceRight
@@ -4185,7 +4183,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.find
         **/
-        find(iterator: _.CollectionIterator<V, T, boolean>, context?: any): T | undefined;
+        find(iterator: _.CollectionIterator<T, boolean, V>, context?: any): T | undefined;
 
         /**
         * @see _.find
@@ -4201,7 +4199,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.filter
         **/
-        filter(iterator: _.CollectionIterator<V, T, boolean>, context?: any): T[];
+        filter(iterator: _.CollectionIterator<T, boolean, V>, context?: any): T[];
 
         /**
         * @see _.filter
@@ -4229,7 +4227,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.reject
         **/
-        reject(iterator: _.CollectionIterator<V, T, boolean>, context?: any): T[];
+        reject(iterator: _.CollectionIterator<T, boolean, V>, context?: any): T[];
 
         /**
         * @see _.reject
@@ -4240,7 +4238,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.every
         **/
-        every(iterator?: _.CollectionIterator<V, T, boolean>, context?: any): boolean;
+        every(iterator?: _.CollectionIterator<T, boolean, V>, context?: any): boolean;
 
         /**
         * @see _.every
@@ -4256,7 +4254,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.some
         **/
-        some(iterator?: _.CollectionIterator<V, T, boolean>, context?: any): boolean;
+        some(iterator?: _.CollectionIterator<T, boolean, V>, context?: any): boolean;
 
         /**
         * @see _.some
@@ -4302,7 +4300,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.max
         **/
-        max(iterator?: _.CollectionIterator<V, T, number>, context?: any): T | number;
+        max(iterator?: _.CollectionIterator<T, number, V>, context?: any): T | number;
 
         /**
         * @see _.max
@@ -4313,7 +4311,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.min
         **/
-        min(iterator?: _.CollectionIterator<V, T, number>, context?: any): T | number;
+        min(iterator?: _.CollectionIterator<T, number, V>, context?: any): T | number;
 
         /**
         * @see _.min
@@ -4324,7 +4322,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sortBy
         **/
-        sortBy(iterator?: _.CollectionIterator<V, T, any>, context?: any): T[];
+        sortBy(iterator?: _.CollectionIterator<T, any, V>, context?: any): T[];
 
         /**
         * Wrapped type `any[]`.
@@ -4336,7 +4334,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.groupBy
         **/
-        groupBy(iterator?: _.CollectionIterator<V, T, any>, context?: any): _.Dictionary<T[]>;
+        groupBy(iterator?: _.CollectionIterator<T, any, V>, context?: any): _.Dictionary<T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -4348,7 +4346,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.indexBy
         **/
-        indexBy(iterator: _.CollectionIterator<V, T, any>, context?: any): _.Dictionary<T>;
+        indexBy(iterator: _.CollectionIterator<T, any, V>, context?: any): _.Dictionary<T>;
 
         /**
         * Wrapped type `any[]`.
@@ -4360,7 +4358,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.countBy
         **/
-        countBy(iterator?: _.CollectionIterator<V, T, any>, context?: any): _.Dictionary<number>;
+        countBy(iterator?: _.CollectionIterator<T, any, V>, context?: any): _.Dictionary<number>;
 
         /**
         * Wrapped type `any[]`.
@@ -4484,7 +4482,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.partition
         **/
-        partition(iterator: _.CollectionIterator<V, T, boolean>, context?: any): [T[], T[]];
+        partition(iterator: _.CollectionIterator<T, boolean, V>, context?: any): [T[], T[]];
 
         /**
         * Wrapped type `any[]`.
@@ -4514,13 +4512,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> | keyof T, cotext?: any): T[];
+        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any, V> | keyof T, cotext?: any): T[];
 
         /**
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq(iterator?: _.ListIterator<T, any> | keyof T, context?: any): T[];
+        uniq(iterator?: _.ListIterator<T, any, V> | keyof T, context?: any): T[];
 
         /**
         * @see _.uniq
@@ -4571,18 +4569,18 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>, context?: any): number;
+        findIndex(predicate: _.ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: any): number;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>, context?: any): number;
+        findLastIndex(predicate: _.ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: any): number;
 
         /**
         * Wrapped type `any[]`.
         * @see _.sortedIndex
         **/
-        sortedIndex(value: T, iterator?: _.ListIterator<T, any> | keyof T, context?: any): number;
+        sortedIndex(value: T, iterator?: _.ListIterator<T, any, V> | keyof T, context?: any): number;
 
         /**
         * Wrapped type `number`.
@@ -4756,7 +4754,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.extend
         **/
-        findKey(predicate: _.ObjectIterator<any, boolean>, context?: any): any
+        findKey(predicate: _.ObjectIterator<any, boolean, V>, context?: any): any
 
         /**
         * Wrapped type `object`.
@@ -4764,7 +4762,7 @@ declare module _ {
         **/
         pick<K extends keyof V>(...keys: K[]): Pick<V, K>;
         pick<K extends keyof V>(keys: K[]): Pick<V, K>;
-        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean>): Pick<V, K>;
+        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean, V>): Pick<V, K>;
 
         /**
         * Wrapped type `object`.
@@ -4808,13 +4806,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.matches
         **/
-        matches(): _.ListIterator<T, boolean>;
+        matches(): _.ListIterator<T, boolean, V>;
 
         /**
          * Wrapped type `any[]`.
          * @see _.matcher
          **/
-        matcher(): _.ListIterator<T, boolean>;
+        matcher(): _.ListIterator<T, boolean, V>;
 
         /**
         * Wrapped type `string`.
@@ -5051,7 +5049,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.each
         **/
-        each(iterator: _.CollectionIterator<V, T, void>, context?: any): _Chain<T, V>;
+        each(iterator: _.CollectionIterator<T, void, V>, context?: any): _Chain<T, V>;
 
         /**
         * @see _.each
@@ -5062,7 +5060,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TResult>(iterator: _.CollectionIterator<V, T, TResult>, context?: any):  _Chain<TResult, TResult[]>;
+        map<TResult>(iterator: _.CollectionIterator<T, TResult, V>, context?: any):  _Chain<TResult, TResult[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5085,7 +5083,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.reduce
         **/
-        reduce<TResult>(iterator: _.MemoCollectionIterator<V, T, TResult>, memo?: TResult, context?: any): _Chain<TResult>;
+        reduce<TResult>(iterator: _.MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: any): _Chain<TResult>;
 
         /**
         * @see _.reduce
@@ -5101,7 +5099,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.reduceRight
         **/
-        reduceRight<TResult>(iterator: _.MemoCollectionIterator<V, T, TResult>, memo?: TResult, context?: any): _Chain<TResult>;
+        reduceRight<TResult>(iterator: _.MemoCollectionIterator<T, TResult, V>, memo?: TResult, context?: any): _Chain<TResult>;
 
         /**
         * @see _.reduceRight
@@ -5112,7 +5110,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.find
         **/
-        find(iterator: _.CollectionIterator<V, T, boolean>, context?: any): _Chain<T | undefined>;
+        find(iterator: _.CollectionIterator<T, boolean, V>, context?: any): _Chain<T | undefined>;
 
         /**
         * @see _.find
@@ -5128,7 +5126,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.filter
         **/
-        filter(iterator: _.CollectionIterator<V, T, boolean>, context?: any): _Chain<T, T[]>;
+        filter(iterator: _.CollectionIterator<T, boolean, V>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5157,7 +5155,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.reject
         **/
-        reject(iterator: _.CollectionIterator<V, T, boolean>, context?: any): _Chain<T, T[]>;
+        reject(iterator: _.CollectionIterator<T, boolean, V>, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5169,7 +5167,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.every
         **/
-        every(iterator?: _.CollectionIterator<V, T, boolean>, context?: any): _Chain<boolean>;
+        every(iterator?: _.CollectionIterator<T, boolean, V>, context?: any): _Chain<boolean>;
 
         /**
         * Wrapped type `any[]`.
@@ -5186,7 +5184,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.some
         **/
-        some(iterator?: _.CollectionIterator<V, T, boolean>, context?: any): _Chain<boolean>;
+        some(iterator?: _.CollectionIterator<T, boolean, V>, context?: any): _Chain<boolean>;
 
         /**
         * Wrapped type `any[]`.
@@ -5233,7 +5231,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.max
         **/
-        max(iterator?: _.CollectionIterator<V, T, number>, context?: any): _Chain<T | number>;
+        max(iterator?: _.CollectionIterator<T, number, V>, context?: any): _Chain<T | number>;
 
         /**
         * Wrapped type `any[]`.
@@ -5245,7 +5243,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.min
         **/
-        min(iterator?: _.CollectionIterator<V, T, number>, context?: any): _Chain<T | number>;
+        min(iterator?: _.CollectionIterator<T, number, V>, context?: any): _Chain<T | number>;
 
         /**
         * Wrapped type `any[]`.
@@ -5257,7 +5255,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sortBy
         **/
-        sortBy(iterator?: _.CollectionIterator<V, T, any> , context?: any): _Chain<T, T[]>;
+        sortBy(iterator?: _.CollectionIterator<T, any, V> , context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5269,7 +5267,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.groupBy
         **/
-        groupBy(iterator?: _.CollectionIterator<V, T, any>, context?: any): _Chain<T[], _.Dictionary<T[]>>;
+        groupBy(iterator?: _.CollectionIterator<T, any, V>, context?: any): _Chain<T[], _.Dictionary<T[]>>;
 
         /**
         * Wrapped type `any[]`.
@@ -5281,7 +5279,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.indexBy
         **/
-        indexBy(iterator: _.CollectionIterator<V, T, any>, context?: any): _Chain<T, _.Dictionary<T>>;
+        indexBy(iterator: _.CollectionIterator<T, any, V>, context?: any): _Chain<T, _.Dictionary<T>>;
 
         /**
         * Wrapped type `any[]`.
@@ -5293,7 +5291,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.countBy
         **/
-        countBy(iterator?: _.CollectionIterator<V, T, any>, context?: any): _Chain<number, _.Dictionary<number>>;
+        countBy(iterator?: _.CollectionIterator<T, any, V>, context?: any): _Chain<number, _.Dictionary<number>>;
 
         /**
         * Wrapped type `any[]`.
@@ -5400,12 +5398,12 @@ declare module _ {
         * Wrapped type `any`.
         * @see _.flatten
         **/
-        flatten(shallow?: false): _Chain<TypeOfListItem<DeepFlattenedList<T>>, DeepFlattenedList<T>>;
+        flatten(shallow?: false): _Chain<TypeOfList<DeepFlattenedList<T>>, DeepFlattenedList<T>>;
 
         /**
         * @see _.flatten
         **/
-        flatten(shallow: true): _Chain<TypeOfListItem<ShallowFlattenedList<T>>, ShallowFlattenedList<T>>;
+        flatten(shallow: true): _Chain<TypeOfList<ShallowFlattenedList<T>>, ShallowFlattenedList<T>>;
 
         /**
         * Wrapped type `any[]`.
@@ -5417,7 +5415,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.partition
         **/
-        partition(iterator: _.CollectionIterator<V, T, boolean>, context?: any): _Chain<T[], [T[], T[]]>;
+        partition(iterator: _.CollectionIterator<T, boolean, V>, context?: any): _Chain<T[], [T[], T[]]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5447,13 +5445,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any> | keyof T, context?: any): _Chain<T, T[]>;
+        uniq(isSorted?: boolean, iterator?: _.ListIterator<T, any, V> | keyof T, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.uniq
         **/
-        uniq(iterator?: _.ListIterator<T, any> | keyof T, context?: any): _Chain<T, T[]>;
+        uniq(iterator?: _.ListIterator<T, any, V> | keyof T, context?: any): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5503,18 +5501,18 @@ declare module _ {
         /**
         * @see _.findIndex
         **/
-        findIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>, context?: any): _Chain<number>;
+        findIndex(predicate: _.ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: any): _Chain<number>;
 
         /**
         * @see _.findLastIndex
         **/
-        findLastIndex(predicate: _.ListIterator<T, boolean> | Partial<T> | KeysOfUnion<T>, context?: any): _Chain<number>;
+        findLastIndex(predicate: _.ListIterator<T, boolean, V> | Partial<T> | KeysOfUnion<T>, context?: any): _Chain<number>;
 
         /**
         * Wrapped type `any[]`.
         * @see _.sortedIndex
         **/
-        sortedIndex(value: T, iterator?: _.ListIterator<T, any> | keyof T, context?: any): _Chain<number>;
+        sortedIndex(value: T, iterator?: _.ListIterator<T, any, V> | keyof T, context?: any): _Chain<number>;
 
         /**
         * Wrapped type `number`.
@@ -5659,7 +5657,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.mapObject
         **/
-        mapObject(fn: _.ListIterator<T, any>): _Chain<T>;
+        mapObject(fn: _.ListIterator<T, any, V>): _Chain<T>;
 
         /**
         * Wrapped type `object`.
@@ -5694,7 +5692,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.extend
         **/
-        findKey(predicate: _.ObjectIterator<any, boolean>, context?: any): _Chain<T>
+        findKey(predicate: _.ObjectIterator<any, boolean, V>, context?: any): _Chain<T>
 
         /**
         * Wrapped type `object`.
@@ -5702,7 +5700,7 @@ declare module _ {
         **/
         pick<K extends keyof V>(...keys: K[]): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
         pick<K extends keyof V>(keys: K[]): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
-        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean>): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
+        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean, V>): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
 
         /**
         * Wrapped type `object`.
