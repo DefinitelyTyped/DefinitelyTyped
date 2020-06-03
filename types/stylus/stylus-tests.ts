@@ -114,4 +114,3 @@ stylus.url({ paths: ['./test'], limit: 100 });
 stylus.url({ path: './test' }); // $ExpectError
 stylus.url({ limit: '100' }); // $ExpectError
 stylus.url({ limit: true }); // $ExpectError
-
