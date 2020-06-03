@@ -605,7 +605,7 @@ declare namespace Stylus {
     }
 
     export interface UrlFunction {
-        (options: UrlOptions): LiteralFunction;
+        (options?: UrlOptions): LiteralFunction;
 
         mimes: {
             ".gif": string;
@@ -1421,7 +1421,7 @@ declare namespace Stylus {
     export type RenderCallback = (err: Error, css: string, js: string) => void;
 
     export interface UrlOptions {
-        limit?: string;
+        limit?: number;
         paths?: string[];
     }
 
