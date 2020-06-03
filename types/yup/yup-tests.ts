@@ -367,7 +367,7 @@ strSchema.uppercase('upper');
 strSchema.uppercase(() => 'upper');
 strSchema.defined();
 strSchema.default();
-strSchema.defined().default("abc"); // $ExpectType StringSchema<string | null | undefined>
+strSchema.defined().default("abc"); // $ExpectType StringSchema<string | undefined>
 
 // $ExpectError
 yup.string<123>();
@@ -414,7 +414,7 @@ numSchema.equals([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined
 numSchema.required().oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2>
 numSchema.defined();
 numSchema.default();
-numSchema.defined().default(1); // $ExpectType NumberSchema<number | null | undefined>
+numSchema.defined().default(1); // $ExpectType NumberSchema<number | undefined>
 
 // Boolean Schema
 const boolSchema = yup.boolean(); // $ExpectType BooleanSchema<boolean | undefined>
@@ -425,7 +425,7 @@ boolSchema.equals([true] as const); // $ExpectType BooleanSchema<true | undefine
 boolSchema.required().oneOf([true] as const); // $ExpectType BooleanSchema<true>
 boolSchema.defined();
 boolSchema.default();
-boolSchema.defined().default(true); // $ExpectType BooleanSchema<boolean | null | undefined>
+boolSchema.defined().default(true); // $ExpectType BooleanSchema<boolean | undefined>
 
 // Date Schema
 const dateSchema = yup.date(); // $ExpectType DateSchema<Date | undefined>
@@ -445,7 +445,7 @@ dateSchema.oneOf([new Date()] as const); // $ExpectType DateSchema<Date | undefi
 dateSchema.equals([new Date()] as const); // $ExpectType DateSchema<Date | undefined>
 dateSchema.required().oneOf([new Date()] as const); // $ExpectType DateSchema<Date>
 dateSchema.default();
-dateSchema.defined().default(new Date()); // $ExpectType DateSchema<Date | null | undefined>
+dateSchema.defined().default(new Date()); // $ExpectType DateSchema<Date | undefined>
 
 // Array Schema
 const arrSchema = yup.array().of(yup.number().defined().min(2));
@@ -474,7 +474,7 @@ arrSchema.oneOf([]); // $ExpectType NotRequiredArraySchema<number>
 arrSchema.equals([]); // $ExpectType NotRequiredArraySchema<number>
 arrSchema.defined();
 arrSchema.default();
-arrSchema.defined().default([123]); // $ExpectType NotRequiredNullableArraySchema<number>
+arrSchema.defined().default([123]); // $ExpectType NotRequiredArraySchema<number>
 
 const arrOfObjSchema = yup.array().defined().of(
     yup.object().defined().shape({
