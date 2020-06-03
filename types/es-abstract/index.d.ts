@@ -1,5 +1,5 @@
 // Type definitions for es-abstract 1.16
-// Project: https://github.com/ljharb/es-abstract#readme
+// Project: https://github.com/ljharb/es-abstract
 // Definitions by: Jordan Harband <https://github.com/ljharb>
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
