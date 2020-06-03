@@ -10,8 +10,13 @@ export = traverson;
 
 declare namespace Traverson {
     interface TraversonMethods {
+        newRequest(): Builder;
         from(uri: string): Builder;
+        json(): Builder;
+        jsonHal(): Builder;
         registerMediaType(name: string, handler: any): TraversonMethods;
+        mediaTypes(): TraversonMethods;
+        errors(): TraversonMethods;
     }
 
     interface Builder {
