@@ -6,6 +6,7 @@
 //                 Vesa Poikajärvi <https://github.com/vesse>
 //                 Philipp Katz <https://github.com/qqilihq>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 ksewo <https://github.com/ksewo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
