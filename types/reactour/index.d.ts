@@ -250,7 +250,7 @@ export interface ReactourProps {
      */
     disableFocusLock?: boolean;
 
-    CustomHelper?: any;
+    CustomHelper?: (props: CustomHelperProps) => void;
 }
 
 export interface ReactourState {
@@ -313,3 +313,11 @@ export const Dot: React.FC<DotProps>;
 
 export type NavigationProps = React.ComponentPropsWithRef<'nav'>;
 export const Navigation: React.FC<NavigationProps>;
+
+export interface CustomHelperProps {
+    current?: number;
+    content?: React.ReactNode | ((args: ReactourStepContentArgs) => React.ReactNode);
+    totalSteps?: number;
+    gotoStep?: (step: number) => void;
+    close: () => void;
+}
