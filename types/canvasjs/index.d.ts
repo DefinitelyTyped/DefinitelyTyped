@@ -289,7 +289,7 @@ declare namespace CanvasJS {
          */
         dataPointMinWidth?: number;
 		  /**
-		 *dataPointWidth sets the width of dataPoints in column / bar, ohlc and candlestick, charts. 
+		 * dataPointWidth sets the width of dataPoints in column / bar, ohlc and candlestick, charts. 
 		 * This allows you to fix the width of dataPoints *such that their width doesn’t change when the total number of dataPoints varies. 
 		 * At the same time, when the number of dataPoints increase, *it can lead to overlap if dataPointWidth is not set properly.
          * This allows you to set the width of dataPoints
