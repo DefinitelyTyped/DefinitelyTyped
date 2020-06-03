@@ -1,19 +1,23 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["ESNext"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "strictNullChecks": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "es-abstract-tests.ts",
-        "index.d.ts"
+        "index.d.ts",
+        "passport-instagram-token-tests.ts"
     ]
 }

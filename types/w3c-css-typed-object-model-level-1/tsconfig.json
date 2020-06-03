@@ -1,19 +1,24 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["ESNext"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "es-abstract-tests.ts",
-        "index.d.ts"
+        "index.d.ts",
+        "w3c-css-typed-object-model-level-1-tests.ts"
     ]
 }

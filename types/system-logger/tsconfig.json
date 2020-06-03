@@ -1,19 +1,25 @@
+
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["ESNext"],
+        "lib": [
+            "es6"
+        ],
+        "target": "es2017",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "es-abstract-tests.ts",
-        "index.d.ts"
+        "index.d.ts",
+        "system-logger-tests.ts"
     ]
 }
