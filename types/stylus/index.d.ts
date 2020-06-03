@@ -1422,7 +1422,7 @@ declare namespace Stylus {
 
     export interface UrlOptions {
         limit?: string;
-        path: string;
+        paths?: string[];
     }
 
     export interface LiteralFunction {
