@@ -17,6 +17,14 @@ function test_terms() {
     namedNodeEqual = namedNode.equals(null);
     namedNodeEqual = namedNode.equals(undefined);
 
+    const namedNodeConstant: NamedNode<'http://example.org'> = <any> {};
+    const constantIri: 'http://example.org' = namedNodeConstant.value;
+    // $ExpectError
+    const otherConstantIri: 'http://not-example.org' = namedNodeConstant.value;
+    // $ExpectError
+    const otherNamedNodeConstant: NamedNode<'http://not-example.org'> = namedNodeConstant;
+    const regularNamedNode: NamedNode = namedNodeConstant;
+
     const blankNode: BlankNode = <any> {};
     const termType2: string = blankNode.termType;
     const value2: string = blankNode.value;
@@ -61,6 +69,11 @@ function test_datafactory() {
     const dataFactory: DataFactory = <any> {};
 
     const namedNode: NamedNode = dataFactory.namedNode('http://example.org');
+    const constantValue: 'http://example.org' = dataFactory.namedNode('http://example.org').value;
+    // $ExpectError
+    const otherConstantValue: 'http://not-example.org' = dataFactory.namedNode('http://example.org').value;
+    // $ExpectError
+    const otherConstantNamedNode: NamedNode<'http://not-example.org'> = dataFactory.namedNode('http://example.org');
 
     const blankNode1: BlankNode = dataFactory.blankNode('b1');
     const blankNode2: BlankNode = dataFactory.blankNode();

@@ -26,7 +26,7 @@ export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
 /**
  * Contains an IRI.
  */
-export interface NamedNode {
+export interface NamedNode<Iri extends string = string> {
     /**
      * Contains the constant "NamedNode".
      */
@@ -34,7 +34,7 @@ export interface NamedNode {
     /**
      * The IRI of the named node (example: `http://example.org/resource`)
      */
-    value: string;
+    value: Iri;
 
     /**
      * @param other The term to compare with.
@@ -244,7 +244,7 @@ export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      * @return A new instance of NamedNode.
      * @see NamedNode
      */
-    namedNode(value: string): NamedNode;
+    namedNode<Iri extends string = string>(value: Iri): NamedNode<Iri>;
 
     /**
      * @param value The optional blank node identifier.
