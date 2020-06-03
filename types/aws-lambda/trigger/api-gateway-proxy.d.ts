@@ -98,16 +98,17 @@ export interface APIGatewayProxyResult {
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
 export interface APIGatewayProxyEventV2 {
+    version: string;
     routeKey: string;
     rawPath: string;
     rawQueryString: string;
-    cookies: string[];
+    cookies?: string[];
     headers: { [name: string]: string };
-    queryStringParameters: { [name: string]: string };
+    queryStringParameters?: { [name: string]: string };
     requestContext: {
         accountId: string;
         apiId: string;
-        authorizer: {
+        authorizer?: {
             jwt: {
                 claims: { [name: string]: string };
                 scopes: string[];
@@ -128,10 +129,10 @@ export interface APIGatewayProxyEventV2 {
         time: string;
         timeEpoch: number;
     };
-    body: string;
-    pathParameters: { [name: string]: string };
+    body?: string;
+    pathParameters?: { [name: string]: string };
     isBase64Encoded: boolean;
-    stageVariables: { [name: string]: string };
+    stageVariables?: { [name: string]: string };
 }
 
 /**

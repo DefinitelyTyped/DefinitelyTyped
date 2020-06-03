@@ -136,14 +136,16 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
 };
 
 const proxyHandlerV2: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
-    strOrNull = event.body;
+    strOrUndefined = event.body;
     str = event.headers['example'];
     str = event.routeKey;
     bool = event.isBase64Encoded;
     str = event.rawPath;
     str = event.rawQueryString;
-    strOrUndefinedOrNull = event.cookies[0];
-    str = event.stageVariables['example'];
+    strOrUndefined = event.cookies ? event.cookies[0] : undefined;
+    strOrUndefined = event.queryStringParameters ? event.queryStringParameters['example'] : undefined;
+    strOrUndefined = event.pathParameters ? event.pathParameters['example'] : undefined;
+    strOrUndefined = event.stageVariables ? event.stageVariables['example'] : undefined;
 
     str = event.requestContext.http.protocol;
     str = event.requestContext.http.sourceIp;
