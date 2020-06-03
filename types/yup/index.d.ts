@@ -108,7 +108,7 @@ export interface MixedSchema<T extends any = {} | null | undefined> extends Sche
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>>): MixedSchema<U>;
     test(options: TestOptions<Record<string, any>>): this;
     default(): T;
-    default(value: T): MixedSchema<T | null | undefined>;
+    default(value: T): MixedSchema<T | undefined>;
 }
 
 export interface StringSchemaConstructor {
@@ -152,7 +152,7 @@ export interface StringSchema<T extends string | null | undefined = string | und
     test(options: TestOptions<Record<string, any>>): this;
     optional(): StringSchema<T | undefined>;
     default(): T;
-    default(value: T): StringSchema<T | null | undefined>;
+    default(value: T): StringSchema<T | undefined>;
 }
 
 export interface NumberSchemaConstructor {
@@ -190,7 +190,7 @@ export interface NumberSchema<T extends number | null | undefined = number | und
     test(options: TestOptions<Record<string, any>>): this;
     optional(): NumberSchema<T | undefined>;
     default(): T;
-    default(value: T): NumberSchema<T | null | undefined>;
+    default(value: T): NumberSchema<T | undefined>;
 }
 
 export interface BooleanSchemaConstructor {
@@ -219,7 +219,7 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean | 
     test(options: TestOptions<Record<string, any>>): this;
     optional(): BooleanSchema<T | undefined>;
     default(): T;
-    default(value: T): BooleanSchema<T | null | undefined>;
+    default(value: T): BooleanSchema<T | undefined>;
 }
 
 export interface DateSchemaConstructor {
@@ -250,7 +250,7 @@ export interface DateSchema<T extends Date | null | undefined = Date | undefined
     test(options: TestOptions<Record<string, any>>): this;
     optional(): DateSchema<T | undefined>;
     default(): T;
-    default(value: T): DateSchema<T | null | undefined>;
+    default(value: T): DateSchema<T | undefined>;
 }
 
 export interface ArraySchemaConstructor {
@@ -275,8 +275,6 @@ interface BasicArraySchema<E, T extends E[] | null | undefined> extends Schema<T
     test(name: string, message: TestOptionsMessage, test: TestFunction): this;
     test(options: TestOptions<Record<string, any>>): this;
     innerType: Schema<E>;
-    default(): T;
-    default(value: T): NotRequiredNullableArraySchema<E>;
 }
 
 export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T, T[] | null | undefined> {
@@ -288,6 +286,8 @@ export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T, T
     defined(): NullableArraySchema<T>;
     notRequired(): NotRequiredNullableArraySchema<T>;
     optional(): NotRequiredNullableArraySchema<T>;
+    default(): T[] | null | undefined;
+    default(value: T[] | null | undefined): NotRequiredNullableArraySchema<T>;
 }
 
 export interface NullableArraySchema<T> extends BasicArraySchema<T, T[] | null> {
@@ -299,6 +299,8 @@ export interface NullableArraySchema<T> extends BasicArraySchema<T, T[] | null> 
     defined(): NullableArraySchema<T>;
     notRequired(): NotRequiredNullableArraySchema<T>;
     optional(): NotRequiredNullableArraySchema<T>;
+    default(): T[] | null;
+    default(value: T[] | null): NotRequiredNullableArraySchema<T>;
 }
 
 export interface NotRequiredArraySchema<T> extends BasicArraySchema<T, T[] | undefined> {
@@ -310,6 +312,8 @@ export interface NotRequiredArraySchema<T> extends BasicArraySchema<T, T[] | und
     defined(): ArraySchema<T>;
     notRequired(): NotRequiredArraySchema<T>;
     optional(): NotRequiredArraySchema<T>;
+    default(): T[] | undefined;
+    default(value: T[] | undefined): NotRequiredArraySchema<T>;
 }
 
 export interface ArraySchema<T> extends BasicArraySchema<T, T[]> {
@@ -320,6 +324,8 @@ export interface ArraySchema<T> extends BasicArraySchema<T, T[]> {
     defined(): ArraySchema<T>;
     notRequired(): NotRequiredArraySchema<T>;
     optional(): NotRequiredArraySchema<T>;
+    default(): T[];
+    default(value: T[]): NotRequiredArraySchema<T>;
 }
 
 export type ObjectSchemaDefinition<T extends object | null | undefined> = {
@@ -375,7 +381,7 @@ export interface ObjectSchema<T extends object | null | undefined = object | und
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>>): ObjectSchema<U>;
     test(options: TestOptions<Record<string, any>>): this;
     default(): T;
-    default(value: T): ObjectSchema<T | null | undefined>;
+    default(value: T): ObjectSchema<T | undefined>;
 }
 
 export type TestFunction = (
