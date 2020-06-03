@@ -91,7 +91,7 @@ const environment = new Environment({
             kind: 'linked',
         },
     ],
-    log: (logEvent) => {
+    log: logEvent => {
         switch (logEvent.name) {
             case 'execute.start':
             case 'execute.next':
@@ -103,7 +103,7 @@ const environment = new Environment({
             default:
                 break;
         }
-    }
+    },
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -207,7 +207,7 @@ query FooQuery {
 */
 
 /* tslint:disable:only-arrow-functions no-var-keyword prefer-const */
-const node: ConcreteRequest = (function() {
+const node: ConcreteRequest = (function () {
     var v0 = [
         {
             kind: 'ScalarField',
