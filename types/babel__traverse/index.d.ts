@@ -5,6 +5,7 @@
 //                 Ryan Petrich <https://github.com/rpetrich>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 //                 Dean L. <https://github.com/dlgrit>
+//                 Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
@@ -841,10 +842,21 @@ export class NodePath<T = Node> {
     assertRegexLiteral(opts?: object): void;
 }
 
-export class Hub {
+export interface HubInterface {
+    getCode(): string | undefined;
+    getScope(): Scope | undefined;
+    addHelper(name: string): any;
+    buildError(node: any, msg: string, Error: ErrorConstructor): Error;
+}
+
+export class Hub implements HubInterface {
     constructor(file: any, options: any);
     file: any;
     options: any;
+    getCode(): string | undefined;
+    getScope(): Scope | undefined;
+    addHelper(name: string): any;
+    buildError(node: any, msg: string, Constructor: typeof Error): Error;
 }
 
 export interface TraversalContext {

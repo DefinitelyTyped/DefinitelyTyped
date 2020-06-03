@@ -2,31 +2,29 @@ import * as React from "react";
 import { Text, View } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
+declare const Arrow: React.SFC<unknown>;
+
+// this is copied directly from the documentation at https://github.com/wix/react-native-calendars#basic-parameters
+// and then linting errors are addressed which is why formatting is slightly inconsistent
 <Calendar
     // Initially visible month. Default = Date()
-    current={"2012-03-01"}
+    current={'2012-03-01'}
     // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-    minDate={"2012-05-10"}
+    minDate={'2012-05-10'}
     // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-    maxDate={"2012-05-30"}
+    maxDate={'2012-05-30'}
     // Handler which gets executed on day press. Default = undefined
-    onDayPress={date => {
-        console.log("selected day", date.day);
-    }}
+    onDayPress={(day) => { console.log('selected day', day); }}
     // Handler which gets executed on day long press. Default = undefined
-    onDayLongPress={date => {
-        console.log("selected day", date.day);
-    }}
+    onDayLongPress={(day) => { console.log('selected day', day); }}
     // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-    monthFormat={"yyyy MM"}
+    monthFormat={'yyyy MM'}
     // Handler which gets executed when visible month changes in calendar. Default = undefined
-    onMonthChange={date => {
-        console.log("month changed", date.month);
-    }}
+    onMonthChange={(month) => { console.log('month changed', month); }}
     // Hide month navigation arrows. Default = false
     hideArrows={true}
     // Replace default arrows with custom ones (direction can be 'left' or 'right')
-    renderArrow={direction => <View />}
+    renderArrow={(direction) => (<Arrow/>)}
     // Do not show days of other months in month page. Default = false
     hideExtraDays={true}
     // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
@@ -39,10 +37,13 @@ import { Calendar, CalendarList, Agenda } from "react-native-calendars";
     // Show week numbers to the left. Default = false
     showWeekNumbers={true}
     // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-    onPressArrowLeft={substractMonth => console.log(substractMonth)}
-    // Handler which gets executed when press arrow icon left. It receive a callback can go next month
-    onPressArrowRight={addMonth => console.log(addMonth)}
-    disabledByDefault={true}
+    onPressArrowLeft={substractMonth => substractMonth()}
+    // Handler which gets executed when press arrow icon right. It receive a callback can go next month
+    onPressArrowRight={addMonth => addMonth()}
+    // Disable left arrow. Default = false
+    disableArrowLeft={true}
+    // Disable right arrow. Default = false
+    disableArrowRight={true}
 />;
 
 <Calendar

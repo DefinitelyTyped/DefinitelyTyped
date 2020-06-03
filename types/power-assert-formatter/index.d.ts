@@ -27,3 +27,6 @@ declare namespace powerAssertFormatter {
 
     export function defaultOptions():Options;
 }
+
+export = powerAssertFormatter;
+export as namespace powerAssertFormatter;
