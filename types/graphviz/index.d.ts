@@ -91,7 +91,6 @@ export interface Graph extends HasAttributes {
     // Path containing Graphviz binaries.
     setGraphVizPath(directoryPath: string): void;
 
-    // TODO: Use union types when we can have TS 1.4
     render(type: string, filename: string, errback?: ErrorCallback): void;
     render(options: RenderOptions, filename: string, errback?: ErrorCallback): void;
     render(type: string, callback: OutputCallback, errback?: ErrorCallback): void;
