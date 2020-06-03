@@ -23,7 +23,7 @@ import StreamTransport = require('nodemailer/lib/stream-transport');
 // email-templates accepts nodemailer.createTransport options directly
 // too and calls createTransport if given a non-function, thus a lot
 // of different types accepted for transport
-type NodeMailerTransportOptions =
+export type NodeMailerTransportOptions =
     | Mail
     | SMTPPool
     | SMTPPool.Options
@@ -40,7 +40,7 @@ type NodeMailerTransportOptions =
     | string;
 
 // No typedef for https://github.com/niftylettuce/preview-email
-interface PreviewEmailOpts {
+export interface PreviewEmailOpts {
     /**
      * a path to a directory for saving the generated email previews (defaults to os.tmpdir()
      */
@@ -62,7 +62,7 @@ interface PreviewEmailOpts {
     template?: string;
 }
 
-interface ViewOptions {
+export interface ViewOptions {
     /**
      *  View extansion. defaults to 'pug', and is the default file extension for templates
      */
@@ -80,7 +80,7 @@ interface ViewOptions {
     engineSource?: any;
 }
 
-interface View {
+export interface View {
     /**
      * View root. Defaults to the current working directory's "emails" folder via path.resolve('emails')
      */
@@ -89,7 +89,7 @@ interface View {
     options?: ViewOptions;
 }
 
-interface EmailConfig<T = any> {
+export interface EmailConfig<T = any> {
     /**
      * The message <Nodemailer.com/message/>
      */
@@ -154,7 +154,7 @@ interface EmailConfig<T = any> {
     getPath?: (path: string, template: string, locals: any) => string;
 }
 
-interface EmailOptions<T = any> {
+export interface EmailOptions<T = any> {
     /**
      * The template name
      */
@@ -171,7 +171,7 @@ interface EmailOptions<T = any> {
     locals?: T;
 }
 
-interface EmailMessage {
+export interface EmailMessage {
     subject: string;
     html: string;
     text: string;
@@ -204,32 +204,4 @@ declare class EmailTemplate<T = any> {
     send(options: EmailOptions<T>): Promise<any>;
 }
 
-declare namespace EmailTemplate {
-    /**
-     *   shorthand use of `juiceResources` with the config
-     *   mainly for custom renders like from a database).
-     */
-    function juiceResources(html: string): Promise<string>;
-
-    /**
-     *
-     * @param view The Html pug to render
-     * @param locals The template Variables
-     */
-    function render(view: string, locals?: any): Promise<string>;
-
-    /**
-     * Render all available template files for a given email
-     * template (e.g. `html.pug`, `text.pug`, and `subject.pug`)
-     *
-     * @param view Name of the template
-     * @param locals The template variables
-     */
-    function renderAll(view: string, locals?: any): Promise<Partial<EmailMessage>>;
-
-    /**
-     * Send the Email
-     */
-    function send(options: EmailOptions): Promise<any>;
-}
-export = EmailTemplate;
+export { EmailTemplate as default };
