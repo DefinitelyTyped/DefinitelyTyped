@@ -54,9 +54,9 @@ declare namespace ES2019 {
 
     // - ES5:
     type GenericDescriptor = ES2018.GenericDescriptor;
-    type AccessorDescriptor<T = any> = ES2018.AccessorDescriptor<T>;
-    type DataDescriptor<T = any> = ES2018.DataDescriptor<T>;
-    type PropertyDescriptor<T = any> = ES2018.PropertyDescriptor<T>;
+    type AccessorDescriptor<T = unknown> = ES2018.AccessorDescriptor<T>;
+    type DataDescriptor<T = unknown> = ES2018.DataDescriptor<T>;
+    type PropertyDescriptor<T = unknown> = ES2018.PropertyDescriptor<T>;
 }
 
 declare const ES2019: ES2019;

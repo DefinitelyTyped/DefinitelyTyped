@@ -208,13 +208,13 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
             '[[Configurable]]': boolean;
             '[[Enumerable]]': boolean;
             '[[Writable]]': boolean;
-            '[[Value]]': P extends keyof O ? O[P] : any;
+            '[[Value]]': P extends keyof O ? O[P] : unknown;
         }
         | {
             '[[Configurable]]': boolean;
             '[[Enumerable]]': boolean;
-            '[[Get]]': (() => P extends keyof O ? O[P] : any) | undefined;
-            '[[Set]]': (value: P extends keyof O ? O[P] : any) => void;
+            '[[Get]]': (() => P extends keyof O ? O[P] : unknown) | undefined;
+            '[[Set]]': ((value: P extends keyof O ? O[P] : unknown) => void) | undefined;
         }
         | undefined;
 
@@ -250,9 +250,9 @@ declare namespace ES2015 {
     // Re-export types from previous versions
     // - ES5:
     type GenericDescriptor = ES5.GenericDescriptor;
-    type AccessorDescriptor<T = any> = ES5.AccessorDescriptor<T>;
-    type DataDescriptor<T = any> = ES5.DataDescriptor<T>;
-    type PropertyDescriptor<T = any> = ES5.PropertyDescriptor<T>;
+    type AccessorDescriptor<T = unknown> = ES5.AccessorDescriptor<T>;
+    type DataDescriptor<T = unknown> = ES5.DataDescriptor<T>;
+    type PropertyDescriptor<T = unknown> = ES5.PropertyDescriptor<T>;
 }
 
 declare const ES2015: ES2015;

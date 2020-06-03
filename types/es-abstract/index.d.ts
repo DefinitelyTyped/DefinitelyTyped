@@ -25,17 +25,17 @@ declare namespace ESAbstract {
         '[[Enumerable]]'?: boolean;
     }
 
-    interface AccessorDescriptor<T = any> extends GenericDescriptor {
+    interface AccessorDescriptor<T = unknown> extends GenericDescriptor {
         '[[Get]]'?(): T;
         '[[Set]]'?(value: T): void;
     }
 
-    interface DataDescriptor<T = any> extends GenericDescriptor {
+    interface DataDescriptor<T = unknown> extends GenericDescriptor {
         '[[Writable]]'?: boolean;
         '[[Value]]'?: T;
     }
 
-    type PropertyDescriptor<T = any> = AccessorDescriptor<T> | DataDescriptor<T>;
+    type PropertyDescriptor<T = unknown> = AccessorDescriptor<T> | DataDescriptor<T>;
 }
 
 interface ESAbstract extends ES6 {

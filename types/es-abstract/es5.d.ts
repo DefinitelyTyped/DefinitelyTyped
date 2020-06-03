@@ -41,14 +41,14 @@ interface ES5 {
         : 'String' | 'Number' | 'Boolean' | 'Null' | 'Undefined' | 'Object' | undefined;
 
     IsPropertyDescriptor(Desc: unknown): Desc is ESPropertyDescriptor;
-    IsAccessorDescriptor<T = any>(Desc: ESPropertyDescriptor<T>): Desc is ESAccessorDescriptor<T>;
+    IsAccessorDescriptor<T = unknown>(Desc: ESPropertyDescriptor<T>): Desc is ESAccessorDescriptor<T>;
     IsAccessorDescriptor(Desc: unknown): Desc is ESAccessorDescriptor;
-    IsDataDescriptor<T = any>(Desc: ESPropertyDescriptor<T>): Desc is ESDataDescriptor<T>;
+    IsDataDescriptor<T = unknown>(Desc: ESPropertyDescriptor<T>): Desc is ESDataDescriptor<T>;
     IsDataDescriptor(Desc: unknown): Desc is ESDataDescriptor;
     IsGenericDescriptor(Desc: unknown): Desc is ESGenericDescriptor;
 
-    FromPropertyDescriptor<T = any>(Desc: ESPropertyDescriptor<T>): TypedPropertyDescriptor<T>;
-    ToPropertyDescriptor<T = any>(Desc: TypedPropertyDescriptor<T>): ESPropertyDescriptor<T>;
+    FromPropertyDescriptor<T = unknown>(Desc: ESPropertyDescriptor<T>): TypedPropertyDescriptor<T>;
+    ToPropertyDescriptor<T = unknown>(Desc: TypedPropertyDescriptor<T>): ESPropertyDescriptor<T>;
 
     'Abstract Equality Comparison'(x: unknown, y: unknown): boolean;
     'Strict Equality Comparison'(x: unknown, y: unknown): boolean;
