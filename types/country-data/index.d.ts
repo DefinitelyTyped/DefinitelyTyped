@@ -1,6 +1,7 @@
 // Type definitions for country-data 0.0
 // Project: https://github.com/OpenBookPrices/country-data
 // Definitions by: Logan Dam <https://github.com/biltongza>
+//                 Mike MacCana <https://github.com/mikemaccana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -66,7 +67,9 @@ export const callingCountries: {
 };
 
 export const currencies: {
-    readonly all: ReadonlyArray<Currency>;
+    readonly [key: string]: Currency;
+} & {
+    readonly all: ReadonlyArray<Country>;
 };
 
 export const languages: {
