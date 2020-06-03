@@ -462,4 +462,7 @@ export const TableToolbar: React.Component<MUIDataTableToolbar>;
 export const TableToolbarSelect: React.Component<MUIDataTableToolbarSelect>;
 export const TableViewCol: React.Component<MUIDataTableViewCol>;
 
+// Plugins
+export const debounceSearchRender: (debounceWait: number) => MUIDataTableOptions['customSearchRender'];
+
 export default MUIDataTable;
