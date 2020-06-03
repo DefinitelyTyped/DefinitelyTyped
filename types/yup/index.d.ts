@@ -91,7 +91,7 @@ export interface MixedSchema<T extends any = {} | null | undefined> extends Sche
     nullable(isNullable?: true): MixedSchema<T | null>;
     nullable(isNullable: false): MixedSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): MixedSchema<T>;
-    required(message?: TestOptionsMessage): MixedSchema<Exclude<T, undefined>>;
+    required(message?: TestOptionsMessage): MixedSchema<Exclude<T, undefined | null>>;
     defined(): MixedSchema<Exclude<T, undefined>>;
     notRequired(): MixedSchema<T | undefined>;
     optional(): MixedSchema<T | undefined>;
@@ -135,7 +135,7 @@ export interface StringSchema<T extends string | null | undefined = string | und
     nullable(isNullable?: true): StringSchema<T | null>;
     nullable(isNullable: false): StringSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): StringSchema<T>;
-    required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>;
+    required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined | null>>;
     defined(): StringSchema<Exclude<T, undefined>>;
     notRequired(): StringSchema<T | undefined>;
     oneOf<U extends T>(
@@ -171,7 +171,7 @@ export interface NumberSchema<T extends number | null | undefined = number | und
     nullable(isNullable?: true): NumberSchema<T | null>;
     nullable(isNullable: false): NumberSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): NumberSchema<T>;
-    required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined>>;
+    required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined | null>>;
     defined(): NumberSchema<Exclude<T, undefined>>;
     notRequired(): NumberSchema<T | undefined>;
     oneOf<U extends T>(
@@ -198,7 +198,7 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean | 
     nullable(isNullable?: true): BooleanSchema<T | null>;
     nullable(isNullable: false): BooleanSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): BooleanSchema<T>;
-    required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, undefined>>;
+    required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, undefined | null>>;
     defined(): BooleanSchema<Exclude<T, undefined>>;
     notRequired(): BooleanSchema<T | undefined>;
     oneOf<U extends T>(
@@ -227,7 +227,7 @@ export interface DateSchema<T extends Date | null | undefined = Date | undefined
     nullable(isNullable?: true): DateSchema<T | null>;
     nullable(isNullable: false): DateSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): DateSchema<T>;
-    required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined>>;
+    required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined | null>>;
     defined(): DateSchema<Exclude<T, undefined>>;
     notRequired(): DateSchema<T | undefined>;
     oneOf<U extends T>(
@@ -274,7 +274,7 @@ export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T, T
     nullable(isNullable?: true): NotRequiredNullableArraySchema<T>;
     nullable(isNullable: false): NotRequiredArraySchema<T>;
     nullable(isNullable?: boolean): ArraySchema<T>;
-    required(message?: TestOptionsMessage): NullableArraySchema<T>;
+    required(message?: TestOptionsMessage): ArraySchema<T>;
     defined(): NullableArraySchema<T>;
     notRequired(): NotRequiredNullableArraySchema<T>;
     optional(): NotRequiredNullableArraySchema<T>;
@@ -285,7 +285,7 @@ export interface NullableArraySchema<T> extends BasicArraySchema<T, T[] | null> 
     nullable(isNullable?: true): NullableArraySchema<T>;
     nullable(isNullable: false): ArraySchema<T>;
     nullable(isNullable?: boolean): ArraySchema<T>;
-    required(message?: TestOptionsMessage): NullableArraySchema<T>;
+    required(message?: TestOptionsMessage): ArraySchema<T>;
     defined(): NullableArraySchema<T>;
     notRequired(): NotRequiredNullableArraySchema<T>;
     optional(): NotRequiredNullableArraySchema<T>;
@@ -352,7 +352,7 @@ export interface ObjectSchema<T extends object | null | undefined = object | und
     nullable(isNullable?: true): ObjectSchema<T | null>;
     nullable(isNullable: false): ObjectSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): ObjectSchema<T>;
-    required(message?: TestOptionsMessage): ObjectSchema<Exclude<T, undefined>>;
+    required(message?: TestOptionsMessage): ObjectSchema<Exclude<T, undefined | null>>;
     defined(): ObjectSchema<Exclude<T, undefined>>;
     notRequired(): ObjectSchema<T | undefined>;
     optional(): ObjectSchema<T | undefined>;
