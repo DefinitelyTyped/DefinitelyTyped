@@ -23,6 +23,7 @@ declare namespace Traverson
         jsonHal(): Builder;
 
         setMediaType(type_name: string): Builder;
+        convertResponseToObject(): Builder;
 
         follow(first_pattern: string, ... rest_patterns: string[]): Builder;
 
