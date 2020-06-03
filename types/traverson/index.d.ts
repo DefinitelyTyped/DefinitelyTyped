@@ -24,7 +24,7 @@ declare namespace Traverson {
         from(url: string): Builder;
         follow(first_pattern: string, ...rest_patterns: string[]): Builder;
         followLocationHeader(): Builder;
-        walk(): Builder; // Alias for follow()
+        walk(first_pattern: string, ...rest_patterns: string[]): Builder; // Alias for follow()
         withTemplateParameters(parameters: any): Builder;
         withRequestOptions(options: any): Builder;
         addRequestOptions(options: any): Builder;
