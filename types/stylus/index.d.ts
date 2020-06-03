@@ -1421,7 +1421,7 @@ declare namespace Stylus {
     export type RenderCallback = (err: Error, css: string, js: string) => void;
 
     export interface UrlOptions {
-        limit?: number;
+        limit?: number | false | null;
         paths?: string[];
     }
 
