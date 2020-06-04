@@ -27,12 +27,19 @@ import {
     visit,
     currentURL,
     currentRouteName,
-    setApplication
+    setApplication,
+    getContext,
 } from '@ember/test-helpers';
 
 const MyApp = Application.extend({ modulePrefix: 'my-app' });
 
 setApplication(MyApp.create());
+
+test('Context', () => {
+    const context = getContext();
+
+    context.owner.lookup('service:foo');
+});
 
 test('DOM interactions', async () => {
     await render(hbs`<div class="message">Hello, world</div>`);
