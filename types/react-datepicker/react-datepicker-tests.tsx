@@ -18,6 +18,7 @@ const defaultLocale = getDefaultLocale();
     clearButtonTitle=""
     customInput={<input />}
     customInputRef=""
+    customTimeInput={<input />}
     dateFormat=""
     dateFormatCalendar=""
     dayClassName={date => ''}
