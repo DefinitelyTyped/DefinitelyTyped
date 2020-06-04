@@ -1,10 +1,11 @@
 import Component, { setComponentTemplate } from '@ember/component';
 import Object, { computed, get } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
+import { hbs as theOneTrueHbs } from 'ember-cli-htmlbars';
 import { assertType } from "./lib/assert";
 
 class Inline extends Component {}
-setComponentTemplate(hbs`
+setComponentTemplate(theOneTrueHbs`
   <h1>{{hi}}</h1>
 `, Inline);
 
