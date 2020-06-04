@@ -414,3 +414,10 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     p7.encrypt();
     let asn1: forge.asn1.Asn1 = p7.toAsn1();
 }
+
+{
+  publicKeyRsa.encrypt('content');
+  privateKeyRsa.decrypt('content');
+  cert.publicKey.encrypt('content');
+  cert.privateKey.decrypt('content');
+}
