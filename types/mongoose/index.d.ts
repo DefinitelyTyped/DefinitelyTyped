@@ -765,6 +765,11 @@ declare module "mongoose" {
     set(fn: Function): this;
   }
 
+  interface HookOptions {
+    document: boolean;
+    query: boolean;
+  }
+
   /*
    * section schema.js
    * http://mongoosejs.com/docs/api.html#schema-js
@@ -876,6 +881,14 @@ declare module "mongoose" {
     post<T extends Document>(method: string | RegExp, fn: (
       error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
     ) => void): this;
+
+    post<T extends Document>(method: string | RegExp, { document, query }: HookOptions, fn: (
+      doc: T
+    ) => void): this;
+
+    // post<T extends Document>(method: string | RegExp, { document: boolean; query: boolean; }, fn: (
+    //   error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
+    // ) => void): this;
 
     /**
      * Defines a pre hook for the document.
@@ -3542,6 +3555,12 @@ declare module "mongoose" {
      * @param fn optional callback
      */
     remove(fn?: (err: any, product: this) => void): Promise<this>;
+
+    /**
+     * Deletes the document from the db.
+     * @param fn optional callback
+     */
+    deleteOne(fn?: (err: any, product: this) => void): Promise<this>;
 
     /**
      * Saves this document.
