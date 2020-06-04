@@ -8,8 +8,6 @@ import {
     PropertyDescriptor as ESPropertyDescriptor,
 } from './index';
 
-type TSPropertyDescriptor = PropertyDescriptor;
-
 interface ES5 {
     readonly ToPrimitive: typeof toPrimitive;
     ToBoolean(value: unknown): boolean;
@@ -43,12 +41,14 @@ interface ES5 {
         : 'String' | 'Number' | 'Boolean' | 'Null' | 'Undefined' | 'Object' | undefined;
 
     IsPropertyDescriptor(Desc: unknown): Desc is ESPropertyDescriptor;
+    IsAccessorDescriptor<T = unknown>(Desc: ESPropertyDescriptor<T>): Desc is ESAccessorDescriptor<T>;
     IsAccessorDescriptor(Desc: unknown): Desc is ESAccessorDescriptor;
+    IsDataDescriptor<T = unknown>(Desc: ESPropertyDescriptor<T>): Desc is ESDataDescriptor<T>;
     IsDataDescriptor(Desc: unknown): Desc is ESDataDescriptor;
     IsGenericDescriptor(Desc: unknown): Desc is ESGenericDescriptor;
 
-    FromPropertyDescriptor(Desc: ESPropertyDescriptor): TSPropertyDescriptor;
-    ToPropertyDescriptor(Desc: TSPropertyDescriptor): ESPropertyDescriptor;
+    FromPropertyDescriptor<T = unknown>(Desc: ESPropertyDescriptor<T>): TypedPropertyDescriptor<T>;
+    ToPropertyDescriptor<T = unknown>(Desc: TypedPropertyDescriptor<T>): ESPropertyDescriptor<T>;
 
     'Abstract Equality Comparison'(x: unknown, y: unknown): boolean;
     'Strict Equality Comparison'(x: unknown, y: unknown): boolean;
@@ -79,9 +79,9 @@ interface ES5 {
 
 declare namespace ES5 {
     type GenericDescriptor = ESGenericDescriptor;
-    type AccessorDescriptor = ESAccessorDescriptor;
-    type DataDescriptor = ESDataDescriptor;
-    type PropertyDescriptor = ESPropertyDescriptor;
+    type AccessorDescriptor<T = unknown> = ESAccessorDescriptor<T>;
+    type DataDescriptor<T = unknown> = ESDataDescriptor<T>;
+    type PropertyDescriptor<T = unknown> = ESPropertyDescriptor<T>;
 }
 
 declare const ES5: ES5;
