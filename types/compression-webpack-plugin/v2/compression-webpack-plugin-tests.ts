@@ -4,8 +4,8 @@ import CompressionPlugin = require('compression-webpack-plugin');
 new CompressionPlugin();
 
 new CompressionPlugin({
-    include: ["a"],
-    exclude: [/a/g],
+    include: ["a"] as ReadonlyArray<string>,
+    exclude: [/a/g] as ReadonlyArray<RegExp>,
     test: "a",
 });
 
@@ -19,14 +19,6 @@ const config: Configuration = {
             test: /\.js$|\.html$/,
             threshold: 10240,
             deleteOriginalAssets: true
-        }),
-        new CompressionPlugin({
-            filename: (info) => {
-                info.file; // $ExpectType string
-                info.path; // $ExpectType string
-                info.query; // $ExpectType string
-                return `${info.path}.gz${info.query}`;
-            },
         })
     ]
 };
