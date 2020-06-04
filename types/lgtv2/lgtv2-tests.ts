@@ -35,7 +35,7 @@ lgtv.on('connect', () => {
         if (!error) {
             pointerSocket = socket;
             pointerSocket.send('button', { name: 'HOME' });
-            pointerSocket.send('home');
+            pointerSocket.send('click');
         }
     });
 });
