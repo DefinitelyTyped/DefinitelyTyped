@@ -30,7 +30,7 @@ export interface AuthorizeWith3dsAdditionalDataAddress {
 	readonly zip?: string;
 }
 export interface AuthorizeWith3dsAdditionalData {
-	readonly plan: string;
+	readonly plan?: string;
 	readonly email?: string;
 	readonly phone?: string;
 	readonly billingAddress?: AuthorizeWith3dsAdditionalDataAddress;
@@ -116,10 +116,10 @@ export interface CardComponentProps {
 		readonly expiry?: string;
 		readonly cvv?: string;
 	};
-	readonly onReady: () => void;
-	readonly onChange: () => void;
-	readonly onFocus: () => void;
-	readonly onBlur: () => void;
+	readonly onReady?: () => void;
+	readonly onChange?: () => void;
+	readonly onFocus?: () => void;
+	readonly onBlur?: () => void;
 }
 export interface CardComponentFieldProps {
 	readonly className?: string;
@@ -131,10 +131,10 @@ export interface CardComponentFieldProps {
 		readonly complete?: CSSProperties;
 	};
 	readonly placeholder?: string;
-	readonly onReady: () => void;
-	readonly onChange: () => void;
-	readonly onFocus: () => void;
-	readonly onBlur: () => void;
+	readonly onReady?: () => void;
+	readonly onChange?: () => void;
+	readonly onFocus?: () => void;
+	readonly onBlur?: () => void;
 }
 export class CardComponent extends Component<CardComponentProps> {
 	readonly tokenize: (additionalData?: TokenizeAdditionalData) => Promise<TokenizedResponse>;
