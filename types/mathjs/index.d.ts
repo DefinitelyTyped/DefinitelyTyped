@@ -21,7 +21,7 @@ type NoLiteralType<T> =
     T extends boolean ? boolean :
     T;
 declare namespace math {
-    type MathArray = number[] | number[][];
+    type MathArray = MathType[] | MathType[][];
     type MathType =
         | number
         | BigNumber
