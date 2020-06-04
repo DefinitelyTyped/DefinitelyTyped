@@ -19,7 +19,7 @@ export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
  * Works with HTTP API integration Payload Format version 2.0
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
-export type APIGatewayProxyHandlerV2 = Handler<APIGatewayProxyEventV2, APIGatewayProxyResultV2>;
+export type APIGatewayProxyHandlerV2<T = never> = Handler<APIGatewayProxyEventV2, APIGatewayProxyResultV2<T>>;
 /**
  * Works with HTTP API integration Payload Format version 2.0
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
@@ -98,16 +98,17 @@ export interface APIGatewayProxyResult {
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
 export interface APIGatewayProxyEventV2 {
+    version: string;
     routeKey: string;
     rawPath: string;
     rawQueryString: string;
-    cookies: string[];
+    cookies?: string[];
     headers: { [name: string]: string };
-    queryStringParameters: { [name: string]: string };
+    queryStringParameters?: { [name: string]: string };
     requestContext: {
         accountId: string;
         apiId: string;
-        authorizer: {
+        authorizer?: {
             jwt: {
                 claims: { [name: string]: string };
                 scopes: string[];
@@ -128,22 +129,29 @@ export interface APIGatewayProxyEventV2 {
         time: string;
         timeEpoch: number;
     };
-    body: string;
-    pathParameters: { [name: string]: string };
+    body?: string;
+    pathParameters?: { [name: string]: string };
     isBase64Encoded: boolean;
-    stageVariables: { [name: string]: string };
+    stageVariables?: { [name: string]: string };
 }
 
 /**
  * Works with HTTP API integration Payload Format version 2.0
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
-export interface APIGatewayProxyResultV2 {
+export type APIGatewayProxyResultV2<T = never> = APIGatewayProxyStructuredResultV2 | string | T;
+
+/**
+ * Interface for structured response with `statusCode` and`headers`
+ * Works with HTTP API integration Payload Format version 2.0
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+ */
+export interface APIGatewayProxyStructuredResultV2 {
     statusCode?: number;
     headers?: {
         [header: string]: boolean | number | string;
     };
-    body?: string | object;
+    body?: string;
     isBase64Encoded?: boolean;
     cookies?: string[];
 }
