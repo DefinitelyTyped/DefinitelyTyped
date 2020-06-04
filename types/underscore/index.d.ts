@@ -71,8 +71,6 @@ declare module _ {
         source: string;
     }
 
-    type Collection<T> = _.List<T> | _.Dictionary<T>;
-
     // Common interface between Arrays and jQuery objects
     interface List<T> {
         [index: number]: T;
@@ -83,6 +81,8 @@ declare module _ {
         [index: string]: T;
     }
 
+    type Collection<T> = _.List<T> | _.Dictionary<T>;
+
     interface Predicate<T> {
         (value: T): boolean;
     }
@@ -92,7 +92,7 @@ declare module _ {
     }
 
     interface ObjectIterator<T, TResult, V = Dictionary<T>> {
-        (element: T, key: string, list: V): TResult;
+        (element: T, key: string, object: V): TResult;
     }
 
     type CollectionIterator<T, TResult, V> = V extends List<T> ? ListIterator<T, TResult, V> : ObjectIterator<T, TResult, V>;
@@ -102,14 +102,16 @@ declare module _ {
     }
 
     interface MemoObjectIterator<T, TResult, V = Dictionary<T>> {
-        (prev: TResult, curr: T, key: string, list: V): TResult;
+        (prev: TResult, curr: T, key: string, object: V): TResult;
     }
 
     type MemoCollectionIterator<T, TResult, V> = V extends List<T> ? MemoIterator<T, TResult, V> : MemoObjectIterator<T, TResult, V>;
 
-    interface Cancelable {
-        cancel(): void;
-    }
+    type TypeOfList<V> = V extends _.List<infer T> ? T : never;
+
+    type TypeOfDictionary<V> = V extends _.Dictionary<infer T> ? T : never;
+
+    type TypeOfCollection<V> = V extends _.Collection<infer T> ? T : never;
 
     type NonFalsy<T> = T extends undefined | null | false | '' | 0 ? never : T;
 
@@ -132,10 +134,6 @@ declare module _ {
         // this should never actually be evaluated since all types extend any
         : never;
 
-    type TypeOfDictionary<T> = T extends _.Dictionary<infer V> ? V : never;
-
-    type TypeOfList<T> = T extends _.List<infer TItem> ? TItem : never;
-
     type PropertyNamesOfType<T, P> = { [K in keyof T]: T[K] extends P ? K : never }[keyof T];
 
     type ShallowFlattenedList<T> = T extends _.List<infer TItem> ? TItem[] : T[];
@@ -151,6 +149,10 @@ declare module _ {
         : TInnerItem[]
         : TItem[]
         : T[];
+
+    interface Cancelable {
+        cancel(): void;
+    }
 
     interface UnderscoreStatic {
         /**
