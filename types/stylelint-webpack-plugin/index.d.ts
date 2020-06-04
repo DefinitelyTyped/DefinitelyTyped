@@ -1,13 +1,17 @@
-// Type definitions for https://github.com/JaKXz/stylelint-webpack-plugin 0.1
-// Project: https://github.com/JaKXz/stylelint-webpack-plugin
+// Type definitions for https://github.com/webpack-contrib/stylelint-webpack-plugin 2.0
+// Project: https://github.com/webpack-contrib/stylelint-webpack-plugin#readme
 // Definitions by: Arne Bahlo <https://github.com/bahlo>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import { Plugin } from 'webpack';
+import { LinterOptions as StylelintOptions, FormatterType } from 'stylelint';
 
 export = StylelintWebpackPlugin;
 
+/**
+ * A Stylelint plugin for webpack
+ */
 declare class StylelintWebpackPlugin extends Plugin {
     constructor(options?: StylelintWebpackPlugin.Options);
 }
@@ -21,28 +25,70 @@ declare namespace StylelintWebpackPlugin {
         rule: string;
     }
 
-    type Formatter = (messages: Message[], source: string) => string;
-
     interface Config {
         rules?: object;
         extends?: string | string[];
         plugins?: string[];
         processors?: string[];
         ignoreFiles?: string | string[];
-        defaultSeverity?: "warning" | "error";
+        defaultSeverity?: 'warning' | 'error';
     }
 
-    interface Options {
-        config?: Config;
+    /**
+     * See stylelint's options for the complete list of options available.
+     * These options are passed through to the 'stylelint' directly.
+     */
+    interface Options extends Partial<StylelintOptions> {
+        /**
+         * Specify the config file location to be used by stylelint.
+         */
         configFile?: string;
+        /**
+         * @default compiler.context
+         */
         context?: string;
+        /**
+         * Will always return errors, if set to true.
+         * @default false
+         */
         emitErrors?: boolean;
+        /**
+         * Will cause the module build to fail if there are any errors, if set to true.
+         * @default false
+         */
         failOnError?: boolean;
-        files?: string|string[];
-        formatter?: Formatter;
+        /**
+         * Will process and report errors only and ignore warnings, if set to true.
+         * @default false
+         */
+        failOnWarning?: boolean;
+        /**
+         * Specify the glob pattern for finding files. Must be relative to options.context.
+         */
+        files?: string | string[];
+        /**
+         * Specify the formatter that you would like to use to format your results. See formatter option.
+         */
+        formatter?: FormatterType;
+        /**
+         * Lint only changed files, skip lint on start.
+         * @default false
+         */
         lintDirtyModulesOnly?: boolean;
-        syntax?: string;
+        /**
+         * Path to `stylelint` instance that will be used for linting.
+         * @default 'stylelint'
+         */
+        stylelintPath?: string;
+        /**
+         * Will process and report errors only and ignore warnings, if set to true.
+         * @default false
+         */
         quiet?: boolean;
+        /**
+         * If true, stylelint will fix as many errors as possible. The fixes are made to the actual source files.
+         * All unfixed errors will be reported. See Autofixing errors docs.
+         */
         fix?: boolean;
     }
 }
