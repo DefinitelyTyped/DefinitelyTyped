@@ -39,6 +39,7 @@ test('Context', () => {
     const context = getContext();
 
     context.owner.lookup('service:foo');
+    context.owner.register('service:foo2', class {});
 });
 
 test('DOM interactions', async () => {

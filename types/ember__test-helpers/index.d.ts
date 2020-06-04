@@ -190,8 +190,8 @@ declare module '@ember/test-helpers/setup-context' {
     import Resolver from '@ember/application/resolver';
 
     interface Owner {
-      lookup: <T>(name: string) => T;
-      register: <T>(name: string, mockService: T) => void;
+      lookup: (name: string) => unknown;
+      register: (name: string, mockService: unknown) => void;
     }
     export interface AppContext {
       element: HTMLElement;
