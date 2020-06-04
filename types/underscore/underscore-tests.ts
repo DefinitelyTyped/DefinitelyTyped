@@ -2504,7 +2504,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
 
     // without parameters
     {
-        let result: number[];
+        let result: unknown[];
 
         result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectArray, simpleObjectPropertyName);
         result = _.invoke(simpleNoParameterFunctionObjectArray, simpleObjectPropertyName);
@@ -2517,7 +2517,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     }
 
     {
-        let result: number[];
+        let result: unknown[];
 
         result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectList, simpleObjectPropertyName);
         result = _.invoke(simpleNoParameterFunctionObjectList, simpleObjectPropertyName);
@@ -2530,7 +2530,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     }
 
     {
-        let result: number[];
+        let result: unknown[];
 
         result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectDictionary, simpleObjectPropertyName);
         result = _.invoke(simpleNoParameterFunctionObjectDictionary, simpleObjectPropertyName);
@@ -2543,7 +2543,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     }
 
     {
-        let result: string[];
+        let result: unknown[];
 
         result = _.invoke<string>(simpleString, simpleObjectPropertyName);
         result = _.invoke(simpleString, simpleObjectPropertyName);
@@ -2558,7 +2558,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     // with parameters
     {
         const arg = -1;
-        let result: number[];
+        let result: unknown[];
 
         result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectArray, simpleObjectPropertyName, arg);
         result = _.invoke(simpleOneParameterFunctionObjectArray, simpleObjectPropertyName, arg);
@@ -2572,7 +2572,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
 
     {
         const arg = -1;
-        let result: number[];
+        let result: unknown[];
 
         result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectList, simpleObjectPropertyName, arg);
         result = _.invoke(simpleOneParameterFunctionObjectList, simpleObjectPropertyName, arg);
@@ -2586,7 +2586,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
 
     {
         const arg = -1;
-        let result: number[];
+        let result: unknown[];
 
         result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectDictionary, simpleObjectPropertyName, arg);
         result = _.invoke(simpleOneParameterFunctionObjectDictionary, simpleObjectPropertyName, arg);
@@ -2601,7 +2601,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         const functionName = 'substring';
         const arg = 1;
-        let result: string[];
+        let result: unknown[];
 
         result = _.invoke<string>(simpleString, functionName, arg);
         result = _.invoke(simpleString, functionName, arg);
@@ -4643,44 +4643,44 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
         result = _.chain(list).flatten(true).value();
     }
 
-    // four dimensions, deep - this is where recursion gives up and results in any[]
+    // four dimensions, deep - this is where recursion gives up and results in unknown[]
     {
         const array: SimpleStringObject[][][][] = [[[simpleStringObjectArray]]];
-        let result: SimpleStringObject[];
+        let result: unknown[];
 
-        // $ExpectType any[]
+        // $ExpectType unknown[]
         result = _.flatten<SimpleStringObject[][][]>(array);
-        // $ExpectType any[]
+        // $ExpectType unknown[]
         result = _.flatten(array);
 
-        // $ExpectType any[]
+        // $ExpectType unknown[]
         result = _<SimpleStringObject[][][][], SimpleStringObject[][][]>(array).flatten();
-        // $ExpectType any[]
+        // $ExpectType unknown[]
         result = _(array).flatten();
 
-        // $ExpectType any[]
+        // $ExpectType unknown[]
         result = _.chain<SimpleStringObject[][][][], SimpleStringObject[][][]>(array).flatten().value();
-        // $ExpectType any[]
+        // $ExpectType unknown[]
         result = _.chain(array).flatten().value();
     }
 
     {
         const list: _.List<_.List<_.List<_.List<SimpleStringObject>>>> = { 0: { 0: { 0: simpleStringObjectList, length: 1 }, length: 1 }, length: 1 };
-        let result: SimpleStringObject[];
+        let result: unknown[];
 
-        // $ExpectType any[]
+        // $ExpectType unknown[]
         result = _.flatten<_.List<_.List<_.List<SimpleStringObject>>>>(list);
-        // $ExpectType any[]
+        // $ExpectType unknown[]
         result = _.flatten(list);
 
-        // $ExpectType any[]
+        // $ExpectType unknown[]
         result = _<_.List<_.List<_.List<_.List<SimpleStringObject>>>>, _.List<_.List<_.List<SimpleStringObject>>>>(list).flatten();
-        // $ExpectType any[]
+        // $ExpectType unknown[]
         result = _(list).flatten();
 
-        // $ExpectType any[]
+        // $ExpectType unknown[]
         result = _.chain<_.List<_.List<_.List<_.List<SimpleStringObject>>>>, _.List<_.List<_.List<SimpleStringObject>>>>(list).flatten().value();
-        // $ExpectType any[]
+        // $ExpectType unknown[]
         result = _.chain(list).flatten().value();
     }
 }
