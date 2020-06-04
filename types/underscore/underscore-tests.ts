@@ -5073,8 +5073,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
 }
 
 // zip
-// once TS 3.0 is reached as a minimum version, as a breaking change, consider updating zip to something like zip<T extends _.List<any>[]>(...arrays: T): TypeOfListItem<T>[]
-// except not that because that doesn't distribute to each type in the tuple individually and also ends up making a type union
+// once TS 3.1 is reached as a minimum version, as a breaking change, ideally update zip to zip<T extends _.List<unknown>[]>(...arrays: T): { [K in keyof T]: T[K] extends _.List<infer TItem> ? TItem : never }[];
 {
     {
         const array1: string[] = ['a', 'b'];
@@ -5104,6 +5103,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
 }
 
 // unzip
+// once TS 3.1 is reached as a minimum version, as a breaking change, ideally update zip to unzip<T extends any[]>(array: _.List<T>): { [K in keyof T]: T[K][] };
 {
     {
         const array: [string, number, boolean][] = [['a', 1, true], ['b', 2, false]];
