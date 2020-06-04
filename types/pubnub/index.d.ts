@@ -468,7 +468,7 @@ declare namespace Pubnub {
         entry: any;
         timetoken?: string | number;
         meta?: {
-            [key: string]: string;
+            [key: string]: any;
         };
     }
 
