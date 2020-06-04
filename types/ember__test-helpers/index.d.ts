@@ -189,8 +189,21 @@ declare module '@ember/test-helpers/settled' {
 declare module '@ember/test-helpers/setup-context' {
     import Resolver from '@ember/application/resolver';
 
+    interface Owner {
+      lookup: <T>(name: string) => T;
+      register: <T>(name: string, mockService: T) => void;
+    }
+    export interface AppContext {
+      element: HTMLElement;
+      owner: Owner & {
+        application: {
+          inject: (within: string, name: string, injected: string) => void;
+        };
+      };
+    }
+
     export default function<C extends object>(context: C, options?: { resolver?: Resolver }): Promise<C>;
-    export function getContext(): object;
+    export function getContext(): AppContext;
     export function setContext(context: object): void;
     export function unsetContext(): void;
 
