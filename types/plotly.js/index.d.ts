@@ -341,8 +341,8 @@ export interface Layout {
     scene: Partial<Scene>;
     barmode: 'stack' | 'group' | 'overlay' | 'relative';
     barnorm: '' | 'fraction' | 'percent';
-    bargap: 0 | 1;
-    bargroupgap: 0 | 1;
+    bargap: number;
+    bargroupgap: number;
     selectdirection: 'h' | 'v' | 'd' | 'any';
     hiddenlabels: string[];
     grid: Partial<{
