@@ -12,6 +12,11 @@ declare namespace Aws {
         functions?: Functions;
         layers?: Layers;
         resources?: Resources;
+        plugins?: string[];
+        org?: string;
+        app?: string;
+        tenant?: string;
+        custom?: Custom;
     }
 
     interface Service {
@@ -40,7 +45,7 @@ declare namespace Aws {
         cfnRole?: string;
         versionFunctions?: boolean;
         environment?: Environment;
-        endpointType?: string;
+        endpointType?: 'regional' | 'edge' | 'private';
         apiKeys?: string[];
         apiGateway?: ApiGateway;
         alb?: Alb;
@@ -534,8 +539,12 @@ declare namespace Aws {
 
     interface Resources {
         Resources: CloudFormationResources;
-        extensions: CloudFormationResources;
-        Outputs: Outputs;
+        extensions?: CloudFormationResources;
+        Outputs?: Outputs;
+    }
+
+    interface Custom {
+        [key: string]: any;
     }
 }
 

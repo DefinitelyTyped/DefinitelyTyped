@@ -111,14 +111,46 @@ configuration = {
         // Disable TSLint for allowing non-arrow functions
         /* tslint:disable-next-line */
         function(context, request, callback) {
-          if (/^yourregex$/.test(request)) {
-            // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
             /* tslint:disable-next-line */
-            return callback(null, 'commonjs ' + request);
-          }
-          callback({}, {});
-        }
-      ]
+            if (/^yourregex$/.test(request)) {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line */
+                return callback(null, 'commonjs ' + request);
+            }
+            if (request === 'foo') {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line */
+                return callback(null, ['path', 'to', 'external']);
+            }
+            if (request === 'bar') {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line */
+                return callback(null, {}, 'commonjs');
+            }
+            if (request === 'baz') {
+                // Disable TSLint for allowing non-arrow functions
+                /* tslint:disable-next-line */
+                return callback(null, {});
+            }
+
+            // Callback can be invoked with an error
+            callback('An error');
+            callback(new Error('Boom!'));
+
+            // A null error should include external parameters
+            // $ExpectError
+            callback(null);
+
+            // An error should include no other parameters
+            // $ExpectError
+            callback('An error', 'externalName');
+
+            // Continue without externalizing the import
+            // Disable TSLint for allowing non-arrow functions
+            /* tslint:disable-next-line */
+            return callback();
+        },
+    ],
 };
 
 configuration = {
@@ -143,7 +175,7 @@ configuration = {
                 /* tslint:disable-next-line */
                 return callback(null, 'commonjs ' + request);
               }
-              callback({}, {});
+              callback(null, {});
             },
             // Regex
             /^(jquery|\$)$/i
@@ -304,6 +336,9 @@ configuration = {
         const { mainTemplate } = compilation;
         mainTemplate.requireFn.trimLeft();
         mainTemplate.outputOptions.crossOriginLoading;
+        mainTemplate.hooks.require.tap('SomePlugin', resource => {
+            return `console.log('A module is required'); ${resource}`;
+        });
         mainTemplate.hooks.requireExtensions.tap('SomePlugin', resource => {
           return resource.trimLeft();
         });
@@ -321,6 +356,10 @@ configuration = {
             } else {
                 return resource;
             }
+        });
+        mainTemplate.hooks.hash.tap('SomePlugin', hash => {
+            hash.update('SomePlugin');
+            hash.update('1');
         });
         mainTemplate.hooks.hashForChunk.tap('SomePlugin', (hash, chunk) => {
             if (chunk.name) {
@@ -397,6 +436,14 @@ plugin = new webpack.DllReferencePlugin({
     name: 'dll name',
     scope: 'dll prefix',
     sourceType: 'var'
+});
+plugin = new webpack.ExternalsPlugin('this', 'react');
+plugin = new webpack.ExternalsPlugin('this', {jquery: 'jQuery'});
+plugin = new webpack.ExternalsPlugin('this', (context, request, callback) => {
+    if (request === 'jquery') {
+        callback(null, 'jQuery');
+    }
+    callback();
 });
 plugin = new webpack.IgnorePlugin(requestRegExp);
 plugin = new webpack.IgnorePlugin(requestRegExp, contextRegExp);
@@ -916,7 +963,11 @@ class BannerPlugin extends webpack.Plugin {
                         continue;
                     }
                     for (const file of chunk.files) {
-                        compilation.getPath("", {});
+                        const pathA = compilation.getPath("", {});
+                        const pathB = compilation.getPath("", {
+                            contentHash: "abc",
+                            contentHashType: "javascript",
+                        });
                     }
                 }
             });

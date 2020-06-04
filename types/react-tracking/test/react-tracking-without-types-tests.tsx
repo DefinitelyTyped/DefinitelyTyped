@@ -66,6 +66,12 @@ class Test extends React.Component<any, null> {
 
 const App = track()(({ foo }: { foo: string }) => {
     const tracking = useTracking();
+
+    React.useEffect(() =>
+        tracking.trackEvent({
+            page: 'Home - useEffect callback'
+        })
+    );
     return (
         <div
             onClick={() => {

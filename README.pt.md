@@ -43,14 +43,14 @@ Veja o [manual do TypeScript](http://www.typescriptlang.org/docs/handbook/declar
 
 ### NPM
 
-Esse é o método aconselhável. Por exemplo:
+Esse é o método aconselhável:
 
 ```sh
 npm install --save-dev @types/node
 ```
 
 Os tipos então devem ser automaticamente incluidos pelo compilador.
-Talvez você precise adicionar a referência `types` se você não estiver usando módulos:
+Talvez você precise adicionar a referência `types` se não estiver usando módulos:
 
 ```ts
 /// <reference types="node" />
@@ -65,11 +65,11 @@ Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](htt
 Isso normalmente é informado nos campos `"types"` ou `"typings"` no `package.json`,
 ou apenas procure por qualquer arquivo ".d.ts" no pacote e manualmente inclua-os com `/// <reference path="" />`.
 
-#### Versões antigas do TypeScript (2.8 e anteriores)
+#### Versões antigas do TypeScript (2.9 e anteriores)
 
 O Definitely Typed testa apenas pacotes em versões do TypeScript que tenham sido lançadas a menos de 2 anos.
-Atualmente, as versões 2.9 e acima são testadas.
-Se você está usando as versões 2.0 a 2.8 do TypeScript, você ainda mode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
+Atualmente, as versões 3.0 e acima são testadas.
+Se você está usando as versões 2.0 a 2.9 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
 Mas não tem nenhuma garantia de que elas funcionarão.
 Esta é a tabela de duração de suporte das versões.
 
@@ -161,7 +161,7 @@ Primeiro, [faça um fork](https://guides.github.com/activities/forking/) deste r
 Quando você fizer uma PR para editar um pacote existente, o `dt-bot` deve mencionar (usando "@") os antigos autores.
 Se ele não o fizer, você mesmo pode fazer isso no comentário associado a PR.
 
-#### Editando teste em um pacote existente
+#### Editando testes em um pacote existente
 
 Deve existir um arquivo `[nomedomódulo]-tests.ts`, que é considerado seu arquivo de teste, junto a qualquer arquivo `*.ts` que ele importar.
 Se você não encontrou nenhum arquivo de teste na pasta do módulo, crie um arquivo `[nomedomódulo]-tests.ts`.
@@ -212,22 +212,22 @@ Seu pacote deve possuir a seguinte estrutura:
 | tsconfig.json | Permite que você execute `tsc` dentro do pacote. |
 | tslint.json | Habilita a análise do código pelo linter. |
 
-Gere esses arquivos executando `npx dts-gen --dt --name nome-do-seu-pacote --template module` se você possuir a versão 5.2.0 ou mais recente do npm ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-seu-pacote --template module` caso possua uma versão mais antiga.
+Gere esses arquivos executando `npx dts-gen --dt --name nome-do-seu-pacote --template module` se você possuir a versão 5.2.0 ou mais recente do NPM ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-seu-pacote --template module` caso possua uma versão mais antiga.
 Veja todas as opções em [dts-gen](https://github.com/Microsoft/dts-gen).
 
 Você pode editar o `tsconfig.json` para adicionar novos arquivos de teste, para adicionar `"target": "es6"` (necessário para funções assíncronas), para adicionar a `"lib"`, ou para adicionar a opção `"jsx"` do compilador. Se há outros arquivos `.d.ts` além do arquivo `index.d.ts`, tenha certeza de que eles são referenciados no arquivo `index.d.ts` ou nos testes.
 
 Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em um arquivo chamado `OTHER_FILES.txt`. Este arquivo é uma lista de outros arquivos que precisam ser incluidos no pacote de tipos, um arquivo por linha.
 
-O membros do Definitely Typed frequentemente monitoram os novos PRs, porém tenha em mente de que a quantidade de PRs pode atrasar o processo.
+Os membros do Definitely Typed frequentemente monitoram os novos PRs, porém tenha em mente de que a quantidade de PRs pode atrasar o processo.
 
 Para ver um bom exemplo, veja o pacote [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
 ## Donos de definição
 
 O DT tem o coneito de "Donos de definição", que são pessoas que querem manter a qualidade dos tipos de um módulo específico
-  - Adicionar a lista você mesmo, vai garantir que você seja notificado (pelo seu usuário do GitHub) sempre que qualquer um fizer uma pull request ou um issue sobre o pacote.
-  - Suas revisões da PR terão uma precedência de importância maior para [o bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantêm este repositório.
+  - Adicionar você mesmo à lista, vai garantir que você seja notificado (pelo seu usuário do GitHub) sempre que qualquer um fizer uma pull request ou um issue sobre o pacote.
+  - Suas revisões da PR terão uma precedência de importância maior para [o bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantém este repositório.
   - Os mantenedores do DT estão confiando nos donos da definição para garantir um ecossistema estável, por favor não se adicione apenas por adicionar.
 
  Para se adicionar como um Dono de definição:
@@ -264,7 +264,7 @@ Uma vez por semana os Donos de definição são sincronizados para o arquivo [.g
     Exceção: `new Map<string, number>()` é aceitável.
 * Usar os tipos `Function` e `Object` quase nunca é uma boa ideia. Em 99% dos casos é possível especificar um tipo mais específico. Por exemplo `(x: number) => number` para [funções](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) e `{ x: number, y: number }` para objetos. Se você não tem nenhuma certeza sobre o tipo, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) é a escolha correta, não `Object`. Se a única certeza sobre o tipo é que ele é algum objeto, use o tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), não `Object` ou `{ [key: string]: any }`.
 * `var foo: string | any`:
-    Quando `any` é usado em um tipo de união, o tipo resultante ainda é `any`. Então enquanto a parte da anotação de tipo `string` pode _parecer_ útil, mas na verdade ela não oferece nenhuma verificação de tipo adicional do que simplesmente usar `any`.
+    Quando `any` é usado em um tipo de união, o tipo resultante ainda é `any`. Então, enquanto a parte da anotação de tipo `string` pode _parecer_ útil, na verdade ela não oferece nenhuma verificação de tipo adicional do que simplesmente usar `any`.
     Dependendo da intenção, alternativas aceitáveis podem ser `any`, `string`, ou `string | object`.
 
 
@@ -272,8 +272,7 @@ Uma vez por semana os Donos de definição são sincronizados para o arquivo [.g
 
 Quando um pacote [inclui](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) seus próprios tipos, os tipos devem ser removidos do Definitely Typed para evitar confusão.
 
-Você podem removê-lo executando `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`
-- `
+Você pode removê-lo executando `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`
 - `typingsPackageName`: O nome do diretório a ser deletado.
 - `asOfVersion`: Um esboço será publicado em `@types/foo` com essa versão. Deve ser maior do que qualquer versão atualmente publicada, e deve ser uma versão de `foo` no npm.
 - `sourceRepoURL`: Essa URL deve apontar um repositório que contém os tipos.
@@ -413,13 +412,10 @@ e [`--esModuleInterop`](https://www.typescriptlang.org/docs/handbook/release-not
 Não mude a definição de tipo se ela já está correta.
 Para um pacote NPM, `export =` é o certo, se `node -p 'require("foo")'` funciona para importar um módulo, e `export default` é o certo se `node -p 'require("foo").default'` funciona para importar um módulo.
 
-#### Eu quero usar features do TypeScript 2.9 ou superior.
-
-Então você vai precisar adicionar este comentário na última linha do seu cabeçalho de definição (depois de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.9`.
-
 #### Eu quero usar features do TypeScript 3.1 ou superior.
 
-Você pode usar o mesmo comentário `// TypeScript Version: 3.1` como descrito acima.
+Então você vai precisar adicionar este comentário na última linha do seu cabeçalho de definição (depois de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
+
 Entretanto, se o seu projeto precisa manter tipos que são compatíveis com o 3.1 e superior *ao mesmo tempo que* tipos que são compatíveis com o 3.0 ou inferior, você vai precisar usar a feature `typesVersions`, que está disponível no TypeScript 3.1 e superior.
 Você pode achar uma explicação detalhada dessa feature na [documentação oficial do TypeScript](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
 
@@ -562,7 +558,7 @@ Quando `dts-gen` for usado para montar um pacote com escopo, a propriedade `path
 
 #### O histórico do arquivo no GitHub parece incompleto.
 
-O GitHub não [suporta](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) histórico para arquivos renomeados. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) ou invés disso.
+O GitHub não [suporta](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) histórico de arquivos renomeados. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) ao invés disso.
 
 ## Licença
 

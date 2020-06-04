@@ -135,24 +135,6 @@ async function main() {
         if (err)
             console.error("Failed to write fp.d.ts: ", err);
     });
-
-    // Make sure the generated files are listed in tsconfig.json, so they are included in the lint checks
-    const tsconfigPath = path.join("..", "tsconfig.json");
-    const tsconfigFile = await readFile(tsconfigPath);
-    const tsconfig = tsconfigFile.split(lineBreak).filter(row => !row.includes("fp/") || row.includes("fp/convert.d.ts"));
-    const newRows = interfaceGroups.map(g => `        "fp/${g.functionName}.d.ts",`)
-        .concat(["__", "placeholder"].map(p => `        "fp/${p}.d.ts",`));
-    newRows[newRows.length - 1] = newRows[newRows.length - 1].replace(",", "");
-
-    const insertIndex = _.findLastIndex(tsconfig, row => row.trim() === "]"); // Assume "files" is the last array
-    if (!tsconfig[insertIndex - 1].endsWith(","))
-        tsconfig[insertIndex - 1] += ",";
-    tsconfig.splice(insertIndex, 0, ...newRows);
-
-    fs.writeFile(tsconfigPath, tsconfig.join(lineBreak), (err) => {
-        if (err)
-            console.error(`Failed to write ${tsconfigPath}: `, err);
-    });
 }
 
 async function processDefinitions(filePaths: string[], commonTypes: string[]): Promise<InterfaceGroup[]> {

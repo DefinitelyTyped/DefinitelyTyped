@@ -1,5 +1,5 @@
 import ES2015 = require('es-abstract/es2015');
-import { expectType } from './index.test';
+import { expectType, newType } from './index.test';
 
 declare const any: unknown;
 
@@ -103,6 +103,40 @@ const anyIterator = any as Iterator<unknown, unknown, unknown>;
 ES2015.GetMethod(anyIterator, 'next'); // $ExpectType (...args: [] | [unknown]) => IteratorResult<unknown, unknown>
 ES2015.GetMethod(anyIterator, 'throw'); // $ExpectType ((e?: any) => IteratorResult<unknown, unknown>) | undefined
 ES2015.GetMethod(anyIterator, 'return'); // $ExpectType ((value?: unknown) => IteratorResult<unknown, unknown>) | undefined
+
+expectType<ES2015.PropertyDescriptor<typeof Reflect.getPrototypeOf> | undefined>(
+    ES2015.OrdinaryGetOwnProperty(Reflect, 'getPrototypeOf'),
+);
+expectType<ES2015.PropertyDescriptor<typeof Reflect.setPrototypeOf> | undefined>(
+    ES2015.OrdinaryGetOwnProperty(Reflect, 'setPrototypeOf'),
+);
+
+const completeNullishUnionDescriptor = ES2015.CompletePropertyDescriptor(
+    // tslint:disable-next-line: no-null-undefined-union
+    newType<{ '[[Value]]': object | null | undefined }>(),
+);
+completeNullishUnionDescriptor['[[Configurable]]']; // $ExpectType boolean
+completeNullishUnionDescriptor['[[Enumerable]]']; // $ExpectType boolean
+completeNullishUnionDescriptor['[[Writable]]']; // $ExpectType boolean
+completeNullishUnionDescriptor['[[Value]]']; // $ExpectType object | null | undefined
+
+const completeRequiredValueDescriptor = ES2015.CompletePropertyDescriptor(newType<{ '[[Value]]': string }>());
+completeRequiredValueDescriptor['[[Configurable]]']; // $ExpectType boolean
+completeRequiredValueDescriptor['[[Enumerable]]']; // $ExpectType boolean
+completeRequiredValueDescriptor['[[Writable]]']; // $ExpectType boolean
+completeRequiredValueDescriptor['[[Value]]']; // $ExpectType string
+
+const completeDataDescriptor = ES2015.CompletePropertyDescriptor(newType<{ '[[Value]]'?: number }>());
+completeDataDescriptor['[[Configurable]]']; // $ExpectType boolean
+completeDataDescriptor['[[Enumerable]]']; // $ExpectType boolean
+completeDataDescriptor['[[Writable]]']; // $ExpectType boolean
+completeDataDescriptor['[[Value]]']; // $ExpectType number | undefined
+
+const completeAccessorDescriptor = ES2015.CompletePropertyDescriptor(newType<{ '[[Get]]'?: () => symbol }>());
+completeAccessorDescriptor['[[Configurable]]']; // $ExpectType boolean
+completeAccessorDescriptor['[[Enumerable]]']; // $ExpectType boolean
+completeAccessorDescriptor['[[Get]]']; // $ExpectType (() => symbol) | undefined
+completeAccessorDescriptor['[[Set]]']; // $ExpectType ((value: symbol) => void) | undefined
 
 // Removed in ES2015:
 ES2015.CheckObjectCoercible; // $ExpectError

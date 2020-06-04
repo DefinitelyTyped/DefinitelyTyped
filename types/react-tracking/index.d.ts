@@ -8,7 +8,7 @@
 import * as React from 'react';
 
 export interface TrackingProp<P = {}> {
-    trackEvent(data: Partial<P>): any;
+    trackEvent(data: Partial<P>): void;
 
     /**
      * This method returns all of the contextual tracking data up until this point in the component hierarchy.

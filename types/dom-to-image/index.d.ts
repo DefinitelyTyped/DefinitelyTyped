@@ -22,7 +22,7 @@ export interface Options {
   style?: {};
   quality?: number;
   imagePlaceholder?: string;
-  cachebust?: boolean;
+  cacheBust?: boolean;
 }
 
 export const DomToImage: DomToImage;

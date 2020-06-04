@@ -15,7 +15,6 @@
 //                 Geraldine Lemeur <https://github.com/geraldinelemeur>
 //                 Dominik Heigl <https://github.com/various89>
 //                 Angela-1 <https://github.com/angela-1>
-//                 Mikael Lirbank <https://github.com/lirbank>
 //                 Hector Ribes <https://github.com/hector7>
 //                 Florian Richter <https://github.com/floric>
 //                 Erik Christensen <https://github.com/erikc5000>
@@ -2544,6 +2543,7 @@ declare class TypedEventEmitter<Events> {
 
     emit<E extends keyof Events> (event: E, ...args: EventArguments<Events[E]>): boolean;
     eventNames (): Array<keyof Events>;
+    rawListeners<E extends keyof Events> (event: E): Function[];
     listeners<E extends keyof Events> (event: E): Function[];
     listenerCount<E extends keyof Events> (event: E): number;
 

@@ -51,3 +51,6 @@ ES5.ToObject(nullableMaybePromise); // $ExpectType String | Promise<string>
 
 ES5.CheckObjectCoercible(nullableObject); // $ExpectType string | object
 ES5.CheckObjectCoercible(any); // $ExpectType unknown
+
+ES5.ToPropertyDescriptor({ value: 123 }); // $ExpectType PropertyDescriptor<number>
+ES5.FromPropertyDescriptor({ "[[Value]]": '456' }); // $ExpectType TypedPropertyDescriptor<string>
