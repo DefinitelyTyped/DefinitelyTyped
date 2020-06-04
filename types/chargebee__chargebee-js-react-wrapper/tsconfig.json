@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "chargebee__chargebee-js-react-wrapper-tests.d.ts"
+        "chargebee__chargebee-js-react-wrapper-tests.tsx"
     ]
 }
