@@ -9674,13 +9674,9 @@ declare namespace Office {
          * that when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
          * Until the item is synced, using the item ID will return an error.
          *
-         * **Note**: The following clients have different behavior for `saveAsync` on appointments in compose mode:
-         *
-         * - In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
+         * **Note**: In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
          * Otherwise, the `saveAsync` method fails when called from a meeting in compose mode.
          * For a workaround, see {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
-         *
-         * - Outlook on the web always sends an invitation or update when `saveAsync` is called on an appointment in compose mode.
          *
          * [Api set: Mailbox 1.3]
          *
@@ -9714,13 +9710,9 @@ declare namespace Office {
          * when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
          * Until the item is synced, using the item ID will return an error.
          *
-         * **Note**: The following clients have different behavior for `saveAsync` on appointments in compose mode:
-         *
-         * - In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
+         * **Note**: In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
          * Otherwise, the `saveAsync` method fails when called from a meeting in compose mode.
          * For a workaround, see {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
-         *
-         * - Outlook on the web always sends an invitation or update when `saveAsync` is called on an appointment in compose mode.
          *
          * [Api set: Mailbox 1.3]
          *
