@@ -79,9 +79,9 @@ interface ES5 {
 
 declare namespace ES5 {
     type GenericDescriptor = ESGenericDescriptor;
-    type AccessorDescriptor<T = any> = ESAccessorDescriptor<T>;
-    type DataDescriptor<T = any> = ESDataDescriptor<T>;
-    type PropertyDescriptor<T = any> = ESPropertyDescriptor<T>;
+    type AccessorDescriptor<T = unknown> = ESAccessorDescriptor<T>;
+    type DataDescriptor<T = unknown> = ESDataDescriptor<T>;
+    type PropertyDescriptor<T = unknown> = ESPropertyDescriptor<T>;
 }
 
 declare const ES5: ES5;
