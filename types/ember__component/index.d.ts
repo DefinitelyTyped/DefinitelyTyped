@@ -19,6 +19,8 @@ interface TemplateFactory {
     __htmlbars_inline_precompile_template_factory: any;
 }
 
+export function setComponentTemplate(template: TemplateFactory, klass: any): any;
+
 /**
  * A component is an isolated piece of UI, represented by a template and an
  * optional class. When a component has a class, its template's `this` value
