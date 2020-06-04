@@ -75,7 +75,7 @@ export interface AuthorizeWith3dsResponse {
 }
 export interface CardComponentProps {
 	readonly className?: string;
-	readonly fonts?: Array<string> | Array<{
+	readonly fonts?: string[] | Array<{
 		readonly fontFamily?: string;
 		readonly src?: string;
 		readonly fontStyle?: string | number;
