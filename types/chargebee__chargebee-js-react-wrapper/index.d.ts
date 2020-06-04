@@ -91,7 +91,7 @@ export interface CardComponentProps {
 		readonly empty?: string;
 		readonly complete?: string;
 	};
-	readonly icon: boolean;
+	readonly icon?: boolean;
 	/**
 	 * @type {string}
 	 * @memberof CardComponentProps
