@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "paths": {
-            "@atlaskit/tree": ["chargebee__chargebee-js-react-wrapper"]
+            "@chargebee/chargebee-js-react-wrapper": ["chargebee__chargebee-js-react-wrapper"]
         }
     },
     "files": ["index.d.ts", "chargebee__chargebee-js-react-wrapper-tests.tsx"]
