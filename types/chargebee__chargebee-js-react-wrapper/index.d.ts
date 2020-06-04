@@ -1,4 +1,4 @@
-// Type definitions for chargebee-js-wrappers 0.2.1
+// Type definitions for chargebee-js-wrappers 0.2
 // Project: https://www.npmjs.com/package/@chargebee/chargebee-js-react-wrapper
 // Definitions by: Sagar Jain <https://github.com/sagar7993>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,14 +41,10 @@ export interface PaymentIntent {
 	readonly id: string;
 	readonly status: 'inited' | 'in_progress' | 'authorized' | 'consumed' | 'expired';
 	/**
-	 * @type {string}
-	 * @memberof PaymentIntent
 	 * The currency code (ISO 4217 format) of the amount used in transaction.
 	 */
 	readonly currency_code?: string;
 	/**
-	 * @type {string}
-	 * @memberof PaymentIntent
 	 * Amount in cents, min=0
 	 */
 	readonly amount: number;
@@ -93,14 +89,10 @@ export interface CardComponentProps {
 	};
 	readonly icon?: boolean;
 	/**
-	 * @type {string}
-	 * @memberof CardComponentProps
 	 * Currency code in ISO 4217 format (USD, EUR). By default, base currency code will be used
 	 */
 	readonly currency?: string;
 	/**
-	 * @type {string}
-	 * @memberof CardComponentProps
 	 * Locale code in ISO 639 - 1 format(en, fr).By default, `en` will be used
 	 */
 	readonly locale?: string;
