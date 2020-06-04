@@ -418,6 +418,4 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 {
   publicKeyRsa.encrypt('content');
   privateKeyRsa.decrypt('content');
-  cert.publicKey.encrypt('content');
-  cert.privateKey.decrypt('content');
 }

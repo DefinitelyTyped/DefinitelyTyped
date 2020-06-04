@@ -229,8 +229,8 @@ declare module "node-forge" {
                 hash: any;
             };
             extensions: any[];
-            privateKey: rsa.PrivateKey;
-            publicKey: rsa.PublicKey;
+            privateKey: PrivateKey;
+            publicKey: PublicKey;
             md: any;
             /**
              * Sets the subject of this certificate.
