@@ -9,9 +9,11 @@ typeformEmbed.makeWidget(stubContainerEl, 'https://admin.typeform.com/to/PlBzgL'
     disableTracking: true,
     hideFooter: true,
     hideHeaders: false,
-    onSubmit: () => {
+    onSubmit: ({ response_id }) => {
+        isString(response_id);
         console.log('Typeform successfully submitted');
     },
+    onReady: () => {},
 });
 
 typeformEmbed.makePopup('https://admin.typeform.com/to/PlBzgL', {
@@ -24,7 +26,14 @@ typeformEmbed.makePopup('https://admin.typeform.com/to/PlBzgL', {
     drawerWidth: 500,
     hideFooter: true,
     hideHeaders: true,
-    onSubmit: () => {
+    onSubmit: ({ response_id }) => {
+        isString(response_id);
         console.log('Typeform successfully submitted');
     },
+    onReady: () => {},
+    onClose: () => {},
 });
+
+function isString(value: string) {
+    /* empty */
+}
