@@ -38,7 +38,7 @@ declare namespace Serverless {
         memorySize?: number;
         environment?: { [name: string]: string };
         events: Event[];
-	tags?: { [key: string]: string };
+        tags?: { [key: string]: string };
     }
 
     // Other events than ApiGatewayEvent are available
