@@ -1,25 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
+        "lib": ["es6", "dom"],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "esModuleInterop": true,
         "baseUrl": "../",
-        "jsx": "react",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "paths": {
+            "@atlaskit/tree": ["chargebee__chargebee-js-react-wrapper"]
+        }
     },
-    "files": [
-        "index.d.ts",
-        "chargebee__chargebee-js-react-wrapper-tests.tsx"
-    ]
+    "files": ["index.d.ts", "chargebee__chargebee-js-react-wrapper-tests.tsx"]
 }
