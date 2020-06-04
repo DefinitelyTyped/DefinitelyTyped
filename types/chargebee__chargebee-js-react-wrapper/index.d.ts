@@ -1,4 +1,4 @@
-// Type definitions for chargebee-js-wrappers 1.0
+// Type definitions for chargebee-js-wrappers 0.2.1
 // Project: https://www.npmjs.com/package/@chargebee/chargebee-js-react-wrapper
 // Definitions by: Sagar Jain <https://github.com/sagar7993>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
