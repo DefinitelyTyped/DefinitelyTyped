@@ -4994,6 +4994,62 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
         // $ExpectType unknown[]
         result = _.chain(list).flatten().value();
     }
+
+    // strings arrays, deep
+    {
+        const array: string[][] = [simpleStringArray];
+        let result: string[];
+
+        result = _.flatten<string[]>(array);
+        result = _.flatten(array);
+
+        result = _<string[], string[][]>(array).flatten();
+        result = _(array).flatten();
+
+        result = _.chain<string[], string[][]>(array).flatten().value();
+        result = _.chain(array).flatten().value();
+    }
+
+    {
+        const list: _.List<_.List<string>> = { 0: simpleStringArray, length: 1 };
+        let result: string[];
+
+        result = _.flatten<_.List<string>>(list);
+        result = _.flatten(list);
+
+        result = _<_.List<string>, _.List<_.List<string>>>(list).flatten();
+        result = _(list).flatten();
+
+        result = _.chain<_.List<string>, _.List<_.List<string>>>(list).flatten().value();
+        result = _.chain(list).flatten().value();
+    }
+
+    // strings arrays, shallow
+    {
+        let result: string[];
+
+        result = _.flatten<string>(simpleStringArray, true);
+        result = _.flatten(simpleStringArray, true);
+
+        result = _<string, string[]>(simpleStringArray).flatten(true);
+        result = _(simpleStringArray).flatten(true);
+
+        result = _.chain<string, string[]>(simpleStringArray).flatten(true).value();
+        result = _.chain(simpleStringArray).flatten(true).value();
+    }
+
+    {
+        let result: string[];
+
+        result = _.flatten<string>(simpleStringArray, true);
+        result = _.flatten(simpleStringArray, true);
+
+        result = _<string, _.List<string>>(simpleStringArray).flatten(true);
+        result = _(simpleStringArray).flatten(true);
+
+        result = _.chain<string, _.List<string>>(simpleStringArray).flatten(true).value();
+        result = _.chain(simpleStringArray).flatten(true).value();
+    }
 }
 
 // without

@@ -134,15 +134,16 @@ declare module _ {
 
     type PropertyNamesOfType<T, P> = { [K in keyof T]: T[K] extends P ? K : never }[keyof T];
 
-    type ShallowFlattenedList<T> = T extends List<infer TItem> ? TItem[] : T[];
+    // '& object' prevents strings from being matched by list checks
+    type ShallowFlattenedList<T> = T extends List<infer TItem> & object ? TItem[] : T[];
 
     // unfortunately it's not possible to recursively collapse all possible list dimensions to T[] at this time,
     // so give up after two dimensions and require an assertion
     // surprisingly T extends List<List<infer TItem>> isn't true when T = SomeType[][],
     // so writing this that way doesn't work
-    type DeepFlattenedList<T> = T extends List<infer TItem>
-        ? TItem extends List<infer TInnerItem>
-        ? TInnerItem extends List<unknown>
+    type DeepFlattenedList<T> = T extends List<infer TItem> & object
+        ? TItem extends List<infer TInnerItem> & object
+        ? TInnerItem extends List<unknown> & object
         ? unknown[]
         : TInnerItem[]
         : TItem[]
