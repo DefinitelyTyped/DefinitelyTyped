@@ -110,7 +110,7 @@ export interface APIGatewayProxyEventV2 {
         apiId: string;
         authorizer?: {
             jwt: {
-                claims: { [name: string]: string };
+                claims: { [name: string]: string | number | boolean | string[] };
                 scopes: string[];
             };
         };
