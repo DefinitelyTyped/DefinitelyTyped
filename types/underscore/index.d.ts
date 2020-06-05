@@ -1124,12 +1124,12 @@ declare module _ {
         range(stop: number): number[];
 
         /**
-        * Split an **array** into several arrays containing **count** or less elements
-        * of initial array.
-        * @param array The array to split
-        * @param count The maximum size of the inner arrays.
-        */
-        chunk<T>(array: _.Collection<T>, count: number): (_.Collection<T>)[]
+         * Chunks a list into multiple arrays, each containing length or fewer items.
+         * @param list The list to split.
+         * @param length The maximum size of the inner arrays.
+         * @returns The chunked list.
+         */
+        chunk<T>(list: List<T>, length: number): T[][]
 
         /*************
          * Functions *
@@ -4631,10 +4631,11 @@ declare module _ {
         range(): number[];
 
         /**
-         * Wrapped type any[][].
-         * @see _.chunk
-         **/
-        chunk(): any[][];
+         * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
+         * @param length The maximum size of the inner arrays.
+         * @returns The chunked list.
+         */
+        chunk(length: number): T[][];
 
         /* ***********
         * Functions *
@@ -5591,10 +5592,11 @@ declare module _ {
         range(): _Chain<T>;
 
         /**
-         * Wrapped type `any[][]`.
-         * @see _.chunk
-         **/
-        chunk(): _Chain<T>;
+         * Chunks a wrapped list into multiple arrays, each containing length or fewer items.
+         * @param length The maximum size of the inner arrays.
+         * @returns The wrapped chunked list.
+         */
+        chunk(length: number): _Chain<T[], T[][]>;
 
         /* ***********
         * Functions *
