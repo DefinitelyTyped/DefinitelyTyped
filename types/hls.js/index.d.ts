@@ -805,12 +805,12 @@ declare namespace Hls {
     }
 
     interface mediaAttachingData {
-        video: HTMLVideoElement;
+        media: HTMLMediaElement;
         mediaSource: string;
     }
 
     interface mediaAttachedData {
-        video: HTMLVideoElement;
+        media: HTMLMediaElement;
         mediaSource: string;
     }
 
@@ -1677,9 +1677,9 @@ declare class Hls {
      */
     startLevel: number;
     /**
-     * get: Return the bound videoElement from the hls instance
+     * get: Return the bound mediaElement (of type HTMLMediaElement, aka. HTMLVideoElement or HTMLAudioElement) from the hls instance
      */
-    readonly media?: HTMLVideoElement | null;
+    readonly media?: HTMLMediaElement | null;
     /**
      *  hls.js config
      */
@@ -1732,16 +1732,16 @@ declare class Hls {
     subtitleDisplay: boolean;
     /**
      * calling this method will:
-     *      bind videoElement and hls instances
-     *      create MediaSource and set it as video source
+     *      bind mediaElement (of type HTMLMediaElement, aka. HTMLVideoElement or HTMLAudioElement) and hls instances
+     *      create MediaSource and set it as video or audio source
      *      once MediaSource object is successfully created, MEDIA_ATTACHED event will be fired
      */
-    attachMedia(videoElement: HTMLVideoElement): void;
+    attachMedia(mediaElement: HTMLMediaElement): void;
     /**
      * calling this method will:
-     *      unbind VideoElement from hls instance
+     *      unbind HTMLMediaElement (aka. HTMLVideoElement or HTMLAudioElement) from hls instance
      *      signal the end of the stream on MediaSource
-     *      reset video source ( video.src = '' )
+     *      resets media source ( media.src = '',  )
      */
     detachMedia(): void;
     /**
