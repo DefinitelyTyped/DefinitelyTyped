@@ -4995,7 +4995,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
         result = _.chain(list).flatten().value();
     }
 
-    // strings arrays, deep
+    // string lists, deep
     {
         const array: string[][] = [simpleStringArray];
         let result: string[];
@@ -5011,7 +5011,7 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     }
 
     {
-        const list: _.List<_.List<string>> = { 0: simpleStringArray, length: 1 };
+        const list: _.List<_.List<string>> = { 0: simpleStringList, length: 1 };
         let result: string[];
 
         result = _.flatten<_.List<string>>(list);
@@ -5024,12 +5024,12 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
         result = _.chain(list).flatten().value();
     }
 
-    // strings arrays, shallow
+    // string lists, shallow
     {
         let result: string[];
 
-        result = _.flatten<string>(simpleStringArray, true);
-        result = _.flatten(simpleStringArray, true);
+        result = _.flatten<string>(simpleStringList, true);
+        result = _.flatten(simpleStringList, true);
 
         result = _<string, string[]>(simpleStringArray).flatten(true);
         result = _(simpleStringArray).flatten(true);
@@ -5041,14 +5041,70 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
     {
         let result: string[];
 
-        result = _.flatten<string>(simpleStringArray, true);
-        result = _.flatten(simpleStringArray, true);
+        result = _.flatten<string>(simpleStringList, true);
+        result = _.flatten(simpleStringList, true);
 
-        result = _<string, _.List<string>>(simpleStringArray).flatten(true);
-        result = _(simpleStringArray).flatten(true);
+        result = _<string, _.List<string>>(simpleStringList).flatten(true);
+        result = _(simpleStringList).flatten(true);
 
-        result = _.chain<string, _.List<string>>(simpleStringArray).flatten(true).value();
-        result = _.chain(simpleStringArray).flatten(true).value();
+        result = _.chain<string, _.List<string>>(simpleStringList).flatten(true).value();
+        result = _.chain(simpleStringList).flatten(true).value();
+    }
+
+    // type unions, deep
+    {
+        const array: NonIntersectingObjectPropertiesType[][] = [nonIntersectingObjectPropertiesArray];
+        let result: NonIntersectingObjectPropertiesType[];
+
+        result = _.flatten<NonIntersectingObjectPropertiesType[]>(array);
+        result = _.flatten(array);
+
+        result = _<NonIntersectingObjectPropertiesType[], NonIntersectingObjectPropertiesType[][]>(array).flatten();
+        result = _(array).flatten();
+
+        result = _.chain<NonIntersectingObjectPropertiesType[], NonIntersectingObjectPropertiesType[][]>(array).flatten().value();
+        result = _.chain(array).flatten().value();
+    }
+
+    {
+        const list: _.List<_.List<NonIntersectingObjectPropertiesType>> = { 0: nonIntersectingObjectPropertiesList, length: 1 };
+        let result: NonIntersectingObjectPropertiesType[];
+
+        result = _.flatten<_.List<NonIntersectingObjectPropertiesType>>(list);
+        result = _.flatten(list);
+
+        result = _<_.List<NonIntersectingObjectPropertiesType>, _.List<_.List<NonIntersectingObjectPropertiesType>>>(list).flatten();
+        result = _(list).flatten();
+
+        result = _.chain<_.List<NonIntersectingObjectPropertiesType>, _.List<_.List<NonIntersectingObjectPropertiesType>>>(list).flatten().value();
+        result = _.chain(list).flatten().value();
+    }
+
+    // type unions, shallow
+    {
+        let result: NonIntersectingObjectPropertiesType[];
+
+        result = _.flatten<NonIntersectingObjectPropertiesType>(nonIntersectingObjectPropertiesArray, true);
+        result = _.flatten(nonIntersectingObjectPropertiesArray, true);
+
+        result = _<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).flatten(true);
+        result = _(nonIntersectingObjectPropertiesArray).flatten(true);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).flatten(true).value();
+        result = _.chain(nonIntersectingObjectPropertiesArray).flatten(true).value();
+    }
+
+    {
+        let result: NonIntersectingObjectPropertiesType[];
+
+        result = _.flatten<NonIntersectingObjectPropertiesType>(nonIntersectingObjectPropertiesList, true);
+        result = _.flatten(nonIntersectingObjectPropertiesList, true);
+
+        result = _<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesList).flatten(true);
+        result = _(nonIntersectingObjectPropertiesList).flatten(true);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesList).flatten(true).value();
+        result = _.chain(nonIntersectingObjectPropertiesList).flatten(true).value();
     }
 }
 

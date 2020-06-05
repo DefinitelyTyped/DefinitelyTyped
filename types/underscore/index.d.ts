@@ -135,7 +135,7 @@ declare module _ {
     type PropertyNamesOfType<T, P> = { [K in keyof T]: T[K] extends P ? K : never }[keyof T];
 
     // '& object' prevents strings from being matched by list checks
-    type ShallowFlattenedList<T> = T extends List<infer TItem> & object ? TItem[] : T[];
+    type ShallowFlattenedList<T> = T extends List<infer TItem> & object ? TItem : T;
 
     // unfortunately it's not possible to recursively collapse all possible list dimensions to T[] at this time,
     // so give up after two dimensions and require an assertion
@@ -144,10 +144,10 @@ declare module _ {
     type DeepFlattenedList<T> = T extends List<infer TItem> & object
         ? TItem extends List<infer TInnerItem> & object
         ? TInnerItem extends List<unknown> & object
-        ? unknown[]
-        : TInnerItem[]
-        : TItem[]
-        : T[];
+        ? unknown
+        : TInnerItem
+        : TItem
+        : T;
 
     interface Cancelable {
         cancel(): void;
@@ -899,12 +899,12 @@ declare module _ {
         * @param shallow If true then only flatten one level, optional, default = false.
         * @return `array` flattened.
         **/
-        flatten<T>(array: List<T>, shallow?: false): DeepFlattenedList<T>;
+        flatten<T>(array: List<T>, shallow?: false): DeepFlattenedList<T>[];
 
         /**
         * @see flatten
         **/
-        flatten<T>(array: List<T>, shallow: true): ShallowFlattenedList<T>;
+        flatten<T>(array: List<T>, shallow: true): ShallowFlattenedList<T>[];
 
         /**
         * Returns a copy of the array with all instances of the values removed.
@@ -4466,12 +4466,12 @@ declare module _ {
         * Wrapped type List<T>.
         * @see flatten
         **/
-        flatten(shallow?: false): DeepFlattenedList<T>;
+        flatten(shallow?: false): DeepFlattenedList<T>[];
 
         /**
         * @see flatten
         **/
-        flatten(shallow: true): ShallowFlattenedList<T>;
+        flatten(shallow: true): ShallowFlattenedList<T>[];
 
         /**
         * Wrapped type List<T>.
@@ -5399,12 +5399,12 @@ declare module _ {
         * Wrapped type List<T>.
         * @see flatten
         **/
-        flatten(shallow?: false): _Chain<TypeOfList<DeepFlattenedList<T>>, DeepFlattenedList<T>>;
+        flatten(shallow?: false): _Chain<DeepFlattenedList<T>, DeepFlattenedList<T>[]>;
 
         /**
         * @see flatten
         **/
-        flatten(shallow: true): _Chain<TypeOfList<ShallowFlattenedList<T>>, ShallowFlattenedList<T>>;
+        flatten(shallow: true): _Chain<ShallowFlattenedList<T>, ShallowFlattenedList<T>[]>;
 
         /**
         * Wrapped type List<T>.
