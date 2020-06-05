@@ -8,6 +8,7 @@ const optionsEmpty: DotenvWebpackPlugin.Options = {};
 const optionsFull: DotenvWebpackPlugin.Options = {
     path: './some.other.env',
     safe: true,
+    allowEmptyValues: true,
     systemvars: true,
     silent: true,
     expand: true,
