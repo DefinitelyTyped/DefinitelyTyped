@@ -46,9 +46,8 @@ declare namespace sade {
         version(str: string): Sade;
         help(str: string): void;
 
-        parse(arr: string[]): void;
-        parse(arr: string[], opts?: Readonly<{ lazy?: true } & ParseOptions>): LazyOutput;
-        parse(arr: string[], opts?: Readonly<ParseOptions>): void;
+        parse(arr: string[], opts: { lazy: true } & ParseOptions): LazyOutput;
+        parse(arr: string[], opts?: ParseOptions): void;
     }
 }
 
