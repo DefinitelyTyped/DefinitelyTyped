@@ -22,7 +22,6 @@ const simpleNumber = 7;
 
         // $ExpectType Underscore<SimpleStringObject, SimpleStringObject[]>
         result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray);
-
         // $ExpectType Underscore<SimpleStringObject, SimpleStringObject[]>
         result = _(simpleStringObjectArray);
     }
@@ -32,7 +31,6 @@ const simpleNumber = 7;
 
         // $ExpectType Underscore<SimpleStringObject, List<SimpleStringObject>>
         result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList);
-
         // $ExpectType Underscore<SimpleStringObject, List<SimpleStringObject>>
         result = _(simpleStringObjectList);
     }
@@ -42,7 +40,6 @@ const simpleNumber = 7;
 
         // $ExpectType Underscore<SimpleStringObject, Dictionary<SimpleStringObject>>
         result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary);
-
         // $ExpectType Underscore<SimpleStringObject, Dictionary<SimpleStringObject>>
         result = _(simpleStringObjectDictionary);
 
@@ -53,7 +50,6 @@ const simpleNumber = 7;
 
         // $ExpectType Underscore<string, string>
         result = _<string, string>(simpleString);
-
         // $ExpectType Underscore<string, string>
         result = _(simpleString);
     }
@@ -63,7 +59,6 @@ const simpleNumber = 7;
 
         // $ExpectType Underscore<number, number>
         result = _<number>(simpleNumber);
-
         // $ExpectType Underscore<number, number>
         result = _(simpleNumber);
     }
@@ -77,7 +72,6 @@ const simpleNumber = 7;
 
         // $ExpectType SimpleStringObject[]
         result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).value();
-
         // $ExpectType SimpleStringObject[]
         result = _(simpleStringObjectArray).value();
     }
@@ -87,7 +81,6 @@ const simpleNumber = 7;
 
         // $ExpectType List<SimpleStringObject>
         result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).value();
-
         // $ExpectType List<SimpleStringObject>
         result = _(simpleStringObjectList).value();
     }
@@ -97,7 +90,6 @@ const simpleNumber = 7;
 
         // $ExpectType Dictionary<SimpleStringObject>
         result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).value();
-
         // $ExpectType Dictionary<SimpleStringObject>
         result = _(simpleStringObjectDictionary).value();
 
@@ -108,7 +100,6 @@ const simpleNumber = 7;
 
         // $ExpectType string
         result = _<string, string>(simpleString).value();
-
         // $ExpectType string
         result = _(simpleString).value();
     }
@@ -118,7 +109,6 @@ const simpleNumber = 7;
 
         // $ExpectType number
         result = _<number>(simpleNumber).value();
-
         // $ExpectType number
         result = _(simpleNumber).value();
     }
@@ -135,13 +125,11 @@ const simpleNumber = 7;
 
         // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
         result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray);
-
         // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
         result = _.chain(simpleStringObjectArray);
 
         // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
         result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).chain();
-
         // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
         result = _(simpleStringObjectArray).chain();
     }
@@ -151,13 +139,11 @@ const simpleNumber = 7;
 
         // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
         result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList);
-
         // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
         result = _.chain(simpleStringObjectList);
 
         // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
         result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).chain();
-
         // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
         result = _(simpleStringObjectList).chain();
     }
@@ -167,13 +153,11 @@ const simpleNumber = 7;
 
         // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
         result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary);
-
         // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
         result = _.chain(simpleStringObjectDictionary);
 
         // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
         result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).chain();
-
         // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
         result = _(simpleStringObjectDictionary).chain();
 
@@ -184,13 +168,11 @@ const simpleNumber = 7;
 
         // $ExpectType _Chain<string, string>
         result = _.chain<string, string>(simpleString);
-
         // $ExpectType _Chain<string, string>
         result = _.chain(simpleString);
 
         // $ExpectType _Chain<string, string>
         result = _<string, string>(simpleString).chain();
-
         // $ExpectType _Chain<string, string>
         result = _(simpleString).chain();
     }
@@ -200,13 +182,11 @@ const simpleNumber = 7;
 
         // $ExpectType _Chain<number, number>
         result = _.chain<number>(simpleNumber);
-
         // $ExpectType _Chain<number, number>
         result = _.chain(simpleNumber);
 
         // $ExpectType _Chain<number, number>
         result = _<number>(simpleNumber).chain();
-
         // $ExpectType _Chain<number, number>
         result = _(simpleNumber).chain();
     }
@@ -220,7 +200,6 @@ const simpleNumber = 7;
 
         // $ExpectType SimpleStringObject[]
         result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).value();
-
         // $ExpectType SimpleStringObject[]
         result = _.chain(simpleStringObjectArray).value();
     }
@@ -230,7 +209,6 @@ const simpleNumber = 7;
 
         // $ExpectType List<SimpleStringObject>
         result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).value();
-
         // $ExpectType List<SimpleStringObject>
         result = _.chain(simpleStringObjectList).value();
     }
@@ -240,7 +218,6 @@ const simpleNumber = 7;
 
         // $ExpectType Dictionary<SimpleStringObject>
         result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).value();
-
         // $ExpectType Dictionary<SimpleStringObject>
         result = _.chain(simpleStringObjectDictionary).value();
 
@@ -251,7 +228,6 @@ const simpleNumber = 7;
 
         // $ExpectType string
         result = _.chain<string, string>(simpleString).value();
-
         // $ExpectType string
         result = _.chain(simpleString).value();
     }
@@ -261,7 +237,6 @@ const simpleNumber = 7;
 
         // $ExpectType number
         result = _.chain<number>(simpleNumber).value();
-
         // $ExpectType number
         result = _.chain(simpleNumber).value();
     }
