@@ -9,7 +9,11 @@ import * as CSS from 'csstype';
 
 export interface StyleFunc {
     (...args: any[]): any;
-    propTypes?: ReadonlyArray<string>;
+    meta: {
+        props: ReadonlyArray<string>;
+        getStyle: Readonly<any>;
+        generators?: ReadonlyArray<any>;
+    };
 }
 
 export type ObjectOrArray<T> = T[] | { [K: string]: T | ObjectOrArray<T> };
