@@ -1,3 +1,274 @@
+// common testing types and objects
+interface SimpleStringObject {
+    a: string;
+    b: string;
+}
+
+const simpleStringObjectArray: SimpleStringObject[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, { a: 'c', b: 'a' }];
+const simpleStringObjectList: _.List<SimpleStringObject> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: { a: 'c', b: 'a' }, length: 3 };
+
+const simpleStringObjectDictionary: _.Dictionary<SimpleStringObject> = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: { a: 'c', b: 'a' } };
+
+const simpleString = 'abc';
+
+const simpleNumber = 7;
+
+// OOP Style
+
+// underscore
+{
+    {
+        let result: _.Underscore<SimpleStringObject, SimpleStringObject[]>;
+
+        // $ExpectType Underscore<SimpleStringObject, SimpleStringObject[]>
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray);
+
+        // $ExpectType Underscore<SimpleStringObject, SimpleStringObject[]>
+        result = _(simpleStringObjectArray);
+    }
+
+    {
+        let result: _.Underscore<SimpleStringObject, _.List<SimpleStringObject>>;
+
+        // $ExpectType Underscore<SimpleStringObject, List<SimpleStringObject>>
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList);
+
+        // $ExpectType Underscore<SimpleStringObject, List<SimpleStringObject>>
+        result = _(simpleStringObjectList);
+    }
+
+    {
+        let result: _.Underscore<SimpleStringObject, _.Dictionary<SimpleStringObject>>;
+
+        // $ExpectType Underscore<SimpleStringObject, Dictionary<SimpleStringObject>>
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary);
+
+        // $ExpectType Underscore<SimpleStringObject, Dictionary<SimpleStringObject>>
+        result = _(simpleStringObjectDictionary);
+
+    }
+
+    {
+        let result: _.Underscore<string, string>;
+
+        // $ExpectType Underscore<string, string>
+        result = _<string, string>(simpleString);
+
+        // $ExpectType Underscore<string, string>
+        result = _(simpleString);
+    }
+
+    {
+        let result: _.Underscore<number, number>;
+
+        // $ExpectType Underscore<number, number>
+        result = _<number>(simpleNumber);
+
+        // $ExpectType Underscore<number, number>
+        result = _(simpleNumber);
+    }
+}
+
+// value
+// verify that the object given to underscore is returned by value
+{
+    {
+        let result: SimpleStringObject[];
+
+        // $ExpectType SimpleStringObject[]
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).value();
+
+        // $ExpectType SimpleStringObject[]
+        result = _(simpleStringObjectArray).value();
+    }
+
+    {
+        let result: _.List<SimpleStringObject>;
+
+        // $ExpectType List<SimpleStringObject>
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).value();
+
+        // $ExpectType List<SimpleStringObject>
+        result = _(simpleStringObjectList).value();
+    }
+
+    {
+        let result: _.Dictionary<SimpleStringObject>;
+
+        // $ExpectType Dictionary<SimpleStringObject>
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).value();
+
+        // $ExpectType Dictionary<SimpleStringObject>
+        result = _(simpleStringObjectDictionary).value();
+
+    }
+
+    {
+        let result: string;
+
+        // $ExpectType string
+        result = _<string, string>(simpleString).value();
+
+        // $ExpectType string
+        result = _(simpleString).value();
+    }
+
+    {
+        let result: number;
+
+        // $ExpectType number
+        result = _<number>(simpleNumber).value();
+
+        // $ExpectType number
+        result = _(simpleNumber).value();
+    }
+}
+
+// Chaining
+
+// chain
+// verify that the right chain item and value types are yielded by calls to chain
+// these tests also check to make sure that _.chain() and _().chain() yield the same types
+{
+    {
+        let result: _._Chain<SimpleStringObject, SimpleStringObject[]>;
+
+        // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray);
+
+        // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+        result = _.chain(simpleStringObjectArray);
+
+        // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).chain();
+
+        // $ExpectType _Chain<SimpleStringObject, SimpleStringObject[]>
+        result = _(simpleStringObjectArray).chain();
+    }
+
+    {
+        let result: _._Chain<SimpleStringObject, _.List<SimpleStringObject>>;
+
+        // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList);
+
+        // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
+        result = _.chain(simpleStringObjectList);
+
+        // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).chain();
+
+        // $ExpectType _Chain<SimpleStringObject, List<SimpleStringObject>>
+        result = _(simpleStringObjectList).chain();
+    }
+
+    {
+        let result: _._Chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>;
+
+        // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary);
+
+        // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+        result = _.chain(simpleStringObjectDictionary);
+
+        // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).chain();
+
+        // $ExpectType _Chain<SimpleStringObject, Dictionary<SimpleStringObject>>
+        result = _(simpleStringObjectDictionary).chain();
+
+    }
+
+    {
+        let result: _._Chain<string, string>;
+
+        // $ExpectType _Chain<string, string>
+        result = _.chain<string, string>(simpleString);
+
+        // $ExpectType _Chain<string, string>
+        result = _.chain(simpleString);
+
+        // $ExpectType _Chain<string, string>
+        result = _<string, string>(simpleString).chain();
+
+        // $ExpectType _Chain<string, string>
+        result = _(simpleString).chain();
+    }
+
+    {
+        let result: _._Chain<number, number>;
+
+        // $ExpectType _Chain<number, number>
+        result = _.chain<number>(simpleNumber);
+
+        // $ExpectType _Chain<number, number>
+        result = _.chain(simpleNumber);
+
+        // $ExpectType _Chain<number, number>
+        result = _<number>(simpleNumber).chain();
+
+        // $ExpectType _Chain<number, number>
+        result = _(simpleNumber).chain();
+    }
+}
+
+// value
+// verify that the object given to chain is returned by value
+{
+    {
+        let result: SimpleStringObject[];
+
+        // $ExpectType SimpleStringObject[]
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).value();
+
+        // $ExpectType SimpleStringObject[]
+        result = _.chain(simpleStringObjectArray).value();
+    }
+
+    {
+        let result: _.List<SimpleStringObject>;
+
+        // $ExpectType List<SimpleStringObject>
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).value();
+
+        // $ExpectType List<SimpleStringObject>
+        result = _.chain(simpleStringObjectList).value();
+    }
+
+    {
+        let result: _.Dictionary<SimpleStringObject>;
+
+        // $ExpectType Dictionary<SimpleStringObject>
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).value();
+
+        // $ExpectType Dictionary<SimpleStringObject>
+        result = _.chain(simpleStringObjectDictionary).value();
+
+    }
+
+    {
+        let result: string;
+
+        // $ExpectType string
+        result = _.chain<string, string>(simpleString).value();
+
+        // $ExpectType string
+        result = _.chain(simpleString).value();
+    }
+
+    {
+        let result: number;
+
+        // $ExpectType number
+        result = _.chain<number>(simpleNumber).value();
+
+        // $ExpectType number
+        result = _.chain(simpleNumber).value();
+    }
+}
+
+// Additional Tests
+
 declare const $: any;
 declare const window: any;
 declare const alert: (msg: string) => any;
