@@ -13,6 +13,81 @@ const simpleString = 'abc';
 
 const simpleNumber = 7;
 
+// Arrays
+
+// chunk
+{
+    {
+        const length = 2;
+        let result: SimpleStringObject[][];
+
+        // $ExpectType SimpleStringObject[][]
+        result = _.chunk<SimpleStringObject>(simpleStringObjectArray, length);
+        // $ExpectType SimpleStringObject[][]
+        result = _.chunk(simpleStringObjectArray, length);
+
+        // $ExpectType SimpleStringObject[][]
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).chunk(length);
+        // $ExpectType SimpleStringObject[][]
+        result = _(simpleStringObjectArray).chunk(length);
+
+        // $ExpectType SimpleStringObject[][]
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).chunk(length).value();
+        // $ExpectType SimpleStringObject[][]
+        result = _.chain(simpleStringObjectArray).chunk(length).value();
+
+        // $ExpectType SimpleStringObject[][]
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).chunk(length).value();
+        // $ExpectType SimpleStringObject[][]
+        result = _.chain(simpleStringObjectArray).chunk(length).value();
+    }
+
+    {
+        const length = 2;
+        let result: SimpleStringObject[][];
+
+        // $ExpectType SimpleStringObject[][]
+        result = _.chunk<SimpleStringObject>(simpleStringObjectList, length);
+        // $ExpectType SimpleStringObject[][]
+        result = _.chunk(simpleStringObjectList, length);
+
+        // $ExpectType SimpleStringObject[][]
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).chunk(length);
+        // $ExpectType SimpleStringObject[][]
+        result = _(simpleStringObjectList).chunk(length);
+
+        // $ExpectType SimpleStringObject[][]
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).chunk(length).value();
+        // $ExpectType SimpleStringObject[][]
+        result = _.chain(simpleStringObjectList).chunk(length).value();
+
+        // $ExpectType SimpleStringObject[][]
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).chunk(length).value();
+        // $ExpectType SimpleStringObject[][]
+        result = _.chain(simpleStringObjectList).chunk(length).value();
+    }
+
+    {
+        const length = 2;
+        let result: string[][];
+
+        // $ExpectType string[][]
+        result = _.chunk<string>(simpleString, length);
+        // $ExpectType string[][]
+        result = _.chunk(simpleString, length);
+
+        // $ExpectType string[][]
+        result = _<string, string>(simpleString).chunk(length);
+        // $ExpectType string[][]
+        result = _(simpleString).chunk(length);
+
+        // $ExpectType string[][]
+        result = _.chain<string, string>(simpleString).chunk(length).value();
+        // $ExpectType string[][]
+        result = _.chain(simpleString).chunk(length).value();
+    }
+}
+
 // OOP Style
 
 // underscore
