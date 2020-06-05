@@ -111,8 +111,6 @@ declare module _ {
 
     type TypeOfDictionary<V> = V extends _.Dictionary<infer T> ? T : never;
 
-    type TypeOfCollection<V> = V extends _.Collection<infer T> ? T : never;
-
     type NonFalsy<T> = T extends undefined | null | false | '' | 0 ? never : T;
 
     // given a union type like { a: string } | { b: number } | undefined, generates a union of all the keys of all the types in the union
