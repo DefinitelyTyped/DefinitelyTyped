@@ -580,7 +580,7 @@ declare module _ {
         **/
         max<T>(
             list: _.List<T>,
-            iterator?: _.ListIterator<T, number>,
+            iterator: _.ListIterator<T, number>,
             context?: unknown): T;
 
         /**
@@ -588,7 +588,7 @@ declare module _ {
         */
         max<T>(
             object: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, number>,
+            iterator: _.ObjectIterator<T, number>,
             context?: unknown): T | number;
 
         /**
@@ -596,7 +596,7 @@ declare module _ {
         */
         max<T>(
             collection: _.Collection<T>,
-            iterator?: PropertyNamesOfType<T, number>): T | number;
+            iterator: PropertyNamesOfType<T, number>): T | number;
 
         /**
         * Returns the minimum value in list.
@@ -615,7 +615,7 @@ declare module _ {
         **/
         min<T>(
             list: _.List<T>,
-            iterator?: _.ListIterator<T, number>,
+            iterator: _.ListIterator<T, number>,
             context?: unknown): T | number;
 
         /**
@@ -623,7 +623,7 @@ declare module _ {
         */
         min<T>(
             object: _.Dictionary<T>,
-            iterator?: _.ObjectIterator<T, number>,
+            iterator: _.ObjectIterator<T, number>,
             context?: unknown): T | number;
 
         /**
@@ -631,7 +631,7 @@ declare module _ {
         */
         min<T>(
             collection: _.Collection<T>,
-            iterator?: PropertyNamesOfType<T, number>): T | number;
+            iterator: PropertyNamesOfType<T, number>): T | number;
 
         /**
         * Returns a sorted copy of list, ranked in ascending order by the results of running each value

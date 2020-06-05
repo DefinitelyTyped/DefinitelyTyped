@@ -2743,7 +2743,6 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: number;
 
-        result = _.max<number>(simpleNumberArray);
         result = _.max(simpleNumberArray);
 
         result = _<number[], number>(simpleNumberArray).max();
@@ -2756,7 +2755,6 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: number;
 
-        result = _.max<number>(simpleNumberList);
         result = _.max(simpleNumberList);
 
         result = _<_.List<number>, number>(simpleNumberList).max();
@@ -2769,7 +2767,6 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: number;
 
-        result = _.max<number>(simpleNumberDictionary);
         result = _.max(simpleNumberDictionary);
 
         result = _<_.Dictionary<number>, number>(simpleNumberDictionary).max();
@@ -2884,7 +2881,6 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: number;
 
-        result = _.min<number>(simpleNumberArray);
         result = _.min(simpleNumberArray);
 
         result = _<number[], number>(simpleNumberArray).min();
@@ -2897,7 +2893,6 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: number;
 
-        result = _.min<number>(simpleNumberList);
         result = _.min(simpleNumberList);
 
         result = _<_.List<number>, number>(simpleNumberList).min();
@@ -2910,7 +2905,6 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: number;
 
-        result = _.min<number>(simpleNumberDictionary);
         result = _.min(simpleNumberDictionary);
 
         result = _<_.Dictionary<number>, number>(simpleNumberDictionary).min();
