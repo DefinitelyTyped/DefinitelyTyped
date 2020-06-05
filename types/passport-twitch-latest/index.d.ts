@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
-import * as OAuth2Strategy from 'passport-oauth2';
+import * as PassportOauth2 from 'passport-oauth2';
 import * as passport from 'passport';
 import * as e from 'express';
 
-export class Strategy extends OAuth2Strategy {
+export class Strategy extends PassportOauth2 {
     constructor(options: StrategyOptions, verify: VerifyFunction);
     constructor(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
 
@@ -22,11 +22,13 @@ export class Strategy extends OAuth2Strategy {
     authenticate(req: e.Request, options?: AuthenticateOptions): void;
 }
 
+export class OAuth2Strategy extends Strategy {}
+
 export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
 
-export type StrategyOptions = Optional<OAuth2Strategy.StrategyOptions, 'authorizationURL' | 'tokenURL'>;
+export type StrategyOptions = Optional<PassportOauth2.StrategyOptions, 'authorizationURL' | 'tokenURL'>;
 export type StrategyOptionsWithRequest = Optional<
-    OAuth2Strategy.StrategyOptionsWithRequest,
+    PassportOauth2.StrategyOptionsWithRequest,
     'authorizationURL' | 'tokenURL'
 >;
 
@@ -35,14 +37,14 @@ export type VerifyFunction =
           accessToken: string,
           refreshToken: string,
           profile: TwitchProfile,
-          verified: OAuth2Strategy.VerifyCallback,
+          verified: PassportOauth2.VerifyCallback,
       ) => void)
     | ((
           accessToken: string,
           refreshToken: string,
           results: any,
           profile: TwitchProfile,
-          verified: OAuth2Strategy.VerifyCallback,
+          verified: PassportOauth2.VerifyCallback,
       ) => void);
 export type VerifyFunctionWithRequest =
     | ((
@@ -50,7 +52,7 @@ export type VerifyFunctionWithRequest =
           accessToken: string,
           refreshToken: string,
           profile: TwitchProfile,
-          verified: OAuth2Strategy.VerifyCallback,
+          verified: PassportOauth2.VerifyCallback,
       ) => void)
     | ((
           req: e.Request,
@@ -58,7 +60,7 @@ export type VerifyFunctionWithRequest =
           refreshToken: string,
           results: any,
           profile: TwitchProfile,
-          verified: OAuth2Strategy.VerifyCallback,
+          verified: PassportOauth2.VerifyCallback,
       ) => void);
 
 export interface TwitchProfile {

@@ -1,5 +1,6 @@
 import {
     Strategy as TwitchStrategy,
+    OAuth2Strategy as OtherStrategy,
     StrategyOptions,
     StrategyOptionsWithRequest,
     TwitchProfile,
@@ -76,9 +77,9 @@ const strategyOptions2: StrategyOptionsWithRequest = {
     passReqToCallback: true,
 };
 
-const strategy3 = new TwitchStrategy(strategyOptions2, verifyFunction3);
+const strategy3 = new OtherStrategy(strategyOptions2, verifyFunction3);
 
-const strategy4 = new TwitchStrategy(strategyOptions2, verifyFunction4);
+const strategy4 = new OtherStrategy(strategyOptions2, verifyFunction4);
 
 class MyStrategy extends TwitchStrategy {
     useProtectedProperty() {
