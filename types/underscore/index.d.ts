@@ -6107,15 +6107,15 @@ declare module _ {
         *********** */
 
         /**
-        * Wrapped type `any`.
-        * @see _.chain
-        **/
-        chain(): _Chain<T>;
+         * Wrapped type `any`.
+         * @see _.chain
+         **/
+        chain(): _Chain<T, V>;
 
         /**
-        * Wrapped type `any`.
-        * @see _.value
-        **/
+         * Wrapped type `any`.
+         * @see _.value
+         **/
         value(): V;
     }
     interface _ChainSingle<T> {
