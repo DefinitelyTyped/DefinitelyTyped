@@ -1784,7 +1784,7 @@ declare class Hls {
     /**
      * hls.js event listener
      */
-    on(event: K_MEDIA_ATTACHING, callback: (event: K_MEDIA_ATTACHING, data: Hls.mediaAttachedData) => void): void;
+    on(event: K_MEDIA_ATTACHING, callback: (event: K_MEDIA_ATTACHING, data: Hls.mediaAttachingData) => void): void;
     on(event: K_MEDIA_ATTACHED, callback: (event: K_MEDIA_ATTACHED, data: Hls.mediaAttachedData) => void): void;
     on(event: K_MEDIA_DETACHING, callback: (event: K_MEDIA_DETACHING, data: {}) => void): void;
     on(event: K_MEDIA_DETACHED, callback: (event: K_MEDIA_DETACHED, data: {}) => void): void;
