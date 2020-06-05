@@ -106,22 +106,23 @@ declare module _ {
         (prev: TResult, curr: T, key: string, list: Dictionary<T>): TResult;
     }
 
+    type TypeOfList<V> = V extends _.List<infer T> ? T : never;
+
+    type TypeOfDictionary<T> = T extends _.Dictionary<infer V> ? V : never;
+
     interface Cancelable {
         cancel(): void;
     }
 
-    type TypeOfDictionary<T> = T extends _.Dictionary<infer V> ? V : never;
-
     interface UnderscoreStatic {
         /**
-        * Underscore OOP Wrapper, all Underscore functions that take an object
-        * as the first parameter can be invoked through this function.
-        * @param key First argument to Underscore object functions.
-        **/
-        <T>(value: _.List<T>): Underscore<T, _.List<T>>;
-        <T>(value: Array<T>): Underscore<T, Array<T>>;
-        <T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(value: V): Underscore<T, V>;
-        <T>(value: T): Underscore<T>;
+         * Underscore OOP Wrapper, all Underscore functions that take an object
+         * as the first parameter can be invoked through this function.
+         * @param value First argument to Underscore object functions.
+         **/
+        <T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): Underscore<T, V>;
+        <T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): Underscore<T, V>;
+        <V>(value: V): Underscore<V>;
 
         /* *************
         * Collections *
@@ -4109,14 +4110,14 @@ declare module _ {
         *********** */
 
         /**
-        * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
-        * until value() is used.
-        * @param obj Object to chain.
-        * @return Wrapped `obj`.
-        **/
-        chain<T>(obj: T[]): _Chain<T, T[]>;
-        chain<T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(obj: V): _Chain<T, V>;
-        chain<T extends {}>(obj: T): _Chain<T>;
+         * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
+         * until value() is used.
+         * @param value Object to chain.
+         * @return Wrapped `value`.
+         **/
+        chain<T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): _Chain<T, V>;
+        chain<T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): _Chain<T, V>;
+        chain<V>(value: V): _Chain<V>;
 
         /**
          * Current version
