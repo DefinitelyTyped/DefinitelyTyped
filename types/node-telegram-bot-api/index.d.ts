@@ -207,6 +207,7 @@ declare namespace TelegramBot {
 
     interface SendContactOptions extends SendBasicOptions {
         last_name?: string;
+        vcard?: string;
     }
 
     type SendGameOptions = SendBasicOptions;
