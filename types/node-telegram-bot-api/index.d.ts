@@ -155,7 +155,7 @@ declare namespace TelegramBot {
         performer?: string;
         title?: string;
     }
-    
+
     interface SendAnimationOptions extends SendBasicOptions {
         parse_mode?: ParseMode;
         caption?: string;
@@ -1054,7 +1054,7 @@ declare class TelegramBot extends EventEmitter {
     sendPhoto(chatId: number | string, photo: string | Stream | Buffer, options?: TelegramBot.SendPhotoOptions): Promise<TelegramBot.Message>;
 
     sendAudio(chatId: number | string, audio: string | Stream | Buffer, options?: TelegramBot.SendAudioOptions): Promise<TelegramBot.Message>;
-    
+
     sendAnimation(chatId: number | string, animation: string | Stream | Buffer, options?: TelegramBot.SendAnimationOptions): Promise<TelegramBot.Message>;
 
     sendDocument(chatId: number | string, doc: string | Stream | Buffer, options?: TelegramBot.SendDocumentOptions, fileOpts?: any): Promise<TelegramBot.Message>;
