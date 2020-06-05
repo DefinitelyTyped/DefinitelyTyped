@@ -22,12 +22,13 @@ var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 // common testing types and objects
 const context = {};
-const simpleObjectPropertyName = 'a';
 
 interface SimpleStringObject {
     a: string;
     b: string;
 }
+
+const simpleStringObjectPropertyName = 'a';
 const simpleStringObjectPartialPropertyMatch: Partial<SimpleStringObject> = { a: 'b' };
 
 const simpleStringObjectArray: SimpleStringObject[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, { a: 'c', b: 'a' }];
@@ -52,12 +53,40 @@ const stringListMemoIterator = (prev: _.Dictionary<number>, value: string, index
     return prev;
 };
 
+type SimpleStringObjectOrUndefined = SimpleStringObject | undefined;
+
+const simpleStringObjectOrUndefinedArray: SimpleStringObjectOrUndefined[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, undefined];
+const simpleStringObjectOrUndefinedList: _.List<SimpleStringObjectOrUndefined> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: undefined, length: 3 };
+const simpleStringObjectOrUndefinedDictionary: _.Dictionary<SimpleStringObjectOrUndefined> = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: undefined };
+
+interface SimpleMultiTypeObject {
+    a: boolean;
+    c: string;
+}
+
+type IntersectingObjectPropertiesType = SimpleStringObject | SimpleMultiTypeObject;
+
+const intersectingObjectPropertiesArray: IntersectingObjectPropertiesType[] = [{ a: 'a', b: 'b' }, { a: true, c: 'c' }];
+const intersectingObjectPropertiesList: _.List<IntersectingObjectPropertiesType> = { 0: { a: 'a', b: 'b' }, 1: { a: true, c: 'c' }, length: 2 };
+const intersectingObjectPropertiesDictionary: _.Dictionary<IntersectingObjectPropertiesType> = { a: { a: 'a', b: 'b' }, b: { a: true, c: 'c' } };
+
+interface SimpleNonIntersectingObject {
+    onlySimpleNonIntersectingObject: string;
+}
+
+type NonIntersectingObjectPropertiesType = SimpleStringObject | SimpleNonIntersectingObject;
+
+const nonIntersectingObjectPropertiesArray: NonIntersectingObjectPropertiesType[] = [{ a: 'a', b: 'c' }, { onlySimpleNonIntersectingObject: 'b' }];
+const nonIntersectingObjectPropertiesList: _.List<NonIntersectingObjectPropertiesType> = { 0: { a: 'a', b: 'c' }, 1: { onlySimpleNonIntersectingObject: 'b' }, length: 2 };
+const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObjectPropertiesType> = { a: { a: 'a', b: 'c' }, b: { onlySimpleNonIntersectingObject: 'b' } };
+
 const simpleStringArray: string[] = ['a', 'c'];
 const simpleStringList: _.List<string> = { 0: 'a', 1: 'c', length: 2 };
 
 interface SimpleNumberObject {
     a: number;
 }
+
 const simpleNumberObjectArray: SimpleNumberObject[] = [{ a: 0 }, { a: 1 }];
 const simpleNumberObjectList: _.List<SimpleNumberObject> = { 0: { a: 0 }, 1: { a: 1 }, length: 2 };
 const simpleNumberObjectListPropertySelectingIterator = (value: SimpleNumberObject, index: number, list: _.List<SimpleNumberObject>) => value.a;
@@ -74,6 +103,7 @@ const simpleNumber = 7;
 interface SimpleNoParameterFunctionObject {
     a: () => number;
 }
+
 const simpleNoParameterFunctionObjectArray: SimpleNoParameterFunctionObject[] = [{ a: Math.random }, { a: Math.random }];
 const simpleNoParameterFunctionObjectList: _.List<SimpleNoParameterFunctionObject> = { 0: { a: Math.random }, 1: { a: Math.random }, length: 2 };
 const simpleNoParameterFunctionObjectDictionary: _.Dictionary<SimpleNoParameterFunctionObject> = { a: { a: Math.random }, b: { a: Math.random } };
@@ -81,33 +111,12 @@ const simpleNoParameterFunctionObjectDictionary: _.Dictionary<SimpleNoParameterF
 interface SimpleOneParameterFunctionObject {
     a: (arg0: number) => number;
 }
+
 const simpleOneParameterFunctionObjectArray: SimpleOneParameterFunctionObject[] = [{ a: Math.abs }, { a: Math.abs }];
 const simpleOneParameterFunctionObjectList: _.List<SimpleOneParameterFunctionObject> = { 0: { a: Math.abs }, 1: { a: Math.abs }, length: 2 };
 const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParameterFunctionObject> = { a: { a: Math.abs }, b: { a: Math.abs } };
 
-type SimpleStringObjectOrUndefined = SimpleStringObject | undefined;
-const simpleStringObjectOrUndefinedArray: SimpleStringObjectOrUndefined[] = [{ a: 'a', b: 'c' }, { a: 'b', b: 'b' }, undefined];
-const simpleStringObjectOrUndefinedList: _.List<SimpleStringObjectOrUndefined> = { 0: { a: 'a', b: 'c' }, 1: { a: 'b', b: 'b' }, 2: undefined, length: 3 };
-const simpleStringObjectOrUndefinedDictionary: _.Dictionary<SimpleStringObjectOrUndefined> = { a: { a: 'a', b: 'c' }, b: { a: 'b', b: 'b' }, c: undefined };
-
-interface SimpleMultiTypeObject {
-    a: boolean;
-    c: string;
-}
-type IntersectingObjectPropertiesType = SimpleStringObject | SimpleMultiTypeObject;
-const intersectingObjectPropertiesArray: IntersectingObjectPropertiesType[] = [{ a: 'a', b: 'b' }, { a: true, c: 'c' }];
-const intersectingObjectPropertiesList: _.List<IntersectingObjectPropertiesType> = { 0: { a: 'a', b: 'b' }, 1: { a: true, c: 'c' }, length: 2 };
-const intersectingObjectPropertiesDictionary: _.Dictionary<IntersectingObjectPropertiesType> = { a: { a: 'a', b: 'b' }, b: { a: true, c: 'c' } };
-
-interface SimpleNonIntersectingObject {
-    onlySimpleNonIntersectingObject: string;
-}
-type NonIntersectingObjectPropertiesType = SimpleStringObject | SimpleNonIntersectingObject;
-const nonIntersectingObjectPropertiesArray: NonIntersectingObjectPropertiesType[] = [{ a: 'a', b: 'c' }, { onlySimpleNonIntersectingObject: 'b' }];
-const nonIntersectingObjectPropertiesList: _.List<NonIntersectingObjectPropertiesType> = { 0: { a: 'a', b: 'c' }, 1: { onlySimpleNonIntersectingObject: 'b' }, length: 2 };
-const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObjectPropertiesType> = { a: { a: 'a', b: 'c' }, b: { onlySimpleNonIntersectingObject: 'b' } };
-
-// Collection Functions
+// Collections
 
 // each, forEach
 {
@@ -354,7 +363,141 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
         result = _.chain(simpleString).collect(stringListModifyingIterator, context).value();
     }
 
-    // partial object iterator (nullable values always return false if any properties are specified and true if no properties are specified)
+    // partial object iterator with a non-nullable single type
+    {
+        let result: boolean[];
+
+        result = _.map<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.map(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch).value();
+
+        result = _.collect<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch).value();
+    }
+
+    {
+        let result: boolean[];
+
+        result = _.map<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.map(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).map(simpleStringObjectPartialPropertyMatch).value();
+
+        result = _.collect<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(simpleStringObjectList, simpleStringObjectPartialPropertyMatch);
+
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectList).collect(simpleStringObjectPartialPropertyMatch).value();
+    }
+
+    {
+        let result: boolean[];
+
+        result = _.map<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.map(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).map(simpleStringObjectPartialPropertyMatch).value();
+
+        result = _.collect<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(simpleStringObjectDictionary, simpleStringObjectPartialPropertyMatch);
+
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectDictionary).collect(simpleStringObjectPartialPropertyMatch).value();
+    }
+
+    // partial object iterator with a non-nullable intersecting type union
+    {
+        let result: boolean[];
+
+        result = _.map<IntersectingObjectPropertiesType>(intersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch);
+        result = _.map(intersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch);
+
+        result = _<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch);
+        result = _(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(intersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch).value();
+
+        result = _.collect<IntersectingObjectPropertiesType>(intersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(intersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch);
+
+        result = _<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(intersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch).value();
+    }
+
+    {
+        let result: boolean[];
+
+        result = _.map<IntersectingObjectPropertiesType>(intersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch);
+        result = _.map(intersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch);
+
+        result = _<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch);
+        result = _(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(intersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch).value();
+
+        result = _.collect<IntersectingObjectPropertiesType>(intersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(intersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch);
+
+        result = _<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(intersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch).value();
+    }
+
+    {
+        let result: boolean[];
+
+        result = _.map<IntersectingObjectPropertiesType>(intersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.map(intersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch);
+
+        result = _<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch);
+        result = _(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(intersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch).value();
+
+        result = _.collect<IntersectingObjectPropertiesType>(intersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(intersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch);
+
+        result = _<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch).value();
+    }
+
+    // partial object iterator with a nullable type union
     {
         let result: boolean[];
 
@@ -421,205 +564,339 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
         result = _.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPartialPropertyMatch).value();
     }
 
-    // property name iterator with nonnullable intersecting types
+    // partial object iterator with a non-nullable non-intersecting type union
+    {
+        let result: boolean[];
+
+        result = _.map<NonIntersectingObjectPropertiesType>(nonIntersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch);
+        result = _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch);
+
+        result = _<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch);
+        result = _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPartialPropertyMatch).value();
+
+        result = _.collect<NonIntersectingObjectPropertiesType>(nonIntersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPartialPropertyMatch);
+
+        result = _<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPartialPropertyMatch).value();
+    }
+
+    {
+        let result: boolean[];
+
+        result = _.map<NonIntersectingObjectPropertiesType>(nonIntersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch);
+        result = _.map(nonIntersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch);
+
+        result = _<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch);
+        result = _(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(nonIntersectingObjectPropertiesList).map(simpleStringObjectPartialPropertyMatch).value();
+
+        result = _.collect<NonIntersectingObjectPropertiesType>(nonIntersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(nonIntersectingObjectPropertiesList, simpleStringObjectPartialPropertyMatch);
+
+        result = _<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(nonIntersectingObjectPropertiesList).collect(simpleStringObjectPartialPropertyMatch).value();
+    }
+
+    {
+        let result: boolean[];
+
+        result = _.map<NonIntersectingObjectPropertiesType>(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.map(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch);
+
+        result = _<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch);
+        result = _(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPartialPropertyMatch).value();
+
+        result = _.collect<NonIntersectingObjectPropertiesType>(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPartialPropertyMatch);
+
+        result = _<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch).value();
+    }
+
+    // property name iterator with a non-nullable single type
+    {
+        let result: string[];
+
+        result = _.map<SimpleStringObject, typeof simpleStringObjectPropertyName>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.map(simpleStringObjectArray, simpleStringObjectPropertyName);
+
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).map(simpleStringObjectPropertyName);
+
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).map(simpleStringObjectPropertyName).value();
+
+        result = _.collect<SimpleStringObject, typeof simpleStringObjectPropertyName>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.collect(simpleStringObjectArray, simpleStringObjectPropertyName);
+
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).collect(simpleStringObjectPropertyName);
+
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).collect(simpleStringObjectPropertyName).value();
+    }
+
+    {
+        let result: string[];
+
+        result = _.map<SimpleStringObject, typeof simpleStringObjectPropertyName>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.map(simpleStringObjectList, simpleStringObjectPropertyName);
+
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).map(simpleStringObjectPropertyName);
+
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).map(simpleStringObjectPropertyName).value();
+
+        result = _.collect<SimpleStringObject, typeof simpleStringObjectPropertyName>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.collect(simpleStringObjectList, simpleStringObjectPropertyName);
+
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).collect(simpleStringObjectPropertyName);
+
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).collect(simpleStringObjectPropertyName).value();
+    }
+
+    {
+        let result: string[];
+
+        result = _.map<SimpleStringObject, typeof simpleStringObjectPropertyName>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.map(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).map(simpleStringObjectPropertyName);
+
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).map(simpleStringObjectPropertyName).value();
+
+        result = _.collect<SimpleStringObject, typeof simpleStringObjectPropertyName>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.collect(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).collect(simpleStringObjectPropertyName);
+
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).collect(simpleStringObjectPropertyName).value();
+    }
+
+    // property name iterator with a non-nullable intersecting type union
     {
         let result: (string | boolean)[];
 
-        result = _.map<IntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(intersectingObjectPropertiesArray, simpleObjectPropertyName);
-        result = _.map(intersectingObjectPropertiesArray, simpleObjectPropertyName);
+        result = _.map<IntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(intersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+        result = _.map(intersectingObjectPropertiesArray, simpleStringObjectPropertyName);
 
-        result = _<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(intersectingObjectPropertiesArray).map(simpleObjectPropertyName);
+        result = _<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(intersectingObjectPropertiesArray).map(simpleStringObjectPropertyName);
 
-        result = _.chain<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(intersectingObjectPropertiesArray).map(simpleObjectPropertyName).value();
+        result = _.chain<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(intersectingObjectPropertiesArray).map(simpleStringObjectPropertyName).value();
 
-        result = _.collect<IntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(intersectingObjectPropertiesArray, simpleObjectPropertyName);
-        result = _.collect(intersectingObjectPropertiesArray, simpleObjectPropertyName);
+        result = _.collect<IntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(intersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+        result = _.collect(intersectingObjectPropertiesArray, simpleStringObjectPropertyName);
 
-        result = _<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(intersectingObjectPropertiesArray).collect(simpleObjectPropertyName);
+        result = _<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(intersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName);
 
-        result = _.chain<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(intersectingObjectPropertiesArray).collect(simpleObjectPropertyName).value();
+        result = _.chain<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(intersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: (string | boolean)[];
 
-        result = _.map<IntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(intersectingObjectPropertiesList, simpleObjectPropertyName);
-        result = _.map(intersectingObjectPropertiesList, simpleObjectPropertyName);
+        result = _.map<IntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(intersectingObjectPropertiesList, simpleStringObjectPropertyName);
+        result = _.map(intersectingObjectPropertiesList, simpleStringObjectPropertyName);
 
-        result = _<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(intersectingObjectPropertiesList).map(simpleObjectPropertyName);
+        result = _<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(intersectingObjectPropertiesList).map(simpleStringObjectPropertyName);
 
-        result = _.chain<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(intersectingObjectPropertiesList).map(simpleObjectPropertyName).value();
+        result = _.chain<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(intersectingObjectPropertiesList).map(simpleStringObjectPropertyName).value();
 
-        result = _.collect<IntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(intersectingObjectPropertiesList, simpleObjectPropertyName);
-        result = _.collect(intersectingObjectPropertiesList, simpleObjectPropertyName);
+        result = _.collect<IntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(intersectingObjectPropertiesList, simpleStringObjectPropertyName);
+        result = _.collect(intersectingObjectPropertiesList, simpleStringObjectPropertyName);
 
-        result = _<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(intersectingObjectPropertiesList).collect(simpleObjectPropertyName);
+        result = _<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(intersectingObjectPropertiesList).collect(simpleStringObjectPropertyName);
 
-        result = _.chain<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(intersectingObjectPropertiesList).collect(simpleObjectPropertyName).value();
+        result = _.chain<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(intersectingObjectPropertiesList).collect(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: (string | boolean)[];
 
-        result = _.map<IntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(intersectingObjectPropertiesDictionary, simpleObjectPropertyName);
-        result = _.map(intersectingObjectPropertiesDictionary, simpleObjectPropertyName);
+        result = _.map<IntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
+        result = _.map(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
 
-        result = _<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(intersectingObjectPropertiesDictionary).map(simpleObjectPropertyName);
+        result = _<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(intersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName);
 
-        result = _.chain<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(intersectingObjectPropertiesDictionary).map(simpleObjectPropertyName).value();
+        result = _.chain<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(intersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName).value();
 
-        result = _.collect<IntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(intersectingObjectPropertiesDictionary, simpleObjectPropertyName);
-        result = _.collect(intersectingObjectPropertiesDictionary, simpleObjectPropertyName);
+        result = _.collect<IntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
+        result = _.collect(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
 
-        result = _<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(intersectingObjectPropertiesDictionary).collect(simpleObjectPropertyName);
+        result = _<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName);
 
-        result = _.chain<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(intersectingObjectPropertiesDictionary).collect(simpleObjectPropertyName).value();
+        result = _.chain<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(intersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName).value();
     }
 
-    // property name iterator with nullable types
+    // property name iterator with a nullable type union
     {
         let result: (string | undefined)[];
 
-        result = _.map<SimpleStringObjectOrUndefined, typeof simpleObjectPropertyName>(simpleStringObjectOrUndefinedArray, simpleObjectPropertyName);
-        result = _.map(simpleStringObjectOrUndefinedArray, simpleObjectPropertyName);
+        result = _.map<SimpleStringObjectOrUndefined, typeof simpleStringObjectPropertyName>(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName);
+        result = _.map(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObjectOrUndefined, SimpleStringObjectOrUndefined[]>(simpleStringObjectOrUndefinedArray).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(simpleStringObjectOrUndefinedArray).map(simpleObjectPropertyName);
+        result = _<SimpleStringObjectOrUndefined, SimpleStringObjectOrUndefined[]>(simpleStringObjectOrUndefinedArray).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObjectOrUndefined, SimpleStringObjectOrUndefined[]>(simpleStringObjectOrUndefinedArray).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectOrUndefinedArray).map(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObjectOrUndefined, SimpleStringObjectOrUndefined[]>(simpleStringObjectOrUndefinedArray).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectOrUndefinedArray).map(simpleStringObjectPropertyName).value();
 
-        result = _.collect<SimpleStringObjectOrUndefined, typeof simpleObjectPropertyName>(simpleStringObjectOrUndefinedArray, simpleObjectPropertyName);
-        result = _.collect(simpleStringObjectOrUndefinedArray, simpleObjectPropertyName);
+        result = _.collect<SimpleStringObjectOrUndefined, typeof simpleStringObjectPropertyName>(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName);
+        result = _.collect(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObjectOrUndefined, SimpleStringObjectOrUndefined[]>(simpleStringObjectOrUndefinedArray).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(simpleStringObjectOrUndefinedArray).collect(simpleObjectPropertyName);
+        result = _<SimpleStringObjectOrUndefined, SimpleStringObjectOrUndefined[]>(simpleStringObjectOrUndefinedArray).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObjectOrUndefined, SimpleStringObjectOrUndefined[]>(simpleStringObjectOrUndefinedArray).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectOrUndefinedArray).collect(simpleObjectPropertyName).value();
-    }
-
-    {
-        let result: (string | undefined)[];
-
-        result = _.map<SimpleStringObjectOrUndefined, typeof simpleObjectPropertyName>(simpleStringObjectOrUndefinedList, simpleObjectPropertyName);
-        result = _.map(simpleStringObjectOrUndefinedList, simpleObjectPropertyName);
-
-        result = _<SimpleStringObjectOrUndefined, _.List<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedList).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(simpleStringObjectOrUndefinedList).map(simpleObjectPropertyName);
-
-        result = _.chain<SimpleStringObjectOrUndefined, _.List<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedList).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectOrUndefinedList).map(simpleObjectPropertyName).value();
-
-        result = _.collect<SimpleStringObjectOrUndefined, typeof simpleObjectPropertyName>(simpleStringObjectOrUndefinedList, simpleObjectPropertyName);
-        result = _.collect(simpleStringObjectOrUndefinedList, simpleObjectPropertyName);
-
-        result = _<SimpleStringObjectOrUndefined, _.List<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedList).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(simpleStringObjectOrUndefinedList).collect(simpleObjectPropertyName);
-
-        result = _.chain<SimpleStringObjectOrUndefined, _.List<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedList).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectOrUndefinedList).collect(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObjectOrUndefined, SimpleStringObjectOrUndefined[]>(simpleStringObjectOrUndefinedArray).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectOrUndefinedArray).collect(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: (string | undefined)[];
 
-        result = _.map<SimpleStringObjectOrUndefined, typeof simpleObjectPropertyName>(simpleStringObjectOrUndefinedDictionary, simpleObjectPropertyName);
-        result = _.map(simpleStringObjectOrUndefinedDictionary, simpleObjectPropertyName);
+        result = _.map<SimpleStringObjectOrUndefined, typeof simpleStringObjectPropertyName>(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName);
+        result = _.map(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObjectOrUndefined, _.Dictionary<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedDictionary).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(simpleStringObjectOrUndefinedDictionary).map(simpleObjectPropertyName);
+        result = _<SimpleStringObjectOrUndefined, _.List<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedList).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectOrUndefinedList).map(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObjectOrUndefined, _.Dictionary<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedDictionary).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectOrUndefinedDictionary).map(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObjectOrUndefined, _.List<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedList).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectOrUndefinedList).map(simpleStringObjectPropertyName).value();
 
-        result = _.collect<SimpleStringObjectOrUndefined, typeof simpleObjectPropertyName>(simpleStringObjectOrUndefinedDictionary, simpleObjectPropertyName);
-        result = _.collect(simpleStringObjectOrUndefinedDictionary, simpleObjectPropertyName);
+        result = _.collect<SimpleStringObjectOrUndefined, typeof simpleStringObjectPropertyName>(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName);
+        result = _.collect(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObjectOrUndefined, _.Dictionary<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedDictionary).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(simpleStringObjectOrUndefinedDictionary).collect(simpleObjectPropertyName);
+        result = _<SimpleStringObjectOrUndefined, _.List<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedList).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObjectOrUndefined, _.Dictionary<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedDictionary).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleObjectPropertyName).value();
-    }
-
-    // property name iterator with a non-nullable non-intersecting types
-    {
-        let result: (string | undefined)[];
-
-        result = _.map<NonIntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(nonIntersectingObjectPropertiesArray, simpleObjectPropertyName);
-        result = _.map(nonIntersectingObjectPropertiesArray, simpleObjectPropertyName);
-
-        result = _<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(nonIntersectingObjectPropertiesArray).map(simpleObjectPropertyName);
-
-        result = _.chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(nonIntersectingObjectPropertiesArray).map(simpleObjectPropertyName).value();
-
-        result = _.collect<NonIntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(nonIntersectingObjectPropertiesArray, simpleObjectPropertyName);
-        result = _.collect(nonIntersectingObjectPropertiesArray, simpleObjectPropertyName);
-
-        result = _<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(nonIntersectingObjectPropertiesArray).collect(simpleObjectPropertyName);
-
-        result = _.chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(nonIntersectingObjectPropertiesArray).collect(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObjectOrUndefined, _.List<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedList).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectOrUndefinedList).collect(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: (string | undefined)[];
 
-        result = _.map<NonIntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(nonIntersectingObjectPropertiesList, simpleObjectPropertyName);
-        result = _.map(nonIntersectingObjectPropertiesArray, simpleObjectPropertyName);
+        result = _.map<SimpleStringObjectOrUndefined, typeof simpleStringObjectPropertyName>(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName);
+        result = _.map(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName);
 
-        result = _<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesArray).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(nonIntersectingObjectPropertiesArray).map(simpleObjectPropertyName);
+        result = _<SimpleStringObjectOrUndefined, _.Dictionary<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedDictionary).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPropertyName);
 
-        result = _.chain<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesArray).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(nonIntersectingObjectPropertiesArray).map(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObjectOrUndefined, _.Dictionary<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedDictionary).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectOrUndefinedDictionary).map(simpleStringObjectPropertyName).value();
 
-        result = _.collect<NonIntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(nonIntersectingObjectPropertiesArray, simpleObjectPropertyName);
-        result = _.collect(nonIntersectingObjectPropertiesArray, simpleObjectPropertyName);
+        result = _.collect<SimpleStringObjectOrUndefined, typeof simpleStringObjectPropertyName>(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName);
+        result = _.collect(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName);
 
-        result = _<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesArray).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(nonIntersectingObjectPropertiesArray).collect(simpleObjectPropertyName);
+        result = _<SimpleStringObjectOrUndefined, _.Dictionary<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedDictionary).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPropertyName);
 
-        result = _.chain<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesArray).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(nonIntersectingObjectPropertiesArray).collect(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObjectOrUndefined, _.Dictionary<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedDictionary).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectOrUndefinedDictionary).collect(simpleStringObjectPropertyName).value();
+    }
+
+    // property name iterator with a non-nullable non-intersecting type union
+    {
+        let result: (string | undefined)[];
+
+        result = _.map<NonIntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+        result = _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+
+        result = _<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName).value();
+
+        result = _.collect<NonIntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+        result = _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+
+        result = _<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: (string | undefined)[];
 
-        result = _.map<NonIntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(nonIntersectingObjectPropertiesDictionary, simpleObjectPropertyName);
-        result = _.map(nonIntersectingObjectPropertiesDictionary, simpleObjectPropertyName);
+        result = _.map<NonIntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(nonIntersectingObjectPropertiesList, simpleStringObjectPropertyName);
+        result = _.map(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
 
-        result = _<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(nonIntersectingObjectPropertiesDictionary).map(simpleObjectPropertyName);
+        result = _<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesArray).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName);
 
-        result = _.chain<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).map<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(nonIntersectingObjectPropertiesDictionary).map(simpleObjectPropertyName).value();
+        result = _.chain<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesArray).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(nonIntersectingObjectPropertiesArray).map(simpleStringObjectPropertyName).value();
 
-        result = _.collect<NonIntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(nonIntersectingObjectPropertiesDictionary, simpleObjectPropertyName);
-        result = _.collect(nonIntersectingObjectPropertiesDictionary, simpleObjectPropertyName);
+        result = _.collect<NonIntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+        result = _.collect(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
 
-        result = _<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(nonIntersectingObjectPropertiesDictionary).collect(simpleObjectPropertyName);
+        result = _<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesArray).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName);
 
-        result = _.chain<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).collect<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleObjectPropertyName).value();
+        result = _.chain<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesArray).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(nonIntersectingObjectPropertiesArray).collect(simpleStringObjectPropertyName).value();
+    }
+
+    {
+        let result: (string | undefined)[];
+
+        result = _.map<NonIntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
+        result = _.map(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
+
+        result = _<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(nonIntersectingObjectPropertiesDictionary).map(simpleStringObjectPropertyName).value();
+
+        result = _.collect<NonIntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
+        result = _.collect(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
+
+        result = _<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -1179,67 +1456,67 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: SimpleStringObjectOrUndefined;
 
-        result = _.find<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.find(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.find<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.find(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).find(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).find(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).find(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).find(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).find(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).find(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).find(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).find(simpleStringObjectPropertyName).value();
 
-        result = _.detect<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.detect(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.detect<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.detect(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).detect(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).detect(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).detect(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).detect(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).detect(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).detect(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).detect(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).detect(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleStringObjectOrUndefined;
 
-        result = _.find<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.find(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.find<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.find(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).find(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).find(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).find(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).find(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).find(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).find(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).find(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).find(simpleStringObjectPropertyName).value();
 
-        result = _.detect<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.detect(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.detect<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.detect(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).detect(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).detect(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).detect(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).detect(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).detect(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).detect(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).detect(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).detect(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleStringObjectOrUndefined;
 
-        result = _.find<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.find(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.find<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.find(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).find(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).find(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).find(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).find(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).find(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).find(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).find(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).find(simpleStringObjectPropertyName).value();
 
-        result = _.detect<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.detect(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.detect<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.detect(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).detect(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).detect(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).detect(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).detect(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).detect(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).detect(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).detect(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).detect(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -1453,67 +1730,67 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: SimpleStringObject[];
 
-        result = _.filter<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.filter(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.filter<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.filter(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).filter(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).filter(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).filter(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).filter(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).filter(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).filter(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).filter(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).filter(simpleStringObjectPropertyName).value();
 
-        result = _.select<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.select(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.select<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.select(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).select(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).select(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).select(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).select(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).select(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).select(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).select(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).select(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleStringObject[];
 
-        result = _.filter<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.filter(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.filter<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.filter(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).filter(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).filter(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).filter(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).filter(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).filter(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).filter(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).filter(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).filter(simpleStringObjectPropertyName).value();
 
-        result = _.select<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.select(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.select<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.select(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).select(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).select(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).select(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).select(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).select(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).select(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).select(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).select(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleStringObject[];
 
-        result = _.filter<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.filter(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.filter<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.filter(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).filter(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).filter(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).filter(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).filter(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).filter(simpleStringObjectPropertyName).value();
 
-        result = _.select<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.select(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.select<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.select(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).select(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).select(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).select(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).select(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).select(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).select(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).select(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).select(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -1724,40 +2001,40 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: SimpleStringObject[];
 
-        result = _.reject<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.reject(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.reject<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.reject(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).reject(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).reject(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).reject(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).reject(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).reject(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).reject(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).reject(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).reject(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleStringObject[];
 
-        result = _.reject<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.reject(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.reject<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.reject(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).reject(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).reject(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).reject(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).reject(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).reject(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).reject(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).reject(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).reject(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleStringObject[];
 
-        result = _.reject<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.reject(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.reject<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.reject(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).reject(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).reject(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).reject(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).reject(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).reject(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).reject(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).reject(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).reject(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -1971,67 +2248,67 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: boolean;
 
-        result = _.every<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.every(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.every<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.every(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).every(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).every(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).every(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).every(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).every(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).every(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).every(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).every(simpleStringObjectPropertyName).value();
 
-        result = _.all<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.all(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.all<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.all(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).all(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).all(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).all(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).all(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).all(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).all(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).all(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).all(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: boolean;
 
-        result = _.every<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.every(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.every<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.every(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).every(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).every(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).every(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).every(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).every(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).every(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).every(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).every(simpleStringObjectPropertyName).value();
 
-        result = _.all<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.all(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.all<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.all(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).all(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).all(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).all(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).all(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).all(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).all(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).all(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).all(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: boolean;
 
-        result = _.every<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.every(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.every<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.every(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).every(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).every(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).every(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).every(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).every(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).every(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).every(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).every(simpleStringObjectPropertyName).value();
 
-        result = _.all<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.all(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.all<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.all(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).all(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).all(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).all(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).all(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).all(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).all(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).all(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).all(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -2245,67 +2522,67 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: boolean;
 
-        result = _.some<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.some(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.some<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.some(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).some(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).some(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).some(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).some(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).some(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).some(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).some(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).some(simpleStringObjectPropertyName).value();
 
-        result = _.any<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.any(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.any<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.any(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).any(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).any(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).any(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).any(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).any(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).any(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).any(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).any(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: boolean;
 
-        result = _.some<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.some(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.some<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.some(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).some(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).some(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).some(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).some(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).some(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).some(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).some(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).some(simpleStringObjectPropertyName).value();
 
-        result = _.any<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.any(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.any<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.any(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).any(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).any(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).any(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).any(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).any(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).any(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).any(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).any(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: boolean;
 
-        result = _.some<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.some(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.some<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.some(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).some(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).some(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).some(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).some(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).some(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).some(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).some(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).some(simpleStringObjectPropertyName).value();
 
-        result = _.any<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.any(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.any<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.any(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).any(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).any(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).any(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).any(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).any(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).any(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).any(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).any(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -2506,53 +2783,53 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: unknown[];
 
-        result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectArray, simpleObjectPropertyName);
-        result = _.invoke(simpleNoParameterFunctionObjectArray, simpleObjectPropertyName);
+        result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectArray, simpleStringObjectPropertyName);
+        result = _.invoke(simpleNoParameterFunctionObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleNoParameterFunctionObject, SimpleNoParameterFunctionObject[]>(simpleNoParameterFunctionObjectArray).invoke(simpleObjectPropertyName);
-        result = _(simpleNoParameterFunctionObjectArray).invoke(simpleObjectPropertyName);
+        result = _<SimpleNoParameterFunctionObject, SimpleNoParameterFunctionObject[]>(simpleNoParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName);
+        result = _(simpleNoParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleNoParameterFunctionObject, SimpleNoParameterFunctionObject[]>(simpleNoParameterFunctionObjectArray).invoke(simpleObjectPropertyName).value();
-        result = _.chain(simpleNoParameterFunctionObjectArray).invoke(simpleObjectPropertyName).value();
+        result = _.chain<SimpleNoParameterFunctionObject, SimpleNoParameterFunctionObject[]>(simpleNoParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleNoParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: unknown[];
 
-        result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectList, simpleObjectPropertyName);
-        result = _.invoke(simpleNoParameterFunctionObjectList, simpleObjectPropertyName);
+        result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectList, simpleStringObjectPropertyName);
+        result = _.invoke(simpleNoParameterFunctionObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleNoParameterFunctionObject, _.List<SimpleNoParameterFunctionObject>>(simpleNoParameterFunctionObjectList).invoke(simpleObjectPropertyName);
-        result = _(simpleNoParameterFunctionObjectList).invoke(simpleObjectPropertyName);
+        result = _<SimpleNoParameterFunctionObject, _.List<SimpleNoParameterFunctionObject>>(simpleNoParameterFunctionObjectList).invoke(simpleStringObjectPropertyName);
+        result = _(simpleNoParameterFunctionObjectList).invoke(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleNoParameterFunctionObject, _.List<SimpleNoParameterFunctionObject>>(simpleNoParameterFunctionObjectList).invoke(simpleObjectPropertyName).value();
-        result = _.chain(simpleNoParameterFunctionObjectList).invoke(simpleObjectPropertyName).value();
+        result = _.chain<SimpleNoParameterFunctionObject, _.List<SimpleNoParameterFunctionObject>>(simpleNoParameterFunctionObjectList).invoke(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleNoParameterFunctionObjectList).invoke(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: unknown[];
 
-        result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectDictionary, simpleObjectPropertyName);
-        result = _.invoke(simpleNoParameterFunctionObjectDictionary, simpleObjectPropertyName);
+        result = _.invoke<SimpleNoParameterFunctionObject>(simpleNoParameterFunctionObjectDictionary, simpleStringObjectPropertyName);
+        result = _.invoke(simpleNoParameterFunctionObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleNoParameterFunctionObject, _.Dictionary<SimpleNoParameterFunctionObject>>(simpleNoParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName);
-        result = _(simpleNoParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName);
+        result = _<SimpleNoParameterFunctionObject, _.Dictionary<SimpleNoParameterFunctionObject>>(simpleNoParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName);
+        result = _(simpleNoParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleNoParameterFunctionObject, _.Dictionary<SimpleNoParameterFunctionObject>>(simpleNoParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName).value();
-        result = _.chain(simpleNoParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName).value();
+        result = _.chain<SimpleNoParameterFunctionObject, _.Dictionary<SimpleNoParameterFunctionObject>>(simpleNoParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleNoParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: unknown[];
 
-        result = _.invoke<string>(simpleString, simpleObjectPropertyName);
-        result = _.invoke(simpleString, simpleObjectPropertyName);
+        result = _.invoke<string>(simpleString, simpleStringObjectPropertyName);
+        result = _.invoke(simpleString, simpleStringObjectPropertyName);
 
-        result = _<string, string>(simpleString).invoke(simpleObjectPropertyName);
-        result = _(simpleString).invoke(simpleObjectPropertyName);
+        result = _<string, string>(simpleString).invoke(simpleStringObjectPropertyName);
+        result = _(simpleString).invoke(simpleStringObjectPropertyName);
 
-        result = _.chain<string, string>(simpleString).invoke(simpleObjectPropertyName).value();
-        result = _.chain(simpleString).invoke(simpleObjectPropertyName).value();
+        result = _.chain<string, string>(simpleString).invoke(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleString).invoke(simpleStringObjectPropertyName).value();
     }
 
     // with parameters
@@ -2560,42 +2837,42 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
         const arg = -1;
         let result: unknown[];
 
-        result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectArray, simpleObjectPropertyName, arg);
-        result = _.invoke(simpleOneParameterFunctionObjectArray, simpleObjectPropertyName, arg);
+        result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectArray, simpleStringObjectPropertyName, arg);
+        result = _.invoke(simpleOneParameterFunctionObjectArray, simpleStringObjectPropertyName, arg);
 
-        result = _<SimpleOneParameterFunctionObject, SimpleOneParameterFunctionObject[]>(simpleOneParameterFunctionObjectArray).invoke(simpleObjectPropertyName, arg);
-        result = _(simpleOneParameterFunctionObjectArray).invoke(simpleObjectPropertyName, arg);
+        result = _<SimpleOneParameterFunctionObject, SimpleOneParameterFunctionObject[]>(simpleOneParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName, arg);
+        result = _(simpleOneParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName, arg);
 
-        result = _.chain<SimpleOneParameterFunctionObject, SimpleOneParameterFunctionObject[]>(simpleOneParameterFunctionObjectArray).invoke(simpleObjectPropertyName, arg).value();
-        result = _.chain(simpleOneParameterFunctionObjectArray).invoke(simpleObjectPropertyName, arg).value();
+        result = _.chain<SimpleOneParameterFunctionObject, SimpleOneParameterFunctionObject[]>(simpleOneParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName, arg).value();
+        result = _.chain(simpleOneParameterFunctionObjectArray).invoke(simpleStringObjectPropertyName, arg).value();
     }
 
     {
         const arg = -1;
         let result: unknown[];
 
-        result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectList, simpleObjectPropertyName, arg);
-        result = _.invoke(simpleOneParameterFunctionObjectList, simpleObjectPropertyName, arg);
+        result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectList, simpleStringObjectPropertyName, arg);
+        result = _.invoke(simpleOneParameterFunctionObjectList, simpleStringObjectPropertyName, arg);
 
-        result = _<SimpleOneParameterFunctionObject, _.List<SimpleOneParameterFunctionObject>>(simpleOneParameterFunctionObjectList).invoke(simpleObjectPropertyName, arg);
-        result = _(simpleOneParameterFunctionObjectList).invoke(simpleObjectPropertyName, arg);
+        result = _<SimpleOneParameterFunctionObject, _.List<SimpleOneParameterFunctionObject>>(simpleOneParameterFunctionObjectList).invoke(simpleStringObjectPropertyName, arg);
+        result = _(simpleOneParameterFunctionObjectList).invoke(simpleStringObjectPropertyName, arg);
 
-        result = _.chain<SimpleOneParameterFunctionObject, _.List<SimpleOneParameterFunctionObject>>(simpleOneParameterFunctionObjectList).invoke(simpleObjectPropertyName, arg).value();
-        result = _.chain(simpleOneParameterFunctionObjectList).invoke(simpleObjectPropertyName, arg).value();
+        result = _.chain<SimpleOneParameterFunctionObject, _.List<SimpleOneParameterFunctionObject>>(simpleOneParameterFunctionObjectList).invoke(simpleStringObjectPropertyName, arg).value();
+        result = _.chain(simpleOneParameterFunctionObjectList).invoke(simpleStringObjectPropertyName, arg).value();
     }
 
     {
         const arg = -1;
         let result: unknown[];
 
-        result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectDictionary, simpleObjectPropertyName, arg);
-        result = _.invoke(simpleOneParameterFunctionObjectDictionary, simpleObjectPropertyName, arg);
+        result = _.invoke<SimpleOneParameterFunctionObject>(simpleOneParameterFunctionObjectDictionary, simpleStringObjectPropertyName, arg);
+        result = _.invoke(simpleOneParameterFunctionObjectDictionary, simpleStringObjectPropertyName, arg);
 
-        result = _<SimpleOneParameterFunctionObject, _.Dictionary<SimpleOneParameterFunctionObject>>(simpleOneParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName, arg);
-        result = _(simpleOneParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName, arg);
+        result = _<SimpleOneParameterFunctionObject, _.Dictionary<SimpleOneParameterFunctionObject>>(simpleOneParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName, arg);
+        result = _(simpleOneParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName, arg);
 
-        result = _.chain<SimpleOneParameterFunctionObject, _.Dictionary<SimpleOneParameterFunctionObject>>(simpleOneParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName, arg).value();
-        result = _.chain(simpleOneParameterFunctionObjectDictionary).invoke(simpleObjectPropertyName, arg).value();
+        result = _.chain<SimpleOneParameterFunctionObject, _.Dictionary<SimpleOneParameterFunctionObject>>(simpleOneParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName, arg).value();
+        result = _.chain(simpleOneParameterFunctionObjectDictionary).invoke(simpleStringObjectPropertyName, arg).value();
     }
 
     {
@@ -2616,124 +2893,164 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
 
 // pluck
 {
-    // property name iterator with nonnullable intersecting types
+    // property name iterator with a non-nullable single type
+    {
+        let result: string[];
+
+        result = _.pluck<SimpleStringObject, typeof simpleStringObjectPropertyName>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.pluck(simpleStringObjectArray, simpleStringObjectPropertyName);
+
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).pluck(simpleStringObjectPropertyName);
+
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).pluck(simpleStringObjectPropertyName).value();
+    }
+
+    {
+        let result: string[];
+
+        result = _.pluck<SimpleStringObject, typeof simpleStringObjectPropertyName>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.pluck(simpleStringObjectList, simpleStringObjectPropertyName);
+
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).pluck(simpleStringObjectPropertyName);
+
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).pluck(simpleStringObjectPropertyName).value();
+    }
+
+    {
+        let result: string[];
+
+        result = _.pluck<SimpleStringObject, typeof simpleStringObjectPropertyName>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.pluck(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).pluck(simpleStringObjectPropertyName);
+
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).pluck(simpleStringObjectPropertyName).value();
+    }
+
+    // property name iterator with a non-nullable intersecting type union
     {
         let result: (string | boolean)[];
 
-        result = _.pluck<IntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(intersectingObjectPropertiesArray, simpleObjectPropertyName);
-        result = _.pluck(intersectingObjectPropertiesArray, simpleObjectPropertyName);
+        result = _.pluck<IntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(intersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+        result = _.pluck(intersectingObjectPropertiesArray, simpleStringObjectPropertyName);
 
-        result = _<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(intersectingObjectPropertiesArray).pluck(simpleObjectPropertyName);
+        result = _<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(intersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName);
 
-        result = _.chain<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(intersectingObjectPropertiesArray).pluck(simpleObjectPropertyName).value();
+        result = _.chain<IntersectingObjectPropertiesType, IntersectingObjectPropertiesType[]>(intersectingObjectPropertiesArray).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(intersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: (string | boolean)[];
 
-        result = _.pluck<IntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(intersectingObjectPropertiesList, simpleObjectPropertyName);
-        result = _.pluck(intersectingObjectPropertiesList, simpleObjectPropertyName);
+        result = _.pluck<IntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(intersectingObjectPropertiesList, simpleStringObjectPropertyName);
+        result = _.pluck(intersectingObjectPropertiesList, simpleStringObjectPropertyName);
 
-        result = _<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(intersectingObjectPropertiesList).pluck(simpleObjectPropertyName);
+        result = _<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(intersectingObjectPropertiesList).pluck(simpleStringObjectPropertyName);
 
-        result = _.chain<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(intersectingObjectPropertiesList).pluck(simpleObjectPropertyName).value();
+        result = _.chain<IntersectingObjectPropertiesType, _.List<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesList).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(intersectingObjectPropertiesList).pluck(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: (string | boolean)[];
 
-        result = _.pluck<IntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(intersectingObjectPropertiesDictionary, simpleObjectPropertyName);
-        result = _.pluck(intersectingObjectPropertiesDictionary, simpleObjectPropertyName);
+        result = _.pluck<IntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
+        result = _.pluck(intersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
 
-        result = _<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(intersectingObjectPropertiesDictionary).pluck(simpleObjectPropertyName);
+        result = _<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(intersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName);
 
-        result = _.chain<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(intersectingObjectPropertiesDictionary).pluck(simpleObjectPropertyName).value();
+        result = _.chain<IntersectingObjectPropertiesType, _.Dictionary<IntersectingObjectPropertiesType>>(intersectingObjectPropertiesDictionary).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(intersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName).value();
     }
 
-    // property name iterator with nullable types
+    // property name iterator with a nullable type union
     {
         let result: (string | undefined)[];
 
-        result = _.pluck<SimpleStringObjectOrUndefined, typeof simpleObjectPropertyName>(simpleStringObjectOrUndefinedArray, simpleObjectPropertyName);
-        result = _.pluck(simpleStringObjectOrUndefinedArray, simpleObjectPropertyName);
+        result = _.pluck<SimpleStringObjectOrUndefined, typeof simpleStringObjectPropertyName>(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName);
+        result = _.pluck(simpleStringObjectOrUndefinedArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObjectOrUndefined, SimpleStringObjectOrUndefined[]>(simpleStringObjectOrUndefinedArray).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(simpleStringObjectOrUndefinedArray).pluck(simpleObjectPropertyName);
+        result = _<SimpleStringObjectOrUndefined, SimpleStringObjectOrUndefined[]>(simpleStringObjectOrUndefinedArray).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectOrUndefinedArray).pluck(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObjectOrUndefined, SimpleStringObjectOrUndefined[]>(simpleStringObjectOrUndefinedArray).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectOrUndefinedArray).pluck(simpleObjectPropertyName).value();
-    }
-
-    {
-        let result: (string | undefined)[];
-
-        result = _.pluck<SimpleStringObjectOrUndefined, typeof simpleObjectPropertyName>(simpleStringObjectOrUndefinedList, simpleObjectPropertyName);
-        result = _.pluck(simpleStringObjectOrUndefinedList, simpleObjectPropertyName);
-
-        result = _<SimpleStringObjectOrUndefined, _.List<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedList).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(simpleStringObjectOrUndefinedList).pluck(simpleObjectPropertyName);
-
-        result = _.chain<SimpleStringObjectOrUndefined, _.List<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedList).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectOrUndefinedList).pluck(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObjectOrUndefined, SimpleStringObjectOrUndefined[]>(simpleStringObjectOrUndefinedArray).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectOrUndefinedArray).pluck(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: (string | undefined)[];
 
-        result = _.pluck<SimpleStringObjectOrUndefined, typeof simpleObjectPropertyName>(simpleStringObjectOrUndefinedDictionary, simpleObjectPropertyName);
-        result = _.pluck(simpleStringObjectOrUndefinedDictionary, simpleObjectPropertyName);
+        result = _.pluck<SimpleStringObjectOrUndefined, typeof simpleStringObjectPropertyName>(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName);
+        result = _.pluck(simpleStringObjectOrUndefinedList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObjectOrUndefined, _.Dictionary<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedDictionary).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(simpleStringObjectOrUndefinedDictionary).pluck(simpleObjectPropertyName);
+        result = _<SimpleStringObjectOrUndefined, _.List<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedList).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectOrUndefinedList).pluck(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObjectOrUndefined, _.Dictionary<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedDictionary).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectOrUndefinedDictionary).pluck(simpleObjectPropertyName).value();
-    }
-
-    // property name iterator with a non-nullable non-intersecting types
-    {
-        let result: (string | undefined)[];
-
-        result = _.pluck<NonIntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(nonIntersectingObjectPropertiesArray, simpleObjectPropertyName);
-        result = _.pluck(nonIntersectingObjectPropertiesArray, simpleObjectPropertyName);
-
-        result = _<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(nonIntersectingObjectPropertiesArray).pluck(simpleObjectPropertyName);
-
-        result = _.chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(nonIntersectingObjectPropertiesArray).pluck(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObjectOrUndefined, _.List<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedList).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectOrUndefinedList).pluck(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: (string | undefined)[];
 
-        result = _.pluck<NonIntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(nonIntersectingObjectPropertiesList, simpleObjectPropertyName);
-        result = _.pluck(nonIntersectingObjectPropertiesArray, simpleObjectPropertyName);
+        result = _.pluck<SimpleStringObjectOrUndefined, typeof simpleStringObjectPropertyName>(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName);
+        result = _.pluck(simpleStringObjectOrUndefinedDictionary, simpleStringObjectPropertyName);
 
-        result = _<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesArray).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(nonIntersectingObjectPropertiesArray).pluck(simpleObjectPropertyName);
+        result = _<SimpleStringObjectOrUndefined, _.Dictionary<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedDictionary).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectOrUndefinedDictionary).pluck(simpleStringObjectPropertyName);
 
-        result = _.chain<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesArray).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(nonIntersectingObjectPropertiesArray).pluck(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObjectOrUndefined, _.Dictionary<SimpleStringObjectOrUndefined>>(simpleStringObjectOrUndefinedDictionary).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectOrUndefinedDictionary).pluck(simpleStringObjectPropertyName).value();
+    }
+
+    // property name iterator with a non-nullable non-intersecting type union
+    {
+        let result: (string | undefined)[];
+
+        result = _.pluck<NonIntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+        result = _.pluck(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
+
+        result = _<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, NonIntersectingObjectPropertiesType[]>(nonIntersectingObjectPropertiesArray).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: (string | undefined)[];
 
-        result = _.pluck<NonIntersectingObjectPropertiesType, typeof simpleObjectPropertyName>(nonIntersectingObjectPropertiesDictionary, simpleObjectPropertyName);
-        result = _.pluck(nonIntersectingObjectPropertiesDictionary, simpleObjectPropertyName);
+        result = _.pluck<NonIntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(nonIntersectingObjectPropertiesList, simpleStringObjectPropertyName);
+        result = _.pluck(nonIntersectingObjectPropertiesArray, simpleStringObjectPropertyName);
 
-        result = _<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName);
-        result = _(nonIntersectingObjectPropertiesDictionary).pluck(simpleObjectPropertyName);
+        result = _<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesArray).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName);
 
-        result = _.chain<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).pluck<typeof simpleObjectPropertyName>(simpleObjectPropertyName).value();
-        result = _.chain(nonIntersectingObjectPropertiesDictionary).pluck(simpleObjectPropertyName).value();
+        result = _.chain<NonIntersectingObjectPropertiesType, _.List<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesArray).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(nonIntersectingObjectPropertiesArray).pluck(simpleStringObjectPropertyName).value();
+    }
+
+    {
+        let result: (string | undefined)[];
+
+        result = _.pluck<NonIntersectingObjectPropertiesType, typeof simpleStringObjectPropertyName>(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
+        result = _.pluck(nonIntersectingObjectPropertiesDictionary, simpleStringObjectPropertyName);
+
+        result = _<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(nonIntersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName);
+
+        result = _.chain<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(nonIntersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -2838,40 +3155,40 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: SimpleNumberObject | number;
 
-        result = _.max<SimpleNumberObject>(simpleNumberObjectArray, simpleObjectPropertyName);
-        result = _.max(simpleNumberObjectArray, simpleObjectPropertyName);
+        result = _.max<SimpleNumberObject>(simpleNumberObjectArray, simpleStringObjectPropertyName);
+        result = _.max(simpleNumberObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleNumberObject, SimpleNumberObject[]>(simpleNumberObjectArray).max(simpleObjectPropertyName);
-        result = _(simpleNumberObjectArray).max(simpleObjectPropertyName);
+        result = _<SimpleNumberObject, SimpleNumberObject[]>(simpleNumberObjectArray).max(simpleStringObjectPropertyName);
+        result = _(simpleNumberObjectArray).max(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleNumberObject, SimpleNumberObject[]>(simpleNumberObjectArray).max(simpleObjectPropertyName).value();
-        result = _.chain(simpleNumberObjectArray).max(simpleObjectPropertyName).value();
+        result = _.chain<SimpleNumberObject, SimpleNumberObject[]>(simpleNumberObjectArray).max(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleNumberObjectArray).max(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleNumberObject | number;
 
-        result = _.max<SimpleNumberObject>(simpleNumberObjectList, simpleObjectPropertyName);
-        result = _.max(simpleNumberObjectList, simpleObjectPropertyName);
+        result = _.max<SimpleNumberObject>(simpleNumberObjectList, simpleStringObjectPropertyName);
+        result = _.max(simpleNumberObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleNumberObject, _.List<SimpleNumberObject>>(simpleNumberObjectList).max(simpleObjectPropertyName);
-        result = _(simpleNumberObjectList).max(simpleObjectPropertyName);
+        result = _<SimpleNumberObject, _.List<SimpleNumberObject>>(simpleNumberObjectList).max(simpleStringObjectPropertyName);
+        result = _(simpleNumberObjectList).max(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleNumberObject, _.List<SimpleNumberObject>>(simpleNumberObjectList).max(simpleObjectPropertyName).value();
-        result = _.chain(simpleNumberObjectList).max(simpleObjectPropertyName).value();
+        result = _.chain<SimpleNumberObject, _.List<SimpleNumberObject>>(simpleNumberObjectList).max(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleNumberObjectList).max(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleNumberObject | number;
 
-        result = _.max<SimpleNumberObject>(simpleNumberObjectDictionary, simpleObjectPropertyName);
-        result = _.max(simpleNumberObjectDictionary, simpleObjectPropertyName);
+        result = _.max<SimpleNumberObject>(simpleNumberObjectDictionary, simpleStringObjectPropertyName);
+        result = _.max(simpleNumberObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleNumberObject, _.Dictionary<SimpleNumberObject>>(simpleNumberObjectDictionary).max(simpleObjectPropertyName);
-        result = _(simpleNumberObjectDictionary).max(simpleObjectPropertyName);
+        result = _<SimpleNumberObject, _.Dictionary<SimpleNumberObject>>(simpleNumberObjectDictionary).max(simpleStringObjectPropertyName);
+        result = _(simpleNumberObjectDictionary).max(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleNumberObject, _.Dictionary<SimpleNumberObject>>(simpleNumberObjectDictionary).max(simpleObjectPropertyName).value();
-        result = _.chain(simpleNumberObjectDictionary).max(simpleObjectPropertyName).value();
+        result = _.chain<SimpleNumberObject, _.Dictionary<SimpleNumberObject>>(simpleNumberObjectDictionary).max(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleNumberObjectDictionary).max(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -2976,40 +3293,40 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: SimpleNumberObject | number;
 
-        result = _.min<SimpleNumberObject>(simpleNumberObjectArray, simpleObjectPropertyName);
-        result = _.min(simpleNumberObjectArray, simpleObjectPropertyName);
+        result = _.min<SimpleNumberObject>(simpleNumberObjectArray, simpleStringObjectPropertyName);
+        result = _.min(simpleNumberObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleNumberObject, SimpleNumberObject[]>(simpleNumberObjectArray).min(simpleObjectPropertyName);
-        result = _(simpleNumberObjectArray).min(simpleObjectPropertyName);
+        result = _<SimpleNumberObject, SimpleNumberObject[]>(simpleNumberObjectArray).min(simpleStringObjectPropertyName);
+        result = _(simpleNumberObjectArray).min(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleNumberObject, SimpleNumberObject[]>(simpleNumberObjectArray).min(simpleObjectPropertyName).value();
-        result = _.chain(simpleNumberObjectArray).min(simpleObjectPropertyName).value();
+        result = _.chain<SimpleNumberObject, SimpleNumberObject[]>(simpleNumberObjectArray).min(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleNumberObjectArray).min(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleNumberObject | number;
 
-        result = _.min<SimpleNumberObject>(simpleNumberObjectList, simpleObjectPropertyName);
-        result = _.min(simpleNumberObjectList, simpleObjectPropertyName);
+        result = _.min<SimpleNumberObject>(simpleNumberObjectList, simpleStringObjectPropertyName);
+        result = _.min(simpleNumberObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleNumberObject, _.List<SimpleNumberObject>>(simpleNumberObjectList).min(simpleObjectPropertyName);
-        result = _(simpleNumberObjectList).min(simpleObjectPropertyName);
+        result = _<SimpleNumberObject, _.List<SimpleNumberObject>>(simpleNumberObjectList).min(simpleStringObjectPropertyName);
+        result = _(simpleNumberObjectList).min(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleNumberObject, _.List<SimpleNumberObject>>(simpleNumberObjectList).min(simpleObjectPropertyName).value();
-        result = _.chain(simpleNumberObjectList).min(simpleObjectPropertyName).value();
+        result = _.chain<SimpleNumberObject, _.List<SimpleNumberObject>>(simpleNumberObjectList).min(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleNumberObjectList).min(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleNumberObject | number;
 
-        result = _.min<SimpleNumberObject>(simpleNumberObjectDictionary, simpleObjectPropertyName);
-        result = _.min(simpleNumberObjectDictionary, simpleObjectPropertyName);
+        result = _.min<SimpleNumberObject>(simpleNumberObjectDictionary, simpleStringObjectPropertyName);
+        result = _.min(simpleNumberObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleNumberObject, _.Dictionary<SimpleNumberObject>>(simpleNumberObjectDictionary).min(simpleObjectPropertyName);
-        result = _(simpleNumberObjectDictionary).min(simpleObjectPropertyName);
+        result = _<SimpleNumberObject, _.Dictionary<SimpleNumberObject>>(simpleNumberObjectDictionary).min(simpleStringObjectPropertyName);
+        result = _(simpleNumberObjectDictionary).min(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleNumberObject, _.Dictionary<SimpleNumberObject>>(simpleNumberObjectDictionary).min(simpleObjectPropertyName).value();
-        result = _.chain(simpleNumberObjectDictionary).min(simpleObjectPropertyName).value();
+        result = _.chain<SimpleNumberObject, _.Dictionary<SimpleNumberObject>>(simpleNumberObjectDictionary).min(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleNumberObjectDictionary).min(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -3077,40 +3394,40 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: SimpleStringObject[];
 
-        result = _.sortBy<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.sortBy(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.sortBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.sortBy(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).sortBy(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).sortBy(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).sortBy(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).sortBy(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).sortBy(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).sortBy(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).sortBy(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).sortBy(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleStringObject[];
 
-        result = _.sortBy<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.sortBy(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.sortBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.sortBy(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).sortBy(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).sortBy(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).sortBy(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).sortBy(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).sortBy(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).sortBy(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).sortBy(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).sortBy(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleStringObject[];
 
-        result = _.sortBy<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.sortBy(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.sortBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.sortBy(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).sortBy(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).sortBy(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).sortBy(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).sortBy(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).sortBy(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).sortBy(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).sortBy(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).sortBy(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -3118,7 +3435,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
 {
     // function iterator
     {
-        let result: _.Dictionary<_.List<SimpleStringObject>>;
+        let result: _.Dictionary<SimpleStringObject[]>;
 
         result = _.groupBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator);
         result = _.groupBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectListPropertySelectingIterator, context);
@@ -3137,7 +3454,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     }
 
     {
-        let result: _.Dictionary<_.List<SimpleStringObject>>;
+        let result: _.Dictionary<SimpleStringObject[]>;
 
         result = _.groupBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator);
         result = _.groupBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectListPropertySelectingIterator, context);
@@ -3156,7 +3473,7 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     }
 
     {
-        let result: _.Dictionary<_.List<SimpleStringObject>>;
+        let result: _.Dictionary<SimpleStringObject[]>;
 
         result = _.groupBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator);
         result = _.groupBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectDictionaryPropertySelectingIterator, context);
@@ -3176,42 +3493,42 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
 
     // property name iterator
     {
-        let result: _.Dictionary<_.List<SimpleStringObject>>;
+        let result: _.Dictionary<SimpleStringObject[]>;
 
-        result = _.groupBy<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.groupBy(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.groupBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.groupBy(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).groupBy(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).groupBy(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).groupBy(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).groupBy(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).groupBy(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).groupBy(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).groupBy(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).groupBy(simpleStringObjectPropertyName).value();
     }
 
     {
-        let result: _.Dictionary<_.List<SimpleStringObject>>;
+        let result: _.Dictionary<SimpleStringObject[]>;
 
-        result = _.groupBy<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.groupBy(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.groupBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.groupBy(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).groupBy(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).groupBy(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).groupBy(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).groupBy(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).groupBy(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).groupBy(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).groupBy(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).groupBy(simpleStringObjectPropertyName).value();
     }
 
     {
-        let result: _.Dictionary<_.List<SimpleStringObject>>;
+        let result: _.Dictionary<SimpleStringObject[]>;
 
-        result = _.groupBy<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.groupBy(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.groupBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.groupBy(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).groupBy(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).groupBy(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).groupBy(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).groupBy(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).groupBy(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).groupBy(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).groupBy(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).groupBy(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -3279,40 +3596,40 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: _.Dictionary<SimpleStringObject>;
 
-        result = _.indexBy<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.indexBy(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.indexBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.indexBy(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).indexBy(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).indexBy(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).indexBy(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).indexBy(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).indexBy(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).indexBy(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).indexBy(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).indexBy(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: _.Dictionary<SimpleStringObject>;
 
-        result = _.indexBy<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.indexBy(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.indexBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.indexBy(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).indexBy(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).indexBy(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).indexBy(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).indexBy(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).indexBy(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).indexBy(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).indexBy(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).indexBy(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: _.Dictionary<SimpleStringObject>;
 
-        result = _.indexBy<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.indexBy(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.indexBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.indexBy(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).indexBy(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).indexBy(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).indexBy(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).indexBy(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).indexBy(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).indexBy(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).indexBy(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).indexBy(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -3399,40 +3716,40 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: _.Dictionary<number>;
 
-        result = _.countBy<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.countBy(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.countBy<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.countBy(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).countBy(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).countBy(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).countBy(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).countBy(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).countBy(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).countBy(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).countBy(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).countBy(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: _.Dictionary<number>;
 
-        result = _.countBy<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.countBy(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.countBy<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.countBy(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).countBy(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).countBy(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).countBy(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).countBy(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).countBy(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).countBy(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).countBy(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).countBy(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: _.Dictionary<number>;
 
-        result = _.countBy<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.countBy(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.countBy<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.countBy(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).countBy(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).countBy(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).countBy(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).countBy(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).countBy(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).countBy(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).countBy(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).countBy(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -3837,44 +4154,44 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: [SimpleStringObject[], SimpleStringObject[]];
 
-        result = _.partition<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.partition(simpleStringObjectArray, simpleObjectPropertyName);
+        result = _.partition<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.partition(simpleStringObjectArray, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).partition(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).partition(simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).partition(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).partition(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).partition(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).partition(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).partition(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).partition(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: [SimpleStringObject[], SimpleStringObject[]];
 
-        result = _.partition<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.partition(simpleStringObjectList, simpleObjectPropertyName);
+        result = _.partition<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.partition(simpleStringObjectList, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).partition(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).partition(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).partition(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).partition(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).partition(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).partition(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).partition(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).partition(simpleStringObjectPropertyName).value();
     }
 
     {
         let result: [SimpleStringObject[], SimpleStringObject[]];
 
-        result = _.partition<SimpleStringObject>(simpleStringObjectDictionary, simpleObjectPropertyName);
-        result = _.partition(simpleStringObjectDictionary, simpleObjectPropertyName);
+        result = _.partition<SimpleStringObject>(simpleStringObjectDictionary, simpleStringObjectPropertyName);
+        result = _.partition(simpleStringObjectDictionary, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).partition(simpleObjectPropertyName);
-        result = _(simpleStringObjectDictionary).partition(simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).partition(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectDictionary).partition(simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).partition(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectDictionary).partition(simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).partition(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectDictionary).partition(simpleStringObjectPropertyName).value();
     }
 }
 
-// Array Functions
+// Arrays
 
 // first, head, take
 {
@@ -5000,69 +5317,69 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     {
         let result: SimpleStringObject[];
 
-        result = _.uniq<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.uniq<SimpleStringObject>(simpleStringObjectArray, true, simpleObjectPropertyName);
-        result = _.uniq(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.uniq(simpleStringObjectArray, true, simpleObjectPropertyName);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectArray, true, simpleStringObjectPropertyName);
+        result = _.uniq(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.uniq(simpleStringObjectArray, true, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).uniq(simpleObjectPropertyName);
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).uniq(true, simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).uniq(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).uniq(true, simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).uniq(simpleStringObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).uniq(true, simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).uniq(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).uniq(true, simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).uniq(simpleObjectPropertyName).value();
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).uniq(true, simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).uniq(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).uniq(true, simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).uniq(simpleStringObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).uniq(true, simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).uniq(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).uniq(true, simpleStringObjectPropertyName).value();
 
-        result = _.unique<SimpleStringObject>(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.unique<SimpleStringObject>(simpleStringObjectArray, true, simpleObjectPropertyName);
-        result = _.unique(simpleStringObjectArray, simpleObjectPropertyName);
-        result = _.unique(simpleStringObjectArray, true, simpleObjectPropertyName);
+        result = _.unique<SimpleStringObject>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.unique<SimpleStringObject>(simpleStringObjectArray, true, simpleStringObjectPropertyName);
+        result = _.unique(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.unique(simpleStringObjectArray, true, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).unique(simpleObjectPropertyName);
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).unique(true, simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).unique(simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).unique(true, simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).unique(simpleStringObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).unique(true, simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).unique(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).unique(true, simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).unique(simpleObjectPropertyName).value();
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).unique(true, simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).unique(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).unique(true, simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).unique(simpleStringObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).unique(true, simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).unique(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).unique(true, simpleStringObjectPropertyName).value();
     }
 
     {
         let result: SimpleStringObject[];
 
-        result = _.uniq<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.uniq<SimpleStringObject>(simpleStringObjectList, true, simpleObjectPropertyName);
-        result = _.uniq(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.uniq(simpleStringObjectList, true, simpleObjectPropertyName);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.uniq<SimpleStringObject>(simpleStringObjectList, true, simpleStringObjectPropertyName);
+        result = _.uniq(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.uniq(simpleStringObjectList, true, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).uniq(simpleObjectPropertyName);
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).uniq(true, simpleObjectPropertyName);
-        result = _(simpleStringObjectList).uniq(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).uniq(true, simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).uniq(simpleStringObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).uniq(true, simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).uniq(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).uniq(true, simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).uniq(simpleObjectPropertyName).value();
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).uniq(true, simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).uniq(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).uniq(true, simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).uniq(simpleStringObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).uniq(true, simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).uniq(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).uniq(true, simpleStringObjectPropertyName).value();
 
-        result = _.unique<SimpleStringObject>(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.unique<SimpleStringObject>(simpleStringObjectList, true, simpleObjectPropertyName);
-        result = _.unique(simpleStringObjectList, simpleObjectPropertyName);
-        result = _.unique(simpleStringObjectList, true, simpleObjectPropertyName);
+        result = _.unique<SimpleStringObject>(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.unique<SimpleStringObject>(simpleStringObjectList, true, simpleStringObjectPropertyName);
+        result = _.unique(simpleStringObjectList, simpleStringObjectPropertyName);
+        result = _.unique(simpleStringObjectList, true, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).unique(simpleObjectPropertyName);
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).unique(true, simpleObjectPropertyName);
-        result = _(simpleStringObjectList).unique(simpleObjectPropertyName);
-        result = _(simpleStringObjectList).unique(true, simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).unique(simpleStringObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).unique(true, simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).unique(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).unique(true, simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).unique(simpleObjectPropertyName).value();
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).unique(true, simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).unique(simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).unique(true, simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).unique(simpleStringObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).unique(true, simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).unique(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).unique(true, simpleStringObjectPropertyName).value();
     }
 }
 
@@ -5477,28 +5794,28 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
         const item = simpleStringObjectArray[0];
         let result: number;
 
-        result = _.sortedIndex<SimpleStringObject>(simpleStringObjectArray, item, simpleObjectPropertyName);
-        result = _.sortedIndex(simpleStringObjectArray, item, simpleObjectPropertyName);
+        result = _.sortedIndex<SimpleStringObject>(simpleStringObjectArray, item, simpleStringObjectPropertyName);
+        result = _.sortedIndex(simpleStringObjectArray, item, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).sortedIndex(item, simpleObjectPropertyName);
-        result = _(simpleStringObjectArray).sortedIndex(item, simpleObjectPropertyName);
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).sortedIndex(item, simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray).sortedIndex(item, simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).sortedIndex(item, simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectArray).sortedIndex(item, simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).sortedIndex(item, simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray).sortedIndex(item, simpleStringObjectPropertyName).value();
     }
 
     {
         const item = simpleStringObjectList[0];
         let result: number;
 
-        result = _.sortedIndex<SimpleStringObject>(simpleStringObjectList, item, simpleObjectPropertyName);
-        result = _.sortedIndex(simpleStringObjectList, item, simpleObjectPropertyName);
+        result = _.sortedIndex<SimpleStringObject>(simpleStringObjectList, item, simpleStringObjectPropertyName);
+        result = _.sortedIndex(simpleStringObjectList, item, simpleStringObjectPropertyName);
 
-        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).sortedIndex(item, simpleObjectPropertyName);
-        result = _(simpleStringObjectList).sortedIndex(item, simpleObjectPropertyName);
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).sortedIndex(item, simpleStringObjectPropertyName);
+        result = _(simpleStringObjectList).sortedIndex(item, simpleStringObjectPropertyName);
 
-        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).sortedIndex(item, simpleObjectPropertyName).value();
-        result = _.chain(simpleStringObjectList).sortedIndex(item, simpleObjectPropertyName).value();
+        result = _.chain<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).sortedIndex(item, simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectList).sortedIndex(item, simpleStringObjectPropertyName).value();
     }
 }
 
@@ -5693,6 +6010,117 @@ const nonIntersectingObjectPropertiesDictionary: _.Dictionary<NonIntersectingObj
     result = _.chain(stop).range().value();
     result = _.chain(start).range(stop).value();
     result = _.chain(start).range(stop, step).value();
+}
+
+// OOP Style
+
+// underscore
+{
+    {
+        let result: _.Underscore<SimpleStringObject, SimpleStringObject[]>;
+
+        // $ExpectType Underscore<SimpleStringObject, SimpleStringObject[]>
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray);
+
+        // $ExpectType Underscore<SimpleStringObject, SimpleStringObject[]>
+        result = _(simpleStringObjectArray);
+    }
+
+    {
+        let result: _.Underscore<SimpleStringObject, _.List<SimpleStringObject>>;
+
+        // $ExpectType Underscore<SimpleStringObject, List<SimpleStringObject>>
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList);
+
+        // $ExpectType Underscore<SimpleStringObject, List<SimpleStringObject>>
+        result = _(simpleStringObjectList);
+    }
+
+    {
+        let result: _.Underscore<SimpleStringObject, _.Dictionary<SimpleStringObject>>;
+
+        // $ExpectType Underscore<SimpleStringObject, Dictionary<SimpleStringObject>>
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary);
+
+        // $ExpectType Underscore<SimpleStringObject, Dictionary<SimpleStringObject>>
+        result = _(simpleStringObjectDictionary);
+
+    }
+
+    {
+        let result: _.Underscore<string, string>;
+
+        // $ExpectType Underscore<string, string>
+        result = _<string, string>(simpleString);
+
+        // $ExpectType Underscore<string, string>
+        result = _(simpleString);
+    }
+
+    {
+        let result: _.Underscore<number, number>;
+
+        // $ExpectType Underscore<number, number>
+        result = _<number>(simpleNumber);
+
+        // $ExpectType Underscore<number, number>
+        result = _(simpleNumber);
+    }
+}
+
+// value
+// verify that the object given to underscore is returned by value
+{
+    {
+        let result: SimpleStringObject[];
+
+        // $ExpectType SimpleStringObject[]
+        result = _<SimpleStringObject, SimpleStringObject[]>(simpleStringObjectArray).value();
+
+        // $ExpectType SimpleStringObject[]
+        result = _(simpleStringObjectArray).value();
+    }
+
+    {
+        let result: _.List<SimpleStringObject>;
+
+        // $ExpectType List<SimpleStringObject>
+        result = _<SimpleStringObject, _.List<SimpleStringObject>>(simpleStringObjectList).value();
+
+        // $ExpectType List<SimpleStringObject>
+        result = _(simpleStringObjectList).value();
+    }
+
+    {
+        let result: _.Dictionary<SimpleStringObject>;
+
+        // $ExpectType Dictionary<SimpleStringObject>
+        result = _<SimpleStringObject, _.Dictionary<SimpleStringObject>>(simpleStringObjectDictionary).value();
+
+        // $ExpectType Dictionary<SimpleStringObject>
+        result = _(simpleStringObjectDictionary).value();
+
+    }
+
+    {
+        let result: string;
+
+        // $ExpectType string
+        result = _<string, string>(simpleString).value();
+
+        // $ExpectType string
+        result = _(simpleString).value();
+    }
+
+    {
+        let result: number;
+
+        // $ExpectType number
+        result = _<number>(simpleNumber).value();
+
+        // $ExpectType number
+        result = _(simpleNumber).value();
+    }
 }
 
 // Chaining
@@ -6279,9 +6707,9 @@ function chain_tests() {
         .first()
         .value();
 
-    let numberObjects = [{simpleObjectPropertyName: 'odd', value: 1}, {simpleObjectPropertyName: 'even', value: 2}, {simpleObjectPropertyName: 'even', value: 0}];
+    let numberObjects = [{simpleStringObjectPropertyName: 'odd', value: 1}, {simpleStringObjectPropertyName: 'even', value: 2}, {simpleStringObjectPropertyName: 'even', value: 0}];
     let evenAndOddGroupedNumbers = _.chain(numberObjects)
-        .groupBy('simpleObjectPropertyName')
+        .groupBy('simpleStringObjectPropertyName')
         .mapObject((objects) => _.pluck(objects, 'value'))
         .value(); // { odd: [1], even: [0, 2] }
 
