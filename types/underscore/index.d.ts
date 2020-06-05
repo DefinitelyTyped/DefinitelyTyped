@@ -5037,7 +5037,7 @@ declare module _ {
         * Extracts the value of a wrapped object.
         * @return Value of the wrapped object.
         **/
-        value(): any;
+        value(): V;
     }
 
     interface _Chain<T, V = T> {
