@@ -469,6 +469,7 @@ export interface BackgroundProps {
 }
 
 export interface BackgroundColorProps<TLength = StyledSystemLength> {
+    readonly bg?: ResponsiveValue<CSS.BackgroundProperty<TLength>>;
     readonly backgroundColor?: ResponsiveValue<CSS.BackgroundProperty<TLength>>;
 }
 

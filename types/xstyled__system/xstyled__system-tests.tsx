@@ -400,6 +400,9 @@ const backgroundsTest = () => (
     <div>
         <Backgrounds background="green" />
         <Backgrounds background={{ sm: 'content-box red', md: 'green' }} />
+        <Backgrounds bg={2} />
+        <Backgrounds bg="sm" />
+        <Backgrounds bg={{ sm: 2, md: 'sm' }} />
         <Backgrounds backgroundColor={2} />
         <Backgrounds backgroundColor="sm" />
         <Backgrounds backgroundColor={{ sm: 2, md: 'sm' }} />
