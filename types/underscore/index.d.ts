@@ -5060,17 +5060,17 @@ declare module _ {
         *********** */
 
         /**
-        * Wrapped type `any`.
-        * @see _.chain
-        **/
+         * Wrapped type `any`.
+         * @see _.chain
+         **/
         chain(): _Chain<T, V>;
 
         /**
-        * Wrapped type `any`.
-        * Extracts the value of a wrapped object.
-        * @return Value of the wrapped object.
-        **/
-        value<TResult>(): TResult;
+         * Wrapped type `any`.
+         * Extracts the value of a wrapped object.
+         * @return Value of the wrapped object.
+         **/
+        value(): V;
     }
 
     interface _Chain<T, V = T> {
