@@ -631,6 +631,29 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
         result = _.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPartialPropertyMatch).value();
     }
 
+    // partial object iterator of type any
+    {
+        let result: boolean[];
+
+        result = _.map<any>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.map(simpleStringObjectArray as any, simpleStringObjectPartialPropertyMatch);
+
+        result = _<any>(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray as any).map(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<any>(simpleStringObjectArray).map(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray as any).map(simpleStringObjectPartialPropertyMatch).value();
+
+        result = _.collect<any>(simpleStringObjectArray, simpleStringObjectPartialPropertyMatch);
+        result = _.collect(simpleStringObjectArray as any, simpleStringObjectPartialPropertyMatch);
+
+        result = _<any>(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch);
+        result = _(simpleStringObjectArray as any).collect(simpleStringObjectPartialPropertyMatch);
+
+        result = _.chain<any>(simpleStringObjectArray).collect(simpleStringObjectPartialPropertyMatch).value();
+        result = _.chain(simpleStringObjectArray as any).collect(simpleStringObjectPartialPropertyMatch).value();
+    }
+
     // property name iterator with a non-nullable single type
     {
         let result: string[];
@@ -897,6 +920,31 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
         result = _.chain<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
         result = _.chain(nonIntersectingObjectPropertiesDictionary).collect(simpleStringObjectPropertyName).value();
+    }
+
+    // property name iterator with type any
+    // specifying any as T causes the result to be any[], which isn't ideal, but on the other hand getting that result involves choosing
+    // to specify any in the first place
+    {
+        let result: unknown[];
+
+        result = _.map<any, typeof simpleStringObjectPropertyName>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.map(simpleStringObjectArray as any, simpleStringObjectPropertyName);
+
+        result = _<any>(simpleStringObjectArray).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray as any).map(simpleStringObjectPropertyName);
+
+        result = _.chain<any>(simpleStringObjectArray).map<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray as any).map(simpleStringObjectPropertyName).value();
+
+        result = _.collect<any, typeof simpleStringObjectPropertyName>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.collect(simpleStringObjectArray as any, simpleStringObjectPropertyName);
+
+        result = _<any>(simpleStringObjectArray).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray as any).collect(simpleStringObjectPropertyName);
+
+        result = _.chain<any>(simpleStringObjectArray).collect<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray as any).collect(simpleStringObjectPropertyName).value();
     }
 }
 
@@ -3051,6 +3099,22 @@ const simpleOneParameterFunctionObjectDictionary: _.Dictionary<SimpleOneParamete
 
         result = _.chain<NonIntersectingObjectPropertiesType, _.Dictionary<NonIntersectingObjectPropertiesType>>(nonIntersectingObjectPropertiesDictionary).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
         result = _.chain(nonIntersectingObjectPropertiesDictionary).pluck(simpleStringObjectPropertyName).value();
+    }
+
+    // property name iterator with type any
+    // specifying any as T causes the result to be any[], which isn't ideal, but on the other hand getting that result involves choosing
+    // to specify any in the first place
+    {
+        let result: unknown[];
+
+        result = _.pluck<any, typeof simpleStringObjectPropertyName>(simpleStringObjectArray, simpleStringObjectPropertyName);
+        result = _.pluck(simpleStringObjectArray as any, simpleStringObjectPropertyName);
+
+        result = _<any>(simpleStringObjectArray).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName);
+        result = _(simpleStringObjectArray as any).pluck(simpleStringObjectPropertyName);
+
+        result = _.chain<any>(simpleStringObjectArray).pluck<typeof simpleStringObjectPropertyName>(simpleStringObjectPropertyName).value();
+        result = _.chain(simpleStringObjectArray as any).pluck(simpleStringObjectPropertyName).value();
     }
 }
 

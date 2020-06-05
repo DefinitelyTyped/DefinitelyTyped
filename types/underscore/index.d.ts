@@ -245,6 +245,9 @@ declare module _ {
         map<T, K extends KeysOfUnion<T>>(
             collection: Collection<T>,
             iterator: K): TypesOfUnionProperty<T, K>[];
+        map(
+            collection: Collection<unknown>,
+            iterator: string): unknown[];
 
         /**
         * @see map
@@ -561,6 +564,9 @@ declare module _ {
         pluck<T, K extends KeysOfUnion<T>>(
             collection: Collection<T>,
             propertyName: K): TypesOfUnionProperty<T, K>[];
+        pluck(
+            collection: Collection<unknown>,
+            propertyName: string): unknown[];
 
         /**
         * Returns the maximum value in list.
@@ -4296,6 +4302,7 @@ declare module _ {
         * @see pluck
         **/
         pluck<K extends KeysOfUnion<T>>(propertyName: K): TypesOfUnionProperty<T, K>[];
+        pluck(propertyName: string): unknown[];
 
         /**
         * Wrapped type Collection<T>.
@@ -5227,6 +5234,7 @@ declare module _ {
         * @see pluck
         **/
         pluck<K extends KeysOfUnion<T>>(propertyName: K): _Chain<TypesOfUnionProperty<T, K>, TypesOfUnionProperty<T, K>[]>;
+        pluck(propertyName: string): _Chain<unknown, unknown[]>;
 
         /**
         * Wrapped type Collection<T>.
