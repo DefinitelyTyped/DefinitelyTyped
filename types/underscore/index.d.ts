@@ -120,6 +120,7 @@ declare module _ {
          * Underscore OOP Wrapper, all Underscore functions that take an object
          * as the first parameter can be invoked through this function.
          * @param value First argument to Underscore object functions.
+         * @returns An Underscore wrapper around the supplied value.
          **/
         <T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): Underscore<T, V>;
         <T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): Underscore<T, V>;
@@ -4113,8 +4114,8 @@ declare module _ {
         /**
          * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
          * until value() is used.
-         * @param value Object to chain.
-         * @return Wrapped `value`.
+         * @param value The object to chain.
+         * @returns An underscore chain wrapper around the supplied value.
          **/
         chain<T extends TypeOfList<V>, V extends List<any> = List<T>>(value: V): _Chain<T, V>;
         chain<T extends TypeOfDictionary<V>, V extends Dictionary<any> = Dictionary<T>>(value: V): _Chain<T, V>;
@@ -5061,15 +5062,15 @@ declare module _ {
         *********** */
 
         /**
-         * Wrapped type `any`.
-         * @see _.chain
+         * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
+         * until value() is used.
+         * @returns An underscore chain wrapper around the wrapped value.
          **/
         chain(): _Chain<T, V>;
 
         /**
-         * Wrapped type `any`.
-         * Extracts the value of a wrapped object.
-         * @return Value of the wrapped object.
+         * Extracts the value of the wrapped object.
+         * @returns The value of the wrapped object.
          **/
         value(): V;
     }
@@ -6108,14 +6109,15 @@ declare module _ {
         *********** */
 
         /**
-         * Wrapped type `any`.
-         * @see _.chain
-         **/
+          * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
+          * until value() is used.
+          * @returns An underscore chain wrapper around the wrapped value.
+          **/
         chain(): _Chain<T, V>;
 
         /**
-         * Wrapped type `any`.
-         * @see _.value
+         * Extracts the value of the wrapped object.
+         * @returns The value of the wrapped object.
          **/
         value(): V;
     }
