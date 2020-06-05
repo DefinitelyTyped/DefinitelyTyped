@@ -156,10 +156,10 @@ declare module _ {
         /**
         * Underscore OOP Wrapper, all Underscore functions that take an object
         * as the first parameter can be invoked through this function.
-        * @param key First argument to Underscore object functions.
+        * @param value First argument to Underscore object functions.
         **/
-        <V extends _.List<unknown>, T extends _.TypeOfList<V> = _.TypeOfList<V>>(value: V): Underscore<T, V>;
-        <V extends _.Dictionary<unknown>, T extends _.TypeOfDictionary<V> = _.TypeOfDictionary<V>>(value: V): Underscore<T, V>;
+        <T extends TypeOfList<V>, V extends _.List<any> = _.List<T>>(value: V): Underscore<T, V>;
+        <T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(value: V): Underscore<T, V>;
         <V>(value: V): Underscore<V>;
 
         /* *************
@@ -4099,11 +4099,11 @@ declare module _ {
         /**
         * Returns a wrapped object. Calling methods on this object will continue to return wrapped objects
         * until value() is used.
-        * @param obj Object to chain.
-        * @return Wrapped `obj`.
+        * @param value Object to chain.
+        * @return Wrapped `value`.
         **/
-        chain<V extends _.List<unknown>, T extends _.TypeOfList<V> = _.TypeOfList<V>>(value: V): _Chain<T, V>;
-        chain<V extends _.Dictionary<unknown>, T extends _.TypeOfDictionary<V> = _.TypeOfDictionary<V>>(value: V): _Chain<T, V>;
+        chain<T extends TypeOfList<V>, V extends _.List<any> = _.List<T>>(value: V): _Chain<T, V>;
+        chain<T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(value: V): _Chain<T, V>;
         chain<V>(value: V): _Chain<V>;
 
         /**
