@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
+        "tests/reference/info-window-tests.ts",
         "googlemaps-tests.ts"
     ]
 }
