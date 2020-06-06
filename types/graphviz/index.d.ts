@@ -10,7 +10,7 @@ export type RenderType = string;
 
 export type RenderEngine = "dot" | "neato" | "circo" | "fdp" | "osage" | "twopi";
 
-export type Options = {
+export interface Options {
   [key: string]: PossibleValue
 }
 
