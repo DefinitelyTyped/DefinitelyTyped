@@ -104,6 +104,7 @@ declare namespace google.maps {
          */
         getZIndex(): number;
 
+        // TODO: Strict `position` & `anchorPoint` in `anchor` argument
         /**
          * Opens this {@link InfoWindow} on the given map. Optionally, an {@link InfoWindow} can be associated with an
          * anchor. In the core API, the only anchor is the {@link Marker} class. However, an anchor can be any

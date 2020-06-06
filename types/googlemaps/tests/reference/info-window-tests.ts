@@ -1,7 +1,10 @@
 import InfoWindow = google.maps.InfoWindow;
 import InfoWindowOptions = google.maps.InfoWindowOptions;
 import LatLng = google.maps.LatLng;
+import GoogleMap = google.maps.Map;
+import Marker = google.maps.Marker;
 import Size = google.maps.Size;
+import StreetViewPanorama = google.maps.StreetViewPanorama;
 
 const infoWindowOptions: InfoWindowOptions = {};
 const infoWindowOptionContent1: InfoWindowOptions = { content: 'test' };
@@ -41,6 +44,12 @@ infoWindow.getContent(); // $ExpectType string | Node
 infoWindow.getPosition(); // $ExpectType LatLng
 
 infoWindow.getZIndex(); // $ExpectType number
+
+infoWindow.open();
+infoWindow.open(new GoogleMap(document.body));
+infoWindow.open(new GoogleMap(document.body), new Marker());
+infoWindow.open(new StreetViewPanorama(document.body));
+infoWindow.open(new StreetViewPanorama(document.body), new Marker());
 
 infoWindow.setContent('test');
 infoWindow.setContent(new Text('test'));
