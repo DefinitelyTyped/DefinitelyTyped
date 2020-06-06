@@ -27,6 +27,12 @@ declare namespace sade {
         lazy?: boolean;
     }
 
+    interface LazyOutput {
+        name: string;
+        handler: Handler;
+        args: string[];
+    }
+
     interface Sade {
         /**
          * Define one or more aliases for the current Command.
@@ -34,12 +40,14 @@ declare namespace sade {
         alias(...names: string[]): Sade;
         command(str: string, desc?: string, opts?: Readonly<CommandOptions>): Sade;
         describe(str: string | ReadonlyArray<string>): Sade;
-        option(str: string, desc: string, val?: string | number): Sade;
+        option(str: string, desc: string, val?: string | number | boolean): Sade;
         action(handler: Handler): Sade;
         example(str: string): Sade;
         version(str: string): Sade;
-        parse(arr: string[], opts?: Readonly<ParseOptions>): { args: string[]; name: string; handler: Handler } | void;
         help(str: string): void;
+
+        parse(arr: string[], opts: { lazy: true } & ParseOptions): LazyOutput;
+        parse(arr: string[], opts?: ParseOptions): void;
     }
 }
 
