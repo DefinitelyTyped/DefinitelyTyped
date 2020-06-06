@@ -467,9 +467,7 @@ declare namespace Pubnub {
     interface HistoryMessage {
         entry: any;
         timetoken?: string | number;
-        meta?: {
-            [key: string]: any;
-        };
+        meta?: object;
     }
 
     interface HistoryResponse {
