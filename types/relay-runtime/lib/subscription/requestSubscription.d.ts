@@ -6,7 +6,7 @@ import { SelectorStoreUpdater, Environment } from '../store/RelayStoreTypes';
 export interface GraphQLSubscriptionConfig<TSubscription extends OperationType> {
     configs?: ReadonlyArray<DeclarativeMutationConfig>;
     subscription: GraphQLTaggedNode;
-    variables: TSubscription["variables"];
+    variables: TSubscription['variables'];
     onCompleted?: () => void;
     onError?: (error: Error) => void;
     onNext?: (response: TSubscription['response'] | null | undefined) => void;

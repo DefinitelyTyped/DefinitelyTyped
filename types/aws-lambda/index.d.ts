@@ -34,6 +34,7 @@
 //                 Marian Zange <https://github.com/marianzange>
 //                 Alexander Pepper <https://github.com/apepper>
 //                 Alessandro Palumbo <https://github.com/apalumbo>
+//                 Sachin Shekhar <https://github.com/SachinShekhar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

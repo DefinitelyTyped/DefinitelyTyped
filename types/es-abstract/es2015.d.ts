@@ -4,8 +4,6 @@ import ES5 = require('./es5');
 import { Intrinsics } from './GetIntrinsic';
 import { PropertyKey as ESPropertyKey } from './index';
 
-type TSPropertyKey = PropertyKey;
-
 interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive' | 'Type'> {
     Call<R, T = unknown>(F: (this: T) => R, thisArg: T): R;
     Call<R, A extends unknown[] | [unknown], T = unknown>(
@@ -71,10 +69,21 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
     CompletePropertyDescriptor<D extends ES5.PropertyDescriptor>(
         Desc: D & ThisType<any>,
     ): Required<
-        D extends { '[[Value]]': unknown } | { '[[Writable]]': boolean }
-            ? D & ES5.DataDescriptor
-            : D extends { '[[Get]]': () => unknown } | { '[[Set]]': (value: unknown) => void }
-            ? D & ES5.AccessorDescriptor
+        D extends { '[[Value]]': infer T }
+            ? ES5.GenericDescriptor & {
+                '[[Value]]': T;
+                '[[Writable]]': boolean;
+            }
+            : D extends { '[[Value]]'?: infer T } | { '[[Writable]]'?: boolean }
+            ? ES5.GenericDescriptor & {
+                '[[Value]]': T | undefined;
+                '[[Writable]]': boolean;
+            }
+            : D extends { '[[Get]]'?: () => infer T } | { '[[Set]]'?: (value: infer T) => void }
+            ? ES5.GenericDescriptor & {
+                '[[Get]]': (() => T) | undefined;
+                '[[Set]]': ((value: T) => void) | undefined;
+            }
             : D & ES5.PropertyDescriptor
     >;
     CompletePropertyDescriptor(Desc: ES5.PropertyDescriptor & ThisType<any>): Required<ES5.PropertyDescriptor>;
@@ -191,7 +200,23 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
         current?: ES5.PropertyDescriptor & ThisType<any>,
     ): boolean;
     OrdinaryDefineOwnProperty(O: object, P: ESPropertyKey, Desc: ES5.PropertyDescriptor & ThisType<any>): boolean;
-    OrdinaryGetOwnProperty(O: object, P: ESPropertyKey): ES5.PropertyDescriptor | undefined;
+    OrdinaryGetOwnProperty<O extends object, P extends ESPropertyKey>(
+        O: O,
+        P: P,
+    ):
+        | {
+            '[[Configurable]]': boolean;
+            '[[Enumerable]]': boolean;
+            '[[Writable]]': boolean;
+            '[[Value]]': P extends keyof O ? O[P] : unknown;
+        }
+        | {
+            '[[Configurable]]': boolean;
+            '[[Enumerable]]': boolean;
+            '[[Get]]': (() => P extends keyof O ? O[P] : unknown) | undefined;
+            '[[Set]]': ((value: P extends keyof O ? O[P] : unknown) => void) | undefined;
+        }
+        | undefined;
 
     ArrayCreate(length: number, proto?: object | null): unknown[];
     ArraySetLength(A: unknown[], Desc: ES5.PropertyDescriptor & ThisType<any>): boolean;
@@ -225,9 +250,9 @@ declare namespace ES2015 {
     // Re-export types from previous versions
     // - ES5:
     type GenericDescriptor = ES5.GenericDescriptor;
-    type AccessorDescriptor = ES5.AccessorDescriptor;
-    type DataDescriptor = ES5.DataDescriptor;
-    type PropertyDescriptor = ES5.PropertyDescriptor;
+    type AccessorDescriptor<T = unknown> = ES5.AccessorDescriptor<T>;
+    type DataDescriptor<T = unknown> = ES5.DataDescriptor<T>;
+    type PropertyDescriptor<T = unknown> = ES5.PropertyDescriptor<T>;
 }
 
 declare const ES2015: ES2015;

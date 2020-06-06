@@ -1,6 +1,7 @@
-// Type definitions for typeform__embed 0.16
+// Type definitions for typeform__embed 0.20
 // Project: https://github.com/Typeform/embed
 // Definitions by: Florian Merz <https://github.com/florianmrz>
+//                 Gabriel Cangussu <https://github.com/gcangussu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface WidgetOptions {
@@ -9,7 +10,8 @@ export interface WidgetOptions {
     hideScrollbars?: boolean;
     hideFooter?: boolean;
     hideHeaders?: boolean;
-    onSubmit?: () => any;
+    onSubmit?: (event: OnSubmitEvent) => void;
+    onReady?: () => void;
     disableTracking?: boolean;
 }
 export interface PopupOptions {
@@ -20,9 +22,15 @@ export interface PopupOptions {
     hideFooter?: boolean;
     hideHeaders?: boolean;
     drawerWidth?: number;
-    onSubmit?: () => any;
+    onSubmit?: (event: OnSubmitEvent) => void;
+    onReady?: () => void;
+    onClose?: () => void;
     container?: HTMLElement;
     disableTracking?: boolean;
+}
+export interface OnSubmitEvent {
+    /** ID of the response */
+    response_id: string;
 }
 export interface PopupInstance {
     open: () => void;

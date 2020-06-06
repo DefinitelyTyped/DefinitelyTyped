@@ -356,6 +356,7 @@ declare module "http" {
     class Agent {
         maxFreeSockets: number;
         maxSockets: number;
+        readonly freeSockets: NodeJS.ReadOnlyDict<Socket[]>;
         readonly sockets: NodeJS.ReadOnlyDict<Socket[]>;
         readonly requests: NodeJS.ReadOnlyDict<IncomingMessage[]>;
 

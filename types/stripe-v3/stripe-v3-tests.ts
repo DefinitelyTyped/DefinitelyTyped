@@ -499,6 +499,18 @@ describe("Stripe elements", () => {
         });
     });
 
+    it("should retrieve setup intent", () => {
+        stripe.retrieveSetupIntent(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.setupIntent) {
+                console.log(result.setupIntent.id);
+            }
+        });
+    });
+
     it("should confirm SEPA debit setup", () => {
         const ibanElement = elements.create('iban');
 

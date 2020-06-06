@@ -53,9 +53,7 @@ declare class sharedb {
         action: A,
         fn: (context: sharedb.middleware.ActionContextMap[A], callback: (err?: any) => void) => void,
     ): void;
-    static types: {
-        register: (type: { name?: string, uri?: string, [key: string]: any}) => void;
-    };
+    static types: ShareDB.Types;
 }
 
 declare namespace sharedb {

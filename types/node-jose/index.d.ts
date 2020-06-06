@@ -94,9 +94,11 @@ export namespace JWE {
     function createEncrypt(keys: JWK.Key | JWK.Key[]): Encryptor;
     function createEncrypt(
         options: {
-            format?: 'compact' | 'flattened';
-            zip?: boolean;
+            format?: 'general' | 'compact' | 'flattened';
+            zip?: boolean | 'DEF';
             fields?: object;
+            contentAlg?: string;
+            protect?: string | string[];
         },
         key: JWK.Key
     ): Encryptor;
