@@ -20,11 +20,11 @@ export interface HasAttributes {
 }
 
 export interface Node extends HasAttributes {
-    id: string;
+    readonly id: string;
 }
 
-export interface Edge extends HasAttributes {
-}
+/* tslint:disable-next-line:no-empty-interface */
+export interface Edge extends HasAttributes {}
 
 export interface OutputCallback {
     (data: string): void;
@@ -71,7 +71,6 @@ export interface RenderOptions {
 export interface Graph extends HasAttributes {
     use: RenderEngine;
 
-
     addNode(id: string, attrs?: any): Node;
     nodeCount(): number;
 
@@ -96,22 +95,18 @@ export interface Graph extends HasAttributes {
     render(type: string, callback: OutputCallback, errback?: ErrorCallback): void;
     render(options: RenderOptions, callback: OutputCallback, errback?: ErrorCallback): void;
 
-    // alias for render
-    output(type: string, filename: string, errback?: ErrorCallback): void;
-    output(options: RenderOptions, filename: string, errback?: ErrorCallback): void;
-    output(type: string, callback: OutputCallback, errback?: ErrorCallback): void;
-    output(options: RenderOptions, callback: OutputCallback, errback?: ErrorCallback): void;
+    output(type_options: string | RenderOptions, filename_callback: string | OutputCallback, errback?: ErrorCallback): void;
 
     edgeCount(): number;
     to_dot(): string;
 }
 
-export declare function graph(id: string): Graph;
+export function graph(id: string): Graph;
 
-export declare function digraph(id: string): Graph;
+export function digraph(id: string): Graph;
 
 interface ParseCallback {
     (graph: Graph): void;
 }
 
-export declare function parse(path: string, callback: ParseCallback, errback?: ErrorCallback): void;
+export function parse(path: string, callback: ParseCallback, errback?: ErrorCallback): void;
