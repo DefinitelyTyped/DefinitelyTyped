@@ -262,6 +262,7 @@ export const fontFamily: StyleFunc;
 export const fontSize: StyleFunc;
 export const lineHeight: StyleFunc;
 export const fontWeight: StyleFunc;
+export const fontStyle: StyleFunc;
 export const textAlign: StyleFunc;
 export const letterSpacing: StyleFunc;
 export const textTransform: StyleFunc;
