@@ -155,6 +155,7 @@ declare namespace google.maps {
          * Content to display in the {@link InfoWindow}. This can be an HTML element, a plain-text string, or a string
          * containing HTML. The InfoWindow will be sized according to the content. To set an explicit size for the
          * content, set content to be a HTML element with that size.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindowOptions.content Maps JavaScript API}
          * @see {@link InfoWindow#getContent}
          * @see {@link InfoWindow#setContent}
          */
