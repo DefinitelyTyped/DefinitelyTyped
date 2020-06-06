@@ -1,8 +1,8 @@
 import toPrimitive = require('es-to-primitive/es2015');
 
 import ES5 = require('./es5');
-import { Intrinsics } from './GetIntrinsic';
-import { PropertyKey as ESPropertyKey } from './index';
+import type { Intrinsics } from './GetIntrinsic';
+import type { PropertyKey as ESPropertyKey } from './index';
 
 interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive' | 'Type'> {
     Call<T, R>(F: (this: T) => R, thisArg: T): R;

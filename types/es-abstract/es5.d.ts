@@ -1,7 +1,7 @@
 import toPrimitive = require('es-to-primitive/es5');
 import isCallable = require('is-callable');
 
-import {
+import type {
     GenericDescriptor as ESGenericDescriptor,
     AccessorDescriptor as ESAccessorDescriptor,
     DataDescriptor as ESDataDescriptor,
