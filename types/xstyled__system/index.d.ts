@@ -284,7 +284,7 @@ export interface FontWeightProps {
 }
 
 export interface FontStyleProps {
-    readonly fontStyle?: ResponsiveValue<CSS.FontStyleProperty>
+    readonly fontStyle?: ResponsiveValue<CSS.FontStyleProperty>;
 }
 
 export interface TextAlignProps {
