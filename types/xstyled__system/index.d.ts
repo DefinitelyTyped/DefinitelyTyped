@@ -283,6 +283,10 @@ export interface FontWeightProps {
     readonly fontWeight?: ResponsiveValue<CSS.FontWeightProperty | AliasKey>;
 }
 
+export interface FontStyleProps {
+    readonly fontStyle?: ResponsiveValue<CSS.FontStyleProperty>
+}
+
 export interface TextAlignProps {
     readonly textAlign?: ResponsiveValue<CSS.TextAlignProperty>;
 }
@@ -300,6 +304,7 @@ export interface TypographyProps
         FontSizeProps,
         LineHeightProps,
         FontWeightProps,
+        FontStyleProps,
         TextAlignProps,
         LetterSpacingProps,
         ColorProps,

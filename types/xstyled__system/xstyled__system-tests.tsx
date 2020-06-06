@@ -299,6 +299,9 @@ const typographyTest = () => (
         <Typography fontWeight="sm" />
         <Typography fontWeight="bold" />
         <Typography fontWeight={{ sm: 1, md: 'sm', lg: 'bold' }} />
+        <Typography fontStyle="normal" />
+        <Typography fontStyle="italic" />
+        <Typography fontStyle="oblique" />
         <Typography textAlign="start" />
         <Typography textAlign={{ sm: 'start', md: 'end' }} />
         <Typography letterSpacing={2} />
