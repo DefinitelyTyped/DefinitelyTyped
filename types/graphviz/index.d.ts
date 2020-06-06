@@ -11,7 +11,7 @@ export type RenderType = string;
 export type RenderEngine = "dot" | "neato" | "circo" | "fdp" | "osage" | "twopi";
 
 export interface Options {
-  [key: string]: PossibleValue
+  [key: string]: PossibleValue;
 }
 
 export interface HasAttributes {
@@ -90,11 +90,7 @@ export interface Graph extends HasAttributes {
     // Path containing Graphviz binaries.
     setGraphVizPath(directoryPath: string): void;
 
-    render(type: string, filename: string, errback?: ErrorCallback): void;
-    render(options: RenderOptions, filename: string, errback?: ErrorCallback): void;
-    render(type: string, callback: OutputCallback, errback?: ErrorCallback): void;
-    render(options: RenderOptions, callback: OutputCallback, errback?: ErrorCallback): void;
-
+    render(type_options: string | RenderOptions, filename_callback: string | OutputCallback, errback?: ErrorCallback): void;
     output(type_options: string | RenderOptions, filename_callback: string | OutputCallback, errback?: ErrorCallback): void;
 
     edgeCount(): number;
@@ -105,7 +101,7 @@ export function graph(id: string): Graph;
 
 export function digraph(id: string): Graph;
 
-interface ParseCallback {
+export interface ParseCallback {
     (graph: Graph): void;
 }
 
