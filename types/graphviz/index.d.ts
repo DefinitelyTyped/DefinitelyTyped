@@ -1,14 +1,14 @@
-// Type definitions for graphviz 0.0.9
+// Type definitions for graphviz 0.0
 // Project: https://github.com/glejeune/node-graphviz
 // Definitions by: Matt Frantz <https://github.com/mhfrantz>,
 //                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type PossibleValue = string | number | boolean
+export type PossibleValue = string | number | boolean;
 
-export type RenderType = string
+export type RenderType = string;
 
-export type RenderEngine = "dot" | "neato" | "circo" | "fdp" | "osage" | "twopi"
+export type RenderEngine = "dot" | "neato" | "circo" | "fdp" | "osage" | "twopi";
 
 export type Options = {
   [key: string]: PossibleValue
