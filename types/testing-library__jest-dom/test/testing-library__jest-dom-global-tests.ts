@@ -47,7 +47,7 @@ expect(element).not.toBeInTheDOM(document.body);
 expect(element).not.toBeInTheDocument();
 expect(element).not.toBeVisible();
 expect(element).not.toBeEmpty();
-expect(element).not.toBeEmptyDomElement();
+expect(element).not.toBeEmptyDOMElement();
 expect(element).not.toBeDisabled();
 expect(element).not.toBeEnabled();
 expect(element).not.toBeInvalid();

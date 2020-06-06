@@ -2033,6 +2033,11 @@ export interface ViewPropsAndroid {
      * re-used and re-composited with different parameters. The downside is that this can use up limited video memory, so this prop should be set back to false at the end of the interaction/animation.
      */
     renderToHardwareTextureAndroid?: boolean;
+
+    /**
+     * Whether this `View` should be focusable with a non-touch input device, eg. receive focus with a hardware keyboard.
+     */
+    focusable?: boolean;
 }
 
 type Falsy = undefined | null | false;

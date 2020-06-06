@@ -1,4 +1,4 @@
-import * as base64js from "base64-js";
+import base64js = require("base64-js");
 
 base64js.byteLength(""); // $ExpectType number
 base64js.toByteArray(""); // $ExpectType Uint8Array

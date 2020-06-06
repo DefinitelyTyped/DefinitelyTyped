@@ -65,19 +65,19 @@ declare module '@ember/test-helpers' {
 declare module '@ember/test-helpers/dom/click' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function(target: Target, options?: MouseEventInit): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/double-click' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function(target: Target, options?: MouseEventInit): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/tap' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target): Promise<void>;
+    export default function(target: Target, options?: object): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/focus' {

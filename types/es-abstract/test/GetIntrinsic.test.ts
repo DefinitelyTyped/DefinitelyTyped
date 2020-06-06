@@ -1,24 +1,23 @@
 import GetIntrinsic = require('es-abstract/GetIntrinsic');
-
-const boolean = Math.random() >= 0.5;
+declare const boolean: boolean;
 
 // allowMissing = undefined
 {
     GetIntrinsic('%Array%'); // $ExpectType ArrayConstructor
     GetIntrinsic('%ArrayBuffer%'); // $ExpectType ArrayBufferConstructor
     GetIntrinsic('%ArrayBufferPrototype%'); // $ExpectType ArrayBuffer
-    GetIntrinsic('%ArrayIteratorPrototype%'); // $ExpectType IterableIterator<unknown>
+    GetIntrinsic('%ArrayIteratorPrototype%'); // $ExpectType IterableIterator<any>
     GetIntrinsic('%ArrayPrototype%'); // $ExpectType any[]
     GetIntrinsic('%ArrayProto_entries%'); // $ExpectType () => IterableIterator<[number, any]>
     GetIntrinsic('%ArrayProto_forEach%'); // $ExpectType (callbackfn: (value: any, index: number, array: any[]) => void, thisArg?: any) => void
     GetIntrinsic('%ArrayProto_keys%'); // $ExpectType () => IterableIterator<number>
     GetIntrinsic('%ArrayProto_values%'); // $ExpectType () => IterableIterator<any>
-    GetIntrinsic('%AsyncFromSyncIteratorPrototype%'); // $ExpectType undefined
+    GetIntrinsic('%AsyncFromSyncIteratorPrototype%'); // $ExpectType AsyncGenerator<any, any, unknown>
     GetIntrinsic('%AsyncFunction%'); // $ExpectType FunctionConstructor
     GetIntrinsic('%AsyncFunctionPrototype%'); // $ExpectType Function
-    GetIntrinsic('%AsyncGenerator%'); // $ExpectType AsyncGenerator<unknown, any, unknown>
+    GetIntrinsic('%AsyncGenerator%'); // $ExpectType AsyncGeneratorFunction
     GetIntrinsic('%AsyncGeneratorFunction%'); // $ExpectType AsyncGeneratorFunctionConstructor
-    GetIntrinsic('%AsyncGeneratorPrototype%'); // $ExpectType AsyncGeneratorFunction
+    GetIntrinsic('%AsyncGeneratorPrototype%'); // $ExpectType AsyncGenerator<any, any, unknown>
     GetIntrinsic('%AsyncIteratorPrototype%'); // $ExpectType AsyncIterable<any>
     GetIntrinsic('%Atomics%'); // $ExpectType Atomics
     GetIntrinsic('%Boolean%'); // $ExpectType BooleanConstructor
@@ -42,9 +41,9 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%Float64ArrayPrototype%'); // $ExpectType Float64Array
     GetIntrinsic('%Function%'); // $ExpectType FunctionConstructor
     GetIntrinsic('%FunctionPrototype%'); // $ExpectType Function
-    GetIntrinsic('%Generator%'); // $ExpectType Generator<unknown, any, unknown>
+    GetIntrinsic('%Generator%'); // $ExpectType GeneratorFunction
     GetIntrinsic('%GeneratorFunction%'); // $ExpectType GeneratorFunctionConstructor
-    GetIntrinsic('%GeneratorPrototype%'); // $ExpectType GeneratorFunction
+    GetIntrinsic('%GeneratorPrototype%'); // $ExpectType Generator<any, any, unknown>
     GetIntrinsic('%Int8Array%'); // $ExpectType Int8ArrayConstructor
     GetIntrinsic('%Int8ArrayPrototype%'); // $ExpectType Int8Array
     GetIntrinsic('%Int16Array%'); // $ExpectType Int16ArrayConstructor
@@ -57,7 +56,7 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%JSON%'); // $ExpectType JSON
     GetIntrinsic('%JSONParse%'); // $ExpectType (text: string, reviver?: ((this: any, key: string, value: any) => any) | undefined) => any
     GetIntrinsic('%Map%'); // $ExpectType MapConstructor
-    GetIntrinsic('%MapIteratorPrototype%'); // $ExpectType IterableIterator<[unknown, unknown]>
+    GetIntrinsic('%MapIteratorPrototype%'); // $ExpectType IterableIterator<any>
     GetIntrinsic('%MapPrototype%'); // $ExpectType Map<any, any>
     GetIntrinsic('%Math%'); // $ExpectType Math
     GetIntrinsic('%Number%'); // $ExpectType NumberConstructor
@@ -81,7 +80,7 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%RegExp%'); // $ExpectType RegExpConstructor
     GetIntrinsic('%RegExpPrototype%'); // $ExpectType RegExp
     GetIntrinsic('%Set%'); // $ExpectType SetConstructor
-    GetIntrinsic('%SetIteratorPrototype%'); // $ExpectType IterableIterator<unknown>
+    GetIntrinsic('%SetIteratorPrototype%'); // $ExpectType IterableIterator<any>
     GetIntrinsic('%SetPrototype%'); // $ExpectType Set<any>
     GetIntrinsic('%SharedArrayBuffer%'); // $ExpectType SharedArrayBufferConstructor
     GetIntrinsic('%SharedArrayBufferPrototype%'); // $ExpectType SharedArrayBuffer
@@ -119,18 +118,18 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%Array%', false); // $ExpectType ArrayConstructor
     GetIntrinsic('%ArrayBuffer%', false); // $ExpectType ArrayBufferConstructor
     GetIntrinsic('%ArrayBufferPrototype%', false); // $ExpectType ArrayBuffer
-    GetIntrinsic('%ArrayIteratorPrototype%', false); // $ExpectType IterableIterator<unknown>
+    GetIntrinsic('%ArrayIteratorPrototype%', false); // $ExpectType IterableIterator<any>
     GetIntrinsic('%ArrayPrototype%', false); // $ExpectType any[]
     GetIntrinsic('%ArrayProto_entries%', false); // $ExpectType () => IterableIterator<[number, any]>
     GetIntrinsic('%ArrayProto_forEach%', false); // $ExpectType (callbackfn: (value: any, index: number, array: any[]) => void, thisArg?: any) => void
     GetIntrinsic('%ArrayProto_keys%', false); // $ExpectType () => IterableIterator<number>
     GetIntrinsic('%ArrayProto_values%', false); // $ExpectType () => IterableIterator<any>
-    GetIntrinsic('%AsyncFromSyncIteratorPrototype%', false); // $ExpectType undefined
+    GetIntrinsic('%AsyncFromSyncIteratorPrototype%', false); // $ExpectType AsyncGenerator<any, any, unknown>
     GetIntrinsic('%AsyncFunction%', false); // $ExpectType FunctionConstructor
     GetIntrinsic('%AsyncFunctionPrototype%', false); // $ExpectType Function
-    GetIntrinsic('%AsyncGenerator%', false); // $ExpectType AsyncGenerator<unknown, any, unknown>
+    GetIntrinsic('%AsyncGenerator%', false); // $ExpectType AsyncGeneratorFunction
     GetIntrinsic('%AsyncGeneratorFunction%', false); // $ExpectType AsyncGeneratorFunctionConstructor
-    GetIntrinsic('%AsyncGeneratorPrototype%', false); // $ExpectType AsyncGeneratorFunction
+    GetIntrinsic('%AsyncGeneratorPrototype%', false); // $ExpectType AsyncGenerator<any, any, unknown>
     GetIntrinsic('%AsyncIteratorPrototype%', false); // $ExpectType AsyncIterable<any>
     GetIntrinsic('%Atomics%', false); // $ExpectType Atomics
     GetIntrinsic('%Boolean%', false); // $ExpectType BooleanConstructor
@@ -154,9 +153,9 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%Float64ArrayPrototype%', false); // $ExpectType Float64Array
     GetIntrinsic('%Function%', false); // $ExpectType FunctionConstructor
     GetIntrinsic('%FunctionPrototype%', false); // $ExpectType Function
-    GetIntrinsic('%Generator%', false); // $ExpectType Generator<unknown, any, unknown>
+    GetIntrinsic('%Generator%', false); // $ExpectType GeneratorFunction
     GetIntrinsic('%GeneratorFunction%', false); // $ExpectType GeneratorFunctionConstructor
-    GetIntrinsic('%GeneratorPrototype%', false); // $ExpectType GeneratorFunction
+    GetIntrinsic('%GeneratorPrototype%', false); // $ExpectType Generator<any, any, unknown>
     GetIntrinsic('%Int8Array%', false); // $ExpectType Int8ArrayConstructor
     GetIntrinsic('%Int8ArrayPrototype%', false); // $ExpectType Int8Array
     GetIntrinsic('%Int16Array%', false); // $ExpectType Int16ArrayConstructor
@@ -169,7 +168,7 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%JSON%', false); // $ExpectType JSON
     GetIntrinsic('%JSONParse%', false); // $ExpectType (text: string, reviver?: ((this: any, key: string, value: any) => any) | undefined) => any
     GetIntrinsic('%Map%', false); // $ExpectType MapConstructor
-    GetIntrinsic('%MapIteratorPrototype%', false); // $ExpectType IterableIterator<[unknown, unknown]>
+    GetIntrinsic('%MapIteratorPrototype%', false); // $ExpectType IterableIterator<any>
     GetIntrinsic('%MapPrototype%', false); // $ExpectType Map<any, any>
     GetIntrinsic('%Math%', false); // $ExpectType Math
     GetIntrinsic('%Number%', false); // $ExpectType NumberConstructor
@@ -193,7 +192,7 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%RegExp%', false); // $ExpectType RegExpConstructor
     GetIntrinsic('%RegExpPrototype%', false); // $ExpectType RegExp
     GetIntrinsic('%Set%', false); // $ExpectType SetConstructor
-    GetIntrinsic('%SetIteratorPrototype%', false); // $ExpectType IterableIterator<unknown>
+    GetIntrinsic('%SetIteratorPrototype%', false); // $ExpectType IterableIterator<any>
     GetIntrinsic('%SetPrototype%', false); // $ExpectType Set<any>
     GetIntrinsic('%SharedArrayBuffer%', false); // $ExpectType SharedArrayBufferConstructor
     GetIntrinsic('%SharedArrayBufferPrototype%', false); // $ExpectType SharedArrayBuffer
@@ -231,18 +230,18 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%Array%', true); // $ExpectType ArrayConstructor | undefined
     GetIntrinsic('%ArrayBuffer%', true); // $ExpectType ArrayBufferConstructor | undefined
     GetIntrinsic('%ArrayBufferPrototype%', true); // $ExpectType ArrayBuffer | undefined
-    GetIntrinsic('%ArrayIteratorPrototype%', true); // $ExpectType IterableIterator<unknown> | undefined
+    GetIntrinsic('%ArrayIteratorPrototype%', true); // $ExpectType IterableIterator<any> | undefined
     GetIntrinsic('%ArrayPrototype%', true); // $ExpectType any[] | undefined
     GetIntrinsic('%ArrayProto_entries%', true); // $ExpectType (() => IterableIterator<[number, any]>) | undefined
     GetIntrinsic('%ArrayProto_forEach%', true); // $ExpectType ((callbackfn: (value: any, index: number, array: any[]) => void, thisArg?: any) => void) | undefined
     GetIntrinsic('%ArrayProto_keys%', true); // $ExpectType (() => IterableIterator<number>) | undefined
     GetIntrinsic('%ArrayProto_values%', true); // $ExpectType (() => IterableIterator<any>) | undefined
-    GetIntrinsic('%AsyncFromSyncIteratorPrototype%', true); // $ExpectType undefined
+    GetIntrinsic('%AsyncFromSyncIteratorPrototype%', true); // $ExpectType AsyncGenerator<any, any, unknown> | undefined
     GetIntrinsic('%AsyncFunction%', true); // $ExpectType FunctionConstructor | undefined
     GetIntrinsic('%AsyncFunctionPrototype%', true); // $ExpectType Function | undefined
-    GetIntrinsic('%AsyncGenerator%', true); // $ExpectType AsyncGenerator<unknown, any, unknown> | undefined
+    GetIntrinsic('%AsyncGenerator%', true); // $ExpectType AsyncGeneratorFunction | undefined
     GetIntrinsic('%AsyncGeneratorFunction%', true); // $ExpectType AsyncGeneratorFunctionConstructor | undefined
-    GetIntrinsic('%AsyncGeneratorPrototype%', true); // $ExpectType AsyncGeneratorFunction | undefined
+    GetIntrinsic('%AsyncGeneratorPrototype%', true); // $ExpectType AsyncGenerator<any, any, unknown> | undefined
     GetIntrinsic('%AsyncIteratorPrototype%', true); // $ExpectType AsyncIterable<any> | undefined
     GetIntrinsic('%Atomics%', true); // $ExpectType Atomics | undefined
     GetIntrinsic('%Boolean%', true); // $ExpectType BooleanConstructor | undefined
@@ -266,9 +265,9 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%Float64ArrayPrototype%', true); // $ExpectType Float64Array | undefined
     GetIntrinsic('%Function%', true); // $ExpectType FunctionConstructor | undefined
     GetIntrinsic('%FunctionPrototype%', true); // $ExpectType Function | undefined
-    GetIntrinsic('%Generator%', true); // $ExpectType Generator<unknown, any, unknown> | undefined
+    GetIntrinsic('%Generator%', true); // $ExpectType GeneratorFunction | undefined
     GetIntrinsic('%GeneratorFunction%', true); // $ExpectType GeneratorFunctionConstructor | undefined
-    GetIntrinsic('%GeneratorPrototype%', true); // $ExpectType GeneratorFunction | undefined
+    GetIntrinsic('%GeneratorPrototype%', true); // $ExpectType Generator<any, any, unknown> | undefined
     GetIntrinsic('%Int8Array%', true); // $ExpectType Int8ArrayConstructor | undefined
     GetIntrinsic('%Int8ArrayPrototype%', true); // $ExpectType Int8Array | undefined
     GetIntrinsic('%Int16Array%', true); // $ExpectType Int16ArrayConstructor | undefined
@@ -281,7 +280,7 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%JSON%', true); // $ExpectType JSON | undefined
     GetIntrinsic('%JSONParse%', true); // $ExpectType ((text: string, reviver?: ((this: any, key: string, value: any) => any) | undefined) => any) | undefined
     GetIntrinsic('%Map%', true); // $ExpectType MapConstructor | undefined
-    GetIntrinsic('%MapIteratorPrototype%', true); // $ExpectType IterableIterator<[unknown, unknown]> | undefined
+    GetIntrinsic('%MapIteratorPrototype%', true); // $ExpectType IterableIterator<any> | undefined
     GetIntrinsic('%MapPrototype%', true); // $ExpectType Map<any, any> | undefined
     GetIntrinsic('%Math%', true); // $ExpectType Math | undefined
     GetIntrinsic('%Number%', true); // $ExpectType NumberConstructor | undefined
@@ -305,7 +304,7 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%RegExp%', true); // $ExpectType RegExpConstructor | undefined
     GetIntrinsic('%RegExpPrototype%', true); // $ExpectType RegExp | undefined
     GetIntrinsic('%Set%', true); // $ExpectType SetConstructor | undefined
-    GetIntrinsic('%SetIteratorPrototype%', true); // $ExpectType IterableIterator<unknown> | undefined
+    GetIntrinsic('%SetIteratorPrototype%', true); // $ExpectType IterableIterator<any> | undefined
     GetIntrinsic('%SetPrototype%', true); // $ExpectType Set<any> | undefined
     GetIntrinsic('%SharedArrayBuffer%', true); // $ExpectType SharedArrayBufferConstructor | undefined
     GetIntrinsic('%SharedArrayBufferPrototype%', true); // $ExpectType SharedArrayBuffer | undefined
@@ -343,18 +342,18 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%Array%', boolean); // $ExpectType ArrayConstructor | undefined
     GetIntrinsic('%ArrayBuffer%', boolean); // $ExpectType ArrayBufferConstructor | undefined
     GetIntrinsic('%ArrayBufferPrototype%', boolean); // $ExpectType ArrayBuffer | undefined
-    GetIntrinsic('%ArrayIteratorPrototype%', boolean); // $ExpectType IterableIterator<unknown> | undefined
+    GetIntrinsic('%ArrayIteratorPrototype%', boolean); // $ExpectType IterableIterator<any> | undefined
     GetIntrinsic('%ArrayPrototype%', boolean); // $ExpectType any[] | undefined
     GetIntrinsic('%ArrayProto_entries%', boolean); // $ExpectType (() => IterableIterator<[number, any]>) | undefined
     GetIntrinsic('%ArrayProto_forEach%', boolean); // $ExpectType ((callbackfn: (value: any, index: number, array: any[]) => void, thisArg?: any) => void) | undefined
     GetIntrinsic('%ArrayProto_keys%', boolean); // $ExpectType (() => IterableIterator<number>) | undefined
     GetIntrinsic('%ArrayProto_values%', boolean); // $ExpectType (() => IterableIterator<any>) | undefined
-    GetIntrinsic('%AsyncFromSyncIteratorPrototype%', boolean); // $ExpectType undefined
+    GetIntrinsic('%AsyncFromSyncIteratorPrototype%', boolean); // $ExpectType AsyncGenerator<any, any, unknown> | undefined
     GetIntrinsic('%AsyncFunction%', boolean); // $ExpectType FunctionConstructor | undefined
     GetIntrinsic('%AsyncFunctionPrototype%', boolean); // $ExpectType Function | undefined
-    GetIntrinsic('%AsyncGenerator%', boolean); // $ExpectType AsyncGenerator<unknown, any, unknown> | undefined
+    GetIntrinsic('%AsyncGenerator%', boolean); // $ExpectType AsyncGeneratorFunction | undefined
     GetIntrinsic('%AsyncGeneratorFunction%', boolean); // $ExpectType AsyncGeneratorFunctionConstructor | undefined
-    GetIntrinsic('%AsyncGeneratorPrototype%', boolean); // $ExpectType AsyncGeneratorFunction | undefined
+    GetIntrinsic('%AsyncGeneratorPrototype%', boolean); // $ExpectType AsyncGenerator<any, any, unknown> | undefined
     GetIntrinsic('%AsyncIteratorPrototype%', boolean); // $ExpectType AsyncIterable<any> | undefined
     GetIntrinsic('%Atomics%', boolean); // $ExpectType Atomics | undefined
     GetIntrinsic('%Boolean%', boolean); // $ExpectType BooleanConstructor | undefined
@@ -378,9 +377,9 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%Float64ArrayPrototype%', boolean); // $ExpectType Float64Array | undefined
     GetIntrinsic('%Function%', boolean); // $ExpectType FunctionConstructor | undefined
     GetIntrinsic('%FunctionPrototype%', boolean); // $ExpectType Function | undefined
-    GetIntrinsic('%Generator%', boolean); // $ExpectType Generator<unknown, any, unknown> | undefined
+    GetIntrinsic('%Generator%', boolean); // $ExpectType GeneratorFunction | undefined
     GetIntrinsic('%GeneratorFunction%', boolean); // $ExpectType GeneratorFunctionConstructor | undefined
-    GetIntrinsic('%GeneratorPrototype%', boolean); // $ExpectType GeneratorFunction | undefined
+    GetIntrinsic('%GeneratorPrototype%', boolean); // $ExpectType Generator<any, any, unknown> | undefined
     GetIntrinsic('%Int8Array%', boolean); // $ExpectType Int8ArrayConstructor | undefined
     GetIntrinsic('%Int8ArrayPrototype%', boolean); // $ExpectType Int8Array | undefined
     GetIntrinsic('%Int16Array%', boolean); // $ExpectType Int16ArrayConstructor | undefined
@@ -393,7 +392,7 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%JSON%', boolean); // $ExpectType JSON | undefined
     GetIntrinsic('%JSONParse%', boolean); // $ExpectType ((text: string, reviver?: ((this: any, key: string, value: any) => any) | undefined) => any) | undefined
     GetIntrinsic('%Map%', boolean); // $ExpectType MapConstructor | undefined
-    GetIntrinsic('%MapIteratorPrototype%', boolean); // $ExpectType IterableIterator<[unknown, unknown]> | undefined
+    GetIntrinsic('%MapIteratorPrototype%', boolean); // $ExpectType IterableIterator<any> | undefined
     GetIntrinsic('%MapPrototype%', boolean); // $ExpectType Map<any, any> | undefined
     GetIntrinsic('%Math%', boolean); // $ExpectType Math | undefined
     GetIntrinsic('%Number%', boolean); // $ExpectType NumberConstructor | undefined
@@ -417,7 +416,7 @@ const boolean = Math.random() >= 0.5;
     GetIntrinsic('%RegExp%', boolean); // $ExpectType RegExpConstructor | undefined
     GetIntrinsic('%RegExpPrototype%', boolean); // $ExpectType RegExp | undefined
     GetIntrinsic('%Set%', boolean); // $ExpectType SetConstructor | undefined
-    GetIntrinsic('%SetIteratorPrototype%', boolean); // $ExpectType IterableIterator<unknown> | undefined
+    GetIntrinsic('%SetIteratorPrototype%', boolean); // $ExpectType IterableIterator<any> | undefined
     GetIntrinsic('%SetPrototype%', boolean); // $ExpectType Set<any> | undefined
     GetIntrinsic('%SharedArrayBuffer%', boolean); // $ExpectType SharedArrayBufferConstructor | undefined
     GetIntrinsic('%SharedArrayBufferPrototype%', boolean); // $ExpectType SharedArrayBuffer | undefined

@@ -86,12 +86,12 @@ declare namespace jest {
          *   <span data-testid="empty"></span>
          * </span>
          *
-         * expect(getByTestId('empty')).toBeEmptyDomElement()
-         * expect(getByTestId('not-empty')).not.toBeEmptyDomElement()
+         * expect(getByTestId('empty')).toBeEmptyDOMElement()
+         * expect(getByTestId('not-empty')).not.toBeEmptyDOMElement()
          * @see
          * [testing-library/jest-dom#tobeemptydomelement](https:github.com/testing-library/jest-dom#tobeemptydomelement)
          */
-        toBeEmptyDomElement(): R;
+        toBeEmptyDOMElement(): R;
         /**
          * @description
          * Allows you to check whether an element is disabled from the user's perspective.

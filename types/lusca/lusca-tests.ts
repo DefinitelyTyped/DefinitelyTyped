@@ -15,7 +15,7 @@ app.use(lusca({
 }));
 
 app.use(lusca.csrf());
-app.use(lusca.csrf({cookie: {name: 'csrf'}}));
+app.use(lusca.csrf({cookie: {name: 'csrf'}, header: 'x-csrf-token'}));
 app.use(lusca.csrf({cookie: 'csrf', angular: true}));
 app.use(lusca.csrf({blacklist: ['/blacklist']}));
 app.use(lusca.csrf({whitelist: ['/whitelist']}));
