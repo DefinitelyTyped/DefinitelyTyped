@@ -1,4 +1,4 @@
-// Type definitions for @xstyled/system 1.14
+// Type definitions for @xstyled/system 1.17
 // Project: https://github.com/smooth-code/xstyled
 // Definitions by: Steve Johns <https://github.com/stevejay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,7 +9,11 @@ import * as CSS from 'csstype';
 
 export interface StyleFunc {
     (...args: any[]): any;
-    propTypes?: ReadonlyArray<string>;
+    meta: {
+        props: ReadonlyArray<string>;
+        getStyle: Readonly<any>;
+        generators?: ReadonlyArray<any>;
+    };
 }
 
 export type ObjectOrArray<T> = T[] | { [K: string]: T | ObjectOrArray<T> };
@@ -258,6 +262,7 @@ export const fontFamily: StyleFunc;
 export const fontSize: StyleFunc;
 export const lineHeight: StyleFunc;
 export const fontWeight: StyleFunc;
+export const fontStyle: StyleFunc;
 export const textAlign: StyleFunc;
 export const letterSpacing: StyleFunc;
 export const textTransform: StyleFunc;
@@ -279,6 +284,10 @@ export interface FontWeightProps {
     readonly fontWeight?: ResponsiveValue<CSS.FontWeightProperty | AliasKey>;
 }
 
+export interface FontStyleProps {
+    readonly fontStyle?: ResponsiveValue<CSS.FontStyleProperty>;
+}
+
 export interface TextAlignProps {
     readonly textAlign?: ResponsiveValue<CSS.TextAlignProperty>;
 }
@@ -296,6 +305,7 @@ export interface TypographyProps
         FontSizeProps,
         LineHeightProps,
         FontWeightProps,
+        FontStyleProps,
         TextAlignProps,
         LetterSpacingProps,
         ColorProps,
@@ -469,6 +479,7 @@ export interface BackgroundProps {
 }
 
 export interface BackgroundColorProps<TLength = StyledSystemLength> {
+    readonly bg?: ResponsiveValue<CSS.BackgroundProperty<TLength>>;
     readonly backgroundColor?: ResponsiveValue<CSS.BackgroundProperty<TLength>>;
 }
 
