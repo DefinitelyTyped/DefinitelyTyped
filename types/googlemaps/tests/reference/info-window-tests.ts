@@ -19,6 +19,21 @@ const infoWindow = new InfoWindow();
 
 const infoWindowWithEmptyOptions = new InfoWindow({});
 
+infoWindow.addListener('closeclick', () => {});
+infoWindow.addListener('closeclick', event => {}); // $ExpectError
+
+infoWindow.addListener('content_changed', () => {});
+infoWindow.addListener('content_changed', event => {}); // $ExpectError
+
+infoWindow.addListener('domready', () => {});
+infoWindow.addListener('domready', event => {}); // $ExpectError
+
+infoWindow.addListener('position_changed', () => {});
+infoWindow.addListener('position_changed', event => {}); // $ExpectError
+
+infoWindow.addListener('zindex_changed', () => {});
+infoWindow.addListener('zindex_changed', event => {}); // $ExpectError
+
 infoWindow.close();
 
 infoWindow.getContent(); // $ExpectType string | Node
