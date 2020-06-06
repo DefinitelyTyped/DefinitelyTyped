@@ -1,4 +1,47 @@
 declare namespace google.maps {
+    interface InfoWindowHandlerMap {
+        /**
+         * This event is fired when the close button was clicked.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.closeclick Maps JavaScript API}
+         * @see {@link InfoWindow#close}
+         */
+        closeclick: [];
+
+        /**
+         * This event is fired when the content property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.content_changed Maps JavaScript API}
+         * @see {@link InfoWindowOptions#content}
+         * @see {@link InfoWindow#getContent}
+         * @see {@link InfoWindow#setContent}
+         */
+        content_changed: [];
+
+        /**
+         * This event is fired when the `<div>` containing the {@link InfoWindow}'s content is attached to the DOM. You
+         * may wish to monitor this event if you are building out your info window content dynamically.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.domready Maps JavaScript API}
+         */
+        domready: [];
+
+        /**
+         * This event is fired when the position property changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.position_changed Maps JavaScript API}
+         * @see {@link InfoWindowOptions#position}
+         * @see {@link InfoWindow#getPosition}
+         * @see {@link InfoWindow#setPosition}
+         */
+        position_changed: [];
+
+        /**
+         * This event is fired when the InfoWindow's zIndex changes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.zindex_changed Maps JavaScript API}
+         * @see {@link InfoWindowOptions#zIndex}
+         * @see {@link InfoWindow#getZIndex}
+         * @see {@link InfoWindow#setZIndex}
+         */
+        zindex_changed: [];
+    }
+
     /**
      * An overlay that looks like a bubble and is often connected to a marker.
      * This class extends MVCObject.
@@ -16,8 +59,23 @@ declare namespace google.maps {
         constructor(opts?: InfoWindowOptions);
 
         /**
+         * @see {@link InfoWindowHandlerMap#closeclick closeclick} event
+         * @see {@link InfoWindowHandlerMap#content_changed content_changed} event
+         * @see {@link InfoWindowHandlerMap#domready domready} event
+         * @see {@link InfoWindowHandlerMap#position_changed position_changed} event
+         * @see {@link InfoWindowHandlerMap#zindex_changed zindex_changed} event
+         */
+        addListener<N extends keyof InfoWindowHandlerMap>(
+            eventName: N,
+            handler: MVCEventHandler<this, InfoWindowHandlerMap[N]>,
+        ): MapsEventListener;
+
+        addListener(eventName: string, handler: MVCEventHandler<this, unknown[]>): MapsEventListener;
+
+        /**
          * Closes this {@link InfoWindow} by removing it from the DOM structure.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.close Maps JavaScript API}
+         * @see {@link InfoWindowHandlerMap#closeclick closeclick} event
          * @see {@link open}
          */
         close(): void;
@@ -25,6 +83,7 @@ declare namespace google.maps {
         /**
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.getContent Maps JavaScript API}
          * @see {@link InfoWindowOptions#content}
+         * @see {@link InfoWindowHandlerMap#content_changed content_changed} event
          * @see {@link setContent}
          */
         getContent(): string | Node;
@@ -32,6 +91,7 @@ declare namespace google.maps {
         /**
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.getPosition Maps JavaScript API}
          * @see {@link InfoWindowOptions#position}
+         * @see {@link InfoWindowHandlerMap#position_changed position_changed} event
          * @see {@link setPosition}
          */
         getPosition(): LatLng;
@@ -39,6 +99,7 @@ declare namespace google.maps {
         /**
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.getZIndex Maps JavaScript API}
          * @see {@link InfoWindowOptions#zIndex}
+         * @see {@link InfoWindowHandlerMap#zindex_changed zindex_changed} event
          * @see {@link setZIndex}
          */
         getZIndex(): number;
@@ -57,6 +118,7 @@ declare namespace google.maps {
         /**
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.setContent Maps JavaScript API}
          * @see {@link InfoWindowOptions#content}
+         * @see {@link InfoWindowHandlerMap#content_changed content_changed} event
          * @see {@link getContent}
          */
         setContent(content: string | Node): void;
@@ -69,6 +131,7 @@ declare namespace google.maps {
         /**
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.setPosition Maps JavaScript API}
          * @see {@link InfoWindowOptions#position}
+         * @see {@link InfoWindowHandlerMap#position_changed position_changed} event
          * @see {@link getPosition}
          */
         setPosition(position: LatLng | LatLngLiteral): void;
@@ -76,6 +139,7 @@ declare namespace google.maps {
         /**
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.setZIndex Maps JavaScript API}
          * @see {@link InfoWindowOptions#zIndex}
+         * @see {@link InfoWindowHandlerMap#zindex_changed zindex_changed} event
          * @see {@link getZIndex}
          */
         setZIndex(zIndex: number): void;
