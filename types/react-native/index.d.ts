@@ -853,6 +853,25 @@ export interface LayoutChangeEvent {
     };
 }
 
+interface TextLayoutLine {
+    ascender: number;
+    capHeight: number;
+    descender: number;
+    height: number;
+    text: string;
+    width: number;
+    x: number;
+    xHeight: number;
+    y: number;
+}
+
+/**
+ * @see TextProps.onTextLayout
+ */
+export interface TextLayoutEventData extends TargetedEvent {
+    lines: TextLayoutLine[];
+}
+
 export type FontVariant = 'small-caps' | 'oldstyle-nums' | 'lining-nums' | 'tabular-nums' | 'proportional-nums';
 export interface TextStyleIOS extends ViewStyle {
     fontVariant?: FontVariant[];
@@ -976,6 +995,11 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * {nativeEvent: { layout: {x, y, width, height}}}.
      */
     onLayout?: (event: LayoutChangeEvent) => void;
+
+    /**
+     * Invoked on Text layout
+     */
+    onTextLayout?: (event: NativeSyntheticEvent<TextLayoutEventData>) => void;
 
     /**
      * This function is called on press.
