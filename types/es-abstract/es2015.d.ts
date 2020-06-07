@@ -4,9 +4,6 @@ import ES5 = require('./es5');
 import { Intrinsics } from './GetIntrinsic';
 import { PropertyKey as ESPropertyKey } from './index';
 
-// Utility types:
-type ToApplyArgs<A extends ArrayLike<any>> = Readonly<A> | { readonly [x: number]: A[number]; readonly length: number };
-
 interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive' | 'Type'> {
     Call<T, R>(F: (this: T) => R, thisArg: T): R;
     Call<T, A extends readonly unknown[], R>(F: (this: T, ...args: A) => R, thisArg: T, args: Readonly<A>): R;
