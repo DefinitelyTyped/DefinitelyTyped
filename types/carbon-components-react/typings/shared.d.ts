@@ -49,7 +49,6 @@ export interface MenuOffsetData {
     top?: number;
 }
 
-
 export interface RenderIconProps<P = any> {
     renderIcon?: React.ComponentType<P>;
 }

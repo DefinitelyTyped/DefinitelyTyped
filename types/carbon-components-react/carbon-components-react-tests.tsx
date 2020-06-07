@@ -377,7 +377,6 @@ const uisHeaderMenuAnonRender = (
     </HeaderMenu>
 );
 
-
 /*
  * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
  *  will be used.

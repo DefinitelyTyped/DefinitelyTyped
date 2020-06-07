@@ -78,6 +78,7 @@ export type ButtonCustomComponentProps<
 // or just create a wrapper component.
 //
 declare function Button(props: ForwardRefProps<HTMLButtonElement, ButtonDefaultProps & ButtonKindProps>): FCReturn;
+// tslint:disable:unified-signatures breaks certain usages
 declare function Button(props: ForwardRefProps<HTMLAnchorElement, ButtonAnchorProps & ButtonKindProps>): FCReturn;
 declare function Button<T extends keyof JSX.IntrinsicElements, R extends HTMLElement = HTMLElement>(props: ForwardRefProps<R, ButtonIntrinsicProps<T> & ButtonKindProps>): FCReturn;
 declare function Button<T extends React.JSXElementConstructor<any>, R = unknown>(props: ForwardRefProps<R, ButtonCustomComponentProps<T> & ButtonKindProps>): FCReturn;
