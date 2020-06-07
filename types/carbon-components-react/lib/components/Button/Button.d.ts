@@ -3,7 +3,6 @@ import {
     EmbeddedIconProps,
     EmbeddedTooltipProps,
     ReactButtonAttr,
-    RenderIconProps,
     FCReturn, JSXIntrinsicElementProps, ReactAnchorAttr, ForwardRefProps,
 } from '../../../typings/shared';
 
@@ -11,15 +10,22 @@ export type ButtonKind = "danger" | "danger--primary" | "ghost" | "primary" | "s
 export type ButtonSize = "default" | "field" | "small";
 
 export interface ButtonRenderIconRenderProps {
-    "aria-hidden": boolean;
-    "aria-label": EmbeddedIconProps["iconDescription"];
-    className: string;
+    "aria-hidden"?: boolean;
+    "aria-label"?: EmbeddedIconProps["iconDescription"];
+    className?: string;
+}
+
+// this is split due to a typing issue with the specialized buttons (SecondaryButton, etc)
+interface ButtonKindProps {
+    kind?: ButtonKind;  // required by has default value
 }
 
 // these props are not passed to the general createElement call
-interface ButtonBaseIsolatedProps extends EmbeddedIconProps, EmbeddedTooltipProps, RenderIconProps<ButtonRenderIconRenderProps> {
+interface ButtonBaseIsolatedProps extends EmbeddedIconProps, EmbeddedTooltipProps {
     hasIconOnly?: boolean;
-    kind?: ButtonKind; // required by has default value
+    // trying to type this just causes problems around inference, overload selection, and anon fn vs typed component references.
+    // if anon render props type is desired, import ButtonRenderIconRenderProps.
+    renderIcon?: any;
     size?: ButtonSize;
     /**
      * @deprecated
@@ -38,6 +44,8 @@ export interface ButtonDefaultProps extends ButtonBaseProps, ReactButtonAttr {
     as?: undefined;
     href?: undefined;
 }
+// alias for old type that used to be exported
+export type ButtonProps = ButtonDefaultProps;
 
 export interface ButtonAnchorProps extends ButtonBaseProps, Omit<ReactAnchorAttr, "href"> {
     as?: undefined;
@@ -69,9 +77,9 @@ export type ButtonCustomComponentProps<
 //
 // or just create a wrapper component.
 //
-declare function Button(props: ForwardRefProps<HTMLButtonElement, ButtonDefaultProps>): FCReturn;
-declare function Button(props: ForwardRefProps<HTMLAnchorElement, ButtonAnchorProps>): FCReturn;
-declare function Button<T extends keyof JSX.IntrinsicElements, R extends HTMLElement = HTMLElement>(props: ForwardRefProps<R, ButtonIntrinsicProps<T>>): FCReturn;
-declare function Button<T extends React.JSXElementConstructor<any>, R = unknown>(props: ForwardRefProps<R, ButtonCustomComponentProps<T>>): FCReturn;
+declare function Button(props: ForwardRefProps<HTMLButtonElement, ButtonDefaultProps & ButtonKindProps>): FCReturn;
+declare function Button(props: ForwardRefProps<HTMLAnchorElement, ButtonAnchorProps & ButtonKindProps>): FCReturn;
+declare function Button<T extends keyof JSX.IntrinsicElements, R extends HTMLElement = HTMLElement>(props: ForwardRefProps<R, ButtonIntrinsicProps<T> & ButtonKindProps>): FCReturn;
+declare function Button<T extends React.JSXElementConstructor<any>, R = unknown>(props: ForwardRefProps<R, ButtonCustomComponentProps<T> & ButtonKindProps>): FCReturn;
 
 export default Button;

@@ -15,6 +15,7 @@ import {
     FileUploader,
     NumberInput,
     Row,
+    SecondaryButton,
     Slider,
     Tab,
     Table,
@@ -26,7 +27,6 @@ import {
     TooltipDefinition,
     TextArea,
     TextInput,
-    FormItem,
     FileUploaderDropContainer,
     FileUploaderItem,
     MultiSelect,
@@ -34,8 +34,7 @@ import {
     SideNav,
     SideNavItem,
     SideNavItems,
-    SideNavMenu,
-    SideNavMenuItem
+    ButtonRenderIconRenderProps,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -66,12 +65,14 @@ const buttonDefaultT1 = (
 );
 
 const buttonRef = React.useRef<HTMLButtonElement>(null);
+const SimpleButtonIcon = () => <div/>;
 const buttonDefaultT2 = (
     <Button
         kind="danger"
         onClick={(event) => {
             event.preventDefault();
         }}
+        renderIcon={SimpleButtonIcon}
         ref={buttonRef}
         type="reset"
     >
@@ -79,7 +80,6 @@ const buttonDefaultT2 = (
     </Button>
 );
 
-const SimpleButtonIcon = () => <div/>;
 const buttonIconT1 = (
     <Button renderIcon={SimpleButtonIcon}>With Render Icon</Button>
 );
@@ -90,7 +90,7 @@ const buttonIconT2 = (
 );
 
 const buttonIconT3 = (
-    <Button renderIcon={({ className }) => <div className={className}/>}>Anon Icon Render</Button>
+    <Button renderIcon={({ className }: ButtonRenderIconRenderProps) => <div className={className}/>}>Anon Icon Render</Button>
 );
 
 const anchorRef = React.useRef<HTMLAnchorElement>(null);
@@ -124,6 +124,19 @@ const buttonCustomRenderT1 = (
         Custom Render
     </Button>
 );
+
+//
+// SecondaryButton
+//
+const secondaryButtonT1 = (
+    <SecondaryButton onClick={(event) => event.preventDefault()}>Secondary</SecondaryButton>
+);
+const secondaryButtonT2 = (
+    <SecondaryButton as="span" onClick={(event) => event.preventDefault()}>Secondary</SecondaryButton>
+);
+const secondaryButtonT3 = (
+    <SecondaryButton as={ButtonCustomRenderComp1} someProp={6}>Secondary</SecondaryButton>
+)
 
 interface Row1 extends DataTableRow {
     rowProp: string;
