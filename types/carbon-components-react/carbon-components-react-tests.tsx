@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
     AccordionItem,
+    Button,
     Column,
     DataTable,
     DataTableCustomRenderProps,
@@ -32,7 +33,9 @@ import {
     SideNav,
     SideNavItem,
     SideNavItems,
-} from "carbon-components-react";
+    SideNavMenu,
+    SideNavMenuItem
+} from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
 // AccordionItem
@@ -51,6 +54,74 @@ const accordionItemTwo = (
     <AccordionItem title={accordionTitle} className="extra-class">
         Lorem ipsum.
     </AccordionItem>
+);
+
+//
+// Button
+//
+
+const buttonDefaultT1 = (
+    <Button onClick={(event) => event.preventDefault()}>Basic Button</Button>
+);
+
+const buttonRef = React.useRef<HTMLButtonElement>(null);
+const buttonDefaultT2 = (
+    <Button
+        kind="danger"
+        onClick={(event) => {
+            event.preventDefault();
+        }}
+        ref={buttonRef}
+        type="reset"
+    >
+        Reset
+    </Button>
+);
+
+const SimpleButtonIcon = () => <div/>;
+const buttonIconT1 = (
+    <Button renderIcon={SimpleButtonIcon}>With Render Icon</Button>
+);
+// TODO: find a way to make this fail because someProp is required by the component but it will never be provided.
+const IconWithProps: React.FC<{ someProp: number, anotherProp?: string }> = () => <div/>;
+const buttonIconT2 = (
+    <Button renderIcon={IconWithProps}>With Render Icon</Button>
+);
+
+const buttonIconT3 = (
+    <Button renderIcon={({ className }) => <div className={className}/>}>Anon Icon Render</Button>
+);
+
+const anchorRef = React.useRef<HTMLAnchorElement>(null);
+const buttonAnchorT1 = (
+    <Button href="https://github.com/DefinitelyTyped/DefinitelyTyped" asdf={"asdf"} target="_blank" ref={anchorRef}>Anchor Link</Button>
+);
+
+const spanRef = React.useRef<HTMLSpanElement>(null);
+const buttonIntrinsicT1 = (
+    <Button
+        as="span"
+        kind="danger"
+        onClick={(event) => {
+            event.preventDefault();
+        }}
+        ref={spanRef}
+    >
+        Reset
+    </Button>
+);
+
+const ButtonCustomRenderComp1: React.FC<{ someProp: number, anotherProp?: string }> = () => <div/>;
+
+const buttonCustomRenderT1 = (
+    <Button
+        as={ButtonCustomRenderComp1}
+        kind="danger"
+        someProp={5}
+        anotherProp="test"
+    >
+        Custom Render
+    </Button>
 );
 
 interface Row1 extends DataTableRow {
