@@ -11,6 +11,7 @@ import {
     Dropdown,
     HeaderContainer,
     HeaderMenu,
+    HeaderMenuItem,
     FileUploader,
     NumberInput,
     Row,
@@ -356,11 +357,13 @@ const uisHeaderContainerCompRenderNotMatchingRequiredProps = <HeaderContainer re
 const uisHeaderContainerCompRenderNotMatchingOptionalProps = <HeaderContainer render={HeaderCompRender2} />;
 
 // UI Shell - HeaderMenu
+
 const uisHeaderMenuAnonRender = (
     <HeaderMenu menuLinkName="test" renderMenuContent={() => <div />}>
         <div />
     </HeaderMenu>
 );
+
 
 /*
  * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
@@ -373,6 +376,18 @@ const uisHeaderMenuCompRenderNotMatchingRequiredProps = (
 const uisHeaderMenuCompRenderNotMatchingOptionalProps = (
     <HeaderMenu menuLinkName="test" renderMenuContent={HeaderCompRender2} />
 );
+
+//
+// HeaderMenuItem
+//
+
+const uisHeaderMenuItemRequiredChild = (
+    <HeaderMenuItem>Required Child</HeaderMenuItem>
+);
+
+//
+// UIShell Link
+//
 
 interface TestCompPropsOverwrite {
     element?: 'overwriteTest'; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
