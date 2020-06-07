@@ -2,6 +2,7 @@ import ES2015 = require('es-abstract/es2015');
 import { expectType, newType } from './index.test';
 
 declare const any: unknown;
+declare const args: IArguments;
 
 ES2015.Type(undefined); // $ExpectType "Undefined"
 ES2015.Type(null); // $ExpectType "Null"
@@ -41,7 +42,9 @@ ES2015.ToUint8(any); // $ExpectType number
 ES2015.ToUint8Clamp(any); // $ExpectType number
 ES2015.ToLength(any); // $ExpectType number
 
-ES2015.Call(Object.prototype.toString, BigInt(Number.MAX_SAFE_INTEGER)); // $ExpectType string
+ES2015.Call<bigint, readonly [], string>(Object.prototype.toString, BigInt(Number.MAX_SAFE_INTEGER), []); // $ExpectType string
+ES2015.Call(Object.prototype.hasOwnProperty, [], ['length'] as const); // $ExpectType boolean
+ES2015.Call(Object.prototype.hasOwnProperty, any, args as IArguments & [PropertyKey]); // $ExpectType boolean
 
 // $ExpectType IterableIterator<number>
 ES2015.GetIterator([1, 2, 3]);
@@ -60,12 +63,12 @@ declare function iterNext<T, TReturn = any, TNext = unknown>(
 ES2015.Call(iterNext, generable());
 
 // $ExpectType IteratorResult<number, boolean>
-ES2015.Invoke(generable(), 'next', any as IArguments);
-
-ES2015.Invoke(generable(), Symbol.iterator, any as IArguments);
+ES2015.Invoke(generable(), 'next', args as IArguments & [string]);
+ES2015.Invoke(generable(), Symbol.iterator, args);
 
 // $ExpectType boolean
-ES2015.Invoke(Reflect, 'has', any as IArguments);
+ES2015.Invoke(Reflect, 'has', args as IArguments & [object, PropertyKey]);
+ES2015.Invoke(Object as typeof Object & typeof Object.prototype, 'hasOwnProperty', ['prototype']); // $ExpectType boolean
 
 // $ExpectType Generator<number, boolean, string>
 ES2015.GetIterator({ [Symbol.iterator]: generable });
