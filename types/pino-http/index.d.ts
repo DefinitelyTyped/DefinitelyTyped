@@ -31,8 +31,8 @@ declare namespace PinoHttp {
         stream?: DestinationStream;
         autoLogging?: boolean | AutoLoggingOptions;
         customLogLevel?: (res: ServerResponse, error: Error) => Level;
-        customSuccessMessage?: (req: IncomingMessage) => string;
-        customErrorMessage?: (req: IncomingMessage) => string;
+        customSuccessMessage?: (res: ServerResponse) => string;
+        customErrorMessage?: (error: Error, res: ServerResponse) => string;
         customAttributeKeys?: CustomAttributeKeys;
     }
 
