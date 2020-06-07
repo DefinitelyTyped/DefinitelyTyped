@@ -11,6 +11,8 @@ splitter.on('end', () => {
     // }
 });
 
+throw new Error('Test failed');
+
 const input = Buffer.from('A*snip*B');
 splitter.write(input);
 splitter.end();
