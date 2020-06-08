@@ -38,7 +38,7 @@ export interface CliOptions {
     enableRegistration?: boolean;
     enableLocalpart?: boolean;
     generateRegistration: (reg: any, callback: (r: any) => void) => void;
-    port: number;
+    port?: number;
     registrationPath?: string;
     run: (port: number, config: any) => void;
 }
