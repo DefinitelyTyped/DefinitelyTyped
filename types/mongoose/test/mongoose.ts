@@ -1567,3 +1567,19 @@ var foobarSchema = new mongoose.Schema({
 });
 var Foobar = mongoose.model<Foobar, mongoose.Model<Foobar>>('AnimFoobarl', foobarSchema);
 Foobar.find({ _id: 123 });
+                                                     
+new mongoose.Schema({
+  createdAt: Number,
+  updatedAt: Number,
+  name: String
+}, {
+  timestamps: { currentTime: () => Math.floor(Date.now() / 1000) }
+});
+
+new mongoose.Schema({
+  createdAt: Number,
+  updatedAt: Number,
+  name: String
+}, {
+  timestamps: { currentTime: () => new Date() }
+});
