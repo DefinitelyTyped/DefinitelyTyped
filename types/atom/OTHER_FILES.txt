@@ -6,3 +6,13 @@ status-bar/config.d.ts
 status-bar/index.d.ts
 tool-bar/config.d.ts
 tool-bar/index.d.ts
+ide-ui/index.d.ts
+ide-ui/busy-signal.d.ts
+ide-ui/code-actions.d.ts
+ide-ui/code-highlight.d.ts
+ide-ui/datatip.d.ts
+ide-ui/definitions.d.ts
+ide-ui/find-references.d.ts
+ide-ui/hyperclick.d.ts
+ide-ui/outline.d.ts
+ide-ui/sig-help.d.ts
