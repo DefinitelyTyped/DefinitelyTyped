@@ -8,7 +8,7 @@
 
 import { Transform } from 'stream';
 
-export = binary_split;
+export = BinarySplit;
 
 /**
  * Split streams of binary data.
