@@ -736,5 +736,5 @@ ModelWithFunctionInSchema.create({ name: "test", jobs: [], enum: SchemaEnum.Bar 
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], enumArray: [SchemaEnum.Bar, SchemaEnum.Foo] });
 
 ModelWithFunctionInSchema.create({ name: "test", jobs: [] }).then(ref => {
-    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRef: ref });
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRef: ref, selfRef2: ref._id, selfRefArray: [ref, ref._id] });
 });
