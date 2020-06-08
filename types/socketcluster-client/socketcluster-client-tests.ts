@@ -1,6 +1,6 @@
 // Adapted from README
 
-import { create } from 'socketcluster-client';
+import { create, AGClientSocket } from 'socketcluster-client';
 
 const socket = create({
     hostname: 'localhost',
@@ -101,13 +101,12 @@ socket.transmitPublish('myChannel', 'This is a message');
     }
 })();
 
-const mostOptions = {
+const mostOptions: AGClientSocket.ClientOptions = {
     path: '/socketcluster/',
     port: 8000,
     hostname: '127.0.0.1',
     autoConnect: true,
     secure: false,
-    rejectUnauthorized: false,
     connectTimeout: 10000,
     ackTimeout: 10000,
     channelPrefix: null,
