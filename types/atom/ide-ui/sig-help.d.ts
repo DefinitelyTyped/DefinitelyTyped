@@ -3,8 +3,8 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE.Facebook file in the directory containing this source file.
- * An additional grant of patent rights can be found in the PATENTS.Facebook
+ * index.d.ts file in the directory containing this source file.
+ * An additional grant of patent rights can be found in the index.d.ts
  * file in the same directory.
  */
 
