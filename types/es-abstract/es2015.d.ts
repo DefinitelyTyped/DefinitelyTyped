@@ -5,20 +5,16 @@ import { Intrinsics } from './GetIntrinsic';
 import { PropertyKey as ESPropertyKey } from './index';
 
 interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive' | 'Type'> {
-    Call<R, T = unknown>(F: (this: T) => R, thisArg: T): R;
-    Call<R, A extends unknown[] | [unknown], T = unknown>(
-        F: (this: T, ...args: A) => R,
-        thisArg: T,
-        args: Readonly<A>,
-    ): R;
-    // tslint:disable-next-line: ban-types
-    Call<F extends Function>(
-        F: F,
-        thisArg: F extends (this: infer T) => any ? T : unknown,
-        args?:
-            | (F extends (...args: infer A) => any ? Readonly<A> : readonly unknown[])
-            | ArrayLike<F extends (...args: infer A) => any ? (A extends Array<infer T> ? T : unknown) : unknown>,
-    ): F extends (...args: any) => infer R ? R : any;
+    Call<T, R>(F: (this: T) => R, thisArg: T): R;
+    Call<T, A extends readonly unknown[], R>(F: (this: T, ...args: A) => R, thisArg: T, args: Readonly<A>): R;
+
+    Invoke<O extends {}, P extends ESPropertyKey>(
+        O: O,
+        P: P,
+        args?: P extends keyof O
+            ? O[P] extends (...args: infer A) => any ? Readonly<A> : ArrayLike<unknown>
+            : ArrayLike<unknown>,
+    ): P extends keyof O ? (O[P] extends (...args: any) => infer R ? R : never) : unknown;
 
     readonly ToPrimitive: typeof toPrimitive;
     ToInt16(value: unknown): number;
@@ -50,6 +46,7 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
         : ((...args: any) => any) | undefined;
     Get<O extends object, P extends ESPropertyKey>(O: O, P: P): P extends keyof O ? O[P] : any;
 
+    // prettier-ignore
     Type<T>(x: T)
         : T extends string ? 'String'
         : T extends number ? 'Number'
@@ -105,25 +102,6 @@ interface ES2015 extends Omit<typeof ES5, 'CheckObjectCoercible' | 'ToPrimitive'
     HasProperty(O: object, P: ESPropertyKey): boolean;
 
     IsConcatSpreadable(O: object): boolean;
-    Invoke<O, P extends ESPropertyKey>(
-        O: O,
-        P: P,
-        args?:
-            | (P extends keyof O
-                    ? O[P] extends (...args: infer A) => any
-                        ? Readonly<A>
-                        : readonly unknown[]
-                    : readonly unknown[])
-            | ArrayLike<
-                    P extends keyof O
-                        ? O[P] extends (...args: infer A) => any
-                            ? A extends Array<infer T>
-                                ? T
-                                : unknown
-                            : unknown
-                        : unknown
-              >,
-    ): P extends keyof O ? (O[P] extends (...args: any) => infer R ? R : never) : any;
 
     /**
      * @param obj The iterable
