@@ -15,6 +15,7 @@
 //                 Eric Kenney <https://github.com/KenneyE>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 //                 Jan Michalak <https://github.com/michalak111>
+//                 Daniele Carrucciu <https://github.com/catruzz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -268,7 +269,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate; end: stringOrDate }) => boolean | undefined | null;
-    onRangeChange?: (range: Date[] | { start: stringOrDate; end: stringOrDate }) => void;
+    onRangeChange?: (range: Date[] | { start: stringOrDate; end: stringOrDate }, view: View) => void;
     selected?: any;
     views?: ViewsProps;
     drilldownView?: View | null;
