@@ -619,6 +619,12 @@ interface ModelWithFunction extends mongoose.Document {
 
     enum?: SchemaEnum;
 
+    selfRef?: ModelWithFunction | mongodb.ObjectID;
+
+    selfRef2?: ModelWithFunction | mongodb.ObjectID;
+
+    selfRefArray?: (ModelWithFunction | mongodb.ObjectID)[];
+
     enumArray?: SchemaEnum[];
 
     deeperFuncTest?: {
@@ -728,3 +734,7 @@ ModelWithFunctionInSchema.create({ name: "test", jobs: [], mapWithFuncs: { test:
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], enum: SchemaEnum.Bar });
 
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], enumArray: [SchemaEnum.Bar, SchemaEnum.Foo] });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [] }).then(ref => {
+    ModelWithFunctionInSchema.create({ name: "test", jobs: [], selfRef: ref });
+});
