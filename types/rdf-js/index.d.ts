@@ -244,7 +244,7 @@ export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      * @return A new instance of NamedNode.
      * @see NamedNode
      */
-    namedNode<Iri extends string = string>(value: Iri): NamedNode<Iri>;
+    namedNode(value: string): NamedNode;
 
     /**
      * @param value The optional blank node identifier.

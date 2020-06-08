@@ -69,11 +69,6 @@ function test_datafactory() {
     const dataFactory: DataFactory = <any> {};
 
     const namedNode: NamedNode = dataFactory.namedNode('http://example.org');
-    const constantValue: 'http://example.org' = dataFactory.namedNode('http://example.org').value;
-    // $ExpectError
-    const otherConstantValue: 'http://not-example.org' = dataFactory.namedNode('http://example.org').value;
-    // $ExpectError
-    const otherConstantNamedNode: NamedNode<'http://not-example.org'> = dataFactory.namedNode('http://example.org');
 
     const blankNode1: BlankNode = dataFactory.blankNode('b1');
     const blankNode2: BlankNode = dataFactory.blankNode();
