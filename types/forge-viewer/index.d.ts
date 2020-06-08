@@ -976,10 +976,6 @@ declare namespace Autodesk {
               untag(tag: string, names?: string[]|string): void;
             }
 
-            class BoundsCallback {
-              constructor(bounds: THREE.Box3)
-            }
-
             class VertexBufferReader {
               constructor(geometry: any, use2dInstancing?: boolean);
 
