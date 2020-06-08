@@ -607,10 +607,19 @@ LocModel.create({ address: "foo", coords: [1, 2], facilities: ["foo", "bar"] });
 LocModel.create({ address: "foo", coords: [1, 2], facilities: ["foo", "bar"], name: "bar", openingTimes: ["foo"], rating: 10, reviews: ["foo"], notes: [] });
 LocModel.create<{address: string}>({ address: "foo" });
 
+enum SchemaEnum {
+    Foo,
+    Bar
+}
+
 interface ModelWithFunction extends mongoose.Document {
     name: string;
 
     someFunc: () => any;
+
+    enum?: SchemaEnum;
+
+    enumArray?: SchemaEnum[];
 
     deeperFuncTest?: {
         test: string;
@@ -715,3 +724,7 @@ ModelWithFunctionInSchema.create({ name: "test", jobs: [{ title: "hello" }] });
 ModelWithFunctionInSchema.create({ name: "test", jobs: [{ title: "hello" }], titles: [{ title: "test" }] });
 
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], mapWithFuncs: { test: { title: "hello", innerMap: { test: { title: "hello" } } }} });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], enum: SchemaEnum.Bar });
+
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], enumArray: [SchemaEnum.Bar, SchemaEnum.Foo] });
