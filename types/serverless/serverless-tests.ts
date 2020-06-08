@@ -117,7 +117,7 @@ getHttp(
 // Test entire Aws Serverless type
 const awsServerless: Aws.Serverless = {
     service: {
-        name: 'testName',
+        name: 'testName1',
         awsKmsKeyArn: 'testAwsKmsKeyArn'
     },
     frameworkVersion: 'testFrameworkVersion',
