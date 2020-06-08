@@ -623,7 +623,14 @@ interface ModelWithFunction extends mongoose.Document {
 
     selfRef2?: ModelWithFunction | mongodb.ObjectID;
 
-    selfRefArray?: (ModelWithFunction | mongodb.ObjectID)[];
+    selfRefArray?: (ModelWithFunction | mongodb.ObjectID | undefined)[];
+
+    parent?: {
+        ref: { 
+            _id: mongodb.ObjectId; 
+            child: ModelWithFunction
+        } | mongodb.ObjectID;
+    }
 
     enumArray?: SchemaEnum[];
 
