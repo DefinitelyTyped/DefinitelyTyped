@@ -75,7 +75,7 @@
 
  */
 
-declare module 'atom/ide' {
+declare module 'atom/ide-ui' {
 
 /// <reference path="./busy-signal.d.ts" />
 /// <reference path="./code-actions.d.ts" />

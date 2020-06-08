@@ -10,7 +10,7 @@
 
 import * as Atom from '../index';
 
-declare module 'atom/ide' {
+declare module 'atom/ide-ui' {
     export interface Definition {
         // Path of the file in which the definition is located.
         path: string;

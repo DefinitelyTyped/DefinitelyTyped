@@ -10,7 +10,7 @@
 
 import * as Atom from '../index';
 
-declare module 'atom/ide' {
+declare module 'atom/ide-ui' {
     export interface HyperclickProvider {
         // Use this to provide a suggestion for single-word matches.
         // Optionally set `wordRegExp` to adjust word-matching.

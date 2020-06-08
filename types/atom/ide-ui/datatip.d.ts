@@ -10,7 +10,7 @@
 
 import * as Atom from '../index';
 
-declare module 'atom/ide' {
+declare module 'atom/ide-ui' {
     export interface DatatipService {
         addProvider(provider: DatatipProvider): Atom.DisposableLike;
         addModifierProvider(provider: ModifierDatatipProvider): Atom.DisposableLike;

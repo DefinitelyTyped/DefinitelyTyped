@@ -10,7 +10,7 @@
 
 import * as Atom from '../index';
 
-declare module 'atom/ide' {
+declare module 'atom/ide-ui' {
     export interface FindReferencesProvider {
         // Return true if your provider supports finding references for the provided Atom.TextEditor.
         isEditorSupported(editor: Atom.TextEditor): Promise<boolean>;

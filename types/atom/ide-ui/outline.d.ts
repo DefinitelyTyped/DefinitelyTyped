@@ -10,7 +10,7 @@
 
 import * as Atom from '../index';
 
-declare module 'atom/ide' {
+declare module 'atom/ide-ui' {
     export interface OutlineProvider {
         name: string;
         // If there are multiple providers for a given grammar, the one with the highest priority will be

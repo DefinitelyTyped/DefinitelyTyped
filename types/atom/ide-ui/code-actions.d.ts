@@ -11,7 +11,7 @@
 import * as Atom from '../index';
 import { Message } from '../linter';
 
-declare module 'atom/ide' {
+declare module 'atom/ide-ui' {
     export interface CodeAction {
         apply(): Promise<void>;
         getTitle(): Promise<string>;

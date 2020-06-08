@@ -10,7 +10,7 @@
 
 import { DisposableLike, Point, TextEditor } from '../index';
 
-declare module 'atom/ide' {
+declare module 'atom/ide-ui' {
     export type SignatureHelpRegistry = (provider: SignatureHelpProvider) => DisposableLike;
 
     export interface SignatureHelpProvider {
