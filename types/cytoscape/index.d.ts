@@ -1,4 +1,4 @@
-// Type definitions for Cytoscape.js 3.8
+// Type definitions for Cytoscape.js 3.14
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
@@ -8,6 +8,7 @@
 //                  Andrej Kirejeŭ <https://github.com/gsbelarus>
 //                  Peter Ferrarotto <https://github.com/peterjferrarotto>
 //                  Xavier Ho <https://github.com/spaxe>
+//                  Jongsu Liam Kim <https://github.com/appleparan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -1276,7 +1277,7 @@ declare namespace cytoscape {
          * Effectively move nodes to different parent node. The modified (actually new) elements are returned.
          * http://js.cytoscape.org/#eles.move
          */
-        move(location: { parent: string }): NodeCollection;
+        move(location: { parent: string | null }): NodeCollection;
     }
 
     /**
@@ -3271,7 +3272,51 @@ declare namespace cytoscape {
          * The optimal result is found with a high probability, but without guarantee.
          * http://js.cytoscape.org/#eles.kargerStein
          */
-        kargerStein(): { cut: EdgeCollection; partitionFirst: NodeCollection; partitionSecond: NodeCollection; };
+        kargerStein(): { cut: EdgeCollection; components: CollectionReturnValue; partitionFirst: NodeCollection; partitionSecond: NodeCollection; };
+        /**
+         * finds the biconnected components in an undirected graph,
+         * as well as their respective cut vertices, using an algorithm due to Hopcroft and Tarjan.
+         * http://js.cytoscape.org/#eles.hopcroftTarjanBiconnected
+         */
+        hopcroftTarjanBiconnected(): { cut: NodeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the biconnected components in an undirected graph,
+         * as well as their respective cut vertices, using an algorithm due to Hopcroft and Tarjan.
+         * http://js.cytoscape.org/#eles.hopcroftTarjanBiconnected
+         */
+        hopcroftTarjanBiconnectedComponents(): { cut: NodeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the biconnected components in an undirected graph,
+         * as well as their respective cut vertices, using an algorithm due to Hopcroft and Tarjan.
+         * http://js.cytoscape.org/#eles.hopcroftTarjanBiconnected
+         */
+        htb(): { cut: NodeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the biconnected components in an undirected graph,
+         * as well as their respective cut vertices, using an algorithm due to Hopcroft and Tarjan.
+         * http://js.cytoscape.org/#eles.hopcroftTarjanBiconnected
+         */
+        htbc(): { cut: NodeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the strongly connected components of a directed graph using Tarjan's algorithm.
+         * http://js.cytoscape.org/#eles.tarjanStronglyConnected
+         */
+        tarjanStronglyConnected(): { cut: EdgeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the strongly connected components of a directed graph using Tarjan's algorithm.
+         * http://js.cytoscape.org/#eles.tarjanStronglyConnected
+         */
+        tarjanStronglyConnectedComponents(): { cut: EdgeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the strongly connected components of a directed graph using Tarjan's algorithm.
+         * http://js.cytoscape.org/#eles.tarjanStronglyConnected
+         */
+        tsc(): { cut: EdgeCollection; components: CollectionReturnValue; };
+        /**
+         * Finds the strongly connected components of a directed graph using Tarjan's algorithm.
+         * http://js.cytoscape.org/#eles.tarjanStronglyConnected
+         */
+        tscc(): { cut: EdgeCollection; components: CollectionReturnValue; };
         /**
          * Rank the nodes in the collection using the Page Rank algorithm.
          * http://js.cytoscape.org/#eles.pageRank
@@ -3491,10 +3536,11 @@ declare namespace cytoscape {
          * 'polygon' is a custom polygon specified via shape-polygon-points.
          */
         type NodeShape = 'rectangle' | 'roundrectangle' | 'ellipse' | 'triangle'
-            | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star"
-            | "diamond" | "vee" | "rhomboid" | "polygon" | "round-rectangle"
+            | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star" | "barrel"
+            | "diamond" | "vee" | "rhomboid" | "polygon" | "tag" | "round-rectangle"
             | "round-triangle" | "round-diamond" | "round-pentagon" | "round-hexagon"
-            | "round-heptagon" | "round-octagon" | "round-tag";
+            | "round-heptagon" | "round-octagon" | "round-tag"
+            | "cut-rectangle"| "bottom-round-rectangle" | "concave-hexagon";
 
         /**
          * A space-separated list of numbers ranging on [-1, 1],
@@ -3512,8 +3558,8 @@ declare namespace cytoscape {
         /**
          * http://js.cytoscape.org/#style/node-body
          */
-        interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels<NodeSingular>>,
-            BackgroundImage, Partial<Ghost>, Partial<Visibility<NodeSingular>>, Partial<PieChartBackground> {
+        interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels<NodeSingular>>, BackgroundImage,
+            Partial<Ghost>, Partial<Visibility<NodeSingular>>, Partial<PieChartBackground>, Partial<Events<NodeSingular>> {
             /**
              * The CSS content field
              */
@@ -3709,8 +3755,9 @@ declare namespace cytoscape {
             "pie-i-background-opacity": PropertyValueNode<number>;
         }
 
-        interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>, Partial<UnbundledBezierEdges>,
-        Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>, Partial<Labels<EdgeSingular>> { }
+        interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>,
+            Partial<UnbundledBezierEdges>, Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>,
+            Partial<Labels<EdgeSingular>>, Partial<Events<NodeSingular>> { }
 
         /**
          * These properties affect the styling of an edge’s line:
@@ -4224,27 +4271,22 @@ declare namespace cytoscape {
              * it is guaranteed that the label will be shown at sizes equal to or greater than the value specified.
              */
             "min-zoomed-font-size": PropertyValue<SingularType, number>;
-            /**
-             * Whether events should occur on an element if the label receives an event.
-             * You may want a style applied to the text onactive so you know the text is activatable.
-             */
-            "text-events": PropertyValue<SingularType, "yes" | "no">;
         }
 
         /**
          * http://js.cytoscape.org/#style/events
          */
-        interface Events {
+        interface Events<SingularType extends NodeSingular | EdgeSingular> {
             /**
              * Whether events should occur on an element (e.g.tap, mouseover, etc.).
              *  * For "no", the element receives no events and events simply pass through to the core/viewport.
              */
-            "events": PropertyValueNode<"yes" | "no">;
+            "events": PropertyValue<SingularType, "yes" | "no">;
             /**
              *  Whether events should occur on an element if the label receives an event.
              * You may want a style applied to the text on active so you know the text is activatable.
              */
-            "text-events": PropertyValueNode<"yes" | "no">;
+            "text-events": PropertyValue<SingularType, "yes" | "no">;
         }
 
         /**

@@ -11,13 +11,13 @@ import { PathLike } from 'fs';
 export = LineByLine;
 
 declare class LineByLine {
-	constructor(file: PathLike | number, options?: Options)
-	next(): Buffer | false;
-	reset(): void;
-	close(): void;
+    constructor(file: PathLike | number, options?: Options)
+    next(): Buffer | false;
+    reset(): void;
+    close(): void;
 }
 
 interface Options {
-	readChunk?: number;
-	newLineCharacter?: string;
+    readChunk?: number;
+    newLineCharacter?: string;
 }

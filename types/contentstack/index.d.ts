@@ -18,12 +18,40 @@ export class Stack {
     constructor(api_key: string, access_token: string, environment_name: string);
 
     ContentType(uid: string): ContentType;
+    Entry(uid: string): Entry;
+    Assets(uid: string): Assets;
+    Query(): Query;
+    fetch(): ContentType;
+
+    setPort(port: number): Stack;
+    setProtocol(protocol: string): Stack;
+    setHost(host: string): Stack;
+    setCachePolicy(policy: number): Stack;
+    setCacheProvider(provider: object): Stack;
+    clearByQuery(): Stack;
+    clearByContentType(): Stack;
+    clearAll(): Stack;
+    getCacheProvider(): Stack;
+    getLastActivites(): Stack;
+    getContentTypes(param: string): Stack;
+    sync(params: object): Promise<any>;
+    imageTransform(url: string, params: any): string;
 }
 
 export class ContentType {
     constructor();
 
     Query(): Query;
+    Entry(uid: string): Entry;
+    Assets(uid: string): Assets;
+}
+
+export class Assets {
+    constructor();
+
+    toJSON(): Assets;
+    addParam(key: string, value: any): Assets;
+    fetch(): Promise<any>;
 }
 
 export class Entry {

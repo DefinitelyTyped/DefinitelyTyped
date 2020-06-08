@@ -8,6 +8,7 @@
 //                 Carlos Bonetti <https://github.com/CarlosBonetti>
 //                 Dan Smith <https://github.com/dpsmith3>
 //                 Hunter Perrin <https://github.com/hperrin>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = QueryString;
@@ -54,6 +55,13 @@ declare namespace QueryString {
         interpretNumericEntities?: boolean;
     }
 
+    interface ParsedQs { [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[] }
+
+    // TODO: The value type here is a "poor man's `unknown`". When these types support TypeScript
+    // 3.0+, we can replace this with `unknown`.
+    type PoorMansUnknown = {} | null | undefined;
+
     function stringify(obj: any, options?: IStringifyOptions): string;
-    function parse(str: string, options?: IParseOptions): any;
+    function parse(str: string, options?: IParseOptions & { decoder?: never }): ParsedQs;
+    function parse(str: string, options?: IParseOptions): { [key: string]: PoorMansUnknown };
 }

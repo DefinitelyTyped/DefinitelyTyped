@@ -352,8 +352,13 @@ export declare class RequestError implements Error {
 export declare class Transaction extends events.EventEmitter {
     public isolationLevel: IIsolationLevel;
     public constructor(connection?: ConnectionPool);
-    public begin(isolationLevel?: IIsolationLevel): Promise<void>;
-    public begin(isolationLevel?: IIsolationLevel, callback?: (err?: any) => void): void;
+    /**
+     * Begin a transaction.
+     * @param [isolationLevel] - Controls the locking and row versioning behavior of TSQL statements issued by a connection.
+     * @param [callback] A callback which is called after transaction has began, or an error has occurred. If omited, method returns Promise.
+     */
+    public begin(isolationLevel?: IIsolationLevel): Promise<Transaction>;
+    public begin(isolationLevel?: IIsolationLevel, callback?: (err?: ConnectionError | TransactionError) => void): Transaction;
     public commit(): Promise<void>;
     public commit(callback: (err?: any) => void): void;
     public rollback(): Promise<void>;

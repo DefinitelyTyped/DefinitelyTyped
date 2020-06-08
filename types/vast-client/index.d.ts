@@ -128,6 +128,20 @@ export class VASTTracker extends EventEmitter {
      * Emit a clickthrough event with the resolved clickThrough URL when done.
      */
     click(): void;
+    /**
+     * Calls the tracking URLs for the given eventName and emits the event.
+     */
+    track(
+        /**
+         * The name of the event. Call the specified event tracking URLs. Emit the specified event when done.
+         */
+        eventName: string,
+        /**
+         * Indicate if the event has to be tracked only once.
+         * Default: false
+         */
+        once?: boolean
+    ): void;
 }
 
 export class VASTClient {

@@ -59,6 +59,10 @@ export interface ByRoleOptions extends MatcherOptions {
      * For example *ByRole('progressbar', {queryFallbacks: true})` will find <div role="meter progresbar">`.
      */
     queryFallbacks?: boolean;
+    /**
+     * Only considers  elements with the specified accessible name.
+     */
+    name?: string | RegExp | ((accessibleName: string, element: Element) => boolean);
 }
 
 export type AllByRole = (container: HTMLElement, role: Matcher, options?: ByRoleOptions) => HTMLElement[];

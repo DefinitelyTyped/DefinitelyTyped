@@ -295,12 +295,12 @@ declare namespace ReactDataGrid {
           * Customize icons.
           */
         showRefreshIcon: boolean;
-				iconSize: number;
-				iconProps: {
-  					style: React.SVGAttributes<{}>,
-  					overStyle: React.SVGAttributes<{}>,
-  					disabledStyle: React.SVGAttributes<{}>
-				}
+                iconSize: number;
+                iconProps: {
+                      style: React.SVGAttributes<{}>,
+                      overStyle: React.SVGAttributes<{}>,
+                      disabledStyle: React.SVGAttributes<{}>
+                }
     }
 
     export class DataGrid extends React.Component<DataGridProps> {

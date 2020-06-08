@@ -1,16 +1,11 @@
-import { Dataset, Stream, Quad } from 'rdf-js';
+import Dataset = require('rdf-dataset-indexed/dataset');
 import { PropType } from './_PropType';
 import QuadExt = require('./Quad');
-import { Readable } from 'stream';
 
-interface DatasetExt extends Dataset<QuadExt, Quad> {
-  readonly length: number;
+interface DatasetExt extends Dataset<QuadExt> {
   toJSON(): Array<ReturnType<PropType<QuadExt, 'toJSON'>>>;
-  clone(): this;
-  readonly includes: PropType<Dataset, 'has'>;
-  merge(other: Dataset | Quad[]): this;
-  removeMatches(subject: any, predicate: any, object: any, graph: any): this;
-  toStream(): Stream<QuadExt> & Readable;
+  toCanonical(): string;
+  equals(other: this): boolean;
 }
 
 export = DatasetExt;

@@ -1,5 +1,10 @@
 import Readability = require('mozilla-readability');
-import { JSDOM } from 'jsdom';
+
+declare class JSDOM {
+    constructor(html?: string);
+
+    readonly window: Window;
+}
 
 // Compiling requires `--noImplicitUseStrict`
 // because issue https://github.com/mozilla/readability/issues/346

@@ -9,6 +9,7 @@ trans.end(); // $ExpectType void
 trans.end(() => {}); // $ExpectType void
 const payload = trans.createDistributedTracePayload(); // $ExpectType DistributedTracePayload
 trans.acceptDistributedTracePayload(payload); // $ExpectType void
+trans.insertDistributedTraceHeaders({ test: "test" }); // $ExpectType void
 
 newrelic.setDispatcher('foo'); // $ExpectType void
 newrelic.setDispatcher('foo', '42'); // $ExpectType void
@@ -107,6 +108,10 @@ newrelic.shutdown({ collectPendingData: true });
 newrelic.shutdown({ timeout: 3000 });
 newrelic.shutdown({ collectPendingData: true, timeout: 3000 });
 newrelic.shutdown({ collectPendingData: true, timeout: 3000 }, err => {
+    const error: Error | undefined = err;
+});
+newrelic.shutdown({ collectPendingData: true, timeout: 3000, waitForIdle: true });
+newrelic.shutdown({ collectPendingData: true, timeout: 3000, waitForIdle: true }, err => {
     const error: Error | undefined = err;
 });
 newrelic.shutdown(err => {

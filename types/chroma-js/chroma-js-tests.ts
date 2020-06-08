@@ -11,6 +11,7 @@ function test_chroma() {
     chroma.valid({});
     chroma.valid(null);
     chroma.valid(undefined);
+    chroma.valid('000', 'hex');
 
     chroma(0xff3399);
     chroma(0xff, 0x33, 0x99);

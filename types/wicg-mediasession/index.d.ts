@@ -13,7 +13,7 @@ interface Window {
 
 type MediaSessionPlaybackState = 'none' | 'paused' | 'playing';
 
-type MediaSessionAction = 'play' | 'pause' | 'seekbackward' | 'seekforward' | 'previoustrack' | 'nexttrack';
+type MediaSessionAction = 'play' | 'pause' | 'seekbackward' | 'seekforward' | 'seekto' | 'previoustrack' | 'nexttrack' | 'skipad' | 'stop';
 
 interface MediaSession {
   // Current media session playback state.

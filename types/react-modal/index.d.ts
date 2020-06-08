@@ -8,6 +8,7 @@
 //                 Peter Blazejewicz <https://github.com/peterblazejewicz>,
 //                 Justin Powell <https://github.com/jpowell>
 //                 Juwan Wheatley <https://github.com/fiberjw>
+//                 Nitzan Mousan <https://github.com/nitzanmo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -125,6 +126,9 @@ declare namespace ReactModal {
 
         /* String value of data-test-id attibute to be applied to to the modal content. */
         testId?: string;
+
+        /* String value of an id attribute to be applied to the modal content */
+        id?: string;
     }
 }
 

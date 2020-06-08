@@ -1,4 +1,4 @@
-import { EventsKey } from '../events';
+import { EventsKey, ListenerFunction } from '../events';
 import BaseEvent from '../events/Event';
 import MapBrowserEvent from '../MapBrowserEvent';
 import MapBrowserPointerEvent from '../MapBrowserPointerEvent';
@@ -22,10 +22,11 @@ export default class PointerInteraction extends Interaction {
     protected handleDragEvent(mapBrowserEvent: MapBrowserPointerEvent): void;
     protected handleMoveEvent(mapBrowserEvent: MapBrowserPointerEvent): void;
     protected handleUpEvent(mapBrowserEvent: MapBrowserPointerEvent): boolean;
+    getPointerCount(): number;
     stopDown(handled: boolean): boolean;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

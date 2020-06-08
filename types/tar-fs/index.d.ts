@@ -1,15 +1,15 @@
-// Type definitions for tar-fs 1.16
+// Type definitions for tar-fs 2.0
 // Project: https://github.com/mafintosh/tar-fs
 // Definitions by: Umoxfo <https://github.com/Umoxfo>
+//                 Chris Wiggins <https://github.com/chriswiggins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
 
 /// <reference types="node" />
 
-import fs = require('fs');
-import tarStream = require('tar-stream');
+import { ReadStream } from 'fs';
+import * as tarStream from 'tar-stream';
 
 export function pack(cwd: string, opts?: PackOptions): tarStream.Pack;
 export function extract(cwd: string, opts?: ExtractOptions): tarStream.Extract;
@@ -21,7 +21,7 @@ export interface Options {
     ignore?: (name: string) => boolean;
     filter?: (name: string) => boolean;
     map?: (header: Headers) => Headers;
-    mapStream?: (fileStream: fs.ReadStream, header: Headers) => fs.ReadStream;
+    mapStream?: (fileStream: ReadStream, header: Headers) => ReadStream;
     dmode?: number;
     fmode?: number;
     readable?: boolean;
@@ -33,12 +33,14 @@ export interface PackOptions extends Options {
     entries?: string[];
     dereference?: boolean;
     finalize?: boolean;
-    finish?: (pack: any) => void;
+    finish?: (pack: tarStream.Pack) => void;
+    pack?: tarStream.Pack;
 }
 
 export interface ExtractOptions extends Options {
     ignore?: (name: string, header?: Headers) => boolean;
     filter?: (name: string, header?: Headers) => boolean;
+    strip?: number;
 }
 
 export interface Headers {

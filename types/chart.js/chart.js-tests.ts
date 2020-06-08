@@ -37,6 +37,9 @@ const chart: Chart = new Chart(ctx, {
     },
     options: {
         hover: {
+            axis: 'xy',
+            mode: 'nearest',
+            animationDuration: 400,
             intersect: true,
         },
         onHover(ev: MouseEvent, points: any[]) {
@@ -68,7 +71,21 @@ const chart: Chart = new Chart(ctx, {
             xAxes: [
                 {
                     ticks: {
-                        callback: Math.floor,
+                        callback: (value) => {
+                            if (value === 10) {
+                                return Math.floor(value);
+                            }
+
+                            if (value === 20) {
+                                return `${value}`;
+                            }
+
+                            if (value === 30) {
+                                return undefined;
+                            }
+
+                            return null;
+                        },
                         sampleSize: 10,
                     },
                     gridLines: {
@@ -276,6 +293,9 @@ const linearScaleChart: Chart = new Chart(ctx, {
                 scaleLabel: {
                     display: true,
                     labelString: 'Closing price ($)'
+                },
+                afterBuildTicks: (scale, ticks) => {
+                    return [Math.max(...ticks), 10, Math.min(...ticks)];
                 }
             }]
         },
@@ -411,15 +431,6 @@ if (doughnutChart.getDatasetMeta(0).data.length > 0) {
     console.log(doughnutChartView.y);
 }
 
-// Passing readonly data as ChartData
-const readonlyDataInput: {
-    labels: ReadonlyArray<string>;
-    datasets: ReadonlyArray<{
-        data: number[];
-    }>;
-} = { labels: [], datasets: [] };
-const readonlyData: Chart.ChartData = readonlyDataInput;
-
 // Time Cartesian Axis
 const timeAxisChartData: Chart.ChartData = {
     datasets: [{
@@ -443,3 +454,53 @@ const timeLabelsChartData: Chart.ChartData = {
         moment(), moment(), moment(),
     ],
 };
+
+const event = new MouseEvent('click');
+chart.getElementsAtEvent(event);
+chart.getElementsAtXAxis(event);
+
+// Number array chart data
+const chartWithNumberArrayData: Chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        datasets: [{
+            backgroundColor: '#000',
+            borderColor: '#f00',
+            data: [
+                [1, 2],
+                [3, 4],
+                [5, 6]
+            ],
+            type: 'line',
+        }]
+    },
+    options: {
+        scales: {
+            displayFormats: {
+                month: 'MMM YYYY',
+            },
+            xAxes: [{
+                type: 'time',
+                distribution: 'series',
+                ticks: {
+                    source: 'data',
+                    autoSkip: true,
+                    sampleSize: 1,
+                }
+            }],
+            yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Closing price ($)'
+                },
+                afterBuildTicks: (scale, ticks) => {
+                    return [Math.max(...ticks), 10, Math.min(...ticks)];
+                }
+            }]
+        },
+        tooltips: {
+            intersect: false,
+            mode: 'index',
+        }
+    }
+});

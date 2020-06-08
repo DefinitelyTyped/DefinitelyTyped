@@ -6,7 +6,7 @@
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
 *
-* Copyright 2019, Dynamsoft Corporation
+* Copyright 2020, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
 */
 
@@ -163,10 +163,10 @@ interface OCRPro {
      */
     RecognizeSelectedImages(optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): void;
 
-	NewOCRError(): OCRError;
-	NewOCRReadPara(): OCRReadPara;
-	NewOCRZone(): OCRZone;
-	NewSettings(): Settings;
+    NewOCRError(): OCRError;
+    NewOCRReadPara(): OCRReadPara;
+    NewOCRZone(): OCRZone;
+    NewSettings(): Settings;
 }
 
 interface DynamsoftWebTwainAddon {

@@ -35,7 +35,7 @@ declare namespace CPK {
     type CPKConfig = Web3SpecificConfig | EthersSpecificConfig;
 
     interface Transaction {
-        operation: 0 | 1;
+        operation: number | string | object;
         to: string;
         value: number | string | object;
         data: string;

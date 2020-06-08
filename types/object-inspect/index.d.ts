@@ -2,6 +2,7 @@
 // Project: https://github.com/substack/object-inspect
 // Definitions by: Charles Samborski <https://github.com/demurgos>
 //                 Akuukis <https://github.com/Akuukis>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace objectInspect {

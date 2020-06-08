@@ -233,6 +233,8 @@ declare namespace m {
         scale(width: number, height: number): State;
         screen(): State;
         segment(clustherThreshold: number, smoothingThreshold: number): State;
+        /** change the specified frame. */
+        selectFrame(frame: number): State;
         sepia(): State;
         set(attribute: string, value: string): State;
         setFormat(format: string): State;

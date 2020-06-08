@@ -4,8 +4,10 @@ import multer = require('multer');
 const upload = multer({
     dest: 'uploads/',
     fileFilter: (req, file, cb) => {
+        cb(null, false);
         cb(null, true);
-    }
+        cb(new Error(`I don't have a clue!`));
+    },
 });
 
 const app = express();

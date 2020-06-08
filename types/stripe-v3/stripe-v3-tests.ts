@@ -129,6 +129,24 @@ describe("Stripe elements", () => {
         card.destroy();
     });
 
+    it("should create an iban source with a mandate", () => {
+        const options: stripe.SourceOptions = {
+            type: 'sepa_debit',
+            sepa_debit: {
+                iban: 'some iban',
+            },
+            owner: {
+                name: 'some holder',
+            },
+            mandate: {
+                notification_method: 'email',
+            },
+            currency: 'eur',
+        };
+
+        stripe.createSource(options);
+    });
+
     it("should create an iban element", () => {
         const ibanElement = elements.create('iban', {
             supportedCountries: ['SEPA'],
@@ -472,6 +490,18 @@ describe("Stripe elements", () => {
                     },
                 }
             }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.setupIntent) {
+                console.log(result.setupIntent.id);
+            }
+        });
+    });
+
+    it("should retrieve setup intent", () => {
+        stripe.retrieveSetupIntent(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
         ).then(result => {
             if (result.error) {
                 console.error(result.error.message);

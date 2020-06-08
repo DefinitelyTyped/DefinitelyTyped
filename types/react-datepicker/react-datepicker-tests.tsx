@@ -18,6 +18,7 @@ const defaultLocale = getDefaultLocale();
     clearButtonTitle=""
     customInput={<input />}
     customInputRef=""
+    customTimeInput={<input />}
     dateFormat=""
     dateFormatCalendar=""
     dayClassName={date => ''}
@@ -89,8 +90,12 @@ const defaultLocale = getDefaultLocale();
         changeMonth,
         decreaseMonth,
         increaseMonth,
+        decreaseYear,
+        increaseYear,
         prevMonthButtonDisabled,
         nextMonthButtonDisabled,
+        prevYearButtonDisabled,
+        nextYearButtonDisabled,
     }) => <div />}
     renderDayContents={(dayOfMonth, date) => <div />}
     required

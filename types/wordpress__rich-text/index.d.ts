@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 import { dispatch, select } from '@wordpress/data';
 
 declare module '@wordpress/data' {

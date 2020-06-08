@@ -1,4 +1,4 @@
-import { ComponentType, DragEventHandler, ReactNode } from '@wordpress/element';
+import { ComponentType, DragEventHandler, ReactNode } from 'react';
 
 declare namespace Draggable {
     interface Props {

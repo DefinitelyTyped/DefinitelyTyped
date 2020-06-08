@@ -4,15 +4,16 @@ import { ListBoxFieldComponent } from "./ListBoxField";
 import { ListBoxMenuComponent } from "./ListBoxMenu";
 import { ListBoxMenuIconComponent } from "./ListBoxMenuIcon";
 import { ListBoxMenuItemComponent } from "./ListBoxMenuItem";
-import { ListBoxType } from "./ListBoxPropTypes";
+import { ListBoxSize, ListBoxType } from "./ListBoxPropTypes";
 import { ListBoxSelectionComponent } from "./ListBoxSelection";
 
-type ExcludedAttributes = "onKeyDown" | "onKeyPress" | "ref" | "role" | "tabIndex";
+type ExcludedAttributes = "onKeyDown" | "onKeyPress" | "ref";
 interface InheritedProps extends Omit<ReactDivAttr, ExcludedAttributes> { }
 
 export interface ListBoxProps extends InheritedProps {
     disabled?: boolean, // required but has default value
     innerRef?: React.Ref<HTMLDivElement>, // required but has default value
+    size?: ListBoxSize,
     type?: ListBoxType, // required but has default value
 }
 

@@ -30,28 +30,27 @@ archiver.abort();
 
 archiver.pipe(writeStream);
 archiver.append(readStream, { name: 'archiver.d.ts' });
-archiver.append(readStream, { date: '05/05/1991' });
-archiver.append(readStream, { date: new Date() });
-archiver.append(readStream, { mode: 1 });
-archiver.append(readStream, { mode: 1, stats: new fs.Stats() });
-
-archiver.append(readStream, {name: 'archiver.d.ts'})
-.append(readStream, {name: 'archiver.d.ts'});
+archiver.append(readStream, { name: 'buffer.txt', date: '05/05/1991' });
+archiver.append(readStream, { name: 'buffer.txt', date: new Date() });
+archiver.append(readStream, { name: 'buffer.txt', mode: 1 });
+archiver.append(readStream, { name: 'buffer.txt', mode: 1, stats: new fs.Stats() });
+archiver.append('Some content', { name: 'filename', store: true });
+archiver.append(readStream, { name: 'archiver.d.ts' }).append(readStream, { name: 'archiver.d.ts' });
 
 archiver.directory('./path', './someOtherPath');
 archiver.directory('./', '', {});
 archiver.directory('./', false, { name: 'test' });
 archiver.directory('./', false, (entry: Archiver.EntryData) => {
-    entry.name = "foobar";
+    entry.name = 'foobar';
     return entry;
 });
 archiver.directory('./', false, (entry: Archiver.EntryData) => false);
 
 archiver.append(readStream, {
-    name: "sub/folder.xml"
+    name: 'sub/folder.xml',
 });
 
-archiver.glob("**", {
+archiver.glob('**', {
     cwd: 'path/to/files',
 });
 archiver.glob('./path', {}, {});

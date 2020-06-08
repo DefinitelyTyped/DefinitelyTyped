@@ -58,7 +58,9 @@ async function testFunc(): Promise<mongodb.MongoClient> {
 
 mongodb.connect(
   connectionString,
-  (err: mongodb.MongoError, client: mongodb.MongoClient) => {},
+  (err: mongodb.MongoError, client: mongodb.MongoClient) => {
+      err.hasErrorLabel('label'); // $ExpectType boolean
+  },
 );
 mongodb.connect(
   connectionString,
@@ -66,6 +68,36 @@ mongodb.connect(
   (err: mongodb.MongoError, client: mongodb.MongoClient) => {},
 );
 
+// TLS
+const userName = '';
+const password = '';
+const url = `mongodb://${userName}:${password}@server:27017?authMechanism=MONGODB-X509&tls=true`;
+const client = new mongodb.MongoClient(url, {
+    tls: true,
+    tlsAllowInvalidHostnames: true,
+    tlsCAFile: `${__dirname}/certs/ca.pem`,
+    tlsCertificateKeyFile: `${__dirname}/certs/x509/client.pem`,
+    tlsCertificateKeyFilePassword: '10gen',
+});
+
 // Test other error classes
 new mongodb.MongoNetworkError('network error');
 new mongodb.MongoParseError('parse error');
+
+// Streams
+const gridFSBucketTests = (bucket: mongodb.GridFSBucket) => {
+    const openUploadStream  = bucket.openUploadStream('file.dat');
+    openUploadStream.on('close', () => {});
+    openUploadStream.on('end', () => {});
+    openUploadStream.abort(); // $ExpectType void
+    openUploadStream.abort(() => {
+        openUploadStream.removeAllListeners();
+    });
+    openUploadStream.abort((error) => {
+        error; // $ExpectType MongoError
+    });
+    openUploadStream.abort((error, result) => {});
+};
+
+// Compression
+const compressedClient = new mongodb.MongoClient(url, { compression: { compressors: ['zlib', 'snappy']}});

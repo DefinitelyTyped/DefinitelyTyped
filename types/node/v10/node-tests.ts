@@ -2221,7 +2221,7 @@ async function asyncStreamPipelineFinished() {
     const ws: tty.WriteStream = new tty.WriteStream(1);
 
     const rsIsRaw: boolean = rs.isRaw;
-    rs.setRawMode(true);
+    const rsRaw: tty.ReadStream = rs.setRawMode(true);
 
     const wsColumns: number = ws.columns;
     const wsRows: number = ws.rows;
@@ -3526,6 +3526,7 @@ import * as p from "process";
         process.on("newListener", (event: string | symbol, listener: Function) => { });
         process.once("removeListener", (event: string | symbol, listener: Function) => { });
         process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
+        process.on("customEvent", () => { });
 
         const listeners = process.listeners('uncaughtException');
         const oldHandler = listeners[listeners.length - 1];

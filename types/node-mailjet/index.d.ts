@@ -88,6 +88,16 @@ export namespace Email {
         Name?: string;
     }
 
+    interface Attachment {
+        ContentType: string;
+        Filename: string;
+        Base64Content: string;
+    }
+
+    interface InlinedAttachment extends Attachment {
+        ContentID: string;
+    }
+
     interface SendParamsMessage {
         From: {
             Email: string;
@@ -114,21 +124,8 @@ export namespace Email {
         EventPayload?: string;
         CustomID?: string;
         Headers?: object;
-        Attachments?: [
-            {
-                ContentType: string;
-                Filename: string;
-                Base64Content: string;
-            }
-        ];
-        InlinedAttachments?: [
-            {
-                ContentType: string;
-                Filename: string;
-                ContentID: string;
-                Base64Content: string;
-            }
-        ];
+        Attachments?: Attachment[];
+        InlinedAttachments?: InlinedAttachment[];
     }
 
     interface PostResponseDataMessage {

@@ -12,7 +12,7 @@ import * as d3ScaleChromatic from 'd3-scale-chromatic';
 // Preparatory Steps
 // -----------------------------------------------------------------------
 
-let colorInterpolator: ((t: number) => string);
+let colorInterpolator: (t: number) => string;
 let simpleScheme: ReadonlyArray<string>;
 let nestedScheme: ReadonlyArray<ReadonlyArray<string>>;
 
@@ -29,6 +29,7 @@ simpleScheme = d3ScaleChromatic.schemePastel2;
 simpleScheme = d3ScaleChromatic.schemeSet1;
 simpleScheme = d3ScaleChromatic.schemeSet2;
 simpleScheme = d3ScaleChromatic.schemeSet3;
+simpleScheme = d3ScaleChromatic.schemeTableau10;
 
 const category10: string = d3ScaleChromatic.schemeCategory10[0]; // #1f77b4
 const accent: string = d3ScaleChromatic.schemeAccent[0]; // #7fc97f
@@ -39,6 +40,7 @@ const pastel2: string = d3ScaleChromatic.schemePastel2[0]; // #b3e2cd
 const set1: string = d3ScaleChromatic.schemeSet1[0]; // #e41a1c
 const set2: string = d3ScaleChromatic.schemeSet2[0]; // #66c2a5
 const set3: string = d3ScaleChromatic.schemeSet3[0]; // #8dd3c7
+const tableau10: string = d3ScaleChromatic.schemeTableau10[0]; // #4e79a7
 
 // -----------------------------------------------------------------------
 // Diverging
@@ -120,24 +122,28 @@ const schemeReds: string = d3ScaleChromatic.schemeReds[3][0]; // #fee0d2
 // Sequential(Multi-Hue)
 // -----------------------------------------------------------------------
 
+colorInterpolator = d3ScaleChromatic.interpolateTurbo;
 colorInterpolator = d3ScaleChromatic.interpolateViridis;
-colorInterpolator = d3ScaleChromatic.interpolateMagma;
 colorInterpolator = d3ScaleChromatic.interpolateInferno;
+colorInterpolator = d3ScaleChromatic.interpolateMagma;
 colorInterpolator = d3ScaleChromatic.interpolatePlasma;
-colorInterpolator = d3ScaleChromatic.interpolateRainbow;
-colorInterpolator = d3ScaleChromatic.interpolateSinebow;
+colorInterpolator = d3ScaleChromatic.interpolateCividis;
 colorInterpolator = d3ScaleChromatic.interpolateWarm;
 colorInterpolator = d3ScaleChromatic.interpolateCool;
+colorInterpolator = d3ScaleChromatic.interpolateRainbow;
+colorInterpolator = d3ScaleChromatic.interpolateSinebow;
 colorInterpolator = d3ScaleChromatic.interpolateCubehelixDefault;
 
+const Turbo: string = d3ScaleChromatic.interpolateTurbo(0.7);
 const Viridis: string = d3ScaleChromatic.interpolateViridis(0.7);
-const Magma: string = d3ScaleChromatic.interpolateMagma(0.7);
 const Inferno: string = d3ScaleChromatic.interpolateInferno(0.7);
+const Magma: string = d3ScaleChromatic.interpolateMagma(0.7);
 const Plasma: string = d3ScaleChromatic.interpolatePlasma(0.7);
-const Rainbow: string = d3ScaleChromatic.interpolateRainbow(0.7);
-const Sinebow: string = d3ScaleChromatic.interpolateSinebow(0.7);
+const Cividis: string = d3ScaleChromatic.interpolateCividis(0.7);
 const Warm: string = d3ScaleChromatic.interpolateWarm(0.7);
 const Cool: string = d3ScaleChromatic.interpolateCool(0.7);
+const Rainbow: string = d3ScaleChromatic.interpolateRainbow(0.7);
+const Sinebow: string = d3ScaleChromatic.interpolateSinebow(0.7);
 const CubehelixDefault: string = d3ScaleChromatic.interpolateCubehelixDefault(0.7);
 
 colorInterpolator = d3ScaleChromatic.interpolateBuGn;

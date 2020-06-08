@@ -228,8 +228,8 @@ class F2 {
             return Promise.resolve(user.followers);
         },
     };
-    const followersForUser: (userName: string) => Promise<string[]> = R.pipeWith(R.then, [db.getUserById, db.getFollowers]);
-    const followersForUser2: (userName: string) => Promise<string[]> = R.pipeWith(R.then)([db.getUserById, db.getFollowers]);
+    const followersForUser: (userName: string) => Promise<string[]> = R.pipeWith(R.andThen, [db.getUserById, db.getFollowers]);
+    const followersForUser2: (userName: string) => Promise<string[]> = R.pipeWith(R.andThen)([db.getUserById, db.getFollowers]);
 };
 
 function square(x: number) {
@@ -337,18 +337,6 @@ R.times(i, 5);
     const d: number[] = R.pipe(
         R.reject<number, 'array'>(isEven),
     )([0, 1]); // => [1]
-};
-
-() => {
-    const xs: { [key: string]: string } = {a: "1", b: "0"};
-    R.propEq("a", "1", xs); // => true
-    R.propEq("a", "4", xs); // => false
-};
-
-() => {
-    const xs: { [key: string]: number } = {a: 1, b: 0};
-    R.propEq("a", 1, xs); // => true
-    R.propEq("a", 4, xs); // => false
 };
 
 () => {
@@ -643,13 +631,13 @@ type Pair = KeyValuePair<string, number>;
     const getMemberName: (email: string) => Promise<{ firstName: string, lastName: string }> = R.pipe(
         makeQuery,
         fetchMember,
-        R.then(R.pick(['firstName', 'lastName'])),
+        R.andThen(R.pick(['firstName', 'lastName'])),
     );
 
     const getMemberTitle: (email: string) => Promise<string> = R.pipe(
         makeQuery,
         fetchMember,
-        R.then(getTitleAsync),
+        R.andThen(getTitleAsync),
     );
 };
 
@@ -783,13 +771,13 @@ type Pair = KeyValuePair<string, number>;
     const recoverFromFailure: (id: string) => Promise<{ firstName: string; lastName: string; }> = R.pipe(
       failedFetch,
       R.otherwise(useDefault),
-      R.then(R.pick(['firstName', 'lastName'])),
+      R.andThen(R.pick(['firstName', 'lastName'])),
     );
 
     const recoverFromFailureByAlternative: (id: string) => Promise<Person> = R.pipe(
       failedFetch,
       R.otherwise(useDefault),
-      R.then(loadAlternative),
+      R.andThen(loadAlternative),
     );
 };
 
@@ -1065,4 +1053,24 @@ type Pair = KeyValuePair<string, number>;
     R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`, "coo foo koo"); // => 'c0oo f4oo k8oo'
     R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`)("coo foo koo"); // => 'c0oo f4oo k8oo'
     R.replace(/([cfk])oo/g)((match, p1, offset) => `${p1}-${offset}`) ("coo foo koo"); // => 'c0oo f4oo k8oo'
+};
+
+() => {
+    interface A {
+        a: number;
+    }
+
+    interface B {
+        b: number;
+    }
+
+    const As = [{ a: 1 }, { a: 2 }];
+    const AsToBs: (a: A[]) => B[] = R.map((a: A): B => ({
+        b: a.a,
+    }));
+
+    function test(): B[] {
+        return R.into<A, B>([], AsToBs, As);
+    }
+    test(); // => [{ b: 1 }, { b: 2 }]
 };

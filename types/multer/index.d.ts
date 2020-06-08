@@ -1,7 +1,7 @@
 // Type definitions for multer 1.4
 // Project: https://github.com/expressjs/multer
 // Definitions by: jt000 <https://github.com/jt000>
-//                 vilicvane <https://vilic.github.io/>
+//                 vilicvane <https://github.com/vilic>
 //                 David Broder-Rodgers <https://github.com/DavidBR-SW>
 //                 Michael Ledin <https://github.com/mxl>
 //                 HyunSeob Lee <https://github.com/hyunseob>
@@ -32,16 +32,19 @@ declare global {
                 mimetype: string;
                 /** Size of the file in bytes. */
                 size: number;
-                /** `DiskStorage` Directory to which this file has been uploaded. */
-                destination: string;
-                /** `DiskStorage` Name of this file within `destination`. */
-                filename: string;
-                /** `DiskStorage` Full path to the uploaded file. */
-                path: string;
-                /** `MemoryStorage` A Buffer containing the entire file. */
-                buffer: Buffer;
-                /** A readable stream of this file. */
+                /**
+                 * A readable stream of this file. Only available to the `_handleFile`
+                 * callback for custom `StorageEngine`s.
+                 */
                 stream: Readable;
+                /** `DiskStorage` only: Directory to which this file has been uploaded. */
+                destination: string;
+                /** `DiskStorage` only: Name of this file within `destination`. */
+                filename: string;
+                /** `DiskStorage` only: Full path to the uploaded file. */
+                path: string;
+                /** `MemoryStorage` only: A Buffer containing the entire file. */
+                buffer: Buffer;
             }
         }
 
@@ -164,6 +167,16 @@ declare namespace multer {
         field?: string;
     }
 
+    /**
+     * a function to control which files should be uploaded and which should be skipped
+     * pass a boolean to indicate if the file should be accepted
+     * pass an error if something goes wrong
+     */
+    interface FileFilterCallback {
+        (error: Error): void;
+        (error: null, acceptFile: boolean): void;
+     }
+
     /** Options for initializing a Multer instance. */
     interface Options {
         /**
@@ -208,12 +221,12 @@ declare namespace multer {
          *
          * @param req The Express `Request` object.
          * @param file Object containing information about the processed file.
-         * @param callback Callback to accept or deny the file.
+         * @param callback  a function to control which files should be uploaded and which should be skipped.
          */
         fileFilter?(
             req: Request,
             file: Express.Multer.File,
-            callback: (error: Error | null, acceptFile: boolean) => void
+            callback: FileFilterCallback,
         ): void;
     }
 

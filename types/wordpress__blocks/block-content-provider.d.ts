@@ -1,5 +1,5 @@
 import { BlockInstance } from './';
-import { ComponentType, ReactNode } from '@wordpress/element';
+import { ComponentType, ReactNode } from 'react';
 
 /**
  * A Higher Order Component used to inject BlockContent using context to the wrapped component.
@@ -23,7 +23,7 @@ declare namespace BlockContentProvider {
  * @example
  * ```jsx
  * <BlockContentProvider innerBlocks={ innerBlocks }>
- * 	{ blockSaveElement }
+ *     { blockSaveElement }
  * </BlockContentProvider>
  * ```
  */

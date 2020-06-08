@@ -15,6 +15,7 @@ PushNotification.unregister();
 PushNotification.localNotification = (details) => {};
 PushNotification.localNotificationSchedule = (details) => {};
 PushNotification.requestPermissions();
+PushNotification.subscribeToTopic("topic");
 PushNotification.presentLocalNotification = (details) => {};
 PushNotification.scheduleLocalNotification = (details) => {};
 PushNotification.cancelLocalNotifications = (details) => {};

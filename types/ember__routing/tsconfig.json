@@ -57,6 +57,7 @@
         "index.d.ts",
         "test/lib/assert.ts",
         "test/route.ts",
-        "test/router.ts"
+        "test/router.ts",
+        "test/router-service.ts"
     ]
 }

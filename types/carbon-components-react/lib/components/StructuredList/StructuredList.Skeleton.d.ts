@@ -1,6 +1,7 @@
 import * as React from "react";
+import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps { }
+interface InheritedProps extends ReactAttr { }
 
 export interface StructuredListSkeletonProps extends InheritedProps {
     border?: boolean,

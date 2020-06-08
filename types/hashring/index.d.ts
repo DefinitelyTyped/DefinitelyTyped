@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+/// <reference types="node" />
+
 declare namespace HashRing {
   interface HashRingOptions {
     /**
@@ -57,8 +59,11 @@ declare namespace HashRing {
 }
 
 declare class HashRing {
-  constructor(servers: HashRing.Servers,
-    algorithm?: string, options?: Partial<HashRing.HashRingOptions>);
+  constructor(
+    servers: HashRing.Servers,
+    algorithm?: string | ((key: string) => string | Buffer),
+    options?: Partial<HashRing.HashRingOptions>,
+  );
 
   /**
    * Generates the continuum of server a.k.a as the Hash Ring

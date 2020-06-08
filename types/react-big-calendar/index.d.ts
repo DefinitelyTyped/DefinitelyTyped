@@ -1,5 +1,5 @@
-// Type definitions for react-big-calendar 0.22
-// Project: https://github.com/intljusticemission/react-big-calendar
+// Type definitions for react-big-calendar 0.24
+// Project: https://github.com/jquense/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
 //                 Krzysztof Bezrąk <https://github.com/pikpok>
@@ -15,15 +15,18 @@
 //                 Eric Kenney <https://github.com/KenneyE>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 //                 Jan Michalak <https://github.com/michalak111>
+//                 Felix Hessenberger <https://github.com/fhessenberger>
+//                 Tom Price <https://github.com/tomtom5152>
 //                 Daniele Carrucciu <https://github.com/catruzz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
 import * as React from 'react';
 
-export type DayPropGetter = (date: Date) => { className?: string, style?: React.CSSProperties };
-export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => { className?: string, style?: React.CSSProperties };
-export type SlotPropGetter = (date: Date) => { className?: string, style?: React.CSSProperties };
+export type DayPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
+export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => React.HTMLAttributes<HTMLDivElement>;
+export type SlotPropGetter = (date: Date, resourceId?: number | string) => React.HTMLAttributes<HTMLDivElement>;
+export type SlotGroupPropGetter = () => React.HTMLAttributes<HTMLDivElement>;
 export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
@@ -34,6 +37,13 @@ export type ViewsProps = View[] | {
     month?: boolean | React.ComponentType<any> & ViewStatic,
     week?: boolean | React.ComponentType<any> & ViewStatic
 };
+export type DayLayoutFunction<TEvent extends object = Event> = (_: {
+    events: TEvent[],
+    minimumStartDifference: number,
+    slotMetrics: any,
+    accessors: any,
+}) => Array<{ event: TEvent, style: React.CSSProperties }>;
+export type DayLayoutAlgorithm = 'overlap' | 'no-overlap';
 export type NavigateAction = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 export interface Event {
     allDay?: boolean;
@@ -47,8 +57,8 @@ export interface DateRange {
     end: Date;
 }
 
-export type DateFormatFunction = (date: Date, culture?: string, localizer?: object) => string;
-export type DateRangeFormatFunction = (range: DateRange, culture?: string, localizer?: object) => string;
+export type DateFormatFunction = (date: Date, culture?: Culture, localizer?: DateLocalizer) => string;
+export type DateRangeFormatFunction = (range: DateRange, culture?: Culture, localizer?: DateLocalizer) => string;
 export type DateFormat = string | DateFormatFunction;
 
 export interface Formats {
@@ -229,7 +239,7 @@ export interface Messages {
     noEventsInRange?: string;
 }
 
-export type Culture = string | string[];
+export type Culture = string;
 export type FormatInput = number | string | Date;
 
 export interface DateLocalizerSpec {
@@ -285,6 +295,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     rtl?: boolean;
     eventPropGetter?: EventPropGetter<TEvent>;
     slotPropGetter?: SlotPropGetter;
+    slotGroupPropGetter?: SlotGroupPropGetter;
     dayPropGetter?: DayPropGetter;
     showMultiDayTimes?: boolean;
     min?: stringOrDate;
@@ -294,6 +305,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     formats?: Formats;
     components?: Components<TEvent>;
     messages?: Messages;
+    dayLayoutAlgorithm?: DayLayoutAlgorithm | DayLayoutFunction<TEvent>;
     titleAccessor?: keyof TEvent | ((event: TEvent) => string);
     tooltipAccessor?: keyof TEvent | ((event: TEvent) => string);
     allDayAccessor?: keyof TEvent | ((event: TEvent) => boolean);
@@ -338,6 +350,7 @@ export interface components {
 }
 export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;
 export function momentLocalizer(momentInstance: object): DateLocalizer;
+export function dateFnsLocalizer(config: object): DateLocalizer;
 export interface Navigate {
     PREVIOUS: 'PREV';
     NEXT: 'NEXT';
