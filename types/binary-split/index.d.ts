@@ -14,6 +14,6 @@ export = binary_split;
  * Split streams of binary data.
  * @param splitOn The matcher for the splitting points in the stream. Default: os.EOL
  */
-declare function binary_split(
+declare function BinarySplit(
     splitOn: number[] | BigInt[] | Buffer | Uint8Array | ArrayBuffer | SharedArrayBuffer | string | object,
 ): Transform;
