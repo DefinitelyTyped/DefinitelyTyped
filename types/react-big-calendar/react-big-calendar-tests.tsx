@@ -325,7 +325,7 @@ class Toolbar extends React.Component<ToolbarProps> {
         const { date, label, view } = this.props;
         return (
             <div>
-                <div>{date.toJSON()}-{label}-{view}}</div>
+                <div>{date.toJSON()}-{label}-{view}</div>
             </div>
         );
     }
