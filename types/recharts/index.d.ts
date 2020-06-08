@@ -693,6 +693,7 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
     xAxisId?: string | number;
     yAxisId?: string | number;
     shape?: ContentRenderer<ReferenceAreaProps & RectangleProps> | React.ReactElement;
+    label?: string | number | ContentRenderer<any> | React.ReactElement;
 }
 
 export class ReferenceArea extends React.Component<ReferenceAreaProps> { }
