@@ -114,15 +114,15 @@ declare module "mongoose" {
       ? T 
       :
     T extends Array<infer U>
-      ? U extends object | undefined
+      ? (U extends object | undefined
         ? { [V in keyof NonFunctionProperties<OmitReadonly<U>>]: U[V] extends object | undefined
-          ? DeepNonFunctionProperties<U[V]> 
-          : U[V] }[]
-        : T
+          ? DeepNonFunctionProperties<NonNullable<U[V]>> 
+          : U[V] }
+        : U)[]
       : 
     T extends object | undefined 
       ? { [V in keyof NonFunctionProperties<OmitReadonly<T>>]: T[V] extends object | undefined
-        ?  DeepNonFunctionProperties<T[V]> 
+        ? DeepNonFunctionProperties<NonNullable<T[V]>> 
         : T[V] }
       :
     T;

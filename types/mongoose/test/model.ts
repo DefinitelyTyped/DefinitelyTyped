@@ -705,14 +705,26 @@ ModelWithFunctionInSchema.create({
 });
 
 
-//! note that these tests does not properly pass $ExpectError on TS 3.3
+// ------------------------------------------------------------------------------------
+// TESTS DISABLED: note that these tests does not properly pass $ExpectError on TS 3.3
 // they can be re-enabled once minimum TS version is bumped 
 
-// !$ExpectError
-// ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { deepArray: [{ title1: "test" }] } });
+//! $ExpectError
+//ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { deepArray: [{ title1: "test" }] } });
 
-// !$ExpectError
-//ModelWithFunctionInSchema.create({ name: "test", jobs:[], deeperFuncTest: { test: "hello", deepArray: [{ title1: "test" }] } });
+//! $ExpectError
+//ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { test: "hello", deepArray: [{ title1: "test" }] } });
+
+//! $ExpectError
+//ModelWithFunctionInSchema.create({ name: "test", jobs: [], deeperFuncTest: { foo: "bar" } });
+// ------------------------------------------------------------------------------------
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ foo: "bar" });
+
+// $ExpectError
+ModelWithFunctionInSchema.create({ name: "test", jobs: [], foo: "bar" });
+
 
 // $ExpectError
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], someFunc: {} as any });
