@@ -13,7 +13,14 @@ export type Errors<T extends object> = Record<keyof T, string | null>;
 
 export type Fields<T extends object> = T;
 
-export type Transforms<T extends object> = Record<keyof T, (value: T[keyof T]) => any>;
+export type Transform<T extends object> = Record<keyof T, (value: any) => any>;
+
+export type TransformsFunction<T extends object> = <K extends keyof T>(
+    key: K,
+    transformFn: (value: T[K]) => any,
+) => (value: T[K]) => any;
+
+export type Transforms<T extends object> = Partial<Transform<T>>;
 
 export interface ValidatorContext<T extends object> {
     errors: Errors<T>;
@@ -94,7 +101,10 @@ export interface FieldConfig<T extends object> {
     isExactLength?: LengthValidator<T>;
 }
 
-export type FieldsConfig<T extends object> = Record<string, FieldConfig<T> | Record<string, SimpleValidatorConfig<T>>>;
+export type FieldsConfig<T extends object> = Record<
+    string,
+    FieldConfig<T> | Record<string, SimpleValidator<T>> | Record<string, ValueValidator<T, any>>
+>;
 
 export interface FormContext<T extends object> {
     dirty: Dirty<T>;
@@ -105,7 +115,7 @@ export interface FormContext<T extends object> {
     register: (config: FieldsConfig<T>, transforms: Transforms<T>, initialValues: T) => void;
     unregister: (config: FieldsConfig<T>) => void;
     setError: (delta: Errors<T>) => void;
-    setField: (delta: Fields<T>) => void;
+    setField: (delta: Partial<T>) => void;
     submit: () => void;
     submitted: boolean;
 }

@@ -11,10 +11,12 @@ import {
     ValidatorsProvider,
     Fields,
     ValidatorsProviderProps,
+    TransformsFunction,
 } from 'calidation';
 
 interface FieldTypes {
     foo: string;
+    bar: string | null;
 }
 
 const config: FieldsConfig<FieldTypes> = {
@@ -27,11 +29,19 @@ const config: FieldsConfig<FieldTypes> = {
             validateIf: ({ isDirty }: ValidatorContext<FieldTypes>) => isDirty,
         },
     },
+    bar: {},
 };
 
-const initialValues: Fields<FieldTypes> = { foo: '0' };
+const initialValues: Fields<FieldTypes> = { foo: '0', bar: null };
 
 const transforms: Transforms<FieldTypes> = { foo: parseInt };
+
+const transformFn: TransformsFunction<FieldTypes> = (key, transformFn) => transformFn;
+
+const typedTransform: Transforms<FieldTypes> = {
+    foo: transformFn('foo', parseInt),
+    bar: transformFn('bar', value => !!value),
+};
 
 function onChange(event: React.ChangeEvent<HTMLFormElement>): void {
     console.log(event);
@@ -116,7 +126,7 @@ const ValidatorsProviderTest = () => (
             onUpdate={onUpdate}
             config={configWithCustomValidators}
             initialValues={initialValues}
-            transforms={transforms}
+            transforms={typedTransform}
         >
             {({ dirty, errors, fields }: ValidationContext<FieldTypes>) => (
                 <div>
