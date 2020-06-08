@@ -874,6 +874,14 @@ declare module "mongoose" {
       docs: T[], next: (err?: NativeError) => Promise<any>
     ) => void): this;
 
+    post<T extends Document>(method: 'deleteOne', { document, query }: HookOptions, fn: (
+      doc: T
+    ) => void): this;
+
+    post<T extends Document>(method: 'remove', { document, query }: HookOptions, fn: (
+      doc: T
+    ) => void): this;
+
     post<T extends Document>(method: string | RegExp, fn: (
       doc: T, next: (err?: NativeError) => void
     ) => void): this;
@@ -881,14 +889,6 @@ declare module "mongoose" {
     post<T extends Document>(method: string | RegExp, fn: (
       error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
     ) => void): this;
-
-    post<T extends Document>(method: string | RegExp, { document, query }: HookOptions, fn: (
-      doc: T
-    ) => void): this;
-
-    // post<T extends Document>(method: string | RegExp, { document: boolean; query: boolean; }, fn: (
-    //   error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
-    // ) => void): this;
 
     /**
      * Defines a pre hook for the document.

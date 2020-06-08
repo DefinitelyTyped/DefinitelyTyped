@@ -165,6 +165,12 @@ UserSchema.post<User>('deleteOne', {document: true, query: false}, function clea
   console.log('User deleteOne hook called for:', doc._id);
 });
 
+UserSchema.post<User>('remove', {document: true, query: false}, function cleanup(doc) {
+  // Perform cleanup action here.
+  // This can be used to cascade your db and remove any references to the given user.
+  console.log('User remove hook called for:', doc._id);
+});
+
 async function createAndDeleteUser(): Promise<void> {
   try {
     const doc = await UserModel.create({ username: 'Test' });
@@ -175,4 +181,15 @@ async function createAndDeleteUser(): Promise<void> {
   }
 }
 
+async function createAndRemoveUser(): Promise<void> {
+  try {
+    const doc = await UserModel.create({ username: 'Test' });
+    await doc.remove();
+    console.log('Removed user document!');
+  } catch (e) {
+    console.log('Error creating or removing user:', e.message);
+  }
+}
+
 createAndDeleteUser();
+createAndRemoveUser();
