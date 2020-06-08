@@ -9,6 +9,7 @@
 //                  Peter Ferrarotto <https://github.com/peterjferrarotto>
 //                  Xavier Ho <https://github.com/spaxe>
 //                  Jongsu Liam Kim <https://github.com/appleparan>
+//                  Fredrik Sandström <https://github.com/Veckodag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -3757,7 +3758,7 @@ declare namespace cytoscape {
 
         interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>,
             Partial<UnbundledBezierEdges>, Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>,
-            Partial<Labels<EdgeSingular>>, Partial<Events<NodeSingular>> { }
+            Partial<Labels<EdgeSingular>>, Partial<Events<EdgeSingular>>, Partial<EdgeEndpoints<EdgeSingular>> { }
 
         /**
          * These properties affect the styling of an edge’s line:
@@ -3990,6 +3991,16 @@ declare namespace cytoscape {
             "target-arrow-fill"?: PropertyValueEdge<ArrowFill>;
             /** The fill state of the edge’s mid-target arrow. */
             "mid-target-arrow-fill"?: PropertyValueEdge<ArrowFill>;
+        }
+
+        /**
+         * https://js.cytoscape.org/#style/edge-endpoints
+         */
+        interface EdgeEndpoints<SingularType extends EdgeSingular> {
+            /** Specifies the endpoint of the source side of the edge  */
+            "source-endpoint": PropertyValue<SingularType, "inside-to-node" | "outside-to-node" | "outside-to-node-or-label" | "outside-to-line" | "outside-to-line-or-label" | string>;
+            /** Specifies the endpoint of the target side of the edge  */
+            "target-endpoint": PropertyValue<SingularType, "inside-to-node" | "outside-to-node" | "outside-to-node-or-label" | "outside-to-line" | "outside-to-line-or-label" | string>;
         }
 
         /**
