@@ -25,7 +25,7 @@ export interface BridgeOptions {
     controller: Controller;
     domain: string;
     homeserverUrl: string;
-    registration: AppServiceRegistration;
+    registration: AppServiceRegistration | string;
     suppressEcho?: boolean;     // True to stop receiving onEvent callbacks for events which were sent by a bridge user. Default: true.
 }
 
