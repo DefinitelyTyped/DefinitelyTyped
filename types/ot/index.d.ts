@@ -49,4 +49,4 @@ export class TextOperation {
     static transform(left: TextOperation, right: TextOperation): TextOperation;
 }
 
-export const version: '0.0.15';
+export const version: string;
