@@ -284,7 +284,9 @@ interface Location extends mongoose.Document {
   coords: number[];
   openingTimes: any[];
   reviews: any[];
-  notes: Note[]
+  notes: Note[];
+  notesById?: Map<string, Note[]>;
+  note?: Note
 };
 const locationSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -525,6 +527,15 @@ LocModel.findOneAndUpdate({ name: "aa" }, { $set: { name: "bb" } }, { lean: true
         doc.save();
     }
 });
+LocModel.findOneAndUpdate({ _id: 'someId' },
+  { $push: { notes: { text: '' } } }
+)
+LocModel.findOneAndUpdate({ _id: 'someId' },
+  { note: { text: '', _id: '' } }
+)
+LocModel.findOneAndUpdate({ _id: 'someId' },
+  { notesById: { foo: [{ text: '', _id: '' }] } }
+)
 LocModel.geoSearch({}, {
     near: [1, 2],
     maxDistance: 22

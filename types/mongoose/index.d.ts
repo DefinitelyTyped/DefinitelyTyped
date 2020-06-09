@@ -138,11 +138,34 @@ declare module "mongoose" {
     : T;
 
   /* Helper type to extract a definition type from a Document type */
-  type DocumentDefinition<T> = Omit<T, Exclude<keyof Document, '_id'>>;
+  type DocumentToPlain<T> = Omit<T, Exclude<keyof Document, "_id">>;
+  
+  type DeepDocumentDefinition<T> =
+    T extends Map<infer KM, infer KV> 
+      // handle map values
+      // Maps are not scrubbed, replace below line with this once minimum TS version is 3.7:
+      // ? Map<KM, DeepDocumentDefinition<KV>>
+      ? { [key: string]: DeepDocumentDefinition<KV> } | [KM, KV][] | Map<KM, KV>
+      : 
+    T extends Array<infer U>
+      ? (U extends Document 
+        ? { [V in keyof DocumentToPlain<U>]: U[V] extends object | undefined
+          ? DeepDocumentDefinition<NonNullable<U[V]>> 
+          : U[V] }
+        : U)[]
+      : 
+    T extends Document
+      ? { [V in keyof DocumentToPlain<T>]: T[V] extends object | undefined
+        ? DeepDocumentDefinition<NonNullable<T[V]>> 
+        : T[V] }
+      :
+    T;
+
+  type DocumentDefinition<T> = DeepDocumentDefinition<T>;
 
   type ScrubCreateDefinition<T> = DeepMapAsObject<DeepNonFunctionProperties<T>>
 
-  type CreateDocumentDefinition<T> = ScrubCreateDefinition<DocumentDefinition<T>>;
+  type CreateDocumentDefinition<T> = ScrubCreateDefinition<DocumentToPlain<T>>;
 
   /**
    * Patched version of FilterQuery to also allow:
