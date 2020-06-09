@@ -315,8 +315,8 @@ declare namespace Bull {
     };
   }
 
-  type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
-  type JobStatusClean = 'completed' | 'wait' | 'active' | 'delayed' | 'failed';
+    type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed' | 'paused';
+    type JobStatusClean = 'completed' | 'wait' | 'active' | 'delayed' | 'failed' | 'paused';
 
   interface BackoffOptions {
     /**
