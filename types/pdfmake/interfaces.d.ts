@@ -31,7 +31,7 @@ export interface TFontDictionary {
     [fontName: string]: TFontFamilyTypes;
 }
 
-export type FontType = string | Buffer | Uint8Array | ArrayBuffer
+export type FontType = string | Buffer | Uint8Array | ArrayBuffer;
 
 export interface TFontFamilyTypes {
     normal?: FontType;
