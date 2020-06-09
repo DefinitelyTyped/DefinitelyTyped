@@ -19,6 +19,6 @@
   },
   "files": [
     "index.d.ts",
-    "granim-test.ts"
+    "granim-tests.ts"
   ]
 }
