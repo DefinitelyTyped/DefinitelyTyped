@@ -1,4 +1,4 @@
-// Type definitions for google-spreasheet 3.0.11
+// Type definitions for google-spreasheet 3.0
 // Project: https://github.com/theoephraim/node-google-spreadsheet
 // Definitions by: the-vampiire <https://github.com/the-vampiire>
 //                 Federico Grandi <https://github.com/EndBug>
@@ -28,7 +28,7 @@ export class GoogleSpreadsheetFormulaError {
 
 /* ---- ENUMS ---- */
 
-type WorksheetType = 'GRID' | 'OBJECT';
+export type WorksheetType = 'GRID' | 'OBJECT';
 
 type WorksheetDimension = 'ROW' | 'COLUMN';
 
