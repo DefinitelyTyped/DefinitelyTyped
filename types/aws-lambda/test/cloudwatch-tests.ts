@@ -3,7 +3,7 @@
 import {
     CloudWatchLogsDecodedData,
     CloudWatchLogsHandler,
-    CloudWatchLogsLogEvent, ScheduledEvent,
+    CloudWatchLogsLogEvent,
     ScheduledHandler,
 } from "aws-lambda";
 
@@ -45,5 +45,5 @@ const scheduledHandler: ScheduledHandler = async (event, context, callback) => {
 };
 
 const scheduledHandlerWithDetails: ScheduledHandler<{ status: string }> = async (event, context, callback) => {
-    const eventDetail: ScheduledEvent<{ status: string }> = event.detail;
+    const eventDetail: { status: string } = event.detail;
 };
