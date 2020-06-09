@@ -104,13 +104,15 @@ declare namespace PDFKit.Mixins {
         linearGradient(x1: number, y1: number, x2: number, y2: number): PDFLinearGradient;
         radialGradient(x1: number, y1: number, r1: number, x2: number, y2: number, r2: number): PDFRadialGradient;
     }
+    
+    type PDFFontSource = string | Buffer | Uint8Array | ArrayBuffer
 
     interface PDFFont {
         font(buffer: Buffer): this;
         font(src: string, family?: string, size?: number): this;
         fontSize(size: number): this;
         currentLineHeight(includeGap?: boolean): number;
-        registerFont(name: string, src?: string, family?: string): this;
+        registerFont(name: string, src?: PDFFontSource, family?: string): this;
     }
 
     interface ImageOption {
