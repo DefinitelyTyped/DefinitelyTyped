@@ -36,6 +36,7 @@
 // Documentation: https://mongodb.github.io/node-mongodb-native/3.1/api/
 
 /// <reference types="node" />
+/// <reference lib="esnext.asynciterable" />
 
 import { Binary, ObjectId, Timestamp } from 'bson';
 import { EventEmitter } from 'events';
