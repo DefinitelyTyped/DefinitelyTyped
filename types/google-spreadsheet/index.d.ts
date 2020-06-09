@@ -6,7 +6,7 @@
 
 // see EDITING.md for editing guide
 
-/* ---- EXPORTS ---- */
+// #region EXPORTS
 
 // only export the GoogleSpreadsheet and GoogleSpreadsheetFormulaError
 // other classes should not be instantiated directly so they are hidden
@@ -26,9 +26,11 @@ export class GoogleSpreadsheetFormulaError {
     constructor(errorInfo: CellError);
 }
 
-/* ---- ENUMS ---- */
+// #endregion
 
-export type WorksheetType = 'GRID' | 'OBJECT';
+// #region ENUMS
+
+type WorksheetType = 'GRID' | 'OBJECT';
 
 type WorksheetDimension = 'ROW' | 'COLUMN';
 
@@ -78,7 +80,9 @@ type DeveloperMetadataVisibility = 'DOCUMENT' | 'PROJECT';
 
 type DeveloperMetadataLocationType = 'ROW' | 'COLUMN' | 'SHEET' | 'SPREADSHEET';
 
-/* ---- OPTIONS / CONFIG ---- */
+// #endregion
+
+// #region OPTIONS / CONFIG
 
 interface PaginationOptions {
     limit: number;
@@ -306,7 +310,9 @@ interface ServiceAccountCredentials {
     private_key: string;
 }
 
-/* ---- GOOGLE SPREADSHEET CELL ---- */
+// #endregion
+
+// #region GOOGLE SPREADSHEET CELL
 
 interface CellProperties extends CellFormat {
     /**
@@ -402,7 +408,7 @@ interface CellProperties extends CellFormat {
 }
 
 interface GoogleSpreadsheetCell extends CellProperties {
-    /* ---- SYNCHRONOUS METHODS ---- */
+    // #region SYNCHRONOUS METHODS
 
     /**
      * @description
@@ -419,7 +425,9 @@ interface GoogleSpreadsheetCell extends CellProperties {
      */
     discardUnsavedChanges(): void;
 
-    /* ---- ASYNCHRONOUS METHODS ---- */
+    // #endregion
+
+    // #region ASYNCHRONOUS METHODS
 
     /**
      * @description
@@ -428,9 +436,14 @@ interface GoogleSpreadsheetCell extends CellProperties {
      * - see worksheet.saveUpdatedCells() for bulk saving
      */
     save(): Promise<void>;
+
+    // #endregion
 }
 
-/* ---- GOOGLE SPREADSHEET ROW ---- */
+// #endregion
+
+// #region GOOGLE SPREADSHEET ROW
+
 interface RowProperties {
     /**
      * @description
@@ -465,12 +478,13 @@ interface GoogleSpreadsheetRow extends RowProperties {
     delete(): Promise<void>;
 }
 
-/* ---- GOOGLE SPREADSHEET WORKSHEET ---- */
+// #endregion
+
+// #region GOOGLE SPREADSHEET WORKSHEET
 
 interface WorksheetBasicProperties {
-    /**
-     * ---- BASIC PROPERTIES ----
-     * separates basic (editable) properties as they are used as inputs to various methods
+    // #region BASIC PROPERTIES
+    /* separates basic (editable) properties as they are used as inputs to various methods
      * non-basic properties should be added to the extending interface below
      */
 
@@ -517,10 +531,12 @@ interface WorksheetBasicProperties {
      * true if the worksheet is an RTL sheet instead of an LTR sheet
      */
     rightToLeft: boolean;
+
+    // #endregion
 }
 
 interface GoogleSpreadsheetWorksheet extends WorksheetBasicProperties {
-    /* ---- NON-BASIC PROPERTIES ADDED HERE ---- */
+    // #region NON-BASIC PROPERTIES
 
     /**
      * @description
@@ -564,7 +580,9 @@ interface GoogleSpreadsheetWorksheet extends WorksheetBasicProperties {
      */
     cellStats: CellStats;
 
-    /* ---- SYNCHRONOUS METHODS ---- */
+    // #endregion
+
+    // #region SYNCHRONOUS METHODS
 
     /**
      * @description
@@ -597,7 +615,9 @@ interface GoogleSpreadsheetWorksheet extends WorksheetBasicProperties {
      */
     resetLocalCache(dataOnly: boolean): void;
 
-    /* ---- ASYNCHRONOUS METHODS ---- */
+    // #endregion
+
+    // #region ASYNCHRONOUS METHODS
 
     /**
      * @description
@@ -739,14 +759,17 @@ interface GoogleSpreadsheetWorksheet extends WorksheetBasicProperties {
      * @param destinationSpreadsheetId destination spreadsheet doc ID
      */
     copyToSpreadSheet(destinationSpreadsheetId: string): Promise<void>;
+
+    // #endregion
 }
 
-/* ---- GOOGLE SPREADSHEET ---- */
+// #endregion
+
+// #region GOOGLE SPREADSHEET
 
 interface SpreadsheetBasicProperties {
-    /**
-     * ---- BASIC PROPERTIES ----
-     * separates basic (editable) properties as they are used as inputs to various methods
+    // #region BASIC PROPERTIES
+    /* separates basic (editable) properties as they are used as inputs to various methods
      * non-basic properties should be added to the extending interface below
      */
 
@@ -795,10 +818,12 @@ interface SpreadsheetBasicProperties {
      * how circular dependencies are resolved with iterative calculations
      */
     iterativeCalculationSettings: IterativeCalculationSetting;
+
+    // #endregion
 }
 
 interface GoogleSpreadsheet extends SpreadsheetBasicProperties {
-    /* ---- NON-BASIC PROPERTIES added here ---- */
+    // #region NON-BASIC PROPERTIES added here
 
     /**
      * @description
@@ -830,7 +855,9 @@ interface GoogleSpreadsheet extends SpreadsheetBasicProperties {
      */
     readonly sheetCount: number;
 
-    /* ---- SYNCHRONOUS METHODS ---- */
+    // #endregion
+
+    // #region SYNCHRONOUS METHODS
 
     /**
      * @description
@@ -856,7 +883,9 @@ interface GoogleSpreadsheet extends SpreadsheetBasicProperties {
      */
     resetLocalCache(): void;
 
-    /* ---- ASYNCHRONOUS METHODS ---- */
+    // #endregion
+
+    // #region ASYNCHRONOUS METHODS
 
     /**
      * @description
@@ -943,6 +972,14 @@ interface GoogleSpreadsheet extends SpreadsheetBasicProperties {
      * @param rangeId unique ID of the range to delete
      */
     deleteNamedRange(rangeId: string): Promise<void>;
+
+    // #endregion
 }
 
+// #endregion
+
+// #region GOOGLE SPREADSHEET FORMULA ERROR
+
 interface GoogleSpreadsheetFormulaError extends CellError {}
+
+// #endregion
