@@ -34,8 +34,10 @@ $('.selectpicker').selectpicker({
     width: 'auto',
     windowPadding: 0,
 });
+$('.selectpicker').selectpicker().trigger('change');
 
 $('.selectpicker').selectpicker('val', 'foo');
 $('.selectpicker').selectpicker('val', ['foo', 'bar']);
 $('.selectpicker').selectpicker('selectAll');
 $('.selectpicker').selectpicker('setStyle', 'btn-large', 'add');
+$('.selectpicker').selectpicker('val', 'foo').trigger('change');

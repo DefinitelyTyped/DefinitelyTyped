@@ -1,6 +1,7 @@
 // Type definitions for bootstrap-select v1.13.14
 // Project: https://silviomoreto.github.io/bootstrap-select/
 // Definitions by: Karol Janyst <https://github.com/LKay>
+//                 Alex Truba <https://github.com/AlexTruba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -57,6 +58,6 @@ type MethodType =
     | 'destroy';
 
 interface JQuery {
-    selectpicker(opts?: BootstrapSelectOptions): void;
-    selectpicker(method: MethodType, ...args: Array<string | Array<string>>): void;
+    selectpicker(opts?: BootstrapSelectOptions): JQuery;
+    selectpicker(method: MethodType, ...args: Array<string | Array<string>>): JQuery;
 }
