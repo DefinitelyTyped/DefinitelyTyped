@@ -140,6 +140,13 @@ declare module "mongoose" {
   /* Helper type to extract a definition type from a Document type */
   type DocumentToPlain<T> = Omit<T, Exclude<keyof Document, "_id">>;
   
+  type DeepPartial<T> = {
+    [P in keyof T]?:
+      T[P] extends (infer U)[] ? DeepPartial<U>[] :
+      T[P] extends (object | undefined) ? DeepPartial<T[P]> :
+      T[P];
+  };
+
   type DeepDocumentDefinition<T> =
     T extends Map<infer KM, infer KV> 
       // handle map values
@@ -201,7 +208,7 @@ declare module "mongoose" {
    */
   export type MongooseUpdateQuery<S> = mongodb.UpdateQuery<S> & mongodb.MatchKeysAndValues<S>;
 
-  export type UpdateQuery<D> = MongooseUpdateQuery<DocumentDefinition<D>>;
+  export type UpdateQuery<D> = MongooseUpdateQuery<DeepPartial<DocumentDefinition<D>>>;
 
   // check whether a type consists just of {_id: T} and no other properties
   type HasJustId<T> = keyof Omit<T, "_id"> extends never ? true : false;

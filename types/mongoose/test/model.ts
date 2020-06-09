@@ -531,10 +531,10 @@ LocModel.findOneAndUpdate({ _id: 'someId' },
   { $push: { notes: { text: '' } } }
 )
 LocModel.findOneAndUpdate({ _id: 'someId' },
-  { note: { text: '', _id: '' } }
+  { note: { text: '' } }
 )
 LocModel.findOneAndUpdate({ _id: 'someId' },
-  { notesById: { foo: [{ text: '', _id: '' }] } }
+  { notesById: { foo: [{ text: '' }] } }
 )
 LocModel.geoSearch({}, {
     near: [1, 2],
