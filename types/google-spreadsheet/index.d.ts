@@ -8,29 +8,29 @@
 
 // #region ENUMS
 
-type WorksheetType = 'GRID' | 'OBJECT';
+export type WorksheetType = 'GRID' | 'OBJECT';
 
-type WorksheetDimension = 'ROW' | 'COLUMN';
+export type WorksheetDimension = 'ROW' | 'COLUMN';
 
-type HyperlinkDisplayType = 'LINKED' | 'PLAIN_TEXT';
+export type HyperlinkDisplayType = 'LINKED' | 'PLAIN_TEXT';
 
-type CellValueType = 'boolValue' | 'stringValue' | 'numberValue' | 'errorValue';
+export type CellValueType = 'boolValue' | 'stringValue' | 'numberValue' | 'errorValue';
 
-type NumberFormatType = 'TEXT' | 'NUMBER' | 'PERCENT' | 'CURRENCY' | 'DATE' | 'TIME' | 'SCIENTIFIC';
+export type NumberFormatType = 'TEXT' | 'NUMBER' | 'PERCENT' | 'CURRENCY' | 'DATE' | 'TIME' | 'SCIENTIFIC';
 
-type CellErrorType = 'ERROR' | 'NULL_VALUE' | 'DIVIDE_BY_ZERO' | 'VALUE' | 'REF' | 'NAME' | 'NUM' | 'N_A' | 'LOADING';
+export type CellErrorType = 'ERROR' | 'NULL_VALUE' | 'DIVIDE_BY_ZERO' | 'VALUE' | 'REF' | 'NAME' | 'NUM' | 'N_A' | 'LOADING';
 
-type HorizontalAlign = 'LEFT' | 'CENTER' | 'RIGHT';
+export type HorizontalAlign = 'LEFT' | 'CENTER' | 'RIGHT';
 
-type VerticalAlign = 'TOP' | 'MIDDLE' | 'BOTTOM';
+export type VerticalAlign = 'TOP' | 'MIDDLE' | 'BOTTOM';
 
 /**
  * @see
  * https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets/cells#wrapstrategy
  */
-type WrapStrategy = 'OVERFLOW_CELL' | 'LEGACY_WRAP' | 'CLIP' | 'WRAP';
+export type WrapStrategy = 'OVERFLOW_CELL' | 'LEGACY_WRAP' | 'CLIP' | 'WRAP';
 
-type ThemeColorType =
+export type ThemeColorType =
     | 'TEXT'
     | 'BACKGROUND'
     | 'ACCENT1'
@@ -41,40 +41,40 @@ type ThemeColorType =
     | 'ACCENT6'
     | 'LINK';
 
-type BorderStyle = 'NONE' | 'DOTTED' | 'DASHED' | 'SOLID' | 'SOLID_MEDIUM' | 'SOLID_THICK' | 'DOUBLE';
+export type BorderStyle = 'NONE' | 'DOTTED' | 'DASHED' | 'SOLID' | 'SOLID_MEDIUM' | 'SOLID_THICK' | 'DOUBLE';
 
-type TextDirection = 'LEFT_TO_RIGHT' | 'RIGHT_TO_LEFT';
+export type TextDirection = 'LEFT_TO_RIGHT' | 'RIGHT_TO_LEFT';
 
-interface TextRotation {
+export interface TextRotation {
     angle: number;
     vertical: boolean;
 }
 
-type RecalculationInterval = 'ON_CHANGE' | 'MINUTE' | 'HOUR';
+export type RecalculationInterval = 'ON_CHANGE' | 'MINUTE' | 'HOUR';
 
-type Dimension = 'ROWS' | 'COLUMNS';
+export type Dimension = 'ROWS' | 'COLUMNS';
 
-type DeveloperMetadataVisibility = 'DOCUMENT' | 'PROJECT';
+export type DeveloperMetadataVisibility = 'DOCUMENT' | 'PROJECT';
 
-type DeveloperMetadataLocationType = 'ROW' | 'COLUMN' | 'SHEET' | 'SPREADSHEET';
+export type DeveloperMetadataLocationType = 'ROW' | 'COLUMN' | 'SHEET' | 'SPREADSHEET';
 
 // #endregion
 
 // #region OPTIONS / CONFIG
 
-interface PaginationOptions {
+export interface PaginationOptions {
     limit: number;
     offset: number;
 }
 
-interface WorksheetGridRange {
+export interface WorksheetGridRange {
     startRowIndex: number;
     endRowIndex: number;
     startColumnIndex: number;
     endColumnIndex: number;
 }
 
-interface WorksheetGridProperties {
+export interface WorksheetGridProperties {
     rowCount: number;
     columnCount: number;
     frozenRowCount: number;
@@ -84,21 +84,21 @@ interface WorksheetGridProperties {
     columnGroupControlAfter: boolean;
 }
 
-interface DimensionRange {
+export interface DimensionRange {
     sheetId: number;
     endIndex: number;
     startIndex: number;
     dimension: Dimension;
 }
 
-interface DeveloperMetadataLocation {
+export interface DeveloperMetadataLocation {
     sheetId: number;
     spreadsheet: boolean;
     dimensionRange: DimensionRange;
     locationType: DeveloperMetadataLocationType;
 }
 
-interface DeveloperMetadata {
+export interface DeveloperMetadata {
     metadataId: number;
     metadataKey: string;
     metadataValue: string;
@@ -106,7 +106,7 @@ interface DeveloperMetadata {
     visibility: DeveloperMetadataVisibility;
 }
 
-interface WorksheetDimensionProperties {
+export interface WorksheetDimensionProperties {
     pixelSize: number;
     hiddenByUser: boolean;
     hiddenByFilter: boolean;
@@ -117,24 +117,24 @@ interface WorksheetDimensionProperties {
     developerMetadata: DeveloperMetadata[];
 }
 
-interface WorksheetDimensionBounds {
+export interface WorksheetDimensionBounds {
     startIndex: number;
     endIndex: number;
 }
 
-interface Color {
+export interface Color {
     red: number;
     green: number;
     blue: number;
     alpha: number;
 }
 
-interface ColorStyle {
+export interface ColorStyle {
     rgbColor: Color;
     themeColor: ThemeColorType;
 }
 
-interface TextFormat {
+export interface TextFormat {
     foregroundColor: Color;
     foregroundColorStyle: ColorStyle;
     fontFamily: string;
@@ -145,7 +145,7 @@ interface TextFormat {
     underline: boolean;
 }
 
-interface NumberFormat {
+export interface NumberFormat {
     type: NumberFormatType;
 
     /**
@@ -154,33 +154,33 @@ interface NumberFormat {
     pattern: string;
 }
 
-interface Border {
+export interface Border {
     style: BorderStyle;
     width: number;
     color: Color;
     colorStyle: ColorStyle;
 }
 
-interface Borders {
+export interface Borders {
     top: Border;
     bottom: Border;
     left: Border;
     right: Border;
 }
 
-interface Padding {
+export interface Padding {
     top: number;
     bottom: number;
     left: number;
     right: number;
 }
 
-interface ThemeColorPair {
+export interface ThemeColorPair {
     color: ColorStyle;
     colorType: ThemeColorType;
 }
 
-interface SpreadsheetTheme {
+export interface SpreadsheetTheme {
     primaryFontFamily: string;
     themeColors: ThemeColorPair[];
 }
@@ -188,23 +188,23 @@ interface SpreadsheetTheme {
 /**
  * see https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets#iterativecalculationsettings
  */
-interface IterativeCalculationSetting {
+export interface IterativeCalculationSetting {
     maxIterations: number;
     convergenceThreshold: number;
 }
 
-interface CellError {
+export interface CellError {
     message: String;
     type: CellErrorType;
 }
 
-interface CellStats {
+export interface CellStats {
     nonEmpty: number;
     loaded: number;
     total: number;
 }
 
-interface CellFormat {
+export interface CellFormat {
     /**
      * @description
      * format describing how number values should be represented to the user
@@ -274,7 +274,7 @@ interface CellFormat {
     textRotation: TextRotation;
 }
 
-interface ServiceAccountCredentials {
+export interface ServiceAccountCredentials {
     /**
      * @description
      * service account email address
@@ -533,7 +533,7 @@ export class GoogleSpreadsheetRow {
 
 // #region GOOGLE SPREADSHEET WORKSHEET
 
-interface WorksheetBasicProperties {
+export interface WorksheetBasicProperties {
     // #region BASIC PROPERTIES
     /* separates basic (editable) properties as they are used as inputs to various methods
      * non-basic properties should be added to the extending interface below
@@ -869,7 +869,7 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
 
 // #region GOOGLE SPREADSHEET
 
-interface SpreadsheetBasicProperties {
+export interface SpreadsheetBasicProperties {
     // #region BASIC PROPERTIES
     /* separates basic (editable) properties as they are used as inputs to various methods
      * non-basic properties should be added to the extending interface below
