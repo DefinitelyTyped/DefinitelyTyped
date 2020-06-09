@@ -21,6 +21,7 @@
 //                 Fabien Caylus <https://github.com/fcaylus>
 //                 Samuel Weckstrom <https://github.com/samuelweckstrom>
 //                 George Cheng <https://github.com/Gerhut>
+//                 Haldun Anil <https://github.com/haldunanil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
