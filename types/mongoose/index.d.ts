@@ -109,10 +109,6 @@ declare module "mongoose" {
       // ? Map<KM, DeepNonFunctionProperties<KV>>
       ? { [key: string]: DeepNonFunctionProperties<KV> } | [KM, KV][] | Map<KM, KV>
       : 
-    // short circuit to handle enums
-    T extends Array<string | number> 
-      ? T 
-      :
     T extends Array<infer U>
       ? (U extends object 
         ? { [V in keyof NonFunctionProperties<OmitReadonly<U>>]: U[V] extends object | undefined
