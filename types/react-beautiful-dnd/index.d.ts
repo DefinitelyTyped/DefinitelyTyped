@@ -555,7 +555,7 @@ export interface DragDropContextProps {
     onDragStart?(initial: DragStart, provided: ResponderProvided): void;
     onDragUpdate?(initial: DragUpdate, provided: ResponderProvided): void;
     onDragEnd(result: DropResult, provided: ResponderProvided): void;
-    children: React.ReactNode | null;
+    children?: React.ReactNode | null;
     dragHandleUsageInstructions?: string;
     nonce?: string;
     enableDefaultSensors?: boolean;
