@@ -31,11 +31,13 @@ export interface TFontDictionary {
     [fontName: string]: TFontFamilyTypes;
 }
 
+export type FontType = string | Buffer | Uint8Array | ArrayBuffer
+
 export interface TFontFamilyTypes {
-    normal?: string;
-    bold?: string;
-    italics?: string;
-    bolditalics?: string;
+    normal?: FontType;
+    bold?: FontType;
+    italics?: FontType;
+    bolditalics?: FontType;
 }
 
 export interface TDocumentInformation {
