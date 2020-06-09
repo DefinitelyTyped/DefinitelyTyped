@@ -105,7 +105,7 @@ declare namespace PDFKit.Mixins {
         radialGradient(x1: number, y1: number, r1: number, x2: number, y2: number, r2: number): PDFRadialGradient;
     }
     
-    type PDFFontSource = string | Buffer | Uint8Array | ArrayBuffer
+    type PDFFontSource = string | Buffer | Uint8Array | ArrayBuffer;
 
     interface PDFFont {
         font(buffer: Buffer): this;
