@@ -6,28 +6,6 @@
 
 // see EDITING.md for editing guide
 
-// #region EXPORTS
-
-// only export the GoogleSpreadsheet and GoogleSpreadsheetFormulaError
-// other classes should not be instantiated directly so they are hidden
-// but they can still be imported from index.js manually
-// they will just not appear as exports from suggestions / intellisense
-export class GoogleSpreadsheet {
-    /**
-     * @description
-     * create a new Spreadsheet doc
-     *
-     * @param sheetId document ID from the URL of the Spreadsheet
-     */
-    constructor(sheetId: string);
-}
-
-export class GoogleSpreadsheetFormulaError {
-    constructor(errorInfo: CellError);
-}
-
-// #endregion
-
 // #region ENUMS
 
 type WorksheetType = 'GRID' | 'OBJECT';
@@ -313,8 +291,82 @@ interface ServiceAccountCredentials {
 // #endregion
 
 // #region GOOGLE SPREADSHEET CELL
+export class GoogleSpreadsheetCell implements CellFormat {
+    constructor(parentSheet: GoogleSpreadsheetWorksheet, rowIndex: number, columnIndex: number, cellData: any)
 
-interface CellProperties extends CellFormat {
+    // #region IMPLEMENTED PROPERTIES
+    // These properties should reflect the ones in the CellFormat interface
+    /**
+     * @description
+     * format describing how number values should be represented to the user
+     */
+    numberFormat: NumberFormat;
+
+    /**
+     * @description
+     * background color of the cell
+     */
+    backgroundColor: Color;
+
+    /**
+     * @description
+     * border settings of the cell
+     */
+    borders: Borders;
+
+    /**
+     * @description
+     * padding in the cell
+     * - spacing between inner text and cell boundaries
+     */
+    padding: Padding;
+
+    /**
+     * @description
+     * horizontal alignment of the cell's value
+     */
+    horizontalAlignment: HorizontalAlign;
+
+    /**
+     * @description
+     * vertical alignment of the cell's value
+     */
+    verticalAlignment: VerticalAlign;
+
+    /**
+     * @description
+     * text-wrapping strategy of the cell's value
+     */
+    wrapStrategy: WrapStrategy;
+
+    /**
+     * @description
+     * display direction of cell value text
+     */
+    textDirection: TextDirection;
+
+    /**
+     * @description
+     * format of the text in the cell
+     * - font, size etc.
+     */
+    textFormat: TextFormat;
+
+    /**
+     * @description
+     * how a hyperlink (if any) should be displayed
+     */
+    hyperlinkDisplayType: HyperlinkDisplayType;
+
+    /**
+     * @description
+     * rotation applied to text in a cell
+     */
+    textRotation: TextRotation;
+    // #endregion
+
+    // #region OWN PROPERTIES
+
     /**
      * @description
      * cell row in the worksheet
@@ -405,9 +457,9 @@ interface CellProperties extends CellFormat {
      * - if the effective format is the default format, effective format will not be written
      */
     readonly effectiveFormat: CellFormat;
-}
 
-interface GoogleSpreadsheetCell extends CellProperties {
+    // #endregion
+
     // #region SYNCHRONOUS METHODS
 
     /**
@@ -439,12 +491,17 @@ interface GoogleSpreadsheetCell extends CellProperties {
 
     // #endregion
 }
-
 // #endregion
 
 // #region GOOGLE SPREADSHEET ROW
 
-interface RowProperties {
+/**
+ * Property keys are determined by the header row of the sheet
+ * - each row will have a property getter/setter available for each cell corresponding to the column header
+ */
+export class GoogleSpreadsheetRow {
+    constructor(parentSheet: GoogleSpreadsheetWorksheet, rowNumber: number, data: any)
+
     /**
      * @description
      * row number in the worksheet
@@ -458,13 +515,7 @@ interface RowProperties {
      * - includes the worksheet name, ex: "sheet1!A5:D5"
      */
     a1Range: string;
-}
 
-/**
- * Property keys are determined by the header row of the sheet
- * - each row will have a property getter/setter available for each cell corresponding to the column header
- */
-interface GoogleSpreadsheetRow extends RowProperties {
     /**
      * @description
      * save any updates made to cell values in this row
@@ -535,7 +586,58 @@ interface WorksheetBasicProperties {
     // #endregion
 }
 
-interface GoogleSpreadsheetWorksheet extends WorksheetBasicProperties {
+export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
+    constructor(parentSpreadsheet:GoogleSpreadsheetWorksheet, { properties, data }: { properties: WorksheetBasicProperties, data?: any})
+
+    // #region BASIC PROPERTIES
+    // These properties should reflect the ones in the WorksheetBasicProperties interface
+
+    /**
+     * @description
+     * first row values
+     * - used in row-based interactions
+     * - defines the dynamic properties of the Worksheet's GoogleSpreadsheetRows
+     */
+    headerValues: string[];
+
+    /**
+     * @description
+     * name of the worksheet tab
+     */
+    title: string;
+
+    /**
+     * @description
+     * tab index in the worksheet doc (based on rightToLeft property)
+     */
+    index: number;
+
+    /**
+     * @description
+     * additional properties of the worksheet if this sheet is a grid
+     */
+    gridProperties: WorksheetGridProperties;
+
+    /**
+     * @description
+     * true if the worksheet is hidden in the UI, false if it's visible
+     */
+    hidden: boolean;
+
+    /**
+     * @description
+     * the color of the worksheet tab
+     */
+    tabColor: Color;
+
+    /**
+     * @description
+     * true if the worksheet is an RTL sheet instead of an LTR sheet
+     */
+    rightToLeft: boolean;
+
+    // #endregion
+
     // #region NON-BASIC PROPERTIES
 
     /**
@@ -822,7 +924,66 @@ interface SpreadsheetBasicProperties {
     // #endregion
 }
 
-interface GoogleSpreadsheet extends SpreadsheetBasicProperties {
+export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
+    /**
+     * @description
+     * create a new Spreadsheet doc
+     *
+     * @param sheetId document ID from the URL of the Spreadsheet
+     */
+    constructor(sheetId: string);
+
+    // #region BASIC PROPERTIES
+    // These properties should reflect the ones in the SpreadsheetBasicProperties interface
+
+    /**
+     * @description
+     * document title
+     */
+    title: string;
+
+    /**
+     * @description
+     * document locale/language
+     * - ISO code format
+     * - ex: "en", "en_US"
+     */
+    locale: string;
+
+    /**
+     * @description
+     * document timezone
+     * - CLDR format
+     * - ex: "America/New_York", "GMT-07:00"
+     */
+    timeZone: string;
+
+    /**
+     * @description
+     * when volatile functions should be recalculated
+     */
+    autoRecalc: RecalculationInterval;
+
+    /**
+     * @description
+     * default format for all cells in all worksheets of the document
+     */
+    defaultFormat: CellFormat;
+
+    /**
+     * @description
+     * theme applied to all worksheets of the document
+     */
+    spreadsheetTheme: SpreadsheetTheme;
+
+    /**
+     * @description
+     * how circular dependencies are resolved with iterative calculations
+     */
+    iterativeCalculationSettings: IterativeCalculationSetting;
+
+    // #endregion
+
     // #region NON-BASIC PROPERTIES added here
 
     /**
@@ -979,7 +1140,11 @@ interface GoogleSpreadsheet extends SpreadsheetBasicProperties {
 // #endregion
 
 // #region GOOGLE SPREADSHEET FORMULA ERROR
+export class GoogleSpreadsheetFormulaError implements CellError {
+    constructor(errorInfo: CellError);
 
-interface GoogleSpreadsheetFormulaError extends CellError {}
-
+    // These properties should reflect the ones in the CellError interface
+    message: String;
+    type: CellErrorType;
+}
 // #endregion
