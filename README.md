@@ -474,7 +474,7 @@ For example, here are the first few lines of [Node's type declarations](https://
 //                 Alberto Schiabel <https://github.com/jkomyno>
 ```
 
-Because `10.12` is at the end the first line, the npm version of the `@types/node` package will also be `10.12.x`.
+Because `10.12` is at the end of the first line, the npm version of the `@types/node` package will also be `10.12.x`.
 Note that the first-line comment in the `index.d.ts` file should only contain the `major.minor` version (e.g. `10.12`) and should not contain a patch version (e.g. `10.12.4`).
 This is because only the major and minor release numbers are aligned between library packages and type declaration packages.
 The patch release number of the type declaration package (e.g. `.0` in `10.12.0`) is initialized to zero by Definitely Typed and is incremented each time a new `@types/node` package is published to NPM for the same major/minor version of the corresponding library.
