@@ -1,3 +1,8 @@
+// Type definitions for granim 2.0
+// Project: https://github.com/sarcadass/granim.js
+// Definitions by: Raiper34 <https://github.com/Raiper34>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 export declare class Granim {
   constructor(options: Options);
   play(): void;
