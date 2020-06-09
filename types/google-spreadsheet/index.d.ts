@@ -194,7 +194,7 @@ export interface IterativeCalculationSetting {
 }
 
 export interface CellError {
-    message: String;
+    message: string;
     type: CellErrorType;
 }
 
@@ -1144,7 +1144,7 @@ export class GoogleSpreadsheetFormulaError implements CellError {
     constructor(errorInfo: CellError);
 
     // These properties should reflect the ones in the CellError interface
-    message: String;
+    message: string;
     type: CellErrorType;
 }
 // #endregion
