@@ -776,7 +776,7 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
             | {
                   [header: string]: string | number | boolean;
               }
-            | (string | number | boolean)[],
+            | Array<string | number | boolean>,
         options: { raw: boolean; insert: boolean },
     ): Promise<void>;
 
@@ -794,12 +794,12 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * - insert:?DESCRIPTION?
      */
     addRows(
-        rowValues: (
+        rowValues: Array<(
             | {
                   [header: string]: string | number | boolean;
               }
-            | (string | number | boolean)[]
-        )[],
+            | Array<string | number | boolean>
+        )>,
         options: { raw: boolean; insert: boolean },
     ): Promise<GoogleSpreadsheetRow[]>;
 
