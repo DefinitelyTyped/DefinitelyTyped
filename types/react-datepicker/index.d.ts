@@ -155,6 +155,7 @@ export interface ReactDatePickerProps {
     value?: string;
     weekLabel?: string;
     withPortal?: boolean;
+    portalId?: string;
     wrapperClassName?: string;
     yearDropdownItemNumber?: number;
 }

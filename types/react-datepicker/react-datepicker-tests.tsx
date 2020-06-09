@@ -130,6 +130,7 @@ const defaultLocale = getDefaultLocale();
     value=""
     weekLabel=""
     withPortal
+    portalId=""
     wrapperClassName=""
     yearDropdownItemNumber={1}
 >
