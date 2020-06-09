@@ -10,7 +10,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Michael Ness <https://github.com/reubenrybnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 
 declare var _: _.UnderscoreStatic;
 export = _;
