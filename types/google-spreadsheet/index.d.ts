@@ -587,7 +587,7 @@ export interface WorksheetBasicProperties {
 }
 
 export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
-    constructor(parentSpreadsheet:GoogleSpreadsheetWorksheet, { properties, data }: { properties: WorksheetBasicProperties, data?: any})
+    constructor(parentSpreadsheet: GoogleSpreadsheetWorksheet, { properties, data }: { properties: WorksheetBasicProperties, data?: any})
 
     // #region BASIC PROPERTIES
     // These properties should reflect the ones in the WorksheetBasicProperties interface
