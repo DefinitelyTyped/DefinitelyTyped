@@ -10,7 +10,6 @@
  * Parse an HTML string.
  * @param html - HTML source.
  * @returns Document node object.
- * @public
  */
 export function parseHTML(html: string): Selection;
 
@@ -20,7 +19,6 @@ export function parseHTML(html: string): Selection;
 /**
  * Represents a set of nodes in a DOM tree.
  * https://k6.io/docs/javascript-api/k6-html/selection
- * @public
  */
 export abstract class Selection {
     protected __brand: never;
@@ -357,7 +355,6 @@ export abstract class Selection {
 
 /**
  * Form field value.
- * @public
  */
 export interface FormValue {
     /** Field name. */
@@ -369,7 +366,6 @@ export interface FormValue {
 
 /**
  * Test procedure.
- * @public
  */
 export interface Tester {
     /**
@@ -382,7 +378,6 @@ export interface Tester {
 
 /**
  * Handle procedure.
- * @public
  */
 export interface Handler {
     /**
@@ -394,7 +389,6 @@ export interface Handler {
 
 /**
  * Map procedure.
- * @public
  */
 export interface Mapper {
     /**
@@ -410,7 +404,6 @@ export interface Mapper {
 
 /**
  * HTML attribute.
- * @public
  */
 export abstract class Attribute {
     protected __brand: never;
@@ -439,7 +432,6 @@ export abstract class Attribute {
 
 /**
  * Node type.
- * @public
  */
 export enum NodeType {
     ElementNode = 1,
@@ -455,7 +447,6 @@ export enum NodeType {
 /**
  * HTML node.
  * https://docs.k6.io/docs/element-k6html
- * @public
  */
 export abstract class Element {
     protected __brand: never;
@@ -631,7 +622,6 @@ export abstract class Element {
 /**
  * HTML <a> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class AnchorElement extends HrefElement {
     protected __brand: never;
@@ -640,7 +630,6 @@ export abstract class AnchorElement extends HrefElement {
 /**
  * HTML <area> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class AreaElement extends HrefElement {
     protected __brand: never;
@@ -649,7 +638,6 @@ export abstract class AreaElement extends HrefElement {
 /**
  * HTML <audio> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class AudioElement extends MediaElement {
     protected __brand: never;
@@ -658,7 +646,6 @@ export abstract class AudioElement extends MediaElement {
 /**
  * HTML <base> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class BaseElement extends Element {
     protected __brand: never;
@@ -667,7 +654,6 @@ export abstract class BaseElement extends Element {
 /**
  * HTML <button> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class ButtonElement extends FormFieldElement {
     protected __brand: never;
@@ -679,7 +665,6 @@ export abstract class ButtonElement extends FormFieldElement {
 /**
  * HTML <canvas> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class CanvasElement extends Element {
     protected __brand: never;
@@ -694,7 +679,6 @@ export abstract class CanvasElement extends Element {
 /**
  * HTML <data> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class DataElement extends Element {
     protected __brand: never;
@@ -703,7 +687,6 @@ export abstract class DataElement extends Element {
 /**
  * HTML <datalist> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class DataListElement extends Element {
     protected __brand: never;
@@ -715,7 +698,6 @@ export abstract class DataListElement extends Element {
 /**
  * HTML <del> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class DelElement extends ModElement {
     protected __brand: never;
@@ -724,7 +706,6 @@ export abstract class DelElement extends ModElement {
 /**
  * HTML <embed> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class EmbedElement extends Element {
     protected __brand: never;
@@ -733,7 +714,6 @@ export abstract class EmbedElement extends Element {
 /**
  * HTML <fieldset> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class FieldSetElement extends Element {
     protected __brand: never;
@@ -754,7 +734,6 @@ export abstract class FieldSetElement extends Element {
 /**
  * HTML <form> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class FormElement extends Element {
     protected __brand: never;
@@ -772,7 +751,6 @@ export abstract class FormElement extends Element {
 /**
  * HTML form field element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class FormFieldElement extends Element {
     protected __brand: never;
@@ -805,7 +783,6 @@ export abstract class FormFieldElement extends Element {
 /**
  * HTML hyperlink element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class HrefElement extends Element {
     protected __brand: never;
@@ -850,7 +827,6 @@ export abstract class HrefElement extends Element {
 /**
  * HTML <iframe> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class IFrameElement extends Element {
     protected __brand: never;
@@ -859,7 +835,6 @@ export abstract class IFrameElement extends Element {
 /**
  * HTML <img> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class ImageElement extends Element {
     protected __brand: never;
@@ -868,7 +843,6 @@ export abstract class ImageElement extends Element {
 /**
  * HTML <input> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class InputElement extends FormFieldElement {
     protected __brand: never;
@@ -880,7 +854,6 @@ export abstract class InputElement extends FormFieldElement {
 /**
  * HTML <ins> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class InsElement extends ModElement {
     protected __brand: never;
@@ -889,7 +862,6 @@ export abstract class InsElement extends ModElement {
 /**
  * HTML <keygen> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class KeygenElement extends Element {
     protected __brand: never;
@@ -904,7 +876,6 @@ export abstract class KeygenElement extends Element {
 /**
  * HTML <label> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class LabelElement extends Element {
     protected __brand: never;
@@ -919,7 +890,6 @@ export abstract class LabelElement extends Element {
 /**
  * HTML <legend> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class LegendElement extends Element {
     protected __brand: never;
@@ -931,7 +901,6 @@ export abstract class LegendElement extends Element {
 /**
  * HTML <li> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class LiElement extends Element {
     protected __brand: never;
@@ -940,7 +909,6 @@ export abstract class LiElement extends Element {
 /**
  * HTML <link> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class LinkElement extends Element {
     protected __brand: never;
@@ -952,7 +920,6 @@ export abstract class LinkElement extends Element {
 /**
  * HTML <map> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class MapElement extends Element {
     protected __brand: never;
@@ -967,7 +934,6 @@ export abstract class MapElement extends Element {
 /**
  * HTML media element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class MediaElement extends Element {
     protected __brand: never;
@@ -979,7 +945,6 @@ export abstract class MediaElement extends Element {
 /**
  * HTML <meta> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class MetaElement extends Element {
     protected __brand: never;
@@ -988,7 +953,6 @@ export abstract class MetaElement extends Element {
 /**
  * HTML <meter> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @Public
  */
 export abstract class MeterElement extends Element {
     protected __brand: never;
@@ -1000,7 +964,6 @@ export abstract class MeterElement extends Element {
 /**
  * HTML modification element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class ModElement extends Element {
     protected __brand: never;
@@ -1009,7 +972,6 @@ export abstract class ModElement extends Element {
 /**
  * HTML <object> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class ObjectElement extends Element {
     protected __brand: never;
@@ -1021,7 +983,6 @@ export abstract class ObjectElement extends Element {
 /**
  * HTML <ol> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class OListElement extends Element {
     protected __brand: never;
@@ -1030,7 +991,6 @@ export abstract class OListElement extends Element {
 /**
  * HTML <optgroup> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class OptGroupElement extends Element {
     protected __brand: never;
@@ -1039,7 +999,6 @@ export abstract class OptGroupElement extends Element {
 /**
  * HTML <option> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class OptionElement extends Element {
     protected __brand: never;
@@ -1066,7 +1025,6 @@ export abstract class OptionElement extends Element {
 /**
  * HTML <output> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class OutputElement extends Element {
     protected __brand: never;
@@ -1087,7 +1045,6 @@ export abstract class OutputElement extends Element {
 /**
  * HTML <param> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class ParamElement extends Element {
     protected __brand: never;
@@ -1096,7 +1053,6 @@ export abstract class ParamElement extends Element {
 /**
  * HTML <pre> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class PreElement extends Element {
     protected __brand: never;
@@ -1105,7 +1061,6 @@ export abstract class PreElement extends Element {
 /**
  * HTML <progress> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class ProgressElement extends Element {
     protected __brand: never;
@@ -1126,7 +1081,6 @@ export abstract class ProgressElement extends Element {
 /**
  * HTML <q> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class QuoteElement extends Element {
     protected __brand: never;
@@ -1135,7 +1089,6 @@ export abstract class QuoteElement extends Element {
 /**
  * HTML <script> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class ScriptElement extends Element {
     protected __brand: never;
@@ -1147,7 +1100,6 @@ export abstract class ScriptElement extends Element {
 /**
  * HTML <select> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class SelectElement extends Element {
     protected __brand: never;
@@ -1183,7 +1135,6 @@ export abstract class SelectElement extends Element {
 /**
  * HTML <source> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class SourceElement extends Element {
     protected __brand: never;
@@ -1192,7 +1143,6 @@ export abstract class SourceElement extends Element {
 /**
  * HTML <style> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class StyleElement extends Element {
     protected __brand: never;
@@ -1204,7 +1154,6 @@ export abstract class StyleElement extends Element {
 /**
  * HTML <tbody> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TableBodyElement extends TableSectionElement {
     protected __brand: never;
@@ -1213,7 +1162,6 @@ export abstract class TableBodyElement extends TableSectionElement {
 /**
  * HTML table cell element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TableCellElement extends Element {
     protected __brand: never;
@@ -1225,7 +1173,6 @@ export abstract class TableCellElement extends Element {
 /**
  * HTML <col> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TableColElement extends Element {
     protected __brand: never;
@@ -1237,7 +1184,6 @@ export abstract class TableColElement extends Element {
 /**
  * HTML <td> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TableDataCellElement extends TableCellElement {
     protected __brand: never;
@@ -1246,7 +1192,6 @@ export abstract class TableDataCellElement extends TableCellElement {
 /**
  * HTML <table> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TableElement extends Element {
     protected __brand: never;
@@ -1270,7 +1215,6 @@ export abstract class TableElement extends Element {
 /**
  * HTML <tfoot> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TableFootElement extends TableSectionElement {
     protected __brand: never;
@@ -1279,7 +1223,6 @@ export abstract class TableFootElement extends TableSectionElement {
 /**
  * HTML <thead> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TableHeadElement extends TableSectionElement {
     protected __brand: never;
@@ -1288,7 +1231,6 @@ export abstract class TableHeadElement extends TableSectionElement {
 /**
  * HTML <th> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TableHeaderCellElement extends TableCellElement {
     protected __brand: never;
@@ -1297,7 +1239,6 @@ export abstract class TableHeaderCellElement extends TableCellElement {
 /**
  * HTML <tr> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TableRowElement extends Element {
     protected __brand: never;
@@ -1315,7 +1256,6 @@ export abstract class TableRowElement extends Element {
 /**
  * HTML table section element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TableSectionElement extends Element {
     protected __brand: never;
@@ -1327,7 +1267,6 @@ export abstract class TableSectionElement extends Element {
 /**
  * HTML <textarea> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TextAreaElement extends Element {
     protected __brand: never;
@@ -1345,7 +1284,6 @@ export abstract class TextAreaElement extends Element {
 /**
  * HTML <time> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TimeElement extends Element {
     protected __brand: never;
@@ -1354,7 +1292,6 @@ export abstract class TimeElement extends Element {
 /**
  * HTML <title> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TitleElement extends Element {
     protected __brand: never;
@@ -1366,7 +1303,6 @@ export abstract class TitleElement extends Element {
 /**
  * HTML <track> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class TrackElement extends Element {
     protected __brand: never;
@@ -1375,7 +1311,6 @@ export abstract class TrackElement extends Element {
 /**
  * HTML <ul> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class UListElement extends Element {
     protected __brand: never;
@@ -1384,7 +1319,6 @@ export abstract class UListElement extends Element {
 /**
  * HTML <video> element.
  * https://k6.io/docs/javascript-api/k6-html/element
- * @public
  */
 export abstract class VideoElement extends MediaElement {
     protected __brand: never;

@@ -8,7 +8,6 @@ import { CipherSuite } from './http';
 /**
  * Program options.
  * https://k6.io/docs/using-k6/options
- * @public
  */
 export interface Options {
     /** Maximum parallel `http.batch()` connections per VU. */
@@ -110,7 +109,6 @@ export interface Options {
 
 /**
  * Third party collector configuration.
- * @public
  */
 export interface CollectorOptions {
     [name: string]: any;
@@ -118,7 +116,6 @@ export interface CollectorOptions {
 
 /**
  * Test stage.
- * @public
  */
 export interface Stage {
     /** Stage duration. */
@@ -131,14 +128,12 @@ export interface Stage {
 /**
  * Threshold specification.
  * https://k6.io/docs/using-k6/thresholds
- * @public
  */
 export type Threshold = string | ObjectThreshold;
 
 /**
  * Object form threshold specification.
  * https://k6.io/docs/using-k6/thresholds
- * @public
  */
 export interface ObjectThreshold {
     /** Abort test if threshold violated. */
@@ -153,7 +148,6 @@ export interface ObjectThreshold {
 
 /**
  * TLS client certificate.
- * @public
  */
 export interface Certificate {
     /** PEM encoded certificate. */

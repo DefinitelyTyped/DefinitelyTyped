@@ -4,7 +4,6 @@
  * @param url - Request URL.
  * @param callback - Logic to execute with socket.
  * @returns HTTP response to connection request.
- * @public
  */
 export function connect(url: string, callback: Executor): Response;
 
@@ -15,7 +14,6 @@ export function connect(url: string, callback: Executor): Response;
  * @param params - Request parameters.
  * @param callback - Logic to execute with socket.
  * @returns HTTP response to connection request.
- * @public
  */
 export function connect(url: string, params: Params | null, callback: Executor): Response;
 
@@ -24,7 +22,6 @@ export function connect(url: string, params: Params | null, callback: Executor):
 
 /**
  * Request parameters.
- * @public
  */
 export interface Params {
     /** Request headers. */
@@ -36,7 +33,6 @@ export interface Params {
 
 /**
  * Socket executor.
- * @public
  */
 export interface Executor {
     /** @param socket - The opened socket. */
@@ -48,7 +44,6 @@ export interface Executor {
 
 /**
  * HTTP response to connection request.
- * @public
  */
 export interface Response {
     /** Fetched URL. May differ from request URL due to redirects. */
@@ -73,7 +68,6 @@ export interface Response {
 /**
  * Created socket.
  * https://k6.io/docs/javascript-api/k6-ws/socket
- * @public
  */
 export abstract class Socket {
     protected __brand: never;
@@ -126,13 +120,11 @@ export abstract class Socket {
 
 /**
  * Event type.
- * @public
  */
 export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong';
 
 /**
  * Timer handler.
- * @public
  */
 export interface TimerHandler {
     (): void;
@@ -143,7 +135,6 @@ export interface TimerHandler {
 
 /**
  * Event handler. Signature varies with event type.
- * @public
  */
 export type EventHandler<ET extends EventType> = ET extends 'close'
     ? CloseEventHandler
@@ -161,7 +152,6 @@ export type EventHandler<ET extends EventType> = ET extends 'close'
 
 /**
  * Close event handler.
- * @public
  */
 export interface CloseEventHandler {
     /** @param code - WebSocket status code. */
@@ -170,7 +160,6 @@ export interface CloseEventHandler {
 
 /**
  * Error event handler.
- * @public
  */
 export interface ErrorEventHandler {
     /** @param error - Error object. */
@@ -179,7 +168,6 @@ export interface ErrorEventHandler {
 
 /**
  * Message event handler.
- * @public
  */
 export interface MessageEventHandler {
     /** @param message - Message. */
@@ -188,7 +176,6 @@ export interface MessageEventHandler {
 
 /**
  * Open event handler.
- * @public
  */
 export interface OpenEventHandler {
     (): void;
@@ -196,7 +183,6 @@ export interface OpenEventHandler {
 
 /**
  * Ping event handler.
- * @public
  */
 export interface PingEventHandler {
     (): void;
@@ -204,7 +190,6 @@ export interface PingEventHandler {
 
 /**
  * Pong event handler.
- * @public
  */
 export interface PongEventHandler {
     (): void;
@@ -215,7 +200,6 @@ export interface PongEventHandler {
 
 /**
  * Error.
- * @public
  */
 export abstract class WebSocketError {
     protected __brand: never;
@@ -225,8 +209,6 @@ export abstract class WebSocketError {
 }
 
 /**
- * @namespace k6/ws
- *
  * This module provides a WebSocket client implementing the WebSocket protocol.
  * https://k6.io/docs/javascript-api/k6-ws
  */
@@ -237,7 +219,6 @@ declare namespace ws {
      * @param url - Request URL.
      * @param callback - Logic to execute with socket.
      * @returns HTTP response to connection request.
-     * @public
      */
     function connect(url: string, callback: Executor): Response;
 
@@ -248,7 +229,6 @@ declare namespace ws {
      * @param params - Request parameters.
      * @param callback - Logic to execute with socket.
      * @returns HTTP response to connection request.
-     * @public
      */
     function connect(url: string, params: Params | null, callback: Executor): Response;
 }

@@ -4,7 +4,6 @@ import { bytes } from '.';
  * Generate random bytes.
  * @param size - Number of bytes to generate.
  * @returns Random bytes.
- * @public
  */
 export function randomBytes(size: number): bytes;
 
@@ -16,7 +15,6 @@ export function randomBytes(size: number): bytes;
  * @param data - Input data.
  * @param outputEncoding - Output encoding.
  * @returns Produced HMAC.
- * @public
  */
 export function hmac<OE extends OutputEncoding>(
     algorithm: Algorithm,
@@ -31,7 +29,6 @@ export function hmac<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns MD4 digest.
- * @public
  */
 export function md4<OE extends OutputEncoding>(
     input: string,
@@ -44,7 +41,6 @@ export function md4<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns MD5 digest.
- * @public
  */
 export function md5<OE extends OutputEncoding>(
     input: string,
@@ -57,7 +53,6 @@ export function md5<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-1 digest.
- * @public
  */
 export function sha1<OE extends OutputEncoding>(
     input: string,
@@ -70,7 +65,6 @@ export function sha1<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-256 digest.
- * @public
  */
 export function sha256<OE extends OutputEncoding>(
     input: string,
@@ -83,7 +77,6 @@ export function sha256<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-384 digest.
- * @public
  */
 export function sha384<OE extends OutputEncoding>(
     input: string,
@@ -96,7 +89,6 @@ export function sha384<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-512 digest.
- * @public
  */
 export function sha512<OE extends OutputEncoding>(
     input: string,
@@ -109,7 +101,6 @@ export function sha512<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-512/224 digest.
- * @public
  */
 export function sha512_224<OE extends OutputEncoding>(
     input: string,
@@ -122,7 +113,6 @@ export function sha512_224<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-512/256 digest.
- * @public
  */
 export function sha512_256<OE extends OutputEncoding>(
     input: string,
@@ -135,7 +125,6 @@ export function sha512_256<OE extends OutputEncoding>(
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns RIPEMD-160 digest.
- * @public
  */
 export function ripemd160<OE extends OutputEncoding>(
     input: string,
@@ -147,7 +136,6 @@ export function ripemd160<OE extends OutputEncoding>(
  * https://k6.io/docs/javascript-api/k6-crypto/createhash-algorithm
  * @param algorithm - Hash algorithm.
  * @returns Hashing object.
- * @public
  */
 export function createHash(algorithm: Algorithm): Hasher;
 
@@ -157,13 +145,11 @@ export function createHash(algorithm: Algorithm): Hasher;
  * @param algorithm - Hash algorithm.
  * @param secret - Shared secret.
  * @returns HMAC hashing object.
- * @public
  */
 export function createHMAC(algorithm: Algorithm, secret: string): Hasher;
 
 /**
  * Hash algorithm.
- * @public
  */
 export type Algorithm =
     | 'md4'
@@ -178,26 +164,22 @@ export type Algorithm =
 
 /**
  * String output encoding.
- * @public
  */
 export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
 
 /**
  * Binary output encoding.
- * @public
  */
 export type BinaryEncoding = 'binary';
 
 /**
  * Output encoding.
- * @public
  */
 export type OutputEncoding = StringEncoding | BinaryEncoding;
 
 /**
  * Output type. Varies with output encoding.
  * @typeParam OE - Output encoding.
- * @public
  */
 export type Output<OE extends OutputEncoding> = OE extends StringEncoding
     ? string
@@ -208,7 +190,6 @@ export type Output<OE extends OutputEncoding> = OE extends StringEncoding
 /**
  * Hashing object.
  * https://docs.k6.io/docs/hasher-k6crypto
- * @public
  */
 export abstract class Hasher {
     protected __brand: never;
@@ -228,8 +209,6 @@ export abstract class Hasher {
 }
 
 /**
- * @namespace k6/crypto
- *
  * This module provides common hashing functionality available in the GoLang crypto package.
  * https://k6.io/docs/javascript-api/k6-crypto
  */
@@ -242,7 +221,6 @@ declare namespace crypto {
      * @param data - Input data.
      * @param outputEncoding - Output encoding.
      * @returns Produced HMAC.
-     * @public
      */
     function hmac<OE extends OutputEncoding>(
         algorithm: Algorithm,
@@ -257,7 +235,6 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns MD4 digest.
-     * @public
      */
     function md4<OE extends OutputEncoding>(
         input: string,
@@ -270,7 +247,6 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns MD5 digest.
-     * @public
      */
     function md5<OE extends OutputEncoding>(
         input: string,
@@ -283,7 +259,6 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-1 digest.
-     * @public
      */
     function sha1<OE extends OutputEncoding>(
         input: string,
@@ -296,7 +271,6 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-256 digest.
-     * @public
      */
     function sha256<OE extends OutputEncoding>(
         input: string,
@@ -309,7 +283,6 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-384 digest.
-     * @public
      */
     function sha384<OE extends OutputEncoding>(
         input: string,
@@ -322,7 +295,6 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-512 digest.
-     * @public
      */
     function sha512<OE extends OutputEncoding>(
         input: string,
@@ -335,7 +307,6 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-512/224 digest.
-     * @public
      */
     function sha512_224<OE extends OutputEncoding>(
         input: string,
@@ -348,7 +319,6 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-512/256 digest.
-     * @public
      */
     function sha512_256<OE extends OutputEncoding>(
         input: string,
@@ -361,7 +331,6 @@ declare namespace crypto {
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns RIPEMD-160 digest.
-     * @public
      */
     function ripemd160<OE extends OutputEncoding>(
         input: string,
@@ -373,7 +342,6 @@ declare namespace crypto {
      * https://k6.io/docs/javascript-api/k6-crypto/createhash-algorithm
      * @param algorithm - Hash algorithm.
      * @returns Hashing object.
-     * @public
      */
     function createHash(algorithm: Algorithm): Hasher;
 
@@ -383,7 +351,6 @@ declare namespace crypto {
      * @param algorithm - Hash algorithm.
      * @param secret - Shared secret.
      * @returns HMAC hashing object.
-     * @public
      */
     function createHMAC(algorithm: Algorithm, secret: string): Hasher;
 }

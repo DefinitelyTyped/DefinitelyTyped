@@ -48,7 +48,6 @@ import './ws';
  * @param sets - Tests (checks) to run on the value.
  * @param tags - Extra tags to attach to metrics emitted.
  * @returns `true` if all checks have succeeded, otherwise `false`.
- * @public
  */
 export function check<VT>(val: VT, sets: Checkers<VT>, tags?: object): boolean;
 
@@ -56,7 +55,6 @@ export function check<VT>(val: VT, sets: Checkers<VT>, tags?: object): boolean;
  * Immediately throw an error, aborting the current script iteration.
  * https://k6.io/docs/javascript-api/k6/fail-err
  * @param err - Error message that gets printed to stderr.
- * @public
  */
 export function fail(err?: string): never;
 
@@ -67,7 +65,6 @@ export function fail(err?: string): never;
  * @param name - Name of the group.
  * @param fn - Group body. Code to be executed in the group context.
  * @returns The return value of `fn`.
- * @public
  */
 export function group<RT>(name: string, fn: () => RT): RT;
 
@@ -75,14 +72,12 @@ export function group<RT>(name: string, fn: () => RT): RT;
  * Suspend VU execution for the specified duration.
  * https://k6.io/docs/javascript-api/k6/sleep-t
  * @param t - Duration, in seconds.
- * @public
  */
 export function sleep(t: number): void;
 
 /**
  * Check procedure.
  * @typeParam VT - Value type.
- * @public
  */
 export interface Checker<VT> {
     /**
@@ -96,7 +91,6 @@ export interface Checker<VT> {
 /**
  * Named check procedures.
  * @typeParam VT - Value type.
- * @public
  */
 export interface Checkers<VT> {
     [description: string]: Checker<VT>;
@@ -107,13 +101,11 @@ export interface Checkers<VT> {
 
 /**
  * Byte represented as number. Value range [0,256)
- * @public
  */
 export type byte = number;
 
 /**
  * Byte array.
- * @public
  */
 export type bytes = byte[];
 
@@ -122,19 +114,16 @@ export type bytes = byte[];
 
 /**
  * JavaScript value representable with JSON.
- * @public
  */
 export type JSONValue = null | boolean | number | string | JSONArray | JSONObject;
 
 /**
  * Array representable with JSON.
- * @public
  */
 export interface JSONArray extends Array<JSONValue> {}
 
 /**
  * Object representable with JSON.
- * @public
  */
 export interface JSONObject {
     [key: string]: JSONValue;

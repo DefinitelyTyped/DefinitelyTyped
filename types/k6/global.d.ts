@@ -20,7 +20,6 @@ declare global {
      * https://k6.io/docs/javascript-api/init-context/open-filepath-mode
      * @param filePath - Path to file.
      * @returns File contents decoded as UTF-8.
-     * @public
      */
     function open(filePath: string): string;
 
@@ -29,7 +28,6 @@ declare global {
      * https://k6.io/docs/javascript-api/init-context/open-filepath-mode
      * @param filePath - Path to file.
      * @returns Binary file contents.
-     * @public
      */
     function open(filePath: string, mode: 'b'): bytes;
 
@@ -39,7 +37,6 @@ declare global {
     /**
      * Environment variables.
      * https://k6.io/docs/using-k6/environment-variables
-     * @public
      */
     const __ENV: { [name: string]: string };
 
@@ -48,26 +45,22 @@ declare global {
 
     /**
      * Interface to system console.
-     * @public
      */
     let console: Console;
 
     /**
      * Current VU number.
      * https://k6.io/docs/using-k6/execution-context-variables
-     * @public
      */
     const __VU: number;
 
     /**
      * Current iteration number.
      * https://k6.io/docs/using-k6/execution-context-variables
-     * @public
      */
     const __ITER: number;
 }
 
-/** @public */
 interface Console {
     /** Log debug message. */
     debug: Logger;
@@ -87,7 +80,6 @@ interface Console {
 
 /**
  * Log message procedure.
- * @public
  */
 interface Logger {
     /**
