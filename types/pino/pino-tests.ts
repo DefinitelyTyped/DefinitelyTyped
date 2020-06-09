@@ -161,19 +161,19 @@ anotherRedacted.info({
 });
 
 const pretty = pino({
-	prettyPrint: {
-		colorize: true,
-		crlf: false,
-		errorLikeObjectKeys: ['err', 'error'],
-		errorProps: '',
-		messageFormat: false,
-		ignore: '',
-		levelFirst: false,
-		messageKey: 'msg',
-		timestampKey: 'timestamp',
-		translateTime: 'UTC:h:MM:ss TT Z',
-		search: 'foo == `bar`'
-	}
+    prettyPrint: {
+        colorize: true,
+        crlf: false,
+        errorLikeObjectKeys: ['err', 'error'],
+        errorProps: '',
+        messageFormat: false,
+        ignore: '',
+        levelFirst: false,
+        messageKey: 'msg',
+        timestampKey: 'timestamp',
+        translateTime: 'UTC:h:MM:ss TT Z',
+        search: 'foo == `bar`'
+    }
 });
 
 const withTimeFn = pino({

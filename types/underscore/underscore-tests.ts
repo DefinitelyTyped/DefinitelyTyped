@@ -11,143 +11,143 @@ _.map([1, 2, 3], (num) => num * 3);
 _.map({ one: 1, two: 2, three: 3 }, (value, key) => value * 3);
 let plucked: string[] = _.map([{key: 'apples'}, {key: 'oranges'}], 'key');
 
-//var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);	// https://typescript.codeplex.com/workitem/1960
+//var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);    // https://typescript.codeplex.com/workitem/1960
 var sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num, 0);
 sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
 sum = _.reduce<string, number>({'a':'1', 'b':'2', 'c':'3'}, (memo, numstr) => memo + (+numstr));
 
 var list = [[0, 1], [2, 3], [4, 5]];
-//var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
+//var flat = _.reduceRight(list, (a, b) => a.concat(b), []);    // https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
 namespace TestFind {
-	let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
-	let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
-	let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};
-	let context = {};
+    let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
+    let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
+    let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};
+    let context = {};
 
-	{
-		let iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
-		let result: {a: string} | undefined;
+    {
+        let iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
+        let result: {a: string} | undefined;
 
-		result = _.find<{a: string}>(array, iterator);
-		result = _.find<{a: string}>(array, iterator, context);
-		result = _.find<{a: string}, {a: string}>(array, {a: 'b'});
-		result = _.find<{a: string}>(array, 'a');
+        result = _.find<{a: string}>(array, iterator);
+        result = _.find<{a: string}>(array, iterator, context);
+        result = _.find<{a: string}, {a: string}>(array, {a: 'b'});
+        result = _.find<{a: string}>(array, 'a');
 
-		result = _(array).find<{a: string}>(iterator);
-		result = _(array).find<{a: string}>(iterator, context);
-		result = _(array).find<{a: string}, {a: string}>({a: 'b'});
-		result = _(array).find<{a: string}>('a');
+        result = _(array).find<{a: string}>(iterator);
+        result = _(array).find<{a: string}>(iterator, context);
+        result = _(array).find<{a: string}, {a: string}>({a: 'b'});
+        result = _(array).find<{a: string}>('a');
 
-		result = _(array).chain().find<{a: string}>(iterator).value();
-		result = _(array).chain().find<{a: string}>(iterator, context).value();
-		result = _(array).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
-		result = _(array).chain().find<{a: string}>('a').value();
+        result = _(array).chain().find<{a: string}>(iterator).value();
+        result = _(array).chain().find<{a: string}>(iterator, context).value();
+        result = _(array).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+        result = _(array).chain().find<{a: string}>('a').value();
 
-		result = _.find<{a: string}>(list, iterator);
-		result = _.find<{a: string}>(list, iterator, context);
-		result = _.find<{a: string}, {a: string}>(list, {a: 'b'});
-		result = _.find<{a: string}>(list, 'a');
+        result = _.find<{a: string}>(list, iterator);
+        result = _.find<{a: string}>(list, iterator, context);
+        result = _.find<{a: string}, {a: string}>(list, {a: 'b'});
+        result = _.find<{a: string}>(list, 'a');
 
-		result = _(list).find<{a: string}>(iterator);
-		result = _(list).find<{a: string}>(iterator, context);
-		result = _(list).find<{a: string}, {a: string}>({a: 'b'});
-		result = _(list).find<{a: string}>('a');
+        result = _(list).find<{a: string}>(iterator);
+        result = _(list).find<{a: string}>(iterator, context);
+        result = _(list).find<{a: string}, {a: string}>({a: 'b'});
+        result = _(list).find<{a: string}>('a');
 
-		result = _(list).chain().find<{a: string}>(iterator).value();
-		result = _(list).chain().find<{a: string}>(iterator, context).value();
-		result = _(list).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
-		result = _(list).chain().find<{a: string}>('a').value();
+        result = _(list).chain().find<{a: string}>(iterator).value();
+        result = _(list).chain().find<{a: string}>(iterator, context).value();
+        result = _(list).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+        result = _(list).chain().find<{a: string}>('a').value();
 
-		result = _.detect<{a: string}>(array, iterator);
-		result = _.detect<{a: string}>(array, iterator, context);
-		result = _.detect<{a: string}, {a: string}>(array, {a: 'b'});
-		result = _.detect<{a: string}>(array, 'a');
+        result = _.detect<{a: string}>(array, iterator);
+        result = _.detect<{a: string}>(array, iterator, context);
+        result = _.detect<{a: string}, {a: string}>(array, {a: 'b'});
+        result = _.detect<{a: string}>(array, 'a');
 
-		result = _(array).detect<{a: string}>(iterator);
-		result = _(array).detect<{a: string}>(iterator, context);
-		result = _(array).detect<{a: string}, {a: string}>({a: 'b'});
-		result = _(array).detect<{a: string}>('a');
+        result = _(array).detect<{a: string}>(iterator);
+        result = _(array).detect<{a: string}>(iterator, context);
+        result = _(array).detect<{a: string}, {a: string}>({a: 'b'});
+        result = _(array).detect<{a: string}>('a');
 
-		result = _(array).chain().detect<{a: string}>(iterator).value();
-		result = _(array).chain().detect<{a: string}>(iterator, context).value();
-		result = _(array).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
-		result = _(array).chain().detect<{a: string}>('a').value();
+        result = _(array).chain().detect<{a: string}>(iterator).value();
+        result = _(array).chain().detect<{a: string}>(iterator, context).value();
+        result = _(array).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+        result = _(array).chain().detect<{a: string}>('a').value();
 
-		result = _.detect<{a: string}>(list, iterator);
-		result = _.detect<{a: string}>(list, iterator, context);
-		result = _.detect<{a: string}, {a: string}>(list, {a: 'b'});
-		result = _.detect<{a: string}>(list, 'a');
+        result = _.detect<{a: string}>(list, iterator);
+        result = _.detect<{a: string}>(list, iterator, context);
+        result = _.detect<{a: string}, {a: string}>(list, {a: 'b'});
+        result = _.detect<{a: string}>(list, 'a');
 
-		result = _(list).detect<{a: string}>(iterator);
-		result = _(list).detect<{a: string}>(iterator, context);
-		result = _(list).detect<{a: string}, {a: string}>({a: 'b'});
-		result = _(list).detect<{a: string}>('a');
+        result = _(list).detect<{a: string}>(iterator);
+        result = _(list).detect<{a: string}>(iterator, context);
+        result = _(list).detect<{a: string}, {a: string}>({a: 'b'});
+        result = _(list).detect<{a: string}>('a');
 
-		result = _(list).chain().detect<{a: string}>(iterator).value();
-		result = _(list).chain().detect<{a: string}>(iterator, context).value();
-		result = _(list).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
-		result = _(list).chain().detect<{a: string}>('a').value();
-	}
+        result = _(list).chain().detect<{a: string}>(iterator).value();
+        result = _(list).chain().detect<{a: string}>(iterator, context).value();
+        result = _(list).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+        result = _(list).chain().detect<{a: string}>('a').value();
+    }
 
-	{
-		let iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
-		let result: {a: string} | undefined;
+    {
+        let iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
+        let result: {a: string} | undefined;
 
-		result = _.find<{a: string}>(dict, iterator);
-		result = _.find<{a: string}>(dict, iterator, context);
-		result = _.find<{a: string}, {a: string}>(dict, {a: 'b'});
-		result = _.find<{a: string}>(dict, 'a');
+        result = _.find<{a: string}>(dict, iterator);
+        result = _.find<{a: string}>(dict, iterator, context);
+        result = _.find<{a: string}, {a: string}>(dict, {a: 'b'});
+        result = _.find<{a: string}>(dict, 'a');
 
-		result = _(dict).find<{a: string}>(iterator);
-		result = _(dict).find<{a: string}>(iterator, context);
-		result = _(dict).find<{a: string}, {a: string}>({a: 'b'});
-		result = _(dict).find<{a: string}>('a');
+        result = _(dict).find<{a: string}>(iterator);
+        result = _(dict).find<{a: string}>(iterator, context);
+        result = _(dict).find<{a: string}, {a: string}>({a: 'b'});
+        result = _(dict).find<{a: string}>('a');
 
-		result = _(dict).chain().find<{a: string}>(iterator).value();
-		result = _(dict).chain().find<{a: string}>(iterator, context).value();
-		result = _(dict).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
-		result = _(dict).chain().find<{a: string}>('a').value();
+        result = _(dict).chain().find<{a: string}>(iterator).value();
+        result = _(dict).chain().find<{a: string}>(iterator, context).value();
+        result = _(dict).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+        result = _(dict).chain().find<{a: string}>('a').value();
 
-		result = _.detect<{a: string}>(dict, iterator);
-		result = _.detect<{a: string}>(dict, iterator, context);
-		result = _.detect<{a: string}, {a: string}>(dict, {a: 'b'});
-		result = _.detect<{a: string}>(dict, 'a');
+        result = _.detect<{a: string}>(dict, iterator);
+        result = _.detect<{a: string}>(dict, iterator, context);
+        result = _.detect<{a: string}, {a: string}>(dict, {a: 'b'});
+        result = _.detect<{a: string}>(dict, 'a');
 
-		result = _(dict).detect<{a: string}>(iterator);
-		result = _(dict).detect<{a: string}>(iterator, context);
-		result = _(dict).detect<{a: string}, {a: string}>({a: 'b'});
-		result = _(dict).detect<{a: string}>('a');
+        result = _(dict).detect<{a: string}>(iterator);
+        result = _(dict).detect<{a: string}>(iterator, context);
+        result = _(dict).detect<{a: string}, {a: string}>({a: 'b'});
+        result = _(dict).detect<{a: string}>('a');
 
-		result = _(dict).chain().detect<{a: string}>(iterator).value();
-		result = _(dict).chain().detect<{a: string}>(iterator, context).value();
-		result = _(dict).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
-		result = _(dict).chain().detect<{a: string}>('a').value();
-	}
+        result = _(dict).chain().detect<{a: string}>(iterator).value();
+        result = _(dict).chain().detect<{a: string}>(iterator, context).value();
+        result = _(dict).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+        result = _(dict).chain().detect<{a: string}>('a').value();
+    }
 
-	{
-		let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
-		let result: string | undefined;
+    {
+        let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+        let result: string | undefined;
 
-		result = _.find<string>('abc', iterator);
-		result = _.find<string>('abc', iterator, context);
+        result = _.find<string>('abc', iterator);
+        result = _.find<string>('abc', iterator, context);
 
-		result = _('abc').find<string>(iterator);
-		result = _('abc').find<string>(iterator, context);
+        result = _('abc').find<string>(iterator);
+        result = _('abc').find<string>(iterator, context);
 
-		result = _('abc').chain().find<string>(iterator).value();
-		result = _('abc').chain().find<string>(iterator, context).value();
+        result = _('abc').chain().find<string>(iterator).value();
+        result = _('abc').chain().find<string>(iterator, context).value();
 
-		result = _.detect<string>('abc', iterator);
-		result = _.detect<string>('abc', iterator, context);
+        result = _.detect<string>('abc', iterator);
+        result = _.detect<string>('abc', iterator, context);
 
-		result = _('abc').detect<string>(iterator);
-		result = _('abc').detect<string>(iterator, context);
+        result = _('abc').detect<string>(iterator);
+        result = _('abc').detect<string>(iterator, context);
 
-		result = _('abc').chain().detect<string>(iterator).value();
-		result = _('abc').chain().detect<string>(iterator, context).value();
-	}
+        result = _('abc').chain().detect<string>(iterator).value();
+        result = _('abc').chain().detect<string>(iterator, context).value();
+    }
 
     {
         _(list).map(x => x.a);
@@ -209,9 +209,9 @@ _.groupBy(['one', 'two', 'three'], 'length');
 _.indexBy(stooges, 'age')['40'].age;
 _(stooges).indexBy('age')['40'].name;
 _(stooges)
-	.chain()
-	.indexBy('age')
-	.value()['40'].age;
+    .chain()
+    .indexBy('age')
+    .value()['40'].age;
 
 let pensioners: string[] = _.chain(stooges)
     .filter(p => p.age >= 60)
@@ -264,8 +264,8 @@ _.size({ one: 1, two: 2, three: 3 });
 _.partition<number>([0, 1, 2, 3, 4, 5], (num) => {return num % 2 == 0 });
 
 interface Family {
-	name: string;
-	relation: string;
+    name: string;
+    relation: string;
 }
 var isUncleMoe = _.matches<Family>({ name: 'moe', relation: 'uncle' });
 _.filter([{ name: 'larry', relation: 'father' }, { name: 'moe', relation: 'uncle' }], isUncleMoe);
@@ -316,21 +316,21 @@ var func2 = _.bind(func, { name: 'moe' }, 'hi');
 func2();
 
 var buttonView = {
-	label: 'underscore',
-	onClick() { alert('clicked: ' + this.label); },
-	onHover() { console.log('hovering: ' + this.label); }
+    label: 'underscore',
+    onClick() { alert('clicked: ' + this.label); },
+    onHover() { console.log('hovering: ' + this.label); }
 };
 _.bindAll(buttonView);
 $('#underscore_button').bind('click', buttonView.onClick);
 
 var fibonacci = _.memoize(function (n) {
-	return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 
 class MyClass {};
 
 var classMemoized = _.memoize<MyClass>(function (classInstance) {
-	return new classInstance();
+    return new classInstance();
 });
 
 var log = _.bind(console.log, console);
@@ -416,17 +416,17 @@ _.clone({ name: 'moe' });
 _.clone(['i', 'am', 'an', 'object!']);
 
 _([1, 2, 3, 4])
-	.chain()
-	.filter((num) => { return num % 2 == 0; })
-	.tap(alert)
-	.map((num) => { return num * num; })
-	.value();
+    .chain()
+    .filter((num) => { return num % 2 == 0; })
+    .tap(alert)
+    .map((num) => { return num * num; })
+    .value();
 
 _.chain([1, 2, 3, 200])
-	.filter((num) => { return num % 2 == 0; })
-	.tap(alert)
-	.map((num) => { return num * num; })
-	.value();
+    .filter((num) => { return num % 2 == 0; })
+    .tap(alert)
+    .map((num) => { return num * num; })
+    .value();
 
 _.has({ a: 1, b: 2, c: 3 }, "b");
 
@@ -524,9 +524,9 @@ _(3).times(function (n) { genie.grantWishNumber(n); });
 _.random(0, 100);
 
 _.mixin({
-	capitalize(string) {
-		return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
-	}
+    capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
+    }
 });
 (<any>_("fabio")).capitalize();
 
@@ -550,7 +550,7 @@ var compiled2 = _.template("<% print('Hello ' + epithet); %>");
 compiled2({ epithet: "stooge" });
 var oldTemplateSettings = _.templateSettings;
 _.templateSettings = {
-	interpolate: /\{\{(.+?)\}\}/g
+    interpolate: /\{\{(.+?)\}\}/g
 };
 var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
@@ -562,37 +562,37 @@ template0();
 
 //////////////// Chain Tests
 function chain_tests() {
-	// https://typescript.codeplex.com/workitem/1960
-	var numArray = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
-		.filter(num => num % 2 == 0)
-		.map(num => num * num)
-		.value();
+    // https://typescript.codeplex.com/workitem/1960
+    var numArray = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
+        .filter(num => num % 2 == 0)
+        .map(num => num * num)
+        .value();
 
-	var strArray = _([1, 2, 3, 4])
-		.chain()
-		.filter(num => num % 2 == 0)
-		.tap(alert)
-		.map(num => "string" + num)
-		.value();
+    var strArray = _([1, 2, 3, 4])
+        .chain()
+        .filter(num => num % 2 == 0)
+        .tap(alert)
+        .map(num => "string" + num)
+        .value();
 
-	var n = _.chain([1, 2, 3, 200])
-		.filter(num => num % 2 == 0)
-		.tap(alert)
-		.map(num => num * num)
-		.max()
-		.value();
+    var n = _.chain([1, 2, 3, 200])
+        .filter(num => num % 2 == 0)
+        .tap(alert)
+        .map(num => num * num)
+        .max()
+        .value();
 
-	var hoverOverValueShouldBeNumberNotAny = _([1, 2, 3]).chain()
-		.map(num => [num, num + 1])
-		.flatten()
-		.find(num => num % 2 == 0)
-		.value();
+    var hoverOverValueShouldBeNumberNotAny = _([1, 2, 3]).chain()
+        .map(num => [num, num + 1])
+        .flatten()
+        .find(num => num % 2 == 0)
+        .value();
 
-	var firstVal: number | undefined = _.chain([1, 2, 3])
-		.first()
-		.value();
+    var firstVal: number | undefined = _.chain([1, 2, 3])
+        .first()
+        .value();
 
-	var firstVal2: number | undefined = _.chain([])
+    var firstVal2: number | undefined = _.chain([])
         .first()
         .value();
 
@@ -603,9 +603,9 @@ function chain_tests() {
         .value(); // { odd: [1], even: [0, 2] }
 
   var matrixOfString : string[][] = _.chain({'foo' : '1', 'bar': '1'})
-  	.keys()    // return ['foo', 'bar'] : string[]
-  	.pairs()   // return [['foo', '0'], ['bar', '1']] : string[][]
-  	.value();
+      .keys()    // return ['foo', 'bar'] : string[]
+      .pairs()   // return [['foo', '0'], ['bar', '1']] : string[][]
+      .value();
 
     interface IYears {
         2016: number;

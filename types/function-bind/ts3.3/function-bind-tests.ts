@@ -12,17 +12,17 @@ declare function expectType<T>(value: T): T;
 
 // $ExpectType (thisArg: any, start?: number | undefined, end?: number | undefined) => any[]
 const slice = expectType<(thisArg: any, start?: number, end?: number) => any[]>(
-	bind.call(Function.call, Array.prototype.slice),
+    bind.call(Function.call, Array.prototype.slice),
 );
 
 // $ExpectType (start?: number | undefined, end?: number | undefined) => any[]
 const sliceBoundThis = expectType<(start?: number, end?: number) => any[]>(
-	bind.call(Function.call, Array.prototype.slice, null),
+    bind.call(Function.call, Array.prototype.slice, null),
 );
 
 // $ExpectType (end?: number | undefined) => any[]
 const sliceBoundThisAndStart = expectType<(end?: number) => any[]>(
-	bind.call(Function.call, Array.prototype.slice, ['a'], 1),
+    bind.call(Function.call, Array.prototype.slice, ['a'], 1),
 );
 
 slice(['a']);
@@ -35,7 +35,7 @@ bind.apply(Boolean, [null, '1', '2', '3', '4', '5']);
 
 // Class compatibility:
 class Foo {
-	constructor(public string: string, public number: number) {}
+    constructor(public string: string, public number: number) {}
 }
 
 // bind.call():

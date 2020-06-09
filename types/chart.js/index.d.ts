@@ -157,7 +157,20 @@ declare namespace Chart {
 
     type PositionType = 'left' | 'right' | 'top' | 'bottom' | 'chartArea';
 
-    type InteractionMode = 'point' | 'nearest' | 'single' | 'label' | 'index' | 'x-axis' | 'dataset' | 'x' | 'y';
+    // Allow extending the IteractionMode type alias
+    // see https://github.com/microsoft/TypeScript/issues/28078#issuecomment-432339564
+    interface InteractionModeRegistry {
+        'point': 'point';
+        'nearest': 'nearest';
+        'single': 'single';
+        'label': 'label';
+        'index': 'index';
+        'x-axis': 'x-axis';
+        'dataset': 'dataset';
+        'x': 'x';
+        'y': 'y';
+    }
+    type InteractionMode = InteractionModeRegistry[keyof InteractionModeRegistry];
 
     type Easing = 'linear' | 'easeInQuad' | 'easeOutQuad' | 'easeInOutQuad' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' |
         'easeInQuart' | 'easeOutQuart' | 'easeInOutQuart' | 'easeInQuint' | 'easeOutQuint' | 'easeInOutQuint' | 'easeInSine' | 'easeOutSine' |

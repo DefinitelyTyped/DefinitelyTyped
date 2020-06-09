@@ -287,7 +287,7 @@ interface PlusAccelerometer {
     /**
      * 获取当前设备的加速度信息
      * 加速度是设备在当前方向上所做相对运动变化（增、减量）的运动传感器。加速度信息包括x、y、z三个方向的信息。
-     * 	加速度信息可通过successCB回调函数返回。加速度信息获取失败则调用回调函数errorCB。
+     *     加速度信息可通过successCB回调函数返回。加速度信息获取失败则调用回调函数errorCB。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/accelerometer.html](http://www.html5plus.org/doc/zh_cn/accelerometer.html)
      */
@@ -365,7 +365,7 @@ interface PlusAndroid {
     /**
      * Java类对象
      * Java类对象，可通过其属性获取类的常量，可通过方法来操作类的静态变量和方法，也通过new方法来创建类的实例对象。
-     * 	对于类的常量，则直接通过.后面跟随常量名称调用即可。
+     *     对于类的常量，则直接通过.后面跟随常量名称调用即可。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/android.html](http://www.html5plus.org/doc/zh_cn/android.html)
      */
@@ -373,7 +373,7 @@ interface PlusAndroid {
     /**
      * Java实例对象
      * Java实例对象，可通过其方法来操作实例的变量和方法。
-     * 	注意：必须通过plusGetAttribute()方法读取实例对象的属性值，通过plusSetAttribute()方法设置实例对象的属性值。
+     *     注意：必须通过plusGetAttribute()方法读取实例对象的属性值，通过plusSetAttribute()方法设置实例对象的属性值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/android.html](http://www.html5plus.org/doc/zh_cn/android.html)
      */
@@ -381,7 +381,7 @@ interface PlusAndroid {
     /**
      * 导入Java类对象
      * 导入类对象后，就可以通过.操作符直接调用对象（类对象/实例对象）的方法。
-     * 	注意：导入类对象将会消耗较多的系统资源，通常不应该导入过多的类对象，可以使用plus.android.invoke()来调用未导入类实例对象的方法。
+     *     注意：导入类对象将会消耗较多的系统资源，通常不应该导入过多的类对象，可以使用plus.android.invoke()来调用未导入类实例对象的方法。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/android.html](http://www.html5plus.org/doc/zh_cn/android.html)
      */
@@ -435,7 +435,7 @@ interface PlusAndroid {
 /**
  * Java类对象
  * Java类对象，可通过其属性获取类的常量，可通过方法来操作类的静态变量和方法，也通过new方法来创建类的实例对象。
- * 	对于类的常量，则直接通过.后面跟随常量名称调用即可。
+ *     对于类的常量，则直接通过.后面跟随常量名称调用即可。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/android.html](http://www.html5plus.org/doc/zh_cn/android.html)
  */
@@ -457,7 +457,7 @@ interface PlusAndroidClassObject {
 /**
  * Java实例对象
  * Java实例对象，可通过其方法来操作实例的变量和方法。
- * 	注意：必须通过plusGetAttribute()方法读取实例对象的属性值，通过plusSetAttribute()方法设置实例对象的属性值。
+ *     注意：必须通过plusGetAttribute()方法读取实例对象的属性值，通过plusSetAttribute()方法设置实例对象的属性值。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/android.html](http://www.html5plus.org/doc/zh_cn/android.html)
  */
@@ -525,7 +525,7 @@ interface PlusAudio {
     /**
      * 创建音频播放对象
      * 创建一个音频文件播放对象，用于打开音频文件并播放。
-     * 	可通过path参数指定要播放的音频文件。创建后返回播放对象，通过Audio.play方法开始播放。
+     *     可通过path参数指定要播放的音频文件。创建后返回播放对象，通过Audio.play方法开始播放。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
@@ -598,7 +598,7 @@ interface PlusAudioAudioPlayer {
     /**
      * 停止播放音频
      * 停止播放音频，音频播放对象在播放或暂停状态才能停止播放，在其它状态调用此方法无任何作用。
-     * 	停止播放后如果需要继续播放，则需调用play方法重新开始播放。
+     *     停止播放后如果需要继续播放，则需调用play方法重新开始播放。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
@@ -642,9 +642,9 @@ interface PlusAudioRecordOptions {
     /**
      * 录音声道
      * 可取值：
-     * 		"mono" - 单声道录音；
-     * 		"stereo" - 立体声道录音。
-     * 	默认值为"mono"。
+     *         "mono" - 单声道录音；
+     *         "stereo" - 立体声道录音。
+     *     默认值为"mono"。
      * - mono: 单声道录音
      * - stereo: 立体声录音
      * 
@@ -654,7 +654,7 @@ interface PlusAudioRecordOptions {
     /**
      * 保存录音文件的路径
      * 可设置具体文件名，也可只设置路径，如果以“/”结尾则表明是路径，文件名由录音程序自动生成。
-     * 	如未设置则使用默认目录生成随机文件名称，默认目录为应用%APPID%下的documents目录。
+     *     如未设置则使用默认目录生成随机文件名称，默认目录为应用%APPID%下的documents目录。
      * - _www/: 应用资源目录
      * - _doc/: 应用私有文档目录
      * - _documents/: 共享文档目录
@@ -712,7 +712,7 @@ interface PlusBluetooth {
     /**
      * 关闭蓝牙模块
      * 断开所有已经建立的连接，释放系统资源，要求在蓝牙功能使用完成后调用（于openBluetoothAdapter成对使用）。
-     * 	关闭成功后触发options参数中的success回调，失败触发options参数中的fail回调。
+     *     关闭成功后触发options参数中的success回调，失败触发options参数中的fail回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
@@ -727,7 +727,7 @@ interface PlusBluetooth {
     /**
      * 获取已搜索到的蓝牙设备
      * 包括已经和本机处于连接状态的设备。
-     * 	获取成功后触发options参数中的success回调，失败触发options参数中的fail回调。
+     *     获取成功后触发options参数中的success回调，失败触发options参数中的fail回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
@@ -763,7 +763,7 @@ interface PlusBluetooth {
     /**
      * 开始搜索附近的蓝牙设备
      * 此操作比较耗费系统资源，请在搜索并连接到设备后调用stopBluetoothDevicesDiscovery方法停止搜索。
-     * 	搜索成功后触发options参数中的success回调，失败触发options参数中的fail回调。
+     *     搜索成功后触发options参数中的success回调，失败触发options参数中的fail回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
@@ -771,7 +771,7 @@ interface PlusBluetooth {
     /**
      * 停止搜寻附近的蓝牙外围设备
      * 若已经找到需要的蓝牙设备并不需要继续搜索时，应该调用该接口停止蓝牙搜索。
-     * 	停止成功后触发options参数中的success回调，失败触发options参数中的fail回调。
+     *     停止成功后触发options参数中的success回调，失败触发options参数中的fail回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
@@ -825,7 +825,7 @@ interface PlusBluetooth {
     /**
      * 读取低功耗蓝牙设备指定特征值的二进制数据值
      * 指定的特征值需支持read操作才可以成功调用。
-     * 	并行调用多次可能导致读取失败，读取的数据需要在onBLECharacteristicValueChange方法注册的回调中获取。
+     *     并行调用多次可能导致读取失败，读取的数据需要在onBLECharacteristicValueChange方法注册的回调中获取。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
@@ -833,7 +833,7 @@ interface PlusBluetooth {
     /**
      * 向低功耗蓝牙设备指定特征值写入二进制数据
      * 指定的特征值需支持write操作才可以成功调用。
-     * 	并行调用多次可能导致读取失败，系统可能会限制单次传输的数据大小，超过最大字节数后可能会发生写入错误，建议每次写入不超过20字节。
+     *     并行调用多次可能导致读取失败，系统可能会限制单次传输的数据大小，超过最大字节数后可能会发生写入错误，建议每次写入不超过20字节。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
@@ -1005,7 +1005,7 @@ interface PlusCameraCamera {
     /**
      * 字符串数组，摄像头支持的拍照分辨率
      * 属性类型为String[]，若不支持此属性则返回空数组对象。
-     * 	摄像头支持的拍照图片分辨率字符串形式“WIDTH*Height”，如“400*800”；如果支持任意自定义分辨率则“*”。
+     *     摄像头支持的拍照图片分辨率字符串形式“WIDTH*Height”，如“400*800”；如果支持任意自定义分辨率则“*”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
@@ -1013,7 +1013,7 @@ interface PlusCameraCamera {
     /**
      * 字符串数组，摄像头支持的摄像分辨率
      * 属性类型为String[]，若不支持此属性则返回空数组对象。
-     * 	摄像头支持的视频分辨率字符串形式为“WIDTH*Height”，如“400*800”；如果支持任意自定义分辨率则“*”。
+     *     摄像头支持的视频分辨率字符串形式为“WIDTH*Height”，如“400*800”；如果支持任意自定义分辨率则“*”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
@@ -1021,7 +1021,7 @@ interface PlusCameraCamera {
     /**
      * 字符串数组，摄像头支持的拍照文件格式
      * 属性类型为String[]，若不支持此属性则返回空数组对象。
-     * 	摄像头支持的图片文件格式字符串形式为文件格式后缀名，如“jpg”、“png”、“bmp”。
+     *     摄像头支持的图片文件格式字符串形式为文件格式后缀名，如“jpg”、“png”、“bmp”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
@@ -1029,7 +1029,7 @@ interface PlusCameraCamera {
     /**
      * 字符串数组，摄像头支持的摄像文件格式
      * 属性类型为String[]，若不支持此属性则返回空数组对象。
-     * 	摄像头支持的视频文件格式字符串形式为文件格式后缀名，如“3gp”、“mp4”、“avi”。
+     *     摄像头支持的视频文件格式字符串形式为文件格式后缀名，如“3gp”、“mp4”、“avi”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
@@ -1037,8 +1037,8 @@ interface PlusCameraCamera {
     /**
      * 进行拍照操作
      * 摄像头资源为独占资源，如果其它程序或页面已经占用摄像头，再次操作则失败。
-     * 	拍照操作成功将通过successCB返回拍照获取的图片路径。
-     * 	可通过option设置摄像头的各种属性参数。
+     *     拍照操作成功将通过successCB返回拍照获取的图片路径。
+     *     可通过option设置摄像头的各种属性参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
@@ -1046,8 +1046,8 @@ interface PlusCameraCamera {
     /**
      * 调用摄像头进行摄像操作
      * 摄像头资源为独占资源，如果其它程序或页面已经占用摄像头，再次操作则失败。
-     * 	拍照操作成功将通过successCB返回摄像获取的视频文件路径。
-     * 	可通过option设置摄像头的各种属性参数。
+     *     拍照操作成功将通过successCB返回摄像获取的视频文件路径。
+     *     可通过option设置摄像头的各种属性参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
@@ -1055,8 +1055,8 @@ interface PlusCameraCamera {
     /**
      * 结束摄像操作
      * 开始调用摄像头进行摄像操作后，可在后台结束摄像操作，与用户在界面结束操作效果一致。
-     * 	摄像操作成功将通过startVideoCapture函数中的successCB返回拍照获取的图片路径。
-     * 	用户如果没有进行摄像操作关闭摄像头页面则调用失败回调函数。
+     *     摄像操作成功将通过startVideoCapture函数中的successCB返回拍照获取的图片路径。
+     *     用户如果没有进行摄像操作关闭摄像头页面则调用失败回调函数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
@@ -1072,7 +1072,7 @@ interface PlusCameraCameraOptions {
     /**
      * 拍照或摄像文件保存的路径
      * 可设置具体文件名（如"_doc/camera/a.jpg"）；也可只设置路径，以"/"结尾则表明是路径（如"_doc/camera/"）。
-     * 	如未设置文件名称或设置的文件名冲突则文件名由程序程序自动生成。
+     *     如未设置文件名称或设置的文件名冲突则文件名由程序程序自动生成。
      * - _doc/: 应用私有文档目录
      * - _documents/: 共享文档目录
      * - _downloads/: 共享下载目录
@@ -1099,8 +1099,8 @@ interface PlusCameraCameraOptions {
     /**
      * 视频长度
      * 单位为秒（s），小于等于0表示不限定视频长度。
-     * 	默认值为0（不限定视频长度）。
-     * 	注意：仅在调用拍摄视频（startVideoCapture）时有效。
+     *     默认值为0（不限定视频长度）。
+     *     注意：仅在调用拍摄视频（startVideoCapture）时有效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
@@ -1108,11 +1108,11 @@ interface PlusCameraCameraOptions {
     /**
      * 是否优化图片
      * 自动调整图片的方向，在部分设备上可能出现图片方向不正确的问题，此参数将配置是否自动调整图片方向。
-     * 	可取值：
-     * 		true - 自动调整图片方向；
-     * 		false - 不调整。
-     * 	默认值为true。
-     * 	注意：自动调整图片方向将消耗部分系统资源，可能会导致拍照后回调触发时机延迟，将此值设置为false则可避免延迟问题。
+     *     可取值：
+     *         true - 自动调整图片方向；
+     *         false - 不调整。
+     *     默认值为true。
+     *     注意：自动调整图片方向将消耗部分系统资源，可能会导致拍照后回调触发时机延迟，将此值设置为false则可避免延迟问题。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
@@ -1284,7 +1284,7 @@ interface PlusContactsContact {
     /**
      * 联系人的id
      * 联系人id由系统分配维护，从系统获取联系人时自动赋值，再次查询时可使用此id值进行检索。
-     * 	注意：此值为只读属性，改写此值可能会导致无法预期的错误。
+     *     注意：此值为只读属性，改写此值可能会导致无法预期的错误。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
@@ -1358,8 +1358,8 @@ interface PlusContactsContact {
     /**
      * 数组，联系人的头像
      * 其值为头像图片url地址或图片数据：
-     * 	url地址：仅支持本地图片地址，可以是绝对路径或相对路径，如“_doc/a.png”；
-     * 	图片数据：必须符合Data URI scheme（RFC2397）格式的数据，如“image/png;base64,XXXX”，其中XXXX为base64编码的图片数据。在获取联系人时默认返回此类型的数据。
+     *     url地址：仅支持本地图片地址，可以是绝对路径或相对路径，如“_doc/a.png”；
+     *     图片数据：必须符合Data URI scheme（RFC2397）格式的数据，如“image/png;base64,XXXX”，其中XXXX为base64编码的图片数据。在获取联系人时默认返回此类型的数据。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
@@ -1624,8 +1624,8 @@ interface PlusDevice {
     /**
      * 设备的国际移动设备身份码
      * 调用此属性获取设备的国际移动设备身份码。
-     * 	如果设备不支持则返回空字符串。
-     * 	如果设备存在多个身份码，则以“,”字符分割拼接，如“862470039452950,862470039452943”。
+     *     如果设备不支持则返回空字符串。
+     *     如果设备存在多个身份码，则以“,”字符分割拼接，如“862470039452950,862470039452943”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
@@ -1633,8 +1633,8 @@ interface PlusDevice {
     /**
      * 设备的国际移动用户识别码
      * 字符串数组类型，获取设备上插入SIM的国际移动设备身份码。
-     * 	如果设备支持多卡模式则返回所有SIM身份码。
-     * 	如果设备不支持或没有插入SIM卡则返回空数组。
+     *     如果设备支持多卡模式则返回所有SIM身份码。
+     *     如果设备不支持或没有插入SIM卡则返回空数组。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
@@ -1642,7 +1642,7 @@ interface PlusDevice {
     /**
      * 设备的型号
      * 调用此属性获取设备的型号信息。
-     * 	如果设备不支持则返回空字符串。
+     *     如果设备不支持则返回空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
@@ -1650,7 +1650,7 @@ interface PlusDevice {
     /**
      * 设备的生产厂商
      * 调用此属性获取设备的生产厂商信息。
-     * 	如果设备不支持则返回空字符串。
+     *     如果设备不支持则返回空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
@@ -1722,7 +1722,7 @@ interface PlusScreen {
     /**
      * 设备屏幕高度分辨率
      * 设备屏幕区域包括系统状态栏显示区域和应用显示区域，screen获取的是设备屏幕总区域的逻辑分辨率，单位为px。
-     * 	如果需要获取实际分辨率则需要乘以比例值scale。
+     *     如果需要获取实际分辨率则需要乘以比例值scale。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
@@ -1730,7 +1730,7 @@ interface PlusScreen {
     /**
      * 设备屏幕宽度分辨率
      * 设备屏幕区域包括系统状态栏显示区域和应用显示区域，screen获取的是设备屏幕总区域的分辨率，单位为px。
-     * 	如果需要获取实际分辨率则需要乘以比例值scale。
+     *     如果需要获取实际分辨率则需要乘以比例值scale。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
@@ -1773,7 +1773,7 @@ interface PlusScreen {
     /**
      * 锁定屏幕方向
      * 锁定屏幕方向后屏幕只能按锁定的屏幕方向显示，关闭当前页面后仍然有效。
-     * 	可再次调用此方法修改屏幕锁定方向或调用unlockOrientation()方法恢复到应用的默认值。
+     *     可再次调用此方法修改屏幕锁定方向或调用unlockOrientation()方法恢复到应用的默认值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
@@ -1796,7 +1796,7 @@ interface PlusDisplay {
     /**
      * 应用可使用的屏幕高度逻辑分辨率
      * 设备屏幕区域包括系统状态栏显示区域和应用显示区域，display获取的是应用显示区域的逻辑分辨率，单位为px。
-     * 	如果需要获取实际分辨率则需要乘以比例值scale。
+     *     如果需要获取实际分辨率则需要乘以比例值scale。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
@@ -1804,7 +1804,7 @@ interface PlusDisplay {
     /**
      * 应用可使用的屏幕宽度逻辑分辨率
      * 设备屏幕区域包括系统状态栏显示区域和应用显示区域，display获取的是应用显示区域的逻辑分辨率，单位为px。
-     * 	如果需要获取实际分辨率则需要乘以比例值scale。
+     *     如果需要获取实际分辨率则需要乘以比例值scale。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
@@ -1899,11 +1899,11 @@ interface PlusOs {
      * 系统的名称
      * 获取当前操作系统的名称，字符串类型数据。
      * - iOS: 
-     * 	iOS系统。
-     * 								
+     *     iOS系统。
+     *                                 
      * - Android: 
-     * 	Android系统。
-     * 								
+     *     Android系统。
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
@@ -1912,11 +1912,11 @@ interface PlusOs {
      * 系统的供应商信息
      * 获取当前操作系统的供应商名称，字符串类型数据。
      * - Apple: 
-     * 	iOS设备，包括iPhone、iPad、iTouch。
-     * 								
+     *     iOS设备，包括iPhone、iPad、iTouch。
+     *                                 
      * - Google: 
-     * 	Android设备。
-     * 								
+     *     Android设备。
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
@@ -1978,7 +1978,7 @@ interface PlusDownloader {
     /**
      * 开始所有下载任务
      * 开始所有处于为开始调度或暂停状态的下载任务。
-     * 	若下载任务数超过可并发处理的总数，超出的任务处于调度状态（等待下载），当有任务完成时根据调度状态任务的优先级选择任务开始下载。
+     *     若下载任务数超过可并发处理的总数，超出的任务处于调度状态（等待下载），当有任务完成时根据调度状态任务的优先级选择任务开始下载。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
@@ -2036,7 +2036,7 @@ interface PlusDownloaderDownload {
     /**
      * 下载任务文件的总大小
      * 整数类型，单位为字节（byte），下载任务开始传输数据时更新，在此之前其值为0。
-     * 	此值是从HTTP请求头中获取，如果服务器未返回则此值始终为0。
+     *     此值是从HTTP请求头中获取，如果服务器未返回则此值始终为0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
@@ -2044,7 +2044,7 @@ interface PlusDownloaderDownload {
     /**
      * 取消下载任务
      * 如果任务未完成，则终止下载，并从任务列表中删除。
-     * 	如下载未完成，将删除已下载的临时文件，如果下载已完成，将不删除已下载的文件。
+     *     如下载未完成，将删除已下载的临时文件，如果下载已完成，将不删除已下载的文件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
@@ -2066,7 +2066,7 @@ interface PlusDownloaderDownload {
     /**
      * 获取下载请求指定的HTTP响应头部的值
      * 其参数是要返回的HTTP响应头部的名称，可以使用任何大小写来制定这个头部名字，和响应头部的比较是不区分大小写的。
-     * 	如果没有接收到这个头部或者下载请求未完成则为空字符串；如果接收到多个有指定名称的头部，这个头部的值被连接起来并返回，使用逗号和空格分隔开各个头部的值。
+     *     如果没有接收到这个头部或者下载请求未完成则为空字符串；如果接收到多个有指定名称的头部，这个头部的值被连接起来并返回，使用逗号和空格分隔开各个头部的值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
@@ -2074,7 +2074,7 @@ interface PlusDownloaderDownload {
     /**
      * 暂停下载任务
      * 暂停下载任务，如果任务已经处于初始状态或暂停状态则无任何响应。
-     * 	通常在任务已开始后暂停任务。
+     *     通常在任务已开始后暂停任务。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
@@ -2089,7 +2089,7 @@ interface PlusDownloaderDownload {
     /**
      * 设置下载请求的HTTP头数据
      * Http的Header应该包含在通过后续start()调用而发起的请求中，此方法必需在调用start()之前设置才能生效。
-     * 	如果带有指定名称的头部已经被指定了，这个头部的新值就是：之前指定的值，加上逗号、以及这个调用指定的值（形成一个数组）。
+     *     如果带有指定名称的头部已经被指定了，这个头部的新值就是：之前指定的值，加上逗号、以及这个调用指定的值（形成一个数组）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
@@ -2097,7 +2097,7 @@ interface PlusDownloaderDownload {
     /**
      * 开始下载任务
      * 开始下载任务，如果任务已经处于开始状态则无任何响应。
-     * 	在创建任务或任务下载失败后调用可重新开始下载。
+     *     在创建任务或任务下载失败后调用可重新开始下载。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
@@ -2152,9 +2152,9 @@ interface PlusDownloaderDownloadOptions {
     /**
      * 下载文件保存的路径
      * 保存文件路径仅支持以"_downloads/"、"_doc/"、"_documents/"开头的字符串。
-     * 	文件路径以文件后缀名结尾（如"_doc/download/a.doc"）表明指定保存文件目录及名称，以“/”结尾则认为指定保存文件的目录（此时程序自动生成文件名）。
-     * 	如果指定的文件已经存在，则自动在文件名后面加"(i)"，其中i为数字，如果文件名称后面已经是此格式，则数字i递增，如"download(1).doc"。
-     * 	默认保存目录为（"_downloads"），并自动生成文件名称。
+     *     文件路径以文件后缀名结尾（如"_doc/download/a.doc"）表明指定保存文件目录及名称，以“/”结尾则认为指定保存文件的目录（此时程序自动生成文件名）。
+     *     如果指定的文件已经存在，则自动在文件名后面加"(i)"，其中i为数字，如果文件名称后面已经是此格式，则数字i递增，如"download(1).doc"。
+     *     默认保存目录为（"_downloads"），并自动生成文件名称。
      * - _doc/: 应用私有文档目录
      * - _documents/: 共享文档目录
      * - _downloads/: 共享下载目录
@@ -2172,7 +2172,7 @@ interface PlusDownloaderDownloadOptions {
     /**
      * 下载任务超时时间
      * 数值类型，单位为s(秒)，默认值为120s。
-     * 	超时时间为服务器响应请求的时间（不是下载任务完成的总时间），如果设置为0则表示永远不超时。
+     *     超时时间为服务器响应请求的时间（不是下载任务完成的总时间），如果设置为0则表示永远不超时。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
@@ -2222,7 +2222,7 @@ interface PlusFingerprint {
     /**
      * 当前设备是否设置密码锁屏
      * 如果设备没有设置密码锁屏，则无法使用指纹识别功能，建议调用指纹识别前先使用此接口检查。
-     * 	调用plus.fingerprint.authenticate会返回失败。
+     *     调用plus.fingerprint.authenticate会返回失败。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
@@ -2230,7 +2230,7 @@ interface PlusFingerprint {
     /**
      * 当前设备是否已经录入指纹
      * 如果设备没有录入指纹，则无法使用指纹识别功能，建议调用指纹识别前先使用此接口检查。
-     * 	调用plus.fingerprint.authenticate会返回失败。
+     *     调用plus.fingerprint.authenticate会返回失败。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
@@ -2245,7 +2245,7 @@ interface PlusFingerprint {
     /**
      * 取消指纹识别认证
      * 取消当前正在处理的指纹识别认证操作。
-     * 	如果当前没有进行指纹识别则不进行任何操作；如果当前正在进行指纹识别则触发错误回调（错误码为“CANCEL”）。
+     *     如果当前没有进行指纹识别则不进行任何操作；如果当前正在进行指纹识别则触发错误回调（错误码为“CANCEL”）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
@@ -2298,7 +2298,7 @@ interface PlusFingerprintFingerprintError {
     /**
      * 指纹识别不匹配
      * 用户指纹识别认证不通过时返回此错误，错误代码常量值为4。
-     * 	用户每次尝试指纹识别认证未通过都会触发此错误，此时还可以继续识别认证。
+     *     用户每次尝试指纹识别认证未通过都会触发此错误，此时还可以继续识别认证。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
@@ -2306,7 +2306,7 @@ interface PlusFingerprintFingerprintError {
     /**
      * 指纹识别次数超过限制
      * 用户多次指纹识别认证不通过时返回此错误，错误代码常量值为5。
-     * 	通常出现此错误后系统会锁定一段时间禁止使用指纹识别，如果再次调用指纹识别认证会立即返回此错误，因此出现此错误时应该提示用户使用其它方式进行认证。
+     *     通常出现此错误后系统会锁定一段时间禁止使用指纹识别，如果再次调用指纹识别认证会立即返回此错误，因此出现此错误时应该提示用户使用其它方式进行认证。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
@@ -2381,8 +2381,8 @@ interface PlusGallery {
     /**
      * 保存文件到系统相册中
      * 保存文件到系统相册中。
-     * 	每次仅能保存一个文件，支持图片类型（jpg/jpeg、png、bmp等格式）和视频文件（3gp、mov等格式）。
-     * 	若保存的文件系统不支持，则通过errorCB返回错误信息。
+     *     每次仅能保存一个文件，支持图片类型（jpg/jpeg、png、bmp等格式）和视频文件（3gp、mov等格式）。
+     *     若保存的文件系统不支持，则通过errorCB返回错误信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
@@ -2405,7 +2405,7 @@ interface PlusGalleryGalleryOptions {
     /**
      * 选择文件保存的路径
      * 某些系统不能直接使用系统相册的路径，这时需要将选择的文件保存到应用可访问的目录中，可通过此参数设置保存文件的路径。
-     * 	如果路径中包括文件后缀名称，则表明指定文件路径及名称，否则仅指定文件保存目录，文件名称自动生成。
+     *     如果路径中包括文件后缀名称，则表明指定文件路径及名称，否则仅指定文件保存目录，文件名称自动生成。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
@@ -2423,7 +2423,7 @@ interface PlusGalleryGalleryOptions {
     /**
      * 最多选择的图片数量
      * 仅在支持多选时有效，取值范围为1到Infinity，默认值为Infinity，即不限制选择的图片数。
-     * 	如果设置的值非法则使用默认值Infinity。
+     *     如果设置的值非法则使用默认值Infinity。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
@@ -2445,7 +2445,7 @@ interface PlusGalleryGalleryOptions {
     /**
      * 相册选择界面弹出指示区域
      * 对于大屏幕设备如iPad，相册选择界面为弹出窗口，此时可通过此参数设置弹出窗口位置。
-     * 	其为JSON对象，格式如{top:"10px",left:"10px",width:"200px",height:"200px"}，所有值为像素值，左上坐标相对于容器的位置，默认弹出位置为屏幕居中。
+     *     其为JSON对象，格式如{top:"10px",left:"10px",width:"200px",height:"200px"}，所有值为像素值，左上坐标相对于容器的位置，默认弹出位置为屏幕居中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
@@ -2453,7 +2453,7 @@ interface PlusGalleryGalleryOptions {
     /**
      * 已选择的图片路径列表
      * 仅在多图片选择时生效，相册选择界面将选中指定的图片路径列表。
-     * 	如果指定的路径无效，则忽略此项；如果指定的路径数超过maximum属性指定的最大选择数目则超出的图片不选中。
+     *     如果指定的路径无效，则忽略此项；如果指定的路径数超过maximum属性指定的最大选择数目则超出的图片不选中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
@@ -2461,7 +2461,7 @@ interface PlusGalleryGalleryOptions {
     /**
      * 是否使用系统相册文件选择界面
      * multiple属性设置为true时，如果系统自带相册选择控件时则优先使用，否则使用5+统一相册选择控件；设置为false则不使用系统自带相册选择控件，直接使用5+统一相册选择界面。
-     * 	默认值为true。
+     *     默认值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
@@ -2590,8 +2590,8 @@ interface PlusGeolocation {
     /**
      * 监听设备位置变化信息
      * 位置信息将通过手机GPS设备或其它信息如IP地址、移动网络信号获取。
-     * 	当位置信息更新后将通过successCB回调函数返回。
-     * 	位置信息获取失败则调用回调函数errorCB。
+     *     当位置信息更新后将通过successCB回调函数返回。
+     *     位置信息获取失败则调用回调函数errorCB。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
@@ -2619,10 +2619,10 @@ interface PlusGeolocationPosition {
     /**
      * 获取到地理坐标信息的坐标系类型
      * 可取以下坐标系类型：
-     * 	"gps"：表示WGS-84坐标系；
-     * 	"gcj02"：表示国测局经纬度坐标系；
-     * 	"bd09"：表示百度墨卡托坐标系；
-     * 	"bd09ll"：表示百度经纬度坐标系。
+     *     "gps"：表示WGS-84坐标系；
+     *     "gcj02"：表示国测局经纬度坐标系；
+     *     "bd09"：表示百度墨卡托坐标系；
+     *     "bd09ll"：表示百度经纬度坐标系。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
@@ -2637,7 +2637,7 @@ interface PlusGeolocationPosition {
     /**
      * 获取到地理位置对应的地址信息
      * 获取地址信息需要连接到服务器进行解析，所以会消耗更多的资源，如果不需要获取地址信息可通过设置PositionOptions参数的geocode属性值为false避免获取地址信息。
-     * 	如果没有获取到地址信息则返回undefined。
+     *     如果没有获取到地址信息则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
@@ -2802,7 +2802,7 @@ interface PlusGeolocationPositionOptions {
     /**
      * 获取位置信息的间隔时间
      * 单位为毫秒（ms），默认值为5000（即5秒）。调用plus.geolocation.watchPosition时为更新位置信息的间隔时间。
-     * 	注意：在不同定位模块下支持范围值可能不同，如百度定位模块的间隔范围为大于等于1秒，如果设置的值小于最小值则使用最小值。
+     *     注意：在不同定位模块下支持范围值可能不同，如百度定位模块的间隔范围为大于等于1秒，如果设置的值小于最小值则使用最小值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
@@ -2810,11 +2810,11 @@ interface PlusGeolocationPositionOptions {
     /**
      * 优先使用的定位模块
      * 可取以下供应者：
-     * 	"system"：表示系统定位模块，支持wgs84坐标系；
-     * 	"baidu"：表示百度定位模块，支持gcj02/bd09/bd09ll坐标系；
-     * 	"amap"：表示高德定位模板，支持gcj02坐标系。
-     * 	默认值按以下优先顺序获取（amap&gt;baidu&gt;system），若指定的provider不存在或无效则返回错误回调。
-     * 	注意：百度/高德定位模块需要配置百度/高德地图相关参数才能正常使用。
+     *     "system"：表示系统定位模块，支持wgs84坐标系；
+     *     "baidu"：表示百度定位模块，支持gcj02/bd09/bd09ll坐标系；
+     *     "amap"：表示高德定位模板，支持gcj02坐标系。
+     *     默认值按以下优先顺序获取（amap&gt;baidu&gt;system），若指定的provider不存在或无效则返回错误回调。
+     *     注意：百度/高德定位模块需要配置百度/高德地图相关参数才能正常使用。
      * - system: 优先使用系统定位模块
      * - baidu: 优先使用百度定位模块
      * - amap: 优先使用高德定位模块
@@ -2825,12 +2825,12 @@ interface PlusGeolocationPositionOptions {
     /**
      * 指定获取的定位数据坐标系类型
      * 可取以下坐标系类型：
-     * 	"wgs84"：表示WGS-84坐标系；
-     * 	"gcj02"：表示国测局经纬度坐标系；
-     * 	"bd09"：表示百度墨卡托坐标系；
-     * 	"bd09ll"：表示百度经纬度坐标系；
-     * 	provider为"system"时，默认使用"wgs84"坐标系；provider为"baidu"时，默认使用"gcj02"坐标系；provider为"amap"时，默认使用"gcj02"坐标系。
-     * 	如果设置的坐标系类型provider不支持，则返回错误。
+     *     "wgs84"：表示WGS-84坐标系；
+     *     "gcj02"：表示国测局经纬度坐标系；
+     *     "bd09"：表示百度墨卡托坐标系；
+     *     "bd09ll"：表示百度经纬度坐标系；
+     *     provider为"system"时，默认使用"wgs84"坐标系；provider为"baidu"时，默认使用"gcj02"坐标系；provider为"amap"时，默认使用"gcj02"坐标系。
+     *     如果设置的坐标系类型provider不支持，则返回错误。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
@@ -2838,7 +2838,7 @@ interface PlusGeolocationPositionOptions {
     /**
      * 是否解析地址信息
      * 解析的地址信息保存到Position对象的address、addresses属性中，true表示解析地址信息，false表示不解析地址信息，返回的Position对象的address、addresses属性值为undefined，默认值为true。
-     * 	如果解析地址信息失败则返回的Position对象的address、addresses属性值为null。
+     *     如果解析地址信息失败则返回的Position对象的address、addresses属性值为null。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
@@ -3021,7 +3021,7 @@ interface PlusIo {
     /**
      * 文件系统中的读取文件对象，用于获取文件的内容
      * FileReader对象是从设备文件系统读取文件FileReader对象是从设备文件系统读取文件的一种方式，文件以文本或者Base64编码的字符串形式读出来。
-     * 	用户注册自己的事件监听器来接收loadstart、progress、load、loadend、error和abort事件。
+     *     用户注册自己的事件监听器来接收loadstart、progress、load、loadend、error和abort事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3029,8 +3029,8 @@ interface PlusIo {
     /**
      * 文件系统中的写文件对象，用于写入文件内容
      * FileWriter对象是从设备文件系统写入文件FileWriter对象是从设备文件系统写入文件的一种方式，用户注册自己的事件监听器来接收writestart、progress、write、writeend、error和abort事件。
-     * 	一个FileWriter对象是为单个文件的操作而创建。你可以使用该对象多次对相应文件进行写入操作。FileWriter维护该文件的指针位置及长度属性，这样你就可以寻找和写入文件的任何地方。
-     * 	默认情况下，FileWriter从文件的开头开始写入（将覆盖现有数据）。FileWriter对象的seek方法可设置文件操作指定位置，如fw.seek(fw.length-1)写入操作就会从文件的末尾开始。
+     *     一个FileWriter对象是为单个文件的操作而创建。你可以使用该对象多次对相应文件进行写入操作。FileWriter维护该文件的指针位置及长度属性，这样你就可以寻找和写入文件的任何地方。
+     *     默认情况下，FileWriter从文件的开头开始写入（将覆盖现有数据）。FileWriter对象的seek方法可设置文件操作指定位置，如fw.seek(fw.length-1)写入操作就会从文件的末尾开始。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3058,7 +3058,7 @@ interface PlusIo {
     /**
      * 文件或目录操作事件对象
      * 所有文件或目录操作事件回调函数中都创建该对象的实例。
-     * 	该对象从DOMEvent继承而来，可通过该其target属性获取事件触发的文件或目录操作对象。
+     *     该对象从DOMEvent继承而来，可通过该其target属性获取事件触发的文件或目录操作对象。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3080,7 +3080,7 @@ interface PlusIo {
     /**
      * 本地路径URL
      * 可在html页面中直接访问本地资源，以“file:///”开头，后面跟随系统的绝对路径。
-     * 	如示例：“file:///D:/res/hello.html”。
+     *     如示例：“file:///D:/res/hello.html”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3088,7 +3088,7 @@ interface PlusIo {
     /**
      * 网络路径URL
      * 可在html页面中以网络资源模式访问本地资源，以“http://”开头，后面跟随相对路径。
-     * 	如示例：“http://localhost:13131/_www/res/icon.png”，其中“_www”字段可支持类型与相对路径URL一致。
+     *     如示例：“http://localhost:13131/_www/res/icon.png”，其中“_www”字段可支持类型与相对路径URL一致。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3096,7 +3096,7 @@ interface PlusIo {
     /**
      * 应用运行资源目录常量
      * 本地文件系统常量，Number类型，固定值1。应用运行资源目录，仅本应用可访问。
-     * 	为了确保应用资源的安全性，此目录只可读。
+     *     为了确保应用资源的安全性，此目录只可读。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3125,7 +3125,7 @@ interface PlusIo {
     /**
      * 请求本地文件系统对象
      * 获取指定的文件系统，可通过type指定获取文件系统的类型。
-     * 	获取指定的文件系统对象成功通过succesCB回调返回，失败则通过errorCB返回。
+     *     获取指定的文件系统对象成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3133,8 +3133,8 @@ interface PlusIo {
     /**
      * 通过URL参数获取目录对象或文件对象
      * 快速获取指定的目录或文件操作对象，如通过URL值“_www/test.html”可直接获取文件操作对象。
-     * 	url值可支持相对路径URL、本地路径URL。
-     * 	获取指定的文件或目录操作对象成功通过succesCB回调返回，如果指定URL路径或文件不存在则失败通过errorCB回调返回。
+     *     url值可支持相对路径URL、本地路径URL。
+     *     获取指定的文件或目录操作对象成功通过succesCB回调返回，如果指定URL路径或文件不存在则失败通过errorCB回调返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3149,7 +3149,7 @@ interface PlusIo {
     /**
      * 将平台绝对路径转换成本地URL路径
      * 绝对路径符合各平台文件路径格式，转换后变成RelativeURL类型格式。
-     * 	功能与convertLocalFileSystemURL方法相反，将绝对路径转换成相对路径。
+     *     功能与convertLocalFileSystemURL方法相反，将绝对路径转换成相对路径。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3195,7 +3195,7 @@ interface PlusIoDirectoryEntry {
     /**
      * 获取目录的属性
      * 用于获取文件或目录的属性信息。
-     * 	获取属性信息成功通过succesCB回调返回，失败则通过errorCB返回。
+     *     获取属性信息成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3203,11 +3203,11 @@ interface PlusIoDirectoryEntry {
     /**
      * 移动目录
      * 以下情况移动目录将会导致失败：
-     * 	将父目录移动到子目录中；
-     * 	要移动到的目标目录无效；
-     * 	要移动到的目标路径被文件占用；
-     * 	要移动到的目标目录已经存在并且不为空。
-     * 	移动目录成功通过succesCB回调返回，失败则通过errorCB返回。
+     *     将父目录移动到子目录中；
+     *     要移动到的目标目录无效；
+     *     要移动到的目标路径被文件占用；
+     *     要移动到的目标目录已经存在并且不为空。
+     *     移动目录成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3215,11 +3215,11 @@ interface PlusIoDirectoryEntry {
     /**
      * 拷贝目录
      * 以下情况拷贝目录将会导致失败：
-     * 	将父目录拷贝到子目录中；
-     * 	要拷贝到的目标目录无效；
-     * 	要拷贝到的目标路径被文件占用；
-     * 	要拷贝到的目标目录已经存在并且不为空。
-     * 	拷贝目录成功通过succesCB回调返回，失败则通过errorCB返回。
+     *     将父目录拷贝到子目录中；
+     *     要拷贝到的目标目录无效；
+     *     要拷贝到的目标路径被文件占用；
+     *     要拷贝到的目标目录已经存在并且不为空。
+     *     拷贝目录成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3245,9 +3245,9 @@ interface PlusIoDirectoryEntry {
     /**
      * 删除目录
      * 以下情况删除目录将会导致失败：
-     * 	目录中存在文件；
-     * 	删除根目录；
-     * 	删除目录成功通过succesCB回调返回，失败则通过errorCB返回。
+     *     目录中存在文件；
+     *     删除根目录；
+     *     删除目录成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3269,7 +3269,7 @@ interface PlusIoDirectoryEntry {
     /**
      * 创建或打开子目录
      * 创建或打开当前目录指定的目录。
-     * 	创建或打开目录操作成功通过succesCB回调返回，失败则通过errorCB返回。
+     *     创建或打开目录操作成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3277,7 +3277,7 @@ interface PlusIoDirectoryEntry {
     /**
      * 创建或打开文件
      * 创建或打开当前目录下指定的文件。
-     * 	创建或打开文件操作对象成功通过succesCB回调返回，失败则通过errorCB返回。
+     *     创建或打开文件操作对象成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3285,8 +3285,8 @@ interface PlusIoDirectoryEntry {
     /**
      * 递归删除目录
      * 删除目录将会删除其下的所有文件及子目录
-     * 	不能删除根目录，如果操作删除根目录将会删除目录下的文件及子目录，不会删除根目录自身。
-     * 	删除目录成功通过succesCB回调返回，失败则通过errorCB返回。
+     *     不能删除根目录，如果操作删除根目录将会删除目录下的文件及子目录，不会删除根目录自身。
+     *     删除目录成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3302,7 +3302,7 @@ interface PlusIoDirectoryReader {
     /**
      * 获取当前目录中的所有文件和子目录
      * 获取当前目录下的所有文件和子目录。
-     * 	获取操作成功通过succesCB回调返回，失败则通过errorCB返回。
+     *     获取操作成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3394,7 +3394,7 @@ interface PlusIoFileEntry {
     /**
      * 获取文件的属性信息
      * 用于获取文件的属性信息。
-     * 	获取属性信息成功通过succesCB回调返回，失败则通过errorCB返回。
+     *     获取属性信息成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3402,9 +3402,9 @@ interface PlusIoFileEntry {
     /**
      * 移动文件
      * 以下情况移动目录将会导致失败：
-     * 	要移动到的目标目录无效；
-     * 	要移动到的目标路径被其它文件占用；
-     * 	移动文件成功通过succesCB回调返回，失败则通过errorCB返回。
+     *     要移动到的目标目录无效；
+     *     要移动到的目标路径被其它文件占用；
+     *     移动文件成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3412,9 +3412,9 @@ interface PlusIoFileEntry {
     /**
      * 拷贝文件
      * 以下情况拷贝文件将会导致失败：
-     * 	要拷贝到的目标目录无效；
-     * 	要拷贝到的目标路径被其它文件占用；
-     * 	拷贝文件成功通过succesCB回调返回，失败则通过errorCB返回。
+     *     要拷贝到的目标目录无效；
+     *     要拷贝到的目标路径被其它文件占用；
+     *     拷贝文件成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3471,7 +3471,7 @@ interface PlusIoFileEntry {
 /**
  * 文件系统中的读取文件对象，用于获取文件的内容
  * FileReader对象是从设备文件系统读取文件FileReader对象是从设备文件系统读取文件的一种方式，文件以文本或者Base64编码的字符串形式读出来。
- * 	用户注册自己的事件监听器来接收loadstart、progress、load、loadend、error和abort事件。
+ *     用户注册自己的事件监听器来接收loadstart、progress、load、loadend、error和abort事件。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
  */
@@ -3554,7 +3554,7 @@ interface PlusIoFileReader {
     /**
      * 终止文件读取操作
      * 读取文件操作开始后，可通过此方法取消读取文件。
-     * 	调用此方法后将触发文件读取对象的onabort事件。
+     *     调用此方法后将触发文件读取对象的onabort事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3578,8 +3578,8 @@ interface PlusIoFileReader {
 /**
  * 文件系统中的写文件对象，用于写入文件内容
  * FileWriter对象是从设备文件系统写入文件FileWriter对象是从设备文件系统写入文件的一种方式，用户注册自己的事件监听器来接收writestart、progress、write、writeend、error和abort事件。
- * 	一个FileWriter对象是为单个文件的操作而创建。你可以使用该对象多次对相应文件进行写入操作。FileWriter维护该文件的指针位置及长度属性，这样你就可以寻找和写入文件的任何地方。
- * 	默认情况下，FileWriter从文件的开头开始写入（将覆盖现有数据）。FileWriter对象的seek方法可设置文件操作指定位置，如fw.seek(fw.length-1)写入操作就会从文件的末尾开始。
+ *     一个FileWriter对象是为单个文件的操作而创建。你可以使用该对象多次对相应文件进行写入操作。FileWriter维护该文件的指针位置及长度属性，这样你就可以寻找和写入文件的任何地方。
+ *     默认情况下，FileWriter从文件的开头开始写入（将覆盖现有数据）。FileWriter对象的seek方法可设置文件操作指定位置，如fw.seek(fw.length-1)写入操作就会从文件的末尾开始。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
  */
@@ -3668,7 +3668,7 @@ interface PlusIoFileWriter {
     /**
      * 终止文件写入操作
      * 写入文件数据操作开始后，可通过此方法取消写入文件数据操作。
-     * 	调用此方法后将触发文件写入对象的onabort事件。
+     *     调用此方法后将触发文件写入对象的onabort事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3676,7 +3676,7 @@ interface PlusIoFileWriter {
     /**
      * 定位文件操作位置
      * 定位文件的操作位置，有效值为0到文件的总长度减1。
-     * 	0表示文件的起始位置。
+     *     0表示文件的起始位置。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3691,7 +3691,7 @@ interface PlusIoFileWriter {
     /**
      * 向文件中写入数据
      * 从文件当前定位的位置开始，写入数据到文件中。
-     * 	如果文件中已经存在数据，新写入的数据将覆盖已有数据。
+     *     如果文件中已经存在数据，新写入的数据将覆盖已有数据。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3781,7 +3781,7 @@ interface PlusIoMetadata {
 /**
  * 文件或目录操作事件对象
  * 所有文件或目录操作事件回调函数中都创建该对象的实例。
- * 	该对象从DOMEvent继承而来，可通过该其target属性获取事件触发的文件或目录操作对象。
+ *     该对象从DOMEvent继承而来，可通过该其target属性获取事件触发的文件或目录操作对象。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
  */
@@ -3835,7 +3835,7 @@ interface PlusIoRelativeURL {
     /**
      * 应用资源目录
      * 保存应用的所有html、css、js等资源文件，与文件系统中根目录PRIVATE_WWW一致，后面加相对路径如“_www/res/icon.png”。
-     * 	注意：应用资源目录是只读目录，只能读取次目录下的文件，不能修改或新建。
+     *     注意：应用资源目录是只读目录，只能读取次目录下的文件，不能修改或新建。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
@@ -3866,7 +3866,7 @@ interface PlusIoRelativeURL {
 /**
  * 本地路径URL
  * 可在html页面中直接访问本地资源，以“file:///”开头，后面跟随系统的绝对路径。
- * 	如示例：“file:///D:/res/hello.html”。
+ *     如示例：“file:///D:/res/hello.html”。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
  */
@@ -3874,7 +3874,7 @@ type PlusIoLocalURL = any;
 /**
  * 网络路径URL
  * 可在html页面中以网络资源模式访问本地资源，以“http://”开头，后面跟随相对路径。
- * 	如示例：“http://localhost:13131/_www/res/icon.png”，其中“_www”字段可支持类型与相对路径URL一致。
+ *     如示例：“http://localhost:13131/_www/res/icon.png”，其中“_www”字段可支持类型与相对路径URL一致。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
  */
@@ -3889,7 +3889,7 @@ interface PlusIos {
     /**
      * Objective-C类对象
      * Objective-C类对象，可通过其属性获取类的常量，可通过方法来操作类的静态方法，也通过new方法来创建类的实例对象。
-     * 	对于类的静态方法，则直接通过.后面跟随方法名称调用。
+     *     对于类的静态方法，则直接通过.后面跟随方法名称调用。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ios.html](http://www.html5plus.org/doc/zh_cn/ios.html)
      */
@@ -3897,7 +3897,7 @@ interface PlusIos {
     /**
      * Objective-C实例对象
      * Objective-C实例对象，可通过其方法来操作示例的变量和方法。
-     * 	注意：必须通过plusGetAttribute()方法读取示例对象的属性值，通过plusSetAttribute()方法设置示例对象的属性值。
+     *     注意：必须通过plusGetAttribute()方法读取示例对象的属性值，通过plusSetAttribute()方法设置示例对象的属性值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ios.html](http://www.html5plus.org/doc/zh_cn/ios.html)
      */
@@ -3905,8 +3905,8 @@ interface PlusIos {
     /**
      * 导入Objective-C类对象
      * 导入类对象后，就可以通过.操作符直接调用对象（类对象/实例对象）的方法。
-     * 	通过.操作符号调用方法时，不需要使用":"来分割参数。
-     * 	注意：导入类对象将会消耗较多的系统资源，不应该导入过多的类对象，可以使用plus.ios.invoke()来调用未导入类实例对象的方法。
+     *     通过.操作符号调用方法时，不需要使用":"来分割参数。
+     *     注意：导入类对象将会消耗较多的系统资源，不应该导入过多的类对象，可以使用plus.ios.invoke()来调用未导入类实例对象的方法。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ios.html](http://www.html5plus.org/doc/zh_cn/ios.html)
      */
@@ -3947,7 +3947,7 @@ interface PlusIos {
 /**
  * Objective-C类对象
  * Objective-C类对象，可通过其属性获取类的常量，可通过方法来操作类的静态方法，也通过new方法来创建类的实例对象。
- * 	对于类的静态方法，则直接通过.后面跟随方法名称调用。
+ *     对于类的静态方法，则直接通过.后面跟随方法名称调用。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/ios.html](http://www.html5plus.org/doc/zh_cn/ios.html)
  */
@@ -3956,7 +3956,7 @@ type PlusIosClassObject = any;
 /**
  * Objective-C实例对象
  * Objective-C实例对象，可通过其方法来操作示例的变量和方法。
- * 	注意：必须通过plusGetAttribute()方法读取示例对象的属性值，通过plusSetAttribute()方法设置示例对象的属性值。
+ *     注意：必须通过plusGetAttribute()方法读取示例对象的属性值，通过plusSetAttribute()方法设置示例对象的属性值。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/ios.html](http://www.html5plus.org/doc/zh_cn/ios.html)
  */
@@ -3996,9 +3996,9 @@ interface PlusKey {
     /**
      * 添加按键事件监听器
      * 添加按键事件监听器，当指定的按键事件发生时，回调函数将触发。
-     * 	应用中存在多个Webview窗口时，按照窗口的显示栈顺序从后往前查找，查找到添加按键事件监听器的窗口后停止（中断前面Webview窗口对按键事件的监听），并向窗口触发执行按键回调事件。
-     * 	在同一Webview窗口中可多次调用此方法对同一事件添加多个监听器，触发时按照添加的顺序先后调用。
-     * 	注意：此方法无法监听软键盘的按键事件。
+     *     应用中存在多个Webview窗口时，按照窗口的显示栈顺序从后往前查找，查找到添加按键事件监听器的窗口后停止（中断前面Webview窗口对按键事件的监听），并向窗口触发执行按键回调事件。
+     *     在同一Webview窗口中可多次调用此方法对同一事件添加多个监听器，触发时按照添加的顺序先后调用。
+     *     注意：此方法无法监听软键盘的按键事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
@@ -4013,7 +4013,7 @@ interface PlusKey {
     /**
      * 设置辅助输入类型
      * input的type类型为text获取焦点时，在软键盘上方显示辅助输入条方便用户快速输入。
-     * 	在页面中input编辑框type类型不为"tel"、"email"时生效（type为tel类型时一定显示tel的辅助输入条，type为email时一定显示email的辅助输入条）。
+     *     在页面中input编辑框type类型不为"tel"、"email"时生效（type为tel类型时一定显示tel的辅助输入条，type为email时一定显示email的辅助输入条）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
@@ -4050,7 +4050,7 @@ interface PlusKeyKeyType {
     /**
      * 键按下事件
      * 如果需要改变默认键按下的处理逻辑，则可通过plus.key.addEventListener来注册监听"keydown"事件。
-     * 	可通过回调函数中KeyEvent对象的keyCode来获取按下的键值。
+     *     可通过回调函数中KeyEvent对象的keyCode来获取按下的键值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
@@ -4058,7 +4058,7 @@ interface PlusKeyKeyType {
     /**
      * 键松开事件
      * 如果需要改变默认键松开的处理逻辑，则可通过plus.key.addEventListener来注册监听"keyup"事件。
-     * 	可通过回调函数中KeyEvent对象的keyCode来获取松开的键值。
+     *     可通过回调函数中KeyEvent对象的keyCode来获取松开的键值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
@@ -4066,7 +4066,7 @@ interface PlusKeyKeyType {
     /**
      * 长按键事件
      * 如果需要改变默认长按键的处理逻辑，则可通过plus.key.addEventListener来注册监听"longpressed"事件。
-     * 	长按键时会多次触发回调函数，通过回调函数中KeyEvent对象的keyCode来获取长按的键值。
+     *     长按键时会多次触发回调函数，通过回调函数中KeyEvent对象的keyCode来获取长按的键值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
@@ -4332,7 +4332,7 @@ interface PlusNativeObj {
     /**
      * 输入框样式
      * 用于定义输入框的显示样式，如字体大小，提示内容等信息。
-     * 	输入文本内容在指定区域水平居左，垂直居中显示。
+     *     输入文本内容在指定区域水平居左，垂直居中显示。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4425,22 +4425,22 @@ interface PlusNativeObjAnimationOptions {
     /**
      * 动画类型
      * 可取值：
-     * 	"pop-in" - 从右侧平移入栈动画效果（副窗口从右侧向左平移滑出显示，主窗口从当前屏幕区域向左侧平移滑出被遮盖），如果仅传入一个View控件对象则自动降级为slide-in-right动画；
-     * 	"pop-out" - 从右侧平移出栈动画效果（副窗口从当前屏幕区域向右侧平移出可视区域，主窗口从左侧向右平移滑出显示），如果仅出入一个View控件对象则自动降级为slide-out-right动画；
-     * 	"slide-in-right" - 从右侧横向滑动效果（主窗口从当前屏幕右侧外向内横向滑动显示）；
-     * 	"slide-out-right - 横向向右侧滑出屏幕动画（主窗口从屏幕中横向向右侧滑动到屏幕外）。
+     *     "pop-in" - 从右侧平移入栈动画效果（副窗口从右侧向左平移滑出显示，主窗口从当前屏幕区域向左侧平移滑出被遮盖），如果仅传入一个View控件对象则自动降级为slide-in-right动画；
+     *     "pop-out" - 从右侧平移出栈动画效果（副窗口从当前屏幕区域向右侧平移出可视区域，主窗口从左侧向右平移滑出显示），如果仅出入一个View控件对象则自动降级为slide-out-right动画；
+     *     "slide-in-right" - 从右侧横向滑动效果（主窗口从当前屏幕右侧外向内横向滑动显示）；
+     *     "slide-out-right - 横向向右侧滑出屏幕动画（主窗口从屏幕中横向向右侧滑动到屏幕外）。
      * - pop-in: 
-     * 	从右侧平移入栈动画效果（副窗口从右侧向左平移滑出显示，主窗口从当前屏幕区域向左侧平移滑出被遮盖）。
-     * 								
+     *     从右侧平移入栈动画效果（副窗口从右侧向左平移滑出显示，主窗口从当前屏幕区域向左侧平移滑出被遮盖）。
+     *                                 
      * - pop-out: 
-     * 	从右侧平移出栈动画效果（副窗口从当前屏幕区域向右侧平移出可视区域，主窗口从左侧向右平移滑出显示）。
-     * 								
+     *     从右侧平移出栈动画效果（副窗口从当前屏幕区域向右侧平移出可视区域，主窗口从左侧向右平移滑出显示）。
+     *                                 
      * - slide-in-right: 
-     * 	从右侧横向滑动效果（主窗口从当前屏幕右侧外向内横向滑动显示）。
-     * 								
+     *     从右侧横向滑动效果（主窗口从当前屏幕右侧外向内横向滑动显示）。
+     *                                 
      * - slide-out-right: 
-     * 	横向向右侧滑出屏幕动画（主窗口从屏幕中横向向右侧滑动到屏幕外）。
-     * 								
+     *     横向向右侧滑出屏幕动画（主窗口从屏幕中横向向右侧滑动到屏幕外）。
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4513,7 +4513,7 @@ interface PlusNativeObjBitmap {
     /**
      * 静态方法，获取指定标识的Bitmap图片对象
      * 在应用中已创建的图片对象中查找指定标识的Bitmap对象并返回。
-     * 	若存在多个相同标识的Bitmap图片，则返回第一个创建的Bitmap图片。
+     *     若存在多个相同标识的Bitmap图片，则返回第一个创建的Bitmap图片。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4528,7 +4528,7 @@ interface PlusNativeObjBitmap {
     /**
      * 加载Bitmap图片
      * 从指定的路径（仅支持本地文件系统）中加载图片，此操作将覆盖之前的图片内容，
-     * 	如果加载图片失败则保留之前的图片内容。
+     *     如果加载图片失败则保留之前的图片内容。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4536,7 +4536,7 @@ interface PlusNativeObjBitmap {
     /**
      * 加载Base64编码格式图片到Bitmap对象
      * 从Base64编码格式图片数据中加载图片，此操作将覆盖之前的图片内容，
-     * 	如果加载图片失败则保留之前的图片内容。
+     *     如果加载图片失败则保留之前的图片内容。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4544,7 +4544,7 @@ interface PlusNativeObjBitmap {
     /**
      * 回收Bitmap图片内存
      * 释放Bitmap图片占用的内存资源，但不销毁图片对象，依然可以继续使用图片对象。
-     * 	当图片对象再次被使用时会自动从设置的路径（构造函数或load/save方法设置）加载到内存中。
+     *     当图片对象再次被使用时会自动从设置的路径（构造函数或load/save方法设置）加载到内存中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4574,9 +4574,9 @@ interface PlusNativeObjBitmapSaveOptions {
     /**
      * 覆盖保存图片文件
      * 仅在保存的图片路径文件存在时有效：
-     * 	true表示覆盖存在的文件；
-     * 	false表示不覆盖，如果文件存在，则返回失败。
-     * 	默认值为false。
+     *     true表示覆盖存在的文件；
+     *     false表示不覆盖，如果文件存在，则返回失败。
+     *     默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4593,7 +4593,7 @@ interface PlusNativeObjBitmapSaveOptions {
     /**
      * 保存图片的质量
      * 取值范围为1-100，1表示使用最低的图片质量（保存后的图片文件最小）、100表示使用最高的图片质量（保存后的图片文件最大）；
-     * 	默认值为50。
+     *     默认值为50。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4647,9 +4647,9 @@ interface PlusNativeObjImageSliderStyles {
     /**
      * 是否自动播放
      * 可取值：
-     * 		"true" - 自动播放；
-     * 		"false" - 不自动播放。
-     * 	默认值为"false"。
+     *         "true" - 自动播放；
+     *         "false" - 不自动播放。
+     *     默认值为"false"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4657,9 +4657,9 @@ interface PlusNativeObjImageSliderStyles {
     /**
      * 是否可全屏显示
      * 可取值：
-     * 		"true" - 表示可全屏显示，用户点击轮播图片时全屏显示；
-     * 		"false" - 表示不可全屏显示，用户点击轮播图片时无响应。
-     * 	默认值为"true"。
+     *         "true" - 表示可全屏显示，用户点击轮播图片时全屏显示；
+     *         "false" - 表示不可全屏显示，用户点击轮播图片时无响应。
+     *     默认值为"true"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4667,9 +4667,9 @@ interface PlusNativeObjImageSliderStyles {
     /**
      * 是否可循环轮播
      * 可取值：
-     * 		"true" - 支持循环轮播；
-     * 		"false" - 不支持循环轮播。
-     * 	默认值为"false"。
+     *         "true" - 支持循环轮播；
+     *         "false" - 不支持循环轮播。
+     *     默认值为"false"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4700,7 +4700,7 @@ interface PlusNativeObjImageSliderImageStyles {
     /**
      * 图片地址
      * 支持本地地址（相对地址、绝对路径、RelativeURL、本地路径URL）；
-     * 	也支持网络地址（http://或https://）。
+     *     也支持网络地址（http://或https://）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4708,10 +4708,10 @@ interface PlusNativeObjImageSliderImageStyles {
     /**
      * 图片水平对齐方式
      * 仅在图片显示的宽度与图片轮播控件宽度不一致时有效，可取值：
-     * 		"left" - 图片在轮播控件中水平居左对齐；
-     * 		"center" - 图片在轮播控件中水平居中对齐；
-     * 		"right" - 图片在轮播控件中水平居右对齐。
-     * 	默认值为"center"。
+     *         "left" - 图片在轮播控件中水平居左对齐；
+     *         "center" - 图片在轮播控件中水平居中对齐；
+     *         "right" - 图片在轮播控件中水平居右对齐。
+     *     默认值为"center"。
      * - left: 图片在轮播控件中水平居左对齐
      * - center: 图片在轮播控件中水平居中对齐
      * - right: 图片在轮播控件中水平居右对齐
@@ -4722,9 +4722,9 @@ interface PlusNativeObjImageSliderImageStyles {
     /**
      * 图片显示的高度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，现对于图片轮播控件的高度；
-     * 		自动计算"auto"，如果指定图片宽度（width），则按图片实际大小等比缩放图片高度值，如果没有指定宽度（width值为"auto"）则自动缩放图片至可完整显示。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，现对于图片轮播控件的高度；
+     *         自动计算"auto"，如果指定图片宽度（width），则按图片实际大小等比缩放图片高度值，如果没有指定宽度（width值为"auto"）则自动缩放图片至可完整显示。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4732,10 +4732,10 @@ interface PlusNativeObjImageSliderImageStyles {
     /**
      * 图片显示的宽度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于图片轮播控件的宽度；
-     * 		自动计算"auto"，如果指定图片高度（height），则按图片实际大小等比缩放图片宽度值，如果没有指定高度（height值为"auto"）则自动缩放图片至可完整显示。
-     * 	默认值为"auto"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于图片轮播控件的宽度；
+     *         自动计算"auto"，如果指定图片高度（height），则按图片实际大小等比缩放图片宽度值，如果没有指定高度（height值为"auto"）则自动缩放图片至可完整显示。
+     *     默认值为"auto"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4743,10 +4743,10 @@ interface PlusNativeObjImageSliderImageStyles {
     /**
      * 图片垂直对齐方式
      * 仅在图片显示的高度与图片轮播控件宽度不一致时有效，可取值：
-     * 		"top" - 图片在轮播控件中垂直居顶对齐；
-     * 		"middle" - 图片在轮播控件中垂直居中对齐；
-     * 		"bottom" - 图片在轮播控件中垂直居底对齐。
-     * 	默认值为"middle"。
+     *         "top" - 图片在轮播控件中垂直居顶对齐；
+     *         "middle" - 图片在轮播控件中垂直居中对齐；
+     *         "bottom" - 图片在轮播控件中垂直居底对齐。
+     *     默认值为"middle"。
      * - top: 图片在轮播控件中垂直居顶对齐
      * - middle: 图片在轮播控件中垂直居中对齐
      * - bottom: 图片在轮播控件中垂直居底对齐
@@ -4759,7 +4759,7 @@ interface PlusNativeObjImageSliderImageStyles {
 /**
  * 输入框样式
  * 用于定义输入框的显示样式，如字体大小，提示内容等信息。
- * 	输入文本内容在指定区域水平居左，垂直居中显示。
+ *     输入文本内容在指定区域水平居左，垂直居中显示。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
  */
@@ -4767,13 +4767,13 @@ interface PlusNativeObjInputStyles {
     /**
      * 输入框类型
      * 可取值：
-     * 		"email" - 邮箱地址输入框；
-     * 		"number" - 数字输入框；
-     * 		"search" - 搜索文本输入框；
-     * 		"tel" - 电话号码输入框；
-     * 		"text" - 普通文本输入框；
-     * 		"url" - URL地址输入框。
-     * 	默认为text（即普通文本输入框）。
+     *         "email" - 邮箱地址输入框；
+     *         "number" - 数字输入框；
+     *         "search" - 搜索文本输入框；
+     *         "tel" - 电话号码输入框；
+     *         "text" - 普通文本输入框；
+     *         "url" - URL地址输入框。
+     *     默认为text（即普通文本输入框）。
      * - email: 邮箱地址输入框
      * - number: 数字输入框
      * - search: 搜索文本输入框
@@ -4794,7 +4794,7 @@ interface PlusNativeObjInputStyles {
     /**
      * 输入框的字体大小
      * 可取值：字体高度像素值，数字加"px"格式字符串，如"12px"。 
-     * 	默认值为"16px"。
+     *     默认值为"16px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4809,7 +4809,7 @@ interface PlusNativeObjInputStyles {
     /**
      * 输入框边框圆角半径
      * 可取值：圆角半径像素值，数字加"px"格式字符串，如"6px"。
-     * 	默认值为"0px"（边框无圆角）。
+     *     默认值为"0px"（边框无圆角）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4854,9 +4854,9 @@ interface PlusNativeObjRect {
     /**
      * 区域左上角的垂直偏移量
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于作用对象的高度；
-     * 		自动计算，如"auto",根据height值自动计算，相对于作用对象垂直居中。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于作用对象的高度；
+     *         自动计算，如"auto",根据height值自动计算，相对于作用对象垂直居中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4864,9 +4864,9 @@ interface PlusNativeObjRect {
     /**
      * 区域左上角的水平偏移量
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于作用对象的宽度；
-     * 		自动计算，如"auto",根据width值自动计算，相对于作用对象水平居中。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于作用对象的宽度；
+     *         自动计算，如"auto",根据width值自动计算，相对于作用对象水平居中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4874,8 +4874,8 @@ interface PlusNativeObjRect {
     /**
      * 区域的宽度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于作用对象的宽度。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于作用对象的宽度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4883,9 +4883,9 @@ interface PlusNativeObjRect {
     /**
      * 区域的高度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于作用对象的高度。
-     * 		内容自适应，如"wrap_content"，根据内容计算高度（如调用drawText绘制文本时支持）。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于作用对象的高度。
+     *         内容自适应，如"wrap_content"，根据内容计算高度（如调用drawText绘制文本时支持）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4902,9 +4902,9 @@ interface PlusNativeObjRectStyles {
     /**
      * 绘制颜色
      * 矩形填充区域的颜色，可取值：
-     * 	"#RRGGBB"格式字符串，如"#FF0000"表示绘制红色区域；
-     * 	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
-     * 	默认值为"#FFFFFF"（白色）。
+     *     "#RRGGBB"格式字符串，如"#FF0000"表示绘制红色区域；
+     *     "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+     *     默认值为"#FFFFFF"（白色）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4912,7 +4912,7 @@ interface PlusNativeObjRectStyles {
     /**
      * 矩形区域的圆角半径
      * 可取值：圆角半径像素值，数字加"px"格式字符串，如"6px"。
-     * 	默认值为"0px"（矩形无圆角）。
+     *     默认值为"0px"（矩形无圆角）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4920,9 +4920,9 @@ interface PlusNativeObjRectStyles {
     /**
      * 矩形边框颜色
      * 绘制矩形边框的颜色，可取值：
-     * 	"#RRGGBB"格式字符串，如"#FF0000"表示绘制红色区域；
-     * 	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
-     * 	默认值为矩形填充区域颜色（color属性值）。
+     *     "#RRGGBB"格式字符串，如"#FF0000"表示绘制红色区域；
+     *     "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+     *     默认值为矩形填充区域颜色（color属性值）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4930,7 +4930,7 @@ interface PlusNativeObjRectStyles {
     /**
      * 矩形边框宽度
      * 可取值：像素值，数字加"px"格式字符串，如"2px"。
-     * 	默认值为"0px"（无边框）。
+     *     默认值为"0px"（无边框）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4947,11 +4947,11 @@ interface PlusNativeObjRichTextStyles {
     /**
      * 富文本内容的水平对齐方式
      * 对整体内容有效，无法单独控制每行的内容。
-     * 	可取值：
-     * 	"left"-字体在指定的区域中水平居左对齐；
-     * 	"center"-字体在指定的区域中水平居中对齐；
-     * 	"right"-字体在指定的区域中水平居右对齐。
-     * 	默认值为"left"。
+     *     可取值：
+     *     "left"-字体在指定的区域中水平居左对齐；
+     *     "center"-字体在指定的区域中水平居中对齐；
+     *     "right"-字体在指定的区域中水平居右对齐。
+     *     默认值为"left"。
      * - left: 富文本内容水平居左对齐
      * - center: 富文本内容水平居中对齐
      * - right: 富文本内容水平居右对齐
@@ -4961,7 +4961,7 @@ interface PlusNativeObjRichTextStyles {
     align?: 'left' | 'center' | 'right';
     /**
      * 富文本默认使用的字体名称
-     * 例如"Times New Roman"，	如果指定名称的字体不存在，则使用系统默认字体。
+     * 例如"Times New Roman"，    如果指定名称的字体不存在，则使用系统默认字体。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4976,7 +4976,7 @@ interface PlusNativeObjRichTextStyles {
     /**
      * 点击事件回调函数
      * 如果设置此属性，则表示拦截所有RichText上的点击事件（不透传事件）。
-     * 	如果没有设置此属性，则仅拦截操作包含onclick属性的a/img标签的点击事件。
+     *     如果没有设置此属性，则仅拦截操作包含onclick属性的a/img标签的点击事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -4993,7 +4993,7 @@ interface PlusNativeObjPosition {
     /**
      * 区域顶部相对于作用对象（或容器）向下的偏移量
      * 可取值：像素值，如"100px"；百分比，如"10%"，相对于作用对象（或容器）的高度；
-     * 	自动计算，如"auto",根据height值自动计算，相对于作用对象（或容器）垂直居中。
+     *     自动计算，如"auto",根据height值自动计算，相对于作用对象（或容器）垂直居中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5001,7 +5001,7 @@ interface PlusNativeObjPosition {
     /**
      * 区域左侧相对于作用对象（或容器）向右的偏移量
      * 可取值：像素值，如"100px"；百分比，如"10%"，相对于作用对象（或容器）的宽度；
-     * 	自动计算，如"auto",根据width值自动计算，相对于作用对象（或容器）水平居中。
+     *     自动计算，如"auto",根据width值自动计算，相对于作用对象（或容器）水平居中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5023,9 +5023,9 @@ interface PlusNativeObjPosition {
     /**
      * 区域底部相对于作用对象（或容器）向上的偏移量
      * 可取值：像素值，如"100px";百分比，如"10%"，相对于作用对象（或容器）的高度。
-     * 	当设置了top和height值时，忽略此属性值；
-     * 	当未设置top值时，可通过bottom属性值来确定区域的垂直位置；
-     * 	当未设置height值时，可通过top和bottom属性值来确定区域的高度。
+     *     当设置了top和height值时，忽略此属性值；
+     *     当未设置top值时，可通过bottom属性值来确定区域的垂直位置；
+     *     当未设置height值时，可通过top和bottom属性值来确定区域的高度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5033,9 +5033,9 @@ interface PlusNativeObjPosition {
     /**
      * 区域右侧相对于作用对象（或容器）向左的偏移量
      * 可取值：像素值，如"100px";百分比，如"10%"，相对于作用对象（或容器）的宽度。
-     * 	当设置了left和width值时，忽略此属性值；
-     * 	当未设置left值时，可通过right属性值来确定区域的水平位置；
-     * 	当未设置width值时，可通过left和right属性值来确定区域的宽度。
+     *     当设置了left和width值时，忽略此属性值；
+     *     当未设置left值时，可通过right属性值来确定区域的水平位置；
+     *     当未设置width值时，可通过left和right属性值来确定区域的宽度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5052,10 +5052,10 @@ interface PlusNativeObjTextStyles {
     /**
      * 水平对齐方式
      * 可取值：
-     * 	"left"-字体在指定的区域中水平居左对齐；
-     * 	"center"-字体在指定的区域中水平居中对齐；
-     * 	"right"-字体在指定的区域中水平居右对齐。
-     * 	默认值为"center"。
+     *     "left"-字体在指定的区域中水平居左对齐；
+     *     "center"-字体在指定的区域中水平居中对齐；
+     *     "right"-字体在指定的区域中水平居右对齐。
+     *     默认值为"center"。
      * - left: 字体在指定的区域中水平居左对齐
      * - center: 字体在指定的区域中水平居中对齐
      * - right: 字体在指定的区域中水平居右对齐
@@ -5066,9 +5066,9 @@ interface PlusNativeObjTextStyles {
     /**
      * 字体颜色
      * 可取值：
-     * 	"#RRGGBB"格式字符串，如"#FF0000"表示绘制红色区域；
-     * 	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
-     * 	默认值为"#000000"（黑色）。
+     *     "#RRGGBB"格式字符串，如"#FF0000"表示绘制红色区域；
+     *     "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+     *     默认值为"#000000"（黑色）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5076,26 +5076,26 @@ interface PlusNativeObjTextStyles {
     /**
      * 文本装饰
      * 可取值：
-     * 		"none" - 无装饰效果；
-     * 		"underline" - 文本带下划线效果；
-     * 		"line-through" - 文本带贯穿线（删除线）效果。
-     * 	默认值为"none"。
+     *         "none" - 无装饰效果；
+     *         "underline" - 文本带下划线效果；
+     *         "line-through" - 文本带贯穿线（删除线）效果。
+     *     默认值为"none"。
      * - none: 
-     * 	无装饰效果
-     * 								
+     *     无装饰效果
+     *                                 
      * - underline: 
-     * 	文本带下划线效果
-     * 								
+     *     文本带下划线效果
+     *                                 
      * - line-through: 
-     * 	文本带贯穿线（删除线）效果
-     * 								
+     *     文本带贯穿线（删除线）效果
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
     decoration?: 'none' | 'underline' | 'line-through';
     /**
      * 字体名称
-     * 例如"Times New Roman"，	如果指定名称的字体不存在，则使用默认字体。
+     * 例如"Times New Roman"，    如果指定名称的字体不存在，则使用默认字体。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5110,8 +5110,8 @@ interface PlusNativeObjTextStyles {
     /**
      * 文本的行间距
      * 可取值：
-     * 	像素值，如"100px"；百分比，如"10%"，相对于字体的高度（size属性）；
-     * 	默认值为"20%"。
+     *     像素值，如"100px"；百分比，如"10%"，相对于字体的高度（size属性）；
+     *     默认值为"20%"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5119,7 +5119,7 @@ interface PlusNativeObjTextStyles {
     /**
      * 字体的边距
      * 用于设置字体在绘制目标区域四个方向（top/right/bottom/left）的边距，可取值：像素值，如"10px"；百分比，相对于绘制目标区域，如"5%"；
-     * 	默认值为"0px"。
+     *     默认值为"0px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5127,12 +5127,12 @@ interface PlusNativeObjTextStyles {
     /**
      * 文本内容超出显示区域时处理方式
      * 可取值：
-     * 		"clip" - 超出显示区域时内容裁剪；
-     * 		"ellipsis" - 超出显示区域时尾部显示省略标记（...）。
-     * 	默认值为"clip"。
+     *         "clip" - 超出显示区域时内容裁剪；
+     *         "ellipsis" - 超出显示区域时尾部显示省略标记（...）。
+     *     默认值为"clip"。
      * - clip: 
-     * 	
-     * 								
+     *     
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5140,7 +5140,7 @@ interface PlusNativeObjTextStyles {
     /**
      * 字体大小
      * 可取值：字体高度像素值，数字加"px"格式字符串，如"12px"。
-     * 	默认值为"16px"。
+     *     默认值为"16px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5157,10 +5157,10 @@ interface PlusNativeObjTextStyles {
     /**
      * 垂直对齐方式
      * 文本内容在指定绘制区域中的垂直对齐方式，可取值：
-     * 		"top" - 垂直居顶对齐；
-     * 		"middle" - 垂直居中对齐；
-     * 		"bottom" - 垂直居底对齐。
-     * 	默认值为"middle"。
+     *         "top" - 垂直居顶对齐；
+     *         "middle" - 垂直居中对齐；
+     *         "bottom" - 垂直居底对齐。
+     *     默认值为"middle"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5177,15 +5177,15 @@ interface PlusNativeObjTextStyles {
     /**
      * 文本换行模式
      * 可取值：
-     * 		"nowrap" - 不换行，将所有文本在一行中绘制，忽略换行符("\n")；
-     * 		"normal" - 自动换行，当指定的宽度无法绘制所有文本时自动换行绘制，碰到'\n'字符时强制换行。
-     * 	默认值为"nowrap"。
+     *         "nowrap" - 不换行，将所有文本在一行中绘制，忽略换行符("\n")；
+     *         "normal" - 自动换行，当指定的宽度无法绘制所有文本时自动换行绘制，碰到'\n'字符时强制换行。
+     *     默认值为"nowrap"。
      * - nowrap: 
-     * 	不换行，将所有文本在一行中绘制，忽略换行符("\n")
-     * 								
+     *     不换行，将所有文本在一行中绘制，忽略换行符("\n")
+     *                                 
      * - normal: 
-     * 	自动换行，当指定的宽度无法绘制所有文本时自动换行绘制，碰到'\n'字符时强制换行
-     * 								
+     *     自动换行，当指定的宽度无法绘制所有文本时自动换行绘制，碰到'\n'字符时强制换行
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5223,7 +5223,7 @@ interface PlusNativeObjView {
     /**
      * 静态方法，获取指定标识的View控件对象
      * 如果存在多个指定id标识的View对象，则返回第一个创建的View控件对象。
-     * 	如果不存在指定id标识的View对象，则返回null。
+     *     如果不存在指定id标识的View对象，则返回null。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5231,9 +5231,9 @@ interface PlusNativeObjView {
     /**
      * 添加事件监听器
      * 向View控件添加事件监听器，当指定的事件发生时，将触发listener函数的执行。
-     * 		可多次调用此方法向Webview添加多个监听器，当监听的事件发生时，将按照添加的先后顺序执行。
-     * 		可通过setTouchEventRect方法指定监听触屏操作的区域。
-     * 		注意：默认View控件拦截处理触屏事件，可调用view.interceptTouchEvent(false)改变为不拦截处理触屏事件（透传）。
+     *         可多次调用此方法向Webview添加多个监听器，当监听的事件发生时，将按照添加的先后顺序执行。
+     *         可通过setTouchEventRect方法指定监听触屏操作的区域。
+     *         注意：默认View控件拦截处理触屏事件，可调用view.interceptTouchEvent(false)改变为不拦截处理触屏事件（透传）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5255,7 +5255,7 @@ interface PlusNativeObjView {
     /**
      * 清空矩形区域
      * 清除指定矩形区域内容，透明显示其后面的内容。
-     * 	可多次调用设置多个区域透明。
+     *     可多次调用设置多个区域透明。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5263,8 +5263,8 @@ interface PlusNativeObjView {
     /**
      * 绘制内容
      * 在当前View控件之上绘制指定的内容，可一次指定绘制多个元素，绘制元素可以是图片/矩形区域/文本，
-     * 	即将多次调用drawBitmap/drawRect/drawText方法合并调用一次draw方法来实现，
-     * 	推荐使用draw方法来替换多次调用drawBitmap/drawRect/drawText。
+     *     即将多次调用drawBitmap/drawRect/drawText方法合并调用一次draw方法来实现，
+     *     推荐使用draw方法来替换多次调用drawBitmap/drawRect/drawText。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5307,7 +5307,7 @@ interface PlusNativeObjView {
     /**
      * 获取编辑框的焦点状态
      * 通过id查找到指定的编辑框，获取其焦点状态。
-     * 	如果指定的id无效则返回null。
+     *     如果指定的id无效则返回null。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5315,7 +5315,7 @@ interface PlusNativeObjView {
     /**
      * 获取编辑框的内容
      * 通过id查找到指定的编辑框，获取其输入的字符串。
-     * 	如果指定的id无效则返回null。
+     *     如果指定的id无效则返回null。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5344,7 +5344,7 @@ interface PlusNativeObjView {
     /**
      * 设置编辑框的焦点状态
      * 通过id查找到指定的编辑框，并设置编辑框的焦点状态。
-     * 	如果指定的id无效则操作无效。
+     *     如果指定的id无效则操作无效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5359,8 +5359,8 @@ interface PlusNativeObjView {
     /**
      * 指定监听触屏事件区域
      * 当调用addEventListener监听View控件事件时，可调用此方法限定监听事件的区域，仅当用户触屏操作在指定区域时才触发监听事件。
-     * 	非限定监听事件的区域则不拦截，透传给其它窗口处理。
-     * 	注意：此操作覆盖之前设置的区域。
+     *     非限定监听事件的区域则不拦截，透传给其它窗口处理。
+     *     注意：此操作覆盖之前设置的区域。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5375,7 +5375,7 @@ interface PlusNativeObjView {
     /**
      * 是否拦截View控件的触屏事件
      * 设置为拦截后View控件上的触屏事件不再传递（即不透传），否则触屏事件将继续传递给View控件下的其它窗口处理（即透传）。
-     * 	注意：View控件默认拦截触屏事件（不透传）。
+     *     注意：View控件默认拦截触屏事件（不透传）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5420,11 +5420,11 @@ interface PlusNativeObjViewAnimationOptions {
     /**
      * 动画作用区域
      * 支持以下属性：
-     * 	top - 区域距离控件顶部的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的高度）,默认值为'0px'；
-     * 	bottom - 区域距离控件底部的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的高度）,默认值为'0px'；
-     * 	left - 区域距离控件左侧的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的宽度）,默认值为'0px'；
-     * 	right - 区域距离控件右侧的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的宽度）,默认值为'0px'。
-     * 	如“{top:'44px',bottom:'48px'}”。
+     *     top - 区域距离控件顶部的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的高度）,默认值为'0px'；
+     *     bottom - 区域距离控件底部的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的高度）,默认值为'0px'；
+     *     left - 区域距离控件左侧的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的宽度）,默认值为'0px'；
+     *     right - 区域距离控件右侧的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的宽度）,默认值为'0px'。
+     *     如“{top:'44px',bottom:'48px'}”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5448,11 +5448,11 @@ interface PlusNativeObjViewDrawTagStyles {
     /**
      * 绘制操作类型
      * 可取值：
-     * 	"img" - 绘制图片，与drawBitmap操作一致，此时id、src、position、sprite属性值有效；
-     * 	"rect" - 绘制矩形区域，与drawRect操作一致，此时id、color、position、rectStyles属性值有效；
-     * 	"font" - 绘制文本内容，与drawText操作一致，此时id、position、text、textStyles属性值有效；
-     * 	"richtext" - 绘制富文本内容，与drawRichText操作一致，此时id、position、text、richTextStyles属性值有效；
-     * 	"input" - 绘制输入框内容，此时id、position、inputStyles属性值有效。
+     *     "img" - 绘制图片，与drawBitmap操作一致，此时id、src、position、sprite属性值有效；
+     *     "rect" - 绘制矩形区域，与drawRect操作一致，此时id、color、position、rectStyles属性值有效；
+     *     "font" - 绘制文本内容，与drawText操作一致，此时id、position、text、textStyles属性值有效；
+     *     "richtext" - 绘制富文本内容，与drawRichText操作一致，此时id、position、text、richTextStyles属性值有效；
+     *     "input" - 绘制输入框内容，此时id、position、inputStyles属性值有效。
      * - img: 绘制图片
      * - rect: 绘制矩形区域
      * - font: 绘制文本内容
@@ -5465,9 +5465,9 @@ interface PlusNativeObjViewDrawTagStyles {
     /**
      * 矩形区域颜色
      * 不推荐使用（推荐使用rectStyles），可取值：
-     * 	"#RRGGBB"格式字符串，如红色为"#FF0000"。
-     * 	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
-     * 	当tag属性值为"rect"时有效，用于指定矩形区域颜色，默认值为"#FFFFFF"（白色）。
+     *     "#RRGGBB"格式字符串，如红色为"#FF0000"。
+     *     "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+     *     当tag属性值为"rect"时有效，用于指定矩形区域颜色，默认值为"#FFFFFF"（白色）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5482,9 +5482,9 @@ interface PlusNativeObjViewDrawTagStyles {
     /**
      * 绘制内容区域
      * 当tag属性值为"img"时，用于指定绘制图片的目标区域；
-     * 	当tag属性值为"rect"时，用于指定绘制的矩形区域；
-     * 	当tag属性值为"font"时，用于指定绘制文本的目标区域，此时height属性值支持设置为"wrap_content"，表示文本高度根据内容自动计算，此时通过top来定位文本绘制的起始位置。
-     * 	相对于View控件的区域信息，默认值为{top:'0px',left:'0px',width:'100%',height:'100%'}。
+     *     当tag属性值为"rect"时，用于指定绘制的矩形区域；
+     *     当tag属性值为"font"时，用于指定绘制文本的目标区域，此时height属性值支持设置为"wrap_content"，表示文本高度根据内容自动计算，此时通过top来定位文本绘制的起始位置。
+     *     相对于View控件的区域信息，默认值为{top:'0px',left:'0px',width:'100%',height:'100%'}。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5499,7 +5499,7 @@ interface PlusNativeObjViewDrawTagStyles {
     /**
      * 绘制的图片资源
      * 当tag属性值为"img"时有效，可以是图片资源路径（字符串类型）或者图片对象（plus.nativeObj.Bitmap对象）。
-     * 	src路径支持gif图片，但设置的图片路径文件使用".gif"后缀时则认为是gif图片，如"_www/loading.gif"。
+     *     src路径支持gif图片，但设置的图片路径文件使用".gif"后缀时则认为是gif图片，如"_www/loading.gif"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5543,7 +5543,7 @@ interface PlusNativeObjViewEvents {
     /**
      * 双击事件
      * 双击屏幕时触发。
-     * 	注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
+     *     注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5551,7 +5551,7 @@ interface PlusNativeObjViewEvents {
     /**
      * 点击事件
      * 当手指点击屏幕时触发。
-     * 	注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
+     *     注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5559,7 +5559,7 @@ interface PlusNativeObjViewEvents {
     /**
      * 开始触屏事件
      * 当手指触摸屏幕时候触发。
-     * 	注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
+     *     注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5567,7 +5567,7 @@ interface PlusNativeObjViewEvents {
     /**
      * 触摸滑屏事件
      * 当手指在屏幕上滑动的时候连续地触发。
-     * 	注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
+     *     注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5575,7 +5575,7 @@ interface PlusNativeObjViewEvents {
     /**
      * 结束触屏事件
      * 当手指从屏幕上离开的时候触发。
-     * 	注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
+     *     注意：如果将View控件设置为不拦截触屏事件（view.interceptTouchEvent(false)）则不会触发此事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5608,8 +5608,8 @@ interface PlusNativeObjViewStyles {
     /**
      * 区域背景颜色
      * 可取值：
-     * 	#RRGGBB"格式字符串，如"#FF0000"表示绘制红色区域；
-     * 	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。 默认值为"#FFFFFF"（白色）。 "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。 默认值为"#FFFFFF"（白色）。
+     *     #RRGGBB"格式字符串，如"#FF0000"表示绘制红色区域；
+     *     "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。 默认值为"#FFFFFF"（白色）。 "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。 默认值为"#FFFFFF"（白色）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5617,10 +5617,10 @@ interface PlusNativeObjViewStyles {
     /**
      * View控件垂直向上的偏移量
      * 现对于父容器底部的距离，可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父容器的高度，如果没有父容器则相对于屏幕高度。
-     * 	当设置了top和height值时，忽略此属性值；
-     * 	未设置height值时，可通过top和bottom属性值来确定View控件的高度。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父容器的高度，如果没有父容器则相对于屏幕高度。
+     *     当设置了top和height值时，忽略此属性值；
+     *     未设置height值时，可通过top和bottom属性值来确定View控件的高度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5628,12 +5628,12 @@ interface PlusNativeObjViewStyles {
     /**
      * View控件的停靠方式
      * 仅当View控件添加到Webview窗口对象中并且position属性值设置为"dock"时才生效，此时View控件挤压Webview窗口的大小。
-     * 	可取值：
-     * 		"top"，控件停靠则页面顶部；
-     * 		"bottom"，控件停靠在页面底部；
-     * 		"right"，控件停靠在页面右侧；
-     * 		"left"，控件停靠在页面左侧。
-     * 	默认值为"top"。
+     *     可取值：
+     *         "top"，控件停靠则页面顶部；
+     *         "bottom"，控件停靠在页面底部；
+     *         "right"，控件停靠在页面右侧；
+     *         "left"，控件停靠在页面左侧。
+     *     默认值为"top"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5641,10 +5641,10 @@ interface PlusNativeObjViewStyles {
     /**
      * 区域的高度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父容器的高度，如果没有父容器则相对于屏幕高度；
-     * 		内容自适应，如"wrap_content"，根据内容计算控件的高度。
-     * 	默认值为"100%"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父容器的高度，如果没有父容器则相对于屏幕高度；
+     *         内容自适应，如"wrap_content"，根据内容计算控件的高度。
+     *     默认值为"100%"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5652,10 +5652,10 @@ interface PlusNativeObjViewStyles {
     /**
      * 区域左上角的水平偏移量
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父控件的宽度；
-     * 		自动计算，如"auto"，根据width值自动计算，相对于父控件水平居中。
-     * 	默认值为"0px"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父控件的宽度；
+     *         自动计算，如"auto"，根据width值自动计算，相对于父控件水平居中。
+     *     默认值为"0px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5670,11 +5670,11 @@ interface PlusNativeObjViewStyles {
     /**
      * View控件的排版方式
      * 仅当View控件添加到Webview窗口对象中时才生效。
-     * 	可取值：
-     * 	"static"，View控件在页面中正常定位，如果页面存在滚动条则随窗口内容滚动；
-     * 	"absolute"，Veiw控件在页面中绝对定位，如果页面存在滚动条不随窗口内容滚动；
-     * 	"dock"，View控件在页面中停靠，停靠的位置由dock属性值决定。
-     * 	默认值为"absolute"。
+     *     可取值：
+     *     "static"，View控件在页面中正常定位，如果页面存在滚动条则随窗口内容滚动；
+     *     "absolute"，Veiw控件在页面中绝对定位，如果页面存在滚动条不随窗口内容滚动；
+     *     "dock"，View控件在页面中停靠，停靠的位置由dock属性值决定。
+     *     默认值为"absolute"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
@@ -5753,7 +5753,7 @@ interface PlusNativeUI {
     /**
      * 系统等待对话框对象
      * 从NativeUIObj对象继承而来，通过plus.nativeUI.showWaiting方法创建时返回。
-     * 	用于控制系统样式等待对话框的操作，如关闭、设置标题内容等。
+     *     用于控制系统样式等待对话框的操作，如关闭、设置标题内容等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5779,7 +5779,7 @@ interface PlusNativeUI {
     /**
      * 弹出系统选择按钮框
      * 从底部动画弹出系统样式选择按钮框，可设置选择框的标题、按钮文字等。
-     * 	弹出的提示框为非阻塞模式，用户点击选择框上的按钮后关闭，并通过actionsheetCallback回调函数通知用户选择的按钮。
+     *     弹出的提示框为非阻塞模式，用户点击选择框上的按钮后关闭，并通过actionsheetCallback回调函数通知用户选择的按钮。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5787,7 +5787,7 @@ interface PlusNativeUI {
     /**
      * 弹出系统提示对话框
      * 创建并显示系统样式提示对话框，可设置提示对话框的标题、内容、按钮文字等。
-     * 	弹出的提示对话框为非阻塞模式，用户点击提示对话框上的按钮后关闭，并通过alertCB回调函数通知对话框已关闭。
+     *     弹出的提示对话框为非阻塞模式，用户点击提示对话框上的按钮后关闭，并通过alertCB回调函数通知对话框已关闭。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5795,7 +5795,7 @@ interface PlusNativeUI {
     /**
      * 弹出系统确认对话框
      * 创建并显示系统样式确认对话框，可设置确认对话框的标题、内容、按钮数目及其文字。
-     * 	弹出的确认对话框为非阻塞模式，用户点击确认对话框上的按钮后关闭，并通过confirmCB回调函数通知用户点击的按钮索引值。
+     *     弹出的确认对话框为非阻塞模式，用户点击确认对话框上的按钮后关闭，并通过confirmCB回调函数通知用户点击的按钮索引值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5831,7 +5831,7 @@ interface PlusNativeUI {
     /**
      * 弹出系统日期选择对话框
      * 创建并显示系统样式日期选择对话框，可进行日期的选择。
-     * 	用户操作确认后通过successCB回调函数返回用户选择的日期，若用户取消选择则通过errorCB回调。
+     *     用户操作确认后通过successCB回调函数返回用户选择的日期，若用户取消选择则通过errorCB回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5839,7 +5839,7 @@ interface PlusNativeUI {
     /**
      * 弹出系统时间选择对话框
      * 创建并弹出系统样式时间选择对话框，可进行时间的选择。
-     * 	用户操作确认后通过successCB回调函数返回用户选择的时间，若用户取消选择则通过errorCB回调。
+     *     用户操作确认后通过successCB回调函数返回用户选择的时间，若用户取消选择则通过errorCB回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5847,7 +5847,7 @@ interface PlusNativeUI {
     /**
      * 弹出系统输入对话框
      * 创建并显示系统样式输入对话框，可设置输入对话框的标题、内容、提示输入信息、按钮数目及其文字。
-     * 	弹出的输入对话框为非阻塞模式，其中包含编辑框供用户输入内容，用户点击输入对话框上的按钮后自动关闭，并通过promptCB回调函数返回用户点击的按钮及输入的内容。
+     *     弹出的输入对话框为非阻塞模式，其中包含编辑框供用户输入内容，用户点击输入对话框上的按钮后自动关闭，并通过promptCB回调函数返回用户点击的按钮及输入的内容。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5855,7 +5855,7 @@ interface PlusNativeUI {
     /**
      * 显示自动消失的提示消息
      * 创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。
-     * 	提示消息显示时间可通过options的duration属性控制，长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。
+     *     提示消息显示时间可通过options的duration属性控制，长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5871,8 +5871,8 @@ interface PlusNativeUIActionButtonStyles {
     /**
      * 按钮上显示的文字颜色
      * 可取值：
-     * 	"#RRGGBB"格式字符串，如"#FF0000"表示文字颜色为红色；
-     * 	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+     *     "#RRGGBB"格式字符串，如"#FF0000"表示文字颜色为红色；
+     *     "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5886,15 +5886,15 @@ interface PlusNativeUIActionButtonStyles {
     /**
      * 按钮的样式
      * 可取值：
-     * 	"destructive" - 表示警示按钮样式，默认文字颜色为红色；
-     * 	"default" - 表示默认按钮样式。
-     * 	默认值为"default"。
+     *     "destructive" - 表示警示按钮样式，默认文字颜色为红色；
+     *     "default" - 表示默认按钮样式。
+     *     默认值为"default"。
      * - destructive: 
-     * 	警示按钮样式。
-     * 								
+     *     警示按钮样式。
+     *                                 
      * - default: 
-     * 	默认按钮样式。
-     * 								
+     *     默认按钮样式。
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5951,10 +5951,10 @@ interface PlusNativeUIConfirmOptions {
     /**
      * 对话框在屏幕中的垂直分享对齐方式
      * 可取值：
-     * 		"top" - 表示垂直居顶对齐；
-     * 		"center" - 表示垂直居中对齐；
-     * 		"bottom" - 表示垂直居底对齐。
-     * 	默认值为"center"（垂直居中对齐）。
+     *         "top" - 表示垂直居顶对齐；
+     *         "center" - 表示垂直居中对齐；
+     *         "bottom" - 表示垂直居底对齐。
+     *     默认值为"center"（垂直居中对齐）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5970,7 +5970,7 @@ interface PlusNativeUIPreviewImageOptions {
     /**
      * 图片预览的背景颜色
      * 颜色值格式为"#RRGGBB"，如"#FF0000"表示为红色背景。
-     * 	默认值为黑色（"#000000"）。
+     *     默认值为黑色（"#000000"）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5985,10 +5985,10 @@ interface PlusNativeUIPreviewImageOptions {
     /**
      * 图片指示器样式
      * 可取值：
-     * 		"default" - 默认指示器（底部圆点样式）；
-     * 		"number" - 顶部数字指示器（顶部居中显示，文字为%当前图片索引值（从1开始）%/%图片总数%）；
-     * 		"none" - 不显示指示器。
-     * 	默认值为"default"。
+     *         "default" - 默认指示器（底部圆点样式）；
+     *         "number" - 顶部数字指示器（顶部居中显示，文字为%当前图片索引值（从1开始）%/%图片总数%）；
+     *         "none" - 不显示指示器。
+     *     默认值为"default"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -5996,9 +5996,9 @@ interface PlusNativeUIPreviewImageOptions {
     /**
      * 是否可循环预览
      * 可取值：
-     * 		"true" - 支持循环预览；
-     * 		"false" - 不支持循环预览。
-     * 	默认值为"false"。
+     *         "true" - 支持循环预览；
+     *         "false" - 不支持循环预览。
+     *     默认值为"false"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -6035,7 +6035,7 @@ interface PlusNativeUIPickDateOption {
     /**
      * 日期选择对话框可选择的最大日期
      * Date类型对象，如果未设置可选择的最大日期，则使用系统默认可选择的最大日期值。
-     * 	其值必须大于minDate设置的值，否则使用系统默认可选择的最大日期值。
+     *     其值必须大于minDate设置的值，否则使用系统默认可选择的最大日期值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -6043,7 +6043,7 @@ interface PlusNativeUIPickDateOption {
     /**
      * 时间选择对话框弹出指示区域
      * JSON类型对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，其值为相对于容器Webview的位置。
-     * 	如未设置此值，默认在屏幕居中显示。仅在iPad上有效，其它设备忽略此值。
+     *     如未设置此值，默认在屏幕居中显示。仅在iPad上有效，其它设备忽略此值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -6080,7 +6080,7 @@ interface PlusNativeUIPickTimeOption {
     /**
      * 日期选择对话框弹出指示区域
      * JSON类型对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，其值相对于容器webview的位置。
-     * 	如未设置此值，默认在屏幕居中显示。仅在iPad上有效，其它设备忽略此值。
+     *     如未设置此值，默认在屏幕居中显示。仅在iPad上有效，其它设备忽略此值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -6096,8 +6096,8 @@ interface PlusNativeUINativeUIObj {
     /**
      * 关闭显示的系统原生界面
      * 调用plus.nativeUI.actionSheet方法创建并显示系统界面后，可通过其close方法将原生界面关闭。
-     * 	此情况下触发界面关闭回调函数参数的index属性值为-1。
-     * 	注意：一个系统原生界面只能关闭一次，多次调用将无任何作用。
+     *     此情况下触发界面关闭回调函数参数的index属性值为-1。
+     *     注意：一个系统原生界面只能关闭一次，多次调用将无任何作用。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -6107,7 +6107,7 @@ interface PlusNativeUINativeUIObj {
 /**
  * 系统等待对话框对象
  * 从NativeUIObj对象继承而来，通过plus.nativeUI.showWaiting方法创建时返回。
- * 	用于控制系统样式等待对话框的操作，如关闭、设置标题内容等。
+ *     用于控制系统样式等待对话框的操作，如关闭、设置标题内容等。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
  */
@@ -6128,7 +6128,7 @@ interface PlusNativeUIWaitingObj {
     /**
      * 关闭显示的系统等待对话框
      * 调用plus.nativeUI.showWaiting方法创建并显示系统等待界后，可通过其close方法将原生等待控件关闭。
-     * 	一个系统等待对话框只能关闭一次，多次调用将无任何作用。
+     *     一个系统等待对话框只能关闭一次，多次调用将无任何作用。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -6193,7 +6193,7 @@ interface PlusNativeUIWaitingOptions {
     /**
      * 等待对话框样式
      * 可取值"black"、"white"，black表示等待框为黑色雪花样式，通常在背景主色为浅色时使用；white表示等待框为白色雪花样式，通常在背景主色为深色时使用。
-     * 	仅在iOS平台有效，其它平台忽略此值，未设置时默认值为white。
+     *     仅在iOS平台有效，其它平台忽略此值，未设置时默认值为white。
      * - black: 黑色雪花样式，适合浅色界面使用
      * - white: 白色雪花样式，适合深色界面使用
      * 
@@ -6248,18 +6248,18 @@ interface PlusNativeUIWaitingLoadingOptions {
     /**
      * loading图标显示样式
      * 可取值：
-     * 	"block"表示图标与文字分开两行显示，上面显示loading图标，下面显示文字；
-     * 	"inline"表示loading图标与文字在同一行显示，左边显示loading图标，右边显示文字；
-     * 	"none"表示不显示loading图标；
+     *     "block"表示图标与文字分开两行显示，上面显示loading图标，下面显示文字；
+     *     "inline"表示loading图标与文字在同一行显示，左边显示loading图标，右边显示文字；
+     *     "none"表示不显示loading图标；
      * - block: 
-     * 	loading图标与文字分开两行显示，上面显示loading图标，下面显示文字。
-     * 								
+     *     loading图标与文字分开两行显示，上面显示loading图标，下面显示文字。
+     *                                 
      * - inline: 
-     * 	loading图标与文字在同一行显示，左边显示loading图标，右边显示文字。
-     * 								
+     *     loading图标与文字在同一行显示，左边显示loading图标，右边显示文字。
+     *                                 
      * - none: 
-     * 	不显示loading图标。
-     * 								
+     *     不显示loading图标。
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -6274,7 +6274,7 @@ interface PlusNativeUIWaitingLoadingOptions {
     /**
      * loading图标路径
      * 自定义loading图标的路径，png格式，并且必须是本地资源地址；
-     * 	loading图要求宽是高的整数倍，显示等待框时按照图片的高横向截取每帧刷新。
+     *     loading图要求宽是高的整数倍，显示等待框时按照图片的高横向截取每帧刷新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -6337,9 +6337,9 @@ interface PlusNativeUIToastOptions {
     /**
      * 提示消息框上显示的样式
      * 可取值：
-     * 	"block"表示图标与文字分两行显示，上面显示图标，下面显示文字；
-     * 	"inline"表示图标与文字在同一行显示，左边显示图标，右边显示文字。
-     * 	默认值为"block"。
+     *     "block"表示图标与文字分两行显示，上面显示图标，下面显示文字；
+     *     "inline"表示图标与文字在同一行显示，左边显示图标，右边显示文字。
+     *     默认值为"block"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
@@ -6347,15 +6347,15 @@ interface PlusNativeUIToastOptions {
     /**
      * 提示消息框上显示的文本类型
      * 可取值：
-     * 		"text" - 显示的消息内容为文本字符串；
-     * 		"richtext" - 显示的消息内容为富文本内容。
-     * 	默认值为"text"。
-     * 	当type为"text"时，富文本使用html的部分标签，具体标签如下：
-     * 	图片标签&lt;img src="图片资源url地址" width="图片显示的宽度" height="图片显示的高度" onclick="console.log('clicked img')"&gt;&lt;/img&gt;；
-     * 	字体标签&lt;font color="字体颜色"&gt;&lt;/font&gt;，内容在一行显示不下时自动换行，行高默认为字体的1.2倍；
-     * 	换行标签&lt;br/&gt;；
-     * 	链接标签&lt;a onclick="console.log('clicked a')"&gt;链接地址&lt;/a&gt;。
-     * 	如示例“&lt;img onclick="console.log('clicked img')" src="http://img-cdn-qiniu.dcloud.net.cn/icon2.png"/&gt;&lt;a onclick="console.log(clicked a)"&gt;链接地址&lt;/a&gt;”。
+     *         "text" - 显示的消息内容为文本字符串；
+     *         "richtext" - 显示的消息内容为富文本内容。
+     *     默认值为"text"。
+     *     当type为"text"时，富文本使用html的部分标签，具体标签如下：
+     *     图片标签&lt;img src="图片资源url地址" width="图片显示的宽度" height="图片显示的高度" onclick="console.log('clicked img')"&gt;&lt;/img&gt;；
+     *     字体标签&lt;font color="字体颜色"&gt;&lt;/font&gt;，内容在一行显示不下时自动换行，行高默认为字体的1.2倍；
+     *     换行标签&lt;br/&gt;；
+     *     链接标签&lt;a onclick="console.log('clicked a')"&gt;链接地址&lt;/a&gt;。
+     *     如示例“&lt;img onclick="console.log('clicked img')" src="http://img-cdn-qiniu.dcloud.net.cn/icon2.png"/&gt;&lt;a onclick="console.log(clicked a)"&gt;链接地址&lt;/a&gt;”。
      * - text: 文本字符串
      * - richtext: 富文本内容
      * 
@@ -6415,8 +6415,8 @@ interface PlusNavigator {
     /**
      * 关闭应用启动界面
      * 很多情况下，应用启动后需要一段时间加载数据，为了避免界面显示空白内容，提高用户体验效果，这时可显示启动界面。
-     * 	等数据加载完成后再关闭启动界面进入应用，通常可在应用首界面加载数据完成并更新显示内容后调用此方法。
-     * 	注意：HBuilder7.1版本后启动界面不调用此方法超过6秒后会自动关闭。
+     *     等数据加载完成后再关闭启动界面进入应用，通常可在应用首界面加载数据完成并更新显示内容后调用此方法。
+     *     注意：HBuilder7.1版本后启动界面不调用此方法超过6秒后会自动关闭。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
@@ -6438,7 +6438,7 @@ interface PlusNavigator {
     /**
      * 更新程序启动界面
      * 可设置启动界面显示的图片（仅支持本地文件路径，如果是网络资源可先通过plus.downloader.*下载到本地），
-     * 	更新启动界面后程序下次启动时生效。
+     *     更新启动界面后程序下次启动时生效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
@@ -6459,7 +6459,7 @@ interface PlusNavigator {
     /**
      * 判断当前应用是否切换到后台
      * 在多应用运行环境（如流应用）中，启动一个新应用时，之前运行的应用将会自动切换到后台运行，此时plus.navigator.isBackground()返回状态只为true。
-     * 	注意：此状态不是5+应用切换到系统后台的状态，而是在同一apk中同时运行多个应用时被切换到后台的状态。
+     *     注意：此状态不是5+应用切换到系统后台的状态，而是在同一apk中同时运行多个应用时被切换到后台的状态。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
@@ -6473,7 +6473,7 @@ interface PlusNavigator {
     /**
      * 判断应用当前是否输出日志
      * 日志包括应用原生层内部跟踪日志（ADB、LogCat工具可获取的日志）及JS层跟踪日志（console.log输出的日志）。
-     * 	开启日志在一定程度上会降低程序的性能，通常建议在正式发布时关闭日志输出，在调试时开启日志输出（此时可以通过工具ADB、LogCat获取分析日志）。
+     *     开启日志在一定程度上会降低程序的性能，通常建议在正式发布时关闭日志输出，在调试时开启日志输出（此时可以通过工具ADB、LogCat获取分析日志）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
@@ -6488,8 +6488,8 @@ interface PlusNavigator {
     /**
      * 设置应用是否输出日志
      * 设置应用是否输出日志信息，默认关闭输出日志功能。
-     * 	日志包括应用原生层内部跟踪日志（ADB、LogCat工具可获取的日志）及JS层跟踪日志（console.log输出的日志）。
-     * 	开启日志在一定程度上会降低程序的性能，通常建议在正式发布时关闭日志输出，在调试时开启日志输出（此时可以通过工具ADB、LogCat获取分析日志）。
+     *     日志包括应用原生层内部跟踪日志（ADB、LogCat工具可获取的日志）及JS层跟踪日志（console.log输出的日志）。
+     *     开启日志在一定程度上会降低程序的性能，通常建议在正式发布时关闭日志输出，在调试时开启日志输出（此时可以通过工具ADB、LogCat获取分析日志）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
@@ -6497,7 +6497,7 @@ interface PlusNavigator {
     /**
      * 设置系统状态栏背景颜色
      * 设置应用在前台运行时系统状态栏的背景颜色，默认使用系统状态栏默认背景色（有系统状态栏样式决定）。
-     * 	注意：为了有更好的兼容性，避免设置接近白色或黑色的颜色值。
+     *     注意：为了有更好的兼容性，避免设置接近白色或黑色的颜色值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
@@ -6512,7 +6512,7 @@ interface PlusNavigator {
     /**
      * 设置系统状态栏样式
      * 设置应用在前台运行时系统状态栏的样式，默认值可通过manifest.json文件的plus-&gt;statusbar-&gt;style配置。
-     * 	注意：此操作是应用全局配置，调用的Webview窗口关闭后仍然生效。
+     *     注意：此操作是应用全局配置，调用的Webview窗口关闭后仍然生效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
@@ -6534,7 +6534,7 @@ interface PlusNavigator {
     /**
      * 判断当前是否为沉浸式状态栏模式
      * 如果当前应用采用沉浸式状态栏则返回true，否则返回false。
-     * 	注意：如果当前系统版本不支持沉浸式状态栏也返回false。
+     *     注意：如果当前系统版本不支持沉浸式状态栏也返回false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
@@ -6542,7 +6542,7 @@ interface PlusNavigator {
     /**
      * 设置userAgent值
      * 设置应用通过navigator.userAgent获取的值，及所有发起Http请求时提交的userAgent值。
-     * 	如果要设置启动页面的userAgent值则需要在manifest.json中进行配置。
+     *     如果要设置启动页面的userAgent值则需要在manifest.json中进行配置。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
@@ -6630,7 +6630,7 @@ interface PlusNavigatorShortcutOptions {
     /**
      * 是否需要强制创建快捷方式
      * true表示强制创建，false表示不强制创建，默认值为true。
-     * 	强制创建可能会导致在无法判断快捷方式是否存在的设备上重复创建，如果需要尽可能避免出现重复创建桌面快捷方式则应该设置force属性值为false。
+     *     强制创建可能会导致在无法判断快捷方式是否存在的设备上重复创建，如果需要尽可能避免出现重复创建桌面快捷方式则应该设置force属性值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
@@ -6660,7 +6660,7 @@ interface PlusNavigatorSplashscreenOptions {
     /**
      * 是否自动关闭启动界面（WAP2APP应用）
      * 与autoclose属性值作用一致，仅在WAP2APP应用中有效。
-     * 	不推荐设置此值，如果未设置会自动使用autoclose属性值。
+     *     不推荐设置此值，如果未设置会自动使用autoclose属性值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
@@ -6675,7 +6675,7 @@ interface PlusNavigatorSplashscreenOptions {
     /**
      * 启动界面延时关闭时间（WAP2APP应用）
      * 与delay属性值作用一致，仅在WAP2APP应用中有效。
-     * 	不推荐设置此值，如果未设置会自动使用delay属性值。
+     *     不推荐设置此值，如果未设置会自动使用delay属性值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
@@ -6919,7 +6919,7 @@ interface PlusRuntime {
     /**
      * 第三方程序调用时传递给程序的参数
      * 第三方程序传递过来的参数，字符串格式类型数据。
-     * 	不是由第三方程序调用启动，则返回空字符串。
+     *     不是由第三方程序调用启动，则返回空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
@@ -6927,7 +6927,7 @@ interface PlusRuntime {
     /**
      * 应用的市场推广渠道标识
      * "qihoo:browser"标识360浏览器流应用，"qihoo:appstore "表示360手机助手流应用，"dcloud:streamapps"表示DCloud流应用基座。
-     * 	注意：仅流应用环境中可用（如果没有特殊配置默认返回运行环境的包名），非流应用环境中返回空字符串。
+     *     注意：仅流应用环境中可用（如果没有特殊配置默认返回运行环境的包名），非流应用环境中返回空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
@@ -6935,37 +6935,37 @@ interface PlusRuntime {
     /**
      * 应用启动来源
      * 5+ APP启动类型，可取以下值：
-     * 	"default"：默认启动方式，通常表示应用列表启动（360手助中搜索启动）；
-     * 	"scheme"：通过urlscheme方式触发启动；
-     * 	"push"：通过点击系统通知方式触发启动；
-     * 	"stream"：通过流应用api（plus.stream.open）启动；
-     * 	"shortcut"：通过快捷方式启动，iOS平台表示通过3D Touch快捷方式，Android平台表示通过桌面快捷方式启动；
-     * 	"barcode"：通过二维码扫描启动；
-     * 	"myapp"：通过流应用"我的"应用列表或历史列表中触发启动；
-     * 	"favorite"：通过流应用的"收藏"应用列表启动；
-     * 	"browser"：通过流应用的内置浏览器导流启动的流应用（地址栏输入url启动应用、点击wap页面链接启动应用）；
-     * 	"engines"：通过流应用的浏览器界面作为搜索引擎启动；
-     * 	"search"：通过流应用的应用搜索启动应用（如iOS平台的T9键盘搜索）；
-     * 	"speech"：通过流应用的语音识别启动应用；
-     * 	"miniProgram"：通过微信小程序启动应用。
+     *     "default"：默认启动方式，通常表示应用列表启动（360手助中搜索启动）；
+     *     "scheme"：通过urlscheme方式触发启动；
+     *     "push"：通过点击系统通知方式触发启动；
+     *     "stream"：通过流应用api（plus.stream.open）启动；
+     *     "shortcut"：通过快捷方式启动，iOS平台表示通过3D Touch快捷方式，Android平台表示通过桌面快捷方式启动；
+     *     "barcode"：通过二维码扫描启动；
+     *     "myapp"：通过流应用"我的"应用列表或历史列表中触发启动；
+     *     "favorite"：通过流应用的"收藏"应用列表启动；
+     *     "browser"：通过流应用的内置浏览器导流启动的流应用（地址栏输入url启动应用、点击wap页面链接启动应用）；
+     *     "engines"：通过流应用的浏览器界面作为搜索引擎启动；
+     *     "search"：通过流应用的应用搜索启动应用（如iOS平台的T9键盘搜索）；
+     *     "speech"：通过流应用的语音识别启动应用；
+     *     "miniProgram"：通过微信小程序启动应用。
      * - default: 
-     * 	默认启动方式，通常表示从系统桌面图标启动
-     * 						
+     *     默认启动方式，通常表示从系统桌面图标启动
+     *                         
      * - scheme: 
-     * 	通过urlscheme方式触发启动
-     * 						
+     *     通过urlscheme方式触发启动
+     *                         
      * - push: 
-     * 	通过点击系统通知方式触发启动
-     * 						
+     *     通过点击系统通知方式触发启动
+     *                         
      * - stream: 
-     * 	通过流应用api（plus.stream.open）启动
-     * 						
+     *     通过流应用api（plus.stream.open）启动
+     *                         
      * - shortcut: 
-     * 	iOS平台表示通过3D Touch快捷方式，Android平台表示通过桌面快捷方式启动
-     * 						
+     *     iOS平台表示通过3D Touch快捷方式，Android平台表示通过桌面快捷方式启动
+     *                         
      * - barcode: 
-     * 	通过二维码扫描启动
-     * 						
+     *     通过二维码扫描启动
+     *                         
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
@@ -6973,32 +6973,32 @@ interface PlusRuntime {
     /**
      * 应用安装来源
      * 5+应用安装来源，可取以下值：
-     * 	"default"：默认安装来源，apk/ipa安装包内置安装；
-     * 	"stream"：通过流应用api（plus.stream.open）安装，仅流应用环境下支持；
-     * 	"push"：通过点击系统通知方式触发安装，仅流应用环境下支持；
-     * 	"scheme"：通过urlscheme方式触发安装，仅流应用环境下支持；
-     * 	"barcode"：通过二维码扫描触发安装，仅流应用环境下支持；
-     * 	"silent"：通过后台静默方式安装，仅流应用环境下支持；
-     * 	"speech"：通过语音识别方式触发安装，仅流应用环境下支持；
-     * 	"favorite"：通过收藏界面启动触发安装，仅流应用环境下支持。
+     *     "default"：默认安装来源，apk/ipa安装包内置安装；
+     *     "stream"：通过流应用api（plus.stream.open）安装，仅流应用环境下支持；
+     *     "push"：通过点击系统通知方式触发安装，仅流应用环境下支持；
+     *     "scheme"：通过urlscheme方式触发安装，仅流应用环境下支持；
+     *     "barcode"：通过二维码扫描触发安装，仅流应用环境下支持；
+     *     "silent"：通过后台静默方式安装，仅流应用环境下支持；
+     *     "speech"：通过语音识别方式触发安装，仅流应用环境下支持；
+     *     "favorite"：通过收藏界面启动触发安装，仅流应用环境下支持。
      * - default: 
-     * 	默认安装来源，apk/ipa安装包内置安装
-     * 						
+     *     默认安装来源，apk/ipa安装包内置安装
+     *                         
      * - stream: 
-     * 	通过流应用api（plus.stream.open）安装
-     * 						
+     *     通过流应用api（plus.stream.open）安装
+     *                         
      * - push: 
-     * 	通过点击系统通知方式触发安装
-     * 						
+     *     通过点击系统通知方式触发安装
+     *                         
      * - scheme: 
-     * 	通过urlscheme方式触发安装
-     * 						
+     *     通过urlscheme方式触发安装
+     *                         
      * - barcode: 
-     * 	通过二维码扫描触发安装
-     * 						
+     *     通过二维码扫描触发安装
+     *                         
      * - silent: 
-     * 	通过后台静默方式安装
-     * 						
+     *     通过后台静默方式安装
+     *                         
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
@@ -7020,7 +7020,7 @@ interface PlusRuntime {
     /**
      * 获取当前应用首页加载的时间
      * 应用加载首页面的总时间，从开始加载首页面到首页面加载完成，单位为ms。
-     * 	注意，应用首页为网络地址则包括网络传输时间。
+     *     注意，应用首页为网络地址则包括网络传输时间。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
@@ -7048,10 +7048,10 @@ interface PlusRuntime {
     /**
      * 安装应用
      * 支持以下类型安装包：
-     * 	1. 应用资源安装包（wgt），扩展名为'.wgt'；
-     * 	2. 应用资源差量升级包（wgtu），扩展名为'.wgtu'；
-     * 	3. 系统程序安装包（apk），要求使用当前平台支持的安装包格式。
-     * 	注意：仅支持本地地址，调用此方法前需把安装包从网络地址或其他位置放置到运行时环境可以访问的本地目录。
+     *     1. 应用资源安装包（wgt），扩展名为'.wgt'；
+     *     2. 应用资源差量升级包（wgtu），扩展名为'.wgtu'；
+     *     3. 系统程序安装包（apk），要求使用当前平台支持的安装包格式。
+     *     注意：仅支持本地地址，调用此方法前需把安装包从网络地址或其他位置放置到运行时环境可以访问的本地目录。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
@@ -7095,9 +7095,9 @@ interface PlusRuntime {
     /**
      * 处理直达页面链接参数
      * 通过URL Scheme启动时，可以在?后面添加__direct_page参数自定义直达页面地址，
-     * 	如“streamapp://m3w.cn/s/HelloH5?__direct_page=http%3a%2f%2fm.weibo.cn%2fu%2f3196963860”；
-     * 	在流应用SDK集成时也可以通过direct_page参数（原生调用Intent）设置。
-     * 	注意：仅第一次调用此API时返回直达页面链接地址，再次调用将返回空字符串；如果应用重新被带直达页面链接参数的URL Scheme启动/激活时，可再次调用此方法获取。
+     *     如“streamapp://m3w.cn/s/HelloH5?__direct_page=http%3a%2f%2fm.weibo.cn%2fu%2f3196963860”；
+     *     在流应用SDK集成时也可以通过direct_page参数（原生调用Intent）设置。
+     *     注意：仅第一次调用此API时返回直达页面链接地址，再次调用将返回空字符串；如果应用重新被带直达页面链接参数的URL Scheme启动/激活时，可再次调用此方法获取。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
@@ -7118,8 +7118,8 @@ interface PlusRuntime {
     /**
      * 判断是否自定义应用启动页面加载地址
      * 通过URL Scheme启动时，可以在?后面添加__launch_path参数自定义应用启动首页加载的页面地址，
-     * 	如“streamapp://m3w.cn/s/HelloH5?__launch_path=http%3a%2f%2fm.weibo.cn%2fu%2f3196963860”；
-     * 	在流SDK集成时也可以通过launch_path参数（原生调用Intent）设置。
+     *     如“streamapp://m3w.cn/s/HelloH5?__launch_path=http%3a%2f%2fm.weibo.cn%2fu%2f3196963860”；
+     *     在流SDK集成时也可以通过launch_path参数（原生调用Intent）设置。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
@@ -7149,10 +7149,10 @@ interface PlusRuntimeApplicationInf {
     /**
      * 新任务模式标记
      * 可取值：
-     * 		true-使用新任务模式标记（FLAG_ACTIVITY_NEW_TASK）启动应用；
-     * 		false-不使用新任务模式标记（FLAG_ACTIVITY_NEW_TASK）启动应用。
-     * 	默认值为true。
-     * 	注意：由于5+应用配置的launchMode为singleTask，所以另一个5+应用通过plus.runtime.launchApplication启动时如果应用已经在后台运行则不会触发newintent事件，为了避免此问题需要将newTask参数值设置为false。
+     *         true-使用新任务模式标记（FLAG_ACTIVITY_NEW_TASK）启动应用；
+     *         false-不使用新任务模式标记（FLAG_ACTIVITY_NEW_TASK）启动应用。
+     *     默认值为true。
+     *     注意：由于5+应用配置的launchMode为singleTask，所以另一个5+应用通过plus.runtime.launchApplication启动时如果应用已经在后台运行则不会触发newintent事件，为了避免此问题需要将newTask参数值设置为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
@@ -7197,7 +7197,7 @@ interface PlusRuntimeOpenFileOptions {
     /**
      * 优先使用的程序包名
      * 如果指定包名的程序已经安装，则调用其打开文件，若程序不支持打开文件则触发错误回调。
-     * 	如果指定包名的程序未安装，则弹出系统支持打开此文件的列表，由用户选择程序打开。
+     *     如果指定包名的程序未安装，则弹出系统支持打开此文件的列表，由用户选择程序打开。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
@@ -7283,7 +7283,7 @@ interface PlusRuntimeWidgetOptions {
     /**
      * 是否强制安装
      * true表示强制安装，不进行版本号的校验；false则需要版本号校验，如果将要安装应用的版本号不高于现有应用的版本号则终止安装，并返回安装失败。
-     * 	仅安装wgt和wgtu时生效，默认值 false。
+     *     仅安装wgt和wgtu时生效，默认值 false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
@@ -7311,7 +7311,7 @@ interface PlusStorage {
     /**
      * 修改或添加键值(key-value)对数据到应用数据存储中
      * 如果设置的键在应用数据存储中已经存在，更新存储的键值。
-     * 	存储的键和值没有容量限制，但过多的数据量会导致效率降低，建议单个键值数据不要超过10Kb。
+     *     存储的键和值没有容量限制，但过多的数据量会导致效率降低，建议单个键值数据不要超过10Kb。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/storage.html](http://www.html5plus.org/doc/zh_cn/storage.html)
      */
@@ -7413,7 +7413,7 @@ interface PlusStream {
     /**
      * 预加载流应用
      * 预加载指定的流应用资源，下载应用资源等，并不运行流应用。
-     * 	如果应用资源已经下载，则不做任何操作。
+     *     如果应用资源已经下载，则不做任何操作。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
@@ -7428,9 +7428,9 @@ interface PlusStream {
     /**
      * 设置流应用恢复运行的参数
      * 当流应用运行数目超过限制（通常最多运行2个流应用），会自动关闭之前切换到后台运行的应用。
-     * 	可通过此方法设置应用被自动关闭后再次被唤醒恢复运行时的参数，流应用恢复运行流程与第一次启动一致（差别是会使用StreamRestoreOptions中配置的参数）。
-     * 	如果没有调用setRestoreState方法，则恢复运行时使用启动时（调用plus.stream.open方法）传入的参数。
-     * 	注意：如果通过plus.stream.open方法启动应用，则忽略此方法设置的参数。
+     *     可通过此方法设置应用被自动关闭后再次被唤醒恢复运行时的参数，流应用恢复运行流程与第一次启动一致（差别是会使用StreamRestoreOptions中配置的参数）。
+     *     如果没有调用setRestoreState方法，则恢复运行时使用启动时（调用plus.stream.open方法）传入的参数。
+     *     注意：如果通过plus.stream.open方法启动应用，则忽略此方法设置的参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
@@ -7520,9 +7520,9 @@ interface PlusStreamStreamOptions {
     /**
      * 应用启动界面样式
      * 可取值：
-     * 	"auto"：自动选择启动界面，如果splash图片已经下载则显示splash图片，否则使用默认加载流应用界面；
-     * 	"default"：使用默认加载流应用界面（如在360浏览器环境中在标题栏下显示加载进度条）。
-     * 	默认值为"auto"。
+     *     "auto"：自动选择启动界面，如果splash图片已经下载则显示splash图片，否则使用默认加载流应用界面；
+     *     "default"：使用默认加载流应用界面（如在360浏览器环境中在标题栏下显示加载进度条）。
+     *     默认值为"auto"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
@@ -7544,12 +7544,12 @@ interface PlusStreamStreamOptions {
     /**
      * 启动流应用的快捷方式逻辑
      * 可取值：
-     * 		"auto" - 检查并引导用户打开快捷方式权限，自动创建桌面快捷方式，在不支持快捷方式滤重的系统上仅创建一次；
+     *         "auto" - 检查并引导用户打开快捷方式权限，自动创建桌面快捷方式，在不支持快捷方式滤重的系统上仅创建一次；
      *         "force" - 检查并引导用户打开快捷方式权限，自动创建桌面快捷方式，在不支持快捷方式滤重的系统上每次都尝试创建；
      *         "none" - 不检查快捷方式权限，不创建桌面快捷方式（与从桌面快捷方式启动的流程一致）；
      *         "query" - 弹出询问提示框（底部显示），用户点击确定后创建桌面快捷方式（检查并引导用户打开快捷方式权限）；
      *         "tipOnce" - 业务逻辑与"auto"类似，差别是只会引导用户打开快捷方式权限一次、toast提示一次。
-     * 	默认值为"force"。
+     *     默认值为"force"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
@@ -7557,10 +7557,10 @@ interface PlusStreamStreamOptions {
     /**
      * 退出流应用的快捷方式逻辑
      * 可取值：
-     * 		"query" - 应用退出时检查是否创建桌面快捷方式，如果查询到没有创建则弹出询问框，用户点击确定后创建桌面快捷方式（检查并引导用户打开快捷方式权限）；
+     *         "query" - 应用退出时检查是否创建桌面快捷方式，如果查询到没有创建则弹出询问框，用户点击确定后创建桌面快捷方式（检查并引导用户打开快捷方式权限）；
      *         "queryOnce" - 仅应用第一次退出检查，检查逻辑同query；
      *         "none" - 应用退出时不检查是否创建桌面快捷方式。
-     * 	默认值为"none"。
+     *     默认值为"none"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
@@ -7584,9 +7584,9 @@ interface PlusStreamStreamRestoreOptions {
     /**
      * 应用启动界面样式
      * 可取值：
-     * 	"auto"：自动选择启动界面，如果流应用自动关闭时截图成功则使用截图，如果splash图片已经下载则显示splash图片，否则使用默认加载流应用界面；
-     * 	"default"：使用默认加载流应用界面（如在360浏览器环境中在标题栏下显示加载进度条）。
-     * 	默认值为"auto"。
+     *     "auto"：自动选择启动界面，如果流应用自动关闭时截图成功则使用截图，如果splash图片已经下载则显示splash图片，否则使用默认加载流应用界面；
+     *     "default"：使用默认加载流应用界面（如在360浏览器环境中在标题栏下显示加载进度条）。
+     *     默认值为"auto"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
@@ -7623,7 +7623,7 @@ interface PlusStreamStreamRestoreSplashscreenOptions {
     /**
      * 启动界面超时时间
      * 单位为毫秒（ms），当启动界面超过此时间仍然未关闭时（不管autoclose值设置true还是false），应用将自动关闭启动界面。
-     * 	默认值为6000（即6秒）。
+     *     默认值为6000（即6秒）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
@@ -7639,7 +7639,7 @@ interface PlusStreamLaunchWebviewStyles {
     /**
      * 流应用首页是否阻塞网络图片的加载
      * true表示阻塞网络图片的加载，false表示不阻塞网络图片的加载。默认值为false。
-     * 	设置后可通过Webview窗口对象的setBlockNetworkImage(false)方法修改设置来继续加载网络图片。
+     *     设置后可通过Webview窗口对象的setBlockNetworkImage(false)方法修改设置来继续加载网络图片。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
@@ -7647,8 +7647,8 @@ interface PlusStreamLaunchWebviewStyles {
     /**
      * 指定流应用首页地址
      * 可使用网络地址（http://或https://开头），也可使用本地地址（相对应用资源路径）。
-     * 	也可使用特定地址：
-     * 	about:blank - 使用空白首页，仅加载内置注入的脚本（如all.js、wap2app.js、config.js等）。
+     *     也可使用特定地址：
+     *     about:blank - 使用空白首页，仅加载内置注入的脚本（如all.js、wap2app.js、config.js等）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
@@ -7663,7 +7663,7 @@ interface PlusStreamLaunchWebviewStyles {
     /**
      * 流应用首页是否显示
      * true表示显示，false表示不显示。默认值为true。
-     * 	注意：流应用首页隐藏后，需要调用首页的setVisible方法显示，如plus.webview.getLaunchWebview().setVisible(true)。
+     *     注意：流应用首页隐藏后，需要调用首页的setVisible方法显示，如plus.webview.getLaunchWebview().setVisible(true)。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
@@ -7694,7 +7694,7 @@ interface PlusStreamStreamInfo {
     /**
      * 流应用是否下载完成
      * true表示流应用下载完成，false表示流应用未下载完成。
-     * 	注意，流应用未下载完成以让可以正常启动运行，启动后会自动下载。
+     *     注意，流应用未下载完成以让可以正常启动运行，启动后会自动下载。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
@@ -7784,7 +7784,7 @@ interface PlusUploader {
     /**
      * 开始所有上传任务
      * 开始所有处于未开始调度或暂停状态的上传任务。
-     * 	若上传任务数超过可并发处理的总数，超出的任务处于调度状态（等待上传），当有任务完成时根据调度状态任务的优先级选择任务开始上传。
+     *     若上传任务数超过可并发处理的总数，超出的任务处于调度状态（等待上传），当有任务完成时根据调度状态任务的优先级选择任务开始上传。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
@@ -7849,10 +7849,10 @@ interface PlusUploaderUpload {
     /**
      * 添加上传文件
      * 向上传任务中添加文件，必须在任务开始上传前调用。
-     * 	以下情况会导致添加上传文件失败：
-     * 	1. options参数中指定的key在任务中已经存在，则添加失败返回false；
-     * 	2. path参数指定的文件路径不合法或文件不存在，则添加失败返回false；
-     * 	3. 上传任务已经开始调度，调用此方法则添加失败返回false。
+     *     以下情况会导致添加上传文件失败：
+     *     1. options参数中指定的key在任务中已经存在，则添加失败返回false；
+     *     2. path参数指定的文件路径不合法或文件不存在，则添加失败返回false；
+     *     3. 上传任务已经开始调度，调用此方法则添加失败返回false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
@@ -7860,9 +7860,9 @@ interface PlusUploaderUpload {
     /**
      * 添加上传数据
      * 向上传任务中添加数据，必须在任务开始上传前调用。
-     * 	以下情况会导致添加上传文件失败：
-     * 	1. key参数中指定的键名在任务中已经存在，则添加失败返回false；
-     * 	2. 上传任务已经开始调度，调用此方法则添加失败返回false。
+     *     以下情况会导致添加上传文件失败：
+     *     1. key参数中指定的键名在任务中已经存在，则添加失败返回false；
+     *     2. 上传任务已经开始调度，调用此方法则添加失败返回false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
@@ -7870,7 +7870,7 @@ interface PlusUploaderUpload {
     /**
      * 开始上传任务
      * 开始调度上传任务，如果任务已经处于开始状态则无任何响应。
-     * 	在创建任务或任务上传失败后调用可重新开始上传。
+     *     在创建任务或任务上传失败后调用可重新开始上传。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
@@ -7913,7 +7913,7 @@ interface PlusUploaderUpload {
     /**
      * 获取上传请求指定的HTTP响应头部的值
      * 其参数是要返回的HTTP响应头部的名称，可以使用任何大小写来制定这个头部名字，和响应头部的比较是不区分大小写的。
-     * 	如果没有接收到这个头部或者伤处请求未完成则为空字符串；如果接收到多个有指定名称的头部，这个头部的值被连接起来并返回，使用逗号和空格分隔开各个头部的值。
+     *     如果没有接收到这个头部或者伤处请求未完成则为空字符串；如果接收到多个有指定名称的头部，这个头部的值被连接起来并返回，使用逗号和空格分隔开各个头部的值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
@@ -7921,7 +7921,7 @@ interface PlusUploaderUpload {
     /**
      * 设置上传请求的HTTP头数据
      * Http的Header应该包含在通过后续start()调用而发起的请求中，此方法必需在调用start()之前设置才能生效。
-     * 	如果带有指定名称的头部已经被指定了，这个头部的新值就是：之前指定的值，加上逗号、以及这个调用指定的值（形成一个数组）。
+     *     如果带有指定名称的头部已经被指定了，这个头部的新值就是：之前指定的值，加上逗号、以及这个调用指定的值（形成一个数组）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
@@ -7980,7 +7980,7 @@ interface PlusUploaderUploadOptions {
     /**
      * 上传任务超时时间
      * 数值类型，单位为s(秒)，默认值为120s。
-     * 	超时时间为服务器响应请求的时间（不是上传任务完成的总时间），如果设置为0则表示永远不超时。
+     *     超时时间为服务器响应请求的时间（不是上传任务完成的总时间），如果设置为0则表示永远不超时。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
@@ -8010,7 +8010,7 @@ interface PlusUploaderUploadFileOptions {
     /**
      * 文件键名
      * 上传文件在上传任务中的键名，默认值为为文件名称。
-     * 	上传任务中如果已经存在相同key的上传文件或数据将导致添加文件失败。
+     *     上传任务中如果已经存在相同key的上传文件或数据将导致添加文件失败。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
@@ -8078,7 +8078,7 @@ interface PlusVideo {
     /**
      * 创建VideoPlayer对象
      * 调用此方法创建后并不会显示，需要调用Webview窗口的append方法将其添加到Webview窗口后才能显示。
-     * 	注意：此时需要通过styles参数的top/left/width/height属性设置控件的位置及大小。
+     *     注意：此时需要通过styles参数的top/left/width/height属性设置控件的位置及大小。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8086,7 +8086,7 @@ interface PlusVideo {
     /**
      * 创建LivePusher对象
      * 调用此方法创建后并不会显示，需要调用Webview窗口的append方法将其添加到Webview窗口后才能显示。
-     * 	注意：此时需要通过styles参数的top/left/width/height属性设置控件的位置及大小。
+     *     注意：此时需要通过styles参数的top/left/width/height属性设置控件的位置及大小。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8117,7 +8117,7 @@ interface PlusVideoVideoPlayer {
     /**
      * 监听视频播放控件事件
      * 向视频播放控件添加事件监听器，当指定的事件发生时，将触发listener函数的执行。 
-     * 	可多次调用此方法向视频播放控件添加多个监听器，当监听的事件发生时，将按照添加的先后顺序执行。
+     *     可多次调用此方法向视频播放控件添加多个监听器，当监听的事件发生时，将按照添加的先后顺序执行。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8125,7 +8125,7 @@ interface PlusVideoVideoPlayer {
     /**
      * 设置视频播放控件参数
      * 用于动态更新视频播放控件的配置参数。
-     * 	注意：有些选项无法动态更新，只能创建时进行设置，详情参考VideoPlayerStyles。
+     *     注意：有些选项无法动态更新，只能创建时进行设置，详情参考VideoPlayerStyles。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8133,7 +8133,7 @@ interface PlusVideoVideoPlayer {
     /**
      * 设置视频播放控件参数（将废弃，使用setStyles）
      * 用于动态更新视频播放控件的配置选项。
-     * 	注意：有些选项无法动态更新，只能创建时进行设置，详情参考VideoPlayerStyles。
+     *     注意：有些选项无法动态更新，只能创建时进行设置，详情参考VideoPlayerStyles。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8181,7 +8181,7 @@ interface PlusVideoVideoPlayer {
     /**
      * 隐藏视频播放控件
      * 隐藏只是控件不可见，控件依然存在并且不改变播放状态。
-     * 	如果控件已经隐藏，则操作无效。
+     *     如果控件已经隐藏，则操作无效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8189,7 +8189,7 @@ interface PlusVideoVideoPlayer {
     /**
      * 显示视频播放控件
      * 将隐藏的控件显示出来（回复到隐藏前的状态）。
-     * 	如果控件已经显示，则操作无效。
+     *     如果控件已经显示，则操作无效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8232,7 +8232,7 @@ interface PlusVideoVideoPlayerStyles {
     /**
      * 视频初始播放位置
      * 单位为秒（s）。
-     * 	注意：仅在视频开始播放前设置有效。
+     *     注意：仅在视频开始播放前设置有效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8240,7 +8240,7 @@ interface PlusVideoVideoPlayerStyles {
     /**
      * 视频长度
      * 单位为秒（s）。
-     * 	注意：仅在视频开始播放前设置有效。
+     *     注意：仅在视频开始播放前设置有效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8248,7 +8248,7 @@ interface PlusVideoVideoPlayerStyles {
     /**
      * 是否显示默认播放控件
      * 默认值为true。
-     * 	包括播放/暂停按钮、播放进度、时间等。
+     *     包括播放/暂停按钮、播放进度、时间等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8263,7 +8263,7 @@ interface PlusVideoVideoPlayerStyles {
     /**
      * 是否显示弹幕按钮
      * 默认值为false。
-     * 	注意：仅在控件构造时设置有效，不能动态更新。
+     *     注意：仅在控件构造时设置有效，不能动态更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8271,7 +8271,7 @@ interface PlusVideoVideoPlayerStyles {
     /**
      * 是否展示弹幕
      * 默认值为false。
-     * 	注意：仅在控件构造时设置有效，不能动态更新。
+     *     注意：仅在控件构造时设置有效，不能动态更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8300,8 +8300,8 @@ interface PlusVideoVideoPlayerStyles {
     /**
      * 设置全屏时视频的方向
      * 不指定则根据宽高比自动判断。
-     * 	有效值为： 0（正常竖向）, 90（屏幕逆时针90度）, -90（屏幕顺时针90度）。
-     * 	默认值为-90。
+     *     有效值为： 0（正常竖向）, 90（屏幕逆时针90度）, -90（屏幕顺时针90度）。
+     *     默认值为-90。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8344,8 +8344,8 @@ interface PlusVideoVideoPlayerStyles {
     /**
      * 当视频大小与 video 容器大小不一致时，视频的表现形式
      * 有效值为：contain（包含），fill（填充），cover（覆盖）。
-     * 	默认值为contain。
-     * 	仅Android平台支持。
+     *     默认值为contain。
+     *     仅Android平台支持。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8360,9 +8360,9 @@ interface PlusVideoVideoPlayerStyles {
     /**
      * VideoPlayer控件左上角的垂直偏移量
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的高度；
-     * 		自动计算，如"auto",根据height值自动计算，相对于父Webview窗口垂直居中。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的高度；
+     *         自动计算，如"auto",根据height值自动计算，相对于父Webview窗口垂直居中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8370,10 +8370,10 @@ interface PlusVideoVideoPlayerStyles {
     /**
      * VideoPlayer控件左上角的水平偏移量
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的宽度；
-     * 		自动计算，如"auto"，根据width值自动计算，相对于父Webview窗口水平居中。
-     * 	默认值为"0px"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的宽度；
+     *         自动计算，如"auto"，根据width值自动计算，相对于父Webview窗口水平居中。
+     *     默认值为"0px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8381,9 +8381,9 @@ interface PlusVideoVideoPlayerStyles {
     /**
      * VideoPlayer控件的宽度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的宽度。
-     * 	默认值为"100%"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的宽度。
+     *     默认值为"100%"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8391,9 +8391,9 @@ interface PlusVideoVideoPlayerStyles {
     /**
      * VideoPlayer控件的高度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的高度。
-     * 	默认值为"100%"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的高度。
+     *     默认值为"100%"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8401,9 +8401,9 @@ interface PlusVideoVideoPlayerStyles {
     /**
      * VideoPlayer控件在Webview窗口的布局模式
      * 可取值：
-     * 		"static" - 静态布局模式，如果页面存在滚动条则随窗口内容滚动；
-     * 		"absolute" - 绝对布局模式，如果页面存在滚动条不随窗口内容滚动；
-     * 	默认值为"static"。
+     *         "static" - 静态布局模式，如果页面存在滚动条则随窗口内容滚动；
+     *         "absolute" - 绝对布局模式，如果页面存在滚动条不随窗口内容滚动；
+     *     默认值为"static"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8419,7 +8419,7 @@ interface PlusVideoVideoPlayerEvents {
     /**
      * 视频播放事件
      * 当视频开始/继续播放时触发。
-     * 	无事件回调函数参数。
+     *     无事件回调函数参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8427,7 +8427,7 @@ interface PlusVideoVideoPlayerEvents {
     /**
      * 视频暂停事件
      * 当视频暂停播放时触发。
-     * 	无事件回调函数参数。
+     *     无事件回调函数参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8435,7 +8435,7 @@ interface PlusVideoVideoPlayerEvents {
     /**
      * 视频结束事件
      * 当视频播放到末尾时触发。
-     * 	无事件回调函数参数。
+     *     无事件回调函数参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8443,7 +8443,7 @@ interface PlusVideoVideoPlayerEvents {
     /**
      * 视频播放进度更新事件
      * 当视频播放进度变化时触发，触发频率250ms一次。
-     * 	事件回调函数参数event.detail = {currentTime:"Number类型，当前播放时间（单位为秒）",duration:"Number类型，视频总长度（单位为秒）"}。
+     *     事件回调函数参数event.detail = {currentTime:"Number类型，当前播放时间（单位为秒）",duration:"Number类型，视频总长度（单位为秒）"}。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8451,7 +8451,7 @@ interface PlusVideoVideoPlayerEvents {
     /**
      * 视频播放全屏播放状态变化事件
      * 当视频播放进入或退出全屏时触发。
-     * 	事件回调函数参数event.detail = {fullScreen:"Boolean类型，当前状态是否为全屏", direction:"String类型，vertical或horizontal"}。
+     *     事件回调函数参数event.detail = {fullScreen:"Boolean类型，当前状态是否为全屏", direction:"String类型，vertical或horizontal"}。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8459,7 +8459,7 @@ interface PlusVideoVideoPlayerEvents {
     /**
      * 视频缓冲事件
      * 当视频播放出现缓冲时触发。
-     * 	无事件回调函数参数。
+     *     无事件回调函数参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8467,7 +8467,7 @@ interface PlusVideoVideoPlayerEvents {
     /**
      * 视频错误事件
      * 当视频播放出错时触发。
-     * 	无事件回调函数参数。
+     *     无事件回调函数参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8484,7 +8484,7 @@ interface PlusVideoLivePusher {
     /**
      * 监听直播推流控件事件
      * 向直播推流控件添加事件监听器，当指定的事件发生时，将触发listener函数的执行。 
-     * 	可多次调用此方法向直播推流控件添加多个监听器，当监听的事件发生时，将按照添加的先后顺序执行。
+     *     可多次调用此方法向直播推流控件添加多个监听器，当监听的事件发生时，将按照添加的先后顺序执行。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8492,7 +8492,7 @@ interface PlusVideoLivePusher {
     /**
      * 设置直播推流控件参数
      * 用于动态更新直播推流控件的配置参数。
-     * 	注意：有些选项无法动态更新，只能创建时进行设置，详情参考LivePusherStyles。
+     *     注意：有些选项无法动态更新，只能创建时进行设置，详情参考LivePusherStyles。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8500,7 +8500,7 @@ interface PlusVideoLivePusher {
     /**
      * 设置直播推流控件参数（将废弃，使用setStyles）
      * 用于动态更新直播推流控件的配置选项。
-     * 	注意：有些选项无法动态更新，只能创建时进行设置，详情参考LivePusherStyles。
+     *     注意：有些选项无法动态更新，只能创建时进行设置，详情参考LivePusherStyles。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8508,7 +8508,7 @@ interface PlusVideoLivePusher {
     /**
      * 预览摄像头采集数据
      * 调用摄像头采集图像数据，并在推流控件中预览（此时不会向服务器推流，需调用start方法才开始推流）。
-     * 	注意：为了确保预览窗口大小正确，应该在创建控件后延时一定的时间（如500ms）进行预览。
+     *     注意：为了确保预览窗口大小正确，应该在创建控件后延时一定的时间（如500ms）进行预览。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8606,7 +8606,7 @@ interface PlusVideoLivePusherStyles {
     /**
      * 是否美颜
      * 可取值0、1，其中0表示不使用美颜，1表示不使用美颜。
-     * 	默认值为0(不使用美颜)。
+     *     默认值为0(不使用美颜)。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8614,7 +8614,7 @@ interface PlusVideoLivePusherStyles {
     /**
      * 是否美白
      * 可取值0、1、2、3、4、5，其中0表示不使用美白，其余值分别表示美白的程度，值越大美白程度越大。
-     * 	默认值为0（不使用美白）。
+     *     默认值为0（不使用美白）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8629,9 +8629,9 @@ interface PlusVideoLivePusherStyles {
     /**
      * LivePusher控件左上角的垂直偏移量
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的高度；
-     * 		自动计算，如"auto",根据height值自动计算，相对于父Webview窗口垂直居中。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的高度；
+     *         自动计算，如"auto",根据height值自动计算，相对于父Webview窗口垂直居中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8639,10 +8639,10 @@ interface PlusVideoLivePusherStyles {
     /**
      * LivePusher控件左上角的水平偏移量
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的宽度；
-     * 		自动计算，如"auto"，根据width值自动计算，相对于父Webview窗口水平居中。
-     * 	默认值为"0px"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的宽度；
+     *         自动计算，如"auto"，根据width值自动计算，相对于父Webview窗口水平居中。
+     *     默认值为"0px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8650,9 +8650,9 @@ interface PlusVideoLivePusherStyles {
     /**
      * LivePusher控件的宽度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的宽度。
-     * 	默认值为"100%"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的宽度。
+     *     默认值为"100%"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8660,9 +8660,9 @@ interface PlusVideoLivePusherStyles {
     /**
      * LivePusher控件的高度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的高度。
-     * 	默认值为"100%"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的高度。
+     *     默认值为"100%"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8670,9 +8670,9 @@ interface PlusVideoLivePusherStyles {
     /**
      * LivePusher控件在Webview窗口的布局模式
      * 可取值：
-     * 		"static" - 静态布局模式，如果页面存在滚动条则随窗口内容滚动；
-     * 		"absolute" - 绝对布局模式，如果页面存在滚动条不随窗口内容滚动；
-     * 	默认值为"static"。
+     *         "static" - 静态布局模式，如果页面存在滚动条则随窗口内容滚动；
+     *         "absolute" - 绝对布局模式，如果页面存在滚动条不随窗口内容滚动；
+     *     默认值为"static"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8688,39 +8688,39 @@ interface PlusVideoLivePusherEvents {
     /**
      * 状态变化事件
      * 当推流连接服务器状态变化时触发。
-     * 	事件回调函数参数event={type:"事件类型，此时为statechange",target:"触发此事件的直播推流控件对象",detail:{code:"状态码，参考后面状态码说明",message:"描述信息"}}。
-     * 	其中code状态码：
-     * 	1001 - 已经连接推流服务器；
-     * 	1002 - 已经与服务器握手完毕,开始推流；
-     * 	1003 - 打开摄像头成功；
-     * 	1004 - 录屏启动成功；
-     * 	1005 - 推流动态调整分辨率；
-     * 	1006 - 推流动态调整码率；
-     * 	1007 - 首帧画面采集完成；
-     * 	1008 - 编码器启动；
-     * 	-1301 - 打开摄像头失败；
-     * 	-1302 - 打开麦克风失败；
-     * 	-1303 - 视频编码失败；
-     * 	-1304 - 音频编码失败；
-     * 	-1305 - 不支持的视频分辨率；
-     * 	-1306 - 不支持的音频采样率；
-     * 	-1307 - 网络断连，且经多次重连抢救无效，更多重试请自行重启推流；
-     * 	-1308 - 开始录屏失败，可能是被用户拒绝；
-     * 	-1309 - 录屏失败，不支持的Android系统版本，需要5.0以上的系统；
-     * 	-1310 - 录屏被其他应用打断了；
-     * 	-1311 - Android Mic打开成功，但是录不到音频数据；
-     * 	-1312 - 录屏动态切横竖屏失败；
-     * 	1101 - 网络状况不佳：上行带宽太小，上传数据受阻；
-     * 	1102 - 网络断连, 已启动自动重连；
-     * 	1103 - 硬编码启动失败,采用软编码；
-     * 	1104 - 视频编码失败；
-     * 	1105 - 新美颜软编码启动失败，采用老的软编码；
-     * 	1106 - 新美颜软编码启动失败，采用老的软编码；
-     * 	3001 - RTMP -DNS解析失败；
-     * 	3002 - RTMP服务器连接失败；
-     * 	3003 - RTMP服务器握手失败；
-     * 	3004 - RTMP服务器主动断开，请检查推流地址的合法性或防盗链有效期；
-     * 	3005 - RTMP 读/写失败。
+     *     事件回调函数参数event={type:"事件类型，此时为statechange",target:"触发此事件的直播推流控件对象",detail:{code:"状态码，参考后面状态码说明",message:"描述信息"}}。
+     *     其中code状态码：
+     *     1001 - 已经连接推流服务器；
+     *     1002 - 已经与服务器握手完毕,开始推流；
+     *     1003 - 打开摄像头成功；
+     *     1004 - 录屏启动成功；
+     *     1005 - 推流动态调整分辨率；
+     *     1006 - 推流动态调整码率；
+     *     1007 - 首帧画面采集完成；
+     *     1008 - 编码器启动；
+     *     -1301 - 打开摄像头失败；
+     *     -1302 - 打开麦克风失败；
+     *     -1303 - 视频编码失败；
+     *     -1304 - 音频编码失败；
+     *     -1305 - 不支持的视频分辨率；
+     *     -1306 - 不支持的音频采样率；
+     *     -1307 - 网络断连，且经多次重连抢救无效，更多重试请自行重启推流；
+     *     -1308 - 开始录屏失败，可能是被用户拒绝；
+     *     -1309 - 录屏失败，不支持的Android系统版本，需要5.0以上的系统；
+     *     -1310 - 录屏被其他应用打断了；
+     *     -1311 - Android Mic打开成功，但是录不到音频数据；
+     *     -1312 - 录屏动态切横竖屏失败；
+     *     1101 - 网络状况不佳：上行带宽太小，上传数据受阻；
+     *     1102 - 网络断连, 已启动自动重连；
+     *     1103 - 硬编码启动失败,采用软编码；
+     *     1104 - 视频编码失败；
+     *     1105 - 新美颜软编码启动失败，采用老的软编码；
+     *     1106 - 新美颜软编码启动失败，采用老的软编码；
+     *     3001 - RTMP -DNS解析失败；
+     *     3002 - RTMP服务器连接失败；
+     *     3003 - RTMP服务器握手失败；
+     *     3004 - RTMP服务器主动断开，请检查推流地址的合法性或防盗链有效期；
+     *     3005 - RTMP 读/写失败。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8728,7 +8728,7 @@ interface PlusVideoLivePusherEvents {
     /**
      * 网络状态通知事件
      * 当推流的网络状态发生变化时触发。
-     * 	事件回调函数参数event={type:"事件类型，此时为netstatus",target:"触发此事件的直播推流控件对象",detail:{videoBitrate:"视频码率",audioBitrate:"音频码率",videoFPS:"视频帧率",netSpeed:"推流网速",videoWidth:"视频宽度",videoHeight:"视频高度"}}。
+     *     事件回调函数参数event={type:"事件类型，此时为netstatus",target:"触发此事件的直播推流控件对象",detail:{videoBitrate:"视频码率",audioBitrate:"音频码率",videoFPS:"视频帧率",netSpeed:"推流网速",videoWidth:"视频宽度",videoHeight:"视频高度"}}。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8736,10 +8736,10 @@ interface PlusVideoLivePusherEvents {
     /**
      * 渲染错误事件
      * 当推流发生错误是触发。
-     * 	事件回调函数参数event={type:"事件类型，此时为error",target:"触发此事件的直播推流控件对象",detail:{code:"错误编码，参考后面错误码说明",message:"描述信息"}}。
-     * 	其中code错误码：
-     * 	1001 - 用户禁止使用摄像头；
-     * 	1002 - 用户禁止使用录音。
+     *     事件回调函数参数event={type:"事件类型，此时为error",target:"触发此事件的直播推流控件对象",detail:{code:"错误编码，参考后面错误码说明",message:"描述信息"}}。
+     *     其中code错误码：
+     *     1001 - 用户禁止使用摄像头；
+     *     1002 - 用户禁止使用录音。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
@@ -8857,7 +8857,7 @@ interface PlusWebview {
     /**
      * 窗口标题栏控件样式
      * 标题栏控件固定高度为44px,可通过Webview窗口对象的getTitleNView方法获取标题栏原生控件对象动态绘制内容。
-     * 	可以通过WebviewObject对象的getTitleNView()获取标题栏的NView对象，然后调用其setStyle方法更新样式。
+     *     可以通过WebviewObject对象的getTitleNView()获取标题栏的NView对象，然后调用其setStyle方法更新样式。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -8965,7 +8965,7 @@ interface PlusWebview {
     /**
      * 获取所有Webview窗口
      * 获取应用中已创建的所有Webview窗口，包括所有未显示的Webview窗口。
-     * 	返回WebviewObject对象在数组中按创建的先后顺序排列，即数组中第一个WebviewObject对象用是加载应用的入口页面。
+     *     返回WebviewObject对象在数组中按创建的先后顺序排列，即数组中第一个WebviewObject对象用是加载应用的入口页面。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9001,8 +9001,8 @@ interface PlusWebview {
     /**
      * 查找指定标识的WebviewObject窗口
      * 在已创建的窗口列表中查找指定标识的Webview窗口并返回。
-     * 	若没有查找到指定标识的窗口则返回null，若存在多个相同标识的Webview窗口，则返回第一个创建的Webview窗口。
-     * 	如果要获取应用入口页面所属的Webview窗口，其标识为应用的%APPID%，可通过plus.runtime.appid获取。
+     *     若没有查找到指定标识的窗口则返回null，若存在多个相同标识的Webview窗口，则返回第一个创建的Webview窗口。
+     *     如果要获取应用入口页面所属的Webview窗口，其标识为应用的%APPID%，可通过plus.runtime.appid获取。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9043,8 +9043,8 @@ interface PlusWebview {
     /**
      * 预载网络页面
      * 预载网络页面会向服务器发起http/https请求获取html页面内容，
-     * 	待Webview窗口加载此url页面时会则根据缓存机制优先使用预载的页面内容(加快页面显示速度)。
-     * 	注意：预载网络页面仅在运行期生效，为了节省内存仅保留最后5个预载页面数据。
+     *     待Webview窗口加载此url页面时会则根据缓存机制优先使用预载的页面内容(加快页面显示速度)。
+     *     注意：预载网络页面仅在运行期生效，为了节省内存仅保留最后5个预载页面数据。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9052,8 +9052,8 @@ interface PlusWebview {
     /**
      * 预载网络页面（多个地址）
      * 预载网络页面会向服务器发起http/https请求获取html页面内容，
-     * 	待Webview窗口加载此url页面时会则根据缓存机制优先使用预载的页面内容(加快页面显示速度)。
-     * 	注意：预载网络页面仅在运行期生效，为了节省内存仅保留最后5个预载页面数据。
+     *     待Webview窗口加载此url页面时会则根据缓存机制优先使用预载的页面内容(加快页面显示速度)。
+     *     注意：预载网络页面仅在运行期生效，为了节省内存仅保留最后5个预载页面数据。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9068,15 +9068,15 @@ interface PlusWebview {
     /**
      * Webview窗口组合动画
      * 同步组合两个Webview窗口动画，动画完成后窗口的位置会发生变化，一次需要在动画属性参数中设置动画起始位置、结束位置等。
-     * 	注意：此动画操作会改变窗口位置（如left值等），再次调用show方法时需要确保其位置是否在可视区域，如果不在可视区域则需要调用窗口的setStyle方法设置其位置到可视区域内，如setStyle({left:'0px'});。
+     *     注意：此动画操作会改变窗口位置（如left值等），再次调用show方法时需要确保其位置是否在可视区域，如果不在可视区域则需要调用窗口的setStyle方法设置其位置到可视区域内，如setStyle({left:'0px'});。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
     startAnimation(options?: PlusWebviewWebviewAnimationOptions, otherOptions?: PlusWebviewWebviewAnimationOptions, callback?: (result: any) => void): void;
     /**
      * 获取Webview默认是否开启硬件加速
-     * 由于不同设备对硬件加速的支持情况存在差异，开启硬件加速能加速HTML页面的渲染，但也会消耗更多的系统资源，从而导致在部分设备上可能出现闪屏、发虚、分块渲染等问题，	因此5+ Runtime会根据设备实际支持情况自动选择是否开启硬件加速。
-     * 	关闭硬件加速则可能会导致Webview页面无法支持Video标签播放视频等问题，如果在特定情况下需要调整修改默认开启硬件加速的行为，则可通过plus.webview.defaultHardwareAccelerated()方法获取当前设备默认是否开启硬件加速状态，从而决定是否需要显式开启或关闭指定Webview的硬件加速功能（通过WebviewStyles的hardwareAccelerated属性设置）。
+     * 由于不同设备对硬件加速的支持情况存在差异，开启硬件加速能加速HTML页面的渲染，但也会消耗更多的系统资源，从而导致在部分设备上可能出现闪屏、发虚、分块渲染等问题，    因此5+ Runtime会根据设备实际支持情况自动选择是否开启硬件加速。
+     *     关闭硬件加速则可能会导致Webview页面无法支持Video标签播放视频等问题，如果在特定情况下需要调整修改默认开启硬件加速的行为，则可通过plus.webview.defaultHardwareAccelerated()方法获取当前设备默认是否开启硬件加速状态，从而决定是否需要显式开启或关闭指定Webview的硬件加速功能（通过WebviewStyles的hardwareAccelerated属性设置）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9099,8 +9099,8 @@ interface PlusWebviewAnimationTypeShow {
     /**
      * 无动画效果
      * 立即显示页面，无任何动画效果，页面显示默认的动画效果。
-     * 	此效果忽略动画时间参数，立即显示。
-     * 	对应关闭动画"none"。
+     *     此效果忽略动画时间参数，立即显示。
+     *     对应关闭动画"none"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9108,7 +9108,7 @@ interface PlusWebviewAnimationTypeShow {
     /**
      * 从右侧横向滑动效果
      * 页面从屏幕右侧外向内横向滑动显示。
-     * 	对应关闭动画"slide-out-right"。
+     *     对应关闭动画"slide-out-right"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9116,7 +9116,7 @@ interface PlusWebviewAnimationTypeShow {
     /**
      * 从左侧横向滑动效果
      * 页面从屏幕左侧向右横向滑动显示。
-     * 	对应关闭动画"slide-out-left"。
+     *     对应关闭动画"slide-out-left"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9124,7 +9124,7 @@ interface PlusWebviewAnimationTypeShow {
     /**
      * 从上侧竖向滑动效果
      * 页面从屏幕上侧向下竖向滑动显示。
-     * 	对应关闭动画"slide-out-top"。
+     *     对应关闭动画"slide-out-top"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9132,7 +9132,7 @@ interface PlusWebviewAnimationTypeShow {
     /**
      * 从下侧竖向滑动效果
      * 页面从屏幕下侧向上竖向滑动显示。
-     * 	对应关闭动画"slide-out-bottom"。
+     *     对应关闭动画"slide-out-bottom"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9140,7 +9140,7 @@ interface PlusWebviewAnimationTypeShow {
     /**
      * 从透明到不透明逐渐显示效果
      * 页面从完全透明到不透明逐渐显示。
-     * 	对应关闭动画"fade-out"。
+     *     对应关闭动画"fade-out"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9148,7 +9148,7 @@ interface PlusWebviewAnimationTypeShow {
     /**
      * 从小到大逐渐放大显示效果
      * 页面在屏幕中间从小到大逐渐放大显示。
-     * 	对应关闭动画"zoom-in"。
+     *     对应关闭动画"zoom-in"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9156,7 +9156,7 @@ interface PlusWebviewAnimationTypeShow {
     /**
      * 从小到大逐渐放大并且从透明到不透明逐渐显示效果
      * 页面在屏幕中间从小到大逐渐放大并且从透明到不透明逐渐显示。
-     * 	对应关闭动画"zoom-fade-in"。
+     *     对应关闭动画"zoom-fade-in"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9164,7 +9164,7 @@ interface PlusWebviewAnimationTypeShow {
     /**
      * 从右侧平移入栈动画效果
      * 页面从屏幕右侧滑入显示，同时上一个页面带阴影效果从屏幕左侧滑出隐藏。
-     * 	对应关闭动画"pop-out"。
+     *     对应关闭动画"pop-out"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9187,7 +9187,7 @@ interface PlusWebviewAnimationTypeClose {
     /**
      * 无动画
      * 立即关闭页面，无任何动画效果。
-     * 	此效果忽略动画时间参数，立即关闭。
+     *     此效果忽略动画时间参数，立即关闭。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9294,7 +9294,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 添加事件监听器
      * 向Webview窗口添加事件监听器，当指定的事件发生时，将触发listener函数的执行。
-     * 		可多次调用此方法向Webview添加多个监听器，当监听的事件发生时，将按照添加的先后顺序执行。
+     *         可多次调用此方法向Webview添加多个监听器，当监听的事件发生时，将按照添加的先后顺序执行。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9309,7 +9309,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 添加Webview窗口预加载js文件
      * 对于一些网络HTML页面，在无法修改HTML页面时可通过此方法自动加载本地js文件。
-     * 	当Webview窗口跳转到新页面时也会自动加载指定的js执行，添加多个js文件将按照添加的先后顺序执行。
+     *     当Webview窗口跳转到新页面时也会自动加载指定的js执行，添加多个js文件将按照添加的先后顺序执行。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9317,7 +9317,7 @@ interface PlusWebviewWebviewObject {
     /**
      * Webview窗口内容动画
      * 动画后可能会导致Webview窗口显示内容改变，可通过调用restore方法恢复。
-     * 	当Webview窗口内容动画引起内容不可见（透明），将显示此窗口后面的内容。
+     *     当Webview窗口内容动画引起内容不可见（透明），将显示此窗口后面的内容。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9325,7 +9325,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 后退到上次加载的页面
      * Webview窗口历史记录操作，后退到窗口上次加载的HTML页面。
-     * 	如果窗口历史记录中没有可后退的页面则不触发任何操作。
+     *     如果窗口历史记录中没有可后退的页面则不触发任何操作。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9333,7 +9333,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 开始Webview窗口的下拉刷新
      * 开始触发下拉刷新效果，与用户操作下拉刷新行为一致（有动画效果）。
-     * 	触发setPullTorefresh方法设置的下拉刷新事件回调。
+     *     触发setPullTorefresh方法设置的下拉刷新事件回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9355,7 +9355,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 检测Webview窗口是否渲染完成
      * 检测方式为判断的Webview窗口内容是否为白屏，如果非白屏则认为渲染完成，否则认为渲染未完成。
-     * 	通过successCallback回调函数返回结果，如果检测过程中发生错误则触发errorCallback回调函数。
+     *     通过successCallback回调函数返回结果，如果检测过程中发生错误则触发errorCallback回调函数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9384,7 +9384,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 设置Webview窗口的滑屏操作手势
      * 将Webview窗口的左右滑动手势关联到其它Webview窗口，可实现滑动切换显示Webview的动画效果（如Tab页面切换效果）。
-     * 	注意：滑屏操作会改变窗口位置（如left值等），如果不在可视区域则需要调用窗口的setStyle方法设置其位置到可视区域内，如setStyle({left:'0px'});。
+     *     注意：滑屏操作会改变窗口位置（如left值等），如果不在可视区域则需要调用窗口的setStyle方法设置其位置到可视区域内，如setStyle({left:'0px'});。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9413,7 +9413,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 前进到上次加载的页面
      * Webview窗口历史记录操作，前进到窗口上次加载的HTML页面。
-     * 	如果窗口历史记录中没有可前进的页面则不触发任何操作。
+     *     如果窗口历史记录中没有可前进的页面则不触发任何操作。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9442,8 +9442,8 @@ interface PlusWebviewWebviewObject {
     /**
      * 获取Webview窗口的原生子View控件对象
      * 创建Webview窗口的所有原生子View控件。
-     * 	可以在创建窗口时设置其subNViews属性自动创建（应用首页可通过manfest.json中的plus-&gt;launchwebview-&gt;subNNViews节点配置创建）；
-     * 	也可以通过Webview窗口的append方法将已经创建的原生View控件添加为其子。
+     *     可以在创建窗口时设置其subNViews属性自动创建（应用首页可通过manfest.json中的plus-&gt;launchwebview-&gt;subNNViews节点配置创建）；
+     *     也可以通过Webview窗口的append方法将已经创建的原生View控件添加为其子。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9451,7 +9451,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 获取Webview窗口加载HTML页面的标题
      * 标题为HTML页面head节点下title节点中的文本内容，当窗口内容发生页面内跳转时可通过窗口触发的“loaded”事件中调用此方法来获取跳转后页面的标题。
-     * 	如果HTML页面没有使用title节点来设置标题，则返回空字符串。
+     *     如果HTML页面没有使用title节点来设置标题，则返回空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9459,7 +9459,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 获取Webview窗口的标题栏控件对象
      * 创建Webview窗口时设置其titleNView属性时则自动创建标题栏控件，应用首页可通过manfest.json中的plus-&gt;launchwebview-&gt;titleNView节点配置创建标题栏控件。
-     * 	可通过此方法获取Webview窗口创建的标题栏控件，对象类型为plus.nativeObj.View，可通过调用其drawBitmap/drawRect/drawText方法绘制更新内容来实现自定义样式。
+     *     可通过此方法获取Webview窗口创建的标题栏控件，对象类型为plus.nativeObj.View，可通过调用其drawBitmap/drawRect/drawText方法绘制更新内容来实现自定义样式。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9488,7 +9488,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 是否拦截Webview窗口的触屏事件
      * 拦截后触屏事件不再传递，否则传递给View控件下的其它窗口处理。
-     * 	Webview窗口默认拦截所有触屏事件。
+     *     Webview窗口默认拦截所有触屏事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9510,7 +9510,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 监听页面开始加载资源
      * Webview加载资源时，如果满足options参数中定义的条件，则触发callback回调。
-     * 	此方法仅触发回调事件，不会阻止资源的加载。
+     *     此方法仅触发回调事件，不会阻止资源的加载。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9532,7 +9532,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 获取Webview窗口对象的原生（Native.JS）实例对象
      * Android平台返回Webview窗口对象的android.webkit.Webview实例对象，
-     * 	iOS平台返回Webview窗口对象的UIWebview实例对象。
+     *     iOS平台返回Webview窗口对象的UIWebview实例对象。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9554,7 +9554,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 拦截Webview窗口的资源加载
      * 根据区配规则拦截Webview窗口加载资源的URL地址，重定向到其它资源地址（暂仅支持本地地址）。
-     * 	注意：多次调用overrideResourceRequest时仅以最后一次调用设置的参数值生效。
+     *     注意：多次调用overrideResourceRequest时仅以最后一次调用设置的参数值生效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9562,8 +9562,8 @@ interface PlusWebviewWebviewObject {
     /**
      * 拦截Webview窗口的URL请求
      * 拦截URL请求后，Webview窗口将不会跳转到新的URL地址，此时将通过callback回调方法返回拦截的URL地址（可新开Webview窗口加载URL页面等）。
-     * 	此方法只能拦截窗口的网络超链接跳转（包括调用loadURL方法触发的跳转），不可拦截页面请求资源请求（如加载css/js/png等资源的请求）。
-     * 	注意：多次调用overrideUrlLoading时仅以最后一次调用设置的参数值生效。
+     *     此方法只能拦截窗口的网络超链接跳转（包括调用loadURL方法触发的跳转），不可拦截页面请求资源请求（如加载css/js/png等资源的请求）。
+     *     注意：多次调用overrideUrlLoading时仅以最后一次调用设置的参数值生效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9578,7 +9578,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 重新加载Webview窗口显示的HTML页面
      * 触发Webview窗口重新加载当前显示的页面内容。
-     * 	如果当前HTML页面未加载完则停止并重新加载，如果当前Webview窗口没有加载任何页面则无响应。
+     *     如果当前HTML页面未加载完则停止并重新加载，如果当前Webview窗口没有加载任何页面则无响应。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9586,7 +9586,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 重置Webview窗口的回弹位置
      * 开启窗口回弹效果后，当窗口中展现的内容滚动到头（顶部或底部）时，再拖拽时窗口整体内容将跟随移动，松开后自动回弹到停靠位置。
-     * 	这时需要调用此方法来重置窗口的回弹位置，窗口将采用动画方式回弹到其初始显示的位置。
+     *     这时需要调用此方法来重置窗口的回弹位置，窗口将采用动画方式回弹到其初始显示的位置。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9601,7 +9601,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 移除子Webview窗口
      * 从当前Webview窗口移除指定的子Webview窗口，若指定的webview对象不是当前窗口的子窗口则无任何作用。
-     * 	移除后子Webview窗口不会关闭，需要调用其close方法才能真正关闭并销毁。
+     *     移除后子Webview窗口不会关闭，需要调用其close方法才能真正关闭并销毁。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9616,7 +9616,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 从父窗口中移除
      * 从所属的父Webview窗口移除，如果没有父窗口，则无任何作用。
-     * 	从父窗口中移除后子Webview窗口不会关闭，需要调用其close方法才能真正关闭并销毁。
+     *     从父窗口中移除后子Webview窗口不会关闭，需要调用其close方法才能真正关闭并销毁。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9631,7 +9631,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 设置Webview窗口的回弹效果
      * 开启窗口回弹效果后，当窗口中展现的内容滚动到头（顶部或底部）时，再拖拽时窗口整体内容将跟随移动，松开后自动回弹到停靠位置（可通过style设置）。
-     * 	拖拽窗口内容时页面显示Webview窗口的背景色，默认为透明，此时显示Webview下面的内容，利用这个特点可以实现自定下拉刷新特效。
+     *     拖拽窗口内容时页面显示Webview窗口的背景色，默认为透明，此时显示Webview下面的内容，利用这个特点可以实现自定下拉刷新特效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9652,7 +9652,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 设置预加载的CSS文件
      * 预加载CSS文件不需要在HTML页面中显式引用，在Webview窗口加载HTML页面时自动加载，在页面跳转时也会自动加载。
-     * 	设置新的CSS文件后将清空之前设置的值（包括调用setCssText设置的值）。
+     *     设置新的CSS文件后将清空之前设置的值（包括调用setCssText设置的值）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9660,7 +9660,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 设置预加载的CSS内容
      * 预加载CSS内容不需要在HTML页面中显式引用，在Webview窗口加载HTML页面时自动加载，在页面跳转时也会自动加载。
-     * 	设置新的CSS内容后将清空之前设置的值（包括调用setCssFile设置的值）。
+     *     设置新的CSS内容后将清空之前设置的值（包括调用setCssFile设置的值）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9675,7 +9675,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 设置Webview窗口底部修复区域高度
      * 如果Webview加载页面中存在底部停靠区域（如“蘑菇街”WAP页面的底部Tab栏），在页面滚动时动态改变Webview高度可能会出现底部停靠区域抖动的现象（如360浏览器中向上滑顶部标题栏自动消失引起Webview变高）。
-     * 	此时可以调用此方法来指定底部停靠区域（通常是底部Tab栏）进行优化修复抖动效果，高度值为底部停靠区域的高度。
+     *     此时可以调用此方法来指定底部停靠区域（通常是底部Tab栏）进行优化修复抖动效果，高度值为底部停靠区域的高度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9683,7 +9683,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 设置预加载的JS文件
      * 预加载JS文件不需要在HTML页面中显式引用，在Webview窗口加载HTML页面时自动加载，在页面跳转时也会自动加载。
-     * 	设置新的JS文件后将清空之前设置的值。
+     *     设置新的JS文件后将清空之前设置的值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9733,7 +9733,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 显示Webview窗口
      * 当调用plus.webview.create方法创建Webview窗口后，需要调用其show方法才能显示，并可设置窗口显示动画及动画时间。
-     * 	Webview窗口被隐藏后也可调用此方法来重新显示。
+     *     Webview窗口被隐藏后也可调用此方法来重新显示。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9741,7 +9741,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 在指定Webview窗口后显示
      * 当调用plus.webview.create方法创建Webview窗口后，可调用其showBehind方法显示在指定Webview窗口之后。
-     * 	这种显示方式不会出现动画效果，当指定的Webview窗口关闭后，则自身窗口自动显示出来。
+     *     这种显示方式不会出现动画效果，当指定的Webview窗口关闭后，则自身窗口自动显示出来。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9749,7 +9749,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 设置标题栏上按钮的红点
      * 仅在窗口使用原生标题栏（titleNView）时生效，未显示原生标题栏时操作此接口无任何效果。
-     * 	注意：设置显示按钮的角标后红点不显示。
+     *     注意：设置显示按钮的角标后红点不显示。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9764,7 +9764,7 @@ interface PlusWebviewWebviewObject {
     /**
      * 更新Webview窗口的原生子View控件对象
      * 通过WebviewSubNViewStyles中的id属性值匹配子View控件更新绘制内容，如果没有查找到对应id的子View控件则忽略。
-     * 	此操作仅更新子View控件上绘制的内容，不会添加或删除原生子View控件对象。
+     *     此操作仅更新子View控件上绘制的内容，不会添加或删除原生子View控件对象。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9795,10 +9795,10 @@ interface PlusWebviewWebviewAnimationOptions {
     /**
      * 窗口动画完成后的行为
      * 可取值：
-     * 	"none" - 动画完成后不做任何操作；
-     * 	"hide" - 动画完成后隐藏窗口；
-     * 	"close" - 动画完成后关闭窗口。
-     * 	默认值为"none"。
+     *     "none" - 动画完成后不做任何操作；
+     *     "hide" - 动画完成后隐藏窗口；
+     *     "close" - 动画完成后关闭窗口。
+     *     默认值为"none"。
      * - none: 动画完成后不做任何操作
      * - hide: 动画完成后隐藏窗口
      * - close: 动画完成后关闭窗口
@@ -9825,7 +9825,7 @@ interface PlusWebviewWebviewAnimationStyles {
     /**
      * 画窗口的目标左侧位置
      * 持百分比、像素值。
-     * 	注意：如果设置的位置与起始位置一直，则无动画效果。
+     *     注意：如果设置的位置与起始位置一直，则无动画效果。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9841,13 +9841,13 @@ interface PlusWebviewWebviewBounceStyle {
     /**
      * Webview窗口支持回弹效果的方向
      * 可通过此参数设置开启Webview哪个方向支持回弹效果。
-     * 	支持以下属性：
-     * 	top：表示窗口顶部支持回弹效果；
-     * 	left：表示窗口左侧支持回弹效果；
-     * 	right：表示窗口右侧支持回弹效果；
-     * 	bottom：表示窗口底部支持回弹效果。
-     * 	**目前仅支持top属性**
-     * 	属性值：用于指定可拖拽的范围，可取百分比，如"10%"；像素值，如"100px"；自动计算值，如"auto"；无回弹效果值，如"none"；
+     *     支持以下属性：
+     *     top：表示窗口顶部支持回弹效果；
+     *     left：表示窗口左侧支持回弹效果；
+     *     right：表示窗口右侧支持回弹效果；
+     *     bottom：表示窗口底部支持回弹效果。
+     *     **目前仅支持top属性**
+     *     属性值：用于指定可拖拽的范围，可取百分比，如"10%"；像素值，如"100px"；自动计算值，如"auto"；无回弹效果值，如"none"；
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9855,9 +9855,9 @@ interface PlusWebviewWebviewBounceStyle {
     /**
      * Webview窗口回弹时停靠的位置
      * 开启窗口回弹效果后，当窗口中展现的内容滚动到头（顶部或底部）时，再拖拽时窗口整体内容将跟随移动，拖拽过程中将触发"dragBounce"事件，松开后自动回弹到停靠位置。
-     * 	支持以下属性：
-     * 	top：表示窗口顶部回弹时停靠的位置。
-     * 	属性值：用于指定窗口回弹的位置，可取百分比，如"5%"；像素值，如"100px"；自动计算值，如"auto"，默认为可拖拽的范围值的一半；
+     *     支持以下属性：
+     *     top：表示窗口顶部回弹时停靠的位置。
+     *     属性值：用于指定窗口回弹的位置，可取百分比，如"5%"；像素值，如"100px"；自动计算值，如"auto"，默认为可拖拽的范围值的一半；
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9865,10 +9865,10 @@ interface PlusWebviewWebviewBounceStyle {
     /**
      * Webview窗口侧滑时停靠的位置
      * 开启窗口回弹效果后，当窗口中展现的内容滚动到头（左侧或右侧）时，在拖拽时窗口整体内容将跟随移动，松开后自动停靠的侧滑位置，并触发"slideBounce"事件。
-     * 	支持以下属性：
-     * 	left：表示窗口左侧侧滑的位置；
-     * 	right：表示窗口右侧侧滑的位置。
-     * 	属性值：用于指定滑动后停靠的距离，可取百分比（left/right相对于窗口的宽度，top/bottom相对于窗口的高度），如"30%"；像素值，如"100px"；自动计算值，为可拖拽范围，如"auto"。
+     *     支持以下属性：
+     *     left：表示窗口左侧侧滑的位置；
+     *     right：表示窗口右侧侧滑的位置。
+     *     属性值：用于指定滑动后停靠的距离，可取百分比（left/right相对于窗口的宽度，top/bottom相对于窗口的高度），如"30%"；像素值，如"100px"；自动计算值，为可拖拽范围，如"auto"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9876,12 +9876,12 @@ interface PlusWebviewWebviewBounceStyle {
     /**
      * Webview窗口拖拽偏移的位置
      * 开启窗口回弹效果后，可以通过此属性值来主动设置拖拽的偏移位置，与手动操作拖拽至此偏移位置松开后的逻辑一致。
-     * 	支持以下属性：
-     * 	top：表示窗口顶部偏移的位置；
-     * 	left：表示窗口左侧偏移的位置；
-     * 	right：表示窗口右侧偏移的位置；
-     * 	bottom：表示窗口底部偏移的位置。
-     * 	属性值：用于指定偏移的位置，可取百分比，如"5%"；像素值，如"100px"；有效值范围为0到position属性定义的位置。
+     *     支持以下属性：
+     *     top：表示窗口顶部偏移的位置；
+     *     left：表示窗口左侧偏移的位置；
+     *     right：表示窗口右侧偏移的位置；
+     *     bottom：表示窗口底部偏移的位置。
+     *     属性值：用于指定偏移的位置，可取百分比，如"5%"；像素值，如"100px"；有效值范围为0到position属性定义的位置。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9927,11 +9927,11 @@ interface PlusWebviewWebviewContentAnimationOptions {
     /**
      * 动画作用区域
      * 支持以下属性：
-     * 	top - 区域距离控件顶部的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的高度）,默认值为'0px'；
-     * 	bottom - 区域距离控件底部的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的高度）,默认值为'0px'；
-     * 	left - 区域距离控件左侧的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的宽度）,默认值为'0px'；
-     * 	right - 区域距离控件右侧的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的宽度）,默认值为'0px'。
-     * 	如“{top:'44px',bottom:'48px'}”。
+     *     top - 区域距离控件顶部的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的高度）,默认值为'0px'；
+     *     bottom - 区域距离控件底部的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的高度）,默认值为'0px'；
+     *     left - 区域距离控件左侧的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的宽度）,默认值为'0px'；
+     *     right - 区域距离控件右侧的偏移量，属性值可取像素值（如"100px"），百分比（如"10%"，相对于控件的宽度）,默认值为'0px'。
+     *     如“{top:'44px',bottom:'48px'}”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9979,10 +9979,10 @@ interface PlusWebviewWebviewDragEvent {
     /**
      * 手势类型
      * 可取值：
-     * 	"rtl" - 从右向左滑动手势；
-     * 	"left" - 向左滑动手势，与rtl一致；
-     * 	"ltr" - 从左向右滑动手势；
-     * 	"right" - 向右滑动手势，与ltr一致。
+     *     "rtl" - 从右向左滑动手势；
+     *     "left" - 向左滑动手势，与rtl一致；
+     *     "ltr" - 从左向右滑动手势；
+     *     "right" - 向右滑动手势，与ltr一致。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -9990,9 +9990,9 @@ interface PlusWebviewWebviewDragEvent {
     /**
      * 窗口滑动类型
      * 可取值：
-     * 	"start" - 表示开始滑动操作；
-     * 	"move" - 表示正在滑动；
-     * 	"end" - 表示滑动操作结束。
+     *     "start" - 表示开始滑动操作；
+     *     "move" - 表示正在滑动；
+     *     "end" - 表示滑动操作结束。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10000,9 +10000,9 @@ interface PlusWebviewWebviewDragEvent {
     /**
      * 窗口滑动结果
      * 可取值：
-     * 	"true" - 表示滑动操作成功；
-     * 	"false" - 表示滑动操作失败（恢复到滑动前的状态）；
-     * 	"undefined" - 无状态值（当type值为"end"时返回此值）。
+     *     "true" - 表示滑动操作成功；
+     *     "false" - 表示滑动操作失败（恢复到滑动前的状态）；
+     *     "undefined" - 无状态值（当type值为"end"时返回此值）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10010,7 +10010,7 @@ interface PlusWebviewWebviewDragEvent {
     /**
      * 当前操作窗口标识
      * 当type值为"start"/"move"时，保存当前操作窗口（或View控件）的标识；
-     * 	当type值为"end"时保存滑动操作后显示窗口（或View控件）的标识（即result值为"true"则认为关联窗口显示，result值为false则认为主窗口显示）。
+     *     当type值为"end"时保存滑动操作后显示窗口（或View控件）的标识（即result值为"true"则认为关联窗口显示，result值为false则认为主窗口显示）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10032,9 +10032,9 @@ interface PlusWebviewWebviewDragEvent {
     /**
      * 滑动进度
      * 滑动进度位置信息，取值范围为0-100，如20表示滑动了总距离的20%：
-     * 	当type值为"start"时progress值为0；
-     * 	当type值为"end"时如果result为true则progress值为0，如果result为false则progress值为100；
-     * 	当type值为"move"时，保存当前滑动的进度信息（注：多次触发move事件）。
+     *     当type值为"start"时progress值为0；
+     *     当type值为"end"时如果result为true则progress值为0，如果result为false则progress值为100；
+     *     当type值为"move"时，保存当前滑动的进度信息（注：多次触发move事件）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10050,8 +10050,8 @@ interface PlusWebviewWebviewDragOptions {
     /**
      * 滑屏操作回调事件触发步长
      * 用于设置滑屏回调事件触发频率，取值范围为1-100，值越小触发频率越高，值越大触发频率越小，默认值为20。
-     * 	如设置值为20，则表示滑屏操作移动距离超过可移动范围的20%则触发一次回调事件，可通过回调函数参数（WebviewDragEvent）的progress属性获取。
-     * 	注意：触发频率过大会影响效率，开发者需谨慎设置此值。
+     *     如设置值为20，则表示滑屏操作移动距离超过可移动范围的20%则触发一次回调事件，可通过回调函数参数（WebviewDragEvent）的progress属性获取。
+     *     注意：触发频率过大会影响效率，开发者需谨慎设置此值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10059,11 +10059,11 @@ interface PlusWebviewWebviewDragOptions {
     /**
      * 设置的手势类型
      * 可取值：
-     * 	可取值：
-     * 	"rtl" - 从右向左滑动手势；
-     * 	"left" - 向左滑动手势，与rtl一致；
-     * 	"ltr" - 从左向右滑动手势；
-     * 	"right" - 向右滑动手势，与ltr一致。
+     *     可取值：
+     *     "rtl" - 从右向左滑动手势；
+     *     "left" - 向左滑动手势，与rtl一致；
+     *     "ltr" - 从左向右滑动手势；
+     *     "right" - 向右滑动手势，与ltr一致。
      * - rtl: 从右向左滑动手势
      * - left: 向左滑动手势，与rtl一致
      * - ltr: 从左向右滑动手势
@@ -10075,9 +10075,9 @@ interface PlusWebviewWebviewDragOptions {
     /**
      * 滑动手势模式
      * 可取值：
-     * 	"followFinger" - 当前Webview窗口跟随手指滑动；
-     * 	"silent" - 当前Webview窗口不跟随手指滑动；
-     * 	"bounce" - 当前Webview窗口自动回弹（松手后窗口恢复到拖动前的位置）,通常可通过设置此模式来实现Tab项无法继续滑动切换自动回弹效果。
+     *     "followFinger" - 当前Webview窗口跟随手指滑动；
+     *     "silent" - 当前Webview窗口不跟随手指滑动；
+     *     "bounce" - 当前Webview窗口自动回弹（松手后窗口恢复到拖动前的位置）,通常可通过设置此模式来实现Tab项无法继续滑动切换自动回弹效果。
      * - followFinger: 当前Webview窗口跟随手指滑动
      * - silent: 当前Webview窗口不跟随手指滑动
      * - bounce: 当前Webview窗口自动回弹
@@ -10103,8 +10103,8 @@ interface PlusWebviewWebviewDragOtherViewOptions {
     /**
      * 滑动模式
      * 可取值：
-     * 	"follow" - 同步跟随主Webview窗口滑动；
-     * 	"silent" - 不跟随主Webview窗口滑动。
+     *     "follow" - 同步跟随主Webview窗口滑动；
+     *     "silent" - 不跟随主Webview窗口滑动。
      * - follow: 同步跟随主Webview窗口滑动
      * - silent: 不跟随主Webview窗口滑动
      * 
@@ -10122,14 +10122,14 @@ interface PlusWebviewWebviewDrawOptions {
     /**
      * 截屏图片的位深
      * 可取值：
-     * 		"RGB565" - RGB565彩色模式,一个像素占两个字节；
-     * 		"ARGB" - ARGB彩色模式,保存透明度信息。
+     *         "RGB565" - RGB565彩色模式,一个像素占两个字节；
+     *         "ARGB" - ARGB彩色模式,保存透明度信息。
      * - RGB565: 
-     * 	RGB565彩色模式,一个像素占两个字节。
-     * 								
+     *     RGB565彩色模式,一个像素占两个字节。
+     *                                 
      * - ARGB: 
-     * 	ARGB彩色模式,保存透明度信息。
-     * 								
+     *     ARGB彩色模式,保存透明度信息。
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10137,9 +10137,9 @@ interface PlusWebviewWebviewDrawOptions {
     /**
      * 是否检测截屏图片是否为空白
      * 可取值：
-     * 		true - 表示检测到截屏到空白图片时认为操作失败（触发错误回调函数）；
-     * 		false - 表示不检测，即使为空白图片仍然返回成功。
-     * 	默认值为false。
+     *         true - 表示检测到截屏到空白图片时认为操作失败（触发错误回调函数）；
+     *         false - 表示不检测，即使为空白图片仍然返回成功。
+     *     默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10154,9 +10154,9 @@ interface PlusWebviewWebviewDrawOptions {
     /**
      * 是否检测当前是否弹出软键盘
      * 可取值：
-     * 		true - 表示检测到弹出软键盘是认为截屏操作失败（触发错误回调函数）；
-     * 		false - 表示不检测软键盘状态，直接截屏。
-     * 	默认值为false。
+     *         true - 表示检测到弹出软键盘是认为截屏操作失败（触发错误回调函数）；
+     *         false - 表示不检测软键盘状态，直接截屏。
+     *     默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10267,15 +10267,15 @@ interface PlusWebviewWebviewSubNViewStyles {
     /**
      * 原生子View控件类型
      * 可取值：
-     * 		"NView" - 原生子View控件（plus.nativeObj.NView）；
-     * 		"ImageSlider" - 原生图片轮播控件（plus.nativeObj.ImageSlider）。
-     * 	默认值为"NView"。
+     *         "NView" - 原生子View控件（plus.nativeObj.NView）；
+     *         "ImageSlider" - 原生图片轮播控件（plus.nativeObj.ImageSlider）。
+     *     默认值为"NView"。
      * - NView: 
-     * 	原生子View控件（plus.nativeObj.NView）
-     * 								
+     *     原生子View控件（plus.nativeObj.NView）
+     *                                 
      * - ImageSlider: 
-     * 	原生图片轮播控件（plus.nativeObj.ImageSlider）							
-     * 								
+     *     原生图片轮播控件（plus.nativeObj.ImageSlider）                            
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10299,7 +10299,7 @@ interface PlusWebviewWebviewSubNViewStyles {
 /**
  * 窗口标题栏控件样式
  * 标题栏控件固定高度为44px,可通过Webview窗口对象的getTitleNView方法获取标题栏原生控件对象动态绘制内容。
- * 	可以通过WebviewObject对象的getTitleNView()获取标题栏的NView对象，然后调用其setStyle方法更新样式。
+ *     可以通过WebviewObject对象的getTitleNView()获取标题栏的NView对象，然后调用其setStyle方法更新样式。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
  */
@@ -10307,11 +10307,11 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 标题栏控件是否显示左侧返回按钮
      * 可取值：
-     * 		"true" - 显示返回按钮；
-     * 		"false" - 不显示返回按钮。
-     * 	默认值为"false"。
-     * 	返回按钮的颜色为窗口标题文字颜色，按下时颜色自动调整透明度为0.3。
-     * 	点击返回按钮的逻辑与按下系统返回键逻辑一致。
+     *         "true" - 显示返回按钮；
+     *         "false" - 不显示返回按钮。
+     *     默认值为"false"。
+     *     返回按钮的颜色为窗口标题文字颜色，按下时颜色自动调整透明度为0.3。
+     *     点击返回按钮的逻辑与按下系统返回键逻辑一致。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10326,7 +10326,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 标题栏上的自定义按钮
      * 创建的自定义按钮数目不限制，实际应用中建议最多设置4个按钮（包括左侧返回按钮）。
-     * 	注意：此属性不支持动态修改，仅在创建titleNView时设置有效。
+     *     注意：此属性不支持动态修改，仅在创建titleNView时设置有效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10334,8 +10334,8 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 标题栏控件变化作用范围
      * 仅在type值为transparent时有效，页面滚动时标题栏背景透明度将发生变化。
-     * 	当页面滚动到指定偏移量时标题栏背景变为完全不透明。
-     * 	支持百分比、像素值，默认为'132px'。
+     *     当页面滚动到指定偏移量时标题栏背景变为完全不透明。
+     *     支持百分比、像素值，默认为'132px'。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10343,11 +10343,11 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 标题栏控件是否显示Home按钮
      * 可取值：
-     * 		"true" - 显示Home按钮；
-     * 		"false" - 不显示Home按钮。
-     * 	默认值为"false"。
-     * 	Home按钮的颜色为窗口标题文字颜色，按下时颜色自动调整透明度为0.3。
-     * 	点击Home按钮的逻辑为关闭所有非首页窗口，显示首页窗口。
+     *         "true" - 显示Home按钮；
+     *         "false" - 不显示Home按钮。
+     *     默认值为"false"。
+     *     Home按钮的颜色为窗口标题文字颜色，按下时颜色自动调整透明度为0.3。
+     *     点击Home按钮的逻辑为关闭所有非首页窗口，显示首页窗口。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10355,7 +10355,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 内边距
      * 标题栏左右的内边距，单位为px（逻辑像素值），如"10px"表示10逻辑像素值。
-     * 	默认值为"0px"。
+     *     默认值为"0px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10363,7 +10363,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 右内边距
      * 标题栏右侧内边距，单位为px（逻辑像素值），如"10px"表示10逻辑像素值。
-     * 	默认值为"0px"，优先级padding-right &gt; padding。
+     *     默认值为"0px"，优先级padding-right &gt; padding。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10371,7 +10371,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 左内边距
      * 标题栏左侧内边距，单位为px（逻辑像素值），如"10px"表示10逻辑像素值。
-     * 	默认值为"0px"，优先级padding-left &gt; padding。
+     *     默认值为"0px"，优先级padding-left &gt; padding。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10379,9 +10379,9 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 标题栏控件的进度条样式
      * 设置此属性则在标题栏控件的底部显示进度条，可配置进度条颜色值即高度。
-     * 	设置此属性值为undefined或null则隐藏进度条。
-     * 	默认不显示底部进度条。
-     * 	注意：此属性将废弃，推荐使用WebviewStyles的progress。
+     *     设置此属性值为undefined或null则隐藏进度条。
+     *     默认不显示底部进度条。
+     *     注意：此属性将废弃，推荐使用WebviewStyles的progress。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10389,8 +10389,8 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 标题栏控件的底部分割线
      * 设置此属性则在标题栏控件的底部显示分割线，可配置颜色值及高度。
-     * 	设置此属性值为undefined或null则隐藏分割线。
-     * 	默认不显示底部分割线。
+     *     设置此属性值为undefined或null则隐藏分割线。
+     *     默认不显示底部分割线。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10398,7 +10398,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 标题栏上初始自定义绘制内容
      * 可用于设置自定义绘制图片、矩形区域、文本等内容。
-     * 	注意：此属性不支持动态修改，仅在创建titleNView时设置有效，如果需要更新绘制内容可根据tags的id调用draw方法操作。
+     *     注意：此属性不支持动态修改，仅在创建titleNView时设置有效，如果需要更新绘制内容可根据tags的id调用draw方法操作。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10413,9 +10413,9 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 标题栏控件的标题文字超出显示区域时处理方式
      * 可取值：
-     * 		"clip" - 超出显示区域时内容裁剪；
-     * 		"ellipsis" - 超出显示区域时尾部显示省略标记（...）。
-     * 	默认值为"ellipsis"。
+     *         "clip" - 超出显示区域时内容裁剪；
+     *         "ellipsis" - 超出显示区域时尾部显示省略标记（...）。
+     *     默认值为"ellipsis"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10423,7 +10423,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 标题栏控件的标题文字内容
      * 在标题栏控件居中（水平和垂直）显示，左右边距为88px，如果文本过长则尾部裁剪（加三个点"..."）显示。
-     * 	当不设置titleText属性或属性值为undefined/null时，使用当前Webview窗口加载页面的标题，并自动同步更新页面的标题。
+     *     当不设置titleText属性或属性值为undefined/null时，使用当前Webview窗口加载页面的标题，并自动同步更新页面的标题。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10438,16 +10438,16 @@ interface PlusWebviewWebviewTitleNViewStyles {
     /**
      * 标题栏控件样式
      * 可取值：
-     * 		"default" - 默认样式，顶部停靠显示，挤压Webview页面内容显示区域；
-     * 		"transparent" - 透明样式，顶部沉浸式显示覆盖Webview页面内容，标题栏上内容（除按钮外）全部透明，当页面滚动时透明度逐渐变化，直到不透明显示。
-     * 	默认值为"default"。
-     * 	注意：此属性不支持动态更新。
+     *         "default" - 默认样式，顶部停靠显示，挤压Webview页面内容显示区域；
+     *         "transparent" - 透明样式，顶部沉浸式显示覆盖Webview页面内容，标题栏上内容（除按钮外）全部透明，当页面滚动时透明度逐渐变化，直到不透明显示。
+     *     默认值为"default"。
+     *     注意：此属性不支持动态更新。
      * - default: 
-     * 	默认样式，顶部停靠显示，挤压Webview页面内容显示区域
-     * 								
+     *     默认样式，顶部停靠显示，挤压Webview页面内容显示区域
+     *                                 
      * - transparent: 
-     * 	透明样式，顶部沉浸式显示覆盖Webview页面内容，标题栏上内容（除按钮外）全部透明，当页面滚动时透明度逐渐变化，直到不透明显示							
-     * 								
+     *     透明样式，顶部沉浸式显示覆盖Webview页面内容，标题栏上内容（除按钮外）全部透明，当页面滚动时透明度逐渐变化，直到不透明显示                            
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10463,16 +10463,16 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
     /**
      * 按钮样式
      * 运行环境中内置按钮样式直接使用，内置样式忽略fontSrc和text属性。
-     * 	可取值：
-     * 		"forward" - 前进按钮；
-     * 		"back" - 后退按钮；
-     * 		"share" - 分享按钮；
-     * 		"favorite" - 收藏按钮；
-     * 		"home" - 主页按钮；
-     * 		"menu" - 菜单按钮；
-     * 		"close" - 关闭按钮；
-     * 		"none" - 无样式。
-     * 	默认值为无样式（"none"），需通过text属性设置按钮上显示的内容、通过fontSrc属性设置使用的字体库。
+     *     可取值：
+     *         "forward" - 前进按钮；
+     *         "back" - 后退按钮；
+     *         "share" - 分享按钮；
+     *         "favorite" - 收藏按钮；
+     *         "home" - 主页按钮；
+     *         "menu" - 菜单按钮；
+     *         "close" - 关闭按钮；
+     *         "none" - 无样式。
+     *     默认值为无样式（"none"），需通过text属性设置按钮上显示的内容、通过fontSrc属性设置使用的字体库。
      * - forward: 前进按钮
      * - back: 后退按钮
      * - share: 分享按钮
@@ -10487,7 +10487,7 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
     /**
      * 按钮的背景颜色
      * 仅在标题栏type=transparent时生效，当标题栏透明时按钮显示的背景颜色。
-     * 	可取值#RRGGBB和rgba格式颜色字符串，默认值为灰色半透明。
+     *     可取值#RRGGBB和rgba格式颜色字符串，默认值为灰色半透明。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10502,8 +10502,8 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
     /**
      * 按钮上文字颜色
      * 可取值： "#RRGGBB"格式字符串，如"#FF0000"表示绘制红色返回键；
-     * 	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
-     * 	默认值为窗口标题栏控件的标题文字颜色。
+     *     "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+     *     默认值为窗口标题栏控件的标题文字颜色。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10511,8 +10511,8 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
     /**
      * 按下状态按钮文字颜色
      * 可取值： "#RRGGBB"格式字符串，如"#FF0000"表示绘制红色返回键；
-     * 	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
-     * 	默认值为color属性值自动调整透明度为0.3。
+     *     "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+     *     默认值为color属性值自动调整透明度为0.3。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10520,15 +10520,15 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
     /**
      * 按钮在标题栏上的显示位置
      * 可取值：
-     * 		"right" - 在标题栏中靠右排列显示；
-     * 		"left" - 在标题栏中靠左侧排列显示（在返回键后）。
-     * 		默认值为"right"。
+     *         "right" - 在标题栏中靠右排列显示；
+     *         "left" - 在标题栏中靠左侧排列显示（在返回键后）。
+     *         默认值为"right"。
      * - right: 
-     * 	在标题栏中靠右排列显示
-     * 								
+     *     在标题栏中靠右排列显示
+     *                                 
      * - left: 
-     * 	在标题栏中靠左侧排列显示（在返回键后）
-     * 								
+     *     在标题栏中靠左侧排列显示（在返回键后）
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10536,15 +10536,15 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
     /**
      * 按钮上文字的粗细
      * 可取值：
-     * 		"normal" - 标准字体；
-     * 		"bold" - 加粗字体。
-     * 	默认值为"normal"。
+     *         "normal" - 标准字体；
+     *         "bold" - 加粗字体。
+     *     默认值为"normal"。
      * - normal: 
-     * 	标准字体
-     * 								
+     *     标准字体
+     *                                 
      * - bold: 
-     * 	加粗字体
-     * 								
+     *     加粗字体
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10552,8 +10552,8 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
     /**
      * 按钮上文字大小
      * 可取值：字体高度像素值，数字加"px"格式字符串，如"22px"。 
-     * 	窗口标题栏为透明样式（type="transparent"）时，默认值为"22px"；
-     * 	窗口标题栏为默认样式（type="default"）时，默认值为"27px"。
+     *     窗口标题栏为透明样式（type="transparent"）时，默认值为"22px"；
+     *     窗口标题栏为默认样式（type="default"）时，默认值为"27px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10561,10 +10561,10 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
     /**
      * 按钮上文字使用的字体文件路径
      * 字体文件路径支持以下类型：
-     * 		相对路径 - 相对于当前页面的host位置，如"a.ttf"，注意当前页面为网络地址则不支持；
-     * 		绝对路径 - 系统绝对路径，如Android平台"/sdcard/a.ttf"，此类路径通常通过其它5+ API获取的；
-     * 		扩展相对路径URL(RelativeURL) - 以"_"开头的相对路径，如"_www/a.ttf"；
-     * 		本地路径URL - 以“file://”开头，后面跟随系统绝对路径。
+     *         相对路径 - 相对于当前页面的host位置，如"a.ttf"，注意当前页面为网络地址则不支持；
+     *         绝对路径 - 系统绝对路径，如Android平台"/sdcard/a.ttf"，此类路径通常通过其它5+ API获取的；
+     *         扩展相对路径URL(RelativeURL) - 以"_"开头的相对路径，如"_www/a.ttf"；
+     *         本地路径URL - 以“file://”开头，后面跟随系统绝对路径。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10579,7 +10579,7 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
     /**
      * 按钮上是否显示红点
      * 设置为true则显示红点，false则不显示红点。默认值为false。
-     * 	注意：当设置了角标文本时红点不显示。
+     *     注意：当设置了角标文本时红点不显示。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10587,7 +10587,7 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
     /**
      * 是否显示选择指示图标
      * 设置为true则显示选择指示图标（向下箭头），颜色与文字颜色一致；
-     * 	false则不显示。默认值为false。
+     *     false则不显示。默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10602,9 +10602,9 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
     /**
      * 按钮的宽度
      * 可取值：
-     * 		"*px" - 逻辑像素值，如"10px"表示10逻辑像素值，按钮的内容居中显示；
-     * 		"auto" - 自定计算宽度，根据内容自动调整按钮宽度。
-     * 	默认值为"44px"（适合字体图标）。
+     *         "*px" - 逻辑像素值，如"10px"表示10逻辑像素值，按钮的内容居中显示；
+     *         "auto" - 自定计算宽度，根据内容自动调整按钮宽度。
+     *     默认值为"44px"（适合字体图标）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10621,8 +10621,8 @@ interface PlusWebviewWebviewProgressStyles {
     /**
      * 进度条颜色
      * 可取值： "#RRGGBB"格式字符串，如"#FF0000"表示绘制红色分割线；
-     * 	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
-     * 	默认值为"#00FF00"。
+     *     "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+     *     默认值为"#00FF00"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10630,7 +10630,7 @@ interface PlusWebviewWebviewProgressStyles {
     /**
      * 进度条高度
      * 可取值：像素值（逻辑像素），支持小数点，如"1px"表示1像素高；百分比，如"1%"，相对于标题栏控件的高度。
-     * 	默认值为"2px"。
+     *     默认值为"2px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10647,8 +10647,8 @@ interface PlusWebviewWebviewSplitLineStyles {
     /**
      * 底部分割线颜色
      * 可取值： "#RRGGBB"格式字符串，如"#FF0000"表示绘制红色分割线；
-     * 	"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
-     * 	默认值为"#CCCCCC"。
+     *     "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+     *     默认值为"#CCCCCC"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10656,7 +10656,7 @@ interface PlusWebviewWebviewSplitLineStyles {
     /**
      * 底部分割线高度
      * 可取值：像素值（逻辑像素），支持小数点，如"1px"表示1像素高；百分比，如"1%"，相对于标题栏控件的高度。
-     * 	默认值为"1px"。
+     *     默认值为"1px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10749,7 +10749,7 @@ interface PlusWebviewWebviewEvent {
     /**
      * Webview加载页面标题更新事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口加载新页面更新标题时触发此事件，回调函数类型为SuccessCallback。
-     * 	注意：此事件会先于loaded事件触发，通常在加载网络页面时通过此事件可更快获取到页面的标题。
+     *     注意：此事件会先于loaded事件触发，通常在加载网络页面时通过此事件可更快获取到页面的标题。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10757,7 +10757,7 @@ interface PlusWebviewWebviewEvent {
     /**
      * Webview窗口接收到触屏事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当用户操作按下到Webview窗口时触发此事件，回调函数类型为SuccessCallback。
-     * 	注意：每按下屏幕触发一次此事件。
+     *     注意：每按下屏幕触发一次此事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10772,7 +10772,7 @@ interface PlusWebviewWebviewEvent {
     /**
      * Webview窗口加载进度变化事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口加载页面进度变化时触发此事件。
-     * 	回调函数原型为void PorgressCandedCallback(Event e),可通过e.progress获取窗口加载进度，取值范围为0-100。
+     *     回调函数原型为void PorgressCandedCallback(Event e),可通过e.progress获取窗口加载进度，取值范围为0-100。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10780,7 +10780,7 @@ interface PlusWebviewWebviewEvent {
     /**
      * Webview窗口下拉刷新事件
      * Webview窗口打开下拉刷新功能后，用户操作下拉刷新时或调用beginPullToRefresh方法时触发，用于通知业务逻辑可以开始执行刷新操作。
-     * 	更新操作完成后调用窗口的endPullToRefresh方法结束下拉刷新。
+     *     更新操作完成后调用窗口的endPullToRefresh方法结束下拉刷新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10796,11 +10796,11 @@ interface PlusWebviewWebviewExtraOptions {
     /**
      * 窗口动画加速
      * 开启窗口动画加速功能可优化窗口动画效果，提升动画流程度，可避免部分设备上打开（关闭）窗口闪屏的问题。
-     * 	可取值：
-     * 	"auto" - 自动优化窗口动画；
-     * 	"none" - 关闭窗口动画加速功能；
-     * 	"capture" - 使用截屏方式加速窗口动画。
-     * 	默认值为"auto"。
+     *     可取值：
+     *     "auto" - 自动优化窗口动画；
+     *     "none" - 关闭窗口动画加速功能；
+     *     "capture" - 使用截屏方式加速窗口动画。
+     *     默认值为"auto"。
      * - auto: 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
@@ -10809,8 +10809,8 @@ interface PlusWebviewWebviewExtraOptions {
     /**
      * 窗口动画加速时使用的图片
      * 当使用截屏方式加速窗口动画时，可设置已经创建好的截屏图片，此时不会进行实时截屏操作，加速窗口动画响应时间，提升用户体验。
-     * 	如果未指定截屏图片，则实时截取当前Webview窗口对象的图片进行动画操作。
-     * 	如果窗口未使用截屏方式加速动画，则忽略此参数。
+     *     如果未指定截屏图片，则实时截取当前Webview窗口对象的图片进行动画操作。
+     *     如果窗口未使用截屏方式加速动画，则忽略此参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10818,8 +10818,8 @@ interface PlusWebviewWebviewExtraOptions {
     /**
      * 关联窗口动画使用的图片
      * 当使用截屏方式加速窗口动画时，可设置已经创建好的截屏图片，此时不会进行实时截屏操作，加速关联窗口动画响应时间，提升用户体验。
-     * 	如果未指定截屏图片，则实时截取关联Webview窗口对象的图片进行动画操作。
-     * 	如果窗口未使用截屏方式加速动画，则忽略此参数。
+     *     如果未指定截屏图片，则实时截取关联Webview窗口对象的图片进行动画操作。
+     *     如果窗口未使用截屏方式加速动画，则忽略此参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10861,7 +10861,7 @@ interface PlusWebviewWebviewPullToRefreshStyles {
     /**
      * 是否开启Webview窗口的下拉刷新功能
      * true表示开启窗口的下拉刷新功能；
-     * 	false表示关闭窗口的下拉刷新功能。
+     *     false表示关闭窗口的下拉刷新功能。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10876,9 +10876,9 @@ interface PlusWebviewWebviewPullToRefreshStyles {
     /**
      * 下拉刷新样式
      * 用于定义下拉刷新风格样式，可取值：
-     * 	"default" - 经典下拉刷新样式（下拉拖动时页面内容跟随）；
-     * 	"circle" - 圆圈样式下拉刷新控件样式（下拉拖动时仅刷新控件跟随）。
-     * 	默认值为"default"。
+     *     "default" - 经典下拉刷新样式（下拉拖动时页面内容跟随）；
+     *     "circle" - 圆圈样式下拉刷新控件样式（下拉拖动时仅刷新控件跟随）。
+     *     默认值为"default"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10900,8 +10900,8 @@ interface PlusWebviewWebviewPullToRefreshStyles {
     /**
      * 下拉刷新控件的起始位置
      * 仅对"circle"样式下拉刷新控件有效，用于定义刷新控件下拉时的起始位置。
-     * 	相对于Webview的顶部偏移量，支持百分比，如"10%"；像素值，如"50px"。
-     * 	默认值为"0px"。
+     *     相对于Webview的顶部偏移量，支持百分比，如"10%"；像素值，如"50px"。
+     *     默认值为"0px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10909,7 +10909,7 @@ interface PlusWebviewWebviewPullToRefreshStyles {
     /**
      * 在下拉可刷新状态时显示的内容
      * 支持以下属性：
-     * 	caption：在下拉可刷新状态时下拉刷新控件上显示的标题内容。
+     *     caption：在下拉可刷新状态时下拉刷新控件上显示的标题内容。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10917,7 +10917,7 @@ interface PlusWebviewWebviewPullToRefreshStyles {
     /**
      * 在释放可刷新状态时显示的内容
      * 支持以下属性：
-     * 	caption：在释放可刷新状态时下拉刷新控件上显示的标题内容。
+     *     caption：在释放可刷新状态时下拉刷新控件上显示的标题内容。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10925,7 +10925,7 @@ interface PlusWebviewWebviewPullToRefreshStyles {
     /**
      * 在正在刷新状态时显示的内容
      * 支持以下属性：
-     * 	caption：在正在刷新状态时下拉刷新控件上显示的标题内容。
+     *     caption：在正在刷新状态时下拉刷新控件上显示的标题内容。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10941,11 +10941,11 @@ interface PlusWebviewWebviewRenderedEventOptions {
     /**
      * 判断窗口渲染完成类型
      * 可取值：
-     * 	"top"-从顶部向下偏移22px横线截屏检测渲染是否完成；
-     * 	"bottom"-从底部向上偏移25px横线检测渲染是否完成；
-     * 	"center"-从中间横线检测渲染是否完成；
-     * 	"auto"为全屏检测（左、中、右三条竖线）。
-     * 	默认值为"auto"。
+     *     "top"-从顶部向下偏移22px横线截屏检测渲染是否完成；
+     *     "bottom"-从底部向上偏移25px横线检测渲染是否完成；
+     *     "center"-从中间横线检测渲染是否完成；
+     *     "auto"为全屏检测（左、中、右三条竖线）。
+     *     默认值为"auto"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10969,20 +10969,20 @@ interface PlusWebviewWebviewReplaceWebApiOptions {
     /**
      * 替换H5标准定位接口(navigator.geolocation.*)
      * 由于网络原因，在部分手机上可能无法调用标准H5定位接口(navigator.geolocation.*)获取定位数据，此时可以通过此属性配置使用原生定位模块替换标准H5定位接口，可取值：
-     * 		"alldevice" - 在所有设备上替换标准H5定位接口(navigator.geolocation.*)；
-     * 		"auto" - 自动替换H5标准定位接口，仅在调用标准H5定位接口无法获取数据的设备上替换；
-     * 		"none" - 不替换H5标准定位接口(navigator.geolocation.*)。
-     * 	默认值为"none"。
-     * 	注意：替换H5标准定位接口，会导致页面加载速度延迟100ms左右，推荐使用"auto"模式。
+     *         "alldevice" - 在所有设备上替换标准H5定位接口(navigator.geolocation.*)；
+     *         "auto" - 自动替换H5标准定位接口，仅在调用标准H5定位接口无法获取数据的设备上替换；
+     *         "none" - 不替换H5标准定位接口(navigator.geolocation.*)。
+     *     默认值为"none"。
+     *     注意：替换H5标准定位接口，会导致页面加载速度延迟100ms左右，推荐使用"auto"模式。
      * - alldevice: 
-     * 	强制替换H5标准定位接口(navigator.geolocation.*)		
-     * 								
+     *     强制替换H5标准定位接口(navigator.geolocation.*)        
+     *                                 
      * - auto: 
-     * 	自动替换标准H5定位接口，仅在调用标准H5定位接口无法获取数据的设备上替换
-     * 								
+     *     自动替换标准H5定位接口，仅在调用标准H5定位接口无法获取数据的设备上替换
+     *                                 
      * - none: 
-     * 	不替换标准H5定位接口(navigator.geolocation.*)
-     * 								
+     *     不替换标准H5定位接口(navigator.geolocation.*)
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -10999,7 +10999,7 @@ interface PlusWebviewWebviewStatusbarStyles {
     /**
      * 系统状态栏区域背景颜色
      * 颜色值格式为"#RRGGBB"，如"#FF0000"表示为红色背景。
-     * 	默认值为应用manifest.json中plus-&gt;statusbar-&gt;background属性配置的值，如果未配置此属性值，则使用系统默认状态栏的背景颜色。
+     *     默认值为应用manifest.json中plus-&gt;statusbar-&gt;background属性配置的值，如果未配置此属性值，则使用系统默认状态栏的背景颜色。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11015,8 +11015,8 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口加载页面时额外添加的HTTP请求头数据
      * 仅在Webview窗口第一次加载页面时使用，如用户点击的触发的链接跳转则不再添加此额外请求头数据。
-     * 	如果Webview窗口非第一次加载页面时也需要额外添加HTTP请求头数据，可通过loadURL()方法的参数设置。
-     * 	如果HTTP请求头中已经包含需要额外添加的头数据，则添加的请求数据覆盖默认值。
+     *     如果Webview窗口非第一次加载页面时也需要额外添加HTTP请求头数据，可通过loadURL()方法的参数设置。
+     *     如果HTTP请求头中已经包含需要额外添加的头数据，则添加的请求数据覆盖默认值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11024,9 +11024,9 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口动画优化方式
      * 可取值：
-     * 		"auto" - 如果窗口中存在titleNView或subNViews，窗口动画时真实Webview控件从动画窗口中移除加速（避免真实Webview渲染影响动画效率）；
-     * 		"none" - 窗口动画不使用优化。
-     * 	默认值为"auto"。
+     *         "auto" - 如果窗口中存在titleNView或subNViews，窗口动画时真实Webview控件从动画窗口中移除加速（避免真实Webview渲染影响动画效率）；
+     *         "none" - 窗口动画不使用优化。
+     *     默认值为"auto"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11034,23 +11034,23 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口的缓存模式
      * 可取值：
-     * 	"default" - 根据cache-control决定是否使用缓存数据，如果存在缓存并且没有过期则使用本地缓存资源，否则从网络获取；
-     * 	"cacheElseNetwork" - 只要存在缓存（即使过期）数据则使用，否则从网络获取；
-     * 	"noCache" - 不使用缓存数据，全部从网络获取；
-     * 	"cacheOnly" - 仅使用缓存数据，不从网络获取（注：如果没有缓存数据则会导致加载失败）。
-     * 	默认使用"default"。
+     *     "default" - 根据cache-control决定是否使用缓存数据，如果存在缓存并且没有过期则使用本地缓存资源，否则从网络获取；
+     *     "cacheElseNetwork" - 只要存在缓存（即使过期）数据则使用，否则从网络获取；
+     *     "noCache" - 不使用缓存数据，全部从网络获取；
+     *     "cacheOnly" - 仅使用缓存数据，不从网络获取（注：如果没有缓存数据则会导致加载失败）。
+     *     默认使用"default"。
      * - default: 
-     * 	根据cache-control决定是否使用缓存数据，如果存在缓存并且没有过期则使用本地缓存资源，否则从网络获取。
-     * 								
+     *     根据cache-control决定是否使用缓存数据，如果存在缓存并且没有过期则使用本地缓存资源，否则从网络获取。
+     *                                 
      * - cacheElseNetwork: 
-     * 	只要存在缓存（即使过期）数据则使用，否则从网络获取。
-     * 								
+     *     只要存在缓存（即使过期）数据则使用，否则从网络获取。
+     *                                 
      * - noCache: 
-     * 	不使用缓存数据，全部从网络获取。
-     * 								
+     *     不使用缓存数据，全部从网络获取。
+     *                                 
      * - cacheOnly: 
-     * 	仅使用缓存数据，不从网络获取（注：如果没有缓存数据则会导致加载失败）。
-     * 								
+     *     仅使用缓存数据，不从网络获取（注：如果没有缓存数据则会导致加载失败）。
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11058,20 +11058,20 @@ interface PlusWebviewWebviewStyles {
     /**
      * Webview窗口自动处理返回键逻辑
      * 当Webview窗口在显示栈顶，并且Webview窗口中没有调用JS监听返回键（plus.key.addEventListener('backbutton',...)）时按下返回键响应行为。
-     * 	可取值：
-     * 		"hide" - 隐藏Webview窗口，隐藏动画与上一次调用显示时设置的动画类型相对应（如“slide-in-right”对应的关闭动画为“slid-out-right”）；
-     * 		"close" - 关闭Webview窗口，关闭动画与上一次调用显示时设置的动画类型相对应（如“slide-in-right”对应的关闭动画为“slid-out-right”） ；
-     * 		"none" - 不做操作，将返回键传递给下一Webview窗口处理；
-     * 		"quit" - 退出应用。
+     *     可取值：
+     *         "hide" - 隐藏Webview窗口，隐藏动画与上一次调用显示时设置的动画类型相对应（如“slide-in-right”对应的关闭动画为“slid-out-right”）；
+     *         "close" - 关闭Webview窗口，关闭动画与上一次调用显示时设置的动画类型相对应（如“slide-in-right”对应的关闭动画为“slid-out-right”） ；
+     *         "none" - 不做操作，将返回键传递给下一Webview窗口处理；
+     *         "quit" - 退出应用。
      * - hide: 
-     * 	隐藏Webview窗口，隐藏动画与上一次调用显示时设置的动画类型相对应（如“slide-in-right”对应的关闭动画为“slid-out-right”）。
-     * 								
+     *     隐藏Webview窗口，隐藏动画与上一次调用显示时设置的动画类型相对应（如“slide-in-right”对应的关闭动画为“slid-out-right”）。
+     *                                 
      * - close: 
-     * 	关闭Webview窗口，关闭动画与上一次调用显示时设置的动画类型相对应（如“slide-in-right”对应的关闭动画为“slid-out-right”）。
-     * 								
+     *     关闭Webview窗口，关闭动画与上一次调用显示时设置的动画类型相对应（如“slide-in-right”对应的关闭动画为“slid-out-right”）。
+     *                                 
      * - none: 
-     * 	不做操作，将返回键传递给下一Webview窗口处理。
-     * 								
+     *     不做操作，将返回键传递给下一Webview窗口处理。
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11079,7 +11079,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口的背景颜色
      * 窗口空白区域的背景模式，设置background为颜色值(参考CSS Color Names，可取值/十六进制值/rgb值/rgba值)，窗口为独占模式显示（占整个屏幕区域）；
-     * 	设置background为“transparent”，则表示窗口背景透明，为非独占模式。
+     *     设置background为“transparent”，则表示窗口背景透明，为非独占模式。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11087,10 +11087,10 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口顶部背景颜色值
      * 窗口内容滚动到顶部下拉时可见。
-     * 	可取值：
-     * 		"#RRGGBB"格式字符串，如"#FF0000"表示红色；
-     * 		"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
-     * 	默认值为透明。
+     *     可取值：
+     *         "#RRGGBB"格式字符串，如"#FF0000"表示红色；
+     *         "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+     *     默认值为透明。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11098,10 +11098,10 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口底部背景颜色
      * 窗口内容滚动到底部上拉时可见。
-     * 	可取值：
-     * 		"#RRGGBB"格式字符串，如"#FF0000"表示红色；
-     * 		"rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
-     * 	默认值为透明。
+     *     可取值：
+     *         "#RRGGBB"格式字符串，如"#FF0000"表示红色；
+     *         "rgba(R,G,B,A)"，其中R/G/B分别代表红色值/绿色值/蓝色值，正整数类型，取值范围为0-255，A为透明度，浮点数类型，取值范围为0-1（0为全透明，1为不透明），如"rgba(255,0,0,0.5)"，表示红色半透明。
+     *     默认值为透明。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11109,7 +11109,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 是否阻塞网络图片的加载
      * 布尔类型，true表示阻塞，false表示不阻塞，默认值为false。
-     * 	阻塞后Webview窗口将不加载页面中使用的所有网络图片，可通过Webview窗口对象的setBlockNetWorkImage()方法动态修改此状态。
+     *     阻塞后Webview窗口将不加载页面中使用的所有网络图片，可通过Webview窗口对象的setBlockNetWorkImage()方法动态修改此状态。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11117,8 +11117,8 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口垂直向上的偏移量
      * 支持百分比、像素值，默认值无值（根据top和height属性值来自动计算）。
-     * 	当同时设置了top和height值时，忽略此属性值；
-     * 	当未设置height值时，可通过top和bottom属性值来确定窗口的高度。
+     *     当同时设置了top和height值时，忽略此属性值；
+     *     当未设置height值时，可通过top和bottom属性值来确定窗口的高度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11126,11 +11126,11 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口遇到边框是否有反弹效果
      * 可取值：
-     * 		"none" - 表示没有反弹效果；
-     * 		"vertical" - 表示垂直方向有反弹效果；
-     * 		"horizontal" - 表示水平方向有反弹效果；
-     * 		"all" - 表示垂直和水平方向都有反弹效果。
-     * 	默认值为"none"。
+     *         "none" - 表示没有反弹效果；
+     *         "vertical" - 表示垂直方向有反弹效果；
+     *         "horizontal" - 表示水平方向有反弹效果；
+     *         "all" - 表示垂直和水平方向都有反弹效果。
+     *     默认值为"none"。
      * - none: 没有反弹效果
      * - vertical: 垂直方向有反弹效果
      * - horizontal: 水平方向有反弹效果
@@ -11142,8 +11142,8 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口回弹效果区域的背景
      * 窗口回弹效果区域背景可支持颜色值或图片：
-     * 		颜色值格式为"#RRGGBB"，如"#FFFFFF"为设置白色背景；
-     * 		背景图为"url(%image path%)"，如"url(./icon.png)"为设置icon.png为背景图，图片采用平铺模式绘制。
+     *         颜色值格式为"#RRGGBB"，如"#FFFFFF"为设置白色背景；
+     *         背景图为"url(%image path%)"，如"url(./icon.png)"为设置icon.png为背景图，图片采用平铺模式绘制。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11151,7 +11151,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口内容停止滑动的减速度
      * 当Webview加载的内容超过其高度时，可以拖拽滑动内容，decelerationRate属性控制手指松开后页面滑动的速度。
-     * 	设置值越大手指松开后的滑动速度越快（滑动距离越长），其值域范围为0.0-1.0，默认值为0.989。
+     *     设置值越大手指松开后的滑动速度越快（滑动距离越长），其值域范围为0.0-1.0，默认值为0.989。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11159,8 +11159,8 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口的停靠方式
      * 当Webview窗口添加到另外一个窗口中时，停靠方式才会生效，采用停靠方式添加会导致原Webview窗口自动调整其大小避免其内容被子窗口盖住。
-     * 	可取值："top"，控件停靠则页面顶部；"bottom"，控件停靠在页面底部；"right"，控件停靠在页面右侧；"left"，控件停靠在页面左侧。
-     * 	默认值为"bottom"。
+     *     可取值："top"，控件停靠则页面顶部；"bottom"，控件停靠在页面底部；"right"，控件停靠在页面右侧；"left"，控件停靠在页面左侧。
+     *     默认值为"bottom"。
      * - top: 控件停靠则页面顶部
      * - bottom: 控件停靠在页面底部
      * - right: 控件停靠在页面右侧
@@ -11172,7 +11172,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口加载错误时跳转的页面地址
      * 当Webview窗口无法加载指定的url地址时（如本地页面不存在，或者无法访问的网络地址），此时会自动跳转到指定的错误页面地址（仅支持本地页面地址）。
-     * 	设置为“none”则关闭跳转到错误页面功能，此时页面显示Webview默认的错误页面内容。默认使用5+ Runtime内置的错误页面。
+     *     设置为“none”则关闭跳转到错误页面功能，此时页面显示Webview默认的错误页面内容。默认使用5+ Runtime内置的错误页面。
      * - none: 关闭加载页面错误自动跳转功能
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
@@ -11188,7 +11188,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口是否开启硬件加速
      * 布尔类型，true表示开启硬件加速，false表示不开启硬件加速，默认情况5+ Runtime会根据设备实际支持情况自动选择是否开启硬件加速，可以通过plus.webview.defaultHardwareAccelerated()方法获取默认Webview是否开启硬件加速。
-     * 	由于不同设备对硬件加速的支持情况存在差异，开启硬件加速能加速HTML页面的渲染，但也会消耗更多的系统资源，从而导致在部分设备上可能出现闪屏、发虚、分块渲染等问题，因此在特定设备的特定页面如果出现以上问题需要手动设置关闭硬件加速来避免。
+     *     由于不同设备对硬件加速的支持情况存在差异，开启硬件加速能加速HTML页面的渲染，但也会消耗更多的系统资源，从而导致在部分设备上可能出现闪屏、发虚、分块渲染等问题，因此在特定设备的特定页面如果出现以上问题需要手动设置关闭硬件加速来避免。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11196,7 +11196,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口的高度
      * 支持百分比、像素值，默认为100%。
-     * 	当未设置height属性值时，优先通过top和bottom属性值来计算窗口的高度。
+     *     当未设置height属性值时，优先通过top和bottom属性值来计算窗口的高度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11204,25 +11204,25 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口使用的内核
      * 可取值：
-     * 	"WKWebview" - 在iOS8.0及以上系统使用WKWebview内核，低版本下仍然使用UIWebview内核；
+     *     "WKWebview" - 在iOS8.0及以上系统使用WKWebview内核，低版本下仍然使用UIWebview内核；
      *     "UIWebview" - 在所有版本上都使用UIWebview内核。
      *     默认值为"UIWebview"。
      *     WKWebview内核的优势是：
-     * 		1. 滚动时懒加载的图片也可以实时渲染，UIWebview在滚动停止后才能渲染；
-     * 		2. WKWebview的video支持AirPlay。
-     * 	但WKWebview也有些限制和不足，目前已知的问题有：
-     * 		1. 不支持跨域设置cookie，即plus.navigator.setCookie()API无法使用；
-     * 		2. 本地的HTML页面中的XHR不支持跨域访问，需使用plus.net.XMLHttpRequest来替换；
-     * 		3. 不支持使用WebSQL，需使用indexDB来替换；
-     * 		4. 不支持js原生混淆功能，需使用前端js混淆来替换；
-     * 		5. 内存不足时会白屏。
-     * 	首页的Webview的kernel在manifest中配置（plus-&gt;kernel-&gt;ios）。
+     *         1. 滚动时懒加载的图片也可以实时渲染，UIWebview在滚动停止后才能渲染；
+     *         2. WKWebview的video支持AirPlay。
+     *     但WKWebview也有些限制和不足，目前已知的问题有：
+     *         1. 不支持跨域设置cookie，即plus.navigator.setCookie()API无法使用；
+     *         2. 本地的HTML页面中的XHR不支持跨域访问，需使用plus.net.XMLHttpRequest来替换；
+     *         3. 不支持使用WebSQL，需使用indexDB来替换；
+     *         4. 不支持js原生混淆功能，需使用前端js混淆来替换；
+     *         5. 内存不足时会白屏。
+     *     首页的Webview的kernel在manifest中配置（plus-&gt;kernel-&gt;ios）。
      * - WKWebview: 
-     * 	使用"WKWebview"内核。
-     * 								
+     *     使用"WKWebview"内核。
+     *                                 
      * - UIWebview: 
-     * 	使用"UIWebview"内核。
-     * 								
+     *     使用"UIWebview"内核。
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11230,7 +11230,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口水平向右的偏移量
      * 支持百分比、像素值，默认值为0px。
-     * 	未设置left属性值时，优先通过right和width属性值来计算窗口的left位置。
+     *     未设置left属性值时，优先通过right和width属性值来计算窗口的left位置。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11245,10 +11245,10 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口的遮罩
      * 用于设置Webview窗口的遮罩层样式，遮罩层会覆盖Webview中所有内容，包括子webview，并且截获webview的所有触屏事件，此时Webview窗口的点击操作会触发maskClick事件。
-     * 	字符串类型，可取值：
-     * 	rgba格式字符串，定义纯色遮罩层样式，如"rgba(0,0,0,0.5)"，表示黑色半透明；
-     * 	"none"，表示不使用遮罩层；
-     * 	默认值为"none"，即无遮罩层。
+     *     字符串类型，可取值：
+     *     rgba格式字符串，定义纯色遮罩层样式，如"rgba(0,0,0,0.5)"，表示黑色半透明；
+     *     "none"，表示不使用遮罩层；
+     *     默认值为"none"，即无遮罩层。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11275,8 +11275,8 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口的进度条样式
      * 设置此属性则在Webview窗口的顶部显示进度条，可配置进度条颜色及高度。
-     * 	设置此属性值为undefined或null则隐藏进度条。
-     * 	默认不显示进度条。
+     *     设置此属性值为undefined或null则隐藏进度条。
+     *     默认不显示进度条。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11284,9 +11284,9 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口的侧滑返回功能
      * 可取值：
-     * 		"none"-无侧滑返回功能；
-     * 		"close"-侧滑返回关闭Webview窗口；
-     * 		"hide"-侧滑返回隐藏webview窗口。
+     *         "none"-无侧滑返回功能；
+     *         "close"-侧滑返回关闭Webview窗口；
+     *         "hide"-侧滑返回隐藏webview窗口。
      * - none: 无侧滑返回功能
      * - close: 侧滑返回关闭Webview窗口
      * - hide: 侧滑返回隐藏webview窗口
@@ -11297,7 +11297,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口下拉刷新配置
      * 设置窗口是否开启下拉刷新功能及样式。
-     * 	开启下拉刷新后可通过监听窗口的"pullToRefresh"事件处理下拉刷新业务逻辑，更新操作完成后调用窗口的endPullToRefresh方法结束下拉刷新。
+     *     开启下拉刷新后可通过监听窗口的"pullToRefresh"事件处理下拉刷新业务逻辑，更新操作完成后调用窗口的endPullToRefresh方法结束下拉刷新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11305,10 +11305,10 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口渲染模式
      * 支持以下属性值：
-     * 		"onscreen" - Webview窗口在屏幕区可见时渲染，不可见时不进行渲染，此时能减少内存使用量；
-     * 		"always" - Webview在任何时候都渲染，在内存较大的设备上使用，被遮挡的窗口在此中模式下显示的时候会有更流畅的效果。
-     * 	默认值为"onscreen"。
-     * 	仅Android平台支持。
+     *         "onscreen" - Webview窗口在屏幕区可见时渲染，不可见时不进行渲染，此时能减少内存使用量；
+     *         "always" - Webview在任何时候都渲染，在内存较大的设备上使用，被遮挡的窗口在此中模式下显示的时候会有更流畅的效果。
+     *     默认值为"onscreen"。
+     *     仅Android平台支持。
      * - onscreen: Webview窗口在屏幕区可见时渲染，不可见时不进行渲染，此时能减少内存使用量
      * - always: Webview在任何时候都渲染，在内存较大的设备上使用，被遮挡的窗口在此中模式下显示的时候会有更流畅的效果
      * 
@@ -11318,8 +11318,8 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口水平向左的偏移量
      * 支持百分比、像素值，默认无值（根据left和width属性值来自动计算）。
-     * 	当设置了left和width值时，忽略此属性值；
-     * 	当未设置width值时，可通过left和bottom属性值来确定窗口的宽度。
+     *     当设置了left和width值时，忽略此属性值；
+     *     当未设置width值时，可通过left和bottom属性值来确定窗口的宽度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11327,8 +11327,8 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口是否可缩放
      * 窗口设置为可缩放（scalable:true）时，用户可通过双指操作放大或缩小页面，此时html页面可通过meta节点设置“name="viewport" content="user-scalable=no"”来限制页面不可缩放。
-     * 	窗口设置为不可缩放（scalable:false）时，用户不可通过双指操作放大或缩小页面，即使页面中的meta节点也无法开启可缩放功能。
-     * 	默认值为false，即不可缩放。
+     *     窗口设置为不可缩放（scalable:false）时，用户不可通过双指操作放大或缩小页面，即使页面中的meta节点也无法开启可缩放功能。
+     *     默认值为false，即不可缩放。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11336,12 +11336,12 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口是否显示滚动条
      * 用于控制窗口滚动条样式，可取值：
-     * 	"all"：垂直和水平滚动条都显示；
-     * 	"vertical"：仅显示垂直滚动条；
-     * 	"horizontal"：仅显示水平滚动条；
-     * 	"none"：垂直和水平滚动条都不显示。
-     * 	默认值为"all"，即垂直和水平滚动条都显示。
-     * 	注意：显示滚动条的前提条件是窗口中的内容超过窗口显示的宽或高。
+     *     "all"：垂直和水平滚动条都显示；
+     *     "vertical"：仅显示垂直滚动条；
+     *     "horizontal"：仅显示水平滚动条；
+     *     "none"：垂直和水平滚动条都不显示。
+     *     默认值为"all"，即垂直和水平滚动条都显示。
+     *     注意：显示滚动条的前提条件是窗口中的内容超过窗口显示的宽或高。
      * - all: 垂直和水平滚动条都显示
      * - vertical: 仅显示垂直滚动条
      * - horizontal: 仅显示水平滚动条
@@ -11353,7 +11353,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 点击设备的状态栏时是否滚动返回至顶部
      * true表示点击设备的状态栏可以滚动返回至顶部，false表示点击设备的状态栏不可以，默认值为true。
-     * 	此功能仅iOS平台支持，在iPhone上有且只有一个Webview窗口的scrollsToTop属性值为true时才生效，所以在显示和关闭Webview窗口时需动态更新所有Webview的scrollsToTop值，已确保此功能生效。
+     *     此功能仅iOS平台支持，在iPhone上有且只有一个Webview窗口的scrollsToTop属性值为true时才生效，所以在显示和关闭Webview窗口时需动态更新所有Webview的scrollsToTop值，已确保此功能生效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11361,10 +11361,10 @@ interface PlusWebviewWebviewStyles {
     /**
      * 是否可分享窗口加载的链接地址
      * 在流应用环境（流应用/5+浏览器）中可通过分享按钮分享页面链接地址，
-     * 	可取值：
-     * 		true - 可分享窗口加载页面链接地址；
-     * 		false - 不可分享窗口加载的页面链接地址，此时分享的是应用。
-     * 	默认值值为true。
+     *     可取值：
+     *         true - 可分享窗口加载页面链接地址；
+     *         false - 不可分享窗口加载的页面链接地址，此时分享的是应用。
+     *     默认值值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11372,7 +11372,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 弹出系统软键盘模式
      * 可选值：“adjustPan”- 弹出软键盘时Webview窗口自动上移，以保证当前输入框可见；“adjustResize”- 自动调整Webview窗口大小（屏幕区域减去软键盘区域），同时自动滚动Webview保证输入框可见。
-     * 	默认值为“adjustPan”。
+     *     默认值为“adjustPan”。
      * - adjustPan: 弹出软键盘时Webview窗口自动上移，以保证当前输入框可见
      * - adjustResize: 自动调整Webview窗口大小（屏幕区域减去软键盘区域），同时自动滚动Webview保证输入框可见
      * 
@@ -11389,7 +11389,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 定义窗口的原生子View控件
      * 数组类型，可通过配置项设置原生子View控件，每个配置项对应添加一个原生子View控件。
-     * 	通过Webview窗口的getSubNViews()方法可获取原生子View控件对象数组。
+     *     通过Webview窗口的getSubNViews()方法可获取原生子View控件对象数组。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11397,7 +11397,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 定义窗口的标题栏控件样式
      * 设置此属性值则表明创建Webview窗口的标题栏控件，并可通过其属性值设置背景颜色、文本内容、文本颜色等。
-     * 	通过Webview窗口的getTitleNView()方法可获取标题栏控件对象。
+     *     通过Webview窗口的getTitleNView()方法可获取标题栏控件对象。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11405,7 +11405,7 @@ interface PlusWebviewWebviewStyles {
     /**
      * 窗口垂直向下的偏移量
      * 支持百分比、像素值，默认值为0px。
-     * 	未设置top属性值时，优先通过bottom和height属性值来计算窗口的top位置。
+     *     未设置top属性值时，优先通过bottom和height属性值来计算窗口的top位置。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11425,8 +11425,8 @@ interface PlusWebviewWebviewStyles {
     /**
      * Webview窗口的排版位置
      * 当Webview窗口添加到另外一个窗口中时，排版位置才会生效，排版位置决定子窗口在父窗口中的定位方式。
-     * 	可取值："static"，控件在页面中正常定位，如果页面存在滚动条则随窗口内容滚动；"absolute"，控件在页面中绝对定位，如果页面存在滚动条不随窗口内容滚动；"dock"，控件在页面中停靠，停靠的位置由dock属性值决定。
-     * 	默认值为"absolute"。
+     *     可取值："static"，控件在页面中正常定位，如果页面存在滚动条则随窗口内容滚动；"absolute"，控件在页面中绝对定位，如果页面存在滚动条不随窗口内容滚动；"dock"，控件在页面中停靠，停靠的位置由dock属性值决定。
+     *     默认值为"absolute"。
      * - static: 控件在页面中正常定位，如果页面存在滚动条则随窗口内容滚动
      * - absolute: 控件在页面中绝对定位，如果页面存在滚动条不随窗口内容滚动
      * - dock: 控件在页面中停靠，停靠的位置由dock属性值决定
@@ -11437,10 +11437,10 @@ interface PlusWebviewWebviewStyles {
     /**
      * 用户是否可选择内容
      * 可取值：
-     * 	true - 表示可选择内容，用户可通过长按来选择页面内容，如文本内容选择后可以弹出系统复制粘贴菜单；
-     * 	false - 表示不可选择内容，用户不可通过长按来选择页面内容。
-     * 	默认值为true。
-     * 	注意：在Web页面中可通过CSS的user-select对单个页面元素进行控制，前提是Webview对象的userSelect设置为true，否则CSS设置的user-select失效。
+     *     true - 表示可选择内容，用户可通过长按来选择页面内容，如文本内容选择后可以弹出系统复制粘贴菜单；
+     *     false - 表示不可选择内容，用户不可通过长按来选择页面内容。
+     *     默认值为true。
+     *     注意：在Web页面中可通过CSS的user-select对单个页面元素进行控制，前提是Webview对象的userSelect设置为true，否则CSS设置的user-select失效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11448,13 +11448,13 @@ interface PlusWebviewWebviewStyles {
     /**
      * 视频全屏播放时的显示方向
      * 可取值：
-     * 	"auto": 自动适配，如果当前页面竖屏，则竖屏显示；如果当前页面横盘显示，则横屏；如果当前页面自动感应，则自动感应横竖屏切换。
-     * 	"portrait-primary": 竖屏正方向； 
-     * 	"portrait-secondary": 竖屏反方向，屏幕正方向按顺时针旋转180°； 
-     * 	"landscape-primary": 横屏正方向，屏幕正方向按顺时针旋转90°； 
-     * 	"landscape-secondary": 横屏方向，屏幕正方向按顺时针旋转270°； 
-     * 	"landscape": 横屏正方向或反方向，根据设备重力感应器自动调整；
-     * 	默认值为“auto”。
+     *     "auto": 自动适配，如果当前页面竖屏，则竖屏显示；如果当前页面横盘显示，则横屏；如果当前页面自动感应，则自动感应横竖屏切换。
+     *     "portrait-primary": 竖屏正方向； 
+     *     "portrait-secondary": 竖屏反方向，屏幕正方向按顺时针旋转180°； 
+     *     "landscape-primary": 横屏正方向，屏幕正方向按顺时针旋转90°； 
+     *     "landscape-secondary": 横屏方向，屏幕正方向按顺时针旋转270°； 
+     *     "landscape": 横屏正方向或反方向，根据设备重力感应器自动调整；
+     *     默认值为“auto”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11536,11 +11536,11 @@ interface PlusWebviewWebviewTransition {
     /**
      * 窗口变换效果
      * 可取值：
-     * 	"linear"：匀速变化，匀速动画效果；
-     * 	"ease-in"：匀加速变化，逐渐变快的动画效果；
-     * 	"ease-out"：匀减速变化，逐渐变慢的动画效果；
-     * 	"ease-in-out"：先加速后减速变化，先变快后变慢的动画效果。
-     * 	默认值为"ease-in-out"。
+     *     "linear"：匀速变化，匀速动画效果；
+     *     "ease-in"：匀加速变化，逐渐变快的动画效果；
+     *     "ease-out"：匀减速变化，逐渐变慢的动画效果；
+     *     "ease-in-out"：先加速后减速变化，先变快后变慢的动画效果。
+     *     默认值为"ease-in-out"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11570,8 +11570,8 @@ interface PlusWebviewWebviewOverrideResourceOptions {
     /**
      * 重定向的资源数据类型
      * RFC2045/RFC2046/RFC2047/RFC2048/RFC2049规范中定义的数据类型。
-     * 	如普通文本（text/plain）、PNG图像(image/png)、GIF图形(image/gif)、JPEG图形(image/jpeg)。
-     * 	如果未指定mime类型，则根据重定向资源路径自动区配。
+     *     如普通文本（text/plain）、PNG图像(image/png)、GIF图形(image/gif)、JPEG图形(image/jpeg)。
+     *     如果未指定mime类型，则根据重定向资源路径自动区配。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11586,7 +11586,7 @@ interface PlusWebviewWebviewOverrideResourceOptions {
     /**
      * 设置重定向资源数据的http头数据
      * 可设置标注http头数据（如Content-type）,也可设置自定义数据。
-     * 	通常可通过此属性来设置拦截资源的缓存策略（如Cache-control）。
+     *     通常可通过此属性来设置拦截资源的缓存策略（如Cache-control）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11602,15 +11602,15 @@ interface PlusWebviewWebviewOverrideUrlOptions {
     /**
      * 拦截URL请求生效时机
      * 可取值：
-     * 		"instant" - 表示立即生效，即调用overrideUrlLoading方法后立即生效；
-     * 		"touchstart" - 表示用户操作Webview窗口（触发touchstart事件）后生效，如果用户没有操作Webview窗口则不对URL请求操作进行拦截处理。
-     * 	默认值为"instant"。
+     *         "instant" - 表示立即生效，即调用overrideUrlLoading方法后立即生效；
+     *         "touchstart" - 表示用户操作Webview窗口（触发touchstart事件）后生效，如果用户没有操作Webview窗口则不对URL请求操作进行拦截处理。
+     *     默认值为"instant"。
      * - instant: 
-     * 	立即生效，即调用overrideUrlLoading方法后立即生效。
-     * 								
+     *     立即生效，即调用overrideUrlLoading方法后立即生效。
+     *                                 
      * - : 
-     * 	表示用户操作Webview窗口（触发touchstart事件）后生效。
-     * 								
+     *     表示用户操作Webview窗口（触发touchstart事件）后生效。
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11618,15 +11618,15 @@ interface PlusWebviewWebviewOverrideUrlOptions {
     /**
      * 拦截模式
      * 可取值：
-     * 	"allow"表示满足match属性定义的条件时不拦截url继续加载，不满足match属性定义的条件时拦截url跳转并触发callback回调；
-     * 	"reject"表示满足match属性定义的提交时拦截url跳转并触发callback回调，不满足match属性定义的条件时不拦截url继续加载。
-     * 	默认值为"reject"。
+     *     "allow"表示满足match属性定义的条件时不拦截url继续加载，不满足match属性定义的条件时拦截url跳转并触发callback回调；
+     *     "reject"表示满足match属性定义的提交时拦截url跳转并触发callback回调，不满足match属性定义的条件时不拦截url继续加载。
+     *     默认值为"reject"。
      * - allow: 
-     * 	满足match属性定义的条件时不拦截url继续加载，不满足match属性定义的条件时拦截url跳转并触发callback回调。
-     * 								
+     *     满足match属性定义的条件时不拦截url继续加载，不满足match属性定义的条件时拦截url跳转并触发callback回调。
+     *                                 
      * - reject: 
-     * 	满足match属性定义的提交时拦截url跳转并触发callback回调，不满足match属性定义的条件时不拦截url继续加载。
-     * 								
+     *     满足match属性定义的提交时拦截url跳转并触发callback回调，不满足match属性定义的条件时不拦截url继续加载。
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11634,7 +11634,7 @@ interface PlusWebviewWebviewOverrideUrlOptions {
     /**
      * 区配是否需要处理的URL请求
      * 支持正则表达式，默认值为对所有URL地址生效（相当于正则表达式“.*”）。
-     * 	如果mode值为"allow"则允许区配的URL请求跳转，mode值为"reject"则拦截区配的URL请求。
+     *     如果mode值为"allow"则允许区配的URL请求跳转，mode值为"reject"则拦截区配的URL请求。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11642,16 +11642,16 @@ interface PlusWebviewWebviewOverrideUrlOptions {
     /**
      * 排除拦截处理请求类型
      * 不拦截处理指定类型的URL请求，直接使用系统默认处理逻辑。
-     * 	可取值：
-     * 	"none"表示不排除任何URL请求（即拦截处理所有URL请求）；
-     * 	"redirect"表示排除拦截处理301/302跳转的请求（谨慎使用，非a标签的href触发的URL请求可能会误判断为302跳转）。
-     * 	默认值为"none"。
+     *     可取值：
+     *     "none"表示不排除任何URL请求（即拦截处理所有URL请求）；
+     *     "redirect"表示排除拦截处理301/302跳转的请求（谨慎使用，非a标签的href触发的URL请求可能会误判断为302跳转）。
+     *     默认值为"none"。
      * - none: 
-     * 	不排除任何URL请求（即拦截处理所有URL请求）。
-     * 								
+     *     不排除任何URL请求（即拦截处理所有URL请求）。
+     *                                 
      * - redirect: 
-     * 	排除拦截处理301/302跳转的请求（谨慎使用，非a标签的href触发的URL请求可能会误判断为302跳转）。
-     * 								
+     *     排除拦截处理301/302跳转的请求（谨慎使用，非a标签的href触发的URL请求可能会误判断为302跳转）。
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11667,7 +11667,7 @@ interface PlusWebviewWebviewListenResourceOptions {
     /**
      * 区配是否需要处理的URL资源
      * 支持正则表达式，默认值为对所有URL资源请求生效（相当于正则表达式“.*”）。
-     * 	如果Webview加载的资源区配条件，则触发回调事件。
+     *     如果Webview加载的资源区配条件，则触发回调事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
@@ -11703,12 +11703,12 @@ interface PlusNetXMLHttpRequest {
     /**
      * HTTP 请求的状态
      * 当一个 XMLHttpRequest 初次创建时，这个属性的值从 0 开始，直到接收到完整的 HTTP 响应，这个值增加到 4。
-     * 	5 个状态中每一个都有一个相关联的非正式的名称，下表列出了状态、名称和含义：
-     * 		0 Uninitialized，未初始化状态。XMLHttpRequest对象已创建或已被abort()方法重置。
-     * 		1 Open，open()方法已调用，但是send()方法未调用。请求还没有被发送。
-     * 		2 Sent，send()方法已调用，HTTP 请求已发送到Web服务器。未接收到响应。
-     * 		3 Receiving，所有响应头部都已经接收到。响应体开始接收但未完成。
-     * 		4 Loaded，HTTP响应已经完全接收。
+     *     5 个状态中每一个都有一个相关联的非正式的名称，下表列出了状态、名称和含义：
+     *         0 Uninitialized，未初始化状态。XMLHttpRequest对象已创建或已被abort()方法重置。
+     *         1 Open，open()方法已调用，但是send()方法未调用。请求还没有被发送。
+     *         2 Sent，send()方法已调用，HTTP 请求已发送到Web服务器。未接收到响应。
+     *         3 Receiving，所有响应头部都已经接收到。响应体开始接收但未完成。
+     *         4 Loaded，HTTP响应已经完全接收。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11716,11 +11716,11 @@ interface PlusNetXMLHttpRequest {
     /**
      * 请求从服务器接收到的响应数据
      * 如果没有从服务器接收到数据，则为null；
-     * 	否则根据responseType类型决定：
-     * 		如果responseType设置为空字符串或"text"，则返回空字符串；
-     * 		如果responseType设置为"document"，则返回Document对象；
-     * 		如果responseType设置为"json"，则返回JSON对象；
-     * 	若服务器返回的数据与设置的responseType类型不区配，则返回null。
+     *     否则根据responseType类型决定：
+     *         如果responseType设置为空字符串或"text"，则返回空字符串；
+     *         如果responseType设置为"document"，则返回Document对象；
+     *         如果responseType设置为"json"，则返回JSON对象；
+     *     若服务器返回的数据与设置的responseType类型不区配，则返回null。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11728,10 +11728,10 @@ interface PlusNetXMLHttpRequest {
     /**
      * 请求从服务器接收到的响应数据（字符串数据）
      * 如果还没有接收到数据的话，此属性值为空字符串；
-     * 	如果readyState小于3，此属性值为空字符串；
-     * 	如果readyState为3，此属性值返回目前已经接收的HTTP响应部分数据值；
-     * 	如果readyState为4，此属性值保存了完整的HTTP响应数据体。
-     * 	如果HTTP请求返回的数据头中包含了Content-Type值中指定字符编码，就使用该编码，否则，使用UTF-8字符集。
+     *     如果readyState小于3，此属性值为空字符串；
+     *     如果readyState为3，此属性值返回目前已经接收的HTTP响应部分数据值；
+     *     如果readyState为4，此属性值保存了完整的HTTP响应数据体。
+     *     如果HTTP请求返回的数据头中包含了Content-Type值中指定字符编码，就使用该编码，否则，使用UTF-8字符集。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11739,7 +11739,7 @@ interface PlusNetXMLHttpRequest {
     /**
      * 请求响应数据response的类型
      * 默认值为空字符串，即reponse为String，类型可设置："document"表示Document对象，"json"表示JSON对象，"text"表示字符串。
-     * 	此值必须在调用send方法之前设置，否则设置的值不生效，仍使用之前设置的值。
+     *     此值必须在调用send方法之前设置，否则设置的值不生效，仍使用之前设置的值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11747,7 +11747,7 @@ interface PlusNetXMLHttpRequest {
     /**
      * 请求响应的Document对象
      * 对请求的响应，解析为 XML 并作为 Document 对象返回。
-     * 	如果请求未成功，或响应的数据无法被解析为XML，则返回null。
+     *     如果请求未成功，或响应的数据无法被解析为XML，则返回null。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11755,7 +11755,7 @@ interface PlusNetXMLHttpRequest {
     /**
      * 服务器返回的HTTP状态代码
      * 服务器返回的HTTP状态代码，如200表示成功，而404表示"Not Found"错误；
-     * 	当readyState小于3的时候此属性值为0。
+     *     当readyState小于3的时候此属性值为0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11763,8 +11763,8 @@ interface PlusNetXMLHttpRequest {
     /**
      * 服务器返回的HTTP状态描述
      * 此属性值用名称而不是数字指定了请求的HTTP的状态代码。
-     * 	也就是说，当状态为200的时候它是"OK"；当状态为404的时候它是"Not Found"。
-     * 	和status属性类似，当readyState小于3的时候读取这一属性会返回空字符串。
+     *     也就是说，当状态为200的时候它是"OK"；当状态为404的时候它是"Not Found"。
+     *     和status属性类似，当readyState小于3的时候读取这一属性会返回空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11772,8 +11772,8 @@ interface PlusNetXMLHttpRequest {
     /**
      * 请求服务器的超时时间，单位为毫秒（ms）
      * 数值类型，单位为ms，其默认值为120秒。
-     * 	超时时间为服务器响应请求的时间（不是Http请求完成的总时间），如果设置为0则表示永远不超时。
-     * 	必须在请求发起前设置，否则当前请求将不生效，在当前请求完成后重新发起新请求时生效。
+     *     超时时间为服务器响应请求的时间（不是Http请求完成的总时间），如果设置为0则表示永远不超时。
+     *     必须在请求发起前设置，否则当前请求将不生效，在当前请求完成后重新发起新请求时生效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11809,7 +11809,7 @@ interface PlusNetXMLHttpRequest {
     /**
      * 网络请求取消事件
      * 通常在调用abort方法取消HTTP请求时触发。
-     * 	此事件在onreadystatechange事件触发状态4事件之后。
+     *     此事件在onreadystatechange事件触发状态4事件之后。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11817,7 +11817,7 @@ interface PlusNetXMLHttpRequest {
     /**
      * 网络请求错误事件
      * 通常在HTTP请求发生错误时触发，如无法连接到服务器等各种错误都触发此事件。
-     * 	此事件在onreadystatechange事件触发状态4事件之后。
+     *     此事件在onreadystatechange事件触发状态4事件之后。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11825,7 +11825,7 @@ interface PlusNetXMLHttpRequest {
     /**
      * 网络请求成功事件
      * 通常在HTTP请求成功完成时触发，如果HTTP请求发生错误则不触发此事件。
-     * 	此事件在onreadystatechange事件触发状态4事件之后。
+     *     此事件在onreadystatechange事件触发状态4事件之后。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11833,7 +11833,7 @@ interface PlusNetXMLHttpRequest {
     /**
      * 网络请求超时事件
      * 通常在HTTP请求超时时触发，此时不会触发onerror事件。
-     * 	此事件在onreadystatechange事件触发状态4事件之后。
+     *     此事件在onreadystatechange事件触发状态4事件之后。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11841,7 +11841,7 @@ interface PlusNetXMLHttpRequest {
     /**
      * 网络请求结束事件
      * 通常在HTTP请求结束时触发，不管是HTTP请求失败、成功、或超时之后都会触发此事件。
-     * 	此事件在onreadystatechange事件触发状态4事件之后。
+     *     此事件在onreadystatechange事件触发状态4事件之后。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11849,8 +11849,8 @@ interface PlusNetXMLHttpRequest {
     /**
      * 取消当前响应，关闭连接并且结束任何未决的网络活动
      * 此方法把XMLHttpRequest对象重置为readyState为0的状态，并且取消所有未决的网络活动。
-     * 	调用此方法后将停止触发XMLHttpRequest对象的所有事件。
-     * 	例如，如果请求用了太长时间，而且响应不再必要的时候，可以调用这个方法。
+     *     调用此方法后将停止触发XMLHttpRequest对象的所有事件。
+     *     例如，如果请求用了太长时间，而且响应不再必要的时候，可以调用这个方法。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11858,7 +11858,7 @@ interface PlusNetXMLHttpRequest {
     /**
      * 获取HTTP响应头部信息
      * 把HTTP响应头部作为未解析的字符串返回。 如果readyState小于3，这个方法返回null。
-     * 	否则，它返回服务器发送的所有 HTTP 响应的头部。头部作为单个的字符串返回，一行一个头部。每行用换行符"\r\n"隔开。
+     *     否则，它返回服务器发送的所有 HTTP 响应的头部。头部作为单个的字符串返回，一行一个头部。每行用换行符"\r\n"隔开。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11866,8 +11866,8 @@ interface PlusNetXMLHttpRequest {
     /**
      * 获取指定的HTTP响应头部的值
      * 其参数是要返回的 HTTP 响应头部的名称。可以使用任何大小写来制定这个头部名字，和响应头部的比较是不区分大小写的。
-     * 	该方法的返回值是指定的 HTTP 响应头部的值，如果没有接收到这个头部或者readyState小于3则为空字符串。
-     * 	如果接收到多个有指定名称的头部，这个头部的值被连接起来并返回，使用逗号和空格分隔开各个头部的值。
+     *     该方法的返回值是指定的 HTTP 响应头部的值，如果没有接收到这个头部或者readyState小于3则为空字符串。
+     *     如果接收到多个有指定名称的头部，这个头部的值被连接起来并返回，使用逗号和空格分隔开各个头部的值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11875,10 +11875,10 @@ interface PlusNetXMLHttpRequest {
     /**
      * 初始化HTTP请求参数，例如URL和HTTP方法，但是并不发送请求
      * 这个方法初始化请求参数以供 send() 方法稍后使用。它把readyState设置为1，删除之前指定的所有请求头部，以及之前接收的所有响应头部，并且把responseText、responseXML、status 以及 statusText 参数设置为它们的默认值。
-     * 	当readyState为0的时候（当XMLHttpRequest对象刚创建或者abort()方法调用后）以及当readyState为4时（已经接收响应时），调用这个方法是安全的。
-     * 	当针对任何其他状态调用的时候，open()方法的行为是为指定的。
-     * 	除了保存供send()方法使用的请求参数，以及重置 XMLHttpRequest 对象以便复用，open()方法没有其他的行为。
-     * 	要特别注意，当这个方法调用的时候，实现通常不会打开一个到Web服务器的网络连接。
+     *     当readyState为0的时候（当XMLHttpRequest对象刚创建或者abort()方法调用后）以及当readyState为4时（已经接收响应时），调用这个方法是安全的。
+     *     当针对任何其他状态调用的时候，open()方法的行为是为指定的。
+     *     除了保存供send()方法使用的请求参数，以及重置 XMLHttpRequest 对象以便复用，open()方法没有其他的行为。
+     *     要特别注意，当这个方法调用的时候，实现通常不会打开一个到Web服务器的网络连接。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11886,23 +11886,23 @@ interface PlusNetXMLHttpRequest {
     /**
      * 重写服务器返回的MIME类型
      * 此方法覆盖HTTP请求返回数据头"Content-Type"字段值中包含的IMIE类型，如果设置的MIME类型无效则继续使用"Content-Type"字段值中包含的IMIE类型。
-     * 	如果MIME类型中指定了字符集类型（charset），则需按照指定的字符集类型对接收到的数据体（respose）进行处理，否则默认为UTF-8字符集。
-     * 	注意：此方法需在send方法前调用。
+     *     如果MIME类型中指定了字符集类型（charset），则需按照指定的字符集类型对接收到的数据体（respose）进行处理，否则默认为UTF-8字符集。
+     *     注意：此方法需在send方法前调用。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
     overrideMimeType(mime?: string): void;
     /**
      * 发送HTTP请求
-     * 此方法触发HTTP请求发送，如果之前没有调用open()，或者更具体地说，如果readyState不是1，send()抛出一个异常。否则，将发送HTTP请求，该请求由以下几部分组成：	
-     * 	之前调用open()时指定的HTTP方法、URL；
-     * 	之前调用setRequestHeader()时指定的请求头部（如果有的话）；
-     * 	传递给这个方法的body参数。
-     * 	一旦请求发送了，send()把readyState设置为2，并触发onreadystatechange事件；
-     * 	如果服务器响应带有一个HTTP重定向，send()方法在后台线程自动遵从重定向；
-     * 	当所有的HTTP响应头部已经接收，send()或后台线程把readyState设置为3并触发onreadystatechange事件；
-     * 	如果响应较长，send()或后台线程可能在状态3中触发多次onreadystatechange事件；
-     * 	最后，当响应完成，send()或后台线程把readyState设置为4，并最后一次触发onreadystatechange事件。
+     * 此方法触发HTTP请求发送，如果之前没有调用open()，或者更具体地说，如果readyState不是1，send()抛出一个异常。否则，将发送HTTP请求，该请求由以下几部分组成：    
+     *     之前调用open()时指定的HTTP方法、URL；
+     *     之前调用setRequestHeader()时指定的请求头部（如果有的话）；
+     *     传递给这个方法的body参数。
+     *     一旦请求发送了，send()把readyState设置为2，并触发onreadystatechange事件；
+     *     如果服务器响应带有一个HTTP重定向，send()方法在后台线程自动遵从重定向；
+     *     当所有的HTTP响应头部已经接收，send()或后台线程把readyState设置为3并触发onreadystatechange事件；
+     *     如果响应较长，send()或后台线程可能在状态3中触发多次onreadystatechange事件；
+     *     最后，当响应完成，send()或后台线程把readyState设置为4，并最后一次触发onreadystatechange事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11910,9 +11910,9 @@ interface PlusNetXMLHttpRequest {
     /**
      * 指定一个HTTP请求的Header
      * Http的Header应该包含在通过后续send()调用而发起的请求中。
-     * 	此方法只有当readyState为1的时候才能调用，例如，在调用了open()之后，但在调用send()之前。
-     * 	如果带有指定名称的头部已经被指定了，这个头部的新值就是：之前指定的值，加上逗号、以及这个调用指定的值（形成一个数组）。
-     * 	如果Web服务器已经保存了和传递给open()的URL相关联的cookie，适当的Cookie或Cookie2头部也自动地包含到请求中，可以通过调用setRequestHeader()来把这些cookie添加到头部。
+     *     此方法只有当readyState为1的时候才能调用，例如，在调用了open()之后，但在调用send()之前。
+     *     如果带有指定名称的头部已经被指定了，这个头部的新值就是：之前指定的值，加上逗号、以及这个调用指定的值（形成一个数组）。
+     *     如果Web服务器已经保存了和传递给open()的URL相关联的cookie，适当的Cookie或Cookie2头部也自动地包含到请求中，可以通过调用setRequestHeader()来把这些cookie添加到头部。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11949,7 +11949,7 @@ interface PlusNetProgressEvent {
     /**
      * 总数据长度
      * HTTP请求返回的总数据长度，单位为字节。
-     * 	如果无法获取则设置为0。
+     *     如果无法获取则设置为0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
@@ -11965,9 +11965,9 @@ interface PlusZip {
     /**
      * JSON对象，配置图片压缩转换的参数
      * 设置width/height属性则表示需对图片进行缩放转换操作；
-     * 	设置rotate属性则表示需对图片进行旋转转换操作；
-     * 	设置clip属性则表示需对图片进行裁剪转换操作；
-     * 	如同时设置了多个转换操作，则按缩放、旋转、裁剪顺序进行操作。
+     *     设置rotate属性则表示需对图片进行旋转转换操作；
+     *     设置clip属性则表示需对图片进行裁剪转换操作；
+     *     如同时设置了多个转换操作，则按缩放、旋转、裁剪顺序进行操作。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
@@ -12002,9 +12002,9 @@ interface PlusZip {
 /**
  * JSON对象，配置图片压缩转换的参数
  * 设置width/height属性则表示需对图片进行缩放转换操作；
- * 	设置rotate属性则表示需对图片进行旋转转换操作；
- * 	设置clip属性则表示需对图片进行裁剪转换操作；
- * 	如同时设置了多个转换操作，则按缩放、旋转、裁剪顺序进行操作。
+ *     设置rotate属性则表示需对图片进行旋转转换操作；
+ *     设置clip属性则表示需对图片进行裁剪转换操作；
+ *     如同时设置了多个转换操作，则按缩放、旋转、裁剪顺序进行操作。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
  */
@@ -12012,10 +12012,10 @@ interface PlusZipCompressImageOptions {
     /**
      * 压缩转换原始图片的路径
      * 支持以下图片路径：
-     * 	相对路径 - 相对于当前页面的host位置，如"a.jpg"，注意当前页面为网络地址则不支持；
-     * 	绝对路径 - 系统绝对路径，如Android平台"/storage/sdcard0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/www/ａ.jpg"，iOS平台"/var/mobile/Containers/Data/Application/757966CF-345C-4348-B07F-EEF83CF9A369/Library/Pandora/apps/HBuilder/www/a.png"；
-     * 	相对路径URL(RelativeURL) - 以"_"开头的相对路径，如"_www/a.jpg"、"_doc/b.jpg"、"_documents/c.jpg"、"_downloads/d.jpg"；
-     * 	本地路径URL - 以“file://”开头，后面跟随系统绝对路径。
+     *     相对路径 - 相对于当前页面的host位置，如"a.jpg"，注意当前页面为网络地址则不支持；
+     *     绝对路径 - 系统绝对路径，如Android平台"/storage/sdcard0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/www/ａ.jpg"，iOS平台"/var/mobile/Containers/Data/Application/757966CF-345C-4348-B07F-EEF83CF9A369/Library/Pandora/apps/HBuilder/www/a.png"；
+     *     相对路径URL(RelativeURL) - 以"_"开头的相对路径，如"_www/a.jpg"、"_doc/b.jpg"、"_documents/c.jpg"、"_downloads/d.jpg"；
+     *     本地路径URL - 以“file://”开头，后面跟随系统绝对路径。
      * - _www/: 应用资源目录
      * - _doc/: 应用私有文档目录
      * - _documents/: 共享文档目录
@@ -12027,10 +12027,10 @@ interface PlusZipCompressImageOptions {
     /**
      * 压缩转换目标图片的路径
      * 支持以下图片路径：
-     * 	绝对路径 - 系统绝对路径，如Android平台"/storage/sdcard0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/ａ.jpg"，iOS平台"/var/mobile/Containers/Data/Application/757966CF-345C-4348-B07F-EEF83CF9A369/Library/Pandora/apps/HBuilder/doc/a.png"；
-     * 	相对路径URL(RelativeURL) - 以"_"开头的相对路径，如"_doc/b.jpg"、"_documents/c.jpg"、"_downloads/d.jpg"，注意不支持"_www"开头的路径；
-     * 	本地路径URL - 以“file://”开头，后面跟随系统绝对路径。
-     * 	注意：如果设置的路径无权限访问，则返回失败。
+     *     绝对路径 - 系统绝对路径，如Android平台"/storage/sdcard0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/ａ.jpg"，iOS平台"/var/mobile/Containers/Data/Application/757966CF-345C-4348-B07F-EEF83CF9A369/Library/Pandora/apps/HBuilder/doc/a.png"；
+     *     相对路径URL(RelativeURL) - 以"_"开头的相对路径，如"_doc/b.jpg"、"_documents/c.jpg"、"_downloads/d.jpg"，注意不支持"_www"开头的路径；
+     *     本地路径URL - 以“file://”开头，后面跟随系统绝对路径。
+     *     注意：如果设置的路径无权限访问，则返回失败。
      * - _doc/: 应用私有文档目录
      * - _documents/: 共享文档目录
      * - _downloads/: 共享下载目录
@@ -12041,9 +12041,9 @@ interface PlusZipCompressImageOptions {
     /**
      * 覆盖生成新文件
      * 仅在dst制定的路径文件存在时有效：
-     * 	true表示覆盖存在的文件；
-     * 	false表示不覆盖，如果文件存在，则返回失败。
-     * 	默认值为false。
+     *     true表示覆盖存在的文件；
+     *     false表示不覆盖，如果文件存在，则返回失败。
+     *     默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
@@ -12060,7 +12060,7 @@ interface PlusZipCompressImageOptions {
     /**
      * 压缩图片的质量
      * 取值范围为1-100，1表示使用最低的图片质量（转换后的图片文件最小）、100表示使用最高的图片质量（转换后的图片文件最大）；
-     * 	默认值为50。
+     *     默认值为50。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
@@ -12068,8 +12068,8 @@ interface PlusZipCompressImageOptions {
     /**
      * 缩放图片的宽度
      * 支持像素值（如"100px"）、百分比（如"50%"）、自动计算（如"auto"，即根据height与源图高的缩放比例计算，若未设置height则使用源图高度）；
-     * 	默认值为"auto"。
-     * 	注意：若设置了width属性值不合法（如"0px"），则不对图片进行缩放操作。
+     *     默认值为"auto"。
+     *     注意：若设置了width属性值不合法（如"0px"），则不对图片进行缩放操作。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
@@ -12077,8 +12077,8 @@ interface PlusZipCompressImageOptions {
     /**
      * 缩放图片的高度
      * 支持像素值（如"100px"）、百分比（如"50%"）、自动计算（如"auto"，即根据width与源图宽的缩放比例计算，若未设置width则使用源图高度）；
-     * 	默认值为"auto"。
-     * 	注意：若设置了height属性值不合法（如"0px"），则不对图片进行缩放操作。
+     *     默认值为"auto"。
+     *     注意：若设置了height属性值不合法（如"0px"），则不对图片进行缩放操作。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
@@ -12086,7 +12086,7 @@ interface PlusZipCompressImageOptions {
     /**
      * 旋转图片的角度
      * 支持值：90-表示旋转90度；180-表示旋转180度；270-表示旋转270度。
-     * 	注意：若设置rotate属性值不合法，则不对图片进行旋转操作。
+     *     注意：若设置rotate属性值不合法，则不对图片进行旋转操作。
      * - 90: 旋转90度
      * - 180: 旋转180度
      * - 270: 旋转270度
@@ -12112,7 +12112,7 @@ interface PlusZipClipImageOptions {
     /**
      * 图片裁剪区域与原图片上边界的偏移距离
      * 支持像素值（如"10px"）、百分比（如"10%"）；默认值为"0px"。
-     * 	注意：如果top值超出原图片高度，则图片裁剪失败。
+     *     注意：如果top值超出原图片高度，则图片裁剪失败。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
@@ -12120,7 +12120,7 @@ interface PlusZipClipImageOptions {
     /**
      * 图片裁剪区域与原图片左边界的偏移距离
      * 支持像素值（如"10px"）、百分比（如"10%"）；默认值为"0px"。
-     * 	注意：如果left值超出原图片宽度，则图片裁剪失败。
+     *     注意：如果left值超出原图片宽度，则图片裁剪失败。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
@@ -12128,7 +12128,7 @@ interface PlusZipClipImageOptions {
     /**
      * 图片裁剪区域的宽度
      * 支持像素值（如"100px"）、百分比（如"50%"）、自动计算（如"auto"，即从left位置到图片右边界的宽度）；默认值为"auto"。
-     * 	注意：如果left值加width值超出原图片宽度，则使用"auto"值进行裁剪。
+     *     注意：如果left值加width值超出原图片宽度，则使用"auto"值进行裁剪。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
@@ -12136,7 +12136,7 @@ interface PlusZipClipImageOptions {
     /**
      * 图片裁剪区域的高度
      * 支持像素值（如"100px"）、百分比（如"50%"）、自动计算（如"auto"，即从top位置到图片下边界的高度）；默认值为"auto"。
-     * 	注意：如果top值加height值超出原图片高度，则使用"auto"值进行裁剪。
+     *     注意：如果top值加height值超出原图片高度，则使用"auto"值进行裁剪。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
@@ -12173,7 +12173,7 @@ interface PlusBarcode {
     /**
      * QR二维码，数值为0
      * 1994年由日本Denso-Wave公司发明，QR来自英文Quick Response的缩写，即快速反应的意思，源自发明者希望QR码可让其内容快速被解码。
-     * 	目前使用最广泛的二维码。
+     *     目前使用最广泛的二维码。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
@@ -12181,7 +12181,7 @@ interface PlusBarcode {
     /**
      * EAN条形码标准版，数值为1
      * 国际物品编码协会在全球推广应用的商品条码，是由13位数字组成。
-     * 	目前使用最广泛的一维条形码。
+     *     目前使用最广泛的一维条形码。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
@@ -12294,7 +12294,7 @@ interface PlusBarcode {
     /**
      * 创建Barcode对象
      * 调用此方法创建后并不会显示，需要调用Webview窗口的append方法将其添加到Webview窗口后才能显示。
-     * 	注意：此时需要通过styles参数的top/left/width/height属性设置控件的位置及大小。
+     *     注意：此时需要通过styles参数的top/left/width/height属性设置控件的位置及大小。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
@@ -12339,7 +12339,7 @@ interface PlusBarcodeBarcode {
     /**
      * 结束条码识别
      * 结束对摄像头获取图片数据进行条码识别操作，同时关闭摄像头的视频捕获。
-     * 	结束后可调用start方法重新开始识别。
+     *     结束后可调用start方法重新开始识别。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
@@ -12398,9 +12398,9 @@ interface PlusBarcodeBarcodeStyles {
     /**
      * Barcode扫码控件左上角的垂直偏移量
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的高度；
-     * 		自动计算，如"auto",根据height值自动计算，相对于父Webview窗口垂直居中。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的高度；
+     *         自动计算，如"auto",根据height值自动计算，相对于父Webview窗口垂直居中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
@@ -12408,10 +12408,10 @@ interface PlusBarcodeBarcodeStyles {
     /**
      * Barcode扫码控件左上角的水平偏移量
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的宽度；
-     * 		自动计算，如"auto"，根据width值自动计算，相对于父Webview窗口水平居中。
-     * 	默认值为"0px"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的宽度；
+     *         自动计算，如"auto"，根据width值自动计算，相对于父Webview窗口水平居中。
+     *     默认值为"0px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
@@ -12419,9 +12419,9 @@ interface PlusBarcodeBarcodeStyles {
     /**
      * Barcode扫码控件的宽度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的宽度。
-     * 	默认值为"100%"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的宽度。
+     *     默认值为"100%"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
@@ -12429,9 +12429,9 @@ interface PlusBarcodeBarcodeStyles {
     /**
      * Barcode扫码控件的高度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的高度。
-     * 	默认值为"100%"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的高度。
+     *     默认值为"100%"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
@@ -12439,9 +12439,9 @@ interface PlusBarcodeBarcodeStyles {
     /**
      * Barcode扫码控件在Webview窗口的布局模式
      * 可取值：
-     * 		"static" - 静态布局模式，如果页面存在滚动条则随窗口内容滚动；
-     * 		"absolute" - 绝对布局模式，如果页面存在滚动条不随窗口内容滚动；
-     * 	默认值为"static"。
+     *         "static" - 静态布局模式，如果页面存在滚动条则随窗口内容滚动；
+     *         "absolute" - 绝对布局模式，如果页面存在滚动条不随窗口内容滚动；
+     *     默认值为"static"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
@@ -12458,7 +12458,7 @@ interface PlusBarcodeBarcodeOptions {
     /**
      * 是否保存扫码成功时的截图
      * 如果设置为true则在扫码成功时将图片保存，并通过onmarked回调函数的file参数返回保存文件的路径。
-     * 	默认值为false，不保存截图。
+     *     默认值为false，不保存截图。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
@@ -12473,7 +12473,7 @@ interface PlusBarcodeBarcodeOptions {
     /**
      * 扫码成功时是否需要震动提醒
      * 如果设置为true则在扫码成功时震动设备，false则不震动。
-     * 	默认值为true。
+     *     默认值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
@@ -12481,9 +12481,9 @@ interface PlusBarcodeBarcodeOptions {
     /**
      * 扫码成功时播放的提示音
      * 可取值：
-     * 	"none" - 不播放提示音；
-     * 	"default" - 播放默认提示音（5+引擎内置）。
-     * 	默认值为"default"。
+     *     "none" - 不播放提示音；
+     *     "default" - 播放默认提示音（5+引擎内置）。
+     *     默认值为"default"。
      * - none: 扫码成功时不播放提示音
      * - default: 扫码成功时播放默认提示音
      * 
@@ -12634,7 +12634,7 @@ interface PlusMaps {
     /**
      * 创建Map对象
      * 调用此方法创建后并不会显示，需要调用Webview窗口的append方法将其添加到Webview窗口后才能显示。
-     * 	注意：此时需要通过styles参数的top/left/width/height属性设置控件的位置及大小。
+     *     注意：此时需要通过styles参数的top/left/width/height属性设置控件的位置及大小。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12670,7 +12670,7 @@ interface PlusMapsMap {
     /**
      * 静态方法，计算面积
      * 计算指定地理区域的面积，单位为平方米。
-     * 	注：此功能仅百度地图支持，高德地图暂不支持此功能。
+     *     注：此功能仅百度地图支持，高德地图暂不支持此功能。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12685,7 +12685,7 @@ interface PlusMapsMap {
     /**
      * 静态方法，坐标转换
      * 将第三方坐标系坐标转换成当前地图的坐标系坐标。
-     * 	转换成功通过successCallback返回，转换失败则通过errorCallback返回。
+     *     转换成功通过successCallback返回，转换失败则通过errorCallback返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12693,7 +12693,7 @@ interface PlusMapsMap {
     /**
      * 静态方法，地理编码
      * 将地理位置信息转换为坐标点。
-     * 	转换成功通过successCallback返回，转换失败则通过errorCallback返回。
+     *     转换成功通过successCallback返回，转换失败则通过errorCallback返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12701,7 +12701,7 @@ interface PlusMapsMap {
     /**
      * 静态方法，反向地理编码
      * 将坐标点转换为地理位置信息。
-     * 	转换成功通过successCallback返回，转换失败则通过errorCallback返回。
+     *     转换成功通过successCallback返回，转换失败则通过errorCallback返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12709,9 +12709,9 @@ interface PlusMapsMap {
     /**
      * 向地图中添加覆盖物
      * 此方法用于向地图中添加覆盖物。
-     * 	支持各种从maps.Overlay对象继承的各种覆盖物对象；
-     * 	如果添加不支持的对象则直接返回false；
-     * 	同一覆盖物对象只能添加到地图中一次，已在地图中的覆盖物再次添加时则返回false。
+     *     支持各种从maps.Overlay对象继承的各种覆盖物对象；
+     *     如果添加不支持的对象则直接返回false；
+     *     同一覆盖物对象只能添加到地图中一次，已在地图中的覆盖物再次添加时则返回false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12719,9 +12719,9 @@ interface PlusMapsMap {
     /**
      * 设置地图初始中心点和缩放级别
      * 用于设置地图的初始中心点和缩放级别，通常在创建地图后立即调用。
-     * 	默认中心点为天安门，默认缩放级别为12；
-     * 	该方法设置的中心点和缩放级别可通过reset()方法恢复；
-     * 	如果在地图显示后调用将改变地图的中心点和缩放级别并立即更新，并将初始值更新。
+     *     默认中心点为天安门，默认缩放级别为12；
+     *     该方法设置的中心点和缩放级别可通过reset()方法恢复；
+     *     如果在地图显示后调用将改变地图的中心点和缩放级别并立即更新，并将初始值更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12729,7 +12729,7 @@ interface PlusMapsMap {
     /**
      * 清除地图中所有覆盖物对象
      * 此方法用于清除地图中所有覆盖物对象。
-     * 	清除地图中的覆盖物对象后会自动更新地图视图。
+     *     清除地图中的覆盖物对象后会自动更新地图视图。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12771,7 +12771,7 @@ interface PlusMapsMap {
     /**
      * 获取用户的当前位置信息
      * 此方法用于获取用户的当前位置信息，获取成功后通过callback回调返回。
-     * 	获取用户当前位置信息将打开定位设备。
+     *     获取用户当前位置信息将打开定位设备。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12779,8 +12779,8 @@ interface PlusMapsMap {
     /**
      * 获取地图的缩放级别
      * 此方法用于设置地图的缩放级别，用于切换当前显示地图缩放级别。
-     * 	该方法改变缩放级别后地图显示内容将立即更新；
-     * 	该方法不会改变地图显示区域，以当前地图显示的中心点位置来缩放地图。
+     *     该方法改变缩放级别后地图显示内容将立即更新；
+     *     该方法不会改变地图显示区域，以当前地图显示的中心点位置来缩放地图。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12788,7 +12788,7 @@ interface PlusMapsMap {
     /**
      * 隐藏地图控件
      * 此方法用于隐藏地图控件，通常在显示后调用此方法来隐藏。
-     * 	如果地图已经隐藏再调用此方法将无效果。
+     *     如果地图已经隐藏再调用此方法将无效果。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12814,7 +12814,7 @@ interface PlusMapsMap {
     /**
      * 从地图中删除覆盖物对象
      * 此方法用于从地图中删除覆盖物对象。
-     * 	支持各种从maps.Overlay对象继承的各种覆盖物对象。
+     *     支持各种从maps.Overlay对象继承的各种覆盖物对象。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12822,7 +12822,7 @@ interface PlusMapsMap {
     /**
      * 重置地图
      * 此方法用于重新设置地图，恢复地图的初始化时的中心点和缩放级别。
-     * 	该方法将导致显示内容将立即更新。
+     *     该方法将导致显示内容将立即更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12837,8 +12837,8 @@ interface PlusMapsMap {
     /**
      * 设置地图的中心点
      * 此方法用于设置地图的中心点，用于切换当前显示地图位置。
-     * 	该方法改变中心点后地图显示内容将立即更新；
-     * 	该方法不会改变地图显示的缩放级别。
+     *     该方法改变中心点后地图显示内容将立即更新；
+     *     该方法不会改变地图显示的缩放级别。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12860,7 +12860,7 @@ interface PlusMapsMap {
     /**
      * 是否打开地图交通信息图层
      * 此方法用于设置是否打开地图交通信息图层，默认不显示。
-     * 	该方法改变是否显示交通图层后地图显示内容将立即更新。
+     *     该方法改变是否显示交通图层后地图显示内容将立即更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12868,8 +12868,8 @@ interface PlusMapsMap {
     /**
      * 设置地图的缩放级别
      * 此方法用于设置地图的缩放级别，用于切换当前显示地图缩放级别。
-     * 	该方法改变缩放级别后地图显示内容将立即更新；
-     * 	该方法不会改变地图显示区域，以当前地图显示的中心点位置来缩放地图。
+     *     该方法改变缩放级别后地图显示内容将立即更新；
+     *     该方法不会改变地图显示区域，以当前地图显示的中心点位置来缩放地图。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12877,7 +12877,7 @@ interface PlusMapsMap {
     /**
      * 显示地图控件
      * 此方法用于显示地图控件，通常在隐藏后调用此方法来显示。
-     * 	如果地图已经显示再调用此方法将无效果。
+     *     如果地图已经显示再调用此方法将无效果。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12885,7 +12885,7 @@ interface PlusMapsMap {
     /**
      * 显示用户位置
      * 此方法将在地图上显示用户位置信息。
-     * 	显示用户位置将打开定位设备。
+     *     显示用户位置将打开定位设备。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12944,9 +12944,9 @@ interface PlusMapsMapStyles {
     /**
      * 地图控件左上角的垂直偏移量
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的高度；
-     * 		自动计算，如"auto",根据height值自动计算，相对于父Webview窗口垂直居中。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的高度；
+     *         自动计算，如"auto",根据height值自动计算，相对于父Webview窗口垂直居中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12954,10 +12954,10 @@ interface PlusMapsMapStyles {
     /**
      * 地图控件左上角的水平偏移量
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的宽度；
-     * 		自动计算，如"auto"，根据width值自动计算，相对于父Webview窗口水平居中。
-     * 	默认值为"0px"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的宽度；
+     *         自动计算，如"auto"，根据width值自动计算，相对于父Webview窗口水平居中。
+     *     默认值为"0px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12965,9 +12965,9 @@ interface PlusMapsMapStyles {
     /**
      * 地图控件的宽度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的宽度。
-     * 	默认值为"100%"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的宽度。
+     *     默认值为"100%"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12975,9 +12975,9 @@ interface PlusMapsMapStyles {
     /**
      * 地图控件的高度
      * 可取值：
-     * 		像素值，如"100px"；
-     * 		百分比，如"10%"，相对于父Webview窗口的高度。
-     * 	默认值为"100%"。
+     *         像素值，如"100px"；
+     *         百分比，如"10%"，相对于父Webview窗口的高度。
+     *     默认值为"100%"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -12985,9 +12985,9 @@ interface PlusMapsMapStyles {
     /**
      * 地图控件在Webview窗口的布局模式
      * 可取值：
-     * 		"static" - 静态布局模式，如果页面存在滚动条则随窗口内容滚动；
-     * 		"absolute" - 绝对布局模式，如果页面存在滚动条不随窗口内容滚动；
-     * 	默认值为"static"。
+     *         "static" - 静态布局模式，如果页面存在滚动条则随窗口内容滚动；
+     *         "absolute" - 绝对布局模式，如果页面存在滚动条不随窗口内容滚动；
+     *     默认值为"static"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13003,8 +13003,8 @@ interface PlusMapsGeocodeOptions {
     /**
      * 源数据的坐标系类型
      * 仅在反向地理编码转换时生效。
-     * 	“wgs84”：表示WGS-84坐标系； “gcj02”：表示国测局经纬度坐标系； “bd09”：表示百度墨卡托坐标系； “bd09ll”：表示百度经纬度坐标系；
-     * 	默认使用wgs84坐标系。
+     *     “wgs84”：表示WGS-84坐标系； “gcj02”：表示国测局经纬度坐标系； “bd09”：表示百度墨卡托坐标系； “bd09ll”：表示百度经纬度坐标系；
+     *     默认使用wgs84坐标系。
      * - wgs84: WGS-84坐标系，即GPS设备采集的原始GPS坐标
      * - gcj02: 国测局经纬度坐标系，soso地图、aliyun地图、mapabc地图和amap地图所用的坐标系
      * - bd09: 百度墨卡托坐标系
@@ -13031,7 +13031,7 @@ interface PlusMapsCoordinateConvertOptions {
     /**
      * 源数据的坐标系类型
      * “wgs84”：表示WGS-84坐标系； “gcj02”：表示国测局经纬度坐标系； “bd09”：表示百度墨卡托坐标系； “bd09ll”：表示百度经纬度坐标系；
-     * 	默认使用wgs84坐标系。
+     *     默认使用wgs84坐标系。
      * - wgs84: WGS-84坐标系，即GPS设备采集的原始GPS坐标
      * - gcj02: 国测局经纬度坐标系，soso地图、aliyun地图、mapabc地图和amap地图所用的坐标系
      * - bd09: 百度墨卡托坐标系
@@ -13171,8 +13171,8 @@ interface PlusMapsOverlay {
     /**
      * 显示地图上的覆盖物
      * 常用于地图覆盖物在隐藏后调用此方法来显示。
-     * 	只有添加到地图上的覆盖物才能看到效果；
-     * 	如果覆盖物对象已经在地图上显示再调用此方法将无效果。
+     *     只有添加到地图上的覆盖物才能看到效果；
+     *     如果覆盖物对象已经在地图上显示再调用此方法将无效果。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13180,8 +13180,8 @@ interface PlusMapsOverlay {
     /**
      * 隐藏地图上的覆盖物
      * 常用于地图覆盖物在显示后调用此方法来隐藏。
-     * 		只有添加到地图上的覆盖物才能看到效果；
-     * 		如果覆盖物对象已经在地图上隐藏再调用此方法将无效果。
+     *         只有添加到地图上的覆盖物才能看到效果；
+     *         如果覆盖物对象已经在地图上隐藏再调用此方法将无效果。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13211,8 +13211,8 @@ interface PlusMapsMarker {
     /**
      * 覆盖物显示到最上层
      * 常用于覆盖物相互覆盖时调整覆盖物的显示顺序。
-     * 	只有添加到地图上的覆盖物才能看到效果；
-     * 	如果覆盖物对象已经在地图上隐藏再调用此方法将无效果。
+     *     只有添加到地图上的覆盖物才能看到效果；
+     *     如果覆盖物对象已经在地图上隐藏再调用此方法将无效果。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13240,7 +13240,7 @@ interface PlusMapsMarker {
     /**
      * 设置标点上显示的图标数组
      * 设置图标数组后则按照指定的间隔时间轮播数组中图标。
-     * 	设置图标数组后将忽略setIcon方法设置的图标，未设置则显示setIcon设置的图标。
+     *     设置图标数组后将忽略setIcon方法设置的图标，未设置则显示setIcon设置的图标。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13261,7 +13261,7 @@ interface PlusMapsMarker {
     /**
      * 设置标点的气泡内容
      * 设置气泡内容后，用户点击标点时弹出则弹出气泡。
-     * 	注意：用户点击标点时先弹出标点关联的气泡，再响应标点的onclick事件。
+     *     注意：用户点击标点时先弹出标点关联的气泡，再响应标点的onclick事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13283,8 +13283,8 @@ interface PlusMapsMarker {
     /**
      * 设置标点的是否允许拖拽
      * 设置标点可拖拽后，用户按住标点后拖动，标点会跟随手的拖拽而移动。
-     * 	拖拽后会更新标点的坐标信息。
-     * 	注：拖动前需要先在标点上长按。
+     *     拖拽后会更新标点的坐标信息。
+     *     注：拖动前需要先在标点上长按。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13346,7 +13346,7 @@ interface PlusMapsBubble {
     /**
      * 从图片数据加载气泡显示的内容
      * 通过加载图片数据来自定义气泡显示的内容，加载图片后将清空气泡使用的图标及文字内容。
-     * 	图片数据可通过Canvas自定义绘制后调用toDataURL来获取。
+     *     图片数据可通过Canvas自定义绘制后调用toDataURL来获取。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13402,7 +13402,7 @@ interface PlusMapsCircle {
     /**
      * 设置圆圈的边框颜色
      * 圆圈默认值为不透明。
-     * 	如果设置的值不合法则保持原有的透明度；该方法设置将导致地图中的圆圈立即更新。
+     *     如果设置的值不合法则保持原有的透明度；该方法设置将导致地图中的圆圈立即更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13430,7 +13430,7 @@ interface PlusMapsCircle {
     /**
      * 设置圆圈填充颜色的透明度
      * 圆圈默认值为不透明。
-     * 	如果设置的值不合法则保持原有的透明度；该方法设置将导致地图中的圆圈立即更新。
+     *     如果设置的值不合法则保持原有的透明度；该方法设置将导致地图中的圆圈立即更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13444,7 +13444,7 @@ interface PlusMapsCircle {
     /**
      * 设置圆圈边框的线条宽度
      * 圆圈边框的默认值为5。
-     * 	如果设置的值不合法则保持原有的宽度；该方法设置将导致地图中的圆圈立即更新。
+     *     如果设置的值不合法则保持原有的宽度；该方法设置将导致地图中的圆圈立即更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13493,7 +13493,7 @@ interface PlusMapsPolyline {
     /**
      * 设设置折线的透明度
      * 折线默认值为不透明。
-     * 	如果设置的值不合法则保持原有的透明度；该方法设置将导致地图中的折线立即更新。
+     *     如果设置的值不合法则保持原有的透明度；该方法设置将导致地图中的折线立即更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13507,7 +13507,7 @@ interface PlusMapsPolyline {
     /**
      * 设置折线的线条宽度
      * 折线线条的宽度默认值为5。
-     * 	如果设置的值不合法则保持原有的宽度；该方法设置将导致地图中的折线立即更新。
+     *     如果设置的值不合法则保持原有的宽度；该方法设置将导致地图中的折线立即更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13556,7 +13556,7 @@ interface PlusMapsPolygon {
     /**
      * 设置多边形的透明度
      * 多边形边框默认值为不透明。
-     * 	如果设置的值不合法则保持原有的透明度；该方法设置将导致地图中的多边形立即更新。
+     *     如果设置的值不合法则保持原有的透明度；该方法设置将导致地图中的多边形立即更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13584,7 +13584,7 @@ interface PlusMapsPolygon {
     /**
      * 设置多边形填充色的透明度
      * 多边形填充色默认值为不透明。
-     * 	如果设置的值不合法则保持原有的透明度；该方法设置将导致地图中的多边形立即更新。
+     *     如果设置的值不合法则保持原有的透明度；该方法设置将导致地图中的多边形立即更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13598,7 +13598,7 @@ interface PlusMapsPolygon {
     /**
      * 设置多边形的边框宽度
      * 多边形边框的宽度默认值为5。
-     * 	如果设置的值不合法则保持原有的宽度；该方法设置将导致地图中的多边形立即更新。
+     *     如果设置的值不合法则保持原有的宽度；该方法设置将导致地图中的多边形立即更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13646,7 +13646,7 @@ interface PlusMapsSearch {
     /**
      * 城市兴趣点检索
      * 检索结果将通过onPoiSearchComplete事件返回。
-     * 	如果调用此方法时已经处于POI检索操作中，则终止上次检索操作，重新开始新的检索。
+     *     如果调用此方法时已经处于POI检索操作中，则终止上次检索操作，重新开始新的检索。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13654,7 +13654,7 @@ interface PlusMapsSearch {
     /**
      * 周边检索
      * 周边检索根据中心点、半径与检索词进行检索，检索完成后触发onPoiSearchComplete()事件。
-     * 	若调用此方法时对象处于POI检索操作中，则终止上次检索操作，重新开始新的检索。
+     *     若调用此方法时对象处于POI检索操作中，则终止上次检索操作，重新开始新的检索。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13662,7 +13662,7 @@ interface PlusMapsSearch {
     /**
      * 指定范围检索
      * 根据范围和检索词进行检索，检索完成后触发onPoiSearchComplete()事件。
-     * 	若调用此方法时对象处于POI检索操作中，则终止上次检索操作，重新开始新的检索。
+     *     若调用此方法时对象处于POI检索操作中，则终止上次检索操作，重新开始新的检索。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13670,8 +13670,8 @@ interface PlusMapsSearch {
     /**
      * 设置公交路线检索策略
      * 默认采用maps.SearchPolicy.TRANSIT_TIME_FIRST策略。
-     * 	需在调用transitSearch()方法前设置的策略才生效；
-     * 	如果设置非法值则认为设置失败，采用上次设置的检索策略并返回false。
+     *     需在调用transitSearch()方法前设置的策略才生效；
+     *     如果设置非法值则认为设置失败，采用上次设置的检索策略并返回false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13679,7 +13679,7 @@ interface PlusMapsSearch {
     /**
      * 公交路线检索
      * 检索完成后触发onRouteSearchComplete()事件。
-     * 	若调用此方法时对象处于检索操作中，则终止上次检索操作，重新开始新的检索。
+     *     若调用此方法时对象处于检索操作中，则终止上次检索操作，重新开始新的检索。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13687,7 +13687,7 @@ interface PlusMapsSearch {
     /**
      * 设置驾车路线检索策略
      * 设置驾车路线检索策略，默认采用maps.SearchPolicy.DRIVING_TIME_FIRST策略。
-     * 	如果设置非法值则认为设置失败，采用上次设置的检索策略并返回false；需在调用drivingSearch()方法前设置的策略才生效。
+     *     如果设置非法值则认为设置失败，采用上次设置的检索策略并返回false；需在调用drivingSearch()方法前设置的策略才生效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13695,7 +13695,7 @@ interface PlusMapsSearch {
     /**
      * 驾车路线检索
      * 用于驾车路线检索，检索完成后触发onRouteSearchComplete()事件。
-     * 	调用此方法时对象处于检索操作中，则终止上次检索操作，重新开始新的检索。
+     *     调用此方法时对象处于检索操作中，则终止上次检索操作，重新开始新的检索。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13703,7 +13703,7 @@ interface PlusMapsSearch {
     /**
      * 步行路线检索
      * 用于步行路线检索，检索完成后触发onRouteSearchComplete()事件。
-     * 	调用此方法时对象处于检索操作中，则终止上次检索操作，重新开始新的检索。
+     *     调用此方法时对象处于检索操作中，则终止上次检索操作，重新开始新的检索。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
@@ -13976,9 +13976,9 @@ interface PlusOauth {
     /**
      * JSON对象，授权认证参数选项
      * 此对象支持的属性值由登录授权认证服务定义。
-     * 	例如“微信”，则可配置以下参数：
-     * 	scope - 应用授权作用域；
-     * 	state - 用于保持请求和回调的状态参数。
+     *     例如“微信”，则可配置以下参数：
+     *     scope - 应用授权作用域；
+     *     state - 用于保持请求和回调的状态参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -13986,8 +13986,8 @@ interface PlusOauth {
     /**
      * 登录授权认证信息
      * 此对象仅定义标准属性，登录授权认证服务可扩展自定义数据。
-     * 	例如“微信”登录授权服务，则包括以下数据：
-     * 	unionid - 用户统一标识，针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
+     *     例如“微信”登录授权服务，则包括以下数据：
+     *     unionid - 用户统一标识，针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -13995,10 +13995,10 @@ interface PlusOauth {
     /**
      * 登录授权用户信息
      * 用于保存登录授权用户的信息。
-     * 	此对象仅定义标准属性，登录授权认证服务可扩展自定义数据。
-     * 	例如“微信”登录授权服务，可能包括以下自定义数据：
-     * 	privilege - 用户特权信息，json数组，如微信沃卡用户为（chinaunicom）；
-     * 	unionid - 用户统一标识，针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
+     *     此对象仅定义标准属性，登录授权认证服务可扩展自定义数据。
+     *     例如“微信”登录授权服务，可能包括以下自定义数据：
+     *     privilege - 用户特权信息，json数组，如微信沃卡用户为（chinaunicom）；
+     *     unionid - 用户统一标识，针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14022,10 +14022,10 @@ interface PlusOauthAuthService {
     /**
      * 登录授权认证服务标识
      * 用于表示登录授权认证服务标识：
-     * 		"weixin" - 表示微信登录授权；
-     * 		"qq" - 表示QQ登录授权；
-     * 		"sinaweibo" - 表示新浪微博登录授权；
-     * 		"qihoo" - 表示360账号登录（仅360手助流应用环境下支持）。
+     *         "weixin" - 表示微信登录授权；
+     *         "qq" - 表示QQ登录授权；
+     *         "sinaweibo" - 表示新浪微博登录授权；
+     *         "qihoo" - 表示360账号登录（仅360手助流应用环境下支持）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14033,10 +14033,10 @@ interface PlusOauthAuthService {
     /**
      * 登录授权认证服务描述
      * 用于描述登录授权认证服务的信息：
-     * 		"微信" - 表示微信登录授权；
-     * 		"QQ" - 表示QQ登录授权；
-     * 		"新浪微博" - 表示新浪微博登录授权；
-     * 		"360账号" - 表示360账号登录（仅360手助流应用环境下支持）。
+     *         "微信" - 表示微信登录授权；
+     *         "QQ" - 表示QQ登录授权；
+     *         "新浪微博" - 表示新浪微博登录授权；
+     *         "360账号" - 表示360账号登录（仅360手助流应用环境下支持）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14058,8 +14058,8 @@ interface PlusOauthAuthService {
     /**
      * 登录授权认证扩展信息
      * 用于保存登录授权认证服务返回的扩展信息，具体内容由各登录平台决定，如果没有扩展信息则为undefined。
-     * 	例如“微信”，则可保存以下数据：
-     * 	state - 用于保持请求和回调的状态参数。
+     *     例如“微信”，则可保存以下数据：
+     *     state - 用于保持请求和回调的状态参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14067,8 +14067,8 @@ interface PlusOauthAuthService {
     /**
      * 请求授权认证
      * 向开放平台请求进行授权认证，需提供授权域（scope），用户在终端确认后通过成功回调返回授权临时票据（code）。
-     * 	开发者可以将授权临时票据（code）提交到业务服务器，又业务服务器从微信开放平台获取授权登录等相关信息，避免将appsecret等信息保存在客户端可能引起泄露的问题。
-     * 	注意：目前仅微信平台支持请求授权认证，其它平台调用此方法将返回错误回调。
+     *     开发者可以将授权临时票据（code）提交到业务服务器，又业务服务器从微信开放平台获取授权登录等相关信息，避免将appsecret等信息保存在客户端可能引起泄露的问题。
+     *     注意：目前仅微信平台支持请求授权认证，其它平台调用此方法将返回错误回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14076,7 +14076,7 @@ interface PlusOauthAuthService {
     /**
      * 请求登录授权认证操作
      * 对指定的登录授权认证服务进行登录认证操作，在登录前可通过对象的authResult属性判断是否已经登录认证过，通常只需要对没有进行过登录认证的服务进行登录认证操作。
-     * 	授权认证操作成功后通过successCB回调函数通知，失败则通过errorCB回调函数通知。
+     *     授权认证操作成功后通过successCB回调函数通知，失败则通过errorCB回调函数通知。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14084,7 +14084,7 @@ interface PlusOauthAuthService {
     /**
      * 注销登录授权认证
      * 对指定的登录授权认证服务注销登录认证操作，注销授权认证后，再次操作时需重新进行登录认证操作。
-     * 	如果第三方平台不需要注销操作，则情况保存的相关登录认证等信息。
+     *     如果第三方平台不需要注销操作，则情况保存的相关登录认证等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14092,7 +14092,7 @@ interface PlusOauthAuthService {
     /**
      * 获取登录授权用户信息
      * 获取登录授权认证的用户信息，在获取前可通过对象的userInfo属性判断是否已经获取过，通常只需要对没有获取过用户信息的服务进行操作。
-     * 	获取用户信息操作成功后通过successCallback回调函数通知，失败则通过errorCallback回调函数通知。
+     *     获取用户信息操作成功后通过successCallback回调函数通知，失败则通过errorCallback回调函数通知。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14109,9 +14109,9 @@ interface PlusOauthAuthService {
 /**
  * JSON对象，授权认证参数选项
  * 此对象支持的属性值由登录授权认证服务定义。
- * 	例如“微信”，则可配置以下参数：
- * 	scope - 应用授权作用域；
- * 	state - 用于保持请求和回调的状态参数。
+ *     例如“微信”，则可配置以下参数：
+ *     scope - 应用授权作用域；
+ *     state - 用于保持请求和回调的状态参数。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
  */
@@ -14132,7 +14132,7 @@ interface PlusOauthAuthOptions {
     /**
      * 登录授权认证服务平台申请的appid
      * 动态设置登录授权服务中需要使用的appid，仅需要此参数的登录授权服务（如“微信登录”、“QQ登录”）支持。
-     * 	如果未设置则使用运行环境中内置的appid值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）。
+     *     如果未设置则使用运行环境中内置的appid值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14140,7 +14140,7 @@ interface PlusOauthAuthOptions {
     /**
      * 登录授权认证服务平台申请的appkey
      * 动态设置登录授权服务中需要使用的appkey，仅需要此参数的登录授权服务（如“新浪微博登录”、“360登录”）支持。
-     * 	如果未设置则使用运行环境中内置的appkey值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）。
+     *     如果未设置则使用运行环境中内置的appkey值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14148,7 +14148,7 @@ interface PlusOauthAuthOptions {
     /**
      * 登录授权认证服务平台申请的appsecret
      * 动态设置登录授权服务中需要使用的appsecret，仅需要此参数的登录授权服务（如“微信登录”、“新浪微博登录”）支持。
-     * 	如果未设置则使用运行环境中内置的appkey值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）；当开放平台申请的appsecret值涉及到安全问题时，可在应用运行时从服务器获取，然后通过此api动态设置。
+     *     如果未设置则使用运行环境中内置的appkey值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）；当开放平台申请的appsecret值涉及到安全问题时，可在应用运行时从服务器获取，然后通过此api动态设置。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14156,7 +14156,7 @@ interface PlusOauthAuthOptions {
     /**
      * 登录授权认证服务平台申请的redirect_url
      * 动态设置登录授权服务中需要使用的redirect_url，仅需要此参数的登录授权服务（如“新浪微博登录”）支持。
-     * 	如果未设置则使用运行环境中内置的redirect_url值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）。
+     *     如果未设置则使用运行环境中内置的redirect_url值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14166,8 +14166,8 @@ interface PlusOauthAuthOptions {
 /**
  * 登录授权认证信息
  * 此对象仅定义标准属性，登录授权认证服务可扩展自定义数据。
- * 	例如“微信”登录授权服务，则包括以下数据：
- * 	unionid - 用户统一标识，针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
+ *     例如“微信”登录授权服务，则包括以下数据：
+ *     unionid - 用户统一标识，针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
  */
@@ -14212,10 +14212,10 @@ interface PlusOauthAuthInfo {
 /**
  * 登录授权用户信息
  * 用于保存登录授权用户的信息。
- * 	此对象仅定义标准属性，登录授权认证服务可扩展自定义数据。
- * 	例如“微信”登录授权服务，可能包括以下自定义数据：
- * 	privilege - 用户特权信息，json数组，如微信沃卡用户为（chinaunicom）；
- * 	unionid - 用户统一标识，针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
+ *     此对象仅定义标准属性，登录授权认证服务可扩展自定义数据。
+ *     例如“微信”登录授权服务，可能包括以下自定义数据：
+ *     privilege - 用户特权信息，json数组，如微信沃卡用户为（chinaunicom）；
+ *     unionid - 用户统一标识，针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
  */
@@ -14258,7 +14258,7 @@ interface PlusOauthUserInfo {
     /**
      * 登录授权用户的性别
      * 1为男性，2为女性。
-     * 	如果登录授权服务不支持此属性，则返回"undefined"。
+     *     如果登录授权服务不支持此属性，则返回"undefined"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
@@ -14337,7 +14337,7 @@ interface PlusPayment {
     /**
      * 获取支付通道
      * 在进行支付操作前需获取终端支持的支付通道列表，用于提示用户进行选择。
-     * 	获取支付通道成功后通过successCB回调返回支持的所有通道列表，获取支付通道列表失败则通过errorCB回调返回。
+     *     获取支付通道成功后通过successCB回调返回支持的所有通道列表，获取支付通道列表失败则通过errorCB回调返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
@@ -14345,7 +14345,7 @@ interface PlusPayment {
     /**
      * 请求支付操作
      * 调用指定的支付通道进行支付操作，其中statement包含支付操作的相关信息，支付模块将弹出支付界面供用户进行支付信息的输入确认操作。
-     * 	用户支付操作成功后通过successCB回调返回支付操作结果，支付操作失败则通过errorCB回调返回。
+     *     用户支付操作成功后通过successCB回调返回支付操作结果，支付操作失败则通过errorCB回调返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
@@ -14362,10 +14362,10 @@ interface PlusPaymentPaymentChannel {
     /**
      * 支付通道标识
      * 用于标识支付通道：
-     * 		"alipay" - 表示支付宝；
-     * 		"wxpay" - 表示微信支付；
-     * 		"appleiap" - 表示苹果应用内支付；
-     * 		"qhpay" - 表示360聚合支付（仅360手助流应用环境下支持）。
+     *         "alipay" - 表示支付宝；
+     *         "wxpay" - 表示微信支付；
+     *         "appleiap" - 表示苹果应用内支付；
+     *         "qhpay" - 表示360聚合支付（仅360手助流应用环境下支持）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
@@ -14380,9 +14380,9 @@ interface PlusPaymentPaymentChannel {
     /**
      * 支付通道服务是否安装
      * 通常特定的支付通道依赖系统安装相关的服务，此属性用于标识其服务是否安装，如果没有安装则为false，否则为true。
-     * 	若系统环境中没有安装相关的服务，则可能导致调用支付操作失败，这时可以调用installService方法进行安装。
-     * 	注意：如果支付通道不需要依赖系统安装服务，则永远返回true。例如支付宝，如果设备上未安装支付宝客户端则调用Wap页面进行支付，因此值固定返回true；
-     * 	而微信支付则依赖微信客户端，如果设备上未安装微信客户端则serviceReady值为false，此时应该提示用户安装微信客户端才能进行支付操作。
+     *     若系统环境中没有安装相关的服务，则可能导致调用支付操作失败，这时可以调用installService方法进行安装。
+     *     注意：如果支付通道不需要依赖系统安装服务，则永远返回true。例如支付宝，如果设备上未安装支付宝客户端则调用Wap页面进行支付，因此值固定返回true；
+     *     而微信支付则依赖微信客户端，如果设备上未安装微信客户端则serviceReady值为false，此时应该提示用户安装微信客户端才能进行支付操作。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
@@ -14390,7 +14390,7 @@ interface PlusPaymentPaymentChannel {
     /**
      * 安装支付通道依赖的服务
      * 对于某些支付通道，通常特定的支付通道依赖系统安装相关的服务，调用此方法将安装其依赖的支付服务。
-     * 	如支付宝，则在系统中安装支付宝客户端程序。
+     *     如支付宝，则在系统中安装支付宝客户端程序。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
@@ -14632,7 +14632,7 @@ interface PlusPush {
     /**
      * 获取所有推送消息
      * 获取客户端接收到的所有推送消息。
-     * 	仅包括在系统消息中心显示的推送消息，不包括调用setAutoNotification(false)方法设置不显示推送消息后接收到的消息。
+     *     仅包括在系统消息中心显示的推送消息，不包括调用setAutoNotification(false)方法设置不显示推送消息后接收到的消息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
@@ -14647,7 +14647,7 @@ interface PlusPush {
     /**
      * 设置程序是否将消息显示在系统消息中心
      * 默认情况下程序在接收到推送消息后将会在系统消息中心显示，通过此方法可关闭默认行为，接收到推送消息后不在系统消息中心显示，通过addEventListener方法的“receive”事件监听处理接收到的消息。
-     * 	在这种模式下可通过createMessage方法创建在系统消息中心显示的消息。
+     *     在这种模式下可通过createMessage方法创建在系统消息中心显示的消息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
@@ -14676,7 +14676,7 @@ interface PlusPushClientInfo {
     /**
      * 推送服务令牌（设备唯一标识），用于标识推送信息接收者身份
      * 第三方推送服务器管理的设备唯一标识，在iOS平台此值通常与token不同；在其它平台此值通常与token值一致。
-     * 	此值与设备及应用都相关，即不同的apk/ipa安装到同一台设备上的值都不相同。
+     *     此值与设备及应用都相关，即不同的apk/ipa安装到同一台设备上的值都不相同。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
@@ -14767,9 +14767,9 @@ interface PlusPushMessageOptions {
     /**
      * 推送消息的提示音
      * 显示消息时的播放的提示音，可取值：
-     * 	“system”-表示使用系统通知提示音；
-     * 	“none”-表示不使用提示音；
-     * 	默认值为“system”。
+     *     “system”-表示使用系统通知提示音；
+     *     “none”-表示不使用提示音；
+     *     默认值为“system”。
      * - system: 使用系统通知提示音
      * - none: 不使用提示音
      * 
@@ -14849,7 +14849,7 @@ interface PlusShare {
     /**
      * JSON对象，微信小程序信息
      * 用于配置分享小程序的参数，如小程序标识、页面路径等。
-     * 	注意：分享的小程序需要在微信开放平台关联的开发者账号下，否则会分享失败。
+     *     注意：分享的小程序需要在微信开放平台关联的开发者账号下，否则会分享失败。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -14864,7 +14864,7 @@ interface PlusShare {
     /**
      * 使用系统组件发送分享
      * 调用系统分享组件分享消息，通过msg参数设置分享内容。
-     * 	发送成功后通过successCB回调函数通知操作完成，发送失败则通过errorCB回调返回。
+     *     发送成功后通过successCB回调函数通知操作完成，发送失败则通过errorCB回调返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -14881,7 +14881,7 @@ interface PlusShareAuthOptions {
     /**
      * 分享服务平台申请的appid
      * 动态设置分享服务授权认证时需要使用的appid，仅需要此参数的分享服务（如“微信”、“QQ”）支持。
-     * 	如果未设置则使用运行环境中内置的appid值（如在HBuilder中可在manifest.json的“SDK配置”项中进行设置）。
+     *     如果未设置则使用运行环境中内置的appid值（如在HBuilder中可在manifest.json的“SDK配置”项中进行设置）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -14889,7 +14889,7 @@ interface PlusShareAuthOptions {
     /**
      * 分享服务平台申请的appkey
      * 动态设置分享服务授权认证时需要使用的appkey，仅需要此参数的分享服务（如“新浪微博”）支持。
-     * 	如果未设置则使用运行环境中内置的appkey值（如在HBuilder中可在manifest.json的“SDK配置”项中进行设置）。
+     *     如果未设置则使用运行环境中内置的appkey值（如在HBuilder中可在manifest.json的“SDK配置”项中进行设置）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -14897,7 +14897,7 @@ interface PlusShareAuthOptions {
     /**
      * 分享服务平台申请的appsecret
      * 动态设置分享服务中需要使用的appsecret，仅需要此参数的分享服务（如“微信”、“新浪微博”）支持。
-     * 	如果未设置则使用运行环境中内置的appsecret值（如在HBuilder中可在manifest.json的“SDK配置”项中进行设置）；当开放平台申请的appsecret值涉及到安全问题时，可在应用运行时从服务器获取，然后通过此api动态设置。
+     *     如果未设置则使用运行环境中内置的appsecret值（如在HBuilder中可在manifest.json的“SDK配置”项中进行设置）；当开放平台申请的appsecret值涉及到安全问题时，可在应用运行时从服务器获取，然后通过此api动态设置。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -14905,7 +14905,7 @@ interface PlusShareAuthOptions {
     /**
      * 分享服务平台申请的redirect_url
      * 动态设置分享服务中需要使用的redirect_url，仅需要此参数的登录授权服务（如“新浪微博登录”）支持。
-     * 	如果未设置则使用运行环境中内置的redirect_url值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）。
+     *     如果未设置则使用运行环境中内置的redirect_url值（如在HBuilder中可在manifest.json的SDK配置项中进行设置）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -14987,10 +14987,10 @@ interface PlusShareShareService {
     /**
      * 分享服务标识
      * 用于表示分享服务标识：
-     * 	"sinaweibo" - 表示新浪微博；
-     * 	"tencentweibo" - 表示腾讯微博；
-     * 	"weixin" - 表示微信；
-     * 	"qq" - 表示腾讯QQ。
+     *     "sinaweibo" - 表示新浪微博；
+     *     "tencentweibo" - 表示腾讯微博；
+     *     "weixin" - 表示微信；
+     *     "qq" - 表示腾讯QQ。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -14998,7 +14998,7 @@ interface PlusShareShareService {
     /**
      * 分享服务描述
      * 用于描述分享服务的信息：
-     * 	如“新浪微博”、“腾讯微博”、“微信”、“QQ”。
+     *     如“新浪微博”、“腾讯微博”、“微信”、“QQ”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -15027,7 +15027,7 @@ interface PlusShareShareService {
     /**
      * 授权认证操作
      * 对指定的分享服务进行授权认证操作，在授权前可通过ShareService.authenticated属性判断是否已经授权过，通常只需要对没有进行过授权认证的服务进行授权认证操作。
-     * 	授权认证操作成功后通过successCB回调函数通知操作完成，操作失败则通过errorCB回调返回。
+     *     授权认证操作成功后通过successCB回调函数通知操作完成，操作失败则通过errorCB回调返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -15042,7 +15042,7 @@ interface PlusShareShareService {
     /**
      * 发送分享
      * 发送分享消息，分享消息的内容通过msg设置。
-     * 	发送成功后通过successCB回调函数通知操作完成，发送失败则通过errorCB回调返回。若分享服务没有进行授权认证或授权认证失效则触发失败回调函数。
+     *     发送成功后通过successCB回调函数通知操作完成，发送失败则通过errorCB回调返回。若分享服务没有进行授权认证或授权认证失效则触发失败回调函数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -15105,8 +15105,8 @@ interface PlusShareShareMessage {
     /**
      * 分享消息的图片
      * 分享消息中包含的图片路径，仅支持本地路径。
-     * 	若分享平台仅支持提交一张图片，传入多张图片则仅提交第一张图片。
-     * 	如果未指定type类型，优先级顺序为：pictures&gt;content（即设置了pictures则认为分享图片类型）。
+     *     若分享平台仅支持提交一张图片，传入多张图片则仅提交第一张图片。
+     *     如果未指定type类型，优先级顺序为：pictures&gt;content（即设置了pictures则认为分享图片类型）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -15114,9 +15114,9 @@ interface PlusShareShareMessage {
     /**
      * 分享消息的缩略图
      * 分享消息中包含的缩略图路径，支持本地路径及网络路径。
-     * 	若分享平台仅支持提交一张图片，传入多张图片则仅提交第一张图片。
-     * 	如果分享平台的信息不支持缩略图，若没有设置消息的图片（pictures）则使用缩略图，否则忽略其属性值。
-     * 	注意：图片有大小限制，推荐图片小于20Kb。
+     *     若分享平台仅支持提交一张图片，传入多张图片则仅提交第一张图片。
+     *     如果分享平台的信息不支持缩略图，若没有设置消息的图片（pictures）则使用缩略图，否则忽略其属性值。
+     *     注意：图片有大小限制，推荐图片小于20Kb。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -15124,10 +15124,10 @@ interface PlusShareShareMessage {
     /**
      * 分享的多媒体资源
      * 分享的多媒体资源地址，当type值为"music"、"video"时有效。
-     * 	注意：
-     * 		微信分享平台支持音乐、视频类型，仅支持网络地址（以http://或https://开头）；
-     * 		QQ分享平台支持音乐类型，仅支持网络路径（以http://或https://开头）；
-     * 		新浪微博分享平台支持视频类型，仅支持本地文件路径。
+     *     注意：
+     *         微信分享平台支持音乐、视频类型，仅支持网络地址（以http://或https://开头）；
+     *         QQ分享平台支持音乐类型，仅支持网络路径（以http://或https://开头）；
+     *         新浪微博分享平台支持视频类型，仅支持本地文件路径。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -15135,7 +15135,7 @@ interface PlusShareShareMessage {
     /**
      * 分享独立的链接
      * 分享资源地址，仅支持网络地址（以http://或https://开头）。
-     * 	如果未指定type类型，优先级顺序为：href&gt;pictures&gt;content（即设置了href则认为分享网页类型）。
+     *     如果未指定type类型，优先级顺序为：href&gt;pictures&gt;content（即设置了href则认为分享网页类型）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -15175,14 +15175,14 @@ interface PlusShareShareMessage {
      *     默认值为"auto"。
      *     （仅新浪微博分享时生效）
      * - auto: 
-     * 	自动选择，如果已经安装微博客户端则采用编辑界面进行分享，否则采用无界面分享
-     * 								
+     *     自动选择，如果已经安装微博客户端则采用编辑界面进行分享，否则采用无界面分享
+     *                                 
      * - slient: 
-     * 	静默分享，采用无界面模式进行分享
-     * 								
+     *     静默分享，采用无界面模式进行分享
+     *                                 
      * - editable: 
-     * 	进入编辑界面，用户确认分享内容后发送，如果当前未安装微博客户端则触发错误回调
-     * 								
+     *     进入编辑界面，用户确认分享内容后发送，如果当前未安装微博客户端则触发错误回调
+     *                                 
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -15199,10 +15199,10 @@ interface PlusShareShareMessageExtra {
     /**
      * 微信分享场景，仅微信分享平台有效
      * 可取值：
-     * 	"WXSceneSession"分享到微信的“我的好友”；
-     * 	"WXSceneTimeline"分享到微信的“朋友圈”中；
-     * 	"WXSceneFavorite"分享到微信的“我的收藏”中。
-     * 	默认值为"WXSceneSession"。
+     *     "WXSceneSession"分享到微信的“我的好友”；
+     *     "WXSceneTimeline"分享到微信的“朋友圈”中；
+     *     "WXSceneFavorite"分享到微信的“我的收藏”中。
+     *     默认值为"WXSceneSession"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -15212,7 +15212,7 @@ interface PlusShareShareMessageExtra {
 /**
  * JSON对象，微信小程序信息
  * 用于配置分享小程序的参数，如小程序标识、页面路径等。
- * 	注意：分享的小程序需要在微信开放平台关联的开发者账号下，否则会分享失败。
+ *     注意：分享的小程序需要在微信开放平台关联的开发者账号下，否则会分享失败。
  * 
  * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
  */
@@ -15233,10 +15233,10 @@ interface PlusShareWeixinMiniProgramOptions {
     /**
      * 微信小程序版本类型
      * 可取值：
-     * 	0-正式版；
-     * 	1-测试版；
-     * 	2-体验版。
-     * 	默认值为0。
+     *     0-正式版；
+     *     1-测试版；
+     *     2-体验版。
+     *     默认值为0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
@@ -15286,7 +15286,7 @@ interface PlusSpeech {
     /**
      * 监听语音识别事件
      * 向语音识别模块添加事件监听器，当指定的事件发生时，将触发listener函数的执行。 
-     * 	可多次调用此方法添加多个监听器，当监听的事件发生时，将按照添加的先后顺序触发执行。
+     *     可多次调用此方法添加多个监听器，当监听的事件发生时，将按照添加的先后顺序触发执行。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
@@ -15310,9 +15310,9 @@ interface PlusSpeechSpeechRecognizeOptions {
     /**
      * 语音识别引擎标识
      * 用于兼容多语音识别引擎的浏览器，使用语音识别厂商的产品名称，如未设置或设置不正确则使用运行环境默认的语音识别引擎。
-     * 	支持以下语音识别引擎：
-     * 		"baidu"-百度语音识别；
-     * 		"iFly"-讯飞语音识别。
+     *     支持以下语音识别引擎：
+     *         "baidu"-百度语音识别；
+     *         "iFly"-讯飞语音识别。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
@@ -15320,12 +15320,12 @@ interface PlusSpeechSpeechRecognizeOptions {
     /**
      * 语音识别引擎的语言
      * 用于定义语音识别引擎的语言，其取值需符合W3C的Language codes规范。
-     * 	目前讯飞语音支持以下语言：
-     * 		"zh-cn"-中文，普通话；
-     * 		"en-us"-英语；
-     * 		"zh-cantonese"-中文，粤语；
-     * 		"zh-henanese"-中文，河南话（百度语音识别不支持此语言）。
-     * 		默认值为"zh-cn"。
+     *     目前讯飞语音支持以下语言：
+     *         "zh-cn"-中文，普通话；
+     *         "en-us"-英语；
+     *         "zh-cantonese"-中文，粤语；
+     *         "zh-henanese"-中文，河南话（百度语音识别不支持此语言）。
+     *         默认值为"zh-cn"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
@@ -15340,7 +15340,7 @@ interface PlusSpeechSpeechRecognizeOptions {
     /**
      * 识别结果中是否包含标点符号
      * true表示识别结果文本中包含标点符号，false表示识别结果文本中不包含标点符号。
-     * 	默认值为true。
+     *     默认值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
@@ -15348,7 +15348,7 @@ interface PlusSpeechSpeechRecognizeOptions {
     /**
      * 语音识别超时时间
      * 语音识别超时的时间，单位为ms，默认值为1000（即10秒）。
-     * 	注：百度语音识别不支持此参数。
+     *     注：百度语音识别不支持此参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
@@ -15363,7 +15363,7 @@ interface PlusSpeechSpeechRecognizeOptions {
     /**
      * 语音识别开始事件（已废弃，使用start事件）
      * 事件函数，语音识别开始启动，在调用startRecognize方法后触发，与onend事件成对触发。
-     * 	注：iOS平台未支持
+     *     注：iOS平台未支持
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
@@ -15371,7 +15371,7 @@ interface PlusSpeechSpeechRecognizeOptions {
     /**
      * 语音识别结束事件（已废弃，使用end事件）
      * 事件函数，语音识别结束，在调用stopRecognize方法后触发，或者在引擎内部自动完成语音识别后触发，与onstart事件成对触发。
-     * 	注：iOS平台未支持
+     *     注：iOS平台未支持
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
@@ -15388,7 +15388,7 @@ interface PlusSpeechSpeechRecoginzeEvents {
     /**
      * 开始语音识别
      * 调用plus.speech.startRecognize方法开始语音识别时触发。
-     * 	无回调函数参数。
+     *     无回调函数参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
@@ -15396,7 +15396,7 @@ interface PlusSpeechSpeechRecoginzeEvents {
     /**
      * 音量变化
      * 开始语音识别后，麦克风录制到的语音音量变化时触发。
-     * 	回调函数参数event={volume:"Number类型，取值范围0-1"}。
+     *     回调函数参数event={volume:"Number类型，取值范围0-1"}。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
@@ -15404,7 +15404,7 @@ interface PlusSpeechSpeechRecoginzeEvents {
     /**
      * 临时语音识别结果
      * 返回临时语音识别结果时触发。
-     * 	回调函数参数event={partialResult:"String类型，临时识别结果"}。
+     *     回调函数参数event={partialResult:"String类型，临时识别结果"}。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
@@ -15412,7 +15412,7 @@ interface PlusSpeechSpeechRecoginzeEvents {
     /**
      * 最终语音识别
      * 返回最终语音识别结果。
-     * 	回调函数参数event={result:"String类型，最佳识别结果",results:"String数组类型，所有候选结果"}。
+     *     回调函数参数event={result:"String类型，最佳识别结果",results:"String数组类型，所有候选结果"}。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
@@ -15420,7 +15420,7 @@ interface PlusSpeechSpeechRecoginzeEvents {
     /**
      * 结束语音识别
      * 调用plus.speech.stopRecognize方法结束语音识别或语音识别完成后自动结束时触发。
-     * 	无回调函数参数。
+     *     无回调函数参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
@@ -15428,7 +15428,7 @@ interface PlusSpeechSpeechRecoginzeEvents {
     /**
      * 语音识别错误
      * 语音识别发生错误时触发。
-     * 	回调函数参数event={code:"Number类型，错误编码",message:"String类型，错误描述信息"}。
+     *     回调函数参数event={code:"Number类型，错误编码",message:"String类型，错误描述信息"}。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */

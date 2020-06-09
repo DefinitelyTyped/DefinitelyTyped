@@ -6,14 +6,14 @@
 // TypeScript Version: 2.2
 
 export type ParseEntry =
-	| string
-	| { op: string }
-	| { op: 'glob'; pattern: string }
-	| { comment: string };
+    | string
+    | { op: string }
+    | { op: 'glob'; pattern: string }
+    | { comment: string };
 
 export function quote(args: string[]): string;
 export function parse(
-	cmd: string,
-	env?: { [key: string]: string } | ((key: string) => string | object),
-	opts?: { [key: string]: string }
+    cmd: string,
+    env?: { [key: string]: string } | ((key: string) => string | object),
+    opts?: { [key: string]: string }
 ): ParseEntry[];

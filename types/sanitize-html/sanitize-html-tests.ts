@@ -15,7 +15,7 @@ let options: sanitize.IOptions = {
   },
   allowedIframeHostnames: ['www.youtube.com'],
   allowedSchemesAppliedToAttributes: [ 'href', 'src', 'cite' ],
-	transformTags: {
+    transformTags: {
     'a': sanitize.simpleTransform('a', { 'rel': 'nofollow' }),
     'img': (tagName: string, attribs: sanitize.Attributes) => {
       let img = { tagName, attribs };

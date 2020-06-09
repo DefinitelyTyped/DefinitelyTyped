@@ -1,5 +1,6 @@
-import { PatternDefinitions } from "../common";
+import { PatternsDefinition } from "../common";
 
-declare const patterns: PatternDefinitions;
+/** The hyphenation patterns definition for this language. */
+declare const patterns: PatternsDefinition;
 
 export = patterns;

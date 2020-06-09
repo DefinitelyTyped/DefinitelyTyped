@@ -327,14 +327,14 @@ declare namespace JQueryUI {
          * Additional text to display after the year in the month headers.
          */
         yearSuffix?: string;
-	 /**
+     /**
          * Set to true to automatically hide the datepicker.
          */
-      	autohide?: boolean;
-    	/**
-  	    * Set to date to automatically enddate the datepicker.
-  	    */
-     	endDate?: Date;
+          autohide?: boolean;
+        /**
+          * Set to date to automatically enddate the datepicker.
+          */
+         endDate?: Date;
     }
 
     interface DatepickerFormatDateOptions {
@@ -381,7 +381,7 @@ declare namespace JQueryUI {
         width?: any; // number or string
         zIndex?: number;
 
-		open?: DialogEvent;
+        open?: DialogEvent;
         close?: DialogEvent;
     }
 
@@ -668,10 +668,22 @@ declare namespace JQueryUI {
 
     interface SelectMenuOptions extends SelectMenuEvents {
         appendTo?: string;
+        classes?: SelectMenuClasses;
         disabled?: boolean;
         icons?: any;
         position?: JQueryPositionOptions;
         width?: number;
+    }
+
+    interface SelectMenuClasses {
+        "ui-selectmenu-button"?: string;
+        "ui-selectmenu-button-closed"?: string;
+        "ui-selectmenu-button-open"?: string;
+        "ui-selectmenu-text"?: string;
+        "ui-selectmenu-icon"?: string;
+        "ui-selectmenu-menu"?: string;
+        "ui-selectmenu-open"?: string;
+        "ui-selectmenu-optgroup"?: string;
     }
 
     interface SelectMenuUIParams {

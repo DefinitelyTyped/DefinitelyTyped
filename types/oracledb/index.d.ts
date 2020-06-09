@@ -2075,11 +2075,11 @@ declare namespace OracleDB {
         /**
          * Add the given value to the end of the collection.
          */
-        append(value: any): void;	
+        append(value: any): void;    
         /**
          * Deletes the value from collection at the given index.
          */
-        deleteElement(index: number): void;	
+        deleteElement(index: number): void;    
         /**
          * Return the value associated with the given index.
          */
@@ -2090,7 +2090,7 @@ declare namespace OracleDB {
         getFirstIndex(): number;
         /**
          * Returns a JavaScript array containing the ‘index’ keys.
-         */	
+         */    
         getKeys(): string[];
         /**
          * To obtain the last index for later use to obtain a value.
@@ -2114,7 +2114,7 @@ declare namespace OracleDB {
         setElement(index: number, value: any): void;
         /**
          * Returns an array of element values as a JavaScript array in key order.
-         */	
+         */    
         getValues(): any[];
         /**
          * Trims the specified number of elements from the end of the collection.

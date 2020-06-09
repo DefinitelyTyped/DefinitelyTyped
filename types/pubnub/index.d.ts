@@ -492,6 +492,7 @@ declare namespace Pubnub {
     interface FetchMessagesResponse {
         channels: {
             [channel: string]: Array<{
+                channel: string;
                 message: any;
                 timetoken: string | number;
                 meta?: {
@@ -968,21 +969,21 @@ declare namespace Pubnub {
         isSilent: boolean;
     }
 
-    interface MPNSNotificationPayload extends BaseNotificationPayload  {
+    interface MPNSNotificationPayload extends BaseNotificationPayload {
         backContent?: string;
         backTitle?: string;
         count?: number;
         type?: string;
     }
 
-    interface FCMNotificationPayload extends BaseNotificationPayload  {
+    interface FCMNotificationPayload extends BaseNotificationPayload {
         isSilent: boolean;
         icon?: string;
         tag?: string;
     }
 
     interface NotificationsPayload {
-        payload: {apns: object, mpns: object, fcm: object};
+        payload: { apns: object; mpns: object; fcm: object };
         debugging: boolean;
         subtitle?: string;
         badge?: number;

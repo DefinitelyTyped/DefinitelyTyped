@@ -6,11 +6,11 @@ const invisibleRecaptcha: React.SFC = () => {
     const recaptchaRef = React.createRef<ReCAPTCHA>();
 
     return (
-	    <ReCAPTCHA
-  	        ref={recaptchaRef}
-	        sitekey="xxx"
-	        size="invisible"
-	    />
+        <ReCAPTCHA
+              ref={recaptchaRef}
+            sitekey="xxx"
+            size="invisible"
+        />
     );
 };
 
@@ -19,11 +19,11 @@ const invisibleRecaptcha2: React.SFC = () => {
     const recaptchaRef = React.createRef<ReCAPTCHA2>();
 
     return (
-	    <ReCAPTCHA2
-  	        ref={recaptchaRef}
-	        sitekey="xxx"
+        <ReCAPTCHA2
+              ref={recaptchaRef}
+            sitekey="xxx"
             size="invisible"
             grecaptcha={{}}
-	    />
+        />
     );
 };

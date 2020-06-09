@@ -231,3 +231,5 @@ declare global {
         interface IntrinsicAttributes extends SxProps {}
     }
 }
+
+export function merge(a: Theme, b: Theme): Theme;

@@ -1,4 +1,4 @@
-// Type definitions for uuid 7.0
+// Type definitions for uuid 8.0
 // Project: https://github.com/uuidjs/uuid
 // Definitions by: Oliver Hoffmann <https://github.com/iamolivinius>
 //                 Felipe Ochoa <https://github.com/felipeochoa>

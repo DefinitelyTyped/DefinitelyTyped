@@ -17,6 +17,7 @@
         "semicolon": false,
         "trim-file": false,
         "typedef-whitespace": false,
-        "whitespace": false
+        "whitespace": false,
+        "strict-export-declare-modifiers": false
     }
 }

@@ -1,5 +1,4 @@
-import * as React from "react";
-import { ReactAttr, ReactCreateElementParam } from "../../../typings/shared";
+import { ReactAttr, ReactCreateElementParam, FCReturn, FCProps } from "../../../typings/shared";
 
 interface InheritedProps {
     className?: ReactAttr["className"],
@@ -12,6 +11,6 @@ export interface ContentPropsBase extends InheritedProps {
 
 export type ContentProps<E extends object = {}> = E & ContentPropsBase;
 
-declare function Content<E extends object = {}>(props: React.PropsWithChildren<ContentProps<E>>): React.ReactElement | null;
+declare function Content<E extends object = {}>(props: FCProps<ContentProps<E>>): FCReturn;
 
 export default Content;

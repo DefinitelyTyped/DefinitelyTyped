@@ -12,7 +12,7 @@ declare module "stream" {
 
         interface ReadableOptions {
             highWaterMark?: number;
-            encoding?: string;
+            encoding?: BufferEncoding;
             objectMode?: boolean;
             read?(this: Readable, size: number): void;
             destroy?(this: Readable, error: Error | null, callback: (error: Error | null) => void): void;
@@ -26,6 +26,8 @@ declare module "stream" {
             static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
 
             readable: boolean;
+            readonly readableEncoding: BufferEncoding | null;
+            readonly readableEnded: boolean;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
             readonly readableObjectMode: boolean;
@@ -33,14 +35,14 @@ declare module "stream" {
             constructor(opts?: ReadableOptions);
             _read(size: number): void;
             read(size?: number): any;
-            setEncoding(encoding: string): this;
+            setEncoding(encoding: BufferEncoding): this;
             pause(): this;
             resume(): this;
             isPaused(): boolean;
             unpipe(destination?: NodeJS.WritableStream): this;
             unshift(chunk: any, encoding?: BufferEncoding): void;
             wrap(oldStream: NodeJS.ReadableStream): this;
-            push(chunk: any, encoding?: string): boolean;
+            push(chunk: any, encoding?: BufferEncoding): boolean;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             destroy(error?: Error): void;
 
@@ -124,11 +126,11 @@ declare module "stream" {
         interface WritableOptions {
             highWaterMark?: number;
             decodeStrings?: boolean;
-            defaultEncoding?: string;
+            defaultEncoding?: BufferEncoding;
             objectMode?: boolean;
             emitClose?: boolean;
-            write?(this: Writable, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-            writev?(this: Writable, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            write?(this: Writable, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
+            writev?(this: Writable, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
             destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
             final?(this: Writable, callback: (error?: Error | null) => void): void;
             autoDestroy?: boolean;
@@ -144,16 +146,16 @@ declare module "stream" {
             readonly writableCorked: number;
             destroyed: boolean;
             constructor(opts?: WritableOptions);
-            _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
+            _writev?(chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             _final(callback: (error?: Error | null) => void): void;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
-            write(chunk: any, encoding: string, cb?: (error: Error | null | undefined) => void): boolean;
-            setDefaultEncoding(encoding: string): this;
+            write(chunk: any, encoding: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean;
+            setDefaultEncoding(encoding: BufferEncoding): this;
             end(cb?: () => void): void;
             end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding: string, cb?: () => void): void;
+            end(chunk: any, encoding: BufferEncoding, cb?: () => void): void;
             cork(): void;
             uncork(): void;
             destroy(error?: Error): void;
@@ -233,8 +235,8 @@ declare module "stream" {
             writableHighWaterMark?: number;
             writableCorked?: number;
             read?(this: Duplex, size: number): void;
-            write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-            writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            write?(this: Duplex, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
+            writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
             final?(this: Duplex, callback: (error?: Error | null) => void): void;
             destroy?(this: Duplex, error: Error | null, callback: (error: Error | null) => void): void;
         }
@@ -249,16 +251,16 @@ declare module "stream" {
             readonly writableObjectMode: boolean;
             readonly writableCorked: number;
             constructor(opts?: DuplexOptions);
-            _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
+            _writev?(chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
             _destroy(error: Error | null, callback: (error: Error | null) => void): void;
             _final(callback: (error?: Error | null) => void): void;
-            write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, encoding?: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
-            setDefaultEncoding(encoding: string): this;
+            setDefaultEncoding(encoding: BufferEncoding): this;
             end(cb?: () => void): void;
             end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding?: string, cb?: () => void): void;
+            end(chunk: any, encoding?: BufferEncoding, cb?: () => void): void;
             cork(): void;
             uncork(): void;
         }
@@ -267,17 +269,17 @@ declare module "stream" {
 
         interface TransformOptions extends DuplexOptions {
             read?(this: Transform, size: number): void;
-            write?(this: Transform, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-            writev?(this: Transform, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            write?(this: Transform, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
+            writev?(this: Transform, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
             final?(this: Transform, callback: (error?: Error | null) => void): void;
             destroy?(this: Transform, error: Error | null, callback: (error: Error | null) => void): void;
-            transform?(this: Transform, chunk: any, encoding: string, callback: TransformCallback): void;
+            transform?(this: Transform, chunk: any, encoding: BufferEncoding, callback: TransformCallback): void;
             flush?(this: Transform, callback: TransformCallback): void;
         }
 
         class Transform extends Duplex {
             constructor(opts?: TransformOptions);
-            _transform(chunk: any, encoding: string, callback: TransformCallback): void;
+            _transform(chunk: any, encoding: BufferEncoding, callback: TransformCallback): void;
             _flush(callback: TransformCallback): void;
         }
 

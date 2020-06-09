@@ -25,10 +25,10 @@ ES2017.IterableToList(undefined, () => [1, 2, 3][Symbol.iterator]());
 
 // $ExpectType number[]
 ES2017.IterableToList([1, 2, 3] as ArrayLike<number>, function*() {
-	let i = 0;
-	while (i < this.length) {
-		yield this[i++];
-	}
+    let i = 0;
+    while (i < this.length) {
+        yield this[i++];
+    }
 });
 
 // Removed in ES2017:

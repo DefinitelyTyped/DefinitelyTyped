@@ -1,5 +1,12 @@
 import * as React from "react";
-import { Overwrite, ReactAnchorAttr, SideNavSharedProps } from '../../../typings/shared';
+import {
+    Overwrite,
+    ReactAnchorAttr,
+    SideNavSharedProps,
+    ForwardRefRefType,
+    FCProps,
+    FCReturn
+} from "../../../typings/shared";
 
 type InnerElementProps<P> = Omit<P, "element">;
 export interface LinkPropsBase<P = ReactAnchorAttr> extends SideNavSharedProps {
@@ -9,8 +16,8 @@ export interface LinkPropsBase<P = ReactAnchorAttr> extends SideNavSharedProps {
 export type LinkProps<P extends object = ReactAnchorAttr, IP = P> = Overwrite<P, LinkPropsBase<IP>>;
 
 declare function Link<P extends object = ReactAnchorAttr>(
-    props: React.PropsWithChildren<LinkProps<P>>,
-    ref: React.Ref<HTMLElement>
-): React.ReactElement;
+    props: FCProps<LinkProps<P>>,
+    ref: ForwardRefRefType<HTMLElement>
+): FCReturn;
 
 export default Link;

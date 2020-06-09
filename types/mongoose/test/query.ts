@@ -294,13 +294,61 @@ locationQuery.find({
 locationQuery.find({ name: 123 });
 // $ExpectError
 locationQuery.find({ rating: 'foo' });
-locationQuery.findOne({ name: 'foo', rating: 10 });
+locationQuery.findOne({ name: 'foo', rating: 10 }).then(location => {
+    if (location) {
+        // $ExpectType ObjectId
+        location._id;
+        // $ExpectType string
+        location.name;
+        // $ExpectError
+        location.unknown;
+        location.save();
+    }
+});
+locationQuery.findOne({ name: 'foo' }, 'name', { lean: true }).then(location => {
+    if (location) {
+        // $ExpectType ObjectId
+        location._id;
+        // $ExpectType string
+        location.name;
+        // $ExpectError
+        location.unknown;
+        // $ExpectError
+        location.save();
+    }
+});
 // $ExpectError
 locationQuery.findOne({ rating: 'foo' });
 locationQuery.findOneAndRemove({ name: 'foo', rating: 10 });
 // $ExpectError
 locationQuery.findOneAndRemove({ rating: 'foo' });
-locationQuery.findOneAndUpdate({ name: 'foo', rating: 10 }, { rating: 20 });
+locationQuery.findOneAndUpdate({ name: 'foo' }, { rating: 20 }).then(location => {
+    if (location) {
+        // $ExpectType ObjectId
+        location._id;
+        // $ExpectType string
+        location.name;
+        // $ExpectType number
+        location.rating;
+        // $ExpectError
+        location.unknown;
+        location.save();
+    }
+});
+locationQuery.findOneAndUpdate({ name: 'foo' }, { rating: 20 }, { lean: true }).then(location => {
+    if (location) {
+        // $ExpectType ObjectId
+        location._id;
+        // $ExpectType string
+        location.name;
+        // $ExpectType number
+        location.rating;
+        // $ExpectError
+        location.unknown;
+        // $ExpectError
+        location.save();
+    }
+});
 // $ExpectError
 locationQuery.findOneAndUpdate({ rating: 'foo' }, { rating: 20 });
 locationQuery.remove({ name: 'foo', rating: 10 });

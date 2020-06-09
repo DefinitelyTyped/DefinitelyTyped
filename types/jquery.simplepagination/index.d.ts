@@ -22,7 +22,7 @@ interface SimplePaginationOptions {
      */
     itemsOnPage?: number;
     /**
-     * 	If specified, items and itemsOnPage will not be used to calculate the number of pages.
+     *     If specified, items and itemsOnPage will not be used to calculate the number of pages.
      * 
      * @type {number}
      * @memberof SimplePaginationOptions

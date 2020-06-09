@@ -4,5 +4,5 @@ import { Polly } from '@pollyjs/core';
 Polly.register(FetchAdapter);
 
 new Polly('<recording>', {
-	adapters: ['xhr', FetchAdapter]
+    adapters: ['xhr', FetchAdapter]
 });

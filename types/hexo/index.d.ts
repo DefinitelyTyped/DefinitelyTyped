@@ -687,6 +687,8 @@ declare namespace Hexo {
 
         interface Helper {
             register(name: string, fn: (...args: any[]) => any): void;
+            list(): {[name: string]: (...args: any[]) => any};
+            get(name: string): ((...args: any[]) => any) | undefined;
         }
 
         interface Migrator {
