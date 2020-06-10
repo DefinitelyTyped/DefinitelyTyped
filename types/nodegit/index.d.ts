@@ -108,3 +108,6 @@ export { Treebuilder } from './tree-builder';
 export { TreeEntry } from './tree-entry';
 export { TreeUpdate } from './tree-update';
 export { Tree } from './tree';
+export const version: string;
+declare const _: typeof Promise;
+export { _ as Promise };
