@@ -131,6 +131,7 @@ interface Revision<T> {
 
 export interface Bucket<Name, T = null, Q = never> extends CustomEventEmitter<BucketEvent<T>> {
     channel: Channel<T>;
+    isIndexing: boolean;
     name: Name;
 
     add(data: T): Promise<BucketObject<T>>;
