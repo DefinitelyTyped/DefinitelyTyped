@@ -73,3 +73,5 @@ let promises: wp.Promise<any[]> = wp.Promise.all([
     pool.exec('foo', null)
 ]);
 promises = wp.Promise.all([]);
+
+const promiseLike: PromiseLike<any[]> = promises;
