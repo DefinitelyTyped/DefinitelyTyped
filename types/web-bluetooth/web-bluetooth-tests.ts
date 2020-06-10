@@ -103,10 +103,10 @@ navigator.bluetooth.requestLEScan({
         console.log('  TX Power: ' + event.txPower);
         console.log('  UUIDs: ' + event.uuids);
         event.manufacturerData.forEach((valueDataView, key) => {
-          console.log('Manufacturer', key, valueDataView);
+            logDataView('Manufacturer', key, valueDataView);
         });
         event.serviceData.forEach((valueDataView, key) => {
-          console.log('Service', key, valueDataView);
+            logDataView('Service', key, valueDataView);
         });
     });
 
@@ -117,3 +117,16 @@ navigator.bluetooth.requestLEScan({
       console.log('Stopped.  scan.active = ' + scan.active);
     }
 });
+
+/* Utils */
+const logDataView = (labelOfDataSource: string, key: string | number, valueDataView: DataView) => {
+    const array = new Uint8Array(valueDataView.buffer);
+    const hexString = Array(array.length).map(b => {
+      return b.toString(16).padStart(2, '0');
+    }).join(' ');
+    const textDecoder = new TextDecoder('ascii');
+    const asciiString = textDecoder.decode(valueDataView.buffer);
+    console.log(`  ${labelOfDataSource} Data: ` + key +
+        '\n    (Hex) ' + hexString +
+        '\n    (ASCII) ' + asciiString);
+  };

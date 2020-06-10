@@ -25,12 +25,12 @@ type RequestDeviceOptions = {
     optionalServices?: BluetoothServiceUUID[];
 };
 
-type BluetoothManufacturerData = Map<number, ArrayBuffer>;
-type BluetoothServiceData = Map<BluetoothServiceUUID, ArrayBuffer>;
+type BluetoothManufacturerData = Map<number, DataView>;
+type BluetoothServiceData = Map<BluetoothServiceUUID, DataView>;
 
 interface BluetoothDataFilter {
-    readonly dataPrefix: ArrayBuffer;
-    readonly mask: ArrayBuffer;
+    readonly dataPrefix: DataView;
+    readonly mask: DataView;
 }
 
 interface BluetoothManufacturerDataFilter {

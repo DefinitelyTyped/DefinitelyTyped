@@ -3,12 +3,14 @@
         "module": "commonjs",
         "lib": [
             "es6",
+            "ESNext",
             "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
+        "downlevelIteration": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
