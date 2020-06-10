@@ -1,6 +1,7 @@
 // Type definitions for matrix-appservice-bridge 1.11
 // Project: https://github.com/matrix-org/matrix-appservice-bridge
 // Definitions by: Huan LI (李卓桓) <https://github.com/huan>
+//                 Brendan Early <https://github.com/mymindstorm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -11,7 +12,15 @@ import {
     MembershipType,
 } from 'matrix-js-sdk';
 
-export type Controller = any;
+export interface Controller {
+    onEvent: (request: Request, context: BridgeContext) => void;
+    onUserQuery?: (matrixUser: MatrixUser) => ProvisionedUser | Promise<ProvisionedUser>;
+    onAliasQuery?: (alias: string, aliasLocalpart: string) => ProvisionedRoom | Promise<ProvisionedRoom>;
+    onAliasQueried?: (alias: string, aliasLocalpart: string) => void;
+    onLog?: (line: string, isError: boolean) => void;
+    thirdPartyLookup?: any;
+    onRoomUpgrade?: (oldRoomId: string, newRoomId: string, newVersion: string, context: BridgeContext) => void;
+}
 
 export namespace AppServiceRegistration {
     function generateToken(): string;
@@ -382,6 +391,7 @@ export interface EventContent {
     reason?: string;
     topic?: string;
     url?: string;
+    [key: string]: any;
     // m.relates_to? : unknown
 }
 
