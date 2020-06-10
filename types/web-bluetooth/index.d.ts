@@ -25,6 +25,47 @@ type RequestDeviceOptions = {
     optionalServices?: BluetoothServiceUUID[];
 };
 
+type BluetoothManufacturerData = Map<number, ArrayBuffer>;
+
+interface BluetoothDataFilter {
+    readonly dataPrefix: ArrayBuffer;
+    readonly mask: ArrayBuffer;
+}
+
+interface BluetoothManufacturerDataFilter {
+    readonly [manufacturerId: number]: BluetoothDataFilter;
+}
+
+type BluetoothServiceDataFilter = {
+    readonly [serviceUUID in BluetoothServiceUUID]: BluetoothDataFilter;
+};
+
+interface BluetoothLEScanFilter {
+    readonly name?: string;
+    readonly namePrefix?: string;
+    readonly services?: BluetoothServiceUUID[];
+    readonly manufacturerData?: BluetoothManufacturerDataFilter;
+    readonly serviceData?: BluetoothServiceDataFilter;
+};
+
+interface RequestLEScanOptions {
+    readonly filters?: BluetoothLEScanFilter[];
+    readonly keepRepeatedDevices?: boolean;
+    readonly acceptAllAdvertisements?: boolean;
+};
+
+interface BluetoothLEScan extends RequestLEScanOptions {
+    active: boolean;
+    stop: () => void;
+}
+
+interface BluetoothAdvertisementEvent extends Event {
+    device: BluetoothDevice;
+    rssi: number;
+    txPower: number;
+    manufacturerData?: BluetoothManufacturerData;
+}
+
 interface BluetoothRemoteGATTDescriptor {
     readonly characteristic: BluetoothRemoteGATTCharacteristic;
     readonly uuid: string;
@@ -116,7 +157,9 @@ interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, Character
     onavailabilitychanged: (this: this, ev: Event) => any;
     readonly referringDevice?: BluetoothDevice;
     requestDevice(options?: RequestDeviceOptions): Promise<BluetoothDevice>;
+    requestLEScan(options?: RequestLEScanOptions): Promise<BluetoothLEScan>;
     addEventListener(type: "availabilitychanged", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(type: "advertisementreceived", listener: (this: this, ev: BluetoothAdvertisementEvent) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
