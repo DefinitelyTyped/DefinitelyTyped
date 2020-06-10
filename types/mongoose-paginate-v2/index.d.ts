@@ -67,13 +67,13 @@ declare module 'mongoose' {
         limit: number;
         page?: number;
         totalPages: number;
-        nextPage?: number | boolean;
-        prevPage?: number | boolean;
+        nextPage?: number | null;
+        prevPage?: number | null;
         pagingCounter: number;
         hasPrevPage: boolean;
         hasNextPage: boolean;
         meta?: any;
-        [customLabel: string]: T[] | number | boolean | undefined;
+        [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
     interface PaginateModel<T extends Document> extends Model<T> {
