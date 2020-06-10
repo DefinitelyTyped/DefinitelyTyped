@@ -61,7 +61,7 @@ declare namespace sanitize {
     allowedSchemesAppliedToAttributes?: string[];
     allowProtocolRelative?: boolean;
     allowedTags?: string[] | boolean;
-    textFilter?: (text: string) => string; 
+    textFilter?: (text: string, tagName: string) => string; 
     exclusiveFilter?: (frame: IFrame) => boolean;
     nonTextTags?: string[];
     selfClosing?: string[];
