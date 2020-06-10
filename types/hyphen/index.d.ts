@@ -7,7 +7,7 @@ declare namespace hyphen {
     /**
      * Hyphenation patterns and exceptions for a language.
      */
-    export interface PatternsDefinition {
+    interface PatternsDefinition {
         /** List of hyphenation patterns. */
         patterns: string[];
 
@@ -18,7 +18,7 @@ declare namespace hyphen {
     /**
      * Options for the hyphenation factory function.
      */
-    export interface FactoryOptions {
+    interface FactoryOptions {
         /**
          * If true the factory returns an asynchronous hyphenation function.
          * @default false
@@ -53,7 +53,7 @@ declare namespace hyphen {
     /**
      * Options for a hyphenation call.
      */
-    export interface HyphenationOptions {
+    interface HyphenationOptions {
         /**
          * A boolean indicating, if the hyphenation function should output debug info to the console.
          * @default false
@@ -79,7 +79,7 @@ declare namespace hyphen {
      * @param options Options for the hyphenation process.
      * @returns The hyphenated text.
      */
-    export type HyphenationFunctionSync = (text: string, options?: Readonly<HyphenationOptions>) => string;
+    type HyphenationFunctionSync = (text: string, options?: Readonly<HyphenationOptions>) => string;
 
     /**
      * Asynchronous hyphenation function returning a promise for the hyphenated text.
@@ -87,7 +87,7 @@ declare namespace hyphen {
      * @param options Options for the hyphenation process.
      * @returns A promise of the hyphenated text.
      */
-    export type HyphenationFunctionAsync = (text: string, options?: Readonly<HyphenationOptions>) => Promise<string>;
+    type HyphenationFunctionAsync = (text: string, options?: Readonly<HyphenationOptions>) => Promise<string>;
 }
 
 /**
