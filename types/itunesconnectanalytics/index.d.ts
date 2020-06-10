@@ -1,6 +1,6 @@
 // Type definitions for itunesconnectanalytics 0.5
 // Project: https://github.com/JanHalozan/iTunesConnectAnalytics#readme
-// Definitions by: David Trotz <https://github.com/me>
+// Definitions by: David Trotz <https://github.com/dctrotz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 import * as moment from "moment";
