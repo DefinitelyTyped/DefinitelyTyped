@@ -59,10 +59,10 @@ type EntitiesCallback<T, E = Error | null> = (
 ) => void;
 
 export interface BucketStore<T, Q = {}> {
-    get(entityId: EntityId): Promise<BucketObject<T>>;
-    find(query?: Q): Promise<ReadonlyArray<BucketObject<T>>>;
-    remove(entityId: EntityId): Promise<void>;
-    update(entityId: EntityId, entity: T, isIndexing: boolean): Promise<BucketObject<T>>;
+    get(entityId: EntityId, callback: EntityCallback<BucketObject<T>>): void;
+    find(query: Q, callback: EntitiesCallback<BucketObject<T>>): void;
+    remove(entityId: EntityId, callback: () => void): void;
+    update(entityId: EntityId, entity: T, isIndexing: boolean, callback: EntityCallback<BucketObject<T>>): void;
 }
 
 export interface Ghost<T> {
@@ -183,7 +183,7 @@ interface Channel<T> extends CustomEventEmitter<ChannelEvent<T>> {
 }
 
 interface ClientConfig<Buckets> {
-    bucketStoreProvider: <Name extends keyof Buckets>(
+    objectStoreProvider: <Name extends keyof Buckets>(
         bucket: Bucket<Name, Buckets[Name]>,
     ) => BucketStore<Buckets[Name]>;
     ghostStoreProvider: <Name extends keyof Buckets>(bucket: Bucket<Name, Buckets[Name]>) => GhostStore<Buckets[Name]>;
