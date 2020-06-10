@@ -463,6 +463,12 @@
             "asOfVersion": "2.8.1"
         },
         {
+            "libraryName": "cash-dom",
+            "typingsPackageName": "cash",
+            "sourceRepoURL": "https://github.com/fabiospampinato/cash",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "cassandra-driver",
             "typingsPackageName": "cassandra-driver",
             "sourceRepoURL": "https://github.com/datastax/nodejs-driver",

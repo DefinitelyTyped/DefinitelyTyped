@@ -26,7 +26,7 @@ export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
 /**
  * Contains an IRI.
  */
-export interface NamedNode {
+export interface NamedNode<Iri extends string = string> {
     /**
      * Contains the constant "NamedNode".
      */
@@ -34,7 +34,7 @@ export interface NamedNode {
     /**
      * The IRI of the named node (example: `http://example.org/resource`)
      */
-    value: string;
+    value: Iri;
 
     /**
      * @param other The term to compare with.
@@ -244,6 +244,9 @@ export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      * @return A new instance of NamedNode.
      * @see NamedNode
      */
+    // TODO: This could be changed into a Generic method that returns a NamedNode constained to the
+    //       given `value` - but note that that would be a breaking change. See commit
+    //       16d29e86cd6fe34e6ac6f53bba6ba1a1988d7401.
     namedNode(value: string): NamedNode;
 
     /**

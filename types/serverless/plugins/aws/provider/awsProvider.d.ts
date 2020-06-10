@@ -5,7 +5,7 @@ declare namespace Aws {
         Types based on https://github.com/serverless/serverless/blob/master/docs/providers/aws/guide/serverless.yml.md
     */
     interface Serverless {
-        service: Service;
+        service: Service | string;
         frameworkVersion: string;
         provider: Provider;
         package?: Package;
