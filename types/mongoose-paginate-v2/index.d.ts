@@ -67,8 +67,8 @@ declare module 'mongoose' {
         limit: number;
         page?: number;
         totalPages: number;
-        nextPage?: number | null;
-        prevPage?: number | null;
+        nextPage?: number | boolean;
+        prevPage?: number | boolean;
         pagingCounter: number;
         hasPrevPage: boolean;
         hasNextPage: boolean;
