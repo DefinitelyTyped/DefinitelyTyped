@@ -581,7 +581,9 @@ export namespace ESLint {
         replacedBy: string[];
     }
 
-    type Formatter = (results: LintResult[], data?: LintResultData) => string;
+    interface Formatter {
+        format(results: LintResult[], data?: LintResultData): string;
+    }
 
     // Docs reference the type by this name
     type EditInfo = Rule.Fix;
@@ -665,7 +667,7 @@ export namespace CLIEngine {
 
     type DeprecatedRuleUse = ESLint.DeprecatedRuleUse;
 
-    type Formatter = ESLint.Formatter;
+    type Formatter = (results: LintResult[], data?: LintResultData) => string;
 }
 
 //#endregion

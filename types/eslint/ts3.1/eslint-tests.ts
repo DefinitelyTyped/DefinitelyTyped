@@ -577,8 +577,8 @@ data = { rulesMeta: { 'no-extra-semi': meta } };
 const version: string = ESLint.version;
 
 resultsPromise.then(results => {
-    formatterPromise.then(formatter => formatter(results));
-    formatterPromise.then(formatter => formatter(results, data));
+    formatterPromise.then(formatter => formatter.format(results));
+    formatterPromise.then(formatter => formatter.format(results, data));
 
     ESLint.getErrorResults(results);
 
