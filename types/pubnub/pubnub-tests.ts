@@ -52,13 +52,31 @@ pubnub.addListener({
         }
     },
     message: ({ message }) => console.log(message),
-    presence: ({ action, occupancy, state, uuid }) =>
-        console.log({
-            action,
-            occupancy,
-            state,
-            uuid,
-        }),
+    presence: ({ action, ...presenceEvent }) => {
+        if (action === 'interval') {
+            console.log({
+                action,
+                presenceEvent.channel,
+                presenceEvent.timestamp,
+                presenceEvent.timetoken,
+                presenceEvent.occupancy,
+                presenceEvent?.join,
+                presenceEvent?.leave,
+                presenceEvent?.timeout,
+                presenceEvent?.here_now_refresh
+            })
+        } else {
+            console.log({
+                action,
+                presenceEvent.channel,
+                presenceEvent.timestamp,
+                presenceEvent.timetoken,
+                presenceEvent.occupancy,
+                presenceEvent.uuid,
+                presenceEvent?.state
+            })   
+        }
+    },
     signal: ({ message }) => console.log(message),
     user: ({
         message: {
