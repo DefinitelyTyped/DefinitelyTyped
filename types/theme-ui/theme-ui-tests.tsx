@@ -118,6 +118,38 @@ const themeWithStyles: Theme = {
     },
 };
 
+const themeWithValidVariants: Theme = {
+    colors: {
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+    },
+    grids: { main: { color: 'primary' } },
+    buttons: { primary: { color: 'primary' } },
+    text: { heading: { color: 'primary' } },
+    links: { nav: { color: 'primary' } },
+    images: { avatar: { color: 'primary' } },
+    cards: { primary: { color: 'primary' } },
+    layout: { container: { color: 'primary' } },
+    forms: { label: { color: 'primary' } },
+    badges: { primary: { color: 'primary' } },
+    alerts: { primary: { color: 'primary' } },
+    messages: { primary: { color: 'primary' } },
+};
+
+// prettier-ignore
+const themeWithInvalidVariants: Theme = { layouts: { // $ExpectError
+        container: {
+            color: 'primary',
+        },
+    },
+    colors: {
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+    },
+};
+
 function SpreadingAndMergingInSxProp() {
     const buttonStyles: SxStyleProp = {
         font: 'inherit',
