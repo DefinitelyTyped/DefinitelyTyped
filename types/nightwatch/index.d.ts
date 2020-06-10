@@ -444,7 +444,7 @@ export interface NightwatchTestSettingGeneric {
     /**
      * An object which will be made available within the test and can be overwritten per environment. Example:"globals" : {  "myGlobal" : "some_global" }
      */
-    globals?: NightwatchGlobals;
+    globals?: NightwatchTestHooks;
 
     /**
      * An array of folders or file patterns to be skipped (relative to the main source folder).
