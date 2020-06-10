@@ -25,6 +25,9 @@ export const Component = () => {
                 <Flex sx={{ backgroundColor: 'pink' }} />
                 <button onClick={() => setColorMode('another-theme')}>Change Mode</button>
             </div>
+            <div sx={{ label: 'my-label', div: { label: 'blah' } }}>
+                <h1>Label test</h1>
+            </div>
         </>
     );
 };

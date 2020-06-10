@@ -2846,7 +2846,7 @@ interface WebTwain {
      * @param {number} iHeight the height of the image.
      * @return {string}
      */
-    GetImageURL(index: number, iWidth: number, iHeight: number): string;
+    GetImageURL(index: number, iWidth?: number, iHeight?: number): string;
 
     /**
      * Returns the width (pixels) of the selected image. This is a read-only property.

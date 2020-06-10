@@ -32,10 +32,10 @@ Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](http://www.t
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
-#### Versiones más viejas de Typescript (2.8 y anteriores)
+#### Versiones más viejas de Typescript (2.9 y anteriores)
 
 Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
-Actualmente, las versiones 2.9 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 2.8, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
+Actualmente, las versiones 3.0 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 2.9, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
 Versiones soportadas:
 
 Versión | Liberado | Fin de soporte
@@ -275,9 +275,9 @@ Si la import predeterminada trabaja en tu ambiente, considera hacer un cambio en
 No cambies la type definition si es preciso.
 Para un paquete NPM, `export =` es exacto si `node -p 'require("foo")'` es la export, y `export default` es exacto si `node -p 'require("foo").default'` es el export.
 
-#### Quiero usar las características de TypeScript 2.1 o superior.
+#### Quiero usar las características de TypeScript 3.1 o superior.
 
-Entonces deberás añadir un comentario a la última línea de la definición en el encabezado (despues de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
+Entonces deberás añadir un comentario a la última línea de la definición en el encabezado (despues de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
 
 #### Quiero añadir un DOM API que no está presente en TypeScript por defecto.
 

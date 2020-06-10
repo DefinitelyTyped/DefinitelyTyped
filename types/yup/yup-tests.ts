@@ -143,11 +143,12 @@ mixed.nullable(true);
 mixed.nullable();
 mixed.required();
 mixed.required('Foo');
+mixed.nullable().required(); // $ExpectType MixedSchema<{}>
 mixed.required(() => 'Foo');
 mixed.defined();
 mixed.notRequired(); // $ExpectType MixedSchema<{} | null | undefined>
 mixed.optional(); // $ExpectType MixedSchema<{} | null | undefined>
-mixed.required().optional(); // $ExpectType MixedSchema<{} | null | undefined>
+mixed.required().optional(); // $ExpectType MixedSchema<{} | undefined>
 mixed.typeError('type error');
 mixed.typeError(() => 'type error');
 mixed.oneOf(['hello', 'world'], 'message');
@@ -958,3 +959,8 @@ const nestedArrayNullable = yup.object().shape({
 const nestedArrayNullableExample: yup.InferType<typeof nestedArrayNullable> = {
     foo: null
 };
+
+const arrayOfOptional = yup.array().of(
+  yup.object({ bar: yup.string() }),
+).defined();
+const arrayOfOptionalExample: yup.InferType<typeof arrayOfOptional> = [{}];

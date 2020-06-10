@@ -29,7 +29,10 @@ import {
     FileUploaderItem,
     MultiSelect,
     Tabs,
-} from 'carbon-components-react';
+    SideNav,
+    SideNavItem,
+    SideNavItems,
+} from "carbon-components-react";
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
 // AccordionItem
@@ -270,25 +273,21 @@ const uisHeaderContainerAnonRender = (
     />
 );
 
-const HeaderCompRender1: React.FC<{ someProp: number }> = () => <div/>;
-const HeaderCompRender2: React.FC<{ someProp?: number }> = () => <div/>;
+const HeaderCompRender1: React.FC<{ someProp: number }> = () => <div />;
+const HeaderCompRender2: React.FC<{ someProp?: number }> = () => <div />;
 
 /*
  * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
  *  will be used.
  */
-const uisHeaderContainerCompRenderNotMatchingRequiredProps = (
-    <HeaderContainer render={HeaderCompRender1} />
-);
+const uisHeaderContainerCompRenderNotMatchingRequiredProps = <HeaderContainer render={HeaderCompRender1} />;
 
-const uisHeaderContainerCompRenderNotMatchingOptionalProps = (
-    <HeaderContainer render={HeaderCompRender2} />
-);
+const uisHeaderContainerCompRenderNotMatchingOptionalProps = <HeaderContainer render={HeaderCompRender2} />;
 
 // UI Shell - HeaderMenu
 const uisHeaderMenuAnonRender = (
-    <HeaderMenu menuLinkName="test" renderMenuContent={() => <div/>}>
-        <div/>
+    <HeaderMenu menuLinkName="test" renderMenuContent={() => <div />}>
+        <div />
     </HeaderMenu>
 );
 
@@ -471,14 +470,10 @@ const multiSelectFilterable = (
 
 // Grid
 
-const GridCustomRenderComp1: React.FC<{ someProp: number }> = () => <div/>;
+const GridCustomRenderComp1: React.FC<{ someProp: number }> = () => <div />;
 
 // Grid: Row
-const rowDefaultT1 = (
-    <Row onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
-        Contents
-    </Row>
-);
+const rowDefaultT1 = <Row onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>Contents</Row>;
 
 const rowDefaultT2 = (
     <Row as={undefined} onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
@@ -522,3 +517,12 @@ const columnCustomComp1 = (
         Content
     </Column>
 );
+
+// SideNav
+const sideNavChildren = (
+    <SideNav>
+        <SideNavItems>
+            <SideNavItem>Test</SideNavItem>
+        </SideNavItems>
+    </SideNav>
+)

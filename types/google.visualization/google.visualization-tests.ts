@@ -706,3 +706,38 @@ function test_addListeners() {
         chart.draw(data, {});
     }
 }
+
+function test_chartChart() {
+    var data = google.visualization.arrayToDataTable([
+        ['Year', 'Sales', 'Expenses'],
+        ['2004', 1000, 400],
+        ['2005', 1170, 460],
+        ['2006', 660, 1120],
+        ['2007', 1030, 540]
+    ]);
+
+    var options = {
+        title: 'Company Performance'
+    };
+
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chartWrapper = new google.visualization.ChartWrapper({
+            chartType: 'LineChart',
+            container,
+            options
+        });
+
+        var chart = chartWrapper.getChart();
+
+        function isClearable(baseChart: google.visualization.ChartBase): baseChart is google.visualization.ChartBaseClearable {
+            return 'clearChart' in baseChart;
+        }
+
+        if (chart) {
+            if (isClearable(chart)) {
+                chart.clearChart()
+            }
+        }
+    }
+}

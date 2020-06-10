@@ -1314,7 +1314,7 @@ declare namespace ComponentFramework {
             security?: PropertyHelper.SecurityValues;
             raw: any;
             type: string;
-            attribute?: PropertyHelper.FieldPropertyMetadata.Metadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.Metadata;
         }
 
         /**

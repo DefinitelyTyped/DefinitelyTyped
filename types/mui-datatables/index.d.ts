@@ -16,12 +16,12 @@ export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' |
 export type Responsive = 'stacked' | 'scrollMaxHeight' | 'scrollFullHeight';
 export type SelectableRows = 'multiple' | 'single' | 'none';
 
-interface MUIDataTableData {
+export interface MUIDataTableData {
     data: Array<object | number[] | string[]>;
     index: number;
 }
 
-interface MUIDataTableStateRows {
+export interface MUIDataTableStateRows {
     data: string[];
     lookup: any;
 }
@@ -53,23 +53,23 @@ export interface MUIDataTableMeta {
     tableState: MUIDataTableState;
 }
 
-interface MUIDataTableCustomHeadRenderer extends MUIDataTableColumn {
+export interface MUIDataTableCustomHeadRenderer extends MUIDataTableColumn {
     index: number;
 }
 
-interface MUIDataTableTextLabelsBody {
+export interface MUIDataTableTextLabelsBody {
     noMatch: string;
     toolTip: string;
 }
 
-interface MUIDataTableTextLabelsPagination {
+export interface MUIDataTableTextLabelsPagination {
     displayRows: string;
     next: string;
     previous: string;
     rowsPerPage: string;
 }
 
-interface MUIDataTableTextLabelsToolbar {
+export interface MUIDataTableTextLabelsToolbar {
     downloadCsv: string;
     filterTable: string;
     print: string;
@@ -77,18 +77,18 @@ interface MUIDataTableTextLabelsToolbar {
     viewColumns: string;
 }
 
-interface MUIDataTableTextLabelsFilter {
+export interface MUIDataTableTextLabelsFilter {
     all: string;
     reset: string;
     title: string;
 }
 
-interface MUIDataTableTextLabelsViewColumns {
+export interface MUIDataTableTextLabelsViewColumns {
     title: string;
     titleAria: string;
 }
 
-interface MUIDataTableTextLabelsSelectedRows {
+export interface MUIDataTableTextLabelsSelectedRows {
     delete: string;
     deleteAria: string;
     text: string;
@@ -115,6 +115,11 @@ export interface MUIDataTableFilterOptions {
     logic?: (prop: string, filterValue: any[]) => boolean;
 }
 
+export interface MUIDataTableCustomFilterListOptions {
+    render?: (value: any) => React.ReactNode;
+    update?: (...args: any[]) => string[];
+}
+
 export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
     name: string;
     label?: string;
@@ -124,6 +129,7 @@ export interface MUIDataTableColumnOptions {
     customBodyRender?: (value: any, tableMeta: MUIDataTableMeta, updateValue: (value: string) => void) => string | React.ReactNode;
     customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string | React.ReactNode;
     customFilterListRender?: (value: any) => string;
+    customFilterListOptions?: MUIDataTableCustomFilterListOptions;
     display?: 'true' | 'false' | 'excluded';
     download?: boolean;
     empty?: boolean;
@@ -224,7 +230,10 @@ export interface MUIDataTableOptions {
     onFilterDialogOpen?: () => void;
     onFilterDialogClose?: () => void;
     onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
-    onRowsDelete?: (rowsDeleted: any[]) => void;
+    onRowsDelete?: (rowsDeleted: {
+        lookup: { [dataIndex: number]: boolean };
+        data: Array<{ index: number; dataIndex: number }>;
+    }) => void;
     onRowsExpand?: (currentRowsExpanded: any[], allRowsExpanded: any[]) => void;
     onRowsSelect?: (currentRowsSelected: any[], rowsSelected: any[]) => void;
     onSearchChange?: (searchText: string) => void;
@@ -433,7 +442,7 @@ export interface MUIDataTableViewCol {
     onColumnUpdate: (...args: any) => any;
 }
 
-declare const MUIDataTable: React.ComponentType<MUIDataTableProps>;
+export const MUIDataTable: React.ComponentType<MUIDataTableProps>;
 
 export const Popover: React.Component<MUIDataTablePopover>;
 export const TableBody: React.Component<MUIDataTableBody>;

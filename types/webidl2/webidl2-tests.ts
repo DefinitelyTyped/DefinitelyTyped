@@ -148,6 +148,7 @@ function logExtAttr(extAttr: webidl2.ExtendedAttribute) {
             case "string":
             case "decimal":
             case "integer":
+                rhs.value; // $ExpectType string
                 logExtAttrRHS(rhs);
                 break;
             case "identifier-list":
@@ -163,25 +164,14 @@ function logExtAttr(extAttr: webidl2.ExtendedAttribute) {
     }
 }
 
-function logExtAttrRHSList(
-    rhsList:
-        | webidl2.ExtendedAttributeRightHandSideIdentifierList
-        | webidl2.ExtendedAttributeRightHandSideStringList
-        | webidl2.ExtendedAttributeRightHandSideDecimalList
-        | webidl2.ExtendedAttributeRightHandSideIntegerList
-) {
+function logExtAttrRHSList(rhsList: webidl2.ExtendedAttributeRightHandSideList) {
     for (const rhs of rhsList.value) {
         logExtAttrRHS(rhs);
     }
 }
 
-function logExtAttrRHS(
-    rhs:
-        | webidl2.ExtendedAttributeRightHandSideIdentifier
-        | webidl2.ExtendedAttributeRightHandSideString
-        | webidl2.ExtendedAttributeRightHandSideDecimal
-        | webidl2.ExtendedAttributeRightHandSideInteger
-) {
+function logExtAttrRHS(rhs: webidl2.ExtendedAttributeRightHandSideBase) {
+    rhs.value; // $ExpectType string
     console.log(rhs.type, rhs.value);
 }
 
@@ -210,6 +200,7 @@ function logIdlType(idlType: webidl2.IDLTypeDescription) {
         idlType; // $ExpectType SingleTypeDescription
         console.log(idlType);
     }
+    logExtAttrs(idlType.extAttrs);
 }
 
 function logValueDescription(valueDesc: webidl2.ValueDescription) {

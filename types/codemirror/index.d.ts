@@ -1230,7 +1230,7 @@ declare namespace CodeMirror {
         autocapitalize?: boolean;
 
         /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
-        lint?: boolean | LintOptions;
+        lint?: boolean | LintStateOptions | Linter | AsyncLinter;
     }
 
     interface TextMarkerOptions {
@@ -1669,30 +1669,46 @@ declare namespace CodeMirror {
      */
     var commands: CommandActions;
 
-    /**
-     * async specifies that the lint process runs asynchronously. hasGutters specifies that lint errors should be displayed in the CodeMirror
-     * gutter, note that you must use this in conjunction with [ "CodeMirror-lint-markers" ] as an element in the gutters argument on
-     * initialization of the CodeMirror instance.
-     */
     interface LintStateOptions {
+        /** specifies that the lint process runs asynchronously */
         async?: boolean;
-        hasGutters?: boolean;
-        onUpdateLinting?: (annotationsNotSorted: Annotation[], annotations: Annotation[], codeMirror: Editor) => void;
-    }
 
-    /**
-     * Adds the getAnnotations callback to LintStateOptions which may be overridden by the user if they choose use their own
-     * linter.
-     */
-    interface LintOptions extends LintStateOptions {
+        /** debounce delay before linting onChange */
+        delay?: number;
+
+        /** callback to modify an annotation before display */
+        formatAnnotation?: (annotation: Annotation) => Annotation
+
+        /** custom linting function provided by the user */
         getAnnotations?: Linter | AsyncLinter;
+
+        /** 
+         * specifies that lint errors should be displayed in the CodeMirror
+         * gutter, note that you must use this in conjunction with [ "CodeMirror-lint-markers" ] as an element in the gutters argument on
+         * initialization of the CodeMirror instance. */
+        hasGutters?: boolean;
+
+        /** whether to lint onChange event */
+        lintOnChange?: boolean;
+
+        /** callback after linter completes */
+        onUpdateLinting?: (annotationsNotSorted: Annotation[], annotations: Annotation[], codeMirror: Editor) => void;
+
+        /**
+         * Passing rules in `options` property prevents JSHint (and other linters) from complaining
+         * about unrecognized rules like `onUpdateLinting`, `delay`, `lintOnChange`, etc.
+         */
+        options?: any;
+
+        /** controls display of lint tooltips */
+        tooltips?: boolean | 'gutter'
     }
 
     /**
      * A function that return errors found during the linting process.
      */
     interface Linter {
-        (content: string, options: LintStateOptions, codeMirror: Editor): Annotation[] | PromiseLike<Annotation[]>;
+        (content: string, options: LintStateOptions | any, codeMirror: Editor): Annotation[] | PromiseLike<Annotation[]>;
     }
 
     /**
@@ -1702,7 +1718,7 @@ declare namespace CodeMirror {
         (
             content: string,
             updateLintingCallback: UpdateLintingCallback,
-            options: LintStateOptions,
+            options: LintStateOptions | any,
             codeMirror: Editor,
         ): void;
     }
