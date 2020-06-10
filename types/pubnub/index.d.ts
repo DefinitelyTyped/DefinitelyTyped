@@ -372,7 +372,8 @@ declare namespace Pubnub {
 		timeout?: string[];
 		here_now_refresh?: boolean;
 	}
-	type PresenceEvent = PresenceEventAnnounce | PresenveEventInterval
+
+	type PresenceEvent = PresenceEventAnnounce | PresenveEventInterval;
 
     interface SignalEvent {
         channel: string;
