@@ -26,6 +26,7 @@ type RequestDeviceOptions = {
 };
 
 type BluetoothManufacturerData = Map<number, ArrayBuffer>;
+type BluetoothServiceData = Map<BluetoothServiceUUID, ArrayBuffer>;
 
 interface BluetoothDataFilter {
     readonly dataPrefix: ArrayBuffer;
@@ -64,6 +65,8 @@ interface BluetoothAdvertisementEvent extends Event {
     rssi: number;
     txPower: number;
     manufacturerData?: BluetoothManufacturerData;
+    serviceData?: BluetoothServiceData;
+    uuids?: BluetoothServiceUUID[];
 }
 
 interface BluetoothRemoteGATTDescriptor {

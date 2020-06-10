@@ -83,3 +83,37 @@ function parseHeartRate(data: DataView) {
     }
     return result;
 }
+
+// Example from the scanning spec
+navigator.bluetooth.requestLEScan({
+    acceptAllAdvertisements: true,
+}).then((scan) => {
+
+    console.log('Scan started with:');
+    console.log(' acceptAllAdvertisements: ' + scan.acceptAllAdvertisements);
+    console.log(' active: ' + scan.active);
+    console.log(' keepRepeatedDevices: ' + scan.keepRepeatedDevices);
+    console.log(' filters: ' + JSON.stringify(scan.filters));
+
+    navigator.bluetooth.addEventListener('advertisementreceived', event => {
+        console.log('Advertisement received.');
+        console.log('  Device Name: ' + event.device.name);
+        console.log('  Device ID: ' + event.device.id);
+        console.log('  RSSI: ' + event.rssi);
+        console.log('  TX Power: ' + event.txPower);
+        console.log('  UUIDs: ' + event.uuids);
+        event.manufacturerData.forEach((valueDataView, key) => {
+          console.log('Manufacturer', key, valueDataView);
+        });
+        event.serviceData.forEach((valueDataView, key) => {
+          console.log('Service', key, valueDataView);
+        });
+    });
+
+    setTimeout(stopScan, 10000);
+    function stopScan() {
+      console.log('Stopping scan...');
+      scan.stop();
+      console.log('Stopped.  scan.active = ' + scan.active);
+    }
+});
