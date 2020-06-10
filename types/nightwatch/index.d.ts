@@ -1046,15 +1046,19 @@ export interface NightwatchTestFunctions {
 }
 
 export type NightwatchTestHook =
-    | ((browser: NightwatchBrowser, done: (err?: any) => void) => void)
-    | ((done: (err?: any) => void) => void)
+    | GlobalNightwatchTestHookEach
+    | GlobalNightwatchTestHook
     ;
 
+export type GlobalNightwatchTestHookEach = ((browser: NightwatchBrowser, done: (err?: any) => void) => void);
+
+export type GlobalNightwatchTestHook = ((done: (err?: any) => void) => void);
+
 export interface NightwatchTestHooks extends NightwatchGlobals {
-    before?: NightwatchTestHook;
-    after?: NightwatchTestHook;
-    beforeEach?: NightwatchTestHook;
-    afterEach?: NightwatchTestHook;
+    before?: GlobalNightwatchTestHook;
+    after?: GlobalNightwatchTestHook;
+    beforeEach?: GlobalNightwatchTestHookEach;
+    afterEach?: GlobalNightwatchTestHookEach;
 }
 
 export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;
